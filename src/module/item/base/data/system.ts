@@ -1,6 +1,6 @@
 import type { MigrationRecord, OneToThree, PublicationData, Rarity } from "@module/data.ts";
 import type { RuleElementSource } from "@module/rules/index.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import type * as fields from "types/foundry/common/data/fields.d.ts";
 import type { ItemTrait } from "../types.ts";
 import type { ItemType } from "./index.ts";
@@ -109,7 +109,7 @@ interface AlteredDescriptionContent {
     title: string | null;
     text: string;
     divider: boolean;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
 }
 
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;

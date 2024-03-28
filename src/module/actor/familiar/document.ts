@@ -9,7 +9,7 @@ import { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { ArmorStatistic, HitPointsStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import * as R from "remeda";
 import { FamiliarSource, FamiliarSystemData } from "./data.ts";
@@ -74,7 +74,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         super.prepareBaseData();
 
         // A familiar "[...] can never benefit from item bonuses." (CRB pg 217)
-        const isItemBonus = new PredicatePF2e(["bonus:type:item"]);
+        const isItemBonus = new Predicate(["bonus:type:item"]);
         this.synthetics.modifierAdjustments.all.push({
             slug: null,
             test: (options) => isItemBonus.test(options),

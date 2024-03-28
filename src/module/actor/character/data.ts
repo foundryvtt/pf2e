@@ -35,7 +35,7 @@ import { DeityDomain } from "@item/deity/types.ts";
 import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import type { CharacterPF2e } from "./document.ts";
 import type { WeaponAuxiliaryAction } from "./helpers.ts";
 import type { CharacterSheetTabVisibility } from "./sheet.ts";
@@ -356,7 +356,7 @@ interface CharacterProficiency {
 interface MartialProficiency extends CharacterProficiency {
     label: string;
     /** A predicate to match against weapons and unarmed attacks */
-    definition?: PredicatePF2e;
+    definition?: Predicate;
     /** The category to which this proficiency is linked */
     sameAs?: WeaponCategory | ArmorCategory;
     /** The maximum rank this proficiency can reach */

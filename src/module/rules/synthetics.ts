@@ -19,7 +19,7 @@ import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import type { MaterialDamageEffect } from "@system/damage/types.ts";
 import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import type { Suboption } from "./rule-element/roll-option/data.ts";
@@ -88,13 +88,13 @@ interface BaseSpeedSynthetic extends Omit<LabeledSpeed, "label" | "type"> {
 interface MAPSynthetic {
     label: string;
     penalty: number;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
 }
 
 interface RollSubstitution {
     slug: string;
     label: string;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     value: number;
     required: boolean;
     selected: boolean;
@@ -116,12 +116,12 @@ interface RollOptionToggle {
 
 interface RollTwiceSynthetic {
     keep: "higher" | "lower";
-    predicate?: PredicatePF2e;
+    predicate?: Predicate;
 }
 
 interface SenseSynthetic {
     sense: Required<SenseData>;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     force: boolean;
 }
 
@@ -137,14 +137,14 @@ interface StrikeAdjustment {
 interface StrikingSynthetic {
     label: string;
     bonus: number;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
 }
 
 interface PotencySynthetic {
     label: string;
     bonus: number;
     type: "item" | "potency";
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     property?: WeaponPropertyRuneType[];
 }
 

@@ -7,7 +7,7 @@ import {
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import type { PredicatePF2e } from "@system/predication.ts";
+import type { Predicate } from "@system/predication.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
@@ -20,7 +20,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
     containsItems: boolean;
 
     /** A predicate validating a dragged & dropped item selection */
-    allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
+    allowedDrops: { label: string | null; predicate: Predicate } | null;
 
     constructor(data: ChoiceSetPromptData) {
         super(data);
@@ -229,7 +229,7 @@ interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string |
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {
     prompt: string;
     containsItems: boolean;
-    allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
+    allowedDrops: { label: string | null; predicate: Predicate } | null;
 }
 
 interface ChoiceSetChoice extends PickableThing {

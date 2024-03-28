@@ -34,6 +34,7 @@ import { CheckPF2e } from "@system/check/check.ts";
 import { ConditionManager } from "@system/conditions/index.ts";
 import { EffectTracker } from "@system/effect-tracker.ts";
 import { ModuleArt } from "@system/module-art.ts";
+import { Predicate } from "@system/predication.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
 
@@ -74,14 +75,15 @@ export const SetGamePF2e = {
             Coins: CoinsPF2e,
             ConditionManager,
             Dice: DicePF2e,
+            ElementalBlast,
             Modifier: ModifierPF2e,
             ModifierType: MODIFIER_TYPE,
+            Predicate: Predicate,
             RuleElement: RuleElementPF2e,
             RuleElements: RuleElements,
             StatisticModifier: StatisticModifier,
             StatusEffects: StatusEffects,
             TextEditor: TextEditorPF2e,
-            ElementalBlast,
             actions,
             effectPanel: new EffectsPanel(),
             effectTracker: new EffectTracker(),

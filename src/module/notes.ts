@@ -1,6 +1,6 @@
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { createHTMLElement } from "@util";
 import type { RuleElementPF2e } from "./rules/index.ts";
 
@@ -12,7 +12,7 @@ class RollNotePF2e {
     /** The text content of this note. */
     text: string;
     /** If true, these dice are user-provided/custom. */
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     /** List of outcomes to show this note for; or all outcomes if none are specified */
     outcome: DegreeOfSuccessString[];
     /** An optional visibility restriction for the note */
@@ -24,7 +24,7 @@ class RollNotePF2e {
         this.selector = params.selector;
         this.title = params.title ?? null;
         this.text = params.text;
-        this.predicate = new PredicatePF2e(params.predicate ?? []);
+        this.predicate = new Predicate(params.predicate ?? []);
         this.outcome = [...(params.outcome ?? [])];
         this.visibility = params.visibility ?? null;
         this.rule = params.rule ?? null;

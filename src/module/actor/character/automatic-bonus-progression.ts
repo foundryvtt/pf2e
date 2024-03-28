@@ -4,7 +4,7 @@ import type { ArmorPF2e, WeaponPF2e } from "@item";
 import { ZeroToThree } from "@module/data.ts";
 import type { FlatModifierRuleElement } from "@module/rules/rule-element/flat-modifier.ts";
 import { PotencySynthetic } from "@module/rules/synthetics.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 
 class AutomaticBonusProgression {
     /** Whether the ABP variant is enabled and also not selectively disabled for a particular actor */
@@ -100,7 +100,7 @@ class AutomaticBonusProgression {
                     label: game.i18n.localize("PF2E.AutomaticBonusProgression.attackPotency"),
                     type: "potency",
                     bonus: attack,
-                    predicate: new PredicatePF2e(),
+                    predicate: new Predicate(),
                 };
                 const potencySynthetics = (synthetics.weaponPotency["strike-attack-roll"] ??= []);
                 potencySynthetics.push(potency);

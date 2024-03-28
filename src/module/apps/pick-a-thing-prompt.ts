@@ -1,6 +1,6 @@
 import type { ItemPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import Tagify from "@yaireo/tagify";
 
@@ -17,7 +17,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
     /** If the number of choices is beyond a certain length, a select menu is presented instead of a list of buttons */
     protected selectMenu?: Tagify<{ value: string; label: string }>;
 
-    protected predicate: PredicatePF2e;
+    protected predicate: Predicate;
 
     protected allowNoSelection: boolean;
 
@@ -25,7 +25,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
         super();
         this.item = data.item;
         this.choices = data.choices;
-        this.predicate = data.predicate ?? new PredicatePF2e();
+        this.predicate = data.predicate ?? new Predicate();
         this.options.title = data.title ?? this.item.name;
         this.allowNoSelection = data.allowNoSelection ?? false;
     }
@@ -120,7 +120,7 @@ interface PickAThingConstructorArgs<TItem extends ItemPF2e, TThing extends strin
     prompt?: string;
     choices: PickableThing<TThing>[];
     item: TItem;
-    predicate?: PredicatePF2e;
+    predicate?: Predicate;
     allowNoSelection?: boolean;
 }
 
@@ -129,7 +129,7 @@ interface PickableThing<T extends string | number | object = string | number | o
     label: string;
     img?: string;
     domain?: string[];
-    predicate?: PredicatePF2e;
+    predicate?: Predicate;
 }
 
 interface PromptTemplateData {

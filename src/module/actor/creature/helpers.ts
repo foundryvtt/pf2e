@@ -4,7 +4,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ConditionPF2e } from "@item";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 
 /** A static class of helper functions for applying automation for certain weapon traits on attack rolls */
@@ -37,7 +37,7 @@ class AttackTraitHelpers {
                         modifier: -2,
                         type: "untyped",
                         ignored: true,
-                        predicate: new PredicatePF2e(
+                        predicate: new Predicate(
                             { lte: ["target:distance", penaltyRange] },
                             { not: "self:ignore-volley-penalty" },
                         ),
@@ -49,7 +49,7 @@ class AttackTraitHelpers {
                         label: this.getLabel(trait),
                         modifier: 1,
                         type: "circumstance",
-                        predicate: new PredicatePF2e("sweep-bonus"),
+                        predicate: new Predicate("sweep-bonus"),
                     });
                 }
                 case "backswing": {
@@ -58,7 +58,7 @@ class AttackTraitHelpers {
                         label: this.getLabel(trait),
                         modifier: 1,
                         type: "circumstance",
-                        predicate: new PredicatePF2e("backswing-bonus"),
+                        predicate: new Predicate("backswing-bonus"),
                     });
                 }
                 default:
