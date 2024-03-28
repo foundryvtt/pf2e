@@ -5,4 +5,5 @@ export function monkeyPatchFoundry(): void {
     TextEditor._enrichContentLinks = TextEditorPF2e._enrichContentLinks;
     TextEditor._createInlineRoll = TextEditorPF2e._createInlineRoll;
     TextEditor._onClickInlineRoll = TextEditorPF2e._onClickInlineRoll;
+    TextEditor._applyCustomEnrichers = TextEditorPF2e._applyCustomEnrichers;
 }

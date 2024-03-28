@@ -45,6 +45,7 @@ const superEnrichHTML = TextEditor.enrichHTML;
 const superEnrichContentLinks = TextEditor._enrichContentLinks;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
 const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
+const superApplyCustomEnrichers = TextEditor._applyCustomEnrichers;
 
 /** Censor enriched HTML according to metagame knowledge settings */
 class TextEditorPF2e extends TextEditor {
@@ -226,6 +227,77 @@ class TextEditorPF2e extends TextEditor {
 
         const roll = new DamageRoll(anchor.dataset.formula, rollData, options);
         return roll.toMessage({ speaker, flavor: roll.options.flavor }, { rollMode });
+    }
+
+    static override async _applyCustomEnrichers(
+        pattern: RegExp,
+        enricher: EnricherFunction,
+        text: Text[],
+        options: EnrichmentOptionsPF2e = {},
+    ): Promise<boolean> {
+        // Always apply normal enrichers first
+        const result = await superApplyCustomEnrichers.apply(this, [pattern, enricher, text, options]);
+        // Replace any damage rolls
+        const damageResult = await TextEditorPF2e.#replaceDamageRolls(text, options);
+        return damageResult || result;
+    }
+
+    static async #replaceDamageRolls(text: Text[], options: EnrichmentOptionsPF2e): Promise<boolean> {
+        const getLastBracketIndex = (formula: string, firstBracketIndex: number): number | null => {
+            if (formula.length === 0) return null;
+            let open = 0;
+            let lastIndex = 0;
+            for (const [index, c] of Array.from(formula).entries()) {
+                if (c === "[") open += 1;
+                if (c === "]") {
+                    open -= 1;
+                    lastIndex = index;
+                    if (open === 0) break;
+                }
+            }
+            return open === 0 && lastIndex > 0 ? firstBracketIndex + lastIndex : null;
+        };
+        let replaced = false;
+        for (const t of text) {
+            if (!t.textContent) continue;
+            const content = t.textContent;
+            const matches = content.matchAll(/@Damage\[/g);
+            let target = t;
+            for (const match of Array.from(matches).reverse()) {
+                if (match.index === undefined) continue;
+                // Extract formula from `@Damage[` to the last closed `]`
+                const firstBracket = match.index + 7;
+                const lastBracket = getLastBracketIndex(content.substring(firstBracket), firstBracket);
+                if (!lastBracket) continue;
+                const paramString = content.substring(firstBracket + 1, lastBracket);
+                // Create a regex pattern from the escaped formula to check for an optional label
+                const baseMatch = `@Damage[${paramString}]`;
+                const labelMatches = new RegExp(
+                    `${baseMatch.replace(/[/\-\\^$*+?.()|[\]{}]/g, "\\$&")}{([^}]+)}?`,
+                    "g",
+                ).exec(content);
+                const inlineLabel = labelMatches ? labelMatches.at(1) ?? null : null;
+                // Try to generate a damage roll element from the data
+                const replacement = await TextEditorPF2e.#createDamageRoll({
+                    paramString,
+                    rollData: options.rollData,
+                    inlineLabel,
+                });
+                if (!replacement) continue;
+                const fullMatch = `${baseMatch}${inlineLabel ? `{${inlineLabel}}` : ""}`;
+                // Replace original `Text` node content with damage roll element
+                // Same logic as `TextEditor._replaceTextNodes`
+                if (match.index > 0) {
+                    target = target.splitText(match.index);
+                }
+                if (fullMatch.length < target.length) {
+                    target.splitText(fullMatch.length);
+                }
+                target.replaceWith(replacement);
+                replaced = true;
+            }
+        }
+        return replaced;
     }
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
@@ -745,7 +817,7 @@ class TextEditorPF2e extends TextEditor {
     static async #createDamageRoll(args: {
         paramString: string;
         rollData?: RollDataPF2e;
-        inlineLabel?: string;
+        inlineLabel?: Maybe<string>;
     }): Promise<HTMLElement | null> {
         const rawParams = this.#parseInlineParams(args.paramString, { first: "formula" });
         if (!rawParams || !rawParams.formula) {

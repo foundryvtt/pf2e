@@ -139,6 +139,21 @@ declare global {
             options?: EvaluateRollParams,
         ): HTMLAnchorElement | null | Promise<HTMLAnchorElement | null>;
 
+        /**
+         * Match any custom registered regex patterns and apply their replacements.
+         * @param pattern    The pattern to match against.
+         * @param enricher   The function that will be run for each match.
+         * @param text       The existing text content.
+         * @param [options]  Options provided to customize text enrichment
+         * @returns          Whether any replacements were made, requiring the text nodes to be updated.
+         */
+        static _applyCustomEnrichers(
+            pattern: RegExp,
+            enricher: EnricherFunction,
+            text: Text[],
+            options?: EnrichmentOptions,
+        ): Promise<boolean>;
+
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
@@ -195,6 +210,8 @@ declare global {
         rolls?: boolean;
         rollData?: Record<string, unknown>;
     }
+
+    type EnricherFunction = (match: RegExpMatchArray, options?: EnrichmentOptions) => Promise<HTMLElement | null>;
 
     type EditorCreateOptions = Partial<TinyMCE.EditorOptions | ProseMirrorEditorOptions> & {
         engine?: "tinymce" | "prosemirror";
