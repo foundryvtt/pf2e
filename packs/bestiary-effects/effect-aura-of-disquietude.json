@@ -1,0 +1,46 @@
+{
+    "_id": "3oF2DVXCmJ7VloBb",
+    "img": "icons/creatures/birds/corvid-flying-wings-purple.webp",
+    "name": "Effect: Aura of Disquietude",
+    "system": {
+        "description": {
+            "value": "<p>A creature frightened by the aura can't flank.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.canFlank",
+                "predicate": [
+                    "self:condition:frightened"
+                ],
+                "value": false
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
