@@ -1,0 +1,521 @@
+{
+    "_id": "Gu0cJHGwPd547OtC",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "lYeYZZa66BG9v3KY",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Wraith Touch",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "veakw7gttu38vhe62le3": {
+                        "damage": "3d8",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "divine",
+                        "finesse",
+                        "void"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XXiHxjwFvBeHoJUK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Lifesense 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Lifesense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6tSYdMbuSY1NSMOt",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sunlight Powerlessness",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>While in sunlight, a wraith is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cRpfBVlR934upDge",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "c8oIWV04qJhdiZ0C",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Grip of Fear",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The wraith reaches into an adjacent creature's chest, gripping their heart. The target takes @Damage[6d6[mental]] damage with a @Check[type:will|dc:24|basic:true] save. On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] until the start of the wraith's next turn.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "nonlethal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZcnrTHwnr0hYa74P",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Robes of Welcome",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> The wraith wraps its robes around an adjacent living creature, exposing it to void's embrace. If any creature is cursed by the wraith's void's embrace, the wraith can't impose void's embrace on another creature.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UHqRmL7WFwTZuFam",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Void's Embrace",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>If the victim succeeds at a saving throw against this curse while in sunlight, the curse ends. While you have this curse, you bypass the resistance of the wraith that cursed you;</p>\n<p><strong>Saving Throw</strong> @Check[type:will|dc:24]</p>\n<hr />\n<p><strong>Stage 1</strong> the victim is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] in any light (1 hour)</p>\n<p><strong>Stage 2</strong> the victim gains lifesense 30 feet but is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] in any light (1 hour)</p>\n<p><strong>Stage 3</strong> as stage 2, but the creature also has @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Void Healing] (1 hour)</p>\n<p><strong>Stage 4</strong> the victim becomes @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and can't awaken (1 day)</p>\n<p><strong>Stage 5</strong> the creature dies and becomes a wraith, its body crumbling to ash</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "death",
+                        "divine",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "z7jGq22ellJ30KAH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 12
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "MGxr9XObHiPM2pLK",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Diplomacy",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "5T6NiyLJaTFfxGtm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 15
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "MrJZEk2sbyeKmMNq",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Wraith",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 5
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "spirit",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 6
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Wraiths are malevolent undead who drain life and shun light. Their shadowy forms are covered by insubstantial robes that they wear like a badge of office and marked with peering eyes that reflect their judgment of the living. A wraith can be created by foul magic or direct exposure to the Void, but more often they are the result of death on a tragic scale. When a tragedy is too great for even reality to witness, a temporary manifestation of the Void can leave behind countless wraiths in a horde of darkness. A wraith's existence is one of emptiness and need, with a desire to call others to the same emptiness exemplified by the Void.</p>\n<p>Wraiths can haunt any location where they can safely interact with the living, looking for those worthy to become new wraiths and disposing of the rest, though their vulnerability to sunlight confines them to the shadowy places of the world—places where they can blend in seamlessly with their dark surroundings before silently engulfing their prey. Wraiths' opinions on who is worthy vary, but they typically choose those closest to the Void already, whether from a metaphysical connection or exposure to countless deaths. A new wraith created this way carries these aspects, with the rest of their personality warped or scoured away by exposure to the Void.</p>\n<p>Wraiths gather with others of their kind in places where death and mayhem are commonplace—countrysides ravaged by war, metropolitan underworlds run by criminal overlords, or sites of fiendish rituals. In these places, the living do well to keep to the light. Wraiths are smart enough to take advantage of their incorporeality in combat, so they keep to tortuous caverns or structures with hallways, and avoid open areas.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "lifesense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 14
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "undead",
+                "unholy",
+                "wraith"
+            ]
+        }
+    },
+    "type": "npc"
+}

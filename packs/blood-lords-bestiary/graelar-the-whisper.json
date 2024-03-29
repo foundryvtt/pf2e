@@ -796,7 +796,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",

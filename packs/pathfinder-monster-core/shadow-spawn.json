@@ -1,0 +1,410 @@
+{
+    "_id": "clzHAfegb9Rn6DOe",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IaWw8DrvkaNW34st",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm"
+                }
+            },
+            "img": "systems/pf2e/icons/conditions/clumsy.webp",
+            "name": "Clumsy",
+            "sort": 100000,
+            "system": {
+                "description": {
+                    "value": "<p>Your movements become clumsy and inexact. Clumsy always includes a value. You take a status penalty equal to the condition value to Dexterity-based checks and DCs, including AC, Reflex saves, ranged attack rolls, and skill checks using Acrobatics, Stealth, and Thievery.</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "unit": "unlimited",
+                    "value": 0
+                },
+                "group": "abilities",
+                "overrides": [],
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "references": {
+                    "children": [],
+                    "immunityFrom": [],
+                    "overriddenBy": [],
+                    "overrides": []
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "dex-based",
+                        "slug": "clumsy",
+                        "type": "status",
+                        "value": "-@item.badge.value"
+                    }
+                ],
+                "slug": "clumsy",
+                "traits": {
+                    "value": []
+                },
+                "value": {
+                    "isValued": true,
+                    "value": 2
+                }
+            },
+            "type": "condition"
+        },
+        {
+            "_id": "x47iDfIE9albveGl",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Shadow Hand",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d6+3",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "ACHlnYzXVxizzqPw",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Light Vulnerability",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Attacks against the shadow are treated as magical if made by a creature who is in magical light or with an object that is in magical light (such as from the @UUID[Compendium.pf2e.spells-srd.Item.Light] spell).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "YzglqmBZyUccF3kd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0QWVJ7Of8cQNKp0N",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Slink in Shadows",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The shadow can @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or end its @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in a creature's or object's shadow.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MN0vvAiaLlor6r9T",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "vJe05g3F9QTjJFzu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Shadow Spawn",
+    "prototypeToken": {
+        "name": "Shadow"
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality",
+                        "spirit"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "necril"
+                ]
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Monster Core"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 14
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 12
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "incorporeal",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

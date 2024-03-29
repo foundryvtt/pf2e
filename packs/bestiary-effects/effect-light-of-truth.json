@@ -1,0 +1,52 @@
+{
+    "_id": "hekJBWsLxkt8zd7x",
+    "img": "systems/pf2e/icons/spells/glitterdust.webp",
+    "name": "Effect: Light of Truth",
+    "system": {
+        "description": {
+            "value": "<p>Against creatures affected by this light, the zoaem and their allies gain a +1 status bonus to damage rolls and Recall Knowledge checks.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "damage",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

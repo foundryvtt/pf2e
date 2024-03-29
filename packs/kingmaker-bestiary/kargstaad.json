@@ -308,9 +308,13 @@
                     "value": 37
                 },
                 "damageRolls": {
-                    "szfxesra1wcq9b0qtcdh": {
-                        "damage": "3d6 + 18",
+                    "0": {
+                        "damage": "3d6+18",
                         "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "2d6",
+                        "damageType": "cold"
                     }
                 },
                 "description": {
@@ -486,7 +490,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",

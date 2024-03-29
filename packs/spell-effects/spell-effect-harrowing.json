@@ -1,0 +1,104 @@
+{
+    "_id": "LfxwvZRwtrh8mQN0",
+    "img": "icons/sundries/gaming/playing-cards-grey.webp",
+    "name": "Spell Effect: Harrowing",
+    "system": {
+        "description": {
+            "value": "<p><strong>Critical Success</strong> The target gains agency over fate and chance while in the pursuit of their goal, gaining a \"wild card.\" Randomly determine a harrow suit, either by rolling 1d6 or by drawing a card from a full harrow deck, and then consult the Associated Suit Checks table below. At any point during <em>harrowing</em>'s duration, the creature can expend this wild card to immediately reroll any associated check they just made, gaining a +4 status bonus to the reroll. They must use the second result. Once this reroll is taken and the wild card is spent, the <em>harrowing</em> ritual's effects end.</p>\n<p><strong>Success</strong> As critical success, but the wild card does not grant a status bonus to the reroll.</p>\n<p><strong>Failure</strong> As success, but the wild card instead grants a –4 status penalty to the reroll.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 30
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder: Stolen Fate Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": -4
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet"
+            },
+            {
+                "adjustName": true,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Books",
+                        "value": "skill-check"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Crowns",
+                        "value": "perception"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Hammers",
+                        "value": "strike-attack-roll"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Keys",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Shields",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.HarrowDeck.HarrowSuits.Stars",
+                        "value": "will"
+                    }
+                ],
+                "flag": "suit",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "harrowing-reroll"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "{item|flags.pf2e.rulesSelections.suit}",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Harrowing.RerollLabel",
+                "option": "harrowing-reroll",
+                "toggleable": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
