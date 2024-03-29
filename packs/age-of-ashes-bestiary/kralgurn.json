@@ -959,13 +959,13 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
+                        "key": "FlatModifier",
                         "predicate": [
                             "target:condition:frightened"
                         ],
                         "selector": "strike-damage",
-                        "text": "When Kralgurn attacks a @UUID[Compendium.pf2e.conditionitems.Item.Frightened] creature, he gains a circumstance bonus to damage equal to three times the target's frightened value.",
-                        "title": "{item|name}"
+                        "type": "circumstance",
+                        "value": "3 * @target.conditions.frightened.badge.value"
                     }
                 ],
                 "slug": null,
