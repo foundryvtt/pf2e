@@ -80,7 +80,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return R.isEmpty(campaignDiff) ? diff : fu.mergeObject(diff, campaignDiff);
     }
 
-    /** Only prepare rule elements for non-physical items (in case campaigin items exist) */
+    /** Only prepare rule elements for non-physical items (in case campaign items exist) */
     protected override prepareRuleElements(): RuleElementPF2e<RuleElementSchema>[] {
         return this.items.contents
             .filter((item) => !item.isOfType("physical"))
@@ -105,7 +105,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .map((m) => fromUuidSync(m.uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"))
             .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
-
         for (const member of this.members) {
             member?.parties.add(this);
         }
@@ -167,6 +166,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+        if (!game.ready) return; // exit early if game isn't ready yet
+
         // Compute travel speed. Creature travel speed isn't implemented yet
         const travelSpeed = Math.min(...this.members.map((m) => m.attributes.speed.total));
         this.attributes.speed = { total: travelSpeed };

@@ -3,101 +3,6 @@
     "img": "systems/pf2e/icons/iconics/ValerosFull.webp",
     "items": [
         {
-            "_id": "8Fr8o3RIQUZMpZR5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/skilled-heritage.webp",
-            "name": "Skilled Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "skilled-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "pwime5jb01579gc3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.SOmJyAtPOokesZoe"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Farmhand",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "con",
-                        "value": [
-                            "con",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "str",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>With a strong back and an understanding of seasonal cycles, you tilled the land and tended crops. Your farm could have been razed by invaders, you could have lost the family tying you to the land, or you might have simply tired of the drudgery, but at some point you became an adventurer.</p>\n<p>Choose two ability boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Athletics skill and the Farming Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with Athletics.</p>"
-                },
-                "items": {
-                    "00b8b": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Assurance",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "farmhand",
-                "trainedLore": "Farming Lore",
-                "trainedSkills": {
-                    "value": [
-                        "ath"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
             "_id": "4QKHaQdbGltG9HsO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Farming Lore",
@@ -121,218 +26,6 @@
                 "slug": null
             },
             "type": "lore"
-        },
-        {
-            "_id": "laaoaho5txfb21ck",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "naturalAmbition": {
-                            "id": "8rlyw2r4075dc9cm"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Natural Ambition",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:{actor|system.details.class.trait}",
-                                {
-                                    "or": [
-                                        "feature:dragon-instinct",
-                                        {
-                                            "not": "item:draconic-arrogance"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nor": [
-                                        "item:animal-companion",
-                                        "item:animal-companion-druid",
-                                        "item:bardic-lore",
-                                        "item:fire-lung",
-                                        "item:lingering-composition",
-                                        "item:leshy-familiar",
-                                        "item:martial-performance",
-                                        "item:shore-step",
-                                        "item:steadying-stone",
-                                        "item:storm-born",
-                                        "item:versatile-performance",
-                                        "item:untamed-form"
-                                    ]
-                                }
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "naturalAmbition",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Reactive Shield"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
-                    }
-                ],
-                "slug": "natural-ambition",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "8rlyw2r4075dc9cm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.w8Ycgeq2zfyshtoS"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "laaoaho5txfb21ck"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Reactive Shield",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> An enemy hits you with a melee strike.</p>\n<hr />\n<p>You can snap your shield into place just as you would take a blow, avoiding the hit at the last second. You immediately use the @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] action and gain your shield's bonus to AC. The circumstance bonus from the shield applies to your AC when you're determining the outcome of the triggering attack.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "reactive-shield",
-                "traits": {
-                    "rarity": "common",
-                    "selected": {
-                        "fighter": "Fighter"
-                    },
-                    "value": [
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "GLkGAs6P9Tp0UjjR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.onde0SxLoxLBTnvm"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Double Slice",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, each in a different hand</p>\n<hr />\n<p>You lash out at your foe with both weapons.</p>\n<p>Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a -2 penalty.</p>\n<p>If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Fighter.DoubleSlice.SecondAttackLabel",
-                        "option": "double-slice-second",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "double-slice-second",
-                            {
-                                "not": "agile"
-                            }
-                        ],
-                        "selector": "attack",
-                        "value": -2
-                    }
-                ],
-                "slug": "double-slice",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "5rlfnozppburd7f8",
@@ -595,7 +288,7 @@
             },
             "img": "icons/commodities/stone/geode-raw-tan.webp",
             "name": "Flint and Steel",
-            "sort": 500000,
+            "sort": 50000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -655,7 +348,7 @@
             },
             "img": "icons/containers/ammunition/quiver-simple-brown.webp",
             "name": "Bedroll",
-            "sort": 600000,
+            "sort": -100000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -715,7 +408,7 @@
             },
             "img": "icons/sundries/survival/soap.webp",
             "name": "Soap",
-            "sort": 700000,
+            "sort": 250000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -775,7 +468,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/grapling-hook.webp",
             "name": "Grappling Hook",
-            "sort": 800000,
+            "sort": 75000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -918,8 +611,8 @@
                     "value": "<p>Longswords, also known as arming swords, can be one-edged or two-edged swords. Their blades are heavy and they're between 3 and 4 feet in length.</p>"
                 },
                 "equipped": {
-                    "carryType": "held",
-                    "handsHeld": 1,
+                    "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "group": "sword",
@@ -1043,6 +736,7 @@
                     "property": [],
                     "striking": 0
                 },
+                "selectedAmmoId": "hHbfspdpQgfrJsC2",
                 "size": "med",
                 "slug": "shortbow",
                 "splashDamage": {
@@ -1127,215 +821,6 @@
                 }
             },
             "type": "consumable"
-        },
-        {
-            "_id": "VEX4oCE9RC9WuwKc",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
-            "name": "Silver Pieces",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "sp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 7,
-                "rules": [],
-                "size": "med",
-                "slug": "silver-pieces",
-                "stackGroup": "coins",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "wQJDAwhGXcddQJJp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.19OLlTrxvEtDAOHc"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Aggressive Block",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> You use the Shield Block reaction, and the opponent that triggered Shield Block is adjacent to you and is your size or smaller.</p>\n<hr />\n<p>You push back as you block, knocking your foe away or off balance.</p>\n<p>You use your shield to push the triggering creature, either automatically @UUID[Compendium.pf2e.actionspf2e.Item.Shove]{Shoving} it 5 feet or causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn.</p>\n<p>The triggering creature chooses whether to be moved or become off-guard. If it chooses to be moved, you choose the direction. If the Shove would cause it to hit a solid object, enter a square of difficult terrain, or enter another creature's space, it must become off-guard instead of being moved.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "aggressive-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "20E2ibvfx6FgyIVp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Toughness",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. The DC of recovery checks is equal to 9 + your dying condition value.</p>"
-                },
-                "level": {
-                    "taken": 3,
-                    "value": 1
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "hp",
-                        "value": "@actor.level"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "downgrade",
-                        "path": "system.attributes.dying.recoveryDC",
-                        "value": 9
-                    }
-                ],
-                "slug": "toughness",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "iOWxmTKIdlqycFVB",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Combat Climber",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>Your techniques allow you to fight as you climb. You're not off-guard while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 1
-                },
-                "location": "skill-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Athletics"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "combat-climber",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "B43okg5RRzfB4KMi",
@@ -1571,8 +1056,9 @@
                                 "value": "<p>Typically a round, convex, or conical piece of thick metal attached to the center of a shield, a shield boss increases the bludgeoning damage of a shield bash.</p>"
                             },
                             "equipped": {
-                                "carryType": "attached",
-                                "handsHeld": 0
+                                "carryType": "held",
+                                "handsHeld": 1,
+                                "invested": null
                             },
                             "group": "shield",
                             "hardness": 0,
@@ -1643,7 +1129,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/repair-kit.webp",
             "name": "Repair Toolkit",
-            "sort": 900000,
+            "sort": 150000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -1739,7 +1225,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 13,
+                "quantity": 12,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
@@ -1777,153 +1263,6 @@
             "type": "lore"
         },
         {
-            "_id": "WOz6dslThsDgrRg9",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Assurance (Athletics)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "pwime5jb01579gc3",
-                "maxTakable": null,
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in at least one skill"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.SkillAcr",
-                                "value": "acrobatics"
-                            },
-                            {
-                                "label": "PF2E.SkillArc",
-                                "value": "arcana"
-                            },
-                            {
-                                "label": "PF2E.SkillAth",
-                                "value": "athletics"
-                            },
-                            {
-                                "label": "PF2E.SkillCra",
-                                "value": "crafting"
-                            },
-                            {
-                                "label": "PF2E.SkillDec",
-                                "value": "deception"
-                            },
-                            {
-                                "label": "PF2E.SkillDip",
-                                "value": "diplomacy"
-                            },
-                            {
-                                "label": "PF2E.SkillItm",
-                                "value": "intimidation"
-                            },
-                            {
-                                "label": "PF2E.SkillMed",
-                                "value": "medicine"
-                            },
-                            {
-                                "label": "PF2E.SkillNat",
-                                "value": "nature"
-                            },
-                            {
-                                "label": "PF2E.SkillOcc",
-                                "value": "occultism"
-                            },
-                            {
-                                "label": "PF2E.SkillPrf",
-                                "value": "performance"
-                            },
-                            {
-                                "label": "PF2E.SkillRel",
-                                "value": "religion"
-                            },
-                            {
-                                "label": "PF2E.SkillSoc",
-                                "value": "society"
-                            },
-                            {
-                                "label": "PF2E.SkillSte",
-                                "value": "stealth"
-                            },
-                            {
-                                "label": "PF2E.SkillSur",
-                                "value": "survival"
-                            },
-                            {
-                                "label": "PF2E.SkillThi",
-                                "value": "thievery"
-                            },
-                            {
-                                "label": "PF2E.SkillLore",
-                                "value": "lore"
-                            }
-                        ],
-                        "flag": "assurance",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
-                        "selection": "athletics"
-                    },
-                    {
-                        "key": "SubstituteRoll",
-                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
-                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
-                        "slug": "assurance",
-                        "value": 10
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "predicate": [
-                            "substitute:assurance",
-                            {
-                                "not": "bonus:type:proficiency"
-                            }
-                        ],
-                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
-                        "suppress": true
-                    }
-                ],
-                "slug": "assurance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune",
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "HtKB4l6Fpb0xPUEs",
             "flags": {
                 "core": {
@@ -1932,7 +1271,7 @@
             },
             "img": "icons/sundries/lights/torch-brown.webp",
             "name": "Torch",
-            "sort": 1000000,
+            "sort": 275000,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -2064,508 +1403,6 @@
             "type": "equipment"
         },
         {
-            "_id": "FxndFo7NhyrZtri7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.8zn3cD6GSmoo1LW4"
-                }
-            },
-            "img": "systems/pf2e/icons/classes/fighter.webp",
-            "name": "Fighter",
-            "sort": 0,
-            "system": {
-                "ancestryFeatLevels": {
-                    "value": [
-                        1,
-                        5,
-                        9,
-                        13,
-                        17
-                    ]
-                },
-                "attacks": {
-                    "advanced": 1,
-                    "martial": 2,
-                    "other": {
-                        "name": "",
-                        "rank": 0
-                    },
-                    "simple": 2,
-                    "unarmed": 2
-                },
-                "classFeatLevels": {
-                    "value": [
-                        1,
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "defenses": {
-                    "heavy": 1,
-                    "light": 1,
-                    "medium": 1,
-                    "unarmored": 1
-                },
-                "description": {
-                    "value": "<p><em>Fighting for honor, greed, loyalty, or simply the thrill of battle, you are an undisputed master of weaponry and combat techniques. You combine your actions through clever combinations of opening moves, finishing strikes, and counterattacks whenever your foes are unwise enough to drop their guard. Whether you are a knight, mercenary, sharpshooter, or blade master, you have honed your martial skills into an art form and perform devastating critical attacks on your enemies.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.HZbrRRVzW7w17L2W]{Fighter}</em></p>"
-                },
-                "generalFeatLevels": {
-                    "value": [
-                        3,
-                        7,
-                        11,
-                        15,
-                        19
-                    ]
-                },
-                "hp": 10,
-                "items": {
-                    "0c3e5": {
-                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
-                        "level": 13,
-                        "name": "Weapon Legend",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
-                    },
-                    "2jey6": {
-                        "img": "icons/equipment/head/helm-barbute-rounded-steel.webp",
-                        "level": 11,
-                        "name": "Fighter Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Expertise"
-                    },
-                    "9c5ay": {
-                        "img": "systems/pf2e/icons/features/classes/armor-expertise.webp",
-                        "level": 11,
-                        "name": "Armor Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Armor Expertise"
-                    },
-                    "e1e4m": {
-                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
-                        "level": 1,
-                        "name": "Shield Block",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
-                    },
-                    "enizk": {
-                        "img": "icons/environment/settlement/target-dummy.webp",
-                        "level": 15,
-                        "name": "Improved Flexibility",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
-                    },
-                    "ij943": {
-                        "img": "icons/environment/people/charge.webp",
-                        "level": 7,
-                        "name": "Battlefield Surveyor",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
-                    },
-                    "lakjk": {
-                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
-                        "level": 3,
-                        "name": "Bravery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
-                    },
-                    "lphi1": {
-                        "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
-                        "level": 9,
-                        "name": "Juggernaut",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Juggernaut"
-                    },
-                    "q0xyz": {
-                        "img": "icons/equipment/chest/breastplate-sculpted-grey.webp",
-                        "level": 17,
-                        "name": "Armor Mastery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Armor Mastery"
-                    },
-                    "r6269": {
-                        "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
-                        "level": 1,
-                        "name": "Attack of Opportunity",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Reactive Strike"
-                    },
-                    "r6jbx": {
-                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
-                        "level": 15,
-                        "name": "Evasion",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
-                    },
-                    "txlgu": {
-                        "img": "icons/environment/settlement/target-dummy.webp",
-                        "level": 9,
-                        "name": "Combat Flexibility",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
-                    },
-                    "u1d1r": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
-                        "level": 7,
-                        "name": "Weapon Specialization",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
-                    },
-                    "u8k07": {
-                        "img": "icons/weapons/swords/sword-guard-steel-green.webp",
-                        "level": 5,
-                        "name": "Fighter Weapon Mastery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Weapon Mastery"
-                    },
-                    "vis8d": {
-                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
-                        "level": 15,
-                        "name": "Greater Weapon Specialization (Level 15)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
-                    },
-                    "x98c2": {
-                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
-                        "level": 19,
-                        "name": "Versatile Legend",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
-                    }
-                },
-                "keyAbility": {
-                    "selected": "str",
-                    "value": [
-                        "dex",
-                        "str"
-                    ]
-                },
-                "perception": 2,
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "savingThrows": {
-                    "fortitude": 2,
-                    "reflex": 2,
-                    "will": 1
-                },
-                "skillFeatLevels": {
-                    "value": [
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "skillIncreaseLevels": {
-                    "value": [
-                        3,
-                        5,
-                        7,
-                        9,
-                        11,
-                        13,
-                        15,
-                        17,
-                        19
-                    ]
-                },
-                "slug": "fighter",
-                "spellcasting": 0,
-                "trainedSkills": {
-                    "additional": 3,
-                    "value": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "class"
-        },
-        {
-            "_id": "WQKy8I3Zgklvv26o",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.hmShTfPOcTaKgbf4"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "attackOfOpportunity": {
-                            "id": "Tm9WHcz9Z6HiyV2L",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
-            "name": "Attack of Opportunity",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Ever watchful for weaknesses, you can quickly attack foes that leave an opening in their defenses. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Reactive Strike] reaction.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "FxndFo7NhyrZtri7",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "attackOfOpportunity",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Reactive Strike"
-                    }
-                ],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "qmT4f6TzHVpsZyHm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "shieldBlock": {
-                            "id": "qdRAlHFC2QNU8R5X",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
-            "name": "Shield Block",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "FxndFo7NhyrZtri7",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "shieldBlock",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
-                    }
-                ],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "champion",
-                        "druid",
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "gBKgtUzFxBVQws64",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.GJKJafDGuX4BeAeN"
-                }
-            },
-            "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
-            "name": "Bravery",
-            "sort": 600,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Having faced countless foes and the chaos of battle, you have learned how to stand strong in the face of fear and keep on fighting. Your proficiency rank for Will saves increases to expert. When you roll a success at a Will save against a fear effect, you get a critical success instead. In addition, anytime you gain the frightened condition, reduce its value by 1.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "FxndFo7NhyrZtri7",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "will",
-                        "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "fear"
-                        ],
-                        "selector": "will",
-                        "type": "save"
-                    }
-                ],
-                "slug": "bravery",
-                "subfeatures": {
-                    "proficiencies": {
-                        "will": {
-                            "rank": 2
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fighter"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Tm9WHcz9Z6HiyV2L",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "WQKy8I3Zgklvv26o",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Attack of Opportunity",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": null,
-                "description": {
-                    "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p>You lash out at a foe that leaves an opening. Make a melee Strike against the triggering creature. If your attack is a critical hit and the trigger was a manipulate action, you disrupt that action. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "attack-of-opportunity",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "qdRAlHFC2QNU8R5X",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "qmT4f6TzHVpsZyHm",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Shield Block",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take damage from a physical attack</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "shield-block",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "QuBvYD4rx18EWDtT",
             "flags": {
                 "core": {
@@ -2654,7 +1491,7 @@
             },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
             "name": "Chalk",
-            "sort": 550000,
+            "sort": 0,
             "system": {
                 "baseItem": null,
                 "bulk": {
@@ -2711,6 +1548,1193 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "y7iLQvacjJP5ydLK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
+                }
+            },
+            "img": "icons/tools/navigation/map-chart-tan.webp",
+            "name": "Skilled Human (Intimidation)",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SkillAcr",
+                                "value": "acr"
+                            },
+                            {
+                                "label": "PF2E.SkillArc",
+                                "value": "arc"
+                            },
+                            {
+                                "label": "PF2E.SkillAth",
+                                "value": "ath"
+                            },
+                            {
+                                "label": "PF2E.SkillCra",
+                                "value": "cra"
+                            },
+                            {
+                                "label": "PF2E.SkillDec",
+                                "value": "dec"
+                            },
+                            {
+                                "label": "PF2E.SkillDip",
+                                "value": "dip"
+                            },
+                            {
+                                "label": "PF2E.SkillItm",
+                                "value": "itm"
+                            },
+                            {
+                                "label": "PF2E.SkillMed",
+                                "value": "med"
+                            },
+                            {
+                                "label": "PF2E.SkillNat",
+                                "value": "nat"
+                            },
+                            {
+                                "label": "PF2E.SkillOcc",
+                                "value": "occ"
+                            },
+                            {
+                                "label": "PF2E.SkillPrf",
+                                "value": "prf"
+                            },
+                            {
+                                "label": "PF2E.SkillRel",
+                                "value": "rel"
+                            },
+                            {
+                                "label": "PF2E.SkillSoc",
+                                "value": "soc"
+                            },
+                            {
+                                "label": "PF2E.SkillSte",
+                                "value": "ste"
+                            },
+                            {
+                                "label": "PF2E.SkillSur",
+                                "value": "sur"
+                            },
+                            {
+                                "label": "PF2E.SkillThi",
+                                "value": "thi"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "itm"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                        "value": "ternary(gte(@actor.level,5),2,1)"
+                    }
+                ],
+                "slug": "skilled-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "FUnFMh1rzcWv7ZZh",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.SOmJyAtPOokesZoe"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Farmhand",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "con",
+                        "value": [
+                            "con",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "str",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>With a strong back and an understanding of seasonal cycles, you tilled the land and tended crops. Your farm could have been razed by invaders, you could have lost the family tying you to the land, or you might have simply tired of the drudgery, but at some point, you became an adventurer.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Athletics skill and the Farming Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with Athletics.</p>"
+                },
+                "items": {
+                    "00b8b": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Assurance",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "farmhand",
+                "trainedLore": "Farming Lore",
+                "trainedSkills": {
+                    "value": [
+                        "ath"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "re82ArEKGrLciXgb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Athletics)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "FUnFMh1rzcWv7ZZh",
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.SkillAcr",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.SkillArc",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.SkillAth",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.SkillCra",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.SkillDec",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.SkillDip",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.SkillItm",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.SkillMed",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.SkillNat",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.SkillOcc",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.SkillPrf",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.SkillRel",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.SkillSoc",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.SkillSte",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.SkillSur",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.SkillThi",
+                                "value": "thievery"
+                            },
+                            {
+                                "label": "PF2E.SkillLore",
+                                "value": "lore"
+                            }
+                        ],
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "athletics"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "sJZR2S7ImgR9Bc7y",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.8zn3cD6GSmoo1LW4"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/fighter.webp",
+            "name": "Fighter",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 1,
+                    "martial": 2,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 2,
+                    "unarmed": 2
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 1,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>Fighting for honor, greed, loyalty, or simply the thrill of battle, you are an undisputed master of weaponry and combat techniques. You combine your actions through clever combinations of opening moves, finishing strikes, and counterattacks whenever your foes are unwise enough to drop their guard. Whether you are a knight, mercenary, sharpshooter, or blade master, you have honed your martial skills into an art form and perform devastating critical attacks on your enemies.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.HZbrRRVzW7w17L2W]{Fighter}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 10,
+                "items": {
+                    "0c3e5": {
+                        "img": "icons/weapons/axes/axe-broad-engraved-black-grey.webp",
+                        "level": 13,
+                        "name": "Weapon Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Legend"
+                    },
+                    "2jey6": {
+                        "img": "icons/equipment/head/helm-barbute-rounded-steel.webp",
+                        "level": 11,
+                        "name": "Fighter Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Expertise"
+                    },
+                    "9c5ay": {
+                        "img": "systems/pf2e/icons/features/classes/armor-expertise.webp",
+                        "level": 11,
+                        "name": "Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Armor Expertise"
+                    },
+                    "EYY9w": {
+                        "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+                        "level": 1,
+                        "name": "Reactive Strike",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reactive Strike"
+                    },
+                    "Yo8rt": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 15,
+                        "name": "Tempered Reflexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Tempered Reflexes"
+                    },
+                    "e1e4m": {
+                        "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+                        "level": 1,
+                        "name": "Shield Block",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Shield Block"
+                    },
+                    "eDncW": {
+                        "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
+                        "level": 9,
+                        "name": "Battle Hardened",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Battle Hardened"
+                    },
+                    "enizk": {
+                        "img": "icons/environment/settlement/target-dummy.webp",
+                        "level": 15,
+                        "name": "Improved Flexibility",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Improved Flexibility"
+                    },
+                    "ij943": {
+                        "img": "icons/environment/people/charge.webp",
+                        "level": 7,
+                        "name": "Battlefield Surveyor",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Battlefield Surveyor"
+                    },
+                    "lakjk": {
+                        "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
+                        "level": 3,
+                        "name": "Bravery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Bravery"
+                    },
+                    "q0xyz": {
+                        "img": "icons/equipment/chest/breastplate-sculpted-grey.webp",
+                        "level": 17,
+                        "name": "Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Armor Mastery"
+                    },
+                    "txlgu": {
+                        "img": "icons/environment/settlement/target-dummy.webp",
+                        "level": 9,
+                        "name": "Combat Flexibility",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Combat Flexibility"
+                    },
+                    "u1d1r": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "u8k07": {
+                        "img": "icons/weapons/swords/sword-guard-steel-green.webp",
+                        "level": 5,
+                        "name": "Fighter Weapon Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fighter Weapon Mastery"
+                    },
+                    "uKeq1": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    },
+                    "x98c2": {
+                        "img": "icons/skills/ranged/arrow-flying-broadhead-metal.webp",
+                        "level": 19,
+                        "name": "Versatile Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Legend"
+                    }
+                },
+                "keyAbility": {
+                    "selected": "str",
+                    "value": [
+                        "dex",
+                        "str"
+                    ]
+                },
+                "perception": 2,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "fighter",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "Up7756F6gPJ46z2g",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.hmShTfPOcTaKgbf4"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "reactiveStrike": {
+                            "id": "c0pnlc5WD0o8Sq0l",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+            "name": "Reactive Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Ever watchful for weaknesses, you can quickly attack foes that leave an opening in their defenses. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Reactive Strike] reaction.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "sJZR2S7ImgR9Bc7y",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "reactiveStrike",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Reactive Strike"
+                    }
+                ],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "s2jd9mSZb2ZFc2Wo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.eZNCckLzbH3GyncH"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "shieldBlock": {
+                            "id": "a3ZjA6KTHqVoR2yy",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/equipment/shield/round-wooden-boss-gold-brown.webp",
+            "name": "Shield Block",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] general feat, a reaction that lets you reduce damage with your shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "sJZR2S7ImgR9Bc7y",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "shieldBlock",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+                    }
+                ],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "champion",
+                        "druid",
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "378CAv2Ookm9kR1I",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.GJKJafDGuX4BeAeN"
+                }
+            },
+            "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
+            "name": "Bravery",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Having faced countless foes and the chaos of battle, you have learned how to stand strong in the face of fear. Your proficiency rank for Will saves increases to expert. When you roll a success at a Will save against a fear effect, you get a critical success instead. In addition, anytime you gain the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition, reduce its value by 1.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "sJZR2S7ImgR9Bc7y",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "will",
+                        "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "fear"
+                        ],
+                        "selector": "will",
+                        "type": "save"
+                    }
+                ],
+                "slug": "bravery",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "c0pnlc5WD0o8Sq0l",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "Up7756F6gPJ46z2g",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within your reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p>You lash out at a foe that leaves an opening. Make a melee Strike against the triggering creature. If your attack is a critical hit and the trigger was a manipulate action, you disrupt that action. This Strike doesn't count toward your multiple attack penalty, and your multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a3ZjA6KTHqVoR2yy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.jM72TjJ965jocBV8"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "s2jd9mSZb2ZFc2Wo",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Shield Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> While you have your shield raised, you would take physical damage (bludgeoning, piercing, or slashing) from an attack.</p>\n<hr />\n<p>You snap your shield in place to ward off a blow. Your shield prevents you from taking an amount of damage up to the shield's Hardness. You and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xtioI0WEWuzanVpk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "reactiveShield": {
+                            "id": "4kPduUmp41ix3dy3",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Reactive Shield"
+                    },
+                    {
+                        "flag": "reactiveShield",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4kPduUmp41ix3dy3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.w8Ycgeq2zfyshtoS"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "xtioI0WEWuzanVpk",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Reactive Shield",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> An enemy hits you with a melee Strike.</p>\n<hr />\n<p><strong>Requirements</strong> You are wielding a shield. You can snap your shield into place just as you would take a blow, avoiding the hit at the last second. You immediately use the @UUID[Compendium.pf2e.actionspf2e.Item.Raise a Shield] action and gain your shield's bonus to AC. The circumstance bonus from the shield applies to your AC when you're determining the outcome of the triggering attack.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "reactive-shield",
+                "traits": {
+                    "rarity": "common",
+                    "selected": {
+                        "fighter": "Fighter"
+                    },
+                    "value": [
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "pkIwFjB6I654bnX7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.onde0SxLoxLBTnvm"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Double Slice",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, each in a different hand.</p>\n<hr />\n<p>You lash out at your foe with both weapons. Make two Strikes, one with each of your two melee weapons, each using your current multiple attack penalty. Both Strikes must have the same target. If the second Strike is made with a weapon that doesn't have the agile trait, it takes a –2 penalty.</p>\n<p>If both attacks hit, combine their damage, and then add any other applicable effects from both weapons. You add any precision damage only once, to the attack of your choice. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating your multiple attack penalty.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Fighter.DoubleSlice.SecondAttackLabel",
+                        "option": "double-slice-second",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "double-slice-second",
+                            {
+                                "not": "agile"
+                            }
+                        ],
+                        "selector": "attack",
+                        "value": -2
+                    }
+                ],
+                "slug": "double-slice",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "44bgGS7prgnX9UOk",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.19OLlTrxvEtDAOHc"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Aggressive Block",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> You use the Shield Block reaction, and the opponent that triggered Shield Block is adjacent to you and is your size or smaller.</p>\n<hr />\n<p>You push back as you block, knocking your foe away or off balance. You use your shield to push the triggering creature, either automatically Shoving it 5 feet or causing it to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn. The triggering creature chooses whether to be moved or become off-guard. If it chooses to be moved, you choose the direction. If the @UUID[Compendium.pf2e.actionspf2e.Item.Shove] would cause it to hit a solid object, enter a square of difficult terrain, or enter another creature's space, it must become off-guard instead of being moved.</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "aggressive-block",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fighter"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "N1gwtF5CByIGQ0bG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.09PurtIanNUPfNRq"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Combat Climber",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your techniques allow you to fight as you climb. You're not @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while Climbing and can Climb with a hand occupied. You must still use another hand and both legs to Climb.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Athletics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "combat-climber",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "wVy7mJ23soqVWdzt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmP0qu7c5dlBSath"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Toughness",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>Your body can withstand more punishment than most before succumbing. Increase your maximum Hit Points by your level. You reduce the DC of recovery checks by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "hp",
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "subtract",
+                        "path": "system.attributes.dying.recoveryDC",
+                        "value": 1
+                    }
+                ],
+                "slug": "toughness",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Valeros (Level 3)",
@@ -2758,7 +2782,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>Valeros was born on a quiet farm in Andoran, where he grew up listening to the tales of traveling merchants soldiers and dreaming of adventure and exploration. Though this longing only increased as he grew older, so too did the demands of helping his aging parents run the farm, and slowly but surely the mounting responsibilities of agricultural life quashed any possibility of travel or seeing the world. Finally, just a month before a marriage of convenience to a local farmer's daughter could lock him into place (but not before he'd sampled a few of the joys of married life), Valeros came to the realization that the door to a storybook life of adventure was at last closing for good. Seized by a sudden, desperate need for a larger life than cattle and corn, Valeros packed quietly and left in the middle of the night with no more than a change of clothes, some pilfered food, and an old axe handle to discourage any ruffians who might seek to divest him of either. It was to become a theme that would follow him for the rest of his life.</p>\n<p>In the years since, Valeros has come a long way from the wide-eyed young man who sought only the joy of exploration (and maybe a pretty, worldly girl or three to regale with his stories). Life on the road, it seems, is much harder than the bards' tales, and adult Valeros has the scars to prove it. Discovering himself to be a deft hand with a sword, Valeros quickly fell in with the rough-and-tumble mercenary crowd, there learning the dirtier, grittier facts of warfare. Though none could deny his prowess with a blade (or better yet, two), Valeros's association with various mercenary groups never seemed to last for long. There was his time as a guard for the Aspis Consortium, which ended when certain shipments kept coming in light under Valeros's watch (never mind that the exploited locals were dying for lack of grain, and only needed a little to make it through the winter). Then there was the stint as a freelance bounty hunter, during which Valeros discovered that it's a lot easier to hunt down escaped murderers than it is to haul in a young woman on the run from a loveless marriage. And of course, there was the infamous incident with the Band of the Mauler, to which Valeros will only say that he was positive their leader had been crushed under that cave-in, or else he never would have touched the man's wife.</p>\n<p>In the end, after acting as hired muscle for dozens of different employers, Valeros finally realized that the only way to keep from getting blamed for things which weren't his fault—not really—was to go into business for himself as an adventurer, traveling with those who properly appreciated him and letting those who didn't fall by the wayside. And if some of those companions happen to be pretty women, such as a certain Varisian sorcerer or elven rogue, all the better.</p>\n<p>While admittedly not the best at following orders, Valeros is an extremely talented two-blade fighter, easily earning his keep in any group through the tenacity and absolute fearlessness—some might say thoughtlessness—with which he flings himself into combat. Despite his reputation as a bruiser and scofflaw, Valeros has picked up a fair bit of education here and there during his travels, and can even read (something his \"respectable\" parents never learned to do). A worshiper of Cayden Cailean—the only god who properly understands the need for freedom in the common man's existence—Valeros takes an easy-come, easy-go approach to life, wealth, and relationships. Though a fan of fine weapons and creature comforts, the only object he's never without is the tankard on his belt (for you never know when someone might offer you a drink). Noble at heart, and fiercely loyal to those few who manage the considerable feat of establishing themselves in his affections, Valeros nevertheless hides such sentiments under a jaded and crass demeanor, frequently observing that there's nothing better than \"an evening of hard drinking and soft company.\"</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",

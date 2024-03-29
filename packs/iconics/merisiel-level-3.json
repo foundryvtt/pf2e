@@ -28,631 +28,6 @@
             "type": "lore"
         },
         {
-            "_id": "mbyFStJTTT4VWNvy",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.1wVDYY9Wue0G5R9Q"
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
-            "name": "Whisper Elf",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Elf",
-                    "slug": "elf",
-                    "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
-                },
-                "description": {
-                    "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound.</p>\n<p>As long as you can hear normally, you can use the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to sense @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures in a @Template[type:cone|distance:60] instead of a @Template[type:cone|distance:30].</p>\n<p>You also gain a +2 circumstance bonus to locate undetected creatures that you could hear within 30 feet with a seek action.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Whisper Elf (locate audible undetected within range)",
-                        "predicate": [
-                            "target:undetected",
-                            "target:within-30-feet",
-                            "target:audible"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "whisper-elf",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "zKwnj3qpzp9BbtAn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.9lVw1JGl5ser6626"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Criminal",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "dex",
-                        "value": [
-                            "dex",
-                            "int"
-                        ]
-                    },
-                    "1": {
-                        "selected": "con",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>As an unscrupulous independent or as a member of an underworld organization, you lived a life of crime. You might have become an adventurer to seek redemption, to escape the law, or simply to get access to bigger and better loot.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Stealth skill and the Underworld Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Experienced Smuggler] skill feat.</p>"
-                },
-                "items": {
-                    "19grf": {
-                        "img": "icons/sundries/books/book-red-exclamation.webp",
-                        "level": 1,
-                        "name": "Experienced Smuggler",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "criminal",
-                "trainedLore": "Underworld Lore",
-                "trainedSkills": {
-                    "value": [
-                        "ste"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "b53UWX1rBBD7Fknk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.t3btih0O5RUwWynt"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Experienced Smuggler",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You often smuggle things past the authorities.</p>\n<p>When the GM rolls your Stealth check to see if a passive observer notices a small item you have concealed, the GM uses the number rolled or 10 - whichever is higher - as the result of your die roll, adding it to your Stealth modifier to determine your Stealth check result.</p>\n<p>If you're a master in Stealth, the GM uses the number rolled or 15, and if you're legendary in Stealth, you automatically succeed at hiding a small concealed item from passive observers.</p>\n<p>This provides no benefits when a creature attempts a Perception check while actively searching you for hidden items.</p>\n<p>Due to your smuggling skill, you're more likely to find more lucrative smuggling jobs when using Underworld Lore to Earn Income.</p>\n<hr />\n<p><strong>PFS Note</strong> This feat allows you to Earn Income with Underworld Lore with tasks of your level -1 (instead of the normal level -2).</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "zKwnj3qpzp9BbtAn",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "Trained in Stealth"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "experienced-smuggler",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "09MfXQoeeQE8KQIW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.AogIo1gHLdz7DyHx"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Forlorn",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Watching your friends age and die fills you with moroseness that protects you against harmful emotions. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Against emotion effects",
-                        "predicate": [
-                            "emotion"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": 1
-                    },
-                    {
-                        "key": "Note",
-                        "outcome": [
-                            "success"
-                        ],
-                        "predicate": [
-                            "emotion"
-                        ],
-                        "selector": "saving-throw",
-                        "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "adjustment": {
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "emotion"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "save"
-                    }
-                ],
-                "slug": "forlorn",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "elf"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "NSRlZZCY6gigbNr2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.oA866uVEFu1OrAX0"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Trap Finder",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You have an intuitive sense that alerts you to the dangers and presence of traps. You gain a +1 circumstance bonus to Perception checks to find traps, to AC against attacks made by traps, and to saves against traps. Even if you aren't @UUID[Compendium.pf2e.actionspf2e.Item.Search]{Searching}, you get a check to find traps that normally require you to be Searching. You still need to meet any other requirements to find the trap.</p>\n<p>You can disable traps that require a proficiency rank of master in Thievery. If you have master proficiency in Thievery, you can disable traps that require a proficiency rank of legendary instead, and your circumstance bonuses against traps increase to +2.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Trap Finder (detecting or defending against traps)",
-                        "option": "trap-finder",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Trap Finder (to find traps)",
-                        "predicate": [
-                            "trap-finder"
-                        ],
-                        "selector": "perception",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                }
-                            ],
-                            "field": "actor|system.skills.thi.rank"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Trap Finder (against traps)",
-                        "predicate": [
-                            "trap-finder"
-                        ],
-                        "selector": "ac",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                }
-                            ],
-                            "field": "actor|system.skills.thi.rank"
-                        }
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "Trap Finder (against traps)",
-                        "predicate": [
-                            "trap-finder"
-                        ],
-                        "selector": "saving-throw",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                },
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                }
-                            ],
-                            "field": "actor|system.skills.thi.rank"
-                        }
-                    }
-                ],
-                "slug": "trap-finder",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "investigator",
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Zg476op4Ms6iafTH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.qFt6zyWVX1njJf1l"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Quick Draw",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You draw your weapon and attack with the same motion. You Interact to draw a weapon, then Strike with that weapon.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "quick-draw",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "gunslinger",
-                        "ranger",
-                        "rogue"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Qxrw89ak7BTteEqo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Cat Fall",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>Your catlike aerial acrobatics allow you to cushion your falls. Treat falls as 10 feet shorter. If you're an expert in Acrobatics, treat falls as 25 feet shorter. If you're a master in Acrobatics, treat them as 50 feet shorter. If you're legendary in Acrobatics, you always land on your feet and don't take damage, regardless of the distance of the fall.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "skill-1",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Acrobatics"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "cat-fall",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "7aPzeMP5UEO8Z6lk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.X2jGFfLU5qI5XVot"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Streetwise",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You know about life on the streets and feel the pulse of your local settlement. You can use your Society modifier instead of your Diplomacy modifier to Gather Information. In any settlement you frequent regularly, you can use the Recall Knowledge action with Society to know the same sorts of information that you could discover with Diplomacy to Gather Information. The DC is usually significantly higher, but you know the information without spending time gathering it. If you fail to recall the information, you can still subsequently attempt to Gather Information normally.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 1
-                },
-                "location": "skill-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Society"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "streetwise",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "xpwVHpyknq5CBCLI",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.RLBYJiGMVkaGL5w9"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Wary Disarmament",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>If you trigger a device or set off a trap while disarming it, you gain a +2 circumstance bonus to your AC or saving throw against the device or trap. This applies only to attacks or effects triggered by your failed attempt, not to any later ones, such as additional attacks from a complex trap.</p>"
-                },
-                "level": {
-                    "taken": 3,
-                    "value": 2
-                },
-                "location": "skill-3",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "expert in Thievery"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Wary Disarmament (vs. traps)",
-                        "predicate": [
-                            "trap"
-                        ],
-                        "selector": [
-                            "ac",
-                            "saving-throw"
-                        ],
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "wary-disarmament",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "ia0VXLzA0uPEbtl6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Fleet",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
-                },
-                "level": {
-                    "taken": 3,
-                    "value": 1
-                },
-                "location": "general-3",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "land-speed",
-                        "value": 5
-                    }
-                ],
-                "slug": "fleet",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "34Pcj558oR7mGzWe",
             "flags": {
                 "core": {
@@ -902,6 +277,7 @@
                     "property": [],
                     "striking": 0
                 },
+                "selectedAmmoId": "WlDoIFyY8vjMkSVJ",
                 "size": "med",
                 "slug": "shortbow",
                 "splashDamage": {
@@ -1238,154 +614,6 @@
             "type": "consumable"
         },
         {
-            "_id": "oEpX73LdNZoBwe7z",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.e0vSAQfxhHauiAoD"
-                }
-            },
-            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
-            "name": "Healing Potion (Lesser)",
-            "sort": 1000000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "potion",
-                "containerId": null,
-                "damage": {
-                    "formula": "2d8+5",
-                    "kind": "healing",
-                    "type": "vitality"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r (2d8+5)[healing]]]{2d8+5 Hit Points}.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 12
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "healing-potion-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "healing",
-                        "magical",
-                        "potion",
-                        "vitality"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
-            "_id": "3A5pOhazmrJxE15i",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.RcQ4ZIzRK2xLf4G5"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/consumables/ammunition/sleep-arrow.webp",
-            "name": "Sleep Arrow",
-            "sort": 1100000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0
-                },
-                "category": "ammo",
-                "containerId": null,
-                "damage": null,
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact</p>\n<p><em>Sleep arrows</em> often have shafts of deep blue or black, and their fletching is exceptionally soft and downy. An activated <em>sleep arrow</em> deals no damage, but a living creature hit by it is subject to the effects of a @UUID[Compendium.pf2e.spells-srd.Item.Sleep] spell (DC 17).</p>\n<p><strong>Craft Requirements</strong> Supply one casting of <em>sleep</em>.</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 3
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 11
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "sleep-arrow",
-                "stackGroup": "arrows",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "consumable",
-                        "magical",
-                        "mental",
-                        "sleep"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
-        },
-        {
             "_id": "AW4ZlM5PbruXGNUB",
             "flags": {
                 "core": {
@@ -1430,7 +658,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 3,
+                "quantity": 10,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
@@ -1487,67 +715,10 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 4,
+                "quantity": 7,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
-                "stackGroup": "coins",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "treasure"
-        },
-        {
-            "_id": "9hyI6kK1pECodo2N",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.lzJ8AVhRcbFul5fh"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/treasure/currency/copper-pieces.webp",
-            "name": "Copper Pieces",
-            "sort": 1400000,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 1
-                },
-                "containerId": null,
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 0
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "cp": 1
-                    }
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "quantity": 1,
-                "rules": [],
-                "size": "med",
-                "slug": "copper-pieces",
                 "stackGroup": "coins",
                 "traits": {
                     "rarity": "common",
@@ -1849,7 +1020,7 @@
                     "remaster": true,
                     "title": "Pathfinder Player Core"
                 },
-                "quantity": 3,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "rations",
@@ -2316,7 +1487,274 @@
             "type": "equipment"
         },
         {
-            "_id": "hxp0GVOgZ5mAYVxS",
+            "_id": "iyfyBQu4IxBvdRDu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
+            "name": "Elf",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 0,
+                    "custom": "",
+                    "value": [
+                        "draconic",
+                        "empyrean",
+                        "fey",
+                        "gnomish",
+                        "goblin",
+                        "kholo",
+                        "orcish"
+                    ]
+                },
+                "alternateAncestryBoosts": [
+                    "dex",
+                    "cha"
+                ],
+                "boosts": {
+                    "0": {
+                        "value": [
+                            "dex"
+                        ]
+                    },
+                    "1": {
+                        "value": [
+                            "int"
+                        ]
+                    },
+                    "2": {
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving the world in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes, most notably from terrible demons that have invaded parts of their lands. To some, the elves are objects of awe—graceful and beautiful, with immense talent and knowledge. Among themselves, however, the elves place far more importance on personal freedom than on living up to these ideals.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.3cfdiId1IoxLsF9V]{Elf}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": [
+                            "con"
+                        ]
+                    }
+                },
+                "hp": 6,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common",
+                        "elven"
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "elf",
+                "speed": 30,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "elf",
+                        "humanoid"
+                    ]
+                },
+                "vision": "low-light-vision"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "JUjjoLuCt175l9C5",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+                }
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 1950000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "6jd8p86fhM3agEbm",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "gK0cWLSesKSKzjny",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.1wVDYY9Wue0G5R9Q"
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/whisper-elf.webp",
+            "name": "Whisper Elf",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Elf",
+                    "slug": "elf",
+                    "uuid": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+                },
+                "description": {
+                    "value": "<p>Your ears are finely tuned, able to detect even the slightest whispers of sound. You gain a +2 circumstance bonus when using the @UUID[Compendium.pf2e.actionspf2e.Item.Seek] action to find @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] creatures within 30 feet of you. When you target an opponent that is @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you or hidden from you, reduce the DC of the flat check to 3 for a concealed target or 9 for a hidden one. This benefit doesn't apply if you can't hear or if the creature is incapable of making sound (for example, if it's affected by a @UUID[Compendium.pf2e.spells-srd.Item.Silence] spell).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:undetected",
+                                    "target:condition:hidden"
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "target:distance",
+                                    30
+                                ]
+                            },
+                            "target:audible"
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "whisper-elf",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "yIMawfTUfjJlUIQ7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.9lVw1JGl5ser6626"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Criminal",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "dex",
+                            "int"
+                        ]
+                    },
+                    "1": {
+                        "selected": "wis",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>As an unscrupulous independent or as a member of an underworld organization, you lived a life of crime. You might have become an adventurer to seek redemption, to escape the law, or simply to get access to bigger and better loot.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Stealth skill and the Underworld Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Experienced Smuggler] skill feat.</p>"
+                },
+                "items": {
+                    "19grf": {
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
+                        "level": 1,
+                        "name": "Experienced Smuggler",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Experienced Smuggler"
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "criminal",
+                "trainedLore": "Underworld Lore",
+                "trainedSkills": {
+                    "value": [
+                        "ste"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "IFUvIg4AQLQ3D5Nl",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classes.Item.LO9STvskJemPkiAI"
@@ -2337,10 +1775,10 @@
                 },
                 "attacks": {
                     "advanced": 0,
-                    "martial": 0,
+                    "martial": 1,
                     "other": {
-                        "name": "Rapier, Sap, Shortbow, and Shortsword",
-                        "rank": 1
+                        "name": "",
+                        "rank": 0
                     },
                     "simple": 1,
                     "unarmed": 1
@@ -2404,17 +1842,17 @@
                         "name": "Master Tricks",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Tricks"
                     },
+                    "3YEZD": {
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
+                        "level": 7,
+                        "name": "Perception Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                    },
                     "4al2i": {
                         "img": "icons/skills/melee/hand-grip-sword-orange.webp",
                         "level": 15,
                         "name": "Greater Weapon Specialization",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
-                    },
-                    "517c6": {
-                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
-                        "level": 9,
-                        "name": "Great Fortitude",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Fortitude Expertise"
                     },
                     "6ddtr": {
                         "img": "icons/equipment/back/mantle-collared-green.webp",
@@ -2422,11 +1860,29 @@
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
                     },
-                    "8tar0": {
-                        "img": "systems/pf2e/icons/features/classes/incredible-sense.webp",
-                        "level": 13,
-                        "name": "Incredible Senses",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
+                    "BH4zJ": {
+                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
+                        "level": 7,
+                        "name": "Evasive Reflexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Evasive Reflexes"
+                    },
+                    "HOjyM": {
+                        "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
+                        "level": 1,
+                        "name": "Rogue's Racket",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Rogue's Racket"
+                    },
+                    "KvE3P": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 9,
+                        "name": "Rogue Resilience",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Rogue Resilience"
+                    },
+                    "bhpWk": {
+                        "img": "icons/commodities/biological/organ-brain-red.webp",
+                        "level": 17,
+                        "name": "Agile Mind",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
                     },
                     "cifjd": {
                         "img": "systems/pf2e/icons/features/classes/rogue-expertise.webp",
@@ -2440,23 +1896,11 @@
                         "name": "Sneak Attack",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Sneak Attack"
                     },
-                    "g1dmk": {
+                    "i7ZpY": {
                         "img": "systems/pf2e/icons/features/classes/improved-evasion.webp",
                         "level": 13,
-                        "name": "Improved Evasion",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
-                    },
-                    "hg9s4": {
-                        "img": "icons/commodities/biological/organ-brain-red.webp",
-                        "level": 17,
-                        "name": "Slippery Mind",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Agile Mind"
-                    },
-                    "i70zj": {
-                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
-                        "level": 7,
-                        "name": "Vigilant Senses",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
+                        "name": "Greater Rogue Reflexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Rogue Reflexes"
                     },
                     "nilrb": {
                         "img": "icons/skills/melee/strike-sword-blood-red.webp",
@@ -2464,17 +1908,17 @@
                         "name": "Debilitating Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Debilitating Strike"
                     },
-                    "odz8x": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 1,
-                        "name": "Rogue's Racket",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Rogue's Racket"
-                    },
                     "pfjze": {
                         "img": "icons/skills/wounds/injury-triple-slash-bleed.webp",
                         "level": 15,
                         "name": "Double Debilitation",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Double Debilitation"
+                    },
+                    "pvlD2": {
+                        "img": "systems/pf2e/icons/features/classes/incredible-sense.webp",
+                        "level": 13,
+                        "name": "Perception Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
                     },
                     "qx6de": {
                         "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
@@ -2493,12 +1937,6 @@
                         "level": 19,
                         "name": "Master Strike",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Strike"
-                    },
-                    "xn3fx": {
-                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
-                        "level": 7,
-                        "name": "Evasion",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
                     }
                 },
                 "keyAbility": {
@@ -2508,36 +1946,11 @@
                 },
                 "perception": 2,
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-sap.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-shortbow.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                        "value": 1
-                    }
-                ],
+                "rules": [],
                 "savingThrows": {
                     "fortitude": 1,
                     "reflex": 2,
@@ -2606,7 +2019,7 @@
             "type": "class"
         },
         {
-            "_id": "vwrXYY7uohY8DtUv",
+            "_id": "e80hY3GuMSo99hxW",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.uGuCGQvUmioFV2Bd"
@@ -2614,7 +2027,7 @@
                 "pf2e": {
                     "itemGrants": {
                         "thief": {
-                            "id": "zVKJjDFz67glm8Xx",
+                            "id": "Rb0djKiL05soYPHW",
                             "onDelete": "detach"
                         }
                     }
@@ -2632,47 +2045,28 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>As you started on the path of the rogue, you began to develop your own style to pursue your illicit activities. Your racket shapes your rogue techniques and the way you approach a job, while building your reputation in the criminal underworld for a certain type of work. A client with deep pockets might even hire a team of rogues for a particular heist, each specializing in a different racket, in order to cover all the bases. Choose a rogue's racket.</p>"
+                    "value": "<p>You've begun to develop your techniques and approach to a job, while building your reputation in rogues' circles. Choose a rogue's racket from the list below.</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Eldritch Trickster]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Mastermind]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Ruffian]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Scoundrel]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Thief]</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "hxp0GVOgZ5mAYVxS",
+                "location": "IFUvIg4AQLQ3D5Nl",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
                         "adjustName": false,
-                        "allowedDrops": {
-                            "label": "level 1 Rogue feature",
-                            "predicate": [
-                                "item:trait:rogue",
-                                "item:level:1"
+                        "choices": {
+                            "filter": [
+                                "item:tag:rogue-racket"
                             ]
                         },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Eldritch Trickster"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Mastermind"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Ruffian"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Scoundrel"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Thief"
-                            }
-                        ],
                         "flag": "roguesRacket",
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Rogue.Racket.Prompt",
@@ -2695,7 +2089,7 @@
             "type": "feat"
         },
         {
-            "_id": "PF20saJdqpAbPerG",
+            "_id": "faIpN2BXaEXFOgZB",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.j1JE61quDxdge4mg"
@@ -2703,7 +2097,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/sneak-attack.webp",
             "name": "Sneak Attack",
-            "sort": 100,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2718,14 +2112,14 @@
                 "level": {
                     "value": 1
                 },
-                "location": "hxp0GVOgZ5mAYVxS",
+                "location": "IFUvIg4AQLQ3D5Nl",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2745,6 +2139,13 @@
                             "class:rogue"
                         ],
                         "value": 6
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
+                        "option": "target:condition:off-guard",
+                        "toggleable": "totm"
                     },
                     {
                         "category": "precision",
@@ -2769,13 +2170,6 @@
                             }
                         ],
                         "selector": "strike-damage"
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.TOTMToggle.OffGuard",
-                        "option": "target:condition:off-guard",
-                        "toggleable": "totm"
                     }
                 ],
                 "slug": "sneak-attack",
@@ -2789,7 +2183,7 @@
             "type": "feat"
         },
         {
-            "_id": "WujzPYIClasrHtUG",
+            "_id": "YX7Z5zVE4iyIsKLx",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.w6rMqmGzhUahdnA7"
@@ -2797,7 +2191,7 @@
             },
             "img": "systems/pf2e/icons/features/classes/surprice-attack.webp",
             "name": "Surprise Attack",
-            "sort": 200,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2807,19 +2201,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are off-guard to you.</p>"
+                    "value": "<p>You spring into combat faster than foes can react. On the first round of combat, if you roll Deception or Stealth for initiative, creatures that haven't acted are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to you.</p>"
                 },
                 "level": {
                     "value": 1
                 },
-                "location": "hxp0GVOgZ5mAYVxS",
+                "location": "IFUvIg4AQLQ3D5Nl",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2859,7 +2253,7 @@
             "type": "feat"
         },
         {
-            "_id": "lJoOur2rI2K8yr6Y",
+            "_id": "8gfTLJG2945PmHzQ",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.PNpmVmD21zViDtGC"
@@ -2867,7 +2261,7 @@
             },
             "img": "icons/environment/settlement/watchtower-silhouette-yellow.webp",
             "name": "Deny Advantage",
-            "sort": 900,
+            "sort": 0,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -2877,19 +2271,19 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of others' defenses, you are careful not to leave such openings yourself. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
+                    "value": "<p><strong>Barbarian</strong> Your foes struggle to pass your defenses. You aren't off-guard to hidden, undetected, or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>\n<hr />\n<p><strong>Rogue</strong> As someone who takes advantage of openings, you are careful not to leave such gaps yourself. You aren't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], @UUID[Compendium.pf2e.conditionitems.Item.Undetected], or flanking creatures of your level or lower, or creatures of your level or lower using surprise attack. However, they can still help their allies flank.</p>"
                 },
                 "level": {
                     "value": 3
                 },
-                "location": "hxp0GVOgZ5mAYVxS",
+                "location": "IFUvIg4AQLQ3D5Nl",
                 "prerequisites": {
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2911,14 +2305,14 @@
             "type": "feat"
         },
         {
-            "_id": "zVKJjDFz67glm8Xx",
+            "_id": "Rb0djKiL05soYPHW",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.classfeatures.Item.wAh2riuFRzz0edPl"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "vwrXYY7uohY8DtUv",
+                        "id": "e80hY3GuMSo99hxW",
                         "onDelete": "cascade"
                     }
                 }
@@ -2935,7 +2329,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Nothing beats the thrill of taking something that belongs to someone else, especially if you can do so completely unnoticed. You might be a pickpocket working the streets, a cat burglar sneaking through windows and escaping via rooftops, or a safecracker breaking into carefully guarded vaults. You might even work as a consultant, testing clients' defenses by trying to steal something precious.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
+                    "value": "<p>Nothing beats the thrill of taking something that belongs to someone else. You might be a pickpocket working the streets, a cat burglar sneaking through windows, or even a consultant, testing your clients' vaults for openings.</p>\n<p>When a fight breaks out, you prefer swift, lightweight weapons, and you strike where it hurts. When you attack with a finesse melee weapon or finesse melee unarmed attack, you can add your Dexterity modifier to damage rolls instead of your Strength modifier.</p>\n<p>You are trained in Thievery.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2945,9 +2339,9 @@
                     "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "rules": [
                     {
@@ -2955,10 +2349,7 @@
                         "key": "FlatModifier",
                         "predicate": [
                             "item:melee",
-                            "item:trait:finesse",
-                            {
-                                "not": "item:category:unarmed"
-                            }
+                            "item:trait:finesse"
                         ],
                         "selector": "strike-damage",
                         "type": "ability"
@@ -2972,6 +2363,9 @@
                 ],
                 "slug": "thief",
                 "traits": {
+                    "otherTags": [
+                        "rogue-racket"
+                    ],
                     "rarity": "common",
                     "value": [
                         "rogue"
@@ -2981,91 +2375,583 @@
             "type": "feat"
         },
         {
-            "_id": "iyfyBQu4IxBvdRDu",
+            "_id": "OjV4udsh1zfusXGr",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.PgKmsA2aKdbLU6O0"
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AogIo1gHLdz7DyHx"
                 }
             },
-            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/elf.svg",
-            "name": "Elf",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Forlorn",
             "sort": 0,
             "system": {
-                "additionalLanguages": {
-                    "count": 0,
-                    "custom": "",
-                    "value": [
-                        "draconic",
-                        "empyrean",
-                        "fey",
-                        "gnomish",
-                        "goblin",
-                        "kholo",
-                        "orcish"
-                    ]
+                "actionType": {
+                    "value": "passive"
                 },
-                "boosts": {
-                    "0": {
-                        "value": [
-                            "dex"
-                        ]
-                    },
-                    "1": {
-                        "value": [
-                            "int"
-                        ]
-                    },
-                    "2": {
-                        "selected": "str",
-                        "value": [
-                            "str",
-                            "dex",
-                            "con",
-                            "int",
-                            "wis",
-                            "cha"
-                        ]
-                    }
+                "actions": {
+                    "value": null
                 },
+                "category": "ancestry",
                 "description": {
-                    "value": "<p><em>As an ancient people, elves have seen great change and have the perspective that can come only from watching the arc of history. After leaving the world in ancient times, they returned to a changed land, and they still struggle to reclaim their ancestral homes, most notably from terrible demons that have invaded parts of their lands. To some, the elves are objects of awe—graceful and beautiful, with immense talent and knowledge. Among themselves, however, the elves place far more importance on personal freedom than on living up to these ideals.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.3cfdiId1IoxLsF9V]{Elf}</em></p>"
+                    "value": "<p>Watching your friends age and die fills you with moroseness that protects you against harmful emotions. You gain a +1 circumstance bonus to saving throws against emotion effects. If you roll a success on a saving throw against an emotion effect, you get a critical success instead.</p>"
                 },
-                "flaws": {
-                    "0": {
-                        "value": [
-                            "con"
-                        ]
-                    }
+                "level": {
+                    "value": 1
                 },
-                "hp": 6,
-                "items": {},
-                "languages": {
-                    "custom": "",
-                    "value": [
-                        "common",
-                        "elven"
-                    ]
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
-                "reach": 5,
-                "rules": [],
-                "size": "med",
-                "slug": "elf",
-                "speed": 30,
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Against emotion effects",
+                        "predicate": [
+                            "emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "success"
+                        ],
+                        "predicate": [
+                            "emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "text": "If you roll a success on a saving throw against an emotion effect, you get a critical success instead.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "emotion"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "save"
+                    }
+                ],
+                "slug": "forlorn",
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "elf",
-                        "humanoid"
+                        "elf"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "hoBtZxj1PnmLg3hm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.oA866uVEFu1OrAX0"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Trap Finder",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You have an intuitive sense that alerts you to the presence of traps. You gain a +1 circumstance bonus to Perception checks to find traps, to AC against attacks made by traps, and to saves against traps. Even if you aren't Searching, you get a check to find traps that normally require you to be Searching. You still need to meet any other requirements to find the trap.</p>\n<p>You can disable traps that require a proficiency rank of master in Thievery. If you have master proficiency in Thievery, you can disable traps that require a proficiency rank of legendary instead, and your circumstance bonuses against traps increase to +2.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TrapFinder.SearchLabel",
+                        "option": "trap-finder",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "origin:trait:trap",
+                                    "trap"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "saving-throw",
+                            "ac"
+                        ],
+                        "type": "circumstance",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 2,
+                                    "start": 0,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 4,
+                                    "start": 3,
+                                    "value": 2
+                                }
+                            ],
+                            "field": "actor|system.skills.thi.rank"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.TrapFinder.DefendingLabel",
+                        "option": "origin:trait:trap",
+                        "toggleable": "totm"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "origin:trait:trap",
+                                    "trap",
+                                    "trap-finder"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 2,
+                                    "start": 0,
+                                    "value": 1
+                                },
+                                {
+                                    "end": 4,
+                                    "start": 3,
+                                    "value": 2
+                                }
+                            ],
+                            "field": "actor|system.skills.thi.rank"
+                        }
+                    }
+                ],
+                "slug": "trap-finder",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "investigator",
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "irPULj1Cpekn0mRi",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.qFt6zyWVX1njJf1l"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Quick Draw",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You draw your weapon and attack with the same motion. You Interact to draw a weapon, then Strike with that weapon.</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "quick-draw",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "gunslinger",
+                        "ranger",
+                        "rogue"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "PJDevXHtzaeLYEeK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.t3btih0O5RUwWynt"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Experienced Smuggler",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You often smuggle things past the authorities. When the GM rolls your Stealth check to see if a passive observer notices a small item you've @UUID[Compendium.pf2e.conditionitems.Item.Concealed], the GM uses the number rolled or 10—whichever is higher—as the result of your die roll, adding it to your Stealth modifier to determine your Stealth check result. If you're a master in Stealth, the GM uses the number rolled or 15, and if you're legendary in Stealth, you automatically succeed at hiding a small concealed item from passive observers. This provides no benefits when a creature attempts a Perception check while actively searching you for @UUID[Compendium.pf2e.conditionitems.Item.Hidden] items.</p>\n<hr />\n<p><strong>PFS Note</strong> This feat allows you to Earn Income with Underworld Lore with tasks of your level -1 (instead of the normal level -2).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "yIMawfTUfjJlUIQ7",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Trained in Stealth"
+                        }
                     ]
                 },
-                "vision": "low-light-vision"
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "experienced-smuggler",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
             },
-            "type": "ancestry"
+            "type": "feat"
+        },
+        {
+            "_id": "mv0xAGlkvY9nh1rK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.LQw0yIMDUJJkq1nD"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Cat Fall",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Your catlike aerial acrobatics allow you to cushion your falls. Treat falls as 10 feet shorter. If you're an expert in Acrobatics, treat falls as 25 feet shorter and 50 feet if you're a master. If you're legendary in Acrobatics, you always land on your feet and don't take damage, regardless of the distance of the fall.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-1",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Acrobatics"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "cat-fall",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Vn0vMtgiH6zr8RoY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.X2jGFfLU5qI5XVot"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Streetwise",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You know about life on the streets and feel the pulse of your local settlement. You can use your Society modifier instead of your Diplomacy modifier to Gather Information. In any settlement you frequent regularly, you can use the Recall Knowledge action with Society to know the same sorts of information that you could discover with Diplomacy to Gather Information. The DC is usually significantly higher, but you know the information without spending time gathering it. If you fail to recall the information, you can still subsequently attempt to Gather Information normally.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "skill-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Society"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "streetwise",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "YzcNfCTsn2zmYxGY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.RLBYJiGMVkaGL5w9"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Wary Disarmament",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>If you trigger a device or set off a trap while disarming it, you gain a +2 circumstance bonus to your AC or saving throw against the device or trap. This applies only to attacks or effects triggered by your failed attempt, not to any later ones, such as additional attacks from a complex trap.</p>"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": "skill-3",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "expert in Thievery"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Wary Disarmament (vs. traps)",
+                        "predicate": [
+                            "trap"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "wary-disarmament",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "pPdUlzF6lHnO26xW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.Ux73dmoF8KnavyUD"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Fleet",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You move more quickly on foot. Your Speed increases by 5 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "general-3",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "land-speed",
+                        "value": 5
+                    }
+                ],
+                "slug": "fleet",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "xwoS5tryPtoMeNO9",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+                }
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 0,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
         }
     ],
     "name": "Merisiel (Level 3)",
@@ -3113,7 +2999,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>The elves have a name for elven children unfortunate enough to be born and raised in human society—the Forlorn. In a few rare cases, these foundlings or orphaned elves find loving homes with humans, although the fact that, over the course of their childhood, one-time playmates become their effective guardians and foster parents results in a strangely skewed sense of the self. Most Forlorn aren't as fortunate—they live on the streets as almost eternal urchins, watching alone as their companions age and move on to greater things.</p>\n<p>Merisiel is one of the Forlorn, only now emerging from decades spent as a child of the streets into a young adult ready to make her own way in life. A master at stowing away on ships, she's called dozens of cities home, leaving one for another when her companions outgrew her or she outlived them. Life has been hard for Merisiel, made more so by the fact that she's always found it difficult to master skills that come easily to her companions. Never the sharpest knife in the drawer, as the saying goes, Merisiel has learned to make up for this by carrying at least a dozen of them on her person. When things go wrong with her carefully laid plans (as they almost always seem to do), the knives come out and what needs to be done gets done. To date, Merisiel hasn't met a problem that can't, in one way or another, be solved with daggers.</p>\n<p>Merisiel's life experiences have taught her to enjoy things to their fullest as they occur—it's impossible to tell when the good times might end. She's open and expressive with her thoughts and emotions, and while she's always on the move and working on her latest batch of plots for easy money, in the end it comes down to being faster than everyone else—either on her feet, or with her beloved blades.</p>\n<p>She wouldn't have it any other way.</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",
@@ -3142,9 +3028,7 @@
             },
             "languages": {
                 "details": "",
-                "value": [
-                    "kholo"
-                ]
+                "value": []
             },
             "level": {
                 "value": 3

@@ -108,140 +108,6 @@
             "type": "ancestry"
         },
         {
-            "_id": "x54ZWF7jZkNgmwxr",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "armorProficiency": {
-                            "id": "O1bkqUPakhEG04xg",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
-            "name": "Versatile Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "versatileHeritage",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Armor Proficiency"
-                    },
-                    {
-                        "flag": "armorProficiency",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
-                    }
-                ],
-                "slug": "versatile-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "O1bkqUPakhEG04xg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "x54ZWF7jZkNgmwxr",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Armor Proficiency",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor. If you are at least 13th level, you become an expert in this armor type.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor, as detailed above.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "maxTakable": 3,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.heavy.rank",
-                        "priority": 41,
-                        "value": "ternary(gte(@actor.level,13),2*max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)),max(min(1,@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank)))"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.medium.rank",
-                        "priority": 41,
-                        "value": "ternary(gte(@actor.level,13),2*min(1,@actor.system.proficiencies.defenses.light.rank),min(1,@actor.system.proficiencies.defenses.light.rank))"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.defenses.light.rank",
-                        "priority": 41,
-                        "value": "ternary(gte(@actor.level,13),2,1)"
-                    }
-                ],
-                "slug": "armor-proficiency",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "eFm4cnF9OgFRBgrq",
             "flags": {
                 "core": {
@@ -3529,6 +3395,162 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "xy5rMlPhvzKQv3jL",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "armorProficiency": {
+                            "id": "OICiPtdvmhMIqauo",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Armor Proficiency"
+                    },
+                    {
+                        "flag": "armorProficiency",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "OICiPtdvmhMIqauo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.BStw1cANwx5baL6d"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "xy5rMlPhvzKQv3jL",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Armor Proficiency (Light)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You become trained in light armor. If you already were trained in light armor, you gain training in medium armor. If you were trained in both, you become trained in heavy armor. If you are at least 13th level, you become an expert in this armor type.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time, you become trained in the next type of armor, as detailed above.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": 3,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                                "predicate": [
+                                    "defense:light:rank:0"
+                                ],
+                                "value": "light"
+                            },
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.MediumShort",
+                                "predicate": [
+                                    "defense:medium:rank:0",
+                                    {
+                                        "not": "defense:light:rank:0"
+                                    }
+                                ],
+                                "value": "medium"
+                            },
+                            {
+                                "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                                "predicate": [
+                                    "defense:heavy:rank:0",
+                                    {
+                                        "nor": [
+                                            "defense:light:rank:0",
+                                            "defense:medium:rank:0"
+                                        ]
+                                    }
+                                ],
+                                "value": "heavy"
+                            }
+                        ],
+                        "flag": "armorProficiency",
+                        "key": "ChoiceSet",
+                        "selection": "light"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.{item|flags.pf2e.rulesSelections.armorProficiency}.rank",
+                        "value": "ternary(gte(@actor.level,13),2,1)"
+                    }
+                ],
+                "slug": "armor-proficiency",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Kyra (Level 1)",
@@ -3583,7 +3605,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>The priests of Sarenrae lead double lives. Known to her faithful as the Dawnflower, the Healing Flame, and the Everlight, she teaches temperance and patience in all things. Compassion and peace are her greatest virtues, and if enemies of the faith can be redeemed, they should be. Yet there are those who have no interest in redemption, who glory in slaughter and death. From the remorseless evil of the undead and fiends to the cruelties born in the hearts of mortals, Sarenrae's doctrines preach swift justice delivered by the scimitar's edge. To this end, she expects her faithful to be skilled at swordplay, both as a form of martial arts promoting centering of mind and body, and so that when they do enter battle, their foes do not suffer any longer than necessary.</p>\n<p>Her priests are often categorized into these two camps—those who favor redemption as a method to defeat the enemy, and those who favor the blade. Kyra is certainly one of the latter. Born in a small farming town to loving parents, Kyra grew up in the shadow of one of the Dawnflower's shrines. She was taken at a young age with the beauty of the shrine's stained glass, and the grace of the three priestesses who practiced swordplay on the nearby hill each dawn as they offered their morning prayers. When bandits attacked her small town, Kyra watched as the priestesses did their best to reason with them—and when that came to naught, to end them before they could do more damage. Unfortunately, the bandits were too strong, and the village burned. Kyra was one of the few survivors, and on the smoking ruins of the shrine she swore her life and sword arm to Sarenrae, swore to protect those who could not protect themselves and to not spare the blade when the time for redemption passes.</p>\n<p>Possessed of a fierce will and pride in her faith and skills with the scimitar, Kyra has traveled far since her trial by fire. She lost her family and home that fateful day, yet where another might be consumed by anger and a thirst for revenge, Kyra has found peace in the Everlight, and in the belief that, if she can prevent even one death at evil hands, her own losses will not have been in vain.</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",
