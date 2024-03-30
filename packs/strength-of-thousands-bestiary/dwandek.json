@@ -3112,6 +3112,31 @@
                         "mode": "override",
                         "path": "system.attributes.hp.negativeHealing",
                         "value": true
+                    },
+                    {
+                        "definition": [
+                            "damage",
+                            "item:trait:arcane",
+                            "item:type:spell"
+                        ],
+                        "key": "Resistance",
+                        "label": "PF2E.IWR.Custom.AllDamageFromArcaneSpells",
+                        "type": "custom",
+                        "value": 5
+                    },
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "damage:type:bludgeoning"
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalBludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 15
                     }
                 ],
                 "slug": "negative-healing",
@@ -3499,13 +3524,6 @@
                 {
                     "type": "cold",
                     "value": 20
-                },
-                {
-                    "exceptions": [
-                        "bludgeoning"
-                    ],
-                    "type": "physical",
-                    "value": 15
                 }
             ],
             "speed": {

@@ -2922,6 +2922,20 @@
                         "mode": "override",
                         "path": "system.attributes.hp.negativeHealing",
                         "value": true
+                    },
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    "damage:type:bludgeoning"
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalBludgeoning"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 15
                     }
                 ],
                 "slug": "negative-healing",
@@ -3281,17 +3295,7 @@
             ],
             "resistances": [
                 {
-                    "doubleVs": [],
-                    "exceptions": [],
                     "type": "cold",
-                    "value": 15
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [
-                        "bludgeoning"
-                    ],
-                    "type": "physical",
                     "value": 15
                 }
             ],
