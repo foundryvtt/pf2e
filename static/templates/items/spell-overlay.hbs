@@ -79,17 +79,11 @@
                 {{localize "PF2E.Area.Label"}}
             </label>
             <div class="details-container-two-columns">
-                <select name="{{dataPath}}.area.value">
-                    {{#select system.area.value}}
-                        {{#each @root.areaSizes as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
-                </select>
+                <input type="number" name="{{dataPath}}.area.value" min="5" step="5" value="{{system.area.value}}" />
                 <select name="{{dataPath}}.area.type">
                     {{#select system.area.type}}
-                        {{#each @root.areaTypes as |label type|}}
-                            <option value="{{type}}">{{localize label}}</option>
+                        {{#each @root.areaShapes as |label shape|}}
+                            <option value="{{shape}}">{{localize label}}</option>
                         {{/each}}
                     {{/select}}
                 </select>
