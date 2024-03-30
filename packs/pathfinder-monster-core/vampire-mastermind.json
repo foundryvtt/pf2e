@@ -2044,7 +2044,27 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    "item:magical",
+                                    {
+                                        "or": [
+                                            "damage:material:dawnsilver",
+                                            "damage:material:silver"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.MagicalSilver"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "physical",
+                        "value": 10
+                    }
+                ],
                 "slug": "vampire-basic-vampire-vulnerabilities",
                 "traits": {
                     "rarity": "common",
@@ -2695,16 +2715,6 @@
                 },
                 {
                     "type": "sleep"
-                }
-            ],
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [
-                        "silver"
-                    ],
-                    "type": "physical",
-                    "value": 10
                 }
             ],
             "speed": {
