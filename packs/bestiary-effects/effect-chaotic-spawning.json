@@ -1,0 +1,46 @@
+{
+    "_id": "jhPkOUdLPSQ46vkU",
+    "img": "icons/creatures/invertebrates/wasp-swarm-attack.webp",
+    "name": "Effect: Chaotic Spawning",
+    "system": {
+        "description": {
+            "value": "<p>The vescavor swarm becomes Huge and quickened. It can only use the extra action each round for the Ravenous Bites action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "CreatureSize",
+                "value": "huge"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
