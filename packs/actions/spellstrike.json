@@ -18,12 +18,32 @@
             "remaster": false,
             "title": "Pathfinder Secrets of Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:cast:actions",
+                            1
+                        ]
+                    },
+                    "item:trait:focus",
+                    "item:trait:magus"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "You recharge your Spellstrike when you cast a conflux spell that takes at least 1 action to cast."
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": [
-                "magus"
-            ]
+            "value": []
         }
     },
     "type": "action"
