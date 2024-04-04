@@ -1,0 +1,64 @@
+{
+    "_id": "Df5CnXnVHC1mVINK",
+    "img": "icons/magic/control/control-influence-crown-yellow.webp",
+    "name": "Effect: Leader's Command",
+    "system": {
+        "description": {
+            "value": "<p>The creatures gains the leader's choice of a +2 status bonus to attack rolls or a +10-foot status bonus to their Speeds.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Scenario #5-14: Poisonous Council"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.AttackLabel",
+                        "value": {
+                            "selector": "attack",
+                            "value": 2
+                        }
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Plural",
+                        "value": {
+                            "selector": "all-speeds",
+                            "value": 10
+                        }
+                    }
+                ],
+                "flag": "leadersCommand",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.leadersCommand.selector}",
+                "type": "status",
+                "value": "{item|flags.pf2e.rulesSelections.leadersCommand.value}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
