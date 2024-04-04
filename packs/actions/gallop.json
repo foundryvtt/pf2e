@@ -20,8 +20,17 @@
         },
         "rules": [
             {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "gallop",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "predicate": [
+                    "gallop"
+                ],
+                "selector": "land-speed",
                 "type": "circumstance",
                 "value": 10
             }
