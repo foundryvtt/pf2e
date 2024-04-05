@@ -1,9 +1,25 @@
-<header class="npc-sheet-header">
+<header>
     <div class="name flexrow bottom-separator">
-        <input class="name-value" name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" spellcheck="false" />
-        <label class="level-label">{{localize "PF2E.NPC.Creature"}}</label>
+        <input
+            class="name-value"
+            name="name"
+            type="text"
+            value="{{actor.name}}"
+            placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"
+            autocomplete="off"
+            spellcheck="false"
+            area-label="{{localize "PF2E.CharacterNamePlaceholder"}}"
+        />
+        <label class="level-label" for="{{document.uuid}}-level">{{localize "PF2E.NPC.Creature"}}</label>
         {{#with data.details.level as |level|}}
-            <input class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}" type="text" data-property="system.details.level.value" value="{{level.value}}" placeholder="1" data-dtype="Number" />
+            <input
+                class="level adjustable{{#if level.adjustedHigher}} adjusted-higher{{else if level.adjustedLower}} adjusted-lower{{/if}}"
+                type="number"
+                id="{{../document.uuid}}-level"
+                value="{{level.value}}"
+                placeholder="1"
+                data-property="system.details.level.value"
+            />
         {{/with}}
     </div>
     <div class="rarity-size">
@@ -25,12 +41,12 @@
                 {{/select}}
             </select>
         </div>
-        {{#if options.editable}}
+        {{#if editable}}
             <div class="adjustments">
-                <a class="adjustment elite trait {{#if isElite}}active{{/if}}" data-adjustment="elite">
+                <a class="adjustment elite trait{{#if isElite}} active{{/if}}" data-action="adjust-elite-weak" data-adjustment="elite">
                     {{localize "PF2E.NPC.Adjustment.EliteLabel"}}
                 </a>
-                <a class="adjustment weak trait {{#if isWeak}}active{{/if}}" data-adjustment="weak">
+                <a class="adjustment weak trait{{#if isWeak}} active{{/if}}" data-action="adjust-elite-weak" data-adjustment="weak">
                     {{localize "PF2E.NPC.Adjustment.WeakLabel"}}
                 </a>
             </div>

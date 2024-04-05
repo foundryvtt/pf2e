@@ -1,0 +1,53 @@
+.inventory-details .form-group.subitems {
+    align-items: start;
+    flex-direction: column;
+
+    label {
+        flex: 0;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        margin-top: var(--space-2);
+        padding: 0;
+        width: 100%;
+
+        li {
+            align-items: center;
+            display: flex;
+            height: 2rem;
+            justify-content: space-between;
+            padding: var(--space-4);
+
+            &:nth-of-type(even) {
+                background: rgba($alt-color, 0.1);
+            }
+
+            > * {
+                align-items: center;
+                display: flex;
+            }
+
+            .name {
+                gap: var(--space-6);
+                font-size: var(--font-size-13);
+                font-weight: 500;
+
+                img {
+                    height: 1.5rem;
+                }
+            }
+
+            .controls {
+                gap: var(--space-1);
+
+                a.detach {
+                    font-size: 0.8em;
+                    margin-right: var(--space-2);
+                }
+            }
+        }
+    }
+}

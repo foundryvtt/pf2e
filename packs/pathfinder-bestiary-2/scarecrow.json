@@ -49,45 +49,10 @@
             "type": "melee"
         },
         {
-            "_id": "j45FbeObppNsRIhN",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "TAIcUgt3JKg5c7fV",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Scarecrow's Leer",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -97,7 +62,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:40]{40 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>The scarecrow's eyes flicker with an unnerving glow. A creature can't reduce its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition below 1 as long as it is in the aura's emanation. When a creature enters or starts its turn in the aura, it must attempt a @Check[type:will|dc:18] save. Birds and other avian creatures take a -2 circumstance penalty to this save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is then temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the scarecrow until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                    "value": "<p>40 feet. The scarecrow's eyes flicker with an unnerving glow. A creature can't reduce its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition below 1 as long as it is in the aura's emanation. When a creature enters or starts its turn in the aura, it must attempt a @Check[type:will|dc:18] save. Birds and other avian creatures take a -2 circumstance penalty to this save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is then temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and is @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the scarecrow until the end of its next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -137,7 +102,7 @@
             "_id": "1V1IFVEwiJA8p72B",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Baleful Glow",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -195,7 +160,7 @@
             "_id": "oYtncLyCKuBAQThk",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Clawing Fear",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -248,7 +213,7 @@
             "_id": "NTWIBx9lvUwV7F1W",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Mundane Appearance",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -280,7 +245,7 @@
             "_id": "gHW1gSiQAd3XJNUH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -343,12 +308,6 @@
                     "type": "mental"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 11
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -371,6 +330,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 4
             },
@@ -381,6 +344,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -398,18 +373,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

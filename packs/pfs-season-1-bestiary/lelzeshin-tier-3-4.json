@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "spontaneous"
@@ -31,69 +30,10 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
                     "slot0": {
                         "max": 2,
-                        "prepared": [],
                         "value": 2
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -138,7 +78,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and [[/r (@item.level)d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -673,7 +613,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Lelzeshin can use the room's mirrors to send his <em>@UUID[Compendium.pf2e.spells-srd.Item.Produce Flame]</em> projectiles in unexpected directions. When attacking with <em>produce flame</em>, instead of firing it directly at a foe, he can fire the projectile at the nearest mirrored wall and have it emerge out of the mirrored wall closest to his target. The distance between the mirrors doesn't count against the spell's range, only the distance the ball of fire travels when it is not inside a mirror.</p>"
+                    "value": "<p>Lelzeshin can use the room's mirrors to send his @UUID[Compendium.pf2e.spells-srd.Item.Produce Flame] projectiles in unexpected directions. When attacking with <em>produce flame</em>, instead of firing it directly at a foe, he can fire the projectile at the nearest mirrored wall and have it emerge out of the mirrored wall closest to his target. The distance between the mirrors doesn't count against the spell's range, only the distance the ball of fire travels when it is not inside a mirror.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1007,12 +947,6 @@
                 "temp": 0,
                 "value": 70
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 11
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -1020,6 +954,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "mwangi"
+                ]
+            },
             "level": {
                 "value": 5
             },
@@ -1030,6 +972,14 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-16: The Perennial Crown Part 1, Opal of Bhopan"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": []
         },
         "resources": {
             "focus": {
@@ -1052,22 +1002,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "mwangi"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

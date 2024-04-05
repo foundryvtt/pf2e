@@ -48,6 +48,13 @@ const action = new SingleCheckAction({
         { outcome: ["success"], text: "PF2E.Actions.SenseDirection.Notes.success" },
     ],
     rollOptions: ["action:sense-direction"],
+    sampleTasks: {
+        untrained: "PF2E.Actions.SenseDirection.SampleTasks.Untrained",
+        trained: "PF2E.Actions.SenseDirection.SampleTasks.Trained",
+        expert: "PF2E.Actions.SenseDirection.SampleTasks.Expert",
+        master: "PF2E.Actions.SenseDirection.SampleTasks.Master",
+        legendary: "PF2E.Actions.SenseDirection.SampleTasks.Legendary",
+    },
     slug: "sense-direction",
     statistic: "survival",
     traits: ["exploration", "secret"],

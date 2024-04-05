@@ -35,6 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: "PF2E.Actions.DisableDevice.Notes.criticalFailure" },
     ],
     rollOptions: ["action:disable-a-device", "action:disable-device"],
+    section: "skill",
     slug: "disable-device",
     statistic: "thievery",
     traits: ["manipulate"],

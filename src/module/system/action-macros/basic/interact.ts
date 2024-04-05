@@ -4,6 +4,7 @@ const interact = new SimpleAction({
     cost: 1,
     description: "PF2E.Actions.Interact.Description",
     name: "PF2E.Actions.Interact.Title",
+    section: "basic",
     slug: "interact",
     traits: ["manipulate"],
 });

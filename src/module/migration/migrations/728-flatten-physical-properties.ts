@@ -1,5 +1,5 @@
-import { isPhysicalData } from "@item/base/data/helpers.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { Size, SIZES, ValueAndMax } from "@module/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
@@ -13,85 +13,84 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
     private stringKeys = ["stackGroup", "containerId"] as const;
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (!isPhysicalData(source)) return;
+        if (!itemIsOfType(source, "physical")) return;
 
-        const systemSource: MaybeOldSystemSource = source.system;
+        const system: MaybeOldSystemSource = source.system;
 
-        if (systemSource.currency) {
-            delete systemSource.currency;
-            systemSource["-=currency"] = null;
+        if (system.currency) {
+            delete system.currency;
+            system["-=currency"] = null;
         }
 
-        if (systemSource.hands) {
-            delete systemSource.hands;
-            systemSource["-=hands"] = null;
+        if (system.hands) {
+            delete system.hands;
+            system["-=hands"] = null;
         }
 
-        if (systemSource.equipped && R.isObject(systemSource.invested)) {
-            const value = systemSource.invested.value;
+        if (system.equipped && R.isObject(system.invested)) {
+            const value = system.invested.value;
             if (typeof value === "boolean" || value === null) {
                 const traits: string[] = source.system.traits.value;
                 const shouldBeBoolean =
-                    traits.includes("invested") ||
-                    (source.type === "armor" && (systemSource.potencyRune?.value ?? 0) > 0);
+                    traits.includes("invested") || (source.type === "armor" && (system.potencyRune?.value ?? 0) > 0);
 
-                systemSource.equipped.invested = shouldBeBoolean ? Boolean(value) : null;
+                system.equipped.invested = shouldBeBoolean ? Boolean(value) : null;
             }
         }
-        delete systemSource.invested;
-        systemSource["-=invested"] = null;
+        delete system.invested;
+        system["-=invested"] = null;
 
-        if (systemSource.capacity && source.type !== "book") {
-            delete systemSource.capacity;
-            systemSource["-=capacity"] = null;
+        if (system.capacity && source.type !== "book") {
+            delete system.capacity;
+            system["-=capacity"] = null;
         }
 
         if (source.type !== "backpack") {
-            delete systemSource.bulkCapacity;
-            systemSource["-=bulkCapacity"] = null;
-            delete systemSource.collapsed;
-            systemSource["-=collapsed"] = null;
+            delete system.bulkCapacity;
+            system["-=bulkCapacity"] = null;
+            delete system.collapsed;
+            system["-=collapsed"] = null;
         }
 
-        if (systemSource.size instanceof Object) {
-            const size = SIZES.includes(systemSource.size.value) ? systemSource.size.value : "med";
-            systemSource.size = size;
+        if (system.size instanceof Object) {
+            const size = SIZES.includes(system.size.value) ? system.size.value : "med";
+            system.size = size;
         }
 
-        if ("brokenThreshold" in systemSource) {
-            if (systemSource.brokenThreshold instanceof Object) {
-                systemSource.hp.brokenThreshold = Number(systemSource.brokenThreshold.value);
+        if ("brokenThreshold" in system) {
+            if (system.brokenThreshold instanceof Object) {
+                system.hp.brokenThreshold = Number(system.brokenThreshold.value);
             }
 
-            delete systemSource.brokenThreshold;
-            systemSource["-=brokenThreshold"] = null;
+            delete system.brokenThreshold;
+            system["-=brokenThreshold"] = null;
         }
 
-        systemSource.hp.value = Number(systemSource.hp.value);
-        if (systemSource.maxHp instanceof Object) {
-            systemSource.hp.max = Number(systemSource.maxHp.value) || 0;
-            delete systemSource.maxHp;
-            systemSource["-=maxHp"] = null;
+        system.hp.value = Number(system.hp.value);
+        if (system.maxHp instanceof Object) {
+            system.hp.max = Number(system.maxHp.value) || 0;
+            delete system.maxHp;
+            system["-=maxHp"] = null;
         }
 
         for (const key of this.booleanKeys) {
-            const value = systemSource[key];
+            const value = system[key];
             if (value instanceof Object) {
-                systemSource[key] = value.value as boolean;
+                system[key] = value.value as boolean;
             }
         }
 
         for (const key of this.numericKeys) {
-            const value = systemSource[key];
+            const value = system[key];
             if (value instanceof Object) {
-                systemSource[key] = Number(value.value) || 0;
+                system[key] = Number(value.value) || 0;
             }
         }
 
         for (const key of this.stringKeys) {
-            const value = systemSource[key];
+            const value = system[key];
             if (value instanceof Object) {
-                systemSource[key] = String(value.value) || null;
+                system[key] = String(value.value) || null;
             }
         }
     }

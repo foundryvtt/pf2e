@@ -239,41 +239,6 @@
             "type": "melee"
         },
         {
-            "_id": "MVodZ3MBXKOzGNXd",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "2APESXFLe2wLwX0Y",
             "flags": {
                 "core": {
@@ -282,7 +247,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lifesense 80 feet",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -317,7 +282,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -352,7 +317,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Catch Rock",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -369,7 +334,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",
@@ -387,7 +371,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -424,7 +408,7 @@
             "_id": "NhmoLxndj4300vjf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cloying Shadows",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -474,7 +458,7 @@
             "_id": "qB7gFx05p5TyaekK",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Tenebric Stride",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -513,7 +497,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -543,7 +527,7 @@
             "_id": "k3l9AdQJqhM9CRVG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -568,7 +552,7 @@
             "_id": "l3r94jdrw4qRtdG9",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -593,7 +577,7 @@
             "_id": "Q5SqR1EJbyl6chwk",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -618,7 +602,7 @@
             "_id": "Xq4X0gvbkHZe6r7T",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -718,12 +702,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 31
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -737,6 +715,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy (with its creator only) 100 feet",
+                "value": [
+                    "common",
+                    "jotun",
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -747,6 +733,23 @@
                 "remaster": false,
                 "title": "Pathfinder #185: A Taste of Ashes"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 80,
+                    "type": "lifesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -764,19 +767,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy (With its Creator Only) 100 feet",
-                "selected": [],
-                "value": [
-                    "common",
-                    "jotun",
-                    "necril"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, lifesense 80 feet"
-            },
             "size": {
                 "value": "lg"
             },

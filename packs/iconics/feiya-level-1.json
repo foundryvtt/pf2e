@@ -108,141 +108,6 @@
             "type": "ancestry"
         },
         {
-            "_id": "Nbew7HzAY126BEKP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "oddityIdentification": {
-                            "id": "ne76SgiGGvL2jUl4",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
-            "name": "Versatile Heritage",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Human",
-                    "slug": "human",
-                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
-                },
-                "description": {
-                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:trait:general"
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "versatileHeritage",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
-                    },
-                    {
-                        "flag": "oddityIdentification",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
-                    }
-                ],
-                "slug": "versatile-heritage",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
-            "_id": "ne76SgiGGvL2jUl4",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.hDGosy2ZTwnyctEP"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "Nbew7HzAY126BEKP",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Oddity Identification",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>When you become aware of a magical effect or see a spell being cast, you can immediately determine if it twists minds (with the mental trait), fights against fortune (with the fortune or misfortune trait), or reveals secrets (with the detection, prediction, revelation, or scrying traits). At the GM's discretion, similar effects can also fall into these categories. When you Identify Magic or Recall Knowledge to learn more about these effects, you can always use Occultism without penalty and gain a +2 circumstance bonus.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Occultism"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Oddity Identification (identify magic with specific traits)",
-                        "predicate": [
-                            "action:identify-magic",
-                            {
-                                "or": [
-                                    "mental",
-                                    "possession",
-                                    "prediction",
-                                    "scrying"
-                                ]
-                            }
-                        ],
-                        "selector": "occultism",
-                        "type": "circumstance",
-                        "value": 2
-                    }
-                ],
-                "slug": "oddity-identification",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "aP87uZg3E0u18DFs",
             "flags": {
                 "core": {
@@ -278,7 +143,7 @@
                 },
                 "items": {
                     "hvaw7": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Schooled In Secrets",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Schooled In Secrets"
@@ -734,7 +599,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>As a favored agent of your patron, you can invoke their power for a more direct magical intervention. A hex is a spell shaped by your patron and sent to you through your familiar, rather than an ability you use directly. Your patron expects you to advance its interests and does not take kindly to repeated requests for aid; as such, you can use only one hex each turn, and any attempts to use a second hex on that turn fail and the actions are lost.</p>\n<p>Hex spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with your familiar.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but it can never be more than 3 points.</p>\n<p>You learn your choice of the <em>@UUID[Compendium.pf2e.spells-srd.Item.Patron's Puppet]</em> hex or <em>@UUID[Compendium.pf2e.spells-srd.Item.Phase Familiar]</em> hex, which let you command your familiar or defend it from harm, respectively. You learn most other hexes from witch lessons.</p>\n<h2>Hex Cantrips</h2>\n<p>Hex cantrips are special hexes that don't cost Focus Points, so you can cast them as often as you like, though you can still use only one hex each round. Hex cantrips are in addition to the cantrips you choose with witch spellcasting and aren't counted toward your prepared cantrips.</p>\n<p>You gain a hex cantrip determined by your choice of patron.</p>"
+                    "value": "<p>As a favored agent of your patron, you can invoke their power for a more direct magical intervention. A hex is a spell shaped by your patron and sent to you through your familiar, rather than an ability you use directly. Your patron expects you to advance its interests and does not take kindly to repeated requests for aid; as such, you can use only one hex each turn, and any attempts to use a second hex on that turn fail and the actions are lost.</p>\n<p>Hex spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell, and you start with a focus pool of 1 Focus Point. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to commune with your familiar.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells. The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but it can never be more than 3 points.</p>\n<p>You learn your choice of the @UUID[Compendium.pf2e.spells-srd.Item.Patron's Puppet] hex or @UUID[Compendium.pf2e.spells-srd.Item.Phase Familiar] hex, which let you command your familiar or defend it from harm, respectively. You learn most other hexes from witch lessons.</p>\n<h2>Hex Cantrips</h2>\n<p>Hex cantrips are special hexes that don't cost Focus Points, so you can cast them as often as you like, though you can still use only one hex each round. Hex cantrips are in addition to the cantrips you choose with witch spellcasting and aren't counted toward your prepared cantrips.</p>\n<p>You gain a hex cantrip determined by your choice of patron.</p>"
                 },
                 "level": {
                     "value": 1
@@ -1026,7 +891,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "focus"
                 },
@@ -1040,74 +904,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 0,
@@ -1148,7 +945,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1179,7 +976,6 @@
                     "value": [
                         "cantrip",
                         "curse",
-                        "focus",
                         "hex",
                         "manipulate",
                         "witch"
@@ -1325,7 +1121,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "prepared"
@@ -1340,95 +1135,37 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "yFxGvFy3ipxfvB0B"
                             },
-                            "1": {
+                            {
                                 "id": "7MO9Tq5Q1sfkxyOQ"
                             },
-                            "2": {
+                            {
                                 "id": "FUb4H0TFt1DweeBl"
                             },
-                            "3": {
+                            {
                                 "id": "mueBAwIY5FVwtpc2"
                             },
-                            "4": {
+                            {
                                 "id": "4e5aJ5hjxIenk9D5"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot1": {
                         "max": 2,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "VCdpTarHR62AGgT8"
                             },
-                            "1": {
+                            {
                                 "id": "LbTM20BMvrR2GDPx"
                             }
-                        },
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
+                        ]
                     }
                 },
                 "slug": null,
@@ -1624,7 +1361,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1853,6 +1590,9 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "bludgeoning"
                                 }
                             }
@@ -1867,6 +1607,9 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "piercing"
                                 }
                             }
@@ -1881,6 +1624,9 @@
                             "damage": {
                                 "0": {
                                     "category": null,
+                                    "kinds": [
+                                        "damage"
+                                    ],
                                     "type": "slashing"
                                 }
                             }
@@ -1943,7 +1689,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained"
+                    "value": ""
                 },
                 "level": {
                     "value": 1
@@ -2206,7 +1952,8 @@
                         "emotion",
                         "incapacitation",
                         "manipulate",
-                        "mental"
+                        "mental",
+                        "subtle"
                     ]
                 }
             },
@@ -2219,7 +1966,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.6ZIKB0151LUR19Rw"
                 }
             },
-            "img": "systems/pf2e/icons/spells/ill-omen.webp",
+            "img": "icons/sundries/lights/candles-lit-red-evil.webp",
             "name": "Ill Omen",
             "sort": 0,
             "system": {
@@ -2236,7 +1983,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The target is struck with misfortune, which throws it off balance. The target must attempt a Will save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>"
+                    "value": "<p>The target is struck with misfortune, which throws it off balance. The target must attempt a Will save.</p>\n<p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> The first time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p><strong>Critical Failure</strong> Every time during the duration that the target attempts an attack roll or skill check, it must roll twice and use the worse result.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Ill Omen]</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2668,6 +2415,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2727,6 +2475,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2787,7 +2536,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2852,6 +2602,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -2912,7 +2663,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -2976,6 +2728,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3115,6 +2868,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3174,6 +2928,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3282,7 +3037,6 @@
                     "property": [],
                     "striking": 0
                 },
-                "selectedAmmoId": "sbofiJ2zGAfIAcjz",
                 "size": "med",
                 "slug": "crossbow",
                 "splashDamage": {
@@ -3496,6 +3250,7 @@
                 },
                 "equipped": {
                     "carryType": "worn",
+                    "handsHeld": 0,
                     "invested": null
                 },
                 "hardness": 0,
@@ -3556,7 +3311,8 @@
                     "value": "<p>Shorter than traditional arrows but similar in construction, bolts are the ammunition used by crossbows.</p>"
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3621,7 +3377,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3677,7 +3434,8 @@
                     "value": ""
                 },
                 "equipped": {
-                    "carryType": "worn"
+                    "carryType": "worn",
+                    "handsHeld": 0
                 },
                 "hardness": 0,
                 "hp": {
@@ -3712,6 +3470,141 @@
                 }
             },
             "type": "treasure"
+        },
+        {
+            "_id": "VqOHuOrWmKHuUNAc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.hFBwsVcSnNCJoimo"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "oddityIdentification": {
+                            "id": "fN0syltXsnAO2NpM",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/ancestry/versatile-heritage.webp",
+            "name": "Versatile Human",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Humanity's versatility and ambition have fueled its ascendance to be the most common ancestry in most nations throughout the world. Select a general feat of your choice for which you meet the prerequisites (as with your ancestry feat, you can select this general feat at any point during character creation).</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:general"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "versatileHeritage",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.GeneralTraining.Prompt",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Oddity Identification"
+                    },
+                    {
+                        "flag": "oddityIdentification",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.versatileHeritage}"
+                    }
+                ],
+                "slug": "versatile-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "fN0syltXsnAO2NpM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.hDGosy2ZTwnyctEP"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "VqOHuOrWmKHuUNAc",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Oddity Identification",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>When you become aware of a magical effect or see a spell being cast, you can immediately determine if it twists minds (with the mental trait), fights against fortune (with the fortune or misfortune trait), or reveals secrets (with the detection, prediction, revelation, or scrying traits). At the GM's discretion, similar effects can also fall into these categories. When you Identify Magic or Recall Knowledge to learn more about these effects, you can always use Occultism without penalty and gain a +2 circumstance bonus.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Occultism"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Oddity Identification (identify magic with specific traits)",
+                        "predicate": [
+                            "action:identify-magic",
+                            {
+                                "or": [
+                                    "mental",
+                                    "possession",
+                                    "prediction",
+                                    "scrying"
+                                ]
+                            }
+                        ],
+                        "selector": "occultism",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": "oddity-identification",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Feiya (Level 1)",
@@ -3727,9 +3620,6 @@
             "hp": {
                 "temp": 0,
                 "value": 15
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3762,7 +3652,7 @@
                 "anathema": [],
                 "appearance": "",
                 "attitude": "",
-                "backstory": "",
+                "backstory": "<p>Born in a small village north of Trollheim in the Linnorm Kingdoms, the child who would come to be known as Feiya was the daughter of two Tian merchants from Minkai who had come over the crown of the world to Avistan to start a new life. Travelers by nature, they spent the short northern summers making slow loops through Hagreach and the Thanelands, facilitating trade. What few memories Feiya has of that life are happy ones: the jostling of wagons, the smell of campfires, and wandering alone through fields and forests, marveling as the wildness closed around her.</p>\n<p>That happiness came to a sudden halt on the fateful day that brought her to the attention of a recently sundered coven of witches who dwelled on the border with Irrisen. Led by a particularly cruel green hag named Nysima, the coven had lost its youngest member to a squad of Blackravens from Trollheim and was still reeling from its sudden loss of power. They witnessed the child as she skipped away from the caravan stop, following a family of deer deep into the woods, and immediately set upon her.</p>\n<p>There’s no telling what cruelties the witches would have visited upon the girl had they not suffered their recent loss. As it was, another, no less horrific, fate awaited young Feiya. The two crones seized the child and whisked her away to the east, their mad cackling drowning out the young girl’s terrified screams. By the time they reached their snow- and thatch-covered huts, they had given the child a new name and were already envisioning the return of their lost powers.</p>\n<p>The next twelve years were a blur of pain, terror, and misery as Feiya endured the crones’ sadistic attempts to teach her their dark craft. Alternating between tutelage and torture, the witches frequently let their cruel natures impede their instruction. For while the young girl showed unmistakable promise and aptitude, she also possessed a defiance that only the harshest of punishments could suppress. On numerous occasions, Feiya tried to escape her imprisonment, only to be tracked down and captured after no more than a few hours. The retributions for these failed attempts have scarred her body and mind in ways that no magic can ever heal.</p>\n<p>One brisk autumn day, after being beaten for failing to properly brew a batch of poisonous blue whinnis, Feiya was sent off to gather herbs. While harvesting more whinnis root, she spied a fox watching her from atop a large rime-covered rock. Unlike the region’s typical arctic specimens, this creature had a striking red and orange coloration that stood in stark contrast to the endless snow. There was something about the way the creature watched her that beckoned to Feiya. She approached carefully, and was astonished by his calm and focus. As she neared, the fox trotted a small distance away, turned, and gave her a look that was clearly an invitation to follow. This process was repeated again and again, and before she knew it, Feiya was following the fox on another escape attempt.</p>\n<p>By sundown, the two witches had realized Feiya’s intentions. Furious, they set off in pursuit, confident that, as with all previous instances, their hunt would be brief. This time, however, Feiya had guidance. The fox led her along trails never before seen by human nor hag, staying always just ahead and out of reach. When she needed nourishment, the fox led her to game and fresh water. When she needed rest, it stood vigil while she slept. In this manner, Feiya was able to elude capture for more than two weeks.</p>\n<p>One particularly cold evening, however, Feiya’s luck ran out. With her pursuers hot on her trail and the fox nowhere to be seen, she found herself trapped in a river valley surrounded on three sides by impassable mountains. Feiya could sense the witches closing in, could hear their promises of pain on the chilling wind. She took shelter in a shallow cave behind the waterfall that fed the river, a curious little grotto whose far wall was emblazoned with a crude carving of a butterfly. Like an animal run to ground, Feiya steeled herself for the coming confrontation. She had come too far this time to surrender without a fight. She determined then and there that her days of living under someone else’s yoke were over. She would have her freedom, either in this life or the next.</p>\n<p>It was at that moment that the fox reappeared. Only now, there was something different in the way he approached her. He had always shown a preternatural intelligence, but as Feiya stared into his eyes, she saw a consciousness and a determination that would have frightened her had she not come to trust the animal so implicitly. As she watched him, Feiya was startled by a sudden and overwhelming flurry of sensations invading her mind. She sank, dazed, to the cave floor as the feelings slowly crystallized into coherence. Less a voice than a series of emotions, the promise it offered was unmistakable. Feiya said nothing, but her acceptance was as clear as it was quick.</p>\n<p>What followed will forever haunt Feiya’s dreams. Raspy promises of pain and suffering rose above the din of the waterfall as the witches drew near to cave mouth. Feiya could see the outlines of their hunched bodies just beyond the blanket of cascading water, but before she could act, another sound arose. It started as a low rumble, then quickly gained volume, drowning out both hags and water and sending tremors through the cave floor. Then the valley erupted with the screeching and roaring of what could only have been a forest’s worth of wild animals, punctured occasionally by the shrill curse of a hag.</p>\n<p>Long minutes passed as Feiya stood, too frightened to move. Then, as gradually as it began, the noise subsided until all that remained was the crash of the waterfall. Feiya crouched down behind a rocky outcropping, afraid to leave the shelter of the cave. As the minutes turned into hours, exhaustion claimed her, and, despite her anxiety, she succumbed to a fitful sleep.</p>\n<p>When dawn finally arrived, Feiya stepped out from the cave, not quite sure what she was expecting to see. A fresh blanket of snow had covered the land, hiding any clues she might have found concerning the events of the previous night. Yet the feeling of relief was palpable. The fox crept up and paused at her side. She was finally free.</p>\n<p>Feiya never discusses the events of that night, nor the particulars of the strange pact she entered into. She may one day try to track down the parents she barely remembers, but for now she is content to roam the world, relishing her freedom, seeking new experiences, and developing her newfound power. Though she desperately desires the company of others, formative years spent away from civilized society have left Feiya lacking in social graces, and her awkwardness often leads to unfortunate misunderstandings. Nevertheless, her inherent good nature tends to win out, and her occasional flares of temper are countered by her steadfast loyalty to her friends. Feiya relishes travel, and having identified the butterfly carving in the waterfall cave as the found-mark of a Desnan priest, she gladly embraces that faith, hoping that her wanderings may cast more light on who she really is—and what entity fosters her magical abilities.</p>",
                 "beliefs": "",
                 "birthPlace": "",
                 "campaignNotes": "",
@@ -3789,6 +3679,16 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "goblin",
+                    "jotun",
+                    "skald",
+                    "tien"
+                ]
+            },
             "level": {
                 "value": 1
             },
@@ -3806,6 +3706,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3881,24 +3784,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "goblin",
-                    "jotun",
-                    "skald",
-                    "tien"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

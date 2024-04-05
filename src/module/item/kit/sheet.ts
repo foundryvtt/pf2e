@@ -27,20 +27,17 @@ class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
         };
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
         const dragData = event.dataTransfer?.getData("text/plain");
         const dragItem = JSON.parse(dragData ?? "");
-        const containerId =
-            event.target.dataset.containerId ??
-            event.target.closest<HTMLElement>("[data-container-id]")?.dataset.containerId;
-
         if (dragItem.type !== "Item") return;
-
         const item = await fromUuid(dragItem.uuid ?? "");
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;
         }
+
+        const containerId = htmlClosest(event.target, "[data-container-id]")?.dataset.containerId;
 
         const entry = {
             uuid: item.uuid,

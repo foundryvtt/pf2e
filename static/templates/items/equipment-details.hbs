@@ -1,15 +1,1 @@
-{{#if isApex}}
-    <div class="form-group">
-        <label>{{localize "PF2E.Actor.Character.Attribute.Apex"}}</label>
-        <div class="form-fields">
-            <select name="system.apex.attribute">
-                {{#select item.system.apex.attribute}}
-                    {{#each attributes as |label slug|}}
-                        <option value="{{slug}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
-            {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
-        </div>
-    </div>
-{{/if}}
+{{> "systems/pf2e/templates/items/partials/apex.hbs"}}

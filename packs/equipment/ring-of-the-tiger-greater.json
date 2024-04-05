@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This ring, carved from green wood, bears carvings of tigers chasing each other through grasslands and forests. <em>Rings of the tiger</em> are traditionally crafted by Kellids in northeastern Avistan, and are often worn by scouts or explorers. Many barbarians in these regions react poorly to anyone obviously not part of their people who dare to wear such a ring, but ironically have been known to gift these rings to outsiders who have proven their worth-potentially setting up a further clash in the future should that character encounter another group of Kellids who aren't familiar with how the wearer earned the right to wear the ring. A <em>ring of the tiger</em> grants a +2 item bonus on Stealth checks and Perception checks made in outdoor wilderness areas, and it can be activated to momentarily transform the wearer's hand into a tiger's claw.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Requirement</strong> You aren't carrying anything in the hand on which the ring is worn</p>\n<p><strong>Effect</strong> Your hand becomes a tiger's claw, granting you an agile claw unarmed attack that inflicts @Damage[2d6[slashing]] damage, and you Strike with the claw. The additional damage die is not cumulative with additional damage dice from striking runes. Then the claw turns back to normal.</p>"
+            "value": "<p>This ring, carved from green wood, bears carvings of tigers chasing each other through grasslands and forests. <em>Rings of the tiger</em> are traditionally crafted by Kellids in northeastern Avistan, and are often worn by scouts or explorers. Many barbarians in these regions react poorly to anyone obviously not part of their people who dare to wear such a ring, but ironically have been known to gift these rings to outsiders who have proven their worth-potentially setting up a further clash in the future should that character encounter another group of Kellids who aren't familiar with how the wearer earned the right to wear the ring. A <em>ring of the tiger</em> grants a +2 item bonus on Stealth checks and Perception checks made in outdoor wilderness areas, and it can be activated to momentarily transform the wearer's hand into a tiger's claw.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<p><strong>Requirement</strong> You aren't carrying anything in the hand on which the ring is worn</p>\n<p><strong>Effect</strong> Your hand becomes a tiger's claw, granting you an agile claw unarmed attack that inflicts 2d6 slashing damage, and you Strike with the claw. The additional damage die is not cumulative with additional damage dice from striking runes. Then the claw turns back to normal.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -40,16 +40,11 @@
                 "predicate": [
                     "terrain:outdoor-wilderness"
                 ],
-                "selector": "stealth",
-                "type": "item",
-                "value": 2
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "terrain:outdoor-wilderness"
+                "selector": [
+                    "perception",
+                    "stealth"
                 ],
-                "selector": "perception",
+                "type": "item",
                 "value": 2
             },
             {
@@ -59,6 +54,7 @@
                 "toggleable": true
             },
             {
+                "baseType": "claw",
                 "category": "unarmed",
                 "damage": {
                     "base": {
@@ -68,8 +64,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
                 "key": "Strike",
-                "label": "Tiger Claw (Ring of the Tiger)",
+                "label": "PF2E.Weapon.Base.claw",
                 "predicate": [
                     "tiger-strike-ring"
                 ],

@@ -9,21 +9,15 @@ $light-gray-color: #ababab;
 $dark-gray-color: #545454;
 
 /* Global */
-$primary-color: #5e0000 !default;
-$secondary-color: #171f69 !default; /* used for mini headers, alternate primary color */
-$tertiary-color: #e9d7a1 !default; /* compliments the primary color, usually used in combination */
+$primary-color: #5e0000;
+$secondary-color: #171f69; /* used for mini headers, alternate primary color */
+$tertiary-color: #e9d7a1; /* compliments the primary color, usually used in combination */
 
 $alt-color: #786452 !default; /* for all other uses */
-$alt-dark: #443730 !default;
-$background-color: #f8f4f1 !default;
-$background-dark: darken($background-color, 10);
-$sub-color: #605856 !default;
-
-/* Lighter / Darker */
-$light-color: lighten($primary-color, 10) !default;
-$dark-color: darken($primary-color, 10) !default;
-$tertiary-dark-color: darken($tertiary-color, 10) !default;
-$tertiary-light-color: lighten($tertiary-color, 10) !default;
+$alt-dark: #443730;
+$light-background-color: #f8f4f1;
+$less-light-background-color: darken($light-background-color, 10);
+$sub-color: #605856;
 
 /* Text */
 $text-dark-color: #1c1c1c !default;
@@ -33,14 +27,14 @@ $text-dark-color: #1c1c1c !default;
 /* ----------------------------------------- */
 
 /* Degrees of success */
-$degree-success-critical: rgb(0, 128, 0) !default;
-$degree-success: rgb(0, 0, 255) !default;
-$degree-failure: rgb(255, 69, 0) !default;
-$degree-failure-critical: rgb(255, 0, 0) !default;
+$degree-success-critical: rgb(0, 128, 0);
+$degree-success: rgb(0, 0, 255);
+$degree-failure: rgb(255, 69, 0);
+$degree-failure-critical: rgb(255, 0, 0);
 
 /* Value adjustments (e.g. weak/elite) */
-$adjusted-higher: #009988 !default;
-$adjusted-lower: #cc3311 !default;
+$adjusted-higher: #009988;
+$adjusted-lower: #cc3311;
 
 /* ----------------------------------------- */
 /* CSS Custom Properties                     */
@@ -49,19 +43,31 @@ $adjusted-lower: #cc3311 !default;
 :root {
     /* Global */
     --color-pf-primary: #{$primary-color};
-    --color-pf-primary-light: #{$light-color};
-    --color-pf-primary-dark: #{$dark-color};
+    --color-pf-primary-dark: #{darken($primary-color, 5)};
+    --color-pf-primary-darker: #{darken($primary-color, 10)};
+    --color-pf-primary-light: #{lighten($primary-color, 5)};
+    --color-pf-primary-lighter: #{lighten($primary-color, 10)};
+    --color-pf-alternate: #{$alt-color};
+    --color-pf-alternate-dark: #{$alt-dark};
+    --color-pf-alternate-darker: #{darken($alt-dark, 10)};
+    --color-pf-alternate-light: #{lighten($alt-color, 10)};
     --color-pf-secondary: #{$secondary-color};
-    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
     --color-pf-secondary-dark: #{darken($secondary-color, 10)};
+    --color-pf-secondary-light: #{lighten($secondary-color, 10)};
+    --color-pf-secondary-lighter: #{lighten($secondary-color, 20)};
+    --color-pf-tertiary: #{$tertiary-color};
+    --color-pf-tertiary-dark: #{darken($tertiary-color, 10)};
+    --color-pf-tertiary-darker: #{darken($tertiary-color, 20)};
+    --color-pf-tertiary-darkest: #{darken($tertiary-color, 51)};
+    --color-pf-tertiary-light: #{lighten($tertiary-color, 10)};
     --primary: var(--color-pf-primary);
     --secondary: var(--color-pf-secondary);
-    --tertiary: #{$tertiary-color};
+    --tertiary: var(--color-pf-tertiary);
 
-    --alt: #{$alt-color};
-    --alt-dark: #{$alt-dark};
-    --bg: #{$background-color};
-    --bg-dark: #{$background-dark};
+    --alt: var(--color-pf-alternate);
+    --alt-dark: var(--color-pf-alternate-dark);
+    --bg: #{$light-background-color};
+    --bg-dark: #{$less-light-background-color};
     --sub: #{$sub-color};
     --color-disabled: var(--color-text-dark-4);
 
@@ -73,15 +79,15 @@ $adjusted-lower: #cc3311 !default;
     --blind-roll: #f5eaf5;
 
     /* Lighter / Darker */
-    --light: #{$light-color};
-    --primary-dark: #{$dark-color};
-    --primary-darker: #{darken($dark-color, 5)};
-    --tertiary-dark: #{$tertiary-dark-color};
-    --tertiary-light: #{$tertiary-light-color};
+    --primary-dark: var(--color-pf-primary-dark);
+    --primary-darker: var(--color-pf-primary-darker);
+    --tertiary-dark: var(--color-pf-tertiary-dark);
+    --tertiary-light: var(--color-pf-tertiary-light);
 
     /* Text */
     --text-dark: var(--color-text-dark-primary);
     --text-light: #f5efe0;
+    --text-light-disabled: #a6a092;
     --color-text-dark-input: #333;
     --color-text-dark-improved: #006644;
 

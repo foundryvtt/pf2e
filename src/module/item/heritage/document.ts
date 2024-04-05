@@ -6,6 +6,10 @@ import { ErrorPF2e, sluggify } from "@util";
 import { HeritageSource, HeritageSystemData } from "./data.ts";
 
 class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    static override get validTraits(): Record<CreatureTrait, string> {
+        return CONFIG.PF2E.creatureTraits;
+    }
+
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
@@ -47,10 +51,9 @@ class HeritagePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         this.actor.rollOptions.all[`self:heritage:${slug}`] = true;
     }
 
-    override getRollOptions(prefix = this.type): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const ancestryOrVersatile = this.system.ancestry ? `ancestry:${this.system.ancestry.slug}` : "versatile";
-
-        return [...super.getRollOptions(prefix), `${prefix}:${ancestryOrVersatile}`];
+        return [...super.getRollOptions(prefix, options), `${prefix}:${ancestryOrVersatile}`];
     }
 }
 

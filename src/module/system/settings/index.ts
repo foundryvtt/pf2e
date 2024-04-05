@@ -4,7 +4,6 @@ import { ItemSheetPF2e, type ItemPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath } from "@util";
-import * as R from "remeda";
 import { AutomationSettings } from "./automation.ts";
 import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
@@ -123,7 +122,9 @@ export function registerSettings(): void {
         config: true,
         default: false,
         type: Boolean,
-        requiresReload: true,
+        onChange: (value) => {
+            game.pf2e.settings.critFumble.cards = !!value;
+        },
     });
 
     const iconChoices = {
@@ -253,33 +254,6 @@ export function registerSettings(): void {
     });
     WorldClockSettings.registerSettings();
 
-    game.settings.register("pf2e", "campaignType", {
-        name: "PF2E.SETTINGS.CampaignType.Name",
-        hint: "PF2E.SETTINGS.CampaignType.Hint",
-        scope: "world",
-        config: false, // 🤫
-        default: "none",
-        choices: R.mapToObj(["none", "kingmaker"], (key) => [key, `PF2E.SETTINGS.CampaignType.Choices.${key}`]),
-        type: String,
-        onChange: async () => {
-            await resetActors(game.actors.filter((a) => a.isOfType("party")));
-            ui.sidebar.render();
-        },
-    });
-
-    game.settings.register("pf2e", "campaignFeats", {
-        name: "PF2E.SETTINGS.CampaignFeats.Name",
-        hint: "PF2E.SETTINGS.CampaignFeats.Hint",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-        onChange: (value) => {
-            game.pf2e.settings.campaign.enabled = !!value;
-            resetActors(game.actors.filter((a) => a.isOfType("character")));
-        },
-    });
-
     // Secret for now until the user side is complete and a UI is built
     game.settings.register("pf2e", "campaignFeatSections", {
         name: "Campaign Feat Sections",
@@ -288,7 +262,9 @@ export function registerSettings(): void {
         default: [],
         type: Array,
         onChange: (value) => {
-            game.pf2e.settings.campaign.sections = Array.isArray(value) ? value : game.pf2e.settings.campaign.sections;
+            game.pf2e.settings.campaign.feats.sections = Array.isArray(value)
+                ? value
+                : game.pf2e.settings.campaign.feats.sections;
             resetActors(game.actors.filter((a) => a.isOfType("character")));
         },
     });
@@ -310,9 +286,14 @@ export function registerSettings(): void {
         default: false,
         type: Boolean,
         onChange: (value) => {
+            game.pf2e.settings.gmVision = !!value;
             const color = value ? CONFIG.PF2E.Canvas.darkness.gmVision : CONFIG.PF2E.Canvas.darkness.default;
             CONFIG.Canvas.darknessColor = color;
+            if (ui.controls && canvas.activeLayer) {
+                ui.controls.initialize({ layer: canvas.activeLayer.constructor.layerOptions.name });
+            }
             canvas.colorManager.initialize();
+            canvas.perception.update({ initializeVision: true }, true);
         },
     });
 

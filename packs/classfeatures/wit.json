@@ -26,16 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:bon-mot",
-                    "self:effect:panache"
-                ],
-                "selector": "diplomacy",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.dip.rank",
@@ -58,28 +48,20 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "action:bon-mot",
-                    {
-                        "not": "self:effect:panache"
-                    }
-                ],
-                "selector": "diplomacy",
-                "text": "PF2E.SpecificRule.Swashbuckler.Panache",
-                "title": "{item|name}"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success",
-                    "criticalSuccess"
-                ],
-                "predicate": [
                     "finisher",
                     "feature:exemplary-finisher"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.ExemplaryFinisher.Wit",
                 "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "grants-panache",
+                "predicate": [
+                    "action:bon-mot"
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {

@@ -1,6 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function makeAnImpression(options: SkillActionOptions): void {
+const PREFIX = "PF2E.Actions.MakeAnImpression";
+
+function makeAnImpression(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:make-an-impression"];
     const modifiers = options?.modifiers;
@@ -23,3 +26,21 @@ export function makeAnImpression(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    description: `${PREFIX}.Description`,
+    difficultyClass: "will",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:make-an-impression"],
+    section: "skill",
+    slug: "make-an-impression",
+    statistic: "diplomacy",
+    traits: ["auditory", "concentrate", "exploration", "linguistic", "mental"],
+});
+
+export { makeAnImpression as legacy, action };

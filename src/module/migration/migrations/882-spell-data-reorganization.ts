@@ -154,6 +154,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
             tupleHasValue(SAVE_TYPES, system.save.value)
         ) {
             system.defense = {
+                passive: null,
                 save: { statistic: system.save.value, basic: !!system.save.basic },
             };
         }

@@ -7,7 +7,7 @@
         "bulk": {
             "value": 0
         },
-        "containerId": "null",
+        "containerId": null,
         "description": {
             "value": "<p>Obtained from @UUID[Compendium.pf2e.feats-srd.Item.Lucky Keepsake]</p>"
         },
@@ -36,16 +36,8 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "arcane",
-                            "divine",
-                            "primal",
-                            "occult",
-                            "magic",
-                            "spell"
-                        ]
-                    }
+                    "feat:lucky-keepsake",
+                    "item:magical"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -60,7 +52,7 @@
             ]
         },
         "usage": {
-            "value": "held-in-one-hand"
+            "value": "carried"
         }
     },
     "type": "equipment"

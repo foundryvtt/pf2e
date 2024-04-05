@@ -35,8 +35,8 @@ function createHTMLElement<K extends keyof HTMLElementTagNameMap>(
     const element = document.createElement(nodeName);
     if (classes.length > 0) element.classList.add(...classes);
 
-    for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v))) {
-        element.dataset[key] = String(value);
+    for (const [key, value] of Object.entries(dataset).filter(([, v]) => !R.isNil(v) && v !== false)) {
+        element.dataset[key] = value === true ? "" : String(value);
     }
 
     if (innerHTML) {

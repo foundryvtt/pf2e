@@ -40,8 +40,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         this.appearance = params.appearance;
         this.radius = params.radius;
         this.radiusPixels =
-            0.5 * this.token.mechanicalBounds.width +
-            (this.radius / (canvas.dimensions?.distance ?? 0)) * canvas.grid.size;
+            0.5 * this.token.mechanicalBounds.width + (this.radius / canvas.dimensions.distance) * canvas.grid.size;
         this.traits = params.traits;
         this.addChild(this.border);
     }
@@ -169,7 +168,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
     /** Add a numeric label and marker dot indicating the emanation radius */
     #drawLabel(): void {
         const style = CONFIG.canvasTextStyle.clone();
-        const gridSize = canvas.dimensions?.size ?? 100;
+        const gridSize = canvas.dimensions.size ?? 100;
         style.fontSize = Math.max(Math.round(gridSize * 0.36 * 12) / 12, 36);
         style.align = "center";
 

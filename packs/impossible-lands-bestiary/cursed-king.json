@@ -92,45 +92,10 @@
             "type": "melee"
         },
         {
-            "_id": "DKpbCUxUfwo9Ee7O",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "kQRYLLy5FQP0r7YN",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Deadly Pursuit",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -160,7 +125,7 @@
             "_id": "fUkXWkQ67PMtMhrU",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "False Authority",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -170,7 +135,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>When a creature enters or ends its turn within the cursed king's aura, it must attempt a @Check[type:will|dc:26] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. If it critically fails, it's cowed into submission; in addition to becoming frightened 2, it must use its first action on its turn to kneel or flee from the cursed king. A creature who succeeds at its saving throw becomes immune to the king's false authority for 24 hours.</p>"
+                    "value": "<p>30 feet. When a creature enters or ends its turn within the cursed king's aura, it must attempt a @Check[type:will|dc:26] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}. If it critically fails, it's cowed into submission; in addition to becoming frightened 2, it must use its first action on its turn to kneel or flee from the cursed king. A creature who succeeds at its saving throw becomes immune to the king's false authority for 24 hours.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -206,7 +171,7 @@
             "_id": "QNFAJ7JlgnNbGGWf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Usurper's Curse",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -244,7 +209,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -281,7 +246,7 @@
             "_id": "MgHEQlKl76Fh28UE",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Berserk",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -304,6 +269,22 @@
                         "key": "RollOption",
                         "option": "berserk",
                         "toggleable": true
+                    },
+                    {
+                        "add": [
+                            "mindless"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "berserk"
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "berserk"
+                        ],
+                        "type": "mental"
                     },
                     {
                         "definition": [
@@ -330,7 +311,7 @@
             "_id": "T67rfyPzxmU6ckF4",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Usurper's Curse",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -340,7 +321,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Check[type:will|dc:30] saving throw. On a failure, the creature who killed the cursed king becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}. On a critical failure, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}. As long as that creature remains cursed, it can't remove or decrease the value of the stupefied condition in any way. Afflicted creatures must attempt the saving throw again every 24 hours, increasing the stupefied condition by 1 on a failure or 2 on a critical failure. If the condition ever increases past @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}, they transform, body and mind, into the same animal as the cursed king's head, similar to the critical failure effect of <em>@UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis]</em>.</p>"
+                    "value": "<p>@Check[type:will|dc:30] saving throw. On a failure, the creature who killed the cursed king becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}. On a critical failure, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}. As long as that creature remains cursed, it can't remove or decrease the value of the stupefied condition in any way. Afflicted creatures must attempt the saving throw again every 24 hours, increasing the stupefied condition by 1 on a failure or 2 on a critical failure. If the condition ever increases past @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4}, they transform, body and mind, into the same animal as the cursed king's head, similar to the critical failure effect of @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -368,7 +349,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -398,7 +379,7 @@
             "_id": "bYdKXs0ffJvw6wRu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -423,7 +404,7 @@
             "_id": "Hbfy3sGrBmCAUV7C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -448,7 +429,7 @@
             "_id": "vsvXXmBCeQXDfD5z",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -523,12 +504,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 20
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -542,6 +517,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "plus any two ancient languages (can't speak)",
+                "value": [
+                    "necril"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -552,6 +533,18 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Impossible Lands"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 20,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -569,17 +562,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Plus Any Two Ancient Languages (Can't Speak)",
-                "selected": [],
-                "value": [
-                    "necril"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

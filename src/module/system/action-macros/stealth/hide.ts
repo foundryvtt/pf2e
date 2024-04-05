@@ -32,6 +32,7 @@ const action = new SingleCheckAction({
     name: `${PREFIX}.Title`,
     notes: [{ outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` }],
     rollOptions: ["action:hide"],
+    section: "skill",
     slug: "hide",
     statistic: "stealth",
     traits: ["secret"],

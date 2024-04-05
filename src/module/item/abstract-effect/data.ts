@@ -1,10 +1,11 @@
-import { AttributeString } from "@actor/types.ts";
-import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
-import { MagicTradition, SpellTrait } from "@item/spell/index.ts";
+import type { AttributeString } from "@actor/types.ts";
+import type { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
+import type { MagicTradition } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
+import type { EffectTrait } from "./types.ts";
 
 interface AbstractEffectSystemSource extends ItemSystemSource {
+    traits: EffectTraits;
     /** Whether this effect originated from a spell */
     fromSpell?: boolean;
     expired?: boolean;
@@ -29,6 +30,7 @@ interface EffectBadgeCounterSource extends EffectBadgeBaseSource {
     min?: number;
     max?: number;
     value: number;
+    loop?: boolean;
 }
 
 interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
@@ -38,13 +40,18 @@ interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
 
 interface EffectTraits extends ItemTraitsNoRarity<EffectTrait> {}
 
-type EffectTrait = ActionTrait | SpellTrait;
-
 /** A static value, including the result of a formula badge */
 interface EffectBadgeValueSource extends EffectBadgeBaseSource {
     type: "value";
     value: number;
-    reevaluate?: { formula: string; event: "turn-start" | "turn-end" } | null;
+    reevaluate?: {
+        /** The type of event that reevaluation should occur */
+        event: BadgeReevaluationEventType;
+        /** The formula of this badge when it was of a "formula" type */
+        formula: string;
+        /** The initial value of this badge */
+        initial?: number;
+    } | null;
 }
 
 interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
@@ -56,8 +63,10 @@ interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     type: "formula";
     value: string;
     evaluate?: boolean;
-    reevaluate?: "turn-start" | "turn-end" | null;
+    reevaluate?: BadgeReevaluationEventType | null;
 }
+
+type BadgeReevaluationEventType = "initiative-roll" | "turn-start" | "turn-end";
 
 interface EffectBadgeFormula extends EffectBadgeFormulaSource, EffectBadgeBase {}
 
@@ -67,6 +76,7 @@ interface EffectContextData {
         token: TokenDocumentUUID | null;
         item: ItemUUID | null;
         spellcasting: EffectContextSpellcastingData | null;
+        rollOptions?: string[];
     };
     target: {
         actor: ActorUUID;
@@ -101,6 +111,7 @@ interface DurationData {
 export type {
     AbstractEffectSystemData,
     AbstractEffectSystemSource,
+    BadgeReevaluationEventType,
     DurationData,
     EffectAuraData,
     EffectBadge,
@@ -110,7 +121,6 @@ export type {
     EffectBadgeValueSource,
     EffectContextData,
     EffectExpiryType,
-    EffectTrait,
     EffectTraits,
     TimeUnit,
 };

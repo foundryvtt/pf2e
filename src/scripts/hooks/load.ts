@@ -23,6 +23,7 @@ import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
+import * as R from "remeda";
 
 /** Not an actual hook listener but rather things to run on initial load */
 export const Load = {
@@ -122,12 +123,11 @@ export const Load = {
         // HMR for template files
         if (import.meta.hot) {
             import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
-                const response = await fetch(path);
-                if (!response.ok) {
+                const lang = await fu.fetchJsonWithTimeout(path);
+                if (!R.isObject(lang)) {
                     ui.notifications.error(`Failed to load ${path}`);
                     return;
                 }
-                const lang = await response.json();
                 const apply = (): void => {
                     fu.mergeObject(game.i18n.translations, lang);
                     rerenderApps(path);

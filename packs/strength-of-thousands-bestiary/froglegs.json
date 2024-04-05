@@ -114,14 +114,14 @@
                     "value": 1
                 },
                 "category": "simple",
-                "containerId": "null",
+                "containerId": null,
                 "damage": {
                     "damageType": "bludgeoning",
                     "dice": 1,
                     "die": "d6"
                 },
                 "description": {
-                    "value": "<p>Long associated with a notorious crime boss in Nantambu, this stout <em>+1 striking fearsome club</em> is studded with vicious-looking knobs of obsidian and wrapped in cloth for a better grip. It emits a ghastly groan when swung.</p>\n<hr />\n<p><strong>Activate</strong> 2 Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gesture at a square within 40 feet with <em>Habu's Cudgel</em>. The club causes a frightful wail to unleash from that square and casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Fear]</em> (@Check[type:will|dc:24|name:Habu's Cudgel Fear|traits:enchantment,evocation,emotion,fear,mental,unique]) targeting the creature in that square and all adjacent creatures.</p>"
+                    "value": "<p>Long associated with a notorious crime boss in Nantambu, this stout <em>+1 striking fearsome club</em> is studded with vicious-looking knobs of obsidian and wrapped in cloth for a better grip. It emits a ghastly groan when swung.</p>\n<hr />\n<p><strong>Activate</strong> 2 Interact</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gesture at a square within 40 feet with <em>Habu's Cudgel</em>. The club causes a frightful wail to unleash from that square and casts @UUID[Compendium.pf2e.spells-srd.Item.Fear] (@Check[type:will|dc:24|name:Habu's Cudgel Fear|traits:enchantment,evocation,emotion,fear,mental,unique]) targeting the creature in that square and all adjacent creatures.</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -354,9 +354,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "knife-fighter"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -365,10 +363,6 @@
                     "kt9KXbrhMNcXizsC": {
                         "damage": "1d4+5",
                         "damageType": "piercing"
-                    },
-                    "2q7o6td5omupa8bne8yk": {
-                        "category": "precision",
-                        "damage": "2d6"
                     }
                 },
                 "description": {
@@ -385,7 +379,6 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "deadly-d10",
                         "finesse",
                         "magical",
                         "versatile-s"
@@ -462,9 +455,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "knife-fighter"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 20
@@ -473,10 +464,6 @@
                     "ddXEC3I0CMGl2mZ2": {
                         "damage": "1d4+5",
                         "damageType": "piercing"
-                    },
-                    "rqtyi19041sn94e0dh4a": {
-                        "category": "precision",
-                        "damage": "2d6"
                     }
                 },
                 "description": {
@@ -493,7 +480,6 @@
                     "rarity": "common",
                     "value": [
                         "agile",
-                        "deadly-d10",
                         "magical",
                         "thrown-10",
                         "versatile-s"
@@ -506,45 +492,10 @@
             "type": "melee"
         },
         {
-            "_id": "lz8EA3uTJHYhVIVO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 800000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "nx6o3fq3j6fbhrg0",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deny Advantage",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -581,7 +532,7 @@
             "_id": "0i9tcejt8z7afpmy",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Knife Fighter",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -598,7 +549,27 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "item:group:knife"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "definition": [
+                            "item:group:knife"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "deadly-d10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -611,7 +582,7 @@
             "_id": "52bhk2coj5xq2hd8",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Roll and Snatch",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -621,7 +592,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Froglegs successfully Tumbles Through an enemy's space</p>\n<hr />\n<p><strong>Effect</strong> Froglegs attempts to @UUID[Compendium.pf2e.action-macros.Macro.Disarm: Athletics] or @UUID[Compendium.pf2e.action-macros.Macro.Trip: Athletics] the enemy. She can use her tongue for this attempt and does not need to have a free hand.</p>"
+                    "value": "<p><strong>Trigger</strong> Froglegs successfully @UUID[Compendium.pf2e.actionspf2e.Item.Tumble Through]{Tumbles Through} an enemy's space</p>\n<hr />\n<p><strong>Effect</strong> Froglegs attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] the enemy. She can use her tongue for this attempt and does not need to have a free hand.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -641,7 +612,7 @@
             "_id": "b37tnfzrbfh3urrz",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Twin Slash",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -673,7 +644,7 @@
             "_id": "7xinoeeuuegyy1vt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -698,7 +669,7 @@
             "_id": "at267kbhsk7ful4e",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -723,7 +694,7 @@
             "_id": "qos8i94blgmts5st",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -748,7 +719,7 @@
             "_id": "zgpcb3yns1cla7gx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -773,7 +744,7 @@
             "_id": "e7fg4cuavlz79yda",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -798,7 +769,7 @@
             "_id": "d6up22q9t4pr323c",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -840,7 +811,7 @@
             "_id": "p030po30lvvwf8fy",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -904,12 +875,6 @@
                 "temp": 0,
                 "value": 135
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -922,6 +887,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "elven",
+                    "grippli",
+                    "iruxi"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -932,6 +906,18 @@
                 "remaster": false,
                 "title": "Pathfinder #170: Spoken on the Song Wind"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -949,20 +935,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "elven",
-                    "grippli",
-                    "iruxi"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

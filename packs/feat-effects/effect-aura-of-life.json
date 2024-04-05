@@ -4,7 +4,7 @@
     "name": "Effect: Aura of Life",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Life]</p>\n<p>Your allies within 15 feet gain a +1 status bonus to saves against necromancy effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Life]</p>\n<p>You gain resistance 5 to void energy and a +1 status bonus to saves against necromancy effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,7 +23,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [],
+                "predicate": [
+                    "necromancy"
+                ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1

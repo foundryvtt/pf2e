@@ -43,7 +43,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
         if (source.system.slug === "lay-on-hands") {
             source.system.overlays ??= {
                 a33QUFoKgoOprovO: {
-                    _id: "a33QUFoKgoOprovO",
                     name: "Lay on Hands (Vs. Undead)",
                     overlayType: "override",
                     sort: 2,
@@ -58,12 +57,11 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                                 type: "vitality",
                             },
                         },
-                        defense: { save: { basic: true, statistic: "fortitude" } },
+                        defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
                         heightening: { damage: { "37YW4ZGhxx7Y2mdI": "1d6" }, interval: 1, type: "interval" },
                     },
                 },
                 uLuOg62dVyxvbW66: {
-                    _id: "uLuOg62dVyxvbW66",
                     name: "Lay on Hands (Healing)",
                     overlayType: "override",
                     sort: 1,
@@ -85,7 +83,6 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
         } else {
             source.system.overlays ??= {
                 "2a6Vm4mIjBgrzlO2": {
-                    _id: "2a6Vm4mIjBgrzlO2",
                     name: "Touch of Corruption (Vs. Living)",
                     overlayType: "override",
                     sort: 2,
@@ -100,12 +97,11 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
                                 type: "void",
                             },
                         },
-                        defense: { save: { basic: true, statistic: "fortitude" } },
+                        defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
                         heightening: { damage: { Esn7klJ9WRsIFnrE: "1d6" }, interval: 1, type: "interval" },
                     },
                 },
                 gHIOzknAtexc6GUE: {
-                    _id: "gHIOzknAtexc6GUE",
                     name: "Touch of Corruption (Healing)",
                     overlayType: "override",
                     sort: 1,

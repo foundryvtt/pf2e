@@ -49,45 +49,10 @@
             "type": "melee"
         },
         {
-            "_id": "9bMQUXIt8V0ivYCg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "MPJFQqOrPfQloQLr",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Death Throes",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -121,7 +86,7 @@
             "_id": "jISdvlh9f3wIBxZ8",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Freezing Blood",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -153,7 +118,7 @@
             "_id": "GFW3IASGrcBSyETb",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Worm Chill",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -163,7 +128,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:5]{5 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters or begins its turn in the emanation takes @Damage[3d6[cold]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
+                    "value": "<p>5 feet. A creature that enters or begins its turn in the emanation takes @Damage[3d6[cold]] damage (@Check[type:reflex|dc:29|basic:true] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -197,7 +162,7 @@
             "_id": "BdPJLN1AK4im8nIu",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -230,7 +195,7 @@
             "_id": "KtIqgI2Oe8cbrguF",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Worm Trill",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -265,7 +230,7 @@
             "_id": "UHBwT9OkIzBLCG1V",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -290,7 +255,7 @@
             "_id": "0DWjvOoTNOT0cP4O",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -374,12 +339,6 @@
                     "type": "cold"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 22
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -398,6 +357,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 12
             },
@@ -408,6 +371,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 2"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -425,18 +400,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "huge"
             },

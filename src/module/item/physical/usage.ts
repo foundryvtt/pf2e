@@ -14,6 +14,13 @@ interface WornUsage {
     hands?: 0;
 }
 
+interface AttachedUsage {
+    value: string;
+    type: "attached";
+    where: string;
+    hands?: 0;
+}
+
 interface CarriedUsage {
     value: "carried";
     type: "carried";
@@ -21,7 +28,7 @@ interface CarriedUsage {
     hands?: 0;
 }
 
-type UsageDetails = HeldUsage | WornUsage | CarriedUsage;
+type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage;
 
 type UsageType = UsageDetails["type"];
 
@@ -55,43 +62,26 @@ function getUsageDetails(usage: string): UsageDetails {
         case "worn":
             return { value: usage, type: "worn" };
 
-        case "wornarmor":
-        case "wornamulet":
-        case "wornanklets":
-        case "wornarmbands":
-        case "wornbackpack":
-        case "wornbarding":
-        case "wornbelt":
-        case "wornbeltpouch":
-        case "wornbracers":
-        case "wornbracelet":
-        case "worncloak":
-        case "worncirclet":
-        case "wornclothing":
-        case "worncollar":
-        case "worncrown":
-        case "wornepaulet":
-        case "worneyepiece":
-        case "wornfootwear":
-        case "worngarment":
-        case "worngloves":
-        case "wornheadwear":
-        case "wornmask":
-        case "wornnecklace":
-        case "wornonbelt":
-        case "wornring":
-        case "wornshoes":
-        case "wornhorseshoes":
-        case "wornsaddle":
-        case "wornwrist":
-            return { value: usage, type: "worn", where: usage.substring(4) };
-    }
+        case "attached-to-a-thrown-weapon":
+        case "attached-to-crossbow-or-firearm":
+        case "attached-to-crossbow-or-firearm-firing-mechanism":
+        case "attached-to-crossbow-or-firearm-scope":
+        case "attached-to-firearm":
+        case "attached-to-firearm-scope":
+        case "attached-to-ships-bow":
+            return { value: usage, type: "attached", where: usage.replace(/^attached-to-/, "") };
 
-    if (BUILD_MODE === "development" && !(usage in CONFIG.PF2E.usages)) {
-        console.warn(`PF2E System | Unknown usage: [${usage}]`);
-    }
+        default:
+            if (usage.startsWith("worn") && usage.length > 4) {
+                return { value: usage, type: "worn", where: usage.substring(4) };
+            }
 
-    return { value: usage, type: "worn" };
+            if (BUILD_MODE === "development" && !(usage in CONFIG.PF2E.usages)) {
+                console.warn(`PF2E System | Unknown usage: [${usage}]`);
+            }
+
+            return { value: usage, type: "worn" };
+    }
 }
 
 export { getUsageDetails, isEquipped };

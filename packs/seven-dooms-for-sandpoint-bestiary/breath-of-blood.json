@@ -1,0 +1,98 @@
+{
+    "_id": "kSQZHMhYyK1seaU0",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "zgELFho6zK0oOi9X",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Vent Toxins",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the room beyond the northern stairs</p>\n<hr />\n<p><strong>Effect</strong> The blood on the floor bubbles vigorously, and as the bubbles burst, waves of toxic gas vent up around the triggering creature. The creature must attempt a @Check[type:fortitude|dc:30] save unless they are holding their breath or don't need to breathe; the hazard then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} by the foul smelling gas.</p>\n<p><strong>Failure</strong> As success, but the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} by the poison gas.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine",
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Breath of Blood",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 19
+            }
+        },
+        "details": {
+            "description": "<p>A churning pool of blood bubbles and seethes, periodically venting noxious vapors into the air.</p>",
+            "disable": "<p>Three @Check[type:nature|dc:33] or @Check[type:occultism|dc:33] checks to draw from the blood its magical nature, causing it to clot and become inert, a @Check[type:religion|dc:36] check to offer prayers to sever the sacred link to Kabriri, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (6th rank; counteract DC 29) to render the hazard inert for 10 minutes</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>The hazard settles back down 1 round after all creatures leave the room and can trigger again at the start of the next round.</p>",
+            "routine": "<p>(2 actions) The bubbles furiously sputter and burst on the hazard's first action, filling the air with toxic vapor that inflicts @Damage[6d6[poison]] damage (@Check[type:fortitude|dc:30|basic:true] save) to all creatures in area <strong>J3b</strong>. A creature that's holding its breath gains a +4 circumstance bonus to this save. On the hazard's second action, the bubbles Vent Toxins at a random target in area <strong>J3b</strong>.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -21,6 +21,7 @@ import {
 class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     constructor(source: FlatModifierSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
 
         if (!this.item.isOfType("physical") && this.type !== "item") {
             this.fromEquipment = false;
@@ -63,12 +64,13 @@ class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
     }
 
     static override defineSchema(): FlatModifierSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         return {
             ...super.defineSchema(),
             selector: new fields.ArrayField(
                 new fields.StringField({ required: true, blank: false, initial: undefined }),
+                { required: true, initial: undefined },
             ),
             type: new fields.StringField({
                 required: true,
@@ -195,7 +197,7 @@ interface FlatModifierRuleElement
 
 type FlatModifierSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
-    selector: ArrayField<StringField<string, string, true, false, false>>;
+    selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, false>;
     /** The modifier (or bonus/penalty) type */
     type: StringField<ModifierType, ModifierType, true, false, true>;
     /** If this is an ability modifier, the ability score it modifies */
@@ -229,16 +231,17 @@ type FlatModifierSchema = RuleElementSchema & {
 };
 
 interface FlatModifierSource extends RuleElementSource {
-    selector?: unknown;
-    min?: unknown;
-    max?: unknown;
-    type?: unknown;
-    ability?: unknown;
-    force?: unknown;
-    damageType?: unknown;
-    damageCategory?: unknown;
-    critical?: unknown;
-    hideIfDisabled?: unknown;
+    selector?: JSONValue;
+    min?: JSONValue;
+    max?: JSONValue;
+    type?: JSONValue;
+    value?: JSONValue;
+    ability?: JSONValue;
+    force?: JSONValue;
+    damageType?: JSONValue;
+    damageCategory?: JSONValue;
+    critical?: JSONValue;
+    hideIfDisabled?: JSONValue;
 }
 
 export { FlatModifierRuleElement, type FlatModifierSource };

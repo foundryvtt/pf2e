@@ -3,41 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "mkyL2XEjLtIYfouh",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "Ex5yHfzWuSr3A8gb",
             "flags": {
                 "core": {
@@ -46,7 +11,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 100 Feet",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -76,7 +41,7 @@
             "_id": "3nQLuVJ2xHBDVkCR",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Relentless",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -105,7 +70,7 @@
             "_id": "wNFBrpIq9yvvl83f",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Shake It Off",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -115,7 +80,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The larval cave worm brood would be affected by a condition or adverse effect (such as <em>@UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis]</em>)</p>\n<hr />\n<p><strong>Effect</strong> The larval brood negates the triggering condition or effect. Effects from artifacts, deities, or a similarly powerful source can't be avoided in this way.</p>"
+                    "value": "<p><strong>Trigger</strong> The larval cave worm brood would be affected by a condition or adverse effect (such as @UUID[Compendium.pf2e.spells-srd.Item.Cursed Metamorphosis])</p>\n<hr />\n<p><strong>Effect</strong> The larval brood negates the triggering condition or effect. Effects from artifacts, deities, or a similarly powerful source can't be avoided in this way.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -143,7 +108,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -180,7 +145,7 @@
             "_id": "lxFsuBddBdPdpzMU",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Ferocious Gnaw",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -209,7 +174,7 @@
             "_id": "ISjzu3eyR9nLGaKb",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pummeling Thrash",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -240,7 +205,7 @@
             "_id": "qGaDXEHqr954uWHr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -308,12 +273,6 @@
                     "type": "swarm-mind"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 14
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -367,6 +326,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 10
             },
@@ -377,6 +340,23 @@
                 "remaster": false,
                 "title": "Pathfinder #195: Heavy is the Crown"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -394,14 +374,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 100 feet"
-            },
             "size": {
                 "value": "huge"
             },

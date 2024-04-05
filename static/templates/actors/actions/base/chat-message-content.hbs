@@ -1,15 +1,24 @@
 <h4 class="action">
+    <strong>{{localize name}}</strong>
     {{#if glyph}}
         <span class="pf2-icon larger">{{glyph}}</span>
     {{/if}}
-    <strong>{{localize name}}</strong>
 </h4>
+<hr>
 <div class="tags" data-tooltip-class="pf2e">
     {{#each traits as |trait|}}
         <span class="tag" data-slug="{{trait.slug}}" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
     {{/each}}
 </div>
 {{#if description}}
-    <hr>
     {{{localize description}}}
+{{/if}}
+{{#if sampleTasks}}
+    <hr>
+    <section class="sample-tasks">
+        <h4><strong>{{localize "PF2E.ActionsSampleTasks.Title" action=(localize name)}}</strong></h4>
+        {{#each sampleTasks as |task|}}
+            <p><strong>{{localize task.label}}</strong> {{localize task.text}}</p>
+        {{/each}}
+    </section>
 {{/if}}

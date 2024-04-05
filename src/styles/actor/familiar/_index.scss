@@ -9,6 +9,7 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+        padding: 4px 6px 0;
 
         & > hr {
             width: 100%;
@@ -37,10 +38,9 @@
         }
     }
 
-    .familiar-sheet-header {
+    header {
         display: flex;
         flex-direction: row;
-        padding: 4px 6px 0;
 
         .image-container {
             display: flex;
@@ -207,7 +207,7 @@
                         justify-content: space-between;
                         gap: 12px;
 
-                        .save-name,
+                        .save,
                         .ac {
                             display: flex;
                             flex-direction: column;
@@ -221,15 +221,16 @@
 
                             .value {
                                 font-style: normal;
+
                                 i {
-                                    margin-right: 2px;
+                                    margin-right: var(--space-2);
                                 }
                             }
                         }
 
                         .ac {
                             border-right: 1px solid rgba(0, 0, 0, 0.15);
-                            padding-right: 12px;
+                            padding-right: var(--space-12);
                         }
                     }
                 }
@@ -237,19 +238,16 @@
 
             .dying-section {
                 display: flex;
-                gap: 10px;
+                gap: var(--space-10);
                 justify-content: end;
+
                 .name {
                     font-weight: bold;
                 }
-                .dots {
-                    display: flex;
-                    gap: 4px;
-                    align-items: baseline;
-                }
+
                 .pips {
                     display: flex;
-                    gap: 1px;
+                    gap: var(--space-1);
                 }
             }
         }
@@ -269,6 +267,7 @@
 
     .section-container {
         margin: 6px 6px;
+
         .section-body {
             align-items: stretch;
             flex-direction: column;
@@ -305,7 +304,7 @@
             flex-wrap: nowrap;
             margin-top: 3px;
 
-            .detail-label {
+            label {
                 font-size: var(--font-size-10);
                 font-weight: 800;
                 line-height: 1;
@@ -331,6 +330,7 @@
             flex-direction: row;
             margin-bottom: 5px;
             column-gap: 15px;
+
             input {
                 border: none;
                 border-radius: 0;
@@ -388,6 +388,11 @@
         }
     }
 
+    .skills-sidebar-placeholder {
+        visibility: hidden;
+        width: 172px;
+    }
+
     .skills-content {
         display: flex;
         flex-direction: column;
@@ -401,16 +406,15 @@
             flex-direction: column;
             justify-content: center;
 
-            .skill-name {
+            a {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 border: 1px solid #999;
                 border-radius: 3px;
-                height: 20px;
+                height: var(--font-size-20);
                 cursor: pointer;
                 font-size: var(--font-size-14);
-
                 font-family: var(--serif);
 
                 &:hover {
@@ -418,16 +422,16 @@
                     border: 1px solid #323232;
                 }
 
-                .name {
-                    flex: 4;
-                }
-
-                .score {
+                .mod {
                     flex: 1;
                     text-align: center;
                     padding-left: 1em;
                     color: var(--primary);
                     font-weight: bold;
+                }
+
+                .name {
+                    flex: 4;
                 }
             }
         }

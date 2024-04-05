@@ -1,0 +1,60 @@
+{
+    "_id": "IAwtIy6VVel7NexY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Effect: Ghost Strike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Ghost Strike]</p>\n<p>The weapon gains the effects of the ghost touch property rune. At 10th level, you can apply this effect to two weapons instead of one.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #163: Ruins of Gauntlight"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "effectGhostStrike",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.effectGhostStrike}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -26,99 +26,18 @@
         },
         "rules": [
             {
-                "disabledIf": [
-                    {
-                        "not": "self:effect:panache"
-                    }
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.swashbuckler.preciseStrike",
+                "predicate": [
+                    "class:swashbuckler"
                 ],
-                "disabledValue": false,
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
-                "option": "finisher",
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Basic",
-                        "value": "basic"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Bleeding",
-                        "predicate": [
-                            "feat:bleeding-finisher"
-                        ],
-                        "value": "bleeding"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
-                        "predicate": [
-                            "feature:confident-finisher"
-                        ],
-                        "value": "confident"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Dual",
-                        "predicate": [
-                            "feat:dual-finisher"
-                        ],
-                        "value": "dual"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Impaling",
-                        "predicate": [
-                            "feat:impaling-finisher"
-                        ],
-                        "value": "impaling"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Lethal",
-                        "predicate": [
-                            "feat:lethal-finisher"
-                        ],
-                        "value": "lethal"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Mobile",
-                        "predicate": [
-                            "feat:mobile-finisher"
-                        ],
-                        "value": "mobile"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Perfect",
-                        "predicate": [
-                            "feat:perfect-finisher"
-                        ],
-                        "value": "perfect"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Stunning",
-                        "predicate": [
-                            "feat:stunning-finisher"
-                        ],
-                        "value": "stunning"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Targeting",
-                        "predicate": [
-                            "feat:targeting-finisher"
-                        ],
-                        "value": "targeting"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Unbalancing",
-                        "predicate": [
-                            "feat:unbalancing-finisher"
-                        ],
-                        "value": "unbalancing"
-                    }
-                ],
-                "toggleable": true
+                "value": "ceil(@actor.level/4) + 1"
             },
             {
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    "class:swashbuckler",
                     "self:effect:panache",
                     {
                         "or": [
@@ -144,40 +63,14 @@
                 ],
                 "selector": "strike-damage",
                 "slug": "precise-strike",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": 2
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": 3
-                        },
-                        {
-                            "end": 12,
-                            "start": 9,
-                            "value": 4
-                        },
-                        {
-                            "end": 16,
-                            "start": 13,
-                            "value": 5
-                        },
-                        {
-                            "start": 17,
-                            "value": 6
-                        }
-                    ]
-                }
+                "value": "@actor.flags.pf2e.swashbuckler.preciseStrike"
             },
             {
                 "category": "precision",
+                "diceNumber": "@actor.flags.pf2e.swashbuckler.preciseStrike",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "class:swashbuckler",
                     "self:effect:panache",
                     "finisher",
                     {
@@ -200,44 +93,7 @@
                     }
                 ],
                 "selector": "strike-damage",
-                "slug": "finisher",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "end": 12,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "end": 16,
-                            "start": 13,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        },
-                        {
-                            "start": 17,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        }
-                    ]
-                }
+                "slug": "finisher"
             }
         ],
         "traits": {

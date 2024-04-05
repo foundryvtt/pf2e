@@ -1,9 +1,9 @@
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { recursiveReplaceString } from "@util";
+import * as R from "remeda";
 import type { JournalEntrySource } from "types/foundry/common/documents/journal-entry.d.ts";
 import { MigrationBase } from "../base.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { isObject } from "remeda";
 
 /** Rename all uses and mentions of "flat-footed" to "off-guard"  */
 export class Migration850FlatFootedToOffGuard extends MigrationBase {
@@ -49,7 +49,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
 
         if (
             "attributes" in source.system &&
-            isObject(source.system.attributes) &&
+            R.isObject(source.system.attributes) &&
             "immunities" in source.system.attributes
         ) {
             source.system.attributes.immunities = recursiveReplaceString(source.system.attributes.immunities, (s) =>

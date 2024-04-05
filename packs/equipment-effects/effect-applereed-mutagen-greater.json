@@ -4,7 +4,7 @@
     "name": "Effect: Applereed Mutagen (Greater)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Applereed Mutagen (Greater)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Athletics checks</li>\n<li>+20 foot status bonus to Speed</li>\n<li>You grow one size category larger</li>\n<li>-1 penalty to AC</li>\n<li>-2 to penalty Reflex saves</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Applereed Mutagen (Greater)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+4 item bonus to Athletics checks</li>\n<li>+20 foot status bonus to Speed</li>\n<li>You grow one size category larger</li>\n<li>-1 penalty to AC</li>\n<li>-2 penalty to Reflex saves</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -39,7 +39,13 @@
             },
             {
                 "key": "CreatureSize",
-                "value": "large"
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "status",
+                "value": 20
             }
         ],
         "start": {

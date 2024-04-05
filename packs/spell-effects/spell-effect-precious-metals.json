@@ -1,0 +1,154 @@
+{
+    "_id": "vf2KJ4oGJY4efnKE",
+    "img": "systems/pf2e/icons/spells/precious-metals.webp",
+    "name": "Spell Effect: Precious Metals",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Precious Metals]</p>\n<p>Your deity blesses base metals to transform them into precious materials.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.PreciousMaterialAdamantine",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    8
+                                ]
+                            }
+                        ],
+                        "value": "adamantine"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialColdIron",
+                        "value": "cold-iron"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectPreciousMetals.Copper",
+                        "value": "copper"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialDawnsilver",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    8
+                                ]
+                            }
+                        ],
+                        "value": "dawnsilver"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectPreciousMetals.Gold",
+                        "value": "gold"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectPreciousMetals.Iron",
+                        "value": "iron"
+                    },
+                    {
+                        "label": "PF2E.PreciousMaterialSilver",
+                        "value": "silver"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectPreciousMetals.Steel",
+                        "value": "steel"
+                    }
+                ],
+                "flag": "material",
+                "key": "ChoiceSet",
+                "rollOption": "precious-metals:material"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "armor",
+                        "shield",
+                        "weapon"
+                    ]
+                },
+                "flag": "item",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Item"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "precious-metals:material:adamantine",
+                            "precious-metals:material:cold-iron",
+                            "precious-metals:material:dawnsilver",
+                            "precious-metals:material:silver"
+                        ]
+                    }
+                ],
+                "property": "material-type",
+                "value": "{item|flags.pf2e.rulesSelections.material}"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "or": [
+                            "precious-metals:material:copper",
+                            "precious-metals:material:gold",
+                            "precious-metals:material:silver"
+                        ]
+                    }
+                ],
+                "property": "hardness",
+                "value": 1
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.item}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "nor": [
+                            "precious-metals:material:copper",
+                            "precious-metals:material:gold",
+                            "precious-metals:material:silver"
+                        ]
+                    }
+                ],
+                "property": "hardness",
+                "value": "max(@item.level*2,8)+2"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

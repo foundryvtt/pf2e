@@ -332,7 +332,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dockhand Interacts to either draw a bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] or pick up a nearby unattended bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] and drink the whole thing.</p>\n<p>For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Swig]</p>"
+                    "value": "<p>The dockhand Interacts to either draw a bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] or pick up a nearby unattended bottle of alcohol and drink the whole thing.</p>\n<p>For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -340,6 +340,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Swig",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Swig"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -487,12 +491,6 @@
                 "temp": 0,
                 "value": 20
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 3
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -500,6 +498,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common"
+                ]
+            },
             "level": {
                 "value": 0
             },
@@ -510,6 +514,14 @@
                 "remaster": false,
                 "title": "Pathfinder Gamemastery Guide"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 3,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -527,17 +539,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

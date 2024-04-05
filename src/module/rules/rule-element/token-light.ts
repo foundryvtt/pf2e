@@ -9,7 +9,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  */
 class TokenLightRuleElement extends RuleElementPF2e<TokenLightRuleSchema> {
     static override defineSchema(): TokenLightRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new fields.SchemaField({

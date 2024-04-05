@@ -1,0 +1,54 @@
+{
+    "_id": "7juD2XQ7wKI5pjPW",
+    "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+    "name": "Effect: Spark Fist",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Spark Fist]</p>\n<p>Your fist loses the nonlethal trait and deals additional fire damage on a successful Strike.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "fist": true,
+                "key": "Strike"
+            },
+            {
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "property": "traits",
+                "value": "nonlethal"
+            },
+            {
+                "damageType": "fire",
+                "key": "FlatModifier",
+                "selector": "fist-damage",
+                "value": "@weapon.system.damage.dice"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

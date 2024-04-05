@@ -8,11 +8,16 @@ import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { setHasElement, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
 import { ClassTrait } from "./types.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    static override get validTraits(): Record<ClassTrait, string> {
+        return CONFIG.PF2E.classTraits;
+    }
+
     get attacks(): ClassAttackProficiencies {
         return this.system.attacks;
     }
@@ -37,10 +42,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const system = this.system;
 
         return {
-            ancestry: fu.deepClone(system.ancestryFeatLevels.value),
-            class: [...system.classFeatLevels.value],
-            skill: [...system.skillFeatLevels.value],
-            general: [...system.generalFeatLevels.value],
+            ancestry: R.uniq(system.ancestryFeatLevels.value).sort((a, b) => a - b),
+            class: R.uniq(system.classFeatLevels.value).sort((a, b) => a - b),
+            skill: R.uniq(system.skillFeatLevels.value).sort((a, b) => a - b),
+            general: R.uniq(system.generalFeatLevels.value).sort((a, b) => a - b),
         };
     }
 
@@ -75,13 +80,14 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
     /** Prepare a character's data derived from their class */
     override prepareActorData(this: ClassPF2e<CharacterPF2e>): void {
-        if (!this.actor?.isOfType("character")) {
+        const actor = this.actor;
+        if (!actor.isOfType("character")) {
             console.error("Only a character can have a class");
             return;
         }
 
-        this.actor.class = this;
-        const { attributes, build, details, proficiencies, saves, skills } = this.actor.system;
+        actor.class = this;
+        const { attributes, build, details, proficiencies, saves, skills } = actor.system;
         const slug = this.slug ?? sluggify(this.name);
 
         // Add base key ability options
@@ -91,20 +97,20 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
 
         attributes.classhp = this.hpPerLevel;
 
-        attributes.perception.rank = Math.max(attributes.perception.rank, this.perception) as ZeroToFour;
-        this.logAutoChange("system.attributes.perception.rank", this.perception);
+        actor.system.perception.rank = Math.max(actor.system.perception.rank, this.perception) as ZeroToFour;
+        this.logAutoChange("system.perception.rank", this.perception);
 
         // Override the actor's key ability score if it's set
         details.keyability.value =
             (build.attributes.manual ? details.keyability.value : build.attributes.boosts.class) ?? "str";
 
         // Set class DC
-        type PartialClassDCs = Record<string, Pick<ClassDCData, "label" | "ability" | "rank" | "primary">>;
+        type PartialClassDCs = Record<string, Pick<ClassDCData, "attribute" | "label" | "primary" | "rank">>;
         const classDCs: PartialClassDCs = proficiencies.classDCs;
         classDCs[slug] = {
             label: this.name,
             rank: 1,
-            ability: details.keyability.value,
+            attribute: details.keyability.value,
             primary: true,
         };
 
@@ -132,7 +138,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {
-            if (setHasElement(SKILL_ABBREVIATIONS, trainedSkill)) {
+            if (SKILL_ABBREVIATIONS.includes(trainedSkill)) {
                 skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
             }
         }

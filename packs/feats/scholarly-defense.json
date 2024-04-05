@@ -28,7 +28,24 @@
             "remaster": false,
             "title": "Pathfinder #164: Hands of the Devil"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "damage:category:physical",
+                    "melee",
+                    {
+                        "or": [
+                            "origin:trait:aberration",
+                            "origin:trait:ooze"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|name}",
+                "type": "custom",
+                "value": "max(1,floor(@actor.level/3))"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

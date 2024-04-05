@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You take on an elemental countenance, appearing like a type of elemental of your element. You gain any Speeds listed in the <em>@UUID[Compendium.pf2e.spells-srd.Item.Elemental Form]</em> spell for your element and gain <em>@UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision]</em> if you don't already have it. You also gain the elemental trait and the trait of your chosen element.</p>"
+            "value": "<p>You take on an elemental countenance, appearing like a type of elemental of your element. You gain any Speeds listed in the @UUID[Compendium.pf2e.spells-srd.Item.Elemental Form] spell for your element and gain darkvision if you don't already have it. You also gain the elemental trait and the trait of your chosen element.</p>"
         },
         "level": {
             "value": 18
@@ -31,7 +31,143 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "kinetic-gate:earth",
+                            "kinetic-gate:water",
+                            "kinetic-gate:wood"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:air"
+                ],
+                "selector": "fly",
+                "value": 80
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ],
+                "selector": "burrow",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ],
+                "selector": "land",
+                "value": 50
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "selector": "land",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ],
+                "selector": "fly",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:water"
+                ],
+                "selector": "swim",
+                "value": 60
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ],
+                "selector": "climb",
+                "value": 30
+            },
+            {
+                "add": [
+                    "elemental",
+                    "earth"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:earth"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "fire"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:fire"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "metal"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:metal"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "water"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:water"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "wood"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:wood"
+                ]
+            },
+            {
+                "add": [
+                    "elemental",
+                    "air"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "kinetic-gate:air"
+                ]
+            }
+        ],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {}
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,0 +1,170 @@
+{
+    "_id": "Dcva6SCHr9vWE7nJ",
+    "img": "icons/commodities/biological/eye-lizard-orange.webp",
+    "name": "Spell Effect: Animal Feature",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Animal Feature]</p>\n<p>Without fully transforming your body, you gain one animalistic feature.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectAnimalFeature.CatEyes",
+                        "value": "cat-eyes"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectAnimalFeature.FishTail",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "fish-tail"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectAnimalFeature.OwlEyes",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "owl-eyes"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellEffectAnimalFeature.Wings",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "{item|level}",
+                                    4
+                                ]
+                            }
+                        ],
+                        "value": "wings"
+                    }
+                ],
+                "flag": "animalFeature",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feature",
+                "rollOption": "animal-feature"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "animal-feature:cat-eyes"
+                ],
+                "selector": "low-light-vision"
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "animal-feature:claw"
+                ],
+                "range": null,
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "magical",
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "animal-feature:jaws"
+                ],
+                "range": null,
+                "traits": [
+                    "magical",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "animal-feature:fish-tail"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "Sense",
+                "predicate": [
+                    "animal-feature:owl-eyes"
+                ],
+                "selector": "darkvision"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "animal-feature:wings"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

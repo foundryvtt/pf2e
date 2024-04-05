@@ -18,7 +18,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.resistance.resistanceOne}",
+                "value": "3 + floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.resistance.resistanceTwo}",
+                "value": "3 + floor(@actor.level/2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

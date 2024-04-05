@@ -3,7 +3,8 @@ import { WeaponSystemSource } from "@item/weapon/data.ts";
 import { WeaponCategory, WeaponGroup, WeaponRangeIncrement } from "@item/weapon/types.ts";
 import { MANDATORY_RANGED_GROUPS } from "@item/weapon/values.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
-import { isObject, setHasElement } from "@util";
+import { setHasElement } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Normalize weapon range to numeric or null, remove ability property, and let's do category and group too! */
@@ -11,7 +12,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
     static override version = 0.691;
 
     private isOldGroupData(group: OldOrNewGroup): group is { value: WeaponGroup | null } {
-        return isObject<{ value: unknown }>(group) && (typeof group.value === "string" || group.value === null);
+        return R.isObject(group) && (typeof group.value === "string" || group.value === null);
     }
 
     private isOldRangeData(range: WeaponRangeIncrement | null | { value: string }): range is { value: string } {
@@ -40,7 +41,7 @@ export class Migration691WeaponRangeAbilityCategoryGroup extends MigrationBase {
                 ? ((Number((systemData.range as { value: string }).value) || null) as WeaponRangeIncrement | null)
                 : systemData.range;
 
-            if (hasOldRangeData && isObject(systemData.ability)) {
+            if (hasOldRangeData && R.isObject(systemData.ability)) {
                 if (systemData.ability.value === "str" && !setHasElement(MANDATORY_RANGED_GROUPS, systemData.group)) {
                     // The range thrown melee weapons are set by a thrown trait
                     systemData.range = null;

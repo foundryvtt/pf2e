@@ -2,7 +2,7 @@
     {{#if (or (eq duration.unit "unlimited") (eq duration.unit "encounter"))}}
         <input type="hidden" name="{{base}}.value" value="-1" data-dtype="Number" />
     {{else}}
-        <input type="number" name="{{base}}.value" class="left-of-select" value="{{duration.value}}" />
+        <input type="number" name="{{base}}.value" value="{{duration.value}}" />
     {{/if}}
     <select id="{{item.uuid}}-duration" name="{{base}}.unit">
         {{#select duration.unit}}

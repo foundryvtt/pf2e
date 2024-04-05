@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Fix featType properties erroneously set to a non-existent "dedication" type */
@@ -10,7 +10,7 @@ export class Migration732FixDedicationFeatTypes extends MigrationBase {
     #hasWellFormedFeatType(system: FeatSystemSource): system is FeatSystemSource & { featType: { value: string } } {
         return (
             "featType" in system &&
-            isObject(system.featType) &&
+            R.isObject(system.featType) &&
             "value" in system.featType &&
             typeof system.featType === "string"
         );

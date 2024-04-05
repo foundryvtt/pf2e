@@ -1,18 +1,23 @@
 import type { ActorPF2e } from "@actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import type { ConsumablePF2e, SpellPF2e } from "@item";
+import { SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
+import { TRICK_MAGIC_SKILLS, TrickMagicItemEntry } from "@item/spellcasting-entry/trick.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { Statistic } from "@system/statistic/statistic.ts";
-import { DelegatedCollection, ErrorPF2e } from "@util";
+import { DelegatedCollection, ErrorPF2e, tupleHasValue } from "@util";
 
 export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
-    /** The base casting proficiency, which spellcasting build off of */
+    /** The base casting proficiency, off of which spellcasting builds */
     declare base: Statistic;
 
     /** All available spell lists on this actor */
-    collections = new Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>();
+    collections = new Collection<SpellCollection<TActor>>();
+
+    /** Cache of trick magic item entries */
+    #trickEntries: Record<string, BaseSpellcastingEntry<TActor> | undefined> = {};
 
     constructor(
         public readonly actor: TActor,
@@ -36,12 +41,31 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
         return ritualCasting instanceof RitualSpellcasting ? ritualCasting : null;
     }
 
+    /** Spells not belonging to any collection */
+    get orphanedSpells(): SpellPF2e<TActor>[] {
+        return this.actor.itemTypes.spell.filter((s) => !s.spellcasting);
+    }
+
     /**
      * All spellcasting entries that count as prepared/spontaneous, which qualify as a
      * full fledged spellcasting feature for wands and scrolls.
      */
     get spellcastingFeatures(): SpellcastingEntryPF2e<TActor>[] {
         return this.regular.filter((e) => e.isPrepared || e.isSpontaneous);
+    }
+
+    /** Returns an existing spellcasting entry or trick magic item if given "trick-{skillName}" */
+    override get(id: string): BaseSpellcastingEntry<TActor> | undefined {
+        const existing = this.#trickEntries[id] ?? super.get(id);
+        if (!existing && id.startsWith("trick-")) {
+            const skill = id.split("-")[1];
+            if (tupleHasValue(TRICK_MAGIC_SKILLS, skill)) {
+                this.#trickEntries[id] = new TrickMagicItemEntry(this.actor, skill);
+                return this.#trickEntries[id];
+            }
+        }
+
+        return existing;
     }
 
     canCastConsumable(item: ConsumablePF2e): boolean {
@@ -89,7 +113,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
                 });
             }
 
-            // Spontaneous, and Prepared spells
+            // Prepared spells
             const slots = entry.system.slots;
             let updated = false;
             for (const slot of Object.values(slots)) {

@@ -26,11 +26,35 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "predicate": [
-                    "finisher:lethal"
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
                 ],
-                "selector": "strike-damage",
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Stunning",
+                        "value": "stunning"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher:stunning"
+                ],
+                "selector": "strike-attack-roll",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
             }

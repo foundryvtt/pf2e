@@ -121,7 +121,7 @@ declare global {
          *                is rendered in the DOM.
          * @returns The rendered Application instance
          */
-        render(force?: boolean, options?: RenderOptions): this | Promise<this>;
+        render(force?: boolean, options?: RenderOptions): this;
 
         /**
          * An asynchronous inner function which handles the rendering of the Application
@@ -225,19 +225,19 @@ declare global {
          * Callback actions which occur at the beginning of a drag start workflow.
          * @param event The originating DragEvent
          */
-        protected _onDragStart(event: ElementDragEvent): void;
+        protected _onDragStart(event: DragEvent): void;
 
         /**
          * Callback actions which occur when a dragged element is over a drop target.
          * @param event The originating DragEvent
          */
-        protected _onDragOver(event: ElementDragEvent): void;
+        protected _onDragOver(event: DragEvent): void;
 
         /**
          * Callback actions which occur when a dragged element is dropped on a target.
          * @param event The originating DragEvent
          */
-        protected _onDrop(event: ElementDragEvent): void;
+        protected _onDrop(event: DragEvent): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -265,6 +265,11 @@ declare global {
          * @return  A Promise which resolves to true once the maximization action has completed
          */
         maximize(): Promise<boolean>;
+
+        /**
+         * Bring the application to the top of the rendering stack
+         */
+        bringToTop(): void;
 
         /**
          * Set the application position and store it's new location
@@ -313,8 +318,8 @@ declare global {
                 dragstart?: Function;
                 drop?: Function;
             };
-            dragSelector?: string;
-            dropSelector?: string;
+            dragSelector?: Maybe<string>;
+            dropSelector?: Maybe<string>;
         }[];
         /** A default window title string (popOut only) */
         title: string;

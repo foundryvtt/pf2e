@@ -4,7 +4,7 @@
     "name": "Effect: Curse of Boiling Blood",
     "system": {
         "description": {
-            "value": "<p>The creature gains weakness to fire 20.</p>"
+            "value": "<p>The creature gains weakness to fire 20 and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} at all times.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,15 +16,19 @@
             "value": 21
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Bestiary"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
         },
         "rules": [
             {
                 "key": "Weakness",
                 "type": "fire",
                 "value": 20
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
             }
         ],
         "start": {

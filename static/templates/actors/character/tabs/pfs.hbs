@@ -37,23 +37,23 @@
 
     <header>
         {{localize "PF2E.FeatPFSBoonHeader"}}
-        <button type="button" class="item-control feat-browse" data-type="feat"><i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}</button>
+        <button type="button" data-action="browse-feats" data-type="feat"><i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}</button>
     </header>
 
     <ol class="actions-list directory-list">
         {{#each actor.pfsBoons as |feat|}}
             <li class="item feat-item" data-item-id="{{feat.id}}">
-                <div class="item-name rollable">
-                    <div class="item-image framed" alt="{{feat.name}}">
-                        <img src="{{feat.img}}"/>
-                        <i class="fa-solid fa-comment-alt"></i>
-                    </div>
+                <div class="item-name">
+                    <a class="item-image framed" data-action="item-to-chat">
+                        <img src="{{feat.img}}" />
+                        <i class="fa-solid fa-message"></i>
+                    </a>
                     <h4>{{feat.name}}</h4>
                 </div>
-                {{#if @root.options.editable}}
+                {{#if @root.editable}}
                     <div class="item-controls">
-                        <a class="item-control item-edit" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
-                        <a class="item-control item-delete" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
+                        <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
+                        <a data-action="delete-item" data-tooltip="PF2E.DeleteItemTitle"><i class="fa-solid fa-fw fa-trash"></i></a>
                     </div>
                 {{/if}}
             </li>

@@ -30,23 +30,6 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.light.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.proficiencies.classDCs.rogue",
-                "priority": 39,
-                "value": {
-                    "ability": "dex",
-                    "label": "PF2E.TraitRogue",
-                    "rank": 1
-                }
-            },
-            {
                 "adjustName": false,
                 "choices": [
                     {
@@ -89,6 +72,17 @@
                 "uuid": "{item|flags.pf2e.rulesSelections.skillFeat}"
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "light": {
+                    "rank": 1
+                },
+                "rogue": {
+                    "attribute": "dex",
+                    "rank": 1
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

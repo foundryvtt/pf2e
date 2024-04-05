@@ -1,0 +1,46 @@
+{
+    "_id": "ehcAvmjZVzyFJclB",
+    "img": "icons/sundries/misc/key-steel.webp",
+    "name": "Effect: Sneaky Key",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sneaky Key]</p>\n<p>You gain a +1 status bonus to Thievery checks to Pick a Lock.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:pick-a-lock"
+                ],
+                "selector": "thievery",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

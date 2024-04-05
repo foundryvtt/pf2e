@@ -1,0 +1,225 @@
+{
+    "_id": "6lzmzeWRo6mv6g2C",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/fury-cocktail.webp",
+    "name": "Effect: Fury Cocktail (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fury Cocktail (Greater)]</p>\n<p>Implemented Effects:</p>\n<ul>\n<li>+4 item bonus to melee attack rolls</li>\n<li>-1 penalty to AC</li>\n<li>-2 penalty to Reflex saves</li>\n<li>Animalistic: choice of Jaw or Claw strike</li>\n<li>Double: resistance 5 to physical damage</li>\n<li>Mournful: resistance 10 to void or vitality depending on negative healing</li>\n<li>Skeptical: +3 item bonus to saves against magic</li>\n<li>Titanic: size change to Large, Clumsy 1, and change of reach (+5 for Medium and Small, +10 for Tiny)</li>\n<li>Wyrmhide: resistance 10 to acid, cold, electricity, fire, and poison.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "reflex",
+                "value": -2
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.AnimalisticLabel",
+                        "value": "animalistic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.DoubleLabel",
+                        "value": "double"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.MournfulLabel",
+                        "value": "mournful"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.SkepticalLabel",
+                        "value": "skeptical"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.TitanicLabel",
+                        "value": "titanic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.FuryCocktail.WyrmhideLabel",
+                        "value": "wyrmhide"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "priority": 1,
+                "rollOption": "fury-cocktail-greater"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "attack-roll",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "fury-cocktail-greater:double"
+                ],
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "fury-cocktail-greater:mournful",
+                    {
+                        "not": "self:negative-healing"
+                    }
+                ],
+                "type": "void",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "fury-cocktail-greater:mournful",
+                    "self:negative-healing"
+                ],
+                "type": "vitality",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fury-cocktail-greater:skeptical",
+                    "magical"
+                ],
+                "selector": "saving-throw",
+                "slug": "fury-cocktail-greater-skeptic",
+                "type": "item",
+                "value": 3
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "fury-cocktail-greater:wyrmhide"
+                ],
+                "type": [
+                    "acid",
+                    "cold",
+                    "electricity",
+                    "fire",
+                    "poison"
+                ],
+                "value": 10
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "fury-cocktail-greater:titanic"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "fury-cocktail-greater:titanic"
+                ],
+                "reach": {
+                    "upgrade": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Weapon.Base.claw",
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.Weapon.Base.jaws",
+                        "value": "jaws"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "fury-cocktail-greater:animalistic"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "fury-cocktail-greater-animal"
+            },
+            {
+                "baseType": "jaws",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "fury-cocktail-greater-animal:jaws"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "predicate": [
+                    "fury-cocktail-greater-animal:claw"
+                ],
+                "range": null,
+                "traits": [
+                    "unarmed",
+                    "agile"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

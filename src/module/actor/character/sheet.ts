@@ -1,10 +1,11 @@
-import type { ActorPF2e } from "@actor";
 import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { CreatureSheetData } from "@actor/creature/index.ts";
+import { CreatureSheetData, Language } from "@actor/creature/index.ts";
+import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
 import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
+import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
@@ -17,17 +18,16 @@ import type {
     LorePF2e,
     PhysicalItemPF2e,
 } from "@item";
-import { ItemPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
+import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
-import { toggleWeaponTrait } from "@item/weapon/helpers.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
@@ -40,7 +40,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    isObject,
     objectHasKey,
     setHasElement,
     sluggify,
@@ -90,12 +89,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const options = super.defaultOptions;
         options.classes = [...options.classes, "character"];
         options.width = 750;
-        options.height = 800;
-        options.scrollY.push(".tab.active .tab-content");
+        options.height = 750;
+        options.scrollY.push(".tab[data-tab=spellcasting] > [data-panels]", ".tab.active .tab-content");
         options.dragDrop.push({ dragSelector: "ol[data-strikes] > li, ol[data-elemental-blasts] > li" });
         options.tabs = [
-            { navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
-            { navSelector: ".actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+            { navSelector: "nav.sheet-navigation", contentSelector: ".sheet-content", initial: "character" },
+            { navSelector: "nav.actions-nav", contentSelector: ".actions-panels", initial: "encounter" },
+            {
+                navSelector: "nav[data-group=spell-collections]",
+                contentSelector: "div[data-tab=spellcasting] > [data-panels]",
+                group: "spell-collections",
+                initial: "known-spells",
+            },
         ];
         return options;
     }
@@ -107,7 +112,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>> {
         const sheetData = (await super.getData(options)) as CharacterSheetData<TActor>;
-        const { actor } = this;
+        const actor = this.actor;
 
         // If the user only has limited permission, the main tab will be the biography
         if (this.actor.limited) {
@@ -120,7 +125,18 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
         ]);
 
+        sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
+
         // Attacks and defenses
+        // Prune untrained martial proficiencies
+        for (const section of ["attacks", "defenses"] as const) {
+            for (const key of R.keys.strict(sheetData.data.proficiencies[section])) {
+                const proficiency = sheetData.data.proficiencies[section][key];
+                if (proficiency?.rank === 0 && !proficiency.custom) {
+                    delete sheetData.data.proficiencies[section][key];
+                }
+            }
+        }
         sheetData.martialProficiencies = {
             attacks: sortLabeledRecord(
                 R.mapValues(sheetData.data.proficiencies.attacks as Record<string, MartialProficiency>, (data, key) => {
@@ -128,7 +144,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     const baseWeaponMatch = /^weapon-base-([-\w]+)$/.exec(key);
                     if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
                         const locKey = sluggify(key, { camel: "bactrian" });
-                        data.label = setHasElement(WEAPON_CATEGORIES, key)
+                        data.label = tupleHasValue(WEAPON_CATEGORIES, key)
                             ? `PF2E.Actor.Character.Proficiency.Attack.${locKey}`
                             : CONFIG.PF2E.weaponCategories[key];
                     } else if (Array.isArray(groupMatch)) {
@@ -163,13 +179,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 ),
             ),
         };
-
-        // These are only relevant for companion compendium "PCs": don't clutter the list.
-        for (const key of ["light-barding", "heavy-barding"]) {
-            if (sheetData.martialProficiencies.defenses[key]?.rank === 0) {
-                delete sheetData.martialProficiencies.defenses[key];
-            }
-        }
 
         // A(H)BCD
         sheetData.ancestry = actor.ancestry;
@@ -237,7 +246,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
         sheetData.apexAttributeOptions = abpEnabled
             ? []
-            : this.actor.itemTypes.equipment.flatMap((e) =>
+            : this.actor.inventory.contents.flatMap((e) =>
                   e.system.apex?.selected === false &&
                   e.isInvested &&
                   e.system.apex.attribute !== actor.system.build.attributes.apex
@@ -246,14 +255,20 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
               );
 
         // Spellcasting
+        const collectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]> = fu.mergeObject(
+            { "known-spells": [], rituals: [], activations: [] },
+            R.groupBy.strict(await this.prepareSpellcasting(), (a) => {
+                if (a.category === "items") return "activations";
+                if (a.category === "ritual") return "rituals";
+                return "known-spells";
+            }),
+        );
+
         sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
         sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.spellcastingEntries = await this.prepareSpellcasting();
-        sheetData.hasNormalSpellcasting = sheetData.spellcastingEntries.some((s) => s.usesSpellProficiency);
-
-        // preparing the name of the rank, as this is displayed on the sheet
-        sheetData.data.attributes.perception.rankName = game.i18n.format(
-            `PF2E.ProficiencyLevel${sheetData.data.attributes.perception.rank}`,
+        sheetData.spellCollectionGroups = collectionGroups;
+        sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
+            (s) => s.usesSpellProficiency,
         );
 
         // ensure saves are displayed in the following order:
@@ -300,6 +315,48 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
 
+        sheetData.languages = ((): LanguageSheetData[] => {
+            const languagesBuild = actor.system.build.languages;
+            const sourceLanguages = actor._source.system.details.languages.value
+                .filter((l) => l in CONFIG.PF2E.languages)
+                .sort();
+            const isOverMax = languagesBuild.value > languagesBuild.max;
+            const languageSlugs = actor.system.details.languages.value;
+            const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
+            const localizedLanguages: LanguageSheetData[] = languageSlugs.flatMap((language) => {
+                if (language === commonLanguage && languageSlugs.includes("common")) {
+                    return [];
+                }
+                const label =
+                    language === "common" && commonLanguage
+                        ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
+                              language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                          })
+                        : game.i18n.localize(CONFIG.PF2E.languages[language]);
+                return { slug: language, label, tooltip: null, overLimit: false };
+            });
+
+            // If applicable, mark languages at the end as being over-limit
+            const sortedLanguages = localizedLanguages.sort((a, b) => a.label.localeCompare(b.label));
+            const commonFirst = R.sortBy(sortedLanguages, (l) => l.slug !== "common");
+            for (const language of commonFirst.filter((l) => l.slug && sourceLanguages.includes(l.slug)).reverse()) {
+                if (!language.slug) continue;
+                language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
+                language.tooltip = language.overLimit
+                    ? game.i18n.localize("PF2E.Actor.Character.Language.OverLimit")
+                    : null;
+            }
+
+            const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
+            const unallocatedTooltip = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Tooltip");
+            const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
+                () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
+            );
+            commonFirst.push(...unallocatedLanguages);
+
+            return commonFirst;
+        })();
+
         // Sort skills by localized label
         sheetData.data.skills = Object.fromEntries(
             Object.entries(sheetData.data.skills).sort(([_keyA, skillA], [_keyB, skillB]) =>
@@ -339,6 +396,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (BUILD_MODE === "development") console.error(error);
             sheetData.elementalBlasts = [];
         }
+
+        // Speed
+        const speedIcons = {
+            land: "person-running",
+            swim: "person-swimming",
+            climb: "mountain",
+            fly: "feather-pointed",
+            burrow: "water-ladder",
+        };
+        sheetData.speeds = R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
+            const speed = this.actor.system.attributes.speed;
+            const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
+            return {
+                slug,
+                icon: fontAwesomeIcon(speedIcons[slug]).outerHTML,
+                action: ["swim", "climb"].includes(slug) && !data?.total ? slug : null,
+                label: CONFIG.PF2E.speedTypes[slug],
+                value: data?.total ?? null,
+                breakdown: slug === "land" ? speed.breakdown : null,
+            };
+        });
 
         // Return data for rendering
         return sheetData;
@@ -408,14 +486,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             })();
 
             const traits = item.system.traits.value;
-            const traitDescriptions = item.isOfType("feat") ? CONFIG.PF2E.featTraits : CONFIG.PF2E.actionTraits;
 
             const action: ActionSheetData = {
                 ...R.pick(item, ["id", "name", "actionCost", "frequency"]),
                 img,
                 glyph: getActionGlyph(item.actionCost),
-                traits: createSheetTags(traitDescriptions, traits),
                 feat: item.isOfType("feat") ? item : null,
+                toggles: item.system.traits.toggles.getSheetData(),
                 hasEffect: !!item.system.selfEffect,
             };
 
@@ -527,7 +604,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // MAIN
         const mainPanel = htmlQuery(html, ".tab[data-tab=character]");
 
-        // Ancestry/Heritage/Class/Background/Deity context menu
+        // A(H)BCD context menu
         if (mainPanel && this.isEditable) {
             new ContextMenu(
                 mainPanel,
@@ -552,35 +629,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                         },
                     },
                 ],
-                { eventName: "click" },
+                {
+                    eventName: "click",
+                    // Position the menu to the left of the anchor
+                    onOpen: () => {
+                        Promise.resolve().then(() => {
+                            const menu = document.getElementById("context-menu");
+                            if (menu) {
+                                const leftPlacement = -1 * Math.floor(0.95 * menu.clientWidth);
+                                menu.style.left = `${leftPlacement}px`;
+                            }
+                        });
+                    },
+                },
             );
 
             for (const link of htmlQueryAll(html, ".crb-tag-selector")) {
-                link.addEventListener("click", () => this.openTagSelector(link, { allowCustom: false }));
-            }
-
-            htmlQuery(mainPanel, "button[data-action=edit-attribute-boosts]")?.addEventListener("click", () => {
-                const builder =
-                    Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
-                    new AttributeBuilder(this.actor);
-                builder.render(true);
-            });
-
-            for (const link of htmlQueryAll(mainPanel, "a[data-action=apex-attribute]")) {
-                link.addEventListener("click", () => {
-                    if (game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.actor)) {
-                        return;
-                    }
-                    const attribute = htmlClosest(link, "[data-attribute]")?.dataset.attribute;
-                    if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
-                        const apexItems = this.actor.itemTypes.equipment.filter((e) => e.system.apex);
-                        const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
-                        this.actor.updateEmbeddedDocuments(
-                            "Item",
-                            apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection })),
-                        );
-                    }
-                });
+                link.addEventListener("click", () => this.openTagSelector(link));
             }
         }
 
@@ -593,24 +658,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         });
 
         for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
-            // Versatile-damage toggles
-            const versatileToggleButtons = htmlQueryAll<HTMLButtonElement>(
-                strikeElem,
-                "button[data-action=toggle-versatile]",
-            );
-            for (const button of versatileToggleButtons) {
-                button.addEventListener("click", () => {
-                    const weapon = this.getStrikeFromDOM(button)?.item;
-                    const baseType = weapon?.system.damage.damageType ?? null;
-                    const selection =
-                        button.classList.contains("selected") || button.value === baseType ? null : button.value;
-                    const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
-                    if (weapon && selectionIsValid) {
-                        toggleWeaponTrait({ trait: "versatile", weapon, selection });
-                    }
-                });
-            }
-
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
                 strikeElem,
@@ -679,16 +726,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         this.#activateBlastListeners(actionsPanel);
 
-        $html.find(".hover").tooltipster({
-            trigger: "click",
-            arrow: false,
-            contentAsHTML: true,
-            debug: BUILD_MODE === "development",
-            interactive: true,
-            side: ["right", "bottom"],
-            theme: "crb-hover",
-            minWidth: 120,
-        });
+        // Tooltipster modifier dialogs. Some properties are configurable
+        for (const hoverEl of htmlQueryAll(html, ".hover")) {
+            const allSides = ["top", "right", "bottom", "left"] as const;
+            const side = hoverEl.dataset.tooltipSide
+                ?.split(",")
+                ?.filter((t): t is (typeof allSides)[number] => tupleHasValue(allSides, t)) ?? ["right", "bottom"];
+            $(hoverEl).tooltipster({
+                trigger: "click",
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === "development",
+                interactive: true,
+                side,
+                theme: "crb-hover",
+                minWidth: 120,
+            });
+        }
 
         // SPELLCASTING
         const castingPanel = htmlQuery(html, ".tab[data-tab=spellcasting]");
@@ -743,220 +797,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const craftingTab = htmlQuery(html, ".tab[data-tab=crafting]");
 
         for (const element of htmlQueryAll<HTMLLIElement>(craftingTab, "li.formula-item")) {
-            const quantity = htmlQuery<HTMLInputElement>(element, "input[data-action=enter-quantity]");
-
-            quantity?.addEventListener("change", async () => {
-                const itemUUID = element.dataset.itemId ?? "";
-                const formula = this.#knownFormulas[itemUUID];
+            const quantity = htmlQuery<HTMLInputElement>(element, "input[data-craft-quantity]");
+            quantity?.addEventListener("change", async (event) => {
+                const row = htmlClosest(event?.target, "li");
+                const uuid = row?.dataset.itemUuid ?? "";
+                const formula = this.#knownFormulas[uuid];
                 const minBatchSize = formula.minimumBatchSize;
                 const newValue = Number(quantity.value) || minBatchSize;
                 if (newValue < 1) return;
 
-                const entrySelector = htmlClosest(element, "li.crafting-entry")?.dataset.entrySelector;
+                const entrySelector = htmlClosest(event?.target, "li")?.dataset.entrySelector;
                 if (entrySelector) {
                     const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
                     if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
 
                     const index = element.dataset.itemIndex;
-                    await craftingEntry.setFormulaQuantity(Number(index), itemUUID ?? "", newValue);
-                    return;
+                    return craftingEntry.setFormulaQuantity(Number(index), uuid, newValue);
                 }
                 this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
                 this.render();
             });
-            for (const button of htmlQueryAll(
-                element,
-                "[data-action=increase-quantity], [data-action=decrease-quantity]",
-            )) {
-                button.addEventListener("click", async () => {
-                    if (!quantity) return;
-                    const itemUUID = element.dataset.itemId ?? "";
-                    const formula = this.#knownFormulas[itemUUID];
-                    const minBatchSize = formula.minimumBatchSize;
-                    const step = button.dataset.action === "increase-quantity" ? minBatchSize : -minBatchSize;
-                    const newValue = (Number(quantity.value) || step) + step;
-                    if (newValue < 1) return;
-
-                    const entrySelector = htmlClosest(element, "li.crafting-entry")?.dataset.entrySelector;
-                    if (entrySelector) {
-                        const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-                        if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-
-                        const index = element.dataset.itemIndex;
-                        await craftingEntry.setFormulaQuantity(Number(index), itemUUID ?? "", newValue);
-                        return;
-                    }
-                    this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
-                    this.render();
-                });
-            }
-
-            const craftButton = htmlQuery(element, "a[data-action=craft-item]");
-            craftButton?.addEventListener("click", async (event) => {
-                const { itemUuid, free, prepared } = craftButton.dataset;
-                const itemQuantity = Number(quantity?.value) || 1;
-                const formula = this.#knownFormulas[itemUuid ?? ""];
-                if (!formula) return;
-
-                if (prepared === "true") {
-                    const expendedState = element.dataset.expendedState;
-                    if (expendedState === "true") {
-                        ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.FormulaExpended"));
-                        return;
-                    }
-                    const index = element.dataset.itemIndex;
-                    const entrySelector = htmlClosest(craftButton, "li.crafting-entry")?.dataset.entrySelector;
-                    if (!itemUuid || !index || !entrySelector) return;
-                    const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-                    if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-                    await craftingEntry.toggleFormulaExpended(Number(index), itemUuid);
-                }
-
-                if (this.actor.flags.pf2e.quickAlchemy) {
-                    const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
-                    if (reagentValue < 0) {
-                        ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
-                        return;
-                    }
-                    await this.actor.update(
-                        { "system.resources.crafting.infusedReagents.value": reagentValue },
-                        { render: false },
-                    );
-
-                    return craftItem(formula.item, 1, this.actor, true);
-                }
-
-                if (this.actor.flags.pf2e.freeCrafting) {
-                    const itemId = itemUuid?.split(".").pop() ?? "";
-                    if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
-                        return craftSpellConsumable(formula.item, itemQuantity, this.actor);
-                    }
-
-                    return craftItem(formula.item, itemQuantity, this.actor);
-                }
-
-                const difficultyClass: CheckDC = {
-                    value: formula.dc,
-                    visible: true,
-                    scope: "check",
-                };
-
-                craft({
-                    difficultyClass,
-                    item: formula.item,
-                    quantity: itemQuantity,
-                    actors: this.actor,
-                    event: event as unknown as JQuery.TriggeredEvent,
-                    free: free === "true",
-                });
-            });
-
-            htmlQuery(element, "a.formula-delete")?.addEventListener("click", async () => {
-                const itemUuid = element.dataset.itemId;
-                if (!itemUuid) return;
-
-                // Render confirmation modal dialog
-                const name = this.#knownFormulas[itemUuid]?.name;
-                const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
-                    name,
-                })}</p>`;
-                const title = game.i18n.localize("PF2E.CraftingTab.RemoveFormulaDialogTitle");
-                if (await Dialog.confirm({ title, content })) {
-                    const actorFormulas = this.actor.toObject().system.crafting?.formulas ?? [];
-                    actorFormulas.findSplice((f) => f.uuid === itemUuid);
-                    this.actor.update({ "system.crafting.formulas": actorFormulas });
-                }
-            });
-
-            htmlQuery(element, "a.formula-unprepare")?.addEventListener("click", async () => {
-                const itemUuid = element.dataset.itemId;
-                const index = element.dataset.itemIndex;
-                const entrySelector = element.dataset.entrySelector;
-
-                if (!itemUuid || !index || !entrySelector) return;
-
-                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-
-                // Render confirmation modal dialog
-                const name = this.#knownFormulas[itemUuid]?.name;
-                const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", {
-                    name,
-                })}</p>`;
-                const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
-                if (await Dialog.confirm({ title, content })) {
-                    await craftingEntry.unprepareFormula(Number(index), itemUuid);
-                }
-            });
         }
-
-        const $craftingTab = craftingTab ? $(craftingTab) : $html.find(".tab[data-tab=crafting]");
-        const $craftingOptions = $craftingTab.find(".crafting-options input:checkbox");
-        $craftingOptions.on("click", async (event) => {
-            const flags: string[] = [];
-            $craftingOptions.each((_index, element) => {
-                if (element !== event.target) {
-                    flags.push($(element).attr("flag") as string);
-                }
-            });
-            flags.forEach(async (flag) => {
-                await this.actor.setFlag("pf2e", flag, false);
-            });
-        });
-
-        $craftingTab.find("a[data-action=quick-add]").on("click", async (event) => {
-            const { itemUuid } = event.currentTarget.dataset;
-            const craftingFormulas = await this.actor.getCraftingFormulas();
-            const formula = craftingFormulas.find((f) => f.uuid === itemUuid);
-            if (!formula) return;
-
-            const entries = (await this.actor.getCraftingEntries()).filter(
-                (e) => !!e.selector && e.checkEntryRequirements(formula, { warn: false }),
-            );
-            for (const entry of entries) {
-                await entry.prepareFormula(formula);
-            }
-
-            if (entries.length === 0) {
-                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.NoEligibleEntry"));
-            }
-        });
-
-        const $formulas = $craftingTab.find(".craftingEntry-list");
-
-        $formulas.find(".toggle-formula-expended").on("click", async (event) => {
-            const $target = $(event.currentTarget);
-            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
-            const index = $target.closest("li.formula-item").attr("data-item-index");
-            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
-
-            if (!itemUUID || !index || !entrySelector) return;
-
-            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-            await craftingEntry.toggleFormulaExpended(Number(index), itemUUID);
-        });
-
-        $formulas.find(".toggle-signature-item").on("click", async (event) => {
-            const $target = $(event.currentTarget);
-            const itemUUID = $target.closest("li.formula-item").attr("data-item-id");
-            const entrySelector = $target.closest("li.crafting-entry").attr("data-entry-selector");
-
-            if (!itemUUID || !entrySelector) return;
-
-            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
-            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
-            await craftingEntry.toggleSignatureItem(itemUUID);
-        });
-
-        $formulas.find(".infused-reagents").on("change", (event) => {
-            const change = Number($(event.target).val());
-            const infusedReagents = this.actor.system.resources.crafting.infusedReagents;
-            const value = Math.clamped(change, 0, infusedReagents?.max ?? 0);
-            this.actor.update({ "system.resources.crafting.infusedReagents.value": value });
-        });
-
-        $formulas.find(".daily-crafting").on("click", async () => await this.actor.performDailyCrafting());
 
         for (const spellcastingCollectionEl of htmlQueryAll(castingPanel, ".spellcasting-entry[data-item-id]")) {
             const entry = this.actor.spellcasting.get(spellcastingCollectionEl.dataset.itemId ?? "");
@@ -990,33 +851,86 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const handlers = super.activateClickListener(html);
 
         // SIDEBAR
-        handlers["rest"] = (event) => {
-            game.pf2e.actions.restForTheNight({ event, actors: this.actor });
+
+        handlers["rest"] = async (event) => {
+            return game.pf2e.actions.restForTheNight({ event, actors: this.actor });
         };
 
         // MAIN TAB
+
+        handlers["edit-attribute-boosts"] = () => {
+            const builder =
+                Object.values(this.actor.apps).find((a) => a instanceof AttributeBuilder) ??
+                new AttributeBuilder(this.actor);
+            return builder.render(true);
+        };
+
+        handlers["select-apex-attribute"] = (event) => {
+            if (game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(this.actor)) {
+                return;
+            }
+            const attribute = htmlClosest(event.target, "[data-attribute]")?.dataset.attribute;
+            if (setHasElement(ATTRIBUTE_ABBREVIATIONS, attribute)) {
+                const apexItems = this.actor.inventory.filter((e) => e.system.apex);
+                const selection = apexItems.find((e) => e.isInvested && e.system.apex?.attribute === attribute);
+                this.actor.updateEmbeddedDocuments(
+                    "Item",
+                    apexItems.map((e) => ({ _id: e.id, "system.apex.selected": e === selection })),
+                );
+            }
+        };
+
         handlers["open-compendium"] = (_, actionTarget) => {
-            game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
+            return game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
         };
 
         // ACTIONS
 
-        // Versatile-damage toggles
-        handlers["toggle-versatile"] = (button) => {
-            if (!(button instanceof HTMLButtonElement)) {
-                return;
-            }
+        // Toggle certain weapon traits: currently Double Barrel or Versatile
+        handlers["toggle-weapon-trait"] = async (_, button) => {
+            if (!(button instanceof HTMLButtonElement)) return;
 
             const weapon = this.getStrikeFromDOM(button)?.item;
-            const baseType = weapon?.system.damage.damageType ?? null;
-            const selection = button.classList.contains("selected") || button.value === baseType ? null : button.value;
-            const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selection) || selection === null;
-            if (weapon && selectionIsValid) {
-                toggleWeaponTrait({ trait: "versatile", weapon, selection });
+            const trait = button.dataset.trait;
+            const errorMessage = "Unexpected failure while toggling weapon trait";
+
+            if (trait === "double-barrel") {
+                const selected = !weapon?.system.traits.toggles.doubleBarrel.selected;
+                if (!weapon?.traits.has("double-barrel")) throw ErrorPF2e(errorMessage);
+                return weapon.system.traits.toggles.update({ trait, selected });
+            } else if (trait === "versatile") {
+                const baseType = weapon?.system.damage.damageType ?? null;
+                const selected =
+                    button.classList.contains("selected") || button.value === baseType ? null : button.value;
+                const selectionIsValid = objectHasKey(CONFIG.PF2E.damageTypes, selected) || selected === null;
+                if (weapon && selectionIsValid) {
+                    return weapon.system.traits.toggles.update({ trait, selected });
+                }
             }
+
+            throw ErrorPF2e(errorMessage);
         };
 
-        handlers["toggle-exploration"] = (event) => {
+        handlers["toggle-trait"] = async (_, button) => {
+            const itemId = htmlClosest(button, "[data-item-id]")?.dataset.itemId;
+            const item = this.actor.items.get(itemId, { strict: true });
+            if (!item.isOfType("action", "feat")) {
+                throw ErrorPF2e("Unexpected item retrieved while toggling trait");
+            }
+
+            const trait = button.dataset.trait;
+            if (trait !== "mindshift") {
+                throw ErrorPF2e("Unexpected trait received while toggling");
+            }
+            const toggle = item.system.traits.toggles[trait];
+            if (!toggle) {
+                throw ErrorPF2e("Unexpected failure to look up trait toggle");
+            }
+
+            return item.system.traits.toggles.update({ trait, selected: !toggle.selected });
+        };
+
+        handlers["toggle-exploration"] = async (event) => {
             const actionId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
             if (!actionId) return;
 
@@ -1025,44 +939,254 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 exploration.push(actionId);
             }
 
-            this.actor.update({ "system.exploration": exploration });
+            await this.actor.update({ "system.exploration": exploration });
         };
-        handlers["clear-exploration"] = () => {
-            this.actor.update({ "system.exploration": [] });
+        handlers["clear-exploration"] = async () => {
+            await this.actor.update({ "system.exploration": [] });
         };
 
         // INVENTORY
 
-        handlers["toggle-invested"] = (event) => {
+        handlers["toggle-invested"] = async (event) => {
             const itemId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
-            if (itemId) this.actor.toggleInvested(itemId);
+            if (itemId) await this.actor.toggleInvested(itemId);
         };
 
         // PROFICIENCIES
 
-        handlers["add-attack-proficiency"] = (event) => {
-            ManageAttackProficiencies.add(this.actor, event);
+        handlers["add-attack-proficiency"] = () => {
+            return ManageAttackProficiencies.add(this.actor);
         };
-        handlers["remove-attack-proficiency"] = (event) => {
-            ManageAttackProficiencies.remove(this.actor, event);
+        handlers["delete-attack-proficiency"] = (event) => {
+            return ManageAttackProficiencies.remove(this.actor, event);
         };
 
         // FEATS
 
-        handlers["browse-feats"] = (_, anchor) => {
-            this.#onClickBrowseFeats(anchor);
+        handlers["create-feat"] = () => {
+            this.actor.createEmbeddedDocuments("Item", [
+                {
+                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    type: "feat",
+                    system: {
+                        category: "bonus",
+                    },
+                },
+            ]);
         };
+
+        handlers["browse-feats"] = (_, anchor) => {
+            return this.#onClickBrowseFeats(anchor);
+        };
+
+        // CRAFTING
+
+        handlers["formula-to-chat"] = async (event) => {
+            const uuid = htmlClosest(event.target, "li")?.dataset.itemUuid;
+            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+
+            const formula = this.#knownFormulas[uuid];
+            if (formula) {
+                const item = new ItemProxyPF2e(formula.item.toObject(), { parent: this.actor });
+                await item.toMessage(event, { create: true, data: { fromFormula: true } });
+            }
+        };
+
+        handlers["craft-item"] = async (event, anchor) => {
+            const row = htmlClosest(anchor, "li");
+            const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
+            const uuid = row?.dataset.itemUuid;
+            if (!row || !uuid) return;
+            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+
+            const quantity = Number(quantityInput?.value) || 1;
+            const formula = this.#knownFormulas[uuid];
+            if (!formula) return;
+            const prepared = anchor.dataset.prepared;
+
+            // this.#formulaQuantities[formula.uuid] = Math.max(newValue, minBatchSize);
+            // this.render();
+
+            if (prepared === "true") {
+                const expendedState = anchor.dataset.expendedState;
+                if (expendedState === "true") {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.FormulaExpended"));
+                    return;
+                }
+                const index = row.dataset.itemIndex;
+                const entrySelector = row.dataset.entrySelector;
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector ?? "");
+                if (!index) return;
+                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+                return craftingEntry.toggleFormulaExpended(Number(index), uuid);
+            }
+
+            if (this.actor.flags.pf2e.quickAlchemy) {
+                const reagentValue = this.actor.system.resources.crafting.infusedReagents.value - 1;
+                if (reagentValue < 0) {
+                    ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
+                    return;
+                }
+                await this.actor.update(
+                    { "system.resources.crafting.infusedReagents.value": reagentValue },
+                    { render: false },
+                );
+
+                return craftItem(formula.item, 1, this.actor, true);
+            }
+
+            if (this.actor.flags.pf2e.freeCrafting) {
+                const itemId = uuid?.split(".").pop() ?? "";
+                if (isSpellConsumable(itemId) && formula.item.isOfType("consumable")) {
+                    return craftSpellConsumable(formula.item, quantity, this.actor);
+                }
+
+                return craftItem(formula.item, quantity, this.actor);
+            }
+
+            const difficultyClass: CheckDC = {
+                value: formula.dc,
+                visible: true,
+                scope: "check",
+            };
+
+            craft({
+                difficultyClass,
+                item: formula.item,
+                quantity,
+                actors: this.actor,
+                event,
+                free: anchor.dataset.free === "true",
+            });
+        };
+
+        handlers["toggle-formula-expended"] = async (event) => {
+            const row = htmlClosest(event.target, "li");
+            if (!row) return;
+            const uuid = row.dataset.itemUuid;
+            const index = row.dataset.itemIndex;
+            const entrySelector = row.dataset.entrySelector;
+            if (!uuid || !index || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+            await craftingEntry.toggleFormulaExpended(Number(index), uuid);
+        };
+
+        handlers["toggle-signature-item"] = async (event) => {
+            const row = htmlClosest(event.target, "li");
+            if (!row) return;
+            const uuid = row.dataset.itemUuid;
+            const entrySelector = row.dataset.entrySelector;
+            if (!uuid || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+            return craftingEntry.toggleSignatureItem(uuid);
+        };
+
+        handlers["perform-daily-crafting"] = () => {
+            return this.actor.performDailyCrafting();
+        };
+
+        handlers["delete-formula"] = async (event) => {
+            const uuid = htmlClosest(event.target, "li")?.dataset.itemUuid;
+            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+
+            // Render confirmation modal dialog
+            const name = this.#knownFormulas[uuid]?.name;
+            const content = `<p class="note">${game.i18n.format("PF2E.CraftingTab.RemoveFormulaDialogQuestion", {
+                name,
+            })}</p>`;
+            const title = game.i18n.localize("PF2E.CraftingTab.RemoveFormulaDialogTitle");
+            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
+                const actorFormulas = this.actor.toObject().system.crafting?.formulas ?? [];
+                actorFormulas.findSplice((f) => f.uuid === uuid);
+                return this.actor.update({ "system.crafting.formulas": actorFormulas });
+            }
+            return;
+        };
+
+        handlers["unprepare-formula"] = async (event) => {
+            const itemEl = htmlClosest(event.target, "li");
+            const uuid = itemEl?.dataset.itemUuid;
+            if (!itemEl || !UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+            const index = itemEl.dataset.itemIndex;
+            const entrySelector = itemEl.dataset.entrySelector;
+            if (!index || !entrySelector) return;
+
+            const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+            if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+
+            // Render confirmation modal dialog
+            const name = this.#knownFormulas[uuid]?.name;
+            const question = game.i18n.format("PF2E.CraftingTab.UnprepareFormulaDialogQuestion", { name });
+            const content = `<p class="hint">${question}</p>`;
+            const title = game.i18n.localize("PF2E.CraftingTab.UnprepareFormulaDialogTitle");
+            if (event.ctrlKey || (await Dialog.confirm({ title, content }))) {
+                return craftingEntry.unprepareFormula(Number(index), uuid);
+            }
+        };
+
+        handlers["quick-add-formula"] = async (event) => {
+            const uuid = htmlClosest(event?.target, "li")?.dataset.itemUuid;
+            if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
+
+            const craftingFormulas = await this.actor.getCraftingFormulas();
+            const formula = craftingFormulas.find((f) => f.uuid === uuid);
+            if (!formula) return;
+
+            const entries = (await this.actor.getCraftingEntries()).filter(
+                (e) => !!e.selector && e.checkEntryRequirements(formula, { warn: false }),
+            );
+            for (const entry of entries) {
+                await entry.prepareFormula(formula);
+            }
+
+            if (entries.length === 0) {
+                ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.NoEligibleEntry"));
+            }
+        };
+
+        const adjustCraftQuantity = async (_: MouseEvent, anchor: HTMLElement) => {
+            const row = htmlClosest(anchor, "li");
+            const quantityInput = htmlQuery<HTMLInputElement>(row, "input[data-craft-quantity]");
+            const uuid = row?.dataset.itemUuid;
+            if (!row || !quantityInput || !uuid) return;
+
+            const formula = this.#knownFormulas[uuid];
+            const index = row.dataset.itemIndex;
+            const entrySelector = row.dataset.entrySelector;
+            const currentQuantity = Number(quantityInput.value) || 0;
+
+            if (index && entrySelector) {
+                const craftingEntry = await this.actor.getCraftingEntry(entrySelector);
+                if (!craftingEntry) throw ErrorPF2e("Crafting entry not found");
+                const direction = anchor.dataset.action === "increase-craft-quantity" ? "increase" : "decrease";
+                return craftingEntry.setFormulaQuantity(Number(index), uuid ?? "", direction);
+            }
+
+            const minBatchSize = formula.minimumBatchSize;
+            const step = anchor.dataset.action === "increase-craft-quantity" ? minBatchSize : -minBatchSize;
+            const newQuantity = Math.max(currentQuantity + step, 1);
+            if (newQuantity === currentQuantity) return;
+            this.#formulaQuantities[formula.uuid] = Math.max(newQuantity, minBatchSize);
+            this.render();
+        };
+
+        handlers["increase-craft-quantity"] = adjustCraftQuantity;
+        handlers["decrease-craft-quantity"] = adjustCraftQuantity;
 
         // BIOGRAPHY
 
         // Section visibility toggles
-        handlers["toggle-bio-visibility"] = (event) => {
+        handlers["toggle-bio-visibility"] = (event): Promise<unknown> | void => {
             const anchor = htmlClosest(event.target, "a[data-action=toggle-bio-visibility");
             const section = anchor?.dataset.section;
             if (tupleHasValue(["appearance", "backstory", "personality", "campaign"], section)) {
                 const { biography } = this.actor.system.details;
                 const path = `system.details.biography.visibility.${section}`;
-                this.actor.update({ [path]: !biography.visibility[section] });
+                return this.actor.update({ [path]: !biography.visibility[section] });
             }
         };
 
@@ -1074,7 +1198,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 throw ErrorPF2e("Unexpected error adding edicts or anathema");
             }
             const list = this.actor._source.system.details.biography[field];
-            this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
+            return this.actor.update({ [`system.details.biography.${field}`]: [...list, ""] });
         };
         handlers["delete-edict-anathema"] = (_, anchor) => {
             anchor.style.pointerEvents = "none";
@@ -1085,7 +1209,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
             const list = [...this.actor._source.system.details.biography[field]];
             list.splice(Number(index), 1);
-            this.actor.update({ [`system.details.biography.${field}`]: list });
+            return this.actor.update({ [`system.details.biography.${field}`]: list });
         };
 
         return handlers;
@@ -1294,10 +1418,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -1314,18 +1435,9 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return super._onDropItem(event, data);
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<boolean | void> {
-        const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData = ((): Record<string, unknown> | null => {
-            try {
-                return JSON.parse(dataString ?? "");
-            } catch {
-                return null;
-            }
-        })();
-        if (!dropData) return;
-
-        if (isObject<Record<string, unknown>>(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
+    override async _onDrop(event: DragEvent): Promise<boolean | void> {
+        const dropData = TextEditor.getDragEventData(event);
+        if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {
                 // Prepare formula if dropped on a crafting entry.
@@ -1336,14 +1448,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     if (!craftingEntry) return;
 
                     const craftingFormulas = await this.actor.getCraftingFormulas();
-                    const uuid = dropData.pf2e.itemUuid;
+                    const uuid = dropData.uuid;
                     const formula = craftingFormulas.find((f) => f.uuid === uuid);
 
                     if (formula) craftingEntry.prepareFormula(formula);
                     return;
                 }
             }
-            const uuid = dropData.pf2e.itemUuid;
+            const uuid = dropData.uuid;
             if (typeof uuid === "string") {
                 const formula = this.#knownFormulas[uuid];
                 // Sort existing formulas
@@ -1424,12 +1536,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: DragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<CollectionValue<TActor["items"]>[]>;
-    protected override async _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e<ActorPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id!);
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        const item = this.actor.items.get(itemData._id!);
         if (item?.isOfType("feat")) {
             const featSlot = this.#getFeatSlotData(event);
             if (featSlot) {
@@ -1443,7 +1551,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         }
 
-        return super._onSortItem(event, itemSource);
+        return super._onSortItem(event, itemData);
     }
 
     protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
@@ -1470,11 +1578,6 @@ interface CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheet
 type CharacterSheetOptions = ActorSheetOptions;
 
 type CharacterSystemSheetData = CharacterSystemData & {
-    attributes: {
-        perception: {
-            rankName: string;
-        };
-    };
     details: CharacterSystemData["details"] & {
         keyability: {
             value: keyof typeof CONFIG.PF2E.abilities;
@@ -1517,6 +1620,7 @@ interface CraftingSheetData {
 }
 
 type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
+type SpellcastingTabSlug = "known-spells" | "rituals" | "activations";
 
 interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> extends CreatureSheetData<TActor> {
     abpEnabled: boolean;
@@ -1541,12 +1645,13 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
+    languages: LanguageSheetData[];
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;
     options: CharacterSheetOptions;
     preparationType: Object;
     showPFSTab: boolean;
-    spellcastingEntries: SpellcastingSheetData[];
+    spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {
@@ -1559,6 +1664,24 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     };
     feats: FeatGroup[];
     elementalBlasts: ElementalBlastSheetConfig[];
+    senses: Sense[];
+    speeds: SpeedSheetData[];
+}
+
+type LanguageSheetData = {
+    slug: Language | null;
+    label: string;
+    tooltip: string | null;
+    overLimit: boolean;
+};
+
+interface SpeedSheetData {
+    slug: string;
+    icon: string;
+    action: string | null;
+    label: string;
+    value: number | null;
+    breakdown: string | null;
 }
 
 interface ActionSheetData {
@@ -1569,7 +1692,7 @@ interface ActionSheetData {
     actionCost: ActionCost | null;
     frequency: Frequency | null;
     feat: FeatPF2e | null;
-    traits: SheetOptions;
+    toggles: TraitToggleViewData[];
     exploration?: {
         active: boolean;
     };

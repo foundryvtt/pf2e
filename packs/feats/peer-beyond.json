@@ -28,7 +28,34 @@
             "remaster": false,
             "title": "Pathfinder #163: Ruins of Gauntlight"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    {
+                        "or": [
+                            "origin:trait:haunt",
+                            {
+                                "and": [
+                                    "incorporeal",
+                                    "undead"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "selector": "initiative",
+                "text": "PF2E.SpecificRule.Feat.PeerBeyond.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

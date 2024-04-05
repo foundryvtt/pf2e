@@ -132,14 +132,9 @@
             "type": "melee"
         },
         {
-            "_id": "KcYjsnv1Da60rZqp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
+            "_id": "k1m2BVdO1iqRouch",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
+            "name": "Emotion Sense 120 feet",
             "sort": 400000,
             "system": {
                 "actionType": {
@@ -150,37 +145,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "k1m2BVdO1iqRouch",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Emotion Sense 120 feet",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>A teraphant can sense the emotions of creatures within 120 feet as an imprecise sense. Emotion sense is a precise sense against creatures under an emotion effect. A creature under the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em> can't be noticed via emotion sense.</p>"
+                    "value": "<p>A teraphant can sense the emotions of creatures within 120 feet as an imprecise sense. Emotion sense is a precise sense against creatures under an emotion effect. A creature under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Calm] can't be noticed via emotion sense.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -203,7 +168,7 @@
             "_id": "s1576Kzeq8JMVNz7",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Empathetic Response",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -233,7 +198,7 @@
             "_id": "8qsC3gMbkSTTQOdY",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Impale",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -263,7 +228,7 @@
             "_id": "wCtIIrUW3W5fxJS5",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Psychokinetic Trumpet",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -298,7 +263,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -328,7 +293,7 @@
             "_id": "kPfYHs4PPwutz153",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grabbing Trunk",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -358,7 +323,7 @@
             "_id": "oj6fFioS2ioNz1Hf",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -383,7 +348,7 @@
             "_id": "38H6VFps98kmENGP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -408,7 +373,7 @@
             "_id": "IOXOLOzMf4dYe46b",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -466,12 +431,6 @@
                 "temp": 0,
                 "value": 175
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 18
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 45
@@ -479,6 +438,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "(can't speak any language)",
+                "value": [
+                    "vudrani"
+                ]
+            },
             "level": {
                 "value": 9
             },
@@ -489,6 +454,18 @@
                 "remaster": false,
                 "title": "Pathfinder #158: Sixty Feet Under"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "emotion sense 120 feet",
+            "mod": 18,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -506,20 +483,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "(Can't Speak Any Language)",
-                "selected": [],
-                "value": [
-                    "vudrani"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "emotion sense 120 feet, low-light vision"
-            },
             "size": {
                 "value": "huge"
             },

@@ -28,6 +28,11 @@ export const GetSceneControlButtons = {
             const dayTool = lightingTools?.find((tool) => tool.name === "day");
             if (!(lightingControls && lightingTools && dayTool)) return;
 
+            // Indicate GM vision is on
+            if (game.pf2e.settings.gmVision && game.user.isGM) {
+                lightingControls.icon = "fa-solid fa-lightbulb-cfl-on gm-vision";
+            }
+
             // Scene Darkness Adjuster
             if (lightingControls.visible && SceneDarknessAdjuster.instance.rendered) {
                 SceneDarknessAdjuster.instance.close({ force: true });

@@ -29,30 +29,22 @@
             "remaster": false,
             "title": "Pathfinder #187: The Seventh Arch"
         },
-        "rules": [
-            {
-                "key": "Sense",
-                "selector": "lowLightVision"
-            },
-            {
-                "key": "Sense",
-                "predicate": [
-                    "feat:stargazers-eyes:2"
-                ],
-                "selector": "darkvision"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "flags.pf2e.feats.stargazersEyes.count",
-                "value": 1
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "feat:stargazers-eyes:{actor|flags.pf2e.feats.stargazersEyes.count}"
+        "rules": [],
+        "subfeatures": {
+            "senses": {
+                "darkvision": {
+                    "special": {
+                        "ancestry": false,
+                        "llv": true,
+                        "second": true
+                    }
+                },
+                "low-light-vision": {
+                    "acuity": "imprecise",
+                    "range": 30
+                }
             }
-        ],
+        },
         "traits": {
             "rarity": "common",
             "value": [

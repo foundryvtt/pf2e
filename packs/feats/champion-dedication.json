@@ -19,10 +19,10 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Strength 14"
+                    "value": "Strength +2"
                 },
                 {
-                    "value": "Charisma 14"
+                    "value": "Charisma +2"
                 }
             ]
         },
@@ -36,24 +36,6 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.rel.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.heavy.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.medium.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.light.rank",
                 "value": 1
             },
             {
@@ -74,7 +56,7 @@
                         "value": "dex"
                     }
                 ],
-                "flag": "keyAttribute",
+                "flag": "attribute",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
             },
@@ -89,15 +71,27 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "system.proficiencies.classDCs.champion",
-                "priority": 39,
-                "value": {
-                    "ability": "{item|flags.pf2e.rulesSelections.keyAttribute}",
-                    "label": "PF2E.TraitChampion",
+                "path": "system.proficiencies.classDCs.champion.attribute",
+                "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "champion": {
+                    "attribute": null,
+                    "rank": 1
+                },
+                "heavy": {
+                    "rank": 1
+                },
+                "light": {
+                    "rank": 1
+                },
+                "medium": {
                     "rank": 1
                 }
             }
-        ],
+        },
         "traits": {
             "rarity": "common",
             "value": [

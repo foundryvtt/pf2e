@@ -73,4 +73,11 @@ declare class Localization {
      * game.i18n.format("MY_TEST_STRING", {name: "Andrew"}); // Produces "Your name is Andrew"
      */
     format(stringId: string, data?: { [key: string]: string | number | boolean | null }): string;
+
+    /**
+     * Return whether a certain string has a known translation defined.
+     * @param stringId The string key being translated
+     * @param fallback
+     */
+    has(stringId: string, fallback?: boolean): boolean;
 }

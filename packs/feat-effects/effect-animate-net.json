@@ -1,0 +1,65 @@
+{
+    "_id": "eaKB3rIkJyfsow5H",
+    "img": "icons/tools/fishing/net-simple-brown.webp",
+    "name": "Effect: Animate Net",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animate Net]</p>\n<p>On a success, the target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] and takes a -10-foot circumstance penalty to its Speeds until it Escapes; on a critical success, it's also @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it Escapes.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "animate-net"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "type": "circumstance",
+                "value": -10
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "animate-net:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

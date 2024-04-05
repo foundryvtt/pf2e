@@ -18,6 +18,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
     protected static override get settings(): Record<ConfigPF2eListName, PartialSettingsData> {
         return {
             rulesBasedVision: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
                 default: true,
@@ -25,18 +26,21 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 requiresReload: true,
                 onChange: (value) => {
                     game.pf2e.settings.rbv = !!value;
+                    canvas.perception.update({ initializeVision: true }, true);
                 },
             },
             iwr: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.iwr.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.iwr.hint,
-                default: BUILD_MODE === "development",
+                default: true,
                 type: Boolean,
                 onChange: (value) => {
                     game.pf2e.settings.iwr = !!value;
                 },
             },
             effectExpiration: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.effectExpiration.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.effectExpiration.hint,
                 default: true,
@@ -52,18 +56,21 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 },
             },
             removeExpiredEffects: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.removeExpiredEffects.hint,
                 default: false,
                 type: Boolean,
             },
             flankingDetection: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.flankingDetection.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.flankingDetection.hint,
                 default: true,
                 type: Boolean,
             },
             encumbrance: {
+                prefix: "automation.",
                 name: "PF2E.SETTINGS.Automation.Encumbrance.Name",
                 hint: "PF2E.SETTINGS.Automation.Encumbrance.Hint",
                 default: false,
@@ -73,6 +80,7 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 },
             },
             lootableNPCs: {
+                prefix: "automation.",
                 name: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.name,
                 hint: CONFIG.PF2E.SETTINGS.automation.lootableNPCs.hint,
                 default: true,

@@ -1,14 +1,21 @@
-import { ActorPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
+import { ActorPF2e, ArmyPF2e, CreaturePF2e, type PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES } from "@actor/modifiers.ts";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { ValueAndMax } from "@module/data.ts";
-import { SheetOption, SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
+import {
+    AdjustedValue,
+    SheetOption,
+    SheetOptions,
+    createSheetTags,
+    getAdjustedValue,
+    getAdjustment,
+} from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -195,6 +202,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 value: trait,
                 selected: false, // selected is handled without re-render
             })),
+            armies: await this.#prepareArmies(),
             settlements: await Promise.all(
                 settlementEntries.map(async ([id, data]) => {
                     return this.#prepareSettlement(id, data!);
@@ -208,6 +216,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             abilityLabels: KINGDOM_ABILITY_LABELS,
             skillLabels: KINGDOM_SKILL_LABELS,
         };
+    }
+
+    async #prepareArmies(): Promise<ArmySheetData[]> {
+        const data = this.kingdom.armies.map(async (a) => ({
+            document: a,
+            link: await TextEditor.enrichHTML(a.link, { async: true }),
+            consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
+                better: "lower",
+            }),
+        }));
+
+        const dataResolved = await Promise.all(data);
+        return dataResolved.sort((a, b) => a.document.name.localeCompare(b.document.name));
     }
 
     async #prepareSettlement(id: string, settlement: KingdomSettlementData): Promise<SettlementSheetData> {
@@ -459,6 +480,25 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+
+        handlers["create-feat"] = () => {
+            this.actor.createEmbeddedDocuments("Item", [
+                {
+                    name: game.i18n.localize(CONFIG.PF2E.featCategories.bonus),
+                    type: "campaignFeature",
+                    system: {
+                        campaign: "kingmaker",
+                        category: "kingdom-feat",
+                    },
+                },
+            ]);
+        };
+
+        return handlers;
+    }
+
     /** Activate sheet events for a signle settlement */
     #activateSettlementEvents(settlementElement: HTMLElement) {
         const id = settlementElement.dataset.settlementId ?? null;
@@ -571,10 +611,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    protected override async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
+    protected override async _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]> {
         const item = await ItemPF2e.fromDropData(data);
         if (!item) throw ErrorPF2e("Unable to create item from drop data!");
 
@@ -593,11 +630,8 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     /** Handle a drop event for an existing Owned Item to sort that item */
-    protected override async _onSortItem(
-        event: ElementDragEvent,
-        itemSource: ItemSourcePF2e,
-    ): Promise<ItemPF2e<PartyPF2e>[]> {
-        const item = this.actor.items.get(itemSource._id!);
+    protected override async _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]> {
+        const item = this.actor.items.get(itemData._id!);
         if (item?.isOfType("campaignFeature") && (item.isFeat || item.isFeature)) {
             const featSlot = this.#getFeatSlotData(event);
             if (!featSlot) return [];
@@ -611,11 +645,11 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             }
         }
 
-        return super._onSortItem(event, itemSource);
+        return super._onSortItem(event, itemData);
     }
 
     protected override async _onDropActor(
-        event: ElementDragEvent,
+        event: DragEvent,
         data: DropCanvasData<"Actor", PartyPF2e>,
     ): Promise<false | void> {
         await super._onDropActor(event, data);
@@ -629,9 +663,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         }
     }
 
-    #getFeatSlotData(event: ElementDragEvent): { slotId: string | undefined; groupId: string } | null {
-        const groupId = event.target?.closest<HTMLElement>("[data-group-id]")?.dataset.groupId;
-        const slotId = event.target?.closest<HTMLElement>("[data-slot-id]")?.dataset.slotId;
+    #getFeatSlotData(event: DragEvent): { slotId: string | undefined; groupId: string } | null {
+        const groupId = htmlClosest(event.target, "[data-group-id]")?.dataset.groupId;
+        const slotId = htmlClosest(event.target, "[data-slot-id]")?.dataset.slotId;
         return typeof groupId === "string" ? { slotId, groupId } : null;
     }
 
@@ -683,12 +717,19 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     skills: Statistic[];
     feats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>[];
     actionFilterChoices: SheetOption[];
+    armies: ArmySheetData[];
     settlements: SettlementSheetData[];
     eventText: string;
 
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+}
+
+interface ArmySheetData {
+    link: string;
+    document: ArmyPF2e;
+    consumption: AdjustedValue;
 }
 
 interface LeaderSheetData extends KingdomLeadershipData {

@@ -1,0 +1,56 @@
+{
+    "_id": "mlFDIQuh84VLj5IC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Plant Soul Siblings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're now able to connect with the spirits present in the greenery of the natural world. You gain @UUID[Compendium.pf2e.spells-srd.Item.Speak with Plants] as a primal innate spell that you can cast once per day. You get a +2 circumstance bonus to Diplomacy checks to Gather Information from animals or plants.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Animal Soul Siblings"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "target:trait:plant",
+                            "target:trait:animal"
+                        ]
+                    },
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "reincarnated"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,18 +1,15 @@
+import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ArmorTrait } from "@item/armor/types.ts";
-import { ConsumableTrait } from "@item/consumable/data.ts";
-import { EquipmentTrait } from "@item/equipment/data.ts";
-import { ShieldTrait } from "@item/shield/types.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
+import { PhysicalItemSource } from "@item/base/data/index.ts";
 import { Size, TraitsWithRarity, ValuesList, ZeroToTwo } from "@module/data.ts";
 import { MaterialDamageEffect } from "@system/damage/types.ts";
 import { ActionCost, BaseItemSourcePF2e, Frequency, ItemSystemData, ItemSystemSource } from "../base/data/system.ts";
 import type { ITEM_CARRY_TYPES } from "../base/data/values.ts";
 import type { CoinsPF2e } from "./helpers.ts";
-import { PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
-import { UsageDetails } from "./usage.ts";
+import type { PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import type { UsageDetails } from "./usage.ts";
 
-type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
+type ItemCarryType = (typeof ITEM_CARRY_TYPES)[number];
 
 type BasePhysicalItemSource<
     TType extends PhysicalItemType,
@@ -21,7 +18,7 @@ type BasePhysicalItemSource<
 
 interface PhysicalSystemSource extends ItemSystemSource {
     level: { value: number };
-    traits: PhysicalItemTraits;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     quantity: number;
     baseItem: string | null;
     bulk: {
@@ -38,6 +35,16 @@ interface PhysicalSystemSource extends ItemSystemSource {
     usage?: { value: string };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
+    subitems?: PhysicalItemSource[];
+
+    /**
+     * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
+     * selected
+     */
+    apex?: {
+        attribute: AttributeString;
+        selected?: boolean;
+    };
 }
 
 interface IdentificationSource {
@@ -51,12 +58,16 @@ interface ItemMaterialSource {
     type: PreciousMaterialType | null;
 }
 
-interface PhysicalSystemData extends PhysicalSystemSource, Omit<ItemSystemData, "level"> {
+interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, Omit<ItemSystemData, "level"> {
+    apex?: {
+        attribute: AttributeString;
+        selected: boolean;
+    };
     hp: PhysicalItemHitPoints;
     price: Price;
     bulk: BulkData;
     material: ItemMaterialData;
-    traits: PhysicalItemTraits;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;
@@ -108,8 +119,7 @@ type EquippedData = {
     invested?: boolean | null;
 };
 
-type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | ShieldTrait | WeaponTrait;
-interface PhysicalItemTraits<T extends PhysicalItemTrait = PhysicalItemTrait> extends TraitsWithRarity<T> {
+interface PhysicalItemTraits<T extends PhysicalItemTrait> extends TraitsWithRarity<T> {
     otherTags: string[];
 }
 

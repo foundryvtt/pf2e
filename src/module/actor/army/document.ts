@@ -1,8 +1,9 @@
 import { FeatGroup } from "@actor/character/feats.ts";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { Sense } from "@actor/creature/sense.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { Kingdom } from "@actor/party/kingdom/model.ts";
+import { DamageContext } from "@actor/roll-context/damage.ts";
 import { type CampaignFeaturePF2e } from "@item";
 import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -13,7 +14,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { createDamageFormula } from "@system/damage/formula.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import type { DamageRollContext, SimpleDamageTemplate } from "@system/damage/types.ts";
+import type { DamageDamageContext, SimpleDamageTemplate } from "@system/damage/types.ts";
 import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { createHTMLElement, signedInteger, tupleHasValue } from "@util";
@@ -24,7 +25,6 @@ import type { ArmyStrike } from "./types.ts";
 import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
 
 class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-    declare armorClass: StatisticDifficultyClass<ArmorStatistic>;
     declare scouting: Statistic;
     declare maneuver: Statistic;
     declare morale: Statistic;
@@ -55,6 +55,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return ARMY_STATS.maxTactics[this.level];
     }
 
+    override prepareData(): void {
+        super.prepareData();
+        this.kingdom?.notifyUpdate();
+    }
+
     override prepareBaseData(): void {
         super.prepareBaseData();
 
@@ -65,7 +70,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
-        this.system.traits.senses = [];
+        this.system.perception = { senses: [] };
 
         this.system.details.alliance = this.hasPlayerOwner ? "party" : "opposition";
 
@@ -89,9 +94,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.consumption = Math.max(0, this.system.consumption);
 
         if (this.itemTypes.campaignFeature.some((f) => f.slug === "darkvision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "darkvision" }));
+            const sense = new Sense({ type: "darkvision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         } else if (this.itemTypes.campaignFeature.some((f) => f.slug === "low-light-vision")) {
-            this.system.traits.senses.push(new CreatureSensePF2e({ type: "lowLightVision" }));
+            const sense = new Sense({ type: "low-light-vision" }, { parent: this }).toObject(false);
+            this.system.perception.senses.push(sense);
         }
 
         this.tactics = new FeatGroup(this, {
@@ -107,10 +114,11 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const expectedAC = ARMY_STATS.ac[this.level];
         const acAdjustment = this.system.ac.value - expectedAC;
         this.armorClass = new ArmorStatistic(this, {
+            attribute: null,
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
-                    label: "PF2E.Kingmaker.Army.Base",
+                    label: "PF2E.ModifierTitle",
                     modifier: expectedAC - 10,
                 }),
                 acAdjustment &&
@@ -132,7 +140,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             label: "PF2E.Kingmaker.Army.Scouting",
             domains: ["scouting"],
             modifiers: R.compact([
-                new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseScouting }),
+                new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseScouting }),
                 scoutAdjustment
                     ? new ModifierPF2e({
                           slug: "adjustment",
@@ -156,7 +164,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
                 domains: ["saving-throw", saveType],
                 modifiers: R.compact([
-                    new ModifierPF2e({ slug: "base", label: "PF2E.Kingmaker.Army.Base", modifier: baseValue }),
+                    new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseValue }),
                     adjustment
                         ? new ModifierPF2e({
                               slug: "adjustment",
@@ -168,7 +176,8 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             });
         }
 
-        this.initiative = new ActorInitiative(this, { statistic: "scouting" });
+        const tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
+        this.initiative = new ActorInitiative(this, { statistic: "scouting", tiebreakPriority });
         this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
             this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
         );
@@ -247,7 +256,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             modifiers: R.compact([
                 new ModifierPF2e({
                     slug: "base",
-                    label: "PF2E.Kingmaker.Army.Base",
+                    label: "PF2E.ModifierTitle",
                     modifier: ARMY_STATS.attack[this.level],
                 }),
                 data.potency && new ModifierPF2e({ slug: "potency", label: "Potency", modifier: data.potency }),
@@ -266,24 +275,26 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             params: DamageRollParams = {},
             outcome: "success" | "criticalSuccess" = "success",
         ): Promise<string | Rolled<DamageRoll> | null> => {
-            const targetToken = params.target ?? game.user.targets.first() ?? null;
+            const targetToken = (params.target ?? game.user.targets.first())?.document ?? null;
 
             const domains = ["damage", "strike-damage", `${type}-damage`];
 
-            const context = await this.getDamageRollContext({
+            const context = await new DamageContext({
                 viewOnly: params.getFormula ?? false,
-                statistic: statistic.check,
+                origin: { actor: this, statistic },
                 target: { token: targetToken },
                 domains,
                 outcome,
                 checkContext: params.checkContext,
                 options: new Set(),
-            });
+            }).resolve();
+            const origin = context.origin;
+            if (!origin) return null;
 
-            const damageContext: DamageRollContext = {
+            const damageContext: DamageDamageContext = {
                 type: "damage-roll",
                 sourceType: "attack",
-                self: context.self,
+                self: context.origin,
                 target: context.target,
                 outcome,
                 options: context.options,
@@ -294,8 +305,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             // Compute damage formula. Since army damage has no category/type, we skip processing stacking rules here
             const { formula, breakdown } = createDamageFormula({
                 base: [{ modifier: outcome === "success" ? 1 : 2, damageType: "untyped", category: null }],
-                modifiers: extractModifiers(context.self.actor.synthetics, domains, { test: context.options }),
-                dice: extractDamageDice(context.self.actor.synthetics.damageDice, domains, {
+                modifiers: extractModifiers(origin.actor.synthetics, domains, { test: context.options }),
+                dice: extractDamageDice(origin.actor.synthetics.damageDice, {
+                    selectors: domains,
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },
                 }),
@@ -413,6 +425,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return super.checkItemValidity(source);
     }
 
+    override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         if (tupleHasValue(["scouting", "morale", "maneuver"], slug)) {
             return this[slug];
@@ -426,6 +439,9 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         options: ActorUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, options, user);
+
         if (typeof changed?.system?.attributes?.hp?.value === "number") {
             const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
             changed.system.attributes.hp.value = Math.clamped(changed.system.attributes.hp.value, 0, max);
@@ -433,10 +449,16 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         return super._preUpdate(changed, options, user);
     }
+
+    override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+        super._onDelete(options, userId);
+        this.kingdom?.reset();
+    }
 }
 
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: ArmySource;
+    armorClass: StatisticDifficultyClass<ArmorStatistic>;
     system: ArmySystemData;
 
     get hitPoints(): HitPointsSummary;

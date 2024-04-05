@@ -9,7 +9,7 @@ declare global {
 
         protected override _canDragStart(selector: string): boolean;
 
-        protected override _onDragStart(event: ElementDragEvent): void;
+        protected override _onDragStart(event: DragEvent): void;
 
         protected override _canDragDrop(selector: string): boolean;
 

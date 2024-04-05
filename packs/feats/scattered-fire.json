@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you cast fireball, you can modify its area to be two non-overlapping @Template[type:burst|distance:10]{10-foot bursts}.</p>"
+            "value": "<p>When you cast @UUID[Compendium.pf2e.spells-srd.Item.Fireball], you can modify its area to be two non-overlapping @Template[type:burst|distance:10]{10-foot bursts}.</p>"
         },
         "level": {
             "value": 8
@@ -31,7 +31,37 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Grand Bazaar"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpellTrickster.Label",
+                "mergeable": true,
+                "option": "spell-trickster",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "scattered-fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spell-trickster:scattered-fire",
+                    "item:slug:fireball"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellTrickster.ScatteredFire.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,9 +1,10 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FeatSystemSource } from "@item/feat/data.ts";
 import { FEAT_OR_FEATURE_CATEGORIES } from "@item/feat/values.ts";
-import { isObject, recursiveReplaceString, setHasElement } from "@util";
-import { MigrationBase } from "../base.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
+import { recursiveReplaceString, setHasElement } from "@util";
+import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 /** Rename `featType.value` to `category`, remove "archetype" category */
 export class Migration834FeatCategories extends MigrationBase {
@@ -12,7 +13,7 @@ export class Migration834FeatCategories extends MigrationBase {
     #updateCategoryData(system: FeatSystemSource & { "-=featType"?: null }): void {
         const { traits } = system;
 
-        if ("featType" in system && isObject<{ value: string }>(system.featType)) {
+        if ("featType" in system && R.isObject(system.featType)) {
             const category = system.featType.value;
             delete system.featType;
             if ("game" in globalThis) system["-=featType"] = null;
@@ -48,7 +49,7 @@ export class Migration834FeatCategories extends MigrationBase {
         const choiceSets = source.system.rules.filter((r): r is ChoiceSetRE => r.key === "ChoiceSet");
         for (const rule of choiceSets) {
             if (
-                isObject(rule.allowedDrops) &&
+                R.isObject(rule.allowedDrops) &&
                 "predicate" in rule.allowedDrops &&
                 Array.isArray(rule.allowedDrops.predicate)
             ) {
@@ -57,7 +58,7 @@ export class Migration834FeatCategories extends MigrationBase {
                 );
             }
 
-            if (isObject(rule.choices) && "query" in rule.choices && typeof rule.choices.query === "string") {
+            if (R.isObject(rule.choices) && "query" in rule.choices && typeof rule.choices.query === "string") {
                 rule.choices.query = rule.choices.query
                     .replace('"featType.value":"archetype"', '"category":"class"')
                     .replace("featType.value", "category");

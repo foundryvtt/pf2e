@@ -1,10 +1,94 @@
 @import "self-applied-effect";
 
+.sidebar {
+    .prerequisites {
+        ul {
+            margin-top: 0;
+
+            .tag {
+                color: var(--color-text-dark-2);
+                font-size: var(--font-size-12);
+                font-weight: 400;
+                padding: 0.25em 0;
+            }
+        }
+    }
+}
+
 .tab.details {
     .form-group {
         > label {
             min-width: fit-content;
             margin-right: 1em;
+        }
+    }
+
+    fieldset.subfeatures .form-group.stacked {
+        margin: 0;
+
+        ul {
+            &.empty {
+                flex: 1;
+                padding: 0 0.25rem;
+
+                li.add-subfeature {
+                    gap: 0.5rem;
+                    justify-content: end;
+
+                    a {
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            &:not(.empty) {
+                border: 1px solid var(--color-border-light-2);
+            }
+
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            margin: 0.25rem 0;
+            padding: 0.25rem;
+
+            li {
+                align-items: center;
+                border: 1px solid transparent;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                padding: 0.125rem;
+
+                label,
+                select.unselected-options {
+                    flex-basis: 11rem;
+                }
+
+                label {
+                    font-weight: normal;
+                    padding-right: 0;
+
+                    a.darkvision-special i.fa-regular {
+                        color: var(--color-text-light-7);
+                    }
+                }
+
+                input[type="number"],
+                select.rank,
+                select.acuity {
+                    flex-basis: 6rem;
+                }
+
+                a {
+                    margin-left: auto;
+                }
+
+                hr {
+                    display: block;
+                    flex-basis: 100%;
+                    margin: 0;
+                }
+            }
         }
     }
 }

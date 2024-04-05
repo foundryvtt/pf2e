@@ -1,18 +1,16 @@
-import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { LightData, TextureData } from "../data/data.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
+import type * as data from "../data/data.d.ts";
 import type * as fields from "../data/fields.d.ts";
-import type { ActorDeltaSource } from "./actor-delta.d.ts";
-import type { BaseActorDelta, BaseScene } from "./module.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
  * The Token document model.
  * @param data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseToken<TParent extends BaseScene | null = BaseScene | null> extends Document<
-    TParent,
-    TokenSchema
-> {
+export default class BaseToken<
+    TParent extends documents.BaseScene | null = documents.BaseScene | null,
+> extends abstract.Document<TParent, TokenSchema> {
     static override get metadata(): TokenMetadata;
 
     static override defineSchema(): TokenSchema;
@@ -21,14 +19,14 @@ export default class BaseToken<TParent extends BaseScene | null = BaseScene | nu
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
 }
 
-export default interface BaseToken<TParent extends BaseScene | null = BaseScene | null>
-    extends Document<TParent, TokenSchema>,
+export default interface BaseToken<TParent extends documents.BaseScene | null = documents.BaseScene | null>
+    extends abstract.Document<TParent, TokenSchema>,
         ModelPropsFromSchema<TokenSchema> {
-    delta: BaseActorDelta<this> | null;
-    light: LightData;
+    delta: documents.BaseActorDelta<this> | null;
+    light: data.LightData<this>;
 }
 
-interface TokenMetadata extends DocumentMetadata {
+interface TokenMetadata extends abstract.DocumentMetadata {
     name: "Token";
     collection: "tokens";
     label: "DOCUMENT.Token";
@@ -54,11 +52,11 @@ type TokenSchema = {
      * The ActorDelta embedded document which stores the differences between this token and the base actor it
      * represents.
      */
-    delta: ActorDeltaField<BaseActorDelta<BaseToken>>;
+    delta: ActorDeltaField<documents.BaseActorDelta<BaseToken>>;
     appendNumber: fields.BooleanField;
     prependAdjective: fields.BooleanField;
     /** The token's texture on the canvas. */
-    texture: TextureData;
+    texture: data.TextureData;
     /** The width of the Token in grid units */
     width: fields.NumberField<number, number, true, false>;
     /** The height of the Token in grid units */
@@ -98,7 +96,7 @@ type TokenSchema = {
         attribute: fields.StringField<string, string, true, true, true>;
     }>;
     /** Configuration of the light source that this Token emits */
-    light: fields.EmbeddedDataField<LightData>;
+    light: fields.EmbeddedDataField<data.LightData<BaseToken>>;
     /** Configuration of sight and vision properties for the Token */
     sight: fields.SchemaField<{
         /** Should vision computation and rendering be active for this Token? */
@@ -138,7 +136,7 @@ type TokenSchema = {
 export type TokenSource = SourceFromSchema<TokenSchema>;
 
 declare class ActorDeltaField<
-    TDocument extends BaseActorDelta<BaseToken> = BaseActorDelta<BaseToken>,
+    TDocument extends documents.BaseActorDelta<BaseToken> = documents.BaseActorDelta<BaseToken>,
 > extends fields.EmbeddedDocumentField<TDocument> {
     override initialize(
         value: fields.MaybeSchemaProp<TDocument["_source"], true, true, true>,

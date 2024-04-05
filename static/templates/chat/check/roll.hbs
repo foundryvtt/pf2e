@@ -5,7 +5,7 @@
         </div>
     {{~/if}}
     <div class="dice-result">
-        <div class="dice-formula">{{formula}}</div>
+        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{formula}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">{{total}}</h4>
     </div>
@@ -15,7 +15,7 @@
         <button type="button" class="success" data-action="{{action}}-damage" data-outcome="success">
             {{localize "PF2E.DamageLabel"}}
             {{#if (eq degree 2)}}
-                <span class="cue"{{#if limitCueVisibility}} data-visibility="owner" data-whose="target"{{/if}}>
+                <span class="cue"{{#unless showDamageCue}} data-visibility="owner" data-whose="opposer"{{/unless}}>
                     <i class="fa-duotone fa-bullseye-pointer fa-flip-horizontal fa-fw"></i>
                 </span>
             {{/if}}
@@ -23,7 +23,7 @@
         <button type="button" class="critical-success" data-action="{{action}}-damage" data-outcome="critical-success">
             {{localize "PF2E.CriticalDamageLabel"}}
             {{#if (eq degree 3)}}
-                <span class="cue"{{#if limitCueVisibility}} data-visibility="owner" data-whose="target"{{/if}}>
+                <span class="cue"{{#unless showDamageCue}} data-visibility="owner" data-whose="opposer"{{/unless}}>
                     <i class="fa-duotone fa-bullseye-pointer fa-flip-horizontal fa-fw"></i>
                 </span>
             {{/if}}

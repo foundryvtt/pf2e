@@ -76,8 +76,16 @@ class SubsistAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Subsist.Notes.criticalFailure" },
             ],
             rollOptions: ["action:subsist"],
+            sampleTasks: {
+                untrained: "PF2E.Actions.Subsist.SampleTasks.Untrained",
+                trained: "PF2E.Actions.Subsist.SampleTasks.Trained",
+                expert: "PF2E.Actions.Subsist.SampleTasks.Expert",
+                master: "PF2E.Actions.Subsist.SampleTasks.Master",
+                legendary: "PF2E.Actions.Subsist.SampleTasks.Legendary",
+            },
+            section: "skill",
             slug: "subsist",
-            statistic: "",
+            statistic: ["society", "survival"],
             traits: ["downtime"],
         });
     }

@@ -20,42 +20,50 @@
 
     <section class="modifiers">
         <h3>
-            {{~#if dice}}
-                {{localize "PF2E.ChatRollDetails.ModifiersAndDice"}}
-            {{else}}
+            {{~#if dice~}}
+                {{localize "PF2E.ChatRollDetails.DiceAndModifiers"}}
+            {{~else~}}
                 {{localize "PF2E.ModifiersTitle"}}
-            {{/if~}}
+            {{~/if~}}
         </h3>
-        <div class="modifier-list">
+
+        <ul class="modifier-list">
             {{#if (eq context.type "flat-check")}}
-                <div class="empty">
+                <li class="empty">
                     {{localize "PF2E.ChatRollDetails.FlatCheckNoModifiers"}}
-                </div>
-            {{else if (not modifiers.length)}}
-                <div class="empty">
+                </li>
+            {{else if (eq modifiers.length 0)}}
+                <li class="empty">
                     {{localize "None"}}
-                </div>
+                </li>
             {{/if}}
 
-            {{#each modifiers as |m|}}
-                <div class="modifier {{disabled (not m.enabled)}}">
-                    <h4>{{m.label}} <span class="slug">({{m.slug}})</span></h4>
-                    <div>
-                        <span>{{localize (concat "PF2E.ModifierType." m.type)}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
-                        <span>{{m.critical}}</span>
-                    </div>
-                </div>
-            {{/each}}
-
-            {{#each dice as |d|}}
-                <div class="modifier {{disabled (not d.enabled)}}">
-                    <h4>{{d.label}} <span class="slug">({{d.slug}})</span></h4>
+            {{#each dice as |d idx|}}
+                <li class="modifier {{disabled (not d.enabled)}}" data-type="dice" data-idx="{{idx}}">
+                    <h4>
+                        <span class="label-slug">{{d.label}} ({{d.slug}})</span>
+                        <i class="fa-solid fa-circle-info"></i>
+                    </h4>
                     <div>
                         <span>{{d.value}} {{d.damageType}} {{#if d.category}}({{d.category}}){{/if}}</span>
                         <span>{{d.critical}}</span>
                     </div>
-                </div>
+                </li>
             {{/each}}
-        </div>
+
+            {{#each modifiers as |m idx|}}
+                <li class="modifier {{disabled (not m.enabled)}}" data-type="modifier" data-idx="{{idx}}">
+                    <h4>
+                        <span class="label-slug">{{m.label}} ({{m.slug}})</span>
+                        {{#if m.rule}}{{m.rule.item.name}}{{/if}}
+                        <i class="fa-solid fa-circle-info"></i>
+                    </h4>
+                    <div>
+                        <span>{{localize (concat "PF2E.ModifierType." m.type)}} {{m.value}} {{m.damageType}} {{#if m.category}}({{m.category}}){{/if}}</span>
+                        <span>{{m.critical}}</span>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
     </section>
 </div>

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Shillelagh",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Shillelagh]</em></p>\n<p>The target grows vines and leaves, brimming with primal energy. The target becomes a +1 striking weapon while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shillelagh]</p>\n<p>The target grows vines and leaves, brimming with primal energy. The target becomes a +1 striking weapon while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,13 +24,21 @@
             {
                 "choices": {
                     "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:group:club",
+                                "item:group:staff"
+                            ]
+                        }
+                    ],
                     "types": [
                         "weapon"
                     ]
                 },
                 "flag": "spellEffectShillelagh",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+                "prompt": "PF2E.SpecificRule.Prompt.Shillelagh"
             },
             {
                 "key": "WeaponPotency",
@@ -39,25 +47,24 @@
             },
             {
                 "key": "Striking",
-                "label": "Shillelagh",
                 "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
                 "value": 1
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Get third damage die from Shillelagh",
+                "label": "PF2E.SpecificRule.Shillelagh.RollOptionLabel",
                 "option": "shillelagh-third-die",
                 "toggleable": true
             },
             {
-                "key": "Striking",
-                "label": "Shillelagh bonus damage",
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Shillelagh.DamageDiceLabel",
                 "predicate": [
                     "shillelagh-third-die"
                 ],
-                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage",
-                "value": 2
+                "selector": "{item|flags.pf2e.rulesSelections.spellEffectShillelagh}-damage"
             }
         ],
         "start": {

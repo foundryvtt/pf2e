@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You are skilled at noticing the telltale signs of ghosts and hauntings. Even when you aren't Investigating in exploration mode, you get a check to Recall Knowledge about incorporeal undead and haunts active in the area. You also gain a +2 circumstance bonus to skill checks to disable haunts.</p>"
+            "value": "<p>You are skilled at noticing the telltale signs of ghosts and hauntings. Even when you aren't Investigating in exploration mode, you get a check to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge] about incorporeal undead and haunts active in the area. You also gain a +2 circumstance bonus to skill checks to disable haunts.</p>"
         },
         "level": {
             "value": 4
@@ -28,7 +28,17 @@
             "remaster": false,
             "title": "Pathfinder #163: Ruins of Gauntlight"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "disable-haunt"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

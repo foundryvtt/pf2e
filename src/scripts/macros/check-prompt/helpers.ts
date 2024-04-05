@@ -1,5 +1,4 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { CharacterSkill } from "@actor/character/types.ts";
 
 function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, string> {
     const actorsArray = Array.isArray(actors) ? actors : [actors];
@@ -7,7 +6,7 @@ function loreSkillsFromActors(actors: ActorPF2e | ActorPF2e[]): Record<string, s
     return Object.fromEntries(
         characters
             .flatMap((m) => Object.values(m.skills))
-            .filter((s): s is CharacterSkill => !!s?.lore)
+            .filter((s) => s.lore)
             .map((s) => [s.slug, s.label]),
     );
 }

@@ -1,7 +1,6 @@
-import type { ActorPF2e, LootPF2e } from "@actor";
-import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import type { ItemPF2e } from "@item";
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { LootPF2e } from "@actor";
+import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
+import type { PhysicalItemPF2e } from "@item";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
 import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup.ts";
@@ -23,10 +22,6 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
     override get template(): string {
         return "systems/pf2e/templates/actors/loot/sheet.hbs";
-    }
-
-    override get isLootSheet(): boolean {
-        return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     override async getData(): Promise<LootSheetDataPF2e<TActor>> {
@@ -62,16 +57,26 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
         });
     }
 
-    protected override async _onDropItem(
-        event: DragEvent,
-        itemData: DropCanvasItemDataPF2e,
-    ): Promise<ItemPF2e<ActorPF2e | null>[]> {
-        // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
-        // loot sheet to the same sheet
-        if (this.actor.id === itemData.actorId && !this.actor.testUserPermission(game.user, "OWNER")) {
-            return [];
+    protected override prepareInventory(): SheetInventory {
+        const preparedInventory = super.prepareInventory();
+        preparedInventory.showUnitBulkPrice = this.actor.system.lootSheetType === "Merchant";
+
+        // Hide empty sections for non-owners
+        if (!this.actor.isOwner) {
+            preparedInventory.sections = preparedInventory.sections.filter(
+                (s) => s.items.length && s.items.some((i) => !i.hidden),
+            );
         }
-        return super._onDropItem(event, itemData);
+
+        return preparedInventory;
+    }
+
+    /** Hide coin item rows in merchant actors */
+    protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
+        const isMerchant = this.actor.system.lootSheetType === "Merchant";
+        const data = super.prepareInventoryItem(item);
+        data.hidden = isMerchant && item.isOfType("treasure") && item.isCoinage && !item.container;
+        return data;
     }
 }
 

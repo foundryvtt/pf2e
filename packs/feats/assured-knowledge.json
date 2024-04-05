@@ -28,7 +28,29 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "SubstituteRoll",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "selector": "skill-check",
+                "slug": "assured-knowledge",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "substitute:assured-knowledge",
+                    {
+                        "not": "bonus:type:proficiency"
+                    }
+                ],
+                "selector": "skill-check",
+                "suppress": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

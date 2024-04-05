@@ -30,73 +30,18 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.swashbuckler.preciseStrike",
+                "value": 1
+            },
+            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Basic Finisher"
             },
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Precise Strike"
-            },
-            {
-                "damageCategory": "precision",
-                "key": "FlatModifier",
-                "predicate": [
-                    "self:effect:panache",
-                    {
-                        "or": [
-                            "item:melee",
-                            {
-                                "and": [
-                                    "feat:flying-blade",
-                                    "item:thrown",
-                                    "target:range-increment:1"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
-                    },
-                    {
-                        "not": "finisher"
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "finishing-precision",
-                "value": 1
-            },
-            {
-                "category": "precision",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "self:effect:panache",
-                    "finisher",
-                    {
-                        "or": [
-                            "item:melee",
-                            {
-                                "and": [
-                                    "feat:flying-blade",
-                                    "item:thrown",
-                                    "target:range-increment:1"
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "finishing-precision"
             }
         ],
         "traits": {

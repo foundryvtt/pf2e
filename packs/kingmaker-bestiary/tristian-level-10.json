@@ -15,7 +15,7 @@
             "system": {
                 "ancestry": null,
                 "description": {
-                    "value": "<p>You descend from celestials or were touched by the celestial realms, gaining an air of awe and grace, as well as features distinctive to your celestial forebears. You gain the aasimar trait, in addition to the traits from your ancestry. You also gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Low-Light Vision], or you gain @UUID[Compendium.pf2e.ancestryfeatures.Item.Darkvision] if your ancestry already has low-light vision. You can choose from aasimar feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
+                    "value": "<p>You descend from celestials or were touched by the celestial realms, gaining an air of awe and grace, as well as features distinctive to your celestial forebears. You gain the aasimar trait, in addition to the traits from your ancestry. You also gain low-light vision, or you gain darkvision if your ancestry already has low-light vision. You can choose from aasimar feats and feats from your ancestry whenever you gain an ancestry feat.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -25,7 +25,7 @@
                 "rules": [
                     {
                         "key": "Sense",
-                        "selector": "lowLightVision"
+                        "selector": "low-light-vision"
                     },
                     {
                         "key": "Sense",
@@ -81,7 +81,7 @@
                 },
                 "items": {
                     "dbply": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Assurance (Survival)",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
@@ -232,15 +232,17 @@
                         "grantedId": "NaGBwRrjBDGJf759",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Multilingual"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "add",
-                        "path": "system.traits.languages.value",
-                        "value": "empyrean"
                     }
                 ],
                 "slug": "angelkin",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [
+                            "empyrean"
+                        ],
+                        "slots": 0
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -295,8 +297,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -708,7 +736,7 @@
                     "value": 0.1
                 },
                 "category": "other",
-                "containerId": "null",
+                "containerId": null,
                 "damage": null,
                 "description": {
                     "value": ""
@@ -1048,7 +1076,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "prepared"
@@ -1063,147 +1090,105 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
                     "slot0": {
                         "max": 5,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "VlSCI17BCtocEOsY"
                             },
-                            "1": {
+                            {
                                 "id": "NXIwz8OMcTXfIbxq"
                             },
-                            "2": {
+                            {
                                 "id": "aFiOWUMGvnoQNj2S"
                             },
-                            "3": {
+                            {
                                 "id": "SG2FcBuJ8hbGy7bx"
                             },
-                            "4": {
+                            {
                                 "id": "uK3AKtoHtcLmaMQu"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot1": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "hNbGxKEAoCipixSj"
                             },
-                            "1": {
+                            {
                                 "id": "JD3tuTeZ5TLlMca0"
                             },
-                            "2": {
+                            {
                                 "id": "4YAdFPq4Qg7oSpuy"
                             }
-                        },
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
+                        ]
                     },
                     "slot2": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "n30NHwaoatwLRIuP"
                             },
-                            "1": {
+                            {
                                 "id": "3w4cPTPph9RUaaea"
                             },
-                            "2": {
+                            {
                                 "id": "PulSd7eTMKGVJNNQ"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot3": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "fdvYbq3Svo3Q34yC"
                             },
-                            "1": {
+                            {
                                 "id": "0KojqA4XVlQ2My16"
                             },
-                            "2": {
+                            {
                                 "id": "XbHnX7HzhSJwmTW6"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot4": {
                         "max": 3,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "cuik1u9L5F2OjPdO"
                             },
-                            "1": {
+                            {
                                 "id": "rDSX4gcJ8MxypXom"
                             },
-                            "2": {
+                            {
                                 "id": "Q6eK5Vp4nC9xc4pQ"
                             }
-                        },
-                        "value": 0
+                        ]
                     },
                     "slot5": {
                         "max": 6,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "gdAxi4tfBqlX4Kjh"
                             },
-                            "1": {
+                            {
                                 "id": "UxaIHfayCvMqaU1m"
                             },
-                            "2": {
+                            {
                                 "id": "q5zWNQvlxmypej2B"
                             },
-                            "3": {
+                            {
                                 "id": "HfSoqPaQztDfQzap"
                             },
-                            "4": {
+                            {
                                 "id": "HfSoqPaQztDfQzap"
                             },
-                            "5": {
+                            {
                                 "id": "HfSoqPaQztDfQzap"
                             }
-                        },
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
+                        ]
                     }
                 },
                 "slug": null,
@@ -1732,7 +1717,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 1
@@ -1791,7 +1776,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em> spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
+                    "value": "<p>You raise a magical shield of force. This counts as using the Raise a Shield action, giving you a +1 circumstance bonus to AC until the start of your next turn, but it doesn't require a hand to use.</p>\n<p>While the spell is in effect, you can use the @UUID[Compendium.pf2e.feats-srd.Item.Shield Block] reaction with your magic shield. The shield has Hardness 5. After you use Shield Block, the spell ends and you can't cast it again for 10 minutes. Unlike a normal Shield Block, you can use the spell's reaction against the @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage] spell.</p>\n<p>Heightening the spell increases the shield's Hardness.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Shield]</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The shield has Hardness 10.</p>\n<p><strong>Heightened (5th)</strong> The shield has Hardness 15.</p>\n<p><strong>Heightened (7th)</strong> The shield has Hardness 20.</p>\n<p><strong>Heightened (9th)</strong> The shield has Hardness 25.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1843,7 +1828,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.SnjhtQYexDtNDdEg"
                 }
             },
-            "img": "systems/pf2e/icons/spells/stabelize.webp",
+            "img": "icons/magic/control/debuff-energy-hold-yellow.webp",
             "name": "Stabilize",
             "sort": 0,
             "system": {
@@ -1916,7 +1901,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "focus"
                 },
@@ -1930,74 +1914,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 0,
@@ -2266,7 +2183,7 @@
                     "die": "d4"
                 },
                 "description": {
-                    "value": "<p>Made of smooth, white wood, this staff is capped at each end with a golden cross adorned with a multitude of ruby cabochons. A staff of healing grants an item bonus to the Hit Points you restore anytime you cast the heal spell using your own spell slots or using charges from the staff.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>\n<p>The item bonus granted to <em>heal</em> spells is +2.</p>\n<ul>\n<li><strong>Cantrip</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Stabilize]</em></li>\n<li><strong>1st</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em></li>\n<li><strong>2nd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> <em>@UUID[Compendium.pf2e.spells-srd.Item.Restoration]</em> <em>@UUID[Compendium.pf2e.spells-srd.Item.Sound Body]</em></li>\n<li><strong>3rd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em></li>\n</ul>"
+                    "value": "<p>Made of smooth, white wood, this staff is capped at each end with a golden cross adorned with a multitude of ruby cabochons. A staff of healing grants an item bonus to the Hit Points you restore anytime you cast the heal spell using your own spell slots or using charges from the staff.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>\n<p>The item bonus granted to <em>heal</em> spells is +2.</p>\n<ul>\n<li><strong>Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.Stabilize]</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Heal]</li>\n<li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Heal] @UUID[Compendium.pf2e.spells-srd.Item.Restoration] @UUID[Compendium.pf2e.spells-srd.Item.Sound Body]</li>\n<li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Heal] @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</li>\n</ul>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2345,7 +2262,7 @@
                 "containerId": null,
                 "damage": null,
                 "description": {
-                    "value": "<p><em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em></p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
+                    "value": "<p>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</p><hr /><p>This baton is about a foot long and contains a single spell. The appearance typically relates to the spell within.</p>\n<p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Frequency</strong> once per day, plus overcharge</p>\n<hr />\n<p><strong>Effect</strong> You Cast the Spell at the indicated level.</p>\n<p><strong>Craft Requirements</strong> Supply a listed-level casting of the spell.</p>\n<hr />\n<p><em>Note: To create a scroll or wand of a specific spell, drag the spell from the compendium or compendium browser into the inventory of a PC, NPC, or loot actor.</em></p>"
                 },
                 "equipped": {
                     "carryType": "worn"
@@ -2377,7 +2294,7 @@
                 "size": "med",
                 "slug": "magic-wand-3rd-level-spell",
                 "spell": {
-                    "_id": null,
+                    "_id": "d5noo3AlBRfbfnv0",
                     "flags": {
                         "core": {
                             "sourceId": "Compendium.pf2e.spells-srd.Item.rfZpqmj0AIIdkVIs"
@@ -2416,7 +2333,7 @@
                             }
                         },
                         "description": {
-                            "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"pf2-icon\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"pf2-icon\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"pf2-icon\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                            "value": "<p>You channel vitality energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of vitality damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><span class=\"action-glyph\">1</span> <strong>(somatic)</strong> The spell has a range of touch.</p>\n<p><span class=\"action-glyph\">2</span> <strong>(verbal, somatic)</strong> The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8</p>\n<p><span class=\"action-glyph\">3</span> <strong>(material, somatic, verbal)</strong> You disperse vitality energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                         },
                         "duration": {
                             "sustained": false,
@@ -2796,7 +2713,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>Your vitality energy is even more vibrant and restorative. When you cast <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em>, you roll d10s instead of d8s.</p>"
+                    "value": "<p>Your vitality energy is even more vibrant and restorative. When you cast @UUID[Compendium.pf2e.spells-srd.Item.Heal], you roll d10s instead of d8s.</p>"
                 },
                 "level": {
                     "value": 1
@@ -2912,7 +2829,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>Undead harmed by your vitality energy might flee, compelled by an innate aversion to the force opposite undeath. When you use a <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell to damage undead, each undead of your level or lower that critically fails its save gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition for 1 round.</p>"
+                    "value": "<p>Undead harmed by your vitality energy might flee, compelled by an innate aversion to the force opposite undeath. When you use a @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to damage undead, each undead of your level or lower that critically fails its save gains the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition for 1 round.</p>"
                 },
                 "level": {
                     "taken": 4,
@@ -2957,7 +2874,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>As you call down divine power, you can prevent some enemies from benefiting or some allies from being hurt. When you cast a version of <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> that has an area, you can designate a number of creatures equal to your Charisma modifier (minimum 1) that are not targeted by the spell.</p>"
+                    "value": "<p>As you call down divine power, you can prevent some enemies from benefiting or some allies from being hurt. When you cast a version of @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] that has an area, you can designate a number of creatures equal to your Charisma modifier (minimum 1) that are not targeted by the spell.</p>"
                 },
                 "level": {
                     "taken": 6,
@@ -3002,7 +2919,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>You're a conduit for vitality energy, and as you channel it through you, it heals some of your minor injuries.</p>\n<p>When you cast the <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> spell to heal a single creature other than yourself, you regain Hit Points equal to the spell level of the heal spell.</p>"
+                    "value": "<p>You're a conduit for vitality energy, and as you channel it through you, it heals some of your minor injuries.</p>\n<p>When you cast the @UUID[Compendium.pf2e.spells-srd.Item.Heal] spell to heal a single creature other than yourself, you regain Hit Points equal to the spell rank of the heal spell.</p>"
                 },
                 "level": {
                     "taken": 8,
@@ -3408,8 +3325,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3495,7 +3438,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -3582,7 +3525,7 @@
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 2
@@ -3643,7 +3586,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied] condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @UUID[Compendium.pf2e.conditionitems.Item.Drained] to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @UUID[Compendium.pf2e.conditionitems.Item.Doomed] value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -4139,11 +4082,11 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>The object glows with soft golden light that lays bare the truth, reveals hidden objects, and shines supernatural light on false orders. The object casts bright light in a 60-foot radius (and dim light for the next 60 feet). Within the area of bright light, Perception checks to locate hidden objects (including secret doors but not traps), Will saves to resist visual illusions, and Will saves to resist effects placed by evil creatures that inflict the controlled condition all gain a +2 status bonus. This light suppresses magical darkness of your Dawnflower's light spell's level or lower.</p>\n<p>Finally, the supernatural light created by this spell is similar to sunlight, and while it can't damage creatures normally harmed by sunlight, it does make them uncomfortable so that they suffer a -2 status penalty to saves versus fear effects while in the area of bright light.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +3.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +4.</p>"
+                    "value": "<p>The object glows with soft golden light that lays bare the truth, reveals hidden objects, and shines supernatural light on false orders. The object casts bright light in a 60-foot radius (and dim light for the next 60 feet). Within the area of bright light, Perception checks to locate hidden objects (including secret doors but not traps), Will saves to resist visual illusions, and Will saves to resist effects placed by evil creatures that inflict the controlled condition all gain a +2 status bonus. This light suppresses magical darkness of your Dawnflower's light spell's rank or lower.</p>\n<p>Finally, the supernatural light created by this spell is similar to sunlight, and while it can't damage creatures normally harmed by sunlight, it does make them uncomfortable so that they suffer a -2 status penalty to saves versus fear effects while in the area of bright light.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The status bonus increases to +3.</p>\n<p><strong>Heightened (9th)</strong> The status bonus increases to +4.</p>"
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 4
@@ -4277,7 +4220,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from dying and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use <em>breath of life</em> if the triggering effect was <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> or a death effect.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from dying and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use <em>breath of life</em> if the triggering effect was @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate] or a death effect.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -4582,7 +4525,7 @@
                             "healing"
                         ],
                         "materials": [],
-                        "type": "healing"
+                        "type": "untyped"
                     }
                 },
                 "defense": null,
@@ -4865,7 +4808,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Third Doctrine"
                     },
                     "vmpzh": {
-                        "img": "systems/pf2e/icons/features/classes/miraculous-spell.webp",
+                        "img": "icons/magic/symbols/star-rising-purple.webp",
                         "level": 19,
                         "name": "Miraculous Spell",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Miraculous Spell"
@@ -4877,7 +4820,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
                     },
                     "xe44z": {
-                        "img": "systems/pf2e/icons/features/classes/divine-defense.webp",
+                        "img": "icons/creatures/abilities/wings-birdlike-blue.webp",
                         "level": 13,
                         "name": "Divine Defense",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Divine Defense"
@@ -5147,7 +5090,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an <em>@UUID[Compendium.pf2e.spells-srd.Item.Atone]</em> ritual.</p>"
+                    "value": "<p>Acts fundamentally opposed to your deity's alignment or ideals are anathema to your faith. Learning or casting spells, committing acts, and using items that are anathema to your deity remove you from your deity's good graces.</p>\n<p>Casting spells with the evil trait is almost always anathema to good deities, and casting good spells is likewise anathema to evil deities; similarly, casting chaotic spells is anathema to lawful deities, and casting lawful spells is anathema to chaotic deities. A neutral cleric who worships a neutral deity isn't limited this way, but their alignment might change over time if they frequently cast spells or use abilities with a certain alignment. Similarly, casting spells that are anathema to the tenets or goals of your faith could interfere with your connection to your deity. For example, casting a spell to create undead would be anathema to @UUID[Compendium.pf2e.deities.Item.Pharasma], the goddess of death. For borderline cases, you and your GM determine which acts are anathema.</p>\n<p>If you perform enough acts that are anathema to your deity, or if your alignment changes to one not allowed by your deity, you lose the magical abilities that come from your connection to your deity. The class features that you lose are determined by the GM, but they likely include your divine font and all divine spellcasting. These abilities can be regained only if you demonstrate your repentance by conducting an @UUID[Compendium.pf2e.spells-srd.Item.Atone] ritual.</p>"
                 },
                 "level": {
                     "value": 1
@@ -5191,7 +5134,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality energy or its counterforce, void energy. When you prepare your spells each day, you can prepare additional <em>@UUID[Compendium.pf2e.spells-srd.Item.Heal]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Harm]</em> spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
+                    "value": "<p>Through your deity's blessing, you gain additional spells that channel either the life force called vitality energy or its counterforce, void energy. When you prepare your spells each day, you can prepare additional @UUID[Compendium.pf2e.spells-srd.Item.Heal] or @UUID[Compendium.pf2e.spells-srd.Item.Harm] spells, depending on your deity. Once you choose, you can't change your choice short of an ethical shift or divine intervention.</p>\n<p><strong>Healing Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>heal</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>\n<p><strong>Harmful Font</strong> You gain additional spell slots each day at your highest level of cleric spell slots. You can prepare only <em>harm</em> spells in these slots, and the number of slots is equal to 1 plus your Charisma modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -5235,7 +5178,7 @@
                 },
                 "category": "classfeature",
                 "description": {
-                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-level spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest level of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
+                    "value": "<p>Your deity bestows on you the power to cast divine spells. You can cast divine spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. Because you're a cleric, you can usually hold a divine focus (such as a religious symbol) for spells requiring material components instead of needing to use a spell component pouch.</p>\n<p>At 1st level, you can prepare two 1st-rank spells and five cantrips each morning from the common spells on the divine spell list in this book or from other divine spells to which you gain access. Prepared spells remain available to you until you cast them or until you prepare your spells again. The number of spells you can prepare is called your spell slots.</p>\n<p>As you increase in level as a cleric, the number of spells you can prepare each day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Wisdom, your spell attack rolls and spell DCs use your Wisdom modifier.</p>"
                 },
                 "level": {
                     "value": 1
@@ -5420,15 +5363,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5555,15 +5498,16 @@
                         "key": "AdjustDegreeOfSuccess",
                         "selector": "will",
                         "type": "save"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 3
                     }
                 ],
                 "slug": "resolve",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 3
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -5622,7 +5566,9 @@
                         "holy"
                     ]
                 },
-                "skill": "med",
+                "skill": [
+                    "medicine"
+                ],
                 "slug": "sarenrae",
                 "spells": {
                     "1": "Compendium.pf2e.spells-srd.Item.y6rAdMK6EFlV6U0t",
@@ -5860,15 +5806,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "second-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -5917,15 +5863,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.spellcasting.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "third-doctrine-cloistered-cleric",
+                "subfeatures": {
+                    "proficiencies": {
+                        "spellcasting": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -6027,9 +5973,6 @@
                 "temp": 0,
                 "value": 128
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -6095,6 +6038,15 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "fey",
+                    "hallit",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 10
             },
@@ -6117,6 +6069,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -6194,22 +6149,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "fey",
-                    "hallit",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "good"
-            ]
         }
     },
     "type": "character"

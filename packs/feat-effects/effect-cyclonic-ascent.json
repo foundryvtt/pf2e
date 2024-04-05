@@ -1,0 +1,42 @@
+{
+    "_id": "SZY4zxhxoeehYRdN",
+    "img": "icons/magic/air/wind-tornado-cyclone-white.webp",
+    "name": "Effect: Cyclonic Ascent",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Cyclonic Ascent]</p>\n<p>You gain a fly Speed equal to your land Speed or 30 feet, whichever is greater.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(30,@actor.attributes.speed.total)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

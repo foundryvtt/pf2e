@@ -50,45 +50,10 @@
             "type": "melee"
         },
         {
-            "_id": "EI3OMbX3GaC67Bnt",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "MTJ6P2pU1320fO7f",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Berserk",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -123,7 +88,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Golem Antimagic",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -153,7 +118,7 @@
             "_id": "g2OkSiICf1gw8aes",
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Quicken",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -190,7 +155,7 @@
             "_id": "xOGJ7uK7SF5xcrH2",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vulnerable to Disintegrate",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -200,7 +165,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em> spell affects the golem but deals half the normal amount of damage and causes the golem to become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round.</p>"
+                    "value": "<p>A @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate] spell affects the golem but deals half the normal amount of damage and causes the golem to become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -220,7 +185,7 @@
             "_id": "zNcTKoBJlpFDMTec",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Berserk Slam",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -285,7 +250,7 @@
             "_id": "gQ7hVeDi4X11cJlc",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Cursed Wound",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -295,7 +260,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>A creature hit by the clay golem's fist must succeed at a @Check[type:fortitude|dc:29] save or be cursed until healed to its maximum HP. The cursed creature can't regain HP except via magic, and anyone @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Casting a Spell} to heal the creature must succeed at a DC 29 counteract check or the healing has no effect. The golem's counteract level is equal to its creature level.</p>"
+                    "value": "<p>A creature hit by the clay golem's fist must succeed at a @Check[type:fortitude|dc:29] save or be cursed until healed to its maximum HP. The cursed creature can't regain HP except via magic, and anyone @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Casting a Spell} to heal the creature must succeed at a DC 29 counteract check or the healing has no effect. The golem's counteract rank is equal to its creature level.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -318,7 +283,7 @@
             "_id": "8EHct64wNH1fUwMi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -381,12 +346,6 @@
                     "type": "acid"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -403,6 +362,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 10
             },
@@ -413,6 +376,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -430,15 +405,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

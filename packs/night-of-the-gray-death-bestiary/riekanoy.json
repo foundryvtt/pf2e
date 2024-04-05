@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "focus": {
                     "points": 0,
                     "pool": 0
@@ -33,84 +32,35 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
                     "slot2": {
                         "max": 2,
-                        "prepared": {},
                         "value": 2
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
                     },
                     "slot6": {
                         "max": 3,
-                        "prepared": {},
                         "value": 3
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": {},
-                        "value": 0
                     },
                     "slot8": {
                         "max": 3,
-                        "prepared": {},
                         "value": 2
                     },
                     "slot9": {
                         "max": 2,
-                        "prepared": {
-                            "0": {
+                        "prepared": [
+                            {
                                 "id": "uDdmL37nuL23ybLZ"
                             },
-                            "1": {
+                            {
                                 "id": "JO3eLqECaPW4mG9U"
                             },
-                            "2": {
+                            {
                                 "id": "HEjVKx2234CjoP58"
                             },
-                            "3": {
+                            {
                                 "id": "DetDp1eLwV1VPdTI"
                             }
-                        },
+                        ],
                         "value": 2
                     }
                 },
@@ -427,7 +377,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Slow]</em>.</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @UUID[Compendium.pf2e.spells-srd.Item.Slow].</p>\n<hr />\n<p><strong>Area</strong> 50 ft long by 50 ft wide</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -479,7 +429,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.Y3G6Y6EDgCY0s3fq"
                 }
             },
-            "img": "systems/pf2e/icons/spells/hydraulic-torrent.webp",
+            "img": "icons/magic/air/wind-tornado-funnel-damage-blue.webp",
             "name": "Hydraulic Torrent",
             "sort": 700000,
             "system": {
@@ -493,6 +443,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "8d6",
                         "kinds": [
@@ -504,12 +455,12 @@
                 },
                 "defense": {
                     "save": {
-                        "basic": false,
+                        "basic": true,
                         "statistic": "fortitude"
                     }
                 },
                 "description": {
-                    "value": "<p>A swirling torrent of water manifests along a straight line, battering creatures and unattended objects in its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save; unattended objects automatically fail. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A swirling torrent of water manifests along a straight line, battering creatures and unattended objects in its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save; unattended objects automatically fail. Creatures and objects that fail are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -530,9 +481,9 @@
                     "value": "l6gDxpqDjpaOlxmL"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -876,76 +827,6 @@
             "type": "melee"
         },
         {
-            "_id": "TRTZh30v8R0c62QL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 1300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "2judlV29ixMN4ljv",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "RmdaktfumPEM4R7q",
             "flags": {
                 "core": {
@@ -954,7 +835,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -984,7 +865,7 @@
             "_id": "m8okrt5p2n41726w",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sinuous Initiative",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1014,7 +895,7 @@
             "_id": "iolcGi2CFgzPxgyI",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Water Walk",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1024,7 +905,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Riekanoy is under the effects of 9th-level <em>@UUID[Compendium.pf2e.spells-srd.Item.Water Walk]</em> at all times.</p>"
+                    "value": "<p>Riekanoy is under the effects of 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Water Walk] at all times.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1044,7 +925,7 @@
             "_id": "l1p4q2zyo6konsxf",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Beckoning Dance",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1080,7 +961,7 @@
             "_id": "hc1wuichiyplb2ks",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1110,7 +991,7 @@
             "_id": "8zl0kvuswlu8s369",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Entangling Hair",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1140,7 +1021,7 @@
             "_id": "46kj31h9euhnr25q",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Waving Hair",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1175,7 +1056,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -1205,7 +1086,7 @@
             "_id": "7yp2jdmsh5v272hl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1230,7 +1111,7 @@
             "_id": "65mosag9rc8wy680",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1255,7 +1136,7 @@
             "_id": "27zhh86f14v5ti0l",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1280,7 +1161,7 @@
             "_id": "jhg49dob5nirlqzv",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2600000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1305,7 +1186,7 @@
             "_id": "kuk41ahc25o58n6t",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 2700000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1330,7 +1211,7 @@
             "_id": "883bes60x7k13dva",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2800000,
+            "sort": 2600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1355,7 +1236,7 @@
             "_id": "69k1bde9jdva0fkq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2900000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1419,12 +1300,6 @@
                 "temp": 0,
                 "value": 410
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 31
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -1449,6 +1324,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "fey",
+                    "thalassic"
+                ]
+            },
             "level": {
                 "value": 19
             },
@@ -1459,6 +1342,23 @@
                 "remaster": false,
                 "title": "Pathfinder Adventure: Night of the Gray Death"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 31,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1476,19 +1376,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "fey",
-                    "thalassic"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "low-light vision, true seeing"
-            },
             "size": {
                 "value": "med"
             },

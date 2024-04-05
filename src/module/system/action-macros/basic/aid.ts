@@ -47,6 +47,7 @@ class AidAction extends SingleCheckAction {
                 },
             ],
             rollOptions: ["action:aid"],
+            section: "basic",
             slug: "aid",
             statistic: "",
         });

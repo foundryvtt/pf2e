@@ -92,7 +92,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>An ocluai's presence distorts nearby creatures' senses of direction. Nonmagical bright light within the aura becomes dim light, and nonmagical dim light with the aura becomes darkness. Any non-gorga within range of the ocluai's aura that attempts to move must declare where they intend to move. Before moving, however, the creature must attempt a secret @Check[type:will|dc:20] saving throw. An ocluai can exempt specific creatures from this effect. Magical light anywhere within the ocluai's aura increases the light level as normal and reduces the Will save DC by 5.</p>\n<hr />\n<p><strong>Success</strong> The creature moves normally.</p>\n<p><strong>Failure</strong> The creature moves the intended distance, but not in the right direction. The ocluai chooses the creature's destination and route, which could be a straight line or could include multiple changes in direction. If the path is blocked or would go through obviously dangerous terrain (such as of a cliff or through a fire), the movement ends before the blockage or danger.</p>\n<p><strong>Critical Failure</strong> As failure, but if the creature's path would lead them into obviously dangerous terrain, they must succeed at a second Will save to end their movement just before they would enter the danger.</p>"
+                    "value": "<p>60 feet. An ocluai's presence distorts nearby creatures' senses of direction. Nonmagical bright light within the aura becomes dim light, and nonmagical dim light with the aura becomes darkness. Any non-gorga within range of the ocluai's aura that attempts to move must declare where they intend to move. Before moving, however, the creature must attempt a secret @Check[type:will|dc:20] saving throw. An ocluai can exempt specific creatures from this effect. Magical light anywhere within the ocluai's aura increases the light level as normal and reduces the Will save DC by 5.</p>\n<hr />\n<p><strong>Success</strong> The creature moves normally.</p>\n<p><strong>Failure</strong> The creature moves the intended distance, but not in the right direction. The ocluai chooses the creature's destination and route, which could be a straight line or could include multiple changes in direction. If the path is blocked or would go through obviously dangerous terrain (such as of a cliff or through a fire), the movement ends before the blockage or danger.</p>\n<p><strong>Critical Failure</strong> As failure, but if the creature's path would lead them into obviously dangerous terrain, they must succeed at a second Will save to end their movement just before they would enter the danger.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -319,12 +319,6 @@
                 "temp": 0,
                 "value": 55
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -344,6 +338,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "can't speak any language; telepathy 100 feet, images only",
+                "value": [
+                    "aklo",
+                    "common",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -354,6 +356,18 @@
                 "remaster": false,
                 "title": "Pathfinder #187: The Seventh Arch"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -371,19 +385,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Can't Speak Any Language; Telepathy 100 Feet, Images Only",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "fey"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "med"
             },

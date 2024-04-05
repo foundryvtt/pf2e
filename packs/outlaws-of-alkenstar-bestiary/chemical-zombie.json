@@ -91,45 +91,10 @@
             "type": "melee"
         },
         {
-            "_id": "3bqSjZ8OFBahcmGk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "td3gay0LzawYp5Ff",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Quenchable Death Throes",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -140,7 +105,7 @@
                 "category": "interaction",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>When a chemical zombie dies, its body explodes in a @Template[type:burst|distance:30] of fire and debris that deals @Damage[2d10[bludgeoning],2d10[fire]]{2d10 bludgeoning and 2d10 fire damage} to each creature in the area (@Check[type:reflex|dc:21|basic:true]). If the chemical zombie is soaked with water before it dies (such as by dousing it with a bucket of water or hitting it with a water spell like <em>@UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push]</em>), the chemicals are neutralized and this ability doesn't trigger.</p>"
+                    "value": "<p>When a chemical zombie dies, its body explodes in a @Template[type:burst|distance:30] of fire and debris that deals @Damage[2d10[bludgeoning],2d10[fire]]{2d10 bludgeoning and 2d10 fire damage} to each creature in the area (@Check[type:reflex|dc:21|basic:true]). If the chemical zombie is soaked with water before it dies (such as by dousing it with a bucket of water or hitting it with a water spell like @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Push]), the chemicals are neutralized and this ability doesn't trigger.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -160,7 +125,7 @@
             "_id": "iFKv7PFNKtSVy9XA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -195,7 +160,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -232,7 +197,7 @@
             "_id": "0eyOInV05vjoOU3X",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Blinding Sulfur",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -264,7 +229,7 @@
             "_id": "2rMyh0aoCjphUh3d",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -289,7 +254,7 @@
             "_id": "6oi4RTC4SsG0FGyA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -367,12 +332,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 12
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 30
@@ -390,6 +349,10 @@
         },
         "details": {
             "blurb": "Variant sulfur zombies",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 6
             },
@@ -400,6 +363,18 @@
                 "remaster": false,
                 "title": "Pathfinder #180: The Smoking Gun"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 12,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -417,18 +392,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

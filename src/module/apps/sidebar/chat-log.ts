@@ -189,7 +189,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     #onClickShieldBlock(shieldButton: HTMLButtonElement, messageEl: HTMLLIElement): void {
         const getTokens = (): TokenDocumentPF2e[] => {
             const tokens = game.user.getActiveTokens();
-            if (!tokens.length) {
+            if (tokens.length === 0) {
                 ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
             }
             return tokens;
@@ -206,7 +206,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     animation: "fade",
                     trigger: "click",
                     arrow: false,
-                    content: $(messageEl).find("div.hover-content"),
+                    content: htmlQuery(messageEl, "div.hover-content"),
                     contentAsHTML: true,
                     contentCloning: true,
                     debug: BUILD_MODE === "development",
@@ -215,7 +215,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     theme: "crb-hover",
                     functionBefore: (): boolean => {
                         const tokens = getTokens();
-                        if (!tokens.length) return false;
+                        if (tokens.length === 0) return false;
 
                         const nonBrokenShields = getNonBrokenShields(tokens);
                         const hasMultipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
@@ -239,7 +239,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                         CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
                         return false;
                     },
-                    functionFormat: (instance, _helper, $content): string | JQuery<HTMLElement> => {
+                    functionFormat: (instance, _helper, contentEl: HTMLElement): string | JQuery => {
                         const tokens = getTokens();
                         const nonBrokenShields = getNonBrokenShields(tokens);
                         const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
@@ -247,12 +247,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
                         // If the actor is wielding more than one shield, have the user pick which shield to use for blocking.
                         if (multipleShields && !shieldActivated) {
-                            const content: HTMLElement = $content[0];
                             // Populate the list with the shield options
-                            const listEl = htmlQuery(content, "ul.shield-options");
-                            if (!listEl) return $content;
-                            const shieldList: HTMLLIElement[] = [];
-                            for (const shield of nonBrokenShields) {
+                            const listEl = htmlQuery(contentEl, "ul.shield-options");
+                            if (!listEl) return $(contentEl);
+
+                            const shieldList = nonBrokenShields.map((shield): HTMLLIElement => {
                                 const input = document.createElement("input");
                                 input.classList.add("data");
                                 input.type = "radio";
@@ -272,14 +271,18 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                                 hardness.classList.add("tag");
                                 const hardnessLabel = game.i18n.localize("PF2E.HardnessLabel");
                                 hardness.innerHTML = `${hardnessLabel}: ${shield.hardness}`;
+
                                 const itemLi = document.createElement("li");
                                 itemLi.classList.add("item");
                                 itemLi.append(input, shieldName, hardness);
-                                shieldList.push(itemLi);
-                            }
+
+                                return itemLi;
+                            });
+
                             listEl.replaceChildren(...shieldList);
                         }
-                        return $content;
+
+                        return $(contentEl);
                     },
                 })
                 .tooltipster("open");
@@ -290,7 +293,11 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         if (!canvas) return;
         const token = message.token?.object;
         if (token?.isVisible && token.isOwner) {
-            token.controlled ? token.release() : token.control({ releaseOthers: !event.shiftKey });
+            if (token.controlled) {
+                token.release();
+            } else {
+                token.control({ releaseOthers: !event.shiftKey });
+            }
             // If a double click, also pan to the token
             if (event.type === "dblclick") {
                 const scale = Math.max(1, canvas.stage.scale.x);
@@ -327,18 +334,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         };
 
         const canApplyTripleDamage: ContextOptionCondition = ($li: JQuery) =>
-            canApplyDamage($li) && game.settings.get("pf2e", "critFumbleButtons");
-
-        const canApplyInitiative: ContextOptionCondition = ($li: JQuery) => {
-            const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-
-            // Rolling PC initiative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
-            // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-            const validActor =
-                message.token?.actor?.type === "npc" && (message.token.combatant?.initiative ?? null) === null;
-            const validRollType = message.isRoll && message.isCheckRoll;
-            return validActor && validRollType;
-        };
+            canApplyDamage($li) && game.pf2e.settings.critFumble.buttons;
 
         const canReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
@@ -347,7 +343,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canHeroPointReroll: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            const { actor } = message;
+            const messageActor = message.actor;
+            const actor = messageActor?.isOfType("familiar") ? messageActor.master : messageActor;
             return message.isRerollable && !!actor?.isOfType("character") && actor.heroPoints.value > 0;
         };
 
@@ -410,33 +407,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                 callback: ($li: JQuery) => {
                     const message = game.messages.get($li[0].dataset.messageId, { strict: true });
                     applyDamageFromMessage({ message, multiplier: -1 });
-                },
-            },
-            {
-                name: "PF2E.ClickToSetInitiativeContext",
-                icon: fontAwesomeIcon("swords").outerHTML,
-                condition: canApplyInitiative,
-                callback: async ($li) => {
-                    const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-                    const { actor, token } = message;
-                    if (!token) {
-                        ui.notifications.error(
-                            game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                                actor: message.actor?.name ?? message.user?.name ?? "",
-                            }),
-                        );
-                        return;
-                    }
-                    if (!actor) return;
-                    const combatant = await CombatantPF2e.fromActor(actor);
-                    if (!combatant) return;
-                    const value = message.rolls.at(0)?.total ?? 0;
-
-                    await combatant.encounter.setInitiative(combatant.id, value);
-
-                    ui.notifications.info(
-                        game.i18n.format("PF2E.Encounter.InitiativeSet", { actor: actor.name, initiative: value }),
-                    );
                 },
             },
             {

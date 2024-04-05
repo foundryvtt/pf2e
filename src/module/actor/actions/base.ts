@@ -1,9 +1,13 @@
+import type { ActionTrait } from "@item/ability/index.ts";
+import type { ProficiencyRank } from "@item/base/data/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
+import { PROFICIENCY_RANKS } from "@module/data.ts";
 import { getActionGlyph, sluggify } from "@util";
 import {
     Action,
     ActionCost,
     ActionMessageOptions,
+    ActionSection,
     ActionUseOptions,
     ActionVariant,
     ActionVariantUseOptions,
@@ -14,7 +18,7 @@ interface BaseActionVariantData {
     description?: string;
     name?: string;
     slug?: string;
-    traits?: string[];
+    traits?: ActionTrait[];
 }
 
 interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = BaseActionVariantData> {
@@ -22,9 +26,21 @@ interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = B
     description: string;
     img?: string;
     name: string;
+    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    section?: ActionSection;
     slug?: string | null;
-    traits?: string[];
+    traits?: ActionTrait[];
     variants?: ActionVariantDataType | ActionVariantDataType[];
+}
+
+function labelSampleTasks(sampleTasks: Partial<Record<ProficiencyRank, string>>): { label: string; text: string }[] {
+    const unlabeled: { rank: ProficiencyRank; text: string }[] = [];
+    let rank: keyof typeof sampleTasks;
+    for (rank in sampleTasks) {
+        unlabeled.push({ rank, text: sampleTasks[rank]! });
+    }
+    unlabeled.sort((t1, t2) => PROFICIENCY_RANKS.indexOf(t1.rank) - PROFICIENCY_RANKS.indexOf(t2.rank));
+    return unlabeled.map((task) => ({ label: CONFIG.PF2E.proficiencyRanks[task.rank], text: task.text }));
 }
 
 abstract class BaseActionVariant implements ActionVariant {
@@ -33,7 +49,7 @@ abstract class BaseActionVariant implements ActionVariant {
     readonly #description?: string;
     readonly name?: string;
     readonly #slug?: string;
-    readonly #traits?: string[];
+    readonly #traits?: ActionTrait[];
 
     protected constructor(action: BaseAction<BaseActionVariantData, BaseActionVariant>, data?: BaseActionVariantData) {
         this.#action = action;
@@ -62,7 +78,7 @@ abstract class BaseActionVariant implements ActionVariant {
         return this.#slug || sluggify(this.name ?? "") || this.#action.slug;
     }
 
-    get traits(): string[] {
+    get traits(): ActionTrait[] {
         return this.#traits ?? this.#action.traits;
     }
 
@@ -71,6 +87,7 @@ abstract class BaseActionVariant implements ActionVariant {
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
+        const sampleTasks = this.#action.sampleTasks ? labelSampleTasks(this.#action.sampleTasks) : undefined;
         const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         const traits = this.traits.map((trait) => ({
@@ -82,6 +99,7 @@ abstract class BaseActionVariant implements ActionVariant {
             description,
             glyph: this.glyph,
             name,
+            sampleTasks,
             traits,
         });
         return ChatMessagePF2e.create({
@@ -99,8 +117,10 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     readonly description?: string;
     readonly img?: string;
     readonly name: string;
+    readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    readonly section?: ActionSection;
     readonly slug: string;
-    readonly traits: string[];
+    readonly traits: ActionTrait[];
     readonly #variants: TAction[];
 
     protected constructor(data: BaseActionData<TData>) {
@@ -108,6 +128,8 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         this.description = data.description;
         this.img = data.img;
         this.name = data.name.trim();
+        this.sampleTasks = data.sampleTasks;
+        this.section = data.section;
         this.slug = data.slug?.trim() || sluggify(this.name);
         this.traits = data.traits ?? [];
         this.#variants = Array.isArray(data.variants)
@@ -141,41 +163,35 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
         return new Collection(variants);
     }
 
-    protected async getDefaultVariant(options?: { variant?: string }): Promise<TAction> {
+    protected getDefaultVariant(options?: { variant?: string }): TAction {
         const variants = this.variants;
         if (options?.variant && !variants.size) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.None", {
-                action: this.name,
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.None", {
+                action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
-            return Promise.reject(reason);
         }
         if (!options?.variant && variants.size > 1) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
-                action: this.name,
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.Multiple", {
+                action: game.i18n.localize(this.name),
             });
-            return Promise.reject(reason);
         }
         const variant = variants.get(options?.variant ?? "");
         if (options?.variant && !variant) {
-            const reason = game.i18n.format("PF2E.ActionsWarning.Variants.Nonexisting", {
-                action: this.name,
+            throw game.i18n.format("PF2E.ActionsWarning.Variants.Nonexistent", {
+                action: game.i18n.localize(this.name),
                 variant: options.variant,
             });
-            return Promise.reject(reason);
         }
         return variant ?? this.toActionVariant();
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
-        // use the data from the action to construct the message if no variant is specified
-        const variant = options?.variant ? await this.getDefaultVariant(options) : undefined;
-        return (variant ?? this.toActionVariant()).toMessage(options);
+        return this.getDefaultVariant(options).toMessage(options);
     }
 
     async use(options?: Partial<ActionUseOptions>): Promise<unknown> {
-        const variant = await this.getDefaultVariant(options);
-        return (variant ?? this.toActionVariant()).use(options);
+        return this.getDefaultVariant(options).use(options);
     }
 
     protected abstract toActionVariant(data?: TData): TAction;

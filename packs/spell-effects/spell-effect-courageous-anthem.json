@@ -4,7 +4,7 @@
     "name": "Spell Effect: Courageous Anthem",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem]</em></p>\n<p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem]</p>\n<p>You gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,9 +16,9 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
@@ -38,6 +38,20 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Bard.DiscordantVoice.Label",
+                "predicate": [
+                    "parent:origin:discordant-voice",
+                    {
+                        "not": "parent:origin:signature:{item|parent.signature}"
+                    }
+                ],
+                "selector": "strike-damage"
             }
         ],
         "start": {

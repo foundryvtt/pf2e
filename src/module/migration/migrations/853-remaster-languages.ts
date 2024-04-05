@@ -1,7 +1,8 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import { recursiveReplaceString } from "@util";
+import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 /** Change languages renamed in Rage of Elements  */
 export class Migration853RemasterLanguages extends MigrationBase {
@@ -16,9 +17,9 @@ export class Migration853RemasterLanguages extends MigrationBase {
     ]);
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        const languages: { value?: string[] } = source.system.traits?.languages ?? {};
-        if (languages?.value) {
-            languages.value = languages.value.map((l) => this.#OLD_TO_NEW_LANGUAGES.get(l) ?? l).sort();
+        const traits: unknown = source.system.traits;
+        if (R.isObject(traits) && R.isObject(traits.languages) && Array.isArray(traits.languages.value)) {
+            traits.languages.value = traits.languages.value.map((l) => this.#OLD_TO_NEW_LANGUAGES.get(l) ?? l).sort();
         }
     }
 

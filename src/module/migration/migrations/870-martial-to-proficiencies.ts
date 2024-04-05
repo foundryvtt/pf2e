@@ -2,7 +2,8 @@ import { CharacterSystemSource, MartialProficiency } from "@actor/character/data
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject, recursiveReplaceString, setHasElement } from "@util";
+import { recursiveReplaceString, tupleHasValue } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Move data in `CharacterSystemSource#martial` to `#proficiencies`. */
@@ -16,7 +17,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
 
         const systemSource: MaybeWithOldMartialData = source.system;
         const oldData =
-            isObject(systemSource.martial) && Object.keys(systemSource.martial).length > 0 ? systemSource.martial : {};
+            R.isObject(systemSource.martial) && !R.isEmpty(systemSource.martial) ? systemSource.martial : {};
 
         for (const [key, data] of Object.entries(oldData)) {
             if (!data.rank || (["simple", "unarmed", "unarmored"].includes(key) && data.rank === 1)) {
@@ -24,9 +25,10 @@ export class Migration870MartialToProficiencies extends MigrationBase {
             }
 
             systemSource.proficiencies ??= {};
-            if (setHasElement(ARMOR_CATEGORIES, key)) {
-                systemSource.proficiencies.defenses ??= {};
-                systemSource.proficiencies.defenses[key] = { rank: data.rank };
+            const proficiencies: MaybeWithStoredDefense = systemSource.proficiencies;
+            if (tupleHasValue(ARMOR_CATEGORIES, key)) {
+                proficiencies.defenses ??= {};
+                proficiencies.defenses[key] = { rank: data.rank };
             } else {
                 systemSource.proficiencies.attacks ??= {};
                 systemSource.proficiencies.attacks[key] = { custom: data.custom, rank: data.rank };
@@ -54,3 +56,7 @@ interface MaybeWithOldMartialData extends CharacterSystemSource {
     martial?: Record<string, Partial<MartialProficiency>>;
     "-=martial"?: null;
 }
+
+type MaybeWithStoredDefense = NonNullable<CharacterSystemSource["proficiencies"]> & {
+    defenses?: NonNullable<CharacterSystemSource["proficiencies"]>["attacks"];
+};

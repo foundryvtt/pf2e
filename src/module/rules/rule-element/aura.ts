@@ -1,7 +1,7 @@
 import { userColorForActor } from "@actor/helpers.ts";
-import { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
+import type { AuraAppearanceData, AuraData, AuraEffectData, SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { EffectTrait } from "@item/abstract-effect/data.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import {
     DataUnionField,
     PredicateField,
@@ -34,6 +34,8 @@ import { ItemAlteration } from "./item-alteration/alteration.ts";
 class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     constructor(source: AuraRuleElementSource, options: RuleElementOptions) {
         super(source, options);
+        if (this.invalid) return;
+
         this.slug ??= this.item.slug ?? sluggify(this.item.name);
         for (const effect of this.effects) {
             effect.removeOnExit ??= Array.isArray(effect.events) ? effect.events.includes("enter") : false;
@@ -41,7 +43,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     }
 
     static override defineSchema(): AuraSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         const auraTraitField = new StrictStringField<EffectTrait, EffectTrait, true, false, false>({
             required: true,

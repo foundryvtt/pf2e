@@ -1,0 +1,322 @@
+{
+    "_id": "NnpIpHnF79DRLl61",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "uNxToGmQN5AbL2Gl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ib8BcumGskNVJdZS"
+                }
+            },
+            "folder": "tavHHn3vqI7bCnl6",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Overrun",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p><em><strong>Note</strong>: Basic cavalry armies know Overrun automatically, and must 'spend' their first tactic on it.</em></p>\n<hr />\n<p>Cavalry armies gain a +1 status bonus on weapon attacks against infantry and skirmisher armies, but they suffer a –1 status penalty on Maneuver and Morale saves against area attacks and mental attacks.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Infantry and Skirmisher",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:infantry",
+                                    "target:trait:skirmisher"
+                                ]
+                            }
+                        ],
+                        "selector": "attack-roll",
+                        "slug": "overrun-attacks",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Area or Mental attacks",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental-attack",
+                                    "area-attack"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "maneuver-check",
+                            "morale-check"
+                        ],
+                        "slug": "overrun-saves",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": "overrun",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "7zWDiwXRV5YZzAD7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Darkvision",
+            "sort": 2200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army includes several spotters and scouts who have darkvision, and the rest of the soldiers have been trained to follow their lead so that the army itself functions as if it had darkvision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "AFqnuvFFE3fXQtwu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.7qSvylPYpyrPQrq9"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Self-Sufficient",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Nomen scouts are adept at providing for themselves, and never count against the kingdom's consumption. Furthermore, they can provide for other armies, and as long as they are not defeated during a Kingdom turn's Upkeep phase, they reduce the kingdom's consumption value by 1.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "I7MeL24S30DQv06Q",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.J96CqP2EOuIL0HJg"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Brave",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Nomen scouts are extraordinarily fearless and do not possess a Rout Threshold, and gain a +2 circumstance bonus on Morale checks made to avoid rout from other sources.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "fNi85mCq4Zab8dlC",
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Trample (Unique)",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Nomen Scouts can attempt to trample an engaged enemy army by attempting a +20 melee Strike against the army’s AC. On a hit, they inflict 1 point of damage (2 points on a critical hit) and automatically move away from the army—they are no longer engaged with that army.</p>"
+                },
+                "level": {
+                    "value": 8
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Nomen Scouts",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 27
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 0,
+                "value": 4
+            }
+        },
+        "consumption": -1,
+        "details": {
+            "alignment": "N",
+            "blurb": "",
+            "description": "<p>This band of Nomen centaurs fight with spears and longbows. Self-sufficient (consumption -1)</p>",
+            "level": {
+                "value": 8
+            }
+        },
+        "recruitmentDC": 26,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 14,
+            "morale": 19
+        },
+        "scouting": 18,
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "type": "cavalry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Spears",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Longbows",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

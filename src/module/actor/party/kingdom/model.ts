@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import { ActorPF2e, type ArmyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, createProficiencyModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e, ItemPF2e } from "@item";
@@ -49,6 +49,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     declare bonusFeats: FeatGroup<PartyPF2e, CampaignFeaturePF2e>;
     declare skills: Record<KingdomSkill, Statistic>;
     declare control: Statistic;
+    declare armies: ArmyPF2e[];
 
     static override defineSchema(): KingdomSchema {
         return KINGDOM_SCHEMA;
@@ -192,9 +193,21 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         }
     }
 
+    /** Resets kingdom data preparation and re-renders all party actor sheets, which includes the kingmaker sheet */
+    notifyUpdate = fu.debounce(() => {
+        this.reset();
+        this.prepareBaseData();
+        this.prepareDerivedData();
+        this.actor.render();
+    }, 50);
+
     prepareBaseData(): void {
         const { synthetics } = this.actor;
         const { build } = this;
+
+        // All friendly armies are gathered to determine consumption
+        this.armies = game.actors.filter((a): a is ArmyPF2e<null> => a.isOfType("army") && a.alliance === "party");
+        this.consumption.army = R.sumBy(this.armies, (a) => a.system.consumption);
 
         // Calculate Ability Boosts (if calculated automatically)
         if (!build.manual) {
@@ -226,11 +239,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                     this.abilities[ability].value += this.abilities[ability].value >= 18 ? 1 : 2;
                 }
             }
-        }
-
-        // Assign Ability modifiers base on values
-        for (const ability of KINGDOM_ABILITIES) {
-            this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
         }
 
         // Government skills
@@ -360,15 +368,47 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         const { synthetics } = this.actor;
         const { consumption, resources } = this;
 
+        // Assign Ability modifiers base on values
+        for (const ability of KINGDOM_ABILITIES) {
+            this.abilities[ability].mod = (this.abilities[ability].value - 10) / 2;
+        }
+
         // Autocompute resource dice
         resources.dice.number = Math.max(0, this.level + 4 + resources.dice.bonus - resources.dice.penalty);
 
-        // Compute consumption
+        // Settlement consumption data
         const settlements = R.compact(Object.values(this.settlements));
         consumption.settlement = R.sumBy(settlements, (s) => s.consumption.total);
-        const computedConsumption =
-            consumption.base + consumption.settlement + consumption.army - this.resources.workSites.food.value;
-        consumption.value = Math.max(0, computedConsumption);
+
+        // Compute consumption using a statistic, though we just extract the modifier
+        // This allows rule elements to apply specific consumption modifiers
+        const consumptionStatistic = new Statistic(this.actor, {
+            slug: "consumption",
+            label: "PF2E.Kingmaker.Consumption.Label",
+            domains: ["consumption"],
+            modifiers: R.compact([
+                consumption.settlement &&
+                    new ModifierPF2e({
+                        slug: "settlements",
+                        label: "PF2E.Kingmaker.Settlement.Label",
+                        modifier: consumption.settlement,
+                    }),
+                consumption.army &&
+                    new ModifierPF2e({
+                        slug: "army",
+                        label: "PF2E.Kingmaker.Army.Label",
+                        modifier: consumption.army,
+                    }),
+                this.resources.workSites.food.value &&
+                    new ModifierPF2e({
+                        slug: "farmland",
+                        label: "PF2E.Kingmaker.WorkSites.food.Name",
+                        modifier: -this.resources.workSites.food.value,
+                    }),
+            ]),
+        });
+        consumption.value = Math.max(0, consumptionStatistic.mod);
+        consumption.breakdown = consumptionStatistic.check.breakdown;
 
         // Calculate the control dc, used for skill checks
         const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;

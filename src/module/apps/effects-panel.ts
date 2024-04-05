@@ -70,7 +70,7 @@ export class EffectsPanel extends Application {
             }) ?? [];
 
         const conditions = actor.conditions.active;
-        const afflictions = actor.itemTypes.affliction;
+        const afflictions = actor.itemTypes.affliction ?? [];
 
         const descriptions = {
             afflictions: await this.#getEnrichedDescriptions(afflictions),

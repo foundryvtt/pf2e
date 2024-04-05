@@ -1,0 +1,46 @@
+{
+    "_id": "cu10OjQUdY0a9gpj",
+    "img": "systems/pf2e/icons/features/classes/wit-style.webp",
+    "name": "Effect: Exemplary Finisher (Wit)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Exemplary Finisher]</p>\n<p>The foe takes a -2 circumstance penalty to attack rolls against you until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

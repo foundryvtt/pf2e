@@ -7,7 +7,7 @@
                 {{#if editable}}data-edit="img"{{/if}}
                 alt="{{actor.name}}"
             />
-            <a class="hover-icon" data-action="show-image"><i class="fa-solid fa-image fa-fw"></i></a>
+            <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
         </div>
 
         <div class="side-bar-section effects">
@@ -21,13 +21,17 @@
                 <div class="effects-list inventory-list">
                     {{#each document.conditions.active as |condition index|}}
                         <div class="item item-name effect" title="{{condition.name}}" data-item-id="{{condition._id}}" data-action-index="{{index}}">
-                            <div class="item-image" style="background-image: url({{condition.img}})"></div>
+                            <a class="item-image" data-action="item-to-chat" style="background-image: url({{condition.img}})"></a>
                         </div>
                     {{/each}}
                     {{#each document.itemTypes.effect as |effect|}}
                         {{#if @first}}<div class="separator"></div>{{/if}}
                         <div class="item effect" title="{{effect.name}}" data-item-id="{{effect._id}}">
-                            <div class="item-image" style="background-image: url({{effect.img}})"></div>
+                            <a
+                                class="item-image"
+                                data-action="item-to-chat"
+                                style="background-image: url({{effect.img}})"
+                            ><i class="fa-solid fa-message"></i></a>
                         </div>
                     {{/each}}
                 </div>

@@ -9,27 +9,7 @@
         },
         "counteraction": false,
         "damage": {
-            "88xvetq5cs9b6atp": {
-                "applyMod": false,
-                "category": null,
-                "formula": "1d6",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "cold"
-            },
-            "nr83vo9dd3pxoobl": {
-                "applyMod": false,
-                "category": null,
-                "formula": "1d4",
-                "kinds": [
-                    "damage"
-                ],
-                "materials": [],
-                "type": "vitality"
-            },
-            "tn0z71335yo8cr6x": {
+            "0": {
                 "applyMod": false,
                 "category": null,
                 "formula": "2d6",
@@ -38,6 +18,16 @@
                 ],
                 "materials": [],
                 "type": "piercing"
+            },
+            "1": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d6",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "cold"
             }
         },
         "defense": null,
@@ -50,9 +40,8 @@
         },
         "heightening": {
             "damage": {
-                "88xvetq5cs9b6atp": "1d6",
-                "nr83vo9dd3pxoobl": "1d4",
-                "tn0z71335yo8cr6x": "1d6"
+                "0": "1d6",
+                "1": "1d6"
             },
             "interval": 1,
             "type": "interval"
@@ -69,7 +58,18 @@
             "value": "60 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "vitality",
+                "diceNumber": "@spell.rank",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:negative-healing"
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "target": {
             "value": "1 creature"
         },

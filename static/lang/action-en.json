@@ -11,7 +11,7 @@
         },
         "Actions": {
             "AdministerFirstAid": {
-                "Description": "<p>You perform first aid on an adjacent creature that is dying or bleeding. If a creature is both dying and bleeding, choose which ailment you're trying to treat before you roll. You can Administer First Aid again to attempt to remedy the other effect.</p><ul><li><strong>Stabilize</strong> Attempt a Medicine check on a creature that has 0 Hit Points and the dying condition. The DC isequal to 5 + that creature's recovery roll DC (typically 15 + its dying value).</li><li><strong>Stop Bleeding</strong> Attempt a Medicine check on a creature that is taking persistent bleed damage. The DC is usually the DC of the effect that caused the bleed.</li></ul><p></strong>Success</strong> If you're trying to stabilize, the target loses the dying condition (but remains @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious}). If you're trying to stop bleeding, the target benefits from an assisted recovery with the lowered DC for particularly appropriate help.</p><p><strong>Critical Failure</strong> If you were trying to stabilize, the target's dying value increases by 1. If you were trying to stop bleeding, the target immediately takes an amount of damage equal to its persistent bleed damage.</p>",
+                "Description": "<p>You perform first aid on an adjacent creature that is dying or bleeding. If a creature is both dying and bleeding, choose which ailment you're trying to treat before you roll. You can Administer First Aid again to attempt to remedy the other effect.</p><ul><li><strong>Stabilize</strong> Attempt a Medicine check on a creature that has 0 Hit Points and the dying condition. The DC isequal to 5 + that creature's recovery roll DC (typically 15 + its dying value).</li><li><strong>Stop Bleeding</strong> Attempt a Medicine check on a creature that is taking persistent bleed damage. The DC is usually the DC of the effect that caused the bleed.</li></ul><p><strong>Success</strong> If you're trying to stabilize, the target loses the dying condition (but remains @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious}). If you're trying to stop bleeding, the target benefits from an assisted recovery with the lowered DC for particularly appropriate help.</p><p><strong>Critical Failure</strong> If you were trying to stabilize, the target's dying value increases by 1. If you were trying to stop bleeding, the target immediately takes an amount of damage equal to its persistent bleed damage.</p>",
                 "Stabilize": {
                     "Description": "<p>Attempt a Medicine check on a creature that has 0 Hit Points and the dying condition. The DC is equal to 5 + that creature's recovery roll DC (typically 15 + its dying value).</p><p><strong>Success</strong> The creature loses the dying condition (but remains unconscious).<br><strong>Critical Failure</strong> The creature's dying value increases by 1.</p>",
                     "DifficultyClass": {
@@ -37,6 +37,10 @@
                     "UnknownVariant": "Unknown variant {variant} used for Administer First Aid, use one of {variants}."
                 }
             },
+            "AffixATalisman": {
+                "Description": "<p><strong>Requirements</strong> You must use a @UUID[Compendium.pf2e.equipment-srd.Item.vLGDUFrg4yGzpTQX]{repair toolkit}.</p><hr><p>You spend 10 minutes affixing a talisman to an item, placing the item on a stable surface and using the repair toolkit with both hands. You can also use this activity to remove a talisman. Attaching more than one talisman to an item deactivates all the talismans. They must be removed and re-affixed before they can be used again.</p>",
+                "Title": "Affix a Talisman"
+            },
             "Aid": {
                 "Description": "<p>You try to help your ally with a task. To use this reaction, you must first prepare to help, usually by using an action during your turn. You must explain to the GM exactly how you're trying to help, and they determine whether you can Aid your ally.</p><p>When you use your Aid reaction, attempt a skill check or attack roll of a type decided by the GM. The typical DC is 15, but the GM might adjust this DC for particularly hard or easy tasks. The GM can add any relevant traits to your preparatory action or to your Aid reaction depending on the situation, or even allow you to Aid checks other than skill checks and attack rolls.</p><p><strong>Critical Success</strong> You grant your ally a +2 circumstance bonus to the triggering check. If you're a master with the check you attempted, the bonus is +3, and if you're legendary, it's +4.</p><p><strong>Success</strong> You grant your ally a +1 circumstance bonus to the triggering check.</p><p><strong>Critical Failure</strong> Your ally takes a –1 circumstance penalty to the triggering check.</p>",
                 "Notes": {
@@ -55,15 +59,15 @@
                 },
                 "Notes": {
                     "NoTarget": "<strong>Size Difference</strong> You take a -2 circumstance penalty to your check if the target is one size larger than you and a -4 circumstance penalty if it's larger than that. You gain a +2 circumstance bonus to your check if the target is one size smaller than you and a +4 circumstance bonus if it's smaller than that.",
-                    "criticalFailure": "<strong>Critical Failure</strong> The creature breaks free and is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{restrained} by you.",
-                    "criticalSuccess": "<strong>Critical Success</strong> You slam the foe down and the magical energy overwhelms it. The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone}, becomes @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{dazzled} for 1 round, and takes damage equal to [[/r 2d6 + @abilities.str.mod # Damage: Arcane Slam]]{2d6 plus your Strength modifier}. The foe is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{restrained} by you.",
+                    "criticalFailure": "<strong>Critical Failure</strong> The creature breaks free and is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by you.",
+                    "criticalSuccess": "<strong>Critical Success</strong> You slam the foe down and the magical energy overwhelms it. The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}, becomes @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round, and takes damage equal to [[/r 2d6 + @abilities.str.mod # Damage: Arcane Slam]]{2d6 plus your Strength modifier}. The foe is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by you.",
                     "failure": "<strong>Failure</strong> You are unable to slam the creature, but your hold on the creature remains.",
-                    "success": "<strong>Success</strong> You slam the foe down. The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone} and takes damage equal to your [[/r @abilities.str.mod # Damage: Arcane Slam]]{Strength modifier}. The foe is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{restrained} by you."
+                    "success": "<strong>Success</strong> You slam the foe down. The creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} and takes damage equal to your [[/r @abilities.str.mod # Damage: Arcane Slam]]{Strength modifier}. The foe is no longer @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} by you."
                 },
                 "Title": "Arcane Slam"
             },
             "ArrestAFall": {
-                "Description": "<p>You attempt your choice of an Acrobatics check or Reflex save to slow your fall. The DC is typically 15, but it might be higher due to air turbulence or other circumstances.</p><p><strong>Success</strong> You take no damage from the fall.</p>",
+                "Description": "<p><strong>Trigger</strong> You fall.</p><p><strong>Requirements</strong> You have a fly Speed.</p><hr><p>You attempt your choice of an Acrobatics check or Reflex save to slow your fall. The DC is typically 15, but it might be higher due to air turbulence or other circumstances.</p><p><strong>Success</strong> You take no damage from the fall.</p>",
                 "Notes": {
                     "success": "<strong>Success</strong> You take no damage from the fall."
                 },
@@ -76,18 +80,25 @@
             "AvoidNotice": {
                 "Description": "<p>You attempt a Stealth check to avoid notice while traveling at half speed. If you have the Swift Sneak feat, you can move at full Speed rather than half, but you still can't use another exploration activity while you do so. If you have the Legendary Sneak feat, you can move at full Speed and use a second exploration activity. If you're Avoiding Notice at the start of an encounter, you usually roll a Stealth check instead of a Perception check both to determine your initiative and to see if the enemies notice you (based on their Perception DCs, as normal for Sneak, regardless of their initiative check results).</p>",
                 "Notes": {
-                    "criticalSuccess": "<strong>Critical Success</strong> You're @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{undetected} by the creature during your movement and remain undetected by the creature at the end of it.<br/><br/>See the @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} action for details.",
-                    "success": "<strong>Success</strong> You're @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{undetected} by the creature during your movement and remain undetected by the creature at the end of it.<br/><br/>See the @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} action for details."
+                    "criticalSuccess": "<strong>Critical Success</strong> You're @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected} by the creature during your movement and remain undetected by the creature at the end of it.<br/><br/>See the @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} action for details.",
+                    "success": "<strong>Success</strong> You're @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected} by the creature during your movement and remain undetected by the creature at the end of it.<br/><br/>See the @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} action for details."
                 },
                 "Title": "Avoid Notice"
             },
             "Balance": {
-                "Description": "<p>You move across a narrow surface or uneven ground, attempting an Acrobatics check against its Balance DC. You are off-guard while on a narrow surface or uneven ground.</p><p><strong>Critical Success</strong> You move up to your Speed.<br><strong>Success</strong> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).<br><strong>Failure</strong> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.<br><strong>Critical Failure</strong> You fall and your turn ends.</p><section class=\"sample-tasks\"><h2>Sample Balance Tasks</h2><p><strong>Untrained</strong> tangled roots, uneven cobblestones</p><p><strong>Trained</strong> wooden beam</p><p><strong>Expert</strong> deep, loose gravel</p><p><strong>Master</strong> tightrope, smooth sheet of ice</p><p><strong>Legendary</strong> razor's edge, chunks of floor falling in midair</p></section>",
+                "Description": "<p>You move across a narrow surface or uneven ground, attempting an Acrobatics check against its Balance DC. You are off-guard while on a narrow surface or uneven ground.</p><p><strong>Critical Success</strong> You move up to your Speed.<br><strong>Success</strong> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement).<br><strong>Failure</strong> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.<br><strong>Critical Failure</strong> You fall and your turn ends.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You fall and your turn ends.",
                     "criticalSuccess": "<strong>Critical Success</strong> You move up to your Speed.",
                     "failure": "<strong>Failure</strong> You must remain stationary to keep your balance (wasting the action) or you fall. If you fall, your turn ends.",
                     "success": "<strong>Success</strong> You move up to your Speed, treating it as difficult terrain (every 5 feet costs 10 feet of movement)."
+                },
+                "SampleTasks": {
+                    "Untrained": "tangled roots, uneven cobblestones",
+                    "Trained": "wooden beam",
+                    "Expert": "deep, loose gravel",
+                    "Master": "tightrope, smooth sheet of ice",
+                    "Legendary": "razor's edge, chunks of floor falling in midair"
                 },
                 "Title": "Balance"
             },
@@ -100,15 +111,22 @@
                 "Title": "Bon Mot"
             },
             "Burrow": {
-                "Description": "<p>You dig your way through dirt, sand, or a similar loose material at a rate up to your burrow Speed. You can't burrow through rock or other substances denser than dirt unless you have an ability that allows you to do so.</p>",
+                "Description": "<p><strong>Requirements</strong> You have a burrow Speed.</p><hr><p>You dig your way through dirt, sand, or a similar loose material at a rate up to your burrow Speed. You can't burrow through rock or other substances denser than dirt unless you have an ability that allows you to do so.</p>",
                 "Title": "Burrow"
             },
             "Climb": {
-                "Description": "<p><strong>Requirements</strong> You have two hands free.</p><hr><p>You attempt an Athletics check to move a maximum distance of 5 feet up, down, or across an incline. You're @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{off-guard} while climbing unless you have a climb Speed. The GM determines the DC based on the nature of the incline and environmental circumstances; you might get an automatic critical success on an incline that's trivial to climb. If your land Speed is 40 feet or higher, increase the maximum distance by 5 feet for every 20 feet of Speed above 20 feet.</p><p><strong>Critical Success</strong> You move along the incline, increasing the maximum distance by 5 feet.<br><strong>Success</strong> You move along the incline.<br><strong>Critical Failure</strong> You fall. If you began the climb on stable ground, you fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone}.</p><section class=\"sample-tasks\"><h2>Sample Climb Tasks</h2><p><strong>Untrained</strong> ladder, steep slope, low-branched tree</p><p><strong>Trained</strong> rigging, rope, typical tree</p><p><strong>Expert</strong> wall with small handholds and footholds</p><p><strong>Master</strong> ceiling with handholds and footholds, rock wall</p><p><strong>Legendary</strong> smooth surface</p></section>",
+                "Description": "<p><strong>Requirements</strong> You have two hands free.</p><hr><p>You attempt an Athletics check to move a maximum distance of 5 feet up, down, or across an incline. You're @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} while climbing unless you have a climb Speed. The GM determines the DC based on the nature of the incline and environmental circumstances; you might get an automatic critical success on an incline that's trivial to climb. If your land Speed is 40 feet or higher, increase the maximum distance by 5 feet for every 20 feet of Speed above 20 feet.</p><p><strong>Critical Success</strong> You move along the incline, increasing the maximum distance by 5 feet.<br><strong>Success</strong> You move along the incline.<br><strong>Critical Failure</strong> You fall. If you began the climb on stable ground, you fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</p>",
                 "Notes": {
-                    "criticalFailure": "<strong>Critical Failure</strong> You fall. If you began the climb on stable ground, you fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone}.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You fall. If you began the climb on stable ground, you fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
                     "criticalSuccess": "<strong>Critical Success</strong> You move along the incline, increasing the maximum distance by 5 feet.",
                     "success": "<strong>Success</strong> You move along the incline."
+                },
+                "SampleTasks": {
+                    "Untrained": "ladder, steep slope, low-branched tree",
+                    "Trained": "rigging, rope, typical tree",
+                    "Expert": "wall with small handholds and footholds",
+                    "Master": "ceiling with handholds and footholds, rock wall",
+                    "Legendary": "smooth surface"
                 },
                 "Title": "Climb"
             },
@@ -189,19 +207,20 @@
                 "Title": "Crawl"
             },
             "CreateADiversion": {
+                "Description": "<p>With a gesture, a trick, or some distracting words, you can create a diversion that draws creatures' attention elsewhere. If you use a gesture or trick, this action gains the manipulate trait. If you use distracting words, it gains the auditory and linguistic traits.</p><p>Attempt a single Deception check and compare it to the Perception DCs of the creatures whose attention you're trying to divert. Whether or not you succeed, creatures you attempt to divert gain a +4 circumstance bonus to their Perception DCs against your attempts to Create a Diversion for 1 minute.</p><p><strong>Success</strong> You become @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to each creature whose Perception DC is less than or equal to your result. (The hidden condition allows you to @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} away.) This lasts until the end of your turn or until you do anything except @UUID[Compendium.pf2e.actionspf2e.Item.UHpkTuCtyaPqiCAB]{Step} or use the Stealth skill to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide} or Sneak. If you @UUID[Compendium.pf2e.actionspf2e.Item.VjxZFuUXrCU94MWR]{Strike} a creature, the creature remains @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against that attack, and you then become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed}. If you do anything else, you become observed just before you act unless the GM determines otherwise.<br><strong>Failure</strong> You don't divert the attention of any creatures whose Perception DC exceeds your result, and those creatures are aware you were trying to trick them.</p>",
                 "DistractingWords": {
-                    "Title": "Create a Diversion - Distracting Words"
+                    "Title": "Distracting Words"
                 },
                 "Gesture": {
-                    "Title": "Create a Diversion - Gesture"
+                    "Title": "Gesture"
                 },
                 "Notes": {
                     "failure": "<strong>Failure</strong> You don't divert the attention of any creatures whose Perception DC exceeds your result, and those creatures are aware you were trying to trick them.",
-                    "success": "<strong>Success</strong> You become @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to each creature whose Perception DC is less than or equal to your result. (The hidden condition allows you to @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} away.) This lasts until the end of your turn or until you do anything except Step or use the @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide} or the @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} action of the Stealth skill. If you Strike a creature, the creature remains @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against that attack, and you then become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed}. If you do anything else, you become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed} just before you act unless the GM determines otherwise."
+                    "success": "<strong>Success</strong> You become @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to each creature whose Perception DC is less than or equal to your result. (The hidden condition allows you to @UUID[Compendium.pf2e.actionspf2e.Item.VMozDqMMuK5kpoX4]{Sneak} away.) This lasts until the end of your turn or until you do anything except @UUID[Compendium.pf2e.actionspf2e.Item.UHpkTuCtyaPqiCAB]{Step} or use the Stealth skill to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide} or Sneak. If you @UUID[Compendium.pf2e.actionspf2e.Item.VjxZFuUXrCU94MWR]{Strike} a creature, the creature remains @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against that attack, and you then become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed}. If you do anything else, you become observed just before you act unless the GM determines otherwise."
                 },
                 "Title": "Create a Diversion",
                 "Trick": {
-                    "Title": "Create a Diversion - Trick"
+                    "Title": "Trick"
                 },
                 "Warning": {
                     "UnknownVariant": "Unknown variant {variant} used for Create a Diversion, use one of {variants}."
@@ -226,12 +245,18 @@
                 "UnspecificHandwriting": "Unspecific Handwriting"
             },
             "DecipherWriting": {
-                "Description": "<p>You attempt to decipher complicated writing or literature on an obscure topic. This usually takes 1 minute per page of text, but might take longer (typically an hour per page for decrypting ciphers or the like). The text must be in a language you can read, though the GM might allow you to attempt to decipher text written in an unfamiliar language using Society instead.</p><p>The DC is determined by the GM based on the state or complexity of the document. The GM might have you roll one check for a short text or a check for each section of a larger text.</p><p><strong>Critical Success</strong> You understand the true meaning of the text.</p><p><strong>Success</strong> You understand the true meaning of the text. If it was a coded document, you know the general meaning but might not have a word-for-word translation.</p><p><strong>Failure</strong> You can't understand the text and take a –2 circumstance penalty to further checks to decipher it.</p><p><strong>Critical Failure</strong> You believe you understand the text on that page, but you have in fact misconstrued its message.</p><section class=\"sample-tasks\"><h2>Sample Decipher Tasks</h2><p><strong>Trained</strong> entry-level philosophy treatise</p><p><strong>Expert</strong> complex code, such as a cipher</p><p><strong>Master</strong> spymaster's code or advanced research notes</p><p><strong>Legendary</strong> esoteric planar text written in metaphor by an ancient celestial</p></section>",
+                "Description": "<p>You attempt to decipher complicated writing or literature on an obscure topic. This usually takes 1 minute per page of text, but might take longer (typically an hour per page for decrypting ciphers or the like). The text must be in a language you can read, though the GM might allow you to attempt to decipher text written in an unfamiliar language using Society instead.</p><p>The DC is determined by the GM based on the state or complexity of the document. The GM might have you roll one check for a short text or a check for each section of a larger text.</p><p><strong>Critical Success</strong> You understand the true meaning of the text.</p><p><strong>Success</strong> You understand the true meaning of the text. If it was a coded document, you know the general meaning but might not have a word-for-word translation.</p><p><strong>Failure</strong> You can't understand the text and take a –2 circumstance penalty to further checks to decipher it.</p><p><strong>Critical Failure</strong> You believe you understand the text on that page, but you have in fact misconstrued its message.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You believe you understand the text on that page, but you have in fact misconstrued its message.",
                     "criticalSuccess": "<strong>Critical Success</strong> You understand the true meaning of the text.",
                     "failure": "<strong>Failure</strong> You can't understand the text and take a –2 circumstance penalty to further checks to decipher it.",
                     "success": "<strong>Success</strong> You understand the true meaning of the text. If it was a coded document, you know the general meaning but might not have a word-for-word translation."
+                },
+                "SampleTasks": {
+                    "Trained": "entry-level philosophy treatise",
+                    "Expert": "complex code, such as a cipher",
+                    "Master": "spymaster's code or advanced research notes",
+                    "Legendary": "esoteric planar text written in metaphor by an ancient celestial"
                 },
                 "Title": "Decipher Writing",
                 "Warning": {
@@ -261,10 +286,11 @@
                 "Title": "Disable Device"
             },
             "Disarm": {
+                "Description": "<p><strong>Requirements</strong> You have at least one hand free. The target can't be more than one size larger than you.</p><hr><p>You try to knock an item out of a creature's grasp. Attempt an Athletics check against the target's Reflex DC.</p><p><strong>Critical Success</strong> You knock the item out of the target's grasp. It falls to the ground in the target's space.<br><strong>Success</strong> You weaken your target's grasp on the item. Further attempts to Disarm the target of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. The creature can end the effect by Interacting to change its grip on the item; otherwise, it lasts as long as the creature holds the item.<br><strong>Critical Failure</strong> You lose your balance and become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You lose your balance and become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn.",
-                    "criticalSuccess": "<strong>Critical Success</strong> You knock the item out of the opponent's grasp. It falls to the ground in the opponent's space.",
-                    "success": "<strong>Success</strong> You weaken your target's grasp on the item. Further attempts to Disarm the target of that item gain a +2 circumstance bonus, and the target takes a –2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. The creature can end the effect by Interacting to change its grip on the item; otherwise, it lasts as long as the creature holds the item.<br>@UUID[Compendium.pf2e.equipment-effects.Item.z3ATL8DcRVrT0Uzt]{Effect: Disarm (Success)}"
+                    "criticalSuccess": "<strong>Critical Success</strong> You knock the item out of the target's grasp. It falls to the ground in the target's space.",
+                    "success": "<strong>Success</strong> You weaken your target's grasp on the item. Further attempts to Disarm the target of that item gain a +2 circumstance bonus, and the target takes a -2 circumstance penalty to attacks with the item or other checks requiring a firm grasp on the item. The creature can end the effect by Interacting to change its grip on the item; otherwise, it lasts as long as the creature holds the item.<br>@UUID[Compendium.pf2e.equipment-effects.Item.z3ATL8DcRVrT0Uzt]{Effect: Disarm (Success)}"
                 },
                 "Title": "Disarm"
             },
@@ -277,12 +303,19 @@
                 "Title": "Drop Prone"
             },
             "EarnIncome": {
-                "Description": "<p>You use one of your skills to make money during downtime. The GM assigns a task level representing the most lucrative job available. You can search for lower-level tasks, with the GM determining whether you find any. Sometimes you can attempt to find better work than the initial offerings, though this takes time and requires using the Diplomacy skill to Gather Information, doing some research, or socializing.</p><p>When you take on a job, the GM secretly sets the DC of your skill check. After your first day of work, you roll to determine your earnings. You gain an amount of income based on your result, the task's level, and your proficiency rank (as listed on the Income Earned table).</p><p>You can continue working at the task on subsequent days without needing to roll again. For each day you spend after the first, you earn the same amount as the first day, up until the task's completion. The GM determines how long you can work at the task. Most tasks last a week or two, though some can take months or even years.</p><p><strong>Critical Success</strong> You do outstanding work. Gain the amount of currency listed for the task level + 1 and your proficiency rank.</p><p><strong>Success</strong> You do competent work. Gain the amount of currency listed for the task level and your proficiency rank.</p><p><strong>Failure</strong> You do shoddy work and get paid the bare minimum for your time. Gain the amount of currency listed in the failure column for the task level. The GM will likely reduce how long you can continue at the task.</p><p><strong>Critical Failure</strong> You earn nothing for your work and are fired immediately. You can't continue at the task. Your reputation suffers, potentially making it difficult for you to find rewarding jobs in that community in the future.</p><section class=\"sample-tasks\"><h2>Sample Earn Income Tasks</h2><p>These examples use Alcohol Lore to work in a bar or Legal Lore to perform legal work.</p><p><strong>Trained</strong> bartend, do legal research</p><p><strong>Expert</strong> curate drink selection, present minor court cases</p><p><strong>Master</strong> run a large brewery, present important court cases</p><p><strong>Legendary</strong> run an international brewing franchise, present a case in Hell's courts</p></section>",
+                "Description": "<p>You use one of your skills to make money during downtime. The GM assigns a task level representing the most lucrative job available. You can search for lower-level tasks, with the GM determining whether you find any. Sometimes you can attempt to find better work than the initial offerings, though this takes time and requires using the Diplomacy skill to Gather Information, doing some research, or socializing.</p><p>When you take on a job, the GM secretly sets the DC of your skill check. After your first day of work, you roll to determine your earnings. You gain an amount of income based on your result, the task's level, and your proficiency rank (as listed on the Income Earned table).</p><p>You can continue working at the task on subsequent days without needing to roll again. For each day you spend after the first, you earn the same amount as the first day, up until the task's completion. The GM determines how long you can work at the task. Most tasks last a week or two, though some can take months or even years.</p><p><strong>Critical Success</strong> You do outstanding work. Gain the amount of currency listed for the task level + 1 and your proficiency rank.</p><p><strong>Success</strong> You do competent work. Gain the amount of currency listed for the task level and your proficiency rank.</p><p><strong>Failure</strong> You do shoddy work and get paid the bare minimum for your time. Gain the amount of currency listed in the failure column for the task level. The GM will likely reduce how long you can continue at the task.</p><p><strong>Critical Failure</strong> You earn nothing for your work and are fired immediately. You can't continue at the task. Your reputation suffers, potentially making it difficult for you to find rewarding jobs in that community in the future.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You earn nothing for your work and are fired immediately. You can't continue at the task. Your reputation suffers, potentially making it difficult for you to find rewarding jobs in that community in the future.",
                     "criticalSuccess": "<strong>Critical Success</strong> You do outstanding work. Gain the amount of currency listed for the task level + 1 and your proficiency rank.",
                     "failure": "<strong>Failure</strong> You do shoddy work and get paid the bare minimum for your time. Gain the amount of currency listed in the failure column for the task level. The GM will likely reduce how long you can continue at the task.",
                     "success": "<strong>Success</strong> You do competent work. Gain the amount of currency listed for the task level and your proficiency rank."
+                },
+                "SampleTasks": {
+                    "Caption": "These examples use Alcohol Lore to work in a bar or Legal Lore to perform legal work.",
+                    "Trained": "bartend, do legal research",
+                    "Expert": "curate drink selection, present minor court cases",
+                    "Master": "run a large brewery, present important court cases",
+                    "Legendary": "run an international brewing franchise, present a case in Hell's courts"
                 },
                 "Title": "Earn Income"
             },
@@ -324,6 +357,7 @@
                 "Title": "Escape"
             },
             "Feint": {
+                "Description": "<p><strong>Requirements</strong> You are within melee reach of the target you attempt to Feint.</p><hr><p>With a misleading flourish, you leave an opponent unprepared for your real attack. Attempt a Deception check against your target's Perception DC.</p><p><strong>Critical Success</strong> You throw your enemy's defenses against you entirely off. The target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against melee attacks that you attempt against it until the end of your next turn.<br><strong>Success</strong> Your foe is fooled, but only momentarily. The target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the next melee attack that you attempt against it before the end of your current turn.<br><strong>Critical Failure</strong> Your feint backfires. You are @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against melee attacks the target attempts against you until the end of your next turn.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> Your feint backfires. You are @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against melee attacks the target attempts against you until the end of your next turn.",
                     "criticalSuccess": "<strong>Critical Success</strong> You throw your enemy's defenses against you entirely off. The target is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against melee attacks that you attempt against it until the end of your next turn.",
@@ -332,28 +366,43 @@
                 "Title": "Feint"
             },
             "Fly": {
-                "Description": "<p>You move through the air up to your fly Speed. Moving upward (straight up or diagonally) uses the rules for moving through difficult terrain. You can move straight down 10 feet for every 5 feet of movement you spend. If you Fly to the ground, you don't take falling damage. You can use an action to Fly 0 feet to hover in place. If you're airborne at the end of your turn and didn't use a Fly action this round, you fall.</p>",
+                "Description": "<p><strong>Requirements</strong> You have a fly Speed.</p><hr><p>You move through the air up to your fly Speed. Moving upward (straight up or diagonally) uses the rules for moving through difficult terrain. You can move straight down 10 feet for every 5 feet of movement you spend. If you Fly to the ground, you don't take falling damage. You can use an action to Fly 0 feet to hover in place. If you're airborne at the end of your turn and didn't use a Fly action this round, you fall.</p>",
                 "Title": "Fly"
             },
             "ForceOpen": {
-                "Description": "<p>Using your body, a lever, or some other tool, you attempt to forcefully open a door, window, container or heavy gate. With a high enough result, you can even smash through walls. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open.</p><p><strong>Critical Success</strong> You open the door, window, container, or gate and can avoid damaging it in the process.<br><strong>Success</strong> You break the door, window, container, or gate open, and it gains the @UUID[Compendium.pf2e.conditionitems.Item.6dNUvdb1dhToNDj3]{broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken.<br><strong>Critical Failure</strong> Your attempt jams the door, window, container, or gate shut, imposing a –2 circumstance penalty on future attempts to Force it Open.</p><section class=\"sample-tasks\"><h2>Sample Force Open Tasks</h2><p><strong>Untrained</strong> fabric, flimsy glass</p><p><strong>Trained</strong> ice, sturdy glass</p><p><strong>Expert</strong> flimsy wooden door, wooden portcullis</p><p><strong>Master</strong> sturdy wooden door, iron portcullis, metal bar</p><p><strong>Legendary</strong> stone or iron door</p></section>",
+                "Description": "<p>Using your body, a lever, or some other tool, you attempt to forcefully open a door, window, container or heavy gate. With a high enough result, you can even smash through walls. Without a crowbar, prying something open takes a -2 item penalty to the Athletics check to Force Open.</p><p><strong>Critical Success</strong> You open the door, window, container, or gate and can avoid damaging it in the process.<br><strong>Success</strong> You break the door, window, container, or gate open, and it gains the @UUID[Compendium.pf2e.conditionitems.Item.6dNUvdb1dhToNDj3]{Broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken.<br><strong>Critical Failure</strong> Your attempt jams the door, window, container, or gate shut, imposing a –2 circumstance penalty on future attempts to Force it Open.</p>",
                 "NoCrowbarPenalty": "No Crowbar",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> Your attempt jams the door, window, container, or gate shut, imposing a -2 circumstance penalty on future attempts to Force it Open.",
                     "criticalSuccess": "<strong>Critical Success</strong> You open the door, window, container, or gate and can avoid damaging it in the process.",
-                    "success": "<strong>Success</strong> You break the door, window, container, or gate open, and it gains the @UUID[Compendium.pf2e.conditionitems.Item.6dNUvdb1dhToNDj3]{broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken."
+                    "success": "<strong>Success</strong> You break the door, window, container, or gate open, and it gains the @UUID[Compendium.pf2e.conditionitems.Item.6dNUvdb1dhToNDj3]{Broken} condition. If it's especially sturdy, the GM might have it take damage but not be broken."
+                },
+                "SampleTasks": {
+                    "Untrained": "fabric, flimsy glass",
+                    "Trained": "ice, sturdy glass",
+                    "Expert": "flimsy wooden door, wooden portcullis",
+                    "Master": "sturdy wooden door, iron portcullis, metal bar",
+                    "Legendary": "stone or iron door"
                 },
                 "Title": "Force Open"
             },
             "GatherInformation": {
+                "Description": "<p>You canvass local markets, taverns, and gathering places in an attempt to learn about a specific individual or topic. The GM determines the DC of the check and the amount of time it takes (typically 2 hours, but sometimes more), along with any benefit you might be able to gain by spending coin on bribes, drinks, or gifts.</p><p><strong>Success</strong> You collect information about the individual or topic. The GM determines the specifics.<br><strong>Critical Failure</strong> You collect incorrect information about the individual or topic.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You collect incorrect information about the individual or topic.",
                     "success": "<strong>Success</strong> You collect information about the individual or topic. The GM determines the specifics."
                 },
+                "SampleTasks": {
+                    "Untrained": "talk of the town",
+                    "Trained": "common rumor",
+                    "Expert": "obscure rumor, poorly guarded secret",
+                    "Master": "well-guarded or esoteric information",
+                    "Legendary": "information known only to an incredibly select few, or only to extraordinary beings"
+                },
                 "Title": "Gather Information"
             },
             "GrabAnEdge": {
-                "Description": "<p>When you fall off or past an edge or other handhold, you can try to grab it, potentially stopping your fall. You must succeed at your choice of an Acrobatics check or a Reflex save, usually at the Climb DC. If you grab the edge or handhold, you can then Climb up using Athletics.</p><hr /><p><strong>Critical Success</strong> You grab the edge or handhold, whether or not you have a hand free, typically by using a suitable held item to catch yourself (catching a battle axe on a ledge, for example). You still take damage from the distance fallen so far, but you treat the fall as though it were 30 feet shorter.</p><p><strong>Success</strong> If you have at least one hand free, you grab the edge or handhold, stopping your fall. You still take damage from the distance fallen so far, but you treat the fall as though it were 20 feet shorter. If you have no hands free, you continue to fall as if you had failed the check.</p><p><strong>Critical Failure</strong> You continue to fall, and if you've fallen 20 feet or more before you use this reaction, you take @Damage[10[bludgeoning]] damage from the impact for every 20 feet fallen.</p>",
+                "Description": "<p><strong>Trigger</strong> You fall from or past an edge or handhold.</p><p><strong>Requirements</strong> Your hands are not tied behind your back or otherwise restrained.</p><hr><p>When you fall off or past an edge or other handhold, you can try to grab it, potentially stopping your fall. You must succeed at your choice of an Acrobatics check or a Reflex save, usually at the Climb DC. If you grab the edge or handhold, you can then @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{Climb} up using Athletics.</p><hr /><p><strong>Critical Success</strong> You grab the edge or handhold, whether or not you have a hand free, typically by using a suitable held item to catch yourself (catching a battle axe on a ledge, for example). You still take damage from the distance fallen so far, but you treat the fall as though it were 30 feet shorter.</p><p><strong>Success</strong> If you have at least one hand free, you grab the edge or handhold, stopping your fall. You still take damage from the distance fallen so far, but you treat the fall as though it were 20 feet shorter. If you have no hands free, you continue to fall as if you had failed the check.</p><p><strong>Critical Failure</strong> You continue to fall, and if you've fallen 20 feet or more before you use this reaction, you take @Damage[10[bludgeoning]] damage from the impact for every 20 feet fallen.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You continue to fall, and if you've fallen 20 feet or more before you use this reaction, you take @Damage[10[bludgeoning]] damage from the impact for every 20 feet fallen.",
                     "criticalSuccess": "<strong>Critical Success</strong> You grab the edge or handhold, whether or not you have a hand free, typically by using a suitable held item to catch yourself (catching a battle axe on a ledge, for example). You still take damage from the distance fallen so far, but you treat the fall as though it were 30 feet shorter.",
@@ -362,11 +411,12 @@
                 "Title": "Grab An Edge"
             },
             "Grapple": {
+                "Description": "<p><strong>Requirements</strong> You have at least one free hand and your target is no more than one size larger than you.</p><hr><p>You attempt to grab a creature or object with your free hand. Attempt an Athletics check against the target's Fortitude DC. You can Grapple a target you already have grabbed or restrained without having a hand free.</p><p><strong>Critical Success</strong> Your target is @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} until the end of your next turn unless you move or your target @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}.<br><strong>Success</strong> Your target is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} until the end of your next turn unless you move or your target @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}.<br><strong>Failure</strong> You fail to grab your target. If you already had the target @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} using a Grapple, those conditions on the target end.<br><strong>Critical Failure</strong> If you already had the target @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}, it breaks free. Your target can either grab you, as if it succeeded at using the Grapple action against you, or force you to fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</p>",
                 "Notes": {
-                    "criticalFailure": "<strong>Critical Failure</strong> If you already had the opponent @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}, it breaks free. Your target can either grab you, as if it succeeded at using the @UUID[Compendium.pf2e.actionspf2e.Item.PMbdMWc2QroouFGD]{Grapple} action against you, or force you to fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
-                    "criticalSuccess": "<strong>Critical Success</strong> Your opponent is @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} until the end of your next turn unless you move or your opponent @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}.",
-                    "failure": "<strong>Failure</strong> You fail to grab your opponent. If you already had the opponent @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} using a Grapple, those conditions on that creature end.",
-                    "success": "<strong>Success</strong> Your opponent is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} until the end of your next turn unless you move or your opponent @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}."
+                    "criticalFailure": "<strong>Critical Failure</strong> If you already had the target @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}, it breaks free. Your target can either grab you, as if it succeeded at using the Grapple action against you, or force you to fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
+                    "criticalSuccess": "<strong>Critical Success</strong> Your target is @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} until the end of your next turn unless you move or your target @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}.",
+                    "failure": "<strong>Failure</strong> You fail to grab your target. If you already had the target @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained} using a Grapple, those conditions on the target end.",
+                    "success": "<strong>Success</strong> Your target is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed} until the end of your next turn unless you move or your target @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes}."
                 },
                 "Title": "Grapple"
             },
@@ -378,6 +428,7 @@
                 "Title": "Hide"
             },
             "HighJump": {
+                "Description": "<p>You @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride}, then attempt a DC 30 Athletics check to jump vertically. If you didn't Stride at least 10 feet, you automatically fail. This DC might be increased or decreased due to the situation, as determined by the GM.</p><p><strong>Critical Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 8 feet vertically and 10 feet horizontally.<br><strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 5 feet vertically and 5 feet horizontally.<br><strong>Failure</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} normally.<br><strong>Critical Failure</strong> You fall @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} in your space.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You fall @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} in your space.",
                     "criticalSuccess": "<strong>Critical Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 8 feet vertically and 10 feet horizontally.",
@@ -385,6 +436,15 @@
                     "success": "<strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to 5 feet vertically and 5 feet horizontally."
                 },
                 "Title": "High Jump"
+            },
+            "IdentifyAlchemy": {
+                "Description": "<p><strong>Requirements</strong> You are holding or wearing an alchemist's toolkit.</p><hr><p>You can identify the nature of an alchemical item with 10 minutes of testing using your alchemist's toolkit. If your attempt is interrupted in any way, you must start over.</p><p><strong>Success</strong> You identify the item and the means of activating it.</p><p><strong>Failure</strong> You fail to identify the item but can try again.</p><p><strong>Critical Failure</strong> You misidentify the item as another item of the GM's choice.</p>",
+                "Notes": {
+                    "criticalFailure": "<strong>Critical Failure</strong> You misidentify the item as another item of the GM's choice.",
+                    "failure": "<strong>Failure</strong> You fail to identify the item but can try again.",
+                    "success": "<strong>Success</strong> You identify the item and the means of activating it."
+                },
+                "Title": "Identify Alchemy"
             },
             "IdentifyMagic": {
                 "Description": "<p>Once you discover that an item, location, or ongoing effect is magical, you can spend 10 minutes to try to identify the particulars of its magic. If your attempt is interrupted, you must start over. The GM sets the DC for your check. Cursed magic or esoteric subjects usually have higher DCs or might even be impossible to identify using this activity alone. Heightening a spell doesn't increase the DC to identify it.</p><p><strong>Critical Success</strong> You learn all the attributes of the magic, including its name (for an effect), what it does, any means of activating it (for an item or location), and whether it is cursed.</p><p><strong>Success</strong> For an item or location, you get a sense of what it does and learn any means of activating it. For an ongoing effect (such as a spell with a duration), you learn the effect's name and what it does. You can't try again in hopes of getting a critical success.</p><p><strong>Failure</strong> You fail to identify the magic and can't try again for 1 day.</p><p><strong>Critical Failure</strong> You misidentify the magic as something else of the GM's choice.</p>",
@@ -394,9 +454,13 @@
                     "failure": "<strong>Failure</strong> You fail to identify the magic and can't try again for 1 day.",
                     "success": "<strong>Success</strong> For an item or location, you get a sense of what it does and learn any means of activating it. For an ongoing effect (such as a spell with a duration), you learn the effect's name and what it does. You can't try again in hopes of getting a critical success."
                 },
-                "Title": "Identify Magic"
+                "Title": "Identify Magic",
+                "Warning": {
+                    "NoStatistic": "The Identify Magic action can be used with different statistics, and no statistic was specified."
+                }
             },
             "Impersonate": {
+                "Description": "<p>You create a disguise to pass yourself off as someone or something you are not. Assembling a convincing disguise takes 10 minutes and requires a @UUID[Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT]{Disguise Kit}, but a simpler, quicker disguise might do the job if you're not trying to imitate a specific individual, at the GM's discretion.</p><p>In most cases, creatures have a chance to detect your deception only if they use the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to attempt Perception checks against your Deception DC. If you attempt to directly interact with someone while disguised, the GM rolls a secret Deception check for you against that creature's Perception DC instead.</p><p>If you're disguised as a specific individual, the GM might give creatures you interact with a circumstance bonus based on how well they know the person you're imitating, or the GM might roll a secret Deception check even if you aren't directly interacting with others.</p><p><strong>Success</strong> You trick the creature into thinking you're the person you're disguised as. You might have to attempt a new check if your behavior changes.<br><strong>Failure</strong> The creature can tell you're not who you claim to be.<br><strong>Critical Failure</strong> The creature can tell you're not who you claim to be, and it recognizes you if it would know you without a disguise.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> The creature can tell you're not who you claim to be, and it recognizes you if it would know you without a disguise.",
                     "failure": "<strong>Failure</strong> The creature can tell you're not who you claim to be.",
@@ -406,6 +470,9 @@
             },
             "Interact": {
                 "Description": "<p>You use your hand or hands to manipulate an object or the terrain. You can grab an unattended or stored object, draw a weapon, swap a held item for another, open a door, or achieve a similar effect. On rare occasions, you might have to attempt a skill check to determine if your Interact action was successful.</p>",
+                "Draw": {
+                    "Title": "Draw"
+                },
                 "Draw1H": {
                     "Description": "{actor} draws their {weapon}.",
                     "Title": "Draw (1H)"
@@ -450,16 +517,20 @@
                 "Title": "Leap"
             },
             "LearnASpell": {
-                "Description": "<p>You can gain access to a new spell of your tradition from someone who knows that spell or from magical writing like a spellbook or scroll. If you can cast spells of multiple traditions, you can Learn a Spell of any of those traditions, but you must use the corresponding skill to do so. For example, if you were a cleric with the bard multiclass archetype, you couldn't use Religion to add an occult spell to your bardic spell repertoire.</p><p>To learn the spell, you must do the following:</p><ul><li> Spend 1 hour per spell rank, during which you must remain in conversation with a person who knows the spell or have the magical writing in your possession. </li><li> Have materials with the Price indicated in the Learning a Spell table. </li><li> Attempt a skill check for the skill corresponding to your tradition (DC determined by the GM, often close to the DC on the Learning a Spell Table). Uncommon or rare spells have higher DCs; full guidelines for the GM appear on page 52 of GM Core.</p><p><strong>Critical Success</strong> You expend half the materials and learn the spell.</p><p><strong>Success</strong> You expend the materials and learn the spell.</p><p><strong>Failure</strong> You fail to learn the spell but can try again after you gain a level. The materials aren't expended.</p><p><strong>Critical Failure</strong> As failure, except you expend half the materials.</p>",
+                "Description": "<p><strong>Requirements</strong> You have a spellcasting class feature, and the spell you want to learn is on your magical tradition's spell list.</p><hr><p>You can gain access to a new spell of your tradition from someone who knows that spell or from magical writing like a spellbook or scroll. If you can cast spells of multiple traditions, you can Learn a Spell of any of those traditions, but you must use the corresponding skill to do so. For example, if you were a cleric with the bard multiclass archetype, you couldn't use Religion to add an occult spell to your bardic spell repertoire.</p><p>To learn the spell, you must do the following:</p><ul><li>Spend 1 hour per spell rank, during which you must remain in conversation with a person who knows the spell or have the magical writing in your possession.</li><li>Have materials with the Price indicated in the Learning a Spell table.</li><li>Attempt a skill check for the skill corresponding to your tradition (DC determined by the GM, often close to the DC on the Learning a Spell Table). Uncommon or rare spells have higher DCs; full guidelines for the GM appear on page 52 of GM Core.</li></ul><p><strong>Critical Success</strong> You expend half the materials and learn the spell.</p><p><strong>Success</strong> You expend the materials and learn the spell.</p><p><strong>Failure</strong> You fail to learn the spell but can try again after you gain a level. The materials aren't expended.</p><p><strong>Critical Failure</strong> As failure, except you expend half the materials.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You fail to learn the spell but can try again after you gain a level. You expend half the materials.",
                     "criticalSuccess": "<strong>Critical Success</strong> You expend half the materials and learn the spell.",
                     "failure": "<strong>Failure</strong> You fail to learn the spell but can try again after you gain a level. The materials aren't expended.",
                     "success": "<strong>Success</strong> You expend the materials and learn the spell."
                 },
-                "Title": "Learn A Spell"
+                "Title": "Learn a Spell",
+                "Warning": {
+                    "NoSkill": "The Learn a Spell action can be used with different skills, and no skill was specified. Each magical tradition has a corresponding skill: Arcana for the arcane tradition, Nature for the primal tradition, Occultism for the occult tradition, and Religion for the divine tradition."
+                }
             },
             "Lie": {
+                "Description": "<p>You try to fool someone with an untruth. Doing so takes at least 1 round, or longer if the lie is elaborate. You roll a single Deception check and compare it against the Perception DC of every creature you are trying to fool. The GM might give them a circumstance bonus based on the situation and the nature of the lie you are trying to tell. Elaborate or highly unbelievable lies are much harder to get a creature to believe than simpler and more believable lies, and some lies are so big that it's impossible to get anyone to believe them.</p><p>At the GM's discretion, if a creature initially believes your lie, it might attempt a Perception check later to @UUID[Compendium.pf2e.actionspf2e.Item.1xRFPTFtWtGJ9ELw]{Sense Motive} against your Deception DC to realize it's a lie. This usually happens if the creature discovers enough evidence to counter your statements.</p><p><strong>Success</strong> The target believes your lie.<br><strong>Failure</strong> The target doesn't believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future.</p>",
                 "Notes": {
                     "failure": "<strong>Failure</strong> The target doesn't believe your lie and gains a +4 circumstance bonus against your attempts to Lie for the duration of your conversation. The target is also more likely to be suspicious of you in the future.",
                     "success": "<strong>Success</strong> The target believes your lie."
@@ -467,9 +538,9 @@
                 "Title": "Lie"
             },
             "LongJump": {
-                "Description": "<p>You @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride}, then attempt a DC 15 Athletics check to make a long jump in the direction you were Striding. If you didn't Stride at least 10 feet, you automatically fail your check. The GM might increase or decrease this DC depending on the situation.</p><p><strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to a distance equal to your check result rounded down to the nearest 5 feet. You can't jump farther than your land Speed.<br><strong>Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}.<br><strong>Critical Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}, then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone}.</p>",
+                "Description": "<p>You @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride}, then attempt a DC 15 Athletics check to make a long jump in the direction you were Striding. If you didn't Stride at least 10 feet, you automatically fail your check. The GM might increase or decrease this DC depending on the situation.</p><p><strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to a distance equal to your check result rounded down to the nearest 5 feet. You can't jump farther than your land Speed.<br><strong>Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}.<br><strong>Critical Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}, then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</p>",
                 "Notes": {
-                    "criticalFailure": "<strong>Critical Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}, then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{prone}.",
+                    "criticalFailure": "<strong>Critical Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}, then fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
                     "failure": "<strong>Failure</strong> You make a normal horizontal @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap}.",
                     "success": "<strong>Success</strong> You @UUID[Compendium.pf2e.actionspf2e.Item.d5I6018Mci2SWokk]{Leap} up to a distance equal to your check result rounded down to the nearest 5 feet. You can't jump farther than your land Speed."
                 },
@@ -481,6 +552,7 @@
                 "Title": "Lower Shield"
             },
             "MakeAnImpression": {
+                "Description": "<p>With at least 1 minute of conversation, during which you engage in charismatic overtures, flattery, and other acts of goodwill, you seek to make a good impression on someone to make them temporarily agreeable. At the end of the conversation, attempt a Diplomacy check against the Will DC of one target. You can instead choose up to five targets if you take a –2 penalty. The GM might add other bonuses or penalties based on the situation. Any impression you make lasts for only the current social interaction unless the GM decides otherwise.</p><strong>Critical Success</strong> The target's attitude toward you improves by two steps.<br><strong>Success</strong> The target's attitude toward you improves by one step.<br><p><strong>Critical Failure</strong> The target's attitude toward you decreases by one step.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> The target's attitude toward you decreases by one step.",
                     "criticalSuccess": "<strong>Critical Success</strong> The target's attitude toward you improves by two steps.",
@@ -489,16 +561,22 @@
                 "Title": "Make an Impression"
             },
             "ManeuverInFlight": {
-                "Description": "<p>You try a difficult maneuver while flying. Attempt an Acrobatics check. The GM determines what maneuvers are possible, but they rarely allow you to move farther than your fly Speed.</p><p><strong>Success</strong> You succeed at the maneuver.<br><strong>Failure</strong> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).<br><strong>Critical Failure</strong> As failure, but the consequence is more dire.</p><section class=\"sample-tasks\"><h2>Sample Maneuver in Flight Tasks</h2><p><strong>Trained</strong> steep ascent or descent</p><p><strong>Expert</strong> fly against the wind, hover midair</p><p><strong>Master</strong> reverse direction</p><p><strong>Legendary</strong> fly through gale force winds</p></section>",
+                "Description": "<p>You try a difficult maneuver while flying. Attempt an Acrobatics check. The GM determines what maneuvers are possible, but they rarely allow you to move farther than your fly Speed.</p><p><strong>Success</strong> You succeed at the maneuver.<br><strong>Failure</strong> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).<br><strong>Critical Failure</strong> As failure, but the consequence is more dire.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> As failure, but the consequence is more dire.",
                     "failure": "<strong>Failure</strong> Your maneuver fails. The GM chooses if you simply can't move or if some other detrimental effect happens. The outcome should be appropriate for the maneuver you attempted (for instance, being blown off course if you were trying to fly against a strong wind).",
                     "success": "<strong>Success</strong> You succeed at the maneuver."
                 },
+                "SampleTasks": {
+                    "Trained": "steep ascent or descent",
+                    "Expert": "fly against the wind, hover midair",
+                    "Master": "reverse direction",
+                    "Legendary": "fly through gale force winds"
+                },
                 "Title": "Maneuver in Flight"
             },
             "Mount": {
-                "Description": "<p>You move onto the creature and ride it. If you're already mounted, you can instead use this action to dismount, moving off the mount into a space adjacent to it.</p>",
+                "Description": "<p><strong>Requirements</strong> You are adjacent to a creature that is at least one size larger than you and is willing to be your mount.</p><hr><p>You move onto the creature and ride it. If you're already mounted, you can instead use this action to dismount, moving off the mount into a space adjacent to it.</p>",
                 "Title": "Mount"
             },
             "PalmAnObject": {
@@ -510,38 +588,46 @@
                 "Title": "Palm an Object"
             },
             "Perform": {
+                "Description": "<p>When making a brief performance - one song, a quick dance, or a few jokes - you use the Perform action. This action is most useful when you want to prove your capability or impress someone quickly. Performing rarely has an impact on its own, but it might influence the DCs of subsequent Diplomacy checks against the observers, or even change their attitudes if the GM sees fit.</p><p><strong>Critical Success</strong> Your performance impresses the observers, and they're likely to share stories of your ability.<br><strong>Success</strong> You prove yourself, and observers appreciate the quality of your performance.<br><strong>Failure</strong> Your performance falls flat.<br><strong>Critical Failure</strong> You demonstrate only incompetence.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You demonstrate only incompetence.",
                     "criticalSuccess": "<strong>Critical Success</strong> Your performance impresses the observers, and they're likely to share stories of your ability.",
                     "failure": "<strong>Failure</strong> Your performance falls flat.",
                     "success": "<strong>Success</strong> You prove yourself, and observers appreciate the quality of your performance."
                 },
+                "SampleTasks": {
+                    "Untrained": "audience of commoners",
+                    "Trained": "audience of artisans",
+                    "Expert": "audience of merchants or minor nobles",
+                    "Master": "audience of high nobility or minor royalty",
+                    "Legendary": "audience of major royalty or otherworldly beings"
+                },
                 "Acting": {
-                    "Title": "Perform - Acting"
+                    "Title": "Acting"
                 },
                 "Comedy": {
-                    "Title": "Perform - Comedy"
+                    "Title": "Comedy"
                 },
                 "Dance": {
-                    "Title": "Perform - Dance"
+                    "Title": "Dance"
                 },
                 "Keyboards": {
-                    "Title": "Perform - Play keyboard instrument"
+                    "Title": "Play keyboard instrument"
                 },
                 "Oratory": {
-                    "Title": "Perform - Oratory"
+                    "Title": "Oratory"
                 },
                 "Percussion": {
-                    "Title": "Perform - Play percussion instrument"
+                    "Title": "Play percussion instrument"
                 },
                 "Singing": {
-                    "Title": "Perform - Singing"
+                    "Title": "Singing"
                 },
                 "Strings": {
-                    "Title": "Perform - Play string instrument"
+                    "Title": "Play string instrument"
                 },
                 "Winds": {
-                    "Title": "Perform - Play wind instrument"
+                    "Title": "Play wind instrument"
                 },
                 "Title": "Perform",
                 "Warning": {
@@ -558,8 +644,8 @@
                 "Title": "Pick a Lock"
             },
             "PointOut": {
-                "Description": "<p>You indicate a creature that you can see to one or more allies, gesturing in a direction and describing the distance verbally. That creature is @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to your allies, rather than undetected. This works only for allies who can see you and are in a position where they could potentially detect the target. If your allies can't hear or understand you, they must succeed at a Perception check against the creature's Stealth DC or they misunderstand and believe the target is in a different location.</p>",
-                "Title": "Point OUt"
+                "Description": "<p><strong>Requirements</strong> A creature is undetected by one or more of your allies but isn't undetected by you.</p><hr><p>You indicate a creature that you can see to one or more allies, gesturing in a direction and describing the distance verbally. That creature is @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} to your allies, rather than @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}. This works only for allies who can see you and are in a position where they could potentially detect the target. If your allies can't hear or understand you, they must succeed at a @Check[perception|defense:stealth]{Perception} check against the creature's Stealth DC or they misunderstand and believe the target is in a different location.</p>",
+                "Title": "Point Out"
             },
             "RaiseAShield": {
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
@@ -576,6 +662,26 @@
             "Ready": {
                 "Description": "<p>You prepare to use an action that will occur outside your turn. Choose a single action or free action you can use, and designate a trigger. Your turn then ends. If the trigger you designated occurs before the start of your next turn, you can use the chosen action as a reaction (provided you still meet the requirements to use it). You can't Ready a free action that already has a trigger.</p><p>If you have a multiple attack penalty and your readied action is an attack action, your readied attack takes the multiple attack penalty you had at the time you used Ready. This is one of the few times the multiple attack penalty applies when it's not your turn.</p>",
                 "Title": "Ready"
+            },
+            "RecallKnowledge": {
+                "Description": "<p>You attempt a skill check to try to remember a bit of knowledge regarding a topic related to that skill. Suggest which skill you'd like to use and ask the GM one question. The GM determines the DC. You might need to collaborate with the GM to narrow down the question or skills, and you can decide not to Recall Knowledge before committing to the action if you don't like your options.</p><p><strong>Critical Success</strong> You recall the knowledge accurately. The GM answers your question truthfully and either tells you additional information or context, or answers one follow-up question.</p><p><strong>Success</strong> You recall the knowledge accurately. The GM answers your question truthfully.</p><p><strong>Critical Failure</strong> You recall incorrect information. The GM answers your question falsely (or decides to give you no information, as on a failure).</p>",
+                "Notes": {
+                    "criticalFailure": "<strong>Critical Failure</strong> You recall incorrect information. The GM answers your question falsely (or decides to give you no information, as on a failure).",
+                    "criticalSuccess": "<strong>Critical Success</strong> You recall the knowledge accurately. The GM answers your question truthfully and either tells you additional information or context, or answers one follow-up question.",
+                    "success": "<strong>Success</strong> You recall the knowledge accurately. The GM answers your question truthfully."
+                },
+                "SampleTasks": {
+                    "Caption": "The following examples use Society or Religion.",
+                    "Untrained": "name of a ruler, head of state, key noble, or major deity",
+                    "Trained": "line of succession for a major noble family, core doctrines of a major deity",
+                    "Expert": "genealogy of a minor noble, teachings of an ancient priest",
+                    "Master": "hierarchy of a genie noble court, major extraplanar temples of a deity",
+                    "Legendary": "existence of a long-lost noble heir, secret doctrines of a religion"
+                },
+                "Title": "Recall Knowledge",
+                "Warning": {
+                    "NoSkill": "The Recall Knowledge action can be used with different skills, and no skill was specified."
+                }
             },
             "Release": {
                 "Description": "<p>You release something you're holding in your hand or hands. This might mean dropping an item, removing one hand from your weapon while continuing to hold it in another hand, releasing a rope suspending a chandelier, or performing a similar action. Unlike most manipulate actions, Release does not trigger reactions that can be triggered by actions with the manipulate trait (such as Reactive Strike).</p><p>If you want to prepare to Release something outside of your turn, use the Ready activity.</p>",
@@ -631,6 +737,7 @@
                 "Title": "Reposition"
             },
             "Request": {
+                "Description": "<p>You can make a request of a creature that's friendly or helpful to you. You must couch the request in terms that the target would accept given their current attitude toward you. The GM sets the DC based on the difficulty of the request. Some requests are unsavory or impossible, and even a helpful NPC would never agree to them.</p><p><strong>Critical Success</strong> The target agrees to your request without qualifications.<br><strong>Success</strong> The target agrees to your request, but they might demand added provisions or alterations to the request.<br><strong>Failure</strong> The target refuses the request, though they might propose an alternative that is less extreme.<br><strong>Critical Failure</strong> Not only does the target refuse the request, but their attitude toward you decreases by one step due to the temerity of the request.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> Not only does the target refuse the request, but their attitude toward you decreases by one step due to the temerity of the request.",
                     "criticalSuccess": "<strong>Critical Success</strong> The target agrees to your request without qualifications.",
@@ -648,13 +755,20 @@
                 "Title": "Seek"
             },
             "SenseDirection": {
-                "Description": "<p>Using the stars, the position of the sun, traits of the geography or flora, or the behavior of fauna, you can stay oriented in the wild. Typically, you attempt a Survival check only once per day, but some environments or changes might necessitate rolling more often. The GM determines the DC and how long this activity takes (usually just a minute or so). More unusual locales or those you're unfamiliar with might require you to have a minimum proficiency rank to Sense Direction. Without a compass, you take a –2 item penalty to checks to Sense Direction.</p><hr /><p><strong>Critical Success</strong> You get an excellent sense of where you are. If you are in an environment with cardinal directions, you know them exactly.</p><p><strong>Success</strong> You gain enough orientation to avoid becoming hopelessly lost. If you are in an environment with cardinal directions, you have a sense of those directions.<section class=\"sample-tasks\"><h2>Sense Direction Tasks</h2><p>><strong>Untrained</strong> determine a cardinal direction using the sun</p><p><strong>Trained</strong> find an overgrown path in a forest</p><p><strong>Expert</strong> navigate a hedge maze</p><p><strong>Master</strong> navigate a byzantine labyrinth or relatively featureless desert</p><p><strong>Legendary</strong> navigate an ever-changing dream realm</p></section>",
+                "Description": "<p>Using the stars, the position of the sun, traits of the geography or flora, or the behavior of fauna, you can stay oriented in the wild. Typically, you attempt a Survival check only once per day, but some environments or changes might necessitate rolling more often. The GM determines the DC and how long this activity takes (usually just a minute or so). More unusual locales or those you're unfamiliar with might require you to have a minimum proficiency rank to Sense Direction. Without a compass, you take a –2 item penalty to checks to Sense Direction.</p><p><strong>Critical Success</strong> You get an excellent sense of where you are. If you are in an environment with cardinal directions, you know them exactly.</p><p><strong>Success</strong> You gain enough orientation to avoid becoming hopelessly lost. If you are in an environment with cardinal directions, you have a sense of those directions.</p>",
                 "Modifier": {
                     "NoCompass": "No Compass"
                 },
                 "Notes": {
                     "criticalSuccess": "<strong>Critical Success</strong> You get an excellent sense of where you are. If you are in an environment with cardinal directions, you know them exactly.",
                     "success": "<strong>Success</strong> You gain enough orientation to avoid becoming hopelessly lost. If you are in an environment with cardinal directions, you have a sense of those directions."
+                },
+                "SampleTasks": {
+                    "Untrained": "determine a cardinal direction using the sun",
+                    "Trained": "find an overgrown path in a forest",
+                    "Expert": "navigate a hedge maze",
+                    "Master": "navigate a byzantine labyrinth or relatively featureless desert",
+                    "Legendary": "navigate an ever-changing dream realm"
                 },
                 "Title": "Sense Direction"
             },
@@ -672,10 +786,11 @@
                 "SelectAShield": "Select a shield"
             },
             "Shove": {
+                "Description": "<p><strong>Requirements</strong> You have at least one hand free. The target can't be more than one size larger than you.</p><hr><p>You push a creature away from you. Attempt an Athletics check against your target's Fortitude DC.</p><p><strong>Critical Success</strong> You push your target up to 10 feet away from you. You can @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride} after it, but you must move the same distance and in the same direction.<br><strong>Success</strong> You push your target back 5 feet. You can @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride} after it, but you must move the same distance and in the same direction.<br><strong>Critical Failure</strong> You lose your balance, fall, and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You lose your balance, fall, and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
-                    "criticalSuccess": "<strong>Critical Success</strong> You push your opponent up to 10 feet away from you. You can Stride after it, but you must move the same distance and in the same direction.",
-                    "success": "<strong>Success</strong> You push your opponent back 5 feet. You can Stride after it, but you must move the same distance and in the same direction."
+                    "criticalSuccess": "<strong>Critical Success</strong> You push your target up to 10 feet away from you. You can @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride} after it, but you must move the same distance and in the same direction.",
+                    "success": "<strong>Success</strong> You push your target back 5 feet. You can @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride} after it, but you must move the same distance and in the same direction."
                 },
                 "Title": "Shove"
             },
@@ -689,11 +804,15 @@
                 "Title": "Sneak"
             },
             "Squeeze": {
-                "Description": "<p>You contort yourself to squeeze through a space so small you can barely fit through. This action is for exceptionally small spaces; many tight spaces are difficult terrain that you can move through more quickly and without a check.</p><p><strong>Critical Success</strong> You squeeze through the tight space in 1 minute per 10 feet of squeezing.<br><strong>Success</strong> You squeeze through in 1 minute per 5 feet.<br><strong>Critical Failure</strong> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck.</p><section class=\"sample-tasks\"><h2>Sample Squeeze Tasks</h2><p><strong>Trained</strong> space barely fitting your shoulders</p><p><strong>Master</strong> space barely fitting your head</p></section>",
+                "Description": "<p>You contort yourself to squeeze through a space so small you can barely fit through. This action is for exceptionally small spaces; many tight spaces are difficult terrain that you can move through more quickly and without a check.</p><p><strong>Critical Success</strong> You squeeze through the tight space in 1 minute per 10 feet of squeezing.<br><strong>Success</strong> You squeeze through in 1 minute per 5 feet.<br><strong>Critical Failure</strong> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You become stuck in the tight space. While you're stuck, you can spend 1 minute attempting another Acrobatics check at the same DC. Any result on that check other than a critical failure causes you to become unstuck.",
                     "criticalSuccess": "<strong>Critical Success</strong> You squeeze through the tight space in 1 minute per 10 feet of squeezing.",
                     "success": "<strong>Success</strong> You squeeze through in 1 minute per 5 feet."
+                },
+                "SampleTasks": {
+                    "Trained": "space barely fitting your shoulders",
+                    "Master": "space barely fitting your head"
                 },
                 "Title": "Squeeze"
             },
@@ -736,12 +855,19 @@
             },
             "Subsist": {
                 "AfterExplorationPenalty": "After Exploration",
-                "Description": "<p>You try to provide food and shelter for yourself, and possibly others as well, with a standard of living. This typically uses Society if you’re in a settlement or Survival if you’re in the wild. The GM determines the DC based on the nature of the place where you're trying to Subsist. You might need a minimum proficiency rank to Subsist in particularly strange environments. Unlike most downtime activities, you can Subsist after 8 hours or less of exploration, but if you do, you take a –5 penalty.</p><section class=\"sample-tasks\"><h2>Sample Subsist Tasks</h2><p><strong>Untrained</strong> a lush forest with calm weather or a large city with plentiful resources</p><p><strong>Trained</strong> typical hillside or village</p><p><strong>Expert</strong> typical mountains or insular hamlet</p><p><strong>Master</strong> typical desert or city under siege</p><p><strong>Legendary</strong> barren wasteland or city of undead</p></section><hr /><p><strong>Critical Success</strong> You either provide a subsistence living for yourself and one additional creature, or you improve your own food and shelter, granting yourself a comfortable living.</p><p><strong>Success</strong> You find enough food and shelter with basic protection from the elements to provide you a subsistence living.</p><p><strong>Failure</strong> You're exposed to the elements and don't get enough food, becoming @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until you attain sufficient food and shelter.</p><p><strong>Critical Failure</strong> You attract trouble, eat something you shouldn't, or otherwise worsen your situation. You take a –2 circumstance penalty to checks to Subsist for 1 week. You don't find any food at all; if you don't have any stored up, you're in danger of starving or dying of thirst if you continue failing.</p>",
+                "Description": "<p>You try to provide food and shelter for yourself, and possibly others as well, with a standard of living. This typically uses Society if you’re in a settlement or Survival if you’re in the wild. The GM determines the DC based on the nature of the place where you're trying to Subsist. You might need a minimum proficiency rank to Subsist in particularly strange environments. Unlike most downtime activities, you can Subsist after 8 hours or less of exploration, but if you do, you take a –5 penalty.</p><p><strong>Critical Success</strong> You either provide a subsistence living for yourself and one additional creature, or you improve your own food and shelter, granting yourself a comfortable living.</p><p><strong>Success</strong> You find enough food and shelter with basic protection from the elements to provide you a subsistence living.</p><p><strong>Failure</strong> You're exposed to the elements and don't get enough food, becoming @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until you attain sufficient food and shelter.</p><p><strong>Critical Failure</strong> You attract trouble, eat something you shouldn't, or otherwise worsen your situation. You take a –2 circumstance penalty to checks to Subsist for 1 week. You don't find any food at all; if you don't have any stored up, you're in danger of starving or dying of thirst if you continue failing.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You attract trouble, eat something you shouldn't, or otherwise worsen your situation. You take a –2 circumstance penalty to checks to Subsist for 1 week. You don't find any food at all; if you don't have any stored up, you're in danger of starving or dying of thirst if you continue failing. @UUID[Compendium.pf2e.other-effects.Item.wHWWHkjDXmJl4Ia6]{Effect: Adverse Subsist Situation}",
                     "criticalSuccess": "<strong>Critical Success</strong> You either provide a subsistence living for yourself and one additional creature, or you improve your own food and shelter, granting yourself a comfortable living.",
                     "failure": "<strong>Failure</strong> You're exposed to the elements and don't get enough food, becoming fatigued until you attain sufficient food and shelter.",
                     "success": "<strong>Success</strong> You find enough food and shelter with basic protection from the elements to provide you a subsistence living."
+                },
+                "SampleTasks": {
+                    "Untrained": "a lush forest with calm weather or a large city with plentiful resources",
+                    "Trained": "typical hillside or village",
+                    "Expert": "typical mountains or insular hamlet",
+                    "Master": "typical desert or city under siege",
+                    "Legendary": "barren wasteland or city of undead"
                 },
                 "Title": "Subsist",
                 "Warning": {
@@ -753,11 +879,18 @@
                 "Title": "Sustain"
             },
             "Swim": {
-                "Description": "<p>You attempt an Athletics check to move a maximum distance of 10 feet through water. The GM determines the DC based on the turbulence or danger of the water; in most instances of calm water, you get an automatic critical success. If your land Speed is 40 feet or higher, increase the maximum possible distance by 5 feet for every 20 feet of Speed above 20 feet.</p><p>If you end your turn in water and haven't succeeded at a Swim action that turn, you sink 10 feet or get moved by the current, as determined by the GM. This doesn't apply if your last action on your turn was to enter the water.</p><p><strong>Critical Success</strong> You move through the water, increasing the maximum distance by 5 feet.<br><strong>Success</strong> You move through the water.<br><strong>Critical Failure</strong> You make no progress. If you're holding your breath, you lose 1 round of air.</p><section class=\"sample-tasks\"><h2>Sample Swim Tasks</h2><p><strong>Untrained</strong> lake or other still water</p><p><strong>Trained</strong> flowing water, like a river</p><p><strong>Expert</strong> swiftly flowing river</p><p><strong>Master</strong> stormy sea</p><p><strong>Legendary</strong> maelstrom, waterfall</p></section>",
+                "Description": "<p>You attempt an Athletics check to move a maximum distance of 10 feet through water. The GM determines the DC based on the turbulence or danger of the water; in most instances of calm water, you get an automatic critical success. If your land Speed is 40 feet or higher, increase the maximum possible distance by 5 feet for every 20 feet of Speed above 20 feet.</p><p>If you end your turn in water and haven't succeeded at a Swim action that turn, you sink 10 feet or get moved by the current, as determined by the GM. This doesn't apply if your last action on your turn was to enter the water.</p><p><strong>Critical Success</strong> You move through the water, increasing the maximum distance by 5 feet.<br><strong>Success</strong> You move through the water.<br><strong>Critical Failure</strong> You make no progress. If you're holding your breath, you lose 1 round of air.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You make no progress. If you're holding your breath, you lose 1 round of air.",
                     "criticalSuccess": "<strong>Critical Success</strong> You move through the water, increasing the maximum distance by 5 feet.",
                     "success": "<strong>Success</strong> You move through the water."
+                },
+                "SampleTasks": {
+                    "Untrained": "lake or other still water",
+                    "Trained": "flowing water, like a river",
+                    "Expert": "swiftly flowing river",
+                    "Master": "stormy sea",
+                    "Legendary": "maelstrom, waterfall"
                 },
                 "Title": "Swim"
             },
@@ -778,11 +911,18 @@
                 "Title": "Tamper"
             },
             "Track": {
-                "Description": "<p>You follow tracks, moving at up to half your travel Speed, using the @UUID[Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.YVLMgNxXTUQuDJgp]{Travel Speed} rules. After a successful check to Track, you can continue following the tracks at half your Speed without attempting additional checks for up to 1 hour.</p><p>In some cases, you might Track in an encounter. In this case, Track is a single action and doesn't have the exploration trait, but you might need to roll more often because you're in a tense situation. The GM determines how often you must attempt this check.</p><p>You attempt your Survival check when you start Tracking, once every hour you continue tracking, and any time something significant changes in the trail. The GM determines the DCs for such checks, depending on the freshness of the trail, the weather, and the type of ground.</p><section class=\"sample-tasks\"><h2>Sample Track Tasks</h2><p><strong>Untrained</strong> the path of a large army following a road</p><p><strong>Trained</strong> relatively fresh tracks of a rampaging bear through the plains</p><p><strong>Expert</strong> a nimble panther's tracks through a jungle, tracks obscured by rainfall</p><p><strong>Master</strong> tracks obscured by winter snow, tracks of a mouse or smaller creature, tracks left on surfaces that can't hold prints like bare rock</p><p><strong>Legendary</strong> old tracks through a windy desert's sands, tracks obscured by a major blizzard or hurricane</p></section><p><strong>Success</strong> You find the trail or continue to follow the one you're already following.</p><p><strong>Failure</strong> You lose the trail but can try again after a 1-hour delay.</p><p><strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours.</p>",
+                "Description": "<p>You follow tracks, moving at up to half your travel Speed, using the @UUID[Compendium.pf2e.journals.JournalEntry.S55aqwWIzpQRFhcq.JournalEntryPage.YVLMgNxXTUQuDJgp]{Travel Speed} rules. After a successful check to Track, you can continue following the tracks at half your Speed without attempting additional checks for up to 1 hour.</p><p>In some cases, you might Track in an encounter. In this case, Track is a single action and doesn't have the exploration trait, but you might need to roll more often because you're in a tense situation. The GM determines how often you must attempt this check.</p><p>You attempt your Survival check when you start Tracking, once every hour you continue tracking, and any time something significant changes in the trail. The GM determines the DCs for such checks, depending on the freshness of the trail, the weather, and the type of ground.</p><p><strong>Success</strong> You find the trail or continue to follow the one you're already following.</p><p><strong>Failure</strong> You lose the trail but can try again after a 1-hour delay.</p><p><strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You lose the trail and can't try again for 24 hours.",
                     "failure": "<strong>Failure</strong> You lose the trail but can try again after a 1-hour delay.",
                     "success": "<strong>Success</strong> You find the trail or continue to follow the one you're already following."
+                },
+                "SampleTasks": {
+                    "Untrained": "the path of a large army following a road",
+                    "Trained": "relatively fresh tracks of a rampaging bear through the plains",
+                    "Expert": "a nimble panther's tracks through a jungle, tracks obscured by rainfall",
+                    "Master": "tracks obscured by winter snow, tracks of a mouse or smaller creature, tracks left on surfaces that can't hold prints like bare rock",
+                    "Legendary": "old tracks through a windy desert's sands, tracks obscured by a major blizzard or hurricane"
                 },
                 "Title": "Track"
             },
@@ -830,7 +970,7 @@
                 "Description": "<p>You try to knock a creature to the ground. Attempt an Athletics check against the target's Reflex DC.</p><p><strong>Critical Success</strong> The target falls and lands prone and takes 1d6 bludgeoning damage.<br><strong>Success</strong> The target falls and lands prone.<br><strong>Critical Failure</strong> You lose your balance and fall and land prone.</p>",
                 "Notes": {
                     "criticalFailure": "<strong>Critical Failure</strong> You lose your balance and fall and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
-                    "criticalSuccess": "<strong>Critical Success</strong> The target falls and lands @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} and takes [[/r 1d6[bludgeoning] # Bludgeoning damage]]{1d6} bludgeoning damage.",
+                    "criticalSuccess": "<strong>Critical Success</strong> The target falls and lands @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} and takes @Damage[1d6[bludgeoning]] damage.",
                     "success": "<strong>Success</strong> The target falls and lands @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}."
                 },
                 "Title": "Trip"
@@ -860,12 +1000,14 @@
             "crafting": "Crafting Check",
             "deception": "Deception Check",
             "diplomacy": "Diplomacy Check",
+            "fortitude": "Fortitude Saving Throw",
             "intimidation": "Intimidation Check",
             "medicine": "Medicine Check",
             "nature": "Nature Check",
             "occultism": "Occultism Check",
             "perception": "Perception Check",
             "performance": "Performance Check",
+            "reflex": "Reflex Saving Throw",
             "religion": "Religion Check",
             "society": "Society Check",
             "spell": "{type} Spell Attack",
@@ -873,8 +1015,12 @@
             "survival": "Survival Check",
             "thievery": "Thievery Check",
             "unarmed": "Unarmed Attack Roll",
+            "will": "Will Saving Throw",
             "x": "{type} Check",
             "x-attack-roll": "{type} Attack Roll"
+        },
+        "ActionsSampleTasks": {
+            "Title": "Sample {action} Tasks"
         },
         "ActionsWarning": {
             "NoActor": "Select at least one token before rolling, or assign a default character.",
@@ -882,7 +1028,7 @@
             "Variants": {
                 "None": "Action '{action}' has no variants, but variant '{variant}' was requested.",
                 "Multiple": "Action '{action}' has multiple variants, but no variant was requested.",
-                "Nonexisting": "Specified variant '{variant}' does not exist for action '{action}'"
+                "Nonexistent": "Specified variant '{variant}' does not exist for action '{action}'"
             }
         }
     }

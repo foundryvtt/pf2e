@@ -1,6 +1,6 @@
 {
     "_id": "0NyPgi6UACMTmAGE",
-    "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
+    "img": "icons/skills/melee/hand-grip-sword-red.webp",
     "name": "Inventor Weapon Expertise",
     "system": {
         "actionType": {
@@ -26,24 +26,6 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.simple.rank",
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.unarmed.rank",
-                "value": 2
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.martial.rank",
-                "value": 2
-            },
-            {
                 "key": "CriticalSpecialization",
                 "predicate": [
                     "feature:weapon-innovation",
@@ -51,6 +33,19 @@
                 ]
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "martial": {
+                    "rank": 2
+                },
+                "simple": {
+                    "rank": 2
+                },
+                "unarmed": {
+                    "rank": 2
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,0 +1,10 @@
+<div class="addendum">
+    <h4>{{addendum.label}}</h4>
+    {{#each addendum.contents as |line|}}
+        {{#if line.divider}}<hr />{{/if}}
+        <p>
+            {{#if line.title}}<strong>{{line.title}}</strong>{{/if}}
+            {{{line.text}}}
+        </p>
+    {{/each}}
+</div>

@@ -10,7 +10,7 @@ declare global {
      * @see {@link documents.Messages} The world-level collection of ChatMessage documents
      */
     class ChatMessage extends ClientBaseChatMessage {
-        constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: DocumentConstructionContext<null>);
+        constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: MessageConstructionContext);
 
         _rollExpanded: boolean;
 
@@ -208,6 +208,10 @@ declare global {
                 | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
             context?: ChatMessageModificationContext,
         ): Promise<T[] | T | undefined>;
+    }
+
+    interface MessageConstructionContext extends DocumentConstructionContext<null> {
+        rollMode?: RollMode | "roll";
     }
 
     interface ChatMessageRenderData {

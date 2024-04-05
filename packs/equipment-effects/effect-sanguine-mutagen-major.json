@@ -1,0 +1,78 @@
+{
+    "_id": "yY8vPNmDdQQ5d7n6",
+    "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
+    "name": "Effect: Sanguine Mutagen (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sanguine Mutagen (Major)]</p>\n<p><strong>Benefit</strong> You gain a +4 item bonus to Fortitude and Reflex saves. When you roll a success on a save against a disease, poison, or effect that would give you the Fatigued condition, you get a critical success instead and your critical failures on such saves become failures instead.</p>\n<p><strong>Drawback</strong> Whenever you take piercing or slashing damage, you take 1d6 bleed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "selector": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:damage:type:piercing",
+                            "item:damage:type:slashing"
+                        ]
+                    }
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.Mutagens.SanguineMutagen.DamageNote",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better",
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "poison",
+                            "disease",
+                            "inflicts:fatigued"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

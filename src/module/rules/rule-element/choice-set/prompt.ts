@@ -1,3 +1,4 @@
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import {
     PickableThing,
@@ -5,13 +6,13 @@ import {
     PickAThingPrompt,
     PromptTemplateData,
 } from "@module/apps/pick-a-thing-prompt.ts";
-import { DropCanvasDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
+import type { PredicatePF2e } from "@system/predication.ts";
 import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll, sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 
 /** Prompt the user for a selection among a set of options */
-class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
+class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
     /** The prompt statement to present the user in this application's window */
     prompt: string;
 
@@ -38,9 +39,9 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
         };
     }
 
-    override async getData(options: Partial<ApplicationOptions> = {}): Promise<ChoiceSetTemplateData> {
+    override async getData(): Promise<ChoiceSetTemplateData> {
         return {
-            ...(await super.getData(options)),
+            ...(await super.getData()),
             choices: this.choices.map((c, index) => ({
                 ...c,
                 value: index,
@@ -52,14 +53,6 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
             selectMenu: this.choices.length > 9,
             containsItems: this.containsItems,
         };
-    }
-
-    protected override getChoices(): PickableThing[] {
-        return this.choices;
-    }
-
-    setChoices(choices: PickableThing[]): void {
-        this.choices = choices;
     }
 
     override activateListeners($html: JQuery): void {
@@ -78,7 +71,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 
         if (this.containsItems) {
             if (this.selectMenu) {
-                const itemInfoAnchor = htmlQuery(html, "a.item-info");
+                const itemInfoAnchor = htmlQuery(html, "a[data-action=view-item]");
                 if (!itemInfoAnchor) return;
 
                 const updateAnchor = (disable: boolean, value = ""): void => {
@@ -111,7 +104,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
                     }
                 });
             } else {
-                for (const anchor of htmlQueryAll(html, "a.item-info")) {
+                for (const anchor of htmlQueryAll(html, "a[data-action=view-item]")) {
                     anchor.addEventListener("click", (event) => {
                         renderItemSheet(this.getSelection(event));
                     });
@@ -129,6 +122,12 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
 
         // Exit early if there are no valid choices
         if (this.choices.length === 0 && !this.allowedDrops) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoValidOptions", {
+                    actor: this.actor.name,
+                    item: this.item.name,
+                }),
+            );
             this.close({ force: true });
             return null;
         }
@@ -136,11 +135,21 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
         return super.resolveSelection();
     }
 
+    override async close(options?: { force?: boolean }): Promise<void> {
+        if (this.choices.length > 0 && !this.selection && !this.allowNoSelection) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.UI.RuleElements.Prompt.NoSelectionMade", { item: this.item.name }),
+            );
+        }
+
+        return super.close(options);
+    }
+
     /** Handle a dropped homebrew item */
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
-        const dropData: DropCanvasDataPF2e<"Item"> | undefined = JSON.parse(dataString ?? "");
+        const dropData: DropCanvasItemDataPF2e | undefined = JSON.parse(dataString ?? "");
         if (dropData?.type !== "Item") {
             ui.notifications.error("Only an item can be dropped here.");
             return;
@@ -213,13 +222,12 @@ class ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
     }
 }
 
-interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {
-    getSelection: (event: MouseEvent) => ChoiceSetChoice | null;
+interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
+    getSelection(event: MouseEvent): ChoiceSetChoice | null;
 }
 
-interface ChoiceSetPromptData extends PickAThingConstructorArgs<string | number | object> {
+interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {
     prompt: string;
-    choices?: PickableThing[];
     containsItems: boolean;
     allowedDrops: { label: string | null; predicate: PredicatePF2e } | null;
 }
@@ -231,6 +239,8 @@ interface ChoiceSetChoice extends PickableThing {
 interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
     choices: ChoiceSetChoice[];
+    /** Whether to use a select menu instead of a column of buttons */
+    selectMenu: boolean;
     includeDropZone: boolean;
     allowNoSelection: boolean;
     containsItems: boolean;

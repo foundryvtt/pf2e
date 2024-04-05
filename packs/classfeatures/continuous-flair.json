@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>While not equal to the heights of your panache in combat, you have a dramatic flair about you in any situation.</p>\n<p>Whenever you succeed at a check during exploration that would have granted you panache in combat, you gain a +1 circumstance bonus to further checks for actions that would grant you panache in combat. This benefit ends when the exploration changes to a different scene (as determined by the GM) or shifts to an encounter or downtime.</p>"
+            "value": "<p>While not equal to the heights of your panache in combat, you have a dramatic flair about you in any situation.</p>\n<p>Whenever you succeed at a check during exploration that would have granted you panache in combat, you gain a +1 circumstance bonus to further checks for actions that would grant you panache in combat. This benefit ends when the exploration changes to a different scene (as determined by the GM) or shifts to an encounter or downtime.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Continuous Flair]</p>"
         },
         "level": {
             "value": 11
@@ -24,7 +24,27 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    {
+                        "nor": [
+                            "encounter",
+                            "self:effect:continuous-flair"
+                        ]
+                    },
+                    "grants-panache"
+                ],
+                "selector": "skill-check",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You constantly have the effects of speak with animals as a 2nd-level innate primal spell. You gain a +2 circumstance bonus to Diplomacy checks to Make a Request of animals while this spell is active.</p>"
+            "value": "<p>You constantly have the effects of @UUID[Compendium.pf2e.spells-srd.Item.Speak with Animals] as a 2nd-rank innate primal spell. You gain a +2 circumstance bonus to Diplomacy checks to @UUID[Compendium.pf2e.actionspf2e.Item.Request]{Make a Request} of animals while this spell is active.</p>"
         },
         "level": {
             "value": 4
@@ -28,7 +28,18 @@
             "remaster": false,
             "title": "Pathfinder #152: Legacy of the Lost God"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:request",
+                    "target:trait:animal"
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

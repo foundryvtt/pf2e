@@ -1,0 +1,61 @@
+{
+    "_id": "BTI4obxa5UmNltyU",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+    "name": "Effect: Castigating Weapon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Castigating Weapon]</p>\n<p>Your weapon or unarmed Strikes gain your holy or unholy trait and deal additional spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:holy"
+                ],
+                "property": "weapon-traits",
+                "value": "holy"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "property": "weapon-traits",
+                "value": "unholy"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@item.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

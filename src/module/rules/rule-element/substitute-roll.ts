@@ -15,7 +15,8 @@ class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema> {
     }
 
     static override defineSchema(): SubstituteRollSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, blank: false, initial: "check" }),

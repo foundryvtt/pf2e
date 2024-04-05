@@ -45,41 +45,6 @@
             "type": "melee"
         },
         {
-            "_id": "M4I0fqj5k8hWvfkn",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "vlWkMzxwVACi0RIY",
             "flags": {
                 "core": {
@@ -88,7 +53,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -118,7 +83,7 @@
             "_id": "xwlrc0y7m4gbb0aj",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Extra Reaction",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -148,7 +113,7 @@
             "_id": "sfko8ztlbbitvfik",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retaliate",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -195,7 +160,7 @@
             "_id": "q5q18a8pjacvh8kh",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Bond with Ward",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -205,7 +170,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The thorn guardian is adjacent to its ward</p><hr />\n<p><strong>Effect</strong> The thorn guardian enters its ward's space and encases the creature. This doesn't interfere with its ward's senses or actions. The thorn guardian occupies the same space as its ward and moves with its ward.</p>\n<p>While worn, the thorn guardian establishes a constant <em>@UUID[Compendium.pf2e.spells-srd.Item.Share Life]</em> effect with its ward. Attacks that target the thorn guardian target the ward instead but use the higher AC or saving throw values between the thorn guardian and the ward. Area effects apply to both the thorn guardian and the ward, as normal for an area effect.</p>"
+                    "value": "<p><strong>Requirements</strong> The thorn guardian is adjacent to its ward</p><hr />\n<p><strong>Effect</strong> The thorn guardian enters its ward's space and encases the creature. This doesn't interfere with its ward's senses or actions. The thorn guardian occupies the same space as its ward and moves with its ward.</p>\n<p>While worn, the thorn guardian establishes a constant @UUID[Compendium.pf2e.spells-srd.Item.Share Life] effect with its ward. Attacks that target the thorn guardian target the ward instead but use the higher AC or saving throw values between the thorn guardian and the ward. Area effects apply to both the thorn guardian and the ward, as normal for an area effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -228,7 +193,7 @@
             "_id": "y9n6o01btwmvgxlj",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Fly Free",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -261,7 +226,7 @@
             "_id": "0jjczv5v33ef456x",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Interpose",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -291,7 +256,7 @@
             "_id": "ykbuu055kvoyftum",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -363,12 +328,6 @@
                     "type": "prone"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 27
-            },
             "shield": {
                 "ac": 2,
                 "brokenThreshold": 0,
@@ -389,6 +348,10 @@
         },
         "details": {
             "blurb": "Variant tattoo guardian",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 16
             },
@@ -399,6 +362,18 @@
                 "remaster": false,
                 "title": "Pathfinder #174: Shadows of the Ancients"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 27,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -416,15 +391,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

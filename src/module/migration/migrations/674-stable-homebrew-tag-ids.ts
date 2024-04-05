@@ -2,6 +2,7 @@ import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HOMEBREW_TRAIT_KEYS, HomebrewTag } from "@system/settings/homebrew/index.ts";
 import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 export class Migration674StableHomebrewTagIDs extends MigrationBase {
@@ -29,7 +30,10 @@ export class Migration674StableHomebrewTagIDs extends MigrationBase {
 
         this.#updateDocumentTags(source.system.traits.traits.value);
         if (source.type === "character" || source.type === "npc") {
-            this.#updateDocumentTags(source.system.traits?.languages.value);
+            const traits: unknown = source.system.traits;
+            if (R.isObject(traits) && R.isObject(traits.languages) && Array.isArray(traits.languages.value)) {
+                this.#updateDocumentTags(traits.languages.value);
+            }
         }
     }
 

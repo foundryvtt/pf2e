@@ -1,6 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RARITIES } from "@module/data.ts";
-import { isObject, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Remove exclusive NPC attack traits from weapons */
@@ -29,7 +30,7 @@ export class Migration678SeparateNPCAttackTraits extends MigrationBase {
                 itemTraits.splice(itemTraits.indexOf(trait), 1);
                 if (
                     trait !== "common" &&
-                    isObject(itemSource.system.traits.rarity) &&
+                    R.isObject(itemSource.system.traits.rarity) &&
                     itemSource.system.traits.rarity.value === "common"
                 ) {
                     itemSource.system.traits.rarity.value = trait;

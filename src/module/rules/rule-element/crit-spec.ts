@@ -1,5 +1,5 @@
-import { ActorType } from "@actor/data/index.ts";
 import { DamageDicePF2e, MODIFIER_TYPES, ModifierPF2e, ModifierType } from "@actor/modifiers.ts";
+import type { ActorType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
@@ -15,7 +15,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): CritSpecRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
 
         return {
             ...super.defineSchema(),
@@ -93,7 +93,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
         // Return early if value resolution failed
         if (this.ignored) return;
 
-        this.actor.synthetics.criticalSpecalizations[this.alternate ? "alternate" : "standard"].push(synthetic);
+        this.actor.synthetics.criticalSpecializations[this.alternate ? "alternate" : "standard"].push(synthetic);
     }
 
     #getEffect(weapon: WeaponPF2e | MeleePF2e): CritSpecEffect {

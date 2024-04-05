@@ -34,6 +34,13 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: "PF2E.Actions.Track.Notes.criticalFailure" },
     ],
     rollOptions: ["action:track"],
+    sampleTasks: {
+        untrained: "PF2E.Actions.Track.SampleTasks.Untrained",
+        trained: "PF2E.Actions.Track.SampleTasks.Trained",
+        expert: "PF2E.Actions.Track.SampleTasks.Expert",
+        master: "PF2E.Actions.Track.SampleTasks.Master",
+        legendary: "PF2E.Actions.Track.SampleTasks.Legendary",
+    },
     slug: "track",
     statistic: "survival",
     traits: ["concentrate", "exploration", "move"],

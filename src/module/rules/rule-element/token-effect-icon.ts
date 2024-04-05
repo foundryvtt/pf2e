@@ -11,7 +11,8 @@ import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
  */
 class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> {
     static override defineSchema(): TokenEffectIconSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new fields.StringField({ required: false, blank: false, initial: undefined }),

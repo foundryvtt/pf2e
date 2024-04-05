@@ -1,8 +1,8 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isPhysicalData } from "@item/base/data/helpers.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { Coins, PhysicalSystemSource } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Normalize stringy level and price values */
@@ -16,7 +16,7 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
             source.system.level.value = Number(source.system.level.value) || 0;
         }
 
-        if (!isPhysicalData(source) || this.coinSlugs.has(source.system.slug ?? "")) {
+        if (!itemIsOfType(source, "physical") || this.coinSlugs.has(source.system.slug ?? "")) {
             return;
         }
 
@@ -24,7 +24,7 @@ export class Migration639NormalizeLevelAndPrice extends MigrationBase {
         const price = system.price;
 
         // This is new data being run through an old migration, shouldn't happen but we should appease typescript
-        if (typeof price.value !== "string" && isObject(price.value)) {
+        if (typeof price.value !== "string" && R.isObject(price.value)) {
             return;
         }
 

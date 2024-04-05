@@ -20,7 +20,7 @@ class MystifiedTraits {
     }
 }
 
-const ITEM_CARRY_TYPES = new Set(["held", "worn", "stowed", "dropped"] as const);
+const ITEM_CARRY_TYPES = ["attached", "dropped", "held", "stowed", "worn"] as const;
 
 const RANGE_TRAITS = [
     "range-5",
@@ -64,6 +64,7 @@ const RANGE_TRAITS = [
     "range-increment-20",
     "range-increment-25",
     "range-increment-30",
+    "range-increment-35",
     "range-increment-40",
     "range-increment-50",
     "range-increment-60",

@@ -1,46 +1,54 @@
 {{#if identified}}
-    {{#if item.system.traits}}
-        <div class="tags item-properties" data-tooltip-class="pf2e">
-            {{#if (and rarityLabel (ne item.system.traits.rarity "common"))}}
-                <span class="tag rarity {{item.system.traits.rarity}}">{{localize rarityLabel}}</span>
+    {{#if (or chatData.rarity chatData.traits chatData.properties)}}
+        <div class="tags paizo-style{{#if chatData.properties}} has-properties{{/if}}">
+            {{#if chatData.rarity}}
+                <span
+                    class="tag rarity {{chatData.rarity.slug}}"
+                    data-tooltip="{{chatData.rarity.description}}"
+                >{{localize chatData.rarity.label}}</span>
             {{/if}}
             {{#each chatData.traits as |trait|}}
                 <span class="tag" data-tooltip="{{trait.description}}">{{localize trait.label}}</span>
             {{/each}}
             {{#each chatData.properties as |property|}}
-                <span class="tag tag_secondary">{{localize property}}</span>
+                <span class="tag light property">{{localize property}}</span>
             {{/each}}
         </div>
     {{/if}}
+    {{#if chatData.levelLabel}}<div class="level">{{chatData.levelLabel}}</div>{{/if}}
 
     {{#if item.price}}
         <section>
-            <div>{{localize "PF2E.LevelN" level=item.level}}</div>
+            <div>{{localize "PF2E.Item.Physical.LevelLabel" level=item.level}}</div>
             <div>{{localize "PF2E.Item.Physical.PriceLabel" price=item.price.value}}</div>
         </section>
     {{/if}}
 {{/if}}
 
-<div class="item-description">
-    {{{description}}}
+{{#if description.gm}}
+    <section class="gm-notes" data-tooltip-class="">{{{description.gm}}}</section>
+{{/if}}
+
+<div class="description" data-tooltip-class="">
+    {{{description.value}}}
     {{#if selfEffect}}<p>{{{selfEffect}}}</p>{{/if}}
 </div>
 
 {{#if (and identified isCreature)}}
-    <div class="item-buttons">
-        {{#if chatData.save}}
+    <div class="button-group">
+        {{#if chatData.save.label}}
             <span>{{{chatData.save.label}}}</span>
         {{/if}}
 
         {{#unless item.hasVariants}}
             {{#if chatData.isAttack}}
-                <button type="button" class="spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
+                <button type="button" class="blue spell_attack" data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
             {{/if}}
             {{#if chatData.hasDamage}}
-                <button type="button" class="spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
+                <button type="button" class="blue spell_damage" data-action="spellDamage">{{localize chatData.damageLabel}}: {{chatData.formula}}</button>
             {{/if}}
             {{#if (and chatData.area (not chatData.isAura))}}
-                <button type="button" data-action="spellTemplate" data-visibility="owner">
+                <button type="button" class="blue" data-action="spellTemplate" data-visibility="owner">
                     {{localize "PF2E.Item.Spell.MeasuredTemplate.Place" area=chatData.area.label}}
                 </button>
             {{/if}}
@@ -48,9 +56,9 @@
 
         {{#if (and (eq item.type "consumable") chatData.isUsable (not item.isAmmo))}}
             {{#if (gt item.system.uses.value 0)}}
-                <button type="button" data-action="consume">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
+                <button type="button" class="blue" data-action="consume-item">{{localize "PF2E.Item.Consumable.Uses.Use"}}</button>
             {{else}}
-                <button type="button" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
+                <button type="button" class="blue" disabled>{{localize "PF2E.Item.Consumable.Uses.None"}}</button>
             {{/if}}
         {{/if}}
     </div>

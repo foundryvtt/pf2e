@@ -1,0 +1,56 @@
+{
+    "_id": "cdrLQ9FvILde7pku",
+    "img": "systems/pf2e/icons/spells/inspire-courage.webp",
+    "name": "Spell Effect: Courageous Anthem (Kanya)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by a Kanya's @UUID[Compendium.pf2e.spells-srd.Item.Courageous Anthem]</p>\n<p>You gain a +2 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

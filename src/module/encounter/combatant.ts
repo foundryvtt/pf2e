@@ -8,6 +8,9 @@ class CombatantPF2e<
     TParent extends EncounterPF2e | null = EncounterPF2e | null,
     TTokenDocument extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends Combatant<TParent, TTokenDocument> {
+    /** Has this document completed `DataModel` initialization? */
+    declare initialized: boolean;
+
     get encounter(): TParent {
         return this.parent;
     }
@@ -103,27 +106,19 @@ class CombatantPF2e<
         const { actor, encounter } = this;
         if (!encounter || !actor) return;
 
-        const actorUpdates: Record<string, unknown> = {};
+        this.update({ "flags.pf2e.roundOfLastTurn": encounter.round }, { render: false });
 
-        // Run any turn start events before the effect tracker updates.
-        // In PF2e rules, the order is interchangeable. We'll need to be more dynamic with this later.
-        for (const rule of actor.rules) {
-            await rule.onTurnStart?.(actorUpdates);
-        }
-
-        // Now that a user has been found, make the updates if there are any
-        await this.update({ "flags.pf2e.roundOfLastTurn": encounter.round });
-        if (Object.keys(actorUpdates).length > 0) {
-            await actor.update(actorUpdates);
-        }
+        // Run any turn start events before the effect tracker updates
+        const eventType = "turn-start";
+        await this.#performActorUpdates(eventType);
 
         // Effect changes on turn start/end
         for (const effect of actor.itemTypes.effect) {
-            await effect.onTurnStartEnd("start");
+            await effect.onEncounterEvent(eventType);
         }
         if (actor.isOfType("character") && actor.familiar) {
             for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onTurnStartEnd("start");
+                await effect.onEncounterEvent(eventType);
             }
         }
 
@@ -142,17 +137,32 @@ class CombatantPF2e<
         }
 
         // Effect changes on turn start/end
+        const eventType = "turn-end";
         for (const effect of actor.itemTypes.effect) {
-            await effect.onTurnStartEnd("end");
+            await effect.onEncounterEvent(eventType);
         }
         if (actor.isOfType("character") && actor.familiar) {
             for (const effect of actor.familiar.itemTypes.effect) {
-                await effect.onTurnStartEnd("end");
+                await effect.onEncounterEvent(eventType);
             }
         }
 
         await this.update({ "flags.pf2e.roundOfLastTurnEnd": round });
         Hooks.callAll("pf2e.endTurn", this, encounter, game.user.id);
+    }
+
+    protected override _initialize(options?: Record<string, unknown>): void {
+        this.initialized = false;
+        super._initialize(options);
+    }
+
+    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    override prepareData(): void {
+        if (this.initialized) return;
+        if (!this.parent || this.parent.initialized) {
+            this.initialized = true;
+            super.prepareData();
+        }
     }
 
     override prepareBaseData(): void {
@@ -191,19 +201,9 @@ class CombatantPF2e<
     }
 
     override _getInitiativeFormula(): string {
-        const { actor } = this;
-        if (!actor) return "1d20";
-        let bonus = 0;
-
-        if (typeof actor.attributes.initiative?.totalModifier === "number") {
-            bonus = actor.attributes.initiative.totalModifier;
-        } else if (actor.attributes.perception) {
-            bonus = actor.attributes.perception.value;
-        }
-
-        const parts = ["1d20", bonus || 0];
-
-        return parts.join("+");
+        const actor = this.actor;
+        const modifier = actor?.initiative?.mod ?? actor?.perception?.mod ?? 0;
+        return modifier < 0 ? `1d20${modifier}` : `1d20+${modifier}`;
     }
 
     /** Toggle the visibility of names to players */
@@ -224,6 +224,19 @@ class CombatantPF2e<
         await this.token.update({ displayName: visibilityToggles[currentVisibility] });
     }
 
+    /**
+     * Collect and process actor updates received from encounter event callbacks
+     * @param event The event type that triggered this request
+     */
+    async #performActorUpdates(event: "initiative-roll" | "turn-start"): Promise<void> {
+        const actor = this.actor;
+        const actorUpdates: Record<string, unknown> = {};
+        for (const rule of actor?.rules ?? []) {
+            await rule.onUpdateEncounter?.({ event, actorUpdates });
+        }
+        await actor?.update(actorUpdates);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -235,9 +248,18 @@ class CombatantPF2e<
     ): void {
         super._onUpdate(changed, options, userId);
 
-        // Reset actor data in case initiative order changed
-        if (this.encounter?.started && typeof changed.initiative === "number") {
-            this.encounter.resetActors();
+        if (typeof changed.initiative === "number") {
+            // Reset actor data in case initiative order changed
+            if (this.encounter?.started) this.encounter.resetActors();
+            // Make necessary actor and item updates
+            if (userId === game.user.id) {
+                const eventType = "initiative-roll";
+                this.#performActorUpdates(eventType).then(() => {
+                    for (const effect of this.actor?.itemTypes.effect ?? []) {
+                        effect.onEncounterEvent(eventType);
+                    }
+                });
+            }
         }
 
         // Send out a message with information on an automatic effect that occurs upon an actor's death

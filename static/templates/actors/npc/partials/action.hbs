@@ -1,20 +1,32 @@
 <li class="item action flexrow" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
-    <h4 class="item-name">
-        <a data-action="toggle-summary">{{action.name}}</a>
-        {{#if action.glyph}}<span class="action-glyph" data-tooltip="{{actionCostLabel}}">{{action.glyph}}</span>{{/if}}
-        {{#if action.system.deathNote}}<i class="fa-solid fa-fw fa-skull"></i>{{/if}}
-        {{#if action.hasAura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}
+    <h4>
+        <span class="name">
+            <strong><a data-action="toggle-summary">{{action.name}}</a></strong>
+            {{#if action.glyph}}<span class="action-glyph" data-tooltip="{{actionCostLabel}}">{{action.glyph}}</span>{{/if}}
+            {{#if action.has.aura}} <i class="fa-regular fa-circle-dot"></i>{{/if}}
+            {{#if action.has.deathNote}}<i class="fa-solid fa-fw fa-skull"></i>{{/if}}
+        </span>
+
+        {{#if action.traits}}
+            <span class="traits">
+                {{#each action.traits as |trait|}}
+                    {{#if @first}}<span class="parenthesis">(</span><ul class="comma-separated">{{/if~}}
+                    <li{{#if trait.description}} data-tooltip="{{trait.description}}"{{/if}}>{{trait.label}}</li>
+                    {{~#if @last}}</ul><span class="parenthesis">)</span>{{/if}}
+                {{/each}}
+            </span>
+        {{/if}}
     </h4>
 
     <div class="controls">
-        <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fa-solid fa-fw fa-comment-alt"></i></a>
-        {{#if isEditable}}
-            <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fa-solid fa-fw fa-edit"></i></a>
-            <a class="item-delete delete" title="{{localize "PF2E.NPC.Remove"}}"><i class="fa-solid fa-fw fa-trash"></i></a>
+        <a class="chat" data-action="item-to-chat" data-tooltip="PF2E.NPC.SendToChat"><i class="fa-solid fa-fw fa-message"></i></a>
+        {{#if @root.editable}}
+            <a data-action="edit-item" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-fw fa-edit"></i></a>
+            <a data-action="delete-item" data-tooltip="Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
         {{/if}}
     </div>
 
-    {{#if action.system.selfEffect}}
+    {{#if action.has.selfEffect}}
         <div class="button-group">
             <button type="button" class="use-action" data-action="use-action">
                 <span>{{localize "PF2E.Action.Use"}}</span>
@@ -22,5 +34,5 @@
         </div>
     {{/if}}
 
-    <div class="item-summary" hidden="hidden"></div>
+    <div class="item-summary" hidden></div>
 </li>

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Ghostly Weapon",
     "system": {
         "description": {
-            "value": "<p>Granted by <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghostly Weapon]</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ghostly Weapon]</p>\n<p>The weapon gains the effects of the <em>ghost touch</em> property rune and becomes magical if it wasn't already.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,21 +22,33 @@
         },
         "rules": [
             {
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "property-runes",
-                "value": "ghost-touch"
-            },
-            {
                 "choices": {
                     "ownedItems": true,
                     "types": [
                         "weapon"
                     ]
                 },
-                "flag": "weapon",
+                "flag": "spellEffectGhostlyWeapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectGhostlyWeapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.spellEffectGhostlyWeapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
             }
         ],
         "start": {

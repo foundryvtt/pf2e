@@ -38,7 +38,7 @@ interface SettingMetadata extends DocumentMetadata {
 type SettingSchema = {
     _id: fields.DocumentIdField;
     key: fields.StringField<string, string, true, false, false>;
-    value: fields.JSONField<unknown, true, true, false>;
+    value: fields.JSONField<NonNullable<JSONValue>, true, true, false>;
     _stats: fields.DocumentStatsField;
 };
 

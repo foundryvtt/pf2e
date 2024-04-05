@@ -1,5 +1,5 @@
-import { ActorPF2e } from "@actor";
-import * as ItemInstance from "@item";
+import type { ActorPF2e } from "@actor";
+import type * as ItemInstance from "@item";
 
 interface ItemInstances<TParent extends ActorPF2e | null> {
     action: ItemInstance.AbilityItemPF2e<TParent>;

@@ -1,0 +1,42 @@
+{
+    "_id": "EEujvJ9UzzK7fvqG",
+    "img": "icons/commodities/tech/cog-large-steel-white.webp",
+    "name": "Effect: Overdrive Ally (Shared Overdrive)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shared Overdrive]</p>\n<p>The first time you use Overdrive Ally during a given Overdrive, the effect lasts for the remainder of the duration of your Overdrive, instead of just until the end of the target's next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": "@item.origin.flags.pf2e.inventor.overdriveAlly.damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

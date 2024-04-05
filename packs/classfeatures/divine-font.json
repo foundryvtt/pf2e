@@ -24,7 +24,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "img": "icons/magic/life/cross-worn-green.webp",
+                        "label": "PF2E.SpecificRule.Cleric.DivineFont.Healing",
+                        "predicate": [
+                            "deity:primary:font:heal"
+                        ],
+                        "value": "heal"
+                    },
+                    {
+                        "img": "systems/pf2e/icons/spells/harm.webp",
+                        "label": "PF2E.SpecificRule.Cleric.DivineFont.Harmful",
+                        "predicate": [
+                            "deity:primary:font:harm"
+                        ],
+                        "value": "harm"
+                    }
+                ],
+                "flag": "divineFont",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Cleric.DivineFont.Prompt",
+                "rollOption": "divine-font"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

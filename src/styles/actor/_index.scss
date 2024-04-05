@@ -1,16 +1,11 @@
-.default section.window-content {
-    padding: 0;
-    overflow: hidden;
-}
-
-$header-height: 89px; /* Adjust height of the header */
-
 @import "character/attribute-builder";
 @import "iwr-editor";
 
-.actor.sheet .window-content {
+.actor.sheet section.window-content {
     @import "../reset";
     font-family: var(--sans-serif);
+    overflow: hidden;
+    padding: 0;
 
     h1,
     h2,
@@ -27,6 +22,10 @@ $header-height: 89px; /* Adjust height of the header */
         }
     }
 
+    .drag-handle {
+        cursor: hand;
+    }
+
     i.fa-info-circle {
         cursor: help;
     }
@@ -35,26 +34,33 @@ $header-height: 89px; /* Adjust height of the header */
         position: relative;
 
         .hover-icon {
+            --shadow-color: var(--color-text-dark-1);
+
+            color: var(--color-text-light-0);
+            bottom: 0;
             display: none;
             font-size: var(--font-size-16);
+            padding: var(--space-2);
+            position: absolute;
+            right: 0;
+            text-shadow:
+                0 0 3px var(--shadow-color),
+                0 0 5px var(--shadow-color),
+                0 0 8px var(--shadow-color);
+            &:hover {
+                --shadow-color: var(--color-pf-primary);
+            }
         }
 
         &:hover .hover-icon {
-            display: block;
-        }
-
-        [data-action="show-image"] {
-            bottom: 0.25rem;
-            position: absolute;
-            right: 0.025rem;
+            display: flex; // used instead of block to avoid whitespace
         }
     }
 
-    @import "item-summary";
     @import "inventory";
+    @import "item-summary";
 
     .item-image {
-        cursor: pointer;
         display: flex;
         flex: 0 0 1.5rem;
         font-size: var(--font-size-16);
@@ -89,6 +95,8 @@ $header-height: 89px; /* Adjust height of the header */
         }
 
         &:hover {
+            text-shadow: none;
+
             i {
                 align-items: center;
                 background: #f1eee9;
@@ -124,45 +132,61 @@ $header-height: 89px; /* Adjust height of the header */
             background-color: var(--color-rarity-unique);
         }
     }
-}
 
-.actor.sheet {
-    &.character {
-        @import "character/attack-popout";
+    button.blue {
+        align-items: center;
+        background: var(--color-pf-secondary);
+        border-radius: 2px;
+        border: 1px solid var(--color-pf-secondary-lighter);
+        box-shadow: inset 0 0 0 1px rgba(black, 50%);
+        color: var(--text-light);
+        display: flex;
+        font-weight: 500;
+        gap: 0.25em;
+        justify-content: center;
+        line-height: 1.8em;
+        margin: 0;
+        padding: 0 0.5em;
+        width: auto;
+
+        &:disabled {
+            background: rgba(black, 0.1);
+            border: none;
+            box-shadow: none;
+            color: var(--color-disabled);
+            pointer-events: none;
+        }
+
+        &:hover {
+            border-color: transparent;
+            text-shadow: 0 0 0.1em var(--text-light);
+        }
     }
 
-    &.character .crb-style {
-        @import "character";
-    }
-
-    &.vehicle .crb-style {
-        @import "vehicle";
-    }
-
-    .crb-style {
+    form.crb-style {
         display: grid;
         grid:
-            "sidebar header" 75px
+            "sidebar header" 4.625rem
             "sidebar nav" minmax(min-content, max-content)
             "sidebar content" 1fr
-            / 230px 1fr;
+            / 14.375rem 1fr;
 
         font-family: var(--body-serif);
 
         background: url("/assets/sheet/header.webp"), url("/assets/sheet/background.webp");
         background-repeat: repeat-x, no-repeat;
         background-size:
-            auto $header-height,
+            auto 5.625rem,
             cover;
         background-attachment: local;
         height: 100%;
 
         .d20-svg {
-            width: 19px;
-            height: 19px;
+            width: var(--font-size-19);
+            height: var(--font-size-19);
         }
 
-        @import "sidebar", "header";
+        @import "header";
 
         .char-header {
             grid-area: header;
@@ -171,13 +195,11 @@ $header-height: 89px; /* Adjust height of the header */
 
         .sheet-navigation {
             grid-area: nav;
-            margin-left: -2px;
         }
 
         .sheet-body {
             grid-area: content;
             position: relative;
-            z-index: 0;
 
             ol {
                 list-style: none;
@@ -198,7 +220,7 @@ $header-height: 89px; /* Adjust height of the header */
                 color: var(--text-dark);
 
                 > .tab {
-                    padding: 0.6rem 0.6rem 0;
+                    padding: var(--space-10) var(--space-10) 0;
                     display: none;
 
                     &.active {
@@ -208,21 +230,54 @@ $header-height: 89px; /* Adjust height of the header */
 
                 @import "spell-collection";
 
-                ol.directory-list {
+                ul.option-toggles {
+                    @include frame-elegant;
+                    display: flex;
+                    flex-flow: column wrap;
+                    list-style: none;
+                    margin-bottom: var(--space-8);
+                    padding: var(--space-8) 1rem;
+
+                    > li {
+                        align-items: center;
+                        display: flex;
+                        height: 1.5rem;
+                        width: 100%;
+
+                        label {
+                            align-items: center;
+                            display: flex;
+                            gap: var(--space-4);
+
+                            input[type="checkbox"] {
+                                height: 1.125rem;
+                                margin: 0;
+                                padding: 0;
+                            }
+
+                            .unchecked-disabled {
+                                color: var(--color-text-dark-inactive);
+                            }
+
+                            select {
+                                margin-left: 0.25em;
+                            }
+                        }
+                    }
+                }
+
+                .directory-list {
                     > h3,
                     > li > h3 {
-                        font-size: 1rem;
-                        font-weight: 500;
-                        font-family: var(--serif);
-                        line-height: 1;
                         color: var(--text-light);
-                        @include p-reset;
-                        margin-left: 8px;
+                        font: 500 var(--font-size-16) / 1 var(--serif);
+                        margin: 0 0 0 var(--space-8);
+                        padding: 0;
                     }
 
                     .action-header {
                         align-items: center;
-                        background: var(--primary);
+                        background: var(--color-pf-primary);
                         border: none;
                         border-radius: 0.25em;
                         box-shadow:
@@ -231,14 +286,12 @@ $header-height: 89px; /* Adjust height of the header */
                         display: flex;
                         flex-basis: 100%;
                         flex-wrap: nowrap;
-                        height: 32px;
+                        height: 1.75rem;
                         justify-content: space-between;
                         margin-left: 0;
-                        margin-top: 8px;
+                        margin-top: var(--space-8);
                         padding: 0 0.5em;
-                        position: relative;
                         width: 100%;
-                        z-index: 2;
 
                         &:first-child {
                             margin-top: 0;
@@ -249,10 +302,10 @@ $header-height: 89px; /* Adjust height of the header */
                         }
 
                         .drag-handle {
-                            cursor: move;
                             color: var(--text-light);
                             flex-basis: 0;
                             margin-right: 0.25em;
+
                             i {
                                 padding-top: 0.25em;
                             }
@@ -269,7 +322,8 @@ $header-height: 89px; /* Adjust height of the header */
                             font-size: var(--font-size-12);
                         }
 
-                        h3 {
+                        h3,
+                        h4 {
                             color: var(--text-light);
                             flex: 1 1 100%;
                             margin-bottom: 0;
@@ -285,6 +339,10 @@ $header-height: 89px; /* Adjust height of the header */
                                 }
                             }
                         }
+
+                        h4 {
+                            font-size: var(--font-size-14);
+                        }
                     }
                 }
 
@@ -294,7 +352,7 @@ $header-height: 89px; /* Adjust height of the header */
 
                 footer {
                     @include micro;
-                    color: var(--primary);
+                    color: var(--color-pf-primary);
                     text-align: right;
                     line-height: 1.4;
                     margin: 1em 1em 0;
@@ -305,12 +363,13 @@ $header-height: 89px; /* Adjust height of the header */
         /* Navigation */
         @import "nav";
 
-        section.major > header {
+        section.major > header,
+        section.major > .subsection > header {
             border-bottom: 1px solid var(--color-border-divider);
-            color: var(--primary);
+            color: var(--color-pf-primary);
             font: 600 var(--font-size-16) / 1 var(--serif);
             position: relative;
-            margin: 0.75rem 0 0.5rem 0;
+            margin: var(--space-8) 0;
 
             a {
                 color: var(--color-text-dark-primary);
@@ -320,7 +379,7 @@ $header-height: 89px; /* Adjust height of the header */
             & > button,
             & > .controls {
                 position: absolute;
-                bottom: -1px;
+                bottom: calc(-1 * var(--space-1));
                 right: 0;
             }
 
@@ -332,10 +391,10 @@ $header-height: 89px; /* Adjust height of the header */
                 background: transparent;
                 border-radius: 2px 2px 0 0;
                 border: 1px solid var(--color-border-divider);
-                color: var(--primary);
+                color: var(--color-pf-primary);
                 cursor: pointer;
                 font: 500 var(--font-size-12) / 1 var(--sans-serif);
-                height: 20px;
+                height: 1.25rem;
                 margin: 0;
                 outline: none;
                 text-transform: uppercase;
@@ -347,21 +406,30 @@ $header-height: 89px; /* Adjust height of the header */
             }
         }
 
+        section.major > .subsection {
+            flex-wrap: wrap;
+            margin-bottom: var(--space-12);
+
+            header {
+                display: flex;
+                flex-basis: 100%;
+                margin-top: 0;
+            }
+        }
+
         /* Read-Only Sheet */
         &.limited {
             @import "limited";
         }
 
-        input {
-            &.adjusted:not(:focus) {
-                font-weight: 700;
-                color: $adjusted-higher;
-            }
+        input.adjusted:not(:focus) {
+            font-weight: 700;
+            color: $adjusted-higher;
         }
 
         button.tag:disabled {
-            cursor: not-allowed;
             background-color: var(--color-text-dark-inactive);
+            cursor: not-allowed;
         }
 
         .tags .tag.edit-btn {
@@ -372,17 +440,38 @@ $header-height: 89px; /* Adjust height of the header */
 
             a {
                 display: inline-flex;
+
                 svg {
-                    height: 9px;
+                    height: var(--space-9);
                     width: auto;
                 }
             }
         }
     }
+
+    /* Mystification data revealed to GMs */
+    .gm-mystified-data {
+        opacity: 0.75;
+    }
+
+    @import "coinage";
+}
+
+.actor.sheet {
+    &.character section.window-content {
+        @import "character/attack-popout";
+
+        .crb-style {
+            @import "character";
+        }
+    }
+
+    &.vehicle .crb-style {
+        @import "vehicle";
+    }
 }
 
 @import "spell-preparation";
-@import "coinage";
 
 /* Actor-type Imports */
 @import "familiar";
@@ -396,8 +485,3 @@ $header-height: 89px; /* Adjust height of the header */
 @import "party";
 
 @import "army";
-
-/* Mystification data revealed to GMs */
-.gm-mystified-data {
-    opacity: 0.75;
-}

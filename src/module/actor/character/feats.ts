@@ -111,7 +111,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         });
 
         // Add campaign feats if enabled
-        if (game.pf2e.settings.campaign.enabled) {
+        if (game.pf2e.settings.campaign.feats.enabled) {
             this.createGroup({ id: "campaign", label: "PF2E.FeatCampaignHeader" });
         }
     }

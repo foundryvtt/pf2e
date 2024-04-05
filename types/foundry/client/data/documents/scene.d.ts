@@ -1,3 +1,4 @@
+import type { NoteSource, TokenSource } from "../../../common/documents/module.d.ts";
 import type { ClientBaseScene } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -36,19 +37,23 @@ declare global {
         activate(): Promise<this>;
 
         override clone(
-            data: DeepPartial<this["_source"]> | undefined,
-            options: { save: true; keepId?: boolean },
+            data: Record<string, unknown> | undefined,
+            context: DocumentCloneContext & { save: true },
         ): Promise<this>;
-        override clone(data?: DeepPartial<this["_source"]>, options?: { save?: false; keepId?: boolean }): this;
-        override clone(
-            data?: DeepPartial<this["_source"]>,
-            options?: { save?: boolean; keepId?: boolean },
-        ): this | Promise<this>;
+        override clone(data?: Record<string, unknown>, context?: DocumentCloneContext & { save?: false }): this;
+        override clone(data?: Record<string, unknown>, context?: DocumentCloneContext): this | Promise<this>;
 
         /** Set this scene as the current view */
         view(): Promise<this>;
 
         override prepareBaseData(): void;
+
+        /**
+         * Get the Canvas dimensions which would be used to display this Scene.
+         * Apply padding to enlarge the playable space and round to the nearest 2x grid size to ensure symmetry.
+         * The rounding accomplishes that the padding buffer around the map always contains whole grid spaces.
+         */
+        getDimensions(): SceneDimensions;
 
         protected override _preCreate(
             data: this["_source"],
@@ -148,74 +153,83 @@ declare global {
 
         update(data: Record<string, unknown>, options?: SceneUpdateContext): Promise<this>;
 
+        createEmbeddedDocuments(
+            embeddedName: "Note",
+            data: PreCreate<NoteSource>[],
+            context?: SceneEmbeddedModificationContext<this>,
+        ): Promise<CollectionValue<this["notes"]>[]>;
+        createEmbeddedDocuments(
+            embeddedName: "Token",
+            data: PreCreate<TokenSource>[],
+            context?: SceneEmbeddedModificationContext<this>,
+        ): Promise<CollectionValue<this["tokens"]>[]>;
+        createEmbeddedDocuments(
+            embeddedName: SceneEmbeddedName,
+            data: Record<string, unknown>[],
+            context?: SceneEmbeddedModificationContext<this>,
+        ): Promise<
+            | CollectionValue<this["drawings"]>[]
+            | CollectionValue<this["lights"]>[]
+            | CollectionValue<this["notes"]>[]
+            | CollectionValue<this["sounds"]>[]
+            | CollectionValue<this["tiles"]>[]
+            | CollectionValue<this["tokens"]>[]
+            | CollectionValue<this["tokens"]>[]
+            | CollectionValue<this["walls"]>[]
+        >;
+
         updateEmbeddedDocuments(
             embeddedName: "Token",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneTokenModificationContext<this>,
+            context?: SceneTokenModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientLight",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["lights"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "AmbientSound",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["sounds"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Drawing",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["drawings"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "MeasuredTemplate",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Note",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["notes"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["tiles"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Wall",
             updateData: EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<CollectionValue<this["walls"]>[]>;
         updateEmbeddedDocuments(
-            embeddedName:
-                | "Token"
-                | "AmbientLight"
-                | "AmbientSound"
-                | "Drawing"
-                | "MeasuredTemplate"
-                | "Note"
-                | "Tile"
-                | "Wall",
-            updateData:
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[]
-                | EmbeddedDocumentUpdateData[],
-            options?: SceneEmbeddedModificationContext<this>,
+            embeddedName: SceneEmbeddedName,
+            updateData: EmbeddedDocumentUpdateData[],
+            context?: SceneEmbeddedModificationContext<this>,
         ): Promise<
-            | CollectionValue<this["tokens"]>[]
-            | CollectionValue<this["lights"]>[]
-            | CollectionValue<this["sounds"]>[]
             | CollectionValue<this["drawings"]>[]
-            | CollectionValue<this["tokens"]>[]
+            | CollectionValue<this["lights"]>[]
             | CollectionValue<this["notes"]>[]
+            | CollectionValue<this["sounds"]>[]
             | CollectionValue<this["tiles"]>[]
+            | CollectionValue<this["tokens"]>[]
+            | CollectionValue<this["tokens"]>[]
             | CollectionValue<this["walls"]>[]
         >;
     }
@@ -227,4 +241,41 @@ declare global {
     interface SceneTokenModificationContext<TParent extends Scene> extends SceneEmbeddedModificationContext<TParent> {
         animation?: TokenAnimationOptions<Token>;
     }
+
+    interface SceneDimensions {
+        /** The width of the canvas. */
+        width: number;
+        /** The height of the canvas. */
+        height: number;
+        /** The grid size. */
+        size: number;
+        /** The canvas rectangle. */
+        rect: PIXI.Rectangle;
+        /** The X coordinate of the scene rectangle within the larger canvas. */
+        sceneX: number;
+        /** The Y coordinate of the scene rectangle within the larger canvas. */
+        sceneY: number;
+        /** The width of the scene. */
+        sceneWidth: number;
+        /** The height of the scene. */
+        sceneHeight: number;
+        /** The scene rectangle. */
+        sceneRect: PIXI.Rectangle;
+        /** The number of distance units in a single grid space. */
+        distance: number;
+        /** The aspect ratio of the scene rectangle. */
+        ratio: number;
+        /** The length of the longest line that can be drawn on the canvas. */
+        maxR: number;
+    }
 }
+
+type SceneEmbeddedName =
+    | "AmbientLight"
+    | "AmbientSound"
+    | "Drawing"
+    | "MeasuredTemplate"
+    | "Note"
+    | "Tile"
+    | "Token"
+    | "Wall";

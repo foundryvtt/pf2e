@@ -61,6 +61,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             actorRarities: CONFIG.PF2E.rarityTraits,
             actorRarity: CONFIG.PF2E.rarityTraits[this.actor.system.traits.rarity],
             ac: getAdjustedValue(this.actor.attributes.ac.value, this.actor._source.system.attributes.ac.value),
+            frequencies: CONFIG.PF2E.frequencies,
             saves: {
                 fortitude: getAdjustedValue(
                     this.actor.saves.fortitude.mod,
@@ -93,6 +94,16 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             });
         }
     }
+
+    protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Change emitsSound values of "true" and "false" to booleans
+        const emitsSound = formData["system.attributes.emitsSound"];
+        if (emitsSound !== "encounter") {
+            formData["system.attributes.emitsSound"] = emitsSound === "true";
+        }
+
+        return super._updateObject(event, formData);
+    }
 }
 
 interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
@@ -102,6 +113,7 @@ interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
     actorSizes: typeof CONFIG.PF2E.actorSizes;
     actorSize: string;
     ac: AdjustedValue;
+    frequencies: typeof CONFIG.PF2E.frequencies;
     saves: { fortitude: AdjustedValue };
 }
 

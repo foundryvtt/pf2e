@@ -1,6 +1,6 @@
+import type { ActorPF2e } from "@actor";
 import { SingleCheckAction } from "@actor/actions/index.ts";
 import { ModifierPF2e } from "@actor/modifiers.ts";
-import { ActorPF2e } from "@module/actor/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
@@ -104,6 +104,7 @@ class AdministerFirstAidAction extends SingleCheckAction {
             cost: 2,
             description: `${PREFIX}.Description`,
             name: `${PREFIX}.Title`,
+            section: "skill",
             slug: "administer-first-aid",
             statistic: "medicine",
             traits: ["manipulate"],

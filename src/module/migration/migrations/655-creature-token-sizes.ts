@@ -35,7 +35,7 @@ export class Migration655CreatureTokenSizes extends MigrationBase {
         itemSource.system.rules ??= [];
         const rules: MaybeAELike[] = itemSource.system.rules;
         const actorSizeAELike = rules.find(this.#isActorSizeAELike);
-        const tokenSizeRE = rules.find(this.#isTokenSizeRE);
+        const tokenSizeRE: (RuleElementSource & { value?: JSONValue }) | undefined = rules.find(this.#isTokenSizeRE);
 
         if (actorSizeAELike) {
             actorSizeAELike.key = "CreatureSize";

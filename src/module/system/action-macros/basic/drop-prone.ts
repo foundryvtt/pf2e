@@ -25,6 +25,7 @@ class DropProneAction extends SimpleAction {
             cost: 1,
             description: "PF2E.Actions.DropProne.Description",
             name: "PF2E.Actions.DropProne.Title",
+            section: "basic",
             slug: "drop-prone",
             traits: ["move"],
         });

@@ -1,5 +1,8 @@
 import * as R from "remeda";
 import { materialDamageEffects } from "./damage.ts";
+import { magicTraditions } from "./traits.ts";
+
+const traditionIWR = R.mapValues(magicTraditions, (_, t) => `PF2E.Damage.IWR.Type.${t}`);
 
 const materialIWR = R.mapValues(
     // Exclude niche materials from APs that have no IWR properties, as well as ones that count as more-common materials
@@ -19,8 +22,10 @@ const sanctifiedIWR = { holy: "PF2E.Damage.IWR.Type.holy", unholy: "PF2E.Damage.
 const immunityTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
+    alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     auditory: "PF2E.Damage.IWR.Type.auditory",
     bleed: "PF2E.Damage.RollFlavor.bleed",
@@ -36,6 +41,7 @@ const immunityTypes = {
     dazzled: "PF2E.Damage.IWR.Type.dazzled",
     deafened: "PF2E.Damage.IWR.Type.deafened",
     "death-effects": "PF2E.Damage.IWR.Type.death-effects",
+    detection: "PF2E.Damage.IWR.Type.detection",
     disease: "PF2E.Damage.IWR.Type.disease",
     doomed: "PF2E.Damage.IWR.Type.doomed",
     drained: "PF2E.Damage.IWR.Type.drained",
@@ -106,8 +112,10 @@ const immunityTypes = {
 const weaknessTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
+    alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     "arrow-vulnerability": "PF2E.Damage.IWR.Type.arrow-vulnerability",
     "axe-vulnerability": "PF2E.Damage.IWR.Type.axe-vulnerability",
@@ -160,8 +168,10 @@ const weaknessTypes = {
 const resistanceTypes = {
     ...materialIWR,
     ...sanctifiedIWR,
+    ...traditionIWR,
     acid: "PF2E.Damage.RollFlavor.acid",
     air: "PF2E.Damage.RollFlavor.air",
+    alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
     bleed: "PF2E.Damage.RollFlavor.bleed",

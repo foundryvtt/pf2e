@@ -51,39 +51,39 @@ export class CriticalHitAndFumbleCards {
     }
 
     static appendButtons(message: ChatMessagePF2e, $html: JQuery): void {
-        this.appendButtonsOption ??= game.settings.get("pf2e", "critFumbleButtons");
+        this.appendButtonsOption ??= game.pf2e.settings.critFumble.buttons;
         if (this.appendButtonsOption && (message.isAuthor || game.user.isGM) && message.isContentVisible) {
             const type = message.flags.pf2e.context?.type ?? "";
             if (this.rollTypes.includes(type)) {
-                const critButton = $(
+                const $critButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-up" title="${game.i18n.localize(
                         "PF2E.CriticalHitCardButtonTitle",
                     )}"></i></button>`,
                 );
-                const fumbleButton = $(
+                const $fumbleButton = $(
                     `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fa-solid fa-thumbs-down" title="${game.i18n.localize(
                         "PF2E.CriticalFumbleCardButtonTitle",
                     )}"></i></button>`,
                 );
-                const btnContainer1 = $(
+                const $container = $(
                     `<span class="dmgBtn-container" style="position:absolute; right:0; bottom:1px;"></span>`,
                 );
-                btnContainer1.append(critButton);
-                btnContainer1.append(fumbleButton);
+                $container.append($critButton);
+                $container.append($fumbleButton);
 
-                critButton.on("click", (event) => {
+                $critButton.on("click", (event) => {
                     event.stopPropagation();
                     this.drawFromTable("critTable");
                     event.currentTarget.blur();
                 });
 
-                fumbleButton.on("click", (event) => {
+                $fumbleButton.on("click", (event) => {
                     event.stopPropagation();
                     this.drawFromTable("fumbleTable");
                     event.currentTarget.blur();
                 });
 
-                $html.find(".dice-total").wrapInner('<span id="value"></span>').append(btnContainer1);
+                $html.find(".dice-total").wrapInner('<span id="value"></span>').append($container);
             }
         }
     }

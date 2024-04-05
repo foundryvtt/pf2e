@@ -1,4 +1,4 @@
-import type { EffectAreaType } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
 export class TemplateLayerPF2e<
@@ -14,9 +14,9 @@ export class TemplateLayerPF2e<
     }
 
     /** Set a grid-snapping precision appropriate for an effect area type */
-    snapFor(areaType: EffectAreaType | null): void {
-        if (areaType && canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            this.#gridPrecision = areaType === "burst" ? 1 : 2;
+    snapFor(areaShape: EffectAreaShape | null): void {
+        if (areaShape && canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
+            this.#gridPrecision = areaShape === "burst" ? 1 : 2;
         } else {
             this.#gridPrecision = 2;
         }
@@ -34,7 +34,7 @@ export class TemplateLayerPF2e<
     /* -------------------------------------------- */
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void {
-        if (!canvas.scene || !canvas.dimensions || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+        if (!canvas.ready || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
             return super._onDragLeftMove(event);
         }
 
@@ -42,8 +42,8 @@ export class TemplateLayerPF2e<
         const dragState = layerDragState ?? 0;
         if (!template || template.destroyed || dragState === 0) return;
 
-        this.snapFor(template.areaType);
-        const { dimensions } = canvas;
+        this.snapFor(template.areaShape);
+        const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
         const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, this.gridPrecision);

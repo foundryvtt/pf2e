@@ -39,7 +39,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
     }
 
     /** Is the dropped feat or feature valid for the given section? */
-    #isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
+    #isValidDrop(event: DragEvent, feat: FeatPF2e): boolean {
         const validCategories = (
             htmlClosest(event.target, "[data-valid-drops]")?.dataset.validDrops?.split(" ") ?? []
         ).filter((f): f is FeatOrFeatureCategory => setHasElement(FEAT_CATEGORIES, f));
@@ -62,7 +62,7 @@ abstract class ABCSheetPF2e<TItem extends ABCItem> extends ItemSheetPF2e<TItem> 
         return true;
     }
 
-    protected override async _onDrop(event: ElementDragEvent): Promise<void> {
+    protected override async _onDrop(event: DragEvent): Promise<void> {
         event.preventDefault();
         const dataString = event.dataTransfer?.getData("text/plain");
         const dropData = JSON.parse(dataString ?? "");

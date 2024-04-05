@@ -38,6 +38,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
+                    "action:treat-wounds",
                     "risky-surgery"
                 ],
                 "selector": "medicine",
@@ -47,11 +48,23 @@
             {
                 "key": "Note",
                 "predicate": [
+                    "action:treat-wounds",
                     "risky-surgery"
                 ],
                 "selector": "medicine",
-                "text": "When you @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds], you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of Treat Wounds. If you do, you gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead.",
+                "text": "PF2E.SpecificRule.Feat.RiskySurgery.Note",
                 "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "risky-surgery",
+                    "action:treat-wounds"
+                ],
+                "selector": "medicine"
             }
         ],
         "traits": {

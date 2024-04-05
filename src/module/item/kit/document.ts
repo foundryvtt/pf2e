@@ -1,16 +1,21 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
-import { ItemPF2e, PhysicalItemPF2e } from "@item";
+import { ItemPF2e, type PhysicalItemPF2e } from "@item";
+import type { ClassTrait } from "@item/class/types.ts";
 import { Price } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { Size } from "@module/data.ts";
-import { UserPF2e } from "@module/user/index.ts";
+import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
 
 class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
+    static override get validTraits(): Record<ClassTrait, string> {
+        return CONFIG.PF2E.classTraits;
+    }
+
     get entries(): KitEntryData[] {
         return Object.values(this.system.items);
     }
@@ -52,10 +57,10 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
                         size,
                     });
                     prepared.push(clone, ...contents);
-                } else if (clone instanceof KitPF2e) {
+                } else if (clone.isOfType("kit")) {
                     const inflatedKit = await clone.createGrantedItems({ containerId: options.containerId, size });
                     prepared.push(...inflatedKit);
-                } else if (clone instanceof PhysicalItemPF2e) {
+                } else if (clone.isOfType("physical")) {
                     prepared.push(clone);
                 }
 

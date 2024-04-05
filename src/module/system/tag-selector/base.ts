@@ -1,28 +1,20 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { htmlQueryAll } from "@util";
-import { SelectableTagField } from "./index.ts";
-
-interface TagSelectorOptions extends DocumentSheetOptions {
-    /* Show the custom input field (defaults to true) */
-    allowCustom?: boolean;
-    /** Is the target data property a flat array rather than a values object? */
-    flat?: boolean;
-    /* Custom choices to add to the list of choices */
-    customChoices?: Record<string, string>;
-}
+import { htmlQueryAll, sortStringRecord } from "@util";
+import type { SelectableTagField } from "./index.ts";
 
 abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheet<
     TDocument,
     TagSelectorOptions
 > {
     static override get defaultOptions(): TagSelectorOptions {
-        return fu.mergeObject(super.defaultOptions, {
+        return {
+            ...super.defaultOptions,
             id: "tag-selector",
             classes: ["pf2e", "tag-selector"],
             sheetConfig: false,
             width: "auto",
-        });
+        };
     }
 
     choices: Record<string, string>;
@@ -75,19 +67,17 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
             (types: Record<string, string>, key) => fu.mergeObject(types, CONFIG.PF2E[key]),
             {},
         );
-        return this.sortChoices(choices);
+        return sortStringRecord(choices);
     }
+}
 
-    /** Localize and sort choices */
-    protected sortChoices(choices: Record<string, string>): Record<string, string> {
-        return Object.entries(choices)
-            .map(([key, value]) => [key, game.i18n.localize(value)])
-            .sort(([_keyA, valueA], [_keyB, valueB]) => valueA.localeCompare(valueB))
-            .reduce(
-                (accumulated: Record<string, string>, [key, value]) => fu.mergeObject(accumulated, { [key]: value }),
-                {},
-            );
-    }
+interface TagSelectorOptions extends DocumentSheetOptions {
+    /* The value object to update; e.g., "system.traits" */
+    objectProperty?: string;
+    /** Is the target data property a flat array rather than a `value` object? */
+    flat?: boolean;
+    /* Custom choices to add to the choices pulled from `CONFIG` */
+    customChoices?: Record<string, string>;
 }
 
 interface TagSelectorData<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheetData<TDocument> {

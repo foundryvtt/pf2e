@@ -15,19 +15,20 @@ import { InitiativeTraceData } from "@actor/initiative.ts";
 import { NPCStrike } from "@actor/npc/index.ts";
 import { SaveType } from "@actor/types.ts";
 import { PublicationData, Rarity, Size } from "@module/data.ts";
+import { StatisticTraceData } from "@system/statistic/data.ts";
 import { HazardTrait } from "./types.ts";
 
 /** The stored source data of a hazard actor */
 type HazardSource = BaseActorSourcePF2e<"hazard", HazardSystemSource>;
 
 /** The raw information contained within the actor data object for hazards. */
-interface HazardSystemSource extends ActorSystemSource {
+type HazardSystemSource = Omit<ActorSystemSource, "details" | "attributes" | "saves" | "traits"> & {
     details: HazardDetailsSource;
     attributes: HazardAttributesSource;
     saves: HazardSaves;
     /** Traits, languages, and other information. */
     traits: HazardTraitsSource;
-}
+};
 
 interface HazardAttributesSource extends ActorAttributesSource {
     ac: { value: number };
@@ -37,8 +38,6 @@ interface HazardAttributesSource extends ActorAttributesSource {
         temp: number;
         details: string;
     };
-    perception?: never;
-    initiative?: never;
     hardness: number;
     stealth: {
         value: number | null;
@@ -61,10 +60,11 @@ interface HazardDetailsSource extends ActorDetailsSource {
 }
 
 interface HazardSystemData extends Omit<HazardSystemSource, "attributes" | "details">, Omit<ActorSystemData, "traits"> {
+    actions: NPCStrike[];
     attributes: HazardAttributes;
     details: HazardDetails;
+    initiative?: InitiativeTraceData;
     traits: HazardTraitsData;
-    actions: NPCStrike[];
 }
 
 interface HazardTraitsSource extends ActorTraitsSource<HazardTrait> {
@@ -87,11 +87,7 @@ interface HazardAttributes
     hasHealth: boolean;
     hp: HazardHitPoints;
     hardness: number;
-    initiative?: InitiativeTraceData;
-    stealth: {
-        value: number | null;
-        details: string;
-    };
+    stealth: HazardStealthTraceData;
     /**
      * Whether the hazard emits sound and can therefore be detected via hearing. A value of "encounter" indicates it is
      * silent until an encounter begins.
@@ -99,6 +95,13 @@ interface HazardAttributes
     emitsSound: boolean | "encounter";
 
     shield?: never;
+}
+
+interface HazardStealthTraceData extends Omit<StatisticTraceData, "dc" | "totalModifier" | "value"> {
+    dc: number | null;
+    totalModifier: number | null;
+    value: number | null;
+    details: string;
 }
 
 interface HazardDetails extends Omit<HazardDetailsSource, "alliance">, ActorDetails {

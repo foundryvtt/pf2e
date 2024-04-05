@@ -1,11 +1,11 @@
 import type { ActorPF2e } from "@actor";
 import { ItemProxyPF2e, type WeaponPF2e } from "@item";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e, RUNE_DATA, getMaterialValuationData } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { WeaponMaterialSource, WeaponSource, WeaponSystemSource, WeaponTraitsSource } from "@item/weapon/data.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger } from "@util";
 import * as R from "remeda";
@@ -14,9 +14,8 @@ import { setActorShieldData } from "./helpers.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 
 class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
-        if (this.isEquipped || item.isEquipped) return false;
-        return super.isStackableWith(item);
+    static override get validTraits(): Record<ShieldTrait, string> {
+        return CONFIG.PF2E.shieldTraits;
     }
 
     get baseType(): BaseShieldType | null {
@@ -54,8 +53,22 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         );
     }
 
+    override isStackableWith(item: PhysicalItemPF2e<TParent>): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
+    }
+
+    override acceptsSubitem(candidate: PhysicalItemPF2e): boolean {
+        return (
+            candidate.isOfType("weapon") &&
+            candidate.system.traits.value.some((t) => t === "attached-to-shield") &&
+            !this.system.traits.integrated &&
+            !this.subitems.some((i) => i.isOfType("weapon"))
+        );
+    }
+
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = "armor"): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const reinforcingRune = this.system.runes.reinforcing;
         const reinforcingSlug = [null, "minor", "lesser", "moderate", "greater", "major", "supreme"][reinforcingRune];
         const reinforcingOptions = {
@@ -63,7 +76,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             [`rune:reinforcing:${reinforcingSlug}`]: !!reinforcingRune,
         };
 
-        const rollOptions = super.getRollOptions(prefix);
+        const rollOptions = super.getRollOptions(prefix, options);
         rollOptions.push(
             ...Object.entries({
                 [`base:${this.baseType}`]: !!this.baseType,
@@ -120,9 +133,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort()).filter(
-            (t) => t in CONFIG.PF2E.shieldTraits,
-        );
+        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
 
         // Fill out integrated weapon data if applicable
         const integratedTrait = this.system.traits.value.find((t) => t.startsWith("integrated"));
@@ -138,10 +149,9 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const versatileDamageType = isVersatileWeapon ? damageTypeMap[traitParts.at(-1) ?? ""] : null;
             if (this.system.traits.integrated && versatileDamageType) {
                 this.system.traits.integrated.versatile = fu.mergeObject(
-                    { options: [mainDamageType, versatileDamageType], selection: mainDamageType },
+                    { options: [mainDamageType, versatileDamageType], selected: mainDamageType },
                     this.system.traits.integrated.versatile ?? {},
                 );
-                this.system.traits.integrated.versatile.options;
             } else if (this.system.traits.integrated) {
                 this.system.traits.integrated.versatile = null;
             }
@@ -165,6 +175,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     }
 
     override prepareActorData(this: ShieldPF2e<ActorPF2e>): void {
+        super.prepareActorData();
         const { actor } = this;
         if (!actor) throw ErrorPF2e("This method may only be called from embedded items");
         setActorShieldData(this);
@@ -178,11 +189,11 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override async getChatData(
         this: ShieldPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
-        const properties = [
+    ): Promise<RawItemChatData> {
+        const properties = R.compact([
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ];
+        ]);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
@@ -233,7 +244,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             if (objectHasKey(CONFIG.PF2E.weaponTraits, versatileWeaponTrait)) {
                 baseData.system.traits.value.push(versatileWeaponTrait);
                 baseData.system.traits.toggles = {
-                    versatile: { selection: this.system.traits.integrated.versatile?.selection ?? damageType },
+                    versatile: { selected: this.system.traits.integrated.versatile?.selected ?? damageType },
                 };
             }
 

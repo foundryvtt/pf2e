@@ -220,7 +220,7 @@
                     "value": 0.1
                 },
                 "category": "martial",
-                "containerId": "null",
+                "containerId": null,
                 "damage": {
                     "damageType": "mental",
                     "dice": 2,
@@ -680,7 +680,7 @@
                     "value": 0.1
                 },
                 "category": "drug",
-                "containerId": "null",
+                "containerId": null,
                 "damage": null,
                 "description": {
                     "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> Interact</p>\n<hr />\n<p>The save for addiction to grit is @Check[type:fortitude|dc:15|name:Grit Addiction|traits:virulent|showDC:owner], and the addiction has the virulent trait.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15|showDC:owner]</p>\n<p><strong>Onset</strong> 1 minute</p>\n<p><strong>Maximum Duration</strong> 4 hours</p>\n<p><strong>Stage 1</strong> +1 item bonus to Athletics, Crafting, and Performance checks (10 minutes)</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Grit (Stage 1)]</p>\n<p><strong>Stage 2</strong> +1 item bonus to Athletics, Crafting, and Performance checks, -2 item penalty to Perception checks (1 hour)</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Grit (Stage 2)]</p>\n<p><strong>Stage 3</strong> -4 item penalty to Perception checks (1 hour)</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Grit (Stage 3)]</p>\n<p><strong>Stage 4</strong> as stage 3 (1 hour)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Confused]{Confusion} (1 round)</p>\n<p><strong>Stage 6</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (remaining duration)</p>"
@@ -1028,45 +1028,10 @@
             "type": "melee"
         },
         {
-            "_id": "aYJWyBMQwGUKkwg0",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 1500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "nwkCMTCX0B1XgOaO",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Infused Items",
-            "sort": 1600000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1095,7 +1060,7 @@
             "_id": "zccYiocIsj31DcFd",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Hurried Retreat",
-            "sort": 1700000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1114,10 +1079,18 @@
                 },
                 "rules": [
                     {
-                        "domain": "ac",
+                        "domain": "all",
                         "key": "RollOption",
                         "option": "hurried-retreat",
                         "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hurried-retreat"
+                        ],
+                        "selector": "land-speed",
+                        "value": 5
                     },
                     {
                         "key": "FlatModifier",
@@ -1140,7 +1113,7 @@
             "_id": "5zAIOXNSJPfE0i1A",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Quick Bomber",
-            "sort": 1800000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1169,7 +1142,7 @@
             "_id": "8vMNeqyGSQxqqORR",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Quicktrap",
-            "sort": 1900000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1198,7 +1171,7 @@
             "_id": "VBo8sptlM8bPUMzB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Absalom Lore",
-            "sort": 2000000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1226,7 +1199,7 @@
             "_id": "aAXLJT3lj3Z7l6Nz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1252,7 +1225,7 @@
             "_id": "39lPe6xDDPf6OJXV",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1294,7 +1267,7 @@
             "_id": "djsPa1p3HCCgmNjY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1320,7 +1293,7 @@
             "_id": "fm4NRMw4liPH1ucM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1346,7 +1319,7 @@
             "_id": "LuXTUa4rmIB45qfH",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1405,12 +1378,6 @@
                 "temp": 0,
                 "value": 53
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 9
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -1418,6 +1385,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "draconic",
+                    "dwarven",
+                    "goblin"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -1428,6 +1404,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #5-07: Sewer Dragon Crisis"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 9,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -1445,19 +1433,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "value": [
-                    "common",
-                    "draconic",
-                    "dwarven",
-                    "goblin"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

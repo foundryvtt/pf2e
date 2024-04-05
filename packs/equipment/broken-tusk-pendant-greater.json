@@ -7,9 +7,9 @@
         "bulk": {
             "value": 0
         },
-        "containerId": "null",
+        "containerId": null,
         "description": {
-            "value": "<p>The followers of the Broken Tusk have passed down their custom of crafting and gifting these small ivory necklaces for generations. They're typically made from mammoth tusk (though any type of ivory will do), and each is carved to resemble a particular kind of animal-usually a raven, a moose, an ox, or an otter. Because tradition dictates that Broken Tusk followers take ivory only from already-dead animals, <em>Broken Tusk pendants</em> are especially rare; if an individual loses their pendant, it might be years before they acquire the materials necessary to fashion a replacement. <em>Broken Tusk pendants</em> bear no magical powers if they are made for oneself; only gifted pendants have true magical properties.</p>\n<p>You wear a <em>Broken Tusk pendant</em> like jewelry or tie it to your clothing. A <em>Broken Tusk pendant</em> grants you a +2 item bonus to Nature checks; this bonus increases to +3 when you Command an Animal of the specific kind depicted by the pendant.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> An animal targets you with a melee attack, and you can see the animal</p>\n<hr />\n<p><strong>Effect</strong> You gain a +1 item bonus to AC against the triggering attack, or a +2 item bonus if the animal is the specific kind depicted by the pendant.</p>\n<p>Once per day, when you use the <em>Broken Tusk pendant</em>'s activation, if the animal misses you, the <em>Broken Tusk pendant</em> casts <em>@UUID[Compendium.pf2e.spells-srd.Item.Dominate]</em> on the animal (@Check[type:will|dc:30|name:Dominate|traits:enchantment,incapacitation,primal,mental|overrideTraits:true]). You can choose whether to use this once-per-day effect after the animal misses you.</p>"
+            "value": "<p>The followers of the Broken Tusk have passed down their custom of crafting and gifting these small ivory necklaces for generations. They're typically made from mammoth tusk (though any type of ivory will do), and each is carved to resemble a particular kind of animal-usually a raven, a moose, an ox, or an otter. Because tradition dictates that Broken Tusk followers take ivory only from already-dead animals, <em>Broken Tusk pendants</em> are especially rare; if an individual loses their pendant, it might be years before they acquire the materials necessary to fashion a replacement. <em>Broken Tusk pendants</em> bear no magical powers if they are made for oneself; only gifted pendants have true magical properties.</p>\n<p>You wear a <em>Broken Tusk pendant</em> like jewelry or tie it to your clothing. A <em>Broken Tusk pendant</em> grants you a +2 item bonus to Nature checks; this bonus increases to +3 when you Command an Animal of the specific kind depicted by the pendant.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">R</span> Interact</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> An animal targets you with a melee attack, and you can see the animal</p>\n<hr />\n<p><strong>Effect</strong> You gain a +1 item bonus to AC against the triggering attack, or a +2 item bonus if the animal is the specific kind depicted by the pendant.</p>\n<p>Once per day, when you use the <em>Broken Tusk pendant</em>'s activation, if the animal misses you, the <em>Broken Tusk pendant</em> casts @UUID[Compendium.pf2e.spells-srd.Item.Dominate] on the animal (@Check[type:will|dc:30|name:Dominate|traits:enchantment,incapacitation,primal,mental|overrideTraits:true]). You can choose whether to use this once-per-day effect after the animal misses you.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -39,18 +39,18 @@
                 "key": "FlatModifier",
                 "selector": "nature",
                 "type": "item",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Broken Tusk Pendant (Greater) - Commanding the Animal Depicted",
                 "predicate": [
                     "action:command-an-animal",
-                    "brokenTuskPendant"
+                    "broken-tusk-pendant"
                 ],
                 "selector": "nature",
+                "slug": "command-depicted",
                 "type": "item",
-                "value": 2
+                "value": 3
             }
         ],
         "size": "med",

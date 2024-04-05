@@ -30,16 +30,45 @@
         },
         "rules": [
             {
-                "key": "EphemeralEffect",
+                "domain": "all",
+                "key": "RollOption",
+                "option": "divine-castigation",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "item:type:spell",
-                    "item:slug:heal",
-                    "target:trait:fiend"
+                    "divine-castigation",
+                    "self:trait:holy",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    }
                 ],
-                "selectors": [
-                    "damage-received"
+                "property": "traits",
+                "value": "holy"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "divine-castigation",
+                    "self:trait:unholy",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    }
                 ],
-                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Divine Castigation"
+                "property": "traits",
+                "value": "unholy"
             }
         ],
         "traits": {

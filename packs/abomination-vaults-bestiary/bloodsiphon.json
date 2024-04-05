@@ -139,7 +139,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20-foot area} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>When the bloodsiphon dies, its body explodes in a cloudy red burst of necrotic dried blood in a 20-foot area.</p>\n<p>Creatures in range must attempt a @Check[type:reflex|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[void]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[6d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 hour.</p>"
+                    "value": "<p>20 feet. When the bloodsiphon dies, its body explodes in a cloudy red burst of necrotic dried blood in a 20-foot area.</p>\n<p>Creatures in range must attempt a @Check[type:reflex|dc:21|traits:damaging-effect] save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d6[void]] damage.</p>\n<p><strong>Failure</strong> The creature takes @Damage[4d6[void]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[6d6[void]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 hour.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -344,12 +344,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -368,6 +362,12 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "cannot speak any language",
+                "value": [
+                    "aklo"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -378,6 +378,20 @@
                 "remaster": false,
                 "title": "Pathfinder #163: Ruins of Gauntlight"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -395,20 +409,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "Cannot Speak Any Language",
-                "selected": [],
-                "value": [
-                    "aklo"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "tremorsense 30 feet"
-            },
             "size": {
                 "value": "med"
             },

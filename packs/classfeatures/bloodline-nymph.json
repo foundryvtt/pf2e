@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Nature</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em>; 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Calm]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Animal Vision]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Vital Beacon]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Repulsion]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unfettered Pack]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Nymph's Token]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Blinding Beauty]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Establish Ward]</em></p>\n<p><strong>Blood Magic</strong> Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Self)], @UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic (Target)]</p>"
+            "value": "<p>One of your ancestors was inspired by a nymph, or perhaps was a nymph themself, and now the beauty of nature lives in you.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Nature</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Tangle Vine]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Charm]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Calm]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Animal Vision]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Vital Beacon]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Wave of Despair]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Repulsion]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Pack]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Overwhelming Presence]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Nymph's Token]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Blinding Beauty]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Establish Ward]</p>\n<p><strong>Blood Magic</strong> Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,55 @@
                 "mode": "upgrade",
                 "path": "system.skills.nat.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:primal",
+                                    {
+                                        "or": [
+                                            "item:slug:charm",
+                                            "item:slug:calm",
+                                            "item:slug:animal-vision",
+                                            "item:slug:vital-beacon",
+                                            "item:slug:wave-of-despair",
+                                            "item:slug:repulsion",
+                                            "item:slug:unfettered-pack",
+                                            "item:slug:moment-of-renewal",
+                                            "item:slug:overwhelming-presence"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Nymph",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Nymph Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

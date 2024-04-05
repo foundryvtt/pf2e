@@ -1,0 +1,93 @@
+{
+    "_id": "C3VRrOCZndaBIE1q",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/egg-cream-fizz.webp",
+    "name": "Effect: Egg Cream Fizz",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Egg Cream Fizz]</p>\n<p>Upon drinking, you feel lighter and more buoyant, gaining a +5-foot item bonus to your Speed. You also gain another effect determined by the drink's syrup, which is chosen when the drink is created.</p>\n<ul>\n<li><strong>Chocolate</strong> You gain a +1 item bonus to Acrobatics checks to Balance, Maneuver in Flight, and Squeeze.</li>\n<li><strong>Strawberry</strong> You gain a +1 item bonus to Athletics checks to Climb, Leap, and Swim.</li>\n<li><strong>Vanilla</strong> You can Step into difficult terrain.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "land-speed",
+                "type": "item",
+                "value": 5
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.EggCreamFizz.ChocolateLabel",
+                        "value": "chocolate"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.EggCreamFizz.StrawberryLabel",
+                        "value": "strawberry"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.EggCreamFizz.VanillaLabel",
+                        "value": "vanilla"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "eggcream"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "eggcream:chocolate",
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:maneuver-in-flight",
+                            "action:squeeze"
+                        ]
+                    }
+                ],
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "eggcream:strawberry",
+                    {
+                        "or": [
+                            "action:climb",
+                            "action:leap",
+                            "action:swim"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

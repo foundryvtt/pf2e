@@ -1,13 +1,11 @@
-import { SkillLongForm } from "@actor/types.ts";
 import {
     GenericIdentifyDCs,
     IdentifyAlchemyDCs,
     IdentifyMagicDCs,
     getItemIdentificationDCs,
 } from "@item/identification.ts";
-import { PhysicalItemPF2e } from "@item/physical/index.ts";
+import type { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { objectHasKey } from "@util";
 import * as R from "remeda";
 
 export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
@@ -22,61 +20,46 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
         };
     }
 
-    get item(): PhysicalItemPF2e {
-        return this.object;
-    }
+    dcs = getItemIdentificationDCs(this.object, {
+        pwol: game.pf2e.settings.variants.pwol.enabled,
+        notMatchingTraditionModifier: game.settings.get("pf2e", "identifyMagicNotMatchingTraditionModifier"),
+    });
 
     override async getData(): Promise<IdentifyPopupData> {
         const item = this.object;
-        const notMatchingTraditionModifier = game.settings.get("pf2e", "identifyMagicNotMatchingTraditionModifier");
-        const pwol = game.pf2e.settings.variants.pwol.enabled;
-        const dcs = getItemIdentificationDCs(item, { pwol, notMatchingTraditionModifier });
-
         return {
             ...(await super.getData()),
             isMagic: item.isMagical,
             isAlchemical: item.isAlchemical,
-            dcs,
+            dcs: this.dcs,
         };
     }
 
-    override activateListeners($form: JQuery<HTMLFormElement>): void {
-        $form.find<HTMLButtonElement>("button.update-identification").on("click", (event) => {
-            const $button = $(event.delegateTarget);
-            this.submit({ updateData: { status: $button.val() } });
+    override activateListeners($html: JQuery): void {
+        const html = $html[0];
+
+        const updateButton = html.querySelector<HTMLButtonElement>("button.update-identification");
+        updateButton?.addEventListener("click", () => {
+            this.submit({ updateData: { status: updateButton.value } });
         });
-        // add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
-        $form.find<HTMLButtonElement>("button.post-skill-checks").on("click", async () => {
-            const item = this.item;
-            const itemImg = item.system.identification.unidentified.img;
-            const itemName = item.system.identification.unidentified.name;
+
+        // Add listener on Post skill checks to chat button that posts item unidentified img and name and skill checks
+        html.querySelector("button.post-skill-checks")?.addEventListener("click", async () => {
+            const item = this.object;
             const identifiedName = item.system.identification.identified.name;
-            const skills = $("div#identify-item")
-                .find("tr")
-                .toArray()
-                .flatMap((row): { name: string; slug: SkillLongForm | "lore"; dc: number } | never[] => {
-                    const slug = row.dataset.skill;
-                    const dc = Number(row.dataset.dc);
-                    if (!(Number.isInteger(dc) && objectHasKey(CONFIG.PF2E.skillList, slug))) {
-                        return [];
-                    }
-                    const name = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
-
-                    return { slug, name, dc };
-                });
-
-            const actionOption = item.isMagical
-                ? "action:identify-magic"
+            const dcs: Record<string, number> = this.dcs;
+            const action = item.isMagical
+                ? "identify-magic"
                 : item.isAlchemical
-                  ? "action:identify-alchemy"
-                  : null;
+                  ? "identify-alchemy"
+                  : "recall-knowledge";
 
             const content = await renderTemplate("systems/pf2e/templates/actors/identify-item-chat-skill-checks.hbs", {
-                itemImg,
-                itemName,
                 identifiedName,
-                rollOptions: R.compact(["concentrate", "exploration", "secret", actionOption]),
-                skills,
+                action,
+                skills: R.omit(dcs, ["dc"]),
+                unidentified: item.system.identification.unidentified,
+                uuid: item.uuid,
             });
 
             await ChatMessagePF2e.create({ user: game.user.id, content });
@@ -86,7 +69,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
     protected override async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
         const status = formData["status"];
         if (status === "identified") {
-            await this.item.setIdentificationStatus(status);
+            return this.object.setIdentificationStatus(status);
         }
     }
 }

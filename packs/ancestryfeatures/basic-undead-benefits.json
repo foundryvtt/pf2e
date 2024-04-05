@@ -26,27 +26,10 @@
         },
         "rules": [
             {
-                "key": "Sense",
-                "selector": "lowLightVision"
-            },
-            {
-                "key": "Sense",
-                "predicate": [
-                    "self:low-light-vision:from-ancestry"
-                ],
-                "selector": "darkvision"
-            },
-            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.hp.negativeHealing",
                 "value": true
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "system.traits.languages.value",
-                "value": "necril"
             },
             {
                 "key": "FlatModifier",
@@ -67,6 +50,24 @@
                 "type": "death-effects"
             }
         ],
+        "subfeatures": {
+            "languages": {
+                "granted": [
+                    "necril"
+                ],
+                "slots": 0
+            },
+            "senses": {
+                "darkvision": {
+                    "special": {
+                        "ancestry": true,
+                        "llv": false,
+                        "second": false
+                    }
+                },
+                "low-light-vision": {}
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": []

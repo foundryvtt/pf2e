@@ -1,0 +1,70 @@
+{
+    "_id": "WrWSieH9Acy6XuzV",
+    "img": "icons/sundries/scrolls/scroll-writing-tan-grey.webp",
+    "name": "Effect: Educate Allies",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Educate Allies].</p>\n<p>All allies affected by your composition spell gain your +1 circumstance bonus from @UUID[Compendium.pf2e.feats-srd.Item.Well-Versed] until the start of your next turn. Your personal circumstance bonus from Well-Versed also increases to +2 until the start of your next turn.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Educate Allies (vs. performative effects)",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    },
+                    {
+                        "or": [
+                            "auditory",
+                            "illusion",
+                            "linguistic",
+                            "sonic",
+                            "visual"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "selector": "saving-throw",
+                "slug": "well-versed",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -204,16 +204,12 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
         );
         const content = [actorAwakens, recoveryList.outerHTML].join("\n");
 
-        messages.push({ user: game.user.id, content, speaker: { alias: actor.name } });
-
-        // Re-render the actor's sheet after all writes have completed
-        await actor.sheet.render();
-
         // Call a hook for modules to do anything extra
         Hooks.callAll("pf2e.restForTheNight", actor);
+        messages.push({ user: game.user.id, content, speaker: ChatMessagePF2e.getSpeaker({ actor }) });
     }
 
-    return ChatMessagePF2e.createDocuments(messages);
+    return ChatMessagePF2e.createDocuments(messages, { restForTheNight: true });
 }
 
 interface ActorUpdates {

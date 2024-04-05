@@ -26,7 +26,7 @@ class CoinsPF2e implements Coins {
         return this.copperValue / 100;
     }
 
-    add(coins: Coins): CoinsPF2e {
+    plus(coins: Coins): CoinsPF2e {
         const other = new CoinsPF2e(coins);
         return new CoinsPF2e({
             pp: this.pp + other.pp,
@@ -34,6 +34,15 @@ class CoinsPF2e implements Coins {
             sp: this.sp + other.sp,
             cp: this.cp + other.cp,
         });
+    }
+
+    /** @deprecated */
+    add(coins: Coins): CoinsPF2e {
+        fu.logCompatibilityWarning("`CoinsPF2e#add` is deprecated. Use `CoinsPF2e#plus` instead.", {
+            since: "5.13.0",
+            until: "6.0.0",
+        });
+        return this.plus(coins);
     }
 
     /** Multiply by a number and clean up result */
@@ -98,7 +107,7 @@ class CoinsPF2e implements Coins {
                 const computedValue = (Number(value) || 0) * quantity;
                 return { [denomination]: computedValue };
             })
-            .reduce((first, second) => first.add(second), new CoinsPF2e());
+            .reduce((first, second) => first.plus(second), new CoinsPF2e());
     }
 
     static fromPrice(price: PartialPrice, factor: number): CoinsPF2e {

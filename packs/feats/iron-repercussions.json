@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Disobeying your @UUID[Compendium.pf2e.actionspf2e.Item.Iron Command] has lasting consequences. If an enemy refuses to kneel to you, you can deal @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage]{Persistent Mental Damage} instead of normal mental damage. You must decide whether the mental damage will be persistent before your enemy chooses whether to kneel or not. The amount of damage is unchanged.</p>"
+            "value": "<p>Disobeying your @UUID[Compendium.pf2e.actionspf2e.Item.Iron Command] has lasting consequences. If an enemy refuses to kneel to you, you can deal @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[persistent,mental]]{persistent mental damage} instead of normal mental damage. You must decide whether the mental damage will be persistent before your enemy chooses whether to kneel or not. The amount of damage is unchanged.</p>"
         },
         "level": {
             "value": 1
@@ -28,7 +28,28 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "iron-repercussions",
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:iron-command",
+                    "iron-repercussions"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.IronRepercussions.Description"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [

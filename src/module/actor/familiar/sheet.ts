@@ -1,10 +1,11 @@
 import type { CharacterPF2e } from "@actor";
 import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
-import type { AbilityItemPF2e } from "@item";
+import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
+import { AbilityViewData } from "@actor/sheet/data-types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
-import { htmlQuery } from "@util";
+import { getActionGlyph, traitSlugToObject } from "@util";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
 
@@ -23,23 +24,20 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             width: 650,
             height: 680,
             tabs: [{ navSelector: ".sheet-navigation", contentSelector: ".sheet-content", initial: "attributes" }],
+            template: "systems/pf2e/templates/actors/familiar/sheet.hbs",
         };
-    }
-
-    override get template(): string {
-        return "systems/pf2e/templates/actors/familiar-sheet.hbs";
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
         const sheetData = await super.getData(options);
         const familiar = this.actor;
-        // Get all potential masters of the familiar
+
+        // Get all potential masters of the familiar (always include current master regardless of User permissions)
         const masters = game.actors.filter(
-            (a): a is CharacterPF2e<null> => a.type === "character" && a.testUserPermission(game.user, "OWNER"),
+            (a): a is CharacterPF2e<null> => a.type === "character" && (a.isOwner || a.id === familiar.master?.id),
         );
 
         // list of abilities that can be selected as spellcasting ability
-        const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
         const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
@@ -58,40 +56,53 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
 
         return {
             ...sheetData,
-            master: this.actor.master,
-            masters,
-            abilities,
-            size,
-            skills,
+            attributes: CONFIG.PF2E.abilities,
             familiarAbilities: {
                 value: familiarAbilities?.value ?? 0,
-                items: R.sortBy(this.actor.itemTypes.action, (a) => a.sort),
+                items: R.sortBy(
+                    this.actor.itemTypes.action,
+                    (a) => a.name,
+                    (a) => a.sort,
+                ).map((item) => {
+                    const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+                    return {
+                        _id: item.id,
+                        name: item.name,
+                        glyph: getActionGlyph(item.actionCost) || null,
+                        traits,
+                        has: {
+                            aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+                            deathNote: item.system.deathNote,
+                            selfEffect: !!item.system.selfEffect,
+                        },
+                    };
+                }),
             },
+            master: this.actor.master,
+            masters,
+            size,
+            skills,
         };
     }
 
-    override activateListeners($html: JQuery): void {
-        super.activateListeners($html);
-        const html = $html[0];
-
-        htmlQuery(html, ".rollable[data-action=perception-check]")?.addEventListener("click", (event) => {
-            this.actor.perception.roll(eventToRollParams(event, { type: "check" }));
-        });
-
-        htmlQuery(html, ".rollable[data-attack-roll]")?.addEventListener("click", (event) => {
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
+        handlers["familiar-attack-roll"] = (event) => {
             this.actor.attackStatistic.roll(eventToRollParams(event, { type: "check" }));
-        });
+        };
+
+        return handlers;
     }
 }
 
 interface FamiliarSheetData<TActor extends FamiliarPF2e> extends CreatureSheetData<TActor> {
-    master: CharacterPF2e | null;
-    masters: CharacterPF2e[];
-    abilities: ConfigPF2e["PF2E"]["abilities"];
-    size: string;
-    skills: StatisticTraceData[];
+    attributes: typeof CONFIG.PF2E.abilities;
     familiarAbilities: {
         value: number;
-        items: AbilityItemPF2e[];
+        items: AbilityViewData[];
     };
+    master: CharacterPF2e | null;
+    masters: CharacterPF2e[];
+    size: string;
+    skills: StatisticTraceData[];
 }

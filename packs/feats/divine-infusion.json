@@ -11,27 +11,49 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You pour energy into the subject of your healing to empower its attacks. If the next action you use is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] to restore Hit Points to a single creature, the target then deals an additional 1d6 damage with its melee weapons and unarmed attacks until the end of its next turn. The damage type is void if you cast <em>harm</em> and vitality if you cast <em>heal</em>.</p>\n<p>If the spell cast is at least 5th rank, this damage increases to 2d6, and if the spell is at least 8th rank, the damage increases to 3d6.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Infusion (Heal)]</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Divine Infusion (Harm)]</p>"
+            "value": "<p>You pour energy into the subject of your healing to empower its attacks. If the next action you use is to cast @UUID[Compendium.pf2e.spells-srd.Item.Harm] or @UUID[Compendium.pf2e.spells-srd.Item.Heal] to restore Hit Points to a single creature, the target then deals an additional 1d6 damage with its melee weapons and unarmed attacks until the end of its next turn. The damage type is void if you cast <em>harm</em> and vitality if you cast <em>heal</em>.</p>\n<p>If the spell cast is at least 5th rank, this damage increases to 2d6, and if the spell is at least 8th rank, the damage increases to 3d6.</p>"
         },
         "level": {
             "value": 4
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "good alignment"
-                },
-                {
-                    "value": "healing font"
-                }
-            ]
+            "value": []
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "spell-healing",
+                "key": "RollOption",
+                "option": "divine-infusion",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "divine-infusion",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    },
+                    {
+                        "lt": [
+                            "item:cast:actions",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "spell-healing",
+                "text": "PF2E.SpecificRule.Cleric.DivineInfusion.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,26 +1,27 @@
 import type { SpellPF2e } from "@item";
 import { ItemSourcePF2e, SpellSource } from "@item/base/data/index.ts";
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Handle spells gaining fixed level heightening */
 export class Migration747FixedHeightening extends MigrationBase {
     static override version = 0.747;
 
-    override async updateItem(item: ItemSourcePF2e): Promise<void> {
-        if (item.type !== "spell") return;
+    override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        if (source.type !== "spell") return;
 
-        const isAcidSplash = (item.system.slug ?? sluggify(item.name)) === "acid-splash";
-        if (item.system.heightening?.type === "fixed" && !isAcidSplash) return;
+        const isAcidSplash = (source.system.slug ?? sluggify(source.name)) === "acid-splash";
+        if (source.system.heightening?.type === "fixed" && !isAcidSplash) return;
 
-        const sourceId = item.flags.core?.sourceId;
+        const sourceId = source.flags.core?.sourceId;
         if (sourceId && this.fixedHeightenSpells.has(sourceId)) {
             const spells = await this.loadSpells();
             const spell = spells[sourceId];
             if (spell && spell.system.heightening?.type === "fixed") {
-                item.system.heightening = spell.system.heightening;
-                this.overwriteDamage(item, spell);
+                source.system.heightening = spell.system.heightening;
+                this.overwriteDamage(source, spell);
             }
         }
     }
@@ -32,7 +33,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         const damage: Record<string, unknown> | { value: Record<string, unknown> } = spell.system.damage;
         damage.value = newDamage.value;
         for (const deleteKey of diff) {
-            if (isObject<Record<string, unknown>>(damage.value)) {
+            if (R.isObject(damage.value)) {
                 damage.value[`-=${deleteKey}`] = null;
             }
         }

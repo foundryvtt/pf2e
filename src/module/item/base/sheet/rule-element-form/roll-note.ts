@@ -1,10 +1,10 @@
-import type { RollNoteRuleElement, RollNoteSource } from "@module/rules/rule-element/roll-note.ts";
+import type { NoteRESource, RollNoteRuleElement } from "@module/rules/rule-element/roll-note.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { htmlQuery, tagify } from "@util";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
 /** Form handler for the RollNote rule element */
-class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> {
+class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
     override template = "systems/pf2e/templates/items/rules/note.hbs";
 
     override async getData(): Promise<RollNoteFormSheetData> {
@@ -27,7 +27,7 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
         tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
     }
 
-    override updateObject(ruleData: Partial<Record<string, unknown>>): void {
+    override updateObject(ruleData: Partial<Record<string, JSONValue>>): void {
         const shouldBeHidden = htmlQuery<HTMLInputElement>(this.element, ".hidden-value")?.checked;
         const isHidden = ["gm", "owner"].includes(String(this.rule.visibility));
         if (shouldBeHidden !== isHidden) {
@@ -50,7 +50,7 @@ class RollNoteForm extends RuleElementForm<RollNoteSource, RollNoteRuleElement> 
     }
 }
 
-interface RollNoteFormSheetData extends RuleElementFormSheetData<RollNoteSource, RollNoteRuleElement> {
+interface RollNoteFormSheetData extends RuleElementFormSheetData<NoteRESource, RollNoteRuleElement> {
     selectorIsArray: boolean;
 }
 

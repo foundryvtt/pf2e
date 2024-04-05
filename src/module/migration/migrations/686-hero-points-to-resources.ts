@@ -6,10 +6,10 @@ import { MigrationBase } from "../base.ts";
 export class Migration686HeroPointsToResources extends MigrationBase {
     static override version = 0.686;
 
-    override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if (actorSource.type !== "character") return;
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if (source.type !== "character") return;
 
-        const systemSource: MaybeWithOldHeroPoints = actorSource.system;
+        const systemSource: MaybeWithOldHeroPoints = source.system;
         if (systemSource.attributes.heroPoints) {
             const resources: { heroPoints: { value: number } } = systemSource.resources;
             resources.heroPoints = { value: systemSource.attributes.heroPoints.rank };

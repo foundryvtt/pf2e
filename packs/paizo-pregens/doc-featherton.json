@@ -179,7 +179,7 @@
                 },
                 "items": {
                     "n6uq0": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Risky Surgery",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Risky Surgery"
@@ -1353,7 +1353,7 @@
                 "bulk": {
                     "value": 0.1
                 },
-                "containerId": "null",
+                "containerId": null,
                 "description": {
                     "value": "<p>This kit contains cleaning cloth, oil, small steel brushes, and other minor tools necessary for proper cleaning and maintenance of a firearm. Without a firearm cleaning kit, you can't perform the necessary tasks during your daily preparations to ensure that your firearm isn't at risk of misfiring under normal use conditions.</p>"
                 },
@@ -1489,7 +1489,7 @@
                     "value": 0.1
                 },
                 "category": "ammo",
-                "containerId": "null",
+                "containerId": null,
                 "damage": null,
                 "description": {
                     "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
@@ -1559,7 +1559,7 @@
                     "value": 0.1
                 },
                 "category": "ammo",
-                "containerId": "null",
+                "containerId": null,
                 "damage": null,
                 "description": {
                     "value": "<p>Firearms require ammunition consisting of a projectile and black powder. A round of ammo can vary in its composition but is typically either a prepackaged paper cartridge, including wadding, bullet, and black powder, or loose shot packed in manually. Some weapons, like hand cannons and blunderbusses, can fire other materials, but their ammunition has the same Price due to the cost of the black powder. Because making rounds of firearm ammunition requires creating black powder, you need the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] skill feat to make them. Firearm rounds are a valid option for magical ammunition, just like arrows or bolts. Crafting magical firearm ammunition requires you to be able to craft both alchemical and magical items.</p>"
@@ -1931,7 +1931,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perception Legend"
                     },
                     "rqnn0": {
-                        "img": "systems/pf2e/icons/features/classes/vigilant-senses.webp",
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
                         "level": 7,
                         "name": "Vigilant Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
@@ -1943,7 +1943,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Juggernaut"
                     },
                     "zmmy3": {
-                        "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
                         "level": 15,
                         "name": "Greater Weapon Specialization (Level 15)",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
@@ -2242,15 +2242,15 @@
                     "remaster": false,
                     "title": "Pathfinder Guns & Gears"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "stubborn",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2297,7 +2297,7 @@
                         "key": "Note",
                         "selector": "initiative",
                         "text": "{item|system.description.value}",
-                        "title": "<span class=\"pf2-icon\">F</span> {item|name}"
+                        "title": "<span class=\"action-glyph\">F</span> {item|name}"
                     }
                 ],
                 "slug": "into-the-fray",
@@ -2524,9 +2524,6 @@
                 "temp": 0,
                 "value": 32
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -2585,6 +2582,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "kelish",
+                    "tien"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -2602,6 +2606,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -2686,20 +2693,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "kelish",
-                    "tien"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

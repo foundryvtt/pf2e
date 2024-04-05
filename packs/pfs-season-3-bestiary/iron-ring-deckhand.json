@@ -20,7 +20,7 @@
                 },
                 "category": "light",
                 "checkPenalty": -1,
-                "containerId": "null",
+                "containerId": null,
                 "description": {
                     "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
                 },
@@ -81,7 +81,7 @@
                 "bulk": {
                     "value": 0.1
                 },
-                "containerId": "null",
+                "containerId": null,
                 "description": {
                     "value": ""
                 },
@@ -142,7 +142,7 @@
                     "value": 0.1
                 },
                 "category": "other",
-                "containerId": "null",
+                "containerId": null,
                 "damage": null,
                 "description": {
                     "value": "<p>Alcohol is a common substance available in stunning variety. The Price of a dose of alcohol depends on the specific beverage. You can't recover from the sickened condition from alcohol while affected.</p>\n<p>If you fail a saving throw against alcohol other than initial saves, the affliction's stage doesn't increase; the only way to increase the stage of alcohol's affliction is to consume more alcohol.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> Interact (Ingested)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:12|name:Alcohol]</p>\n<p><strong>Onset</strong> 10 minutes</p>\n<p><strong>Stage 1</strong> +1 item bonus to saving throws against fear (10 minutes)</p>\n<p><strong>Stage 2</strong> @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], +1 item bonus to saving throws against fear effects (10 minutes)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}, off-guard, @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} (10 minutes)</p>\n<p><strong>Stage 4</strong> clumsy 2 and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (10 minutes)</p>\n<p><strong>Stage 5</strong> clumsy 2, sickened 2, and stupefied 2 (10 minutes)</p>\n<p><strong>Stage 6</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (8 hours)</p>\n<p><strong>Stage 7</strong> death</p>"
@@ -287,45 +287,10 @@
             "type": "melee"
         },
         {
-            "_id": "LGmXRg9cSVH4P1Ml",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "crjPrX9kKmC0ZKjI",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Heft Crate",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -357,7 +322,7 @@
             "_id": "8LsxJNw81YyopwFu",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Swig",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -367,7 +332,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dockhand Interacts to either draw a bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] or pick up a nearby unattended bottle of alcohol and drink the whole thing.</p>\n<p>For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Swig]</p>"
+                    "value": "<p>The dockhand Interacts to either draw a bottle of @UUID[Compendium.pf2e.equipment-srd.Item.Alcohol] or pick up a nearby unattended bottle of alcohol and drink the whole thing.</p>\n<p>For 1 minute, the dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -375,6 +340,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Swig",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Swig"
+                },
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -389,7 +358,7 @@
             "_id": "90ktkvKp0dMHUvqm",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -414,7 +383,7 @@
             "_id": "rL42AfXaRdxHYh3g",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -439,7 +408,7 @@
             "_id": "Lv82JH9UhzFxtPsn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -464,7 +433,7 @@
             "_id": "nvrDXcrgD9PTJPf8",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Labor Lore",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -522,12 +491,6 @@
                 "temp": 0,
                 "value": 9
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 2
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -535,6 +498,13 @@
         },
         "details": {
             "blurb": "Variant Dockhand",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "goblin"
+                ]
+            },
             "level": {
                 "value": -1
             },
@@ -545,6 +515,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #3-08: Foundation's Price"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 2,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -562,18 +544,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "goblin"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

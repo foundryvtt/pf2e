@@ -1,0 +1,114 @@
+{
+    "_id": "dFox7zrpshKNny3i",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "dyzYm3GYzX3zWWr0",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Brimstone Cloud",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature approaches within 10 feet of the pit's edge</p>\n<hr />\n<p><strong>Effect</strong> A smoky, burning manifestation of the Sandpoint Devil appears to rise from the pit, causing a plume of brimstone-scented smoke to billow into the room. All creatures in area <strong>H6</strong> must succeed at a @Check[type:fortitude|dc:28] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical failure). The haunt then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Fear of the Devil",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 28
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A smoke and fire manifestation of the Sandpoint Devil emerges from the pit with a blast of foul-smelling smoke.</p>",
+            "disable": "<p>@Check[type:diplomacy|dc:30] (master) to soothe and calm the unquiet fears left behind by the slain adventurers or @Check[type:religion|dc:30] (master) to hinder the haunt with prayers of protection (two successes from either skill disables the haunt)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 9
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.</p>",
+            "routine": "<p>(1 action; evocation, fire, occult) The smoking vision of the Sandpoint Devil appears to hover over the pit, its wings of fire flapping as its head lowers to exhale a @Template[type:cone|distance:30] of fire into the room, targeting as many creatures as possible. Note that the geist can be targeted by this blast of fire as well, but remember that its resistance applies to the fire. All creatures in the area take @Damage[7d6[fire]] damage (@Check[type:reflex|dc:28|basic:true|traits:fire,occult] save). A creature that critically fails this saving throw is also @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}; this effect has the emotion, fear, and mental traits.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 21
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

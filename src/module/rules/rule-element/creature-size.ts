@@ -1,6 +1,5 @@
-import type { CreaturePF2e } from "@actor";
+import type { ActorType, CreaturePF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { ActorType } from "@actor/data/index.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { TreasurePF2e } from "@item";
 import { SIZES, Size } from "@module/data.ts";
@@ -17,8 +16,17 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character", "npc", "familiar"];
 
+    constructor(data: RuleElementSource, options: RuleElementOptions) {
+        super(data, options);
+
+        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
+            this.failValidation("value must be a number, string, or bracketed value");
+        }
+    }
+
     static override defineSchema(): CreatureSizeRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             value: new ResolvableValueField({ required: true, nullable: false }),
@@ -41,14 +49,6 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
                 initial: undefined,
             }),
         };
-    }
-
-    constructor(data: RuleElementSource, options: RuleElementOptions) {
-        super(data, options);
-
-        if (!(typeof this.value === "string" || typeof this.value === "number" || this.isBracketedValue(this.value))) {
-            this.failValidation("value must be a number, string, or bracketed value");
-        }
     }
 
     private static wordToAbbreviation: Record<string, Size | undefined> = {
@@ -129,6 +129,9 @@ class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema> {
                     item.system.size = this.decrementSize(item.size, Math.abs(sizeDifference));
                 }
             }
+
+            // Update natural size so auto-scaling targets the original size, but only once per data preparation.
+            actor.system.traits.naturalSize = actor.system.traits.naturalSize ?? originalSize.value;
         }
     }
 

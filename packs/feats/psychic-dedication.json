@@ -19,7 +19,7 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Intelligence 14 or Charisma 14"
+                    "value": "Intelligence +2 or Charisma +2"
                 }
             ]
         },
@@ -38,20 +38,50 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.spellcasting.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
                 "path": "system.skills.occ.rank",
                 "value": 1
             },
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Conscious Mind"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Psychic.Amp.Toggle",
+                "option": "amp-spell",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "amp-spell",
+                    "item:tag:psi-cantrip"
+                ],
+                "property": "other-tags",
+                "value": "amped"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:amped"
+                ],
+                "property": "focus-point-cost",
+                "value": 1
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

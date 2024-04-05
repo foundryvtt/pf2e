@@ -1,0 +1,170 @@
+<section class="tab character major" data-group="primary" data-tab="character">
+    <div class="subsection details">
+        <div class="image-container">
+            <img
+                class="actor-image"
+                src="{{actor.img}}"
+                alt="{{actor.name}}"
+                {{#if editable}}data-edit="img"{{/if}}
+            />
+            <a class="hover-icon" data-action="show-image" data-tooltip="SIDEBAR.CharArt"><i class="fa-solid fa-image fa-fw"></i></a>
+        </div>
+
+        <div class="abcd">
+            <ul class="tags traits paizo-style">
+                {{#if ancestry}}
+                    <li class="tag size">{{localize (lookup actorSizes data.traits.size.value)}}</li>
+                {{/if}}
+                {{#each traits as |trait slug|}}
+                    <li class="tag tag_alt" data-slug="{{slug}}">{{trait.label}}</li>
+                {{/each}}
+            </ul>
+
+            <div class="detail ancestry{{#if ancestry}} selected{{/if}}">
+                {{> detailItem item=ancestry type="ancestry" compendium="pf2e.ancestries"}}
+            </div>
+
+            <div class="detail heritage{{#if heritage}} selected{{/if}}">
+                {{> detailItem item=heritage type="heritage" compendium="pf2e.heritages"}}
+            </div>
+
+            <div class="detail background{{#if background}} selected{{/if}}">
+                {{> detailItem item=background type="background" compendium="pf2e.backgrounds"}}
+            </div>
+
+            <div class="detail class{{#if class}} selected{{/if}}">
+                {{> detailItem item=class type="class" compendium="pf2e.classes"}}
+            </div>
+
+            <div class="detail deity{{#if deity}} selected{{/if}}">
+                {{> detailItem item=deity type="deity" compendium="pf2e.deities" showEmblem=deity}}
+            </div>
+        </div>
+
+        <hr />
+    </div>
+
+    <div class="subsection background">
+        <label>
+            <span class="details-label">{{localize "PF2E.GenderPronoun"}}</span>
+            <input type="text" class="details-input" name="system.details.gender.value" value="{{data.details.gender.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Age"}}</span>
+            <input type="text" class="details-input" name="system.details.age.value" value="{{data.details.age.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Ethnicity"}}</span>
+            <input type="text" class="details-input" name="system.details.ethnicity.value" value="{{data.details.ethnicity.value}}" />
+        </label>
+        <label>
+            <span class="details-label">{{localize "PF2E.Nationality"}}</span>
+            <input type="text" class="details-input" name="system.details.nationality.value" value="{{data.details.nationality.value}}" />
+        </label>
+    </div>
+
+    <div class="subsection languages">
+        <header>
+            <span>{{localize "PF2E.Actor.Creature.Language.Plural"}}</span>
+            <button
+                type="button"
+                class="crb-tag-selector{{#if (lt data.build.languages.value data.build.languages.max)}} has-unallocated{{/if}}"
+                data-tag-selector="languages"
+            >
+                <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+            </button>
+        </header>
+
+        <ul class="tags light">
+            {{#each languages as |language|}}
+                <li
+                    class="tag{{#if language.overLimit}} over-limit{{/if}}{{#unless language.slug}} unallocated{{/unless}}"
+                    data-slug="{{language.slug}}"
+                    {{#if language.tooltip}}data-tooltip="{{language.tooltip}}"{{/if}}
+                >{{language.label}}</li>
+            {{/each}}
+        </ul>
+        {{#if data.details.languages.details~}}
+            <div class="language-details">{{data.details.languages.details}}</div>
+        {{~/if}}
+    </div>
+
+    <div class="subsection speeds">
+        <header>
+            <span>{{localize "PF2E.Actor.Speed.Plural"}}</span>
+            <button type="button" class="crb-tag-selector" data-tag-selector="speed-types">
+                <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+            </button>
+        </header>
+
+        {{#each speeds as |speed|}}
+            <div class="speed">
+                <div class="label">{{localize speed.label}}</div>
+                {{#if speed.value}}
+                    <div class="value" data-tooltip="{{speed.breakdown}}">
+                        {{{icon}}}
+                        <span class="number">{{speed.value}}</span>
+                        <span class="unit">{{localize "PF2E.TravelSpeed.FeetAcronym"}}</span>
+                    </div>
+                {{else if speed.action}}
+                    <a class="value rollable" data-action="use-action" data-action-slug="{{speed.action}}">{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
+                {{else}}
+                    <div class="value empty">&mdash;</div>
+                {{/if}}
+            </div>
+        {{/each}}
+    </div>
+
+    <!-- Attributes -->
+    <div class="subsection attributes" data-tooltip-direction="UP">
+        <header>
+            <span>{{localize "PF2E.Actor.Creature.AttributeModifiers"}}</span>
+            <button type="button"{{#unless attributeBoostsAllocated}} class="has-unallocated"{{/unless}} data-action="edit-attribute-boosts">
+                <i class="fa-solid fa-fw fa-edit"></i>{{localize "PF2E.Edit"}}
+            </button>
+        </header>
+
+        <ul>
+            {{#each data.abilities as |attribute slug|}}
+                <li class="attribute {{#if (eq ../actor.keyAttribute slug)}}key{{/if}}" data-attribute="{{slug}}">
+                    <h2 class="abbreviation">
+                        {{#if (eq ../data.details.keyability.value slug)}}
+                            <i class="key fa-solid fa-key" data-tooltip="PF2E.Actor.Character.Attribute.Key"></i>
+                        {{/if}}
+                        <span>{{localize attribute.shortLabel}}</span>
+                        {{#if (eq ../data.build.attributes.apex slug)}}
+                            <i class="apex fa-solid fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
+                        {{else if (and ../editable (includes ../apexAttributeOptions slug))}}
+                            <a data-action="select-apex-attribute">
+                                <i class="apex unselected fa-regular fa-circle-a" data-tooltip="PF2E.Actor.Character.Attribute.Apex"></i>
+                            </a>
+                        {{/if}}
+                    </h2>
+                    <h3 class="modifier" aria-label="PF2E.ModifierTitle">
+                        {{numberFormat attribute.mod decimals=0 sign=true}}
+                    </h3>
+                    <div class="label details-label">{{localize attribute.label}}</div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
+
+{{#*inline "detailItem"}}
+    <span class="details-label">{{localize (concat "TYPES.Item." type)}}</span>
+    <h3>
+        <span class="value">{{item.name}}</span>
+        {{#if @root.editable}}
+            {{#if item}}
+                <span class="detail-item-control" data-item-id="{{item.id}}"><i class="fa-solid fa-fw fa-ellipsis-v"></i></span>
+            {{else}}
+                <a data-action="open-compendium" data-compendium={{compendium}}><i class="fa-solid fa-fw fa-search"></i></a>
+            {{/if}}
+        {{/if}}
+        {{#if showEmblem}}
+            <div class="emblem">
+                <img src="{{item.img}}" alt="{{item.name}}" />
+            </div>
+        {{/if}}
+    </h3>
+{{/inline}}

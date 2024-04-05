@@ -1,0 +1,46 @@
+{
+    "_id": "0TB7pLXBiVPMB08U",
+    "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+    "name": "Spell Effect: Loremaster's Etude",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Loremaster's Etude]</p>\n<p>Roll the triggering Recall Knowledge skill check twice and use the higher result.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "action:recall-knowledge"
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

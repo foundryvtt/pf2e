@@ -24,7 +24,27 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "bullet-split",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bullet-split",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:group:crossbow"
+                        ]
+                    }
+                ],
+                "selector": "strike-attack-roll",
+                "value": -2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

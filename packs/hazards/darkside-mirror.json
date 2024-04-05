@@ -46,7 +46,7 @@
             "hardness": 1,
             "hasHealth": true,
             "hp": {
-                "details": "",
+                "details": "The mirror can't be damaged while any mirror duplicate is alive",
                 "max": 4,
                 "temp": 0,
                 "tempmax": 0,
@@ -60,7 +60,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A magic mirror replaces characters with evil mirror duplicates from another dimension.</p>",
-            "disable": "<p>@Check[type:thievery|dc:34|name:Retrieve Creature from Other Dimension|traits:action:disable-a-device] (legendary) to retrieve a creature from the other dimension within 10 minutes of the switch (possible only if their mirror duplicate is dead), @Check[type:thievery|dc:39|name:Permanently Disable Mirror|traits:action:disable-a-device] (master) to permanently disable the mirror once all mirror duplicates are dead, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (7th level; counteract DC 32) to counteract the mirror for 1 minute and prevent additional replacements during that time</p>",
+            "disable": "<p>@Check[type:thievery|dc:34|name:Retrieve Creature from Other Dimension|traits:action:disable-a-device] (legendary) to retrieve a creature from the other dimension within 10 minutes of the switch (possible only if their mirror duplicate is dead), @Check[type:thievery|dc:39|name:Permanently Disable Mirror|traits:action:disable-a-device] (master) to permanently disable the mirror once all mirror duplicates are dead, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (7th level; counteract DC 32) to counteract the mirror for 1 minute and prevent additional replacements during that time</p>",
             "isComplex": true,
             "level": {
                 "value": 14
@@ -95,7 +95,8 @@
             },
             "value": [
                 "magical",
-                "mechanical"
+                "mechanical",
+                "trap"
             ]
         }
     },

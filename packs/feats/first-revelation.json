@@ -28,7 +28,23 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:cursebound",
+                    "oracular-curse:stage:1"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oracle.CurseSeverity.MinorToOffGuard"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

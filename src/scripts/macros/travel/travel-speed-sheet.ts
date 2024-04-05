@@ -291,7 +291,7 @@ function parseExplorationOptions(actor: CharacterPF2e): ExplorationOptions {
         swiftSneak: hasFeat(actor, "swift-sneak"),
         legendarySneak: hasFeat(actor, "legendary-sneak"),
         expeditiousSearch: hasFeat(actor, "expeditious-search"),
-        expeditiousSearchLegendary: hasFeat(actor, "expeditious-search") && actor.attributes.perception.rank === 4,
+        expeditiousSearchLegendary: hasFeat(actor, "expeditious-search") && actor.perception.rank === 4,
     };
 }
 

@@ -41,154 +41,11 @@
                 "toggleable": true
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.air",
-                "predicate": [
-                    "kinetic-gate:air",
-                    "self:effect:kinetic-aura",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "electricity",
-                        "slashing"
-                    ],
-                    "dieFaces": 6,
-                    "element": "air",
-                    "img": "icons/magic/lightning/bolt-beam-strike-blue.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Air",
-                    "range": 60
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.earth",
-                "predicate": [
-                    "kinetic-gate:earth",
-                    "self:effect:kinetic-aura",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "piercing"
-                    ],
-                    "dieFaces": 8,
-                    "element": "earth",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/earth.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Earth",
-                    "range": 30
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.fire",
-                "predicate": [
-                    "kinetic-gate:fire",
-                    "self:effect:kinetic-aura",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "fire"
-                    ],
-                    "dieFaces": 6,
-                    "element": "fire",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/fire.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Fire",
-                    "range": 60
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.metal",
-                "predicate": [
-                    "kinetic-gate:metal",
-                    "self:effect:kinetic-aura",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "piercing",
-                        "slashing"
-                    ],
-                    "dieFaces": 8,
-                    "element": "metal",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/metal.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Metal",
-                    "range": 30
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.water",
-                "predicate": [
-                    "self:effect:kinetic-aura",
-                    "kinetic-gate:water",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "cold"
-                    ],
-                    "dieFaces": 8,
-                    "element": "water",
-                    "img": "systems/pf2e/icons/actions/elemental-blast/water.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Water",
-                    "range": 30
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.elementalBlast.wood",
-                "predicate": [
-                    "kinetic-gate:wood",
-                    "self:effect:kinetic-aura",
-                    {
-                        "not": "battle-form"
-                    }
-                ],
-                "priority": 19,
-                "value": {
-                    "damageTypes": [
-                        "bludgeoning",
-                        "vitality"
-                    ],
-                    "dieFaces": 8,
-                    "element": "wood",
-                    "img": "icons/magic/nature/root-vine-wood-blue.webp",
-                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Wood",
-                    "range": 30
-                }
-            },
-            {
                 "key": "FlatModifier",
                 "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActionBonus",
                 "predicate": [
-                    "action:elemental-blast",
-                    "action:cost:2"
+                    "self:action:slug:elemental-blast",
+                    "self:action:cost:2"
                 ],
                 "selector": "elemental-blast-damage",
                 "slug": "two-action-elemental-blast",
@@ -199,7 +56,7 @@
                 "ability": "str",
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:elemental-blast",
+                    "self:action:slug:elemental-blast",
                     "melee"
                 ],
                 "selector": "elemental-blast-damage",

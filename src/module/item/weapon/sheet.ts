@@ -16,6 +16,10 @@ import type { WeaponPF2e } from "./document.ts";
 import { MANDATORY_RANGED_GROUPS, WEAPON_RANGES } from "./values.ts";
 
 export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
+    protected override get validTraits(): Record<string, string> {
+        return CONFIG.PF2E.weaponTraits;
+    }
+
     override async getData(options?: Partial<ItemSheetOptions>): Promise<WeaponSheetData> {
         const sheetData = await super.getData(options);
         const weapon = this.item;
@@ -155,14 +159,6 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
 
         formData["system.bonusDamage.value"] ||= 0;
         formData["system.splashDamage.value"] ||= 0;
-
-        // Coerce a weapon range of zero to null
-        formData["system.range"] ||= null;
-
-        // Clamp damage dice to between zero and eight
-        if ("system.damage.dice" in formData) {
-            formData["system.damage.dice"] = Math.clamped(Number(formData["system.damage.dice"]) || 0, 0, 8);
-        }
 
         // Ensure melee usage is absent if not a combination weapon
         if (weapon.system.meleeUsage && !this.item.traits.has("combination")) {

@@ -28,7 +28,44 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:halfling-luck"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Halfling.IncredibleLuck.Base"
+                    },
+                    {
+                        "predicate": [
+                            "feat:guiding-luck"
+                        ],
+                        "text": "PF2E.SpecificRule.Halfling.IncredibleLuck.GuidingLuck"
+                    },
+                    {
+                        "predicate": [
+                            "feat:shared-luck"
+                        ],
+                        "text": "PF2E.SpecificRule.Halfling.IncredibleLuck.SharedLuck"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:halfling-luck"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

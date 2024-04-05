@@ -314,10 +314,10 @@ const KINGDOM_SCHEMA = {
         { required: false, nullable: false, initial: {} },
     ),
     consumption: new fields.SchemaField({
-        base: new fields.NumberField<number, number, false, false>({ required: false, nullable: false, initial: 0 }),
         settlement: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
         army: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
         value: new fields.NumberField<number, number, false, false>({ min: 0, initial: 0 }),
+        breakdown: new fields.StringField(),
     }),
     unrest: new fields.SchemaField({
         value: new fields.NumberField<number, number, false, false, true>({

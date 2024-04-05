@@ -1,9 +1,9 @@
-import { BabeleReady } from "./babele-ready.ts";
 import { CanvasInit } from "./canvas-init.ts";
 import { CanvasReady } from "./canvas-ready.ts";
 import { CloseCombatTrackerConfig } from "./close-combat-tracker-config.ts";
 import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
 import { DiceSoNiceReady } from "./dice-so-nice-ready.ts";
+import { DiceSoNiceRollStart } from "./dice-so-nice-roll-start.ts";
 import { DropCanvasData } from "./drop-canvas-data.ts";
 import { GetSceneControlButtons } from "./get-scene-control-buttons.ts";
 import { I18nInit } from "./i18n-init.ts";
@@ -26,12 +26,12 @@ export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
             Load, // Run this first since it's not an actual hook listener
-            BabeleReady,
             CanvasInit,
             CanvasReady,
             CloseCombatTrackerConfig,
             CloseWorldClockSettings,
             DiceSoNiceReady,
+            DiceSoNiceRollStart,
             DropCanvasData,
             GetSceneControlButtons,
             I18nInit,

@@ -18,6 +18,8 @@ export class MockActor {
 
     readonly effects: MockCollection<ActiveEffectPF2e<ActorPF2e>> = new MockCollection();
 
+    prototypeToken = {};
+
     _itemGuid = 1;
 
     constructor(

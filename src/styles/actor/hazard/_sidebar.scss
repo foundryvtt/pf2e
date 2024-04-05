@@ -3,11 +3,11 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-8);
     height: 100%;
-    padding: 10px 8px 8px 8px;
-    width: 220px;
     overflow: hidden scroll;
+    padding: var(--space-10) var(--space-8) var(--space-8);
+    width: 13.75rem;
 
     select {
         font-size: var(--font-size-12);
@@ -15,57 +15,60 @@
     }
 
     .sidebar-title {
+        border-bottom: 1px solid var(--color-shadow-dark);
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid black;
-        margin-bottom: 4px;
+        margin-bottom: var(--space-4);
+
         h2 {
             font-size: var(--font-size-15);
+            font-weight: 500;
         }
     }
 
     .valued-icon {
-        display: flex;
         align-items: baseline;
+        display: flex;
+
         i {
-            margin-right: 4px;
+            margin-right: var(--space-4);
         }
+
         i + input {
             // simulate similar appearance for spans and inputs (that have a border)
-            margin-left: -1px;
+            margin-left: calc(-1 * var(--space-1));
         }
-    }
-
-    .health {
-        input {
-            width: 34px;
-
-            &.current {
-                text-align: end;
-            }
-        }
-    }
-
-    .armor-class input {
-        width: 25px;
-        text-align: right;
     }
 
     .health-line {
         display: flex;
         flex-direction: row;
         font-size: var(--font-size-16);
-        gap: 3px;
+        gap: var(--space-2);
         justify-content: center;
+
+        .health {
+            input {
+                width: 2rem;
+
+                &.current {
+                    text-align: end;
+                }
+            }
+        }
+
+        .armor-class,
+        .hardness {
+            input {
+                margin-right: var(--space-1);
+                text-align: right;
+                width: 1.375rem;
+            }
+        }
     }
 
     .hp-details {
         width: 100%;
-    }
-
-    h2 {
-        font-weight: 500;
-        font-size: var(--font-size-16);
     }
 
     i.fa-info-circle {
@@ -82,7 +85,7 @@
             font-weight: 500;
 
             i {
-                margin-right: 4px;
+                margin-right: var(--space-4);
             }
         }
     }
@@ -100,17 +103,20 @@
         }
 
         input {
-            max-width: 50px;
+            max-width: 3.125rem;
             text-align: center;
         }
     }
 
-    .rollable {
-        cursor: pointer;
+    a.rollable {
+        color: var(--color-pf-primary-darker);
+
         &:hover {
-            text-shadow: 0 0 8px var(--color-shadow-primary);
+            color: var(--color-pf-primary-light);
+            text-shadow: none;
+
             i {
-                animation: rotation 2s infinite linear;
+                @include die-spin;
             }
         }
     }

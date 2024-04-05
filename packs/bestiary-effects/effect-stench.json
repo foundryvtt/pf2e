@@ -4,7 +4,7 @@
     "name": "Effect: Stench",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -2 circumstance penalty to saves against disease.</p>"
+            "value": "<p>The creature takes a -2 circumstance penalty to saves against disease and to recover from the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,7 +24,12 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "disease"
+                    {
+                        "or": [
+                            "disease",
+                            "action:retch"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",

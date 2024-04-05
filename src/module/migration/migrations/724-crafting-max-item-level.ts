@@ -2,7 +2,8 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { PredicateStatement } from "@system/predication.ts";
-import { isObject, sluggify } from "@util";
+import { sluggify } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Predicate rule elements related to crafting entries to protect against partial entry data getting created */
@@ -44,7 +45,7 @@ export class Migration724CraftingMaxItemLevel extends MigrationBase {
                 type RawPredicateAll = OldRawPredicate & { all: PredicateStatement[] };
                 const predicate: RawPredicateAll = (rule.predicate = fu.mergeObject(
                     { all: [] },
-                    isObject(rule.predicate) ? rule.predicate : {},
+                    R.isObject(rule.predicate) ? rule.predicate : {},
                 ));
                 const slug = sluggify(selector);
                 predicate.all = Array.from(new Set([...predicate.all, `crafting:entry:${slug}`]));

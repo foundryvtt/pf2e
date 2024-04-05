@@ -1,0 +1,308 @@
+{
+    "_id": "dEm00L1XFXFCH2wS",
+    "img": "icons/magic/earth/barrier-stone-brown-green.webp",
+    "name": "Earth Gate",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<table class=\"pf2e\">\n<thead>\n<tr>\n<th style=\"text-align:left\">Earth Gate Junction</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> If the target is on the ground, it's knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]; if it isn't on the ground, it descends up to 20 feet (you choose the distance).</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> earth, poison</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Fragments of stone float around you, granting you a +1 circumstance bonus to AC until the start of your next turn.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Squares in the aura are difficult terrain fo your enemies, but only if moving into the square would make the enemy farther away from you.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Athletics, @UUID[Compendium.pf2e.feats-srd.Item.Hefty Hauler]</td>\n</tr>\n</tbody>\n</table>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": true,
+            "title": "Pathfinder Rage of Elements"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "lte": [
+                                "item:level",
+                                "parent:granter:level"
+                            ]
+                        },
+                        "item:trait:impulse",
+                        "item:trait:earth",
+                        {
+                            "not": "item:trait:composite"
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseOne",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:kineticist"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "class:kineticist"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:trait:impulse",
+                        "item:trait:earth"
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "impulseTwo",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:earth-gate"
+                ],
+                "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:earth-gate"
+                ],
+                "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
+            },
+            {
+                "key": "RollOption",
+                "option": "kinetic-gate:earth",
+                "priority": 10
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.kineticist.elements",
+                "value": {
+                    "label": "PF2E.TraitEarth",
+                    "value": "earth"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "junction:earth:impulse",
+                "predicate": [
+                    "kinetic-gate:initial:single-gate",
+                    "kinetic-gate:first-element:earth-gate"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.one",
+                "predicate": [
+                    "kinetic-gate:first-element:earth-gate"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.two",
+                "predicate": [
+                    "kinetic-gate:second-element:earth-gate"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.three",
+                "predicate": [
+                    "parent:granter:slug:gates-threshold"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.four",
+                "predicate": [
+                    "parent:granter:slug:second-gates-threshold"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.five",
+                "predicate": [
+                    "parent:granter:slug:third-gates-threshold"
+                ],
+                "value": "earth"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.gate.six",
+                "predicate": [
+                    "parent:granter:slug:fourth-gates-threshold"
+                ],
+                "value": "earth"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "junction:earth:skill"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.feats-srd.Item.Hefty Hauler"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ath.rank",
+                "predicate": [
+                    "junction:earth:skill"
+                ],
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "junction:earth:skill",
+                    "self:effect:kinetic-aura"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "junction:earth:resistance",
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "earth",
+                    "poison"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "junction:earth:resistance",
+                    {
+                        "gte": [
+                            "self:level",
+                            17
+                        ]
+                    },
+                    "self:effect:kinetic-aura"
+                ],
+                "type": [
+                    "earth",
+                    "poison"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "junction:earth:critical",
+                    "item:trait:earth"
+                ],
+                "selector": "elemental-blast-damage",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Earth",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "junction:earth:impulse",
+                    "self:action:trait:impulse",
+                    "self:action:trait:earth"
+                ],
+                "selector": "impulse-attack-roll",
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Earth",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "self:action:slug:elemental-blast"
+                    },
+                    {
+                        "gte": [
+                            "action:cost",
+                            2
+                        ]
+                    },
+                    "junction:earth:impulse",
+                    "self:action:trait:impulse",
+                    "self:action:trait:earth"
+                ],
+                "selector": [
+                    "impulse-damage",
+                    "inline-damage"
+                ],
+                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Earth",
+                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.elementalBlast.earth",
+                "predicate": [
+                    "self:effect:kinetic-aura",
+                    {
+                        "not": "battle-form"
+                    }
+                ],
+                "priority": 19,
+                "value": {
+                    "damageTypes": [
+                        "bludgeoning",
+                        "piercing"
+                    ],
+                    "dieFaces": 8,
+                    "element": "earth",
+                    "img": "systems/pf2e/icons/actions/elemental-blast/earth.webp",
+                    "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Earth",
+                    "range": 30
+                }
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "kineticist-kinetic-gate"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

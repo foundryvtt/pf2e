@@ -17,7 +17,7 @@ type MaterialValuationData = Partial<
 >;
 
 function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | null {
-    const { material } = item;
+    const material = item.material;
     if (!material.type || !material.grade) return null;
 
     const valuationData = item.isOfType("weapon")

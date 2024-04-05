@@ -1,18 +1,15 @@
-import { ActorPF2e } from "@actor";
-import { ItemPF2e } from "@item";
+import { ActorPF2e, ActorProxyPF2e } from "@actor";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { TokenDocumentPF2e } from "@scene";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { CombatantPF2e } from "./encounter/index.ts";
 import { MigrationList, MigrationRunner } from "./migration/index.ts";
 import { MigrationRunnerBase } from "./migration/runner/base.ts";
 
 /** Ensure that the import JSON is actually importable and that the data is fully migrated */
-async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
-    document: TDocument,
-    json: string,
-): Promise<string | null> {
+async function preImportJSON(json: string): Promise<string | null> {
     const source: unknown = JSON.parse(json);
-    if (!isObject<TDocument["_source"] & { data?: unknown }>(source)) return null;
+    if (!R.isPlainObject(source)) return null;
     if ("data" in source) {
         if ("items" in source) {
             ActorPF2e.migrateData(source);
@@ -20,7 +17,9 @@ async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
             ItemPF2e.migrateData(source);
         }
     }
-    if (!isObject(source.system)) return null;
+    if (!R.isPlainObject(source.system) || !R.isPlainObject(source.system._migration)) {
+        return null;
+    }
 
     const sourceSchemaVersion = Number(source.system?._migration?.version) || 0;
     const worldSchemaVersion = MigrationRunnerBase.LATEST_SCHEMA_VERSION;
@@ -36,7 +35,9 @@ async function preImportJSON<TDocument extends ActorPF2e | ItemPF2e>(
         return null;
     }
 
-    const newDoc = new (document.constructor as ConstructorOf<TDocument>)(source, { parent: document.parent });
+    const Cls: ConstructorOf<ActorPF2e | ItemPF2e> =
+        "items" in source && Array.isArray(source.items) ? ActorProxyPF2e : ItemProxyPF2e;
+    const newDoc: ItemPF2e | ActorPF2e = new Cls(source);
     const migrations = MigrationList.constructFromVersion(newDoc.schemaVersion);
     await MigrationRunner.ensureSchemaVersion(newDoc, migrations);
 

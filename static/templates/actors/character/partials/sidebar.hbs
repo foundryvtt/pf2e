@@ -1,10 +1,11 @@
-<!-- HEALTH -->
-<div class="sidebar_title">
+{{!-- HEALTH --}}
+<header>
     <h2>{{localize "PF2E.HitPointsHeader"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-hp-modifiers">
-        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
-</div>
+    <button
+        type="button"
+        class="hover"
+        data-tooltip-content="#{{options.id}}-hp-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
+</header>
 <div class="hitpoints">
     <div class="hp-big">
         <div class="container temp-hp">
@@ -33,17 +34,17 @@
     </div>
     <div class="hp-small">
         <a
-            class="rollable roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}"
+            class="roll-icon{{#if (not data.attributes.dying.value)}} disabled{{/if}}"
             data-action="recovery-check"
             data-tooltip="{{localize "PF2E.Check.Specific.Recovery"}}"
         >
             {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
         </a>
-        <a class="dots dying">
+        <a class="condition-pips" data-action="adjust-condition-value" data-condition="dying">
             <span class="sidebar_label">{{localize "PF2E.condition.dying.name"}}</span>
             {{> "systems/pf2e/templates/actors/partials/dying-pips.hbs"}}
         </a>
-        <a class="dots wounded">
+        <a class="condition-pips" data-action="adjust-condition-value" data-condition="wounded">
             <span class="sidebar_label">{{localize "PF2E.condition.wounded.name"}}</span>
             <span class="pips">
                 {{#times data.attributes.wounded.value}}<i class="fa-solid fa-dot-circle"></i>{{/times}}
@@ -59,15 +60,15 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.HitPointsHeader"}}
 {{/with}}
 
-<!-- STAMINA (if enabled) -->
+{{!-- STAMINA (if enabled) --}}
 {{#if hasStamina}}
-    <div class="sidebar_title">
+    <header>
         <h2>{{localize "PF2E.StaminaPointsHeader"}}</h2>
-    </div>
+    </header>
     <ol class="stamina">
         <li class="sp">
             <label for="{{options.id}}-pc-stamina" class="sidebar_label">{{localize "PF2E.StaminaPointsShortLabel"}}</label>
-            <span class="hp-current stamina-group">
+            <div class="hp-current stamina-group">
                 <input
                     id="{{options.id}}-pc-stamina"
                     class="left"
@@ -79,11 +80,11 @@
                 />
                 <span class="divider">&sol;</span>
                 <input class="right" type="number" value="{{data.attributes.hp.sp.max}}" disabled="disabled" />
-            </span>
+            </div>
         </li>
         <li class="resolve">
             <label for="{{options.id}}-pc-resolve" class="sidebar_label">{{localize "PF2E.ResolvePointsShortLabel"}}</label>
-            <span class="hp-max stamina-group">
+            <div class="hp-max stamina-group">
                 <input
                     id="{{options.id}}-pc-resolve"
                     class="left"
@@ -95,87 +96,91 @@
                 />
                 <span class="divider">&sol;</span>
                 <input class="right" type="number" value="{{data.resources.resolve.max}}" disabled="disabled" />
-            </span>
+            </div>
         </li>
     </ol>
 {{/if}}
 
-<!-- ARMOR CLASS -->
-<div class="sidebar_title">
+{{!-- ARMOR CLASS --}}
+<header>
     <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-armor-modifiers">
-        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
-</div>
+    <button
+        type="button"
+        class="hover"
+        data-tooltip-content="#{{options.id}}-ac-modifiers">{{localize "PF2E.ModifiersTitle"}}</button>
+</header>
 <div class="armor-class">
-    <div class="shield ac">
+    <div class="ac">
         <div class="data-value">
             <h2>{{data.attributes.ac.value}}</h2>
         </div>
         <span class="sidebar_label">{{localize "PF2E.ArmorClassShortLabel"}}</span>
     </div>
-    <div class="shield hp">
+    <div class="shield hp{{#unless data.attributes.shield.hp.max}} disabled{{/unless}}">
         <div class="data-value">
-            <input id="{{@root.options.id}}-shield-hp" type="number" placeholder="0" name="system.attributes.shield.hp.value" value="{{data.attributes.shield.hp.value}}" />
+            {{#if data.attributes.shield.hp.max}}
+                <input
+                    id="{{@root.options.id}}-shield-hp"
+                    type="number"
+                    placeholder="0"
+                    name="system.attributes.shield.hp.value"
+                    value="{{data.attributes.shield.hp.value}}"
+                    {{disabled (not data.attributes.shield.hp.max)}}
+                />
+            {{else}}
+                <input id="{{@root.options.id}}-shield-hp" type="text" value="&mdash;" disabled />
+            {{/if}}
         </div>
         <label for="{{@root.options.id}}-shield-hp" class="sidebar_label">{{localize "PF2E.Actor.Creature.Shield.HitPoints.Value"}}</label>
     </div>
-    <div class="shield-stats">
-        <ol>
-            <li data-tooltip="PF2E.Actor.Creature.Shield.ACBonus">
-                <div class="shield-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
-                        <path
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ArmorClassShortLabel"}}</text>
-                    </svg>
-                </div>
-                <span class="data-value">
-                    <input type="number" placeholder="0" value="{{data.attributes.shield.ac}}" readonly="readonly" />
-                </span>
-            </li>
-            <li data-tooltip="PF2E.Actor.Creature.Shield.Hardness.Hint">
-                <div class="shield-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
-                        <path
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</text>
-                    </svg>
-                </div>
-                <span class="data-value">
-                    <input type="number" placeholder="0" value="{{data.attributes.shield.hardness}}" readonly="readonly" />
-                </span>
-            </li>
-            <li data-tooltip="PF2E.Actor.Creature.Shield.BrokenThreshold">
-                <div class="shield-label">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
-                        <path
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</text>
-                    </svg>
-                </div>
-                <span class="data-value">
-                    <input type="number" value="{{data.attributes.shield.brokenThreshold}}" readonly="readonly" />
-                </span>
-            </li>
-        </ol>
-    </div>
-    <div class="armor_footer">
-        <div class="shield-max">
-            <label for="{{@root.options.id}}-shield-max" class="sidebar_label">
-                {{localize "PF2E.Actor.Creature.Shield.HitPoints.Max"}}
-            </label>
-            <span class="data-value">
-                <input id="{{@root.options.id}}-shield-max" type="number" placeholder="0" value="{{data.attributes.shield.hp.max}}" readonly="readonly" />
-            </span>
+    {{#if data.attributes.shield.hp.max}}
+        <div class="shield-stats">
+            <ul>
+                <li data-tooltip="PF2E.Actor.Creature.Shield.ACBonus">
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <path
+                                d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                                fill="#fff"
+                            />
+                            <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ArmorClassShortLabel"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value">{{data.attributes.shield.ac}}</span>
+                </li>
+                <li data-tooltip="PF2E.Actor.Creature.Shield.Hardness.Hint">
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <path
+                                d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                                fill="#fff"
+                            />
+                            <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Actor.Creature.Shield.Hardness.Label"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value">{{data.attributes.shield.hardness}}</span>
+                </li>
+                <li data-tooltip="PF2E.Actor.Creature.Shield.BrokenThreshold">
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <path
+                                d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
+                                fill="#fff"
+                            />
+                            <text x="6" y="8.5" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.Item.Physical.BrokenThreshold.ShortLabel"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value">{{data.attributes.shield.brokenThreshold}}</span>
+                </li>
+            </ul>
         </div>
-        <div class="shield-status">
+    {{/if}}
+    <div class="shield-max-status{{#unless data.attributes.shield.hp.max}} disabled{{/unless}}">
+        <div class="max">
+            <label class="sidebar_label">{{localize "PF2E.Actor.Creature.Shield.HitPoints.Max"}}</label>
+            <span class="data-value">{{#if data.attributes.shield.hp.max}}{{data.attributes.shield.hp.max}}{{else}}&mdash;{{/if}}</span>
+        </div>
+        <div class="status">
             {{#if data.attributes.shield.destroyed}}
                 <span class="sidebar_label">{{localize "PF2E.Item.Physical.Destroyed"}}</span>
                 <i class="fa-regular fa-times-circle"></i>
@@ -190,99 +195,83 @@
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.ArmorClassLabel"}}
 {{/with}}
 
-<!-- Perception -->
-<div class="sidebar_title">
+{{!-- Perception --}}
+<header>
     <h2>{{localize "PF2E.PerceptionHeader"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
-        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
-</div>
-<div class="roll-data perception-sidebar">
-    <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
-        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
-    </a>
-
-    <a
-        class="roll-icon"
-        data-action="roll-check"
-        data-statistic="perception"
-        data-secret
-        data-tooltip="PF2E.Check.Specific.Perception.Secret"
-    ><i class="fa-solid fa-eye-slash"></i></a>
-    <h3>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</h3>
-
-    <div class="perception-prof button-group skill-container">
-        <select
-            class="perception-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
-            data-property="system.attributes.perception.rank"
-            data-rank="{{data.attributes.perception.rank}}"
-            data-dtype="Number"
-        >
-            {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=data.attributes.perception.rank}}
-        </select>
+</header>
+<section class="perception">
+    <div class="roll-data">
+        <a class="roll-icon" data-action="roll-check" data-statistic="perception" data-tooltip="PF2E.Check.Specific.Perception.Label">
+            {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+        </a>
+        <a
+            class="roll-icon"
+            data-action="roll-check"
+            data-statistic="perception"
+            data-secret
+            data-tooltip="PF2E.Check.Specific.Perception.Secret"
+        ><i class="fa-solid fa-eye-slash"></i></a>
+        <a class="modifier hover" data-tooltip-content="#{{options.id}}-perception-modifiers">
+            {{numberFormat data.perception.value decimals=0 sign=true}}
+        </a>
+        <span class="pf-rank" data-rank="{{data.perception.rank}}">{{lookup @root.numberToRank data.perception.rank}}</span>
     </div>
-
-</div>
-{{#with data.attributes.perception}}
+    {{#if senses.length}}
+        <ol class="tags senses">
+            {{#each senses as |sense slug|}}
+                {{#if sense.label}}
+                    <li class="tag tag_secondary" data-slug="{{slug}}">{{sense.label}}</li>
+                {{/if}}
+            {{/each}}
+        </ol>
+    {{/if}}
+</section>
+{{#with data.perception}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.PerceptionHeader"}}
 {{/with}}
 
-<!-- Initiative -->
-<div class="sidebar_title">
+{{!-- Initiative --}}
+<header>
     <h2>{{localize "PF2E.InitiativeLabel"}}</h2>
-    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
-        <i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
-    </button>
-</div>
-<div class="roll-data initiative-sidebar">
-    <a class="roll-icon" data-action="roll-initiative" data-tooltip="COMBAT.InitiativeRoll">
-        {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
+</header>
+<section class="roll-data initiative">
+    <a
+        class="roll-icon"
+        data-action="roll-initiative"
+        data-tooltip="COMBAT.InitiativeRoll"
+    >{{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}</a>
+    <a class="modifier hover" data-tooltip-content="#{{options.id}}-initiative-modifiers">
+        {{numberFormat data.initiative.totalModifier decimals=0 sign=true}}
     </a>
-    <h3>{{numberFormat data.attributes.initiative.totalModifier decimals=0 sign=true}}</h3>
-    <h4 class="initiative-select">
-        <select name="system.attributes.initiative.statistic">
-            {{#select data.attributes.initiative.statistic}}
-                <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
-                {{#each data.skills as |skill|}}
-                    <option value="{{skill.slug}}">{{localize skill.label}}</option>
-                {{/each}}
-            {{/select}}
-        </select>
-    </h4>
-</div>
-{{#with data.attributes.initiative}}
+    <select name="system.initiative.statistic">
+        {{#select data.initiative.statistic}}
+            <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
+            {{#each data.skills as |skill|}}
+                <option value="{{skill.slug}}">{{localize skill.label}}</option>
+            {{/each}}
+        {{/select}}
+    </select>
+</section>
+{{#with data.initiative}}
     {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
 {{/with}}
 
-<!-- Saves -->
-<div class="sidebar_title">
+{{!-- Saves --}}
+<header>
     <h2>{{localize "PF2E.SavesHeader"}}</h2>
-</div>
-<ul class="sidebar-saves">
+</header>
+<ul class="saves">
     {{#each data.saves as |save slug|}}
         <li class="roll-data" data-save="{{slug}}">
             <h2 class="sidebar_label">{{localize save.label}}</h2>
-
-            <div class="save-prof button-group skill-container">
-                <select
-                    class="save-proficiency pf-rank{{#if rank.immutable}} readonly{{/if}}"
-                    data-property="system.saves.{{slug}}.rank"
-                    data-rank="{{save.rank}}"
-                    data-dtype="Number"
-                >
-                    {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=save.rank}}
-                </select>
-            </div>
+            <span class="pf-rank" data-rank="{{save.rank}}">{{lookup @root.numberToRank save.rank}}</span>
 
             <div class="save-roll">
                 <a class="roll-icon" data-action="roll-check" data-statistic="{{save.slug}}">
                     {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                 </a>
-                <h3>{{numberFormat save.totalModifier decimals=0 sign=true}}</h3>
+                <a class="modifier hover" data-tooltip-content="#{{@root.options.id}}-{{save.slug}}-modifiers">{{numberFormat save.totalModifier decimals=0 sign=true}}</a>
             </div>
-            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{@root.options.id}}-{{save.slug}}-modifiers">
-                {{localize "PF2E.ModifiersTitle"}}
-            </button>
             {{#with save}}
                 {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title=label}}
             {{/with}}
@@ -290,74 +279,47 @@
     {{/each}}
 </ul>
 
-<!-- Class DC -->
-{{#if classDCs.dcs}}
-    <div class="sidebar_title">
-        <h2>{{#if (gt classDCs.dcs.length 1)}}{{localize "PF2E.Actor.Character.ClassDC.Plural"}}{{else}}{{localize "PF2E.Actor.Character.ClassDC.Label"}}{{/if}}</h2>
-        {{#unless classDCs.perDCDetails}}
-            <button type="button" class="modifiers_button hover" data-tooltip-content="#{{options.id}}-{{classDCs.primary}}-modifiers"><i class="fa-solid fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}</button>
-        {{/unless}}
-    </div>
-    {{#each classDCs.dcs as |classDC|}}
-        <div class="roll-data difficulty-checks class-dc{{#unless classDC.primary}} secondary{{/unless}}">
-            <h3>
-                {{classDC.dc}}
-                {{#if ../classDCs.perDCDetails}}<span class="sidebar_label">{{classDC.label}}</span>{{/if}}
-            </h3>
-            <div class="classdc-rank">
-                <span class="pf-rank" data-rank="{{classDC.rank}}">{{lookup @root.numberToRank classDC.rank}}</span>
-                {{#if ../classDCs.perDCDetails}}
-                    <button type="button" class="modifiers_button hover" data-tooltip-content="#{{../options.id}}-{{classDC.slug}}-modifiers"><i class="fa-solid fa-eye"></i></button>
-                {{/if}}
-            </div>
-            {{#with classDC}}
-                {{> "systems/pf2e/templates/actors/partials/modifiers-tooltip.hbs" title="PF2E.Actor.Character.ClassDC.Label"}}
-            {{/with}}
-        </div>
-    {{/each}}
-{{/if}}
-
-<!-- Immunities -->
-<div class="sidebar_title">
+{{!-- Immunities --}}
+<header>
     <h2>{{localize "PF2E.ImmunitiesLabel"}}</h2>
-</div>
+    {{#if editable}}
+        <button type="button" data-action="edit-immunities">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </a>
+    {{/if}}
+</header>
 <ol class="immunities tags">
     {{#each data.attributes.immunities as |immunity|}}
         <li class="tag tag_secondary" data-immunity="{{immunity.type}}">{{immunity.label}}</li>
     {{/each}}
-    {{#if editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-immunities" data-tooltip="PF2E.NPC.EditImmunities"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>
 
-<!-- Weaknesses -->
-<div class="sidebar_title">
+{{!-- Weaknesses --}}
+<header>
     <h2>{{localize "PF2E.WeaknessesLabel"}}</h2>
-</div>
+    {{#if editable}}
+        <button type="button" data-action="edit-weaknesses">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </button>
+    {{/if}}
+</header>
 <ol class="weaknesses tags">
     {{#each data.attributes.weaknesses as |weakness|}}
         <li class="tag tag_secondary" data-weakness="{{weakness.type}}">{{weakness.label}}</li>
     {{/each}}
-    {{#if editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-weaknesses" data-tooltip="PF2E.NPC.EditWeaknesses"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>
 
-<!-- Resistances -->
-<div class="sidebar_title">
+{{!-- Resistances --}}
+<header>
     <h2>{{localize "PF2E.ResistancesLabel"}}</h2>
-</div>
+    {{#if editable}}
+        <button type="button" data-action="edit-resistances">
+            <i class="fa-solid fa-edit"></i> {{localize "PF2E.Edit"}}
+        </button>
+    {{/if}}
+</header>
 <ol class="resistances tags">
     {{#each data.attributes.resistances as |resistance|}}
         <li class="tag tag_secondary" data-resistance="{{resistance.type}}">{{resistance.label}}</li>
     {{/each}}
-    {{#if editable}}
-        <li class="tag edit-btn">
-            <a data-action="edit-resistances" data-tooltip="PF2E.NPC.EditResistances"><i class="fa-solid fa-edit"></i></a>
-        </li>
-    {{/if}}
 </ol>

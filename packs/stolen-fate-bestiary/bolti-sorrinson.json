@@ -263,45 +263,10 @@
             "type": "melee"
         },
         {
-            "_id": "vbL3yHO5ysgCJOcD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 500000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "h0VU0sBf5jz6KCu1",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "The Sea's Revenge",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -311,7 +276,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A creature that slays Bolti is subjected to a <em>@UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse]</em> spell (heightened to 10th level, @Check[type:will|dc:42|traits:spell]). The curse ends if the cursed victim slays Trygve, or after 1 year passes.</p>"
+                    "value": "<p>A creature that slays Bolti is subjected to a @UUID[Compendium.pf2e.spells-srd.Item.Mariner's Curse] spell (heightened to 10th level, @Check[type:will|dc:42|traits:spell]). The curse ends if the cursed victim slays Trygve, or after 1 year passes.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -339,7 +304,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -376,7 +341,7 @@
             "_id": "bS27ihuZ0Xs3mU7a",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Great Swipe",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -406,7 +371,7 @@
             "_id": "cjYLiElA3muRcJuo",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Grotesque Gift",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -438,7 +403,7 @@
             "_id": "V6lRpuBYpKfymx6T",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -463,7 +428,7 @@
             "_id": "Srt75uO8mkX9dePF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -538,12 +503,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 34
-            },
             "resistances": [
                 {
                     "doubleVs": [],
@@ -571,6 +530,13 @@
         },
         "details": {
             "blurb": "Variant male draugr",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "skald"
+                ]
+            },
             "level": {
                 "value": 20
             },
@@ -581,6 +547,18 @@
                 "remaster": false,
                 "title": "Pathfinder #192: Worst of All Possible Worlds"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 34,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -598,21 +576,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "skald"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

@@ -1,8 +1,8 @@
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { CanvasPF2e, measureDistanceCuboid, type TokenLayerPF2e } from "../index.ts";
+import { measureDistanceCuboid, type CanvasPF2e, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
@@ -24,7 +24,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
-        Object.defineProperty(this, "flankingHighlight", { configurable: false, writable: false });
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -36,8 +35,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this.document.hidden && !game.user.isGM) return false;
 
         // Some tokens are always visible
-        if (!canvas.effects.visibility.tokenVision) return true;
-        if (this.controlled) return true;
+        if (!canvas.effects.visibility.tokenVision || this.controlled) return true;
 
         // Otherwise, test visibility against current sight polygons
         if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
@@ -93,8 +91,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Short-circuit calculation for long sight ranges */
     override get sightRange(): number {
-        if (!canvas.dimensions) return 0;
-        return this.document.sight.range >= canvas.dimensions.maxR ? canvas.dimensions!.maxR : super.sightRange;
+        if (!canvas.ready) return 0;
+        const dimensions = canvas.dimensions;
+        return this.document.sight.range >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -107,25 +106,28 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking highlight) */
     canFlank(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
-        if (this === flankee || !game.settings.get("pf2e", "automation.flankingDetection")) {
+        const settingDisabled = !game.pf2e.settings.automation.flanking;
+        const oneIsGMHidden = this.document.hidden || flankee.document.hidden;
+        if (settingDisabled || oneIsGMHidden || this === flankee) {
             return false;
         }
 
-        // Can actor flank and is flankee flankable (if we care about flankable)
+        // Can the actor flank, and is the flankee flankable?
+        const actor = this.actor;
         const flankable = context.ignoreFlankable || flankee.actor?.attributes.flanking.flankable;
-        if (!(this.actor?.attributes.flanking.canFlank && flankable)) return false;
+        if (!(actor?.attributes.flanking.canFlank && flankable)) return false;
 
-        // Only PCs and NPCs can flank
-        if (!this.actor.isOfType("character", "npc")) return false;
-        // Only creatures can be flanked
-        if (!flankee.actor?.isOfType("creature")) return false;
+        // Only creatures can flank or be flanked
+        if (!(actor.isOfType("creature") && flankee.actor?.isOfType("creature"))) {
+            return false;
+        }
 
         // Allies don't flank each other
-        if (this.actor.isAllyOf(flankee.actor)) return false;
+        if (actor.isAllyOf(flankee.actor)) return false;
 
-        const reach = context.reach ?? this.actor.getReach({ action: "attack" });
+        const reach = context.reach ?? actor.getReach({ action: "attack" });
 
-        return this.actor.canAttack && reach >= this.distanceTo(flankee, { reach });
+        return actor.canAttack && reach >= this.distanceTo(flankee, { reach });
     }
 
     /**
@@ -153,12 +155,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     isFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): boolean {
-        if (!(this.actor && this.canFlank(flankee, context))) return false;
+        const thisActor = this.actor;
+        if (!(thisActor && this.canFlank(flankee, context))) return false;
 
         // Return true if a flanking buddy is found
-        const { flanking } = this.actor.attributes;
+        const flanking = thisActor.attributes.flanking;
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
+            (t) => t.actor?.isAllyOf(thisActor) && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
         );
         if (flankingBuddies.length === 0) return false;
 
@@ -193,10 +196,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * @param context.reach           An optional reach distance specific to this measurement
      * @param context.ignoreFlankable Optionally ignore flankable (for flanking position indicator) */
     buddiesFlanking(flankee: TokenPF2e, context: { reach?: number; ignoreFlankable?: boolean } = {}): TokenPF2e[] {
-        if (!this.actor || !this.canFlank(flankee, context)) return [];
-
+        if (!this.canFlank(flankee, context)) return [];
+        const ignoreFlankable = !!context.ignoreFlankable;
         return canvas.tokens.placeables
-            .filter((t) => t !== this && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])))
+            .filter((t) => t !== this && t.canFlank(flankee, { ignoreFlankable }))
             .filter((b) => this.onOppositeSides(this, b, flankee));
     }
 
@@ -241,10 +244,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected override _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void {
-        if (!canvas.dimensions) return;
+        if (!canvas.initialized) return;
 
         const actor = this.document.actor;
-
         if (!(data.attribute === "attributes.hp" && actor?.attributes.hp)) {
             return super._drawBar(number, bar, data);
         }
@@ -339,9 +341,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** If Party Vision is enabled, make all player-owned actors count as vision sources for non-GM users */
     protected override _isVisionSource(): boolean {
+        if (!this.hasSight || !this.document.parent?.tokenVision) return false;
+
+        // If GM vision is enabled, making nothing a vision source will allow the user to see everything
+        if (game.pf2e.settings.gmVision && game.user.isGM) return false;
+
         const partyVisionEnabled =
-            !!this.actor?.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_partyVision");
-        return partyVisionEnabled || super._isVisionSource();
+            game.pf2e.settings.metagame.partyVision && !!this.actor?.hasPlayerOwner && !game.user.isGM;
+        const controllingAsObserver = this.controlled && this.observer;
+
+        return partyVisionEnabled || controllingAsObserver || (!this.controlled && super._isVisionSource());
     }
 
     /** Include actor overrides in the clone if it is a preview */
@@ -427,7 +436,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * any two of the squares.
      */
     distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
-        if (!canvas.dimensions) return NaN;
+        if (!canvas.ready) return NaN;
 
         if (this === target) return 0;
 
@@ -512,9 +521,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    /** Players can view the sheets of lootable NPCs */
+    /** Players can view an actor's sheet if the actor is lootable. */
     protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
-        return super._canView(user, event) || !!(this.actor?.isOfType("npc") && this.actor.isLootable);
+        return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
     /** Refresh vision and the `EffectsPanel` */

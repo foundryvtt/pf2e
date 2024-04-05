@@ -17,25 +17,21 @@
                         "value": 0,
                         "temp": 0
                     },
-                    "initiative": {
-                        "statistic": "perception"
-                    },
                     "speed": {
                         "value": 25,
                         "otherSpeeds": []
                     }
                 },
-                "details": {
-                    "level": {
-                        "value": 1
-                    }
+                "initiative": {
+                    "statistic": "perception"
                 },
-                "traits": {
-                    "value": [],
-                    "senses": [],
+                "details": {
                     "languages": {
                         "value": [],
-                        "custom": ""
+                        "details": ""
+                    },
+                    "level": {
+                        "value": 1
                     }
                 },
                 "resources": {},
@@ -219,15 +215,18 @@
                     "max": 10,
                     "details": ""
                 },
-                "perception": {
-                    "value": 0
-                },
                 "allSaves": {
                     "value": ""
                 },
                 "speed": {
                     "details": ""
                 }
+            },
+            "perception": {
+                "details": "",
+                "mod": 0,
+                "senses": [],
+                "vision": true
             },
             "saves": {
                 "fortitude": {
@@ -244,6 +243,7 @@
                 }
             },
             "traits": {
+                "value": [],
                 "rarity": "common",
                 "size": {
                     "value": "med"
@@ -490,7 +490,6 @@
     "Item": {
         "types": [
             "action",
-            "affliction",
             "ancestry",
             "armor",
             "background",
@@ -592,7 +591,7 @@
             },
             "itemLevel": {
                 "level": {
-                    "value": 0
+                    "value": 1
                 }
             },
             "investable": {
@@ -606,25 +605,6 @@
             "description.value",
             "identification.data.description.value"
         ],
-        "affliction": {
-            "templates": [
-                "common",
-                "itemLevel",
-                "traits"
-            ],
-            "duration": {
-                "value": -1,
-                "unit": "unlimited",
-                "expiry": null
-            },
-            "save": {
-                "type": "fortitude",
-                "value": 0
-            },
-            "stage": 1,
-            "stages": {},
-            "context": null
-        },
         "backpack": {
             "templates": [
                 "common",
@@ -648,9 +628,9 @@
                 "common",
                 "physical"
             ],
-            "subtype": "formula",
+            "category": "formula",
             "capacity": 1,
-            "items": []
+            "contents": []
         },
         "treasure": {
             "templates": [
@@ -698,6 +678,7 @@
                 "property": []
             },
             "specific": null,
+            "subitems": [],
             "property1": {
                 "value": "",
                 "dice": 0,
@@ -726,7 +707,8 @@
                 "potency": 0,
                 "resilient": 0,
                 "property": []
-            }
+            },
+            "subitems": []
         },
         "melee": {
             "templates": [
@@ -778,7 +760,8 @@
             ],
             "usage": {
                 "value": "held-in-one-hand"
-            }
+            },
+            "subitems": []
         },
         "ancestry": {
             "templates": [
@@ -1032,17 +1015,16 @@
             "speedPenalty": 0,
             "traits": {
                 "integrated": null
-            }
+            },
+            "subitems": []
         },
         "spell": {
             "templates": [
                 "common",
+                "itemLevel",
                 "traits",
                 "rarity"
             ],
-            "level": {
-                "value": 1
-            },
             "traits": {
                 "traditions": []
             },
@@ -1088,16 +1070,12 @@
             "prepared": {
                 "value": "innate"
             },
-            "showUnpreparedSpells": {
-                "value": false
-            },
             "showSlotlessLevels": {
                 "value": true
             },
             "proficiency": {
                 "value": 1
             },
-            "displayLevels": {},
             "slots": {
                 "slot0": {
                     "prepared": [],
@@ -1177,7 +1155,8 @@
         },
         "condition": {
             "templates": [
-                "common"
+                "common",
+                "traits"
             ],
             "group": null,
             "duration": {
@@ -1199,11 +1178,9 @@
         "effect": {
             "templates": [
                 "common",
+                "itemLevel",
                 "traits"
             ],
-            "level": {
-                "value": 1
-            },
             "duration": {
                 "value": -1,
                 "unit": "unlimited",

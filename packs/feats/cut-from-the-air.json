@@ -34,17 +34,18 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "cut-from-the-air"
+                    "cut-from-the-air",
+                    "item:damage:category:physical",
+                    "item:ranged",
+                    {
+                        "not": "self:condition:off-guard"
+                    }
                 ],
                 "selector": "ac",
                 "type": "circumstance",
                 "value": 4
             }
         ],
-        "selfEffect": {
-            "name": "Effect: Cut from the Air",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Cut from the Air"
-        },
         "traits": {
             "rarity": "common",
             "value": [

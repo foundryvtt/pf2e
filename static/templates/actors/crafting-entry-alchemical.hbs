@@ -1,17 +1,21 @@
 <li class="crafting-entry item-container" data-container-type="craftingEntryGroup">
-    <div class="action-header">
-        <h3 class="item-name hide-container-toggle title">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</h3>
-    </div>
+    <div class="action-header">{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemy"}}</div>
     <ol class="directory-list item-list formula-list">
-        <li class="formula-level-header formula-header">
+        <li class="formula-level-header formula-header infused-reagents">
             <div class="level-name reagent-cost">
-                <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}</h3>
+                <h3>{{localize "PF2E.CraftingTab.Alchemical.TotalCost"}}:</h3>
                 <div class="formula-number">{{alchemicalCraftingEntries.totalReagentCost}}</div>
             </div>
 
             <div class="level-name reagent-resource">
-                <h3>{{localize "PF2E.CraftingTab.Alchemical.InfusedReagents"}}</h3>
-                <input class="formula-number infused-reagents" type="number" data-selector="value" data-resource="infusedReagents" value="{{alchemicalCraftingEntries.infusedReagents.value}}" placeholder="0" data-dtype="Number"/>
+                <h3>{{localize "PF2E.CraftingTab.Alchemical.InfusedReagents"}}:</h3>
+                <input
+                    class="formula-number"
+                    type="number"
+                    name="system.resources.crafting.infusedReagents.value"
+                    value="{{alchemicalCraftingEntries.infusedReagents.value}}"
+                    placeholder="0"
+                />
                 <h3>/</h3>
                 <div class="formula-number">
                     {{alchemicalCraftingEntries.infusedReagents.max}}
@@ -20,65 +24,65 @@
         </li>
         {{#each alchemicalCraftingEntries.entries as |entry eid|}}
             <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-entry-selector="{{entry.selector}}">
-                <div class="action-header alchemical-title">
-                    <h3 class="item-name hide-container-toggle title">
-                        {{entry.name}}
-                    </h3>
-                </div>
+                <div class="action-header alchemical-title">{{entry.name}}</div>
 
                 <ol class="directory-list item-list formula-list">
                     <li class="formula-level-header formula-header">
                         <div class="level-name reagent-cost">
-                            <h3>{{localize "PF2E.CraftingTab.Alchemical.ReagentCost"}}</h3>
-                            <div class="formula-number">
-                                {{entry.reagentCost}}
-                            </div>
+                            <h3>{{localize "PF2E.CraftingTab.Alchemical.ReagentCost"}}:</h3>
+                            <span class="formula-number">{{entry.reagentCost}}</span>
                         </div>
 
                         <div class="level-name aa-level">
-                            <h3>{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemyLevel"}}</h3>
-                            <div class="formula-number">
-                                {{entry.maxItemLevel}}
-                            </div>
+                            <h3>{{localize "PF2E.CraftingTab.Alchemical.AdvancedAlchemyLevel"}}:</h3>
+                            <span class="formula-number">{{entry.maxItemLevel}}</span>
                         </div>
                     </li>
 
-                    {{#each entry.formulas}}
-                        <li class="item formula-item" data-item-id="{{this.uuid}}" data-item-type="formula" data-item-index={{@key}} data-entry-selector="{{entry.selector}}" data-is-formula="true">
-                            <div class="item-name rollable">
-                                <div class="item-image">
-                                    <img class="item-icon" src="{{this.img}}" alt="{{this.name}}">
-                                </div>
-                                <h4>{{this.name}}</h4>
+                    {{#each entry.formulas as |formula|}}
+                        <li
+                            class="item formula-item"
+                            data-item-uuid="{{formula.uuid}}"
+                            data-item-type="formula"
+                            data-item-index={{@key}}
+                            data-entry-selector="{{entry.selector}}"
+                            data-is-formula="true"
+                        >
+                            <div class="item-name">
+                                <a class="item-image framed" data-action="formula-to-chat">
+                                    <img class="item-icon" src="{{formula.img}}" />
+                                    <i class="fa-solid fa-message"></i>
+                                 </a>
+                                <h4 class="name"><a data-action="toggle-summary">{{formula.name}}</a></h4>
                             </div>
                             <div class="dc"></div>
                             <div class="cost"></div>
                             <div class="quantity">
-                                <a class="adjust decrease" data-action="decrease-quantity">&ndash;</a>
-                                <input type="number" class="formula-number" data-action="enter-quantity" value="{{this.quantity}}" />
-                                <a class="adjust increase" data-action="increase-quantity">+</a>
+                                <a class="adjust decrease" data-action="decrease-craft-quantity">&ndash;</a>
+                                <input type="number" class="formula-number" data-craft-quantity value="{{formula.quantity}}" />
+                                <a class="adjust increase" data-action="increase-craft-quantity">+</a>
                             </div>
 
-                            {{#if @root.options.editable}}
+                            {{#if @root.editable}}
                                 <div class="item-controls">
-                                    <a class="item-control toggle-signature-item" title="{{localize "PF2E.CraftingTab.Alchemical.ToggleSignatureItem"}}">
-                                        {{#if this.isSignatureItem}}
-                                            <i class="fa-solid fa-star"></i>
-                                        {{else}}
-                                            <i class="fa-regular fa-star"></i>
-                                        {{/if}}
-                                    </a>
-                                    <a class="item-control formula-unprepare" title="{{localize "PF2E.UnprepareItemTitle"}}"><i class="fa-solid fa-trash"></i></a>
+                                    <a
+                                        data-action="toggle-signature-item"
+                                        data-tooltip="PF2E.CraftingTab.Alchemical.ToggleSignatureItem"
+                                    ><i class="fa-{{#if formula.isSignatureItem}}solid{{else}}regular{{/if}} fa-star"></i></a>
+                                    <a
+                                        data-action="unprepare-formula"
+                                        data-tooltip="PF2E.UnprepareItemTitle"
+                                    ><i class="fa-solid fa-trash"></i></a>
                                 </div>
                             {{/if}}
+
+                            <div class="item-summary" hidden></div>
                         </li>
                     {{/each}}
                     {{#unless entry.formulas}}
-                        {{#if @root.owner}}
-                            <li class="formula-header knownFormulas-empty">
-                                <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
-                            </li>
-                        {{/if}}
+                        <li class="formula-header empty">
+                            <h4>{{localize "PF2E.FormulaListEmpty"}}</h4>
+                        </li>
                     {{/unless}}
                 </ol>
             </li>

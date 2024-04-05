@@ -10,7 +10,7 @@ class ModuleArt {
         const activeModules = [...game.modules.entries()].filter(([_key, m]) => m.active);
 
         for (const [moduleKey, foundryModule] of activeModules) {
-            const moduleArt = await this.#getArtMap(foundryModule.flags?.[moduleKey]?.["pf2e-art"]);
+            const moduleArt = await this.#getArtMap(foundryModule.flags[moduleKey]?.["pf2e-art"]);
             if (!moduleArt) continue;
 
             for (const [packName, art] of Object.entries(moduleArt)) {

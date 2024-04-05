@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { EffectPF2e } from "@item";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionCost, ActionUseOptions } from "./types.ts";
 
@@ -48,7 +48,7 @@ class SimpleActionVariant extends BaseActionVariant {
         } else if (options.actors) {
             actors.push(options.actors);
         } else {
-            actors.push(...getSelectedOrOwnActors());
+            actors.push(...getSelectedActors({ exclude: ["loot", "party"], assignedFallback: true }));
         }
         if (actors.length === 0) {
             throw new Error(game.i18n.localize("PF2E.ActionsWarning.NoActor"));

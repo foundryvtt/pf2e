@@ -55,6 +55,7 @@ export class Migration667HPSubProperties extends MigrationBase {
 }
 
 interface AELikeSource extends RuleElementSource {
-    mode: string;
-    path: string;
+    mode?: JSONValue;
+    path?: JSONValue;
+    value?: JSONValue;
 }

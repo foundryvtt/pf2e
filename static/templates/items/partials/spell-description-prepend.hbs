@@ -1,14 +1,48 @@
 {{#if traditions}}<p><strong>{{localize "PF2E.SpellTraditionsLabel"}}</strong> {{traditions}}</p>{{/if}}
-{{#unless (or spell.actionGlyph (eq spell.system.time.value ""))}}
-    <p><strong>{{localize "PF2E.CastLabel"}}</strong> {{spell.system.time.value}}</p>
-{{/unless}}
-{{#if (or spell.system.range.value spell.system.target.value spell.system.area)}}
-    <p>
-        {{#if spell.system.range.value}}<strong>{{localize "PF2E.SpellRangeLabel"}}</strong> {{spell.system.range.value}}{{/if}}
-        {{#if spell.system.area}}<strong>{{localize "PF2E.AreaLabel"}}</strong> {{spell.area.label}}{{/if}}
-        {{#if spell.system.target.value}}<strong>{{localize "PF2E.SpellTargetLabel"}}</strong> {{spell.system.target.value}}{{/if}}
+{{#if cast}}
+    <p class="item-block-line">
+        <strong>{{localize "PF2E.Item.Spell.Cast"}}</strong>
+        <span>{{cast}}</span>
     </p>
 {{/if}}
-{{#if spell.system.duration.value}}
-    <p><strong>{{localize "PF2E.SpellDurationLabel"}}</strong> {{spell.system.duration.value}}</p>
+{{#if (or range targets area)}}
+    <p class="item-block-line{{#unless (or defense duration)}} last{{/unless}}">
+        {{#if range}}
+            <span>
+                <strong>{{localize "PF2E.TraitRange"}}</strong>
+                {{range}}
+                {{~#if (or area targets)}}{{localize "PF2E.Item.Spell.LineSplit"}}{{/if}}
+            </span>
+        {{/if}}
+        {{#if area}}
+            <span>
+                <strong>{{localize "PF2E.Area.Label"}}</strong> {{area}}
+            </span>
+        {{/if}}
+        {{#if targets}}
+            <span>
+                <strong>{{localize "PF2E.SpellTargetLabel"}}</strong>
+                {{targets}}
+            </span>
+        {{/if}}
+    </p>
 {{/if}}
+{{#if (or defense duration)}}
+    <p class="item-block-line">
+        {{#if defense}}
+            <span>
+                <strong>{{localize "PF2E.Item.Spell.Defense.Label"}}</strong>
+                {{defense}}
+                {{~#if duration}}{{localize "PF2E.Item.Spell.LineSplit"}}{{/if}}
+            </span>
+        {{/if}}
+        {{#if duration}}
+            <span>
+                <strong>{{localize "PF2E.Time.Duration"}}</strong>
+                {{duration}}
+            </span>
+        {{/if}}
+    </p>
+{{/if}}
+
+{{#if (or traditions cast range targets area defense duration)}}<hr class="item-block-divider" />{{/if}}

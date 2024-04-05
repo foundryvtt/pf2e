@@ -1,6 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import type { EffectAreaType } from "@item/spell/types.ts";
+import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
 import { highlightGrid } from "./helpers.ts";
@@ -21,13 +21,13 @@ class MeasuredTemplatePF2e<
         return this.document.message;
     }
 
-    get areaType(): EffectAreaType | null {
-        return this.document.areaType;
+    get areaShape(): EffectAreaShape | null {
+        return this.document.areaShape;
     }
 
     /** Set the template layer's grid precision appropriately for this measured template's shape. */
     snapForShape(): void {
-        this.layer.snapFor(this.areaType);
+        this.layer.snapFor(this.areaShape);
     }
 
     override highlightGrid(): void {
@@ -45,7 +45,7 @@ class MeasuredTemplatePF2e<
 
         this.snapForShape();
         highlightGrid({
-            areaType: this.areaType,
+            areaShape: this.areaShape,
             object: this,
             document: this.document,
             colors: { border: this.borderColor, fill: this.fillColor },

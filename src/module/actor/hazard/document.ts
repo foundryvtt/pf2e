@@ -13,10 +13,11 @@ import { TokenDocumentPF2e } from "@scene/index.ts";
 import { DamageType } from "@system/damage/index.ts";
 import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
 import { isObject, objectHasKey } from "@util";
+import * as R from "remeda";
 import { HazardSource, HazardSystemData } from "./data.ts";
 
 class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-    declare skills: { stealth: Statistic };
+    declare skills: Record<"stealth", Statistic<this>>;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         return [...super.allowedItemTypes, "action", "melee"];
@@ -87,9 +88,8 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         if (this.isComplex) {
             // Ensure stealth value is numeric and set baseline initiative data
             attributes.stealth.value ??= 0;
-            const partialAttributes: { initiative?: Pick<InitiativeData, "statistic" | "tiebreakPriority"> } =
-                this.system.attributes;
-            partialAttributes.initiative = {
+            const withPartialInitiative: { initiative?: Partial<InitiativeData> } = this.system;
+            withPartialInitiative.initiative = {
                 statistic: "stealth",
                 tiebreakPriority: this.hasPlayerOwner ? 2 : 1,
             };
@@ -101,13 +101,11 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const { system } = this;
-
         this.prepareSynthetics();
-
         setHitPointsRollOptions(this);
 
         // Stealth, which is the only skill hazards have
+        const system = this.system;
         this.skills = {
             stealth: new Statistic(this, {
                 slug: "stealth",
@@ -124,11 +122,19 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
                 check: { type: "skill-check" },
             }),
         };
+        const stealthSource = this._source.system.attributes.stealth;
+        this.system.attributes.stealth = fu.mergeObject(this.skills.stealth.getTraceData(), {
+            details: stealthSource.details.trim(),
+        });
+        if (stealthSource.value === null) {
+            const traceData = this.system.attributes.stealth;
+            traceData.value = traceData.dc = traceData.totalModifier = null;
+        }
 
         // Initiative
-        if (system.attributes.initiative) {
-            this.initiative = new ActorInitiative(this, { statistic: "stealth" });
-            system.attributes.initiative = this.initiative.getTraceData();
+        if (system.initiative) {
+            this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
+            system.initiative = this.initiative.getTraceData();
         }
 
         // Armor Class
@@ -169,7 +175,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
     }
 
     private prepareSaves(): { [K in SaveType]?: Statistic } {
-        const { system } = this;
+        const system = this.system;
 
         // Saving Throws
         return SAVE_TYPES.reduce((saves: { [K in SaveType]?: Statistic }, saveType) => {

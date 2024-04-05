@@ -105,6 +105,8 @@ declare global {
          */
         get(module: "core", key: "compendiumConfiguration"): Record<string, { private: boolean; locked: boolean }>;
         get(module: "core", key: "defaultToken"): Partial<foundry.data.PrototypeTokenSource>;
+        get(module: "core", key: "fontSize"): number;
+        get(module: "core", key: "noCanvas"): boolean;
         get(module: "core", key: "rollMode"): RollMode;
         get(module: string, key: string): unknown;
 

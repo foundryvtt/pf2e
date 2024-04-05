@@ -15,7 +15,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
         return {
             finalDamage: roll.total,
             applications: [],
-            persistent: roll.instances.filter((i) => i.persistent && !i.options.evaluatePersistent),
+            persistent: roll.instances.filter(
+                (i): i is Rolled<DamageInstance> => i.persistent && !i.options.evaluatePersistent,
+            ),
         };
     }
 
@@ -56,16 +58,16 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 return [{ category: "immunity", type: immunity.label, adjustment: -1 * instanceTotal }];
             }
 
+            const instanceApplications: IWRApplication[] = [];
+
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
             const critImmunity = immunities.find((i) => i.type === "critical-hits");
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
-            const critImmuneTotal = isCriticalSuccess ? instance.critImmuneTotal : instanceTotal;
-
-            const instanceApplications: IWRApplication[] = [];
+            const critImmuneTotal = instance.critImmuneTotal;
+            const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
 
             // If the total was undoubled, log it as an immunity application
-            const critImmunityApplies = critImmunity && critImmuneTotal < instanceTotal;
             if (critImmunityApplies) {
                 instanceApplications.push({
                     category: "immunity",
@@ -75,19 +77,21 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             }
 
             const precisionImmunity = immunities.find((i) => i.type === "precision");
-            const precisionDamage = Math.min(instance.componentTotal("precision"), critImmuneTotal);
-
+            const precisionDamage = critImmunityApplies
+                ? Math.floor(instance.componentTotal("precision") / 2)
+                : instance.componentTotal("precision");
             if (precisionDamage > 0 && precisionImmunity?.test([...formalDescription, "damage:component:precision"])) {
                 // If the creature is immune to both critical hits and precision damage, precision immunity will only
                 // reduce damage by half the precision damage dealt (with critical-hit immunity effectively reducing
                 // the other half).
-                const adjustedPrecisionDamage = critImmunityApplies ? Math.floor(precisionDamage / 2) : precisionDamage;
-                const adjustment = -1 * Math.min(critImmuneTotal, adjustedPrecisionDamage);
-                instanceApplications.push({
-                    category: "immunity",
-                    type: precisionImmunity.applicationLabel,
-                    adjustment,
-                });
+                const maxReducible = critImmunityApplies ? critImmuneTotal : instanceTotal;
+                if (maxReducible > 0) {
+                    instanceApplications.push({
+                        category: "immunity",
+                        type: precisionImmunity.applicationLabel,
+                        adjustment: -1 * Math.min(precisionDamage, maxReducible),
+                    });
+                }
             }
 
             const afterImmunities = Math.max(
@@ -133,23 +137,24 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                     ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
                 }));
             const criticalResistance = resistances.find((r) => r.type === "critical-hits");
-            if (criticalResistance && critImmuneTotal < instanceTotal) {
-                applicableResistances.push({
-                    label: criticalResistance.applicationLabel,
-                    value: Math.min(
-                        criticalResistance.getDoubledValue(formalDescription),
-                        instanceTotal - critImmuneTotal,
-                    ),
-                    ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
-                });
+            if (criticalResistance && isCriticalSuccess) {
+                const maxResistable = instanceTotal - critImmuneTotal;
+                if (maxResistable > 0) {
+                    applicableResistances.push({
+                        label: criticalResistance.applicationLabel,
+                        value: Math.min(criticalResistance.getDoubledValue(formalDescription), maxResistable),
+                        ignored: ignoredResistances.some((ir) => ir.test(formalDescription)),
+                    });
+                }
             }
 
             const precisionResistance = ((): { label: string; value: number; ignored: boolean } | null => {
-                const resistance = precisionDamage > 0 ? resistances.find((r) => r.type === "precision") : null;
+                const resistance =
+                    precisionDamage > 0 && !precisionImmunity ? resistances.find((r) => r.type === "precision") : null;
                 return resistance
                     ? {
                           label: resistance.applicationLabel,
-                          value: Math.min(resistance.value, precisionDamage),
+                          value: Math.min(resistance.getDoubledValue(formalDescription), precisionDamage),
                           ignored: false,
                       }
                     : null;
@@ -221,7 +226,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 interface IWRApplicationData {
     finalDamage: number;
     applications: IWRApplication[];
-    persistent: DamageInstance[];
+    persistent: Rolled<DamageInstance>[];
 }
 
 interface UnaffectedApplication {

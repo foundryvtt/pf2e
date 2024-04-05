@@ -28,7 +28,24 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:dip:rank",
+                            3
+                        ]
+                    },
+                    "action:gather-information"
+                ],
+                "selector": "diplomacy"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -12,6 +12,11 @@ declare class Sidebar extends Application {
     get popouts(): Application[];
 
     /**
+     * Return the name of the active Sidebar tab
+     */
+    get activeTab(): string;
+
+    /**
      * Activate a Sidebar tab by it's name
      * @param tabName   The tab name corresponding to it's "data-tab" attribute
      */

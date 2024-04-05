@@ -40,8 +40,8 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
-        type ActionCollection = Record<string, Function> & Map<string, Action>;
-        const actions = new Map<string, Action>(
+        type ActionCollection = Record<string, Function> & Collection<Action>;
+        const actions = new Collection<Action>(
             SystemActions.map((action) => [action.slug, action]),
         ) as ActionCollection;
         // keep the old action functions around until everything has been converted
@@ -101,14 +101,32 @@ export const SetGamePF2e = {
             variantRules: { AutomaticBonusProgression },
         };
         game.pf2e = fu.mergeObject(game.pf2e ?? {}, initSafe);
-        game.pf2e.ConditionManager.initialize();
         game.pf2e.settings = {
+            automation: {
+                flanking: game.settings.get("pf2e", "automation.flankingDetection"),
+            },
             campaign: {
-                enabled: game.settings.get("pf2e", "campaignFeats"),
-                sections: game.settings.get("pf2e", "campaignFeatSections"),
+                feats: {
+                    enabled: game.settings.get("pf2e", "campaignFeats"),
+                    sections: game.settings.get("pf2e", "campaignFeatSections"),
+                },
+                languages: game.settings.get("pf2e", "homebrew.languageRarities"),
+            },
+            critFumble: {
+                buttons: game.settings.get("pf2e", "critFumbleButtons"),
+                cards: game.settings.get("pf2e", "drawCritFumble"),
             },
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
+            gmVision: game.settings.get("pf2e", "gmVision"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
+            metagame: {
+                breakdowns: game.settings.get("pf2e", "metagame_showBreakdowns"),
+                dcs: game.settings.get("pf2e", "metagame_showDC"),
+                secretChecks: game.settings.get("pf2e", "metagame_secretChecks"),
+                partyStats: game.settings.get("pf2e", "metagame_showPartyStats"),
+                partyVision: game.settings.get("pf2e", "metagame_partyVision"),
+                results: game.settings.get("pf2e", "metagame_showResults"),
+            },
             rbv: game.settings.get("pf2e", "automation.rulesBasedVision"),
             tokens: {
                 autoscale: game.settings.get("pf2e", "tokens.autoscale"),

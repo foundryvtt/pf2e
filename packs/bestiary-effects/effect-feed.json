@@ -3,11 +3,15 @@
     "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
     "name": "Effect: Feed",
     "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
         "description": {
             "value": "<p>The creature gains a status bonus to its checks and DCs depending on how often it used the Feed ability.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,35 +26,10 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "1",
-                        "value": 1
-                    },
-                    {
-                        "label": "2",
-                        "value": 2
-                    },
-                    {
-                        "label": "3",
-                        "value": 3
-                    }
-                ],
-                "flag": "feedCount",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.NPCAbility.BarghestFeed"
-            },
-            {
                 "key": "FlatModifier",
-                "selector": [
-                    "attack",
-                    "saving-throw",
-                    "skill-check",
-                    "spell-attack",
-                    "spell-dc"
-                ],
+                "selector": "all",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.feedCount}"
+                "value": "@item.badge.value"
             }
         ],
         "start": {

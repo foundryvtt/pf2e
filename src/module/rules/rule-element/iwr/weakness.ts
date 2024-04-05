@@ -2,7 +2,7 @@ import { Weakness } from "@actor/data/iwr.ts";
 import { WeaknessType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
 import * as R from "remeda";
-import { ModelPropsFromRESchema, ResolvableValueField } from "../data.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleValue } from "../data.ts";
 import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 
 /** @category RuleElement */
@@ -61,6 +61,8 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
 }
 
 interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelPropsFromRESchema<WeaknessRuleSchema> {
+    value: RuleValue;
+
     // Just a string at compile time, but ensured by parent class at runtime
     type: WeaknessType[];
 

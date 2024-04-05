@@ -1,0 +1,42 @@
+{
+    "_id": "ycalVFivloJ14yhA",
+    "img": "icons/tools/instruments/drum-brown-red.webp",
+    "name": "Effect: Resounding Finale",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Resounding Finale]</p>\n<p>All allies that had been benefiting from the spell's effects gain sonic resistance against the triggering damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 16
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "sonic",
+                "value": "2*(ceil(@item.origin.level/2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

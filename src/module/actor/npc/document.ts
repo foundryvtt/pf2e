@@ -1,22 +1,22 @@
 import { CreaturePF2e } from "@actor";
-import { Abilities, CreatureSkills } from "@actor/creature/data.ts";
-import { SIZE_TO_REACH } from "@actor/creature/values.ts";
+import type { Abilities } from "@actor/creature/data.ts";
 import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { AttributeString, SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
-import { ItemType } from "@item/base/data/index.ts";
+import type { AttributeString, SaveType } from "@actor/types.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
+import type { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
+import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/recall-knowledge.ts";
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene/index.ts";
-import { ArmorStatistic, Statistic } from "@system/statistic/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
+import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
-import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
-import { VariantCloneParams } from "./types.ts";
+import * as R from "remeda";
+import type { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
+import type { VariantCloneParams } from "./types.ts";
 
 class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends CreaturePF2e<TParent> {
     declare initiative: ActorInitiative;
@@ -54,11 +54,6 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         return creatureIdentificationDCs(this, { pwol });
     }
 
-    get isLootable(): boolean {
-        const npcsAreLootable = game.settings.get("pf2e", "automation.lootableNPCs");
-        return this.isDead && (npcsAreLootable || this.flags.pf2e.lootable);
-    }
-
     /** A user can see an unlinked NPC in the actor directory only if they have at least Observer permission */
     override get visible(): boolean {
         return (
@@ -67,9 +62,14 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         );
     }
 
-    /** Users with limited permission can loot a dead NPC */
+    /** Non-owning users may be able to loot a dead NPC. */
     override canUserModify(user: User, action: UserAction): boolean {
-        return super.canUserModify(user, action) || (action === "update" && this.isLootable);
+        return (
+            super.canUserModify(user, action) ||
+            (action === "update" &&
+                this.isDead &&
+                (this.flags.pf2e.lootable || game.settings.get("pf2e", "automation.lootableNPCs")))
+        );
     }
 
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
@@ -78,33 +78,38 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         this.flags.pf2e.lootable ??= false;
 
-        const systemData = this.system;
-        systemData.actions = [];
+        this.system.actions = [];
         for (const key of SAVE_TYPES) {
-            systemData.saves[key].ability = CONFIG.PF2E.savingThrowDefaultAttributes[key];
+            this.system.saves[key].attribute = CONFIG.PF2E.savingThrowDefaultAttributes[key];
         }
 
-        const { attributes, details } = systemData;
-        attributes.perception.ability = "wis";
-        attributes.reach = {
-            base: SIZE_TO_REACH[this.size],
-            manipulate: SIZE_TO_REACH[this.size],
-        };
+        const { attributes, details } = this.system;
 
         if (details.alliance === undefined) {
             details.alliance = this.hasPlayerOwner ? "party" : "opposition";
         }
 
         // Ensure undead have negative healing
-        attributes.hp.negativeHealing = systemData.traits.value.includes("undead");
+        attributes.hp.negativeHealing = this.system.traits.value.includes("undead");
 
         // Exclude troops from being flankable
-        attributes.flanking.flankable = !systemData.traits.value.includes("troop");
+        attributes.flanking.flankable = !this.system.traits.value.includes("troop");
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
-        const { level } = details;
+        const level = details.level;
         level.base = Math.clamped(level.value, -1, 100);
-        level.value = this.isElite ? level.base + 1 : this.isWeak ? level.base - 1 : level.base;
+
+        // Elite: Increase the creature's level by 1; if the creature is -1 or 0, instead increase its level by 2
+        // Weak : Decrease the creature's level by 1; if the creature is level 1, instead decrease its level by 2
+        level.value = this.isElite
+            ? level.base < 1
+                ? level.base + 2
+                : level.base + 1
+            : this.isWeak
+              ? level.base === 1
+                  ? level.base - 2
+                  : level.base - 1
+              : level.base;
         this.rollOptions.all[`self:level:${level.value}`] = true;
 
         attributes.spellDC = null;
@@ -122,13 +127,11 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
-        const { system } = this;
 
-        // Extract as separate variables for easier use in this method.
-        const { synthetics } = this;
-        const { modifierAdjustments } = synthetics;
-        const baseLevel = this.system.details.level.base;
-        this.synthetics.modifiers.hp ??= [];
+        const { system, synthetics } = this;
+        const modifierAdjustments = synthetics.modifierAdjustments;
+        const baseLevel = system.details.level.base;
+        synthetics.modifiers.hp ??= [];
 
         if (this.isElite) {
             modifierAdjustments.all.push({
@@ -136,7 +139,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base + 2,
                 test: () => true,
             });
-            this.synthetics.modifiers.hp.push(
+            synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.EliteLabel",
@@ -150,7 +153,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 getNewValue: (base: number) => base - 2,
                 test: () => true,
             });
-            this.synthetics.modifiers.hp.push(
+            synthetics.modifiers.hp.push(
                 () =>
                     new ModifierPF2e(
                         "PF2E.NPC.Adjustment.WeakLabel",
@@ -161,16 +164,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         }
         system.details.level.base = baseLevel;
 
-        for (const ability of Object.values(this.system.abilities)) {
-            ability.mod = Math.trunc(Number(ability.mod)) || 0;
+        for (const attribute of Object.values(system.abilities)) {
+            attribute.mod = Math.trunc(Number(attribute.mod)) || 0;
         }
 
         // Hit Points
         {
             const base = system.attributes.hp.max;
             const modifiers: ModifierPF2e[] = [
-                extractModifiers(this.synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
-                extractModifiers(this.synthetics, ["hp-per-level"], {
+                extractModifiers(synthetics, ["hp"], { test: this.getRollOptions(["hp"]) }),
+                extractModifiers(synthetics, ["hp-per-level"], {
                     test: this.getRollOptions(["hp-per-level"]),
                 }).map((modifier) => {
                     modifier.modifier *= this.level;
@@ -209,14 +212,16 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             details: system.attributes.ac.details,
         });
         this.armorClass = armorStatistic.dc;
-        this.system.attributes.ac = armorStatistic.getTraceData();
+        system.attributes.ac = fu.mergeObject(armorStatistic.getTraceData(), {
+            attribute: armorStatistic.attribute ?? "dex",
+        });
 
         this.prepareSaves();
 
         // Perception
         {
             const domains = ["perception", "wis-based", "all"];
-            this.perception = new Statistic(this, {
+            this.perception = new PerceptionStatistic(this, {
                 slug: "perception",
                 label: "PF2E.PerceptionLabel",
                 attribute: "wis",
@@ -225,46 +230,70 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                     new ModifierPF2e({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
-                        modifier: system.attributes.perception.value,
+                        modifier: system.perception.mod,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
                 check: { type: "perception-check" },
+                senses: system.perception.senses,
+                vision: system.perception.vision,
             });
-            system.attributes.perception = fu.mergeObject(
-                system.attributes.perception,
-                this.perception.getTraceData({ value: "mod" }),
-            );
+            system.perception = fu.mergeObject(this.perception.getTraceData(), {
+                attribute: this.perception.attribute ?? "wis",
+                details: system.perception.details,
+                mod: this.perception.mod,
+            });
         }
 
         this.skills = this.prepareSkills();
+        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
+        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
+        this.system.skills = R.mapToObj(Object.values(this.skills), (statistic) => [
+            objectHasKey(SKILL_DICTIONARY_REVERSE, statistic.slug)
+                ? SKILL_DICTIONARY_REVERSE[statistic.slug]
+                : statistic.slug,
+            {
+                ...statistic.getTraceData(),
+                base: loreItems[statistic.slug]?.system.mod.value ?? 0,
+                itemId: loreItems[statistic.slug]?.id ?? null,
+                lore: !!statistic.lore,
+                mod: statistic.check.mod,
+                variants: Object.values(loreItems[statistic.slug]?.system.variants ?? {}),
+                visible: statistic.proficient,
+            },
+        ]);
 
-        // process strikes.
-        const generatedMelee = Array.from(synthetics.strikes.values()).flatMap((w) => w.toNPCAttacks({ keepId: true }));
-        for (const item of [...this.itemTypes.melee, ...generatedMelee]) {
+        // Process strikes
+        const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s())), (w) => w.slug);
+        const generatedMelee = syntheticWeapons.flatMap((w) => w.toNPCAttacks({ keepId: true }));
+        const meleeItems = R.sortBy(
+            [this.itemTypes.melee, generatedMelee].flat(),
+            (m) => m.name,
+            (m) => m.sort,
+        );
+        for (const item of meleeItems) {
             system.actions.push(strikeFromMeleeItem(item));
         }
 
         // Initiative
-        const initiativeSkill = system.attributes.initiative?.statistic || "perception";
-        this.initiative = new ActorInitiative(this, { statistic: initiativeSkill });
-        this.system.attributes.initiative = this.initiative.getTraceData();
+        this.initiative = new ActorInitiative(this, R.pick(system.initiative, ["statistic", "tiebreakPriority"]));
+        system.initiative = this.initiative.getTraceData();
     }
 
     private prepareSaves(): void {
-        const systemData = this.system;
-        const { modifierAdjustments } = this.synthetics;
+        const system = this.system;
+        const modifierAdjustments = this.synthetics.modifierAdjustments;
 
         // Saving Throws
         const saves: Partial<Record<SaveType, Statistic>> = {};
         for (const saveType of SAVE_TYPES) {
-            const save = systemData.saves[saveType];
+            const save = system.saves[saveType];
             const saveName = game.i18n.localize(CONFIG.PF2E.saves[saveType]);
             const base = save.value;
-            const ability = save.ability;
+            const attribute = save.attribute;
+            const domains = [saveType, `${attribute}-based`, "saving-throw", "all"];
 
-            const domains = [saveType, `${ability}-based`, "saving-throw", "all"];
-            const stat = new Statistic(this, {
+            const statistic = new Statistic(this, {
                 slug: saveType,
                 label: saveName,
                 domains: domains,
@@ -281,102 +310,51 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 },
             });
 
-            saves[saveType] = stat;
-            fu.mergeObject(this.system.saves[saveType], stat.getTraceData());
-            systemData.saves[saveType].base = base;
+            saves[saveType] = statistic;
+            fu.mergeObject(this.system.saves[saveType], statistic.getTraceData());
+            system.saves[saveType].base = base;
         }
 
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    private prepareSkills(): CreatureSkills {
-        const { system } = this;
-        const { modifierAdjustments } = this.synthetics;
+    private prepareSkills(): Record<string, Statistic<this>> {
+        const modifierAdjustments = this.synthetics.modifierAdjustments;
 
-        // Internal function to create trace data, since NPCs still use the lore item type
-        system.skills = {};
-        function createTrace(stat: Statistic, item?: LorePF2e<NPCPF2e>) {
-            const { attribute, shortForm } = objectHasKey(SKILL_EXPANDED, stat.slug)
-                ? SKILL_EXPANDED[stat.slug]
-                : { attribute: "int" as AttributeString, shortForm: stat.slug };
-            system.skills[shortForm] = {
-                ...stat.getTraceData(),
-                base: item?.system.mod.value,
-                isLore: !!stat.lore,
-                itemID: item?.id,
-                ability: attribute,
-                visible: stat.proficient,
-                variants: Object.values(item?.system.variants ?? {}),
-            };
-        }
+        const trainedSkills = R.mapToObj(this.itemTypes.lore, (s) => [sluggify(s.name), s]);
+        const coreSkillSlugs = Array.from(SKILL_LONG_FORMS);
+        const skillOrNull = {
+            ...R.mapToObj(coreSkillSlugs, (s) => [s, trainedSkills[s] ?? null]),
+            ...R.omit(trainedSkills, coreSkillSlugs),
+        };
+        const slugToAttribute: Record<string, { attribute: AttributeString }> = SKILL_EXPANDED;
 
-        // Create default "untrained" skills for all basic types first
-        const skills: Partial<CreatureSkills> = {};
-        for (const skill of SKILL_LONG_FORMS) {
-            const { attribute, shortForm } = SKILL_EXPANDED[skill];
-            const domains = [skill, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
-            const name = game.i18n.localize(`PF2E.Skill${SKILL_DICTIONARY[shortForm].capitalize()}`);
+        return R.mapValues(skillOrNull, (item, slug) => {
+            const { label, attribute, lore } =
+                slug in slugToAttribute
+                    ? { label: CONFIG.PF2E.skillList[slug], attribute: slugToAttribute[slug].attribute, lore: false }
+                    : { label: item?.name ?? "", attribute: "int" as const, lore: true };
 
-            const statistic = new Statistic(this, {
-                slug: skill,
-                label: name,
-                attribute,
-                domains,
-                modifiers: [
-                    new ModifierPF2e({
-                        slug: "base",
-                        label: "PF2E.ModifierTitle",
-                        modifier: system.abilities[attribute].mod,
-                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
-                    }),
-                ],
-                lore: false,
-                proficient: false,
-                check: { type: "skill-check" },
-            });
+            const domains = [slug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
 
-            skills[skill] = statistic;
-            createTrace(statistic);
-        }
-
-        for (const item of this.itemTypes.lore) {
-            // override untrained skills if defined in the NPC data
-            const skill = sluggify(item.name); // normalize skill name to lower-case and dash-separated words
-            const attribute = objectHasKey(SKILL_EXPANDED, skill) ? SKILL_EXPANDED[skill].attribute : "int";
-            const label = objectHasKey(CONFIG.PF2E.skillList, skill) ? CONFIG.PF2E.skillList[skill] : item.name;
-
-            const base = item.system.mod.value;
-            const domains = [
-                skill,
-                `${attribute}-based`,
-                "skill-check",
-                "lore-skill-check",
-                `${attribute}-skill-check`,
-                "all",
-            ];
-
-            const statistic = new Statistic(this, {
-                slug: skill,
+            return new Statistic(this, {
+                slug,
                 label,
                 attribute,
-                lore: !objectHasKey(SKILL_EXPANDED, skill),
                 domains,
                 modifiers: [
                     new ModifierPF2e({
                         slug: "base",
                         label: "PF2E.ModifierTitle",
-                        modifier: base,
+                        modifier: item?.system.mod.value ?? this.system.abilities[attribute].mod,
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
+                lore,
+                proficient: !!item,
                 check: { type: "skill-check" },
             });
-
-            skills[skill] = statistic;
-            createTrace(statistic, item);
-        }
-
-        return skills as CreatureSkills;
+        });
     }
 
     async getAttackEffects(attack: MeleePF2e): Promise<RollNotePF2e[]> {
@@ -425,7 +403,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 // Get description from the bestiary glossary compendium.
                 const compendium = game.packs.get("pf2e.bestiary-ability-glossary-srd", { strict: true });
                 const packItem = (await compendium.getDocuments({ system: { slug: attackEffect } }))[0];
-                if (packItem instanceof ItemPF2e) {
+                if (packItem instanceof Item) {
                     const note = new RollNotePF2e({
                         selector: "all",
                         visibility: "gm",

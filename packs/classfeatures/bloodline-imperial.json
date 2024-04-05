@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>One of your ancestors was a mortal who mastered magic. Such magical blood can remain latent for generations, but in you it manifested in full.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Society</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Haste]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Translocate]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Disintegrate]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Quandary]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Sphere]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ancestral Memories]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Extend Spell]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Arcane Countermeasure]</em></p>\n<p><strong>Blood Magic</strong> A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]</p>"
+            "value": "<p>One of your ancestors was a mortal who mastered magic. Such magical blood can remain latent for generations, but in you it manifested in full.</p>\n<p><strong>Spell List</strong> arcane</p>\n<p><strong>Bloodline Skills</strong> Arcana, Society</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Haste], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Translocate], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Disintegrate], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Spray], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Quandary], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Sphere]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Memories], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Extend Spell], greater: @UUID[Compendium.pf2e.spells-srd.Item.Arcane Countermeasure]</p>\n<p><strong>Blood Magic</strong> A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,55 @@
                 "mode": "upgrade",
                 "path": "system.skills.soc.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:arcane",
+                                    {
+                                        "or": [
+                                            "item:slug:force-barrage",
+                                            "item:slug:dispel-magic",
+                                            "item:slug:haste",
+                                            "item:slug:translocate",
+                                            "item:slug:scouting-eye",
+                                            "item:slug:disintegrate",
+                                            "item:slug:prismatic-spray",
+                                            "item:slug:quandary",
+                                            "item:slug:prismatic-sphere"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Imperial",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]"
+                    }
+                ]
             }
         ],
         "traits": {

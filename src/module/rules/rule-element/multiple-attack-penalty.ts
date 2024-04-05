@@ -8,7 +8,8 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from 
  */
 class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
     static override defineSchema(): MAPRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({
@@ -28,7 +29,8 @@ class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema> {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        if (this.ignored || selector.length === 0) true;
+        if (this.ignored || selector.length === 0) return;
+
         const value = Number(this.resolveValue(this.value)) || 0;
         if (value < 0) {
             const label = game.i18n.format("PF2E.UI.RuleElements.MultipleAttackPenalty.Breakdown", {

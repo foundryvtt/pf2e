@@ -103,7 +103,7 @@ declare global {
 
         /** Handle dropping of Actor data onto the Scene canvas */
         protected _onDropActorData(
-            event: ElementDragEvent,
+            event: DragEvent,
             data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>,
         ): Promise<TToken["actor"]>;
 

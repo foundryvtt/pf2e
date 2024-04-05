@@ -256,7 +256,7 @@ declare global {
             initialContent?: string,
         ): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
 
-        override render(force?: boolean, options?: RenderOptions): this | Promise<this>;
+        override render(force?: boolean, options?: RenderOptions): this;
 
         protected override _renderOuter(options: RenderOptions): Promise<JQuery>;
 

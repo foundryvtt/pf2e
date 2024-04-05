@@ -1,51 +1,215 @@
 // Spellcasting Preparation Sheet Styling
-.spellcasting-entry.preparation {
+.spellcasting-entry.preparation > .window-content {
     @import "../reset";
-    @import "spell-collection";
 
     form {
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: 4px;
+        padding: 0 var(--space-4) var(--space-4);
     }
 
-    .sheet-header {
+    form > header {
         align-items: baseline;
         display: block;
         flex: 0;
+        margin-bottom: 0.5em;
 
         h1 {
             display: flex;
             flex: 1;
-            overflow: hidden;
             font-family: var(--serif-condensed);
             font-weight: 700;
-            white-space: nowrap;
             justify-content: space-between;
+            overflow: hidden;
+            padding-right: var(--space-4);
+            white-space: nowrap;
         }
 
         p.hint {
             margin: auto auto 0.5em;
         }
 
-        .item-controls {
+        .flexible-available {
             flex: 0;
             white-space: nowrap;
-        }
-
-        .search {
-            margin-bottom: 0.5em;
         }
     }
 
     .sheet-content {
-        overflow: hidden scroll;
-        padding-bottom: 1em;
-        padding-right: 6px; // easier resize gripping
+        display: flex;
+        overflow: hidden auto;
+        padding: 0 var(--space-3) 1em 0; // easier resize gripping
+        scrollbar-gutter: stable;
+    }
 
-        .item-image {
-            cursor: pointer;
+    ol.spell-list {
+        height: fit-content;
+        display: flex;
+        flex-basis: 100%;
+        flex-flow: column nowrap;
+        gap: var(--space-1);
+        height: fit-content;
+        margin: 0;
+        padding: 0;
+
+        > li {
+            --range-uses-width: 4rem;
+            --controls-width: 2.25rem;
+            align-items: center;
+            display: grid;
+            gap: var(--space-4);
+            grid-template-columns: 1fr 6rem var(--range-uses-width) var(--controls-width);
+            margin: 0;
+
+            > * {
+                align-items: center;
+                justify-self: center;
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            &:nth-child(odd) {
+                background-color: rgba($alt-color, 0.1);
+            }
+
+            &:nth-child(even) .item-summary {
+                background: none;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid var(--sub);
+            }
+
+            &.header-row {
+                background: rgba($sub-color, 0.25);
+                border: 1px solid var(--color-border-light-2);
+                border-radius: 2px;
+                font: 500 var(--font-size-12) var(--sans-serif);
+                line-height: 1.75rem;
+                margin-bottom: 0.125em;
+                padding: 0 0.25em;
+
+                &:not(:first-child) {
+                    margin-top: 0.125em;
+                }
+
+                .item-name {
+                    padding-left: 0.2em;
+                    font-weight: 700;
+                    text-transform: capitalize;
+                }
+
+                .invisible {
+                    visibility: hidden;
+                }
+
+                .item-controls {
+                    gap: 0.125rem;
+                    padding-right: 0.25em;
+                }
+            }
+
+            &.spell {
+                border: none;
+                font-size: var(--font-size-13);
+                padding: var(--space-3) var(--space-4);
+
+                // The lighter background gives an illusion of larger padding: tweak slightly
+                &:nth-child(even) {
+                    padding: var(--space-2) var(--space-4);
+                }
+            }
+
+            .item-name {
+                justify-self: start;
+                width: 100%;
+
+                h3 {
+                    white-space: nowrap;
+                }
+
+                + span {
+                    font-size: var(--font-size-12);
+                }
+
+                .item-image {
+                    display: flex;
+                    flex: 0 0 1.5rem;
+                    height: 1.5rem;
+                    position: relative;
+
+                    &,
+                    i {
+                        @include frame-icon;
+                    }
+
+                    i {
+                        align-items: center;
+                        background: #f1eee9;
+                        color: var(--text-dark);
+                        display: none;
+                        font-size: var(--font-size-16);
+                        height: 100%;
+                        justify-content: center;
+                        position: absolute;
+                        width: 100%;
+                    }
+
+                    &:hover {
+                        text-shadow: none;
+
+                        i {
+                            display: flex;
+                        }
+                    }
+                }
+
+                h4 {
+                    @include p-reset;
+                    font: 500 var(--font-size-14) / 1 var(--body-serif);
+                    letter-spacing: -0.025em;
+                    margin-left: 0.5em;
+
+                    > a:hover {
+                        color: var(--color-pf-secondary);
+                        text-shadow: none;
+                    }
+                }
+
+                .action-glyph {
+                    margin-left: var(--space-2);
+                    font-size: small;
+                }
+            }
+
+            .item-controls {
+                justify-content: end;
+                justify-self: end;
+            }
+
+            .item-summary {
+                background-color: rgba($light-background-color, 0.5);
+                border-bottom: 1px solid var(--sub);
+                border-top: 1px solid lighten($sub-color, 30);
+                display: block;
+                grid-column: span 5;
+                padding: var(--space-4) 0 var(--space-8);
+                width: 100%;
+            }
+
+            .item-summary {
+                padding: var(--space-4);
+            }
+        }
+
+        &.flexible > li {
+            --controls-width: 3.5rem;
+
+            input {
+                margin: 0 var(--space-2) 0 0;
+                flex: 0 0 var(--font-size-17);
+            }
         }
     }
 }

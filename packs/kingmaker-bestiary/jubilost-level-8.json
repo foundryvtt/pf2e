@@ -329,7 +329,7 @@
                     "uuid": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
                 },
                 "description": {
-                    "value": "<p>The blood of the fey is so strong within you that you're truly one of them. You gain the fey trait, in addition to the gnome and humanoid traits. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up. You can change this cantrip to a different one from the same list once per day by meditating to realign yourself with the First World; this is a 10-minute activity that has the concentrate trait.</p>"
+                    "value": "<p>The blood of the fey is so strong within you that you're truly one of them. You gain the fey trait, in addition to the gnome and humanoid traits. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up. You can change this cantrip to a different one from the same list once per day by meditating to realign yourself with the First World; this is a 10-minute activity that has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1450,7 +1450,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.Du05UxCyCM0ZWH8z"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/oil.webp",
+            "img": "icons/consumables/potions/potion-bottle-labeled-medicine-capped-red-black.webp",
             "name": "Oil (1 pint)",
             "sort": 0,
             "system": {
@@ -1642,7 +1642,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -1659,71 +1658,7 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 0,
@@ -2003,7 +1938,7 @@
                 },
                 "containerId": null,
                 "description": {
-                    "value": "<p>Before it's activated, this item appears to be an ash rod capped with steel on either end.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">D</span> Interact, envision</p>\n<hr />\n<p><strong>Effect</strong> You imagine a specific simple tool, and the any-tool transforms into it. (Usually, you can choose from a tool listed in Chapter 6). This transforms the wooden portion into any haft and the metal caps into spades, hammer heads, or the like, allowing for most basic tools but nothing more complex. You can return the item to its rod form with an Interact action.</p>"
+                    "value": "<p>Before it's activated, this item appears to be an ash rod capped with steel on either end.</p>\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact, envision</p>\n<hr />\n<p><strong>Effect</strong> You imagine a specific simple tool, and the any-tool transforms into it. (Usually, you can choose from a tool listed in Chapter 6). This transforms the wooden portion into any haft and the metal caps into spades, hammer heads, or the like, allowing for most basic tools but nothing more complex. You can return the item to its rod form with an Interact action.</p>"
                 },
                 "equipped": {
                     "carryType": "worn",
@@ -2275,7 +2210,7 @@
                 },
                 "category": "ancestry",
                 "description": {
-                    "value": "<p>Your connection to the First World grants you a primal innate spell, much like those of the fey. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell level equal to half your level rounded up.</p>"
+                    "value": "<p>Your connection to the First World grants you a primal innate spell, much like those of the fey. Choose one cantrip from the primal spell list. You can cast this spell as a primal innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</p>"
                 },
                 "level": {
                     "taken": 5,
@@ -2790,8 +2725,34 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.max",
+                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "priority": 19,
+                        "value": 0
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.multilingualTaken",
+                        "value": 1
+                    }
+                ],
                 "slug": "multilingual",
+                "subfeatures": {
+                    "languages": {
+                        "granted": [],
+                        "slots": 2
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -2883,7 +2844,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and [[/r (@item.level)d4[persistent,fire]]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 2d4 fire damage. On a critical success, the target takes double damage and @Damage[(@item.level)d4[persistent,fire]] damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the persistent damage on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3330,19 +3291,19 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perpetual Infusions"
                     },
                     "0q0he": {
-                        "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
                         "level": 13,
                         "name": "Alchemist Armor Expertise (Level 13)",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alchemist Armor Expertise (Level 13)"
                     },
                     "17vbv": {
-                        "img": "systems/pf2e/icons/features/classes/alchemical-alarity.webp",
+                        "img": "icons/consumables/potions/potion-flash-open-blue.webp",
                         "level": 15,
                         "name": "Alchemical Alacrity",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Alacrity"
                     },
                     "4bdrn": {
-                        "img": "systems/pf2e/icons/features/classes/alchemy.webp",
+                        "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
                         "level": 1,
                         "name": "Alchemy",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alchemy"
@@ -3444,7 +3405,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Alchemy"
                     },
                     "yy1uz": {
-                        "img": "systems/pf2e/icons/features/classes/alchemical-mastery.webp",
+                        "img": "icons/tools/cooking/mortar-stone-yellow.webp",
                         "level": 17,
                         "name": "Alchemical Mastery",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Mastery"
@@ -3630,7 +3591,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/alchemy.webp",
+            "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
             "name": "Alchemy",
             "sort": 100,
             "system": {
@@ -3885,23 +3846,21 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
                         "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
                         "value": 2
                     }
                 ],
                 "slug": "alchemical-weapon-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3944,15 +3903,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.will.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "iron-will",
+                "subfeatures": {
+                    "proficiencies": {
+                        "will": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -4231,7 +4190,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/advanced-alchemy.webp",
+            "img": "icons/skills/toxins/poison-skull-herbs-bottle-pink.webp",
             "name": "Advanced Alchemy",
             "sort": 0,
             "system": {
@@ -4647,7 +4606,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         }
@@ -4662,9 +4621,6 @@
             "hp": {
                 "temp": 0,
                 "value": 104
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -4810,6 +4766,18 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "draconic",
+                    "elven",
+                    "hallit",
+                    "jotun",
+                    "kelish",
+                    "pyric"
+                ]
+            },
             "level": {
                 "value": 8
             },
@@ -4832,6 +4800,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -4909,25 +4880,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "draconic",
-                    "elven",
-                    "hallit",
-                    "jotun",
-                    "kelish",
-                    "pyric"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "chaotic"
-            ]
         }
     },
     "type": "character"

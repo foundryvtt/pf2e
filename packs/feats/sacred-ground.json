@@ -32,7 +32,38 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "divine-font:heal"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Cleric.SacredGround.Healing",
+                        "title": "PF2E.SpecificRule.Cleric.DivineFont.Healing"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "divine-font:harm"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Cleric.SacredGround.Harmful",
+                        "title": "PF2E.SpecificRule.Cleric.DivineFont.Harmful"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

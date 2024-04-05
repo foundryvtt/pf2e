@@ -1,8 +1,7 @@
 import { StrikeData } from "@actor/data/base.ts";
-import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { tagify, traitSlugToObject } from "@util";
-import { HazardSystemData } from "./data.ts";
+import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
 
@@ -11,7 +10,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const options = super.defaultOptions;
         fu.mergeObject(options, {
             classes: [...options.classes, "hazard"],
-            scrollY: [".container > section"],
+            scrollY: ["section.content"],
             width: 700,
             height: 680,
         });
@@ -38,17 +37,14 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const sheetData = await super.getData(options);
 
         sheetData.actor.flags.editHazard ??= { value: false };
-        const systemData: HazardSystemData = sheetData.data;
+        const system = sheetData.data;
         const actor = this.actor;
 
-        const { hasDefenses } = actor;
-        const hasImmunities = systemData.attributes.immunities.length > 0;
-        const hasResistances = systemData.attributes.resistances.length > 0;
-        const hasWeaknesses = systemData.attributes.weaknesses.length > 0;
+        const hasDefenses = actor.hasDefenses;
+        const hasImmunities = system.attributes.immunities.length > 0;
+        const hasResistances = system.attributes.resistances.length > 0;
+        const hasWeaknesses = system.attributes.weaknesses.length > 0;
         const hasIWR = hasDefenses || hasImmunities || hasResistances || hasWeaknesses;
-        const stealthMod = actor.system.attributes.stealth.value;
-        const stealthDC = typeof stealthMod === "number" ? stealthMod + 10 : null;
-        const hasStealthDescription = !!systemData.attributes.stealth?.details;
 
         // Enrich content
         const rollData = this.actor.getRollData();
@@ -57,14 +53,14 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
 
         sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
-            stealthDetails: await enrich(systemData.attributes.stealth.details),
-            description: await enrich(systemData.details.description),
-            disable: await enrich(systemData.details.disable),
-            routine: await enrich(systemData.details.routine),
-            reset: await enrich(systemData.details.reset),
+            stealthDetails: await enrich(system.attributes.stealth.details),
+            description: await enrich(system.details.description),
+            disable: await enrich(system.details.disable),
+            routine: await enrich(system.details.routine),
+            reset: await enrich(system.details.reset),
         });
 
-        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = systemData.actions;
+        const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = system.actions;
         const actorRollData = actor.getRollData();
         for (const attack of strikesWithDescriptions) {
             const itemRollData = attack.item.getRollData();
@@ -81,24 +77,22 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             ...sheetData,
             actions: this.#prepareActions(),
             editing: this.editing,
-            actorTraits: systemData.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
+            actorTraits: system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
             rarityLabel: CONFIG.PF2E.rarityTraits[this.actor.rarity],
-            brokenThreshold: systemData.attributes.hp.brokenThreshold,
-            stealthDC,
+            brokenThreshold: system.attributes.hp.brokenThreshold,
             saves: this.#prepareSaves(),
 
             // Hazard visibility, in order of appearance on the sheet
             hasDefenses,
-            hasHPDetails: !!systemData.attributes.hp.details.trim(),
+            hasHPDetails: !!system.attributes.hp.details,
             hasSaves: Object.keys(actor.saves ?? {}).length > 0,
             hasIWR,
-            hasStealth: stealthDC !== null || hasStealthDescription,
-            hasStealthDescription,
-            hasDescription: !!systemData.details.description?.trim(),
-            hasDisable: !!systemData.details.disable?.trim(),
-            hasRoutineDetails: !!systemData.details.routine?.trim(),
-            hasResetDetails: !!systemData.details.reset?.trim(),
+            hasStealth: system.attributes.stealth.dc !== null,
+            hasDescription: !!system.details.description?.trim(),
+            hasDisable: !!system.details.disable?.trim(),
+            hasRoutineDetails: !!system.details.routine?.trim(),
+            hasResetDetails: !!system.details.reset?.trim(),
         };
     }
 
@@ -145,46 +139,22 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
         }
+    }
 
-        // Toggle Edit mode
-        $html.find(".edit-mode-button").on("click", () => {
-            this.actor.setFlag("pf2e", "editHazard.value", !this.editing);
-        });
+    protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
+        const handlers = super.activateClickListener(html);
 
-        // Handlers for number inputs of properties subject to modification by AE-like rules elements
-        $html.find<HTMLInputElement>("input[data-property]").on("focus", (event) => {
-            const $input = $(event.target);
-            const propertyPath = $input.attr("data-property") ?? "";
-            const baseValue = Number(fu.getProperty(this.actor._source, propertyPath));
-            $input.val(baseValue).attr({ name: propertyPath });
-        });
+        handlers["toggle-edit-mode"] = () => {
+            return this.actor.update({ "flags.pf2e.editHazard.value": !this.editing });
+        };
 
-        $html.find<HTMLInputElement>("input[data-property]").on("blur", (event) => {
-            const $input = $(event.target);
-            $input.removeAttr("name").removeAttr("style").attr({ type: "text" });
-            const propertyPath = $input.attr("data-property") ?? "";
-            const valueAttr = $input.attr("data-value");
-            if (valueAttr) {
-                $input.val(valueAttr);
-            } else {
-                const preparedValue = Number(fu.getProperty(this.actor, propertyPath));
-                $input.val(preparedValue !== null && preparedValue >= 0 ? `+${preparedValue}` : preparedValue);
-            }
-        });
+        handlers["edit-section"] = (event) => {
+            const container = htmlClosest(event.target, ".section-container");
+            const name = htmlQuery(container, "[data-edit]")?.dataset.edit;
+            return name ? this.activateEditor(name) : null;
+        };
 
-        $html.find("[data-action=edit-section]").on("click", (event) => {
-            const $parent = $(event.target).closest(".section-container");
-            const name = $parent.find("[data-edit]").attr("data-edit");
-            if (name) {
-                this.activateEditor(name);
-            }
-        });
-
-        if (!this.options.editable) return;
-
-        $html.find<HTMLInputElement>(".isHazardEditable").on("change", (event) => {
-            this.actor.setFlag("pf2e", "editHazard", { value: event.target.checked });
-        });
+        return handlers;
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

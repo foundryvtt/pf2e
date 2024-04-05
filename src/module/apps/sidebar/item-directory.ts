@@ -1,5 +1,6 @@
 import { ItemPF2e } from "@item";
 import { fontAwesomeIcon, htmlQuery, htmlQueryAll } from "@util";
+import { ItemAttacher } from "../item-attacher.ts";
 
 /** Extend ItemDirectory to show more information */
 export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirectory<TItem> {
@@ -35,6 +36,38 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
         }
 
         return super._render(force, context);
+    }
+
+    /** Add `EntryContextOption` to attach physical items */
+    protected override _getEntryContextOptions(): EntryContextOption[] {
+        const options = super._getEntryContextOptions();
+
+        options.push({
+            name: "PF2E.Item.Physical.Attach.SidebarContextMenuOption",
+            icon: fontAwesomeIcon("paperclip").outerHTML,
+            condition: ($li) => {
+                const row = $li[0];
+                const item = game.items.get(row.dataset.documentId, { strict: true });
+                return (
+                    item.isOwner &&
+                    item.isOfType("physical") &&
+                    game.items.some((i) => i !== item && i.isOwner && i.isOfType("physical") && i.acceptsSubitem(item))
+                );
+            },
+            callback: ($li) => {
+                const row = $li[0];
+                const item = game.items.get(row.dataset.documentId, { strict: true });
+                if (
+                    item.isOwner &&
+                    item.isOfType("physical") &&
+                    game.items.some((i) => i !== item && i.isOwner && i.isOfType("physical") && i.acceptsSubitem(item))
+                ) {
+                    new ItemAttacher({ item }).render(true);
+                }
+            },
+        });
+
+        return options;
     }
 
     /** Append a button to open the compendium browser */

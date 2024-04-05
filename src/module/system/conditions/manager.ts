@@ -1,10 +1,10 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ConditionPF2e } from "@item";
 import { ConditionSource } from "@item/condition/data.ts";
 import { ConditionSlug } from "@item/condition/types.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import { ErrorPF2e, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
 
 /** A helper class to manage PF2e Conditions */
 export class ConditionManager {
@@ -19,21 +19,21 @@ export class ConditionManager {
         return [...this.conditions.keys()].filter((k) => !k.startsWith("Compendium."));
     }
 
-    static async initialize(force = false): Promise<void> {
-        if (!this.#initialized) {
-            this.conditions = new Map(
-                this.CONDITION_SOURCES?.flatMap((source) => {
-                    const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
-                    return [
-                        [condition.slug, condition],
-                        [condition.uuid, condition],
-                    ];
-                }) ?? [],
-            );
-            delete this.CONDITION_SOURCES;
-        }
+    static initialize(): void {
+        if (this.#initialized) return;
 
-        if ((!this.#initialized || force) && game.i18n.lang !== "en" && game.modules.get("babele")?.active) {
+        this.conditions = new Map(
+            this.CONDITION_SOURCES?.flatMap((source) => {
+                const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
+                return [
+                    [condition.slug, condition],
+                    [condition.uuid, condition],
+                ];
+            }) ?? [],
+        );
+        delete this.CONDITION_SOURCES;
+
+        if (game.i18n.lang !== "en") {
             const localize = localizer("PF2E.condition");
             for (const condition of this.conditions.values()) {
                 condition.name = condition._source.name = localize(`${condition.slug}.name`);
@@ -42,6 +42,7 @@ export class ConditionManager {
                 );
             }
         }
+
         this.#initialized = true;
     }
 
@@ -69,7 +70,7 @@ export class ConditionManager {
         actorOrToken: ActorPF2e | TokenPF2e,
         value: number,
     ): Promise<void> {
-        const actor = actorOrToken instanceof ActorPF2e ? actorOrToken : actorOrToken.actor;
+        const actor = "prototypeToken" in actorOrToken ? actorOrToken : actorOrToken.actor;
         const condition = actor?.items.get(itemId);
 
         if (condition?.isOfType("condition")) {

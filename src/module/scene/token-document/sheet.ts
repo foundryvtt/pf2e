@@ -55,18 +55,16 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         const linkToSizeButton = htmlQuery(html, "a[data-action=toggle-link-to-size]");
         linkToSizeButton?.addEventListener("click", async () => {
-            await this.token.update({
-                "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize,
-            });
+            await this.token.update({ "flags.pf2e.linkToActorSize": !this.token.flags.pf2e.linkToActorSize });
             this.#reestablishPrototype();
-            await this.render();
+            this.render();
         });
 
         const autoscaleButton = htmlQuery(html, "a[data-action=toggle-autoscale]");
         autoscaleButton?.addEventListener("click", async () => {
             await this.token.update({ "flags.pf2e.autoscale": !this.token.flags.pf2e.autoscale });
             this.#reestablishPrototype();
-            await this.render();
+            this.render();
         });
     }
 
@@ -101,9 +99,9 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     }
 
     #disableVisionInputs(html: HTMLElement): void {
-        const actorIsPCOrFamiliar = ["character", "familiar"].includes(this.actor?.type ?? "");
+        const isCreature = !!this.actor?.isOfType("creature");
         const rulesBasedVision =
-            actorIsPCOrFamiliar && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
+            isCreature && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
         if (!rulesBasedVision) return;
 
         const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
@@ -144,18 +142,21 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         const managedBy = document.createElement("a");
         managedBy.className = "managed-by-rbv";
+        if (!game.user.isGM) managedBy.classList.add("disabled");
         managedBy.append(fontAwesomeIcon("robot"));
-        managedBy.title = game.i18n
+        managedBy.dataset.tooltip = game.i18n
             .localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy")
             .replace(/<\/?rbv>/g, "");
         for (const sightInput of sightInputs) {
             const anchor = managedBy.cloneNode(true);
-            anchor.addEventListener("click", () => {
-                const menu = game.settings.menus.get("pf2e.automation");
-                if (!menu) throw ErrorPF2e("Automation Settings application not found");
-                const app = new menu.type();
-                app.render(true);
-            });
+            if (game.user.isGM) {
+                anchor.addEventListener("click", () => {
+                    const menu = game.settings.menus.get("pf2e.automation");
+                    if (!menu) throw ErrorPF2e("Automation Settings application not found");
+                    const app = new menu.type();
+                    app.render(true);
+                });
+            }
 
             const label = sightInput.closest(".form-group")?.querySelector("label");
             label?.append(anchor);

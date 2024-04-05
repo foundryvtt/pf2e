@@ -2,32 +2,7 @@
     min-width: 375px;
 }
 
-aside .sidebar {
-    .save-roll input[type="number"] {
-        width: 3ch;
-        font-size: var(--font-size-20);
-        height: 1.5rem;
-    }
-
-    .hitpoints .container {
-        display: grid;
-    }
-
-    .armor-class {
-        grid: "ac hardness" 1fr;
-
-        .shield {
-            padding: 18px 20px 0 20px;
-        }
-        .hardness {
-            background: url("/assets/sheet/shield-red.webp") no-repeat top center;
-        }
-    }
-
-    li.tag {
-        font-size: var(--font-size-10);
-    }
-}
+@import "sidebar";
 
 header.char-header {
     .tags select {
@@ -53,6 +28,23 @@ header.char-header {
         ol.actions-list li.action .icon {
             height: var(--font-size-18);
             width: var(--font-size-18);
+        }
+
+        .tracking {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+
+            input {
+                width: 0;
+                flex: 0 1 4rem;
+                text-align: center;
+            }
+
+            span {
+                white-space: nowrap;
+            }
         }
     }
 

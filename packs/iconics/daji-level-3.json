@@ -1,0 +1,192 @@
+{
+    "_id": "kVIl6Pl2YbThZAMd",
+    "img": "systems/pf2e/icons/iconics/DajiFull.webp",
+    "items": [
+        {
+            "_id": "yKVG2JGXq4N9pi4t",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.familiar-abilities.Item.zyMRLQnFCQVpltiR"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Speech (Common)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "familiar",
+                "description": {
+                    "value": "<p>It understands and speaks a language you know.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.build.languages.granted",
+                        "value": {
+                            "slug": "common",
+                            "source": "{item|name}"
+                        }
+                    }
+                ],
+                "slug": "speech",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "W11WVY6SuWTtQzqW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.familiar-abilities.Item.gPceRQqO847lvSnb"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Share Senses",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "familiar",
+                "description": {
+                    "value": "<p>Once every 10 minutes, you can use a single action with the concentrate trait to project your senses into your familiar. When you do, you lose all sensory information from your own body, but can sense through your familiar's body for up to 1 minute. You can Dismiss this effect.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "PT10M"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "share-senses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "MFkW39uV95guqkFz",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.familiar-abilities.Item.FlRUb8U13Crj3NaA"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "familiar",
+                "description": {
+                    "value": "<p>It can use scent as an imprecise sense within 30 feet.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "range": 30,
+                        "selector": "scent"
+                    }
+                ],
+                "slug": "scent",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tUt1CBtGCQVqh7ma",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.familiar-abilities.Item.mu9OL8v4rmr9311e"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Familiar of Ongoing Misery",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "familiar",
+                "description": {
+                    "value": "<p>Your familiar seems hostile to all creatures other than you, hissing at them if they get too near. When you Cast or Sustain a hex, your familiar can curse a creature within 15 feet of it, prolonging the duration of any negative conditions affecting it by 1 round. This is a curse effect. This prolongs only conditions with a timed duration (such as \"1 round\" or \"until the end of your next turn\") and doesn't prevent conditions from being removed by other means.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "familiar-of-ongoing-misery",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Daji (Level 3)",
+    "prototypeToken": {
+        "name": "Daji",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Daji.webp"
+        }
+    },
+    "system": {
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 0
+            }
+        },
+        "details": {
+            "creature": {
+                "value": "Nine-Tailed Fox"
+            }
+        },
+        "master": {
+            "ability": "int",
+            "id": ""
+        },
+        "resources": {}
+    },
+    "type": "familiar"
+}

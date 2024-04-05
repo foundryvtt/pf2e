@@ -6,6 +6,10 @@ class ConditionSheetPF2e extends ItemSheetPF2e<ConditionPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
         return { ...super.defaultOptions, hasSidebar: true };
     }
+
+    protected override get validTraits(): Record<string, string> {
+        return {};
+    }
 }
 
 export { ConditionSheetPF2e };

@@ -1,0 +1,57 @@
+{
+    "_id": "VDSJn9vhVRh5V4Kq",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Sense-Dulling Hood (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Sense-Dulling Hood (Greater)]</p>\n<p>The mask grants you a +4 item bonus to saving throws against auditory, olfactory, and visual effects. Since it dulls your senses without depriving you of them, the mask also imposes a –1 penalty to rolls and checks using Perception.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "visual",
+                            "olfactory",
+                            "auditory"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

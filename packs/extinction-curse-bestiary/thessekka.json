@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "flexible": false,
                     "value": "innate"
@@ -31,69 +30,10 @@
                 "showSlotlessLevels": {
                     "value": false
                 },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot4": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     }
                 },
                 "slug": null,
@@ -170,8 +110,7 @@
                     "value": [
                         "concentrate",
                         "earth",
-                        "manipulate",
-                        "primal"
+                        "manipulate"
                     ]
                 }
             },
@@ -541,7 +480,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Greater.success",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     },
                     {
                         "key": "Note",
@@ -550,7 +489,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Greater.criticalSuccess",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     }
                 ],
                 "runes": {
@@ -1355,7 +1294,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Greater.success",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     },
                     {
                         "key": "Note",
@@ -1364,7 +1303,7 @@
                         ],
                         "selector": "{item|_id}-attack",
                         "text": "PF2E.BombNotes.TanglefootBag.Greater.criticalSuccess",
-                        "title": "ITEM.TypeEffect"
+                        "title": "TYPES.Item.effect"
                     }
                 ],
                 "slug": null,
@@ -1381,41 +1320,6 @@
             "type": "melee"
         },
         {
-            "_id": "z3tK3Qo5wCvyDf6a",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "62XRuG8BxfIDEFOw",
             "flags": {
                 "core": {
@@ -1424,7 +1328,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense (Imprecise) 30 feet",
-            "sort": 2100000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1454,7 +1358,7 @@
             "_id": "wv4csg9YxPFOP1Pm",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Infused Items",
-            "sort": 2200000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1485,7 +1389,7 @@
             "_id": "TXbhRlWu7SAx8Ctw",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Powerful Stench",
-            "sort": 2300000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1495,7 +1399,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the area must attempt a @Check[type:fortitude|dc:34] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. While within range of Thessekka's stench, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
+                    "value": "<p>30 feet. A creature that enters the area must attempt a @Check[type:fortitude|dc:34] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2}, and on a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for as long as it is sickened. While within range of Thessekka's stench, the creature takes a -2 circumstance penalty to saves to recover from the sickened condition. A creature that succeeds at its save is temporarily immune to all xulgaths' stenches for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1527,7 +1431,7 @@
             "_id": "S9rsAqZ6i0J68L8D",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Alchemical Formulas",
-            "sort": 2400000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1558,7 +1462,7 @@
             "_id": "X5jrkgJhRyd0x78g",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Earthen Blow",
-            "sort": 2500000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1595,7 +1499,7 @@
             "_id": "qsR9Zyfw0HbieQM9",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Earthen Torrent",
-            "sort": 2600000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1631,7 +1535,7 @@
             "_id": "qLAXvZ1JTs2cxRUR",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Expanded Splash",
-            "sort": 2700000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1682,7 +1586,7 @@
             "_id": "ee9wYp6ZD1nOsbJs",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Alchemy",
-            "sort": 2800000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1713,7 +1617,7 @@
             "_id": "55Ue9KoElZXuS8Dc",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 2900000,
+            "sort": 2800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1744,7 +1648,7 @@
             "_id": "9KjQBibdPnAX1HTL",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Stone Throes",
-            "sort": 3000000,
+            "sort": 2900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1781,7 +1685,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 3100000,
+            "sort": 3000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1811,7 +1715,7 @@
             "_id": "q5Z0JX54kBXDmKRv",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 3200000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1836,7 +1740,7 @@
             "_id": "8sYOFf6CCvxqqpus",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 3300000,
+            "sort": 3200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1861,7 +1765,7 @@
             "_id": "PnbdGiGnDuyflxJa",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 3400000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1902,7 +1806,7 @@
             "_id": "wlIi1CWjYotrmcrt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 3500000,
+            "sort": 3400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1927,7 +1831,7 @@
             "_id": "SLbtQNNZtmeIRfUs",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 3600000,
+            "sort": 3500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1952,7 +1856,7 @@
             "_id": "KA9fSyMX2TNCdrLL",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 3700000,
+            "sort": 3600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1977,7 +1881,7 @@
             "_id": "K5871maks9VSfXBF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3800000,
+            "sort": 3700000,
             "system": {
                 "description": {
                     "value": ""
@@ -2035,12 +1939,6 @@
                 "temp": 0,
                 "value": 255
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 26
-            },
             "resistances": [
                 {
                     "type": "physical",
@@ -2059,6 +1957,15 @@
         },
         "details": {
             "blurb": "Female xulgath commander",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common",
+                    "draconic",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 14
             },
@@ -2069,6 +1976,23 @@
                 "remaster": false,
                 "title": "Pathfinder #153: Life's Long Shadows"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "tremorsense"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -2091,20 +2015,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common",
-                    "draconic",
-                    "sakvroth"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 30 feet"
-            },
             "size": {
                 "value": "med"
             },

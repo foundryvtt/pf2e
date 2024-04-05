@@ -9,6 +9,7 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
     override async getData(): Promise<TokenImageFormSheetData> {
         return {
             ...(await super.getData()),
+            alphaEnabled: this.object.alpha !== null,
             scaleEnabled: this.object.scale !== null,
         };
     }
@@ -17,23 +18,25 @@ class TokenImageForm extends RuleElementForm<RuleElementSource, TokenImageRuleEl
         super.activateListeners(html);
 
         const tintInput = htmlQuery<HTMLInputElement>(html, `input[name="system.rules.${this.index}.tint"]`);
-        const scaleCheckbox = htmlQuery<HTMLInputElement>(html, "input[data-action=toggle-scale]");
-        const scaleInput = htmlQuery<HTMLInputElement>(html, `input[name="system.rules.${this.index}.scale"]`);
-        if (!(tintInput && scaleCheckbox && scaleInput)) return;
+        if (tintInput) tintInput.id = `${this.fieldIdPrefix}-tint`;
 
-        tintInput.id = `${this.fieldIdPrefix}-tint`;
-        scaleInput.id = `${this.fieldIdPrefix}-scale`;
-        scaleInput.disabled = this.object.scale === null;
-
-        scaleCheckbox.addEventListener("change", (event) => {
-            event.stopPropagation();
-            const newValue = this.object.scale === null ? 1 : null;
-            this.updateItem({ scale: newValue });
-        });
+        for (const fieldName of ["alpha", "scale"] as const) {
+            const checkbox = htmlQuery<HTMLInputElement>(html, `input[data-action=toggle-${fieldName}]`);
+            const input = htmlQuery<HTMLInputElement>(html, `input[name="system.rules.${this.index}.${fieldName}"]`);
+            if (!(checkbox && input)) continue;
+            input.id = `${this.fieldIdPrefix}-${fieldName}`;
+            input.disabled = this.object[fieldName] === null;
+            checkbox.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const newValue = this.object[fieldName] === null ? 1 : null;
+                this.updateItem({ [fieldName]: newValue });
+            });
+        }
     }
 }
 
 interface TokenImageFormSheetData extends RuleElementFormSheetData<RuleElementSource, TokenImageRuleElement> {
+    alphaEnabled: boolean;
     scaleEnabled: boolean;
 }
 

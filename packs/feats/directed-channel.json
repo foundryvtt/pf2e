@@ -24,7 +24,28 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:heal",
+                            "item:slug:harm"
+                        ]
+                    },
+                    "item:cast:actions:3"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Cleric.DirectedChannel.ItemAlterationNote"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

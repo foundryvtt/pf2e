@@ -46,6 +46,13 @@
         vertical-align: bottom;
         width: 46px;
 
+        &:has(input:not(:checked)) {
+            background: rgba(black, 0.4);
+            input[type="checkbox"] + label {
+                right: 26px;
+            }
+        }
+
         &::before {
             color: var(--text-light);
             content: "ON";
@@ -138,13 +145,6 @@
 
                 i {
                     color: var(--text-dark);
-                }
-            }
-
-            .toggle {
-                background: rgba(black, 0.4);
-                input[type="checkbox"] + label {
-                    right: 26px;
                 }
             }
 

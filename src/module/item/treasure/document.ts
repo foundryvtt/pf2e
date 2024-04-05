@@ -1,9 +1,9 @@
 import type { ActorPF2e } from "@actor";
-import { ItemSummaryData } from "@item/base/data/index.ts";
+import type { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
-import { CoinDenomination } from "@item/physical/types.ts";
+import type { CoinDenomination } from "@item/physical/types.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
-import { TreasureSource, TreasureSystemData } from "./data.ts";
+import type { TreasureSource, TreasureSystemData } from "./data.ts";
 
 class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     get isCoinage(): boolean {
@@ -27,7 +27,7 @@ class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     override async getChatData(
         this: TreasurePF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         const systemData = this.system;
         const traits = this.traitChatData({});
 

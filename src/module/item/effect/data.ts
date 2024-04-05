@@ -6,7 +6,6 @@ import {
     EffectBadge,
     EffectBadgeSource,
     EffectContextData,
-    EffectTraits,
 } from "@item/abstract-effect/index.ts";
 import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
 
@@ -22,7 +21,6 @@ type EffectFlags = ItemFlagsPF2e & {
 
 interface EffectSystemSource extends AbstractEffectSystemSource {
     level: { value: number };
-    traits: EffectTraits;
     start: {
         value: number;
         initiative: number | null;
@@ -40,7 +38,9 @@ interface EffectSystemSource extends AbstractEffectSystemSource {
     context: EffectContextData | null;
 }
 
-interface EffectSystemData extends Omit<EffectSystemSource, "fromSpell">, Omit<AbstractEffectSystemData, "level"> {
+interface EffectSystemData
+    extends Omit<EffectSystemSource, "description" | "fromSpell">,
+        Omit<AbstractEffectSystemData, "level"> {
     expired: boolean;
     badge: EffectBadge | null;
     remaining: string;

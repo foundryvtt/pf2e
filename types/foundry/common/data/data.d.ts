@@ -29,14 +29,14 @@ export interface DarknessActivation {
  * A reusable document structure for the internal data used to render the appearance of a light source.
  * This is re-used by both the AmbientLightData and TokenData classes.
  */
-export class LightData extends DataModel<DataModel | null, LightDataSchema> {
+export class LightData<TParent extends DataModel | null> extends DataModel<TParent, LightDataSchema> {
     static override defineSchema(): LightDataSchema;
 
     static override migrateData<TSource extends Record<string, JSONValue>>(source: TSource): TSource;
 }
 
-export interface LightData
-    extends DataModel<DataModel | null, LightDataSchema>,
+export interface LightData<TParent extends DataModel | null>
+    extends DataModel<TParent, LightDataSchema>,
         ModelPropsFromSchema<LightDataSchema> {}
 
 export type LightSource = SourceFromSchema<LightDataSchema>;

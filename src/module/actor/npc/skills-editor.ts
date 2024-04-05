@@ -95,17 +95,18 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
         }
     }
 
-    /** Crude maintaining of focus to work around Tagify on NPC sheet stealing it */
+    /** Maintain focus since upstream only operates on named elements */
     protected override async _render(force?: boolean, options?: RenderOptions): Promise<void> {
         const focusedElement = htmlQuery<HTMLInputElement | HTMLSelectElement>(this.form, "input:focus, select:focus");
         await super._render(force, options);
 
-        if (focusedElement) {
-            const selector = ["input", "select"].map((s) => `${s}#${CSS.escape(focusedElement.id)}`).join(",");
-            const newInput = htmlQuery<HTMLInputElement | HTMLSelectElement>(this.form, selector);
-            window.setTimeout(() => {
-                newInput?.focus();
-            }, 0);
+        if (focusedElement?.id) {
+            const newInput = document.getElementById(focusedElement.id);
+            if (newInput instanceof HTMLInputElement || newInput instanceof HTMLSelectElement) {
+                window.setTimeout(() => {
+                    newInput.focus();
+                }, 0);
+            }
         }
     }
 }

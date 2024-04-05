@@ -1,25 +1,47 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function feint(options: SkillActionOptions): void {
+const PREFIX = "PF2E.Actions.Feint";
+
+function feint(options: SkillActionOptions): void {
     const slug = options?.skill ?? "deception";
     const rollOptions = ["action:feint"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.Feint.Title",
+        title: `${PREFIX}.Title`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["mental"],
         event: options.event,
         callback: options.callback,
         difficultyClass: options.difficultyClass ?? "perception",
         extraNotes: (selector: string) => [
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalSuccess"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "success"),
-            ActionMacroHelpers.note(selector, "PF2E.Actions.Feint", "criticalFailure"),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalSuccess"),
+            ActionMacroHelpers.note(selector, PREFIX, "success"),
+            ActionMacroHelpers.note(selector, PREFIX, "criticalFailure"),
         ],
     }).catch((error: Error) => {
         ui.notifications.error(error.message);
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:feint"],
+    section: "skill",
+    slug: "feint",
+    statistic: "deception",
+    traits: ["mental"],
+});
+
+export { feint as legacy, action };

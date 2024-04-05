@@ -31,7 +31,6 @@ export class Migration894NoLayOnHandsVsUndead extends MigrationBase {
         if (source.type === "spell" && source.system.slug === "lay-on-hands") {
             source.system.overlays ??= {
                 a33QUFoKgoOprovO: {
-                    _id: "a33QUFoKgoOprovO",
                     name: "Lay on Hands (Vs. Undead)",
                     overlayType: "override",
                     sort: 2,
@@ -46,12 +45,11 @@ export class Migration894NoLayOnHandsVsUndead extends MigrationBase {
                                 type: "vitality",
                             },
                         },
-                        defense: { save: { basic: true, statistic: "fortitude" } },
+                        defense: { passive: null, save: { basic: true, statistic: "fortitude" } },
                         heightening: { damage: { "37YW4ZGhxx7Y2mdI": "1d6" }, interval: 1, type: "interval" },
                     },
                 },
                 uLuOg62dVyxvbW66: {
-                    _id: "uLuOg62dVyxvbW66",
                     name: "Lay on Hands (Healing)",
                     overlayType: "override",
                     sort: 1,

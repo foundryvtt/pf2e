@@ -20,7 +20,7 @@ declare global {
         initializing: Promise<void> | null;
 
         /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
-        dimensions: CanvasDimensions;
+        dimensions: SceneDimensions;
 
         /** A set of blur filter instances which are modified by the zoom level and the "soft shadows" setting */
         blurFilters: Set<PIXI.Filter>;
@@ -313,7 +313,7 @@ declare global {
          * @param origin  Point to display Ping at
          * @param options Additional options to configure how the ping is drawn.
          */
-        ping(origin: Point, options: Record<string, unknown>): Promise<boolean>;
+        ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
 
         /**
          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
@@ -377,12 +377,12 @@ declare global {
          * @param event The originating mouse movement event
          */
         _onDragCanvasPan(event: MouseEvent): void;
-    }
 
-    interface CanvasDimensions extends SceneDimensions {
-        maxR: number;
-        rect: PIXI.Rectangle;
-        sceneRect: PIXI.Rectangle;
+        /**
+         * Determine selection coordinate rectangle during a mouse-drag workflow
+         * @param event
+         */
+        _onDragSelect(event: PIXI.FederatedEvent): void;
     }
 
     type DrawnCanvas<T extends Canvas = Canvas> = {

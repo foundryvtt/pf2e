@@ -1,6 +1,3 @@
-import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { DamageRoll } from "@system/damage/roll.ts";
-
 export const DropCanvasData = {
     listen: (): void => {
         Hooks.on("dropCanvasData", (_canvas, data) => {
@@ -13,23 +10,11 @@ export const DropCanvasData = {
                 });
 
             const actor = dropTarget?.actor;
-            if (actor && data.type === "Item") {
-                actor.sheet.emulateItemDrop(data as DropCanvasItemDataPF2e);
-                return false; // Prevent modules from doing anything further
-            }
-
-            if (actor && data.type === "PersistentDamage" && "formula" in data) {
-                const roll = new DamageRoll(String(data.formula));
-                const instances = roll.instances.filter((i) => i.persistent);
-                const baseConditionSource = game.pf2e.ConditionManager.getCondition("persistent-damage").toObject();
-                const conditions = instances.map((i) =>
-                    fu.mergeObject(baseConditionSource, {
-                        system: {
-                            persistent: { formula: i.head.expression, damageType: i.type, dc: 15 },
-                        },
-                    }),
-                );
-                actor.createEmbeddedDocuments("Item", conditions);
+            if (actor && (data.type === "Item" || data.type === "PersistentDamage")) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.setData("text/plain", JSON.stringify(data));
+                const event = new DragEvent("drop", { altKey: game.keyboard.isModifierActive("Alt"), dataTransfer });
+                actor.sheet._onDrop(event);
                 return false; // Prevent modules from doing anything further
             }
 

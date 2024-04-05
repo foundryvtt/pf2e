@@ -1,0 +1,82 @@
+{
+    "_id": "4wJM0OA9y2gsBAh7",
+    "img": "icons/magic/nature/beam-hand-leaves-green.webp",
+    "name": "Effect: Familiar of Keen Senses",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.familiar-abilities.Item.Familiar of Keen Senses]</p>\n<p>When you Cast or Sustain a hex, your familiar gains your choice of an imprecise scent, tremorsense, or wavesense, with a range of 60 feet until the start of your next turn, and it can immediately @UUID[Compendium.pf2e.actionspf2e.Item.Point Out] as a free action.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Scent",
+                        "value": "scent"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Tremorsense",
+                        "value": "tremorsense"
+                    },
+                    {
+                        "label": "PF2E.Actor.Creature.Sense.Type.Wavesense",
+                        "value": "wavesense"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "familiar-of-keen-senses"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "familiar-of-keen-senses:scent"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "familiar-of-keen-senses:tremorsense"
+                ],
+                "range": 60,
+                "selector": "tremorsense"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "familiar-of-keen-senses:wavesense"
+                ],
+                "range": 60,
+                "selector": "wavesense"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

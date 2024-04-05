@@ -3,9 +3,5 @@
         <li class="tag tag_transparent">{{modifier}}</li>
         {{/each}}
     </ul>
-    <div class="notes">
-        {{#each notes as |note|}}
-            {{{note}}}
-        {{/each}}
-    </div>
-    {{#if (or breakdown.length notes.length)}}<hr>{{/if}}
+    {{{notes}}}
+    {{#if (or breakdown.length notes)}}<hr />{{/if}}

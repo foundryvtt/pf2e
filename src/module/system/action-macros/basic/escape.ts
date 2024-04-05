@@ -1,12 +1,19 @@
 import { CharacterPF2e, NPCPF2e, type ActorPF2e } from "@actor";
-import { SingleCheckAction, SingleCheckActionVariant, SingleCheckActionVariantData } from "@actor/actions/index.ts";
-import { StrikeData } from "@actor/data/base.ts";
+import {
+    ActionCheckPreview,
+    SingleCheckAction,
+    SingleCheckActionVariant,
+    SingleCheckActionVariantData,
+} from "@actor/actions/index.ts";
+import type { StrikeData } from "@actor/data/base.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import { CheckContext, CheckContextData, CheckContextError, CheckContextOptions } from "@system/action-macros/types.ts";
+import type { CheckContextData, CheckContextOptions, CheckMacroContext } from "@system/action-macros/types.ts";
+import type { Statistic } from "@system/statistic/index.ts";
+import { CheckContextError } from "../helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
-const toHighestModifier = (highest: StatisticModifier | null, current: StatisticModifier): StatisticModifier | null => {
+const toHighestModifier = (highest: StrikeData | null, current: StrikeData): StrikeData | null => {
     return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
 };
 
@@ -20,7 +27,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
         rollOptions: actionRollOptions,
         target: opts.target,
     });
-    const { actor } = opts;
+    const actor = opts.actor;
     const strikes = (() => {
         if (actor instanceof CharacterPF2e) {
             return actor.system.actions.filter((strike) =>
@@ -34,7 +41,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
     const statistic = strikes
         .map((strike) => {
             const modifiers = (strike.modifiers ?? []).concat(data.modifiers ?? []);
-            return new StatisticModifier("unarmed", modifiers, rollOptions);
+            return new StatisticModifier("unarmed", modifiers, rollOptions) as StrikeData;
         })
         .reduce(toHighestModifier, null);
     return statistic ? { actor, rollOptions, statistic } : null;
@@ -43,7 +50,7 @@ function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
 function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     opts: CheckContextOptions<ItemType>,
     data: CheckContextData<ItemType>,
-): CheckContext<ItemType> | undefined {
+): CheckMacroContext<ItemType> | undefined {
     // find all unarmed strikes and pick the one with the highest modifier
     const unarmed = data.slug && data.slug !== "unarmed" ? null : unarmedStrikeWithHighestModifier(opts, data);
 
@@ -51,15 +58,15 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
     const candidates = data.slug ? [data.slug] : ["acrobatics", "athletics"];
     const alternatives = candidates
         .filter((slug) => slug !== "unarmed")
-        .map((slug) => {
-            const actionRollOptions = ["action:escape", `action:escape:${slug}`];
-            const { property } = ActionMacroHelpers.resolveStat(slug);
-            const { rollOptions } = opts.buildContext({
+        .map((slug) => opts.actor.getStatistic(slug))
+        .filter((statistic): statistic is Statistic => !!statistic)
+        .map((statistic) => {
+            const actionRollOptions = ["action:escape", `action:escape:${statistic.slug}`];
+            const rollOptions = opts.buildContext({
                 actor: opts.actor,
                 rollOptions: actionRollOptions,
                 target: opts.target,
-            });
-            const statistic = fu.getProperty(opts.actor, property) as StatisticModifier & { rank?: number };
+            }).rollOptions;
             return {
                 actor: opts.actor,
                 rollOptions,
@@ -67,7 +74,7 @@ function escapeCheckContext<ItemType extends ItemPF2e<ActorPF2e>>(
                     statistic.slug,
                     statistic.modifiers.concat(data.modifiers ?? []),
                     rollOptions,
-                ),
+                ) as StrikeData,
             };
         });
 
@@ -124,8 +131,38 @@ class EscapeActionVariant extends SingleCheckActionVariant {
     protected override checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
         opts: CheckContextOptions<ItemType>,
         data: CheckContextData<ItemType>,
-    ): CheckContext<ItemType> | undefined {
+    ): CheckMacroContext<ItemType> | undefined {
         return escapeCheckContext(opts, data);
+    }
+
+    protected override toActionCheckPreview(options: {
+        actor?: ActorPF2e;
+        rollOptions: string[];
+        slug: string;
+    }): ActionCheckPreview | null {
+        return this.#unarmedCheckPreview(options) ?? super.toActionCheckPreview(options);
+    }
+
+    #unarmedCheckPreview(args: { actor?: ActorPF2e; rollOptions: string[]; slug: string }): ActionCheckPreview | null {
+        if (args.slug === "unarmed") {
+            if (args.actor) {
+                const options = { actor: args.actor, buildContext: () => ({ rollOptions: args.rollOptions }) };
+                const data = { rollOptions: args.rollOptions, slug: args.slug };
+                const statistic = unarmedStrikeWithHighestModifier(options, data)?.statistic;
+                if (statistic) {
+                    return {
+                        label: game.i18n.localize("PF2E.TraitUnarmed"),
+                        modifier: statistic.totalModifier,
+                        slug: args.slug,
+                    };
+                }
+            }
+            return {
+                label: game.i18n.localize("PF2E.TraitUnarmed"),
+                slug: args.slug,
+            };
+        }
+        return null;
     }
 }
 
@@ -142,8 +179,9 @@ class EscapeAction extends SingleCheckAction {
                 { outcome: ["criticalFailure"], text: "PF2E.Actions.Escape.Notes.criticalFailure" },
             ],
             rollOptions: ["action:escape"],
+            section: "basic",
             slug: "escape",
-            statistic: "unarmed",
+            statistic: ["unarmed", "acrobatics", "athletics"],
             traits: ["attack"],
         });
     }

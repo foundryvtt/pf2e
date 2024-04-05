@@ -1,27 +1,29 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.CreateADiversion";
 const CREATE_A_DIVERSION_VARIANTS = ["distracting-words", "gesture", "trick"] as const;
 type CreateADiversionVariant = (typeof CREATE_A_DIVERSION_VARIANTS)[number];
 
-export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions): void {
+function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions): void {
     const { title, traits, variant } = (() => {
+        const mainTitle = game.i18n.localize(`${PREFIX}.Title`);
         switch (options?.variant) {
             case "distracting-words":
                 return {
-                    title: `${PREFIX}.DistractingWords.Title`,
+                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.DistractingWords.Title`),
                     traits: ["auditory", "linguistic", "mental"],
                     variant: options.variant,
                 };
             case "gesture":
                 return {
-                    title: `${PREFIX}.Gesture.Title`,
+                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.Gesture.Title`),
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
             case "trick":
                 return {
-                    title: `${PREFIX}.Trick.Title`,
+                    title: mainTitle + " - " + game.i18n.localize(`${PREFIX}.Trick.Title`),
                     traits: ["manipulate", "mental"],
                     variant: options.variant,
                 };
@@ -54,3 +56,40 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    difficultyClass: "perception",
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["criticalFailure", "failure"], text: `${PREFIX}.Notes.failure` },
+    ],
+    section: "skill",
+    slug: "create-a-diversion",
+    statistic: "deception",
+    traits: ["mental"],
+    variants: [
+        {
+            name: `${PREFIX}.DistractingWords.Title`,
+            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:distracting-words"],
+            slug: "distracting-words",
+            traits: ["auditory", "linguistic", "mental"],
+        },
+        {
+            name: `${PREFIX}.Gesture.Title`,
+            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:gesture"],
+            slug: "gesture",
+            traits: ["manipulate", "mental"],
+        },
+        {
+            name: `${PREFIX}.Trick.Title`,
+            rollOptions: ["action:create-a-diversion", "action:create-a-diversion:trick"],
+            slug: "trick",
+            traits: ["manipulate", "mental"],
+        },
+    ],
+});
+
+export { createADiversion as legacy, action };

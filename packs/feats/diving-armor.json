@@ -28,7 +28,16 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

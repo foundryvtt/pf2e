@@ -1,0 +1,47 @@
+{
+    "_id": "09rtx50laDw68FGT",
+    "img": "systems/pf2e/icons/spells/earthquake.webp",
+    "name": "Spell Effect: Earthquake (Shaking Ground)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Earthquake]</p>\n<p>Creatures on the shaking ground take a -2 circumstance penalty to attack rolls, AC, and skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "ac",
+                    "attack-roll",
+                    "skill-check"
+                ],
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

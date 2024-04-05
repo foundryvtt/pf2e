@@ -5,7 +5,9 @@ import * as R from "remeda";
 import { BaseStatistic } from "./base.ts";
 import { BaseStatisticTraceData } from "./data.ts";
 
-class HitPointsStatistic extends BaseStatistic {
+type HPStatActor = CreaturePF2e | HazardPF2e | VehiclePF2e;
+
+class HitPointsStatistic<TActor extends HPStatActor = HPStatActor> extends BaseStatistic<TActor> {
     /** The actor's current hit points */
     value: number;
 
@@ -27,7 +29,7 @@ class HitPointsStatistic extends BaseStatistic {
     /** Additional, unstructured information affecting the actor's hit points */
     details: string;
 
-    constructor(actor: CreaturePF2e | HazardPF2e | VehiclePF2e, { baseMax = 0 }: { baseMax?: number } = {}) {
+    constructor(actor: TActor, { baseMax = 0 }: { baseMax?: number } = {}) {
         const modifiers = actor.isOfType("character")
             ? [createAttributeModifier({ actor, attribute: "con", domains: ["hp", "con-based"] })]
             : [];

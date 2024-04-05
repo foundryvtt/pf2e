@@ -129,7 +129,7 @@
 {{/inline}}
 
 {{#*inline "dice-row"}}
-    <div class="dialog-row{{#unless dice.enabled}} disabled{{/unless}}">
+    <div class="dialog-row{{#unless dice.enabled}} disabled{{#if dice.hideIfDisabled}} hidden{{/if}}{{/unless}}">
         <span class="mod">{{dice.label}}</span>
         <div class="value" data-tooltip="{{dice.typeLabel}}">
             <span class="dice-type damage color{{#if dice.damageType}} {{dice.damageType}}{{/if}}">

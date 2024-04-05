@@ -50,45 +50,10 @@
             "type": "melee"
         },
         {
-            "_id": "51r9xhJpaBdZxkK3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "wChn2PEw9GYziq2n",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Glow",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -98,7 +63,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:20]{20 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
+                    "value": "<p>20 feet. A will-o'-wisp is itself naturally invisible, but glows with a colored light, casting bright light in the aura and making it visible.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -109,7 +74,9 @@
                     {
                         "key": "TokenLight",
                         "predicate": [
-                            "glowing"
+                            {
+                                "not": "heat-mirage"
+                            }
                         ],
                         "value": {
                             "animation": {
@@ -120,13 +87,6 @@
                             "bright": 20,
                             "color": "#fff9a3"
                         }
-                    },
-                    {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "option": "glowing",
-                        "toggleable": true,
-                        "value": true
                     }
                 ],
                 "slug": null,
@@ -144,7 +104,7 @@
             "_id": "3Eksrmh390T4SrP7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Magic Immunity",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -154,7 +114,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A will-o'-wisp is immune to all spells except <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Revealing Light]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Force Barrage]</em>, and <em>@UUID[Compendium.pf2e.spells-srd.Item.Quandary]</em>.</p>"
+                    "value": "<p>A will-o'-wisp is immune to all spells except @UUID[Compendium.pf2e.spells-srd.Item.Faerie Fire], @UUID[Compendium.pf2e.spells-srd.Item.Revealing Light], @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], and @UUID[Compendium.pf2e.spells-srd.Item.Quandary].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -174,7 +134,7 @@
             "_id": "yDdnC4S3nrhfHYil",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Heat Mirage",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -191,7 +151,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "heat-mirage",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "heat-mirage"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -206,7 +181,7 @@
             "_id": "QJJWPGE3n8ZduC9D",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light the Living Wick",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -238,7 +213,7 @@
             "_id": "X2yn2MMfpvq1n5pe",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -263,7 +238,7 @@
             "_id": "smpDyRgoCURI6Otr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -288,7 +263,7 @@
             "_id": "o5ZowKCSH7katdBS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -313,7 +288,7 @@
             "_id": "dgC9LAHvEPLznmzF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -376,12 +351,6 @@
                     "type": "magic"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 16
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -394,6 +363,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -404,6 +380,18 @@
                 "remaster": false,
                 "title": "Pathfinder #164: Hands of the Devil"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -421,21 +409,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

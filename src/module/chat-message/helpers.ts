@@ -1,22 +1,13 @@
 import type { ActorPF2e } from "@actor";
-import { applyStackingRules } from "@actor/modifiers.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
-import { extractDamageDice, extractEphemeralEffects, extractModifiers, extractNotes } from "@module/rules/helpers.ts";
+import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import {
-    ErrorPF2e,
-    getActionGlyph,
-    htmlQuery,
-    htmlQueryAll,
-    signedInteger,
-    traitSlugToObject,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
-import { ChatContextFlag, CheckRollContextFlag } from "./data.ts";
+import { ChatContextFlag, CheckContextChatFlag } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
-function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFlag {
+function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFlag {
     return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
 }
 
@@ -24,7 +15,7 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckRollContextFla
 async function createSelfEffectMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
     rollMode: RollMode | "roll" = "roll",
-): Promise<ChatMessagePF2e | undefined> {
+): Promise<ChatMessagePF2e | null> {
     if (!item.system.selfEffect) {
         throw ErrorPF2e(
             [
@@ -66,7 +57,7 @@ async function createSelfEffectMessage(
     const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
     const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
 
-    return ChatMessagePF2e.create(messageData);
+    return (await ChatMessagePF2e.create(messageData)) ?? null;
 }
 
 async function applyDamageFromMessage({
@@ -89,7 +80,7 @@ async function applyDamageFromMessage({
     const roll = message.rolls.at(rollIndex);
     if (!(roll instanceof DamageRoll)) throw ErrorPF2e("Unexpected error retrieving damage roll");
 
-    let damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
+    const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
     // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
     const messageRollOptions = [...(message.flags.pf2e.context?.options ?? [])];
@@ -97,6 +88,9 @@ async function applyDamageFromMessage({
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
     const messageItem = message.item;
+    const effectRollOptions = messageItem?.isOfType("affliction", "condition", "effect")
+        ? messageItem.getRollOptions("item")
+        : [];
 
     for (const token of tokens) {
         if (!token.actor) continue;
@@ -118,81 +112,21 @@ async function applyDamageFromMessage({
                   })
                 : [];
         const contextClone = token.actor.getContextualClone(originRollOptions, ephemeralEffects);
-        const applicationRollOptions = new Set([
+        const rollOptions = new Set([
             ...messageRollOptions.filter((o) => !/^(?:self|target):/.test(o)),
+            ...effectRollOptions,
             ...originRollOptions,
             ...contextClone.getSelfRollOptions(),
         ]);
-
-        // Target-specific damage/healing adjustments
-        const outcome = message.flags.pf2e.context?.outcome;
-        const breakdown: string[] = [];
-        const rolls: Rolled<Roll>[] = [];
-        if (typeof damage === "number" && damage < 0) {
-            const critical = outcome === "criticalSuccess";
-
-            const resolvables = ((): Record<string, unknown> => {
-                if (messageItem?.isOfType("spell")) return { spell: messageItem };
-                if (messageItem?.isOfType("weapon")) return { weapon: messageItem };
-                return {};
-            })();
-
-            const damageDice = extractDamageDice(contextClone.synthetics.damageDice, [domain], {
-                resolvables,
-                test: applicationRollOptions,
-            }).filter(
-                (d) => (d.critical === null || d.critical === critical) && d.predicate.test(applicationRollOptions),
-            );
-
-            for (const dice of damageDice) {
-                const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
-                const roll = await new Roll(formula).evaluate({ async: true });
-                roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
-                await roll.toMessage({
-                    flags: { pf2e: { suppressDamageButtons: true } },
-                    flavor: dice.label,
-                    speaker: ChatMessage.getSpeaker({ token }),
-                });
-                breakdown.push(`${dice.label} ${dice.diceNumber}${dice.dieSize}`);
-                rolls.push(roll);
-            }
-            if (rolls.length) {
-                damage -= rolls.map((roll) => roll.total).reduce((previous, current) => previous + current);
-            }
-
-            const modifiers = extractModifiers(contextClone.synthetics, [domain], { resolvables }).filter(
-                (m) => (m.critical === null || m.critical === critical) && m.predicate.test(applicationRollOptions),
-            );
-
-            // unlikely to have any typed modifiers, but apply stacking rules just in case even though the context of
-            // previously applied modifiers has been lost
-            damage -= applyStackingRules(modifiers ?? []);
-
-            // target-specific modifiers breakdown
-            breakdown.push(...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`));
-        }
-
-        const hasDamage = typeof damage === "number" ? damage !== 0 : damage.total !== 0;
-        const notes = (() => {
-            if (!hasDamage) return [];
-            return extractNotes(contextClone.synthetics.rollNotes, [domain])
-                .filter(
-                    (n) =>
-                        (!outcome || n.outcome.length === 0 || n.outcome.includes(outcome)) &&
-                        n.predicate.test(applicationRollOptions),
-                )
-                .map((note) => note.text);
-        })();
 
         await contextClone.applyDamage({
             damage,
             token,
             item: message.item,
             skipIWR: multiplier <= 0,
-            rollOptions: applicationRollOptions,
+            rollOptions,
             shieldBlockRequest,
-            breakdown,
-            notes,
+            outcome: message.flags.pf2e.context?.outcome,
         });
     }
     toggleOffShieldBlock(message.id);

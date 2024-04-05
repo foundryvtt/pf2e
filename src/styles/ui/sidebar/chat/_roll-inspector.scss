@@ -5,7 +5,7 @@
 
     .content {
         display: grid;
-        gap: 1em;
+        gap: var(--space-8);
         grid-template: auto 1fr / 2fr 50%;
         height: 100%;
     }
@@ -14,14 +14,14 @@
         grid-column: span 2;
 
         .type {
-            display: flex;
             align-items: baseline;
-            gap: 2px;
+            display: flex;
+            gap: var(--space-2);
         }
 
         .tags.domains {
             justify-items: end;
-            margin-top: 4px;
+            margin-top: var(--space-4);
 
             .tag {
                 font-size: var(--font-size-12);
@@ -37,66 +37,74 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
+
+        ul {
+            border: 1px solid var(--color-border-dark-tertiary);
+            border-radius: 3px;
+            list-style-type: none;
+            margin: 0;
+            overflow: hidden auto;
+            padding: 0;
+            scrollbar-gutter: stable;
+
+            li:nth-child(even of :not([hidden])) {
+                background-color: #00000011;
+            }
+        }
     }
 
     .roll-options {
         .filter {
-            margin-bottom: 0.25em;
+            margin-bottom: var(--space-4);
         }
 
-        > ul {
-            @include p-reset;
-            border-radius: 3px;
-            border: 1px solid var(--color-border-dark-tertiary);
+        ul {
             height: 100%;
-            list-style-type: none;
-            overflow: hidden scroll;
             white-space: nowrap;
 
             li {
                 line-height: 1.5em;
                 overflow-x: hidden;
-                padding-left: 5px;
+                padding-left: var(--space-4);
                 text-overflow: ellipsis;
                 user-select: text;
-
-                &:nth-child(even of :not([hidden])) {
-                    background-color: #00000011;
-                }
             }
         }
     }
 
     .modifiers {
         grid-area: "modifiers";
-    }
 
-    .modifier-list {
-        display: flex;
-        flex-direction: column;
-        flex: 1 0 0;
-        gap: 4px;
-        overflow: hidden scroll;
+        ul {
+            gap: var(--space-4);
 
-        .modifier {
-            border: 1px solid black;
-            border-radius: 3px;
-            padding: 4px;
+            li {
+                display: block;
+                padding: var(--space-4);
 
-            &.disabled {
-                border-style: dashed;
-                opacity: 0.6;
-            }
+                &.disabled {
+                    border-style: dashed;
+                    opacity: 0.6;
+                }
 
-            h4 {
-                font-size: 1.1em;
-                margin-bottom: 0.37em;
-            }
+                h4 {
+                    align-items: baseline;
+                    display: flex;
+                    font-size: 1.1em;
+                    gap: var(--space-4);
+                    margin-bottom: 0.37em;
 
-            & > div {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
+                    i {
+                        margin-left: auto;
+                        padding-left: var(--space-4);
+                    }
+                }
+
+                & > div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                }
             }
         }
     }

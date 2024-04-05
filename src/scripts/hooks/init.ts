@@ -153,6 +153,14 @@ export const Init = {
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
+            CONFIG.TextEditor.enrichers.push({
+                pattern: new RegExp(
+                    /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/,
+                    "g",
+                ),
+                enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
+            });
+
             // Soft-set system-preferred core settings until they've been explicitly set by the GM
             // const schema = foundry.data.PrototypeToken.schema;
             // schema.displayName.default = schema.displayBars.default = CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER;

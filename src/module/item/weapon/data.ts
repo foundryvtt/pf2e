@@ -1,6 +1,7 @@
 import { AttributeString } from "@actor/types.ts";
+import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { ItemFlagsPF2e } from "@item/base/data/system.ts";
-import {
+import type {
     BasePhysicalItemSource,
     Investable,
     ItemMaterialData,
@@ -12,8 +13,8 @@ import {
 } from "@item/physical/index.ts";
 import { ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
-import { WeaponTraitToggles } from "./helpers.ts";
-import {
+import type { WeaponTraitToggles } from "./trait-toggles.ts";
+import type {
     BaseWeaponType,
     MeleeWeaponGroup,
     OtherWeaponTag,
@@ -34,6 +35,7 @@ type WeaponFlags = ItemFlagsPF2e & {
     pf2e: {
         /** Whether this attack is compatible with a battle form */
         battleForm?: boolean;
+        /** Whether the weapon is a combination weapon in its melee form */
         comboMeleeUsage: boolean;
         /**
          * Used for NPC attacks generated from strike rule elements: if numeric, it will be used as the NPC attack's
@@ -42,6 +44,8 @@ type WeaponFlags = ItemFlagsPF2e & {
         fixedAttack?: number | null;
         /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
         attackItemBonus: number;
+        /** A tracking property of whether the damage die size has been upgraded */
+        damageFacesUpgraded: boolean;
     };
 };
 
@@ -82,6 +86,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
     /** Whether this is an unarmed attack that is a grasping appendage, requiring a free hand for use */
     graspingAppendage?: boolean;
 
+    /** Doubly-embedded adjustments, attachments, talismans etc. */
+    subitems: PhysicalItemSource[];
+
     // Refers to custom damage, *not* property runes
     property1: {
         value: string;
@@ -99,8 +106,9 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
     otherTags: OtherWeaponTag[];
     toggles?: {
-        modular?: { selection: DamageType | null };
-        versatile?: { selection: DamageType | null };
+        doubleBarrel?: { selected: boolean };
+        modular?: { selected: DamageType | null };
+        versatile?: { selected: DamageType | null };
     };
 }
 
@@ -139,8 +147,8 @@ type WeaponRuneSource = {
 };
 
 interface WeaponSystemData
-    extends Omit<WeaponSystemSource, "bulk" | "hp" | "identification" | "price" | "temporary">,
-        Omit<Investable<PhysicalSystemData>, "material"> {
+    extends Omit<WeaponSystemSource, SourceOmission>,
+        Omit<Investable<PhysicalSystemData>, "material" | "subitems"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;
     material: WeaponMaterialData;
@@ -158,6 +166,8 @@ interface WeaponSystemData
     meleeUsage?: Required<ComboWeaponMeleeUsage>;
     stackGroup: null;
 }
+
+type SourceOmission = "apex" | "bulk" | "description" | "hp" | "identification" | "price" | "temporary";
 
 type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 

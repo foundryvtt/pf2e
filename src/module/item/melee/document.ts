@@ -1,21 +1,26 @@
 import type { ActorPF2e } from "@actor";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
-import { ItemPF2e, WeaponPF2e } from "@item";
-import { RangeData } from "@item/types.ts";
-import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
+import { ItemPF2e, type WeaponPF2e } from "@item";
+import type { RangeData } from "@item/types.ts";
+import type { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { simplifyFormula } from "@scripts/dice.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { ConvertedNPCDamage, WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { MeleeFlags, MeleeSource, MeleeSystemData, NPCAttackTrait } from "./data.ts";
+import type { MeleeFlags, MeleeSource, MeleeSystemData } from "./data.ts";
+import type { NPCAttackTrait } from "./types.ts";
 
 class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** Set during data preparation if a linked weapon is found */
     declare category: WeaponCategory | null;
     declare group: WeaponGroup | null;
     declare baseType: BaseWeaponType | null;
+
+    static override get validTraits(): Record<NPCAttackTrait, string> {
+        return CONFIG.PF2E.npcAttackTraits;
+    }
 
     get traits(): Set<NPCAttackTrait> {
         return new Set(this.system.traits.value);
@@ -125,8 +130,6 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override prepareBaseData(): void {
         super.prepareBaseData();
 
-        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.npcAttackTraits);
-
         // Set precious material (currently unused)
         this.system.material = { type: null, grade: null, effects: [] };
 
@@ -153,7 +156,8 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override prepareActorData(): void {
-        if (!this.actor?.isOfType("npc")) return;
+        const actor = this.actor;
+        if (!actor?.isOfType("npc")) return;
 
         // Normalize damage instance formulas and add elite/weak adjustments
         const damageInstances = Object.values(this.system.damageRolls);
@@ -166,7 +170,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 instance.damage = "1d4";
             }
 
-            const { isElite, isWeak } = this.actor;
+            const { isElite, isWeak } = actor;
             if ((isElite || isWeak) && damageInstances.indexOf(instance) === 0) {
                 const adjustment = isElite ? 2 : -2;
                 instance.damage = simplifyFormula(`${instance.damage} + ${adjustment}`);
@@ -174,12 +178,21 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
                 instance.damage = new Roll(instance.damage)._formula;
             }
         }
+
+        // Adjust the NPC's reach if this attack has a reach treat
+        const reachTrait = this.system.traits.value.find((t) => /^reach-\d+$/.test(t));
+        const attackReach = Number(reachTrait?.replace(/^reach-/, "") ?? NaN);
+        if (Number.isInteger(attackReach)) {
+            const reach = actor.system.attributes.reach;
+            reach.base = attackReach > 0 ? Math.max(attackReach, reach.base) : 0;
+            reach.manipulate = reach.base;
+        }
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const baseOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
+        const baseOptions = super.getRollOptions(prefix, options);
 
-        const { damageType } = this.baseDamage;
+        const damageType = this.baseDamage.damageType;
         const damageCategory = DamageCategorization.fromDamageType(damageType);
         const rangeIncrement = this.range?.increment;
         const propertyRunes = R.mapToObj(this.system.runes.property, (p) => [`rune:property:${sluggify(p)}`, true]);

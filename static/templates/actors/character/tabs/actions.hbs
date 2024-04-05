@@ -9,9 +9,9 @@
         <div class="actions-tabs-wrapper">
             <section class="actions-panels">
                 <section class="actions-panel tab major" data-tab="encounter" data-group="actions-tabs">
-                    {{#if toggles}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles}}{{/if}}
+                    {{#if toggles.actions}}{{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}{{/if}}
 
-                    <header data-tooltip-class="pf2e">
+                    <header>
                         {{localize "PF2E.Actor.Attacks"}}
                         <button type="button" class="toggle-unready-strikes" data-tooltip="{{localize "PF2E.ToggleUnreadyStrikes"}}">
                             <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
@@ -19,7 +19,7 @@
                     </header>
 
                     {{#if elementalBlasts}}
-                        <!-- ELEMENTAL BLASTS -->
+                        {{!-- ELEMENTAL BLASTS --}}
                         <ol class="actions-list directory-list elemental-blasts" data-elemental-blasts>
                             {{#each elementalBlasts as |blast|}}
                                 {{> "systems/pf2e/templates/actors/character/partials/elemental-blast.hbs" action=blast}}
@@ -38,10 +38,10 @@
                             {{section.label}}
                             {{#if @root.options.editable}}
                                 <div class="controls">
-                                    <button type="button" class="item-control item-create" data-type="action" data-action-type="{{sid}}">
+                                    <button type="button" data-action="create-item" data-type="action" data-action-type="{{sid}}">
                                         <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                     </button>
-                                    <button type="button" class="item-control action-browse" data-type="action" data-action-type="{{sid}}">
+                                    <button type="button" data-action="browse-abilities" data-action-type="{{sid}}">
                                         <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                     </button>
                                 </div>
@@ -63,7 +63,7 @@
                             {{localize "PF2E.Actor.Character.ActiveHeader"}}
                             {{#if @root.options.editable}}
                                 <div class="controls">
-                                    <button type="button" class="item-control" data-action="clear-exploration">
+                                    <button type="button" data-action="clear-exploration">
                                         <i class="fa-solid fa-fw fa-times"></i>{{localize "PF2E.Actor.Character.Clear"}}
                                     </button>
                                 </div>
@@ -79,12 +79,12 @@
 
                     <header>
                         {{localize "PF2E.ActionsActionsHeader"}}
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="exploration">
+                                <button type="button" data-action="create-item" data-type="action" data-action-type="free" data-traits="exploration">
                                     <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="action" data-action-trait="exploration">
+                                <button type="button" data-action="browse-abilities" data-action-trait="exploration">
                                     <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>
@@ -101,12 +101,12 @@
                 <section class="actions-panel tab major" data-tab="downtime" data-group="actions-tabs">
                     <header>
                         {{localize "PF2E.ActionsActionsHeader"}}
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <div class="controls">
-                                <button type="button" class="item-control item-create" data-type="action" data-action-type="free" data-traits="downtime">
+                                <button type="button" data-action="create-item" data-type="action" data-action-type="free" data-traits="downtime">
                                     <i class="fa-solid fa-fw fa-plus"></i>{{localize "PF2E.CreateActionTitle"}}
                                 </button>
-                                <button type="button" class="item-control action-browse" data-type="action" data-action-trait="downtime">
+                                <button type="button" data-action="browse-abilities" data-action-trait="downtime">
                                     <i class="fa-solid fa-fw fa-search"></i>{{localize "PF2E.BrowseLabel"}}
                                 </button>
                             </div>

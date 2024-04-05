@@ -1,6 +1,4 @@
-import { CharacterTraitsSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { NPCTraitsSource } from "@actor/npc/data.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Move tracking of roll-option toggles to the rules themselves */
@@ -10,7 +8,7 @@ export class Migration743FixWeaknessStructure extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character" && source.type !== "npc") return;
 
-        const traits: WithWRTraits = source.system.traits;
+        const traits: WithWRTraits = source.system.traits ?? { dv: [] };
 
         if (!Array.isArray(traits.dv)) {
             traits.dv = [];
@@ -23,7 +21,4 @@ export class Migration743FixWeaknessStructure extends MigrationBase {
     }
 }
 
-type WithWRTraits = (CharacterTraitsSource | NPCTraitsSource) & {
-    dv?: never[];
-    dr?: never[];
-};
+type WithWRTraits = { value?: unknown; dv?: never[]; dr?: never[] };

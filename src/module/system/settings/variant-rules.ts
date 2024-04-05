@@ -107,8 +107,11 @@ const SETTINGS: Record<string, SettingRegistration> = {
 
 export class VariantRulesSettings extends FormApplication {
     static override get defaultOptions(): FormApplicationOptions {
+        const options = super.defaultOptions;
+        options.classes.push("sheet");
+
         return {
-            ...super.defaultOptions,
+            ...options,
             title: "PF2E.SETTINGS.Variant.Title",
             id: "variant-rules-settings",
             template: "systems/pf2e/templates/system/settings/variant-rules.hbs",

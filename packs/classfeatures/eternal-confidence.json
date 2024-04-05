@@ -26,12 +26,31 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.classDCs.swashbuckler.rank",
-                "value": 3
+                "key": "RollOption",
+                "option": "add-opportune-riposte-toggle",
+                "priority": 49
+            },
+            {
+                "key": "RollOption",
+                "option": "eternal-confidence",
+                "predicate": [
+                    {
+                        "or": [
+                            "finisher",
+                            "opportune-riposte"
+                        ]
+                    }
+                ]
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "swashbuckler": {
+                    "attribute": null,
+                    "rank": 3
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

@@ -229,7 +229,7 @@ export class StatusEffects {
         for (const [token, actor] of tokensAndActors) {
             // Persistent damage goes through a dialog instead
             if (slug === "persistent-damage") {
-                await new PersistentDialog(actor).render(true);
+                new PersistentDialog(actor).render(true);
                 continue;
             }
 
@@ -310,16 +310,13 @@ export class StatusEffects {
         const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
         const messageSource: Partial<foundry.documents.ChatMessageSource> = {
             user: game.user.id,
-            speaker: {
-                ...ChatMessagePF2e.getSpeaker({ token, actor: token.actor }),
-                alias: game.i18n.format("PF2E.StatusEffects", { name: token.name }),
-            },
+            speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
         const isNPCEvent = !token.actor?.hasPlayerOwner;
-        const hideNPCEvent = isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition");
-        if (hideNPCEvent || whisper) {
+        const whisperMessage = whisper || (isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition"));
+        if (whisperMessage) {
             messageSource.whisper = ChatMessage.getWhisperRecipients("GM").map((u) => u.id);
         }
 

@@ -11,7 +11,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>Your reports are thorough and informative, and putting your thoughts to paper helps you retain the information. Keep track of each type of creature you successfully identify with Recall Knowledge. When attempting Recall Knowledge checks against creatures on your list in later encounters, you gain a +2 circumstance bonus, and you learn an additional fact about such creatures on a success.</p>"
+            "value": "<p>Your reports are thorough and informative, and putting your thoughts to paper helps you retain the information. Keep track of each type of creature you successfully identify with @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge]. When attempting Recall Knowledge checks against creatures on your list in later encounters, you gain a +2 circumstance bonus, and you learn an additional fact about such creatures on a success.</p>"
         },
         "level": {
             "value": 4
@@ -28,7 +28,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: World Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "thorough-reports"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

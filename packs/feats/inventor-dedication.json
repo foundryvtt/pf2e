@@ -19,7 +19,7 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "Intelligence 14"
+                    "value": "Intelligence +2"
                 }
             ]
         },
@@ -46,15 +46,60 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
-                "path": "system.proficiencies.classDCs.inventor",
-                "priority": 39,
-                "value": {
-                    "ability": "int",
-                    "label": "PF2E.TraitInventor",
+                "path": "flags.pf2e.inventor.explode",
+                "priority": 49,
+                "value": "fire"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "self:action:trait:unstable"
+                ],
+                "selector": [
+                    "inline-damage",
+                    "inline-healing",
+                    "strike-attack-roll"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.Note",
+                "title": "PF2E.TraitUnstable"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "unstable-check"
+                ],
+                "selector": [
+                    "flat-check"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Failure",
+                "title": "PF2E.Check.Result.Degree.Check.failure"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "unstable-check"
+                ],
+                "selector": [
+                    "flat-check"
+                ],
+                "text": "PF2E.SpecificRule.Inventor.Unstable.FlatCheck.CriticalFailure",
+                "title": "PF2E.Check.Result.Degree.Check.criticalFailure"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "inventor": {
+                    "attribute": "int",
                     "rank": 1
                 }
             }
-        ],
+        },
         "traits": {
             "rarity": "uncommon",
             "value": [

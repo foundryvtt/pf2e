@@ -217,6 +217,10 @@ declare global {
         get folder(): Folder<Actor<null>> | null;
     }
 
+    namespace Actor {
+        const implementation: typeof Actor;
+    }
+
     type CompendiumActorUUID = `Compendium.${string}.Actor.${string}`;
     type ActorUUID = `Actor.${string}` | `${TokenDocumentUUID}.Actor.${string}` | CompendiumActorUUID;
 }

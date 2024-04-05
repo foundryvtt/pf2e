@@ -1,5 +1,5 @@
 import type { TokenDocumentPF2e } from "@scene";
-import { getSelectedOrOwnActors } from "@util/token-actor-utils.ts";
+import { getSelectedActors } from "@util/token-actor-utils.ts";
 
 export const TargetToken = {
     listen: (): void => {
@@ -8,7 +8,7 @@ export const TargetToken = {
             ui.combat.refreshTargetDisplay(tokenDocument);
 
             // Draw flanking highlights if applicable
-            const actors = getSelectedOrOwnActors();
+            const actors = getSelectedActors({ include: ["creature"] });
             if (actors.length === 1 && tokenDocument.object) {
                 const actor = actors[0];
                 const actorToken = actor.getActiveTokens(false, false).shift();

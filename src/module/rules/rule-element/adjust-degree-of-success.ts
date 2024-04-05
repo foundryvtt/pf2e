@@ -1,5 +1,4 @@
-import { CharacterPF2e, NPCPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import {
     DEGREE_ADJUSTMENT_AMOUNTS,
     DEGREE_OF_SUCCESS_STRINGS,
@@ -18,7 +17,8 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
     protected static override validActorTypes: ActorType[] = ["character", "npc"];
 
     static override defineSchema(): AdjustDegreeRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+
         return {
             ...super.defineSchema(),
             selector: new fields.StringField({ required: true, nullable: false, blank: false }),

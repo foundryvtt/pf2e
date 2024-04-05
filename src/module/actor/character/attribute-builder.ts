@@ -183,7 +183,7 @@ class AttributeBuilder extends Application {
             const mightBeForced = unselectedRestricted.includes(attribute);
             buttons[attribute].boost = {
                 selected,
-                disabled: !(selected || remaining) || (!!unselectedRestricted.length && !mightBeForced),
+                disabled: !(selected || remaining) || (unselectedRestricted.length > 0 && !mightBeForced),
             };
         }
 

@@ -39,38 +39,17 @@
                         }
                     ]
                 },
-                "choices": [
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Mischief"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Shadow"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Snow"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Calamity"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Dreams"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Life"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Protection"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Elements"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Vengeance"
-                    },
-                    {
-                        "value": "Compendium.pf2e.classfeatures.Item.Lesson of Favors"
-                    }
-                ],
+                "choices": {
+                    "filter": [
+                        "item:tag:witch-lesson",
+                        {
+                            "lte": [
+                                "item:level",
+                                6
+                            ]
+                        }
+                    ]
+                },
                 "flag": "lesson",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Lesson"

@@ -1,15 +1,16 @@
-import { type ActorPF2e } from "@actor";
-import { ItemPF2e, type ContainerPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
+import type { ActorPF2e } from "@actor";
+import { ItemPF2e, ItemProxyPF2e, type ContainerPF2e } from "@item";
+import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { isCycle } from "@item/container/helpers.ts";
-import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import { isContainerCycle } from "@item/container/helpers.ts";
+import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { ErrorPF2e, isObject } from "@util";
+import { ErrorPF2e, isObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { getUnidentifiedPlaceholderImage } from "../identification.ts";
 import { Bulk } from "./bulk.ts";
-import {
+import type {
     IdentificationStatus,
     ItemActivation,
     ItemCarryType,
@@ -25,8 +26,27 @@ import { getUsageDetails, isEquipped } from "./usage.ts";
 import { DENOMINATIONS } from "./values.ts";
 
 abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    // The cached container of this item, if in a container, or null
+    /** The item in which this item is embedded */
+    parentItem: PhysicalItemPF2e | null;
+
+    /**
+     * The cached container of this item, if in a container, or null
+     * @ignore
+     */
     private declare _container: ContainerPF2e<ActorPF2e> | null;
+
+    /** Doubly-embedded adjustments, attachments, talismans etc. */
+    declare subitems: Collection<PhysicalItemPF2e<TParent>>;
+
+    /** A map of effect spinoff objects, which can be used to create new effects from using certain items */
+    effectSpinoffs: Map<string, EffectSpinoff>;
+
+    constructor(data: PreCreate<ItemSourcePF2e>, context: PhysicalItemConstructionContext<TParent> = {}) {
+        super(data, context);
+        this.parentItem = context.parentItem ?? null;
+        this.effectSpinoffs = new Map();
+        Object.defineProperty(this, "effectSpinoffs", { enumerable: false });
+    }
 
     get level(): number {
         return this.system.level.value;
@@ -79,13 +99,21 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return this.system.equipped.carryType === "worn";
     }
 
+    /** Whether the item has an attached (or affixed, applied, etc.) usage */
+    get isAttachable(): boolean {
+        return false;
+    }
+
     get price(): Price {
         return this.system.price;
     }
 
     /** The monetary value of the entire item stack */
     get assetValue(): CoinsPF2e {
-        return CoinsPF2e.fromPrice(this.price, this.quantity);
+        const baseValue = CoinsPF2e.fromPrice(this.price, this.quantity);
+        return this.isSpecific
+            ? baseValue
+            : this.subitems.reduce((total, i) => total.plus(CoinsPF2e.fromPrice(i.price, i.quantity)), baseValue);
     }
 
     get identificationStatus(): IdentificationStatus {
@@ -109,7 +137,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     get isInvested(): boolean | null {
         const traits: Set<string> = this.traits;
         if (!traits.has("invested")) return null;
-        return this.isEquipped && this.isIdentified && this.system.equipped.invested === true;
+        return (
+            (this.isEquipped || this.system.usage.type !== "worn") &&
+            !this.isStowed &&
+            this.isIdentified &&
+            this.system.equipped.invested === true
+        );
     }
 
     get isCursed(): boolean {
@@ -164,7 +197,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Returns the bulk of this item and all sub-containers */
     get bulk(): Bulk {
-        const { per } = this.system.bulk;
+        const per = this.system.bulk.per;
         const bulkRelevantQuantity = Math.floor(this.quantity / per);
         // Only convert to actor-relative size if the actor is a creature
         // https://2e.aonprd.com/Rules.aspx?ID=258
@@ -190,15 +223,20 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         });
     }
 
+    /** Whether other items can be attached (or affixed, applied, etc.) to this item */
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    acceptsSubitem(): boolean {
+        return false;
+    }
+
     /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
-        const rollOptions = super.getRollOptions(prefix);
+    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         const { material } = this.system;
         rollOptions.push(
             ...Object.entries({
                 equipped: this.isEquipped,
                 [`hands-held:${this.handsHeld}`]: this.handsHeld > 0,
-                [`rarity:${this.rarity}`]: true,
                 uninvested: this.isInvested === false,
                 [`material:${material.type}`]: !!material.type,
             })
@@ -211,6 +249,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this._container = null;
+        this.subitems ??= new Collection();
         super._initialize(options);
     }
 
@@ -252,12 +291,43 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        this.system.bulk = prepareBulkData(this);
-
         // Set the _container cache property to null if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {
             this._container = null;
         }
+
+        // Prepare doubly-embedded items if this is of an appropriate physical-item type
+        for (const subitemSource of this.system.subitems ?? []) {
+            subitemSource.system.equipped = R.pick(this.system.equipped, ["carryType", "handsHeld"]);
+            const item =
+                this.subitems.get(subitemSource._id ?? "") ??
+                (new ItemProxyPF2e(subitemSource, {
+                    parent: this.parent,
+                    parentItem: this,
+                }) as PhysicalItemPF2e<TParent>);
+            item.updateSource(subitemSource);
+            this.subitems.set(item.id, item);
+        }
+
+        // Remove any items no longer in the subitem source
+        const subitemIds = this.system.subitems?.flatMap((i) => i._id ?? []) ?? [];
+        for (const subitem of this.subitems) {
+            if (!subitemIds.includes(subitem.id)) this.subitems.delete(subitem.id);
+        }
+
+        this.system.bulk = prepareBulkData(this);
+
+        // Normalize apex data
+        if (this.system.apex) {
+            if (!this.traits.has("apex")) {
+                delete this.system.apex;
+            } else if (!this.isInvested) {
+                this.system.apex.selected = false;
+            }
+        }
+
+        // Optionally chained in case this data preparation cycle is being run during construction
+        this.effectSpinoffs?.clear();
     }
 
     /** Refresh certain derived properties in case of special data preparation from subclasses */
@@ -307,11 +377,36 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (this._container && !this.actor.items.has(this._container.id)) {
             this._container = this.system.containerId = null;
         }
+
+        // Ensure that there is only one selected apex item, and all others are set to false
+        if (this.system.apex) {
+            const otherApexData = this.actor.inventory.contents.flatMap((e) => (e === this ? [] : e.system.apex ?? []));
+            if (this.system.apex.selected || (this.isInvested && otherApexData.every((d) => !d.selected))) {
+                this.system.apex.selected = true;
+                for (const data of otherApexData) {
+                    data.selected = false;
+                }
+            }
+        }
     }
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
         this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+    }
+
+    override prepareActorData(): void {
+        const { actor } = this;
+        if (!actor?.isOfType("character")) return;
+
+        // Apply this item's apex attribute upgrade if applicable
+        if (this.system.apex?.selected) {
+            if (actor.system.build.attributes.apex) {
+                this.system.apex.selected = false;
+            } else {
+                actor.system.build.attributes.apex = this.system.apex.attribute;
+            }
+        }
     }
 
     /** Can the provided item stack with this item? */
@@ -377,10 +472,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const containerResolved = toContainer ?? relativeTo?.container;
         const mainContainerUpdate = (() => {
             // Move into a container
-            if (containerResolved && !isCycle(this, containerResolved)) {
+            if (containerResolved && !isContainerCycle(this, containerResolved)) {
                 const carryType = containerResolved.stowsItems ? "stowed" : "worn";
                 const equipped = { carryType, handsHeld: 0, inSlot: false };
-                return { system: { containerId: containerResolved?.id, equipped } };
+                return { system: { containerId: containerResolved.id, equipped } };
             }
             // Move out of a container
             if (!containerResolved && this.isInContainer) {
@@ -394,7 +489,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         const siblings = (containerResolved?.contents.contents ?? inventory.contents).sort((a, b) => a.sort - b.sort);
 
         // If there is nothing to sort, perform the normal update and end here
-        if (!sortBefore && !siblings.length && !!mainContainerUpdate) {
+        if (!sortBefore && siblings.length === 0 && !!mainContainerUpdate) {
             await this.update(mainContainerUpdate);
             return;
         }
@@ -438,15 +533,11 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return {
             name,
             img,
-            data: {
-                description: {
-                    value: description,
-                },
-            },
+            data: { description: { value: description } },
         };
     }
 
-    override async getChatData(): Promise<ItemSummaryData> {
+    override async getChatData(): Promise<RawItemChatData> {
         const { type, grade } = this.system.material;
         const material =
             type && grade
@@ -455,14 +546,18 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                       grade: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
                   })
                 : null;
+        const rarity =
+            this.rarity === "common"
+                ? null
+                : {
+                      slug: this.rarity,
+                      label: CONFIG.PF2E.rarityTraits[this.rarity],
+                      description: CONFIG.PF2E.traitsDescriptions[this.rarity],
+                  };
 
         return {
-            rarity: {
-                name: this.rarity,
-                label: CONFIG.PF2E.rarityTraits[this.rarity],
-                description: CONFIG.PF2E.traitsDescriptions[this.rarity],
-            },
-            description: { value: this.description },
+            rarity,
+            description: this.system.description,
             material,
         };
     }
@@ -502,6 +597,44 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return traitData;
     }
 
+    /** Redirect subitem updates to the parent item */
+    override async update(
+        data: Record<string, unknown>,
+        context: DocumentModificationContext<TParent> = {},
+    ): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems = parentItem._source.system.subitems?.map((i) =>
+                i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
+            );
+            const parentContext = { ...context, diff: true, recursive: true };
+            const updated = await parentItem.update({ system: { subitems: newSubitems } }, parentContext);
+            if (updated) {
+                this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.update(data, context);
+    }
+
+    /** Redirect subitem deletes to parent-item updates */
+    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
+        if (this.parentItem) {
+            const parentItem = this.parentItem;
+            const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, context);
+            if (updated) {
+                this._onDelete(context, game.user.id);
+                return this;
+            }
+            return undefined;
+        }
+
+        return super.delete(context);
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
@@ -512,6 +645,13 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        if (!this.actor || this._source.system.containerId?.length !== 16) {
+            this._source.system.containerId = null;
+        }
+
+        // Clear the apex selection in case this is an apex item being copied from a previous owner
+        delete this._source.system.apex?.selected;
+
         this._source.system.equipped = { carryType: "worn" };
         const isSlottedItem = this.system.usage.type === "worn" && !!this.system.usage.where;
         if (isSlottedItem && this.actor?.isOfType("character")) {
@@ -523,7 +663,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        options: PhysicalItemUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
@@ -535,7 +675,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             }
         }
 
-        handleHPChange(this, changed);
+        if (options.checkHP ?? true) handleHPChange(this, changed);
 
         // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.system.price)) {
@@ -574,6 +714,17 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped["-=inSlot"] = null;
         }
 
+        // Remove apex data if apex trait is no longer present
+        const changedTraits = changed.system?.traits?.value;
+        const hasApexTrait =
+            tupleHasValue(this._source.system.traits.value, "apex") &&
+            (!Array.isArray(changedTraits) || tupleHasValue(changedTraits, "apex"));
+        if (!hasApexTrait && this._source.system.apex) {
+            delete changed.system?.apex;
+            (changed.system satisfies object | undefined) ??= {}; // workaround of `DeepPartial` limitations
+            changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
+        }
+
         return super._preUpdate(changed, options, user);
     }
 }
@@ -583,4 +734,13 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
     system: PhysicalSystemData;
 }
 
-export { PhysicalItemPF2e };
+interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
+    extends DocumentConstructionContext<TParent> {
+    parentItem?: PhysicalItemPF2e<TParent>;
+}
+
+interface PhysicalItemUpdateContext<TParent extends ActorPF2e | null> extends DocumentUpdateContext<TParent> {
+    checkHP?: boolean;
+}
+
+export { PhysicalItemPF2e, type PhysicalItemConstructionContext };

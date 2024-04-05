@@ -6,24 +6,23 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureLanguagesData,
+    CreaturePerceptionData,
     CreatureResources,
     CreatureSystemData,
     CreatureSystemSource,
-    CreatureTraitsData,
     HeldShieldData,
     SaveData,
     SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
-import { CreatureInitiativeSource, CreatureSpeeds, CreatureTraitsSource, SenseData } from "@actor/creature/index.ts";
-import type { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { CreatureInitiativeSource, CreatureSpeeds, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
     ActorFlagsPF2e,
     AttributeBasedTraceData,
     HitPointsStatistic,
     InitiativeData,
-    PerceptionData,
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
@@ -37,10 +36,9 @@ import { BaseWeaponType, WeaponCategory, WeaponGroup } from "@item/weapon/types.
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
-import type { ArmorClassTraceData, StatisticTraceData } from "@system/statistic/index.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { WeaponAuxiliaryAction } from "./helpers.ts";
-import { CharacterSheetTabVisibility } from "./sheet.ts";
+import type { WeaponAuxiliaryAction } from "./helpers.ts";
+import type { CharacterSheetTabVisibility } from "./sheet.ts";
 
 type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & {
     flags: DeepPartial<CharacterFlags>;
@@ -69,18 +67,20 @@ interface CharacterSystemSource extends CreatureSystemSource {
     abilities: Record<AttributeString, { mod: number }> | null;
     attributes: CharacterAttributesSource;
     details: CharacterDetailsSource;
-    traits: CharacterTraitsSource;
     build?: CharacterBuildSource;
-    saves?: Record<SaveType, { rank: number } | undefined>;
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
-        defenses?: Record<string, MartialProficiencySource | undefined>;
     };
     resources: CharacterResourcesSource;
+    initiative: CreatureInitiativeSource;
     crafting?: { formulas: CraftingFormulaData[] };
 
     /** Pathfinder Society Organized Play */
     pfs: PathfinderSocietyData;
+
+    perception?: never;
+    saves?: never;
+    traits?: never;
 }
 
 interface MartialProficiencySource {
@@ -88,7 +88,7 @@ interface MartialProficiencySource {
     custom?: boolean;
 }
 
-interface CharacterAttributesSource extends Omit<ActorAttributesSource, "perception"> {
+interface CharacterAttributesSource extends ActorAttributesSource {
     hp: {
         value: number;
         temp: number;
@@ -102,15 +102,11 @@ interface CharacterAttributesSource extends Omit<ActorAttributesSource, "percept
             value: number;
         }[];
     };
-    initiative: CreatureInitiativeSource;
-}
-
-interface CharacterTraitsSource extends Omit<CreatureTraitsSource, "rarity" | "size"> {
-    senses?: SenseData[];
 }
 
 interface CharacterDetailsSource extends CreatureDetailsSource {
     level: { value: number };
+    languages: CreatureLanguagesData;
     /** The key ability which class saves (and other class-related things) scale off of. */
     keyability: { value: AttributeString };
 
@@ -199,8 +195,35 @@ interface CharacterResourcesSource {
     resolve?: { value: number };
 }
 
+/** A Pathfinder Society Faction */
+type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
+
+/** A Pathfinder Society School */
+type PFSSchool = "scrolls" | "spells" | "swords" | null;
+
+/** PFS faction reputation values */
+type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
+
+/** Pathfinder Society Organized Play data fields */
+interface PathfinderSocietyData {
+    /** Number assigned to the player. */
+    playerNumber: number | null;
+    /** Number assigned to the character. */
+    characterNumber: number | null;
+    /** Is the character currently affected by a level bump? */
+    levelBump: boolean;
+    /** Character's currently slotted faction */
+    currentFaction: PFSFaction;
+
+    /** Character's Pathfinder school */
+    school: PFSSchool;
+
+    /** Character's Reputation with all the factions */
+    reputation: PathfinderSocietyReputation;
+}
+
 /** The raw information contained within the actor data object for characters. */
-interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifiers" | "resources">, CreatureSystemData {
+interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission>, CreatureSystemData {
     /** The six primary attribute scores. */
     abilities: CharacterAbilities;
 
@@ -214,6 +237,10 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifie
     details: CharacterDetails;
 
     attributes: CharacterAttributes;
+
+    perception: CharacterPerceptionData;
+
+    initiative: InitiativeData;
 
     /** A catch-all for character proficiencies */
     proficiencies: {
@@ -232,24 +259,21 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, "customModifie
     /** Player skills, used for various skill checks. */
     skills: Record<SkillAbbreviation, CharacterSkillData>;
 
-    traits: CharacterTraitsData;
-
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
 
     resources: CharacterResources;
 
     /** Crafting-related data, including known formulas */
-    crafting: {
-        formulas: CraftingFormulaData[];
-        entries: Record<string, Partial<CraftingEntryData>>;
-    };
+    crafting: CharacterCraftingData;
 
     exploration: string[];
 }
 
+type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" | "traits";
+
 interface CharacterSkillData extends SkillData {
-    ability: AttributeString;
+    attribute: AttributeString;
     /** The proficiency rank ("TEML") */
     rank: ZeroToFour;
     /** Whether this skill is subject to an armor check penalty */
@@ -267,6 +291,18 @@ interface CharacterAbilityData extends AbilityData {
 
 interface CharacterBuildData {
     attributes: AttributeBoosts;
+    languages: LanguageBuildData;
+}
+
+interface LanguageBuildData extends ValueAndMax {
+    /** Specific languages granted by ancestry, feats, etc., that do not count against the character's maximum */
+    granted: GrantedLanguage[];
+}
+
+/** A language added by some freature (typically ancestry) that doesn't count against the character's maximum */
+interface GrantedLanguage {
+    slug: Language;
+    source: string;
 }
 
 /**
@@ -314,8 +350,6 @@ interface CharacterProficiency {
     breakdown: string;
     /** The proficiency rank (0 untrained - 4 legendary). */
     rank: ZeroToFour;
-    /** Can this proficiency be edited or deleted? */
-    immutable?: boolean;
 }
 
 /** A proficiency with a rank that depends on another proficiency */
@@ -338,7 +372,7 @@ type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
 type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-interface ClassDCData extends Required<AttributeBasedTraceData>, StatisticTraceData {
+interface ClassDCData extends Required<AttributeBasedTraceData> {
     label: string;
     rank: ZeroToFour;
     primary: boolean;
@@ -356,6 +390,7 @@ interface CharacterStrike extends StrikeData {
     altUsages: CharacterStrike[];
     auxiliaryActions: WeaponAuxiliaryAction[];
     weaponTraits: TraitViewData[];
+    doubleBarrel: { selected: boolean } | null;
     versatileOptions: VersatileWeaponOption[];
 }
 
@@ -366,31 +401,9 @@ interface VersatileWeaponOption {
     glyph: string | null;
 }
 
-/** A Pathfinder Society Faction */
-type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
-
-/** A Pathfinder Society School */
-type PFSSchool = "scrolls" | "spells" | "swords" | null;
-
-/** PFS faction reputation values */
-type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
-
-/** Pathfinder Society Organized Play data fields */
-interface PathfinderSocietyData {
-    /** Number assigned to the player. */
-    playerNumber: number | null;
-    /** Number assigned to the character. */
-    characterNumber: number | null;
-    /** Is the character currently affected by a level bump? */
-    levelBump: boolean;
-    /** Character's currently slotted faction */
-    currentFaction: PFSFaction;
-
-    /** Character's Pathfinder school */
-    school: PFSSchool;
-
-    /** Character's Reputation with all the factions */
-    reputation: PathfinderSocietyReputation;
+interface CharacterCraftingData {
+    formulas: CraftingFormulaData[];
+    entries: Record<string, Partial<CraftingEntryData>>;
 }
 
 interface CharacterResources extends CreatureResources {
@@ -402,7 +415,7 @@ interface CharacterResources extends CreatureResources {
     resolve?: ValueAndMax;
 }
 
-interface CharacterPerception extends PerceptionData {
+interface CharacterPerceptionData extends CreaturePerceptionData {
     rank: ZeroToFour;
 }
 
@@ -434,18 +447,12 @@ interface DeityDetails extends Pick<DeitySystemData, "skill"> {
 }
 
 interface CharacterAttributes extends Omit<CharacterAttributesSource, AttributesSourceOmission>, CreatureAttributes {
-    /** The perception statistic */
-    perception: CharacterPerception;
     /** Used for saves related to class abilities */
     classDC: ClassDCData | null;
     /** The best spell DC, used for certain saves related to feats */
     spellDC: { rank: number; value: number } | null;
     /** The higher between highest spellcasting DC and (if present) class DC */
     classOrSpellDC: { rank: number; value: number };
-    /** Creature armor class, used to defend against attacks. */
-    ac: ArmorClassTraceData;
-    /** Initiative, used to determine turn order in combat. */
-    initiative: InitiativeData;
     /** The amount of HP provided per level by the character's class. */
     classhp: number;
     /** The amount of HP provided at level 1 by the character's ancestry. */
@@ -481,10 +488,6 @@ interface CharacterHitPoints extends HitPointsStatistic {
     sp?: ValueAndMax;
 }
 
-interface CharacterTraitsData extends CreatureTraitsData, Omit<CharacterTraitsSource, "size" | "value"> {
-    senses: CreatureSensePF2e[];
-}
-
 export type {
     BaseWeaponProficiencyKey,
     CategoryProficiencies,
@@ -505,8 +508,6 @@ export type {
     CharacterStrike,
     CharacterSystemData,
     CharacterSystemSource,
-    CharacterTraitsData,
-    CharacterTraitsSource,
     ClassDCData,
     MartialProficiency,
     WeaponGroupProficiencyKey,

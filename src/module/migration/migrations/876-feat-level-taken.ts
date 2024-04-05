@@ -1,8 +1,8 @@
+import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { FEAT_CATEGORIES } from "@item/feat/values.ts";
 import { setHasElement } from "@util";
 import { MigrationBase } from "../base.ts";
-import { ActorSourcePF2e } from "@actor/data/index.ts";
 
 /** Record the level each feat is taken by PCs. */
 export class Migration876FeatLevelTaken extends MigrationBase {

@@ -1,18 +1,22 @@
 &.feats {
-    padding-bottom: 1em;
-
     .feat-section {
         padding-bottom: 1em;
     }
 
-    .feat-item {
+    ol.feats-list {
+        padding-left: 0;
+    }
+
+    ol.feats-list li.slot {
+        align-items: center;
         display: grid;
         grid:
             "name ctrl" min-content
             "content content" min-content
             / 1fr min-content;
-        align-items: center;
-        padding: 2px 0;
+        padding: var(--space-5) 0 var(--space-4);
+        position: relative;
+        row-gap: var(--space-2);
 
         &:nth-child(odd) {
             background-color: rgba($alt-color, 0.1);
@@ -27,39 +31,41 @@
             align-items: center;
             display: flex;
             flex: 1;
+            gap: var(--space-8);
             grid-area: name;
-            height: calc(1.5rem + 2px);
+            height: var(--font-size-25);
             width: 100%;
 
             .feat-slot-title {
                 display: flex;
-                font-family: var(--serif);
-                font-size: 1.1em;
-                font-weight: 600;
-                color: var(--secondary);
+                font: 600 var(--font-size-15) var(--serif);
+                color: var(--color-pf-secondary);
                 justify-content: center;
-                width: 20px;
-                margin-left: 6px;
+                width: 1.25rem;
+                margin-left: var(--space-6);
             }
 
             .item-placeholder {
-                margin-left: 40px;
-                margin-right: 4px;
+                margin-left: 2.5rem;
+                margin-right: var(--space-4);
             }
 
             h4 {
-                cursor: pointer;
-                font-family: var(--serif);
+                display: inline-flex;
+                max-width: 20rem;
+                margin: 0;
 
                 &:hover {
-                    color: var(--primary);
-                    text-shadow: 0 0 3px var(--tertiary);
+                    color: var(--color-pf-primary);
+                    text-shadow: 0 0 3px var(--color-pf-tertiary);
                 }
-            }
 
-            .item-image {
-                margin-left: 8px;
-                margin-right: 8px;
+                a {
+                    font-size: var(--font-size-13);
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
             }
         }
 
@@ -74,46 +80,55 @@
 
             a {
                 &:last-child {
-                    margin-right: 6px;
+                    margin-right: var(--space-6);
                 }
             }
         }
 
         .item-summary {
-            flex: 100%;
             grid-area: content;
-            padding: 0 8px 8px;
-            margin: 4px 0 0 4px;
+            margin: var(--space-4) 0;
+            padding: 0 var(--space-4);
+
+            .tags {
+                padding: var(--space-2) 0 0;
+            }
+
+            .level {
+                font-weight: 600;
+                position: absolute;
+                right: 3rem;
+                top: var(--space-8);
+            }
+        }
+
+        > .item-summary {
+            margin-left: 1.75rem;
         }
 
         ol.nested-items {
-            grid-column: span 2;
-            border-left: 3px dotted $alt-color;
+            border-left: var(--space-3) dotted var(--color-pf-alternate);
             display: flex;
-            margin: 1px 0 0 45px;
-            padding: 0;
             flex-basis: 100%;
             flex-direction: column;
+            grid-column: span 2;
+            margin: var(--space-1) 0 0 2.85rem;
+            padding: 0;
+            row-gap: var(--space-4);
 
-            li {
+            > li {
                 align-items: center;
                 display: flex;
                 flex-wrap: wrap;
-                gap: 2px;
-                margin: 2px 0;
-                padding-bottom: 1px;
-
-                &:last-child {
-                    padding-bottom: 0;
-                }
+                margin: 0;
+                padding-left: 0.875rem;
+                position: relative;
 
                 .item-name {
-                    .feat-slot-title {
-                        width: 0;
-                    }
+                    margin: 0;
 
-                    img {
-                        margin-left: 0;
+                    .feat-slot-title {
+                        display: none;
                     }
                 }
 
@@ -121,8 +136,17 @@
                     flex: 0;
                 }
 
+                .item-summary {
+                    margin-left: 0;
+                    padding-left: 0;
+
+                    .level {
+                        top: var(--space-3);
+                    }
+                }
+
                 ol.nested-items {
-                    margin-left: 25px;
+                    margin: var(--space-3) 0 0 var(--space-11);
                 }
             }
         }

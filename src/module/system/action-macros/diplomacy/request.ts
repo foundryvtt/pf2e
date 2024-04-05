@@ -1,13 +1,16 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
-export function request(options: SkillActionOptions): void {
+const PREFIX = "PF2E.Actions.Request";
+
+function request(options: SkillActionOptions): void {
     const slug = options?.skill ?? "diplomacy";
     const rollOptions = ["action:request"];
     const modifiers = options?.modifiers;
     ActionMacroHelpers.simpleRollActionCheck({
         actors: options.actors,
         actionGlyph: options.glyph ?? "A",
-        title: "PF2E.Actions.Request.Title",
+        title: `${PREFIX}.Title`,
         checkContext: (opts) => ActionMacroHelpers.defaultCheckContext(opts, { modifiers, rollOptions, slug }),
         traits: ["auditory", "concentrate", "linguistic", "mental"],
         event: options.event,
@@ -24,3 +27,22 @@ export function request(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 1,
+    description: `${PREFIX}.Description`,
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
+        { outcome: ["success"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:request"],
+    section: "skill",
+    slug: "request",
+    statistic: "diplomacy",
+    traits: ["auditory", "concentrate", "linguistic", "mental"],
+});
+
+export { request as legacy, action };

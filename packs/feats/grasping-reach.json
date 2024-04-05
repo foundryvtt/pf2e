@@ -32,41 +32,33 @@
                 "toggleable": true
             },
             {
-                "definition": [
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "grasping-reach",
+                    "item:equipped",
                     "item:melee",
                     "item:usage:hands:2",
                     {
-                        "nor": [
-                            "item:damage:die:faces:4",
-                            "item:trait:reach"
-                        ]
+                        "not": "item:trait:reach"
                     }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "grasping-reach"
-                ],
-                "property": "weapon-traits",
-                "value": "reach"
+                "priority": 119,
+                "property": "damage-dice-faces"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "downgrade": true
-                },
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "item:melee",
-                    "item:usage:hands:2",
                     "grasping-reach",
-                    {
-                        "nor": [
-                            "item:traits:reach",
-                            "item:damage:die:faces:4"
-                        ]
-                    }
+                    "item:equipped",
+                    "item:melee",
+                    "item:usage:hands:2"
                 ],
-                "selector": "strike-damage"
+                "property": "traits",
+                "value": "reach"
             }
         ],
         "traits": {

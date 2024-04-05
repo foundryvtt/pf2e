@@ -2,11 +2,11 @@ import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
 import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
-import { ErrorPF2e, htmlClosest, isObject, setHasElement } from "@util";
+import { ErrorPF2e, htmlClosest, isObject, tupleHasValue } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
-    override async _onDrop(event: ElementDragEvent): Promise<void> {
+    override async _onDrop(event: DragEvent): Promise<void> {
         const li = htmlClosest(event.target, ".macro");
         const slot = Number(li?.dataset.slot) || null;
         if (!slot) return;
@@ -54,7 +54,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 return HotbarPF2e.#createRollOptionToggleMacro({ ...data, item }, slot);
             }
             case "Skill": {
-                if (!(data.actorId && setHasElement(SKILL_ABBREVIATIONS, data.skill))) return;
+                if (!(data.actorId && tupleHasValue(SKILL_ABBREVIATIONS, data.skill))) return;
                 const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
                 return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
@@ -89,7 +89,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
      * @param slot     The hotbar slot to use
      */
     static async #createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
-        const command = `game.pf2e.rollItemMacro("${item.id}");`;
+        const command = `game.pf2e.rollItemMacro("${item.id}", event);`;
         const macro =
             game.macros.find((m) => m.name === item.name && m.command === command) ??
             (await MacroPF2e.create(

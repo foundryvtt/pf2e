@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import type { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Record initial spellcasting proficiency in class item data */
@@ -47,8 +47,9 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
                         (r: MaybeAELike) => r.path !== "system.proficiencies.spellcasting.rank",
                     );
                     break;
-                case "expert-spellcaster":
-                    source.system.rules = [{ ...baseRule, value: 2 }];
+                case "expert-spellcaster": {
+                    const rule = { ...baseRule, value: 2 };
+                    source.system.rules = [rule];
                     source.system.publication = {
                         ...(source.system.publication ?? {}),
                         license: "ORC",
@@ -56,11 +57,15 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
                         title: "Pathfinder Player Core",
                     };
                     break;
-                case "expert-spellcasting":
-                    source.system.rules = [{ ...baseRule, value: 2 }];
+                }
+                case "expert-spellcasting": {
+                    const rule = { ...baseRule, value: 2 };
+                    source.system.rules = [rule];
                     break;
-                case "master-spellcaster":
-                    source.system.rules = [{ ...baseRule, value: 3 }];
+                }
+                case "master-spellcaster": {
+                    const rule = { ...baseRule, value: 3 };
+                    source.system.rules = [rule];
                     source.system.publication = {
                         ...(source.system.publication ?? {}),
                         license: "ORC",
@@ -68,11 +73,15 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
                         title: "Pathfinder Player Core",
                     };
                     break;
-                case "master-spellcasting":
-                    source.system.rules = [{ ...baseRule, value: 3 }];
+                }
+                case "master-spellcasting": {
+                    const rule = { ...baseRule, value: 3 };
+                    source.system.rules = [rule];
                     break;
-                case "legendary-spellcaster":
-                    source.system.rules = [{ ...baseRule, value: 4 }];
+                }
+                case "legendary-spellcaster": {
+                    const rule = { ...baseRule, value: 4 };
+                    source.system.rules = [rule];
                     source.system.publication = {
                         ...(source.system.publication ?? {}),
                         license: "ORC",
@@ -80,7 +89,7 @@ export class Migration900ClassSpellcastingProficiency extends MigrationBase {
                         title: "Pathfinder Player Core",
                     };
                     break;
-                    break;
+                }
             }
         }
     }

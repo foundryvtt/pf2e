@@ -30,7 +30,6 @@ interface VehicleSystemSource extends ActorSystemSource {
 interface VehicleAttributesSource extends ActorAttributesSource {
     ac: { value: number };
     hardness: number;
-    initiative?: never;
     immunities: ImmunitySource[];
 }
 
@@ -72,6 +71,7 @@ interface VehicleAttributes extends Omit<VehicleAttributesSource, AttributesSour
     hp: VehicleHitPoints;
     initiative?: never;
     shield?: never;
+    emitsSound: boolean | "encounter";
 }
 type AttributesSourceOmission = "immunities" | "weaknesses" | "resistances";
 

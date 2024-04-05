@@ -31,21 +31,41 @@
         },
         "rules": [
             {
-                "domain": "damage",
+                "domain": "alchemical-bomb-base-type-damage",
                 "key": "RollOption",
                 "option": "sticky-bomb",
                 "toggleable": true
             },
             {
-                "key": "Note",
+                "damageCategory": "persistent",
+                "key": "FlatModifier",
                 "predicate": [
-                    "alchemical",
-                    "bomb",
+                    "item:trait:splash",
                     "sticky-bomb"
                 ],
-                "selector": "strike-damage",
-                "text": "If you hit, your bomb deals persistent damage equal to, and of the same type, as the bomb's splash damage.",
-                "title": "{item|name}"
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@weapon.system.splashDamage.value"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feat:calculated-splash"
+                ],
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@actor.abilities.int.mod"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "feat:expanded-splash"
+                ],
+                "selector": "alchemical-bomb-base-type-damage",
+                "slug": "sticky-bomb",
+                "value": "@actor.abilities.int.mod"
             }
         ],
         "traits": {

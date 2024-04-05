@@ -1,4 +1,4 @@
-import type { AbilityItemSource } from "@item/ability/data.ts";
+import type { AbilitySource } from "@item/ability/data.ts";
 import type { AfflictionSource } from "@item/affliction/data.ts";
 import type { AncestrySource } from "@item/ancestry/data.ts";
 import type { ArmorSource } from "@item/armor/data.ts";
@@ -24,6 +24,7 @@ import type { SpellcastingEntrySource } from "@item/spellcasting-entry/data.ts";
 import type { TreasureSource } from "@item/treasure/data.ts";
 import type { WeaponSource } from "@item/weapon/data.ts";
 import type { PROFICIENCY_RANKS } from "@module/data.ts";
+import { ItemDescriptionData } from "./system.ts";
 
 type ProficiencyRank = (typeof PROFICIENCY_RANKS)[number];
 
@@ -59,7 +60,7 @@ type PhysicalItemSource =
 
 type ItemSourcePF2e =
     | PhysicalItemSource
-    | AbilityItemSource
+    | AbilitySource
     | AfflictionSource
     | AncestrySource
     | BackgroundSource
@@ -78,13 +79,11 @@ type ItemSourcePF2e =
 
 type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
 
-interface ItemSummaryData {
+interface RawItemChatData {
     [key: string]: unknown;
-    description?: {
-        value: string;
-    };
+    description: ItemDescriptionData;
     traits?: TraitChatData[];
-    properties?: (string | number | null)[];
+    properties?: string[];
 }
 
 interface TraitChatData {
@@ -95,7 +94,6 @@ interface TraitChatData {
     excluded?: boolean;
 }
 
-export * from "./helpers.ts";
 export type {
     ActionCost,
     ActionType,
@@ -107,7 +105,7 @@ export type {
 } from "./system.ts";
 
 export type {
-    AbilityItemSource,
+    AbilitySource,
     AncestrySource,
     ArmorSource,
     BackgroundSource,
@@ -121,7 +119,6 @@ export type {
     EquipmentSource,
     FeatSource,
     ItemSourcePF2e,
-    ItemSummaryData,
     ItemType,
     KitSource,
     LoreSource,
@@ -130,6 +127,7 @@ export type {
     NonPhysicalItemType,
     PhysicalItemSource,
     ProficiencyRank,
+    RawItemChatData,
     ShieldSource,
     SpellSource,
     SpellcastingEntrySource,

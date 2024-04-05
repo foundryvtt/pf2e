@@ -24,7 +24,51 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "final-shot",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "final-shot",
+                    "item:group:firearm",
+                    "target:range-increment:1"
+                ],
+                "selector": "strike-attack-roll"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "final-shot",
+                    "item:group:firearm",
+                    "target:range-increment:1"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Gunslinger.FinalShot.Note",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "final-shot",
+                    "item:group:firearm",
+                    "target:range-increment:1"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Gunslinger.FinalShot.NoteFailure",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

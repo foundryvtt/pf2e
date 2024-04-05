@@ -290,9 +290,7 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": [
-                        "hampering-strike"
-                    ]
+                    "value": []
                 },
                 "bonus": {
                     "value": 32
@@ -370,7 +368,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60]{60 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Allies of lower level than Wynsal in the aura gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity] reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
+                    "value": "<p>60 feet. Allies of lower level than Wynsal in the aura gain the @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Attack of Opportunity] reaction. Allies who already have the Attack of Opportunity reaction can use it when a creature within their reach uses a concentrate action, in addition to normal triggers, and they disrupt a triggering concentrate action on a critical hit.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -442,7 +440,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract level 17th, counteract check [[/r 1d20+30 #Counteract]]{+30}). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
+                    "value": "<p>Wynsal either ends a nonpermanent condition affecting him or counteracts a nonpermanent spell affecting him (counteract rank 17th, counteract check [[/r 1d20+30 #Counteract]]{+30}). This doesn't remove Hit Point damage or prevent the spell or effect from affecting others. It can't remove an ongoing affliction or conditions from a situation outside his control (such as being grappled or flanked).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -527,7 +525,19 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "selector": "melee-strike-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": "hampering-strike",
                 "traits": {
                     "rarity": "common",
@@ -753,12 +763,6 @@
                     "type": "fear-effects"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 32
-            },
             "resistances": [
                 {
                     "type": "mental",
@@ -772,6 +776,17 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "dwarven",
+                    "elven",
+                    "halfling",
+                    "mwangi",
+                    "osiriani"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -782,6 +797,14 @@
                 "remaster": false,
                 "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 32,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -799,23 +822,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "dwarven",
-                    "elven",
-                    "halfling",
-                    "kelesh",
-                    "mwangi",
-                    "osiriani"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": ""
-            },
             "size": {
                 "value": "med"
             },

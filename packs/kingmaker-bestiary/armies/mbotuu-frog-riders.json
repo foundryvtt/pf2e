@@ -1,0 +1,388 @@
+{
+    "_id": "mwn9zBaCeYfEmmIa",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "uNxToGmQN5AbL2Gl",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ib8BcumGskNVJdZS"
+                }
+            },
+            "folder": "tavHHn3vqI7bCnl6",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Overrun",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p><em><strong>Note</strong>: Basic cavalry armies know Overrun automatically, and must 'spend' their first tactic on it.</em></p>\n<hr />\n<p>Cavalry armies gain a +1 status bonus on weapon attacks against infantry and skirmisher armies, but they suffer a –1 status penalty on Maneuver and Morale saves against area attacks and mental attacks.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Infantry and Skirmisher",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:trait:infantry",
+                                    "target:trait:skirmisher"
+                                ]
+                            }
+                        ],
+                        "selector": "attack-roll",
+                        "slug": "overrun-attacks",
+                        "type": "status",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "vs Area or Mental attacks",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "mental-attack",
+                                    "area-attack"
+                                ]
+                            }
+                        ],
+                        "selector": [
+                            "maneuver-check",
+                            "morale-check"
+                        ],
+                        "slug": "overrun-saves",
+                        "type": "status",
+                        "value": -1
+                    }
+                ],
+                "slug": "overrun",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "uh0j5ahsCALfQSJH",
+            "flags": {
+                "core": {
+                    "sourceId": "Item.uMpTw2rOkoeeCTyp"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Amphibious",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>Frog Riders ignore difficult terrain caused by swamps or water and gain a +2 circumstance bonus on Maneuver checks while fighting on a battlefield that features either of these terrains.</p>"
+                },
+                "level": {
+                    "value": 10
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "ZPw4TJMBuxgSjsDu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.y1JGtzGmMtVh5USK"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Darkvision",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army includes several spotters and scouts who have darkvision, and the rest of the soldiers have been trained to follow their lead so that the army itself functions as if it had darkvision.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "siege",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "4CBZ6rpLfvjX4S01",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.2LK1c6011SEcxxcR"
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Swamp Charge",
+            "sort": 2300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>If the battlefield includes swamp or water, the M'botuu Frog Riders can start the encounter engaged with a target enemy army. If they do so, they gain a +1 circumstance bonus on melee Strikes against that army on the first turn of the encounter.</p>"
+                },
+                "level": {
+                    "value": 10
+                },
+                "location": "2",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "dz3LFveHKuHU6FEv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.orqc10Z5YCiyxxiL"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "taunt": {
+                            "id": "wNSfDYqhHoxFBePG",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Chorus of Croaks",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The terrifying croaking that constantly issues from this army of boggards causes all engaged enemy armies to suffer a -2 status penalty on Morale checks. The M'botuu Frog Riders can use the Taunt tactical action. If they know the Focused Devotion tactic, they treat critical failures made when attempting to Taunt as failures instead.</p>"
+                },
+                "level": {
+                    "value": 10
+                },
+                "location": "1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "flag": "taunt",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Taunt"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "wNSfDYqhHoxFBePG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.ggVahjiAlVICpiPA"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "dz3LFveHKuHU6FEv",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "i18YzT3zo3skuWng",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Taunt",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "campaign": "kingmaker",
+                "category": "army-war-action",
+                "description": {
+                    "value": "<p><strong>Requirement</strong>@UUID[Compendium.pf2e.kingmaker-features.Item.Focused Devotion]</p>\n<hr />\n<p>Your army attempts to frighten and cow an enemy army. Attempt a @Check[morale|defense:morale|roller:self] check against the target army.</p>\n<p><strong>Critical Success</strong> The target army becomes @UUID[Compendium.pf2e.kingmaker-features.Item.Shaken]{Shaken 2} until the start of your next turn.</p>\n<p><strong>Success</strong> The target army becomes shaken 1 until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> Your failed attempt bolsters the enemy's spirits. This reduces the target army's shaken value by 1.</p>"
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [],
+                "slug": "taunt",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "morale"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "M'botuu Frog Riders",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 27
+        },
+        "attributes": {
+            "hp": {
+                "max": 6,
+                "routThreshold": 3,
+                "value": 6
+            }
+        },
+        "consumption": 2,
+        "details": {
+            "alignment": "N",
+            "blurb": "",
+            "description": "<p>These lance-armed boggards from M'botuu and ride giant frogs trained for warfare into battle.</p>",
+            "level": {
+                "value": 10
+            }
+        },
+        "recruitmentDC": 32,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 22,
+            "morale": 18
+        },
+        "scouting": 19,
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "type": "cavalry",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Lances",
+                "potency": 2
+            },
+            "ranged": {
+                "name": "Javelins",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

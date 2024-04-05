@@ -1,0 +1,81 @@
+{
+    "_id": "Q5pWxWsb4MIgfwxd",
+    "img": "icons/creatures/amphibians/frog-confused-green-blue.webp",
+    "name": "Effect: Bogwid Fever",
+    "system": {
+        "badge": {
+            "max": 4,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>You are enfeebled, and the DC to recover from persistent bleed damage increases based on the stage of disease.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": "@item.badge.value"
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    "parent:badge:value:2"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 2
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:damage:type:bleed",
+                    {
+                        "gte": [
+                            "parent:badge:value",
+                            3
+                        ]
+                    }
+                ],
+                "property": "pd-recovery-dc",
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

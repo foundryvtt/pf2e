@@ -30,7 +30,7 @@ export class Migration679TowerShieldSpeedPenalty extends MigrationBase {
             potencyRune.value = (Number(systemData.potencyRune?.value) || 0) as ZeroToFour;
             if ("resilient" in systemData) {
                 // Aborted attempt to store rune data?
-                "game" in globalThis ? (systemData["-=resilient"] = null) : delete systemData.resilient;
+                systemData["-=resilient"] = null;
             }
         }
     }

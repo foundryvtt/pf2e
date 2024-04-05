@@ -456,7 +456,28 @@
                     "remaster": false,
                     "title": "Pathfinder Advanced Player's Guide"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                        "mergeable": true,
+                        "option": "finisher",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Impaling",
+                                "value": "impaling"
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
                 "slug": "impaling-finisher",
                 "traits": {
                     "rarity": "common",
@@ -1938,7 +1959,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Precise Strike"
                     },
                     "41jmp": {
-                        "img": "systems/pf2e/icons/features/classes/confident-finisher.webp",
+                        "img": "icons/weapons/swords/scimitar-broad.webp",
                         "level": 1,
                         "name": "Confident Finisher",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Confident Finisher"
@@ -1950,7 +1971,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
                     },
                     "7g9e4": {
-                        "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
+                        "img": "icons/equipment/feet/boots-leather-grey-gold.webp",
                         "level": 3,
                         "name": "Vivacious Speed",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Vivacious Speed"
@@ -1974,7 +1995,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Improved Evasion"
                     },
                     "i3ldz": {
-                        "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
                         "level": 15,
                         "name": "Greater Weapon Specialization",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
@@ -1998,7 +2019,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Stylish Tricks"
                     },
                     "mh4q8": {
-                        "img": "systems/pf2e/icons/features/classes/vigilant-senses.webp",
+                        "img": "icons/magic/perception/eye-tendrils-web-purple.webp",
                         "level": 11,
                         "name": "Vigilant Senses",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Perception Mastery"
@@ -2022,13 +2043,13 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise (Swashbuckler)"
                     },
                     "sltbp": {
-                        "img": "systems/pf2e/icons/features/classes/exemplary-finisher.webp",
+                        "img": "icons/weapons/daggers/dagger-double-engraved-black.webp",
                         "level": 9,
                         "name": "Exemplary Finisher",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Exemplary Finisher"
                     },
                     "t02dj": {
-                        "img": "systems/pf2e/icons/features/classes/light-armor-expertise.webp",
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
                         "level": 13,
                         "name": "Light Armor Expertise",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
@@ -2228,7 +2249,7 @@
                     }
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/confident-finisher.webp",
+            "img": "icons/weapons/swords/scimitar-broad.webp",
             "name": "Confident Finisher",
             "sort": 100,
             "system": {
@@ -2367,95 +2388,6 @@
                 },
                 "rules": [
                     {
-                        "disabledIf": [
-                            {
-                                "not": "self:effect:panache"
-                            }
-                        ],
-                        "disabledValue": false,
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
-                        "option": "finisher",
-                        "suboptions": [
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Basic",
-                                "value": "basic"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Bleeding",
-                                "predicate": [
-                                    "feat:bleeding-finisher"
-                                ],
-                                "value": "bleeding"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
-                                "predicate": [
-                                    "feature:confident-finisher"
-                                ],
-                                "value": "confident"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Dual",
-                                "predicate": [
-                                    "feat:dual-finisher"
-                                ],
-                                "value": "dual"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Impaling",
-                                "predicate": [
-                                    "feat:impaling-finisher"
-                                ],
-                                "value": "impaling"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Lethal",
-                                "predicate": [
-                                    "feat:lethal-finisher"
-                                ],
-                                "value": "lethal"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Mobile",
-                                "predicate": [
-                                    "feat:mobile-finisher"
-                                ],
-                                "value": "mobile"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Perfect",
-                                "predicate": [
-                                    "feat:perfect-finisher"
-                                ],
-                                "value": "perfect"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Stunning",
-                                "predicate": [
-                                    "feat:stunning-finisher"
-                                ],
-                                "value": "stunning"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Targeting",
-                                "predicate": [
-                                    "feat:targeting-finisher"
-                                ],
-                                "value": "targeting"
-                            },
-                            {
-                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Unbalancing",
-                                "predicate": [
-                                    "feat:unbalancing-finisher"
-                                ],
-                                "value": "unbalancing"
-                            }
-                        ],
-                        "toggleable": true
-                    },
-                    {
                         "damageCategory": "precision",
                         "key": "FlatModifier",
                         "predicate": [
@@ -2579,6 +2511,15 @@
                                 }
                             ]
                         }
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.swashbuckler.preciseStrike",
+                        "predicate": [
+                            "class:swashbuckler"
+                        ],
+                        "value": "ceil(@actor.level/4) + 1"
                     }
                 ],
                 "slug": "precise-strike",
@@ -2624,15 +2565,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.saves.fortitude.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "great-fortitude",
+                "subfeatures": {
+                    "proficiencies": {
+                        "fortitude": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -2749,7 +2690,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.8BOFeRE7ZfJ02N0O"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/vivacious-speed.webp",
+            "img": "icons/equipment/feet/boots-leather-grey-gold.webp",
             "name": "Vivacious Speed",
             "sort": 2100,
             "system": {
@@ -2892,24 +2833,6 @@
                 },
                 "rules": [
                     {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
                         "key": "CriticalSpecialization",
                         "predicate": [
                             {
@@ -2922,6 +2845,19 @@
                     }
                 ],
                 "slug": "weapon-expertise-swashbuckler",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 2
+                        },
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3063,7 +2999,28 @@
                     "remaster": false,
                     "title": "Pathfinder Advanced Player's Guide"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "disabledIf": [
+                            {
+                                "not": "self:effect:panache"
+                            }
+                        ],
+                        "disabledValue": false,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                        "mergeable": true,
+                        "option": "finisher",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Confident",
+                                "value": "confident"
+                            }
+                        ],
+                        "toggleable": true
+                    }
+                ],
                 "slug": "confident-finisher",
                 "traits": {
                     "rarity": "common",
@@ -3280,7 +3237,7 @@
                         "humanoid"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision"
             },
             "type": "ancestry"
         },
@@ -3338,9 +3295,6 @@
             "hp": {
                 "temp": 0,
                 "value": 73
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -3414,6 +3368,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "amurrun",
+                    "common"
+                ]
+            },
             "level": {
                 "min": 1,
                 "value": 5
@@ -3432,6 +3393,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3517,22 +3481,6 @@
             "thi": {
                 "rank": 1
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "amurrun",
-                    "common"
-                ]
-            },
-            "rarity": "common",
-            "senses": [],
-            "value": [
-                "chaotic",
-                "good"
-            ]
         }
     },
     "type": "character"

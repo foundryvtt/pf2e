@@ -3,18 +3,20 @@
     "img": "systems/pf2e/icons/iconics/DroogamiFull.webp",
     "items": [
         {
-            "_id": "xb6516a4k74vyf40",
+            "_id": "eoAI7N6RVscEja17",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.lOzvLCCy9QRnYw6w"
                 },
                 "pf2e": {
                     "itemGrants": {
-                        "cat": {
-                            "id": "s3y4lms6yyzkw8qn"
+                        "animalCompanion": {
+                            "id": "09K7kZlseBl6crQH",
+                            "onDelete": "detach"
                         },
-                        "cat2": {
-                            "id": "9agt6zvunkvshu0d"
+                        "catSupportBenefit": {
+                            "id": "Yq8IEfCn7s2lN8x5",
+                            "onDelete": "detach"
                         }
                     }
                 }
@@ -47,7 +49,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against off-guard targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> @UUID[Compendium.pf2e-animal-companions.AC-Advanced-Maneuvers.Item.U0J8J5ukmqnOskE8]{Cat Pounce}</p>"
+                    "value": "<p>Your companion is a big cat, such as a leopard or tiger.</p>\n<p><strong>Size</strong> Small</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> jaws (finesse), <strong>Damage</strong> 1d6 piercing</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> claw (agile, finesse), <strong>Damage</strong> 1d4 slashing</p>\n<p><strong>Str</strong> +2, <strong>Dex</strong> +3, <strong>Con</strong> +1, <strong>Int</strong> -4, <strong>Wis</strong> +2, <strong>Cha</strong> +0</p>\n<p><strong>Hit Points</strong> 4</p>\n<p><strong>Skill</strong> Stealth</p>\n<p><strong>Senses</strong> low-light vision, scent (imprecise, 30 feet)</p>\n<p><strong>Speed</strong> 35 feet</p>\n<p><strong>Special</strong> Your cat deals 1d4 extra precision damage against off-guard targets.</p>\n<p><strong>Support Benefit</strong> Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature that your cat threatens make the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn.</p>\n<p><strong>Advanced Maneuver</strong> Cat Pounce</p>"
                 },
                 "flaws": {
                     "0": {
@@ -101,6 +103,7 @@
                         "value": 1
                     },
                     {
+                        "flag": "animalCompanion",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e-animal-companions.AC-Features.Item.KKOgokqHa7RjVDN6"
                     },
@@ -114,7 +117,7 @@
                             }
                         },
                         "group": "brawling",
-                        "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                        "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
                         "key": "Strike",
                         "label": "PF2E.Weapon.Base.jaws",
                         "range": null,
@@ -134,7 +137,7 @@
                             }
                         },
                         "group": "brawling",
-                        "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
+                        "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
                         "key": "Strike",
                         "label": "PF2E.Weapon.Base.claw",
                         "range": null,
@@ -167,12 +170,13 @@
                         "priority": 1
                     },
                     {
+                        "flag": "catSupportBenefit",
                         "key": "GrantItem",
                         "uuid": "Compendium.pf2e-animal-companions.AC-Support.Item.HCQXxqMtH81jE1W5"
                     }
                 ],
                 "size": "sm",
-                "slug": null,
+                "slug": "cat",
                 "speed": 35,
                 "traits": {
                     "rarity": "common",
@@ -180,25 +184,72 @@
                         "animal"
                     ]
                 },
-                "vision": "lowLightVision"
+                "vision": "low-light-vision",
+                "voluntaryBoosts": {},
+                "voluntaryFlaws": {}
             },
             "type": "ancestry"
         },
         {
-            "_id": "s3y4lms6yyzkw8qn",
+            "_id": "Yq8IEfCn7s2lN8x5",
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.h6Ybhv5URar01WPk"
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Support.Item.HCQXxqMtH81jE1W5"
                 },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "xb6516a4k74vyf40"
+                        "id": "eoAI7N6RVscEja17",
+                        "onDelete": "cascade"
                     }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Cat Support Benefit",
+            "sort": 1700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "cat-support-benefit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XQyHWeDNXv862lsA",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e-animal-companions.AC-Ancestries-and-Class.Item.h6Ybhv5URar01WPk"
                 }
             },
             "img": "systems/pf2e/icons/default-icons/class.svg",
             "name": "Animal Companion",
-            "sort": 0,
+            "sort": 3600000,
             "system": {
                 "ancestryFeatLevels": {
                     "value": []
@@ -246,7 +297,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
+                        "path": "system.perception.rank",
                         "value": 1
                     },
                     {
@@ -275,6 +326,7 @@
                         "predicate": [
                             "self:specialized"
                         ],
+                        "priority": 51,
                         "value": 2
                     },
                     {
@@ -284,6 +336,7 @@
                         "predicate": [
                             "self:specialized"
                         ],
+                        "priority": 51,
                         "value": 1
                     },
                     {
@@ -291,6 +344,20 @@
                             "minion"
                         ],
                         "key": "ActorTraits"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.light-barding.rank",
+                        "priority": 41,
+                        "value": 1
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.defenses.heavy-barding.rank",
+                        "priority": 41,
+                        "value": 1
                     }
                 ],
                 "savingThrows": {
@@ -304,7 +371,7 @@
                 "skillIncreaseLevels": {
                     "value": []
                 },
-                "slug": null,
+                "slug": "animal-companion",
                 "spellcasting": 0,
                 "trainedSkills": {
                     "additional": 0,
@@ -321,49 +388,7 @@
             "type": "class"
         },
         {
-            "_id": "9agt6zvunkvshu0d",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e-animal-companions.AC-Support.Item.HCQXxqMtH81jE1W5"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "xb6516a4k74vyf40"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Cat Support Benefit",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": null,
-                "description": {
-                    "value": "<p>Your cat throws your enemies off-balance when you create an opening. Until the start of your next turn, your Strikes that deal damage to a creature within your cat's reach make the target @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the end of your next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "CEWGXY9gEzGLNwyx",
+            "_id": "1A7ibUMb8acOZMbz",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e-animal-companions.AC-Feats.Item.K3c8ztEUX27RHeZe"
@@ -386,7 +411,7 @@
                 "level": {
                     "value": 4
                 },
-                "location": "",
+                "location": "ancestryfeature",
                 "prerequisites": {
                     "value": []
                 },
@@ -444,7 +469,7 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
+                        "path": "system.perception.rank",
                         "value": 2
                     },
                     {
@@ -485,7 +510,7 @@
                         "value": 1
                     }
                 ],
-                "slug": null,
+                "slug": "mature-animal-companion",
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -526,9 +551,6 @@
             "hp": {
                 "temp": 0,
                 "value": 44
-            },
-            "initiative": {
-                "statistic": "perception"
             },
             "speed": {
                 "otherSpeeds": [],
@@ -575,6 +597,10 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 5
             },
@@ -590,6 +616,10 @@
                 "pct": 0,
                 "value": 0
             }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
         },
         "pfs": {
             "characterNumber": null,
@@ -663,15 +693,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
-            "senses": [],
-            "value": []
         }
     },
     "type": "character"

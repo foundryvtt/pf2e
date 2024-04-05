@@ -1,0 +1,99 @@
+{
+    "_id": "EVoXQv1tfMYQE72Y",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "TAOQ8f2QoSK6wYYW",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Freeze the Awful Light",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": null,
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature carrying a light source ends their turn in area <strong>F8</strong></p>\n<hr />\n<p><strong>Effect</strong> The walls fire beams of chilling dark fog at the triggering creature, who takes @Damage[10d6[cold]] damage (@Check[type:fortitude|dc:25|basic:true] save). The beams also attempt to counteract any light source the triggering creature carries. Non-magical light sources of 7th level or less are automatically extinguished. Against other light sources, the lightlock casts a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] spell with a counteract modifier of [[/r 1d20+14 #Counteract]]{+14} to attempt to counteract the light.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "cold",
+                        "darkness"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Lightlock",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>The strange fog layer on the walls swirls and churns, then suddenly fires several beams of dark mist into the room.</p>",
+            "disable": "<p>@Check[type:thievery|dc:27] (master) to disrupt some of the hidden runes that focus the trap's energies, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th level, counteract DC 25) or any spell with the Light trait to counteract the trap</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>The lightlock takes 1 minute to restore its energy, after which it can be triggered again.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

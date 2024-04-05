@@ -2,20 +2,20 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ChatMessagePF2e, DamageRollContextFlag } from "@module/chat-message/index.ts";
+import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
 import { createHTMLElement } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
-import { DamageRollContext, DamageTemplate } from "./types.ts";
+import { DamageDamageContext, DamageTemplate } from "./types.ts";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
     static async roll(
         data: DamageTemplate,
-        context: DamageRollContext,
+        context: DamageDamageContext,
         callback?: Function,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
@@ -33,10 +33,9 @@ export class DamagePF2e {
                 ? game.i18n.localize(`PF2E.Check.Result.Degree.Attack.${outcome}`)
                 : game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`)
             : null;
-        let flavor = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-            title: data.name,
-            subtitle,
-        });
+        let flavor = data.name.startsWith("<h4")
+            ? data.name
+            : await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", { title: data.name, subtitle });
 
         if (context.traits) {
             interface ToTagsParams {
@@ -135,16 +134,28 @@ export class DamagePF2e {
         }
 
         // Add breakdown to flavor
+        const showBreakdown =
+            data.damage.roll?.options.showBreakdown ??
+            (game.pf2e.settings.metagame.breakdowns || !!context.self?.actor?.hasPlayerOwner);
         const breakdown = Array.isArray(data.damage.breakdown)
             ? data.damage.breakdown
             : data.damage.breakdown[outcome ?? "success"];
-        const breakdownTags = breakdown.map((b) => `<span class="tag tag_transparent">${b}</span>`);
-        flavor += `<div class="tags">${breakdownTags.join("")}</div>`;
+        const breakdownTags = breakdown.map((b) =>
+            createHTMLElement("span", {
+                classes: ["tag", "tag_transparent"],
+                dataset: { visibility: showBreakdown ? null : "gm" },
+                children: [b],
+            }),
+        );
+        flavor +=
+            breakdownTags.length > 0
+                ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: breakdownTags }).outerHTML
+                : "";
 
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            if ("roll" in damage) {
+            if (damage.roll) {
                 return damage.roll.evaluate({ async: true });
             }
 
@@ -169,6 +180,7 @@ export class DamagePF2e {
                 degreeOfSuccess,
                 critRule,
                 ignoredResistances: damage.ignoredResistances,
+                showBreakdown,
             };
 
             return new DamageRoll(formula, {}, options).evaluate({ async: true });
@@ -185,12 +197,12 @@ export class DamagePF2e {
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
                 n.predicate.test(context.options),
         );
-        const notesList = RollNotePF2e.notesToHTML(notes);
-        flavor += notesList.outerHTML;
+        flavor += RollNotePF2e.notesToHTML(notes)?.outerHTML ?? "";
 
         const { self, target } = context;
         const item = self?.item ?? null;
-        const targetFlag = target ? { actor: target.actor.uuid, token: target.token.uuid } : null;
+        const targetFlag =
+            target?.actor && target.token ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
         const strike = (() => {
@@ -217,10 +229,10 @@ export class DamagePF2e {
         })();
 
         const rollMode = context.rollMode ?? "roll";
-        const contextFlag: DamageRollContextFlag = {
+        const contextFlag: DamageDamageContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
-            actor: context.self?.actor.id ?? null,
+            actor: context.self?.actor?.id ?? null,
             token: context.self?.token?.id ?? null,
             target: targetFlag,
             domains: context.domains ?? [],

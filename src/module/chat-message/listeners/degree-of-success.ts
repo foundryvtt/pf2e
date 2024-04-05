@@ -1,16 +1,20 @@
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
-import { htmlQuery, htmlQueryAll } from "@util";
+import { CheckRoll } from "@system/check/roll.ts";
+import { htmlQuery } from "@util";
 
 /** Highlight critical success or failure on d20 rolls */
 export const DegreeOfSuccessHighlights = {
     listen: (message: ChatMessagePF2e, html: HTMLElement): void => {
-        if (htmlQueryAll(html, ".pf2e-reroll-indicator").length > 0) return;
-
-        const firstRoll = message.rolls.at(0);
-        if (!firstRoll || message.isDamageRoll) return;
+        const firstRoll = message.rolls[0];
+        const shouldHighlight =
+            firstRoll instanceof CheckRoll &&
+            message.isContentVisible &&
+            (game.user.isGM || firstRoll.options.showBreakdown) &&
+            !html.querySelector(".reroll-indicator");
+        if (!shouldHighlight) return;
 
         const firstDice = firstRoll.dice.at(0);
-        if (!(firstDice instanceof Die && firstDice.faces === 20 && message.isContentVisible)) {
+        if (!(firstDice instanceof Die && firstDice.faces === 20)) {
             return;
         }
 

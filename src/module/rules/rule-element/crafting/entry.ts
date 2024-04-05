@@ -1,5 +1,5 @@
-import type { CharacterPF2e } from "@actor";
-import { ActorType } from "@actor/data/index.ts";
+import type { ActorType, CharacterPF2e } from "@actor";
+import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
 import { sluggify } from "@util";
 import type {
@@ -18,14 +18,38 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
 class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> {
     protected static override validActorTypes: ActorType[] = ["character"];
 
+    constructor(data: CraftingEntryRuleSource, options: RuleElementOptions) {
+        super({ priority: 19, ...data }, options);
+    }
+
     static override defineSchema(): CraftingEntryRuleSchema {
-        const { fields } = foundry.data;
+        const fields = foundry.data.fields;
+        const quantityField = (): QuantityField =>
+            new fields.NumberField({
+                required: true,
+                nullable: false,
+                positive: true,
+                integer: true,
+                initial: 2,
+                min: 1,
+                max: 99,
+            });
+
         return {
             ...super.defineSchema(),
-            selector: new fields.StringField({ required: true, blank: false }),
-            isAlchemical: new fields.BooleanField({ required: false, initial: undefined }),
-            isDailyPrep: new fields.BooleanField({ required: false, initial: undefined }),
-            isPrepared: new fields.BooleanField({ required: false, initial: undefined }),
+            selector: new fields.StringField({ required: true, blank: false, initial: undefined }),
+            isAlchemical: new fields.BooleanField(),
+            isDailyPrep: new fields.BooleanField(),
+            isPrepared: new fields.BooleanField(),
+            batchSizes: new fields.SchemaField(
+                {
+                    default: quantityField(),
+                    other: new fields.ArrayField(
+                        new fields.SchemaField({ quantity: quantityField(), definition: new PredicateField() }),
+                    ),
+                },
+                { initial: (d) => ({ default: d.isAlchemical ? 2 : 1, other: [] }) },
+            ),
             maxItemLevel: new ResolvableValueField({ required: false, nullable: false, initial: 1 }),
             maxSlots: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             craftableItems: new PredicateField(),
@@ -45,28 +69,26 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
         };
     }
 
-    constructor(data: CraftingEntryRuleSource, options: RuleElementOptions) {
-        super({ priority: 19, ...data }, options);
-    }
-
     override beforePrepareData(): void {
         if (this.ignored) return;
 
         const selector = this.resolveInjectedProperties(this.selector);
-        const craftableItems = this.craftableItems ?? [];
 
-        this.actor.system.crafting.entries[this.selector] = {
+        const entryData = {
             selector: selector,
             name: this.label,
+            item: this.item,
             isAlchemical: this.isAlchemical,
             isDailyPrep: this.isDailyPrep,
             isPrepared: this.isPrepared,
-            craftableItems,
+            batchSizes: this.batchSizes,
+            craftableItems: this.craftableItems,
             maxItemLevel: Number(this.resolveValue(this.maxItemLevel)) || 1,
             maxSlots: this.maxSlots,
-            parentItem: this.item.id,
             preparedFormulaData: this.preparedFormulas,
         };
+        Object.defineProperty(entryData, "item", { enumerable: false });
+        this.actor.system.crafting.entries[this.selector] = entryData;
 
         // Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s
         const option = sluggify(this.selector);
@@ -77,19 +99,27 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
 interface CraftingEntryRuleElement
     extends RuleElementPF2e<CraftingEntryRuleSchema>,
         ModelPropsFromRESchema<CraftingEntryRuleSchema> {
+    readonly parent: ItemPF2e<CharacterPF2e>;
+
     get actor(): CharacterPF2e;
 }
 
 type CraftingEntryRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
-    isAlchemical: BooleanField<boolean, boolean, false, false, false>;
-    isDailyPrep: BooleanField<boolean, boolean, false, false, false>;
-    isPrepared: BooleanField<boolean, boolean, false, false, false>;
+    isAlchemical: BooleanField<boolean, boolean, false, false, true>;
+    isDailyPrep: BooleanField<boolean, boolean, false, false, true>;
+    isPrepared: BooleanField<boolean, boolean, false, false, true>;
+    batchSizes: SchemaField<{
+        default: QuantityField;
+        other: ArrayField<SchemaField<{ quantity: QuantityField; definition: PredicateField }>>;
+    }>;
     maxItemLevel: ResolvableValueField<false, false, true>;
     maxSlots: NumberField<number, number, false, false, false>;
-    craftableItems: PredicateField<false, false, false>;
+    craftableItems: PredicateField;
     preparedFormulas: ArrayField<SchemaField<PreparedFormulaSchema>>;
 };
+
+type QuantityField = NumberField<number, number, true, false, true>;
 
 type PreparedFormulaSchema = {
     itemUUID: StringField<string, string, true, false, false>;
@@ -106,6 +136,7 @@ type CraftingEntryRuleData = Omit<SourceFromSchema<CraftingEntryRuleSchema>, "pr
 interface CraftingEntryRuleSource extends RuleElementSource {
     selector?: unknown;
     name?: unknown;
+    batchSizes?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;

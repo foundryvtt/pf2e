@@ -33,16 +33,10 @@
         </div>
 
         {{!-- Divine Skill --}}
-        <div class="form-group">
-            <label for="{{fieldIdPrefix}}skill">{{localize "PF2E.Item.Deity.DivineSkill"}}</label>
-            <select name="system.skill" id="{{fieldIdPrefix}}skill">
-                {{#select data.skill}}
-                    <option value=""></option>
-                    {{#each skills as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
-            </select>
+        <div class="form-group form-group-trait">
+            <label>{{localize "PF2E.Item.Deity.DivineSkill.Label"}}</label>
+            <input type="text" name="system.skill" value="{{json data.skill}}" class="pf2e-tagify" data-dtype="JSON" />
+            <p class="hint">{{localize "PF2E.Item.Deity.DivineSkill.Hint"}}</p>
         </div>
 
         {{!-- Favored Weapon --}}

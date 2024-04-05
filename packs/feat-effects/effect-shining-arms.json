@@ -1,0 +1,60 @@
+{
+    "_id": "s5OHkf1HkLwgvZT7",
+    "img": "icons/magic/light/swords-light-glowing-white.webp",
+    "name": "Effect: Shining Arms",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Shining Arms]</p>\n<p>When a creature wielding the weapon critically hits a foe, you can Dismiss the spell as a reaction, causing the foe to be @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: The Grand Bazaar"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "shiningArms",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.shiningArms}-attack",
+                "text": "PF2E.SpecificRule.SpellTrickster.ShiningArms.Note",
+                "title": "PF2E.SpecificRule.SpellTrickster.ShiningArms.Label"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -12,21 +12,6 @@ export default class BaseScene extends Document<null, SceneSchema> {
     static override get metadata(): SceneMetadata;
 
     static override defineSchema(): SceneSchema;
-
-    /**
-     * Get the Canvas dimensions which would be used to display this Scene.
-     * Apply padding to enlarge the playable space and round to the nearest 2x grid size to ensure symmetry.
-     * @returns An object describing the configured dimensions
-     */
-    static getDimensions({
-        width,
-        height,
-        size,
-        gridDistance,
-        padding,
-        shiftX,
-        shiftY,
-    }: GetDimensionsParams): SceneDimensions;
 }
 
 export default interface BaseScene extends Document<null, SceneSchema>, ModelPropsFromSchema<SceneSchema> {
@@ -217,20 +202,6 @@ declare global {
         gridDistance: number;
         height: number;
         padding: number;
-        shiftX: number;
-        shiftY: number;
-        size: number;
-        width: number;
-    }
-
-    export interface SceneDimensions {
-        distance: number;
-        height: number;
-        paddingX: number;
-        paddingY: number;
-        ratio: number;
-        sceneHeight: number;
-        sceneWidth: number;
         shiftX: number;
         shiftY: number;
         size: number;

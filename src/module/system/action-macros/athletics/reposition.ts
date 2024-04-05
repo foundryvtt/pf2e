@@ -40,6 +40,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
     ],
     rollOptions: ["action:reposition"],
+    section: "skill",
     slug: "reposition",
     statistic: "athletics",
     traits: ["attack"],

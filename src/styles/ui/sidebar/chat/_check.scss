@@ -2,12 +2,12 @@
     .flavor-text {
         .target-dc-result {
             line-height: 0.75rem;
-            margin-bottom: 4px;
+            margin-bottom: var(--space-4);
 
             .target-dc,
             .result {
                 display: block;
-                margin: 1px 0;
+                margin: var(--space-1) 0;
                 width: fit-content;
             }
 
@@ -42,29 +42,32 @@
         }
 
         .effect {
-            display: flex;
             align-items: center;
-            column-gap: 5px;
+            column-gap: var(--space-5);
+            display: flex;
+
             img {
-                height: 32px;
-                width: 32px;
+                height: 2rem;
+                width: 2rem;
             }
         }
     }
 }
 
-> .message-content .dice-total button.set-as-initiative {
-    align-items: center;
-    display: flex;
-    font-size: var(--font-size-10);
-    height: 2.2em;
-    justify-content: center;
-    position: absolute;
-    right: 0;
-    top: 1px;
-    width: 2.2em;
+> .message-content {
+    .dice-total button.set-as-initiative {
+        align-items: center;
+        display: flex;
+        font-size: var(--font-size-10);
+        height: 2.2em;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 1px;
+        width: 2.2em;
 
-    > i {
-        margin-right: 0;
+        > i {
+            margin-right: 0;
+        }
     }
 }

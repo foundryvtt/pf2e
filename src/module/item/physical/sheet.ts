@@ -2,16 +2,10 @@ import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bon
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/helpers.ts";
-import { localizer } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
-import {
-    BasePhysicalItemSource,
-    CoinsPF2e,
-    ItemActivation,
-    MaterialValuationData,
-    PhysicalItemType,
-    PreciousMaterialGrade,
-} from "./index.ts";
+import { detachSubitem } from "./helpers.ts";
+import { CoinsPF2e, ItemActivation, MaterialValuationData, PreciousMaterialGrade } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -101,12 +95,14 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             basePrice,
             priceAdjustment,
             adjustedPriceHint,
+            attributes: CONFIG.PF2E.abilities,
             actionTypes: CONFIG.PF2E.actionTypes,
             bulks,
             actionsNumber: CONFIG.PF2E.actionsNumber,
             frequencies: CONFIG.PF2E.frequencies,
             sizes: R.omit(CONFIG.PF2E.actorSizes, ["sm"]),
             usages: CONFIG.PF2E.usages,
+            isApex: tupleHasValue(item._source.system.traits.value, "apex"),
             isPhysical: true,
             activations,
             // Do not let user set bulk if in a stack group because the group determines bulk
@@ -115,7 +111,7 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     }
 
     /** If the item is unidentified, prevent players from opening this sheet. */
-    override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
+    override render(force?: boolean, options?: RenderOptions): this {
         if (!this.item.isIdentified && !game.user.isGM) {
             ui.notifications.warn(this.item.description);
             return this;
@@ -161,54 +157,34 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    override activateListeners($html: JQuery): void {
+    override activateListeners($html: JQuery<HTMLElement>): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("[data-action=activation-add]").on("click", (event) => {
-            event.preventDefault();
-            const id = fu.randomID(16);
-            const action: ItemActivation = {
-                id,
-                actionCost: { value: 1, type: "action" },
-                components: { command: false, envision: false, interact: false, cast: false },
-                description: { value: "" },
-                traits: { value: [], custom: "" },
-            };
-            this.item.update({ [`system.activations.${id}`]: action });
-        });
+        // Subitem management
+        htmlQuery(html, "ul[data-subitems]")?.addEventListener("click", async (event) => {
+            const anchor = htmlClosest(event.target, "a[data-action]");
+            if (!anchor) return;
 
-        $html.find("[data-action=activation-delete]").on("click", (event) => {
-            event.preventDefault();
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            const isLast = Object.values(this.item.system.activations ?? []).length === 1;
-            if (isLast && id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ "system.-=activations": null });
-            } else {
-                this.item.update({ [`system.activations.-=${id}`]: null });
-            }
-        });
+            const item = this.item;
+            const subitemId = htmlClosest(anchor, "[data-subitem-id]")?.dataset.subitemId;
+            const subitem = item.subitems.get(subitemId, { strict: true });
 
-        $html.find("[data-action=activation-frequency-add]").on("click", (event) => {
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.system.activations ?? {})) {
-                const per = CONFIG.PF2E.frequencies.day;
-                this.item.update({ [`system.activations.${id}.frequency`]: { value: 1, max: 1, per } });
-            }
-        });
-
-        $html.find("[data-action=activation-frequency-delete]").on("click", (event) => {
-            const id = $(event.target).closest("[data-activation-id]").attr("data-activation-id");
-            if (id && id in (this.item.system.activations ?? {})) {
-                this.item.update({ [`system.activations.${id}.-=frequency`]: null });
+            switch (anchor.dataset.action) {
+                case "edit-subitem":
+                    return subitem.sheet.render(true);
+                case "detach-subitem":
+                    return detachSubitem(subitem, event.ctrlKey);
+                case "delete-subitem": {
+                    return event.ctrlKey ? subitem.delete() : subitem.deleteDialog();
+                }
+                default:
+                    throw ErrorPF2e("Unexpected control options");
             }
         });
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        if (formData["system.quantity"] === null) {
-            formData["system.quantity"] = 0;
-        }
-
         // Process precious-material selection
         const [materialType, materialGrade] = [formData["system.material.type"], formData["system.material.grade"]];
         const typeIsValid =
@@ -231,25 +207,13 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             formData["system.price.value"] = CoinsPF2e.fromString(String(formData["system.price.value"]));
         }
 
-        // Normalize nullable fields for embedded actions
-        const expanded = fu.expandObject(formData) as DeepPartial<BasePhysicalItemSource<PhysicalItemType>>;
-        for (const action of Object.values(expanded.system?.activations ?? [])) {
-            // Ensure activation time is in a proper format
-            const actionCost = action.actionCost;
-            if (actionCost) {
-                const isAction = actionCost.type === "action";
-                if (!actionCost.value) {
-                    actionCost.value = isAction ? actionCost.value || 1 : null;
-                }
-            }
-        }
-
-        return super._updateObject(event, fu.flattenObject(expanded));
+        return super._updateObject(event, formData);
     }
 }
 
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {
     sidebarTemplate: string;
+    isApex: boolean;
     isPhysical: true;
     bulkAdjustment: string | null;
     adjustedBulkHint?: string | null;
@@ -257,6 +221,7 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     basePrice: CoinsPF2e;
     priceAdjustment: string | null;
     adjustedPriceHint: string | null;
+    attributes: typeof CONFIG.PF2E.abilities;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     bulks: { value: number; label: string }[];

@@ -1,6 +1,10 @@
 .pf2e.item.sheet {
     @import "../reset";
 
+    .window-content {
+        padding: var(--space-8);
+    }
+
     form {
         display: flex;
         flex-flow: column nowrap;
@@ -8,6 +12,11 @@
         height: 100%;
         overflow: hidden;
         width: 100%;
+
+        &.locked a[data-action] {
+            color: var(--color-disabled);
+            pointer-events: none;
+        }
 
         h2,
         h3,
@@ -43,15 +52,15 @@
         }
 
         .tag-legacy {
-            float: left;
-            margin: 0 2px 2px 0;
-            padding: 0 3px;
-            font-size: var(--font-size-10);
-            line-height: 16px;
-            border: 1px solid #999;
+            border: 1px solid var(--color-border-light-2);
             border-radius: 3px;
-            white-space: normal;
+            float: left;
+            font-size: var(--font-size-10);
             font-weight: 500;
+            line-height: 1rem;
+            margin: 0 var(--space-2) var(--space-2) 0;
+            padding: 0 var(--space-3);
+            white-space: normal;
         }
 
         p.hint {
@@ -60,10 +69,10 @@
         }
 
         .item-controls {
-            display: flex;
-            margin: 0 0 0 4px;
             align-items: baseline;
-            gap: 2px;
+            display: flex;
+            gap: var(--space-2);
+            margin: 0 0 0 var(--space-4);
         }
 
         i.fa-info-circle {
@@ -71,13 +80,12 @@
         }
 
         .sheet-content {
-            width: 100%;
             display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: flex-start;
+            flex-flow: row wrap;
             height: calc(100% - 35px);
+            justify-content: start;
             overflow: hidden;
+            width: 100%;
 
             > * {
                 flex: 1;
@@ -91,13 +99,8 @@
                 color: var(--color-text-dark-input);
             }
 
-            input[type="checkbox"] {
-                margin: 0.25em 0.5em;
-            }
-
             input[type="number"],
             input[type="text"] {
-                margin: 1px 0;
                 width: calc(100% - 2px);
             }
 
@@ -105,12 +108,8 @@
             input[type="number"],
             input[type="text"],
             select {
-                background: rgba(255, 255, 255, 0.5);
+                background: rgba(white, 0.5);
                 border: 1px solid var(--color-border-light-2);
-            }
-
-            select {
-                font-size: var(--font-size-13);
             }
 
             button,
@@ -119,21 +118,22 @@
                 &:hover:not(:disabled),
                 &:focus {
                     border-color: var(--color-border-dark-1);
-                    box-shadow: 0 0 5px var(--secondary);
+                    box-shadow: 0 0 4px var(--color-pf-secondary);
                 }
             }
 
             input:disabled,
             select:disabled {
-                background: rgba(0, 0, 0, 0.05);
-                border: none;
                 color: var(--color-disabled);
+                opacity: 0.8;
+                pointer-events: none;
             }
 
             > section.sidebar,
             > .sheet-body {
-                height: calc(100% - 10px);
+                height: calc(100% - var(--space-10));
                 overflow-y: auto;
+                scrollbar-gutter: stable;
             }
 
             @import "sidebar";
@@ -147,14 +147,15 @@
             flex-wrap: nowrap;
 
             .tab.active {
-                overflow: hidden scroll;
-                padding-left: 0.5rem;
+                overflow: hidden auto;
+                padding-left: var(--space-8);
+                scrollbar-gutter: stable;
 
                 // DESCRIPTION
                 &.description {
                     display: flex;
                     flex-direction: column;
-                    gap: 3px;
+                    gap: var(--space-3);
                     height: 100%;
                     padding: 0 0.25em;
 
@@ -164,13 +165,14 @@
                     }
 
                     .editor {
-                        min-height: 2.5em;
                         flex: 1;
+                        min-height: 2.5em;
                     }
 
                     // Allow editor scrolling to take over when editing
                     &.editing {
                         overflow: hidden;
+
                         & > section {
                             flex: 1;
                         }
@@ -194,6 +196,7 @@
                     .editor {
                         display: flex;
                         flex-direction: column;
+
                         a.add-gm-notes,
                         a.editor-edit {
                             font-size: 1.33em;
@@ -206,14 +209,14 @@
                         }
 
                         a.add-gm-notes {
-                            border-radius: 4px;
                             border: 1px solid var(--color-border-dark-1);
+                            border-radius: 4px;
                             box-shadow: 0 0 1px var(--color-shadow-dark);
                             display: none;
-                            padding: 1px 2px;
+                            padding: var(--space-1) var(--space-2);
                             position: absolute;
-                            right: 35px;
-                            top: 5px;
+                            right: 2.25rem;
+                            top: var(--space-5);
                         }
 
                         &:hover a.add-gm-notes {
@@ -234,47 +237,28 @@
 
                     &.disabled,
                     &.no-data {
-                        color: var(--color-text-dark-4);
+                        color: var(--color-disabled);
                     }
                 }
 
                 // DETAILS
                 &.details {
-                    padding: 0.5rem 0.5rem 0;
+                    padding: var(--space-4) var(--space-8) 0;
 
                     button {
                         height: 2rem;
                         line-height: normal;
                     }
 
-                    &.no-sidebar .form-group label {
-                        max-width: 12em;
+                    &.no-sidebar .form-group > label {
+                        flex: 0 0 12em;
                         white-space: wrap;
+                        padding-right: 0;
                     }
 
                     .tags .tag {
                         font-size: var(--font-size-10);
                     }
-
-                    fieldset.publication .data {
-                        @include publication-data;
-                    }
-                }
-            }
-
-            fieldset {
-                legend {
-                    font-weight: 600;
-                }
-
-                border: 1px solid var(--color-border-medium);
-                border-radius: 2px;
-                margin-bottom: 0.5rem;
-                padding: 0 0.5em 0.25em;
-
-                &.basics {
-                    border-color: transparent;
-                    padding: 0;
                 }
             }
 
@@ -290,8 +274,8 @@
             }
         }
 
-        .form-list,
-        fieldset {
+        fieldset,
+        .form-list {
             h3 {
                 font-weight: 600;
                 font-size: 1.05em;
@@ -299,9 +283,40 @@
             }
         }
 
+        fieldset {
+            border: 1px solid var(--color-border-light-tertiary);
+            border-radius: 2px;
+            margin-bottom: var(--space-8);
+            padding: 0 0.5em 0.25em;
+
+            &.basics {
+                border-color: transparent;
+            }
+
+            &.publication {
+                padding: var(--space-4);
+
+                .data {
+                    @include publication-data;
+                }
+            }
+
+            legend {
+                font-weight: 600;
+            }
+
+            .form-group > label:first-of-type {
+                flex-basis: 11em;
+            }
+
+            &.material-runes .form-group {
+                flex-wrap: nowrap;
+            }
+        }
+
         .form-list {
-            border-radius: 5px;
             border: 1px solid var(--secondary-background);
+            border-radius: 5px;
             list-style-type: none;
             margin: 0.5em 0;
             padding: 0.25em;
@@ -315,18 +330,19 @@
             padding: 0;
 
             & > * {
-                padding: 0.25rem;
+                padding: var(--space-4);
             }
 
             & > header {
                 align-items: baseline;
-                background-color: var(--secondary);
+                background-color: var(--color-pf-secondary);
                 border-radius: 5px 5px 0 0;
                 color: var(--text-light);
                 display: flex;
                 justify-content: space-between;
-                margin: -1px -1px 0 -1px;
+                margin: -1px -1px 0;
                 padding: 1px;
+
                 h3,
                 .item-controls {
                     padding: 0.25rem;
@@ -336,23 +352,24 @@
         }
 
         .two-by-two {
+            column-gap: var(--space-4);
             display: grid;
             grid-template-columns: 1fr 1fr;
-            column-gap: 0.25rem;
+
             .item-controls {
-                margin-left: 2px;
                 gap: 0;
+                margin-left: var(--space-2);
             }
         }
 
         .form-group {
             > label {
                 &:not(.large) {
-                    max-width: 11em;
+                    flex: 0 1 11em;
                 }
 
                 &.short {
-                    max-width: 9em;
+                    flex: 0 1 9em;
                 }
             }
 
@@ -391,12 +408,12 @@
         .details-container,
         .dice-data {
             display: grid;
-            grid: "dice die type" / 40px 60px auto;
+            grid: "dice die type" / 2.5rem 3.75rem auto;
         }
 
         .effects-container {
             display: grid;
-            grid: "effect number" / auto 40px;
+            grid: "effect number" / auto 2.5rem;
         }
 
         .details-container-two-columns {
@@ -423,47 +440,47 @@
         }
 
         .consumable-details {
-            flex: 0 0 24px;
+            flex: 0 0 1.5rem;
 
             label {
                 font-weight: bold;
             }
 
             input {
-                flex: 0 0 24px;
-                margin-right: 6px;
+                flex: 0 0 1.5rem;
+                margin-right: var(--space-6);
                 text-align: right;
             }
 
             span {
-                line-height: 24px;
+                line-height: 1.5rem;
             }
 
             .max-charges {
-                flex: 0 0 16px;
+                flex: 0 0 1rem;
                 text-align: center;
             }
         }
 
         .consumable-charges {
             label {
-                flex: 0 0 144px;
+                flex: 0 0 9rem;
             }
 
             input {
-                flex: 0 0 64px;
+                flex: 0 0 4rem;
                 text-align: center;
             }
 
             span.flex0 {
-                line-height: 24px;
+                line-height: 1.5rem;
             }
         }
 
         .feat-uses {
             select {
                 flex: 2;
-                margin-right: 5px;
+                margin-right: var(--space-5);
             }
 
             input {
@@ -472,19 +489,10 @@
             }
 
             span.sep {
-                flex: 0 0 16px;
-                line-height: 24px;
+                flex: 0 0 1rem;
+                line-height: 1.5rem;
                 font-size: var(--font-size-14);
                 text-align: center;
-            }
-        }
-
-        .spell-components {
-            input {
-                margin-left: 0;
-            }
-            label {
-                padding-right: 6px;
             }
         }
 
@@ -498,11 +506,13 @@
         .frequency {
             align-items: baseline;
             display: flex;
-            gap: 0.2rem;
+            gap: var(--space-3);
             text-align: end;
+
             &.empty {
                 justify-content: flex-end;
             }
+
             select {
                 flex: 1 1 auto;
             }
@@ -517,12 +527,10 @@
         @import "rules";
     }
 
-    a.disabled {
-        cursor: default;
-
-        &:hover {
-            text-shadow: none;
-        }
+    a.disabled,
+    a[disabled] {
+        color: var(--color-disabled);
+        pointer-events: none;
 
         &.header-button {
             color: var(--color-text-light-5);
@@ -535,6 +543,10 @@
 
     &.affliction form {
         @import "affliction-sheet";
+    }
+
+    &.ancestry form {
+        @import "ancestry-sheet";
     }
 
     &.consumable form {
@@ -565,6 +577,10 @@
         @import "melee-sheet";
     }
 
+    &.physical form .sidebar {
+        @import "physical-sidebar";
+    }
+
     &.spell form {
         @import "spell-sheet";
     }
@@ -574,4 +590,4 @@
     }
 }
 
-@import "persistent-damage-dialog";
+@import "item-attacher", "persistent-damage-dialog";

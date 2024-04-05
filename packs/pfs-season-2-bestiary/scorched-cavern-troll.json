@@ -134,41 +134,6 @@
             "type": "melee"
         },
         {
-            "_id": "l02gv0pzRtvofmQg",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 400000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "hfkdw9wOG5RTS2pm",
             "flags": {
                 "core": {
@@ -177,7 +142,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (Deactivated by Acid or Sonic)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -223,7 +188,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -258,7 +223,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Catch Rock",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -275,7 +240,26 @@
                     "remaster": false,
                     "title": "Pathfinder Bestiary"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "catch-rock",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "catch-rock"
+                        ],
+                        "selector": [
+                            "ac",
+                            "saving-throw"
+                        ],
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": "catch-rock",
                 "traits": {
                     "rarity": "common",
@@ -288,7 +272,7 @@
             "_id": "82mYFvhHNCVY8VhZ",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sunlight Petrification",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -298,7 +282,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>If exposed to direct sunlight, a cavern troll immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions or Trample. The slowed value increases by 1 each time the cavern troll ends its turn in sunlight. If the cavern troll's actions are reduced to 0 in this way, they become @UUID[Compendium.pf2e.conditionitems.Item.Petrified] until they spends at least 1 minute in darkness. Spells like <em>@UUID[Compendium.pf2e.spells-srd.Item.Sunburst]</em> that create magical sunlight cannot petrify a cavern troll, but the troll is slowed 1 for [[/br 1d4 #rounds]]{1d4 rounds} after being exposed to such an effect.</p>"
+                    "value": "<p>If exposed to direct sunlight, a cavern troll immediately becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} and can't use reactions or Trample. The slowed value increases by 1 each time the cavern troll ends its turn in sunlight. If the cavern troll's actions are reduced to 0 in this way, they become @UUID[Compendium.pf2e.conditionitems.Item.Petrified] until they spends at least 1 minute in darkness. Spells like @UUID[Compendium.pf2e.spells-srd.Item.Sunburst] that create magical sunlight cannot petrify a cavern troll, but the troll is slowed 1 for [[/br 1d4 #rounds]]{1d4 rounds} after being exposed to such an effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -323,7 +307,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -353,7 +337,7 @@
             "_id": "Wuf9DlYpWzZIh7S0",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Rock Tunneler",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -388,7 +372,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Throw Rock",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -418,7 +402,7 @@
             "_id": "1C2ExnvGCU7sbx4u",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -443,7 +427,7 @@
             "_id": "tdWvKQ8IGweYSfgs",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -506,12 +490,6 @@
                     "type": "bleed"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 11
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -528,6 +506,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "jotun",
+                    "sakvroth"
+                ]
+            },
             "level": {
                 "value": 4
             },
@@ -538,6 +523,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #2-20: Breaking the Storm: Bastion in Embers"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 11,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -555,18 +552,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "jotun",
-                    "sakvroth"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "lg"
             },

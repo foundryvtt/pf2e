@@ -1,7 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { ItemProxyPF2e, type ItemPF2e } from "@item";
-import { TrickMagicItemEntry, traditionSkills } from "@item/spellcasting-entry/trick.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
@@ -17,7 +16,7 @@ import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: DocumentConstructionContext<null> = {}) {
+    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: MessageConstructionContext = {}) {
         const expandedFlags = fu.expandObject<DeepPartial<ChatMessageFlagsPF2e>>(data.flags ?? {});
         data.flags = fu.mergeObject(expandedFlags, {
             core: { canPopout: expandedFlags.core?.canPopout ?? true },
@@ -95,8 +94,9 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
+        const actor = this.actor;
         if (this.flags.pf2e.context?.type === "self-effect") {
-            const item = this.actor?.items.get(this.flags.pf2e.context.item);
+            const item = actor?.items.get(this.flags.pf2e.context.item);
             return item ?? null;
         }
 
@@ -105,7 +105,6 @@ class ChatMessagePF2e extends ChatMessage {
         if (strike?.item) return strike.item;
 
         const item = (() => {
-            const { actor } = this;
             const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
@@ -115,18 +114,11 @@ class ChatMessagePF2e extends ChatMessage {
         })();
         if (!item) return null;
 
-        // Assign spellcasting entry, currently only used for trick magic item
-        const { tradition } = this.flags.pf2e?.casting ?? {};
-        const isCharacter = !!item.actor?.isOfType("character");
-        if (tradition && item.isOfType("spell") && !item.spellcasting && isCharacter) {
-            const trick = new TrickMagicItemEntry(item.actor, traditionSkills[tradition]);
-            item.trickMagicEntry = trick;
-        }
-
         if (item?.isOfType("spell")) {
+            const entryId = this.flags.pf2e?.casting?.id ?? null;
             const overlayIds = this.flags.pf2e.origin?.variant?.overlays;
-            const castLevel = this.flags.pf2e.origin?.castLevel ?? item.rank;
-            const modifiedSpell = item.loadVariant({ overlayIds, castLevel });
+            const castRank = this.flags.pf2e.origin?.castRank ?? item.rank;
+            const modifiedSpell = item.loadVariant({ overlayIds, castRank, entryId });
             return modifiedSpell ?? item;
         }
 
@@ -135,7 +127,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this message was for a strike, return the strike. Strikes will change in a future release */
     get _strike(): StrikeData | null {
-        const { actor } = this;
+        const actor = this.actor;
 
         // Get strike data from the roll identifier
         const roll = this.rolls.find((r): r is Rolled<CheckRoll> => r instanceof CheckRoll);
@@ -208,7 +200,9 @@ class ChatMessagePF2e extends ChatMessage {
         Listeners.ChatCards.listen(this, html);
         InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
-        if (canvas.ready) Listeners.SetAsInitiative.listen(html);
+        if (canvas.ready || !game.settings.get("core", "noCanvas")) {
+            Listeners.SetAsInitiative.listen(this, html);
+        }
 
         // Add persistent damage recovery button and listener (if evaluating persistent)
         const roll = this.rolls[0];
@@ -274,17 +268,16 @@ class ChatMessagePF2e extends ChatMessage {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void {
+    protected override _onCreate(data: this["_source"], options: MessageModificationContextPF2e, userId: string): void {
         super._onCreate(data, options, userId);
 
         // Handle critical hit and fumble card drawing
-        if (this.isRoll && game.settings.get("pf2e", "drawCritFumble")) {
+        if (this.isRoll && game.pf2e.settings.critFumble.cards) {
             CriticalHitAndFumbleCards.handleDraw(this);
         }
+
+        // If this is a rest notification, re-render sheet for anyone currently viewing it
+        if (options.restForTheNight) this.actor?.render();
     }
 }
 
@@ -296,7 +289,18 @@ interface ChatMessagePF2e extends ChatMessage {
 }
 
 declare namespace ChatMessagePF2e {
+    function createDocuments<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        context?: MessageModificationContextPF2e,
+    ): Promise<TDocument[]>;
+
     function getSpeakerActor(speaker: foundry.documents.ChatSpeakerData): ActorPF2e | null;
+}
+
+interface MessageModificationContextPF2e extends ChatMessageModificationContext {
+    /** Whether this is a Rest for the Night message */
+    restForTheNight?: boolean;
 }
 
 export { ChatMessagePF2e };

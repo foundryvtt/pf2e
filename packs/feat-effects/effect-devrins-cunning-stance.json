@@ -1,6 +1,6 @@
 {
     "_id": "jACKRmVfr9ATsmwg",
-    "img": "systems/pf2e/icons/spells/anticipate-peril.webp",
+    "img": "systems/pf2e/icons/features/feats/devrins-cunning-stance.webp",
     "name": "Effect: Devrin's Cunning Stance",
     "system": {
         "description": {
@@ -22,6 +22,21 @@
         },
         "rules": [
             {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
                 "key": "Note",
                 "predicate": [
                     "target:condition:off-guard"
@@ -29,12 +44,6 @@
                 "selector": "strike-damage",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}"
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "skill-check",
-                "type": "status",
-                "value": 1
             }
         ],
         "start": {

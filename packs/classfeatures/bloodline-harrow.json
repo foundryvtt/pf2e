@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em>; 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Augury]</em>; 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</em>; 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>; 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]</em>; 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Truesight]</em>; 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]</em>; 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]</em>; 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Weird]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]</em>; advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]</em>; greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</em></p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
+            "value": "<p><strong>Spell List</strong> occult</p>\n<p><strong>Bloodline Skills</strong> Occultism, Performance</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Augury]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Shadow Siphon]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Truesight]; 7th: @UUID[Compendium.pf2e.spells-srd.Item.Retrocognition]; 8th: @UUID[Compendium.pf2e.spells-srd.Item.Unrelenting Observation]; 9th: @UUID[Compendium.pf2e.spells-srd.Item.Weird]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Unraveling Blast]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Invoke the Harrow]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Rewrite Possibility]</p>\n<p><strong>Blood Magic</strong> You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.Concealed]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide].</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,52 @@
                 "mode": "upgrade",
                 "path": "system.skills.prf.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:occult",
+                                    {
+                                        "or": [
+                                            "item:slug:ill-omen",
+                                            "item:slug:augury",
+                                            "item:slug:wanderers-guide",
+                                            "item:slug:suggestion",
+                                            "item:slug:shadow-siphon",
+                                            "item:slug:truesight",
+                                            "item:slug:retrocognition",
+                                            "item:slug:unrelenting-observation",
+                                            "item:slug:weird"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Harrow",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    }
+                ]
             }
         ],
         "traits": {

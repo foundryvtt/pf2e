@@ -3,41 +3,6 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "LiEmzWVKW20OJoEm",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "5S4ZcAlTU2l4OVrx",
             "flags": {
                 "core": {
@@ -46,7 +11,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wavesense (Imprecise) 100 feet",
-            "sort": 200000,
+            "sort": 100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -76,7 +41,7 @@
             "_id": "xcdtl5hp12cdn0au",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Necrotic Runoff",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -86,7 +51,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<p>A seetangeist secretes foul fluids into the surrounding water, poisoning it. A creature that enters or starts its turn in the aura must succeed at a @Check[type:fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure). Creatures that breathe water take a -2 circumstance penalty to this saving throw. As long as a creature remains in the aura, it can't reduce its sickened condition below 1. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>60 feet. A seetangeist secretes foul fluids into the surrounding water, poisoning it. A creature that enters or starts its turn in the aura must succeed at a @Check[type:fortitude|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3} on a critical failure). Creatures that breathe water take a -2 circumstance penalty to this saving throw. As long as a creature remains in the aura, it can't reduce its sickened condition below 1. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -123,7 +88,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -160,7 +125,7 @@
             "_id": "wv50pg4p8i3xb12d",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Putrid Assault",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -190,7 +155,7 @@
             "_id": "7lgrnnmh52x3nd06",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
@@ -271,12 +236,6 @@
                     "type": "unconscious"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 19
-            },
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -322,6 +281,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 12
             },
@@ -332,6 +295,23 @@
                 "remaster": false,
                 "title": "Pathfinder Book of the Dead"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 100,
+                    "type": "wavesense"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -349,15 +329,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision, wavesense (imprecise) 100 feet"
-            },
             "size": {
                 "value": "huge"
             },

@@ -1,0 +1,181 @@
+{
+    "_id": "6Os01sBDa1hxrZjs",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "IGWtUVFJMumVeibR",
+            "flags": {
+                "core": {
+                    "sourceId": "Actor.6Os01sBDa1hxrZjs.Item.IGWtUVFJMumVeibR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Swarming Bites",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves into the room beyond the northern stairs</p>\n<hr />\n<p><strong>Effect</strong> A combination of biting flies and ravenous creepy-crawlies swarm the triggering creature. The creature takes @Damage[6d6[piercing]] damage (@Check[type:reflex|dc:30|basic:true] save). If the creature took any damage, it's automatically exposed to ghast fever. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jBG6xbHHK21Ic2Ls",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.hA6HsM4i4yPfEsDH"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Ghast Fever",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:30]</p>\n<hr />\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day)</p>\n<p><strong>Stage 2</strong> @Damage[3d8[void]] damage and regains half as many Hit Points from all healing (1 day)</p>\n<p><strong>Stage 3</strong> as stage 2 (1 day)</p>\n<p><strong>Stage 4</strong> @Damage[3d8[void]] damage and gains no benefit from healing (1 day)</p>\n<p><strong>Stage 5</strong> as stage 4 (1 day)</p>\n<p><strong>Stage 6</strong> dead, and rises as a @UUID[Compendium.pf2e.pathfinder-bestiary.Actor.Ghast] the next midnight</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "ghast-ghast-fever",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "disease"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Promise of Plagues",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 14
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 7
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 14
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 19
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>Clouds of buzzing flies and a carpet of vermin fill a room strewn with decaying pieces of cast-off body parts and gobbets of rancid meat.</p>",
+            "disable": "<p>Three @Check[type:arcana|dc:33] or @Check[type:nature|dc:33] checks to command the vermin to be silent or to cleanse away the filth and decay to make the hazard harmless, a @Check[type:religion|dc:36] check to offer prayers to sever the sacred link to Kabriri, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (6th rank; counteract DC 29) to render the hazard inert for 10 minutes</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #200: Seven Dooms for Sandpoint"
+            },
+            "reset": "<p>The hazard settles back down 1 round after all creatures leave the room and can trigger again at the start of the next round.</p>",
+            "routine": "<p>(2 actions) The clouds of vermin in the room fill the air, rain down from the walls and ceiling, and swarm up from the floor below. All creatures in the room are subjected to Swarming Bites on the hazard's first action. On the second action, the swarming vermin grow particularly dense and eager in their attentions to one randomly determined creature in area <strong>J3c</strong>. If that creature is suffering from ghast fever and is at stage 4 or lower, they must immediately attempt a @Check[type:fortitude|dc:30] save. On a failure, the stage of their ghast fever advances one step.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

@@ -4,7 +4,7 @@
     "name": "Effect: Selfish Shield",
     "system": {
         "description": {
-            "value": "<p>You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Selfish Shield]</p>\n<p>You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,8 +23,21 @@
         "rules": [
             {
                 "key": "Resistance",
+                "predicate": [
+                    {
+                        "not": "feature:divine-smite"
+                    }
+                ],
                 "type": "all-damage",
                 "value": "floor(@actor.level/2)+2"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "feature:divine-smite"
+                ],
+                "type": "all-damage",
+                "value": "floor(@actor.level/2)+max(2,@actor.system.abilities.cha.mod)"
             }
         ],
         "start": {

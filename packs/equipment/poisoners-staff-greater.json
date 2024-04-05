@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 10.</p>\n<hr />\n<p><strong>Activate</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<hr />\n<ul>\n<li><strong>Cantrips</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Guidance]</em></li>\n<li><strong>1st</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Poison]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</em></li>\n<li><strong>2nd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Enhance Victuals]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Imp Sting]</em></li>\n<li><strong>3rd</strong> <em>@UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction]</em>, <em>@UUID[Compendium.pf2e.spells-srd.Item.Stinking Cloud]</em></li>\n</ul>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>"
+            "value": "<p>This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 10.</p>\n<hr />\n<p><strong>Activate</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from the staff to cast a spell from its list.</p>\n<hr />\n<ul>\n<li><strong>Cantrips</strong> @UUID[Compendium.pf2e.spells-srd.Item.Guidance]</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Detect Poison], @UUID[Compendium.pf2e.spells-srd.Item.Spider Sting]</li>\n<li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Enhance Victuals], @UUID[Compendium.pf2e.spells-srd.Item.Imp Sting]</li>\n<li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction], @UUID[Compendium.pf2e.spells-srd.Item.Stinking Cloud]</li>\n</ul>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>"
         },
         "group": "club",
         "hardness": 0,
@@ -51,7 +51,18 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:damage:type:poison"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],

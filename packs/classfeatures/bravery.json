@@ -1,6 +1,6 @@
 {
     "_id": "GJKJafDGuX4BeAeN",
-    "img": "systems/pf2e/icons/features/classes/bravery.webp",
+    "img": "icons/sundries/flags/banner-standard-tattered-red.webp",
     "name": "Bravery",
     "system": {
         "actionType": {
@@ -27,6 +27,9 @@
         "rules": [
             {
                 "key": "Note",
+                "outcome": [
+                    "success"
+                ],
                 "predicate": [
                     "fear"
                 ],
@@ -44,14 +47,15 @@
                 ],
                 "selector": "will",
                 "type": "save"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.saves.will.rank",
-                "value": 2
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "will": {
+                    "rank": 2
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [

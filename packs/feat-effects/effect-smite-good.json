@@ -22,21 +22,19 @@
         },
         "rules": [
             {
-                "domain": "damage",
-                "key": "RollOption",
-                "label": "Target is subject of your Smite Good",
-                "option": "smite-good",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "smite-good"
             },
             {
                 "damageType": "spirit",
                 "key": "FlatModifier",
                 "predicate": [
-                    "smite-good",
+                    "target:mark:smite-good",
+                    "target:trait:holy",
                     {
-                        "nor": [
-                            "proficiency:master",
-                            "proficiency:legendary"
+                        "lt": [
+                            "item:proficiency:rank",
+                            3
                         ]
                     }
                 ],
@@ -48,11 +46,12 @@
                 "damageType": "spirit",
                 "key": "FlatModifier",
                 "predicate": [
-                    "smite-good",
+                    "target:mark:smite-good",
+                    "target:trait:holy",
                     {
-                        "or": [
-                            "proficiency:master",
-                            "proficiency:legendary"
+                        "gte": [
+                            "item:proficiency:rank",
+                            "3"
                         ]
                     }
                 ],

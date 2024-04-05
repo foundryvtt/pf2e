@@ -205,7 +205,7 @@
                 },
                 "items": {
                     "lzyme": {
-                        "img": "systems/pf2e/icons/features/feats/feats.webp",
+                        "img": "icons/sundries/books/book-red-exclamation.webp",
                         "level": 1,
                         "name": "Battle Medicine",
                         "uuid": "Compendium.pf2e.feats-srd.Item.Battle Medicine"
@@ -504,7 +504,7 @@
                 },
                 "category": "class",
                 "description": {
-                    "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the <em>@UUID[Compendium.pf2e.spells-srd.Item.Ki Strike]</em> ki spell and a focus pool of 1 Focus Point.</p>"
+                    "value": "<p>Your study of the flow of mystical energy allows you to harness it into your physical strikes. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Ki Strike] ki spell and a focus pool of 1 Focus Point.</p>"
                 },
                 "level": {
                     "taken": 1,
@@ -992,15 +992,16 @@
                         "mode": "upgrade",
                         "path": "system.proficiencies.attacks.martial.rank",
                         "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 1
                     }
                 ],
                 "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 1
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -1025,7 +1026,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "focus"
                 },
@@ -1039,74 +1039,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
-                "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot9": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    }
-                },
+                "slots": {},
                 "slug": null,
                 "spelldc": {
                     "dc": 0,
@@ -2387,7 +2320,9 @@
                         "unholy"
                     ]
                 },
-                "skill": "ste",
+                "skill": [
+                    "stealth"
+                ],
                 "slug": "achaekek",
                 "spells": {
                     "1": "Compendium.pf2e.spells-srd.Item.Gb7SeieEvd0pL2Eh",
@@ -2896,7 +2831,7 @@
                 "hp": 10,
                 "items": {
                     "1fw9s": {
-                        "img": "systems/pf2e/icons/features/classes/mystic-strikes.webp",
+                        "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
                         "level": 3,
                         "name": "Mystic Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Mystic Strikes"
@@ -2914,7 +2849,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Second Path to Perfection"
                     },
                     "4ru9g": {
-                        "img": "systems/pf2e/icons/features/classes/greater-weapon-specialization.webp",
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
                         "level": 15,
                         "name": "Greater Weapon Specialization (Level 15)",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
@@ -2926,7 +2861,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Incredible Movement"
                     },
                     "ai4sq": {
-                        "img": "systems/pf2e/icons/features/classes/expert-strikes.webp",
+                        "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
                         "level": 5,
                         "name": "Expert Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Expert Strikes"
@@ -2998,7 +2933,7 @@
                         "uuid": "Compendium.pf2e.classfeatures.Item.Third Path to Perfection"
                     },
                     "zl9gg": {
-                        "img": "systems/pf2e/icons/features/classes/master-strikes.webp",
+                        "img": "icons/magic/fire/flame-burning-fist-strike.webp",
                         "level": 13,
                         "name": "Master Strikes",
                         "uuid": "Compendium.pf2e.classfeatures.Item.Master Strikes"
@@ -3148,13 +3083,10 @@
                         "key": "Strike"
                     },
                     {
-                        "key": "DamageDice",
-                        "override": {
-                            "upgrade": true
-                        },
-                        "selector": [
-                            "{item|id}-damage"
-                        ]
+                        "itemId": "xxxxxxFISTxxxxxx",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "property": "damage-dice-faces"
                     }
                 ],
                 "slug": "powerful-fist",
@@ -3258,7 +3190,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/mystic-strikes.webp",
+            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
             "name": "Mystic Strikes",
             "sort": 900,
             "system": {
@@ -3350,15 +3282,15 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.attributes.perception.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "alertness",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": []
@@ -3373,7 +3305,7 @@
                     "sourceId": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
                 }
             },
-            "img": "systems/pf2e/icons/features/classes/expert-strikes.webp",
+            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
             "name": "Expert Strikes",
             "sort": 2500,
             "system": {
@@ -3399,21 +3331,18 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.unarmed.rank",
-                        "value": 2
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.simple.rank",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": "expert-strikes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
                 "traits": {
                     "rarity": "common",
                     "value": [
@@ -3512,9 +3441,6 @@
                 "temp": 0,
                 "value": 80
             },
-            "initiative": {
-                "statistic": "perception"
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -3579,6 +3505,13 @@
             "keyability": {
                 "value": "str"
             },
+            "languages": {
+                "details": "",
+                "value": [
+                    "dwarven",
+                    "kelish"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -3596,6 +3529,9 @@
             }
         },
         "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
         "pfs": {
             "characterNumber": null,
             "currentFaction": "EA",
@@ -3682,21 +3618,6 @@
             "thi": {
                 "rank": 0
             }
-        },
-        "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "dwarven",
-                    "kelish"
-                ]
-            },
-            "senses": [],
-            "value": [
-                "evil",
-                "lawful"
-            ]
         }
     },
     "type": "character"

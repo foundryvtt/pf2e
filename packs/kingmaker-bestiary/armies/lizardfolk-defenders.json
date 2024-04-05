@@ -1,0 +1,200 @@
+{
+    "_id": "gNnyvSLsItTN0Ks4",
+    "folder": "BRkIyvmgOgyA2kq7",
+    "img": "systems/pf2e/icons/default-icons/army.svg",
+    "items": [
+        {
+            "_id": "6g0dZ8gMhmS8DQ64",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.22uD6ZjNdjGrUpKe"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "liveOffTheLand": {
+                            "id": "9G3Wz7utmqU4tjmt",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Swamp Dwellers",
+            "sort": 2500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The lizardfolk defenders have the @UUID[Compendium.pf2e.kingmaker-features.Item.Live off the Land] tactic for free (it does not count against the maximum number of tactics the army can possess), do not treat water or swamp on a battlefield as difficult terrain, and gain a +2 circumstance bonus to Scouting checks attempted in hexes that include swamps or water.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "0",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "Adjustment",
+                        "selector": "attack-roll",
+                        "value": -3
+                    },
+                    {
+                        "flag": "liveOffTheLand",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.kingmaker-features.Item.Live off the Land"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "campaignFeature"
+        },
+        {
+            "_id": "9G3Wz7utmqU4tjmt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.kingmaker-features.Item.sdwSrVfu9yG1uwio"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "6g0dZ8gMhmS8DQ64",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "folder": "e185cDQaLjU3uZ62",
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Live off the Land",
+            "sort": 2100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "campaign": "kingmaker",
+                "category": "army-tactic",
+                "description": {
+                    "value": "<p>The army is trained to be self-sufficient and sustains itself via hunting and gathering when they're in the wild. If during a Kingdom turn's Upkeep phase this army is located in a hex that doesn't include a settlement, and if the army is not garrisoned, it reduces its Consumption by 1.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Kingmaker"
+                },
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "label": "PF2E.Kingmaker.Army.Toggles.LiveOffTheLand",
+                        "option": "live-off-the-land",
+                        "priority": 1,
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "system.consumption",
+                        "predicate": [
+                            "live-off-the-land"
+                        ],
+                        "value": -1
+                    }
+                ],
+                "slug": "live-off-the-land",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cavalry",
+                        "infantry",
+                        "skirmisher"
+                    ]
+                }
+            },
+            "type": "campaignFeature"
+        }
+    ],
+    "name": "Lizardfolk Defenders",
+    "system": {
+        "ac": {
+            "potency": 0,
+            "value": 23
+        },
+        "attributes": {
+            "hp": {
+                "max": 4,
+                "routThreshold": 2,
+                "value": 4
+            }
+        },
+        "consumption": 1,
+        "details": {
+            "alignment": "N",
+            "blurb": "",
+            "description": "<p>These lizardfolk are from the settlement on the banks of Candlemere; they fight with flails and javelins.</p>",
+            "level": {
+                "value": 5
+            }
+        },
+        "recruitmentDC": 22,
+        "resources": {
+            "ammunition": {
+                "max": 5,
+                "value": 5
+            },
+            "potions": {
+                "value": 0
+            }
+        },
+        "saves": {
+            "maneuver": 9,
+            "morale": 15
+        },
+        "scouting": 14,
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "type": "skirmisher",
+            "value": []
+        },
+        "weapons": {
+            "melee": {
+                "name": "Flails",
+                "potency": 0
+            },
+            "ranged": {
+                "name": "Javelins",
+                "potency": 0
+            }
+        }
+    },
+    "type": "army"
+}

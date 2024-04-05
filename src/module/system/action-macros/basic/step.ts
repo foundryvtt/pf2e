@@ -4,6 +4,7 @@ const step = new SimpleAction({
     cost: 1,
     description: "PF2E.Actions.Step.Description",
     name: "PF2E.Actions.Step.Title",
+    section: "basic",
     slug: "step",
     traits: ["move"],
 });

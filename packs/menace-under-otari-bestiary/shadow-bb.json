@@ -48,45 +48,10 @@
             "type": "melee"
         },
         {
-            "_id": "20wHQZMjGAPl30DH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "tS9Kv6K4kwYFjHCT",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Incorporeal",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -116,7 +81,7 @@
             "_id": "ACHlnYzXVxizzqPw",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Light Vulnerability",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -126,7 +91,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A weapon with a <em>@UUID[Compendium.pf2e.spells-srd.Item.Light]</em> spell cast on it gains the magical trait when used to attack the shadow.</p>"
+                    "value": "<p>Attacks against the shadow are treated as magical if the shadow or the weapon being used is in light.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -146,7 +111,7 @@
             "_id": "0Qt9ULbGzJV8ZG3W",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Shadow Spawn",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -176,7 +141,7 @@
             "_id": "0QWVJ7Of8cQNKp0N",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slink in Shadows",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -206,7 +171,7 @@
             "_id": "Kjifw1jgDvfmrEGU",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Steal Shadow",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -238,7 +203,7 @@
             "_id": "MN0vvAiaLlor6r9T",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -255,7 +220,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -263,7 +229,7 @@
             "_id": "vJe05g3F9QTjJFzu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -280,7 +246,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -326,18 +293,22 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "poison"
                 },
                 {
+                    "exceptions": [],
                     "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "void"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
             "resistances": [
                 {
                     "doubleVs": [
@@ -364,16 +335,32 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 4
             },
             "privateNotes": "",
             "publicNotes": "<p>Undead shadows feed on those who stray from the light.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -391,24 +378,11 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },
             "value": [
-                "chaotic",
-                "evil",
                 "incorporeal",
                 "undead",
                 "unholy"

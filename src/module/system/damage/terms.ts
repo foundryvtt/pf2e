@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import { isFlavoredArithmetic, isSystemDamageTerm, renderComponentDamage, simplifyTerm } from "./helpers.ts";
+import { isSystemDamageTerm, isUnsimplifableArithmetic, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 
 class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
@@ -75,7 +75,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
             this.isDeterministic &&
             typeof this.total === "number" &&
             !Number.isNaN(this.total) &&
-            !isFlavoredArithmetic(this)
+            !isUnsimplifableArithmetic(this)
         ) {
             return this.total.toString();
         }
@@ -217,7 +217,7 @@ class Grouping extends RollTerm<GroupingData> {
             super(termData);
             this.term = childTerm;
             if (this.#dataIsCriticalDoubling(termData.term)) {
-                this.options.crit = true;
+                this.options.crit = 2;
             }
         }
 
@@ -246,7 +246,7 @@ class Grouping extends RollTerm<GroupingData> {
             this.isDeterministic &&
             typeof this.total === "number" &&
             !Number.isNaN(this.total) &&
-            !isFlavoredArithmetic(this.term)
+            !isUnsimplifableArithmetic(this.term)
         ) {
             return this.total.toString();
         }

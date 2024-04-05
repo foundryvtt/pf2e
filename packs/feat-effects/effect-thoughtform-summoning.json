@@ -1,0 +1,50 @@
+{
+    "_id": "ByXEvk0gyFwUk5gU",
+    "img": "icons/creatures/magical/humanoid-silhoette-alien-gray.webp",
+    "name": "Effect: Thoughtform Summoning",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Thoughtform Summoning]</p>\n<p>Whenever you summon a creature, you can choose to instead create a psychic construct of that creature. This grants it resistance to physical damage equal to half its level and weakness 5 to force and mental damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "physical",
+                "value": "(@actor.level/2)"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "force",
+                    "mental"
+                ],
+                "value": 5
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

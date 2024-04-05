@@ -1,12 +1,14 @@
 .sheet-content .sidebar {
     .inventory-details .form-group {
-        select {
-            max-width: fit-content;
-        }
+        &.duration {
+            label {
+                max-width: fit-content;
+                margin-right: 0.1em;
+            }
 
-        .form-group.duration label {
-            max-width: fit-content;
-            padding-right: 0.1em;
+            select {
+                max-width: 9em;
+            }
         }
     }
 
@@ -48,13 +50,17 @@
     .add-badge {
         display: flex;
         align-items: center;
+
         select {
             flex: 1;
             max-width: unset;
         }
+
         button {
+            align-items: center;
+            display: flex;
             flex: 0;
-            line-height: 1.2em;
+            line-height: 1.5em;
         }
     }
 }

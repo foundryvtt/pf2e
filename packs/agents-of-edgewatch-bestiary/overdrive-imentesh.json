@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -27,71 +26,33 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot1": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
-                    },
-                    "slot10": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot3": {
                         "max": 2,
-                        "prepared": [],
                         "value": 2
                     },
                     "slot4": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     },
                     "slot5": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     },
                     "slot6": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     },
                     "slot7": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
-                    },
-                    "slot8": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot9": {
                         "max": 3,
-                        "prepared": [],
                         "value": 3
                     }
                 },
@@ -195,11 +156,11 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Fleeting notes of a strange and unnatural song fill the air, overtaking the mind. Each target must attempt a Will save when you cast the spell, and again the first time you Sustain this Spell each round. A creature needs to attempt only one save against the song each round, and you have to keep the same targets when you Sustain the Spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected, can't be affected on subsequent rounds, and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected this round, but it can be affected on subsequent rounds.</p>\n<p><strong>Failure</strong> Roll 1d4 on the table below.</p>\n<p><strong>Critical Failure</strong> Roll 1d4+1 on the table below.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Result</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}</td>\n</tr>\n<tr>\n<td>2</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round</td>\n</tr>\n<tr>\n<td>3</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} for 1 round</td>\n</tr>\n<tr>\n<td>4</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round</td>\n</tr>\n<tr>\n<td>5</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Fleeting notes of a strange and unnatural song fill the air, overtaking the mind. Each target must attempt a Will save when you cast the spell, and again the first time you Sustain this Spell each round. A creature needs to attempt only one save against the song each round, and you have to keep the same targets when you Sustain the Spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected, can't be affected on subsequent rounds, and is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The target is unaffected this round, but it can be affected on subsequent rounds.</p>\n<p><strong>Failure</strong> Roll 1d4 on the table below.</p>\n<p><strong>Critical Failure</strong> Roll 1d4+1 on the table below.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Result</th>\n<th>Effect</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}</td>\n</tr>\n<tr>\n<td>2</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round</td>\n</tr>\n<tr>\n<td>3</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 4} for 1 round</td>\n</tr>\n<tr>\n<td>4</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round</td>\n</tr>\n<tr>\n<td>5</td>\n<td>The target is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for an unlimited duration</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "duration": {
                     "sustained": true,
-                    "value": "sustained up to 1 minute"
+                    "value": "1 minute"
                 },
                 "level": {
                     "value": 9
@@ -876,7 +837,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell level to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
+                    "value": "<p>You repair the target item. You restore 5 Hit Points per spell rank to the target, potentially removing the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition if this repairs it past the item's Broken Threshold. You can't replace lost pieces or repair an object that's been completely destroyed.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You can target a non-magical object of 1 Bulk or less.</p>\n<p><strong>Heightened (3rd)</strong> You can target a non-magical object of 2 Bulk or less, or a magical object of 1 Bulk or less.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1207,14 +1168,9 @@
             "type": "melee"
         },
         {
-            "_id": "KeuEtlVRXnSoTjPo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
+            "_id": "zn2a2GvxqbknqXbo",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
+            "name": "Entropy Sense (Imprecise) 60 feet",
             "sort": 1900000,
             "system": {
                 "actionType": {
@@ -1225,37 +1181,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "zn2a2GvxqbknqXbo",
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Entropy Sense (Imprecise) 60 feet",
-            "sort": 2000000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>An overdrive imentesh can anticipate the most likely location of a creature through their supernatural insight into the forces of chaotic probabilities and chance. This grants the overdrive imentesh the ability to sense creatures within the listed range.</p>\n<p>The overdrive imentesh's entropy sense doesn't detect creatures under the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Veil of Privacy]</em> or that are otherwise shielded from divinations and predictions.</p>"
+                    "value": "<p>An overdrive imentesh can anticipate the most likely location of a creature through their supernatural insight into the forces of chaotic probabilities and chance. This grants the overdrive imentesh the ability to sense creatures within the listed range.</p>\n<p>The overdrive imentesh's entropy sense doesn't detect creatures under the effects of @UUID[Compendium.pf2e.spells-srd.Item.Veil of Privacy] or that are otherwise shielded from divinations and predictions.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1275,41 +1201,6 @@
             "type": "action"
         },
         {
-            "_id": "Nl7SDGVnqgpHC581",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 2100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "czNwyIcrJKwQNfoZ",
             "flags": {
                 "core": {
@@ -1318,7 +1209,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1348,7 +1239,7 @@
             "_id": "kK15wEyRUz3vGzjl",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1401,7 +1292,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Fast Healing 10",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1437,7 +1328,7 @@
             "_id": "I23rYMszuvKL97k7",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Protean Anatomy",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1474,7 +1365,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 2600000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1513,7 +1404,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 2700000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1543,7 +1434,7 @@
             "_id": "O97E3bY0dRr5pLCH",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Inflict Warpwave",
-            "sort": 2800000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1580,7 +1471,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 2900000,
+            "sort": 2700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1628,7 +1519,7 @@
             "_id": "lZznKQkFobPXBxDT",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Warpwave Strike",
-            "sort": 3000000,
+            "sort": 2800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1665,7 +1556,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 3100000,
+            "sort": 2900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1695,7 +1586,7 @@
             "_id": "0jXPqImi2uvlO3LX",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 3200000,
+            "sort": 3000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1720,7 +1611,7 @@
             "_id": "D2qUqsAz4kIM7NrO",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 3300000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1745,7 +1636,7 @@
             "_id": "AHPp7o4w8xplUeaM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 3400000,
+            "sort": 3200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1770,7 +1661,7 @@
             "_id": "37AiuI5GLjalHNVw",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 3500000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1795,7 +1686,7 @@
             "_id": "3SRRW7kAQr36i7MM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 3600000,
+            "sort": 3400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1820,7 +1711,7 @@
             "_id": "ZUVd7T8lDRcmktIP",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3700000,
+            "sort": 3500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1845,7 +1736,7 @@
             "_id": "P4zS2cBflSqiTLUt",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 3800000,
+            "sort": 3600000,
             "system": {
                 "description": {
                     "value": ""
@@ -1903,12 +1794,6 @@
                 "temp": 0,
                 "value": 315
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 29
-            },
             "resistances": [
                 {
                     "type": "precision",
@@ -1936,6 +1821,14 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "tongues",
+                "value": [
+                    "chthonian",
+                    "empyrean",
+                    "protean"
+                ]
+            },
             "level": {
                 "value": 17
             },
@@ -1947,6 +1840,18 @@
                 "title": "Pathfinder #162: Ruins of the Radiant Siege"
             },
             "sidebarText": ""
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "entropy sense (imprecise) 60 feet",
+            "mod": 29,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1969,19 +1874,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Tongues",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "empyrean",
-                    "protean"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, entropy sense (imprecise) 60 feet"
-            },
             "size": {
                 "value": "lg"
             },

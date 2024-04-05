@@ -1,12 +1,12 @@
 import { AttributeString } from "@actor/types.ts";
 import { BaseItemSourcePF2e, ItemSystemData, ItemSystemSource, OtherTagsOnly } from "@item/base/data/system.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { OneToTen, ZeroToEleven, ZeroToFour } from "@module/data.ts";
+import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
 
 // temporary type until the spellcasting entry is migrated to no longer use slotX keys
-type SlotKey = `slot${ZeroToEleven}`;
+type SlotKey = `slot${ZeroToTen}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
 
@@ -25,13 +25,11 @@ interface SpellDifficultyClass {
 
 interface SpellPrepData {
     id: string | null;
-    expended?: boolean;
-    name?: string;
-    prepared?: boolean;
+    expended: boolean;
 }
 
 interface SpellSlotData {
-    prepared: Record<number, SpellPrepData>;
+    prepared: SpellPrepData[];
     value: number;
     max: number;
 }
@@ -52,12 +50,14 @@ interface SpellcastingEntrySystemSource extends ItemSystemSource {
         slug: string;
         value: ZeroToFour;
     };
-    slots: Record<SlotKey, SpellSlotData>;
+    slots: SpellcastingEntrySlots;
     autoHeightenLevel: {
         value: OneToTen | null;
     };
     level?: never;
 }
+
+type SpellcastingEntrySlots = Record<SlotKey, SpellSlotData>;
 
 interface SpellCollectionTypeSource {
     value: SpellcastingCategory;
@@ -65,7 +65,9 @@ interface SpellCollectionTypeSource {
     validItems?: "scroll" | "" | null;
 }
 
-interface SpellcastingEntrySystemData extends SpellcastingEntrySystemSource, Omit<ItemSystemData, "level" | "traits"> {
+interface SpellcastingEntrySystemData
+    extends Omit<SpellcastingEntrySystemSource, "description">,
+        Omit<ItemSystemData, "level" | "traits"> {
     prepared: SpellCollectionTypeData;
 }
 
@@ -78,6 +80,7 @@ export type {
     SlotKey,
     SpellAttackRollModifier,
     SpellDifficultyClass,
+    SpellcastingEntrySlots,
     SpellcastingEntrySource,
     SpellcastingEntrySystemData,
     SpellcastingEntrySystemSource,

@@ -1,14 +1,22 @@
 import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
-import { ActionCost, Frequency, ItemSummaryData } from "@item/base/data/index.ts";
-import { RangeData } from "@item/types.ts";
+import type { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
+import type { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { AbilityItemSource, AbilitySystemData } from "./data.ts";
+import { sluggify } from "@util";
+import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
-import { ActionTrait } from "./types.ts";
+import { AbilityTraitToggles } from "./trait-toggles.ts";
+import type { ActionTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    range: RangeData | null = null;
+    declare range?: RangeData | null;
+
+    declare isMelee?: boolean;
+
+    static override get validTraits(): Record<ActionTrait, string> {
+        return CONFIG.PF2E.actionTraits;
+    }
 
     get traits(): Set<ActionTrait> {
         return new Set(this.system.traits.value);
@@ -36,34 +44,44 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
             this.system.frequency.value ??= this.system.frequency.max;
         }
 
+        this.system.traits.toggles = new AbilityTraitToggles(this);
+
         this.system.selfEffect ??= null;
         // Self effects are only usable with actions
         if (this.system.actionType.value === "passive") {
             this.system.selfEffect = null;
         }
+    }
 
-        this.system.traits.value = this.system.traits.value.filter((t) => t in CONFIG.PF2E.actionTraits);
+    override prepareActorData(): void {
+        const actor = this.actor;
+
+        if (actor?.isOfType("familiar") && this.system.category === "familiar") {
+            const slug = this.slug ?? sluggify(this.name);
+            actor.rollOptions.all[`self:ability:${slug}`] = true;
+        }
     }
 
     override onPrepareSynthetics(this: AbilityItemPF2e<ActorPF2e>): void {
         processSanctification(this);
     }
 
-    override getRollOptions(prefix = this.type): string[] {
-        const options = super.getRollOptions(prefix);
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
+        const rollOptions = super.getRollOptions(prefix, options);
         if (this.frequency || this.system.deathNote) {
-            options.push(`${prefix}:frequency:limited`);
+            rollOptions.push(`${prefix}:frequency:limited`);
         }
-        return options;
+
+        return rollOptions;
     }
 
     override async getChatData(
         this: AbilityItemPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
-    ): Promise<ItemSummaryData> {
+    ): Promise<RawItemChatData> {
         return this.processChatData(htmlOptions, {
             ...this.system,
-            traits: this.traitChatData(CONFIG.PF2E.featTraits),
+            traits: this.traitChatData(),
         });
     }
 
@@ -97,7 +115,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 }
 
 interface AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    readonly _source: AbilityItemSource;
+    readonly _source: AbilitySource;
     system: AbilitySystemData;
 }
 

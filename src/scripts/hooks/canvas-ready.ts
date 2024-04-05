@@ -3,9 +3,7 @@ import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const CanvasReady = {
     listen: (): void => {
-        Hooks.once("canvasReady", async () => {
-            await game.pf2e.ConditionManager.initialize();
-
+        Hooks.once("canvasReady", () => {
             // Register aura effects on synthetic actors after scene and canvas are ready
             const tokenActors = canvas.scene?.tokens.contents.flatMap((t) => t.actor ?? []) ?? [];
             for (const actor of tokenActors) {

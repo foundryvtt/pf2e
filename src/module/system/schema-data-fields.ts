@@ -1,6 +1,6 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate, StatementValidator } from "@system/predication.ts";
 import { SlugCamel, sluggify } from "@util";
-import { isObject } from "remeda";
+import * as R from "remeda";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type {
     ArrayFieldOptions,
@@ -51,7 +51,7 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
     }
 
     protected override _cleanType(data: object, options?: CleanFieldOptions): SourceFromSchema<TDataSchema> {
-        if (!isObject(data)) {
+        if (!R.isPlainObject(data)) {
             throw Error(`${this.name} is not an object`);
         }
         return super._cleanType(data, options);
@@ -61,7 +61,7 @@ class StrictSchemaField<TDataSchema extends DataSchema> extends fields.SchemaFie
 /** A `StringField` that does not cast the source value */
 class StrictStringField<
     TSourceProp extends string,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = false,
     THasInitial extends boolean = boolean,
@@ -74,7 +74,7 @@ class StrictStringField<
 /** A `NumberField` that does not cast the source value */
 class StrictNumberField<
     TSourceProp extends number,
-    TModelProp = TSourceProp,
+    TModelProp extends NonNullable<JSONValue> = TSourceProp,
     TRequired extends boolean = false,
     TNullable extends boolean = true,
     THasInitial extends boolean = true,
@@ -129,7 +129,7 @@ class StrictArrayField<
 
 class StrictObjectField<
     TSourceProp extends object,
-    TModelProp = TSourceProp,
+    TModelProp extends object = TSourceProp,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
@@ -403,6 +403,7 @@ class RecordField<
             }
         }
         if (failures.elements.length) {
+            failures.unresolved = failures.elements.some((e) => e.failure.unresolved);
             return failures;
         }
     }
@@ -421,7 +422,7 @@ class RecordField<
         values: unknown,
         options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void {
-        if (!isObject(values)) {
+        if (!R.isPlainObject(values)) {
             return new foundry.data.validation.DataModelValidationFailure({ message: "must be an Object" });
         }
         return this._validateValues(values, options);

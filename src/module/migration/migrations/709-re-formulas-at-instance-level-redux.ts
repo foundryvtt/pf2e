@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { isObject } from "@util";
+import * as R from "remeda";
 import { Migration702REFormulasAtInstanceLevel } from "./702-re-formulas-at-instance-level.ts";
 
 export class Migration709REFormulasAtInstanceLevelRedux extends Migration702REFormulasAtInstanceLevel {
@@ -20,7 +20,7 @@ export class Migration709REFormulasAtInstanceLevelRedux extends Migration702REFo
     private findAndMigrateFormulas(value: unknown): unknown {
         if (typeof value === "string" && value.includes("@")) {
             return this.raiseToInstanceLevel(value);
-        } else if (isObject<Record<string | number, unknown>>(value)) {
+        } else if (R.isObject(value) || Array.isArray(value)) {
             this.walkObject(value);
         }
 

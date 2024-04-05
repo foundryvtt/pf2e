@@ -402,6 +402,9 @@ const SORTABLE_BASE_OPTIONS: Sortable.Options = {
     scroll: true,
     scrollSensitivity: 30,
     scrollSpeed: 15,
+
+    delay: 500,
+    delayOnTouchOnly: true,
 };
 
 export {

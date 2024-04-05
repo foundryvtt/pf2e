@@ -49,12 +49,12 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER;
     }
 
-    /** Anyone with Limited permission can update a loot actor */
+    /** Anyone with Limited ownership can update a loot actor. */
     override canUserModify(user: UserPF2e, action: UserAction): boolean {
-        if (action === "update") {
-            return this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED;
-        }
-        return super.canUserModify(user, action);
+        return (
+            super.canUserModify(user, action) ||
+            (action === "update" && this.permission >= CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED)
+        );
     }
 
     override async transferItemToActor(

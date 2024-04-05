@@ -2,12 +2,6 @@ import type DataModel from "./common/abstract/data.d.ts";
 import type { DataSchema } from "./common/data/fields.d.ts";
 
 declare global {
-    interface ElementDragEvent extends DragEvent {
-        target: HTMLElement;
-        currentTarget: HTMLElement;
-        readonly dataTransfer: DataTransfer;
-    }
-
     type Maybe<T> = T | null | undefined;
 
     type DeepPartial<T extends object> = {

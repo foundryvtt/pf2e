@@ -24,7 +24,20 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Cleric.RaiseSymbol.RollOptionLabel",
+                "option": "shield-religious-symbol",
+                "predicate": [
+                    "self:shield:equipped",
+                    {
+                        "not": "self:effect:emblazon-armament-shield"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Raise Symbol",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Raise Symbol"

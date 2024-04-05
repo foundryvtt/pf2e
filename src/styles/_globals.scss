@@ -1,16 +1,49 @@
 /* ----------------------------------------- */
-/* Animation                                 */
+/* Sub-font-size spacing                     */
+/* (margin, padding, gap, etc.)              */
 /* ----------------------------------------- */
 
 :root {
-    --animate-duration: 1s;
-    --animate-delay: 1s;
-    --animate-repeat: 1;
+    --space-1: 0.0625rem;
+    --space-neg-1: -0.0625rem;
+    --space-2: 0.125rem;
+    --space-3: 0.1875rem;
+    --space-4: 0.25rem;
+    --space-5: 0.3125rem;
+    --space-6: 0.375rem;
+    --space-7: 0.4375rem;
+    --space-8: 0.5rem;
+    --space-9: 0.5625rem;
+    --space-10: 0.625rem;
+    --space-11: 0.6875rem;
+    --space-12: 0.75rem;
+    --space-13: 0.8125rem;
+    --space-14: 0.875rem;
+    --space-15: 0.9375rem;
 }
 
 /* ----------------------------------------- */
 /* Layout                                    */
 /* ----------------------------------------- */
+
+*,
+.directory .directory-list,
+.sheet.journal-entry .scrollable,
+#permissions-config ul.permissions-list {
+    scrollbar-color: initial;
+    scrollbar-width: initial;
+}
+
+::-webkit-scrollbar-thumb {
+    border-color: #ff6400;
+}
+
+@-moz-document url-prefix() {
+    * {
+        scrollbar-color: #782e22 transparent;
+        scrollbar-width: thin;
+    }
+}
 
 [hidden] {
     display: none !important;
@@ -52,6 +85,7 @@ p.compact-text {
     align-self: center;
     display: inline;
     font-family: "Pathfinder2eActions", sans-serif;
+    font-weight: normal;
     letter-spacing: 0;
     margin: 0;
     padding: 0;
@@ -61,47 +95,46 @@ p.compact-text {
 /* Styled table                              */
 /* ----------------------------------------- */
 
+table.pf2e,
 table.pf2-table {
-    border: solid 1px #000000;
     border-collapse: collapse;
+    color: var(--text-dark);
     font-size: var(--font-size-13);
-    color: #191813;
     user-select: text;
 
     thead,
     tbody,
-    tr,
     th,
     td {
         box-sizing: border-box;
         user-select: text;
+        word-break: auto-phrase;
     }
 
     tr:nth-child(odd) {
-        background-color: #eee5c8;
-    }
-    tr:nth-child(even) {
-        background-color: #f6f1e1;
+        background-color: var(--tertiary-light);
     }
 
-    th {
-        color: var(--text-light);
-        font-weight: bold;
-        background-color: #522e2c;
+    tr:nth-child(even) {
+        background-color: var(--text-light);
     }
 
     th,
     td {
-        border: solid 1px #808080;
-        padding: 6px 15px;
+        border: solid 1px var(--color-border-light-tertiary);
         text-align: center;
     }
-}
 
-a.foundry-href {
-    color: var(--primary);
-    font-weight: 500;
-    text-decoration: underline;
+    th {
+        background-color: var(--color-pf-primary-dark);
+        color: var(--text-light);
+        font-weight: bold;
+        padding: 0.5rem 0.25rem;
+    }
+
+    td {
+        padding: 0.25rem;
+    }
 }
 
 @mixin inline-link {
@@ -111,13 +144,13 @@ a.foundry-href {
     box-sizing: border-box;
     color: var(--color-text-dark-primary);
     line-height: 1.6em;
-    padding: 1px 4px;
+    padding: var(--space-1) var(--space-4);
     white-space: nowrap;
     word-break: break-all;
 
     > i.icon {
         color: var(--color-text-dark-inactive);
-        margin-right: 0.25em;
+        margin-right: var(--space-4);
     }
 }
 
@@ -127,6 +160,10 @@ a.content-link {
     // Automatically italicize spell content links
     &:has(i.fa-sparkles) {
         font-style: italic;
+    }
+
+    & > span.fa-stack {
+        width: 1.25em;
     }
 }
 
@@ -146,23 +183,28 @@ span[data-pf2-action] {
     @include inline-link;
     cursor: pointer;
 
+    &[data-secret] {
+        background: var(--blind-roll);
+        border-color: #720073;
+    }
+
     &[data-pf2-glyph]::before {
         font-family: "Pathfinder2eActions";
-        margin-right: 2px;
+        margin-right: var(--space-2);
         color: var(--color-text-dark-inactive);
     }
 
     &:not([data-pf2-glyph])::before,
     &[data-pf2-glyph=""]::before {
         display: inline-block;
-        height: 15px;
-        width: 15px;
+        height: var(--font-size-15);
+        width: var(--font-size-15);
         background-image: url("/icons/actions/Passive.webp");
         background-repeat: no-repeat;
-        background-size: 15px 15px;
+        background-size: var(--font-size-15) var(--font-size-15);
         opacity: 0.4;
-        margin-bottom: -3px;
-        margin-right: 2px;
+        margin-bottom: calc(-1 * var(--space-3));
+        margin-right: var(--space-2);
         content: "";
     }
 
@@ -275,38 +317,38 @@ i[data-pf2-repost] {
     color: var(--color-text-dark-inactive);
     border-left: 1px solid var(--color-border-dark-tertiary);
     background: #fff9;
-    padding: 2px;
-    margin-left: 2px;
+    padding: var(--space-2);
+    margin-left: var(--space-2);
     text-shadow: none;
 
     &:hover {
         color: var(--text-light);
-        text-shadow: 0px 0px 2px var(--text-dark);
+        text-shadow: 0 0 2px var(--text-dark);
     }
 }
 
-[data-visibility]:not([data-visibility="all"]) {
+/* ----------------------------------------- */
+/* GM Visibility Elements                    */
+/* ----------------------------------------- */
+
+[data-visibility="gm"]:not(.dice-result > *) {
+    background: var(--visibility-gm-bg);
     border-radius: 1px;
     box-sizing: border-box;
     display: inline-block;
     line-height: 1em;
     outline: 1px dotted rgba(75, 74, 68, 0.5);
-    padding: 1px;
+    padding: var(--space-1);
 
-    /* ----------------------------------------- */
-    /* GM Visibility Elements                    */
-    /* ----------------------------------------- */
-    &[data-visibility="gm"] {
-        background: var(--visibility-gm-bg);
+    &.message-sender {
+        align-self: center;
+        margin-bottom: var(--space-4);
+        max-width: fit-content;
+    }
 
-        &.message-sender {
-            max-width: fit-content;
-        }
-
-        [data-visibility="gm"] {
-            outline: none;
-            padding: initial;
-        }
+    [data-visibility="gm"] {
+        outline: none;
+        padding: initial;
     }
 }
 
@@ -328,11 +370,12 @@ a[href]:hover {
 }
 
 // System theme Foundry tooltips
-#tooltip.pf2e {
+#tooltip.pf2e,
+aside.locked-tooltip.pf2e {
     @include corner-boxes;
     background: rgba(black, 0.9);
     font-size: var(--font-size-14);
-    padding: 0.25rem 0;
+    padding: var(--space-4) 0;
     text-align: left;
 
     h1,

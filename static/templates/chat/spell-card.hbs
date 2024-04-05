@@ -1,6 +1,5 @@
 <div class="pf2e chat-card item-card"
-    data-spell-lvl="{{data.castLevel}}"
-    data-cast-level="{{data.castLevel}}"
+    data-cast-rank="{{data.castRank}}"
     data-actor-id="{{actor.id}}"
     data-item-id="{{item.id}}"
     {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}
@@ -11,7 +10,7 @@
         <h4 class="rank">{{data.rankLabel}}</h4>
     </header>
 
-    <section class="item-properties tags" data-tooltip-class="pf2e">
+    <section class="tags" data-tooltip-class="pf2e">
         {{#each data.traits as |trait|}}
             <span class="tag" data-trait="{{trait.name}}" data-tooltip="{{trait.description}}">{{trait.label}}</span>
         {{/each}}
@@ -74,7 +73,7 @@
     </section>
 
     {{#if data.properties}}
-        <footer class="card-footer">
+        <footer>
             {{#each data.properties as |property|}}
                 <span>{{localize property}}</span>
             {{/each}}

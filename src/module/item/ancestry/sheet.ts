@@ -1,7 +1,7 @@
 import { ABCSheetData, ABCSheetPF2e } from "@item/abc/sheet.ts";
 import type { AncestryPF2e } from "@item/ancestry/index.ts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
-import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
+import { SheetOptions, createSheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 
 class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -21,8 +21,8 @@ class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
                 Object.entries(itemData.system.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),
             sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
-            languages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.languages),
-            additionalLanguages: createSheetOptions(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
+            languages: createSheetTags(CONFIG.PF2E.languages, itemData.system.languages),
+            additionalLanguages: createSheetTags(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
         };
     }
 }

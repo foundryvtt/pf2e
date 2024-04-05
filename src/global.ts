@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 
 import type { ActorPF2e } from "@actor";
+import type { Action } from "@actor/actions/index.ts";
 import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupOptions } from "@actor/character/feats.ts";
@@ -58,7 +59,12 @@ import type { CheckPF2e } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
 import type { EffectTracker } from "@system/effect-tracker.ts";
 import type { ModuleArt } from "@system/module-art.ts";
-import type { CustomDamageData, HomebrewTag, HomebrewTraitSettingsKey } from "@system/settings/homebrew/index.ts";
+import type {
+    CustomDamageData,
+    HomebrewTag,
+    HomebrewTraitSettingsKey,
+    LanguageSettings,
+} from "@system/settings/homebrew/index.ts";
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
@@ -75,7 +81,7 @@ interface GamePF2e
         UserPF2e
     > {
     pf2e: {
-        actions: Record<string, Function>;
+        actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
         worldClock: WorldClock;
@@ -116,15 +122,35 @@ interface GamePF2e
         TextEditor: typeof TextEditorPF2e;
         /** Cached values of frequently-checked settings */
         settings: {
+            automation: {
+                /** Flanking detection */
+                flanking: boolean;
+            };
             /** Campaign feat slots */
             campaign: {
-                enabled: boolean;
-                sections: FeatGroupOptions[];
+                feats: {
+                    enabled: boolean;
+                    sections: FeatGroupOptions[];
+                };
+                languages: LanguageSettings;
+            };
+            critFumble: {
+                buttons: boolean;
+                cards: boolean;
             };
             /** Encumbrance automation */
             encumbrance: boolean;
+            gmVision: boolean;
             /** Immunities, weaknesses, and resistances */
             iwr: boolean;
+            metagame: {
+                breakdowns: boolean;
+                dcs: boolean;
+                secretChecks: boolean;
+                partyStats: boolean;
+                partyVision: boolean;
+                results: boolean;
+            };
             /** Rules-based vision */
             rbv: boolean;
             tokens: {
@@ -207,7 +233,8 @@ declare global {
             ItemDirectory<ItemPF2e<null>>,
             ChatLogPF2e,
             CompendiumDirectoryPF2e,
-            EncounterTrackerPF2e<EncounterPF2e | null>
+            EncounterTrackerPF2e<EncounterPF2e | null>,
+            HotbarPF2e
         >;
 
         // Add functions to the `Math` namespace for use in `Roll` formulas
@@ -251,10 +278,12 @@ declare global {
         get(module: "pf2e", setting: "metagame_partyVision"): boolean;
         get(module: "pf2e", setting: "metagame_secretCondition"): boolean;
         get(module: "pf2e", setting: "metagame_secretDamage"): boolean;
+        get(module: "pf2e", setting: "metagame_showBreakdowns"): boolean;
         get(module: "pf2e", setting: "metagame_showDC"): boolean;
-        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_showPartyStats"): boolean;
+        get(module: "pf2e", setting: "metagame_showResults"): boolean;
         get(module: "pf2e", setting: "metagame_tokenSetsNameVisibility"): boolean;
+        get(module: "pf2e", setting: "metagame_secretChecks"): boolean;
 
         get(module: "pf2e", setting: "tokens.autoscale"): boolean;
 
@@ -273,9 +302,11 @@ declare global {
         get(module: "pf2e", setting: "activePartyFolderState"): boolean;
         get(module: "pf2e", setting: "createdFirstParty"): boolean;
 
+        get(module: "pf2e", setting: "homebrew.languages"): HomebrewTag<"languages">[];
         get(module: "pf2e", setting: "homebrew.weaponCategories"): HomebrewTag<"weaponCategories">[];
         get(module: "pf2e", setting: HomebrewTraitSettingsKey): HomebrewTag[];
         get(module: "pf2e", setting: "homebrew.damageTypes"): CustomDamageData[];
+        get(module: "pf2e", setting: "homebrew.languageRarities"): LanguageSettings;
 
         get(module: "pf2e", setting: "compendiumBrowserPacks"): CompendiumBrowserSettings;
         get(module: "pf2e", setting: "compendiumBrowserSources"): CompendiumBrowserSources;

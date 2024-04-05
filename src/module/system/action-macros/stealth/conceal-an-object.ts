@@ -36,6 +36,7 @@ const action = new SingleCheckAction({
         { outcome: ["failure", "criticalFailure"], text: `${PREFIX}.Notes.failure` },
     ],
     rollOptions: ["action:conceal-an-object"],
+    section: "skill",
     slug: "conceal-an-object",
     statistic: "stealth",
     traits: ["manipulate", "secret"],

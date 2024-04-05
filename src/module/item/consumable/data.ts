@@ -15,6 +15,7 @@ interface ConsumableTraits extends PhysicalItemTraits<ConsumableTrait> {
 }
 
 interface ConsumableSystemSource extends PhysicalSystemSource {
+    apex?: never;
     traits: ConsumableTraits;
     category: ConsumableCategory;
     uses: ConsumableUses;
@@ -23,6 +24,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
     spell: SpellSource | null;
     usage: { value: string };
     stackGroup: AmmoStackGroup | null;
+    subitems?: never;
 }
 
 type ConsumableUses = {
@@ -39,13 +41,13 @@ type ConsumableDamageHealing = {
 };
 
 interface ConsumableSystemData
-    extends Omit<
-            ConsumableSystemSource,
-            "bulk" | "hp" | "identification" | "material" | "price" | "temporary" | "usage"
-        >,
-        Omit<PhysicalSystemData, "traits"> {
+    extends Omit<ConsumableSystemSource, SourceOmission>,
+        Omit<PhysicalSystemData, "subitems" | "traits"> {
+    apex?: never;
     stackGroup: AmmoStackGroup | null;
 }
+
+type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 
 export type {
     ConsumableDamageHealing,

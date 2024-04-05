@@ -3,6 +3,7 @@ import {
     BaseItemSourcePF2e,
     Frequency,
     FrequencySource,
+    ItemSystemData,
     ItemSystemSource,
     ItemTraits,
 } from "@item/base/data/system.ts";
@@ -35,7 +36,9 @@ interface CampaignFeatureSystemSource extends ItemSystemSource {
     frequency?: FrequencySource;
 }
 
-interface CampaignFeatureSystemData extends CampaignFeatureSystemSource {
+interface CampaignFeatureSystemData
+    extends Omit<CampaignFeatureSystemSource, "description">,
+        Omit<ItemSystemData, "traits"> {
     frequency?: Frequency;
 }
 

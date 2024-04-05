@@ -41,6 +41,7 @@ export class Migration852AbilityScoresToModifiers extends MigrationBase {
                 r.key === "ActiveEffectLike" &&
                 typeof r.path === "string" &&
                 /^system\.abilities\..+\.value$/.test(r.path) &&
+                "value" in r &&
                 typeof r.value === "number",
         );
 

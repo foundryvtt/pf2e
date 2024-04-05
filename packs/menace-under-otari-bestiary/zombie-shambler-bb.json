@@ -89,45 +89,10 @@
             "type": "melee"
         },
         {
-            "_id": "SyWmilYaLnrtDFVe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "eulyI60JHNUYs39w",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Slow",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -144,7 +109,13 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -162,7 +133,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -172,7 +143,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the zombie hits with its fist Strike, it can use this action to automatically give the target the @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] condition until the end of its next turn.</p>"
+                    "value": "<p>When the zombie succeeds at its fist Strike, it can use this action immediately after to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the target. This Grapple doesn't apply or count toward the zombie's multiple attack penalty.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -192,13 +163,13 @@
             "_id": "3WEDMCeiWeexqO8U",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
+                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -209,7 +180,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -255,18 +227,22 @@
             },
             "immunities": [
                 {
+                    "exceptions": [],
                     "type": "poison"
                 },
                 {
+                    "exceptions": [],
                     "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "void"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 0
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -284,16 +260,32 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": -1
             },
             "privateNotes": "",
-            "publicNotes": "<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed. A zombie shambler is a slow-moving horror most dangerous in larger groups. Among the living dead, zombies are most often used as fodder, wearing down defenses before more powerful undead arrive to deal the killing blow. Zombies can be commanded by intelligent undead and powerful necromancers.</p>",
+            "publicNotes": "<p>A zombie's only desire is to consume the living. Unthinking and ever-shambling harbingers of death, zombies stop only when they're destroyed. Among the living dead, zombies are most often used as fodder, wearing down defenses before more powerful undead arrive to deal the killing blow. Zombies can't truly think for themselves, but they can be commanded by other allied undead and powerful necromancers.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 0,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -311,23 +303,11 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },
             "value": [
-                "evil",
                 "mindless",
                 "undead",
                 "unholy",

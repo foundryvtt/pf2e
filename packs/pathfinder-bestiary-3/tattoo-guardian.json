@@ -45,45 +45,10 @@
             "type": "melee"
         },
         {
-            "_id": "2tYrB09YxVQESLhH",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 200000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "8e4jbz96UsZDTcka",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Retaliate",
-            "sort": 300000,
+            "sort": 200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -113,7 +78,7 @@
             "_id": "6FLKit13w08Xyhqy",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Bond with Ward",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -123,7 +88,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The tattoo guardian is adjacent to its ward</p>\n<hr />\n<p><strong>Effect</strong> The tattoo guardian enters its ward's space and applies itself to the creature's flesh or another suitable surface on the creature. The tattoo guardian occupies the same space as its ward and moves with its ward. While worn, the tattoo guardian establishes a constant <em>@UUID[Compendium.pf2e.spells-srd.Item.Share Life]</em> effect with its ward. Attacks that target the tattoo guardian target the ward instead, but use the higher AC or saving throw values between the tattoo guardian and the ward. Area effects apply to both the tattoo guardian and the ward, as normal for an area effect.</p>"
+                    "value": "<p><strong>Requirements</strong> The tattoo guardian is adjacent to its ward</p>\n<hr />\n<p><strong>Effect</strong> The tattoo guardian enters its ward's space and applies itself to the creature's flesh or another suitable surface on the creature. The tattoo guardian occupies the same space as its ward and moves with its ward. While worn, the tattoo guardian establishes a constant @UUID[Compendium.pf2e.spells-srd.Item.Share Life] effect with its ward. Attacks that target the tattoo guardian target the ward instead, but use the higher AC or saving throw values between the tattoo guardian and the ward. Area effects apply to both the tattoo guardian and the ward, as normal for an area effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -146,7 +111,7 @@
             "_id": "XbI8HI1jqqylY3ZB",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Fly Free",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -179,7 +144,7 @@
             "_id": "ncL6q9VyNef5Kfov",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Interpose",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -209,7 +174,7 @@
             "_id": "GuGYdagO0rbHAfHy",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -281,12 +246,6 @@
                     "type": "prone"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 8
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -299,6 +258,10 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 3
             },
@@ -309,6 +272,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -326,18 +301,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "sm"
             },

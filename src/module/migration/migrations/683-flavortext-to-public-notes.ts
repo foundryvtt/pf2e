@@ -29,8 +29,9 @@ export class Migration683FlavorTextToPublicNotes extends MigrationBase {
         old.details.privateNotes ??= "";
     }
 
-    override async updateActor(actorSource: ActorSourcePF2e): Promise<void> {
-        if (actorSource.type !== "npc") return;
-        this.replaceFlavorTextData(actorSource.system);
+    override async updateActor(source: ActorSourcePF2e): Promise<void> {
+        if (source.type === "npc") {
+            this.replaceFlavorTextData(source.system);
+        }
     }
 }

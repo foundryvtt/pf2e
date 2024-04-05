@@ -1,6 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
 import { MigrationBase } from "../base.ts";
 
 /**

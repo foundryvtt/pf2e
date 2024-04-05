@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Fey whimsy or a tryst in a moonlit grove put the bewitching magic of the First World into your family's bloodline.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Deception, Nature</p>\n<p><strong>Granted Spells</strong> cantrip <em>@UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound]</em>, 1st: <em>@UUID[Compendium.pf2e.spells-srd.Item.Charm]</em>, 2nd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit]</em>, 3rd: <em>@UUID[Compendium.pf2e.spells-srd.Item.Enthrall]</em>, 4th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Suggestion]</em>, 5th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Cloak of Colors]</em>, 6th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Mislead]</em>, 7th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger]</em>, 8th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance]</em>, 9th: <em>@UUID[Compendium.pf2e.spells-srd.Item.Resplendent Mansion]</em></p>\n<p><strong>Bloodline Spells</strong> initial: <em>@UUID[Compendium.pf2e.spells-srd.Item.Faerie Dust]</em>, advanced: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fey Disappearance]</em>, greater: <em>@UUID[Compendium.pf2e.spells-srd.Item.Fey Glamour]</em></p>\n<p><strong>Blood Magic</strong> Colorful fey glamours dance around you or one target, causing them to be concealed for 1 round. Such obvious concealment can't be used to Hide.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Fey Blood Magic]</p>"
+            "value": "<p>Fey whimsy or a tryst in a moonlit grove put the bewitching magic of the First World into your family's bloodline.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Bloodline Skills</strong> Deception, Nature</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Ghost Sound], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Charm], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Laughing Fit], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Enthrall], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Suggestion], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Cloak of Colors], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Mislead], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Visions of Danger], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Uncontrollable Dance], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Resplendent Mansion]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Faerie Dust], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Fey Disappearance], greater: @UUID[Compendium.pf2e.spells-srd.Item.Fey Glamour]</p>\n<p><strong>Blood Magic</strong> Colorful fey glamours dance around you or one target, causing them to be concealed for 1 round. Such obvious concealment can't be used to Hide.</p>"
         },
         "level": {
             "value": 1
@@ -36,6 +36,52 @@
                 "mode": "upgrade",
                 "path": "system.skills.nat.rank",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "item:tag:ancestral-spell",
+                            {
+                                "and": [
+                                    "item:trait:focus",
+                                    "item:trait:sorcerer"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:spell-slot",
+                                    "spellcasting:category:spontaneous",
+                                    "spellcasting:tradition:primal",
+                                    {
+                                        "or": [
+                                            "item:slug:charm",
+                                            "item:slug:laughing-fit",
+                                            "item:slug:enthrall",
+                                            "item:slug:suggestion",
+                                            "item:slug:cloak-of-colors",
+                                            "item:slug:mislead",
+                                            "item:slug:visions-of-danger",
+                                            "item:slug:uncontrollable-dance",
+                                            "item:slug:resplendent-mansion"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Fey",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    }
+                ]
             }
         ],
         "traits": {

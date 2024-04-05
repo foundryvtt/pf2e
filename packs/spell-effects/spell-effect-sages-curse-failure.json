@@ -1,0 +1,87 @@
+{
+    "_id": "DAAtzP2QYmCzSNXk",
+    "img": "systems/pf2e/icons/spells/savants-curse.webp",
+    "name": "Spell Effect: Sage's Curse (Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sage's Curse]</p>\n<p>The target must roll twice and use the worse result whenever attempting an Arcana, Lore, Occultism, or Society check.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Abomination Vaults Hardcover Compilation"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:arcana",
+                            "check:statistic:occultism",
+                            "check:statistic:society"
+                        ]
+                    }
+                ],
+                "removeAfterRoll": false,
+                "selector": [
+                    "skill-check"
+                ]
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "removeAfterRoll": false,
+                "selector": "lore-skill-check"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "sages-curse-result"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse",
+                    "success": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "sages-curse-result:critical-failure"
+                ],
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

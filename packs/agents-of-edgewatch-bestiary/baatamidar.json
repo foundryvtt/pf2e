@@ -14,7 +14,6 @@
                 "description": {
                     "value": ""
                 },
-                "displayLevels": {},
                 "prepared": {
                     "value": "innate"
                 },
@@ -27,71 +26,17 @@
                     "title": ""
                 },
                 "rules": [],
-                "showSlotlessLevels": {
-                    "value": true
-                },
-                "showUnpreparedSpells": {
-                    "value": false
-                },
                 "slots": {
-                    "slot0": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot1": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
                     "slot10": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
-                    },
-                    "slot11": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot2": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot3": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot4": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot5": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot6": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
-                    },
-                    "slot7": {
-                        "max": 0,
-                        "prepared": [],
-                        "value": 0
                     },
                     "slot8": {
                         "max": 2,
-                        "prepared": [],
                         "value": 2
                     },
                     "slot9": {
                         "max": 1,
-                        "prepared": [],
                         "value": 1
                     }
                 },
@@ -128,6 +73,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "3d10",
                         "kinds": [
@@ -135,6 +81,56 @@
                         ],
                         "materials": [],
                         "type": "acid"
+                    },
+                    "1": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bludgeoning"
+                    },
+                    "2": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "cold"
+                    },
+                    "3": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    },
+                    "4": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "bludgeoning"
+                    },
+                    "5": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -157,9 +153,9 @@
                     "value": "Ntt0pX48FlDnOFb3"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "1,000 feet"
@@ -181,6 +177,7 @@
                     ],
                     "value": [
                         "acid",
+                        "air",
                         "cold",
                         "concentrate",
                         "earth",
@@ -343,7 +340,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create a seven-layered sphere to protect an area. This multicolored sphere functions like a <em>@UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall]</em> but is shaped in a 10-foot burst centered on a corner of your space. You must form the sphere in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost.</p>"
+                    "value": "<p>You create a seven-layered sphere to protect an area. This multicolored sphere functions like a @UUID[Compendium.pf2e.spells-srd.Item.Prismatic Wall] but is shaped in a 10-foot burst centered on a corner of your space. You must form the sphere in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -470,7 +467,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell level were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
+                    "value": "<p>Powerful wards hide a creature from divination magic. The target gains a +4 status bonus to saves against mental effects. Mind blank attempts to counteract any detection, revelation, and scrying effects as if its spell rank were 1 higher than its actual level. On a success, the divination effect functions normally except that it detects nothing about the target and its possessions. For instance, detect magic would still detect other magic in the area, but not any magic on the target.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -568,41 +565,6 @@
             "type": "melee"
         },
         {
-            "_id": "fMk2JkXosTd2BjxC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 900000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "4UhxcsjIkaaA0FnK",
             "flags": {
                 "core": {
@@ -611,7 +573,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Telepathy 100 feet",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -641,41 +603,6 @@
             "type": "action"
         },
         {
-            "_id": "4fuCvW4VqkpcxMz7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.2YRDYVnC1eljaXKK"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "At-Will Spells",
-            "sort": 1100000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.AtWillSpells]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "at-will-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "U8JHbhefcDKeNERu",
             "flags": {
                 "core": {
@@ -684,7 +611,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1200000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -719,7 +646,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 30 (Deactivated by Lawful)",
-            "sort": 1300000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -757,7 +684,7 @@
             "_id": "SvCc6HA58iZaOg9T",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unrelativity Field",
-            "sort": 1400000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -767,7 +694,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>1 mile @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Creatures who start their turn in the aura must succeed at a @Check[type:will|dc:48|traits:incapacitation] save or become unable to understand any communication (including telepathy), distinguish social rank or authority, or differentiate the relative value of objects or services. This persists for as long as the creature is in the aura.</p>\n<p>Creatures who succeed at the save are temporarily immune for 1 hour (24 hours on a critical success). Proteans are immune to the unrelativity field.</p>\n<p>The baatamidar can suppress this aura or activate it again as a free action.</p>"
+                    "value": "<p>1 mile. Creatures who start their turn in the aura must succeed at a @Check[type:will|dc:48|traits:incapacitation] save or become unable to understand any communication (including telepathy), distinguish social rank or authority, or differentiate the relative value of objects or services. This persists for as long as the creature is in the aura.</p>\n<p>Creatures who succeed at the save are temporarily immune for 1 hour (24 hours on a critical success). Proteans are immune to the unrelativity field.</p>\n<p>The baatamidar can suppress this aura or activate it again as a free action.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -792,7 +719,7 @@
             "_id": "K68kyyTQ4cOmTtUk",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Mind-Numbing Grasp",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -826,7 +753,7 @@
             "_id": "ZkE9BJn0zrQtzRMW",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Writhing Arms",
-            "sort": 1600000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -861,7 +788,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1700000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -891,7 +818,7 @@
             "_id": "z2xfCHl3oq8EA7dF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -916,7 +843,7 @@
             "_id": "oW8SHYlzkVKrKQLI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -941,7 +868,7 @@
             "_id": "ca2NMDiIoxJZaNaG",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -966,7 +893,7 @@
             "_id": "KLov6asIdKYk8aJl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2100000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -991,7 +918,7 @@
             "_id": "nkfMDQqg2kILwoiR",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1016,7 +943,7 @@
             "_id": "utTKLHldXXOwyUjT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2300000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1041,7 +968,7 @@
             "_id": "HMNzA7DpGhIC6LKS",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2400000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1066,7 +993,7 @@
             "_id": "wc1cU9uKBbcjz1wq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2500000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1132,12 +1059,6 @@
                     "type": "paralyzed"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 39
-            },
             "resistances": [
                 {
                     "type": "precision",
@@ -1161,6 +1082,15 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "chthonian",
+                    "diabolic",
+                    "empyrean",
+                    "protean"
+                ]
+            },
             "level": {
                 "value": 21
             },
@@ -1172,6 +1102,23 @@
                 "title": "Pathfinder #162: Ruins of the Radiant Siege"
             },
             "sidebarText": ""
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 39,
+            "senses": [
+                {
+                    "type": "darkvision"
+                },
+                {
+                    "acuity": "precise",
+                    "range": 60,
+                    "type": "truesight"
+                }
+            ]
         },
         "resources": {
             "focus": {
@@ -1194,20 +1141,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "chthonian",
-                    "diabolic",
-                    "empyrean",
-                    "protean"
-                ]
-            },
             "rarity": "rare",
-            "senses": {
-                "value": "darkvision, true seeing"
-            },
             "size": {
                 "value": "med"
             },

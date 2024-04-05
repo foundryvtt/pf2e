@@ -1,16 +1,18 @@
-import { ModifierPF2e } from "@actor/modifiers.ts";
-import { RollTarget } from "@actor/types.ts";
-import { ActionTrait } from "@item/ability/types.ts";
-import { TokenPF2e } from "@module/canvas/index.ts";
-import { CheckRollContextFlag } from "@module/chat-message/index.ts";
-import { ZeroToTwo } from "@module/data.ts";
-import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
-import { RollTwiceOption } from "./check/index.ts";
-import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
+import type { ModifierPF2e } from "@actor/modifiers.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type { ActionTrait } from "@item/ability/types.ts";
+import type { TokenPF2e } from "@module/canvas/index.ts";
+import type { CheckContextChatFlag } from "@module/chat-message/index.ts";
+import type { ZeroToTwo } from "@module/data.ts";
+import type { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
+import type { RollTwiceOption } from "./check/index.ts";
+import type { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 
 interface RollDataPF2e extends RollOptions {
     rollerId?: string;
     totalModifier?: number;
+    /** Whether to show roll formula and tooltip to players */
+    showBreakdown?: boolean;
 }
 
 /** Possible parameters of a RollFunction */
@@ -25,6 +27,8 @@ interface RollParameters {
     callback?: (roll: Rolled<Roll>) => void;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
+    /** Whether to create a message from the roll */
+    createMessage?: boolean;
 }
 
 interface AttackRollParams extends RollParameters {
@@ -40,9 +44,9 @@ interface AttackRollParams extends RollParameters {
     rollTwice?: RollTwiceOption;
 }
 
-interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
+interface DamageRollParams extends Omit<AttackRollParams, "consumeAmmo" | "rollTwice"> {
     mapIncreases?: Maybe<ZeroToTwo>;
-    checkContext?: Maybe<CheckRollContextFlag>;
+    checkContext?: Maybe<CheckContextChatFlag>;
 }
 
 interface BaseRollContext {
@@ -52,7 +56,9 @@ interface BaseRollContext {
     notes?: (RollNotePF2e | RollNoteSource)[];
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode | "roll";
-    /** If this is an attack, the target of that attack */
+    /** Origin data for the check, if applicable */
+    origin?: RollOrigin | null;
+    /** Targeting data for the check, if applicable */
     target?: RollTarget | null;
     /** Action traits associated with the roll */
     traits?: ActionTrait[];

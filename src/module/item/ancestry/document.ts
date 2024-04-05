@@ -1,14 +1,19 @@
 import type { ActorPF2e, CharacterPF2e } from "@actor";
-import { CreatureSensePF2e } from "@actor/creature/sense.ts";
+import { SenseData } from "@actor/creature/index.ts";
 import { CreatureTrait } from "@actor/creature/types.ts";
 import { SIZE_TO_REACH } from "@actor/creature/values.ts";
 import { AttributeString } from "@actor/types.ts";
 import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { Size } from "@module/data.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { sluggify } from "@util";
 import { AncestrySource, AncestrySystemData } from "./data.ts";
 
 class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
+    static override get validTraits(): Record<CreatureTrait, string> {
+        return CONFIG.PF2E.creatureTraits;
+    }
+
     get traits(): Set<CreatureTrait> {
         return new Set(this.system.traits.value);
     }
@@ -28,16 +33,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Returns all boosts enforced by this ancestry normally */
     get lockedBoosts(): AttributeString[] {
         return Object.values(this.system.boosts)
-            .filter((boost) => boost.value.length === 1)
-            .map((boost) => boost.selected)
-            .filter((boost): boost is AttributeString => !!boost);
+            .filter((b) => b.value.length === 1)
+            .flatMap((b) => b.selected ?? []);
     }
 
     /** Returns all flaws enforced by this ancestry normally */
     get lockedFlaws(): AttributeString[] {
-        return Object.values(this.system.flaws)
-            .map((flaw) => flaw.selected)
-            .filter((flaw): flaw is AttributeString => !!flaw);
+        return Object.values(this.system.flaws).flatMap((f) => f.selected ?? []);
     }
 
     /** Include all ancestry features in addition to any with the expected location ID */
@@ -111,18 +113,20 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
         }
 
         // Add languages
-        const innateLanguages = this.system.languages.value;
-        for (const language of innateLanguages) {
-            if (language in CONFIG.PF2E.languages && !actor.system.traits.languages.value.includes(language)) {
-                actor.system.traits.languages.value.push(language);
+        build.languages.max += this.system.additionalLanguages.count;
+        const freeLanguages = this.system.languages.value;
+        for (const language of freeLanguages) {
+            const alreadyHasLanguage = build.languages.granted.some((l) => l.slug === language);
+            if (language in CONFIG.PF2E.languages && !alreadyHasLanguage) {
+                build.languages.granted.push({ slug: language, source: this.name });
             }
         }
 
         // Add low-light vision or darkvision if the ancestry includes it
-        const { senses } = actor.system.traits;
-        const { vision } = this.system;
-        if (!(vision === "normal" || senses.some((sense) => sense.type === vision))) {
-            senses.push(new CreatureSensePF2e({ type: vision, value: "", source: this.name }));
+        const senseData: SenseData[] = actor.system.perception.senses;
+        const vision = this.system.vision;
+        if (vision !== "normal" && !senseData.some((s) => s.type === vision)) {
+            senseData.push({ type: vision, acuity: "precise", range: Infinity, source: this.name });
             const senseRollOptions = (actor.rollOptions["sense"] ??= {});
             senseRollOptions[`self:${sluggify(vision)}:from-ancestry`] = true;
         }
@@ -139,16 +143,35 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             countsAs: [slug],
         };
 
-        // Set self: roll option for this ancestry and its associated traits
+        // Set "self:" roll option for this ancestry and its associated traits
         actor.rollOptions.all[`self:ancestry:${slug}`] = true;
         for (const trait of this.traits) {
             actor.rollOptions.all[`self:trait:${trait}`] = true;
         }
     }
 
-    /** Generate a list of strings for use in predication */
-    override getRollOptions(prefix = this.type): string[] {
-        return [...super.getRollOptions(prefix), `${prefix}:rarity:${this.rarity}`];
+    /** Ensure certain fields are positive integers. */
+    protected override _preUpdate(
+        changed: DeepPartial<this["_source"]>,
+        options: DocumentUpdateContext<TParent>,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        if (!changed.system) return super._preUpdate(changed, options, user);
+
+        const additionalLanguages = changed.system.additionalLanguages;
+        if (additionalLanguages?.count !== undefined) {
+            additionalLanguages.count = Math.floor(Math.clamped(Number(additionalLanguages.count) || 0, 0, 99));
+        }
+
+        for (const fieldName of ["hp", "speed", "reach"] as const) {
+            if (changed.system[fieldName] !== undefined) {
+                const minimum = fieldName === "speed" ? 5 : 1;
+                const value = Math.floor(Math.clamped(Number(changed.system[fieldName]) || 0, minimum, 99));
+                changed.system[fieldName] = fieldName === "hp" ? value : Math.ceil(value / 5) * 5;
+            }
+        }
+
+        return super._preUpdate(changed, options, user);
     }
 }
 

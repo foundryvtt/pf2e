@@ -12,14 +12,11 @@ interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     rarityLabel: string;
     brokenThreshold: number;
     saves: HazardSaveSheetData[];
-    stealthDC: number | null;
-
     hasDefenses: boolean;
     hasHPDetails: boolean;
     hasSaves: boolean;
     hasIWR: boolean;
     hasStealth: boolean;
-    hasStealthDescription: boolean;
     hasDescription: boolean;
     hasDisable: boolean;
     hasRoutineDetails: boolean;

@@ -205,7 +205,10 @@ declare global {
         uuid: WorldDocumentUUID<TDocument>,
         relative?: Maybe<ClientDocument>,
     ): TDocument | null;
-    function fromUuidSync(uuid: string, relative?: Maybe<ClientDocument>): ClientDocument | CompendiumIndexData | null;
+    function fromUuidSync<TDocument extends ClientDocument | CompendiumIndexData>(
+        uuid: string,
+        relative?: Maybe<ClientDocument>,
+    ): TDocument | null;
 
     /**
      * Parse a UUID into its constituent parts.

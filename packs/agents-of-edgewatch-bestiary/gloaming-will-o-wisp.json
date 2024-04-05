@@ -61,7 +61,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a @Check[type:will|dc:31] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and takes @Damage[3d6[mental]] damage.</p>"
+                    "value": "<p>30 feet. Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a @Check[type:will|dc:31] save. On a failure, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round and takes @Damage[3d6[mental]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -190,7 +190,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The gloaming will-o'-wisp extinguishes their hypnotic glow, becoming invisible. They can end this effect with another use of this action. If they use their shock attack while invisible, the arc of electricity lets any observer determine their location, making the will-o'-wisp only hidden to observers until they move.</p>"
+                    "value": "<p>The gloaming will-o'-wisp extinguishes their hypnotic glow, becoming @UUID[Compendium.pf2e.conditionitems.Item.Invisible]. They can end this effect with another use of this action. If they use their shock attack while invisible, the arc of electricity lets any observer determine their location, making the will-o'-wisp only @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to observers until they move.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -203,6 +203,14 @@
                         "key": "RollOption",
                         "option": "go-dark",
                         "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "go-dark"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible"
                     }
                 ],
                 "slug": null,
@@ -357,12 +365,6 @@
                     "type": "magic"
                 }
             ],
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 25
-            },
             "speed": {
                 "otherSpeeds": [
                     {
@@ -375,6 +377,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "aklo",
+                    "common"
+                ]
+            },
             "level": {
                 "value": 13
             },
@@ -385,6 +394,18 @@
                 "remaster": false,
                 "title": "Pathfinder #160: Assault on Hunting Lodge Seven"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -402,18 +423,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "common"
-                ]
-            },
             "rarity": "uncommon",
-            "senses": {
-                "value": "greater darkvision"
-            },
             "size": {
                 "value": "sm"
             },

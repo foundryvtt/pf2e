@@ -1,0 +1,95 @@
+{
+    "_id": "ujCqaRPlw23baewz",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "oEtrXKSlyCN4Zy0d",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Collapse Floor",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A round begins with a Small or larger creature standing on the floor in area <strong>A4</strong></p>\n<hr />\n<p><strong>Effect</strong> The floor of the entire room collapses in a thunderous crash, dropping all creatures in the room 5 feet into a soupy morass of mud, mold, and toxic fungus while a cloud of spores spews up into the air above. The room becomes greater difficult terrain. All creatures who were standing on the floor in the room fall @UUID[Compendium.pf2e.conditionitems.Item.Prone] in the mess below unless they succeed at a @Check[type:reflex|dc:34] save, in which case they land on their feet. The hazard then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Weakened Floor",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 23
+            }
+        },
+        "details": {
+            "description": "<p>The weakened floor gives way with a tremendous crash, dropping everything in the room into a muddy morass of toxic mold.</p>",
+            "disable": "<p>@Check[type:crafting|dc:33] (master) three times to knock holes in the floor without triggering the spore cloud while simultaneously lightening the strain on the floor so it can be walked upon, @Check[type:stealth|dc:36] (expert) to move carefully through the room for the remainder of your turn without triggering the hazard, or @Check[type:nature|dc:36] (expert) twice once the trap is triggered to knock enough holes into the nearby walls to cause the spores to disperse</p>",
+            "isComplex": true,
+            "level": {
+                "value": 11
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder #199: To Bloom Below the Web"
+            },
+            "reset": "<p>One minute after nothing moves in the room, the spores settle down. The floor remains obvious and won't collapse further, but any creature that moves through the mold causes the spores to plume up again, re-triggering the trap.</p>",
+            "routine": "<p>(1 action) Every round on its turn, the spores that now fill area <strong>A4</strong> inflict @Damage[8d6[poison]] damage to all creatures in the room (@Check[type:fortitude|dc:30|basic:true] save) as the cloud burns at exposed flesh; a creature that holds its breath gains a +4 circumstance bonus to this saving throw.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental"
+            ]
+        }
+    },
+    "type": "hazard"
+}

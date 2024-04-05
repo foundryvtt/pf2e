@@ -4,7 +4,7 @@
     "name": "Effect: Push Back the Dead!",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +2 circumstance bonus to saves against effects originating from undead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Push Back the Dead!]</p>\n<p>The ally gains a +2 circumstance bonus to saves against effects originating from undead. It also gains resistance to damage from Strikes made by undead creatures.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": -1
         },
         "level": {
-            "value": 1
+            "value": 4
         },
         "publication": {
             "license": "OGL",
@@ -29,6 +29,22 @@
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "definition": [
+                    "origin:creature",
+                    "origin:mode:undead",
+                    {
+                        "or": [
+                            "item:type:melee",
+                            "item:type:weapon"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllStrikeDamageFromUndeadCreatures",
+                "type": "custom",
+                "value": "floor(@item.origin.abilities.cha.mod/2)"
             }
         ],
         "start": {

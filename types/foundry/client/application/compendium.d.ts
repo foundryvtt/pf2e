@@ -38,9 +38,9 @@ declare class Compendium<TDocument extends CompendiumDocument> extends Applicati
 
     protected _canDragDrop(selector: string): boolean;
 
-    protected _onDragStart(event: ElementDragEvent): void;
+    protected _onDragStart(event: DragEvent): void;
 
-    protected _onDrop(event: ElementDragEvent): Promise<boolean>;
+    protected _onDrop(event: DragEvent): Promise<boolean>;
 
     /** Render the ContextMenu which applies to each compendium Document */
     protected _contextMenu(html: JQuery): void;

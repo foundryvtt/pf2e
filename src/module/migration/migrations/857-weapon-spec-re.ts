@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
-import { sluggify } from "@util";
 import { RuleElementSource } from "@module/rules/index.ts";
+import { sluggify } from "@util";
+import { MigrationBase } from "../base.ts";
 
 /**
  * Move weapon specialization to rule elements.

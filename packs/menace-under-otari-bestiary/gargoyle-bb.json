@@ -89,45 +89,10 @@
             "type": "melee"
         },
         {
-            "_id": "1V9uaQOnCMGgMxl2",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "DsvyLX53TeuZHMQ3",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Clawed Feet",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -159,7 +124,7 @@
             "_id": "9bomxaBEHSLvRrkq",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Statue",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -191,7 +156,7 @@
             "_id": "a214g3errazlAkKb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
@@ -208,7 +173,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -216,7 +182,7 @@
             "_id": "Ura0eOQUMHdW4GGC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -233,7 +199,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -241,7 +208,7 @@
             "_id": "fiMdWAcWbeu1N0Jm",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -258,7 +225,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         }
@@ -302,12 +270,12 @@
                 "temp": 0,
                 "value": 40
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 10
-            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                }
+            ],
             "resistances": [
                 {
                     "type": "bludgeoning",
@@ -334,16 +302,32 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
             "level": {
                 "value": 4
             },
             "privateNotes": "",
-            "publicNotes": "<p>Gargoyles are monstrous hunters made entirely of stone. They look like decorative statues and use this as camouflage to hide in plain sight in cities during the day and descend upon unlucky pedestrians at night. Their most common form is that of a horned humanoid with batlike wings, but individual gargoyles vary a great deal, with some appearing more or less humanoid and others resembling something else entirely.</p>\n<p>Though most hunt alone, they sometimes form into groups called \"wings.\" All the monstrous statues atop an old building could actually be living gargoyles.</p>",
+            "publicNotes": "<p>Gargoyles are monstrous hunters made entirely of stone. They look like decorative statues and use this as camouflage to hide in plain sight in cities during the day and descend upon unlucky pedestrians at night. Their most common form is that of a horned humanoid with batlike wings, but individual gargoyles vary a great deal, with some appearing more or less humanoid and others resembling something else entirely.</p>\n<p>Gargoyles tend to be lone hunters, though sometimes they band into groups called wings for protection or sport.</p>",
             "publication": {
-                "license": "OGL",
-                "remaster": false,
+                "license": "ORC",
+                "remaster": true,
                 "title": "Pathfinder Beginner Box"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -361,23 +345,13 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": []
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },
             "value": [
                 "beast",
-                "chaotic",
-                "earth",
-                "evil"
+                "earth"
             ]
         }
     },

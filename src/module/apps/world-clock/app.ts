@@ -1,4 +1,4 @@
-import { ErrorPF2e, ordinalString, tupleHasValue } from "@util";
+import { ErrorPF2e, htmlQuery, htmlQueryAll, ordinalString, tupleHasValue } from "@util";
 import { DateTime } from "luxon";
 import { animateDarkness } from "./animate-darkness.ts";
 import { TimeChangeMode, TimeOfDay } from "./time-of-day.ts";
@@ -191,22 +191,26 @@ export class WorldClock extends Application {
     /** Advance the world time by a static or input value */
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
-        $html.find("button[data-advance-time]").on("click", (event) => {
-            const $button = $(event.currentTarget);
-            const advanceTime = $button.data("advanceTime") ?? "0";
-            const advanceMode = $button.data("advanceMode") ?? "+";
-            const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
-            if (increment !== 0) game.time.advance(increment);
-        });
+        for (const button of htmlQueryAll(html, "button[data-advance-time]")) {
+            button.addEventListener("click", () => {
+                const advanceTime = button.dataset.advanceTime ?? "0";
+                const advanceMode = button.dataset.advanceMode ?? "+";
+                const increment = WorldClock.calculateIncrement(this.worldTime, advanceTime, advanceMode);
+                if (increment !== 0) game.time.advance(increment);
+            });
+        }
 
-        $html.find("button[name=advance], button[name=retract]").on("click", (event) => {
-            const value = $html.find('input[type=number][name="diff-value"]').val();
-            const unit = $html.find('select[name="diff-unit"]').val();
-            const advanceOrRetract = $(event.currentTarget).attr("name") === "advance" ? 1 : -1;
-            const increment = advanceOrRetract * Number(value) * Number(unit);
-            game.time.advance(increment);
-        });
+        for (const button of htmlQueryAll<HTMLButtonElement>(html, "button[name=advance], button[name=retract]")) {
+            button.addEventListener("click", () => {
+                const value = htmlQuery<HTMLInputElement>(html, "input[type=number][name=diff-value]")?.value;
+                const unit = htmlQuery<HTMLSelectElement>(html, "select[name=diff-unit]")?.value;
+                const advanceOrRetract = button.name === "advance" ? 1 : -1;
+                const increment = advanceOrRetract * Number(value) * Number(unit);
+                game.time.advance(increment);
+            });
+        }
 
         for (const eventName of ["keydown.pf2e.world-clock", "keyup.pf2e.world-clock"]) {
             $(document).off(eventName);
@@ -248,7 +252,7 @@ export class WorldClock extends Application {
 
     override async close(options?: { force?: boolean }): Promise<void> {
         $(document).off("keydown.pf2e.world-clock").off("keyup.pf2e.world-clock");
-        await super.close(options);
+        return super.close(options);
     }
 
     /** Create a message informing the user that scene darkness is synced to world time */

@@ -87,45 +87,10 @@
             "type": "melee"
         },
         {
-            "_id": "WI573o75yfcoaVv7",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Darkvision",
-            "sort": 300000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "darkvision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "jNBpIL44f2BRNQzH",
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Clawed Feet",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -157,7 +122,7 @@
             "_id": "LYI5jv5MWvUCPOlD",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Lodestone Aura",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -167,7 +132,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:30]{30 feet} @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>Paravaax's body exudes a powerful, fluctuating magnetic field that makes any opponent wearing or primarily comprised of metal @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for as long as they are within the aura and for 1 round thereafter. In addition, attacks targeting Paravaax made with metal weapons, or weapons whose primary striking surface is metal such as most arrows and bolts, suffer a -2 status penalty. Creatures exposed to this aura for several weeks (such as the elementals comprising Paravaax's \"court\") eventually become immune to this effect.</p>"
+                    "value": "<p>30 feet. Paravaax's body exudes a powerful, fluctuating magnetic field that makes any opponent wearing or primarily comprised of metal @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} for as long as they are within the aura and for 1 round thereafter. In addition, attacks targeting Paravaax made with metal weapons, or weapons whose primary striking surface is metal such as most arrows and bolts, suffer a -2 status penalty. Creatures exposed to this aura for several weeks (such as the elementals comprising Paravaax's \"court\") eventually become immune to this effect.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -196,7 +161,7 @@
             "_id": "tVgaYoNlSncjSzhW",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lodestone Statue",
-            "sort": 600000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -228,7 +193,7 @@
             "_id": "JDHyKT5gqhTjA6AC",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -253,7 +218,7 @@
             "_id": "3902NaDJj77E6MsD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -278,7 +243,7 @@
             "_id": "36PIGjX4vs0UqR2n",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -339,12 +304,6 @@
                 "temp": 0,
                 "value": 80
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 14
-            },
             "resistances": [
                 {
                     "exceptions": [
@@ -366,6 +325,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "petran"
+                ]
+            },
             "level": {
                 "value": 7
             },
@@ -376,6 +342,18 @@
                 "remaster": false,
                 "title": "Pathfinder Society Scenario #1-09: Star-Crossed Voyages"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 14,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -393,18 +371,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "common",
-                    "petran"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "darkvision"
-            },
             "size": {
                 "value": "med"
             },

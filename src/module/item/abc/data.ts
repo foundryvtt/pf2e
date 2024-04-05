@@ -1,4 +1,4 @@
-import { ItemSystemSource } from "@item/base/data/system.ts";
+import { ItemSystemData, ItemSystemSource } from "@item/base/data/system.ts";
 
 interface ABCFeatureEntryData {
     uuid: string;
@@ -11,6 +11,6 @@ interface ABCSystemSource extends ItemSystemSource {
     items: Record<string, ABCFeatureEntryData>;
 }
 
-type ABCSystemData = ABCSystemSource;
+interface ABCSystemData extends Omit<ABCSystemSource, "description">, ItemSystemData {}
 
 export type { ABCFeatureEntryData, ABCSystemData, ABCSystemSource };

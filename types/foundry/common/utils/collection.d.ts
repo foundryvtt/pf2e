@@ -80,7 +80,7 @@ declare interface Collection<V>
      * @param transformer  The transformation function to apply to each entry value
      * @return An Array of transformed values
      */
-    map<T>(transformer: (value: V) => T): T[];
+    map<T>(transformer: (value: V, index: number, collection: this) => T): T[];
 
     /**
      * Reduce the Collection by applying an evaluator function and accumulating entries

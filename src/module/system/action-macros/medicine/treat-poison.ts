@@ -35,6 +35,7 @@ const action = new SingleCheckAction({
         { outcome: ["criticalFailure"], text: "PF2E.Actions.TreatPoison.Notes.criticalFailure" },
     ],
     rollOptions: ["action:treat-poison"],
+    section: "skill",
     slug: "treat-poison",
     statistic: "medicine",
     traits: ["manipulate"],

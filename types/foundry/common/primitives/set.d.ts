@@ -72,8 +72,8 @@ declare interface Set<T> {
      * the index of iteration, and the set being tested.
      * @returns {boolean}  Does every element in the set satisfy the test criterion?
      */
-    every<U extends T = T>(test: (value: T) => value is U): this is Set<U>;
-    every(test: (value: T) => boolean): boolean;
+    every<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): this is Set<U>;
+    every(test: (value: T, index: number, set: Set<T>) => boolean): boolean;
 
     /**
      * Filter this set to create a subset of elements which satisfy a certain test criterion.
@@ -82,17 +82,17 @@ declare interface Set<T> {
      * the index of iteration, and the set being filtered.
      * @returns {Set}  A new Set containing only elements which satisfy the test criterion.
      */
-    filter<U extends T = T>(test: (value: T) => value is U): Set<U>;
-    filter(test: (value: T) => boolean): Set<T>;
+    filter<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): Set<U>;
+    filter(test: (value: T, index: number, set: Set<T>) => boolean): Set<T>;
 
     /**
      * Find the first element in this set which satisfies a certain test criterion.
      * @see Array#find
-     * @param test The test criterion to apply. Positional arguments are the value,
-     * the index of iteration, and the set being searched.
-     * @returns  The first element in the set which satisfies the test criterion, or undefined.
+     * @param test The test criterion to apply. Positional arguments are the value, the index of iteration, and the set being searched.
+     * @returns The first element in the set which satisfies the test criterion, or undefined.
      */
-    find<U extends T = T>(test: (value: U) => boolean): T | undefined;
+    find<U extends T = T>(test: (value: T, index: number, obj: Set<T>) => value is U): U | undefined;
+    find(test: (value: T, index: number, obj: Set<T>) => boolean): T | undefined;
 
     /**
      * Create a new Set where every element is modified by a provided transformation function.
@@ -101,7 +101,7 @@ declare interface Set<T> {
      *                  and the set being transformed.
      * @returns A new Set of equal size containing transformed elements.
      */
-    map<U>(transfor: (value: T) => U): Set<U>;
+    map<U>(transform: (value: T, index: number, set: Set<T>) => U): Set<U>;
 
     /**
      * Create a new Set with elements that are filtered and transformed by a provided reducer function.
@@ -111,7 +111,8 @@ declare interface Set<T> {
      * @param accumulator The initial value of the returned accumulator.
      * @returns The final value of the accumulator.
      */
-    reduce<U>(evaluator: (accumlator: U, value: T) => U, initial: U): U;
+    reduce<U>(reducer: (previousValue: U, currentValue: T, currentIndex: number, set: Set<T>) => U, accumulator: U): U;
+    reduce(reducer: (previousValue: T, currentValue: T, currentIndex: number, set: Set<T>) => T, accumulator: T): T;
 
     /**
      * Test whether any element in this Set satisfies a certain test criterion.
@@ -120,5 +121,5 @@ declare interface Set<T> {
      *             being tested.
      * @returns Does any element in the set satisfy the test criterion?
      */
-    some(test: (value: T) => boolean): boolean;
+    some(test: (value: T, index: number, set: Set<T>) => boolean): boolean;
 }

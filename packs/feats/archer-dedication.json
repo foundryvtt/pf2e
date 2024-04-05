@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You become trained in all simple and martial weapons in the bow weapon group. Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency rank in all simple and martial weapons in the bow weapon group. If you are at least an expert in the bow you are using, you gain access to the critical specialization effect with that bow.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.o71hqcfzhCKXcSml]{Archer} archetype.</p>"
+            "value": "<p>You become trained in all simple and martial weapons in the bow and crossbow weapon groups. Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency rank in all simple and martial weapons in the bow and crossbow weapon groups. If you are at least an expert in the bow you are using, you gain access to the critical specialization effect with that bow or crossbow.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.o71hqcfzhCKXcSml]{Archer} archetype.</p>"
         },
         "level": {
             "value": 2
@@ -27,7 +27,12 @@
         "rules": [
             {
                 "definition": [
-                    "item:group:bow",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    },
                     {
                         "or": [
                             "item:category:simple",
@@ -43,7 +48,12 @@
             {
                 "key": "CriticalSpecialization",
                 "predicate": [
-                    "item:group:bow",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    },
                     {
                         "gte": [
                             "item:proficiency:rank",

@@ -1,7 +1,8 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { isObject, recursiveReplaceString } from "@util";
+import { recursiveReplaceString } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Convert UUIDs to V11 format */
@@ -47,7 +48,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         }
 
         if (source.type === "character") {
-            if (isObject(source.system.crafting) && Array.isArray(source.system.crafting.formulas)) {
+            if (R.isObject(source.system.crafting) && Array.isArray(source.system.crafting.formulas)) {
                 for (const formula of source.system.crafting.formulas) {
                     formula.uuid = this.#replaceUUID(formula.uuid, "Item");
                 }
@@ -82,7 +83,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
                 source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = this.#replaceUUID(entry.uuid, "Item");
-                if (isObject(entry.items)) {
+                if (R.isObject(entry.items)) {
                     for (const subentry of Object.values(entry.items)) {
                         subentry.uuid = this.#replaceUUID(subentry.uuid, "Item");
                     }

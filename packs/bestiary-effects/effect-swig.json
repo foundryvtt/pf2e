@@ -4,7 +4,7 @@
     "name": "Effect: Swig",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>The dockhand gains a +2 item bonus to melee damage rolls and saving throws against fear, but they become clumsy 1.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -23,12 +23,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "not": "range"
-                    }
-                ],
-                "selector": "strike-damage",
+                "selector": "melee-strike-damage",
                 "type": "item",
                 "value": 2
             },
@@ -40,6 +35,11 @@
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             }
         ],
         "start": {

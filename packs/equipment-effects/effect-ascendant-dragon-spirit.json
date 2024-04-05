@@ -1,0 +1,59 @@
+{
+    "_id": "vJfRASrNBBYW6MEC",
+    "img": "icons/sundries/survival/wetskin-leather-red.webp",
+    "name": "Effect: Ascendant Dragon Spirit",
+    "system": {
+        "description": {
+            "value": "<p>Your unarmed Strikes deal an additional 1d6 poison damage and an additional 1d6 void damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 11
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "void",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:category:unarmed"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

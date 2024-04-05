@@ -211,7 +211,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Template[type:emanation|distance:60] @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Aura]</p>\n<hr />\n<p>A creature that enters the emanation must attempt a @Check[type:will|dc:21] save. Regardless of outcome, the creature is temporarily immune to terrorspores for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and inhales spores that remain in its body for 1 minute.</p>\n<p><strong>Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and the spores remain for 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, the spores remain for 1 hour, and the creature's frightened condition can't be reduced below 1 as long as spores remain in its body.</p>"
+                    "value": "<p>60 feet. A creature that enters the emanation must attempt a @Check[type:will|dc:21] save. Regardless of outcome, the creature is temporarily immune to terrorspores for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} and inhales spores that remain in its body for 1 minute.</p>\n<p><strong>Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} and the spores remain for 1 hour.</p>\n<p><strong>Critical Failure</strong> As success, but @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}, the spores remain for 1 hour, and the creature's frightened condition can't be reduced below 1 as long as spores remain in its body.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -483,12 +483,6 @@
                 "temp": 0,
                 "value": 78
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 14
-            },
             "resistances": [
                 {
                     "type": "fire",
@@ -512,6 +506,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "telepathy 100 feet",
+                "value": [
+                    "aklo",
+                    "fey"
+                ]
+            },
             "level": {
                 "value": 6
             },
@@ -522,6 +523,14 @@
                 "remaster": false,
                 "title": "Pathfinder Lost Omens: Monsters of Myth"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "sporesight 100 feet",
+            "mod": 14,
+            "senses": []
         },
         "resources": {},
         "saves": {
@@ -539,18 +548,7 @@
             }
         },
         "traits": {
-            "languages": {
-                "custom": "Telepathy 100 feet",
-                "selected": [],
-                "value": [
-                    "aklo",
-                    "fey"
-                ]
-            },
             "rarity": "unique",
-            "senses": {
-                "value": "sporesight 100 feet"
-            },
             "size": {
                 "value": "med"
             },

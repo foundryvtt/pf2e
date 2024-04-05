@@ -1,0 +1,50 @@
+{
+    "_id": "A06Qu3BNMQ4FGinM",
+    "img": "icons/magic/holy/barrier-shield-winged-cross.webp",
+    "name": "Effect: Indomitable Spirit",
+    "system": {
+        "description": {
+            "value": "<p>You get a +4 circumstance bonus to AC and are @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. The additional action can be used to Strike or Stride.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

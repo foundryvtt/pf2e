@@ -16,7 +16,7 @@ interface BaseStatisticData {
 /** Used to build the actual statistic object */
 interface StatisticData extends BaseStatisticData {
     attribute?: AttributeString | null;
-    rank?: ZeroToFour | "untrained-level";
+    rank?: ZeroToFour;
     /** If the actor is proficient with this statistic (rather than deriving from rank) */
     proficient?: boolean;
     lore?: boolean;
@@ -76,11 +76,13 @@ interface BaseStatisticTraceData {
 }
 
 /** Data intended to be merged back into actor data (usually for token attribute/RE purposes) */
-interface StatisticTraceData extends BaseStatisticTraceData {
+interface StatisticTraceData<TAttribute extends AttributeString | null = AttributeString | null>
+    extends BaseStatisticTraceData {
     /** Either the totalModifier or the dc depending on what the data is for */
     value: number;
     totalModifier: number;
     dc: number;
+    attribute: TAttribute;
 }
 
 export type {

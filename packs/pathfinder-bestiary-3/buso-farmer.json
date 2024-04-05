@@ -348,45 +348,10 @@
             "type": "melee"
         },
         {
-            "_id": "zuM9eNga9GMtun7x",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.fFu2sZz4KB01fVRc"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Low-Light Vision",
-            "sort": 600000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.LowLightVision]</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Bestiary"
-                },
-                "rules": [],
-                "slug": "low-light-vision",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "E6dBhZRBf4SXzGl7",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Resize Plant",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -396,7 +361,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> twice per day.</p>\n<p><strong>Requirements</strong> The buso touches a Small, Medium, or Large plant.</p>\n<hr />\n<p><strong>Effect</strong> The plant grows or shrinks by one size, remaining that size for the next 5 minutes. If used on a plant creature, this effect has the effects of <em>@UUID[Compendium.pf2e.spells-srd.Item.Enlarge]</em> or <em>@UUID[Compendium.pf2e.spells-srd.Item.Shrink]</em> (buso's choice). Unwilling plant creatures can attempt a @Check[type:fortitude|dc:18] saving throw to resist this effect.</p>"
+                    "value": "<p><strong>Frequency</strong> twice per day.</p>\n<p><strong>Requirements</strong> The buso touches a Small, Medium, or Large plant.</p>\n<hr />\n<p><strong>Effect</strong> The plant grows or shrinks by one size, remaining that size for the next 5 minutes. If used on a plant creature, this effect has the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] or @UUID[Compendium.pf2e.spells-srd.Item.Shrink] (buso's choice). Unwilling plant creatures can attempt a @Check[type:fortitude|dc:18] saving throw to resist this effect.</p>"
                 },
                 "frequency": {
                     "max": 2,
@@ -425,7 +390,7 @@
             "_id": "IysYlsaDUei4hd9X",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 800000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -450,7 +415,7 @@
             "_id": "xUqQy7En3vUHOJ2Y",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -475,7 +440,7 @@
             "_id": "nkZ7Ek2VIoobJ59S",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Cooking Lore",
-            "sort": 1000000,
+            "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
@@ -500,7 +465,7 @@
             "_id": "JK8lH0FZWQnphVLZ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Farming Lore",
-            "sort": 1100000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -525,7 +490,7 @@
             "_id": "6bQIaxSi6ZPVbAHE",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -583,12 +548,6 @@
                 "temp": 0,
                 "value": 48
             },
-            "initiative": {
-                "statistic": "perception"
-            },
-            "perception": {
-                "value": 8
-            },
             "speed": {
                 "otherSpeeds": [],
                 "value": 25
@@ -596,6 +555,13 @@
         },
         "details": {
             "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "fey",
+                    "goblin"
+                ]
+            },
             "level": {
                 "value": 3
             },
@@ -606,6 +572,18 @@
                 "remaster": false,
                 "title": "Pathfinder Bestiary 3"
             }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 8,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
@@ -623,21 +601,7 @@
             }
         },
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
-            "languages": {
-                "custom": "",
-                "selected": [],
-                "value": [
-                    "fey",
-                    "goblin"
-                ]
-            },
             "rarity": "common",
-            "senses": {
-                "value": "low-light vision"
-            },
             "size": {
                 "value": "med"
             },

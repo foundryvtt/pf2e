@@ -3,77 +3,77 @@
     h4,
     h6 {
         @include p-reset;
-        line-height: 1;
-        display: flex;
         align-items: center;
+        display: flex;
+        line-height: 1;
     }
 
     h6 {
         @include micro;
-        padding: 2px 0.25rem;
         border-radius: 2px;
         box-shadow: inset 0 0 0 1px rgba(black, 0.5);
         color: var(--text-light);
+        padding: var(--space-2) var(--space-4);
     }
 
     ul.proficiencies-list {
-        list-style: none;
         @include p-reset;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
         align-items: center;
-        margin-bottom: 1rem;
+        display: grid;
+        gap: var(--space-8);
+        grid-template-columns: repeat(2, 1fr);
+        list-style: none;
+        margin-bottom: var(--space-12);
 
         li {
             @include frame-elegant;
             align-items: center;
             display: flex;
-            gap: 0.25rem;
-            padding: 0.125rem 0.875rem 0.125rem 0.25rem;
+            font-family: var(--serif);
+            font-size: var(--font-size-16);
+            min-height: 2.25rem;
+            padding: 0 var(--space-8) 0 var(--space-4);
 
-            a.skill-name,
-            a.modifier {
+            a.d20 {
                 &:hover {
-                    color: var(--primary);
-                    text-shadow: none;
+                    @include die-spin;
+                }
+
+                filter: drop-shadow(0 0 1px var(--color-shadow-dark)) drop-shadow(0 0 3px var(--color-text-dark-4))
+                    drop-shadow(0 0 12px var(--color-text-light-3));
+                padding: var(--space-4);
+
+                path {
+                    fill: var(--color-text-light-1);
                 }
             }
 
-            a.modifier:hover,
-            a.skill-name:hover > .modifier {
-                text-decoration: underline;
+            .name,
+            .modifier,
+            .dc {
+                // Compensation for the font's alignment
+                margin-bottom: -0.1em;
+                padding-top: 0.1em;
             }
 
-            .modifier {
-                color: var(--primary);
-                font: 600 var(--font-size-22) / 1em var(--serif);
+            .modifier,
+            .dc {
+                color: var(--color-pf-primary);
+                font-weight: 600;
+                margin-right: var(--space-4);
                 text-align: end;
-                width: 2.5rem;
+                width: 1.75rem;
             }
 
-            .skill-name {
-                align-items: center;
-                display: flex;
+            a.hover {
+                text-decoration: underline var(--color-pf-primary-dark);
+                text-underline-offset: 0.125em;
+            }
+
+            .name {
                 flex: 1;
-                gap: 0.25rem;
-            }
-
-            .button-group {
-                align-items: center;
-                display: flex;
-                flex-flow: column wrap;
-                justify-content: center;
-
-                h6 {
-                    margin: 1px 0;
-                    background: var(--sub);
-                    box-shadow: inset 0 0 0 1px rgba(black, 0.2);
-
-                    &:hover {
-                        background: var(--primary);
-                    }
-                }
+                line-height: 0.9em;
+                margin-right: var(--space-4);
             }
 
             // Proficiencies added by the user
@@ -81,63 +81,27 @@
                 position: relative;
 
                 a.delete {
+                    font-size: var(--font-size-12);
+                    opacity: 0.65;
                     position: absolute;
-                    top: -0.5rem;
                     right: -0.5rem;
-                    opacity: 0.75;
+                    top: -0.5rem;
+                }
 
-                    &:hover {
-                        opacity: 1;
-                    }
+                &:hover a.delete {
+                    opacity: 1;
                 }
             }
         }
-    }
 
-    ul.lores-list,
-    ul.combat-list {
-        li .button-group {
-            flex-direction: row;
-            flex-wrap: nowrap;
-            margin-left: auto;
-
-            .item-controls {
-                font-size: var(--font-size-12);
-                margin-left: 0.5rem;
-                margin-top: 1px;
-            }
+        &.lores-list > li .item-controls {
+            font-size: var(--font-size-12);
+            margin-left: var(--space-8);
         }
-    }
 
-    ul.lores-list {
-        grid-template-columns: 1fr;
-
-        input {
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-    }
-
-    ul.combat-list {
-        grid-template: repeat(2, 1fr);
-
-        .item {
-            grid-column: 1 / 3;
-        }
-    }
-
-    .lore-header {
-        .item-controls {
-            white-space: nowrap;
-            color: var(--text-light);
-            @include micro;
-
-            .item-control {
-                padding: 0.25rem;
-                background: var(--secondary);
-                font-size: var(--font-size-10);
-                border-radius: 2px;
-            }
+        &.lores-list > li,
+        li.all-by-myself {
+            grid-column: span 2;
         }
     }
 }

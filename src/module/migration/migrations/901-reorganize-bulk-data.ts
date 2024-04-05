@@ -1,4 +1,5 @@
-import { ItemSourcePF2e, isPhysicalData } from "@item/base/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { itemIsOfType } from "@item/helpers.ts";
 import { PhysicalSystemSource } from "@item/physical/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import * as R from "remeda";
@@ -10,7 +11,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         this.#migrateRules(source);
-        if (!isPhysicalData(source)) return;
+        if (!itemIsOfType(source, "physical")) return;
 
         const system: MaybeWithOldBulkData = source.system;
         system.bulk ??= { value: 0 };

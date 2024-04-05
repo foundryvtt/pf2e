@@ -1,0 +1,118 @@
+{
+    "_id": "mfc9IT94CPnKKBG8",
+    "img": "icons/consumables/potions/potion-bottle-corked-white.webp",
+    "name": "Silversoul Bomb (Greater)",
+    "system": {
+        "baseItem": "alchemical-bomb",
+        "bonus": {
+            "value": 2
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 0.1
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "mental",
+            "dice": 3,
+            "die": "d4"
+        },
+        "description": {
+            "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<hr />\n<p>This rare alchemical bomb gathers and concentrates the emotions that linger in a burial ground where generations of beloved ancestors have been interred, infusing that powerful emotional energy into the alchemically prepared powdered silver stored within the bomb. This energy glows with a soft, silver radiance and, if contained in a clear container, allows a silversoul bomb to be used as a torch to illuminate an area.</p>\n<p>You gain a +2 item bonus to attack rolls, and the bomb deals 3d4 mental damage, 2d6 persistent mental damage to nindorus, and 3 mental splash damage. A creature that takes splash damage from the bomb and fails a @Check[type:fortitude|dc:28] save is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round and then @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round thereafter.</p>\n<p>Nindorus are particularly harmed by silversoul bombs and take 2d6 persistent mental damage. Against nindorus, the bomb's item bonus also applies to its save DC to resist being dazzled or blinded (@Check[type:fortitude|dc:30]). Creatures that have weakness to silver (including most nindorus) have an equal amount of weakness to the mental damage caused by a silversoul bomb, due to the silver infused into the energy within.</p>"
+        },
+        "group": "bomb",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 11
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 250
+            }
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #199: To Bloom Below the Web"
+        },
+        "quantity": 1,
+        "range": 20,
+        "reload": {
+            "value": "-"
+        },
+        "rules": [
+            {
+                "category": "persistent",
+                "damageType": "mental",
+                "diceNumber": 2,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:nindoru"
+                ],
+                "selector": "{item|id}-damage"
+            },
+            {
+                "definition": [
+                    "item:id:{item|id}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "silver"
+            },
+            {
+                "key": "TokenLight",
+                "value": {
+                    "alpha": 0.35,
+                    "animation": {
+                        "intensity": 1,
+                        "speed": 1,
+                        "type": "ghost"
+                    },
+                    "attenuation": 0.4,
+                    "bright": 20,
+                    "color": "#c4dce9",
+                    "dim": 40,
+                    "luminosity": 0.25,
+                    "shadows": 0.2
+                }
+            }
+        ],
+        "runes": {
+            "potency": 0,
+            "property": [],
+            "striking": 0
+        },
+        "size": "med",
+        "splashDamage": {
+            "value": 3
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "alchemical",
+                "bomb",
+                "consumable",
+                "mental",
+                "splash"
+            ]
+        },
+        "usage": {
+            "canBeAmmo": false,
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "weapon"
+}
