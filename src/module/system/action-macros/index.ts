@@ -3,15 +3,15 @@ import * as maneuverInFlight from "./acrobatics/maneuver-in-flight.ts";
 import * as squeeze from "./acrobatics/squeeze.ts";
 import * as tumbleThrough from "./acrobatics/tumble-through.ts";
 import { arcaneSlam } from "./ancestry/automaton/arcane-slam.ts";
-import { climb } from "./athletics/climb.ts";
+import * as climb from "./athletics/climb.ts";
 import { disarm } from "./athletics/disarm.ts";
 import * as forceOpen from "./athletics/force-open.ts";
 import { grapple } from "./athletics/grapple.ts";
 import { highJump } from "./athletics/high-jump.ts";
-import { longJump } from "./athletics/long-jump.ts";
+import * as longJump from "./athletics/long-jump.ts";
 import * as reposition from "./athletics/reposition.ts";
 import { shove } from "./athletics/shove.ts";
-import { swim } from "./athletics/swim.ts";
+import * as swim from "./athletics/swim.ts";
 import * as trip from "./athletics/trip.ts";
 import { whirlingThrow } from "./athletics/whirling-throw.ts";
 import { aid } from "./basic/aid.ts";
@@ -87,15 +87,15 @@ export const ActionMacros = {
     tumbleThrough: tumbleThrough.legacy,
 
     // Athletics
-    climb,
+    climb: climb.legacy,
     disarm,
     forceOpen: forceOpen.legacy,
     grapple,
     highJump,
-    longJump,
+    longJump: longJump.legacy,
     reposition: reposition.legacy,
     shove,
-    swim,
+    swim: swim.legacy,
     trip: trip.legacy,
     whirlingThrow,
 
@@ -154,6 +154,7 @@ export const SystemActions: Action[] = [
     aid,
     avoidNotice.action,
     balance.action,
+    climb.action,
     coerce.action,
     commandAnAnimal.action,
     concealAnObject.action,
@@ -169,6 +170,7 @@ export const SystemActions: Action[] = [
     hide.action,
     interact,
     leap,
+    longJump.action,
     maneuverInFlight.action,
     palmAnObject.action,
     pickALock.action,
@@ -185,6 +187,7 @@ export const SystemActions: Action[] = [
     step,
     stride,
     subsist.action,
+    swim.action,
     takeCover,
     track.action,
     treatDisease.action,

@@ -1,8 +1,9 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 
 const PREFIX = "PF2E.Actions.LongJump";
 
-export function longJump(options: SkillActionOptions): void {
+function longJump(options: SkillActionOptions): void {
     const slug = options?.skill ?? "athletics";
     const rollOptions = ["action:stride", "action:leap", "action:long-jump"];
     const modifiers = options?.modifiers;
@@ -25,3 +26,21 @@ export function longJump(options: SkillActionOptions): void {
         throw error;
     });
 }
+
+const action = new SingleCheckAction({
+    cost: 2,
+    description: `${PREFIX}.Description`,
+    difficultyClass: { value: 15 },
+    name: `${PREFIX}.Title`,
+    notes: [
+        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
+        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
+        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
+    ],
+    rollOptions: ["action:stride", "action:leap", "action:long-jump"],
+    slug: "long-jump",
+    statistic: "athletics",
+    traits: ["move"],
+});
+
+export { longJump as legacy, action };

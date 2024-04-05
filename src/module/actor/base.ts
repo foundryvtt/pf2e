@@ -631,7 +631,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override _initialize(options?: Record<string, unknown>): void {
         this.constructed ??= false;
-        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
         this._itemTypes = null;
         this.rules = [];
         this.initiative = null;
@@ -699,6 +698,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** Prepare token data derived from this actor, refresh Effects Panel */
     override prepareData(): void {
+        // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
+        this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
+
         super.prepareData();
 
         // Split spellcasting entry into those that extend a magic tradition and those that don't.

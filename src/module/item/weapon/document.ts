@@ -175,7 +175,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null {
         const ammo = this.actor?.items.get(this.system.selectedAmmoId ?? "");
-        return ammo?.isOfType("consumable", "weapon") && ammo.quantity > 0 ? ammo : null;
+        return ammo?.isOfType("consumable", "weapon") ? ammo : null;
     }
 
     get otherTags(): Set<OtherWeaponTag> {
