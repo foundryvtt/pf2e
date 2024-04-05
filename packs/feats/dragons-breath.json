@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can put more effort into your Kobold Breath to channel greater draconic power, though it takes more out of you. When you use Kobold Breath, you can increase the damage dice to d8s and increase the area to @Template[type:line|distance:60]{60 feet} for a line breath weapon or @Template[type:cone|distance:30]{30 feet} for a cone. If you do, you can't use Kobold Breath again for 1 hour.</p>\n<p>@Damage[ceil(@actor.level/2)d8[@actor.flags.pf2e.draconicExemplar.damageType|traits:area-damage]]{Leveled damage}</p>"
+            "value": "<p>You can put more effort into your Kobold Breath to channel greater draconic power, though it takes more out of you. When you use Kobold Breath, you can increase the damage dice to d8s and increase the area to 60 feet for a line breath weapon or 30 feet for a cone. If you do, you can't use Kobold Breath again for 1 hour.</p>"
         },
         "level": {
             "value": 9
@@ -28,7 +28,32 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "dragons-breath",
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:kobold-breath",
+                    "dragons-breath"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Kobold.DragonsBreath.DescriptionAlteration"
+                    },
+                    {
+                        "text": "@Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)|basic:true] @Check[type:reflex|dc:resolve(@actor.attributes.classOrSpellDC.value)|basic:true]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
