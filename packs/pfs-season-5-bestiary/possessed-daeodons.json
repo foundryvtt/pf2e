@@ -1,0 +1,110 @@
+{
+    "_id": "cpnCL3eaHIfWyh8I",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bx12yplbfZBchFwr",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fires of Sabotage",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area of the ritual circle</p>\n<hr />\n<p><strong>Effect</strong> The outline of the circle alights with fire dealing @Damage[4d6[fire]] damage to all creatures within it (@Check[type:reflex|dc:24|basic:true] save). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Possessed Daeodons",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 13,
+            "hp": {
+                "details": "",
+                "max": 54,
+                "temp": 0,
+                "value": 54
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>or @UUID[Compendium.pf2e.spells-srd.Item.Detect Magic] to notice the heavy divine magic in the area</p>",
+                "value": 19
+            }
+        },
+        "details": {
+            "description": "<p>Three daeodon corpses, animated and enraged by Sezelrian's divine intervention, trample anything within the ritual circle.</p>",
+            "disable": "<p>@Check[type:occultism|dc:21] or @Check[type:religion|dc:21] to disrupt the magic animating the spirits, @Check[type:athletics|dc:25] to hold down one of the daeodons, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3rd-rank, counteract DC 25). 3 successes are required.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 6
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-15: Cleansing the Flame"
+            },
+            "reset": "<p>The hazard resets within 24 hours if the cultists of Sezelrian still remain in the area.</p>",
+            "routine": "<p>(three actions) The animated daeodons trample all creatures within the circle, dealing @Damage[(2d8+9)[bludgeoning]] damage (@Check[type:reflex|dc:23|basic:true] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": null
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "divine",
+                "magical"
+            ]
+        }
+    },
+    "type": "hazard"
+}
