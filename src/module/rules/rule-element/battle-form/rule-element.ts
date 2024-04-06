@@ -6,7 +6,7 @@ import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifier
 import { MOVEMENT_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
 import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -411,7 +411,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                 if (!rule.battleForm) rule.ignored = true;
             }
             for (const striking of Object.values(synthetics.striking).flat()) {
-                const predicate = (striking.predicate ??= new PredicatePF2e());
+                const predicate = (striking.predicate ??= new Predicate());
                 predicate.push({ not: "battle-form" });
             }
 
@@ -488,8 +488,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #suppressNotes(notes: RollNotePF2e[]): void {
         for (const note of notes) {
             if (!note.predicate.includes("battle-form")) {
-                note.predicate =
-                    note.predicate instanceof PredicatePF2e ? note.predicate : new PredicatePF2e(note.predicate);
+                note.predicate = note.predicate instanceof Predicate ? note.predicate : new Predicate(note.predicate);
                 note.predicate.push({ not: "battle-form" });
             }
         }

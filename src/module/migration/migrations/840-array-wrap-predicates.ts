@@ -1,5 +1,5 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { MigrationBase } from "../base.ts";
 
 /** Ensure predicates are wrapped in ensures following stricter validation */
@@ -9,7 +9,7 @@ export class Migration840ArrayWrapPredicates extends MigrationBase {
     #wrapPredicate(predicate: unknown): RawPredicate | undefined {
         if (Array.isArray(predicate)) return predicate;
         const arrayWrapped = [predicate];
-        return predicate && PredicatePF2e.isValid(arrayWrapped) ? arrayWrapped : undefined;
+        return predicate && Predicate.isValid(arrayWrapped) ? arrayWrapped : undefined;
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {

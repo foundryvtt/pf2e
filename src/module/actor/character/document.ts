@@ -67,7 +67,7 @@ import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/inde
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
@@ -872,7 +872,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const reflexAdjustments = (this.synthetics.modifierAdjustments[saveType] ??= []);
                 reflexAdjustments.push({
                     slug: "dex",
-                    test: (options): boolean => new PredicatePF2e("damaging-effect").test(options),
+                    test: (options): boolean => new Predicate("damaging-effect").test(options),
                     suppress: true,
                 });
             }
@@ -1012,7 +1012,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                       label: modifierName,
                       modifier: penaltyValue,
                       type: "untyped",
-                      predicate: new PredicatePF2e({ not: "armor:ignore-speed-penalty" }),
+                      predicate: new Predicate({ not: "armor:ignore-speed-penalty" }),
                       adjustments: extractModifierAdjustments(
                           this.synthetics.modifierAdjustments,
                           ["all-speeds", "speed", `${movementType}-speed`],
@@ -1270,7 +1270,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     label: "PF2E.Item.Weapon.Rune.Potency",
                     bonus: weapon.system.runes.potency,
                     type: "item",
-                    predicate: new PredicatePF2e(),
+                    predicate: new Predicate(),
                 });
             }
 

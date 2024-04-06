@@ -4,7 +4,7 @@ import { AttributeString } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
 import { setHasElement, tupleHasValue } from "@util";
@@ -157,7 +157,7 @@ type SpecialStatisticSchema = RuleElementSchema & {
     itemCasting: SchemaField<
         ItemCastingSchema,
         { predicate: RawPredicate; tradition: MagicTradition | null },
-        { predicate: PredicatePF2e; tradition: MagicTradition | null },
+        { predicate: Predicate; tradition: MagicTradition | null },
         false,
         true,
         true

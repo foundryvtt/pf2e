@@ -10,7 +10,7 @@ import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { DAMAGE_DIE_SIZES } from "@system/damage/values.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e, getActionGlyph, objectHasKey, sluggify, traitSlugToObject, tupleHasValue } from "@util";
 import * as R from "remeda";
 
@@ -63,7 +63,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                         label: CONFIG.PF2E.weaponTraits.kickback,
                         modifier: -2,
                         type: "circumstance",
-                        predicate: new PredicatePF2e({ lt: ["attribute:str:mod", 2] }),
+                        predicate: new Predicate({ lt: ["attribute:str:mod", 2] }),
                         adjustments: extractModifierAdjustments(synthetics, domains, unannotatedTrait),
                     });
                 }
@@ -73,7 +73,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
                         label: this.getLabel(trait),
                         modifier: -2,
                         type: "item",
-                        predicate: new PredicatePF2e({ not: "self:ignore-improvised-penalty" }),
+                        predicate: new Predicate({ not: "self:ignore-improvised-penalty" }),
                         adjustments: extractModifierAdjustments(synthetics, domains, unannotatedTrait),
                     });
                 }

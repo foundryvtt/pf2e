@@ -4,7 +4,7 @@ import type { ItemPF2e } from "@item";
 import { damageDieSizeToFaces, nextDamageDieSize } from "@system/damage/helpers.ts";
 import { BaseDamageData } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES, DAMAGE_TYPES } from "@system/damage/values.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import { setHasElement, tupleHasValue } from "@util";
 import { AELikeRuleElement } from "../ae-like.ts";
 import type { RuleValue } from "../data.ts";
@@ -86,7 +86,7 @@ class DamageAlteration {
         }
 
         const parent = rule.parent ?? { getRollOptions: () => [] };
-        const predicate = rule.predicate ?? new PredicatePF2e();
+        const predicate = rule.predicate ?? new Predicate();
         const predicatePassed =
             predicate.length === 0 ||
             predicate.test([...options.test, ...damage.getRollOptions(), ...parent.getRollOptions("parent")]);
@@ -114,7 +114,7 @@ interface PartialRuleElement extends Pick<DamageAlterationRuleElement, "mode" | 
     resolveValue?: DamageAlterationRuleElement["resolveValue"];
     ignored?: boolean;
     parent?: ItemPF2e<ActorPF2e>;
-    predicate?: PredicatePF2e;
+    predicate?: Predicate;
 }
 
 export { DamageAlteration };
