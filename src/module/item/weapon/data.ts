@@ -113,7 +113,9 @@ interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
 }
 
 interface WeaponDamage {
+    /** The number of dice */
     dice: number;
+    /** The die size (d4-d12) */
     die: DamageDieSize | null;
     damageType: DamageType;
     modifier: number;
