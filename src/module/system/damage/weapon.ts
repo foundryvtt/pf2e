@@ -146,7 +146,7 @@ class WeaponDamagePF2e {
         // Splash damage
         const hasScatterTrait = weaponTraits.some((t) => t.startsWith("scatter-"));
         const splashDamage = weapon.isOfType("weapon")
-            ? Number(weapon.system.splashDamage?.value) || (hasScatterTrait ? 1 : 0)
+            ? Number(weapon.system.splashDamage?.value) || (hasScatterTrait ? weapon.system.damage.dice || 0 : 0)
             : 0;
         if (splashDamage > 0) {
             const slug = hasScatterTrait ? "scatter" : "splash";
