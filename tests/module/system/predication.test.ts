@@ -270,7 +270,7 @@ describe("Predication with material conditional and negation return correct resu
 });
 
 describe("Predication with biconditional returns correct results", () => {
-    const predicate = new PredicatePF2e({ iff: ["foo", "bar"] });
+    const predicate = new Predicate({ iff: ["foo", "bar"] });
     expect(predicate.test(["foo"])).toEqual(false);
     expect(predicate.test(["bar"])).toEqual(false);
     expect(predicate.test(["foo", "bar"])).toEqual(true);
