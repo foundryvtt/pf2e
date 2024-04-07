@@ -50,8 +50,12 @@ export function registerHandlebarsHelpers(): void {
         return isNaN(numericValue) ? null : ordinalString(numericValue);
     });
 
-    Handlebars.registerHelper("sluggify", (text: unknown): string => {
-        return sluggify(String(text));
+    Handlebars.registerHelper("sluggify", (text: unknown, options: Handlebars.HelperOptions): string => {
+        let camel = null;
+        if ("camel" in options.hash && ["bactrian", "dromedary"].includes(options.hash.camel)) {
+            camel = options.hash.camel;
+        }
+        return sluggify(String(text), { camel });
     });
 
     Handlebars.registerHelper("json", (data: unknown): string => {
