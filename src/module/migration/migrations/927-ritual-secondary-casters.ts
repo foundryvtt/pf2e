@@ -9,7 +9,7 @@ export class Migration927RitualSecondaryCasters extends MigrationBase {
 
     #RITUALCASTERSREPLACEMENT = new Map<string, NewCasters>([
         [
-            "demonic-pact",
+            "abyssal-pact",
             {
                 min: 0,
                 max: 0,
@@ -106,6 +106,14 @@ export class Migration927RitualSecondaryCasters extends MigrationBase {
         ],
         [
             "daemonic-pact",
+            {
+                min: 0,
+                max: 0,
+                details: "",
+            },
+        ],
+        [
+            "demonic-pact",
             {
                 min: 0,
                 max: 0,
