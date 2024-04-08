@@ -153,6 +153,10 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         return false;
     }
 
+    get isCharges(): false {
+        return false;
+    }
+
     get isEphemeral(): true {
         return true;
     }

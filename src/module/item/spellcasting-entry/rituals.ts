@@ -62,6 +62,10 @@ export class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellca
         return false;
     }
 
+    get isCharges(): false {
+        return false;
+    }
+
     get isEphemeral(): true {
         return true;
     }

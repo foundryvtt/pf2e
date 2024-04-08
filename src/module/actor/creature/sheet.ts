@@ -232,6 +232,17 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             }
         };
 
+        handlers["reset-charges"] = (event): Promise<unknown> | void => {
+            const containerId = htmlClosest(event.target, "[data-item-id]")?.dataset.itemId;
+            const spellcastingEntry = actor.items.get(containerId, { strict: true });
+
+            if (spellcastingEntry.isOfType("spellcastingEntry") && spellcastingEntry.isCharges) {
+                return spellcastingEntry.update({
+                    "system.slots.slot1.value": spellcastingEntry.system.slots.slot1.max,
+                });
+            }
+        };
+
         // Spellcasting entries
 
         // Add, edit, and remove spellcasting entries

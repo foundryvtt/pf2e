@@ -72,6 +72,10 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         return this.system.prepared.value === "spontaneous";
     }
 
+    get isCharges(): boolean {
+        return this.system.prepared.value === "charges";
+    }
+
     get isInnate(): boolean {
         return this.system.prepared.value === "innate";
     }
@@ -333,6 +337,16 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             return true;
         }
 
+        if (this.isCharges) {
+            const remainingCharges = this.system.slots.slot1.value || 0;
+            if (remainingCharges < rank) {
+                ui.notifications.warn(game.i18n.format("PF2E.SpellChargesNotEnoughError", { spell: spell.name, rank }));
+                return false;
+            }
+            await this.update({ "system.slots.slot1.value": remainingCharges - rank });
+            return true;
+        }
+
         const slots = this.system.slots[slotKey];
         if (slots.value > 0) {
             await this.update({ [`system.slots.${slotKey}.value`]: slots.value - 1 });
@@ -394,6 +408,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             category: this.system.prepared.value,
             isPrepared: this.isPrepared,
             isSpontaneous: this.isSpontaneous,
+            isCharges: this.isCharges,
             isFlexible: this.isFlexible,
             isInnate: this.isInnate,
             isFocusPool: this.isFocusPool,
@@ -402,6 +417,9 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
             hasCollection: true,
             usesSpellProficiency: !this.system.proficiency.slug,
             showSlotlessRanks: this.showSlotlessRanks,
+            uses: this.isCharges
+                ? { value: this.system.slots.slot1.value, max: this.system.slots.slot1.max }
+                : undefined,
         });
     }
 

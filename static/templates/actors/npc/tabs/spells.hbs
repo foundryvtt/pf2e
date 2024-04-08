@@ -77,7 +77,7 @@
 
                     {{#if (and ../editable (not entry.isEphemeral))}}
                         <div class="item-controls">
-                            {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate)}}
+                            {{#if (or entry.isPrepared entry.isSpontaneous entry.isInnate entry.isCharges)}}
                                 <a data-action="toggle-show-slotless-ranks" data-tooltip="PF2E.ToggleSlotlessSpellLevelsTitle">
                                     <i class="{{#if entry.showSlotlessLevels}}fa-solid{{else}}fa-regular{{/if}} fa-fw fa-list-alt"></i>
                                 </a>
@@ -89,6 +89,36 @@
                         </div>
                     {{/if}}
                 </div>
+                {{#if entry.isCharges}}
+                   <div class="resources">
+                        <section class="charges-pool">
+                            <span class="charges-label">{{localize "PF2E.PreparationTypeCharges"}}</span>
+                            <span class="charges-input">
+                                <input
+                                    type="number"
+                                    data-item-id="{{entry.id}}"
+                                    data-item-property="system.slots.slot1.value"
+                                    value="{{entry.uses.value}}"
+                                    max="{{entry.uses.max}}"
+                                    placeholder="0"
+                                />
+                            </span>
+                            <span class="slash">/</span>
+                            <span class="charges-max-input">
+                                <input
+                                    type="number"
+                                    data-item-id="{{entry.id}}"
+                                    data-item-property="system.slots.slot1.max"
+                                    value="{{entry.uses.max}}"
+                                    placeholder="0"
+                                />
+                            </span>
+                            {{#if @root.editable}}
+                                <a data-action="reset-charges"><i class="fa-solid fa-redo"></i></a>
+                            {{/if}}
+                        </section>
+                   </div>
+                {{/if}}
                 {{#if entry.hasCollection}}
                     <div class="body">
                         {{> "systems/pf2e/templates/actors/partials/spell-collection.hbs" entry=entry}}

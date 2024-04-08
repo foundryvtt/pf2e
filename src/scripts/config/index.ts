@@ -687,6 +687,7 @@ export const PF2ECONFIG = {
         focus: "PF2E.TraitFocus",
         items: "PF2E.PreparationTypeItems",
         ritual: "PF2E.Item.Spell.Ritual.Label",
+        charges: "PF2E.PreparationTypeCharges",
     },
 
     attitude: {

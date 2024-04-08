@@ -3,7 +3,7 @@ import { AttributeString } from "@actor/types.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
 import { SpellPF2e } from "@item/spell/document.ts";
 import { MagicTradition } from "@item/spell/types.ts";
-import { OneToTen } from "@module/data.ts";
+import { OneToTen, ValueAndMax } from "@module/data.ts";
 import { Statistic, StatisticChatData } from "@system/statistic/index.ts";
 import { SpellCollection, SpellCollectionData, SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySystemData } from "./data.ts";
@@ -21,6 +21,7 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     isPrepared: boolean;
     isRitual: boolean;
     isSpontaneous: boolean;
+    isCharges: boolean;
     isEphemeral: boolean;
     statistic?: Statistic | null;
     /** A related but more-limited statistic for making counteract checks */
@@ -60,7 +61,14 @@ interface CastOptions {
 }
 
 type UnusedProperties = "actor" | "spells" | "getSheetData" | "cast" | "canCast";
-type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepared" | "isRitual" | "isSpontaneous";
+type OptionalProperties =
+    | "isFlexible"
+    | "isFocusPool"
+    | "isInnate"
+    | "isPrepared"
+    | "isRitual"
+    | "isSpontaneous"
+    | "isCharges";
 
 /** Spell list render data for a `BaseSpellcastingEntry` */
 interface SpellcastingSheetData
@@ -74,8 +82,10 @@ interface SpellcastingSheetData
     isPrepared?: boolean;
     isRitual?: boolean;
     isSpontaneous?: boolean;
+    isCharges?: boolean;
     usesSpellProficiency: boolean;
     showSlotlessLevels?: boolean;
+    uses?: ValueAndMax;
 }
 
 interface SpellcastingSlotGroup {

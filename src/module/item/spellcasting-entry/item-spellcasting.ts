@@ -73,6 +73,10 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
         return false;
     }
 
+    get isCharges(): false {
+        return false;
+    }
+
     get isRitual(): false {
         return false;
     }
@@ -113,6 +117,7 @@ class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements Sp
                 "isPrepared",
                 "isRitual",
                 "isSpontaneous",
+                "isCharges",
                 "isEphemeral",
             ]),
             ...collectionData,

@@ -54,7 +54,8 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
         }
 
         const isStandardSpell = !(spell.isCantrip || spell.isFocusSpell || spell.isRitual);
-        const canHeighten = isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate);
+        const canHeighten =
+            isStandardSpell && (this.entry.isSpontaneous || this.entry.isInnate || this.entry.isCharges);
 
         // Only allow a different slot rank if the spell can heighten
         const groupId = options?.groupId;
@@ -254,7 +255,11 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
                         this.entry.isSpontaneous && rank !== 0 ? { value: data.value, max: data.max } : undefined;
                     const active = spells.map((spell) => ({
                         spell,
-                        expended: this.entry.isInnate && !spell.system.location.uses?.value,
+                        expended: this.entry.isInnate
+                            ? !spell.system.location.uses?.value
+                            : this.entry.isCharges && rank > 0
+                              ? rank > (this.entry.system?.slots.slot1.value || 0)
+                              : false,
                         uses: this.entry.isInnate && !spell.atWill ? spell.system.location.uses : undefined,
                     }));
 
