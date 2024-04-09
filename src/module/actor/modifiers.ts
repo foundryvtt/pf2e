@@ -239,7 +239,7 @@ class ModifierPF2e implements RawModifier {
 
     /** Return a copy of this ModifierPF2e instance */
     clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
-        const clone = new ModifierPF2e(fu.mergeObject({ ...this, modifier: this.#originalValue, ...data }));
+        const clone = new ModifierPF2e({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
         if (options.test) clone.test(options.test);
 
         return clone;
