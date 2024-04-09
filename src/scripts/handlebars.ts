@@ -54,8 +54,8 @@ export function registerHandlebarsHelpers(): void {
         return sluggify(String(text));
     });
 
-    Handlebars.registerHelper("json", (data: unknown): string => {
-        return JSON.stringify(data);
+    Handlebars.registerHelper("json", (data: unknown, indent: unknown): string => {
+        return JSON.stringify(data, null, Number(indent));
     });
 
     Handlebars.registerHelper("actionGlyph", (value, options: Handlebars.HelperOptions): string | null => {
