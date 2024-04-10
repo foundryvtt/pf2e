@@ -291,7 +291,7 @@ const ARMOR_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     adamantine: {
         low: null,
         standard: {
-            level: 11,
+            level: 12,
             price: 1600,
             rarity: "uncommon",
         },
