@@ -1,7 +1,7 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { Immunity, IWRSource, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
-import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import * as R from "remeda";
 
 class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREditorOptions> {
@@ -94,7 +94,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
             if (
                 !(
                     Array.isArray(exceptionsData) &&
-                    exceptionsData.every((o: unknown): o is { id: string } => isObject(o))
+                    exceptionsData.every((o: unknown): o is { id: string } => R.isPlainObject(o))
                 )
             ) {
                 throw ErrorPF2e("Unexpected data encountered while submitting form");
@@ -108,7 +108,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
                 Array.isArray(doubleVsData) &&
                 doubleVsData.every(
                     (o: unknown): o is { id: string } =>
-                        isObject<"id">(o) && typeof o.id === "string" && o.id in this.types,
+                        R.isPlainObject(o) && typeof o.id === "string" && o.id in this.types,
                 );
             const doubleVs =
                 doubleVsIsValid && this.category === "resistances" ? doubleVsData.map((d) => d.id) : undefined;
@@ -148,7 +148,7 @@ class IWREditor<TActor extends ActorPF2e> extends DocumentSheet<TActor, IWREdito
         const html = $html[0];
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[type=text]")) {
-            tagify(input, { whitelist: this.types, maxTags: 4 });
+            tagify(input, { whitelist: this.types, maxTags: 6 });
         }
 
         htmlQuery(html, "a[data-action=add]")?.addEventListener("click", (event) => {
