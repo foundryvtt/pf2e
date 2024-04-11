@@ -30,8 +30,9 @@
             },
             {
                 "category": "precision",
-                "diceNumber": "@item.level",
+                "diceNumber": "ceil(@item.level / 2)",
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "parent:origin:item:tag:amped"
@@ -40,13 +41,13 @@
             },
             {
                 "key": "AdjustModifier",
-                "mode": "add",
+                "mode": "downgrade",
                 "predicate": [
                     "parent:origin:item:tag:amped"
                 ],
                 "selector": "strike-damage",
                 "slug": "glimpse-weakness",
-                "value": -1
+                "value": "ceil(@item.level / 2)"
             }
         ],
         "start": {
