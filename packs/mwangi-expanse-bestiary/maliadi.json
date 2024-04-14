@@ -26,6 +26,9 @@
                     "title": ""
                 },
                 "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
                 "slots": {},
                 "slug": null,
                 "spelldc": {
@@ -35,7 +38,8 @@
                 },
                 "tradition": {
                     "value": "primal"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -334,90 +338,6 @@
             "type": "spell"
         },
         {
-            "_id": "sgRAjQlpzXKEfHVx",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
-            "name": "Volcanic Eruption",
-            "sort": 600000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "16d6",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "fire"
-                    }
-                },
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "reflex"
-                    }
-                },
-                "description": {
-                    "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 16d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 4d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d6"
-                    },
-                    "interval": 1,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 8
-                },
-                "location": {
-                    "value": "RI9tmh42fk5iU0FW"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "volcanic-eruption",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "primal"
-                    ],
-                    "value": [
-                        "concentrate",
-                        "fire",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "zWEFdMq1oFwMEbBD",
             "flags": {
                 "core": {
@@ -426,7 +346,7 @@
             },
             "img": "systems/pf2e/icons/spells/true-seeing.webp",
             "name": "True Seeing (Constant)",
-            "sort": 700000,
+            "sort": 600000,
             "system": {
                 "area": null,
                 "cost": {
@@ -477,6 +397,95 @@
                         "concentrate",
                         "manipulate",
                         "revelation"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "byeYWWSQO7Ofjhvy",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.O7ZEqWjwdKyo2CUv"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/volcanic-eruption.webp",
+            "name": "Volcanic Eruption",
+            "sort": 700000,
+            "system": {
+                "area": {
+                    "type": "cylinder",
+                    "value": 5
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "14d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "RI9tmh42fk5iU0FW"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "volcanic-eruption",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate"
                     ]
                 }
             },
