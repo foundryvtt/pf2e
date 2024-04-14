@@ -1,0 +1,117 @@
+{
+    "_id": "9PNzjo8Xmw43LJNX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "F6M1PGHdIxY3Uiqh",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Awaken",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least two creatures enter the grove</p>\n<hr />\n<p><strong>Effect</strong> The illusion fades, and a sorrowful chill emanates from the giant tree. The haunt rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Myristica's Despair",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 23
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to recognize that the scene before them is an illusion.</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The illusion shatters, revealing the grove to be a lifeless scar and the seemingly peaceful loggers to be crawling aimlessly about the clearing, consumed by rage and lashing out at anything that comes near.</p>",
+            "disable": "<p>@Check[type:nature|dc:22] (trained) to tame the primal energy, @Check[type:diplomacy|dc:23] (trained) to console the dryad, @Check[type:occultism|dc:24] (trained) to identify and heal the emotional wounds; three successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #201: Pactbreaker"
+            },
+            "reset": "<p>Unless Silene is destroyed, this haunt can recharge itself after 1 hour.</p>",
+            "routine": "<p>(1 action; emotion, mental, primal) Myristica bemoans her grove's fate, overwhelming foes with sorrow. Each creature in the grove must attempt a @Check[type:will|dc:23|traits:emotion,mental,primal] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] for 1 round and takes @Damage[2d6[mental]] damage.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[2d6[mental]] damage, plus @Damage[2d6[persistent,mental]] damage. While taking this persistent damage, they are dazzled.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

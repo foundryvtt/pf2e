@@ -1,0 +1,82 @@
+{
+    "_id": "j8CLa6RoohfKCWoO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Death from Above",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You are standing, climbing, or balancing on a surface at least 10 feet above your target.</p>\n<hr />\n<p>You leap down on your target, using their body to cushion your fall and your momentum to empower your attack. Attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Leap] to a space adjacent to the target. If you land adjacent to the target, compare the @Check[type:athletics|defense:reflex] check result against your target's Reflex DC.</p>\n<p>When you leap onto a creature in this way, you do not also deal damage for falling on a creature. Regardless of your result, the target is temporarily immune to your Death from Above for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target falls and lands @UUID[Compendium.pf2e.conditionitems.Item.Prone], reducing the falling damage you take by an amount equal to twice your level. You then can make a melee Strike against the target. The Strike gains the deadly d8 weapon property and deals an additional 1d6 bludgeoning damage. This additional damage increases to 2d6 if you are a master in Athletics, and to 3d6 if you are legendary in Athletics.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the beginning of your next turn, reducing the falling damage you take by an amount equal to your level. You can then make a melee Strike against the target, adding the deadly d8 weapon property to the attack.</p>\n<p><strong>Failure</strong> You can make a Strike against the target.</p>\n<p><strong>Critical Failure</strong> You fall prone, whether you take falling damage or not.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Canopy Predator"
+                },
+                {
+                    "value": "expert in Athletics"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #201: Pactbreaker"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "death-from-above",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "definition": [
+                    "item:melee"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "death-from-above"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            },
+            {
+                "damageType": "bludgeoning",
+                "diceNumber": "ternary(gte(@actor.system.skills.ath.rank,4),3,ternary(gte(@actor.system.skills.ath.rank,3),2,1))",
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "death-from-above:critical-success"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
