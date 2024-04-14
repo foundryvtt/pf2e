@@ -382,12 +382,6 @@ class WeaponDamagePF2e {
             options.add(option);
         }
 
-        // Attach modifier adjustments from property runes
-        for (const modifier of modifiers) {
-            const propRuneAdjustments = propertyRuneAdjustments.filter((a) => a.slug === modifier.slug);
-            modifier.adjustments.push(...propRuneAdjustments);
-        }
-
         const baseUncategorized = ((): WeaponBaseDamageData | null => {
             const diceNumber = baseDamage.die ? baseDamage.dice : 0;
             return diceNumber > 0 || baseDamage.modifier > 0
@@ -429,6 +423,12 @@ class WeaponDamagePF2e {
             modifier.domains = [...domains];
             modifier.adjustments = extractModifierAdjustments(adjustmentsRecord, domains, modifier.slug);
             modifier.alterations = extractDamageAlterations(alterationsRecord, domains, modifier.slug);
+        }
+
+        // Attach modifier adjustments from property runes
+        for (const modifier of modifiers) {
+            const propRuneAdjustments = propertyRuneAdjustments.filter((a) => a.slug === modifier.slug);
+            modifier.adjustments.push(...propRuneAdjustments);
         }
 
         // Collect damage alterations for non-synthetic damage
