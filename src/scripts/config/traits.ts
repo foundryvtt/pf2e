@@ -349,6 +349,7 @@ const spellTraits = {
     summon: "PF2E.TraitSummon",
     summoned: "PF2E.TraitSummoned",
     teleportation: "PF2E.TraitTeleportation",
+    trial: "PF2E.TraitTrial",
     "true-name": "PF2E.TraitTrueName",
     visual: "PF2E.TraitVisual",
 };
