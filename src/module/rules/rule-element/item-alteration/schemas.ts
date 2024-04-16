@@ -8,6 +8,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DamageDiceFaces, type DamageType } from "@system/damage/types.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { PredicateField, SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type {
     ArrayField,
@@ -192,7 +193,7 @@ const ITEM_ALTERATION_VALIDATORS = {
                             message: `value: must be 4, 6, 8, 10, or 12 if mode is "override"`,
                         }),
                     );
-                } else if (data.value !== null) {
+                } else if (tupleHasValue(["upgrade", "downgrade"], data.mode) && data.value !== null) {
                     throw new validation.DataModelValidationError(
                         new validation.DataModelValidationFailure({
                             message: `value: must be null or omitted if mode is "${data.mode}"`,
