@@ -1,19 +1,19 @@
 {
-    "_id": "qD1OA6dx8h33nKFC",
+    "_id": "JzVfTeHDopKAA5P0",
     "img": "icons/creatures/magical/construct-iron-stomping-yellow.webp",
-    "name": "Spell Effect: Ferrous Form",
+    "name": "Effect: Alloy Flesh and Steel",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Ferrous Form]</p>\n<p>Your body transforms entirely into flexible iron. You gain resistance to physical damage, except adamantine. You're immune to death effects, disease, drained, fatigued, healing, nonlethal attacks, paralyzed, poison, sickened, vitality, and void; any of those conditions you had when the spell is cast are suspended until the spell ends, then return with their remaining duration when the spell ends.</p>\n<p>Your fist Strikes have a 1d10 damage die, and your metal spells deal one additional die of damage (of the same damage die and damage type the spell uses). </p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Alloy Flesh and Steel]</p>\n<p>Your body transforms entirely into flexible iron. You gain resistance 10 to physical damage, except adamantine. You're immune to death effects, disease, drained, fatigued, healing, nonlethal attacks, paralyzed, poison, sickened, vitality, and void; any of those conditions you had when the spell is cast are suspended until the spell ends, then return with their remaining duration when the spell ends. </p>\n<p>Your fist Strikes have a 1d10 damage die, and your metal spells deal one additional die of damage (of the same damage die and damage type the spell uses). Your metal Elemental Blasts deal an additional die of damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
-            "sustained": false,
-            "unit": "hours",
+            "sustained": true,
+            "unit": "minutes",
             "value": 1
         },
         "level": {
-            "value": 8
+            "value": 1
         },
         "publication": {
             "license": "OGL",
@@ -43,7 +43,7 @@
                 ],
                 "key": "Resistance",
                 "type": "physical",
-                "value": "ternary(gte(@item.level,9),15,10)"
+                "value": "ternary(gte(@item.origin.level,16),15,10)"
             },
             {
                 "fist": true,
@@ -62,7 +62,10 @@
                 "predicate": [
                     "item:trait:metal"
                 ],
-                "selector": "spell-damage"
+                "selector": [
+                    "elemental-blast-damage",
+                    "spell-damage"
+                ]
             }
         ],
         "start": {
