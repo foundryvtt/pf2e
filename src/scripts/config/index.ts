@@ -927,6 +927,7 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.WorldClock.DateTheme.Name",
                 hint: "PF2E.SETTINGS.WorldClock.DateTheme.Hint",
                 AR: "PF2E.SETTINGS.WorldClock.DateTheme.AR",
+                IC: "PF2E.SETTINGS.WorldClock.DateTheme.IC",
                 AD: "PF2E.SETTINGS.WorldClock.DateTheme.AD",
                 CE: "PF2E.SETTINGS.WorldClock.DateTheme.CE",
             },

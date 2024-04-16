@@ -78,7 +78,8 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case "AR": // Absalom Reckoning
-                return game.i18n.localize(CONFIG.PF2E.worldClock.AR.Era);
+            case "IC": // Imperial Calendar
+                return game.i18n.localize(CONFIG.PF2E.worldClock[this.dateTheme].Era);
             case "AD": // Earth on the Material Plane
                 return this.worldTime.toFormat("G");
             default:
@@ -89,24 +90,14 @@ export class WorldClock extends Application {
 
     /** The year in the game */
     private get year(): number {
-        const yearOffset = (() => {
-            switch (this.dateTheme) {
-                case "AR":
-                    return CONFIG.PF2E.worldClock.AR.yearOffset;
-                case "AD":
-                    return CONFIG.PF2E.worldClock.AD.yearOffset;
-                default:
-                    // 'CE'
-                    return 0;
-            }
-        })();
-        return this.worldTime.year + yearOffset;
+        return this.worldTime.year + CONFIG.PF2E.worldClock[this.dateTheme].yearOffset;
     }
 
     /** The month in the game */
     private get month(): string {
         switch (this.dateTheme) {
-            case "AR": {
+            case "AR":
+            case "IC": {
                 const months = CONFIG.PF2E.worldClock.AR.Months;
                 const month = this.worldTime.setLocale("en-US").monthLong as keyof typeof months;
                 return game.i18n.localize(months[month]);
@@ -119,7 +110,8 @@ export class WorldClock extends Application {
     /** The day of the week in the game */
     private get weekday(): string {
         switch (this.dateTheme) {
-            case "AR": {
+            case "AR":
+            case "IC": {
                 const weekdays = CONFIG.PF2E.worldClock.AR.Weekdays;
                 const weekday = this.worldTime.setLocale("en-US").weekdayLong as keyof typeof weekdays;
                 return game.i18n.localize(weekdays[weekday]);
