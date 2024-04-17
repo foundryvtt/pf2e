@@ -162,9 +162,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const dc = this.#getDC(html);
             const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
             if (type === "post") {
-                ChatMessagePF2e.create({ user: game.user.id, flavor, content: `<p>${content}</p>` });
+                ChatMessagePF2e.create({ user: game.user.id, flavor, content });
             } else if (type === "copy") {
-                const clipText = content;
+                const clipText = content.replace(/<\/?p>/g, " ").trim();
                 game.clipboard.copyPlainText(clipText);
                 ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
             }
@@ -222,7 +222,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         ]
             .concat(...extras)
             .filter((p) => p);
-        return `@Check[${parts.join("|")}]`;
+        return `<p>@Check[${parts.join("|")}]</p>`;
     }
 }
 
