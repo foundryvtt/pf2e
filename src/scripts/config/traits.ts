@@ -235,6 +235,7 @@ const creatureTraits = {
     wight: "PF2E.TraitWight",
     "wild-hunt": "PF2E.TraitWildHunt",
     wraith: "PF2E.TraitWraith",
+    wraithvine: "PF2E.TraitWraithvine",
     wyrwood: "PF2E.TraitWyrwood",
     xulgath: "PF2E.TraitXulgath",
     zombie: "PF2E.TraitZombie",
