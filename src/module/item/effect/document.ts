@@ -6,6 +6,7 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, sluggify } from "@util";
+import * as R from "remeda";
 import type { EffectFlags, EffectSource, EffectSystemData } from "./data.ts";
 
 class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
@@ -120,12 +121,15 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
         const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+        const token = actor.getActiveTokens(false, true).shift();
+        const label = badge.labels ? badge.labels?.at(roll.total - 1)?.trim() : null;
+        roll.toMessage({
+            flavor: R.compact([reduceItemName(this.name), label ? `(${label})` : null]).join(" "),
+            speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
+        });
+
         const initial = initialValue ?? roll.total;
         const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
-        const token = actor.getActiveTokens(false, true).shift();
-        const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
-        roll.toMessage({ flavor: reduceItemName(this.name), speaker });
-
         return { type: "value", value: roll.total, labels: badge.labels, reevaluate };
     }
 
