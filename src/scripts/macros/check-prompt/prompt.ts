@@ -26,6 +26,11 @@ interface TagifyValue {
     value: string;
 }
 
+interface PromptData {
+    flavor: string;
+    content: string;
+}
+
 class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
@@ -111,11 +116,15 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         // Setup buttons
         htmlQuery(html, "[data-action=post]")?.addEventListener("click", async () => {
-            this.#generatePrompt("post");
+            const promptData = this.#getPromptData();
+            ChatMessagePF2e.create({ user: game.user.id, flavor: promptData.flavor, content: promptData.content });
         });
 
         htmlQuery(html, "[data-action=copy]")?.addEventListener("click", async () => {
-            this.#generatePrompt("copy");
+            const promptData = this.#getPromptData();
+            const clipText = promptData.content.replace(/<\/?p>/g, " ").trim();
+            game.clipboard.copyPlainText(clipText);
+            ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
         });
 
         htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
@@ -123,12 +132,16 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         });
     }
 
-    #generatePrompt(type: string = "post"): void {
+    #getPromptData(): PromptData {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
+
+        let flavor = "";
+        let content = "";
+
         if (activeSkillSaveTab?.dataset.tab === "skills") {
             // get skill tags
             types.push(...this.#htmlQueryTags(html, "input#check-prompt-skills"));
@@ -152,18 +165,12 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         if (types.length > 0) {
             const titleEl = htmlQuery<HTMLInputElement>(html, "input#check-prompt-title");
-            const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
+            flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
-            if (type === "post") {
-                ChatMessagePF2e.create({ user: game.user.id, flavor, content });
-            } else if (type === "copy") {
-                const clipText = content.replace(/<\/?p>/g, " ").trim();
-                game.clipboard.copyPlainText(clipText);
-                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
-            }
+            content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
         }
+        return { flavor, content };
     }
 
     #htmlQueryTags(html: HTMLElement, selector: string): string[] {
