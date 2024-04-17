@@ -111,7 +111,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         // Setup buttons
         htmlQuery(html, "[data-action=post]")?.addEventListener("click", async () => {
-            this.#generatePrompt();
+            this.#generatePrompt("post");
+        });
+
+        htmlQuery(html, "[data-action=copy]")?.addEventListener("click", async () => {
+            this.#generatePrompt("copy");
         });
 
         htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
@@ -119,7 +123,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         });
     }
 
-    #generatePrompt(): void {
+    #generatePrompt(type: string = "post"): void {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
@@ -152,8 +156,13 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
             const dc = this.#getDC(html);
             const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
-
-            ChatMessagePF2e.create({ user: game.user.id, flavor, content });
+            if (type === "post") {
+                ChatMessagePF2e.create({ user: game.user.id, flavor, content: `<p>${content}</p>` });
+            } else if (type === "copy") {
+                const clipText = content;
+                game.clipboard.copyPlainText(clipText);
+                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            }
         }
     }
 
@@ -208,7 +217,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         ]
             .concat(...extras)
             .filter((p) => p);
-        return `<p>@Check[${parts.join("|")}]</p>`;
+        return `@Check[${parts.join("|")}]`;
     }
 }
 
