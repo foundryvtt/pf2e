@@ -117,14 +117,18 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         // Setup buttons
         htmlQuery(html, "[data-action=post]")?.addEventListener("click", async () => {
             const promptData = this.#getPromptData();
-            ChatMessagePF2e.create({ user: game.user.id, flavor: promptData.flavor, content: promptData.content });
+            if (promptData) {
+                ChatMessagePF2e.create({ user: game.user.id, flavor: promptData.flavor, content: promptData.content });
+            }
         });
 
         htmlQuery(html, "[data-action=copy]")?.addEventListener("click", async () => {
             const promptData = this.#getPromptData();
-            const clipText = promptData.content.replace(/<\/?p>/g, " ").trim();
-            game.clipboard.copyPlainText(clipText);
-            ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            if (promptData) {
+                const clipText = promptData.content.replace(/<\/?p>/g, " ").trim();
+                game.clipboard.copyPlainText(clipText);
+                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            }
         });
 
         htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
@@ -132,15 +136,12 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         });
     }
 
-    #getPromptData(): PromptData {
+    #getPromptData(): PromptData | null {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
-
-        let flavor = "";
-        let content = "";
 
         if (activeSkillSaveTab?.dataset.tab === "skills") {
             // get skill tags
@@ -165,12 +166,13 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         if (types.length > 0) {
             const titleEl = htmlQuery<HTMLInputElement>(html, "input#check-prompt-title");
-            flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
+            const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            return { flavor, content };
         }
-        return { flavor, content };
+        return null;
     }
 
     #htmlQueryTags(html: HTMLElement, selector: string): string[] {
