@@ -14,6 +14,7 @@ interface CheckPromptDialogOptions extends ApplicationOptions {
 interface CheckPromptDialogData {
     proficiencyRanks: SelectData[];
     dcAdjustments: SelectData[];
+    partyLevel: number | null;
 }
 
 interface SelectData {
@@ -53,6 +54,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         return {
             proficiencyRanks: this.#prepareProficiencyRanks(),
             dcAdjustments: this.#prepareDCAdjustments(),
+            partyLevel: game.actors.party?.level ?? null,
         };
     }
 
