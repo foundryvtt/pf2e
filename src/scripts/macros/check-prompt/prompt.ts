@@ -14,7 +14,7 @@ interface CheckPromptDialogOptions extends ApplicationOptions {
 interface CheckPromptDialogData {
     proficiencyRanks: SelectData[];
     dcAdjustments: SelectData[];
-    averageLevel: number;
+    partyLevel: number | null;
 }
 
 interface SelectData {
@@ -51,13 +51,10 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         this.#actions = await getActions();
         this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party?.members ?? []);
 
-        const actors = this.options.actors ?? game.actors.party?.members ?? [];
-        const averageLevel = actors.reduce((acc, actor) => acc + actor.level, 0) / actors.length;
-
         return {
             proficiencyRanks: this.#prepareProficiencyRanks(),
             dcAdjustments: this.#prepareDCAdjustments(),
-            averageLevel: Math.round(averageLevel),
+            partyLevel: game.actors.party?.level ?? null,
         };
     }
 
