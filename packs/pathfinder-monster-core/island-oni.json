@@ -115,7 +115,7 @@
                 }
             },
             "img": "icons/magic/water/wave-water-blue.webp",
-            "name": "Water Walk",
+            "name": "Water Walk (Constant)",
             "sort": 300000,
             "system": {
                 "area": null,
@@ -294,7 +294,7 @@
                 },
                 "damageRolls": {
                     "tjcf5lmdfjw0zdpyxzta": {
-                        "damage": "3d8+15",
+                        "damage": "3d8+10",
                         "damageType": "piercing"
                     },
                     "8fligepp7t2fztpgei7q": {
@@ -316,8 +316,7 @@
                     "rarity": "common",
                     "value": [
                         "magical",
-                        "reach-20",
-                        "unholy"
+                        "reach-20"
                     ]
                 },
                 "weaponType": {
@@ -329,24 +328,27 @@
         {
             "_id": "DryXaAfUqz1HN8lZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Fist",
+            "name": "Jaws",
             "sort": 600000,
             "system": {
                 "attack": {
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "improved-grab"
+                    ]
                 },
                 "bonus": {
                     "value": 33
                 },
                 "damageRolls": {
                     "qelgwtmhgaeagjvu9gby": {
-                        "damage": "3d8+15",
-                        "damageType": "bludgeoning"
+                        "damage": "3d6+10",
+                        "damageType": "piercing"
                     },
                     "kyjv886qocm6ft085ni8": {
+                        "category": "persistent",
                         "damage": "2d6",
                         "damageType": "electricity"
                     }
@@ -364,10 +366,8 @@
                 "traits": {
                     "rarity": "common",
                     "value": [
-                        "agile",
                         "magical",
-                        "reach-15",
-                        "unholy"
+                        "reach-15"
                     ]
                 },
                 "weaponType": {
@@ -379,7 +379,7 @@
         {
             "_id": "8qNsivFnCww0jFZo",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Electric Missile",
+            "name": "Thunderbolt",
             "sort": 700000,
             "system": {
                 "attack": {
@@ -399,7 +399,7 @@
                     }
                 },
                 "description": {
-                    "value": ""
+                    "value": "<p>(plus @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round)</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -413,8 +413,7 @@
                     "value": [
                         "electricity",
                         "magical",
-                        "range-increment-60",
-                        "unholy"
+                        "range-increment-60"
                     ]
                 },
                 "weaponType": {
@@ -776,7 +775,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The island oni fires a bolt of lightning into the air, which immediately roils with dark clouds. Rain falls in a 60-foot radius emanation, centered on the oni, for 1 minute, filling the air and pooling on the ground.</p>\n<p>Creatures in the aura gain weakness 10 to electricity, and the entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing, unless they also have a swim Speed.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Conductive Downpour]</p>"
+                    "value": "<p>The island oni fires a bolt of lightning into the air, which immediately roils with dark clouds. Rain falls in a @Template[type:emanation|distance:60]{60-foot radius emanation}, centered on the oni, for 1 minute, filling the air and pooling on the ground.</p>\n<p>Creatures in the aura gain weakness 10 to electricity, and the entire area is greater difficult terrain for Flying creatures, and difficult terrain for creatures on the ground or Climbing, unless they also have a swim Speed.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Conductive Downpour]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -896,10 +895,45 @@
             "type": "action"
         },
         {
+            "_id": "6nTCovyYhG00o6m8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 2000000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "jBm94o5VVoS6T03h",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -925,7 +959,7 @@
             "_id": "yBBRJMvPIRMMTO7z",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -951,7 +985,7 @@
             "_id": "KFrIa9XdpqJcOI2y",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2200000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -977,7 +1011,7 @@
             "_id": "ysH9ZLP3KzgWnYuJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2300000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1003,7 +1037,7 @@
             "_id": "v0d6yBRuTzXd8lR4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2400000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1067,14 +1101,7 @@
                     "type": "electricity"
                 }
             ],
-            "resistances": [
-                {
-                    "doubleVs": [],
-                    "exceptions": [],
-                    "type": "spirit",
-                    "value": 20
-                }
-            ],
+            "resistances": [],
             "speed": {
                 "details": "water walk",
                 "otherSpeeds": [
@@ -1088,7 +1115,14 @@
                     }
                 ],
                 "value": 40
-            }
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "spirit",
+                    "value": 20
+                }
+            ]
         },
         "details": {
             "blurb": "",
