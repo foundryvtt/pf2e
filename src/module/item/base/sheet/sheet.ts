@@ -122,7 +122,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
         return {
             itemType: null,
-            showTraits: this.validTraits !== null,
+            showTraits: !R.isEmpty(this.validTraits),
             sidebarTitle: game.i18n.format("PF2E.Item.SidebarSummary", {
                 type: game.i18n.localize(`TYPES.Item.${this.item.type}`),
             }),
