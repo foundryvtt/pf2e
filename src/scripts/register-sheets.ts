@@ -182,7 +182,7 @@ export function registerSheets(): void {
     });
 
     // USER
-    Users.unregisterSheet("core", UserConfig);
+    Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);
     Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,
         label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),
