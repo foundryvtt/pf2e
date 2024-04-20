@@ -96,6 +96,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this.document.sight.range >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
+    override initializeVisionSource(options?: { deleted?: boolean }): void {
+        super.initializeVisionSource(options);
+        if (!options?.deleted) {
+            this.hearing.initialize();
+        }
+    }
+
     isAdjacentTo(token: TokenPF2e): boolean {
         return this.distanceTo(token) === 5;
     }
@@ -507,11 +514,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super.render(renderer);
         if (!this.mesh) return;
 
-        const configuredTint = this.document.texture.tint ?? "#FFFFFF";
+        const configuredTint = this.document.texture.tint ?? Color.fromString("#FFFFFF");
         if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
             this.mesh.tint = 0;
-        } else if (this.mesh.tint === 0 && configuredTint !== "#000000" && !this.detectionFilter) {
-            this.mesh.tint = Number(Color.fromString(configuredTint));
+        } else if (this.mesh.tint === 0 && configuredTint.toString() !== "#000000" && !this.detectionFilter) {
+            this.mesh.tint = Number(configuredTint);
         }
     }
 
