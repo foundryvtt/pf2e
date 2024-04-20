@@ -315,7 +315,7 @@ class AttributeBuilder extends Application {
             input.addEventListener("blur", () => {
                 if (input.type === "number" && input.dataset.dtype === "Number") {
                     input.type = "text";
-                    const newValue = Math.clamped(Number(input.value) || 0, -5, 10);
+                    const newValue = Math.clamp(Number(input.value) || 0, -5, 10);
                     input.value = signedInteger(newValue);
 
                     const propertyPath = input.dataset.property;

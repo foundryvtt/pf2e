@@ -1268,7 +1268,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             switch (button.dataset.action) {
                 case "roll-attack": {
-                    const mapIncreases = Math.clamped(Number(button.dataset.mapIncreases) || 0, 0, 2);
+                    const mapIncreases = Math.clamp(Number(button.dataset.mapIncreases) || 0, 0, 2);
                     await blast.attack({ mapIncreases, element, damageType, melee, event });
                     break;
                 }
@@ -1339,11 +1339,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const newValue = ((): number | undefined => {
             if (item.isOfType("spellcastingEntry")) {
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
+                    "system.proficiency.value": () => Math.clamp(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
-                return Math.clamped(selectedValue, 0, 4);
+                return Math.clamp(selectedValue, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -1372,12 +1372,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (item.isOfType("spellcastingEntry")) {
                 const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
+                    "system.proficiency.value": () => Math.clamp(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
                 const currentRank = item.system.proficient.value;
-                return Math.clamped(currentRank + change, 0, 4);
+                return Math.clamp(currentRank + change, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }

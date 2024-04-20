@@ -163,13 +163,13 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     get handsFree(): ZeroToTwo {
         const heldItems = this.inventory.filter((i) => i.isHeld && i.type !== "shield" && !i.traits.has("free-hand"));
-        return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
     }
 
     /** The number of hands this PC "really" has free, ignoring allowances for shields and the Free-Hand trait */
     get handsReallyFree(): ZeroToTwo {
         const heldItems = this.inventory.filter((i) => i.isHeld);
-        return Math.clamped(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
+        return Math.clamp(2 - R.sumBy(heldItems, (i) => i.handsHeld), 0, 2) as ZeroToTwo;
     }
 
     override get hitPoints(): CharacterHitPointsSummary {
@@ -330,7 +330,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             (result, level) => {
                 const allowed = (() => {
                     if (this.level === 0 && level === 1) return 4;
-                    if (isGradual) return 4 - Math.clamped(level - this.level, 0, 4);
+                    if (isGradual) return 4 - Math.clamp(level - this.level, 0, 4);
                     return this.level >= level ? 4 : 0;
                 })();
 
@@ -421,7 +421,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Skills
         system.skills = R.mapToObj(SKILL_ABBREVIATIONS, (key) => {
-            const rank = Math.clamped(system.skills[key].rank || 0, 0, 4);
+            const rank = Math.clamp(system.skills[key].rank || 0, 0, 4);
             const attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
@@ -689,7 +689,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Resources
         const crafting = system.resources.crafting;
         crafting.infusedReagents.max = Math.floor(crafting.infusedReagents.max) || 0;
-        crafting.infusedReagents.value = Math.clamped(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
+        crafting.infusedReagents.value = Math.clamp(crafting.infusedReagents.value, 0, crafting.infusedReagents.max);
 
         // Set a roll option for whether this character has a familiar
         if (system.attributes.familiarAbilities.value > 0) {
@@ -733,7 +733,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Enforce a minimum of -5 for rolled scores and a maximum of 30 for homebrew "mythic" mechanics
         for (const attribute of Object.values(this.system.abilities)) {
-            attribute.mod = Math.clamped(attribute.mod, -5, 10);
+            attribute.mod = Math.clamp(attribute.mod, -5, 10);
             // Record base (integer) modifier: same as stored modifier if in manual mode, and prior to RE
             // modifications otherwise. The final prepared modifier is truncated after application of AE-likes.
             attribute.base = Math.trunc(attribute.mod);
@@ -1849,7 +1849,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (changed.system.details?.level || changed.system.build?.attributes) {
             const level = changed.system.details?.level;
             if (typeof level?.value === "number") {
-                level.value = Math.clamped(Number(level.value) || 0, 0, 30) || 0;
+                level.value = Math.clamp(Number(level.value) || 0, 0, 30) || 0;
             }
 
             // Adjust hit points if level is changing
@@ -1870,7 +1870,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (changed.system.resources?.crafting?.infusedReagents?.value !== undefined) {
             const infusedReagents = changed.system.resources.crafting.infusedReagents;
             const max = Math.max(0, this.system.resources.crafting.infusedReagents.max || 0);
-            infusedReagents.value = Math.clamped(Math.floor(infusedReagents.value) || 0, 0, max);
+            infusedReagents.value = Math.clamp(Math.floor(infusedReagents.value) || 0, 0, max);
         }
 
         // Clamp Stamina and Resolve
@@ -1879,7 +1879,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (changed.system.attributes?.hp?.sp) {
                 changed.system.attributes.hp.sp.value =
                     Math.floor(
-                        Math.clamped(
+                        Math.clamp(
                             changed.system.attributes.hp.sp?.value ?? 0,
                             0,
                             this.system.attributes.hp.sp?.max ?? 0,
@@ -1891,7 +1891,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             if (changed.system.resources?.resolve) {
                 changed.system.resources.resolve.value =
                     Math.floor(
-                        Math.clamped(
+                        Math.clamp(
                             changed.system.resources.resolve.value ?? 0,
                             0,
                             this.system.resources.resolve?.max ?? 0,
@@ -1931,7 +1931,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         for (const property of ["playerNumber", "characterNumber"] as const) {
             if (typeof changed.system.pfs?.[property] === "number") {
                 const [min, max] = property === "playerNumber" ? [1, 9_999_999] : [2001, 9999];
-                changed.system.pfs[property] = Math.clamped(changed.system.pfs[property] || 0, min, max);
+                changed.system.pfs[property] = Math.clamp(changed.system.pfs[property] || 0, min, max);
             } else if (changed.system.pfs && changed.system.pfs[property] !== null) {
                 changed.system.pfs[property] = this.system.pfs[property] ?? null;
             }

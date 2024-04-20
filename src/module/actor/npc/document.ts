@@ -97,7 +97,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
         const level = details.level;
-        level.base = Math.clamped(level.value, -1, 100);
+        level.base = Math.clamp(level.value, -1, 100);
 
         // Elite: Increase the creature's level by 1; if the creature is -1 or 0, instead increase its level by 2
         // Weak : Decrease the creature's level by 1; if the creature is level 1, instead decrease its level by 2

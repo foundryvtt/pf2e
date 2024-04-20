@@ -220,7 +220,7 @@ function highlightGrid({
     })();
 
     // Point we are measuring distances from
-    const padding = Math.clamped(document.width ?? 0, 1.5, 2);
+    const padding = Math.clamp(document.width ?? 0, 1.5, 2);
     const docDistance = document.distance ?? 0;
     const padded = (docDistance * padding) / dimensions.distance;
     const rowCount = Math.ceil(padded / (dimensions.size / grid.h));

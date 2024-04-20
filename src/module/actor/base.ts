@@ -1491,7 +1491,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const appliedToHP = ((): number => {
             const remaining = delta - appliedToTemp - appliedToSP;
-            updates["system.attributes.hp.value"] = Math.clamped(hp.value - remaining, 0, hp.max);
+            updates["system.attributes.hp.value"] = Math.clamp(hp.value - remaining, 0, hp.max);
             return remaining;
         })();
         const totalApplied = appliedToTemp + appliedToSP + appliedToHP;
@@ -1620,7 +1620,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 const currentValue = existing._source.system.value.value;
                 if (currentValue === null) return null;
                 const addend = value ?? 1;
-                return Math.clamped(currentValue + addend, 1, max);
+                return Math.clamp(currentValue + addend, 1, max);
             })();
             if (!newValue) return null;
             await game.pf2e.ConditionManager.updateConditionValue(existing.id, this, newValue);
@@ -1629,7 +1629,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const conditionSource = game.pf2e.ConditionManager.getCondition(conditionSlug).toObject();
             const conditionValue =
                 typeof conditionSource.system.value.value === "number" && max
-                    ? Math.clamped(conditionSource.system.value.value, value ?? 1, max)
+                    ? Math.clamp(conditionSource.system.value.value, value ?? 1, max)
                     : null;
             conditionSource.system.value.value = conditionValue;
             const items = (await this.createEmbeddedDocuments("Item", [conditionSource])) as ConditionPF2e<this>[];
