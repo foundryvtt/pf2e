@@ -310,7 +310,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
             .map((e) => new TokenEffect(e));
 
-        return R.uniqBy(
+        return R.uniqueBy(
             [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
             (e) => e.icon,
         );

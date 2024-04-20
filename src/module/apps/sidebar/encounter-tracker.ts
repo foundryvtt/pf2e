@@ -202,7 +202,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
             const userIndicators = usersTargetting.map((user): HTMLElement => {
                 const icon = fontAwesomeIcon("location-crosshairs", { style: "duotone", fixedWidth: true });
-                icon.style.color = user.color;
+                icon.style.color = user.color.toString();
                 return icon;
             });
 

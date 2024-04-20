@@ -212,6 +212,13 @@ declare global {
         updateLightSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
 
         /**
+         * Update the VisionSource instance associated with this Token.
+         * @param {object} [options]        Options which affect how the vision source is updated
+         * @param {boolean} [options.deleted]   Indicate that this vision source has been deleted.
+         */
+        initializeVisionSource(options?: { deleted?: boolean }): void;
+
+        /**
          * Update an Token vision source associated for this token.
          * @param [defer]         Defer refreshing the LightingLayer to manually call that refresh later.
          * @param [deleted]       Indicate that this vision source has been deleted.

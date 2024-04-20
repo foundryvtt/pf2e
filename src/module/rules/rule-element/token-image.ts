@@ -43,7 +43,7 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: HexColorString } = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: Color } = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;

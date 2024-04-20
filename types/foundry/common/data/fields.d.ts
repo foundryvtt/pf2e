@@ -1,4 +1,5 @@
 import type * as abstract from "../abstract/module.d.ts";
+import type Color from "../utils/color.d.ts";
 import type { TombstoneDataSchema } from "./data.d.ts";
 import type { DataModelValidationFailure } from "./validation-failure.d.ts";
 
@@ -832,7 +833,7 @@ export class ColorField<
     TRequired extends boolean = false,
     TNullable extends boolean = true,
     THasInitial extends boolean = true,
-> extends StringField<HexColorString, HexColorString, TRequired, TNullable, THasInitial> {
+> extends StringField<HexColorString, Color, TRequired, TNullable, THasInitial> {
     protected static override get _defaults(): StringFieldOptions<HexColorString, boolean, boolean, boolean>;
 
     protected override _validateType(value: unknown): boolean;
