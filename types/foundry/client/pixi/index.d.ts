@@ -54,6 +54,7 @@ import {
 } from "pixi.js";
 import "./board.d.ts";
 import "./core/index.d.ts";
+import "./fog-manager.d.ts";
 import "./groups/index.d.ts";
 import "./layers/index.d.ts";
 import "./perception/index.d.ts";

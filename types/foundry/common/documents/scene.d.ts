@@ -102,29 +102,10 @@ type SceneSchema = {
 
     /** Do Tokens require vision in order to see the Scene environment? */
     tokenVision: fields.BooleanField;
-    /** Should fog exploration progress be tracked for this Scene? */
-    fogExploration: fields.BooleanField;
-    /** The timestamp at which fog of war was last reset for this Scene. */
-    fogReset: fields.NumberField<number, number, false, false, true>;
-    /** Is a global source of illumination present which provides dim light to all areas of the Scene? */
-    globalLight: fields.BooleanField;
-    /**
-     * A darkness threshold between 0 and 1. When the Scene darkness level exceeds this threshold Global Illumination
-     * is automatically disabled
-     */
-    globalLightThreshold: fields.AlphaField<true, true, true>;
-    /**
-     * The ambient darkness level in this Scene, where 0 represents midday (maximum illumination) and 1 represents
-     * midnight (maximum darkness)
-     */
-    darkness: fields.AlphaField;
+    fog: fields.SchemaField<FogSchema>;
 
-    /** A special overlay image or video texture which is used for fog of war */
-    fogOverlay: fields.FilePathField<ImageFilePath | VideoFilePath>;
-    /** A color tint applied to explored regions of fog of war */
-    fogExploredColor: fields.ColorField;
-    /** A color tint applied to unexplored regions of fog of war */
-    fogUnexploredColor: fields.ColorField;
+    // Environment Configuration
+    environment: fields.SchemaField<EnvironmentSchema>;
 
     // Embedded Collections
 
@@ -189,6 +170,47 @@ type GridDataSchema = {
     units: fields.StringField<string, string, true, false, true>;
 };
 
+type FogSchema = {
+    exploration: fields.BooleanField;
+    reset: fields.NumberField;
+    overlay: fields.FilePathField;
+    colors: fields.SchemaField<{
+        explored: fields.ColorField;
+        unexplored: fields.ColorField;
+    }>;
+};
+
+type EnvironmentSchema = {
+    darknessLevel: fields.AlphaField;
+    darknessLock: fields.BooleanField;
+    /** Is a global source of illumination present which provides dim light to all areas of the Scene? */
+    globalLight: fields.SchemaField<GlobalLightSchema>;
+    cycle: fields.BooleanField;
+    base: fields.SchemaField<EnvironmentDataSchema>;
+    dark: fields.SchemaField<EnvironmentDataSchema>;
+};
+
+type EnvironmentDataSchema = {
+    hue: fields.HueField;
+    intensity: fields.AlphaField;
+    luminosity: fields.NumberField<number, number, true>;
+    saturation: fields.NumberField<number, number, true>;
+    shadows: fields.NumberField<number, number, true>;
+};
+
+type GlobalLightSchema = {
+    enabled: fields.BooleanField;
+    alpha: data.LightDataSchema["alpha"];
+    bright: fields.BooleanField;
+    color: data.LightDataSchema["color"];
+    coloration: data.LightDataSchema["coloration"];
+    luminosity: data.LightDataSchema["luminosity"];
+    saturation: data.LightDataSchema["saturation"];
+    contrast: data.LightDataSchema["contrast"];
+    shadows: data.LightDataSchema["shadows"];
+    darkness: data.LightDataSchema["darkness"];
+};
+
 type SceneSource = SourceFromSchema<SceneSchema>;
 
 declare global {
@@ -207,4 +229,6 @@ declare global {
         size: number;
         width: number;
     }
+
+    export type EnvironmentDataSource = SourceFromSchema<EnvironmentSchema>;
 }

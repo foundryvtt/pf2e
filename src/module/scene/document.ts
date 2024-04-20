@@ -27,7 +27,7 @@ class ScenePF2e extends Scene {
     }
 
     get lightLevel(): number {
-        return 1 - this.darkness;
+        return 1 - this.environment.darknessLevel;
     }
 
     get isBright(): boolean {
@@ -82,8 +82,8 @@ class ScenePF2e extends Scene {
         );
 
         if (this.rulesBasedVision) {
-            this.globalLight = true;
-            this.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
+            this.environment.globalLight.enabled = true;
+            this.environment.globalLight.darkness.max = 1 - (LightLevels.DARKNESS + 0.001);
         }
     }
 

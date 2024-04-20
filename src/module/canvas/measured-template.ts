@@ -39,7 +39,7 @@ class MeasuredTemplatePF2e<
 
         // Refrain from highlighting if not visible
         if (!this.isVisible) {
-            canvas.grid.getHighlightLayer(this.highlightId)?.clear();
+            canvas.interface.grid.getHighlightLayer(this.highlightId)?.clear();
             return;
         }
 
@@ -48,8 +48,9 @@ class MeasuredTemplatePF2e<
             areaShape: this.areaShape,
             object: this,
             document: this.document,
-            colors: { border: this.borderColor, fill: this.fillColor },
+            colors: { border: Number(this.document.borderColor), fill: Number(this.document.fillColor) },
             preview: true,
+            snappingMode: this.layer.snappingMode,
         });
     }
 

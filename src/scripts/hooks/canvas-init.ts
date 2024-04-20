@@ -1,11 +1,11 @@
 export const CanvasInit = {
     listen: (): void => {
-        Hooks.on("canvasInit", async (canvas) => {
+        Hooks.on("canvasInit", async (_canvas) => {
             /**
              * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
              * Double every other diagonal movement
              */
-            SquareGrid.prototype.measureDistances = function measureDistances(
+            /* SquareGrid.prototype.measureDistances = function measureDistances(
                 segments: Segment[],
                 options: MeasureDistancesOptions = {},
             ) {
@@ -32,7 +32,7 @@ export const CanvasInit = {
                     const spaces = nd10 * 2 + (nd - nd10) + ns;
                     return spaces * canvas.dimensions.distance;
                 });
-            };
+            };*/
         });
     },
 };
