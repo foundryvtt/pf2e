@@ -26,6 +26,7 @@ import "./client/config.d.ts";
 import "./client/core/index.d.ts";
 import "./client/data/index.d.ts";
 import "./client/game.d.ts";
+import "./client/index.d.ts";
 import "./client/keyboard/index.d.ts";
 import "./client/misc.d.ts";
 import "./client/pixi/canvas-layer/base.d.ts";
