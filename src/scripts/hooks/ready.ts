@@ -106,13 +106,6 @@ export const Ready = {
                 canvas.colorManager.initialize();
             }
 
-            // Sort item types for display in sidebar create-item dialog
-            game.system.documentTypes.Item.sort((typeA, typeB) => {
-                return game.i18n
-                    .localize(CONFIG.Item.typeLabels[typeA] ?? "")
-                    .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
-            });
-
             game.pf2e.system.moduleArt.refresh().then(() => {
                 if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
                     // For some reason, Babele calls its own "ready" hook twice, and only the second one is genuine.

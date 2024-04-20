@@ -5,7 +5,7 @@ import { ActorPF2e } from "./base.ts";
 export class TokenEffect implements TemporaryEffect {
     #effect: AbstractEffectPF2e<ActorPF2e>;
 
-    tint: HexColorString | null = null;
+    tint: Color | null = null;
 
     readonly isTemporary = true;
 

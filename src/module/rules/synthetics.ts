@@ -21,6 +21,7 @@ import type { MaterialDamageEffect } from "@system/damage/types.ts";
 import type { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import type { Predicate } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/index.ts";
+import type { TokenSource } from "types/foundry/common/documents/token.d.ts";
 import type { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
 import type { Suboption } from "./rule-element/roll-option/data.ts";
 
@@ -53,10 +54,10 @@ interface RuleElementSynthetics {
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: TokenEffect[];
     tokenMarks: Map<TokenDocumentUUID, string>;
-    tokenOverrides: DeepPartial<Pick<foundry.documents.TokenSource, "light" | "name" | "alpha">> & {
+    tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name" | "alpha">> & {
         texture?:
-            | { src: VideoFilePath; tint?: HexColorString }
-            | { src: VideoFilePath; tint?: HexColorString; scaleX: number; scaleY: number };
+            | { src: VideoFilePath; tint?: Color }
+            | { src: VideoFilePath; tint?: Color; scaleX: number; scaleY: number };
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
 }

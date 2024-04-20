@@ -4,7 +4,7 @@ import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import * as R from "remeda";
 
-class ClientDatabaseBackendPF2e extends ClientDatabaseBackend {
+class ClientDatabaseBackendPF2e extends foundry.data.ClientDatabaseBackend {
     protected override async _getDocuments(
         documentClass: typeof foundry.abstract.Document,
         context: DatabaseBackendGetContext,
