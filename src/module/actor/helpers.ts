@@ -94,7 +94,7 @@ function userColorForActor(actor: ActorPF2e): HexColorString {
         game.users.find((u) => u.character === actor) ??
         game.users.players.find((u) => actor.testUserPermission(u, "OWNER")) ??
         actor.primaryUpdater;
-    return user?.color ?? "#43dfdf";
+    return user?.color.toString() ?? "#43dfdf";
 }
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
