@@ -359,8 +359,8 @@ function parseTermsFromSimpleFormula(
             }
 
             result.unshift({
-                modifier: term instanceof NumericTerm ? term.number : 0,
-                dice: term instanceof Die ? { faces: term.faces, number: term.number } : null,
+                modifier: term instanceof foundry.dice.terms.NumericTerm ? term.number : 0,
+                dice: term instanceof foundry.dice.terms.Die ? { faces: term.faces, number: term.number } : null,
             });
 
             return result;

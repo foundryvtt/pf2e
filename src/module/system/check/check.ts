@@ -23,6 +23,7 @@ import {
     traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
+import type { Die } from "types/foundry/client/roll-term/dice-term/die.d.ts";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -594,7 +595,7 @@ class CheckPF2e {
      * @param isOld This is the old roll render, so remove damage or other buttons
      */
     static async renderReroll(roll: Rolled<Roll>, { isOld }: { isOld: boolean }): Promise<string> {
-        const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
+        const die = roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
         const html = await roll.render();
