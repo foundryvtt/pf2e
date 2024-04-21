@@ -151,10 +151,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = this.bounds;
         if (this.width < 1) {
-            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            const position = canvas.grid.getTopLeftPoint({
+                x: bounds.x + bounds.width / 2,
+                y: bounds.y + bounds.height / 2,
+            });
             return new PIXI.Rectangle(
-                position[0],
-                position[1],
+                position.x,
+                position.y,
                 Math.max(canvas.grid.size, bounds.width),
                 Math.max(canvas.grid.size, bounds.height),
             );

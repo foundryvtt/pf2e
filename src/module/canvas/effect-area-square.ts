@@ -22,7 +22,7 @@ export class EffectAreaSquare extends PIXI.Rectangle {
         if (this.x < 0 || this.y < 0) return;
 
         if (this.active) {
-            canvas.grid.grid.highlightGridPosition(layer, {
+            canvas.interface.grid.highlightPosition(layer.name, {
                 x: this.x,
                 y: this.y,
                 border: border?.color,
@@ -30,7 +30,7 @@ export class EffectAreaSquare extends PIXI.Rectangle {
                 alpha: highlight.alpha,
             });
         } else {
-            canvas.grid.grid.highlightGridPosition(layer, {
+            canvas.interface.grid.highlightPosition(layer.name, {
                 x: this.x,
                 y: this.y,
                 border: 0x000000,
