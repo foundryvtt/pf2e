@@ -32,11 +32,11 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
         const rollData = { ...item.getRollData(), ...this.actor?.getRollData() };
         sheetData.enrichedContent.unidentifiedDescription = await TextEditor.enrichHTML(
             sheetData.item.system.identification.unidentified.data.description.value,
-            { rollData, async: true },
+            { rollData },
         );
         const activations: PhysicalItemSheetData<TItem>["activations"] = [];
         for (const action of item.activations) {
-            const description = await TextEditor.enrichHTML(action.description.value, { rollData, async: true });
+            const description = await TextEditor.enrichHTML(action.description.value, { rollData });
             activations.push({
                 action,
                 id: action.id,

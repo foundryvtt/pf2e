@@ -37,7 +37,7 @@ async function prepStrings(costs: Costs, item: PhysicalItemPF2e) {
         lostMaterials: game.i18n.format("PF2E.Actions.Craft.Details.LostMaterials", {
             cost: costs.lostMaterials.toString(),
         }),
-        itemLink: await TextEditor.enrichHTML(item.link, { rollData, async: true }),
+        itemLink: await TextEditor.enrichHTML(item.link, { rollData }),
     };
 }
 
