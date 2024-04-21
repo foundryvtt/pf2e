@@ -42,16 +42,10 @@ declare class MeasuredTemplate<
     /*  Properties                                  */
     /* -------------------------------------------- */
 
+    /** A convenient reference for whether the current User is the author of the MeasuredTemplate document. */
+    get isAuthor(): boolean;
+
     override get bounds(): PIXI.Rectangle;
-
-    /** A convenience accessor for the border color as a numeric hex code */
-    get borderColor(): number;
-
-    /** A convenience accessor for the fill color as a numeric hex code */
-    get fillColor(): number;
-
-    /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
-    get owner(): boolean;
 
     /** Is this MeasuredTemplate currently visible on the Canvas? */
     get isVisible(): boolean;
@@ -76,7 +70,22 @@ declare class MeasuredTemplate<
 
     protected override _applyRenderFlags(flags: { [K in keyof typeof MeasuredTemplate.RENDER_FLAGS]?: boolean }): void;
 
+    /**
+     * Refresh the displayed state of the MeasuredTemplate.
+     * This refresh occurs when the user interaction state changes.
+     */
+    protected _refreshState(): void;
+
+    /** Refresh the elevation of the control icon. */
+    protected _refreshElevation(): void;
+
     protected override _getTargetAlpha(): number;
+
+    /** Refresh the position of the MeasuredTemplate */
+    protected _refreshPosition(): void;
+
+    /** Refresh the underlying geometric shape of the MeasuredTemplate. */
+    protected _refreshShape(): void;
 
     /**
      * Compute the geometry for the template using its document data.
@@ -94,16 +103,13 @@ declare class MeasuredTemplate<
     static getCircleShape(distance: number): PIXI.Circle;
 
     /** Get a Conical area of effect given a direction, angle, and distance */
-    static getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
+    static getConeShape(distance: number, direction: number, angle: number): PIXI.Polygon;
 
     /** Get a Rectangular area of effect given a width and height */
-    static getRectShape(direction: number, distance: number): PIXI.Rectangle;
+    static getRectShape(distance: number, direction: number): PIXI.Rectangle;
 
     /** Get a rotated Rectangular area of effect given a width, height, and direction */
-    static getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
-
-    /** Draw the rotation control handle and assign event listeners */
-    protected _drawRotationHandle(radius: number): void;
+    static getRayShape(distance: number, direction: number, width: number): PIXI.Polygon;
 
     /** Update the displayed ruler tooltip text */
     protected _refreshRulerText(): void;
@@ -124,17 +130,7 @@ declare class MeasuredTemplate<
     override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
 
     /* -------------------------------------------- */
-    /*  Interactivity                               */
-    /* -------------------------------------------- */
-
-    protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
-
-    protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
-
-    protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
-
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers               */
+    /*  Document Event Handlers                     */
     /* -------------------------------------------- */
 
     protected override _onUpdate(
@@ -143,7 +139,19 @@ declare class MeasuredTemplate<
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+    /* -------------------------------------------- */
+    /*  Interactivity                               */
+    /* -------------------------------------------- */
+
+    protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
+
+    protected override _canHUD(user: User, event?: PIXI.FederatedEvent): boolean;
+
+    protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
+
+    protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
+
+    protected override _onClickRight(event: PIXI.FederatedPointerEvent): void;
 }
 
 declare interface MeasuredTemplate<
