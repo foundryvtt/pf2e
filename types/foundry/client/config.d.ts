@@ -1,4 +1,5 @@
 import type * as TinyMCE from "tinymce";
+import type * as terms from "./roll-term/terms.d.ts";
 
 declare global {
     interface Config<
@@ -492,15 +493,15 @@ declare global {
 
         /** Configuration for dice rolling behaviors in the Foundry VTT client */
         Dice: {
-            types: (typeof Die | typeof DiceTerm)[];
+            types: (typeof terms.Die | typeof terms.DiceTerm)[];
             rollModes: Record<RollMode, string>;
             rolls: ConstructorOf<Roll>[];
-            termTypes: Record<string, ConstructorOf<RollTerm> & { fromData(data: object): RollTerm }>;
+            termTypes: Record<string, ConstructorOf<terms.RollTerm> & { fromData(data: object): terms.RollTerm }>;
             terms: {
-                c: typeof Coin;
-                d: typeof Die;
-                f: typeof FateDie;
-                [key: string]: ConstructorOf<DiceTerm>;
+                c: typeof terms.Coin;
+                d: typeof terms.Die;
+                f: typeof terms.FateDie;
+                [key: string]: ConstructorOf<terms.DiceTerm>;
             };
             randomUniform: Function;
         };

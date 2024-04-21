@@ -4,6 +4,7 @@ import type { ItemPF2e } from "@item";
 import { extractDamageAlterations } from "@module/rules/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
+import type { Die, NumericTerm, RollTerm } from "types/foundry/client/roll-term/terms.d.ts";
 import { combinePartialTerms } from "./formula.ts";
 import { DamageInstance, DamageRoll } from "./roll.ts";
 import { ArithmeticExpression, Grouping, IntermediateDie } from "./terms.ts";
@@ -198,7 +199,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         }
 
         // Handle Die and Intermediate Die terms
-        if (expression instanceof Die) {
+        if (expression instanceof foundry.dice.terms.Die) {
             return [{ dice: R.pick(expression, ["number", "faces"]), modifier: 0, category }];
         } else if (expression instanceof IntermediateDie) {
             if (typeof expression.number !== "number" || typeof expression.faces !== "number") {
@@ -308,7 +309,7 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
     }
 
     const shouldPreserve = (t: RollTerm) =>
-        !t.isDeterministic || t instanceof NumericTerm || isUnsimplifableArithmetic(t);
+        !t.isDeterministic || t instanceof foundry.dice.terms.NumericTerm || isUnsimplifableArithmetic(t);
     if (shouldPreserve(term) || (term instanceof Grouping && shouldPreserve(term.term))) {
         return term;
     }
@@ -318,7 +319,7 @@ function simplifyTerm<T extends RollTerm>(term: T): T | Die | NumericTerm {
         if (typeof total !== "number" || Number.isNaN(total)) {
             throw Error(`Unable to evaluate deterministic term: ${term.expression}`);
         }
-        return NumericTerm.fromData({
+        return foundry.dice.terms.NumericTerm.fromData({
             class: "NumericTerm",
             number: total,
             evaluated: term._evaluated,
@@ -358,13 +359,16 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
         roll instanceof DamageRoll && roll.instances[0]?.head instanceof IntermediateDie
             ? roll.instances[0]?.head
             : null;
-    if (firstTerm?.faces instanceof NumericTerm && [4, 8, 6, 10, 12].includes(firstTerm.faces.number)) {
+    if (
+        firstTerm?.faces instanceof foundry.dice.terms.NumericTerm &&
+        [4, 8, 6, 10, 12].includes(firstTerm.faces.number)
+    ) {
         return fontAwesomeIcon(`dice-d${firstTerm.faces.number}`, { fixedWidth });
     }
 
     const firstDice = roll.dice.at(0);
     const glyph =
-        firstDice instanceof Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
+        firstDice instanceof foundry.dice.terms.Die && [4, 8, 6, 10, 12].includes(firstDice.faces)
             ? `dice-d${firstDice.faces}`
             : firstDice
               ? "dice-d20"
@@ -374,9 +378,9 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
 }
 
 export {
-    DamageCategorization,
     applyBaseDamageAlterations,
     applyDamageDiceOverrides,
+    DamageCategorization,
     damageDiceIcon,
     damageDieSizeToFaces,
     deepFindTerms,
