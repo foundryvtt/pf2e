@@ -124,7 +124,7 @@ export const Load = {
         if (import.meta.hot) {
             import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
                 const lang = await fu.fetchJsonWithTimeout(path);
-                if (!R.isObject(lang)) {
+                if (!R.isPlainObject(lang)) {
                     ui.notifications.error(`Failed to load ${path}`);
                     return;
                 }
@@ -141,7 +141,7 @@ export const Load = {
 
             import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
                 const apply = async (): Promise<void> => {
-                    delete _templateCache[path];
+                    delete Handlebars.partials[path];
                     await getTemplate(path);
                     rerenderApps(path);
                 };
