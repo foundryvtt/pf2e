@@ -74,6 +74,7 @@ type LightDataSchema = {
     /** A darkness range (min and max) for which the source should be active */
     darkness: fields.SchemaField<{
         min: fields.AlphaField;
+        max: fields.AlphaField;
         speed: fields.AlphaField;
     }>;
 };

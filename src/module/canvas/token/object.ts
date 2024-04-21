@@ -2,6 +2,7 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
+import type { GridMeasurePathWaypoint } from "types/foundry/client/pixi/grid/base.d.ts";
 import { measureDistanceCuboid, type CanvasPF2e, type TokenLayerPF2e } from "../index.ts";
 import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
@@ -35,12 +36,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this.document.hidden && !game.user.isGM) return false;
 
         // Some tokens are always visible
-        if (!canvas.effects.visibility.tokenVision || this.controlled) return true;
+        if (!canvas.visibility.tokenVision || this.controlled) return true;
 
         // Otherwise, test visibility against current sight polygons
         if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
         const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
-        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
+        return canvas.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
@@ -77,10 +78,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = super.bounds;
         if (this.document.width < 1) {
-            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            const position = canvas.grid.getTopLeftPoint({
+                x: bounds.x + bounds.width / 2,
+                y: bounds.y + bounds.height / 2,
+            });
             return new PIXI.Rectangle(
-                position[0],
-                position[1],
+                position.x,
+                position.y,
                 Math.max(canvas.grid.size, bounds.width),
                 Math.max(canvas.grid.size, bounds.height),
             );
@@ -453,7 +457,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this === target) return 0;
 
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-            return canvas.grid.measureDistance(this.position, target.position);
+            const waypoints: GridMeasurePathWaypoint[] = [
+                { x: this.x, y: this.y },
+                { x: target.x, y: target.y },
+            ];
+            return canvas.grid.measurePath(waypoints).distance;
         }
 
         const selfElevation = this.document.elevation;
