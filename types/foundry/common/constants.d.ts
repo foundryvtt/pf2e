@@ -182,6 +182,18 @@ export const FOLDER_MAX_DEPTH: 3;
 /** A list of allowed game URL names */
 export const GAME_VIEWS: ["game", "stream"];
 
+/** The directions of movement. */
+export const MOVEMENT_DIRECTIONS: {
+    UP: 0x1;
+    DOWN: 0x2;
+    LEFT: 0x4;
+    RIGHT: 0x8;
+    UP_LEFT: 0x1 | 0x4;
+    UP_RIGHT: 0x1 | 0x8;
+    DOWN_LEFT: 0x2 | 0x4;
+    DOWN_RIGHT: 0x2 | 0x8;
+};
+
 /** The minimum allowed grid size which is supported by the software */
 export const GRID_MIN_SIZE: 50;
 
@@ -193,6 +205,52 @@ export const GRID_TYPES: {
     HEXEVENR: 3;
     HEXODDQ: 4;
     HEXEVENQ: 5;
+};
+
+export const GRID_SNAPPING_MODES: {
+    /** Nearest center point. */
+    CENTER: 0x1;
+    /** Nearest edge midpoint. */
+    EDGE_MIDPOINT: 0x2;
+    /** Nearest top-left vertex. */
+    TOP_LEFT_VERTEX: 0x10;
+    /** Nearest top-right vertex. */
+    TOP_RIGHT_VERTEX: 0x20;
+    /** Nearest bottom-left vertex. */
+    BOTTOM_LEFT_VERTEX: 0x40;
+    /** Nearest bottom-right vertex. */
+    BOTTOM_RIGHT_VERTEX: 0x80;
+    /**
+     *  Nearest vertex.
+     *  Alias for `TOP_LEFT_VERTEX | TOP_RIGHT_VERTEX | BOTTOM_LEFT_VERTEX | BOTTOM_RIGHT_VERTEX`.
+     */
+    VERTEX: 0xf0;
+    /** Nearest top-left corner. */
+    TOP_LEFT_CORNER: 0x100;
+    /** Nearest top-right corner. */
+    TOP_RIGHT_CORNER: 0x200;
+    /** Nearest bottom-left corner. */
+    BOTTOM_LEFT_CORNER: 0x400;
+    /** Nearest bottom-right corner. */
+    BOTTOM_RIGHT_CORNER: 0x800;
+    /**
+     * Nearest corner.
+     * Alias for `TOP_LEFT_CORNER | TOP_RIGHT_CORNER | BOTTOM_LEFT_CORNER | BOTTOM_RIGHT_CORNER`.
+     */
+    CORNER: 0xf00;
+    /** Nearest top side midpoint. */
+    TOP_SIDE_MIDPOINT: 0x1000;
+    /** Nearest bottom side midpoint. */
+    BOTTOM_SIDE_MIDPOINT: 0x2000;
+    /** Nearest left side midpoint. */
+    LEFT_SIDE_MIDPOINT: 0x4000;
+    /** Nearest right side midpoint. */
+    RIGHT_SIDE_MIDPOINT: 0x8000;
+    /**
+     * Nearest side midpoint.
+     * Alias for `TOP_SIDE_MIDPOINT | BOTTOM_SIDE_MIDPOINT | LEFT_SIDE_MIDPOINT | RIGHT_SIDE_MIDPOINT`.
+     */
+    SIDE_MIDPOINT: 0xf000;
 };
 
 /** A list of supported setup URL names */

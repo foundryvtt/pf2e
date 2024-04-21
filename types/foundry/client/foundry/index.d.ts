@@ -11,3 +11,7 @@ export * as utils from "../../common/utils/module.ts";
 export * as applications from "./applications/index.ts";
 /** Data schema definitions for data models. */
 export * as data from "./data/index.ts";
+/** Canvas class definitions */
+export * as canvas from "../pixi/module.ts";
+/** Grid class definitions */
+export * as grid from "../pixi/grid/module.ts";
