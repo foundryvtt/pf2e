@@ -1,3 +1,5 @@
+import type { PolygonVertex } from "../edges/vertex.d.ts";
+
 export {};
 
 declare global {
