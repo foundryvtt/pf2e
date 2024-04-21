@@ -176,7 +176,7 @@ class DicePF2e {
     }
 
     alter(add: number, multiply: number): this {
-        const rgx = new RegExp(DiceTerm.REGEXP, "g");
+        const rgx = new RegExp(foundry.dice.terms.DiceTerm.REGEXP, "g");
         if (this._rolled) throw ErrorPF2e("You may not alter a Roll which has already been rolled");
 
         // Update dice roll terms
@@ -202,7 +202,12 @@ function simplifyFormula(formula: string): string {
     const fixedFormula = formula.replace(/^\s*-\s+/, "-").replace(/\s*\+\s*-\s*/g, " - ");
     const roll = new Roll(fixedFormula);
     if (
-        !roll.terms.every((t) => [" - ", " + "].includes(t.expression) || t instanceof Die || t instanceof NumericTerm)
+        !roll.terms.every(
+            (t) =>
+                [" - ", " + "].includes(t.expression) ||
+                t instanceof foundry.dice.terms.Die ||
+                t instanceof foundry.dice.terms.NumericTerm,
+        )
     ) {
         // This isn't a simple summing of dice: return the roll without further changes
         return fixedFormula;

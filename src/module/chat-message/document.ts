@@ -28,7 +28,10 @@ class ChatMessagePF2e extends ChatMessage {
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
         const firstRoll = this.rolls.at(0);
-        if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
+        if (
+            !firstRoll ||
+            firstRoll.terms.some((t) => t instanceof foundry.dice.terms.FateDie || t instanceof foundry.dice.terms.Coin)
+        ) {
             return false;
         }
 

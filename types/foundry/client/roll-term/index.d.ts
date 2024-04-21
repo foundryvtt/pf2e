@@ -3,7 +3,7 @@ import "./dice-term/base.d.ts";
 import "./dice-term/coin.d.ts";
 import "./dice-term/die.d.ts";
 import "./dice-term/fate-die.d.ts";
-import "./math-term.d.ts";
+import "./function-term.js";
 import "./numeric-term.d.ts";
 import "./operator-term.d.ts";
 import "./parenthetical-term.d.ts";
