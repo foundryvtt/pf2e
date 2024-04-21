@@ -49,7 +49,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         // Enrich content
         const rollData = this.actor.getRollData();
         const enrich = async (content?: string): Promise<string> => {
-            return TextEditor.enrichHTML(content ?? "", { rollData, async: true });
+            return TextEditor.enrichHTML(content ?? "", { rollData });
         };
 
         sheetData.enrichedContent = fu.mergeObject(sheetData.enrichedContent, {
@@ -61,14 +61,10 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         });
 
         const strikesWithDescriptions: (StrikeData & { damageFormula?: string })[] = system.actions;
-        const actorRollData = actor.getRollData();
         for (const attack of strikesWithDescriptions) {
-            const itemRollData = attack.item.getRollData();
             if (attack.description.length > 0) {
-                attack.description = await TextEditor.enrichHTML(attack.description, {
-                    rollData: { ...actorRollData, ...itemRollData },
-                    async: true,
-                });
+                const rollData = attack.item.getRollData();
+                attack.description = await TextEditor.enrichHTML(attack.description, { rollData });
             }
             attack.damageFormula = String(await attack.damage?.({ getFormula: true }));
         }

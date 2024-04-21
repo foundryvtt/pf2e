@@ -60,11 +60,9 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
             rollData,
             secrets: this.actor.isOwner,
-            async: true,
         });
         sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
             rollData,
-            async: true,
         });
 
         sheetData.traitTagifyData = createTagifyTraits(this.actor.system.traits.value, {
@@ -304,7 +302,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
                     );
                     const rollData = item.getRollData();
-                    const description = await TextEditor.enrichHTML(item.description, { rollData, async: true });
+                    const description = await TextEditor.enrichHTML(item.description, { rollData });
                     const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
                     const effects = ((): string => {
                         const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));

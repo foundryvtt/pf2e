@@ -149,7 +149,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     selected,
                     active: getActiveForCategory(category),
                     buildEntry,
-                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link, { async: true }) : null,
+                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link) : null,
                     stale: !R.equals(buildEntry, this.kingdom.build[category]),
                 };
                 return [category, result];
