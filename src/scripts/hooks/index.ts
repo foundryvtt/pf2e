@@ -1,4 +1,3 @@
-import { CanvasInit } from "./canvas-init.ts";
 import { CanvasReady } from "./canvas-ready.ts";
 import { CloseCombatTrackerConfig } from "./close-combat-tracker-config.ts";
 import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
@@ -26,7 +25,6 @@ export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
             Load, // Run this first since it's not an actual hook listener
-            CanvasInit,
             CanvasReady,
             CloseCombatTrackerConfig,
             CloseWorldClockSettings,
