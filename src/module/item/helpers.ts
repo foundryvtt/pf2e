@@ -118,9 +118,9 @@ class ItemChatData {
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
         return {
-            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true }),
+            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData }),
             gm: game.user.isGM
-                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData, async: true })
+                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData })
                 : "",
         };
     }

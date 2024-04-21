@@ -282,7 +282,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
         const result = document.createElement("span");
-        result.innerHTML = await TextEditor.enrichHTML(content, { ...options, async: true });
+        result.innerHTML = await TextEditor.enrichHTML(content, options);
         return result;
     }
 
