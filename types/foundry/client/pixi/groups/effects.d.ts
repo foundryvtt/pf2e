@@ -11,7 +11,7 @@ declare global {
      *
      * @category - Canvas
      */
-    class EffectsCanvasGroup extends PIXI.Container {
+    class EffectsCanvasGroup extends CanvasGroup {
         constructor();
 
         /** The current global light source */
@@ -41,14 +41,8 @@ declare global {
         /** A layer which adds color-based effects to the scene. */
         coloration: CanvasLayer;
 
-        /** A layer which controls the current visibility of the scene. */
-        visibility: CanvasVisibility;
-
         /** Clear all effects containers and animated sources. */
         clearEffects(): void;
-
-        /** Draw the component layers of the canvas group. */
-        draw(): Promise<void>;
 
         /** Initialize LightSource objects for all AmbientLightDocument instances that exist within the active Scene. */
         initializeLightSources(): void;
@@ -64,9 +58,6 @@ declare global {
 
         /** Refresh the active display of lighting. */
         refreshLighting(): void;
-
-        /** Perform a deconstruction workflow for this canvas group when the canvas is retired. */
-        tearDown(): Promise<void>;
 
         /**
          * Activate vision masking for visual effects

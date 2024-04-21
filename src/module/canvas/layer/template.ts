@@ -7,18 +7,19 @@ export class TemplateLayerPF2e<
     /** Preview event listeners that can be referenced across methods */
     #previewListeners: TemplatePreviewEventListeners | null = null;
 
-    #gridPrecision = 2;
+    #snappingMode: number = CONST.GRID_SNAPPING_MODES.CENTER;
 
-    override get gridPrecision(): number {
-        return this.#gridPrecision;
+    get snappingMode(): number {
+        return this.#snappingMode;
     }
 
-    /** Set a grid-snapping precision appropriate for an effect area type */
+    /** Set a grid-snapping mode appropriate for an effect area type */
     snapFor(areaShape: EffectAreaShape | null): void {
         if (areaShape && canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            this.#gridPrecision = areaShape === "burst" ? 1 : 2;
+            this.#snappingMode =
+                areaShape === "burst" ? CONST.GRID_SNAPPING_MODES.CORNER : CONST.GRID_SNAPPING_MODES.CENTER;
         } else {
-            this.#gridPrecision = 2;
+            this.#snappingMode = CONST.GRID_SNAPPING_MODES.CENTER;
         }
     }
 
@@ -38,15 +39,16 @@ export class TemplateLayerPF2e<
             return super._onDragLeftMove(event);
         }
 
-        const { destination, layerDragState, preview: template, origin } = event.interactionData;
-        const dragState = layerDragState ?? 0;
-        if (!template || template.destroyed || dragState === 0) return;
+        const { destination, preview: template, origin } = event.interactionData;
+        if (!template || template.destroyed) return;
 
         this.snapFor(template.areaShape);
         const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
-        const { x, y } = canvas.grid.getSnappedPosition(destination.x, destination.y, this.gridPrecision);
+        const { x, y } = canvas.grid.getSnappedPoint(destination, {
+            mode: this.#snappingMode,
+        });
         destination.x = x;
         destination.y = y;
         const ray = new Ray(origin, destination);
@@ -66,7 +68,6 @@ export class TemplateLayerPF2e<
 
         // Draw the pending shape
         template.refresh();
-        event.interactionData.layerDragState = 2;
     }
 
     protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void {
@@ -134,7 +135,11 @@ export class TemplateLayerPF2e<
                 preview.snapForShape();
                 const { document, position } = preview;
                 this.#deactivatePreviewListeners(initialLayer, event);
-                document.updateSource(canvas.grid.getSnappedPosition(position.x, position.y, this.gridPrecision));
+                document.updateSource(
+                    canvas.grid.getSnappedPoint(position, {
+                        mode: this.#snappingMode,
+                    }),
+                );
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
             },
             rightdown: (event: PIXI.FederatedPointerEvent): void => {

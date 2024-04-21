@@ -372,7 +372,6 @@ declare global {
 interface PlaceableInteractionData<TObject extends PlaceableObject> {
     clearPreviewContainer: boolean;
     preview?: TObject | null;
-    layerDragState?: number;
     clones?: TObject[];
     object: PIXI.Container | PIXI.Mesh;
     origin: Point;
