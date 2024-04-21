@@ -113,8 +113,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.max, data.alteration.value);
                 const hardMax = badge.labels?.length ?? newValue;
                 const min = badge.min ?? 0;
-                badge.max = Math.clamped(newValue, min, hardMax);
-                badge.value = Math.clamped(badge.value, min, badge.max) || 0;
+                badge.max = Math.clamp(newValue, min, hardMax);
+                badge.value = Math.clamp(badge.value, min, badge.max) || 0;
                 return;
             }
             case "badge-value": {
@@ -128,7 +128,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
                 const max = "max" in badge ? badge.max ?? Infinity : Infinity;
                 const min = "min" in badge ? badge.min ?? 0 : 0;
-                badge.value = Math.clamped(newValue, min, max) || 0;
+                badge.value = Math.clamp(newValue, min, max) || 0;
                 return;
             }
             case "bulk": {
@@ -227,7 +227,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     data.item.system.cast.focusPoints,
                     data.alteration.value,
                 );
-                data.item.system.cast.focusPoints = (Math.clamped(newValue, 0, 3) || 0) as ZeroToThree;
+                data.item.system.cast.focusPoints = (Math.clamp(newValue, 0, 3) || 0) as ZeroToThree;
                 return;
             }
             case "hardness": {
@@ -302,7 +302,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const frequency = data.item.system.frequency;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, frequency.max, data.alteration.value);
                 frequency.max = newValue;
-                frequency.value = Math.clamped(frequency.value ?? newValue, 0, newValue);
+                frequency.value = Math.clamp(frequency.value ?? newValue, 0, newValue);
                 return;
             }
             case "frequency-per": {

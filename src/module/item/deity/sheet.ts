@@ -121,7 +121,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                     return;
                 }
 
-                const newLevel = Math.clamped(Number(input.value) || 1, 1, 10);
+                const newLevel = Math.clamp(Number(input.value) || 1, 1, 10);
                 if (oldLevel !== newLevel) {
                     await this.item.update({
                         [`system.spells.-=${oldLevel}`]: null,

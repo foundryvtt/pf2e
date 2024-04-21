@@ -55,7 +55,7 @@ type IncomeLevelMap = typeof earnIncomeTable;
 type IncomeEarnerLevel = keyof IncomeLevelMap;
 type IncomeForLevel = { failure: CoinsPF2e; rewards: Rewards };
 function getIncomeForLevel(level: number): IncomeForLevel {
-    const income = earnIncomeTable[Math.clamped(level, 0, 21) as IncomeEarnerLevel];
+    const income = earnIncomeTable[Math.clamp(level, 0, 21) as IncomeEarnerLevel];
     return {
         failure: new CoinsPF2e(income.failure),
         rewards: income.rewards,

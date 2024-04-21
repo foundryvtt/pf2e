@@ -748,7 +748,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (changed.system.damage) {
             // Clamp `dice` to between 0 and 12
             if (changed.system.damage.dice !== undefined) {
-                changed.system.damage.dice = Math.clamped(Number(changed.system.damage.dice) || 0, 0, 12);
+                changed.system.damage.dice = Math.clamp(Number(changed.system.damage.dice) || 0, 0, 12);
             }
 
             // Null out empty `die`

@@ -287,7 +287,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     override afterPrepareData(): void {
         if (!this.test()) return;
 
-        const radius = Math.clamped(Math.ceil(Number(this.resolveValue(this.radius)) / 5) * 5, 5, 240);
+        const radius = Math.clamp(Math.ceil(Number(this.resolveValue(this.radius)) / 5) * 5, 5, 240);
 
         if (Number.isInteger(radius) && radius > 0) {
             const level = this.resolveValue(this.level, null);
