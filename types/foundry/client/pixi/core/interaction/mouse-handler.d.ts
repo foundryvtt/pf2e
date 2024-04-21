@@ -73,6 +73,15 @@ declare class MouseInteractionManager {
      */
     protected _dragRight: boolean;
 
+    /** An optional ControlIcon instance for the object */
+    controlIcon: ControlIcon | null;
+
+    /**
+     * The view id pertaining to the PIXI Application.
+     * If not provided, default to canvas.app.view.id
+     */
+    viewId: string;
+
     constructor(
         object: PlaceableObject,
         layer: PlaceablesLayer,
@@ -81,8 +90,29 @@ declare class MouseInteractionManager {
         options?: object,
     );
 
+    /**
+     * Enumerate the states of a mouse interaction workflow.
+     * 0: NONE - the object is inactive
+     * 1: HOVER - the mouse is hovered over the object
+     * 2: CLICKED - the object is clicked
+     * 3: GRABBED - the object is grabbed
+     * 4: DRAG - the object is being dragged
+     * 5: DROP - the object is being dropped
+     */
+    static INTERACTION_STATES: {
+        NONE: 0;
+        HOVER: 1;
+        CLICKED: 2;
+        GRABBED: 3;
+        DRAG: 4;
+        DROP: 5;
+    };
+
     /** Get the target */
     get target(): PlaceableObject;
+
+    /** Is this mouse manager in a dragging state? */
+    get isDragging(): boolean;
 
     /** Activate interactivity for the handled object */
     activate(): MouseInteractionManager;
@@ -109,6 +139,20 @@ declare class MouseInteractionManager {
         CLICKED: 2;
         DRAG: 3;
         DROP: 4;
+    };
+
+    /**
+     * A reference to the possible interaction states which can be observed
+     * -2: SKIPPED - the handler has been skipped by previous logic
+     * -1: DISALLOWED - the handler has dissallowed further process
+     *  1: REFUSED - the handler callback has been processed and is refusing further process
+     *  2: ACCEPTED - the handler callback has been processed and is accepting further process
+     */
+    get handlerOutcomes(): {
+        SKIPPED: -2;
+        DISALLOWED: -1;
+        REFUSED: 1;
+        ACCEPTED: 2;
     };
 
     /* -------------------------------------------- */
