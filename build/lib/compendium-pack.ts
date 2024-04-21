@@ -8,6 +8,8 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
+import type { JournalEntryPageSource } from "types/foundry/common/documents/journal-entry-page.ts";
+import type { JournalEntrySource } from "types/foundry/common/documents/journal-entry.ts";
 import coreIconsJSON from "../core-icons.json" assert { type: "json" };
 import "./foundry-utils.ts";
 import { getFilesRecursively, PackError } from "./helpers.ts";
@@ -43,6 +45,16 @@ function isItemSource(docSource: PackEntry): docSource is ItemSourcePF2e {
         !isActorSource(docSource)
     );
 }
+
+function isJournalSource(docSource: PackEntry): docSource is JournalEntrySource {
+    return "pages" in docSource && Array.isArray(docSource.pages);
+}
+
+/**
+ * The latest supported core schema version. This is used by the server to determine if a data migration is necessary
+ *  and should only be increased once all new server-side migrations are supported.
+ */
+const SUPPORTED_CORE_SCHEMA_VERSION = "12.319";
 
 /**
  * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
@@ -247,6 +259,7 @@ class CompendiumPack {
         }
 
         docSource.flags ??= {};
+        this.#setSupportedCoreSchemaVersion(docSource);
         if (isActorSource(docSource)) {
             docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" }) };
@@ -254,8 +267,15 @@ class CompendiumPack {
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
                 item.effects = [];
+                this.#setSupportedCoreSchemaVersion(item);
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+            }
+        }
+
+        if (isJournalSource(docSource)) {
+            for (const page of docSource.pages) {
+                this.#setSupportedCoreSchemaVersion(page);
             }
         }
 
@@ -300,6 +320,12 @@ class CompendiumPack {
         return JSON.stringify(docSource)
             .replace(CompendiumPack.LINK_PATTERNS.uuid, replace)
             .replace(CompendiumPack.LINK_PATTERNS.compendium, replace);
+    }
+
+    /** Set `_stats.coreVersion` to avoid running server-side migrations after every rebuild */
+    #setSupportedCoreSchemaVersion(docSource: PackEntry | JournalEntryPageSource): void {
+        (docSource._stats as Partial<PackEntry["_stats"]>) ??= {};
+        docSource._stats.coreVersion = SUPPORTED_CORE_SCHEMA_VERSION;
     }
 
     #sourceIdOf(documentId: string, { packId, docType }: { packId?: string; docType: "Actor" }): CompendiumActorUUID;
