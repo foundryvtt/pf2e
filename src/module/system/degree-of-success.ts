@@ -1,4 +1,5 @@
 import { ZeroToThree } from "@module/data.ts";
+import type { Die, NumericTerm } from "types/foundry/client/roll-term/terms.d.ts";
 import type { CheckRoll } from "./check/roll.ts";
 import type { Predicate } from "./predication.ts";
 import type { StatisticDifficultyClass } from "./statistic/index.ts";
@@ -31,8 +32,8 @@ class DegreeOfSuccess {
         if (roll instanceof Roll) {
             this.dieResult =
                 (roll.isDeterministic
-                    ? roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)
-                    : roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20)
+                    ? roll.terms.find((t): t is NumericTerm => t instanceof foundry.dice.terms.NumericTerm)
+                    : roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20)
                 )?.total ?? 1;
             this.rollTotal = roll.total;
         } else {
