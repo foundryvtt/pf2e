@@ -173,7 +173,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.align = "center";
 
         const bounds = this.token.mechanicalBounds;
-        const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
+        const gridUnits = canvas.scene?.grid.units.trim() || game.system.grid.units;
         const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
         const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
