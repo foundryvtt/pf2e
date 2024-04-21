@@ -316,32 +316,35 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "add",
                 "path": "flags.pf2e.psychic.dedication.psiCantrips",
                 "predicate": [
-                    "feat:psychic-dedication"
+                    "feat:psychic-dedication",
+                    {
+                        "not": "selected-psi-cantrip:ignition"
+                    }
                 ],
                 "priority": 10,
-                "value": [
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Ignition",
+                    "value": "ignition"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication",
                     {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Ignition",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:ignition"
-                            }
-                        ],
-                        "value": "ignition"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Frostbite",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:frostbite"
-                            }
-                        ],
-                        "value": "frostbite"
+                        "not": "selected-psi-cantrip:frostbite"
                     }
-                ]
+                ],
+                "priority": 10,
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Frostbite",
+                    "value": "frostbite"
+                }
             },
             {
                 "adjustName": false,

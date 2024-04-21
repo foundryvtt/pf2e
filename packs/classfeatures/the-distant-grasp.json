@@ -248,32 +248,35 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "add",
                 "path": "flags.pf2e.psychic.dedication.psiCantrips",
                 "predicate": [
-                    "feat:psychic-dedication"
+                    "feat:psychic-dedication",
+                    {
+                        "not": "selected-psi-cantrip:telekinetic-hand"
+                    }
                 ],
                 "priority": 10,
-                "value": [
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticHand",
+                    "value": "telekinetic-hand"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication",
                     {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticHand",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:telekinetic-hand"
-                            }
-                        ],
-                        "value": "telekinetic-hand"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticProjectile",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:telekinetic-projectile"
-                            }
-                        ],
-                        "value": "telekinetic-projectile"
+                        "not": "selected-psi-cantrip:telekinetic-projectile"
                     }
-                ]
+                ],
+                "priority": 10,
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.TelekineticProjectile",
+                    "value": "telekinetic-projectile"
+                }
             },
             {
                 "adjustName": false,

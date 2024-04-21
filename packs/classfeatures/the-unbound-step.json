@@ -196,32 +196,35 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "add",
                 "path": "flags.pf2e.psychic.dedication.psiCantrips",
                 "predicate": [
-                    "feat:psychic-dedication"
+                    "feat:psychic-dedication",
+                    {
+                        "not": "selected-psi-cantrip:phase-bolt"
+                    }
                 ],
                 "priority": 10,
-                "value": [
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.PhaseBolt",
+                    "value": "phase-bolt"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication",
                     {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.PhaseBolt",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:phase-bolt"
-                            }
-                        ],
-                        "value": "phase-bolt"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.WarpStep",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:warp-step"
-                            }
-                        ],
-                        "value": "warp-step"
+                        "not": "selected-psi-cantrip:warp-step"
                     }
-                ]
+                ],
+                "priority": 10,
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.WarpStep",
+                    "value": "warp-step"
+                }
             },
             {
                 "adjustName": false,

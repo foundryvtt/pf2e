@@ -200,32 +200,35 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "add",
                 "path": "flags.pf2e.psychic.dedication.psiCantrips",
                 "predicate": [
-                    "feat:psychic-dedication"
+                    "feat:psychic-dedication",
+                    {
+                        "not": "selected-psi-cantrip:detect-magic"
+                    }
                 ],
                 "priority": 10,
-                "value": [
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.DetectMagic",
+                    "value": "detect-magic"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication",
                     {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.DetectMagic",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:detect-magic"
-                            }
-                        ],
-                        "value": "detect-magic"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Guidance",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:guidance"
-                            }
-                        ],
-                        "value": "guidance"
+                        "not": "selected-psi-cantrip:guidance"
                     }
-                ]
+                ],
+                "priority": 10,
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Guidance",
+                    "value": "guidance"
+                }
             },
             {
                 "adjustName": false,

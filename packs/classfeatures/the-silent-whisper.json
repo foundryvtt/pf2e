@@ -192,32 +192,35 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "add",
                 "path": "flags.pf2e.psychic.dedication.psiCantrips",
                 "predicate": [
-                    "feat:psychic-dedication"
+                    "feat:psychic-dedication",
+                    {
+                        "not": "selected-psi-cantrip:daze"
+                    }
                 ],
                 "priority": 10,
-                "value": [
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Daze",
+                    "value": "daze"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.psychic.dedication.psiCantrips",
+                "predicate": [
+                    "feat:psychic-dedication",
                     {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Daze",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:daze"
-                            }
-                        ],
-                        "value": "daze"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Message",
-                        "predicate": [
-                            {
-                                "not": "selected-psi-cantrip:message"
-                            }
-                        ],
-                        "value": "message"
+                        "not": "selected-psi-cantrip:message"
                     }
-                ]
+                ],
+                "priority": 10,
+                "value": {
+                    "label": "PF2E.SpecificRule.Psychic.PsiCantripLabels.Message",
+                    "value": "message"
+                }
             },
             {
                 "adjustName": false,
