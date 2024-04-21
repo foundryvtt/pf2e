@@ -103,7 +103,7 @@ export const Ready = {
                 game.pf2e.settings.gmVision
             ) {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
-                canvas.colorManager.initialize();
+                canvas.environment.initialize();
             }
 
             game.pf2e.system.moduleArt.refresh().then(() => {

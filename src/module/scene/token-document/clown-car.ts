@@ -91,7 +91,7 @@ class PartyClownCar {
                         !placeable.checkCollision(s.center, { type: "move", mode: "any" }),
                 )
                 .reverse(), // Favor positions on the right
-            (s) => canvas.grid.measureDistance(center, s.center),
+            (s) => canvas.grid.measurePath([center, s.center]).distance,
         );
     }
 }
