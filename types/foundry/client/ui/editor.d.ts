@@ -16,7 +16,7 @@ declare global {
         /** A list of elements that are retained when truncating HTML. */
         protected static _PARAGRAPH_ELEMENTS: Set<string>;
 
-        protected static _decoder: HTMLTextAreaElement;
+        protected static _createTinyMCE(options: TinyMCE.EditorOptions, content: string): Promise<TinyMCE.Editor>;
 
         /* -------------------------------------------- */
         /*  HTML Manipulation Helpers                   */
@@ -40,19 +40,59 @@ declare global {
          * @param [options.rollData]       The data object providing context for inline rolls
          * @return The enriched HTML content
          */
-        static enrichHTML(content: string | null, options: EnrichmentOptions & { async: false }): string;
-        static enrichHTML(content: string | null, options: EnrichmentOptions & { async: true }): Promise<string>;
-        static enrichHTML(content: string | null, options: EnrichmentOptions): string | Promise<string>;
+        static enrichHTML(content: string | null, options?: EnrichmentOptions): Promise<string>;
+
+        /**
+         * Scan for compendium UUIDs and retrieve Documents in batches so that they are in cache when enrichment proceeds.
+         * @param text The text nodes to scan
+         */
+        protected static _primeCompendiums(text: Text[]): Promise<void>;
 
         /**
          * Convert text of the form @UUID[uuid]{name} to anchor elements.
          * @param text      The existing text content
          * @param [options] Options provided to customize text enrichment
-         * @param [options.async]      Whether to resolve UUIDs asynchronously
          * @param [options.relativeTo] A document to resolve relative UUIDs against.
          * @returns Whether any content links were replaced and the text nodes need to be updated.
          */
-        static _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean>;
+        static _enrichContentLinks(text: Text[], options?: EnrichmentOptions): Promise<boolean>;
+
+        /**
+         * Handle embedding Document content with @Embed[uuid]{label} text.
+         * @param text      The existing text content.
+         * @param options   Options provided to customize text enrichment
+         * @returns Whether any content links were replaced and the text nodes need to be updated.
+         */
+        static _enrichEmbeds(text: Text[], options?: EnrichmentOptions): Promise<boolean>;
+
+        /**
+         * Convert URLs into anchor elements.
+         * @param text      The existing text content.
+         * @param options   Options provided to customize text enrichment
+         * @returns Whether any hyperlinks were replaced and the text nodes need to be updated
+         */
+        static _enrichHyperlinks(text: Text[], options?: EnrichmentOptions): Promise<boolean>;
+
+        /**
+         * Convert text of the form [[roll]] to anchor elements.
+         * @param text      The existing text content.
+         * @param options   Options provided to customize text enrichment
+         * @returns Whether any inline rolls were replaced and the text nodes need to be updated.
+         */
+        static _enrichInlineRolls(text: Text[], options?: EnrichmentOptions): Promise<boolean>;
+
+        /**
+         * Match any custom registered regex patterns and apply their replacements.
+         * @param config    The custom enricher configuration.
+         * @param text      The existing text content.
+         * @param options   Options provided to customize text enrichment
+         * @returns Whether any replacements were made, requiring the text nodes to be updateed
+         */
+        static _applyCustomEnrichers(
+            config: TextEditorEnricherConfig,
+            text: Text[],
+            options: EnrichmentOptions,
+        ): Promise<boolean>;
 
         /**
          * Preview an HTML fragment by constructing a substring of a given length from its inner text.
@@ -60,7 +100,7 @@ declare global {
          * @param length  The desired length
          * @return The previewed HTML
          */
-        static previewHTML(content: string, length: number): string;
+        static previewHTML(content: string, length?: number): string;
 
         /**
          * Sanitises an HTML fragment and removes any non-paragraph-style text.
@@ -97,7 +137,12 @@ declare global {
         protected static _replaceTextContent(text: Text[], rgx: RegExp, func: (param: string) => string): boolean;
 
         /** Replace a matched portion of a Text node with a replacement Node */
-        protected static _replaceTextNode(text: string, match: RegExpMatchArray, replacement: Node): void;
+        protected static _replaceTextNode(
+            text: string,
+            match: RegExpMatchArray,
+            replacement: Node,
+            options?: { replaceParent?: boolean },
+        ): void;
 
         /* -------------------------------------------- */
         /*  Text Replacement Functions                  */
@@ -115,15 +160,60 @@ declare global {
          */
         protected static _createContentLink(
             match: RegExpMatchArray,
-            options?: { async?: boolean; relativeTo?: ClientDocument },
-        ): HTMLAnchorElement | Promise<HTMLAnchorElement>;
+            options?: { relativeTo?: ClientDocument },
+        ): Promise<HTMLAnchorElement>;
+
+        /**
+         * Helper method to create an anchor element.
+         * @param options Options to configure the anchor's construction.
+         */
+        static createAnchor(options?: Partial<EnrichmentAnchorOptions>): HTMLAnchorElement;
+
+        /**
+         * Embed content from another Document.
+         * @param match     The regular expression match.
+         * @param options   Options provided to customize text enrichment.
+         * @returns A representation of the Document as HTML content, or null if the Document could not be embedded.
+         */
+        protected static _embedContent(
+            match: RegExpMatchArray,
+            options?: EnrichmentOptions,
+        ): Promise<HTMLElement | null>;
+
+        /**
+         * Parse the embed configuration to be passed to ClientDocument#toEmbed.
+         * The return value will be an object of any key=value pairs included with the configuration, as well as a separate
+         * values property that contains all the options supplied that were not in key=value format.
+         * If a uuid key is supplied it is used as the Document's UUID, otherwise the first supplied UUID is used.
+         * @param raw  The raw matched config string.
+         *
+         * @example Example configurations.
+         * ```js
+         * TextEditor._parseEmbedConfig('uuid=Actor.xyz caption="Example Caption" cite=false');
+         * // Returns: { uuid: "Actor.xyz", caption: "Example Caption", cite: false, values: [] }
+         *
+         * TextEditor._parseEmbedConfig('Actor.xyz caption="Example Caption" inline');
+         * // Returns: { uuid: "Actor.xyz", caption: "Example Caption", values: ["inline"] }
+         * ```
+         */
+        protected static _parseEmbedConfig(raw: string): DocumentHTMLEmbedConfig;
+
+        /**
+         * Create a dynamic document link from an old-form document link expression.
+         * @param type      The matched document type, or "Compendium".
+         * @param target    The requested match target (_id or name).
+         * @param name      A customized or overridden display name for the link.
+         * @param data      Data containing the properties of the resulting link element.
+         * @returns Whether the resulting link is broken or not.
+         */
+        protected static _createLegacyContentLink(type: string, target: string, name: string, data: object): boolean;
 
         /**
          * Replace a hyperlink-like string with an actual HTML &lt;a> tag
-         * @param match The full matched string
+         * @param match The regular expression match
          * @return An HTML element for the document link
          */
-        protected static _createHyperlink(match: string): HTMLAnchorElement;
+        protected static _createHyperlink(match: RegExpMatchArray): HTMLAnchorElement;
 
         /**
          * Replace an inline roll formula with a rollable &lt;a> element or an eagerly evaluated roll result
@@ -155,15 +245,6 @@ declare global {
         static _onClickInlineRoll(event: MouseEvent): Promise<ChatMessage | void>;
 
         /**
-         * Toggle playing or stopping an embedded {@link PlaylistSound} link.
-         * @param doc The PlaylistSound document to play/stop.
-         */
-        protected static _onPlaySound(doc: PlaylistSound<Playlist>): void;
-
-        /** Find all content links belonging to a given PlaylistSound. */
-        protected static _getSoundContentLinks(doc: PlaylistSound<Playlist>): NodeListOf<HTMLAnchorElement>;
-
-        /**
          * Begin a Drag+Drop workflow for a dynamic content link
          * @param event The originating drag event
          */
@@ -185,15 +266,55 @@ declare global {
 
         /** Given a Drop event, returns a Content link if possible such as @Actor[ABC123], else null */
         static getContentLink(event: DragEvent): Promise<string | null>;
+
+        /** Upload an image to a document's asset path */
+        static _uploadImage(uuid: string, file: File): Promise<string>;
+    }
+
+    type DocumentHTMLEmbedConfig = Record<string, string | boolean | number> & {
+        values: string[];
+        classes?: string[];
+        inline?: boolean;
+        cite?: boolean;
+        caption?: boolean;
+        captionPosition?: string;
+        label?: string;
+    };
+
+    interface EnrichmentAnchorOptions {
+        /** Attributes to set on the anchor. */
+        attrs?: Record<string, string>;
+        /** Data- attributes to set on the anchor. */
+        dataset?: Record<string, string>;
+        /** Classes to add to the anchor. */
+        classes?: string[];
+        /** The anchors content */
+        name?: string;
+        /** A font-awesome icon to use as the icon */
+        icon?: string;
     }
 
     interface EnrichmentOptions {
-        async?: boolean;
+        /** Include unrevealed secret tags in the final HTML? If false, unrevealed secret blocks will be removed */
         secrets?: boolean;
+        /** Replace dynamic document links? */
         documents?: boolean;
+        /** Replace hyperlink content? */
         links?: boolean;
+        /** Replace inline dice rolls? */
         rolls?: boolean;
+        /** Replace embedded content? */
+        embeds?: boolean;
+        /** The data object providing context for inline rolls, or a function that produces it (TODO: support function variant) */
         rollData?: Record<string, unknown>;
+        /** A document to resolve relative UUIDs against. */
+        relativeTo?: ClientDocument;
+    }
+
+    interface TextEditorEnricherConfig {
+        pattern: RegExp;
+        replaceParent?: boolean;
+        enricher: (match: RegExpMatchArray, options?: EnrichmentOptions) => Promise<HTMLElement | null>;
     }
 
     type EditorCreateOptions = Partial<TinyMCE.EditorOptions | ProseMirrorEditorOptions> & {

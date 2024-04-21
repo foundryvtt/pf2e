@@ -302,7 +302,7 @@ export class StatusEffects {
         const conditions = await Promise.all(
             token.actor.conditions.active.map(async (c) => ({
                 ...R.pick(c, ["name", "img"]),
-                description: await TextEditor.enrichHTML(c.description, { async: true }),
+                description: await TextEditor.enrichHTML(c.description),
             })),
         );
         if (conditions.length === 0) return null;

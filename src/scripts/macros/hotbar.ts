@@ -146,7 +146,7 @@ export async function rollActionMacro({
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
     const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
-    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description), { async: true });
+    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description));
 
     const templateData = { actor, strike, identifier, description };
 

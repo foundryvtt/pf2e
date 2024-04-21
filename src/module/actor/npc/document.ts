@@ -383,7 +383,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const formatNoteText = (item: ItemPF2e<this | null>): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            return TextEditor.enrichHTML(item.description, { rollData, async: true });
+            return TextEditor.enrichHTML(item.description, { rollData });
         };
 
         for (const attackEffect of attack.attackEffects) {

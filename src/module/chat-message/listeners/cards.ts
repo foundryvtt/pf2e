@@ -183,7 +183,6 @@ class ChatCards {
                     const element = htmlClosest(button, ".description");
                     if (element) {
                         element.innerHTML = await TextEditor.enrichHTML(description, {
-                            async: true,
                             rollData: item.getRollData(),
                         });
                         UserVisibilityPF2e.process(element, { message });
