@@ -26,7 +26,6 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DamagePF2e } from "./damage/damage.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
@@ -42,7 +41,6 @@ import { DamageDamageContext, DamageFormulaData, SimpleDamageTemplate } from "./
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
-const superEnrichContentLinks = TextEditor._enrichContentLinks;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
 const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
@@ -71,25 +69,6 @@ class TextEditorPF2e extends TextEditor {
         }
 
         return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
-    }
-
-    /**
-     * Upstream retrieves documents from UUID links sequentially, which has a noticable load time with text containing
-     * many links: retrieve every linked document at once beforehand with the faster `UUIDUtils.fromUUIDs` system helper
-     * so that subsequent calls to `fromUuid` finds all documents in caches.
-     */
-    static override _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean> {
-        if (options?.async) {
-            const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
-            const pattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
-            const uuids = text
-                .map((t) => Array.from((t.textContent ?? "").matchAll(pattern)))
-                .flat(2)
-                .filter((m) => UUIDUtils.isCompendiumUUID(m));
-            return UUIDUtils.fromUUIDs(uuids).then(() => superEnrichContentLinks.apply(this, [text, options]));
-        }
-
-        return superEnrichContentLinks.apply(this, [text, options]);
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */
