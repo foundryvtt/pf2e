@@ -56,4 +56,4 @@ global.game = Object.freeze({
     static on(..._args: any) {}
 };
 
-Math.clamped = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+Math.clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);

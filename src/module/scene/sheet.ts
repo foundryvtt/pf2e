@@ -119,7 +119,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
         const hearingRange = formData["flags.pf2e.hearingRange"];
         formData["flags.pf2e.hearingRange"] =
-            typeof hearingRange === "number" ? Math.ceil(Math.clamped(hearingRange || 5, 5, 3000) / 5) * 5 : null;
+            typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
         return super._updateObject(event, formData);
     }

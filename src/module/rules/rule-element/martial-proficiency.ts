@@ -49,7 +49,7 @@ class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySc
     override onApplyActiveEffects(): void {
         if (!this.test()) return;
 
-        const rank = Math.clamped(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
+        const rank = Math.clamp(Number(this.resolveValue(this.value)) || 1, 1, 4) as ZeroToFour;
         const key = this.kind === "attack" ? "attacks" : "defenses";
         this.actor.system.proficiencies[key][this.slug] = {
             definition: this.resolveInjectedProperties(this.definition),

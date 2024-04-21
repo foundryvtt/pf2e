@@ -361,7 +361,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (!this.isEmbedded) {
             // Otherwise called in`onPrepareSynthetics`
-            this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+            this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
         }
     }
 
@@ -392,7 +392,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
-        this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+        this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
     }
 
     override prepareActorData(): void {
@@ -671,7 +671,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         for (const property of ["quantity", "hardness"] as const) {
             if (changed.system[property] !== undefined) {
                 const max = property === "quantity" ? 999_999 : 999;
-                changed.system[property] = Math.clamped(Math.trunc(Number(changed.system[property])), 0, max) || 0;
+                changed.system[property] = Math.clamp(Math.trunc(Number(changed.system[property])), 0, max) || 0;
             }
         }
 

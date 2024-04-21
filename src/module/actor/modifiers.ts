@@ -357,7 +357,7 @@ function createProficiencyModifier({
     level,
     addLevel,
 }: CreateProficiencyModifierParams): ModifierPF2e {
-    rank = Math.clamped(rank, 0, 4) as ZeroToFour;
+    rank = Math.clamp(rank, 0, 4) as ZeroToFour;
     addLevel ??= rank > 0;
     const pwolVariant = game.pf2e.settings.variants.pwol.enabled;
 
@@ -780,17 +780,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
+    adjustModifiers,
+    applyStackingRules,
     CheckModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
     DamageDicePF2e,
+    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-    adjustModifiers,
-    applyStackingRules,
-    createAttributeModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };
 export type {
     DamageDiceOverride,

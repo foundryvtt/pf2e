@@ -67,7 +67,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         this.system.ac.value ??= this._source.system.ac.value ??= ARMY_STATS.ac[this.level];
         this.system.scouting ??= this._source.system.scouting ??= ARMY_STATS.scouting[this.level];
 
-        this.system.details.level.value = Math.clamped(this.system.details.level.value, 1, 20);
+        this.system.details.level.value = Math.clamp(this.system.details.level.value, 1, 20);
         this.system.resources.potions.max = 3;
         this.system.saves.strongSave = this.system.saves.maneuver >= this.system.saves.morale ? "maneuver" : "morale";
         this.system.perception = { senses: [] };
@@ -377,7 +377,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     /** Updates the army's level, scaling all attributes that are intended to scale as the army levels up */
     updateLevel(newLevel: number): Promise<this | undefined> {
-        newLevel = Math.clamped(newLevel, 1, 20);
+        newLevel = Math.clamp(newLevel, 1, 20);
         const currentLevel = this.system.details.level.value;
 
         const strongSave = this.system.saves.strongSave;
@@ -444,7 +444,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
         if (typeof changed?.system?.attributes?.hp?.value === "number") {
             const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
-            changed.system.attributes.hp.value = Math.clamped(changed.system.attributes.hp.value, 0, max);
+            changed.system.attributes.hp.value = Math.clamp(changed.system.attributes.hp.value, 0, max);
         }
 
         return super._preUpdate(changed, options, user);

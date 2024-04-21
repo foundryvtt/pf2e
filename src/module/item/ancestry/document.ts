@@ -160,13 +160,13 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 
         const additionalLanguages = changed.system.additionalLanguages;
         if (additionalLanguages?.count !== undefined) {
-            additionalLanguages.count = Math.floor(Math.clamped(Number(additionalLanguages.count) || 0, 0, 99));
+            additionalLanguages.count = Math.floor(Math.clamp(Number(additionalLanguages.count) || 0, 0, 99));
         }
 
         for (const fieldName of ["hp", "speed", "reach"] as const) {
             if (changed.system[fieldName] !== undefined) {
                 const minimum = fieldName === "speed" ? 5 : 1;
-                const value = Math.floor(Math.clamped(Number(changed.system[fieldName]) || 0, minimum, 99));
+                const value = Math.floor(Math.clamp(Number(changed.system[fieldName]) || 0, minimum, 99));
                 changed.system[fieldName] = fieldName === "hp" ? value : Math.ceil(value / 5) * 5;
             }
         }

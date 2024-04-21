@@ -529,7 +529,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 });
             }
         }
-        const mapIncreases = Math.clamped((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
+        const mapIncreases = Math.clamp((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 
         // Include multiple attack penalty to extra modifiers if given
         if (mapIncreases !== 0) {

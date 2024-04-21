@@ -131,12 +131,12 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             const max = this.actor.system.resources[resource].max;
 
             resourceElement.addEventListener("click", () => {
-                const newValue = Math.clamped(this.actor.system.resources[resource].value + 1, 0, max);
+                const newValue = Math.clamp(this.actor.system.resources[resource].value + 1, 0, max);
                 this.actor.update({ [`system.resources.${resource}.value`]: newValue });
             });
             resourceElement.addEventListener("contextmenu", (event) => {
                 event.preventDefault();
-                const newValue = Math.clamped(this.actor.system.resources[resource].value - 1, 0, max);
+                const newValue = Math.clamp(this.actor.system.resources[resource].value - 1, 0, max);
                 this.actor.update({ [`system.resources.${resource}.value`]: newValue });
             });
         }
@@ -153,12 +153,12 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
         // Handle direct magic armor updates
         for (const gearElement of htmlQueryAll(html, "[data-action=change-magic-armor]")) {
             gearElement.addEventListener("click", () => {
-                const newValue = Math.clamped(this.actor.system.ac.potency + 1, 0, 3);
+                const newValue = Math.clamp(this.actor.system.ac.potency + 1, 0, 3);
                 this.actor.update({ [`system.ac.potency`]: newValue });
             });
             gearElement.addEventListener("contextmenu", (event) => {
                 event.preventDefault();
-                const newValue = Math.clamped(this.actor.system.ac.potency - 1, 0, 3);
+                const newValue = Math.clamp(this.actor.system.ac.potency - 1, 0, 3);
                 this.actor.update({ [`system.ac.potency`]: newValue });
             });
         }
@@ -170,7 +170,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
             const data = this.actor.system.weapons[gear];
             gearElement.addEventListener("click", () => {
                 if (data) {
-                    const newValue = Math.clamped(data.potency + 1, 0, 3);
+                    const newValue = Math.clamp(data.potency + 1, 0, 3);
                     this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
                 } else {
                     const newData = { name: "", potency: 0 };
@@ -184,7 +184,7 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 if (data.potency === 0) {
                     this.actor.update({ [`system.weapons.${gear}`]: null });
                 } else {
-                    const newValue = Math.clamped(data.potency - 1, 0, 3);
+                    const newValue = Math.clamp(data.potency - 1, 0, 3);
                     this.actor.update({ [`system.weapons.${gear}.potency`]: newValue });
                 }
             });
