@@ -32,7 +32,6 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
         const rollData = this.actor.getRollData();
         sheetData.enrichedContent.description = await TextEditor.enrichHTML(sheetData.data.details.description, {
             rollData,
-            async: true,
         });
 
         return { ...sheetData, isLoot };

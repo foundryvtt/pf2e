@@ -887,7 +887,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const description = await (async () => {
             const options = { ...htmlOptions, rollData };
             const prepend = await createDescriptionPrepend(this, { includeTraditions: false });
-            const description = await TextEditor.enrichHTML(this.description, { ...options, async: true });
+            const description = await TextEditor.enrichHTML(this.description, options);
             return `${prepend}\n${description}`;
         })();
 

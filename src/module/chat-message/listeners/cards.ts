@@ -181,7 +181,6 @@ class ChatCards {
                     const element = htmlClosest(button, ".description");
                     if (element) {
                         element.innerHTML = await TextEditor.enrichHTML(description, {
-                            async: true,
                             rollData: actor.getRollData(),
                         });
                         element.scrollIntoView({ behavior: "smooth", block: "center" });
