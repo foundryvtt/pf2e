@@ -1,3 +1,5 @@
+import type { DiceTerm, FunctionTerm, OperatorTerm, PoolTerm, RollTerm } from "./roll-term/terms.d.ts";
+
 export {};
 
 declare global {
@@ -249,8 +251,8 @@ declare global {
          */
         protected static _splitParentheses(_formula: string): string[];
 
-        /** Handle closing of a parenthetical term to create a MathTerm expression with a function and arguments */
-        protected static _splitMathArgs(expression: string): MathTerm[];
+        /** Handle closing of a parenthetical term to create a FunctionTerm expression with a function and arguments */
+        protected static _splitMathArgs(expression: string): FunctionTerm[];
 
         /**
          * Split a formula by identifying its outer-most dice pool terms

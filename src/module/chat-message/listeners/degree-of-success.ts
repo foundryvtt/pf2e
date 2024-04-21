@@ -14,7 +14,7 @@ export const DegreeOfSuccessHighlights = {
         if (!shouldHighlight) return;
 
         const firstDice = firstRoll.dice.at(0);
-        if (!(firstDice instanceof Die && firstDice.faces === 20)) {
+        if (!(firstDice instanceof foundry.dice.terms.Die && firstDice.faces === 20)) {
             return;
         }
 
