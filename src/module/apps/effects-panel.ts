@@ -150,7 +150,7 @@ export class EffectsPanel extends Application {
                 const minScale = 0.75;
                 const parentWidth = valueContainer.clientWidth;
                 const scale = textElement.clientWidth
-                    ? Math.clamped(parentWidth / textElement.clientWidth, minScale, 1)
+                    ? Math.clamp(parentWidth / textElement.clientWidth, minScale, 1)
                     : 1;
                 if (scale < 1) {
                     valueContainer.style.transformOrigin = "left";
