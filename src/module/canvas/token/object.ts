@@ -263,7 +263,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         const { value, max, temp } = actor.attributes.hp ?? {};
-        const healthPercent = Math.clamped(value, 0, max) / max;
+        const healthPercent = Math.clamp(value, 0, max) / max;
 
         // Compute the color based on health percentage, this formula is the one core Foundry uses
         const black = 0x000000;
@@ -273,7 +273,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Bar size logic stolen from core
         let h = Math.max(canvas.dimensions.size / 12, 8);
-        const bs = Math.clamped(h / 8, 1, 2);
+        const bs = Math.clamp(h / 8, 1, 2);
         if (this.document.height >= 2) h *= 1.6; // Enlarge the bar for large tokens
 
         const numBars = temp > 0 ? 2 : 1;
@@ -290,7 +290,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Draw temp hp
         if (temp > 0) {
             const tempColor = 0x66ccff;
-            const tempPercent = Math.clamped(temp, 0, max) / max;
+            const tempPercent = Math.clamp(temp, 0, max) / max;
             const tempWidth = tempPercent * this.w - 2 * (bs - 1);
             bar.beginFill(tempColor, 1.0).drawRoundedRect(0, 0, tempWidth, barHeight, 2);
         }
@@ -397,7 +397,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const maxHP = this.actor?.hitPoints?.max;
                 if (!(quantity && typeof maxHP === "number")) return null;
 
-                const percent = Math.clamped(Math.abs(quantity) / maxHP, 0, 1);
+                const percent = Math.clamp(Math.abs(quantity) / maxHP, 0, 1);
                 const textColors = {
                     damage: 16711680, // reddish
                     healing: 65280, // greenish

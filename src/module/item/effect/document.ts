@@ -54,7 +54,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 if (badge.type === "counter") badge.loop ??= false;
                 badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-                badge.value = Math.clamped(badge.value, badge.min, badge.max);
+                badge.value = Math.clamp(badge.value, badge.min, badge.max);
                 badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
             }
 
@@ -195,7 +195,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 }
 
                 const currentValue = Number(badgeChange.value ?? currentBadge.value ?? 1);
-                badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
+                badgeChange.value = Math.clamp(currentValue, minValue, maxValue);
             }
 
             // Delete min/max under certain conditions. Foundry is a bit shakey with -= behavior in _preUpdates

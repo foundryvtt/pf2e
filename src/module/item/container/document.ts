@@ -88,14 +88,14 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (!changed.system?.bulk) return super._preUpdate(changed, options, user);
 
         if (changed.system.bulk.heldOrStowed !== undefined) {
-            changed.system.bulk.heldOrStowed = Math.clamped(Number(changed.system.bulk.heldOrStowed), 0, 999) || 0;
+            changed.system.bulk.heldOrStowed = Math.clamp(Number(changed.system.bulk.heldOrStowed), 0, 999) || 0;
             if (!Number.isInteger(changed.system.bulk.heldOrStowed)) changed.system.bulk.heldOrStowed = 0.1;
         }
 
         for (const property of ["capacity", "ignored"] as const) {
             if (changed.system.bulk[property] !== undefined) {
                 changed.system.bulk[property] =
-                    Math.clamped(Math.trunc(Number(changed.system.bulk[property])), 0, 999) || 0;
+                    Math.clamp(Math.trunc(Number(changed.system.bulk[property])), 0, 999) || 0;
             }
         }
 

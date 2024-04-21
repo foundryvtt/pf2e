@@ -442,7 +442,7 @@ class CheckPF2e {
                 const heroPointCount = rerollingActor.heroPoints.value;
                 if (heroPointCount) {
                     await rerollingActor.update({
-                        "system.resources.heroPoints.value": Math.clamped(
+                        "system.resources.heroPoints.value": Math.clamp(
                             heroPointCount - 1,
                             0,
                             rerollingActor.heroPoints.max,

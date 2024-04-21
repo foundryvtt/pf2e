@@ -411,7 +411,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         consumption.breakdown = consumptionStatistic.check.breakdown;
 
         // Calculate the control dc, used for skill checks
-        const controlMod = CONTROL_DC_BY_LEVEL[Math.clamped(this.level - 1, 0, 19)] - 10;
+        const controlMod = CONTROL_DC_BY_LEVEL[Math.clamp(this.level - 1, 0, 19)] - 10;
         this.control = new Statistic(this.actor, {
             slug: "control",
             label: "PF2E.Kingmaker.Kingdom.ControlDC",
