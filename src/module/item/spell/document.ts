@@ -629,7 +629,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         this.system.location.value ||= null;
 
         // In case bad level data somehow made it in
-        this.system.level.value = (Math.clamped(this.system.level.value, 1, 10) || 1) as OneToTen;
+        this.system.level.value = (Math.clamp(this.system.level.value, 1, 10) || 1) as OneToTen;
 
         if (this.system.area?.value) {
             this.system.area.value = Math.max(5, Math.ceil(this.system.area.value / 5) * 5 || 5);
@@ -715,7 +715,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void {
-        this.system.cast.focusPoints = Math.clamped(this.system.cast.focusPoints, 0, 3) as ZeroToThree;
+        this.system.cast.focusPoints = Math.clamp(this.system.cast.focusPoints, 0, 3) as ZeroToThree;
         processSanctification(this);
     }
 
@@ -1169,7 +1169,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Ensure level is an integer between 1 and 10
         if (changed.system.level) {
             const { level } = changed.system;
-            level.value = Math.clamped(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
+            level.value = Math.clamp(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
         }
 
         const systemChanges = R.compact([
@@ -1227,7 +1227,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             if (uses) {
                 const currentUses = uses.value ?? this.system.location.uses?.value ?? 1;
                 const currentMax = uses.max ?? this.system.location.uses?.max ?? 1;
-                uses.value = Math.clamped(Number(currentUses), 0, Number(currentMax));
+                uses.value = Math.clamp(Number(currentUses), 0, Number(currentMax));
             }
 
             const traits = system.traits;

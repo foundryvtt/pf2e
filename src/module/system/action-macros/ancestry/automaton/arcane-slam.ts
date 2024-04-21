@@ -20,7 +20,7 @@ export function arcaneSlam(options: SkillActionOptions): void {
                 const sizeDifference = attackerSize.difference(targetSize);
                 const sizeModifier = new ModifierPF2e(
                     "PF2E.Actions.ArcaneSlam.Modifier.SizeDifference",
-                    Math.clamped(2 * sizeDifference, -4, 4),
+                    Math.clamp(2 * sizeDifference, -4, 4),
                     "circumstance",
                 );
                 if (sizeModifier.modifier) {

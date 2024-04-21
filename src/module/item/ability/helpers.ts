@@ -28,7 +28,7 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
         const actionCount = Number(changed.system?.actions?.value ?? document.system.actions.value);
         changed.system = fu.mergeObject(changed.system, {
             actionType: { value: actionType },
-            actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
+            actions: { value: actionType !== "action" ? null : Math.clamp(actionCount, 1, 3) },
         });
     }
 }

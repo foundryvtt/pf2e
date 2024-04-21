@@ -437,7 +437,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 }
                 if ("value" in slotData) {
                     const max = "max" in slotData ? Number(slotData?.max) || 0 : this.system.slots[slotKey].max;
-                    slotData.value = Math.clamped(Number(slotData.value), 0, max);
+                    slotData.value = Math.clamp(Number(slotData.value), 0, max);
                 }
             }
         }

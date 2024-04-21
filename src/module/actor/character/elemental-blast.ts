@@ -343,7 +343,7 @@ class ElementalBlast {
             subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
         });
         const meleeOrRanged = params.melee ? "melee" : "ranged";
-        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
+        const mapIncreases = Math.clamp(params.mapIncreases ?? 0, 0, 2) || 0;
         const actionSlug = "elemental-blast";
 
         return blastStatistic.roll({
@@ -385,7 +385,7 @@ class ElementalBlast {
 
         const outcome = params.outcome ?? "success";
         const meleeOrRanged = melee ? "melee" : "ranged";
-        const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
+        const actionCost = Math.clamp(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first()?.document ?? null;

@@ -95,7 +95,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.system.stage = Math.clamped(this.system.stage, this.badge.min, this.maxStage);
+        this.system.stage = Math.clamp(this.system.stage, this.badge.min, this.maxStage);
 
         // Set certain defaults
         for (const stage of Object.values(this.system.stages)) {
