@@ -104,12 +104,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
             rollData,
             secrets: item.isOwner,
-            async: true,
         });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
-            rollData,
-            async: true,
-        });
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), { rollData });
 
         const validTraits = this.validTraits;
         const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");

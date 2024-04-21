@@ -227,7 +227,7 @@ export class EffectsPanel extends Application {
             effects.map(async (effect) => {
                 const actor = "actor" in effect ? effect.actor : null;
                 const rollData = { actor, item: effect };
-                return await TextEditor.enrichHTML(effect.description, { async: true, rollData });
+                return await TextEditor.enrichHTML(effect.description, { rollData });
             }),
         );
     }

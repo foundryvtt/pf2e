@@ -209,7 +209,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 }),
             ),
             eventText: await TextEditor.enrichHTML(kingdom.event.text, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
@@ -221,7 +220,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     async #prepareArmies(): Promise<ArmySheetData[]> {
         const data = this.kingdom.armies.map(async (a) => ({
             document: a,
-            link: await TextEditor.enrichHTML(a.link, { async: true }),
+            link: await TextEditor.enrichHTML(a.link),
             consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
                 better: "lower",
             }),
@@ -246,7 +245,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...settlement,
             id,
             description: await TextEditor.enrichHTML(settlement.description, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             editing: this.#editingSettlements[id] ?? false,
