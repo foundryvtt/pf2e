@@ -471,8 +471,8 @@ abstract class CreaturePF2e<
 
         if (this.system.resources?.focus) {
             const { focus } = this.system.resources;
-            focus.max = Math.clamped(Math.floor(focus.max), 0, focus.cap) || 0;
-            focus.value = Math.clamped(Math.floor(focus.value), 0, focus.max) || 0;
+            focus.max = Math.clamp(Math.floor(focus.max), 0, focus.cap) || 0;
+            focus.value = Math.clamp(Math.floor(focus.value), 0, focus.max) || 0;
         }
 
         // Disallow creatures not in either alliance to flank
@@ -789,23 +789,23 @@ abstract class CreaturePF2e<
         if (typeof changedHP?.value === "number") {
             changedHP.value = options.allowHPOverage
                 ? Math.max(0, changedHP.value)
-                : Math.clamped(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
+                : Math.clamp(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
         }
         if (changed.system.attributes?.hp?.temp !== undefined) {
             const inputValue = changed.system.attributes.hp.temp;
-            changed.system.attributes.hp.temp = Math.floor(Math.clamped(Number(inputValue) || 0, 0, 999));
+            changed.system.attributes.hp.temp = Math.floor(Math.clamp(Number(inputValue) || 0, 0, 999));
         }
 
         // Clamp focus points
         const focusUpdate = changed.system.resources?.focus;
         if (focusUpdate && this.system.resources) {
             if (typeof focusUpdate.max === "number") {
-                focusUpdate.max = Math.clamped(focusUpdate.max, 0, 3);
+                focusUpdate.max = Math.clamp(focusUpdate.max, 0, 3);
             }
 
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
-            focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
+            focusUpdate.value = Math.clamp(updatedPoints, 0, enforcedMax);
         }
 
         // Preserve alignment traits if not exposed

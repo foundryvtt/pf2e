@@ -240,7 +240,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             return null;
         }
 
-        const dice = Math.clamped(Math.floor(Number(this.resolveValue(this.damage.base.dice))), 0, 12);
+        const dice = Math.clamp(Math.floor(Number(this.resolveValue(this.damage.base.dice))), 0, 12);
         if (Number.isNaN(dice)) {
             this.failValidation("dice does not resolve to a number");
             return null;
