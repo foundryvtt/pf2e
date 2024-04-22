@@ -38,11 +38,7 @@
             <template class="traits-extra">
                 {{#if item.rarity}}
                     <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity">
-                        {{#select item.rarity}}
-                            {{#each rarities as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions rarities selected=item.rarity localize=true}}
                     </select>
                 {{/if}}
             </template>
