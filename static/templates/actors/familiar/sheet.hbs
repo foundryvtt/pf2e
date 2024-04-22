@@ -25,12 +25,12 @@
                 <div>
                     <label for="{{document.uuid}}-master"><strong>{{localize "PF2E.Familiar.Master"}}</strong></label>
                     <select id="{{document.uuid}}-master" name="system.master.id">
-                        {{#select master.id}}
-                            <option value="">{{localize "PF2E.Familiar.SelectMaster"}}</option>
-                            {{#each masters as |eligible|}}
-                                <option value="{{eligible.id}}">{{eligible.name}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions
+                            masters
+                            selected=master.id
+                            valueAttr="id"
+                            labelAttr="name"
+                            blank=(localize "PF2E.Familiar.SelectMaster")}}
                     </select>
                 </div>
             </div>
@@ -183,11 +183,7 @@
                         <div class="detail">
                             <label for="{{document.uuid}}-attribute">{{localize "PF2E.Familiar.MasterSpellcastingAbility"}}</label>
                             <select id="{{document.uuid}}-attribute" name="system.master.ability">
-                                {{#select data.master.ability}}
-                                    {{#each attributes as |label slug|}}
-                                        <option value="{{slug}}">{{localize label}}</option>
-                                    {{/each}}
-                                {{/select}}
+                                {{selectOptions attributes selected=data.master.ability localize=true}}
                             </select>
                         </div>
                     </div>

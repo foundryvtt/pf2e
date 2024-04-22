@@ -49,11 +49,7 @@
         </div>
         <div class="create-rule-element">
             <select data-action="select-rule-element">
-                {{#select rules.selection.selected}}
-                    {{#each rules.selection.types as |value key|}}
-                        <option value="{{key}}">{{value}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions rules.selection.types selected=rules.selection.selected}}
             </select>
             <a data-action="add-rule-element"><i class="fa-solid fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
         </div>
