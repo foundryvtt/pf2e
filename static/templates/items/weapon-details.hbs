@@ -4,33 +4,19 @@
     <div class="form-group">
         <label for="{{fieldIdPrefix}}category">{{localize "PF2E.Category"}}</label>
         <select name="system.category" id="{{fieldIdPrefix}}category">
-            {{#select data.category}}
-                {{#each categories as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions categories selected=data.category}}
         </select>
     </div>
     <div class="form-group">
         <label for="{{fieldIdPrefix}}group">{{localize "PF2E.WeaponGroupLabel"}}</label>
         <select name="system.group" id="{{fieldIdPrefix}}group">
-            {{#select data.group}}
-                <option value=""></option>
-                {{#each groups as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions groups selected=data.group blank="" localize=true}}
         </select>
     </div>
     <div class="form-group">
         <label for="{{fieldIdPrefix}}base">{{localize "PF2E.WeaponBaseLabel"}}</label>
         <select id="{{fieldIdPrefix}}base" data-property="system.baseItem">
-            {{#select data.baseItem}}
-                <option value=""></option>
-                {{#each baseTypes as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions baseTypes selected=data.baseItem blank=""}}
         </select>
     </div>
     <div class="form-group">
@@ -53,12 +39,7 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}reload">{{localize "PF2E.WeaponReloadLabel"}}</label>
             <select name="system.reload.value" id="{{fieldIdPrefix}}reload">
-                {{#select data.reload.value}}
-                    <option value=""></option>
-                    {{#each weaponReload as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions weaponReload selected=data.reload.value blank="" localize=true}}
             </select>
         </div>
     {{/if}}
@@ -135,12 +116,13 @@
                     {{disabled slot.disabled}}
                     {{#if @root.item.isSpecific}}class="readonly"{{/if}}
                 >
-                    {{#select slot.slug}}
-                        <option value=""></option>
-                        {{#each @root.runeTypes.property as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions
+                        @root.runeTypes.property
+                        selected=slot.slug
+                        valueAttr="slug"
+                        labelAttr="name"
+                        blank=""
+                        localize=true}}
                 </select>
             </div>
         {{/each}}
@@ -182,12 +164,7 @@
                 value="{{data.damage.dice}}"
             />
             <select data-property="system.damage.die">
-                {{#select data.damage.die}}
-                    <option value=""></option>
-                    {{#each damageDie as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDie selected=data.damage.die blank="" localize=true}}
             </select>
 
             <select data-property="system.damage.damageType">

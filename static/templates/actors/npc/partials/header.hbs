@@ -26,19 +26,11 @@
         <div class="tags paizo-style">
             {{!-- TRAITS --}}
             <select class="tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
-                {{#select data.traits.rarity}}
-                    {{#each rarity as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions rarity selected=data.traits.rarity localize=true}}
             </select>
 
             <select class="tag size" data-property="system.traits.size.value">
-                {{#select data.traits.size.value}}
-                    {{#each actorSizes as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions actorSizes selected=data.traits.size.value localize=true}}
             </select>
         </div>
         {{#if editable}}
