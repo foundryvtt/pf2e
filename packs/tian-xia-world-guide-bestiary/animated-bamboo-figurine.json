@@ -1,0 +1,384 @@
+{
+    "_id": "8AANjQtU703ghIsR",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IeFMn4BxZlruXLnh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fist",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": [
+                        "knockdown"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "5VD4oCfQrbbiEuNR": {
+                        "damage": "1d8+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "reach-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TbG5MdnfsVG8k6Hd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "REu6HvVxWdLT9We6",
+            "flags": {
+                "core": {
+                    "sourceId": "Actor.LCpPQlFHJ9feVhlS.Item.iuA961D6giH9Ci1G"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 3)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Like normal objects, an animated bamboo figuring has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once an animated bamboo figuring is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 16.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KK1zoEaNPKT5q263",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spring Forward",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The animated bamboo figure jumps up to 30 feet and makes two fist Strikes against different targets. It can use Knockdown following this activity, attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] each creature struck.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WuRfZDW8R6nZuZo2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Knockdown]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9nu39WmkPPpx01tc",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "RMEwzbxL9HLGB20P",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Animated Bamboo Figurine",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "16 when broken; construct armor",
+                "value": 18
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hardness": {
+                "value": 3
+            },
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 15
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 2
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Supple but strong bamboo strips woven into intricate patterns form the base of the animated bamboo figure. These materials are plentiful and easy to come by, though they require great care and patience to prepare, making them ideal guardians for isolated communities. These hollow and pliable handcrafts can stretch or compress, jumping and springing farther than most humanoids.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens: Tian Xia World Guide"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 8,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 10
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -18,12 +18,32 @@
             "remaster": false,
             "title": "Pathfinder Secrets of Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:cast:actions",
+                            1
+                        ]
+                    },
+                    "item:trait:focus",
+                    "item:trait:magus"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Magus.Spellstrike.RechargeNote"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "value": [
-                "magus"
-            ]
+            "value": []
         }
     },
     "type": "action"

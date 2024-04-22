@@ -9,7 +9,7 @@ import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 
@@ -132,7 +132,7 @@ class ModifierPF2e implements RawModifier {
     custom: boolean;
     damageType: DamageType | null;
     damageCategory: DamageCategoryUnique | null;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     critical: boolean | null;
     traits: string[];
     hideIfDisabled: boolean;
@@ -184,7 +184,7 @@ class ModifierPF2e implements RawModifier {
         this.ignored = params.ignored ?? false;
         this.custom = params.custom ?? false;
         this.source = params.source ?? null;
-        this.predicate = new PredicatePF2e(params.predicate ?? []);
+        this.predicate = new Predicate(params.predicate ?? []);
         this.traits = fu.deepClone(params.traits ?? []);
         this.hideIfDisabled = params.hideIfDisabled ?? false;
         this.modifier = params.modifier;
@@ -240,7 +240,7 @@ class ModifierPF2e implements RawModifier {
 
     /** Return a copy of this ModifierPF2e instance */
     clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
-        const clone = new ModifierPF2e(fu.mergeObject({ ...this, modifier: this.#originalValue, ...data }));
+        const clone = new ModifierPF2e({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
         if (options.test) clone.test(options.test);
 
         return clone;
@@ -686,7 +686,7 @@ class DamageDicePF2e {
     override: DamageDiceOverride | null;
     ignored: boolean;
     enabled: boolean;
-    predicate: PredicatePF2e;
+    predicate: Predicate;
     alterations: DamageAlteration[];
     hideIfDisabled: boolean;
 
@@ -718,7 +718,7 @@ class DamageDicePF2e {
         this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
 
         this.predicate =
-            params.predicate instanceof PredicatePF2e ? params.predicate : new PredicatePF2e(params.predicate ?? []);
+            params.predicate instanceof Predicate ? params.predicate : new Predicate(params.predicate ?? []);
 
         this.enabled = params.enabled ?? this.predicate.test([]);
         this.ignored = params.ignored ?? !this.enabled;

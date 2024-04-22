@@ -6,13 +6,13 @@ import * as R from "remeda";
  * attack could be an option that is not a trait.
  * @category PF2
  */
-class PredicatePF2e extends Array<PredicateStatement> {
+class Predicate extends Array<PredicateStatement> {
     /** Is the predicate data structurally valid? */
     readonly isValid: boolean;
 
     constructor(...statements: PredicateStatement[] | [PredicateStatement[]]) {
         super(...(Array.isArray(statements[0]) ? statements[0] : (statements as PredicateStatement[])));
-        this.isValid = PredicatePF2e.isValid(this);
+        this.isValid = Predicate.isValid(this);
         Object.defineProperty(this, "isValid", { enumerable: false });
     }
 
@@ -28,9 +28,7 @@ class PredicatePF2e extends Array<PredicateStatement> {
 
     /** Test if the given predicate passes for the given list of options. */
     static test(predicate: PredicateStatement[] = [], options: Set<string> | string[]): boolean {
-        return predicate instanceof PredicatePF2e
-            ? predicate.test(options)
-            : new PredicatePF2e(...predicate).test(options);
+        return predicate instanceof Predicate ? predicate.test(options) : new Predicate(...predicate).test(options);
     }
 
     /** Test this predicate against a domain of discourse */
@@ -50,8 +48,8 @@ class PredicatePF2e extends Array<PredicateStatement> {
         return fu.deepClone([...this]);
     }
 
-    clone(): PredicatePF2e {
-        return new PredicatePF2e(this.toObject());
+    clone(): Predicate {
+        return new Predicate(this.toObject());
     }
 
     /** Is the provided statement true? */
@@ -252,5 +250,5 @@ type PredicateStatement = Atom | CompoundStatement;
 
 type RawPredicate = PredicateStatement[];
 
-export { PredicatePF2e, StatementValidator };
+export { Predicate, StatementValidator };
 export type { PredicateStatement, RawPredicate };

@@ -279,13 +279,17 @@
             "name": "Volcanic Eruption",
             "sort": 500000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "cylinder",
+                    "value": 5
+                },
                 "cost": {
                     "value": ""
                 },
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "14d6",
                         "kinds": [
@@ -302,7 +306,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to Escape against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take 3d6 fire damage from the intense heat, regardless of the results of their saving throws.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr /><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6."
+                    "value": "<p><strong>Area</strong> 5-foot radius, 80-foot-tall cylinder</p>\n<hr />\n<p>The ground opens up, spraying a column of lava high into the air in a vertical cylinder, dealing 14d6 fire damage to creatures in the area. The lava rapidly cools and encases creatures in the area. A creature encased in rock is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and takes a -10-foot status penalty to its Speeds. All normal terrain is difficult terrain to a flying creature, and such creatures immediately descend 20 feet the moment they're encased, but they don't take damage from this fall. A creature encased in rock can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] against your spell DC to end the effect. Otherwise, the creature remains encased until it takes a total of 50 damage, freeing it from the rock. Additionally, creatures in the area and those within 5 feet of the lava column automatically take @Damage[(@item.rank -4)d6[fire]] damage from the intense heat, regardless of the results of their saving throws.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Volcanic Eruption]</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is encased.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is encased.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage in the area increases by 2d6, and the damage from the intense heat increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -323,9 +327,9 @@
                     "value": "75r7SZRmZYqQiKfH"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "120 feet"
@@ -597,7 +601,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
+                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
                 },
                 "duration": {
                     "sustained": false,

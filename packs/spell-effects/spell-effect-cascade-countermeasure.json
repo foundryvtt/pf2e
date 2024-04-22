@@ -1,0 +1,45 @@
+{
+    "_id": "SAkdopdD8IzOeqs1",
+    "img": "icons/magic/water/barrier-ice-shield.webp",
+    "name": "Spell Effect: Cascade Countermeasure",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Cascade Countermeasure]</p>\n<p>You gain resistance against damage from spells.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:arcane-cascade"
+                ],
+                "type": "spells",
+                "value": "5*floor(@item.level / 3)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

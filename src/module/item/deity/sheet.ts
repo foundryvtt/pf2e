@@ -1,3 +1,4 @@
+import type { SkillLongForm } from "@actor/types.ts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
@@ -6,7 +7,6 @@ import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { DeitySanctification } from "./data.ts";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
-import { SkillLongForm } from "@actor/types.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     static override get defaultOptions(): ItemSheetOptions {
@@ -65,7 +65,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 
-        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 });
+        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skillList, maxTags: 2 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;

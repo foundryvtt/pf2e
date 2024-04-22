@@ -2,7 +2,7 @@ import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/type
 import { CONDITION_SLUGS } from "@item/condition/values.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
-import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
+import { Predicate, PredicateStatement } from "@system/predication.ts";
 import { isObject, objectHasKey, setHasElement } from "@util";
 
 abstract class IWR<TType extends IWRType> {
@@ -11,7 +11,7 @@ abstract class IWR<TType extends IWRType> {
     readonly exceptions: IWRException<TType>[];
 
     /** A definition for a custom IWR */
-    readonly definition: PredicatePF2e | null;
+    readonly definition: Predicate | null;
 
     source: string | null;
 
@@ -199,7 +199,7 @@ abstract class IWR<TType extends IWRType> {
         }
     }
 
-    get predicate(): PredicatePF2e {
+    get predicate(): Predicate {
         const typeStatements = this.describe(this.type);
         const exceptions = this.exceptions.flatMap((exception): PredicateStatement | PredicateStatement[] => {
             const described = this.describe(exception).filter((s) => s !== "damage");
@@ -211,7 +211,7 @@ abstract class IWR<TType extends IWRType> {
             exceptions.length === 0 ? [] : exceptions.length === 1 ? { not: exceptions[0] } : { nor: exceptions },
         ].flat();
 
-        return new PredicatePF2e(statements);
+        return new Predicate(statements);
     }
 
     toObject(): Readonly<IWRDisplayData<TType>> {
@@ -249,7 +249,7 @@ type IWRConstructorData<TType extends IWRType> = {
     type: TType;
     exceptions?: IWRException<TType>[];
     customLabel?: Maybe<string>;
-    definition?: Maybe<PredicatePF2e>;
+    definition?: Maybe<Predicate>;
     source?: string | null;
 };
 
@@ -360,7 +360,7 @@ class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     /** Get the doubled value of this resistance if present and applicable to a given instance of damage */
     getDoubledValue(damageDescription: Set<string>): number {
         if (this.doubleVs.length === 0) return this.value;
-        const predicate = new PredicatePF2e(this.doubleVs.flatMap((d) => this.describe(d)));
+        const predicate = new Predicate(this.doubleVs.flatMap((d) => this.describe(d)));
         return predicate.test(damageDescription) ? this.value * 2 : this.value;
     }
 }

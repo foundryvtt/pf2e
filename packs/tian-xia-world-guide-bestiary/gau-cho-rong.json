@@ -1,0 +1,564 @@
+{
+    "_id": "KcwFM5tI2R4jDalx",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "hBQ9UHaFGVsMR9ZI",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "8WA8QejGz7ykc5Et": {
+                        "damage": "2d8+5",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "HRSxbJPrK5yuMBEZ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 13
+                },
+                "damageRolls": {
+                    "Dk1MzayV4WKnTzjp": {
+                        "damage": "2d6+5",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zFEp3WCo8U76CGa3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "blUfvP0lnAU5MVNc",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Full Belly",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>When a gau cho rong is full, which requires consuming an entire Medium creature or 6 Bulk of meat, it becomes peaceful and even playful. It has an automatic result of 33 on Deception checks and DCs to pass as a normal sun bear, but it loses its resistances. A gau cho rong remains full for 8 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "full-belly",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            {
+                                "not": "full-belly"
+                            }
+                        ],
+                        "type": [
+                            "bludgeoning",
+                            "piercing"
+                        ],
+                        "value": 5
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "anEzRiEpu094Fwz7",
+            "flags": {
+                "pf2e": {
+                    "itemGrants": {
+                        "reactiveStrike": {
+                            "id": "s0tlaJyRifEx7e2I",
+                            "onDelete": "detach"
+                        },
+                        "reactiveStrike2": {
+                            "id": "5I9lqayP82R9QJhu",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Subsumed Traits",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>After it finishes digesting a full meal, the gau cho rong will gain a trait from that creature until the next time it's full. Gau cho rongs that gain the animal trait have scent out to 60 feet as an imprecise sense, while those with the amphibious or aquatic trait gain a swim speed of 25 feet. Humanoid hollow bears gain the Reactive Strike reaction. Traits like fire add that damage type to a gau cho rong's resistances. Other traits have effects at the GM's discretion.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "{item|name}",
+                        "option": "subsumed-trait",
+                        "selection": "noneOrOther",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.GauChoRong.SubsumedTrait.Amphibious",
+                                "value": "amphibious"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.GauChoRong.SubsumedTrait.Animal",
+                                "value": "animal"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.GauChoRong.SubsumedTrait.Aquatic",
+                                "value": "aquatic"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.GauChoRong.SubsumedTrait.Humanoid",
+                                "value": "humanoid"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.GauChoRong.SubsumedTrait.NoneOrOther",
+                                "value": "noneOrOther"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "acuity": "imprecise",
+                        "key": "Sense",
+                        "predicate": [
+                            "subsumed-trait:animal"
+                        ],
+                        "range": 60,
+                        "selector": "scent"
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "subsumed-trait:amphibious",
+                                    "subsumed-trait:aquatic"
+                                ]
+                            }
+                        ],
+                        "selector": "swim",
+                        "value": 25
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "UfUQ9qMC9rUsdCi0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike (Humanoid Subsumed Trait Only)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZebFCtrvT2tLkfYq",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Ambush",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gau cho rong is hiding and a creature that hasn't detected it is within 20 feet</p>\n<hr />\n<p><strong>Effect</strong> The gau cho rong Strides toward the creature. Once the creature is in reach, the gau cho rong makes a Strike against it. The target creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to this attack.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7LYmhvwzlBlTvNPX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Devour",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The gau cho rong's last action was a successful jaws Strike</p>\n<hr />\n<p><strong>Effect</strong> The target takes @Damage[1d6[persistent,bleed]] damage. The gau cho rong gains some knowledge from the creature's blood, learning how to understand and speak all languages that creature knows for 1 minute, which it does in a distorted version of the target's voice. During that time, the gau cho rong also gains a +2 circumstance bonus to Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] that creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BVvYdMn2TlYGwADg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "jLOVoRAb81ZVweyu",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 11
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "BZvusZL6OF5iz2tH",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 13
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "05GH59ydo4haGZby",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 10
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Gau Cho Rong",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 1
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -2
+            },
+            "str": {
+                "mod": 5
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 20
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "resistances": [],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 15
+                    }
+                ],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 4
+            },
+            "privateNotes": "<h3>Subsumed Traits</h3>\n<p>Physical changes from creatures they've devoured are visible in markings on the gau cho rong's loose hide and even in the shape of its bony frame, granting different hollow bears slightly different abilities even among the same group. It's possible that unique, older, or more powerful gau cho rongs might gain permanent abilities from digesting certain creatures.</p>",
+            "publicNotes": "<p>Campfire stories claim gau cho rongs originated as the ghosts of poachers' prey come back for revenge, concocted minions of hags, or cursed beasts that became addicted to the flesh of children who wander where they're told not to. Known by the unsettling nickname of \"hollow bears,\" gau cho rongs are easily mistaken for their good-natured cousin, the sun bear. Little more than 3 feet tall with long, lolling tongues, they resemble adorable little cubs when glutted but turn into terrors when they begin to hunger and hollow. The hungry gau cho rong's pelt goes slack until it appears little more than brittle bone in a sack of fur, like an old doll shucked of its filling. The hollow bears writhe and whimper, luring sympathetic victims or opportunistic hunters. As these targets approach, other gau cho rongs drop down from the boughs above on the backs and faces of their prey, their loose fur dulling most attacks as they rake victims with their long, hooked claws. Once they've finally eaten their fill, the gau cho rongs revert to their disarmingly endearing state. Thus continues their life of playing, hunting, lazing, slaying, romping, and rending.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens: Tian Xia World Guide"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 10,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 6
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

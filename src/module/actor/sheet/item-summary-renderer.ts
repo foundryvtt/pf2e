@@ -96,7 +96,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         item: ItemPF2e<ActorPF2e>,
         chatData: RawItemChatData,
     ): Promise<void> {
-        const description = chatData.description.value;
         const isEffect = item instanceof AbstractEffectPF2e;
         const effectLinkText =
             item.isOfType("action", "feat") && item.system.selfEffect
@@ -106,7 +105,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
-            description,
+            description: chatData.description,
             identified: game.user.isGM || !(item.isOfType("physical") || isEffect) || item.isIdentified,
             isCreature: item.actor?.isOfType("creature"),
             chatData,

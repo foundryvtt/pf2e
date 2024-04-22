@@ -101,12 +101,15 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         super.prepareBaseData();
 
+        // Fetch members, and update their parties if this isn't a clone
         this.members = this.system.details.members
             .map((m) => fromUuidSync(m.uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"))
             .sort((a, b) => a.name.localeCompare(b.name, game.i18n.lang));
-        for (const member of this.members) {
-            member?.parties.add(this);
+        if (fromUuidSync(this.uuid) === this) {
+            for (const member of this.members) {
+                member.parties.add(this);
+            }
         }
 
         // Determine alliance based on the contained members

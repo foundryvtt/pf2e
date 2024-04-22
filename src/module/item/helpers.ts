@@ -3,6 +3,7 @@ import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { createHTMLElement, setHasElement } from "@util";
 import * as R from "remeda";
 import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
+import { ItemDescriptionData } from "./base/data/system.ts";
 import type { ItemPF2e } from "./base/document.ts";
 import type { PhysicalItemPF2e } from "./physical/document.ts";
 import { PHYSICAL_ITEM_TYPES } from "./physical/values.ts";
@@ -57,7 +58,10 @@ class ItemChatData {
     }
 
     async process(): Promise<RawItemChatData> {
-        const description = { ...this.data.description, value: await this.#prepareDescription() };
+        const description = {
+            ...this.data.description,
+            ...(await this.#prepareDescription()),
+        };
         return fu.mergeObject(this.data, { description }, { inplace: false });
     }
 
@@ -67,7 +71,7 @@ class ItemChatData {
         return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
     }
 
-    async #prepareDescription(): Promise<string> {
+    async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
         const { data, item } = this;
         const rollOptions = new Set(R.compact([item.actor?.getRollOptions(), item.getRollOptions("item")].flat()));
 
@@ -113,7 +117,12 @@ class ItemChatData {
         const assembled = R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
-        return TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true });
+        return {
+            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true }),
+            gm: game.user.isGM
+                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData, async: true })
+                : "",
+        };
     }
 }
 

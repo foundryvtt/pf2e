@@ -1,0 +1,65 @@
+{
+    "_id": "gacjZkMkeVsrCt4A",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Verduran City Folk",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "dex",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You hail from one of the few large settlements in or around the Verduran Forest, such as Bellis or Wispil. It might be that you're part of these towns' timber operations or supporting industries, such as transporting supplies, overseeing operations, or serving as a remote bureaucrat who reports to a distant capital and enforces the Treaty of the Wildwood. Whatever the case, you're part of a scattered constellation of settlements that share cultural touchstones, including fey-inspired games like Prismati.</p>\n<p>Choose two ability boosts. One must be to <strong>Dexterity</strong> or <strong>Intelligence</strong>, and one is a free ability boost.</p>\n<p>You're trained in the Society skill and the Games Lore skill. You gain either @UUID[Compendium.pf2e.feats-srd.Item.Multilingual] or @UUID[Compendium.pf2e.feats-srd.Item.Streetwise] as a skill feat.</p>"
+        },
+        "items": {},
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder: Wardens of Wildwood Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Multilingual"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Streetwise"
+                    }
+                ],
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
+        "trainedLore": "Games Lore",
+        "trainedSkills": {
+            "value": [
+                "soc"
+            ]
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "background"
+}

@@ -11,7 +11,7 @@ import { OneToFour, Rarity, ZeroToFour, ZeroToSix, ZeroToThree } from "@module/d
 import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
-import { PredicatePF2e } from "@system/predication.ts";
+import { Predicate } from "@system/predication.ts";
 import * as R from "remeda";
 
 function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
@@ -1815,7 +1815,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             adjustments: [
                 {
                     slug: "critical-specialization",
-                    test: (options): boolean => new PredicatePF2e("item:group:pick").test(options),
+                    test: (options): boolean => new Predicate("item:group:pick").test(options),
                     getNewValue: (current) => current * 2,
                 },
             ],
@@ -1944,7 +1944,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
             dosAdjustments: [
                 {
                     adjustments: { success: { label: "PF2E.WeaponPropertyRune.keen.Name", amount: "criticalSuccess" } },
-                    predicate: new PredicatePF2e([
+                    predicate: new Predicate([
                         "check:total:natural:19",
                         { or: ["item:damage:type:slashing", "item:damage:type:piercing"] },
                     ]),

@@ -221,7 +221,9 @@ abstract class RollContext<
         if (!uncloned?.actor || !otherActor) {
             return uncloned?.actor ?? null;
         }
+
         const item = this.item;
+        const itemOptions = item?.getRollOptions("item") ?? [];
 
         // Get ephemeral effects from the target that affect this actor while attacking
         const ephemeralEffects = await extractEphemeralEffects({
@@ -230,7 +232,7 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: [...this.rollOptions, ...(item?.getRollOptions("item") ?? [])],
+            options: [...this.rollOptions, ...itemOptions],
         });
 
         // Add an epehemeral effect from flanking
@@ -258,6 +260,7 @@ abstract class RollContext<
                 markOption,
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
+                ...(which === "target" ? itemOptions : []),
             ]),
             ephemeralEffects,
         );

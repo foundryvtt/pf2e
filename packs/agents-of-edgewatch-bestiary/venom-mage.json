@@ -483,7 +483,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] permanently.</p>"
+                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] permanently.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -553,7 +553,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
+                    "value": "<p>Using the weight of earth, you hamper a target's flight, with effects based on its Fortitude save. If the creature reaches the ground safely, it doesn't take falling damage.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target falls safely up to 120 feet.</p>\n<p><strong>Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 round.</p>\n<p><strong>Critical Failure</strong> The target falls safely up to 120 feet. If it hits the ground, it can't Fly, levitate, or otherwise leave the ground for 1 minute.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1636,13 +1636,14 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "1d4",
                         "kinds": [
                             "damage"
                         ],
                         "materials": [],
-                        "type": "poison"
+                        "type": "piercing"
                     }
                 },
                 "defense": {
@@ -1652,7 +1653,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You magically duplicate a spider's venomous sting. You deal 1d4 piercing damage to the touched creature and afflict it with spider venom. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Spider Venom</strong> (poison)</p>\n<p><strong>Level 1</strong> ; Maximum Duration 4 rounds.</p>\n<p><strong>Stage 1</strong> 1d4 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> 1d4 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round).</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 1d4 poison damage.</p>\n<p><strong>Failure</strong> The target is afflicted with spider venom at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with spider venom at stage 2.</p>"
+                    "value": "<p>You magically duplicate a spider's venomous sting. You deal 1d4 piercing damage to the touched creature and afflict it with spider venom. The target must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes @Damage[1d4[poison]] damage.</p>\n<p><strong>Failure</strong> The target is afflicted with spider venom at stage 1.</p>\n<p><strong>Critical Failure</strong> The target is afflicted with spider venom at stage 2.</p>\n<hr />\n<p><strong>Spider Venom</strong> (poison)</p>\n<p><strong>Level</strong> 1</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> 1d4 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 round)</p>\n<p><strong>Stage 2</strong> 1d4 poison damage and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} (1 round)</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1665,9 +1666,9 @@
                     "value": "H1Aapl7br22RF2Pe"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": "touch"

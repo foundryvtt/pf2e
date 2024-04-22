@@ -1,0 +1,352 @@
+{
+    "_id": "fXlmbjtV3spZlmGS",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "2DHk3twLY8akGxlu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Frame",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "E08aqx3jP2hR7bYi": {
+                        "damage": "1d6",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "finesse",
+                        "magical"
+                    ]
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "GNzqs4QlPJnHQRF6",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7r8d3h4239X47nG3",
+            "flags": {
+                "core": {
+                    "sourceId": "Actor.LCpPQlFHJ9feVhlS.Item.iuA961D6giH9Ci1G"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Construct Armor (Hardness 1)",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Like normal objects, an animated kite has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once an animated kite is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 13.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ConstructArmor.CriticalHit",
+                        "option": "construct-armor",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "value": -2
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hardness.value",
+                        "phase": "afterDerived",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "construct-armor",
+                                    {
+                                        "lt": [
+                                            "hp-percent",
+                                            50
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uRPxWhiPhl5WldIE",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Attach Line",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The animated kite gives its line to an adjacent ally with a free hand. The kite remains attached until the creature releases it or the kite flies more than 60 feet away. A creature between them can also sever the line with a successful Strike against AC 13 that deals any amount of slashing damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ENGj88Uyg0OcwwZK",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sawing Line",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The animated kite has its line attached to an ally</p>\n<hr />\n<p><strong>Effect</strong> Each creature along the line between the kite and its ally takes @Damage[1d6[slashing]] damage (@Check[type:reflex|dc:16|basic:true] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "tVqui3xt0OLJtlJk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 7
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Animated Kite",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -5
+            },
+            "con": {
+                "mod": 0
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 0
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "13 when broken; construct armor",
+                "value": 15
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hardness": {
+                "value": 1
+            },
+            "hp": {
+                "details": "",
+                "max": 10,
+                "temp": 0,
+                "value": 10
+            },
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 30
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 0
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>An animated kite is perfect for spying, allowing observation from a great distance, although many are treated more like pets. The kite itself is a simple handcraft, easily created and destroyed, made of enchanted paper stretched over a fine bamboo frame. More advanced kites can be decorated with a variety of runes that allow the enchanter to see or hear from a distance.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens: Tian Xia World Guide"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 6,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 4
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 4
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "sm"
+            },
+            "value": [
+                "construct",
+                "mindless"
+            ]
+        }
+    },
+    "type": "npc"
+}

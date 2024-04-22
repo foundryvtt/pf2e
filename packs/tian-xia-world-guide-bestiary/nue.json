@@ -1,0 +1,521 @@
+{
+    "_id": "9jvXTVcMNTx3kGfU",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "AMZwQd1LKLlBIKlJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Darkvision",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Darkvision]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Rc4BL91rscyPvnAF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Viper Tail",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within 15 feet of the nue leaves a square during a move action it's using or moves into a square that would cause the nue to become flanked</p>\n<hr />\n<p><strong>Effect</strong> The nue whips around and attempts a tail Strike against the triggering creature. This Strike doesn't count toward the nue's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "5J06Ku4CI2tpvzEV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Cloud Form",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nue changes its shape into that of a dark storm cloud. In Cloud Form, the nue is @UUID[Compendium.pf2e.conditionitems.Item.Concealed], gains a 60-foot fly Speed, gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise, and can't make attacks, though it can use its howl abilities. The nue can Dismiss this effect.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "cloud-form",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "cloud-form"
+                        ],
+                        "selector": "deception",
+                        "value": 4
+                    },
+                    {
+                        "attackModifier": 24,
+                        "damage": {
+                            "base": {
+                                "damageType": "slashing",
+                                "dice": 3,
+                                "die": "d8",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "cloud-form"
+                            }
+                        ],
+                        "traits": [
+                            "agile",
+                            "disarm",
+                            "finesse",
+                            "reach-10"
+                        ]
+                    },
+                    {
+                        "attackModifier": 24,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            {
+                                "not": "cloud-form"
+                            }
+                        ],
+                        "traits": [
+                            "agile",
+                            "finesse",
+                            "reach-15"
+                        ]
+                    },
+                    {
+                        "attackModifier": 24,
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "cloud-form"
+                            }
+                        ],
+                        "traits": [
+                            "finesse",
+                            "reach-10"
+                        ]
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "selector": "tail-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4LPLJgV2vXAU3fxa",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Monstrous Howl",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nue lets out an eerie howl that rattles creatures' very souls. Creatures within 60 feet must attempt a @Check[type:will|dc:27] save (DC 29 at night). They're then temporarily immune to Monstrous Howl for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d8[persistent,void]] damage.</p>\n<p><strong>Failure</strong> As success, plus the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> As success, plus the target is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "mental",
+                        "void"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6KEuGr4oocCpJi1e",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Thundering Howl",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The nue howls to the sky, calling down a bolt of lightning that strikes the creature closest to the nue, to a maximum range of 60 feet. The bolt deals @Damage[12d6[electricity]] damage (@Check[type:reflex|dc:27|basic:true] save). The nue then can't use Thundering Howl for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "electricity"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vEdY31M0676bF04t",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "fBMHW6jcN1gwEEba",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 22
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "a5wJWNEusPLztmyn",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Deception",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "aDKyO5k8Nh2FBtpl",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "DB67MXq6dsqYCKNr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Occultism",
+            "sort": 1000000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "qYmpbwxe8Oq3nO3z",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 1100000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 17
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Nue",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 4
+            },
+            "con": {
+                "mod": 4
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 30
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 200,
+                "temp": 0,
+                "value": 200
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "fear-effects"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "non-magical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 40
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "tien"
+                ]
+            },
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "<h2>Curse of the Nue</h2>\n<p>Even in death, a nue's spirit can bring disaster to those around it. One way to suppress the curse is to perform burial rites and build a mound over the nue's tomb. Another is to avoid the curse entirely by setting the corpse adrift down a river or burying it far away. The curse itself is said to enact its wrath through possession; some believe this is how a nue is created.</p>",
+            "publicNotes": "<p>A nue is an ancient creature of enormous size and destructive power. Though sightings are rare, it's described as having the head of a monkey, the body of a tanuki, the limbs of a tiger, and a snake for a tail. The beast's eerie body is matched by its ability to drain the life force of those around it just by howling.</p>\n<p>According to certain tales, in ancient times, a nue would freely terrorize kingdoms and inflict nightmares upon it victims. It first appears as an enormous storm cloud before turning a poisonous black color. When angered, a nue can summon lightning to cause massive amounts of collateral damage. Hearing a nue's howl is considered an ill omen.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Lost Omens: Tian Xia World Guide"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "darkvision",
+            "mod": 21,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 18
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "beast"
+            ]
+        }
+    },
+    "type": "npc"
+}

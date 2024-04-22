@@ -235,6 +235,7 @@ const creatureTraits = {
     wight: "PF2E.TraitWight",
     "wild-hunt": "PF2E.TraitWildHunt",
     wraith: "PF2E.TraitWraith",
+    wraithvine: "PF2E.TraitWraithvine",
     wyrwood: "PF2E.TraitWyrwood",
     xulgath: "PF2E.TraitXulgath",
     zombie: "PF2E.TraitZombie",
@@ -349,6 +350,7 @@ const spellTraits = {
     summon: "PF2E.TraitSummon",
     summoned: "PF2E.TraitSummoned",
     teleportation: "PF2E.TraitTeleportation",
+    trial: "PF2E.TraitTrial",
     "true-name": "PF2E.TraitTrueName",
     visual: "PF2E.TraitVisual",
 };
@@ -928,6 +930,7 @@ const shieldTraits = {
     invested: "PF2E.TraitInvested",
     "launching-dart": "PF2E.TraitLaunching",
     magical: "PF2E.TraitMagical",
+    relic: "PF2E.TraitRelic",
     "shield-throw-20": "PF2E.TraitShieldThrow20",
     "shield-throw-30": "PF2E.TraitShieldThrow30",
 };
@@ -966,6 +969,7 @@ const armorTraits = {
     noisy: "PF2E.TraitNoisy",
     plant: "PF2E.TraitPlant",
     ponderous: "PF2E.TraitPonderous",
+    relic: "PF2E.TraitRelic",
 };
 
 const rangeDescriptions = R.mapToObj(RANGE_TRAITS, (trait) => [trait, "PF2E.TraitDescriptionRange"]);

@@ -44,7 +44,7 @@ interface AttackRollParams extends RollParameters {
     rollTwice?: RollTwiceOption;
 }
 
-interface DamageRollParams extends Omit<AttackRollParams, "consumAmmo" | "rollTwice"> {
+interface DamageRollParams extends Omit<AttackRollParams, "consumeAmmo" | "rollTwice"> {
     mapIncreases?: Maybe<ZeroToTwo>;
     checkContext?: Maybe<CheckContextChatFlag>;
 }

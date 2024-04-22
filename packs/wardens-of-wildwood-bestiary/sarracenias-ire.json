@@ -1,0 +1,117 @@
+{
+    "_id": "nFfssF2KngAEdth4",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "GQIMRGqYqmZFBIRD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Awaken",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> At least two creatures enter the grove</p>\n<hr />\n<p><strong>Effect</strong> The illusion fades, and a sorrowful chill emanates from the giant tree. The haunt rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Sarracenia's Ire",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 23
+            },
+            "emitsSound": "encounter",
+            "hardness": 12,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to recognize that the scene before them is an illusion.</p>",
+                "value": 13
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 8
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The illusion shatters, revealing the grove to be a lifeless scar and the seemingly peaceful loggers to be crawling aimlessly about the clearing, consumed by rage and lashing out at anything that comes near.</p>",
+            "disable": "<p>@Check[type:nature|dc:22] (trained) to tame the primal energy, @Check[type:religion|dc:24] (trained) to suppress the haunt, @Check[type:diplomacy|dc:25] (trained) to console the dryad; three successes are required to disable the haunt.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #201: Pactbreaker"
+            },
+            "reset": "<p>Unless Silene is destroyed, this haunt can recharge itself after 1 hour.</p>",
+            "routine": "<p>(1 action; emotion, mental, primal) Sarracenia's rage overwhelms up to two living creatures in the grove, each of which must attempt a @Check[type:will|dc:23|traits:emotion,mental,primal] save.</p>\n<hr>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round.</p>\n<p><strong>Critical Failure</strong> For 1 round, the creature is confused, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, and gains a +4 status bonus to damage rolls.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}
