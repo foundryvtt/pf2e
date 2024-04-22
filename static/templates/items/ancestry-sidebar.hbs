@@ -7,11 +7,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.SizeLabel"}}</label>
         <select name="system.size">
-            {{#select data.size}}
-                {{#each sizes}}
-                    <option value="{{@key}}">{{localize this.label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions sizes selected=data.size labelAttr="label" localize=true}}
         </select>
     </div>
 

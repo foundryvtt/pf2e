@@ -167,18 +167,10 @@
             <div class="flexrow">
                 <div class="flexrow tags paizo-style">
                     <select class="rarity-select traits-list-item tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
-                        {{#select data.traits.rarity}}
-                            {{#each rarity as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions rarity selected=data.traits.rarity localize=true}}
                     </select>
                     <select class="size-select traits-list-item tag size" data-property="system.traits.size.value">
-                        {{#select data.traits.size.value}}
-                            {{#each actorSizes as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions actorSizes selected=data.traits.size.value localize=true}}
                     </select>
                 </div>
             </div>
