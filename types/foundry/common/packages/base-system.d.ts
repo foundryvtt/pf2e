@@ -26,9 +26,6 @@ export default class BaseSystem extends packages.BasePackage<BaseSystemSchema> {
 
     /** An alias for the raw template JSON loaded from the game System. */
     get template(): object;
-
-    /** An alias for the structured data model organized by document class and type. */
-    get model(): Record<"Actor" | "Card" | "Cards" | "Item" | "JournalEntryPage", object>;
 }
 
 export default interface BaseSystem

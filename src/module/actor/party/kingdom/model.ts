@@ -120,7 +120,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     /** Perform the collection portion of the upkeep phase */
     async collect(): Promise<void> {
         const { formula, commodities } = calculateKingdomCollectionData(this);
-        const roll = await new Roll(formula).evaluate({ async: true });
+        const roll = await new Roll(formula).evaluate();
         await roll.toMessage(
             {
                 flavor: game.i18n.localize("PF2E.Kingmaker.Kingdom.Resources.Points"),
