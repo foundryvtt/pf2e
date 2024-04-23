@@ -747,10 +747,10 @@ class TextEditorPF2e extends TextEditor {
         const traits = ((): string[] => {
             const fromParams = rawParams.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
             const fromItem = item?.system.traits?.value ?? [];
-            return overrideTraits ? fromParams : R.uniq([...fromParams, ...fromItem]);
+            return overrideTraits ? fromParams : R.unique([...fromParams, ...fromItem]);
         })();
 
-        const extraRollOptions = R.compact(rawParams.options?.split(",").map((t) => t.trim()) ?? []);
+        const extraRollOptions = R.filter(rawParams.options?.split(",").map((t) => t.trim()) ?? [], R.isTruthy);
 
         const result = await augmentInlineDamageRoll(rawParams.formula, {
             skipDialog: true,
@@ -913,7 +913,7 @@ async function augmentInlineDamageRoll(
 
         const domains = immutable
             ? []
-            : R.compact(
+            : R.filter(
                   [
                       kinds,
                       kinds.map((k) => `inline-${k}`),
@@ -921,6 +921,7 @@ async function augmentInlineDamageRoll(
                       item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
                       options.domains,
                   ].flat(),
+                  R.isTruthy,
               );
 
         const rollOptions = new Set([

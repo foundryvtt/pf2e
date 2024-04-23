@@ -54,37 +54,9 @@ export abstract class RollTerm<TTermData extends RollTermData = RollTermData> {
      * @param [options={}]             Options which modify how the RollTerm is evaluated
      * @param [options.minimize=false] Minimize the result, obtaining the smallest possible value.
      * @param [options.maximize=false] Maximize the result, obtaining the largest possible value.
-     * @param [options.async=false]    Evaluate the term asynchronously, receiving a Promise as the returned value.
-     *                                 This will become the default behavior in version 10.x
      * @returns The evaluated RollTerm
      */
-    evaluate({
-        minimize,
-        maximize,
-        async,
-    }?: {
-        minimize?: boolean;
-        maximize?: boolean;
-        async?: false;
-    }): Evaluated<this>;
-    evaluate({
-        minimize,
-        maximize,
-        async,
-    }: {
-        minimize?: boolean;
-        maximize?: boolean;
-        async: true;
-    }): Promise<Evaluated<this>>;
-    evaluate({
-        minimize,
-        maximize,
-        async,
-    }?: {
-        minimize?: boolean;
-        maximize?: boolean;
-        async?: boolean;
-    }): Evaluated<this> | Promise<Evaluated<this>>;
+    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Promise<Evaluated<this>>;
 
     /**
      * Evaluate the term.

@@ -49,7 +49,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
-            for (const [type, model] of Object.entries(game.system.model.Actor)) {
+            for (const [type, model] of Object.entries(game.model.Actor)) {
                 if (!["character", "npc"].includes(type)) continue;
                 fu.mergeObject(data, model);
             }
