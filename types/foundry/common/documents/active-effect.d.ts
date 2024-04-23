@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type { BaseActor, BaseCombat, BaseItem, BaseUser } from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type { BaseActor, BaseItem, BaseUser } from "./module.d.ts";
 
 /**
  * The ActiveEffect document model.
@@ -66,6 +66,8 @@ type ActiveEffectSchema = {
             priority: fields.NumberField;
         }>
     >;
+    system: fields.TypeDataField;
+    type: fields.StringField<string, string, false, true, true>;
     disabled: fields.BooleanField;
     duration: fields.SchemaField<{
         startTime: fields.NumberField<number, number, false, true, true>;
@@ -77,12 +79,13 @@ type ActiveEffectSchema = {
         startTurn: fields.NumberField;
     }>;
     description: fields.HTMLField;
-    icon: fields.FilePathField<ImageFilePath>;
+    img: fields.FilePathField<ImageFilePath>;
     origin: fields.StringField<ActorUUID | ItemUUID, ActorUUID | ItemUUID, false, true, true>;
     tint: fields.ColorField;
     transfer: fields.BooleanField;
     statuses: fields.SetField<fields.StringField<string, string, true, false, false>>;
     flags: fields.ObjectField<DocumentFlags>;
+    _stats: fields.DocumentStatsField;
 };
 
 export type ActiveEffectSource = SourceFromSchema<ActiveEffectSchema>;

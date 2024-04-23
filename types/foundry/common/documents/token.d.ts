@@ -75,8 +75,6 @@ type TokenSchema = {
     effects: fields.ArrayField<
         fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, false>
     >;
-    /** A single icon path which is displayed as an overlay on the Token */
-    overlayEffect: fields.StringField<ImageFilePath | VideoFilePath | "">;
     /** The opacity of the token image */
     alpha: fields.AlphaField;
     /** Is the Token currently hidden from player view? */
