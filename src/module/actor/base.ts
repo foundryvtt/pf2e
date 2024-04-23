@@ -995,7 +995,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             await Promise.all(
                 damageDice.map(async (dice) => {
                     const formula = `${dice.diceNumber}${dice.dieSize}[${dice.label}]`;
-                    const roll = await new Roll(formula).evaluate({ async: true });
+                    const roll = await new Roll(formula).evaluate();
                     roll._formula = `${dice.diceNumber}${dice.dieSize}`; // remove the label from the main formula
                     await roll.toMessage({
                         flags: { pf2e: { suppressDamageButtons: true } },

@@ -205,6 +205,9 @@ declare global {
         /** A convenient reference to the currently active canvas tool */
         get activeTool(): string;
 
+        /** An alias for the structured data model organized by document class and type. */
+        get model(): Record<"Actor" | "Card" | "Cards" | "Item" | "JournalEntryPage", object>;
+
         /**
          * Toggle the pause state of the game
          * Trigger the `pauseGame` Hook when the paused state changes

@@ -49,14 +49,14 @@ Term = head:TermOperand tail:(_ ("*" / "/") _ TermOperand)* {
   }, head);
 };
 
-TermOperand = DiceTerm / MathTerm / Grouping / FlavoredNumber / Number;
+TermOperand = DiceTerm / FunctionTerm / Grouping / FlavoredNumber / Number;
 
-MathTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ ")" {
+FunctionTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ ")" {
   const terms = head !== null
     ? [head, ...tail].map((t) => typeof t === "number" ? t.toString() : t.formula)
     : [];
   return {
-    class: "MathTerm",
+    class: "FunctionTerm",
     formula: text(),
     fn,
     terms,
@@ -64,7 +64,7 @@ MathTerm = fn:Identifier "(" _ head:Expression? _ tail:(_ "," _ @Expression)* _ 
   };
 };
 
-DiceTerm = number:(Grouping / MathTerm / Number)? [dD] faces:(Grouping / MathTerm / Number / Identifier) modifiers:Modifiers? flavor:Flavor? {
+DiceTerm = number:(Grouping / FunctionTerm / Number)? [dD] faces:(Grouping / FunctionTerm / Number / Identifier) modifiers:Modifiers? flavor:Flavor? {
   const obj =
     number instanceof Object || faces instanceof Object
       ? {
