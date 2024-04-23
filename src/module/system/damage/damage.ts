@@ -20,7 +20,8 @@ export class DamagePF2e {
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
 
-        context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
+        context.rollMode = context.secret ? "blindroll" : context.rollMode ?? game.settings.get("core", "rollMode");
+
         context.createMessage ??= true;
 
         // Change default roll mode to blind GM roll if the "secret" option is specified

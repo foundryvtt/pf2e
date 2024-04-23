@@ -141,7 +141,7 @@ class DamageModifierDialog extends Application {
             " + ",
         );
 
-        const currentRollMode = game.settings.get("core", "rollMode");
+        const currentRollMode = this.context?.rollMode ?? game.settings.get("core", "rollMode");
 
         type DamageDicePF2eWithOverride = DamageDicePF2e & { override: NonNullable<DamageDicePF2e["override"]> };
 
