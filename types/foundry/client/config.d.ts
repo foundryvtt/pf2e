@@ -601,8 +601,8 @@ declare global {
 
     interface StatusEffect {
         id: string;
-        label: string;
-        icon: ImageFilePath | VideoFilePath;
+        name: string;
+        img: ImageFilePath | VideoFilePath;
     }
 
     interface FontFamilyDefinition {
