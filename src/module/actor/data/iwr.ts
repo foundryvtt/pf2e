@@ -101,7 +101,7 @@ abstract class IWR<TType extends IWRType> {
                     },
                 ];
             case "holy":
-                return [{ or: ["origin:action:trait:holy", "item:trait:holy"] }];
+                return [{ or: ["origin:action:trait:holy", "item:trait:holy", "holy"] }];
             case "magical":
                 return [
                     {
@@ -162,7 +162,7 @@ abstract class IWR<TType extends IWRType> {
             case "unarmed-attacks":
                 return ["item:category:unarmed"];
             case "unholy":
-                return [{ or: ["origin:action:trait:unholy", "item:trait:unholy"] }];
+                return [{ or: ["origin:action:trait:unholy", "item:trait:unholy", "unholy"] }];
             default: {
                 if (iwrType in CONFIG.PF2E.damageTypes) {
                     return [`damage:type:${iwrType}`];
