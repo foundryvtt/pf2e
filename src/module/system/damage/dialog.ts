@@ -141,6 +141,8 @@ class DamageModifierDialog extends Application {
             " + ",
         );
 
+        const currentRollMode = game.settings.get("core", "rollMode");
+
         type DamageDicePF2eWithOverride = DamageDicePF2e & { override: NonNullable<DamageDicePF2e["override"]> };
 
         return {
@@ -216,7 +218,7 @@ class DamageModifierDialog extends Application {
                 R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
             ),
             rollModes: CONFIG.Dice.rollModes,
-            rollMode: this.context?.rollMode,
+            rollMode: currentRollMode,
             showDamageDialogs: game.user.settings.showDamageDialogs,
             formula: formulaTemplate,
         };
