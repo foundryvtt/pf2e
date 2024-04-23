@@ -249,10 +249,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     get isDead(): boolean {
-        const deathIcon = game.settings.get("pf2e", "deathIcon");
-        if (this.token) return this.token.overlayEffect === deathIcon;
-        const tokens = this.getActiveTokens(true, true);
-        return tokens.length > 0 && tokens.every((t) => t.overlayEffect === deathIcon);
+        return this.statuses.has("dead");
     }
 
     get modeOfBeing(): ModeOfBeing {
@@ -312,7 +309,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         return R.uniqueBy(
             [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
-            (e) => e.icon,
+            (e) => e.img,
         );
     }
 
