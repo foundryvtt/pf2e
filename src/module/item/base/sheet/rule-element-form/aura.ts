@@ -130,8 +130,8 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ...e,
                 item: fromUuidSync(e.uuid),
             })),
-            borderColor: border?.color === "user-color" ? userColor : border?.color ?? null,
-            highlightColor: highlight.color === "user-color" ? userColor : highlight?.color,
+            borderColor: border?.color === "user-color" ? userColor : border?.color?.toString() ?? null,
+            highlightColor: highlight.color === "user-color" ? userColor : highlight?.color?.toString(),
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),
         };
