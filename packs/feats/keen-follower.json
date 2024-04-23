@@ -24,7 +24,24 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:follow-the-expert",
+                    {
+                        "or": [
+                            "follow-the-expert:proficiency:rank:2",
+                            "follow-the-expert:proficiency:rank:3"
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "slug": "follow-the-expert-circumstance",
+                "value": "@actor.flags.pf2e.followTheExpertProficiency+1"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
