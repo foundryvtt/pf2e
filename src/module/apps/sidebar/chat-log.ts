@@ -118,7 +118,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     return new Roll(formula, rollData);
                 }
             })();
-            rolls.push(await roll.evaluate({ async: true }));
+            rolls.push(await roll.evaluate());
         }
         chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
         chatData.rolls = rolls.map((r) => r.toJSON());

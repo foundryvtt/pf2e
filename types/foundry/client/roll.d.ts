@@ -107,8 +107,6 @@ declare global {
          * @param [options={}] Options which inform how the Roll is evaluated
          * @param [options.minimize=false] Minimize the result, obtaining the smallest possible value.
          * @param [options.maximize=false] Maximize the result, obtaining the largest possible value.
-         * @param [options.async=true]     Evaluate the roll asynchronously, receiving a Promise as the returned value.
-         *                                 This will become the default behavior in version 10.x
          * @returns The evaluated Roll instance
          *
          * @example
@@ -117,9 +115,7 @@ declare global {
          * console.log(r.result); // 5 + 4 + 2
          * console.log(r.total);  // 11
          */
-        evaluate({ minimize, maximize, async }: EvaluateRollParams & { async?: false }): Rolled<this>;
-        evaluate({ minimize, maximize, async }: EvaluateRollParams & { async: true }): Promise<Rolled<this>>;
-        evaluate({ minimize, maximize, async }: EvaluateRollParams): Rolled<this> | Promise<Rolled<this>>;
+        evaluate({ minimize, maximize }?: EvaluateRollParams): Rolled<this> | Promise<Rolled<this>>;
 
         /**
          * Evaluate the roll asynchronously.
@@ -143,9 +139,7 @@ declare global {
          * Alias for evaluate.
          * @see {Roll#evaluate}
          */
-        roll({ minimize, maximize, async }: EvaluateRollParams & { async?: false }): Rolled<this>;
-        roll({ minimize, maximize, async }: EvaluateRollParams & { async: true }): Promise<Rolled<this>>;
-        roll({ minimize, maximize, async }: EvaluateRollParams): Rolled<this> | Promise<Rolled<this>>;
+        roll({ minimize, maximize }?: EvaluateRollParams): Promise<Rolled<this>>;
 
         /**
          * Create a new Roll object using the original provided formula and data.
@@ -153,9 +147,7 @@ declare global {
          * @param [options={}] Evaluation options passed to Roll#evaluate
          * @return A new Roll object, rolled using the same formula and data
          */
-        reroll({ minimize, maximize, async }: EvaluateRollParams & { async?: false }): Rolled<this>;
-        reroll({ minimize, maximize, async }: EvaluateRollParams & { async: true }): Promise<Rolled<this>>;
-        reroll({ minimize, maximize, async }: EvaluateRollParams): Rolled<this> | Promise<Rolled<this>>;
+        reroll({ minimize, maximize }?: EvaluateRollParams): Promise<Rolled<this>>;
 
         /* -------------------------------------------- */
         /*  Static Class Methods                        */
@@ -464,7 +456,6 @@ declare global {
     interface EvaluateRollParams {
         minimize?: boolean;
         maximize?: boolean;
-        async?: boolean;
     }
 
     // Empty extended interface that can be expanded by the system without polluting Math itself
