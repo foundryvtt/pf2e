@@ -66,7 +66,7 @@ declare global {
         | "safeEval";
 
     interface FunctionTermData<TFunctionName extends MathFunctionName = MathFunctionName> extends RollTermData {
-        class?: "MathTerm";
+        class?: "FunctionTerm";
         fn?: TFunctionName;
         terms?: RollTerm[];
     }
