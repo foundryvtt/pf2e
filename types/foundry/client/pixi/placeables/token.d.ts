@@ -482,23 +482,6 @@ declare global {
         toggleCombat(combat?: Combat): Promise<this>;
 
         /**
-         * Toggle an active effect by its texture path.
-         * Copy the existing Array in order to ensure the update method detects the data as changed.
-         * @param effect  The texture file-path of the effect icon to toggle on the Token.
-         * @param [options]      Additional optional arguments which configure how the effect is handled.
-         * @param [options.active]    Force a certain active state for the effect
-         * @param [options.overlay]   Whether to set the effect as the overlay effect?
-         * @return Was the texture applied (true) or removed (false)
-         */
-        toggleEffect(
-            effect: StatusEffect | ImageFilePath,
-            { active, overlay }?: { active?: boolean; overlay?: boolean },
-        ): Promise<boolean>;
-
-        /** A helper function to toggle the overlay status icon on the Token */
-        protected _toggleOverlayEffect(texture: ImageFilePath, { active }: { active: boolean }): Promise<this>;
-
-        /**
          * Toggle the visibility state of any Tokens in the currently selected set
          * @return A Promise which resolves to the updated Token documents
          */

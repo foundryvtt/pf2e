@@ -179,10 +179,7 @@ class CombatantPF2e<
 
         await this.update({ defeated: to });
         if (overlayIcon) {
-            await this.token?.object?.toggleEffect(game.settings.get("pf2e", "deathIcon"), {
-                active: to,
-                overlay: true,
-            });
+            await this.token?.actor?.toggleStatusEffect("dead", { overlay: true });
         }
 
         /** Remove this combatant's token as a target if it died */
