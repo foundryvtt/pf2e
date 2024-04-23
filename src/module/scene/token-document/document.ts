@@ -29,7 +29,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
-        if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
+        if (statusId === "dead") return !!this.actor?.statuses.has("dead");
 
         const actor = this.actor;
         if (!actor || !game.pf2e.settings.rbv) {
