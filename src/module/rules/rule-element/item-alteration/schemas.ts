@@ -292,7 +292,7 @@ const ITEM_ALTERATION_VALIDATORS = {
             required: true,
             choices: ["add", "downgrade", "multiply", "override", "remove", "subtract", "upgrade"],
         }),
-        value: new fields.NumberField({ required: true, integer: true, nullable: false, positive: true } as const),
+        value: new fields.NumberField({ required: true, integer: false, nullable: false, positive: true } as const),
     }),
     "hp-max": new ItemAlterationValidator({
         itemType: new fields.StringField({ required: true, choices: Array.from(PHYSICAL_ITEM_TYPES) }),
