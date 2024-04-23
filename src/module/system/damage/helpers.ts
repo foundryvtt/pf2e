@@ -210,7 +210,7 @@ function extractBaseDamage(roll: DamageRoll): BaseDamageData[] {
         }
 
         // Resolve deterministic expressions and terms normally, everything is allowed
-        // This handles NumericTerm, and ArithmeticTerm and MathTerm that don't have dice
+        // This handles NumericTerm, and ArithmeticTerm and FunctionTerm that don't have dice
         if (expression.isDeterministic) {
             return [{ dice: null, modifier: DamageInstance.getValue(expression, "expected"), category }];
         }
