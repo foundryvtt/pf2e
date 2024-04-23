@@ -146,9 +146,7 @@ abstract class CreaturePF2e<
         if (hitPoints.max > 0 && hitPoints.value === 0 && !this.hasCondition("dying", "unconscious")) {
             return true;
         }
-
-        const token = this.token ?? this.getActiveTokens(false, true).shift();
-        return !!token?.hasStatusEffect("dead");
+        return this.statuses.has("dead");
     }
 
     /** Whether the creature emits sound: overridable by AE-like */
