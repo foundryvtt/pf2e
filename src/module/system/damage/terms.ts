@@ -173,7 +173,7 @@ class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
     ): Promise<Evaluated<this>> {
         for (const operand of this.operands) {
             if (!operand._evaluated) {
-                await operand.evaluate({ async: true, ...options });
+                await operand.evaluate(options);
             }
         }
         this._evaluated = true;
@@ -311,7 +311,7 @@ class Grouping extends terms.RollTerm<GroupingData> {
         options: { minimize?: boolean; maximize?: boolean } = {},
     ): Promise<Evaluated<this>> {
         if (!this.term._evaluated) {
-            await this.term.evaluate({ async: true, ...options });
+            await this.term.evaluate(options);
         }
         this._evaluated = true;
 
@@ -448,17 +448,17 @@ class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
     protected override async _evaluate(): Promise<Evaluated<this>>;
     protected override async _evaluate(): Promise<this> {
         if (typeof this.number !== "number") {
-            this.number = (await this.number.evaluate({ async: true })).total;
+            this.number = (await this.number.evaluate()).total;
         }
         if (typeof this.faces !== "number") {
-            this.faces = (await this.faces.evaluate({ async: true })).total;
+            this.faces = (await this.faces.evaluate()).total;
         }
 
         this.die = await new terms.Die({
             number: this.number,
             faces: this.faces,
             options: this.options,
-        }).evaluate({ async: true });
+        }).evaluate();
         this._evaluated = true;
 
         return this;

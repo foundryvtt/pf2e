@@ -119,7 +119,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
-        const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+        const roll = await new Roll(badge.value, this.getRollData()).evaluate();
         const initial = initialValue ?? roll.total;
         const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
         const token = actor.getActiveTokens(false, true).shift();

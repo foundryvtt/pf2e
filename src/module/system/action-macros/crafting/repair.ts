@@ -132,7 +132,7 @@ async function onRepairChatCardEvent(
         });
         await ChatMessage.create({ content, speaker });
     } else if (repair === "roll-damage") {
-        const roll = await Roll.create("2d6").evaluate({ async: true });
+        const roll = await Roll.create("2d6").evaluate();
         const templatePath = "systems/pf2e/templates/system/actions/repair/roll-damage-chat-message.hbs";
         const flavor = await renderTemplate(templatePath, {
             damage: {
