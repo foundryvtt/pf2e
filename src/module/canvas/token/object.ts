@@ -4,7 +4,6 @@ import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
 import type { GridMeasurePathWaypoint } from "types/foundry/client/pixi/grid/base.d.ts";
 import { measureDistanceCuboid, type CanvasPF2e, type TokenLayerPF2e } from "../index.ts";
-import { HearingSource } from "../perception/hearing-source.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -15,13 +14,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
 
-    /** The token's line hearing source */
-    hearing: HearingSource<this>;
-
     constructor(document: TDocument) {
         super(document);
 
-        this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
@@ -98,13 +93,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (!canvas.ready) return 0;
         const dimensions = canvas.dimensions;
         return (this.document.sight.range ?? 0) >= dimensions.maxR ? dimensions.maxR : super.sightRange;
-    }
-
-    override initializeVisionSource(options?: { deleted?: boolean }): void {
-        super.initializeVisionSource(options);
-        if (!options?.deleted) {
-            this.hearing.initialize();
-        }
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -509,14 +497,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.document.lockRotation = this.document._source.lockRotation;
     }
 
-    /** Hearing should be updated whenever vision is */
-    override updateVisionSource({ defer = false, deleted = false } = {}): void {
-        super.updateVisionSource({ defer, deleted });
-        if (this._isVisionSource() && !deleted) {
-            this.hearing.initialize();
-        }
-    }
-
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
     override render(renderer: PIXI.Renderer): void {
         super.render(renderer);
@@ -533,7 +513,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _destroy(): void {
         super._destroy();
         this.auras.destroy();
-        this.hearing.destroy();
         this.flankingHighlight.destroy();
     }
 

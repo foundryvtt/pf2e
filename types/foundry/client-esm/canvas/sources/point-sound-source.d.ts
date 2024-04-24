@@ -1,10 +1,11 @@
 import type { PointEffectSource } from "./point-effect-source-mixes.d.ts";
 
 /**
- * A specialized subclass of the PointSource abstraction which is used to control the rendering of sound sources.
- * @param object The AmbientSound object that generates this sound source
+ * A specialized subclass of the BaseEffectSource which describes a point-based source of sound.
  */
-export default class PointSoundSource<TObject extends PlaceableObject> extends PointEffectSource<TObject> {
+export default class PointSoundSource<
+    TObject extends PlaceableObject = PlaceableObject,
+> extends PointEffectSource<TObject> {
     static sourceType: "sound";
 
     protected override _getPolygonConfiguration(): PointSourcePolygonConfig;
