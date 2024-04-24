@@ -216,7 +216,7 @@ class DamageModifierDialog extends Application {
                 R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
             ),
             rollModes: CONFIG.Dice.rollModes,
-            rollMode: this.context?.rollMode,
+            rollMode: this.context?.rollMode ?? game.settings.get("core", "rollMode"),
             showDamageDialogs: game.user.settings.showDamageDialogs,
             formula: formulaTemplate,
         };
