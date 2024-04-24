@@ -1,3 +1,4 @@
+import type { PointVisionSource } from "types/foundry/client-esm/canvas/sources/module.ts";
 import { TokenPF2e } from "../token/object.ts";
 import type { HearingSource } from "./hearing-source.ts";
 
@@ -30,7 +31,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         });
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         if (target instanceof PlaceableObject && target.document.hidden) return false;
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
@@ -41,7 +42,7 @@ class VisionDetectionMode extends DetectionModeBasicSight {
 
     /** Potentially short-circuit range test */
     protected override _testRange(
-        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        visionSource: PointVisionSource<Token<TokenDocument<Scene | null>>>,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
@@ -68,7 +69,7 @@ class HearingDetectionMode extends DetectionMode {
         return filter;
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
 
@@ -94,7 +95,7 @@ class HearingDetectionMode extends DetectionMode {
      * Retrieve hearing source and test against that.
      */
     protected override _testLOS(
-        visionSource: VisionSource<TokenPF2e>,
+        visionSource: PointVisionSource<TokenPF2e>,
         _mode: TokenDetectionMode,
         _target: PlaceableObject,
         test: CanvasVisibilityTestPF2e,
@@ -109,7 +110,7 @@ class HearingDetectionMode extends DetectionMode {
 
     /** Potentially short-circuit range test */
     protected override _testRange(
-        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        visionSource: PointVisionSource<Token<TokenDocument<Scene | null>>>,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
@@ -143,7 +144,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
         return filter;
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSource<TokenPF2e>, target: PlaceableObject): boolean {
         return (
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&
