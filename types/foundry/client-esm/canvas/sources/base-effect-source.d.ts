@@ -84,11 +84,11 @@ export default abstract class BaseEffectSource<TObject extends PlaceableObject |
     /* -------------------------------------------- */
 
     /**
-     * Initialize and configure the PointSource using provided data.
-     * @param data Provided data for configuration
-     * @returns The configured source
+     * Initialize and configure the source using provided data.
+     * @param data      Provided data for configuration
+     * @param [options.reset]   Should source data be reset to default values before applying changes?
      */
-    initialize(data?: Partial<BaseEffectSourceData>): this;
+    initialize(data?: Partial<BaseEffectSourceData>, options?: { reset?: boolean }): this;
 
     /**
      * Subclass specific data initialization steps.

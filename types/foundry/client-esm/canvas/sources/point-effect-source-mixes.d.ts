@@ -66,7 +66,7 @@ export class PointEffectSource<
      * @param data Provided data for configuration
      * @returns The configured source
      */
-    initialize(data?: Partial<PointEffectSourceData>): this;
+    initialize(data?: Partial<PointEffectSourceData>, options?: { reset?: boolean }): this;
 
     protected _initializeSoftEdges(): void;
 
@@ -155,7 +155,7 @@ export class PointRenderedEffectSource<
      * @param data Provided data for configuration
      * @returns The configured source
      */
-    initialize(data?: Partial<PointEffectSourceData>): this;
+    initialize(data?: Partial<PointEffectSourceData>, options?: { reset?: boolean }): this;
 
     /**
      * Subclass specific data initialization steps.
@@ -247,7 +247,7 @@ export class PointEffectLightSource<TObject extends AmbientLight | Token | null>
      * @param data Provided data for configuration
      * @returns The configured source
      */
-    initialize(data?: Partial<PointEffectSourceData>): this;
+    initialize(data?: Partial<PointEffectSourceData>, options?: { reset?: boolean }): this;
 
     /**
      * Subclass specific data initialization steps.
