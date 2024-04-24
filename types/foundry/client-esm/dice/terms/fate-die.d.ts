@@ -1,4 +1,4 @@
-import type { DiceTerm } from "./base.d.ts";
+import type { DiceTerm } from "./dice-term.d.ts";
 
 /**
  * Define a three-sided Fate/Fudge dice term that can be used as part of a Roll formula

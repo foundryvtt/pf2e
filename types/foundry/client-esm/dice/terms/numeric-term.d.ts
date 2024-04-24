@@ -1,4 +1,4 @@
-import type { RollTerm } from "./base.d.ts";
+import type { RollTerm } from "./roll-term.d.ts";
 
 /** A type of RollTerm used to capture static numbers. */
 export class NumericTerm<TData extends NumericTermData = NumericTermData> extends RollTerm<TData> {

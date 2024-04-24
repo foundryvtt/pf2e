@@ -1,4 +1,4 @@
-import type { RollTerm } from "./terms.js";
+import type { RollTerm } from "./roll-term.d.ts";
 
 /** A type of RollTerm used to capture residual strings which have not yet been matched */
 export class StringTerm extends RollTerm<StringTermData> {
