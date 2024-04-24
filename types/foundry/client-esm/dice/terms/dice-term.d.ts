@@ -1,4 +1,4 @@
-import type { RollTerm } from "../base.d.ts";
+import type { RollTerm } from "./roll-term.js";
 
 /**
  * An abstract base class for any type of RollTerm which involves randomized input from dice, coins, or other devices.
