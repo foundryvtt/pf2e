@@ -128,7 +128,7 @@ export class StatusEffects {
             const picture = document.createElement("picture");
             picture.classList.add("effect-control");
             picture.dataset.statusId = icon.dataset.statusId;
-            picture.title = icon.title;
+            picture.title = icon.dataset.tooltip ?? "";
             const iconSrc = icon.getAttribute("src") as ImageFilePath;
             picture.setAttribute("src", iconSrc);
             const newIcon = document.createElement("img");
