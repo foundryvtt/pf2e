@@ -1,5 +1,4 @@
 import type * as TinyMCE from "tinymce";
-import type * as terms from "./roll-term/terms.d.ts";
 import type {
     GlobalLightSource,
     PointDarknessSource,
@@ -7,6 +6,7 @@ import type {
     PointSoundSource,
     PointVisionSource,
 } from "../client-esm/canvas/sources/module.ts";
+import type * as terms from "../client-esm/dice/terms/module.d.ts";
 
 declare global {
     interface Config<
