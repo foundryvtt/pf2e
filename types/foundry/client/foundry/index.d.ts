@@ -16,4 +16,4 @@ export * as canvas from "../pixi/module.ts";
 /** Grid class definitions */
 export * as grid from "../pixi/grid/module.ts";
 /** Dice class definitions */
-export * as dice from "../roll-term/module.ts";
+export * as dice from "../../client-esm/dice/module.ts";

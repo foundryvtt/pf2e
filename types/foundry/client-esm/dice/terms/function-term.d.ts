@@ -1,5 +1,5 @@
-import type { RollTerm } from "./base.d.ts";
-import type { DiceTerm } from "./terms.js";
+import type { DiceTerm } from "./dice-term.d.ts";
+import type { RollTerm } from "./roll-term.js";
 
 export class FunctionTerm<TFunctionName extends MathFunctionName = MathFunctionName> extends RollTerm<
     FunctionTermData<TFunctionName>
