@@ -1,4 +1,4 @@
-import type { DiceTerm, FunctionTerm, OperatorTerm, PoolTerm, RollTerm } from "./roll-term/terms.d.ts";
+import type { DiceTerm, FunctionTerm, OperatorTerm, PoolTerm, RollTerm } from "../client-esm/dice/terms/module.d.ts";
 
 export {};
 
