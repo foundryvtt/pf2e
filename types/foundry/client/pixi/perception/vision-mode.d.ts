@@ -1,4 +1,4 @@
-export {};
+import type { PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
 
 declare global {
     /**
@@ -49,7 +49,10 @@ declare global {
                 adaptive: boolean;
             };
             defaults: Partial<
-                Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">
+                Pick<
+                    TokenDocument["sight"],
+                    "attenuation" | "color" | "brightness" | "saturation" | "contrast" | "range"
+                >
             >;
         };
 
@@ -82,7 +85,7 @@ declare global {
          * Special handling which is needed when this Vision Mode is activated for a VisionSource.
          * @param source Activate this VisionMode for a specific source
          */
-        activate(source: VisionSource<Token>): void;
+        activate(source: PointVisionSource<Token>): void;
 
         /**
          * An animation function which runs every frame while this Vision Mode is active.
@@ -94,7 +97,7 @@ declare global {
          * Special handling which is needed when this Vision Mode is deactivated for a VisionSource.
          * @param source Deactivate this VisionMode for a specific source
          */
-        deactivate(source: VisionSource<Token>): void;
+        deactivate(source: PointVisionSource<Token>): void;
     }
 
     type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
