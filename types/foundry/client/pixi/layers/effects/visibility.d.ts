@@ -1,4 +1,4 @@
-export {};
+import type { PointVisionSource } from "../../../../client-esm/canvas/sources/module.ts";
 
 declare global {
     /**
@@ -22,7 +22,7 @@ declare global {
 
         /** The active vision source data object */
         visionModeData: {
-            source: VisionSource | null;
+            source: PointVisionSource | null;
             activeLightingOptions: object;
         };
 
@@ -125,6 +125,6 @@ declare global {
 
     interface CanvasVisibilityTest {
         point: Point;
-        los: Map<VisionSource<Token>, boolean>;
+        los: Map<PointVisionSource<Token>, boolean>;
     }
 }
