@@ -1,92 +1,96 @@
-declare class AmbientSound<
-    TDocument extends AmbientSoundDocument<Scene | null> = AmbientSoundDocument<Scene | null>,
-> extends PlaceableObject<TDocument> {
-    /** The Sound which manages playback for this AmbientSound effect */
-    sound: Sound | null;
+import type { PointSoundSource } from "../../../client-esm/canvas/sources/module.ts";
 
-    /** A SoundSource object which manages the area of effect for this ambient sound */
-    source: SoundSource<this>;
+declare global {
+    class AmbientSound<
+        TDocument extends AmbientSoundDocument<Scene | null> = AmbientSoundDocument<Scene | null>,
+    > extends PlaceableObject<TDocument> {
+        /** The Sound which manages playback for this AmbientSound effect */
+        sound: Sound | null;
 
-    static override embeddedName: "AmbientSound";
+        /** A SoundSource object which manages the area of effect for this ambient sound */
+        source: PointSoundSource<this>;
 
-    /** Create a Sound used to play this AmbientSound object */
-    protected _createSound(): Sound | null;
+        static override embeddedName: "AmbientSound";
 
-    /* -------------------------------------------- */
-    /* Properties                                   */
-    /* -------------------------------------------- */
+        /** Create a Sound used to play this AmbientSound object */
+        protected _createSound(): Sound | null;
 
-    /** Is this ambient sound is currently audible based on its hidden state and the darkness level of the Scene? */
-    get isAudible(): boolean;
+        /* -------------------------------------------- */
+        /* Properties                                   */
+        /* -------------------------------------------- */
 
-    override get bounds(): PIXI.Rectangle;
+        /** Is this ambient sound is currently audible based on its hidden state and the darkness level of the Scene? */
+        get isAudible(): boolean;
 
-    /** A convenience accessor for the sound radius in pixels */
-    get radius(): number;
+        override get bounds(): PIXI.Rectangle;
 
-    /* -------------------------------------------- */
-    /* Methods                                      */
-    /* -------------------------------------------- */
+        /** A convenience accessor for the sound radius in pixels */
+        get radius(): number;
 
-    /**
-     * Toggle playback of the sound depending on whether or not it is audible
-     * @param isAudible    Is the sound audible?
-     * @param volume       The target playback volume
-     * @param [options={}] Additional options which affect sound synchronization
-     * @param [options.fade=250] A duration in milliseconds to fade volume transition
-     */
-    sync(isAudible: boolean, volume: number, options?: { fade?: number }): void;
+        /* -------------------------------------------- */
+        /* Methods                                      */
+        /* -------------------------------------------- */
 
-    /* -------------------------------------------- */
-    /* Rendering                                    */
-    /* -------------------------------------------- */
+        /**
+         * Toggle playback of the sound depending on whether or not it is audible
+         * @param isAudible    Is the sound audible?
+         * @param volume       The target playback volume
+         * @param [options={}] Additional options which affect sound synchronization
+         * @param [options.fade=250] A duration in milliseconds to fade volume transition
+         */
+        sync(isAudible: boolean, volume: number, options?: { fade?: number }): void;
 
-    override clear(): this;
+        /* -------------------------------------------- */
+        /* Rendering                                    */
+        /* -------------------------------------------- */
 
-    protected override _draw(): Promise<void>;
+        override clear(): this;
 
-    protected override _destroy(options: object): void;
+        protected override _draw(): Promise<void>;
 
-    protected _drawControlIcon(): ControlIcon;
+        protected override _destroy(options: object): void;
 
-    /** Refresh the display of the ControlIcon for this AmbientSound source */
-    refreshControl(): void;
+        protected _drawControlIcon(): ControlIcon;
 
-    /**
-     * Compute the field-of-vision for an object, determining its effective line-of-sight and field-of-vision polygons
-     * @param [options={}]   Options which modify how the audio source is updated
-     * @param [options.defer]    Defer refreshing the SoundsLayer to manually call that refresh later.
-     * @param [options.deleted]  Indicate that this SoundSource has been deleted.
-     */
-    updateSource(options?: { defer?: boolean; deleted?: boolean }): void;
+        /** Refresh the display of the ControlIcon for this AmbientSound source */
+        refreshControl(): void;
 
-    /* -------------------------------------------- */
-    /*  Document Event Handlers                     */
-    /* -------------------------------------------- */
+        /**
+         * Compute the field-of-vision for an object, determining its effective line-of-sight and field-of-vision polygons
+         * @param [options={}]   Options which modify how the audio source is updated
+         * @param [options.defer]    Defer refreshing the SoundsLayer to manually call that refresh later.
+         * @param [options.deleted]  Indicate that this SoundSource has been deleted.
+         */
+        updateSource(options?: { defer?: boolean; deleted?: boolean }): void;
 
-    protected override _onCreate(
-        data: TDocument["_source"],
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+        /* -------------------------------------------- */
+        /*  Document Event Handlers                     */
+        /* -------------------------------------------- */
 
-    protected override _onUpdate(
-        changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentUpdateContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+        protected override _onCreate(
+            data: TDocument["_source"],
+            options: DocumentModificationContext<TDocument["parent"]>,
+            userId: string,
+        ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<TDocument["_source"]>,
+            options: DocumentUpdateContext<TDocument["parent"]>,
+            userId: string,
+        ): void;
 
-    /* -------------------------------------------- */
-    /*  Interaction Event Handlers                  */
-    /* -------------------------------------------- */
+        protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
-    protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
+        /* -------------------------------------------- */
+        /*  Interaction Event Handlers                  */
+        /* -------------------------------------------- */
 
-    protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
+        protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onClickRight(event: PIXI.FederatedEvent): void;
+        protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+        protected override _onClickRight(event: PIXI.FederatedEvent): void;
+
+        protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+    }
 }

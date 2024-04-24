@@ -1,7 +1,5 @@
+import type { PolygonVertex } from "../../../client-esm/canvas/edges/module.d.ts";
 import type { PointLightSource, PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
-import type { PolygonVertex } from "../edges/vertex.d.ts";
-
-export {};
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
