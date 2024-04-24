@@ -64,18 +64,7 @@
                 data-value-base="{{json item._source.system.material}}"
                 data-dtype="JSON"
             >
-                {{#select preciousMaterials.value}}
-                    <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
-                    {{#each preciousMaterials.materials as |material|}}
-                        <optgroup label="{{material.label}}">
-                            {{#each material.grades as |grade|}}
-                                <option value="{{grade.value}}">
-                                    {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
-                                </option>
-                            {{/each}}
-                        </optgroup>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions preciousMaterials.materials selected=preciousMaterials.value}}
             </select>
         </div>
 
