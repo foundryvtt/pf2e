@@ -1,5 +1,5 @@
-import type { RollTerm } from "./base.d.ts";
-import type { DiceTerm } from "./terms.js";
+import type { DiceTerm } from "./dice-term.d.ts";
+import type { RollTerm } from "./roll-term.d.ts";
 
 /** A type of RollTerm used to enclose a parenthetical expression to be recursively evaluated. */
 export class ParentheticalTerm extends RollTerm<ParentheticalTermData> {
