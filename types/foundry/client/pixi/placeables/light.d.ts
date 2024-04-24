@@ -1,128 +1,132 @@
-declare class AmbientLight<
-    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
-> extends PlaceableObject<TDocument> {
-    constructor(document: TDocument);
+import type { PointDarknessSource, PointLightSource } from "../../../client-esm/canvas/sources/module.ts";
 
-    /** The area that is affected by this light */
-    field: PIXI.Graphics;
+declare global {
+    class AmbientLight<
+        TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
+    > extends PlaceableObject<TDocument> {
+        constructor(document: TDocument);
 
-    /**
-     * A reference to the PointSource object which defines this light or darkness area of effect.
-     * This is undefined if the AmbientLight does not provide an active source of light.
-     */
-    lightSource?: LightSource<this>; // todo: bring typing up to date
+        /** The area that is affected by this light */
+        field: PIXI.Graphics;
 
-    /** A reference to the ControlIcon used to configure this light */
-    controlIcon: ControlIcon;
+        /**
+         * A reference to the PointSource object which defines this light or darkness area of effect.
+         * This is undefined if the AmbientLight does not provide an active source of light.
+         */
+        lightSource?: PointDarknessSource<this> | PointLightSource<this>;
 
-    static override embeddedName: "AmbientLight";
+        /** A reference to the ControlIcon used to configure this light */
+        controlIcon: ControlIcon;
 
-    override get bounds(): PIXI.Rectangle;
+        static override embeddedName: "AmbientLight";
 
-    /** A convenience accessor to the LightData configuration object */
-    get config(): TDocument["config"];
+        override get bounds(): PIXI.Rectangle;
 
-    /** Test whether a specific AmbientLight source provides global illumination */
-    get global(): boolean;
+        /** A convenience accessor to the LightData configuration object */
+        get config(): TDocument["config"];
 
-    /** The maximum radius in pixels of the light field */
-    get radius(): number;
+        /** Test whether a specific AmbientLight source provides global illumination */
+        get global(): boolean;
 
-    /** Get the pixel radius of dim light emitted by this light source */
-    get dimRadius(): number;
+        /** The maximum radius in pixels of the light field */
+        get radius(): number;
 
-    /** Get the pixel radius of bright light emitted by this light source */
-    get brightRadius(): number;
+        /** Get the pixel radius of dim light emitted by this light source */
+        get dimRadius(): number;
 
-    /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
-    get isVisible(): boolean;
+        /** Get the pixel radius of bright light emitted by this light source */
+        get brightRadius(): number;
 
-    /** Check if the point source is a LightSource instance */
-    get isLightSource(): boolean;
+        /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
+        get isVisible(): boolean;
 
-    /** Check if the point source is a DarknessSource instance */
-    get isDarknessSource(): boolean;
+        /** Check if the point source is a LightSource instance */
+        get isLightSource(): boolean;
 
-    /** Does this Ambient Light actively emit darkness light given its properties and the current darkness level of the Scene?  */
-    get emitsDarkness(): boolean;
+        /** Check if the point source is a DarknessSource instance */
+        get isDarknessSource(): boolean;
 
-    /**
-     * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
-     */
-    get emitsLight(): boolean;
+        /** Does this Ambient Light actively emit darkness light given its properties and the current darkness level of the Scene?  */
+        get emitsDarkness(): boolean;
 
-    /* -------------------------------------------- */
-    /* Rendering                                    */
-    /* -------------------------------------------- */
+        /**
+         * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
+         */
+        get emitsLight(): boolean;
 
-    protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
+        /* -------------------------------------------- */
+        /* Rendering                                    */
+        /* -------------------------------------------- */
 
-    protected _draw(): Promise<void>;
+        protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
-    /* -------------------------------------------- */
-    /*  Incremental Refresh                         */
-    /* -------------------------------------------- */
+        protected _draw(): Promise<void>;
 
-    protected override _applyRenderFlags(flags: Record<string, boolean>): void;
+        /* -------------------------------------------- */
+        /*  Incremental Refresh                         */
+        /* -------------------------------------------- */
 
-    /** Draw the ControlIcon for the AmbientLight */
-    protected _drawControlIcon(): ControlIcon;
+        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
-    /** Refresh the display of the ControlIcon for this AmbientLight source */
-    refreshControl(): void;
+        /** Draw the ControlIcon for the AmbientLight */
+        protected _drawControlIcon(): ControlIcon;
 
-    /* -------------------------------------------- */
-    /*  Light Source Management                     */
-    /* -------------------------------------------- */
+        /** Refresh the display of the ControlIcon for this AmbientLight source */
+        refreshControl(): void;
 
-    /**
-     * Update the LightSource associated with this AmbientLight object.
-     * @param deleted Indicate that this light source has been deleted.
-     */
-    initializeLightSource({ deleted }?: { deleted?: boolean }): void;
+        /* -------------------------------------------- */
+        /*  Light Source Management                     */
+        /* -------------------------------------------- */
 
-    /** Get the light source data. */
-    protected _getLightSourceData(): LightSourceData;
+        /**
+         * Update the LightSource associated with this AmbientLight object.
+         * @param deleted Indicate that this light source has been deleted.
+         */
+        initializeLightSource({ deleted }?: { deleted?: boolean }): void;
 
-    /** The named identified for the source object associated with this light */
-    get sourceId(): `AmbientLight.${string}`;
+        /** Get the light source data. */
+        protected _getLightSourceData(): LightSourceData;
 
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers               */
-    /* -------------------------------------------- */
+        /** The named identified for the source object associated with this light */
+        get sourceId(): `AmbientLight.${string}`;
 
-    protected override _onCreate(
-        data: TDocument["_source"],
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+        /* -------------------------------------------- */
+        /*  Socket Listeners and Handlers               */
+        /* -------------------------------------------- */
 
-    protected override _onUpdate(
-        changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+        protected override _onCreate(
+            data: TDocument["_source"],
+            options: DocumentModificationContext<TDocument["parent"]>,
+            userId: string,
+        ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        protected override _onUpdate(
+            changed: DeepPartial<TDocument["_source"]>,
+            options: DocumentModificationContext<TDocument["parent"]>,
+            userId: string,
+        ): void;
 
-    /* -------------------------------------------- */
-    /*  Mouse Interaction Handlers                  */
-    /* -------------------------------------------- */
+        protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
-    protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
+        /* -------------------------------------------- */
+        /*  Mouse Interaction Handlers                  */
+        /* -------------------------------------------- */
 
-    protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
+        protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onClickRight(event: PIXI.FederatedEvent): void;
+        protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
+        protected override _onClickRight(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+        protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
 
-    protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
-}
-declare interface AmbientLight<
-    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
-> extends PlaceableObject<TDocument> {
-    get layer(): LightingLayer<this>;
+        protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+
+        protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+    }
+
+    interface AmbientLight<TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>>
+        extends PlaceableObject<TDocument> {
+        get layer(): LightingLayer<this>;
+    }
 }

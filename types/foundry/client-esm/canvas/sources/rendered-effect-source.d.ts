@@ -1,8 +1,11 @@
+import type BaseEffectSource from "./base-effect-source.d.ts";
+import type { BaseEffectSourceData } from "./base-effect-source.d.ts";
+
 /**
  * An abstract class which extends the base PointSource to provide common functionality for rendering.
  * This class is extended by both the LightSource and VisionSource subclasses.
  */
-declare abstract class RenderedPointSource<TObject extends PlaceableObject | null> extends PointSource<TObject> {
+export default class RenderedEffectSource<TObject extends PlaceableObject | null> extends BaseEffectSource<TObject> {
     /** Keys of the data object which require shaders to be re-initialized. */
     protected static _initializeShaderKeys: string[];
 
@@ -20,10 +23,10 @@ declare abstract class RenderedPointSource<TObject extends PlaceableObject | nul
     animation: RenderedPointSourceAnimationConfig;
 
     /** The object of data which configures how the source is rendered */
-    data: RenderedPointSourceData;
+    data: RenderedEffectSourceData;
 
     /** Track the status of rendering layers */
-    layers: Record<"background" | "coloration" | "illumination", RenderedPointSourceLayer>;
+    layers: Record<"background" | "coloration" | "illumination", RenderedEffectSourceLayer>;
 
     /** The color of the source as a RGB vector. */
     colorRGB: [number, number, number] | null;
@@ -69,7 +72,7 @@ declare abstract class RenderedPointSource<TObject extends PlaceableObject | nul
     protected _configureColorAttributes(color: number | null): void;
 
     /** Specific configuration for a layer. */
-    protected _configureLayer(layer: RenderedPointSourceLayer, layerId: string): void;
+    protected _configureLayer(layer: RenderedEffectSourceLayer, layerId: string): void;
 
     /** Initialize the blend mode and vertical sorting of this source relative to others in the container. */
     protected _initializeBlending(): void;
@@ -87,7 +90,8 @@ declare abstract class RenderedPointSource<TObject extends PlaceableObject | nul
 
     protected override _refresh(): void;
 
-    protected override _isActive(): boolean;
+    /** Update shader uniforms used by every rendered layer. */
+    protected _updateCommonUniforms(shader: AbstractBaseShader): void;
 
     /** Update shader uniforms used for the background layer. */
     protected _updateBackgroundUniforms(): void;
@@ -123,9 +127,22 @@ declare abstract class RenderedPointSource<TObject extends PlaceableObject | nul
      * @param [options.reverse=false] Reverse the animation direction
      */
     animateTime(dt: number, options?: { speed?: number; intensity?: number; reverse?: boolean }): void;
+
+    /* -------------------------------------------- */
+    /*  Static Helper Methods                       */
+    /* -------------------------------------------- */
+
+    /**
+     * Get corrected level according to level and active vision mode data.
+     * @returns {number} The corrected level.
+     */
+    static getCorrectedLevel(level: number): number;
+
+    /** Get corrected color according to level, dim color, bright color and background color. */
+    static getCorrectedColor(level: number, colorDim: Color, colorBright: Color, colorBackground?: Color): Color;
 }
 
-interface RenderedPointSourceData extends PointSourceData {
+interface RenderedEffectSourceData extends BaseEffectSourceData {
     /** A color applied to the rendered effect */
     color: number | null;
     /** An integer seed to synchronize (or de-synchronize) animations */
@@ -151,7 +168,7 @@ interface RenderedPointSourceAnimationConfig {
     time?: number;
 }
 
-interface RenderedPointSourceLayer {
+interface RenderedEffectSourceLayer {
     /** Is this layer actively rendered? */
     active: boolean;
     /** Do uniforms need to be reset? */
