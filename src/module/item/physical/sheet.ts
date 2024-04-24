@@ -5,7 +5,7 @@ import { SheetOptions, createSheetTags, getAdjustment } from "@module/sheet/help
 import { ErrorPF2e, htmlClosest, htmlQuery, localizer, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { detachSubitem } from "./helpers.ts";
-import { CoinsPF2e, ItemActivation, MaterialValuationData, PreciousMaterialGrade } from "./index.ts";
+import { CoinsPF2e, ItemActivation, MaterialValuationData } from "./index.ts";
 import { PRECIOUS_MATERIAL_GRADES } from "./values.ts";
 
 class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2e<TItem> {
@@ -123,31 +123,30 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
     protected getMaterialSheetData(item: PhysicalItemPF2e, valuationData: MaterialValuationData): MaterialSheetData {
         const preciousMaterials: Record<string, string> = CONFIG.PF2E.preciousMaterials;
         const isSpecificMagicItem = item.isSpecific;
-        const materials = Object.entries(valuationData).reduce(
-            (result, [materialKey, materialData]) => {
-                const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter(
-                    (grade) =>
-                        !!materialData[grade] && (!isSpecificMagicItem || item.system.material.type === materialKey),
-                );
-                if (validGrades.length) {
-                    result[materialKey] = {
-                        label: game.i18n.localize(preciousMaterials[materialKey]),
-                        grades: Object.fromEntries(
-                            validGrades.map((grade) => [
-                                grade,
-                                {
-                                    value: JSON.stringify({ type: materialKey, grade: grade }),
-                                    label: game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]),
-                                },
-                            ]),
-                        ),
-                    };
+        const materials: MaterialSheetEntry[] = [
+            { value: JSON.stringify({ type: null, grade: null }), label: "", group: "" }, // Initial empty value
+        ];
+        for (const [materialKey, materialData] of Object.entries(valuationData)) {
+            const validGrades = [...PRECIOUS_MATERIAL_GRADES].filter(
+                (grade) => !!materialData[grade] && (!isSpecificMagicItem || item.system.material.type === materialKey),
+            );
+            if (validGrades.length) {
+                const group = game.i18n.localize(preciousMaterials[materialKey]);
+                for (const grade of validGrades) {
+                    const gradeLabel = game.i18n.localize(CONFIG.PF2E.preciousMaterialGrades[grade]);
+                    const label = game.i18n.format("PF2E.Item.Weapon.MaterialAndRunes.MaterialOption", {
+                        type: group,
+                        grade: gradeLabel,
+                    });
+                    materials.push({
+                        value: JSON.stringify({ type: materialKey, grade: grade }),
+                        label,
+                        group,
+                    });
                 }
-
-                return result;
-            },
-            {} as MaterialSheetData["materials"],
-        );
+            }
+        }
+        materials.sort((a, b) => a.group.localeCompare(b.group, game.i18n.lang));
 
         const value = JSON.stringify(R.pick(this.item.material, ["type", "grade"]));
         return { value, materials };
@@ -239,13 +238,14 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
 }
 
 interface MaterialSheetEntry {
+    value: string;
     label: string;
-    grades: Partial<Record<PreciousMaterialGrade, { value: string; label: string }>>;
+    group: string;
 }
 
 interface MaterialSheetData {
     value: string;
-    materials: Record<string, MaterialSheetEntry>;
+    materials: MaterialSheetEntry[];
 }
 
 export { PhysicalItemSheetPF2e };
