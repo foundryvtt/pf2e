@@ -3,8 +3,14 @@ declare class AmbientLight<
 > extends PlaceableObject<TDocument> {
     constructor(document: TDocument);
 
-    /** A reference to the PointSource object which defines this light source area of effect */
-    source: LightSource<this>;
+    /** The area that is affected by this light */
+    field: PIXI.Graphics;
+
+    /**
+     * A reference to the PointSource object which defines this light or darkness area of effect.
+     * This is undefined if the AmbientLight does not provide an active source of light.
+     */
+    lightSource?: LightSource<this>; // todo: bring typing up to date
 
     /** A reference to the ControlIcon used to configure this light */
     controlIcon: ControlIcon;
@@ -22,8 +28,23 @@ declare class AmbientLight<
     /** The maximum radius in pixels of the light field */
     get radius(): number;
 
+    /** Get the pixel radius of dim light emitted by this light source */
+    get dimRadius(): number;
+
+    /** Get the pixel radius of bright light emitted by this light source */
+    get brightRadius(): number;
+
     /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
     get isVisible(): boolean;
+
+    /** Check if the point source is a LightSource instance */
+    get isLightSource(): boolean;
+
+    /** Check if the point source is a DarknessSource instance */
+    get isDarknessSource(): boolean;
+
+    /** Does this Ambient Light actively emit darkness light given its properties and the current darkness level of the Scene?  */
+    get emitsDarkness(): boolean;
 
     /**
      * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
@@ -54,15 +75,17 @@ declare class AmbientLight<
     /*  Light Source Management                     */
     /* -------------------------------------------- */
 
-    /** The named identified for the source object associated with this light */
-    get sourceId(): `Light.${string}`;
-
     /**
-     * Update the source object associated with this light
-     * @param defer   Defer refreshing the LightingLayer to manually call that refresh later.
+     * Update the LightSource associated with this AmbientLight object.
      * @param deleted Indicate that this light source has been deleted.
      */
-    updateSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
+    initializeLightSource({ deleted }?: { deleted?: boolean }): void;
+
+    /** Get the light source data. */
+    protected _getLightSourceData(): LightSourceData;
+
+    /** The named identified for the source object associated with this light */
+    get sourceId(): `AmbientLight.${string}`;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */
