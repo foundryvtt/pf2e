@@ -97,7 +97,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override get sightRange(): number {
         if (!canvas.ready) return 0;
         const dimensions = canvas.dimensions;
-        return this.document.sight.range >= dimensions.maxR ? dimensions.maxR : super.sightRange;
+        return (this.document.sight.range ?? 0) >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
     override initializeVisionSource(options?: { deleted?: boolean }): void {
