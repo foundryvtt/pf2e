@@ -17,6 +17,7 @@ import {
     TokenPF2e,
 } from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -50,6 +51,7 @@ export const Init = {
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
+            CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
             setPerceptionModes();
 
