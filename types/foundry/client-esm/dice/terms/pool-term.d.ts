@@ -1,5 +1,5 @@
-import type { RollTerm } from "./base.d.ts";
-import type { DiceTerm } from "./terms.js";
+import type { DiceTerm } from "./dice-term.d.ts";
+import type { RollTerm } from "./roll-term.d.ts";
 
 /**
  * A dice pool represents a set of Roll expressions which are collectively modified to compute an effective total

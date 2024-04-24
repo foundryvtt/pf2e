@@ -1,5 +1,5 @@
 import { ZeroToThree } from "@module/data.ts";
-import type { Die, NumericTerm } from "types/foundry/client/roll-term/terms.d.ts";
+import type { Die, NumericTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import type { CheckRoll } from "./check/roll.ts";
 import type { Predicate } from "./predication.ts";
 import type { StatisticDifficultyClass } from "./statistic/index.ts";

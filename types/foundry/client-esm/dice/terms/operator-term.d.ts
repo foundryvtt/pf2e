@@ -1,4 +1,4 @@
-import type { RollTerm } from "./base.d.ts";
+import type { RollTerm } from "./roll-term.d.ts";
 
 /** A type of RollTerm used to denote and perform an arithmetic operation. */
 export class OperatorTerm extends RollTerm<OperatorTermData> {
