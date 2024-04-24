@@ -184,7 +184,18 @@ type EnvironmentSchema = {
     darknessLevel: fields.AlphaField;
     darknessLock: fields.BooleanField;
     /** Is a global source of illumination present which provides dim light to all areas of the Scene? */
-    globalLight: fields.SchemaField<GlobalLightSchema>;
+    globalLight: fields.SchemaField<{
+        enabled: fields.BooleanField;
+        alpha: data.LightDataSchema["alpha"];
+        bright: fields.BooleanField;
+        color: data.LightDataSchema["color"];
+        coloration: data.LightDataSchema["coloration"];
+        luminosity: data.LightDataSchema["luminosity"];
+        saturation: data.LightDataSchema["saturation"];
+        contrast: data.LightDataSchema["contrast"];
+        shadows: data.LightDataSchema["shadows"];
+        darkness: data.LightDataSchema["darkness"];
+    }>;
     cycle: fields.BooleanField;
     base: fields.SchemaField<EnvironmentDataSchema>;
     dark: fields.SchemaField<EnvironmentDataSchema>;
@@ -196,19 +207,6 @@ type EnvironmentDataSchema = {
     luminosity: fields.NumberField<number, number, true>;
     saturation: fields.NumberField<number, number, true>;
     shadows: fields.NumberField<number, number, true>;
-};
-
-type GlobalLightSchema = {
-    enabled: fields.BooleanField;
-    alpha: data.LightDataSchema["alpha"];
-    bright: fields.BooleanField;
-    color: data.LightDataSchema["color"];
-    coloration: data.LightDataSchema["coloration"];
-    luminosity: data.LightDataSchema["luminosity"];
-    saturation: data.LightDataSchema["saturation"];
-    contrast: data.LightDataSchema["contrast"];
-    shadows: data.LightDataSchema["shadows"];
-    darkness: data.LightDataSchema["darkness"];
 };
 
 type SceneSource = SourceFromSchema<SceneSchema>;

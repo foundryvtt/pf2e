@@ -37,14 +37,12 @@ export default interface BaseSystem
 type BaseSystemSchema = packages.BasePackageSchema & {
     background: fields.StringField<string, string, false, false, false>;
     initiative: fields.StringField;
-    grid: fields.SchemaField<GridSchema>;
+    grid: fields.SchemaField<{
+        type: fields.NumberField;
+        distance: fields.NumberField;
+        units: fields.StringField;
+        diagonals: fields.NumberField;
+    }>;
     primaryTokenAttribute: fields.StringField;
     secondaryTokenAttribute: fields.StringField;
-};
-
-type GridSchema = {
-    type: fields.NumberField;
-    distance: fields.NumberField;
-    units: fields.StringField;
-    diagonals: fields.NumberField;
 };
