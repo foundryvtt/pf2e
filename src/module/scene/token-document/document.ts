@@ -256,8 +256,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             return super._prepareDetectionModes();
         }
 
-        // Reset sight defaults if using rules-based vision
-        this.detectionModes = [{ id: "basicSight", enabled: !!actor.perception?.hasVision, range: 0 }];
+        // Reset sight defaults and detection modes if using rules-based vision
+        const lightPerception = { id: "lightPerception", enabled: !!actor.perception?.hasVision, range: null };
+        const basicSight = { id: "basicSight", enabled: !!actor.perception?.hasVision, range: 0 };
+        this.detectionModes = [lightPerception, basicSight];
         this.sight.attenuation = 0.1;
         this.sight.brightness = 0;
         this.sight.contrast = 0;
@@ -271,10 +273,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.sight.brightness = visionModeDefaults.brightness ?? 0;
         this.sight.saturation = visionModeDefaults.saturation ?? 0;
 
+        // Update basic sight and adjust saturation based on darkvision or light levels
         if (visionMode === "darkvision" || scene.lightLevel > LightLevels.DARKNESS) {
-            const basicDetection = this.detectionModes.at(0);
-            if (!basicDetection) return;
-            this.sight.range = basicDetection.range = visionModeDefaults.range ?? 0;
+            this.sight.range = basicSight.range = visionModeDefaults.range ?? 0;
 
             if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
                 this.sight.saturation = 1;

@@ -4,10 +4,7 @@ import type { ScenePF2e } from "./index.ts";
 class AmbientLightDocumentPF2e<
     TParent extends ScenePF2e | null = ScenePF2e | null,
 > extends AmbientLightDocument<TParent> {
-    /** Is this light actually a source of darkness? */
-    get isDarkness(): boolean {
-        return this.object?.source.isDarkness ?? false;
-    }
+    // Still exists if we need it later, but slated for removal once V12 is fully out
 }
 
 interface AmbientLightDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null>
