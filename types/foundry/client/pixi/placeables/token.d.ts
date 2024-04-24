@@ -1,3 +1,4 @@
+import type { PointLightSource, PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
 import type { PolygonVertex } from "../edges/vertex.d.ts";
 
 export {};
@@ -61,10 +62,10 @@ declare global {
         mesh: TokenMesh;
 
         /** A reference to the PointSource object which defines this vision source area of effect */
-        vision: VisionSource<this>;
+        vision: PointVisionSource<this>;
 
         /** A reference to the PointSource object which defines this light source area of effect */
-        light: LightSource<this>;
+        light: PointLightSource<this>;
 
         /** A reference to an animation that is currently in progress for this Token, if any */
         _animation: Promise<unknown> | null;
