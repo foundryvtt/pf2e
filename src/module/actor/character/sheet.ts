@@ -366,6 +366,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ),
         ) as Record<SkillAbbreviation, CharacterSkillData>;
 
+        sheetData.initiativeOptions = {
+            perception: "PF2E.PerceptionLabel",
+            ...Object.fromEntries(Object.values(sheetData.data.skills).map((s) => [s.slug, s.label])),
+        };
+
         sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
 
         // Enrich content
@@ -1645,6 +1650,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     hasStamina: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
+    initiativeOptions: Record<string, string>;
     languages: LanguageSheetData[];
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;
