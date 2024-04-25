@@ -163,6 +163,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 ),
             },
             proficiencyRanks: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
+            publicationLicenses: [
+                { label: "PF2E.Publication.License.OGL", value: "OGL" },
+                { label: "PF2E.Publication.License.ORC", value: "ORC" },
+            ],
         };
     }
 
@@ -671,6 +675,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
             template: string;
         }[];
     };
+    publicationLicenses: { label: string; value: string }[];
     /** Lore only, will be removed later */
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }

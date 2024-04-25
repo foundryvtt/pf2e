@@ -80,9 +80,19 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
+        const meleeUsageDamageDieOptions = Object.entries(CONFIG.PF2E.damageDie).map(([die, label]) => ({
+            label: `1${game.i18n.localize(label)}`,
+            value: die,
+        }));
 
         const specificMagicData =
             weapon._source.system.specific ?? R.pick(weapon._source.system, ["material", "runes"]);
+
+        const runeTypes = {
+            potency: R.pick(RUNE_DATA.weapon.potency, [1, 2, 3, 4]),
+            property: RUNE_DATA.weapon.property,
+            striking: R.pick(RUNE_DATA.weapon.striking, [1, 2, 3]),
+        };
 
         return {
             ...sheetData,
@@ -95,6 +105,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damageDie: CONFIG.PF2E.damageDie,
             damageDieFaces,
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
+            damageTypesNoBleed: R.omit(sortStringRecord(CONFIG.PF2E.damageTypes), ["bleed"]),
             groups: sortStringRecord(CONFIG.PF2E.weaponGroups),
             isBomb: weapon.group === "bomb",
             isComboWeapon,
@@ -103,11 +114,12 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             mandatoryRanged,
             meleeGroups: sortStringRecord(CONFIG.PF2E.meleeWeaponGroups),
             meleeUsage,
+            meleeUsageDamageDieOptions,
             meleeUsageTraits: createSheetTags(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? []),
             otherTags,
             preciousMaterials: this.getMaterialSheetData(weapon, MATERIAL_DATA.weapon),
             propertyRuneSlots,
-            runeTypes: RUNE_DATA.weapon,
+            runeTypes,
             specificMagicData,
             weaponMAP: CONFIG.PF2E.weaponMAP,
             weaponRanges,
@@ -173,6 +185,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 delete formData[`system.runes.property.${index}`];
             }
         }
+        formData["system.runes.potency"] ||= 0;
+        formData["system.runes.striking"] ||= 0;
 
         return super._updateObject(event, formData);
     }
@@ -196,6 +210,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     damageDie: typeof CONFIG.PF2E.damageDie;
     damageDieFaces: Record<string, string>;
     damageTypes: typeof CONFIG.PF2E.damageTypes;
+    damageTypesNoBleed: Omit<typeof CONFIG.PF2E.damageTypes, "bleed">;
     groups: typeof CONFIG.PF2E.weaponGroups;
     isBomb: boolean;
     isComboWeapon: boolean;
@@ -204,11 +219,16 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     mandatoryRanged: boolean;
     meleeGroups: typeof CONFIG.PF2E.meleeWeaponGroups;
     meleeUsage: ComboWeaponMeleeUsage | undefined;
+    meleeUsageDamageDieOptions: { label: string; value: string }[];
     meleeUsageTraits: SheetOptions;
     otherTags: SheetOptions;
     preciousMaterials: MaterialSheetData;
     propertyRuneSlots: PropertyRuneSheetSlot[];
-    runeTypes: typeof RUNE_DATA.weapon;
+    runeTypes: {
+        potency: Pick<typeof RUNE_DATA.weapon.potency, 1 | 2 | 3 | 4>;
+        property: typeof RUNE_DATA.weapon.property;
+        striking: Pick<typeof RUNE_DATA.weapon.striking, 1 | 2 | 3>;
+    };
     specificMagicData: SpecificWeaponData;
     weaponMAP: typeof CONFIG.PF2E.weaponMAP;
     weaponRanges: Record<number, string>;
