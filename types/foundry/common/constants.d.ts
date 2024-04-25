@@ -207,6 +207,37 @@ export const GRID_TYPES: {
     HEXEVENQ: 5;
 };
 
+/**
+ * The different rules to define and measure diagonal distance/cost in a square grid.
+ * The description of each option refers to the distance/cost of moving diagonally relative to the distance/cost of a horizontal or vertical move.
+ */
+export const GRID_DIAGONALS: {
+    /** The diagonal distance is 1. Diagonal movement costs the same as horizontal/vertical movement. */
+    EQUIDISTANT: 0;
+    /** The diagonal distance is √2. Diagonal movement costs √2 times as much as horizontal/vertical movement. */
+    EXACT: 1;
+    /** The diagonal distance is 1.5. Diagonal movement costs 1.5 times as much as horizontal/vertical movement. */
+    APPROXIMATE: 2;
+    /** The diagonal distance is 2. Diagonal movement costs 2 times as much as horizontal/vertical movement. */
+    RECTILINEAR: 3;
+    /**
+     * The diagonal distance alternates between 1 and 2 starting at 1.
+     * The first diagonal movement costs the same as horizontal/vertical movement
+     * The second diagonal movement costs 2 times as much as horizontal/vertical movement.
+     * And so on...
+     */
+    ALTERNATING_1: 4;
+    /**
+     * The diagonal distance alternates between 2 and 1 starting at 2.
+     * The first diagonal movement costs 2 times as much as horizontal/vertical movement.
+     * The second diagonal movement costs the same as horizontal/vertical movement.
+     * And so on...
+     */
+    ALTERNATING_2: 5;
+    /** The diagonal distance is ∞. Diagonal movement is not allowed/possible. */
+    ILLEGAL: 6;
+};
+
 export const GRID_SNAPPING_MODES: {
     /** Nearest center point. */
     CENTER: 0x1;
