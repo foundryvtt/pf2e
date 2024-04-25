@@ -8,7 +8,7 @@ export * as documents from "../../common/documents/module.ts";
 export * as packages from "../../common/packages/module.ts";
 /** Utility functions providing helpful functionality. */
 export * as utils from "../../common/utils/module.ts";
-export * as applications from "./applications/index.ts";
+export * as applications from "../../client-esm/applications/module.ts";
 /** Data schema definitions for data models. */
 export * as data from "./data/index.ts";
 /** Canvas class definitions */
