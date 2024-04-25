@@ -39,6 +39,7 @@ import "./client/pixi/special-effect/index.d.ts";
 import "./client/roll-term/index.d.ts";
 import "./client/roll.d.ts";
 import "./client/ui/index.d.ts";
+import "./client-esm/applications/types.d.ts";
 import "./common/module.d.ts";
 import "./scripts/prose-mirror.d.ts";
 import "./util.d.ts";
