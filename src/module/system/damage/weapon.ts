@@ -367,7 +367,7 @@ class WeaponDamagePF2e {
             modifiers.push(
                 new ModifierPF2e({
                     slug: "twin-second",
-                    label: "PF2E.Item.Weapon.Twin.Second",
+                    label: "PF2E.Item.Weapon.Twin.SecondPlus",
                     modifier: weapon._source.system.damage.dice + strikingDice,
                     type: "circumstance",
                     ignored: true,
