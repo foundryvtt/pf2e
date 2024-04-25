@@ -47,10 +47,41 @@
                 {{rangePicker name="alpha" value=object.alpha min="0" max="1" step="0.05"}}
             </div>
         </div>
+
+        {{#if showHexagonalShapes}}
+            <div class="form-group slim">
+                <label>{{localize "TOKEN.HexagonalShape"}}</label>
+                <div class="form-fields">
+                    <select name="hexagonalShape">
+                        {{selectOptions hexagonalShapes selected=object.hexagonalShape}}
+                    </select>
+                </div>
+                <p class="hint">{{localize "TOKEN.HexagonalShapeHint"}}</p>
+            </div>
+        {{/if}}
     </fieldset>
 
     <fieldset class="size">
         <legend>{{localize "PF2E.Token.Size.Label"}}</legend>
+        <div class="form-group slim">
+            <label>{{localize "TOKEN.ImageFitMode"}}</label>
+            <div class="form-fields">
+                <select name="texture.fit">
+                    {{selectOptions textureFitModes selected=object.texture.fit}}
+                </select>
+            </div>
+            <p class="hint">{{localize "TOKEN.ImageFitModeHint"}}</p>
+        </div>
+        <div class="form-group slim">
+            <label>{{localize "Anchor"}}</label>
+            <div class="form-fields">
+                <label>X</label>
+                {{numberInput object.texture.anchorX name="texture.anchorX" placeholder="0.5"}}
+                <label>Y</label>
+                {{numberInput object.texture.anchorY name="texture.anchorY" placeholder="0.5"}}
+            </div>
+            <p class="hint">{{localize "TOKEN.AnchorHint"}}</p>
+        </div>
         <div class="form-group slim">
             <label>
                 {{localize "TOKEN.Dimensions"}} <span class="units">({{localize "GridSpaces"}})</span>
@@ -80,5 +111,13 @@
                 {{rangePicker name="scale" value=scale min="0.2" max="3.0" step="0.1"}}
             </div>
         </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>{{localize "TOKEN.RING.SHEET.legend"}}</legend>
+        {{formField fields.ring.fields.enabled value=object.ring.enabled localize=true}}
+        {{formField fields.ring.fields.colors.fields.ring value=object.ring.colors.ring localize=true}}
+        {{formField fields.ring.fields.colors.fields.background value=object.ring.colors.background localize=true}}
+        {{formField fields.ring.fields.subject.fields.texture value=object.ring.subject.texture localize=true}}
     </fieldset>
 </div>
