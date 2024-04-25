@@ -79,9 +79,9 @@ export abstract class BaseGrid {
      * }
      * ```
      * @param   bounds    The bounds
-     * @returns           The offset range
+     * @returns           The offset range as [i0, j0, i1, j1]
      */
-    abstract getOffsetRange(bounds: Rectangle): { i0: number; j0: number; i1: number; j1: number };
+    abstract getOffsetRange(bounds: Rectangle): [number, number, number, number];
 
     /**
      * Returns the offsets of the grid spaces adjacent to the one corresponding to the given coordinates.
@@ -181,7 +181,10 @@ export abstract class BaseGrid {
      *                          (default is the distance travelled along the direct path)
      * @returns                 The measurements a shortest, direct path through the given waypoints.
      */
-    measurePath(waypoints: GridMeasurePathWaypoint[], options?: { cost?: number }): GridMeasurePathResult;
+    measurePath(
+        waypoints: GridMeasurePathWaypoint[],
+        options?: { cost?: GridMeasurePathCostFunction },
+    ): GridMeasurePathResult;
 
     /**
      * Measures the path and writes the measurements into `result`.
@@ -194,7 +197,7 @@ export abstract class BaseGrid {
      */
     protected abstract _measurePath(
         waypoints: GridMeasurePathWaypoint[],
-        options: { cost?: number },
+        options: { cost?: GridMeasurePathCostFunction },
         result: GridMeasurePathResult,
     ): void;
 
@@ -237,97 +240,99 @@ export abstract class BaseGrid {
     getCone(origin: Point, radius: number, direction: number, angle: number): Point[];
 }
 
-interface GridConfiguration {
-    /** The size of a grid space in pixels (a positive number) */
-    size: number;
-    /** The distance of a grid space in units (a positive number) */
-    distance?: number;
-    /** The units of measurement */
-    units?: string;
-    /** The style of the grid */
-    style?: string;
-    /** The color of the grid */
-    color?: ColorSource;
-    /** The alpha of the grid */
-    alpha?: number;
-    /** The line thickness of the grid */
-    thickness?: number;
+declare global {
+    interface GridConfiguration {
+        /** The size of a grid space in pixels (a positive number) */
+        size: number;
+        /** The distance of a grid space in units (a positive number) */
+        distance?: number;
+        /** The units of measurement */
+        units?: string;
+        /** The style of the grid */
+        style?: string;
+        /** The color of the grid */
+        color?: ColorSource;
+        /** The alpha of the grid */
+        alpha?: number;
+        /** The line thickness of the grid */
+        thickness?: number;
+    }
+
+    /** A pair of row and column coordinates of a grid space. */
+    interface GridOffset {
+        /** The row coordinate */
+        i: number;
+        /** The column coordinate */
+        j: number;
+    }
+
+    /** An offset of a grid space or a point with pixel coordinates. */
+    type GridCoordinates = GridOffset | Point;
+
+    /** Snapping behavior is defined by the snapping mode at the given resolution of the grid. */
+    interface GridSnappingBehavior {
+        /** The snapping mode (a union of {@link CONST.GRID_SNAPPING_MODES}) */
+        mode: number;
+        /** The resolution (a positive integer) */
+        resolution?: number;
+    }
+
+    type GridMeasurePathWaypoint = GridCoordinates | (GridCoordinates & { teleport: boolean });
+
+    /** The measurements of a waypoint. */
+    interface GridMeasurePathResultWaypoint {
+        /** The segment from the previous waypoint to this waypoint. */
+        backward: GridMeasurePathResultSegment | null;
+        /** The segment from this waypoint to the next waypoint. */
+        forward: GridMeasurePathResultSegment | null;
+        /** The total distance travelled along the path up to this waypoint. */
+        distance: number;
+        /** The total number of spaces moved along a direct path up to this waypoint. */
+        spaces: number;
+        /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) up to this waypoint. */
+        cost: number;
+    }
+
+    /** The measurements of a segment. */
+    interface GridMeasurePathResultSegment {
+        /** The waypoint that this segment starts from. */
+        from: GridMeasurePathResultWaypoint;
+        /** The waypoint that this segment goes to. */
+        to: GridMeasurePathResultWaypoint;
+        /** Is teleporation? */
+        teleport: boolean;
+        /** The distance travelled in grid units along this segment. */
+        distance: number;
+        /** The number of spaces moved along this segment. */
+        spaces: number;
+        /** The cost of the direct path ({@link BaseGrid#getDirectPath}) between the two waypoints. */
+        cost: number;
+    }
+
+    /** The measurements result of {@link BaseGrid#measurePath}. */
+    interface GridMeasurePathResult {
+        /** The measurements at each waypoint. */
+        waypoints: GridMeasurePathResultWaypoint[];
+        /** The measurements at each segment. */
+        segments: GridMeasurePathResultSegment[];
+        /** The total distance travelled along the path through all waypoints. */
+        distance: number;
+        /** The total number of spaces moved along a direct path through all waypoints.
+         *  Moving from a grid space to any of its neighbors counts as 1 step.
+         *  Always 0 in gridless grids. */
+        spaces: number;
+        /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) through all waypoints. */
+        cost: number;
+    }
+
+    /**
+     * A function that returns the cost for a given move between grid spaces.
+     * In square and hexagonal grids the grid spaces are always adjacent unless teleported.
+     * The distance is 0 if and only if teleported. The function is never called with the same offsets.
+     * @param    from      The offset that is moved from.
+     * @param    to        The offset that is moved to.
+     * @param    distance  The distance between the grid spaces, or 0 if teleported.
+     * @returns            The cost of the move between the grid spaces.
+     */
+    type GridMeasurePathCostFunction = (from: GridOffset, to: GridOffset, distance: number) => number;
 }
-
-/** A pair of row and column coordinates of a grid space. */
-interface GridOffset {
-    /** The row coordinate */
-    i: number;
-    /** The column coordinate */
-    j: number;
-}
-
-/** An offset of a grid space or a point with pixel coordinates. */
-type GridCoordinates = GridOffset | Point;
-
-/** Snapping behavior is defined by the snapping mode at the given resolution of the grid. */
-interface GridSnappingBehavior {
-    /** The snapping mode (a union of {@link CONST.GRID_SNAPPING_MODES}) */
-    mode: number;
-    /** The resolution (a positive integer) */
-    resolution?: number;
-}
-
-type GridMeasurePathWaypoint = GridCoordinates | (GridCoordinates & { teleport: boolean });
-
-/** The measurements of a waypoint. */
-interface GridMeasurePathResultWaypoint {
-    /** The segment from the previous waypoint to this waypoint. */
-    backward: GridMeasurePathResultSegment | null;
-    /** The segment from this waypoint to the next waypoint. */
-    forward: GridMeasurePathResultSegment | null;
-    /** The total distance travelled along the path up to this waypoint. */
-    distance: number;
-    /** The total number of spaces moved along a direct path up to this waypoint. */
-    spaces: number;
-    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) up to this waypoint. */
-    cost: number;
-}
-
-/** The measurements of a segment. */
-interface GridMeasurePathResultSegment {
-    /** The waypoint that this segment starts from. */
-    from: GridMeasurePathResultWaypoint;
-    /** The waypoint that this segment goes to. */
-    to: GridMeasurePathResultWaypoint;
-    /** Is teleporation? */
-    teleport: boolean;
-    /** The distance travelled in grid units along this segment. */
-    distance: number;
-    /** The number of spaces moved along this segment. */
-    spaces: number;
-    /** The cost of the direct path ({@link BaseGrid#getDirectPath}) between the two waypoints. */
-    cost: number;
-}
-
-/** The measurements result of {@link BaseGrid#measurePath}. */
-interface GridMeasurePathResult {
-    /** The measurements at each waypoint. */
-    waypoints: GridMeasurePathResultWaypoint[];
-    /** The measurements at each segment. */
-    segments: GridMeasurePathResultSegment[];
-    /** The total distance travelled along the path through all waypoints. */
-    distance: number;
-    /** The total number of spaces moved along a direct path through all waypoints.
-     *  Moving from a grid space to any of its neighbors counts as 1 step.
-     *  Always 0 in gridless grids. */
-    spaces: number;
-    /** The total cost of the direct path ({@link BaseGrid#getDirectPath}) through all waypoints. */
-    cost: number;
-}
-
-/**
- * A function that returns the cost for a given move between grid spaces.
- * In square and hexagonal grids the grid spaces are always adjacent unless teleported.
- * The distance is 0 if and only if teleported. The function is never called with the same offsets.
- * @param    from      The offset that is moved from.
- * @param    to        The offset that is moved to.
- * @param    distance  The distance between the grid spaces, or 0 if teleported.
- * @returns            The cost of the move between the grid spaces.
- */
-type GridMeasurePathCostFunction = (from: GridOffset, to: GridOffset, distance: number) => number;
