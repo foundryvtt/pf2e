@@ -70,7 +70,7 @@ abstract class IWR<TType extends IWRType> {
             case "primal":
                 return [{ or: [`item:trait:${iwrType}`, `origin:action:trait:${iwrType}`] }];
             case "area-damage":
-                return ["area-damage"];
+                return [{ or: ["area-damage", "item:trait:area-damage"] }];
             case "arrow-vulnerability":
                 return ["item:group:bow"];
             case "auditory":
