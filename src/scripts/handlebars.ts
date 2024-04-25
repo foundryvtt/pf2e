@@ -122,10 +122,46 @@ export function registerHandlebarsHelpers(): void {
         return false;
     });
 
+    /**
+     *  Returns a partial copy of an object omitting the keys specified.
+     *  They keys can be a string, a number or a stringified JSON array
+     *  {{omit object 0}}
+     *  {{omit damageTypes "bleed"}}
+     *  {{omit damageTypes '["bleed", "bludgeoning"]'}}
+     */
+    Handlebars.registerHelper("omit", (data: unknown, maybeKeys: unknown) => {
+        return pickOrOmit("omit", data, maybeKeys);
+    });
+
+    /**
+     *  Creates an object composed of the picked object properties.
+     *  They keys can be a string, a number or a stringified JSON array
+     *  {{pick object 0}}
+     *  {{pick damageTypes "bleed"}}
+     *  {{pick damageTypes '["bleed", "bludgeoning"]'}}
+     */
+    Handlebars.registerHelper("pick", (data: unknown, maybeKeys: unknown) => {
+        return pickOrOmit("pick", data, maybeKeys);
+    });
+
     // Raw blocks are mentioned in handlebars docs but the helper needs to be implemented
     // https://handlebarsjs.com/guide/expressions.html#escaping-handlebars-expressions
     // https://stackoverflow.com/questions/33704495/how-to-use-raw-helper-in-a-handlebars-template
     Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
         return options.fn(this);
     });
+}
+
+/** Used by the "pick" and "omit" helpers */
+function pickOrOmit(type: "omit" | "pick", data: unknown, maybeKeys: unknown) {
+    if (!R.isPlainObject(data)) return data;
+    const keys =
+        typeof maybeKeys === "string"
+            ? maybeKeys.startsWith("[") && maybeKeys.endsWith("]")
+                ? (JSON.parse(maybeKeys) as (string | number)[])
+                : [maybeKeys]
+            : typeof maybeKeys === "number"
+              ? [maybeKeys]
+              : [];
+    return type === "omit" ? R.omit(data, keys) : R.pick(data, keys);
 }
