@@ -1,3 +1,9 @@
+import type {
+    GlobalLightSource,
+    PointLightSource,
+    PointVisionSource,
+} from "../../../client-esm/canvas/sources/module.ts";
+
 export {};
 
 declare global {
@@ -24,10 +30,10 @@ declare global {
         animateVisionSources: boolean;
 
         /** A mapping of light sources which are active within the rendered Scene. */
-        lightSources: Collection<LightSource<AmbientLight | Token>>;
+        lightSources: Collection<PointLightSource<AmbientLight | Token>>;
 
         /** A Collection of vision sources which are currently active within the rendered Scene. */
-        visionSources: Collection<VisionSource<Token>>;
+        visionSources: Collection<PointVisionSource<Token>>;
 
         /** A set of vision mask filters used in visual effects group */
         visualEffectsMaskingFilters: Set<PIXI.Filter>;
@@ -48,7 +54,7 @@ declare global {
         initializeLightSources(): void;
 
         /** Update the global light source which provide global illumination to the Scene. */
-        protected _updateGlobalLightSource(): LightSource<null>;
+        protected _updateGlobalLightSource(): PointLightSource<null>;
 
         /** Refresh the state and uniforms of all LightSource objects. */
         refreshLightSources(): void;
