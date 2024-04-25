@@ -943,11 +943,14 @@ async function augmentInlineDamageRoll(
                       options.domains,
                   ].flat(),
               );
+        
+        // set inline damage traits to item:trait for the IWR system
+        const modifyTraits = traits ? traits.map((t) => `item:trait:${t}`) : [];
 
         const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
-            ...(traits ?? []),
+            ...modifyTraits,
             ...(extraRollOptions ?? []),
             ...actionOptions,
         ]);
