@@ -102,6 +102,16 @@ class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends ItemSheetPF2
             frequencies: CONFIG.PF2E.frequencies,
             sizes: R.omit(CONFIG.PF2E.actorSizes, ["sm"]),
             usages: CONFIG.PF2E.usages,
+            usageOptions: [
+                { label: "0", value: "worngloves" },
+                { label: "1", value: "held-in-one-hand" },
+                { label: "1+", value: "held-in-one-plus-hands" },
+                { label: "2", value: "held-in-two-hands" },
+            ],
+            identificationStatusOptions: [
+                { label: "PF2E.identification.Identified", value: "identified" },
+                { label: "PF2E.identification.Unidentified", value: "unidentified" },
+            ],
             isApex: tupleHasValue(item._source.system.traits.value, "apex"),
             isPhysical: true,
             activations,
@@ -227,6 +237,8 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     frequencies: typeof CONFIG.PF2E.frequencies;
     sizes: Omit<typeof CONFIG.PF2E.actorSizes, "sm">;
     usages: typeof CONFIG.PF2E.usages;
+    usageOptions: { label: string; value: string }[];
+    identificationStatusOptions: { label: string; value: string }[];
     bulkDisabled: boolean;
     activations: {
         action: ItemActivation;

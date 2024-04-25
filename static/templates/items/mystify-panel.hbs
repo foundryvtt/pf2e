@@ -4,10 +4,7 @@
             <label for="{{item.uuid}}-mystification-status">{{localize "PF2E.identification.MystificationStatus"}}</label>
             <div class="form-fields">
                 <select name="system.identification.status" id="{{item.uuid}}-mystification-status">
-                    {{#select data.identification.status}}
-                        <option value="identified">{{localize "PF2E.identification.Identified"}}</option>
-                        <option value="unidentified">{{localize "PF2E.identification.Unidentified"}}</option>
-                    {{/select}}
+                    {{selectOptions identificationStatusOptions selected=data.identification.status localize=true}}
                 </select>
             </div>
         </div>
