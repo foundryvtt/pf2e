@@ -2,11 +2,11 @@ name: PF2e System CI
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, v12]
   push:
-    branches: [master, release-v9]
+    branches: [master]
   workflow_dispatch:
-    branches: [master, release-v9]
+    branches: [master]
 
 jobs:
   build:
@@ -19,6 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Fetch PF2e Master
+        run: |
+          git remote add upstream https://github.com/foundryvtt/pf2e.git
+          git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 upstream master
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
@@ -26,7 +31,7 @@ jobs:
 
       - name: Cache NPM Deps
         id: cache-npm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: node_modules/
           key: npm-${{ hashFiles('package-lock.json') }}
@@ -36,10 +41,13 @@ jobs:
         run: |
           npm ci
 
+      - name: Lint and Test
+        run: |
+          npx eslint $(git diff --name-only --diff-filter=ACMRTUXB upstream/master | grep -E "^[src|build|tests|types].*\.ts$")
+          npm run lint:json
+          npm run prettier:scss
+          npx jest
+
       - name: Build
         run: |
           npm run build
-
-      - name: Test
-        run: |
-          npm run test
