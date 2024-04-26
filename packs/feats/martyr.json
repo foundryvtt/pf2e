@@ -28,7 +28,36 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "martyr",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "martyr",
+                    {
+                        "or": [
+                            "item:slug:harm",
+                            "item:slug:heal"
+                        ]
+                    },
+                    {
+                        "lt": [
+                            "item:cast:actions",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "spell-healing",
+                "text": "PF2E.SpecificRule.Cleric.Martyr.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
