@@ -54,7 +54,7 @@ function isJournalSource(docSource: PackEntry): docSource is JournalEntrySource 
  * The latest supported core schema version. This is used by the server to determine if a data migration is necessary
  *  and should only be increased once all new server-side migrations are supported.
  */
-const SUPPORTED_CORE_SCHEMA_VERSION = "12.319";
+const SUPPORTED_CORE_SCHEMA_VERSION = "12.320";
 
 /**
  * This is used to check paths to core icons to ensure correctness. The JSON file will need to be periodically refreshed
