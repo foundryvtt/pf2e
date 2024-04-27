@@ -17,7 +17,7 @@ const genClientBase = (
     const tParentOrBlank = typeParamName ? "<TParent>" : "";
     const tParentOrNull = typeParamName ? "TParent" : "null";
     console.log(String.raw`${declareOrExportClientBase} class ${clientBaseName}${typeParams} extends foundry.documents.Base${className}${tParentOrBlank} {
-    protected _sheet: FormApplication<this> | null;
+    protected _sheet: DocumentSheet<this> | null;
 
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
@@ -25,7 +25,7 @@ const genClientBase = (
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<${tParentOrNull}>);
 
@@ -73,7 +73,7 @@ const genClientBase = (
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): ${hasSheet ? "FormApplication<this>" : "null"};
+    get sheet(): ${hasSheet ? "DocumentSheet<this> | DocumentSheetV2<this> " : "null"};
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
     get uuid(): DocumentUUID;
@@ -292,7 +292,7 @@ const genClientBase = (
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: Record<string, unknown>): Promise<this>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -470,6 +470,12 @@ const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; pa
     Wall: { isCanvasDoc: true },
 };
 
+// imports
+console.log(
+    String.raw`import type { ApplicationV2, DocumentSheetV2 } from "../../../client-esm/applications/api/module.d.ts";
+
+`,
+);
 for (const [className, data] of Object.entries(clientDocs)) {
     genClientBase(className, data);
 }

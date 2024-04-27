@@ -8,17 +8,11 @@ declare global {
         /** The options provided to this application upon initialization */
         options: TOptions;
 
-        /**
-         * The application ID is a unique incrementing integer which is used to identify every application window
-         * drawn by the VTT
-         */
-        appId: number;
+        /** An internal reference to the HTML element this application renders */
+        protected _element: JQuery;
 
         /** Track the current position and dimensions of the Application UI */
         position: ApplicationPosition;
-
-        /** An internal reference to the HTML element this application renders */
-        protected _element: JQuery;
 
         /** DragDrop workflow handlers which are active for this Application */
         protected _dragDrop: DragDrop[];
@@ -33,6 +27,12 @@ declare global {
         _minimized: boolean;
 
         /**
+         * The prior render state of this Application.
+         * This allows for rendering logic to understand if the application is being rendered for the first time.
+         */
+        _priorState: ApplicationRenderState;
+
+        /**
          * Track the render state of the Application
          * @see {Application.RENDER_STATES}
          */
@@ -40,6 +40,12 @@ declare global {
 
         /** Track the most recent scroll positions for any vertically scrolling containers */
         protected _scrollPositions: Record<string, unknown> | null;
+
+        /**
+         * The application ID is a unique incrementing integer which is used to identify every application window
+         * drawn by the VTT
+         */
+        appId: number;
 
         static readonly RENDER_STATES: {
             CLOSING: -2;
@@ -94,6 +100,9 @@ declare global {
          * Return a flag for whether the Application instance is currently rendered
          */
         get rendered(): boolean;
+
+        /** Whether the Application is currently closing. */
+        get closing(): boolean;
 
         /**
          * An Application window should define its own title definition logic which may be dynamic depending on its data
