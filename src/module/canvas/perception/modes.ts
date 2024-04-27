@@ -17,7 +17,7 @@ const darkvision = new VisionMode({
     },
     vision: {
         darkness: { adaptive: true },
-        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0.75, range: Infinity },
+        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0.75 },
     },
 });
 
