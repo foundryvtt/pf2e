@@ -138,7 +138,7 @@
                 <label for="{{fieldIdPrefix}}border-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
                     {{#if object.appearance.border}}
-                        {{colorPicker name=(concat "system.rules." index ".appearance.border.color") value=borderColor}}
+                        <color-picker name="{{concat "system.rules." index ".appearance.border.color"}}" value="{{borderColor}}"></color-picker>
                     {{else}}
                         <div>{{localize "PF2E.RuleEditor.Aura.Appearance.NotApplicable"}}</div>
                     {{/if}}
@@ -169,7 +169,7 @@
             <div class="two-items">
                 <label for="{{fieldIdPrefix}}highlight-color">{{localize fields.appearance.fields.border.fields.color.label}}</label>
                 <div class="color-picker">
-                    {{colorPicker name=(concat "system.rules." index ".appearance.highlight.color") value=highlightColor}}
+                    <color-picker name="{{concat "system.rules." index ".appearance.highlight.color"}}" value="{{highlightColor}}"></color-picker>
 
                     <label class="user">
                         <input
@@ -195,8 +195,7 @@
         <div class="stacked">
             <div class="three-items image-path">
                 <label>{{localize fields.appearance.fields.texture.fields.src.label}}</label>
-                <input type="text" name="system.rules.{{index}}.appearance.texture.src" value="{{object.appearance.texture.src}}">
-                {{filePicker target=(concat "system.rules." index ".appearance.texture.src") type="imagevideo"}}
+                <file-picker name="{{concat "system.rules." index ".appearance.texture.src"}}" value="{{object.appearance.texture.src}}" type="imagevideo"></file-picker>
             </div>
 
             {{#if object.appearance.texture.src}}
