@@ -109,7 +109,7 @@ export const Load = {
         });
 
         function rerenderApps(path: string): void {
-            const apps = [...Object.values(ui.windows), ui.sidebar];
+            const apps = [...Object.values(ui.windows), ...foundry.applications.instances.values(), ui.sidebar];
             for (const app of apps) {
                 if (path.endsWith(".json") && app instanceof ActorSheetPF2e) {
                     resetActors([app.actor]);
