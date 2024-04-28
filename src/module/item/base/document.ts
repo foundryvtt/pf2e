@@ -218,7 +218,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const rollMode = options.rollMode ?? eventToRollMode(originalEvent);
         const chatData = ChatMessagePF2e.applyRollMode(
             {
-                type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+                style: CONST.CHAT_MESSAGE_STYLES.OTHER,
                 speaker: ChatMessagePF2e.getSpeaker({
                     actor: this.actor,
                     token: this.actor.getActiveTokens(false, true).at(0),
