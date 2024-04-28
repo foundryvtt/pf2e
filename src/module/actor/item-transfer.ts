@@ -148,9 +148,9 @@ export class ItemTransfer implements ItemTransferData {
                 const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
 
                 await ChatMessage.create({
-                    user: requester.id,
+                    author: requester.id,
                     speaker: { alias: ItemTransfer.#tokenName(targetActor) },
-                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                    style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                     flavor,
                     content,
                 });
@@ -309,9 +309,9 @@ export class ItemTransfer implements ItemTransferData {
         const flavor = await this.#messageFlavor(sourceActor, targetActor, subtitle);
 
         await ChatMessage.create({
-            user: requester.id,
+            author: requester.id,
             speaker: { alias: speaker },
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
             flavor,
             content,
         });

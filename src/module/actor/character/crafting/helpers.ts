@@ -93,7 +93,7 @@ export async function craftItem(
     }
 
     await ChatMessagePF2e.create({
-        user: game.user.id,
+        author: game.user.id,
         content: game.i18n.format("PF2E.Actions.Craft.Information.ReceiveItem", {
             actorName: actor.name,
             quantity: itemQuantity,
