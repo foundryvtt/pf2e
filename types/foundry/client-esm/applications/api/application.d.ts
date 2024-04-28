@@ -143,7 +143,7 @@ export default class ApplicationV2<
      * @returns            The result of HTML rendering may be implementation specific.
      *                     Whatever value is returned here is passed to _replaceHTML
      */
-    _renderHTML(context: ApplicationRenderContext, options: TRenderOptions): Promise<unknown>;
+    protected _renderHTML(context: ApplicationRenderContext, options: TRenderOptions): Promise<unknown>;
 
     /**
      * Replace the HTML of the application with the result provided by the rendering backend.
