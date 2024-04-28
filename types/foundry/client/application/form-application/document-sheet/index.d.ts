@@ -9,5 +9,4 @@ import "./roll-table-config.d.ts";
 import "./scene-config.d.ts";
 import "./tile-config.d.ts";
 import "./token-config.d.ts";
-import "./user-config.d.ts";
 import "./wall-config.d.ts";
