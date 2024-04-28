@@ -3,19 +3,11 @@
     <label for="{{fieldIdPrefix}}action-type">{{localize "PF2E.ActionActionsLabel"}}</label>
     <div class="form-fields">
         <select name="system.actionType.value" id="{{fieldIdPrefix}}action-type">
-            {{#select data.actionType.value}}
-                {{#each actionTypes as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions actionTypes selected=data.actionType.value localize=true}}
         </select>
         {{#if (eq data.actionType.value "action")}}
             <select name="system.actions.value" data-dtype="Number">
-                {{#select data.actions.value}}
-                    {{#each actionsNumber as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions actionsNumber selected=data.actions.value localize=true}}
             </select>
         {{else}}
             <input type="hidden" name="system.actions.value" value="" />
@@ -31,11 +23,7 @@
                 <input type="number" name="system.frequency.max" id="{{fieldIdPrefix}}frequency" min="1" max="99" value="{{data.frequency.max}}" />
                 <span>{{localize "PF2E.Frequency.per"}}</span>
                 <select name="system.frequency.per">
-                    {{#select data.frequency.per}}
-                        {{#each @root.frequencies as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions @root.frequencies selected=data.frequency.per localize=true}}
                 </select>
                 <a data-action="frequency-delete"><i class="fa-solid fa-fw fa-times"></i></a>
             </div>

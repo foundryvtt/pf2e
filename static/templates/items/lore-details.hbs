@@ -2,11 +2,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.ProficiencyLabel"}}</label>
         <select name="system.proficient.value" data-dtype="Number">
-            {{#select data.proficient.value}}
-                {{#each proficiencyRanks as |label value|}}
-                    <option value="{{value}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyRanks selected=data.proficient.value localize=true}}
         </select>
     </div>
 </fieldset>
