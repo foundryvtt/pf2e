@@ -27,11 +27,7 @@
         <label>{{localize automaticBonusVariant.setting.name}}</label>
         <div class="form-fields">
             <select name="automaticBonusVariant">
-                {{#select automaticBonusVariant.value}}
-                    {{#each automaticBonusVariant.setting.choices as |label value|}}
-                        <option value="{{value}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions automaticBonusVariant.setting.choices selected=automaticBonusVariant.value localize=true}}
             </select>
         </div>
         <p class="hint">{{localize automaticBonusVariant.setting.hint}}</p>

@@ -2,11 +2,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Category"}}</label>
         <select name="system.category">
-            {{#select data.category}}
-                {{#each categories as |label type|}}
-                    <option value="{{type}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions categories selected=data.category localize=true}}
         </select>
     </div>
 
