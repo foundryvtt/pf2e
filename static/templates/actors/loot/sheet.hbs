@@ -20,10 +20,7 @@
                         data-tooltip-direction="LEFT"
                     ></i>
                     <select name="system.lootSheetType" class="tag">
-                        {{#select data.lootSheetType}}
-                            <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
-                            <option value="Merchant">{{localize "PF2E.loot.MerchantLabel"}}</option>
-                        {{/select}}
+                        {{selectOptions lootSheetTypeOptions selected=data.lootSheetType localize=true}}
                     </select>
                 {{else}}
                     <span class="tag">{{data.lootSheetType}}</span>
