@@ -14,7 +14,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
 
     const toChat = (alias: string, content: string) => {
         ChatMessage.create({
-            user: game.user.id,
+            author: game.user.id,
             content,
             speaker: { alias },
         });

@@ -155,7 +155,7 @@ export async function rollActionMacro({
     const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
 
     const rollMode = game.settings.get("core", "rollMode");

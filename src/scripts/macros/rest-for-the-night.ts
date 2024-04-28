@@ -206,7 +206,7 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
 
         // Call a hook for modules to do anything extra
         Hooks.callAll("pf2e.restForTheNight", actor);
-        messages.push({ user: game.user.id, content, speaker: ChatMessagePF2e.getSpeaker({ actor }) });
+        messages.push({ author: game.user.id, content, speaker: ChatMessagePF2e.getSpeaker({ actor }) });
     }
 
     return ChatMessagePF2e.createDocuments(messages, { restForTheNight: true });

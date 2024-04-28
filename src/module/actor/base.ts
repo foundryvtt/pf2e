@@ -1291,7 +1291,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             },
             flavor,
             content,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            style: CONST.CHAT_MESSAGE_STYLES.OTHER,
             whisper:
                 game.settings.get("pf2e", "metagame_secretDamage") && !token.actor?.hasPlayerOwner
                     ? ChatMessagePF2e.getWhisperRecipients("GM").map((u) => u.id)
