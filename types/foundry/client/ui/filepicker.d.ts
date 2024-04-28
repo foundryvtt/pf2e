@@ -26,6 +26,9 @@ declare class FilePicker extends Application<FilePickerOptions> {
 
     constructor(options: FilePickerOptions);
 
+    /** The allowed values for the type of this FilePicker instance. */
+    static FILE_TYPES: ["image", "audio", "video", "text", "imagevideo", "font", "folder", "any"];
+
     /** Record the last-browsed directory path so that re-opening a different FilePicker instance uses the same target */
     static LAST_BROWSED_DIRECTORY: string;
 
@@ -175,7 +178,7 @@ declare class FilePicker extends Application<FilePickerOptions> {
 type FilePickerDisplayMode = (typeof FilePicker)["DISPLAY_MODES"][number];
 
 declare interface FilePickerOptions extends ApplicationOptions {
-    type?: "audio" | "image" | "video" | "imagevideo" | "folder" | "font" | "graphics" | "text" | "any";
+    type?: (typeof FilePicker.FILE_TYPES)[number];
     /** The current file path being modified, if any */
     current?: string;
     /** A current file source in "data", "public", or "s3" */
