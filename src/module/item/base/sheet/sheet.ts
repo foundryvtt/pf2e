@@ -675,7 +675,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
             template: string;
         }[];
     };
-    publicationLicenses: { label: string; value: string }[];
+    publicationLicenses: FormSelectOption[];
     /** Lore only, will be removed later */
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }

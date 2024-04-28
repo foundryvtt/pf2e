@@ -171,6 +171,10 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             skillLabels: KINGDOM_SKILL_LABELS,
             build: this.#prepareAbilityBuilder(),
             finished,
+            aspirationOptions: [
+                { value: "fame", label: "PF2E.Kingmaker.Kingdom.Aspiration.fame" },
+                { value: "infamy", label: "PF2E.Kingmaker.Kingdom.Aspiration.infamy" },
+            ],
         };
     }
 
@@ -370,6 +374,7 @@ interface KingdomBuilderSheetData {
     skillLabels: Record<string, string>;
     build: KingdomAbilityBuilderData;
     finished: boolean;
+    aspirationOptions: FormSelectOption[];
 }
 
 interface CategorySheetData {

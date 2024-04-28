@@ -4,11 +4,7 @@
         <div class="form-fields">
             <input type="number" name="system.save.value" value="{{data.save.value}}">
             <select name="system.save.type">
-                {{#select data.save.type}}
-                    {{#each saves as |ability a|}}
-                        <option value="{{a}}">{{localize ability}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions saves selected=data.save.type localize=true}}
             </select>
         </div>
     </div>
@@ -36,19 +32,10 @@
                     <div class="formula-row">
                         <input type="text" name="system.stages.{{stageId}}.damage.{{id}}.formula" value="{{damage.formula}}" placeholder="{{localize "PF2E.Formula"}}" />
                         <select name="system.stages.{{stageId}}.damage.{{id}}.category">
-                            {{#select damage.category}}
-                                <option></option>
-                                {{#each @root.damageCategories as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageCategories selected=damage.category blank="" localize=true}}
                         </select>
                         <select name="system.stages.{{stageId}}.damage.{{id}}.type">
-                            {{#select damage.type}}
-                                {{#each @root.damageTypes as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageTypes selected=damage.type localize=true}}
                         </select>
                         <div class="item-controls">
                             <a data-action="damage-delete" data-id="{{id}}"><i class="fa-solid fa-fw fa-times"></i></a>
@@ -69,11 +56,7 @@
                 {{#each stage.conditions as |condition key|}}
                     <div class="form-fields stage-condition" data-condition-id="{{key}}">
                         <select name="system.stages.{{stageId}}.conditions.{{key}}.slug">
-                            {{#select condition.slug}}
-                                {{#each @root.conditionTypes as |label slug|}}
-                                    <option value="{{slug}}">{{localize label}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.conditionTypes selected=condition.slug localize=true}}
                         </select>
                         {{#if condition.document.system.value.isValued}}
                             <input type="number" name="system.stages.{{stageId}}.conditions.{{key}}.value" value="{{condition.value}}" />
