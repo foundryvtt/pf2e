@@ -62,7 +62,7 @@ export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
                 uuid: item.uuid,
             });
 
-            await ChatMessagePF2e.create({ user: game.user.id, content });
+            await ChatMessagePF2e.create({ author: game.user.id, content });
         });
     }
 

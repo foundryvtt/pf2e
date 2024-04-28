@@ -42,7 +42,6 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
                     ChatMessagePF2e.create({
                         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} ${localize("Title")}</strong> (${successLabel})`,
                         rolls: [healRoll.toJSON()],
                     });
