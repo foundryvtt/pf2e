@@ -81,11 +81,7 @@
             <div class="details-container-two-columns">
                 <input type="number" name="{{dataPath}}.area.value" min="5" step="5" value="{{system.area.value}}" />
                 <select name="{{dataPath}}.area.type">
-                    {{#select system.area.type}}
-                        {{#each @root.areaShapes as |label shape|}}
-                            <option value="{{shape}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions @root.areaShapes selected=system.area.type localize=true}}
                 </select>
             </div>
         </div>
@@ -122,20 +118,10 @@
                             <input type="checkbox" name="{{../dataPath}}.damage.{{id}}.applyMod" {{checked damage.applyMod}} />
                         </label>
                         <select name="{{../dataPath}}.damage.{{id}}.category">
-                            {{#select damage.category}}
-                                <option value=""></option>
-                                {{#each @root.damageSubtypes as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageSubtypes selected=damage.category blank="" localize=true}}
                         </select>
                         <select name="{{../dataPath}}.damage.{{id}}.type">
-                            {{#select damage.type}}
-                                <option value=""></option>
-                                {{#each @root.damageTypes as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageTypes selected=damage.type localize=true}}
                         </select>
                         <div class="item-controls">
                             <a class="tag-selector"
