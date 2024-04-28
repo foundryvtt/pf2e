@@ -6,6 +6,8 @@ import type { AbilityItemPF2e } from "@item";
 
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     actions: HazardActionSheetData;
+    complexityOptions: { value: string; label: string }[];
+    emitsSoundOptions: { value: string; label: string }[];
     editing: boolean;
     actorTraits: TraitViewData[];
     rarity: Record<string, string>;

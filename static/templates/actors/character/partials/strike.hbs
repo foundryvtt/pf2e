@@ -45,12 +45,7 @@
             <select class="linked"
                 data-action="link-ammo"
                 {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                {{#select action.ammunition.selected.id}}
-                    <option value="">{{localize "PF2E.NoAmmoLabel"}}</option>
-                    {{#each action.ammunition.compatible as |ammo|}}
-                        <option value="{{ammo.id}}" data-compatible="true">{{ammo.name}} ({{ammo.quantity}})</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
             </select>
 
             <span class="magazine" data-item-id="{{action.item.id}}">
