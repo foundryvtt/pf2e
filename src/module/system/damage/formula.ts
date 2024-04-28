@@ -93,7 +93,7 @@ function createDamageFormula(
     const BONUS_BASE_LABELS = ["PF2E.ConditionTypePersistent"].map((l) => game.i18n.localize(l));
 
     // Test that a damage modifier or dice partial is compatible with the prior check result
-    const outcomeMatches = (m: { critical: boolean | null }): boolean => critical || m.critical !== true;
+    const outcomeMatches = (m: { critical: boolean | null }): boolean => m.critical === null || m.critical === critical;
 
     // Add damage dice. Dice always stack
     for (const dice of damage.dice.filter((d) => d.enabled && outcomeMatches(d))) {
