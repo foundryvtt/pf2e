@@ -34,7 +34,14 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
             rollData,
         });
 
-        return { ...sheetData, isLoot };
+        return {
+            ...sheetData,
+            isLoot,
+            lootSheetTypeOptions: [
+                { value: "Loot", label: "PF2E.loot.LootLabel" },
+                { value: "Merchant", label: "PF2E.loot.MerchantLabel" },
+            ],
+        };
     }
 
     override activateListeners($html: JQuery): void {
@@ -81,4 +88,5 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
 interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
     isLoot: boolean;
+    lootSheetTypeOptions: { value: string; label: string }[];
 }
