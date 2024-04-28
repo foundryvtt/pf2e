@@ -216,7 +216,37 @@ class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
             data = this.formToSheetData(this.options.actors, this.formData);
         }
         Object.assign(sheetData, data);
-        return sheetData;
+        return {
+            ...sheetData,
+            detectionModeOptions: [
+                { value: "none", label: "PF2E.TravelSpeed.None" },
+                { value: "everything", label: "PF2E.TravelSpeed.DetectEverything" },
+                { value: "before", label: "PF2E.TravelSpeed.DetectBeforeRunningIntoIt" },
+            ],
+            explorationActivityOptions: [
+                { value: "AvoidNotice", label: "PF2E.TravelSpeed.ExplorationActivities.AvoidNotice" },
+                { value: "CoverTracks", label: "PF2E.TravelSpeed.ExplorationActivities.CoverTracks" },
+                { value: "Defend", label: "PF2E.TravelSpeed.ExplorationActivities.Defend" },
+                { value: "DetectMagic", label: "PF2E.TravelSpeed.ExplorationActivities.DetectMagic" },
+                { value: "Investigate", label: "PF2E.TravelSpeed.ExplorationActivities.Investigate" },
+                { value: "RepeatASpell", label: "PF2E.TravelSpeed.ExplorationActivities.RepeatASpell" },
+                { value: "Scout", label: "PF2E.TravelSpeed.ExplorationActivities.Scout" },
+                { value: "Search", label: "PF2E.TravelSpeed.ExplorationActivities.Search" },
+                { value: "Track", label: "PF2E.TravelSpeed.ExplorationActivities.Track" },
+                { value: "None", label: "PF2E.TravelSpeed.ExplorationActivities.None" },
+                { value: "HalfSpeed", label: "PF2E.TravelSpeed.ExplorationActivities.HalfSpeed" },
+            ],
+            distanceUnitOptions: [
+                { value: "miles", label: "PF2E.TravelSpeed.Miles" },
+                { value: "feet", label: "PF2E.TravelSpeed.Feet" },
+            ],
+            terrainOptions: [
+                { value: "normal", label: "PF2E.TravelSpeed.NormalTerrain" },
+                { value: "difficult", label: "PF2E.TravelSpeed.DifficultTerrain" },
+                { value: "greaterDifficult", label: "PF2E.TravelSpeed.GreaterDifficultTerrain" },
+            ],
+            oneToFour: R.range(1, 5).map((n) => ({ value: n.toString(), label: n.toString() })),
+        };
     }
 }
 

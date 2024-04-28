@@ -4,7 +4,7 @@ import type { Abilities } from "@actor/creature/data.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
 import type { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
-import type { ConsumablePF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
 import type { AutoChangeEntry } from "@module/rules/rule-element/ae-like.ts";
@@ -250,8 +250,8 @@ interface StrikeData extends StatisticModifier {
 
     /** Ammunition choices and selected ammo if this is a ammo consuming weapon. */
     ammunition?: {
-        compatible: (ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>)[];
-        incompatible: (ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e>)[];
+        compatible: { id: string; label: string }[];
+        incompatible: { id: string; label: string }[];
         selected: {
             id: string;
             compatible: boolean;
@@ -307,9 +307,9 @@ export type {
     HitPointsStatistic,
     InitiativeData,
     PrototypeTokenPF2e,
+    Rollable,
     RollFunction,
     RollOptionFlags,
-    Rollable,
     StrikeData,
     TraitViewData,
 };
