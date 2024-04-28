@@ -1001,6 +1001,29 @@ type DocumentStatsSchema = {
     lastModifiedBy: ForeignDocumentField<string>;
 };
 
+/**
+ * A subclass of [StringField]{@link StringField} that is used specifically for the Document "type" field.
+ */
+export class DocumentTypeField<
+    TSourceProp extends string = string,
+    TModelProp extends string = TSourceProp,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+    TDocument extends abstract.Document = abstract.Document,
+> extends StringField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    /**
+     * @param documentClass  The base document class which belongs in this field
+     * @param [options]      Options which configure the behavior of the field
+     * @param [context]      Additional context which describes the field
+     */
+    constructor(
+        documentClass: ConstructorOf<TDocument>,
+        options?: StringFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+        context?: { name?: string; parent?: abstract.Document },
+    );
+}
+
 /** A subclass of `ObjectField` which supports a system-level data object. */
 export class TypeDataField<
     TSourceProp extends object = object,

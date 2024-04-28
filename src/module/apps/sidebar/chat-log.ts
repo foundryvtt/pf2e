@@ -120,7 +120,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             })();
             rolls.push(await roll.evaluate());
         }
-        chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
         chatData.rolls = rolls.map((r) => r.toJSON());
         chatData.sound = CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();

@@ -155,7 +155,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const dc = this.#getDC(html);
             const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
 
-            ChatMessagePF2e.create({ user: game.user.id, flavor, content });
+            ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
     }
 

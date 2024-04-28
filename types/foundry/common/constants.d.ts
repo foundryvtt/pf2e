@@ -52,14 +52,22 @@ export const CANVAS_PERFORMANCE_MODES: {
     MAX: 3;
 };
 
-/** Valid Chat Message types */
-export const CHAT_MESSAGE_TYPES: {
+/** Valid Chat Message styles which affect how the message is presented in the chat log. */
+export const CHAT_MESSAGE_STYLES: {
+    /** An uncategorized chat message */
     OTHER: 0;
+    /**
+     * The message is spoken out of character (OOC).
+     * OOC messages will be outlined by the player's color to make them more easily recognizable.
+     */
     OOC: 1;
+    /** The message is spoken by an associated character. */
     IC: 2;
+    /**
+     * The message is an emote performed by the selected character.
+     * Entering "/emote waves his hand." while controlling a character named Simon will send the message, "Simon waves his hand."
+     */
     EMOTE: 3;
-    WHISPER: 4;
-    ROLL: 5;
 };
 
 /** Define the set of languages which have built-in support in the core software */
@@ -767,7 +775,7 @@ declare global {
     type ActiveEffectChangeMode = (typeof CONST.ACTIVE_EFFECT_MODES)[keyof typeof CONST.ACTIVE_EFFECT_MODES];
     type AudioFileExtension = keyof typeof AUDIO_FILE_EXTENSIONS;
     type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
-    type ChatMessageType = (typeof CONST.CHAT_MESSAGE_TYPES)[keyof typeof CONST.CHAT_MESSAGE_TYPES];
+    type ChatMessageStyle = (typeof CONST.CHAT_MESSAGE_STYLES)[keyof typeof CONST.CHAT_MESSAGE_STYLES];
     type CompatibilityMode = (typeof CONST.COMPATIBILITY_MODES)[keyof typeof CONST.COMPATIBILITY_MODES];
     type DirectorySearchMode = (typeof DIRECTORY_SEARCH_MODES)[keyof typeof DIRECTORY_SEARCH_MODES];
     type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
