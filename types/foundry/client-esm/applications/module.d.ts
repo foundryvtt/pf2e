@@ -1,7 +1,9 @@
 import type ApplicationV2 from "./api/application.d.ts";
 
-export * as api from "./api/module.ts";
 export * as sheets from "../../client/foundry/applications/sheets.ts";
+export * as api from "./api/module.ts";
+export * as elements from "./elements/module.ts";
+export * as fields from "./forms/fields.ts";
 
 export const instances: Map<number, ApplicationV2>;
 
