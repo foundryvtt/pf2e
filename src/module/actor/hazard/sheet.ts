@@ -72,6 +72,15 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         return {
             ...sheetData,
             actions: this.#prepareActions(),
+            complexityOptions: [
+                { value: "false", label: "PF2E.Actor.Hazard.Simple" },
+                { value: "true", label: "PF2E.TraitComplex" },
+            ],
+            emitsSoundOptions: [
+                { value: "true", label: "PF2E.Actor.Hazard.EmitsSound.True" },
+                { value: "false", label: "PF2E.Actor.Hazard.EmitsSound.False" },
+                { value: "encounter", label: "PF2E.Actor.Hazard.EmitsSound.Encounter" },
+            ],
             editing: this.editing,
             actorTraits: system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.hazardTraits)),
             rarity: CONFIG.PF2E.rarityTraits,
