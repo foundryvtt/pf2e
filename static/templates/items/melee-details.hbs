@@ -13,22 +13,13 @@
             <div class="form-group type">
                 <label>{{localize "PF2E.Roll.Type"}}</label>
                 <select name="system.damageRolls.{{key}}.damageType">
-                    {{#select (lookup damageRoll "damageType")}}
-                        {{#each @root.damageTypes as |label type|}}
-                            <option value="{{type}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions @root.damageTypes selected=damageRoll.damageType localize=true}}
                 </select>
             </div>
             <div class="form-group category">
                 <label>{{localize "PF2E.Category"}}</label>
                 <select name="system.damageRolls.{{key}}.category">
-                    {{#select (lookup damageRoll "category")}}
-                        <option value=""></option>
-                        {{#each @root.damageCategories as |label category|}}
-                            <option value="{{category}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions @root.damageCategories selected=damageRoll.category blank="" localize=true}}
                 </select>
             </div>
             <a class="damage-control remove-partial" data-action="remove-partial"><i class="fa-solid fa-minus"></i></a>

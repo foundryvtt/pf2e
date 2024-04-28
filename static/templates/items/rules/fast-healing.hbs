@@ -4,11 +4,7 @@
     <div class="form-fields">
         {{{form.resolvableValue "value"}}}
         <select name="system.rules.{{index}}.type" class="short">
-            {{#select rule.type}}
-                {{#each types as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions types selected=rule.type localize=true}}
         </select>
         {{{form.resolvableAddBracket "value"}}}
     </div>

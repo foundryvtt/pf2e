@@ -3,11 +3,7 @@
         <label>{{localize "PF2E.Actor.Character.Attribute.Apex"}}</label>
         <div class="form-fields">
             <select name="system.apex.attribute">
-                {{#select item.system.apex.attribute}}
-                    {{#each attributes as |label slug|}}
-                        <option value="{{slug}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions attributes selected=item.system.apex.attribute localize=true}}
             </select>
         </div>
     </div>
