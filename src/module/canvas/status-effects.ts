@@ -306,10 +306,10 @@ export class StatusEffects {
 
         const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
         const messageSource: Partial<foundry.documents.ChatMessageSource> = {
-            user: game.user.id,
+            author: game.user.id,
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            style: CONST.CHAT_MESSAGE_STYLES.OTHER,
         };
         const isNPCEvent = !token.actor?.hasPlayerOwner;
         const whisperMessage = whisper || (isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition"));

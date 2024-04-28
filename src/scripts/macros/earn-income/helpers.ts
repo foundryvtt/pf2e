@@ -60,7 +60,7 @@ function chatTemplate(skillName: string, earnIncomeResult: EarnIncomeResult): st
 function postToChat(skillName: string, earnIncomeResult: EarnIncomeResult): Promise<ChatMessagePF2e | undefined> {
     const content = chatTemplate(skillName, earnIncomeResult);
     return ChatMessagePF2e.create({
-        user: game.user.id,
+        author: game.user.id,
         content,
         speaker: ChatMessage.getSpeaker(),
     });
