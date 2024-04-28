@@ -95,11 +95,7 @@
             </h2>
         </div>
         <select name="system.attributes.emitsSound">
-            {{#select data.attributes.emitsSound}}
-                <option value="true">{{localize "PF2E.Actor.Hazard.EmitsSound.True"}}</option>
-                <option value="false">{{localize "PF2E.Actor.Hazard.EmitsSound.False"}}</option>
-                <option value="encounter">{{localize "PF2E.Actor.Hazard.EmitsSound.Encounter"}}</option>
-            {{/select}}
+            {{selectOptions emitsSoundOptions selected=data.attributes.emitsSound localize=true}}
         </select>
     </section>
 
