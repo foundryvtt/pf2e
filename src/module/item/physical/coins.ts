@@ -36,15 +36,6 @@ class CoinsPF2e implements Coins {
         });
     }
 
-    /** @deprecated */
-    add(coins: Coins): CoinsPF2e {
-        fu.logCompatibilityWarning("`CoinsPF2e#add` is deprecated. Use `CoinsPF2e#plus` instead.", {
-            since: "5.13.0",
-            until: "6.0.0",
-        });
-        return this.plus(coins);
-    }
-
     /** Multiply by a number and clean up result */
     scale(factor: number): CoinsPF2e {
         const result = new CoinsPF2e(this);
