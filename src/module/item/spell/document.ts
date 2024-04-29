@@ -188,15 +188,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         return this.spellcasting?.attribute ?? "cha";
     }
 
-    /** @deprecated */
-    get ability(): AttributeString {
-        fu.logCompatibilityWarning("`SpellPF2e#ability` is deprecated. Use `SpellPF2e#attribute` instead.", {
-            since: "5.3.0",
-            until: "6.0.0",
-        });
-        return this.attribute;
-    }
-
     /** Whether this spell has unlimited uses */
     get atWill(): boolean {
         // In the future handle at will and constant
@@ -810,11 +801,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const castData = fu.mergeObject(data ?? {}, domData ?? {});
 
         // If this is for a higher level spell, heighten it first
-        if ("castLevel" in castData && !castData.castRank) {
-            const sinceUntil = { since: "5.12.0", until: "6.0.0" };
-            fu.logCompatibilityWarning("`data.castLevel` is deprecated: use `data.castRank` instead.", sinceUntil);
-            castData.castRank = Number(castData.castLevel ?? NaN);
-        }
         const castRank = Number(castData.castRank ?? "");
         if (castRank && castRank !== this.rank) {
             return this.loadVariant({ castRank })?.toMessage(event, { create, data, rollMode });
