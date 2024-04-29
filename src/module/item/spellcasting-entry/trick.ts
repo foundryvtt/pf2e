@@ -43,15 +43,6 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     attribute: AttributeString;
 
-    /** @deprecated */
-    get ability(): AttributeString {
-        fu.logCompatibilityWarning(
-            "`TrickMagicItemEntry#ability` is deprecated. Use `TrickMagicItemEntry#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" },
-        );
-        return this.attribute;
-    }
-
     tradition: MagicTradition;
 
     constructor(actor: TActor, skill: TrickMagicItemSkill) {
