@@ -25,6 +25,10 @@ class ConsumableSheetPF2e extends PhysicalItemSheetPF2e<ConsumablePF2e> {
             canHaveHealing,
             categories: sortStringRecord(CONFIG.PF2E.consumableCategories),
             damageTypes: sortStringRecord(CONFIG.PF2E.damageTypes),
+            damageKindOptions: [
+                { value: "damage", label: "PF2E.DamageLabel" },
+                { value: "healing", label: "PF2E.TraitHealing" },
+            ],
             materialEffects: createSheetTags(CONFIG.PF2E.materialDamageEffects, item.system.material.effects),
             otherTags: createSheetTags(CONFIG.PF2E.otherConsumableTags, item.system.traits.otherTags),
             stackGroups: this.item.isAmmo ? R.omit(CONFIG.PF2E.stackGroups, ["coins", "gems"]) : null,
@@ -61,6 +65,7 @@ interface ConsumableSheetData extends PhysicalItemSheetData<ConsumablePF2e> {
     canHaveDamageOrHealing: boolean;
     canHaveHealing: boolean;
     categories: Record<ConsumableCategory, string>;
+    damageKindOptions: FormSelectOption[];
     damageTypes: Record<DamageType, string>;
     materialEffects: SheetOptions;
     otherTags: SheetOptions;
