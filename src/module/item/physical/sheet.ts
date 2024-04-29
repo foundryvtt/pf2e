@@ -237,8 +237,8 @@ interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemShee
     frequencies: typeof CONFIG.PF2E.frequencies;
     sizes: Omit<typeof CONFIG.PF2E.actorSizes, "sm">;
     usages: typeof CONFIG.PF2E.usages;
-    usageOptions: { label: string; value: string }[];
-    identificationStatusOptions: { label: string; value: string }[];
+    usageOptions: FormSelectOption[];
+    identificationStatusOptions: FormSelectOption[];
     bulkDisabled: boolean;
     activations: {
         action: ItemActivation;

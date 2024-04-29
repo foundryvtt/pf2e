@@ -60,7 +60,7 @@ interface ActorSheetDataPF2e<TActor extends ActorPF2e> extends ActorSheetData<TA
     totalWealthGold: string;
     traits: SheetOptions;
     user: { isGM: boolean };
-    publicationLicenses: { value: string; label: string }[];
+    publicationLicenses: FormSelectOption[];
 }
 
 interface AbilityViewData {
