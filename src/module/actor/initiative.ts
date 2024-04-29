@@ -54,15 +54,6 @@ class ActorInitiative {
         return this.statistic.check.mod;
     }
 
-    /** @deprecated */
-    get ability(): AttributeString | null {
-        fu.logCompatibilityWarning(
-            "`ActorInitiative#ability` is deprecated. Use `ActorInitiative#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" },
-        );
-        return this.attribute;
-    }
-
     async roll(args: InitiativeRollParams = {}): Promise<InitiativeRollResult | null> {
         // Get or create the combatant
         const combatant =

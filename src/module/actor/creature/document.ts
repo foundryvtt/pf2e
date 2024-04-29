@@ -233,51 +233,6 @@ abstract class CreaturePF2e<
         if (this.initialized) return;
         super.prepareData();
 
-        Object.defineProperties(this.system.attributes, {
-            initiative: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#attributes#initiative is deprecated. Use CreatureSystemData#initiative instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.initiative;
-                },
-                enumerable: false,
-            },
-            perception: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#attributes#perception is deprecated. Use CreatureSystemData#perception instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.perception;
-                },
-                enumerable: false,
-            },
-        });
-        Object.defineProperties(this.system.traits, {
-            languages: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#traits#languages is deprecated. Use CreatureSystemData#details#languages instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.details.languages;
-                },
-                enumerable: false,
-            },
-            senses: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#traits#senses is deprecated. Use CreatureSystemData#perception#senses instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.perception.senses;
-                },
-                enumerable: false,
-            },
-        });
-
         // Add spell collections from spell consumables if a matching spellcasting ability is found
         const spellConsumables = this.itemTypes.consumable.filter(
             (c) => ["scroll", "wand"].includes(c.category) && c.isIdentified && !c.isStowed,

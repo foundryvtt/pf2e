@@ -32,15 +32,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         return createCounteractStatistic(this as SpellcastingEntryPF2e<ActorPF2e>);
     }
 
-    /** @deprecated */
-    get ability(): AttributeString {
-        fu.logCompatibilityWarning(
-            "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" },
-        );
-        return this.attribute;
-    }
-
     /** This entry's magic tradition, null if the spell's tradition should be used instead */
     get tradition(): MagicTradition | null {
         const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
