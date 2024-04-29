@@ -36,19 +36,11 @@
             <div class="form-fields">
                 <div class="form-fields activation-time">
                     <select name="{{base}}.actionCost.type" data-dtype="String">
-                        {{#select action.actionCost.type}}
-                            {{#each @root.actionTypes as |name type|}}
-                                <option value="{{type}}">{{localize name}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions @root.actionTypes selected=action.actionCost.type localize=true}}
                     </select>
                     {{#if (eq action.actionCost.type "action")}}
                         <select name="{{base}}.actionCost.value" data-dtype="Number">
-                            {{#select action.actionCost.value}}
-                                {{#each @root.actionsNumber as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.actionsNumber selected=action.actionCost.value localize=true}}
                         </select>
                     {{/if}}
                 </div>
@@ -58,11 +50,7 @@
                         <input type="number" name="{{base}}.frequency.max" value="{{action.frequency.max}}" data-dtype="Number"/>
                         <span>{{localize "PF2E.Frequency.per"}}</span>
                         <select name="{{base}}.frequency.per" data-dtype="String">
-                            {{#select action.frequency.per}}
-                                {{#each @root.frequencies as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions@root.frequencies selected=action.frequency.per localize=true}}
                         </select>
                         <a data-action="activation-frequency-delete"><i class="fa-solid fa-times"></i></a>
                     </div>
