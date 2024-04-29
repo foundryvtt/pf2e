@@ -1,11 +1,7 @@
 <div class="form-group">
     <label>{{localize "PF2E.Category"}}</label>
     <select name="system.category">
-        {{#select data.category}}
-            {{#each categories as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-            {{/each}}
-        {{/select}}
+        {{selectOptions categories selected=data.category localize=true}}
     </select>
 </div>
 
@@ -30,17 +26,10 @@
             <div class="form-fields">
                 <input type="text" name="system.damage.formula" id="{{fieldIdPrefix}}damage" value="{{data.damage.formula}}" />
                 <select name="system.damage.type">
-                    {{#select data.damage.type}}
-                        {{#each @root.damageTypes as |name type|}}
-                            <option value="{{type}}">{{localize name}}</option>
-                        {{/each}}
-                    {{/select}}
+                     {{selectOptions @root.damageTypes selected=data.damage.type localize=true}}
                 </select>
                 <select class="kinds" name="system.damage.kind" {{disabled (not canHaveHealing)}}>
-                    {{#select data.damage.kind}}
-                        <option value="damage">{{localize "PF2E.DamageLabel"}}</option>
-                        <option value="healing">{{localize "PF2E.TraitHealing"}}</option>
-                    {{/select}}
+                    {{selectOptions @root.damageKindOptions selected=data.damage.kind localize=true}}
                 </select>
                 <a data-action="remove-damage" data-tooltip="PF2E.DeleteShortLabel"><i class="fa-solid fa-trash"></i></a>
             </div>

@@ -214,6 +214,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
             abilityLabels: KINGDOM_ABILITY_LABELS,
             skillLabels: KINGDOM_SKILL_LABELS,
+            proficiencyOptions: Object.values(CONFIG.PF2E.proficiencyRanks).map((label, i) => ({
+                value: i.toString(),
+                label,
+            })),
         };
     }
 
@@ -722,6 +726,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+    proficiencyOptions: FormSelectOption[];
 }
 
 interface ArmySheetData {

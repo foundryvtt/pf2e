@@ -88,5 +88,5 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
 interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
     isLoot: boolean;
-    lootSheetTypeOptions: { value: string; label: string }[];
+    lootSheetTypeOptions: FormSelectOption[];
 }

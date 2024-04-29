@@ -5,19 +5,11 @@
         </h1>
         <div class="tags">
             <select class="rarity rarity-select {{data.traits.rarity}}" name="system.traits.rarity" data-dtype="String">
-                {{#select data.traits.rarity}}
-                    {{#each actorRarities as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions actorRarities selected=data.traits.rarity localize=true}}
             </select>
 
             <select class="size size-select" name="system.traits.size.value" data-dtype="String">
-                {{#select data.traits.size.value}}
-                    {{#each actorSizes as |label size|}}
-                        <option value="{{size}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions actorSizes selected=data.traits.size.value localize=true}}
             </select>
         </div>
     </div>
