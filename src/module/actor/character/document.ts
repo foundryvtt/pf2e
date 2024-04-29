@@ -147,15 +147,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this.system.details.keyability.value || "str";
     }
 
-    /** @deprecated */
-    get keyAbility(): AttributeString {
-        fu.logCompatibilityWarning(
-            "`CharacterPF2e#keyAbility` is deprecated. Use `CharacterPF2e#keyAttribute` instead.",
-            { since: "5.2.0", until: "6.0.0" },
-        );
-        return this.keyAttribute;
-    }
-
     /** This PC's ability scores */
     override get abilities(): CharacterAbilities {
         return fu.deepClone(this.system.abilities);

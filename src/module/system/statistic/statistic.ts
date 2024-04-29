@@ -126,15 +126,6 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         return this.check.mod;
     }
 
-    /** @deprecated */
-    get ability(): AttributeString | null {
-        fu.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
-            since: "5.5.0",
-            until: "6.0.0",
-        });
-        return this.attribute;
-    }
-
     override createRollOptions(domains = this.domains, args: RollOptionConfig = {}): Set<string> {
         const { item, extraRollOptions, origin, target } = args;
 
