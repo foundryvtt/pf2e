@@ -1,7 +1,7 @@
 import { DamageDicePF2e, ModifierPF2e, RawDamageDice, RawModifier } from "@actor/modifiers.ts";
 import { createHTMLElement, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
-import type { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
+import type { ChatMessageContext, ChatMessagePF2e } from "./index.ts";
 
 class RollInspector extends Application {
     message: ChatMessagePF2e;
@@ -33,7 +33,7 @@ class RollInspector extends Application {
     }
 
     override getData(): ChatRollDetailsData {
-        const context = this.message.flags.pf2e.context;
+        const context = this.message.system.context;
 
         const rollOptions = R.sortBy(context?.options?.sort() ?? [], (o) => o.includes(":"));
 
@@ -115,7 +115,7 @@ class RollInspector extends Application {
 }
 
 interface ChatRollDetailsData {
-    context?: ChatContextFlag;
+    context?: ChatMessageContext;
     domains: string[];
     modifiers: PreparedModifier[];
     dice: PreparedDice[];

@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "@module/canvas/measured-template.ts";
-import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import { ChatMessageOriginData } from "@module/chat-message/data.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 import type { ScenePF2e } from "./document.ts";
@@ -18,15 +18,16 @@ class MeasuredTemplateDocumentPF2e<
     }
 
     get item(): ItemPF2e<ActorPF2e> | null {
-        const origin = this.flags.pf2e?.origin;
-        const uuid = origin?.uuid;
+        const flags = this.flags.pf2e;
+        const origin = flags?.origin;
+        const uuid = origin?.item;
         if (!uuid) return null;
         const item = fromUuidSync(uuid as string);
         if (!(item instanceof ItemPF2e)) return null;
 
         if (item?.isOfType("spell")) {
-            const overlayIds = origin?.variant?.overlays;
-            const castRank = (origin?.castRank ?? item.rank) as number;
+            const overlayIds = flags?.variant.overlays;
+            const castRank = (flags?.castRank ?? item.rank) as number;
             const modifiedSpell = item.loadVariant({ overlayIds, castRank: castRank });
             return modifiedSpell ?? item;
         }
@@ -77,9 +78,14 @@ interface MeasuredTemplateDocumentPF2e<TParent extends ScenePF2e | null = SceneP
 
     flags: DocumentFlags & {
         pf2e: {
-            messageId?: string;
-            origin?: ItemOriginFlag;
             areaShape: EffectAreaShape | null;
+            castRank?: number;
+            messageId?: string;
+            name: string;
+            origin?: ChatMessageOriginData;
+            slug: string;
+            traits: string[];
+            variant: { overlays: string[] };
         };
     };
 }

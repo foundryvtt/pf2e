@@ -26,7 +26,9 @@ export function extendDragData(): void {
 
             // Detect spell rank of containing element, if available
             const containerElement = htmlClosest(target, "[data-cast-rank]");
-            const castRank = Number(containerElement?.dataset.castRank) || message?.flags.pf2e.origin?.castRank || 0;
+            const context = message?.system.context;
+            const casting = context?.type === "spell-cast" ? context.spellcasting : null;
+            const castRank = Number(containerElement?.dataset.castRank) || casting?.castRank || 0;
             if (castRank > 0) data.level = castRank;
 
             if (message?.actor) {
@@ -50,7 +52,7 @@ export function extendDragData(): void {
                         token: token?.uuid ?? null,
                         item: originItem?.uuid ?? null,
                         spellcasting,
-                        rollOptions: message.flags.pf2e.origin?.rollOptions ?? [],
+                        rollOptions: message?.origin?.rollOptions ?? [],
                     },
                     target: target ? { actor: target.actor.uuid, token: target.token.uuid } : null,
                     roll: roll

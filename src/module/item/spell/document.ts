@@ -12,7 +12,7 @@ import { spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/types.ts";
 import { RangeData } from "@item/types.ts";
 import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
-import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
+import { ChatMessagePF2e, SpellcastingOriginData } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToThree, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -584,12 +584,12 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             flags: {
                 pf2e: {
                     messageId: message?.id,
-                    origin: {
-                        name: this.name,
-                        slug: this.slug,
-                        traits: fu.deepClone(this.system.traits.value),
-                        ...this.getOriginData(),
-                    },
+                    name: this.name,
+                    slug: this.slug,
+                    traits: fu.deepClone(this.system.traits.value),
+                    variant: { overlays: [...(this.appliedOverlays?.values() ?? [])] },
+                    origin: this.getOriginData(),
+                    castRank: this.rank,
                     areaShape: this.system.area?.type ?? null,
                 },
             },
@@ -810,26 +810,38 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         if (!message) return undefined;
 
         const messageSource = message.toObject();
-        const flags = messageSource.flags.pf2e;
+        const system = messageSource.system;
         const spellcasting = this.spellcasting;
 
         if (spellcasting?.statistic) {
             // Eventually we need to figure out a way to request a tradition if the ability doesn't provide one
             const tradition = spellcasting.tradition ?? this.traditions.first() ?? "arcane";
-            flags.casting = { id: spellcasting.id, tradition };
+
+            const spellcastingFlag: SpellcastingOriginData = {
+                castRank,
+                id: spellcasting.id,
+                tradition,
+            };
             if (this.parentItem) {
-                flags.casting.embeddedSpell = this.toObject();
+                spellcastingFlag.embeddedSpell = this.toObject();
             }
+            if (this.isVariant && this.appliedOverlays) {
+                spellcastingFlag.variant = { overlays: [...this.appliedOverlays.values()] };
+            }
+
+            system.context = {
+                domains: [],
+                options: [],
+                type: "spell-cast",
+                rollMode,
+                spellcasting: spellcastingFlag,
+            };
 
             // The only data that can possibly exist in a casted spell is the dc, so we pull that data.
             if (this.system.defense) {
                 const dc = spellcasting.statistic.withRollOptions({ item: this }).dc;
-                flags.context = {
-                    type: "spell-cast",
-                    domains: dc.domains,
-                    options: [...dc.options],
-                    rollMode,
-                };
+                system.context.options.push(...dc.options);
+                system.context.domains.push(...dc.domains);
             }
         }
 
@@ -1078,16 +1090,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             extraRollNotes: notes,
             traits,
         });
-    }
-
-    override getOriginData(): ItemOriginFlag {
-        const flag = super.getOriginData();
-        flag.castRank = this.rank;
-        if (this.isVariant && this.appliedOverlays) {
-            flag.variant = { overlays: [...this.appliedOverlays.values()] };
-        }
-
-        return flag;
     }
 
     override async update(

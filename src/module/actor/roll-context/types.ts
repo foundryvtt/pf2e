@@ -3,7 +3,7 @@ import type { StrikeData } from "@actor/data/base.ts";
 import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import type { ActionTrait } from "@item/ability/types.ts";
-import type { CheckContextChatFlag } from "@module/chat-message/data.ts";
+import type { CheckContextChatData } from "@module/chat-message/data.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
@@ -143,7 +143,7 @@ type DamageContextConstructorParams<
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > = RollContextConstructorParams<TSelf, TStatistic, TItem> & {
     /** The context object of the preceding check roll */
-    checkContext: Maybe<CheckContextChatFlag>;
+    checkContext: Maybe<CheckContextChatData>;
     /**
      * An outcome of a preceding check roll:
      * This may be different than what is in the context object if the user rolled damage despite a failure

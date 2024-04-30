@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor/base.ts";
 import type { ContainerPF2e, PhysicalItemPF2e } from "@item";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { ItemChatData, itemIsOfType } from "@item/helpers.ts";
-import { ItemOriginFlag } from "@module/chat-message/data.ts";
+import { ChatMessageOriginData } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { MigrationList, MigrationRunner } from "@module/migration/index.ts";
@@ -224,7 +224,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     token: this.actor.getActiveTokens(false, true).at(0),
                 }),
                 content: await renderTemplate(template, templateData),
-                flags: { pf2e: { origin: this.getOriginData() } },
+                flags: { pf2e: {} },
+                system: {
+                    origin: this.getOriginData(),
+                },
             },
             rollMode,
         );
@@ -412,15 +415,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this;
     }
 
-    getOriginData(): ItemOriginFlag {
-        return {
-            actor: this.actor?.uuid,
-            uuid: this.uuid,
-            type: this.type as ItemType,
-            rollOptions: R.compact(
-                [this.actor?.getSelfRollOptions("origin"), this.getRollOptions("origin:item")].flat(),
-            ),
+    getOriginData(includeRollOptions = true): ChatMessageOriginData {
+        const data: ChatMessageOriginData = {
+            actor: this.actor?.uuid ?? null,
+            item: this.uuid,
         };
+        if (includeRollOptions) {
+            data.rollOptions = R.filter(
+                [this.actor?.getSelfRollOptions("origin"), this.getRollOptions("origin:item")].flat(),
+                R.isTruthy,
+            );
+        }
+        return data;
     }
 
     /* -------------------------------------------- */

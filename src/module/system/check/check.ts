@@ -4,8 +4,13 @@ import type { CheckModifier } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
 import { reduceItemName } from "@item/helpers.ts";
-import { ActorTokenFlag, ChatMessageSourcePF2e, CheckContextChatFlag } from "@module/chat-message/data.ts";
-import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
+import {
+    ChatMessageOriginData,
+    ChatMessageSourcePF2e,
+    ChatMessageTargetData,
+    CheckContextChatData,
+} from "@module/chat-message/data.ts";
+import { extractOriginOrTargetData, isCheckContextData } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
@@ -257,21 +262,13 @@ class CheckPF2e {
                 .join("");
         })();
 
-        const contextFlag: CheckContextChatFlag = {
-            ...context,
+        const contextData: CheckContextChatData = {
+            ...R.omit(context, ["actor", "token", "item", "origin"]),
             type: context.type ?? "check",
             identifier: context.identifier ?? null,
-            item: undefined,
             dosAdjustments,
-            actor: context.actor?.id ?? null,
-            token: context.token?.id ?? null,
             domains: context.domains ?? [],
-            origin: context.origin?.actor
-                ? { actor: context.origin.actor.uuid, token: context.origin.token?.uuid }
-                : null,
-            target: context.target?.actor
-                ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
-                : null,
+            target: extractOriginOrTargetData(context.target),
             options: Array.from(rollOptions).sort(),
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
@@ -285,14 +282,12 @@ class CheckPF2e {
             outcome: context.outcome ?? null,
             unadjustedOutcome: context.unadjustedOutcome ?? null,
         };
-        delete contextFlag.item;
 
         type MessagePromise = Promise<ChatMessagePF2e | ChatMessageSourcePF2e>;
         const message = await ((): MessagePromise => {
             const flags = {
                 core: context.type === "initiative" ? { initiativeRoll: true } : {},
                 pf2e: {
-                    context: contextFlag,
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
                     origin: item?.getOriginData(),
@@ -300,10 +295,13 @@ class CheckPF2e {
             };
 
             const speaker = ChatMessagePF2e.getSpeaker({ actor: context.actor, token: context.token });
-            const rollMode = contextFlag.rollMode;
+            const rollMode = context.rollMode;
             const create = context.createMessage;
 
-            return roll.toMessage({ speaker, flavor, flags }, { rollMode, create }) as MessagePromise;
+            return roll.toMessage(
+                { speaker, flavor, flags, system: { context: contextData } },
+                { rollMode, create },
+            ) as MessagePromise;
         })();
 
         if (callback) {
@@ -460,8 +458,8 @@ class CheckPF2e {
         }
 
         const systemFlags = fu.deepClone(message.flags.pf2e);
-        const context = systemFlags.context;
-        if (!isCheckContextFlag(context)) return;
+        const context = fu.deepClone(message._source.system.context);
+        if (!isCheckContextData(context)) return;
 
         context.skipDialog = true;
         context.isReroll = true;
@@ -540,11 +538,12 @@ class CheckPF2e {
 
         const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
+                  const system = message.system;
                   const parsedFlavor = document.createElement("div");
                   parsedFlavor.innerHTML = oldFlavor;
-                  const targeting = actor.uuid === context.origin?.actor;
-                  const self = targeting ? context.origin : context.target;
-                  const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
+                  const targeting = actor.uuid === system.origin?.actor;
+                  const self = targeting ? system.origin : context.target;
+                  const opposer = context.target?.actor === actor.uuid ? system.origin : context.target;
                   const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
@@ -583,6 +582,9 @@ class CheckPF2e {
                 flags: {
                     core: { initiativeRoll },
                     pf2e: systemFlags,
+                },
+                system: {
+                    context,
                 },
             },
             { rollMode: context.rollMode },
@@ -815,8 +817,8 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    self: RollOrigin | RollTarget | ActorTokenFlag | null;
-    opposer?: RollOrigin | RollTarget | ActorTokenFlag | null;
+    self: RollOrigin | RollTarget | ChatMessageOriginData | ChatMessageTargetData | null;
+    opposer?: RollOrigin | RollTarget | ChatMessageOriginData | ChatMessageTargetData | null;
     /** Whether `self` is targeting the `opposer` (or otherwise being targeted by it) */
     targeting: boolean;
 }

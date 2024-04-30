@@ -35,7 +35,7 @@ class ChatMessagePF2e extends ChatMessage {
             return false;
         }
 
-        if (this.flags.pf2e.context?.type === "damage-roll") {
+        if (this.system.context?.type === "damage-roll") {
             return true;
         }
 
@@ -51,7 +51,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** If this is a check or damage roll, it will have target information */
     get target(): { actor: ActorPF2e; token: TokenDocumentPF2e<ScenePF2e> } | null {
-        const context = this.flags.pf2e.context;
+        const context = this.system.context;
         if (!context) return null;
         const targetUUID = "target" in context ? context.target?.token : null;
         if (!targetUUID) return null;
@@ -62,6 +62,11 @@ class ChatMessagePF2e extends ChatMessage {
         const actor = token?.actor;
 
         return actor ? { actor, token } : null;
+    }
+
+    /** Get the `ChatMessageOriginData` for this chat message if available */
+    get origin(): ChatMessageOriginData | null {
+        return this.system.origin;
     }
 
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
@@ -80,7 +85,7 @@ class ChatMessagePF2e extends ChatMessage {
 
     /** Does the message include a rerolled check? */
     get isReroll(): boolean {
-        const context = this.flags.pf2e.context;
+        const context = this.system.context;
         return !!context && "isReroll" in context && !!context.isReroll;
     }
 
@@ -98,8 +103,8 @@ class ChatMessagePF2e extends ChatMessage {
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
         const actor = this.actor;
-        if (this.flags.pf2e.context?.type === "self-effect") {
-            const item = actor?.items.get(this.flags.pf2e.context.item);
+        if (this.system.context?.type === "self-effect") {
+            const item = fromUuidSync(this.origin?.item ?? "") as ItemPF2e<ActorPF2e>;
             return item ?? null;
         }
 
@@ -107,20 +112,25 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
+        const context = this.system.context;
         const item = (() => {
-            const embeddedSpell = this.flags.pf2e.casting?.embeddedSpell;
-            if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
+            if (!context) return null;
 
-            const origin = this.flags.pf2e?.origin ?? null;
-            const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            return actor?.items.get(match?.[1] ?? "") ?? null;
+            if (context.type === "spell-cast") {
+                const embeddedSpell = context?.spellcasting?.embeddedSpell;
+                if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
+            }
+            return (fromUuidSync(this.origin?.item ?? "") as ItemPF2e<ActorPF2e>) ?? null;
         })();
         if (!item) return null;
 
         if (item?.isOfType("spell")) {
-            const entryId = this.flags.pf2e?.casting?.id ?? null;
-            const overlayIds = this.flags.pf2e.origin?.variant?.overlays;
-            const castRank = this.flags.pf2e.origin?.castRank ?? item.rank;
+            if (context?.type !== "spell-cast") return item;
+            const casting = context.spellcasting;
+            if (!casting) return item;
+            const entryId = casting.id;
+            const overlayIds = casting.variant?.overlays;
+            const castRank = casting.castRank ?? item.rank;
             const modifiedSpell = item.loadVariant({ overlayIds, castRank, entryId });
             return modifiedSpell ?? item;
         }
@@ -154,7 +164,7 @@ class ChatMessagePF2e extends ChatMessage {
     }
 
     async showDetails(): Promise<void> {
-        if (!this.flags.pf2e.context) return;
+        if (!this.system.context) return;
         new RollInspector(this).render(true);
     }
 
@@ -173,7 +183,78 @@ class ChatMessagePF2e extends ChatMessage {
             source.system.appliedDamage = flags.appliedDamage as AppliedDamageData;
             flags.appliedDamage = undefined;
         }
+        if (flags?.appliedDamage) {
+            source.system.appliedDamage = flags.appliedDamage;
+            flags.appliedDamage = undefined;
+        }
+        if (flags?.context) {
+            source.system.context = flags.context;
+            flags.context = undefined;
+        }
+        if (flags?.casting && flags?.origin && source.system.context?.type === "spell-cast") {
+            source.system.context.spellcasting = {
+                castRank: flags.origin.castRank ?? 1,
+                id: flags.casting.id,
+                tradition: flags.casting.tradition,
+                variant: flags.origin.variant,
+            };
+            flags.casting = undefined;
+        }
+        if (flags.origin) {
+            source.system.origin = {
+                actor: flags.origin.actor ?? null,
+                item: flags.origin.uuid,
+                rollOptions: flags.origin.rollOptions,
+            };
+            flags.origin = undefined;
+        }
         return super.migrateData(source) as ChatMessageSourcePF2e;
+    }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        this.system.origin ??= null;
+
+        // Handle deprecations
+        Object.defineProperties(this.flags.pf2e, {
+            appliedDamage: {
+                get: () => {
+                    const msg =
+                        "You are accessing ChatMessagePF2e#flags#pf2e#appliedDamage which has been migrated to ChatMessagePF2e#system#appliedDamage";
+                    foundry.utils.logCompatibilityWarning(msg, { since: "6.0.0", until: 7 });
+                    return this.system.appliedDamage;
+                },
+                enumerable: false,
+            },
+            casting: {
+                get: () => {
+                    const msg =
+                        "You are accessing ChatMessagePF2e#flags#pf2e#casting which has been migrated to ChatMessagePF2e#system#context#spellcasting";
+                    foundry.utils.logCompatibilityWarning(msg, { since: "6.0.0", until: 7 });
+                    return this.system.context?.type === "spell-cast" ? this.system.context.spellcasting : null;
+                },
+                enumerable: false,
+            },
+            context: {
+                get: () => {
+                    const msg =
+                        "You are accessing ChatMessagePF2e#flags#pf2e#context which has been migrated to ChatMessagePF2e#system#context.";
+                    foundry.utils.logCompatibilityWarning(msg, { since: "6.0.0", until: 7 });
+                    return this.system.context;
+                },
+                enumerable: false,
+            },
+            origin: {
+                get: () => {
+                    const msg =
+                        "You are accessing ChatMessagePF2e#flags#pf2e#origin which has been migrated to ChatMessagePF2e#system#origin.";
+                    foundry.utils.logCompatibilityWarning(msg, { since: "6.0.0", until: 7 });
+                    return this.system.origin;
+                },
+                enumerable: false,
+            },
+        });
     }
 
     override getRollData(): Record<string, unknown> {

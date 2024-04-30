@@ -2,7 +2,8 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import type { ItemPF2e } from "@item";
 import { createActionRangeLabel } from "@item/ability/helpers.ts";
-import { ChatMessagePF2e, DamageDamageContextFlag } from "@module/chat-message/index.ts";
+import { extractOriginOrTargetData } from "@module/chat-message/helpers.ts";
+import { ChatMessagePF2e, DamageDamageContextData } from "@module/chat-message/index.ts";
 import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
@@ -201,10 +202,8 @@ export class DamagePF2e {
         );
         flavor += RollNotePF2e.notesToHTML(notes)?.outerHTML ?? "";
 
-        const { self, target } = context;
+        const { self, target, origin } = context;
         const item = self?.item ?? null;
-        const targetFlag =
-            target?.actor && target.token ? { actor: target.actor.uuid, token: target.token.uuid } : null;
 
         // Retrieve strike flags. Strikes need refactoring to use ids before we can do better
         const strike = (() => {
@@ -231,12 +230,10 @@ export class DamagePF2e {
         })();
 
         const rollMode = context.rollMode ?? "roll";
-        const contextFlag: DamageDamageContextFlag = {
+        const contextData: DamageDamageContextData = {
             type: context.type,
             sourceType: context.sourceType,
-            actor: context.self?.actor?.id ?? null,
-            token: context.self?.token?.id ?? null,
-            target: targetFlag,
+            target: extractOriginOrTargetData(target),
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
             mapIncreases: context.mapIncreases,
@@ -256,14 +253,15 @@ export class DamagePF2e {
                     flavor,
                     flags: {
                         pf2e: {
-                            context: contextFlag,
-                            target: targetFlag,
                             modifiers: data.modifiers?.flatMap((m) => ("kind" in m ? m.toObject() : [])) ?? [],
                             dice: data.modifiers?.flatMap((m) => ("diceNumber" in m ? m.toObject() : [])) ?? [],
-                            origin: item?.getOriginData(),
                             strike,
                             preformatted: "both",
                         },
+                    },
+                    system: {
+                        context: contextData,
+                        origin: extractOriginOrTargetData(origin),
                     },
                 },
                 { create: false },

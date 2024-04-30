@@ -1,5 +1,5 @@
 import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
-import { ItemType, SpellSource } from "@item/base/data/index.ts";
+import { SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
@@ -13,35 +13,42 @@ type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource<string, ChatMes
 };
 
 interface ChatMessageSystemData {
-    appliedDamage?: AppliedDamageData | null;
-}
-
-export interface ItemOriginFlag {
-    actor?: ActorUUID;
-    type: ItemType;
-    uuid: string;
-    castRank?: number;
-    messageId?: string;
-    variant?: { overlays: string[] };
     rollOptions?: string[];
+    /** A record of applied damage that can be undone */
+    appliedDamage?: AppliedDamageData | null;
+    /** Message context data that describes the type of this chat message */
+    context?: ChatMessageContext;
+    /** Origin data for this chat message */
+    origin: ChatMessageOriginData | null;
 }
 
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
     pf2e: {
         damageRoll?: DamageRollFlag;
-        context?: ChatContextFlag;
-        origin?: ItemOriginFlag | null;
+        /** @deprecated Use `ChatMessagePF2e#system#context` instead */
+        context?: ChatMessageContext;
+        /** @deprecated Use `ChatMessagePF2e#system#origin` instead */
+        origin?: {
+            actor?: ActorUUID;
+            castRank?: number;
+            uuid?: ItemUUID;
+            rollOptions?: string[];
+            variant?: { overlays: string[] };
+        };
+        /** @deprecated Use `context#spellcasting` instead */
         casting?: { id: string; tradition: MagicTradition; embeddedSpell?: SpellSource } | null;
         modifiers?: RawModifier[];
         dice?: RawDamageDice[];
         preformatted?: "flavor" | "content" | "both";
         journalEntry?: DocumentUUID;
-        [key: string]: unknown;
+        /** @deprecated Use `ChatMessagePF2e#system#appliedDamage` instead */
+        appliedDamage?: AppliedDamageData;
+        suppressDamageButtons?: boolean;
     };
     core: NonNullable<ChatMessageFlags["core"]>;
 };
 
-type ChatContextFlag = CheckContextChatFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
+type ChatMessageContext = CheckContextChatData | DamageDamageContextData | SpellCastContextData | SelfEffectContextData;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -57,9 +64,34 @@ interface DieResult {
     result: number;
 }
 
-interface ActorTokenFlag {
-    actor: ActorUUID | TokenDocumentUUID;
+interface ChatMessageOriginData {
+    actor: ActorUUID | TokenDocumentUUID | null;
     token?: TokenDocumentUUID;
+    item?: ItemUUID;
+    rollOptions?: string[];
+    /** Is the origin the roller? */
+    self?: boolean;
+}
+
+interface ChatMessageTargetData {
+    actor?: ActorUUID | TokenDocumentUUID | null;
+    token?: TokenDocumentUUID;
+    item?: ItemUUID;
+    distance: number | null;
+    rangeIncrement: number | null;
+}
+
+interface SpellcastingOriginData {
+    /** The id of the `SpellcastingEntry` that this spell belongs to */
+    id: string;
+    /** The rank the spell was cast at */
+    castRank: number;
+    /** `SpellSource` of an embedded spell */
+    embeddedSpell?: SpellSource;
+    /** The spells magic tradition. Unused? */
+    tradition: MagicTradition;
+    /** Any overlays that were applied to the spell */
+    variant?: { overlays: string[] };
 }
 
 type ContextFlagOmission =
@@ -78,41 +110,34 @@ type ContextFlagOmission =
     | "target"
     | "token";
 
-interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
-    actor: string | null;
-    token: string | null;
-    item?: string;
+interface CheckContextChatData extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
     dosAdjustments?: DegreeAdjustmentsRecord;
     roller?: "origin" | "target";
-    origin: ActorTokenFlag | null;
-    target: ActorTokenFlag | null;
+    target: ChatMessageTargetData | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];
     options: string[];
 }
 
-interface DamageDamageContextFlag extends Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
-    actor: string | null;
-    token: string | null;
-    item?: string;
+interface DamageDamageContextData extends Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
     mapIncreases?: ZeroToTwo;
-    target: ActorTokenFlag | null;
+    target: ChatMessageTargetData | null;
     notes: RollNoteSource[];
     options: string[];
 }
 
-interface SpellCastContextFlag {
+interface SpellCastContextData {
     type: "spell-cast";
     domains: string[];
     options: string[];
     outcome?: DegreeOfSuccessString;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
     rollMode?: RollMode;
+    spellcasting?: SpellcastingOriginData | null;
 }
 
-interface SelfEffectContextFlag {
+interface SelfEffectContextData {
     type: "self-effect";
-    item: string;
     domains?: never;
     options?: never;
     outcome?: never;
@@ -135,9 +160,11 @@ export type {
     AppliedDamageData,
     ChatContextFlag,
     ChatMessageFlagsPF2e,
+    ChatMessageOriginData,
     ChatMessageSourcePF2e,
     ChatMessageSystemData,
     CheckContextChatFlag,
     DamageDamageContextFlag,
     DamageRollFlag,
+    SpellcastingOriginData,
 };

@@ -349,7 +349,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
 
         const canShowRollDetails: ContextOptionCondition = ($li: JQuery): boolean => {
             const message = game.messages.get($li[0].dataset.messageId, { strict: true });
-            return game.user.isGM && !!message.flags.pf2e.context;
+            return game.user.isGM && !!message.system.context;
         };
 
         const options = super._getEntryContextOptions();

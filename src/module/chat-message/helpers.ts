@@ -1,14 +1,15 @@
 import type { ActorPF2e } from "@actor";
+import { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import { AbilityItemPF2e, FeatPF2e } from "@item";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { ErrorPF2e, getActionGlyph, htmlQuery, htmlQueryAll, traitSlugToObject, tupleHasValue } from "@util";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
-import { ChatContextFlag, CheckContextChatFlag } from "./data.ts";
+import { ChatMessageContext, ChatMessageOriginData, ChatMessageTargetData, CheckContextChatData } from "./data.ts";
 import { ChatMessagePF2e } from "./document.ts";
 
-function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFlag {
-    return !!flag && !tupleHasValue(["damage-roll", "spell-cast"], flag.type);
+function isCheckContextData(data?: ChatMessageContext): data is CheckContextChatData {
+    return !!data && !tupleHasValue(["damage-roll", "spell-cast"], data.type);
 }
 
 /** Create a message with collapsed action description and button to apply an effect */
@@ -54,7 +55,7 @@ async function createSelfEffectMessage(
         actor: item.actor,
         description,
     });
-    const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", item: item.id } } };
+    const flags: ChatMessageFlags = { pf2e: { context: { type: "self-effect", origin: item.getOriginData(false) } } };
     const messageData = ChatMessagePF2e.applyRollMode({ speaker, flavor, content, flags }, rollMode);
 
     return (await ChatMessagePF2e.create(messageData)) ?? null;
@@ -83,7 +84,7 @@ async function applyDamageFromMessage({
     const damage = multiplier < 0 ? multiplier * roll.total + addend : roll.alter(multiplier, addend);
 
     // Get origin roll options and apply damage to a contextual clone: this may influence condition IWR, for example
-    const messageRollOptions = [...(message.flags.pf2e.context?.options ?? [])];
+    const messageRollOptions = [...(message.system.context?.options ?? [])];
     const originRollOptions = messageRollOptions
         .filter((o) => o.startsWith("self:"))
         .map((o) => o.replace(/^self/, "origin"));
@@ -126,7 +127,7 @@ async function applyDamageFromMessage({
             skipIWR: multiplier <= 0,
             rollOptions,
             shieldBlockRequest,
-            outcome: message.flags.pf2e.context?.outcome,
+            outcome: message.system.context?.outcome,
         });
     }
     toggleOffShieldBlock(message.id);
@@ -205,4 +206,35 @@ function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
     }
 }
 
-export { applyDamageFromMessage, createSelfEffectMessage, isCheckContextFlag, toggleClearTemplatesButton };
+function extractOriginOrTargetData(data?: Maybe<RollOrigin>): ChatMessageOriginData | null;
+function extractOriginOrTargetData(data?: Maybe<RollTarget>): ChatMessageTargetData | null;
+function extractOriginOrTargetData(
+    data?: Maybe<RollOrigin | RollTarget>,
+): ChatMessageOriginData | ChatMessageTargetData | null {
+    if (!data) return null;
+
+    if ("modifiers" in data) {
+        return {
+            actor: data.actor?.uuid ?? null,
+            token: data.token?.uuid,
+            item: data.item?.uuid,
+            self: data.self,
+        };
+    }
+    return {
+        actor: data.actor?.uuid ?? null,
+        token: data.token?.uuid,
+        item: data.item?.uuid,
+        self: data.self,
+        distance: data.distance,
+        rangeIncrement: data.rangeIncrement,
+    };
+}
+
+export {
+    applyDamageFromMessage,
+    createSelfEffectMessage,
+    extractOriginOrTargetData,
+    isCheckContextData,
+    toggleClearTemplatesButton,
+};

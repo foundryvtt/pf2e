@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import type { ItemPF2e } from "@item";
-import type { CheckContextChatFlag } from "@module/chat-message/data.ts";
+import type { CheckContextChatData } from "@module/chat-message/data.ts";
 import { CheckRoll } from "@system/check/roll.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import { sluggify } from "@util";
@@ -26,7 +26,7 @@ class DamageContext<
         }
     }
 
-    #findMatchingCheckContext(): CheckContextChatFlag | null {
+    #findMatchingCheckContext(): CheckContextChatData | null {
         const { origin, target } = this.unresolved;
         const item = origin?.item;
         if (this.viewOnly || !origin?.actor || !item?.isOfType("melee", "weapon") || !target?.token) {
@@ -54,7 +54,7 @@ class DamageContext<
                 );
             });
 
-        return (checkMessage?.flags.pf2e.context ?? null) as CheckContextChatFlag | null;
+        return (checkMessage?.system.context ?? null) as CheckContextChatData | null;
     }
 }
 
