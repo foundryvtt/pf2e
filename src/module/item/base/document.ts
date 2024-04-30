@@ -225,9 +225,6 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 }),
                 content: await renderTemplate(template, templateData),
                 flags: { pf2e: {} },
-                system: {
-                    origin: this.getOriginData(),
-                },
             },
             rollMode,
         );

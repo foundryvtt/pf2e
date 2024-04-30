@@ -64,11 +64,6 @@ class ChatMessagePF2e extends ChatMessage {
         return actor ? { actor, token } : null;
     }
 
-    /** Get the `ChatMessageOriginData` for this chat message if available */
-    get origin(): ChatMessageOriginData | null {
-        return this.system.origin;
-    }
-
     /** If the message came from dynamic inline content in a journal entry, the entry's ID may be used to retrieve it */
     get journalEntry(): JournalEntry | null {
         const uuid = this.flags.pf2e.journalEntry;
@@ -103,8 +98,10 @@ class ChatMessagePF2e extends ChatMessage {
     /** Get the owned item associated with this chat message */
     get item(): ItemPF2e<ActorPF2e> | null {
         const actor = this.actor;
-        if (this.system.context?.type === "self-effect") {
-            const item = fromUuidSync(this.origin?.item ?? "") as ItemPF2e<ActorPF2e>;
+        const context = this.system.context;
+
+        if (context?.type === "self-effect") {
+            const item = fromUuidSync(context.origin?.item ?? "") as ItemPF2e<ActorPF2e>;
             return item ?? null;
         }
 
@@ -112,7 +109,6 @@ class ChatMessagePF2e extends ChatMessage {
         const strike = this._strike;
         if (strike?.item) return strike.item;
 
-        const context = this.system.context;
         const item = (() => {
             if (!context) return null;
 
@@ -120,7 +116,7 @@ class ChatMessagePF2e extends ChatMessage {
                 const embeddedSpell = context?.spellcasting?.embeddedSpell;
                 if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
             }
-            return (fromUuidSync(this.origin?.item ?? "") as ItemPF2e<ActorPF2e>) ?? null;
+            return (fromUuidSync(context.origin?.item ?? "") as ItemPF2e<ActorPF2e>) ?? null;
         })();
         if (!item) return null;
 
@@ -200,8 +196,8 @@ class ChatMessagePF2e extends ChatMessage {
             };
             flags.casting = undefined;
         }
-        if (flags.origin) {
-            source.system.origin = {
+        if (flags.origin && source.system.context) {
+            source.system.context.origin = {
                 actor: flags.origin.actor ?? null,
                 item: flags.origin.uuid,
                 rollOptions: flags.origin.rollOptions,
@@ -213,8 +209,6 @@ class ChatMessagePF2e extends ChatMessage {
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-
-        this.system.origin ??= null;
 
         // Handle deprecations
         Object.defineProperties(this.flags.pf2e, {
@@ -250,7 +244,7 @@ class ChatMessagePF2e extends ChatMessage {
                     const msg =
                         "You are accessing ChatMessagePF2e#flags#pf2e#origin which has been migrated to ChatMessagePF2e#system#origin.";
                     foundry.utils.logCompatibilityWarning(msg, { since: "6.0.0", until: 7 });
-                    return this.system.origin;
+                    return this.system.context?.origin ?? null;
                 },
                 enumerable: false,
             },

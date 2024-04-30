@@ -268,6 +268,7 @@ class CheckPF2e {
             identifier: context.identifier ?? null,
             dosAdjustments,
             domains: context.domains ?? [],
+            origin: extractOriginOrTargetData(context.origin),
             target: extractOriginOrTargetData(context.target),
             options: Array.from(rollOptions).sort(),
             notes: notes.map((n) => n.toObject()),
@@ -290,7 +291,6 @@ class CheckPF2e {
                 pf2e: {
                     modifierName: check.slug,
                     modifiers: check.modifiers.map((m) => m.toObject()),
-                    origin: item?.getOriginData(),
                 },
             };
 
@@ -538,12 +538,11 @@ class CheckPF2e {
 
         const newFlavor = useNewRoll
             ? await (async (): Promise<string> => {
-                  const system = message.system;
                   const parsedFlavor = document.createElement("div");
                   parsedFlavor.innerHTML = oldFlavor;
-                  const targeting = actor.uuid === system.origin?.actor;
-                  const self = targeting ? system.origin : context.target;
-                  const opposer = context.target?.actor === actor.uuid ? system.origin : context.target;
+                  const targeting = actor.uuid === context.origin?.actor;
+                  const self = targeting ? context.origin : context.target;
+                  const opposer = context.target?.actor === actor.uuid ? context.origin : context.target;
                   const targetFlavor = await this.#createResultFlavor({ degree, self, opposer, targeting });
                   if (targetFlavor) {
                       htmlQuery(parsedFlavor, ".target-dc-result")?.replaceWith(targetFlavor);
@@ -817,7 +816,7 @@ class CheckPF2e {
 
 interface CreateResultFlavorParams {
     degree: DegreeOfSuccess | null;
-    self: RollOrigin | RollTarget | ChatMessageOriginData | ChatMessageTargetData | null;
+    self?: RollOrigin | RollTarget | ChatMessageOriginData | ChatMessageTargetData | null;
     opposer?: RollOrigin | RollTarget | ChatMessageOriginData | ChatMessageTargetData | null;
     /** Whether `self` is targeting the `opposer` (or otherwise being targeted by it) */
     targeting: boolean;

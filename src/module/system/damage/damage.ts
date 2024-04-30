@@ -233,6 +233,7 @@ export class DamagePF2e {
         const contextData: DamageDamageContextData = {
             type: context.type,
             sourceType: context.sourceType,
+            origin: extractOriginOrTargetData(origin),
             target: extractOriginOrTargetData(target),
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
@@ -261,7 +262,6 @@ export class DamagePF2e {
                     },
                     system: {
                         context: contextData,
-                        origin: extractOriginOrTargetData(origin),
                     },
                 },
                 { create: false },

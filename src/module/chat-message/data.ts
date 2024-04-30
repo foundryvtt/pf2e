@@ -1,4 +1,4 @@
-import type { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
+import { RawDamageDice, RawModifier } from "@actor/modifiers.ts";
 import { SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
@@ -18,8 +18,6 @@ interface ChatMessageSystemData {
     appliedDamage?: AppliedDamageData | null;
     /** Message context data that describes the type of this chat message */
     context?: ChatMessageContext;
-    /** Origin data for this chat message */
-    origin: ChatMessageOriginData | null;
 }
 
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
@@ -110,23 +108,31 @@ type ContextFlagOmission =
     | "target"
     | "token";
 
+interface BaseChatMessageContext {
+    /** Origin data for this chat message */
+    origin?: Maybe<ChatMessageOriginData>;
+}
+
 interface CheckContextChatData extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
     dosAdjustments?: DegreeAdjustmentsRecord;
     roller?: "origin" | "target";
+    origin?: Maybe<ChatMessageOriginData>;
     target: ChatMessageTargetData | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];
     options: string[];
 }
 
-interface DamageDamageContextData extends Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
+interface DamageDamageContextData
+    extends BaseChatMessageContext,
+        Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
     mapIncreases?: ZeroToTwo;
     target: ChatMessageTargetData | null;
     notes: RollNoteSource[];
     options: string[];
 }
 
-interface SpellCastContextData {
+interface SpellCastContextData extends BaseChatMessageContext {
     type: "spell-cast";
     domains: string[];
     options: string[];
@@ -136,7 +142,7 @@ interface SpellCastContextData {
     spellcasting?: SpellcastingOriginData | null;
 }
 
-interface SelfEffectContextData {
+interface SelfEffectContextData extends BaseChatMessageContext {
     type: "self-effect";
     domains?: never;
     options?: never;
@@ -156,15 +162,11 @@ interface AppliedDamageData {
 }
 
 export type {
-    ActorTokenFlag,
     AppliedDamageData,
-    ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageOriginData,
     ChatMessageSourcePF2e,
     ChatMessageSystemData,
-    CheckContextChatFlag,
-    DamageDamageContextFlag,
     DamageRollFlag,
     SpellcastingOriginData,
 };
