@@ -273,7 +273,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.sight.visionMode = visionMode;
 
         const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
-        const maxRadius = scene.dimensions.maxR;
         this.sight.brightness = visionModeDefaults.brightness ?? 0;
         this.sight.saturation = visionModeDefaults.saturation ?? 0;
 
