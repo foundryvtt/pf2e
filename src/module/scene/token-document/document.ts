@@ -9,7 +9,7 @@ import * as R from "remeda";
 import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
-import { TokenFlagsPF2e } from "./data.ts";
+import { DetectionModeEntry, TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
@@ -257,8 +257,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         // Reset detection modes if using rules-based vision
-        const lightPerception = { id: "lightPerception", enabled: !!actor.perception?.hasVision, range: null };
-        const basicSight = { id: "basicSight", enabled: !!actor.perception?.hasVision, range: 0 };
+        const hasVision = !!actor.perception?.hasVision;
+        const lightPerception: DetectionModeEntry = { id: "lightPerception", enabled: hasVision, range: null };
+        const basicSight: DetectionModeEntry = { id: "basicSight", enabled: hasVision, range: 0 };
         this.detectionModes = [lightPerception, basicSight];
 
         // Reset sight defaults and set vision mode.
@@ -272,12 +273,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         this.sight.visionMode = visionMode;
 
         const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
+        const maxRadius = scene.dimensions.maxR;
         this.sight.brightness = visionModeDefaults.brightness ?? 0;
         this.sight.saturation = visionModeDefaults.saturation ?? 0;
 
         // Update basic sight and adjust saturation based on darkvision or light levels
         if (visionMode === "darkvision" || scene.lightLevel > LightLevels.DARKNESS) {
-            this.sight.range = basicSight.range = Infinity;
+            this.sight.range = basicSight.range = null;
 
             if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
                 this.sight.saturation = 1;
@@ -286,7 +288,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             }
         }
 
-        const maxRadius = scene.dimensions.maxR;
         if (actor.perception.senses.has("see-invisibility")) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
         }
