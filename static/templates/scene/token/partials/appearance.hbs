@@ -5,8 +5,7 @@
         <div class="form-group">
             <label>{{localize "TOKEN.ImagePath"}}</label>
             <div class="form-fields">
-                {{filePicker target="texture.src" type="imagevideo"}}
-                <input class="image" type="text" name="texture.src" placeholder="path/image.png" value="{{object.texture.src}}" />
+                <file-picker name="texture.src" value="{{object.texture.src}}" type="imagevideo"></file-picker>
             </div>
         </div>
 
@@ -37,7 +36,7 @@
         <div class="form-group">
             <label>{{localize "TOKEN.TintColor"}}</label>
             <div class="form-fields">
-                {{colorPicker name="texture.tint" value=object.texture.tint}}
+                <color-picker name="texture.tint" value="{{object.texture.tint}}"></color-picker>
             </div>
         </div>
 

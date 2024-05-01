@@ -5,7 +5,6 @@ import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { DeitySanctification } from "./data.ts";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
@@ -33,15 +32,19 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 const modal = value.modal.capitalize();
                 const what = value.what.map((c) => c.capitalize()).join("");
                 return {
-                    value,
+                    value: JSON.stringify(value),
                     label: `PF2E.Item.Deity.Sanctification.${modal}.${what}`,
                 };
             }),
-            { value: null, label: "PF2E.Item.Deity.Sanctification.None" },
         ];
 
         return {
             ...sheetData,
+            categories: [
+                { value: "deity", label: "TYPES.Item.deity" },
+                { value: "pantheon", label: "PF2E.Item.Deity.Category.Pantheon" },
+                { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
+            ],
             sanctifications,
             skills: CONFIG.PF2E.skillList,
             divineFonts: createSheetOptions(
@@ -169,7 +172,8 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 }
 
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
-    sanctifications: { value: DeitySanctification | null; label: string }[];
+    categories: FormSelectOption[];
+    sanctifications: FormSelectOption[];
     skills: Record<SkillLongForm, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];
