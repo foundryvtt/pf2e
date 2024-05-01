@@ -288,6 +288,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             }
         }
 
+        const maxRadius = scene.dimensions.maxR;
         if (actor.perception.senses.has("see-invisibility")) {
             this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
         }
