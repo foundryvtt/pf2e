@@ -243,7 +243,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             return source;
         } else if (typeof source === "string") {
-            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
+            const replaced = source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
                 const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
                 const value = fu.getProperty(data, prop);
                 if (value === undefined) {
@@ -252,6 +252,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
                 }
                 return String(value);
             });
+            return replaced === "null" ? null : replaced;
         }
 
         return source;
