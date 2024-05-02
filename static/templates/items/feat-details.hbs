@@ -11,14 +11,7 @@
                     data-dtype="Number"
                     {{disabled mandatoryTakeOnce}}
                 >
-                    {{#select data.maxTakable}}
-                        <option value="1">{{localize "No"}}</option>
-                        <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
-                        <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
-                        <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
-                        <option value="5">{{localize "PF2E.Item.Feat.TakeMultiple.Five"}}</option>
-                        <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
-                    {{/select}}
+                    {{selectOptions maxTakableOptions selected=data.maxTakable localize=true}}
                 </select>
                 {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
             </div>
@@ -125,12 +118,7 @@
                                 id="{{@root.fieldIdPrefix}}{{option.slug}}"
                                 data-dtype="Number"
                             >
-                                {{#select option.rank}}
-                                    <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
-                                    <option value="2">{{localize "PF2E.ProficiencyLevel2"}}</option>
-                                    <option value="3">{{localize "PF2E.ProficiencyLevel3"}}</option>
-                                    <option value="4">{{localize "PF2E.ProficiencyLevel4"}}</option>
-                                {{/select}}
+                                {{selectOptions (omit @root.proficiencyRankOptions "0") selected=option.rank localize=true}}
                             </select>
 
                             {{#if (or option.attribute (eq option.attribute null))}}
@@ -219,11 +207,7 @@
                             id="{{@root.fieldIdPrefix}}{{option.slug}}"
                             {{disabled (not option.canSetAcuity)}}
                         >
-                            {{#select option.acuity}}
-                                <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Precise"}}</option>
-                                <option value="imprecise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Imprecise"}}</option>
-                                <option value="vague">{{localize "PF2E.Actor.Creature.Sense.Acuity.Vague"}}</option>
-                            {{/select}}
+                            {{selectOptions @root.acuityOptions selected=option.acuity localize=true}}
                         </select>
 
                         <input
