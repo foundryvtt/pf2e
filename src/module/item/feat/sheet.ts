@@ -52,6 +52,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             itemType: game.i18n.localize(feat.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTypes: CONFIG.PF2E.actionTypes,
+            acuityOptions: CONFIG.PF2E.senseAcuities,
             attributes: CONFIG.PF2E.abilities,
             canHaveKeyOptions: featCanHaveKeyOptions(feat),
             categories: CONFIG.PF2E.featCategories,
@@ -61,8 +62,19 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             hasProficiencies: Object.keys(subfeatures.proficiencies).length > 0,
             hasSenses: Object.keys(subfeatures.senses).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
+            maxTakableOptions: [
+                { value: "1", label: "No" },
+                { value: "2", label: "PF2E.Item.Feat.TakeMultiple.Two" },
+                { value: "3", label: "PF2E.Item.Feat.TakeMultiple.Three" },
+                { value: "4", label: "PF2E.Item.Feat.TakeMultiple.Four" },
+                { value: "5", label: "PF2E.Item.Feat.TakeMultiple.Five" },
+                { value: "Infinity", label: "PF2E.Item.Feat.TakeMultiple.NoLimit" },
+            ],
             languages: this.#getLanguageOptions(),
             proficiencies: this.#getProficiencyOptions(),
+            proficiencyRankOptions: Object.fromEntries(
+                Object.values(CONFIG.PF2E.proficiencyRanks).map((label, i) => [`${i}`, label]),
+            ),
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
             senses: this.#getSenseOptions(),
             showPrerequisites,
@@ -374,6 +386,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
+    acuityOptions: typeof CONFIG.PF2E.senseAcuities;
     attributes: typeof CONFIG.PF2E.abilities;
     canHaveKeyOptions: boolean;
     categories: typeof CONFIG.PF2E.featCategories;
@@ -384,7 +397,9 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     hasSenses: boolean;
     languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
+    maxTakableOptions: FormSelectOption[];
     proficiencies: ProficiencyOptions;
+    proficiencyRankOptions: Record<string, string>;
     selfEffect: SelfEffectReference | null;
     senses: SenseOption[];
     showPrerequisites: boolean;
