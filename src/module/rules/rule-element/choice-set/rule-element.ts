@@ -247,7 +247,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                       ? await this.queryCompendium(this.choices, rollOptions, tempItems)
                       : []
               : typeof this.choices === "string"
-                ? this.#choicesFromPath(this.choices)
+                ? this.#choicesFromPath(this.choices, rollOptions)
                 : [];
 
         interface ItemChoice extends PickableThing<string> {
@@ -294,13 +294,15 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         );
     }
 
-    #choicesFromPath(path: string): PickableThing<string>[] {
+    #choicesFromPath(path: string, actorRollOptions: Set<string>): PickableThing<string>[] {
         const choiceObject: unknown = fu.getProperty(CONFIG.PF2E, path) ?? fu.getProperty(this.actor, path) ?? {};
         if (
             Array.isArray(choiceObject) &&
             choiceObject.every((c) => R.isObject<{ value: string }>(c) && typeof c.value === "string")
         ) {
-            return choiceObject;
+            return choiceObject.filter((c) =>
+                this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
+            );
         } else if (R.isObject(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
             return Object.entries(choiceObject).map(([value, label]) => ({
                 value,
