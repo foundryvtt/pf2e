@@ -225,6 +225,22 @@ abstract class RollContext<
         const item = this.item;
         const itemOptions = item?.getRollOptions("item") ?? [];
 
+        // Extract origin and target marks
+        const markOptions = (() => {
+            const originActor = unresolved.origin?.actor;
+            const originUuid = unresolved.origin?.token?.uuid;
+            const targetActor = unresolved.target?.actor;
+            const targetUuid = unresolved.target?.token?.uuid;
+
+            const originMark = originUuid ? targetActor?.synthetics.tokenMarks.get(originUuid) : null;
+            const targetMark = targetUuid ? originActor?.synthetics.tokenMarks.get(targetUuid) : null;
+
+            return R.compact([
+                originMark ? `origin:mark:${originMark}` : null,
+                targetMark ? `target:mark:${targetMark}` : null,
+            ]);
+        })();
+
         // Get ephemeral effects from the target that affect this actor while attacking
         const ephemeralEffects = await extractEphemeralEffects({
             affects: which,
@@ -232,7 +248,7 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: [...this.rollOptions, ...itemOptions],
+            options: R.compact([...this.rollOptions, ...itemOptions, ...markOptions]),
         });
 
         // Add an epehemeral effect from flanking
@@ -243,12 +259,6 @@ abstract class RollContext<
             ephemeralEffects.push(condition.toObject());
         }
 
-        const otherToken = unresolved[opposingAlias]?.token;
-        const markOption = ((): string | null => {
-            const tokenMark = otherToken ? uncloned.actor.synthetics.tokenMarks.get(otherToken.uuid) : null;
-            return tokenMark ? `${opposingAlias}:mark:${tokenMark}` : null;
-        })();
-
         const perspectivePrefix = which === "origin" ? (this.rollerRole === "origin" ? "self" : "target") : "origin";
         const actionOptions = this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
 
@@ -257,7 +267,7 @@ abstract class RollContext<
                 ...Array.from(this.rollOptions),
                 opposingAlias,
                 ...otherActor.getSelfRollOptions(opposingAlias),
-                markOption,
+                ...markOptions,
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
                 ...(which === "target" ? itemOptions : []),
