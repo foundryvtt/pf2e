@@ -526,6 +526,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
+    /** Prevent players from controlling an NPC when it's lootable */
+    protected override _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean {
+        if (!this.observer && this.actor?.isOfType("npc") && this.actor.isLootableBy(user)) return false;
+        return super._canControl(user, event);
+    }
+
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
