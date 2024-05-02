@@ -5,12 +5,6 @@ class PointVisionSourcePF2e<TObject extends TokenPF2e = TokenPF2e> extends found
     .PointVisionSource<TObject> {
     hearing?: PointSourcePolygon;
 
-    // Fix https://github.com/foundryvtt/foundryvtt/issues/10731
-    // todo: remove after next release
-    static override blindedColorRGB(): number[] {
-        return CONFIG.Canvas.visionModes.blindness.vision.defaults.color?.rgb ?? (Color.from(0) as Color).rgb;
-    }
-
     protected override _createShapes(): void {
         super._createShapes();
 
