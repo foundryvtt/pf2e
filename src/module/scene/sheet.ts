@@ -18,12 +18,20 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         // Rules-based vision
         const [tab, panel] = await (async (): Promise<HTMLTemplateElement[]> => {
             const hbsPath = "systems/pf2e/templates/scene/sheet-partials.hbs";
-            const rbvWorldDefault = game.i18n.localize(
+            const worldDefault = game.i18n.localize(
                 game.pf2e.settings.rbv
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                     : "PF2E.SETTINGS.EnabledDisabled.Disabled",
             );
-            const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvWorldDefault });
+            const rbvOptions: FormSelectOption[] = [
+                {
+                    value: "",
+                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", { worldDefault }),
+                },
+                { value: "true", label: "PF2E.SETTINGS.EnabledDisabled.Enabled" },
+                { value: "false", label: "PF2E.SETTINGS.EnabledDisabled.Disabled" },
+            ];
+            const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvOptions });
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
         })();
