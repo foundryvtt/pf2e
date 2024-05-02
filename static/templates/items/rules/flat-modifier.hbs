@@ -56,11 +56,7 @@
             {{selectOptions damageCategories selected=rule.damageCategory blank="" localize=true}}
         </select>
         <select name="{{basePath}}.critical" class="short">
-            {{#select rule.critical}}
-                <option value="">{{localize "PF2E.RuleEditor.General.CriticalBehavior.null"}}</option>
-                <option value="false">{{localize "PF2E.RuleEditor.General.CriticalBehavior.false"}}</option>
-                <option value="true">{{localize "PF2E.RuleEditor.General.CriticalBehavior.true"}}</option>
-            {{/select}}
+            {{selectOptions criticalOptions selected=rule.critical blank="PF2E.RuleEditor.General.CriticalBehavior.null" localize=true}}
         </select>
     </div>
 </div>
