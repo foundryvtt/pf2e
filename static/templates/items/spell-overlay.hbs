@@ -4,11 +4,7 @@
             <label>{{localize "PF2E.Item.Spell.Rank.Label"}}</label>
             <div class="form-fields">
                 <select data-action="change-heighten-level">
-                    {{#select level}}
-                        {{#each heightenLevels as |key|}}
-                            <option value="{{key}}">{{localize "PF2E.SpellScalingOverlay.Selection" level=(ordinal key)}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions heightenLevels selected=level}}
                 </select>
                 <div class="item-controls">
                     <a data-action="delete-overlay" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
