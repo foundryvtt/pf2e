@@ -146,7 +146,7 @@ export class StatusEffects {
             if (hideIcon) picture.style.display = "none";
 
             const affecting = affectingConditions.filter((c) => c.slug === slug);
-            if (affecting.length > 0 || (iconSrc === deathIcon && token.actor?.isDead)) {
+            if (affecting.length > 0 || (iconSrc === deathIcon && token.actor?.statuses.has("dead"))) {
                 picture.classList.add("active");
             }
 
