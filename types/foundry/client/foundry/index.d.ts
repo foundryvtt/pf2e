@@ -17,3 +17,5 @@ export * as canvas from "../../client-esm/canvas/module.ts";
 export * as grid from "../../common/grid/module.ts";
 /** Dice class definitions */
 export * as dice from "../../client-esm/dice/module.ts";
+/** ProseMirror implementation definitions */
+export * as prosemirror from "../../common/prosemirror/module.ts";
