@@ -24,7 +24,7 @@ import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import type { AppliedDamageFlag } from "@module/chat-message/index.ts";
+import type { AppliedDamageData } from "@module/chat-message/index.ts";
 import type { Size } from "@module/data.ts";
 import { preImportJSON } from "@module/doc-helpers.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -1284,10 +1284,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         await ChatMessagePF2e.create({
             speaker: ChatMessagePF2e.getSpeaker({ token }),
-            flags: {
-                pf2e: {
-                    appliedDamage,
-                },
+            system: {
+                appliedDamage,
             },
             flavor,
             content,
@@ -1302,7 +1300,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Revert applied actor damage based on the AppliedDamageFlag stored in a damage chat message */
-    async undoDamage(appliedDamage: AppliedDamageFlag): Promise<void> {
+    async undoDamage(appliedDamage: AppliedDamageData): Promise<void> {
         const { updates, shield, persistent } = appliedDamage;
 
         const actorUpdates: Record<string, number | Record<string, number | string>[]> = {};
