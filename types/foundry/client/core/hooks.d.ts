@@ -50,6 +50,10 @@ declare global {
         [T, Record<string, unknown>, DocumentModificationContext<T["parent"]>]
     >;
     type HookParamsUpdateWorldTime = HookParameters<"updateWorldTime", [number, number]>;
+    type HookParamsGetProseMirrorMenuDropDowns = HookParameters<
+        "getProseMirrorMenuDropDowns",
+        [foundry.prosemirror.ProseMirrorMenu, Record<string, ProseMirrorDropDownConfig>]
+    >;
 
     class Hooks {
         /**
@@ -97,6 +101,7 @@ declare global {
         static on(...args: HookParamsUpdate<Combat, "Combat">): number;
         static on(...args: HookParamsUpdate<Scene, "Scene">): number;
         static on(...args: HookParamsUpdateWorldTime): number;
+        static on(...args: HookParamsGetProseMirrorMenuDropDowns): number;
         static on(...args: HookParameters<string, unknown[]>): number;
 
         /**
