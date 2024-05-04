@@ -70,7 +70,9 @@ export abstract class CompendiumBrowserTab {
                     return null;
                 }
                 return Array.from(wordSegmenter.segment(term))
-                    .map((t) => t.segment.toLocaleLowerCase(game.i18n.lang).replace(/['"]/g, ""))
+                    .map((t) =>
+                        SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
+                    )
                     .filter((t) => t.length > 1);
             },
             storeFields: this.storeFields,
@@ -104,7 +106,7 @@ export abstract class CompendiumBrowserTab {
         }
 
         this.currentIndex = (() => {
-            const searchText = this.filterData.search.text;
+            const searchText = SearchFilter.cleanQuery(this.filterData.search.text);
             if (searchText) {
                 const searchResult = this.searchEngine.search(searchText);
                 return this.sortResult(searchResult.filter(this.filterIndexData.bind(this)));
