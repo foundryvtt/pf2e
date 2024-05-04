@@ -222,6 +222,13 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             const suboptions = this.#resolveSuboptions(test);
             const toggleDomain = (this.actor.synthetics.toggles[this.domain] ??= {});
 
+            // Determine if this should be disabled. If so, and there is a disabled value, set it.
+            // This must be done before mergeable so that conflict resolution resolves correctly
+            const enabled = this.disabledIf ? !this.disabledIf.test(test) : true;
+            if (!enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
+                this.value = this.disabledValue;
+            }
+
             // Exit early if another mergeable roll option has already completed the following
             if (this.mergeable && toggleDomain[this.option]) return;
 
@@ -246,15 +253,8 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 suboptions,
                 alwaysActive: !!this.alwaysActive,
                 checked: false,
-                enabled: true,
+                enabled,
             };
-
-            if (this.disabledIf) {
-                toggle.enabled = !this.disabledIf.test(test);
-                if (!toggle.enabled && !this.alwaysActive && typeof this.disabledValue === "boolean") {
-                    this.value = this.disabledValue;
-                }
-            }
 
             const value = (toggle.checked = this.resolveValue());
             this.#setOption(baseOption, value);
