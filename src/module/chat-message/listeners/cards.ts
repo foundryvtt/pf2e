@@ -169,7 +169,7 @@ class ChatCards {
                                 `${consumable.name} - ${consumableString} (${currentQuant})`,
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.Item.Consumable.Uses.Use")}</button>`;
                                 flavor = flavor?.replace(buttonStr, ` disabled${buttonStr}`);
                             }
                             await message.update({ flavor });
