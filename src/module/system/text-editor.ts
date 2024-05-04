@@ -215,7 +215,7 @@ class TextEditorPF2e extends TextEditor {
                               subtitle,
                               title: item.name,
                           })
-                        : anchor.dataset.name ?? item?.name ?? actor?.name ?? "";
+                        : anchor.dataset.name ?? item?.name ?? "";
                 args.template.name = game.i18n.localize(name);
 
                 await DamagePF2e.roll(args.template, args.context);
