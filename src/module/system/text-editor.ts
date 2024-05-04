@@ -947,7 +947,8 @@ async function augmentInlineDamageRoll(
         const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
-            ...(traits ?? []),
+            ...traits,
+            ...traits.filter((t) => t in CONFIG.PF2E.actionTraits).map((t) => `item:trait:${t}`),
             ...(extraRollOptions ?? []),
             ...actionOptions,
         ]);
