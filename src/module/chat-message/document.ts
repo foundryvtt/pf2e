@@ -10,7 +10,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
-import type { AppliedDamageData, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, ChatMessageSystemData } from "./data.ts";
+import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 import { RollInspector } from "./roll-inspector.ts";
 
@@ -166,16 +166,6 @@ class ChatMessagePF2e extends ChatMessage {
         return game.scenes.get(sceneId)?.tokens.get(tokenId) ?? null;
     }
 
-    static override migrateData(source: ChatMessageSourcePF2e): ChatMessageSourcePF2e {
-        // Migrate old flags to system data (we need to either migrate this for real later, or drop support in a future release)
-        const flags = source.flags.pf2e;
-        if (flags?.appliedDamage) {
-            source.system.appliedDamage = flags.appliedDamage as AppliedDamageData;
-            flags.appliedDamage = undefined;
-        }
-        return super.migrateData(source) as ChatMessageSourcePF2e;
-    }
-
     override getRollData(): Record<string, unknown> {
         const { actor, item } = this;
         return { ...actor?.getRollData(), ...item?.getRollData() };
@@ -251,7 +241,8 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // Remove revert damage button based on user permissions
-        if (!this.system.appliedDamage?.isReverted) {
+        const appliedDamageFlag = this.flags.pf2e.appliedDamage;
+        if (!appliedDamageFlag?.isReverted) {
             if (!this.actor?.isOwner) {
                 htmlQuery(html, "button[data-action=revert-damage]")?.remove();
             }
@@ -296,7 +287,6 @@ class ChatMessagePF2e extends ChatMessage {
 interface ChatMessagePF2e extends ChatMessage {
     readonly _source: ChatMessageSourcePF2e;
     flags: ChatMessageFlagsPF2e;
-    system: ChatMessageSystemData;
 
     get user(): UserPF2e;
 }

@@ -8,13 +8,9 @@ import { DamageDamageContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 
-type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource<string, ChatMessageSystemData> & {
+type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
 };
-
-interface ChatMessageSystemData {
-    appliedDamage?: AppliedDamageData | null;
-}
 
 export interface ItemOriginFlag {
     actor?: ActorUUID;
@@ -36,6 +32,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         dice?: RawDamageDice[];
         preformatted?: "flavor" | "content" | "both";
         journalEntry?: DocumentUUID;
+        appliedDamage?: AppliedDamageFlag | null;
         [key: string]: unknown;
     };
     core: NonNullable<ChatMessageFlags["core"]>;
@@ -118,7 +115,7 @@ interface SelfEffectContextFlag {
     outcome?: never;
 }
 
-interface AppliedDamageData {
+interface AppliedDamageFlag {
     uuid: ActorUUID;
     isHealing: boolean;
     isReverted?: boolean;
@@ -132,11 +129,10 @@ interface AppliedDamageData {
 
 export type {
     ActorTokenFlag,
-    AppliedDamageData,
+    AppliedDamageFlag,
     ChatContextFlag,
     ChatMessageFlagsPF2e,
     ChatMessageSourcePF2e,
-    ChatMessageSystemData,
     CheckContextChatFlag,
     DamageDamageContextFlag,
     DamageRollFlag,
