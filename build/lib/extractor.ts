@@ -576,6 +576,13 @@ class PackExtractor {
             if (source.system.showSlotlessLevels?.value === true) {
                 delete (source.system as { showSlotlessLevels?: { value: boolean } }).showSlotlessLevels;
             }
+            for (const slotGroup of Object.values(source.system.slots)) {
+                for (const spellPrep of slotGroup.prepared ?? []) {
+                    if (!spellPrep.expended) {
+                        delete (spellPrep as { expended?: unknown }).expended;
+                    }
+                }
+            }
 
             source.system.slots = fu.diffObject(templateJSON.Item.spellcastingEntry.slots, source.system.slots);
         }

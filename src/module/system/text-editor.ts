@@ -215,7 +215,7 @@ class TextEditorPF2e extends TextEditor {
                               subtitle,
                               title: item.name,
                           })
-                        : anchor.dataset.name ?? item?.name ?? actor?.name ?? "";
+                        : anchor.dataset.name ?? item?.name ?? "";
                 args.template.name = game.i18n.localize(name);
 
                 await DamagePF2e.roll(args.template, args.context);
@@ -947,7 +947,8 @@ async function augmentInlineDamageRoll(
         const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
             ...(item?.getRollOptions("item") ?? []),
-            ...(traits ?? []),
+            ...traits,
+            ...traits.filter((t) => t in CONFIG.PF2E.actionTraits).map((t) => `item:trait:${t}`),
             ...(extraRollOptions ?? []),
             ...actionOptions,
         ]);

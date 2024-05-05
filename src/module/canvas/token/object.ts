@@ -158,10 +158,15 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const thisActor = this.actor;
         if (!(thisActor && this.canFlank(flankee, context))) return false;
 
-        // Return true if a flanking buddy is found
         const flanking = thisActor.attributes.flanking;
+
+        // Finds all possible allies that are allowed to flank, to test their positioning later
+        // A linked actor can flank with another token of itself (ex: a Thaumaturge with a mirror implement)
         const flankingBuddies = canvas.tokens.placeables.filter(
-            (t) => t.actor?.isAllyOf(thisActor) && t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
+            (t) =>
+                (t.actor?.isAllyOf(thisActor) ||
+                    (this.document.isLinked && t.actor === thisActor && t.id !== this.id)) &&
+                t.canFlank(flankee, R.pick(context, ["ignoreFlankable"])),
         );
         if (flankingBuddies.length === 0) return false;
 
@@ -524,6 +529,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Players can view an actor's sheet if the actor is lootable. */
     protected override _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
         return super._canView(user, event) || !!this.actor?.isLootableBy(user);
+    }
+
+    /** Prevent players from controlling an NPC when it's lootable */
+    protected override _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean {
+        if (!this.observer && this.actor?.isOfType("npc") && this.actor.isLootableBy(user)) return false;
+        return super._canControl(user, event);
     }
 
     /** Refresh vision and the `EffectsPanel` */

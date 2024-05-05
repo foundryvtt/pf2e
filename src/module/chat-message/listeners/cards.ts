@@ -8,6 +8,8 @@ import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import {
@@ -167,7 +169,7 @@ class ChatCards {
                                 `${consumable.name} - ${consumableString} (${currentQuant})`,
                             );
                             if (currentQuant === 0) {
-                                const buttonStr = `>${game.i18n.localize("PF2E.ConsumableUseLabel")}</button>`;
+                                const buttonStr = `>${game.i18n.localize("PF2E.Item.Consumable.Uses.Use")}</button>`;
                                 flavor = flavor?.replace(buttonStr, ` disabled${buttonStr}`);
                             }
                             await message.update({ flavor });
@@ -182,8 +184,10 @@ class ChatCards {
                     if (element) {
                         element.innerHTML = await TextEditor.enrichHTML(description, {
                             async: true,
-                            rollData: actor.getRollData(),
+                            rollData: item.getRollData(),
                         });
+                        UserVisibilityPF2e.process(element, { message });
+                        InlineRollLinks.listen(element, message);
                         element.scrollIntoView({ behavior: "smooth", block: "center" });
                     }
                     break;
