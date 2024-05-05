@@ -175,6 +175,7 @@
                 ]
             },
             {
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "override": {
                     "diceNumber": "@spell.rank",
@@ -193,6 +194,7 @@
                 "selector": "spell-damage"
             },
             {
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "override": {
                     "diceNumber": "@spell.rank",
@@ -224,9 +226,26 @@
             {
                 "diceNumber": "@spell.rank",
                 "dieSize": "d4",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "item:slug:frostbite",
+                    "item:tag:amped",
+                    {
+                        "not": "alternate-amp"
+                    }
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "2*@spell.rank - 4",
+                    "dieSize": "d6"
+                },
+                "predicate": [
+                    "item:slug:redistribute-potential",
                     "item:tag:amped",
                     {
                         "not": "alternate-amp"
@@ -256,6 +275,7 @@
                 "toggleable": true
             },
             {
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "override": {
                     "damageType": "{item|flags.pf2e.rulesSelections.conservationOfEnergy}"
