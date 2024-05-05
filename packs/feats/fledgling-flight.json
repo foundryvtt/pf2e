@@ -29,7 +29,13 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "floor(floor(@actor.attributes.speed.total/2)/5)*5"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
