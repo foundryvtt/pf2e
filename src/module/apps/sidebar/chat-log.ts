@@ -2,7 +2,7 @@ import { ActorPF2e } from "@actor";
 import { handleKingdomChatMessageEvents } from "@actor/party/kingdom/chat.ts";
 import type { ShieldPF2e } from "@item";
 import { applyDamageFromMessage } from "@module/chat-message/helpers.ts";
-import { AppliedDamageData, ChatMessagePF2e } from "@module/chat-message/index.ts";
+import { AppliedDamageFlag, ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { CombatantPF2e } from "@module/encounter/index.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { CheckPF2e } from "@system/check/index.ts";
@@ -65,14 +65,14 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                     }
                 }
             } else if (button.dataset.action === "revert-damage") {
-                const appliedDamageData = message?.system.appliedDamage;
-                if (appliedDamageData) {
-                    const reverted = await this.#onClickRevertDamage(appliedDamageData);
+                const appliedDamageFlag = message?.flags.pf2e.appliedDamage;
+                if (appliedDamageFlag) {
+                    const reverted = await this.#onClickRevertDamage(appliedDamageFlag);
                     if (reverted) {
                         htmlQuery(messageEl, "span.statements")?.classList.add("reverted");
                         button.remove();
                         await message.update({
-                            "system.appliedDamage.isReverted": true,
+                            "flags.pf2e.appliedDamage.isReverted": true,
                             content: htmlQuery(messageEl, ".message-content")?.innerHTML ?? message.content,
                         });
                     }
@@ -165,8 +165,8 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         });
     }
 
-    async #onClickRevertDamage(data: AppliedDamageData): Promise<boolean> {
-        const actorOrToken = fromUuidSync(data.uuid);
+    async #onClickRevertDamage(flag: AppliedDamageFlag): Promise<boolean> {
+        const actorOrToken = fromUuidSync(flag.uuid);
         const actor =
             actorOrToken instanceof ActorPF2e
                 ? actorOrToken
@@ -174,9 +174,9 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
                   ? actorOrToken.actor
                   : null;
         if (actor) {
-            await actor.undoDamage(data);
+            await actor.undoDamage(flag);
             ui.notifications.info(
-                game.i18n.format(`PF2E.RevertDamage.${data.isHealing ? "Healing" : "Damage"}Message`, {
+                game.i18n.format(`PF2E.RevertDamage.${flag.isHealing ? "Healing" : "Damage"}Message`, {
                     actor: actor.name,
                 }),
             );
