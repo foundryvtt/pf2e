@@ -1,0 +1,141 @@
+{
+    "_id": "znxs0soGlusvRP39",
+    "img": "icons/magic/nature/root-vine-thorned-fire-purple.webp",
+    "name": "Decay Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your rage is intrinsically tied to the decomposition of organic beings, and the new growth that decay allows. You may have meddled with ancient relics created by Ghorus, been infected by exposure to Ayrzul's Blight or the Tanglebriar, or been blessed by the green man Zibik. As you unleash your rage, you rot, becoming riddled with mold and flesh-eating fungi. Though this rot recedes when you let your emotions settle, it doesn't go away completely, and the scars left behind spread bit by bit throughout your lifetime, multiplying with every rage.</p>\n<h2>Anathema</h2>\n<p>Preventing the decomposition of dead creatures or plants is anathema to your instinct, as is destroying or interfering with the growth of molds or fungi in a natural setting. This doesn't prevent you from defending yourself against fungus creatures or hazards or harvesting fungi or molds solely for sustenance.</p>\n<h2>Rotting Rage (Instinct Ability)</h2>\n<p>When you rage, you can choose to increase the additional damage from Rage from 2 to 6 and change its damage type to poison, instead of the damage type for your weapon or unarmed attack. If you do this, your Rage action gains the primal and poison traits, and you take 1 damage at the end of each of your turns as your flesh decays. This damage can't be reduced or avoided by any means. You may make this choice only when your rage begins, and it remains in effect until your rage ends.</p>\n<h2>Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use rotting rage, increase the additional damage from Rage from 6 to 10, but the damage you take at the end of your turn increases to 5. If you have greater weapon specialization, instead increase the damage from Rage when using rotting rage from 10 to 18, but the damage you take increases to 10.</p>\n<h2>Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist poison damage, as well as damage dealt by the attacks and abilities of creatures with the fungus trait, regardless of the damage type.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Barbarian.Decay.ToggleLabel",
+                "option": "rotting-rage",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "poison",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "definition": [
+                    "origin:trait:fungus"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromFungus",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "custom",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "damageType": "poison",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "rotting-rage"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "rotting-rage",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization",
+                    "rotting-rage"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 18
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:rage",
+                    "rotting-rage"
+                ],
+                "property": "traits",
+                "value": "primal"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:rage",
+                    "rotting-rage"
+                ],
+                "property": "traits",
+                "value": "poison"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "barbarian-instinct"
+            ],
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

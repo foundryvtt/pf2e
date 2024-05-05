@@ -1,0 +1,60 @@
+{
+    "_id": "uaWIJU1m2eHgfkDp",
+    "img": "icons/environment/wilderness/tree-oak.webp",
+    "name": "Effect: Born to the Trees",
+    "system": {
+        "description": {
+            "value": "<p>You gain a climb Speed equal to your Speed and a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump] and @UUID[Compendium.pf2e.actionspf2e.Item.High Jump].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:long-jump",
+                            "action:high-jump"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "acrobatics",
+                    "athletics"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

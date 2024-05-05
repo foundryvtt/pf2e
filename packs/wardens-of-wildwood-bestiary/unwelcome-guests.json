@@ -1,0 +1,105 @@
+{
+    "_id": "XZSBa1yE39nZVyt8",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "JuS6YthnGKOkofun",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Curse Trespassers",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature touches the hatch</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature takes @Damage[(3d10+22)[force]] damage and is knocked back 10 feet. A creature that succeeds at a @Check[type:will|dc:30] save takes half damage and isn't moved. On a failure, the creature is additionally cursed. A cursed creature takes a –2 penalty to Will saves, and whenever the cursed creature becomes affected by a spell, the creature takes @Damage[1d10[force]] damage. The curse remains until removed by @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] or similar magic.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Curse Trespassers]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Unwelcome Guests",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "details": {
+            "description": "<p>Unwelcome guests who touch this hatch are cursed.</p>",
+            "disable": "<p>@Check[type:occultism|dc:28] (expert) to drain the magic from the curse, @Check[type:thievery|dc:31] (master) to unweave the curse's bindings, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th rank, counteract DC 28) to counteract the curse</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "<p>The trap resets when the hatch is shut.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

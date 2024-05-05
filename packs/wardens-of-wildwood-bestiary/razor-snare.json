@@ -1,0 +1,151 @@
+{
+    "_id": "9obwSt6LYAMkElXs",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "jWt044DZEHr3yYrX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Snag",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature steps into the square with the snare tripwire</p>\n<hr />\n<p><strong>Effect</strong> The snare makes a snare Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Vb2Ik5EPoSX0ASV5",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Snare",
+            "sort": 0,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 15
+                },
+                "damageRolls": {
+                    "dcyVQ4MFtWZILQDq": {
+                        "category": "persistent",
+                        "damage": "1d6",
+                        "damageType": "bleed"
+                    },
+                    "seyUVRqRSPyU3Xwj": {
+                        "damage": "4d6+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>The target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 23). On a critical hit, the target is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Razor Snare",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 21
+            },
+            "emitsSound": "encounter",
+            "hardness": 10,
+            "hp": {
+                "details": "",
+                "max": 40,
+                "temp": 0,
+                "value": 40
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "",
+                "value": 15
+            }
+        },
+        "details": {
+            "description": "<p>Slender razor wire snags a creature, yanking its feet to knock it down.</p>",
+            "disable": "<p>@Check[type:survival|dc:22] or @Check[type:thievery|dc:22] (trained) to snip the wire without getting snared</p>",
+            "isComplex": false,
+            "level": {
+                "value": 4
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 8
+            },
+            "will": {
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

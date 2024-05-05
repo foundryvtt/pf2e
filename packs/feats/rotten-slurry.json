@@ -1,0 +1,50 @@
+{
+    "_id": "ZJSkCrud1FZ7PMFk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Rotten Slurry",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You expel a glob of rotten, foul-smelling slurry from your torso, hand, or mouth at a foe. Make a ranged @Check[type:deviant|defense:ac]{attack roll} against a creature within 30 feet. If you succeed, the slurry deals @Damage[(floor(@actor.level/2)d4)[bludgeoning]] damage to the target for every two levels you have, or double damage on a critical success. A creature that's damaged by the attack is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} on a critical success).</p>\n<p><strong>Awakening</strong> The slurry bursts, showering bystanders. The attack deals an additional @Damage[((floor(@actor.level/4)d4)[splash])[poison]]{1d4 poison splash} damage for every four levels you have.</p>\n<p><strong>Awakening</strong> The slurry is caustic, and bores into the flesh of those it touches. The attack deals an additional @Damage[1d4[persistent,acid]] damage.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "flag": "blightSoulDeviantClassification",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:blight-soul-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Blight Soul Deviant Classification"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "attack",
+                "deviant",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

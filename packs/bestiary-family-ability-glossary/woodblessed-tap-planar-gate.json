@@ -1,0 +1,47 @@
+{
+    "_id": "sQ2nzNDLMdGqECm6",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Woodblessed) Tap Planar Gate",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>The woodblessed empowers themself or their next attack.</p>\n<p>If the woodblessed's next action is to Stride, is launched off the ground by a suddenly sprouting tree and propelled forward. During this Stride, they have a fly Speed equal to their Speed. If they don't end their movement on a solid surface that can support their weight, they fall.</p>\n<p>If the woodblessed's next action is a Strike, the attack sprouts thorns that deal an additional 1d4 persistent bleed damage (1d6 for levels 6–12, 1d10 for levels 13+).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "tap-planar-gate",
+                "toggleable": true
+            },
+            {
+                "damageType": "bleed",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "tap-planar-gate"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "value": [
+                "concentrate",
+                "primal"
+            ]
+        }
+    },
+    "type": "action"
+}

@@ -1,0 +1,58 @@
+{
+    "_id": "uUPc3k9a6gExLOnN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Wilderness Born",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're at home in the wilderness and easily disappear into it. You gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] in natural terrain, and a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] in natural terrain. While in natural terrain, you're always considered to be @UUID[Compendium.pf2e.actionspf2e.Item.Cover Tracks]{Covering Tracks}, even if you chose a different activity in exploration mode.</p>\n<hr />\n<p><strong>Special</strong> This feat gains the trait for your ancestry.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ardande trait, plant trait, or wood trait"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:natural",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak",
+                            "action:sense-direction"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "survival",
+                    "stealth"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

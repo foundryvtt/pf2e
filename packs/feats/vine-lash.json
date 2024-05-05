@@ -1,0 +1,51 @@
+{
+    "_id": "fYD0SrZhMyJVQgvl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Vine Lash",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have a free hand.</p>\n<hr />\n<p>A long vine sprouts from your arm, which you can temporarily wield like a whip. Make a melee @Check[type:deviant|defense:ac]{attack roll} against a creature within 30 feet. If you succeed, the vine deals @Damage[(floor(@actor.level/2)d6)[slashing]] damage for every 2 levels you have to the target, or double damage on a success.</p>\n<p><strong>Awakening</strong> The vine coils around your foes, squeezing them lifeless. On a successful hit, the target is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the vine. The DC to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] the vine is equal to your Class DC or Spell DC, whichever is higher. Each round on your turn, if the target is still grabbed, the vine squeezes them, dealing @Damage[(floor(@actor.level/2)d6)[bludgeoning]] damage for every 2 levels you have.</p>\n<p><strong>Awakening</strong> Rather than lash at your foes with a single vine, dozens of writhing vines emerge from your hands, lashing all creatures in a large area. You can use Vine Lash as a 2-action activity to damage all creatures in a @Template[type:cone|distance:30], with a @Check[type:reflex|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "flag": "verdantCoreDeviantClassification",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:verdant-core-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Verdant Core Deviant Classification"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "attack",
+                "deviant",
+                "magical",
+                "plant"
+            ]
+        }
+    },
+    "type": "feat"
+}
