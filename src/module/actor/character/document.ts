@@ -214,6 +214,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this.classDCs[slug] ?? super.getStatistic(slug);
     }
 
+    override getRollOptions(domains?: string[]): string[] {
+        const options = super.getRollOptions(domains);
+
+        // Add roll options based on spells with existing class traits
+        // This can be used to predicate on the existance of things like warden spells
+        const extraOptions = new Set<string>();
+        for (const spell of this.itemTypes.spell) {
+            for (const trait of spell.system.traits.value) {
+                if (trait in CONFIG.PF2E.classTraits) {
+                    extraOptions.add(`spell-traits:${trait}`);
+                }
+            }
+        }
+
+        options.push(...extraOptions);
+        return options;
+    }
+
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         const formulas = this.system.crafting.formulas;
         formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
