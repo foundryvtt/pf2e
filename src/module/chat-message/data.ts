@@ -13,7 +13,6 @@ type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource<string, ChatMes
 };
 
 interface ChatMessageSystemData {
-    rollOptions?: string[];
     /** A record of applied damage that can be undone */
     appliedDamage?: AppliedDamageData | null;
     /** Message context data that describes the type of this chat message */
@@ -163,10 +162,15 @@ interface AppliedDamageData {
 
 export type {
     AppliedDamageData,
+    ChatMessageContext,
     ChatMessageFlagsPF2e,
     ChatMessageOriginData,
     ChatMessageSourcePF2e,
     ChatMessageSystemData,
+    ChatMessageTargetData,
+    CheckContextChatData,
+    DamageDamageContextData,
     DamageRollFlag,
+    SpellCastContextData,
     SpellcastingOriginData,
 };

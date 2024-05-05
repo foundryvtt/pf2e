@@ -10,7 +10,7 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
-import type { AppliedDamageData, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, ChatMessageSystemData } from "./data.ts";
+import type { ChatMessageFlagsPF2e, ChatMessageSourcePF2e, ChatMessageSystemData } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
 import { RollInspector } from "./roll-inspector.ts";
 
@@ -175,10 +175,6 @@ class ChatMessagePF2e extends ChatMessage {
     static override migrateData(source: ChatMessageSourcePF2e): ChatMessageSourcePF2e {
         // Migrate old flags to system data (we need to either migrate this for real later, or drop support in a future release)
         const flags = source.flags.pf2e;
-        if (flags?.appliedDamage) {
-            source.system.appliedDamage = flags.appliedDamage as AppliedDamageData;
-            flags.appliedDamage = undefined;
-        }
         if (flags?.appliedDamage) {
             source.system.appliedDamage = flags.appliedDamage;
             flags.appliedDamage = undefined;
