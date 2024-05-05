@@ -912,7 +912,7 @@ const equipmentTraits = {
 
 const shieldTraits = {
     ...sanctificationTraits,
-    ...elementTraits,
+    ...damageTraits,
     ...magicTraditions,
     apex: "PF2E.TraitApex",
     "deflecting-bludgeoning": "PF2E.TraitDeflectingBludgeoning",
@@ -937,7 +937,7 @@ const shieldTraits = {
 
 const armorTraits = {
     ...sanctificationTraits,
-    ...elementTraits,
+    ...damageTraits,
     ...magicTraditions,
     adjusted: "PF2E.TraitAdjusted",
     alchemical: "PF2E.TraitAlchemical",

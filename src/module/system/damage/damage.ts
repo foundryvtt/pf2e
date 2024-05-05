@@ -35,7 +35,9 @@ export class DamagePF2e {
             : null;
         let flavor = data.name.startsWith("<h4")
             ? data.name
-            : await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", { title: data.name, subtitle });
+            : data.name || subtitle
+              ? await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", { title: data.name, subtitle })
+              : "";
 
         if (context.traits) {
             interface ToTagsParams {

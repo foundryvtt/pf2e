@@ -373,7 +373,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 const button = createHTMLElement("button", { dataset: { action: "consume", item: item.id } });
                 button.style.width = "auto";
                 button.style.lineHeight = "14px";
-                button.innerHTML = game.i18n.localize("PF2E.ConsumableUseLabel");
+                button.innerHTML = game.i18n.localize("PF2E.Item.Consumable.Uses.Use");
                 return `${item.name} - ${game.i18n.localize("TYPES.Item.consumable")} (${item.quantity}) ${
                     button.outerHTML
                 }`;

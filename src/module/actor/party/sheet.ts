@@ -88,6 +88,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
                 : null;
 
+        const travelSpeed = this.actor.system.attributes.speed.total;
+
         return {
             ...base,
             playerRestricted: !game.pf2e.settings.metagame.partyStats,
@@ -107,7 +109,10 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             },
             canDistributeCoins,
             explorationSummary: {
-                speed: this.actor.system.attributes.speed.total,
+                speed: travelSpeed,
+                feetPerMinute: travelSpeed * 10,
+                milesPerHour: travelSpeed / 10,
+                milesPerDay: travelSpeed * 0.8,
                 activities:
                     Object.entries(CONFIG.PF2E.hexplorationActivities).find(
                         ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
@@ -539,6 +544,9 @@ interface PartySheetData extends ActorSheetDataPF2e<PartyPF2e> {
     };
     explorationSummary: {
         speed: number;
+        feetPerMinute: number;
+        milesPerHour: number;
+        milesPerDay: number;
         activities: number;
     };
     /** Unsupported items on the sheet, may occur due to disabled campaign data */

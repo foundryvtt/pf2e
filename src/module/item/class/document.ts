@@ -14,10 +14,6 @@ import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, Class
 import { ClassTrait } from "./types.ts";
 
 class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
-    static override get validTraits(): Record<ClassTrait, string> {
-        return CONFIG.PF2E.classTraits;
-    }
-
     get attacks(): ClassAttackProficiencies {
         return this.system.attacks;
     }

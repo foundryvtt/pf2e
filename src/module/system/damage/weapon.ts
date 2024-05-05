@@ -362,6 +362,19 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Twin trait
+        if (weaponTraits.some((t) => t === "twin") && weapon.isOfType("weapon")) {
+            modifiers.push(
+                new ModifierPF2e({
+                    slug: "twin-second",
+                    label: "PF2E.Item.Weapon.Twin.SecondPlus",
+                    modifier: weapon._source.system.damage.dice + strikingDice,
+                    type: "circumstance",
+                    ignored: true,
+                }),
+            );
+        }
+
         // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
