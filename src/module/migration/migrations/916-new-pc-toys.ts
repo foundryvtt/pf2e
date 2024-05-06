@@ -104,6 +104,11 @@ export class Migration916NewPCToys extends MigrationBase {
                 {
                     key: "RollOption",
                     option: "megaton",
+                    predicate: [
+                        {
+                            not: "feature:construct-innovation",
+                        },
+                    ],
                     suboptions: [
                         { label: "PF2E.SpecificRule.Inventor.Unstable.Stable", value: "stable" },
                         { label: "PF2E.TraitUnstable", value: "unstable" },
