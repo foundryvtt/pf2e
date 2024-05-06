@@ -29,7 +29,37 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.advancedMulticlassLevel",
+                "value": "floor(@item.system.level.taken / 2)"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:category:class",
+                        "item:trait:inventor",
+                        {
+                            "lte": [
+                                "item:level",
+                                "{actor|flags.pf2e.advancedMulticlassLevel}"
+                            ]
+                        }
+                    ],
+                    "itemType": "feat"
+                },
+                "flag": "feat",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.AdvancedMulticlassFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.feat}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
