@@ -385,11 +385,19 @@ abstract class CreaturePF2e<
 
         this.rollOptions.all[`self:mode:${this.modeOfBeing}`] = true;
 
-        // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
-        // and spell DC statistics. At 12th level, these proficiencies increase to expert.
-        if (this.isOfType("character") && this.spellcasting.some((e) => e.isInnate)) {
+        // Character specific general ways to bump proficiency
+        if (this.isOfType("character")) {
             const spellcasting = this.system.proficiencies.spellcasting;
-            spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+
+            // PC1 p.298, When you gain an innate spell, you become trained in the spell attack modifier
+            // and spell DC statistics. At 12th level, these proficiencies increase to expert.
+            const actualSpellcasting = this.spellcasting.filter((e) => e.system && !e.system?.proficiency.slug);
+            if (actualSpellcasting.some((e) => e.isInnate)) {
+                spellcasting.rank = Math.max(spellcasting.rank, this.level >= 12 ? 2 : 1) as ZeroToFour;
+            } else if (actualSpellcasting.length) {
+                // If you can cast spells using spellcasting prof, you logically need to be at least trained
+                spellcasting.rank ||= 1;
+            }
         }
 
         // Base spellcasting proficiency (later extended to add attribute modifiers)
