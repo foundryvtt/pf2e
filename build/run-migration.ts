@@ -13,8 +13,6 @@ import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { Migration911CoinBulk } from "@module/migration/migrations/911-coin-bulk.ts";
-import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
 import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
 import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
@@ -29,6 +27,7 @@ import { Migration923KineticistRestructure } from "@module/migration/migrations/
 import { Migration924JiuHuanDoa } from "@module/migration/migrations/924-jiu-huan-dao.ts";
 import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-touch-of-corruption.ts";
 import { Migration926RemoveVisionFeatureLinks } from "@module/migration/migrations/926-remove-vision-feature-links.ts";
+import { Migration927KiSpells } from "@module/migration/migrations/927-ki-spells.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -38,8 +37,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration911CoinBulk(),
-    new Migration912RmFocusTraitFocusCantrips(),
     new Migration913SpellSustainedText(),
     new Migration914MovePerceptionSenses(),
     new Migration915MoveLanguages(),
@@ -54,6 +51,7 @@ const migrations: MigrationBase[] = [
     new Migration924JiuHuanDoa(),
     new Migration925TouchOfCorruption(),
     new Migration926RemoveVisionFeatureLinks(),
+    new Migration927KiSpells(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
