@@ -1,4 +1,3 @@
-import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
 export class TemplateLayerPF2e<
@@ -6,22 +5,6 @@ export class TemplateLayerPF2e<
 > extends TemplateLayer<TObject> {
     /** Preview event listeners that can be referenced across methods */
     #previewListeners: TemplatePreviewEventListeners | null = null;
-
-    #snappingMode: number = CONST.GRID_SNAPPING_MODES.CENTER;
-
-    get snappingMode(): number {
-        return this.#snappingMode;
-    }
-
-    /** Set a grid-snapping mode appropriate for an effect area type */
-    snapFor(areaShape: EffectAreaShape | null): void {
-        if (areaShape && canvas.grid.type === CONST.GRID_TYPES.SQUARE) {
-            this.#snappingMode =
-                areaShape === "burst" ? CONST.GRID_SNAPPING_MODES.CORNER : CONST.GRID_SNAPPING_MODES.CENTER;
-        } else {
-            this.#snappingMode = CONST.GRID_SNAPPING_MODES.CENTER;
-        }
-    }
 
     async createPreview(createData: Record<string, unknown>): Promise<TObject> {
         const initialLayer = canvas.activeLayer;
@@ -42,12 +25,11 @@ export class TemplateLayerPF2e<
         const { destination, preview: template, origin } = event.interactionData;
         if (!template || template.destroyed) return;
 
-        this.snapFor(template.areaShape);
         const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
         const { x, y } = canvas.grid.getSnappedPoint(destination, {
-            mode: this.#snappingMode,
+            mode: template.snappingMode,
         });
         destination.x = x;
         destination.y = y;
@@ -132,12 +114,11 @@ export class TemplateLayerPF2e<
             wheelAbortController: new AbortController(),
             mousedown: (event: PIXI.FederatedPointerEvent): void => {
                 event.stopPropagation();
-                preview.snapForShape();
                 const { document, position } = preview;
                 this.#deactivatePreviewListeners(initialLayer, event);
                 document.updateSource(
                     canvas.grid.getSnappedPoint(position, {
-                        mode: this.#snappingMode,
+                        mode: preview.snappingMode,
                     }),
                 );
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
