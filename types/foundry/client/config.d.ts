@@ -488,19 +488,88 @@ declare global {
                     >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
-                roiling: {
-                    label: "LIGHT.AnimationRoilingMass";
+                vortex: {
+                    label: "LIGHT.AnimationVortex";
                     animation: PointLightSource<
                         TAmbientLightDocument["object"] | TTokenDocument["object"]
                     >["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                witchwave: {
+                    label: "LIGHT.AnimationBewitchingWave";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                rainbowswirl: {
+                    label: "LIGHT.AnimationSwirlingRainbow";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                radialrainbow: {
+                    label: "LIGHT.AnimationRadialRainbow";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                fairy: {
+                    label: "LIGHT.AnimationFairyLight";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                grid: {
+                    label: "LIGHT.AnimationForceGrid";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                starlight: {
+                    label: "LIGHT.AnimationStarLight";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                smokepatch: {
+                    label: "LIGHT.AnimationSmokePatch";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+            };
+
+            darknessAnimations: {
+                magicalGloom: {
+                    label: "LIGHT.AnimationMagicalGloom";
+                    animation: PointDarknessSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    darknessShader: typeof PIXI.Shader;
+                };
+                roiling: {
+                    label: "LIGHT.AnimationRoilingMass";
+                    animation: PointDarknessSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    darknessShader: typeof PIXI.Shader;
                 };
                 hole: {
                     label: "LIGHT.AnimationBlackHole";
-                    animation: PointLightSource<
+                    animation: PointDarknessSource<
                         TAmbientLightDocument["object"] | TTokenDocument["object"]
                     >["animateTime"];
-                    illuminationShader: typeof PIXI.Shader;
+                    darknessShader: typeof PIXI.Shader;
                 };
             };
 

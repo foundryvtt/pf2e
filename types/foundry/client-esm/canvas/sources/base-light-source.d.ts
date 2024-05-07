@@ -14,22 +14,11 @@ export default class BaseLightSource<
 
     protected static override _refreshUniformsKeys: string[];
 
-    /** Blend mode to use with background mesh. */
-    protected static _backgroundBlendMode: string;
-
-    /** Blend mode to use with illumination mesh.  */
-    protected static _illuminationBlendMode: string;
-
-    /** Blend mode to use with coloration mesh. */
-    protected static _colorationBlendMode: string;
-
     /** The corresponding lighting levels for dim light. */
     protected static _dimLightingLevel: number;
 
     /** The corresponding lighting levels for bright light. */
     protected static _brightLightingLevel: number;
-
-    protected static _priorityAdjustment: number;
 
     /* -------------------------------------------- */
     /*  Light Source Attributes                     */
@@ -51,8 +40,6 @@ export default class BaseLightSource<
      * @return A reference to the initialized source
      */
     protected override _initialize(data?: Partial<LightSourceData>): void;
-
-    protected override _initializeBlending(): void;
 
     /* -------------------------------------------- */
     /*  Shader Management                           */
@@ -127,6 +114,8 @@ declare global {
         shadows: number;
         /** Whether or not this source provides a source of vision */
         vision: boolean;
+        /** Strength of this source to beat or not negative/positive sources */
+        priority: number;
     }
 
     interface LightSourceMeshes {

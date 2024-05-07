@@ -63,7 +63,7 @@ declare abstract class InteractionLayer extends CanvasLayer {
      * @see {@link Canvas._onDragLeftStart}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
-    protected _onDragLeftStart(event: PIXI.FederatedPointerEvent): Promise<object | void>;
+    protected _onDragLeftStart(event: PIXI.FederatedPointerEvent): object | void;
 
     /**
      * Continue a left-click drag workflow originating from the Canvas stage.
@@ -77,7 +77,7 @@ declare abstract class InteractionLayer extends CanvasLayer {
      * @see {@link Canvas._onDragLeftDrop}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
-    protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<void>;
+    protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): void;
 
     /**
      * Cancel a left-click drag workflow originating from the Canvas stage.

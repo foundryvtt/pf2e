@@ -30,6 +30,12 @@ declare global {
         /** The current destination point at the end of the measurement */
         destination: Point;
 
+        /**
+         * The origin point of the measurement, which is the first waypoint.
+         * @type {Point|null}
+         */
+        get origin(): Point | null;
+
         /** The array of most recently computed ruler measurement segments */
         segments: RulerMeasurementSegment[];
 
@@ -68,17 +74,36 @@ declare global {
         measure(destination: PIXI.Point, { gridSpaces }?: { gridSpaces?: boolean }): RulerMeasurementSegment[] | void;
 
         /**
-         * While measurement is in progress, update the destination to be the central point of the target grid space.
-         * @param destination The current pixel coordinates of the mouse movement
-         * @returns The destination point, a center of a grid space
+         * Get the measurement origin.
+         * @param point The waypoint
          */
-        protected _getMeasurementDestination(destination: Point): PIXI.Point;
+        protected _getMeasurementOrigin(point: Point, options?: { snap?: boolean }): PIXI.Point;
+
+        /**
+         * Get the destination point. By default the point is snapped to grid space centers.
+         * @param point The point coordinations
+         * @returns The snapped destination point
+         */
+        protected _getMeasurementDestination(point: Point, options?: { snap?: boolean }): PIXI.Point;
 
         /**
          * Translate the waypoints and destination point of the Ruler into an array of Ray segments.
          * @returns The segments of the measured path
          */
         protected _getMeasurementSegments(): RulerMeasurementSegment[];
+
+        /** Handle the conclusion of a Ruler measurement workflow */
+        protected _endMeasurement(): void;
+
+        /** Handle the addition of a new waypoint in the Ruler measurement path */
+        protected _addWaypoint(point: PIXI.Point): void;
+
+        /**
+         * Handle the removal of a waypoint in the Ruler measurement path
+         * @param point  The current cursor position to snap to
+         * @param [snap] Snap exactly to grid spaces?
+         */
+        protected _removeWaypoint(point: PIXI.Point, { snap }?: { snap?: boolean }): void;
 
         /**
          * Compute the distance of each segment and the total distance of the measured path.
@@ -126,6 +151,32 @@ declare global {
          */
         protected _animateSegment(token: Token, segment: RulerMeasurementSegment, destination: Point): Promise<unknown>;
 
+        /**
+         * An method which can be extended by a subclass of Ruler to define custom behaviors before a confirmed movement.
+         * @param token       The Token that will be moving
+         * @protected
+         */
+        protected _preMove(token: Token): Promise<void>;
+
+        /**
+         * An event which can be extended by a subclass of Ruler to define custom behaviors before a confirmed movement.
+         * @param token       The Token that finished moving
+         */
+        protected _postMove(token: Token): Promise<void>;
+
+        /* -------------------------------------------- */
+        /*  Saving and Loading                          */
+        /* -------------------------------------------- */
+
+        /** Package Ruler data to an object which can be serialized to a string. */
+        protected _getMeasurementData(): RulerData;
+
+        /**
+         * Update a Ruler instance using data provided through the cursor activity socket
+         * @param data Ruler data with which to update the display
+         */
+        update(data: RulerData): void;
+
         /* -------------------------------------------- */
         /*  Event Listeners and Handlers                */
         /* -------------------------------------------- */
@@ -165,31 +216,11 @@ declare global {
          */
         protected _onMouseUp(event: PIXI.FederatedEvent): void;
 
-        /** Handle the addition of a new waypoint in the Ruler measurement path */
-        protected _addWaypoint(point: PIXI.Point): void;
-
         /**
-         * Handle the removal of a waypoint in the Ruler measurement path
-         * @param point  The current cursor position to snap to
-         * @param [snap] Snap exactly to grid spaces?
+         * Move the Token along the measured path when the move key is pressed.
+         * @param context
          */
-        protected _removeWaypoint(point: PIXI.Point, { snap }?: { snap?: boolean }): void;
-
-        /** Handle the conclusion of a Ruler measurement workflow */
-        protected _endMeasurement(): void;
-
-        /* -------------------------------------------- */
-        /*  Saving and Loading                          */
-        /* -------------------------------------------- */
-
-        /** Package Ruler data to an object which can be serialized to a string. */
-        toJSON(): RulerData;
-
-        /**
-         * Update a Ruler instance using data provided through the cursor activity socket
-         * @param data Ruler data with which to update the display
-         */
-        update(data: RulerData): void;
+        protected _onMoveKeyDown(context: KeyboardEventContext): void;
     }
 
     interface RulerMeasurementSegment {
