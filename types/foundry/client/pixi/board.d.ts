@@ -338,8 +338,9 @@ declare global {
         /**
          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
          * @param blurStrength The desired blur strength to use for this filter
+         * @param blurQuality The desired quality to use for this filter
          */
-        createBlurFilter(blurStrength?: number): PIXI.BlurFilter;
+        createBlurFilter(blurStrength?: number, blurQuality?: number): PIXI.BlurFilter;
 
         /**
          * Add a filter to the blur filter list. The filter must have the blur property

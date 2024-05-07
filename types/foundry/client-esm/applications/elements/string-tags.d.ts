@@ -33,10 +33,11 @@ export default class HTMLStringTagsElement extends AbstractFormInputElement<Set<
 
     /**
      * Render the HTML fragment used to represent a tag.
-     * @param   tag      The raw tag value
-     * @returns          An HTML string for the tag
+     * @param tag       The raw tag value
+     * @param label     An optional tag element
+     * @returns         An HTML string for the tag
      */
-    static renderTag(tag: string): string;
+    static renderTag(tag: string, label?: string): string;
 
     /* -------------------------------------------- */
     /*  Form Handling                               */

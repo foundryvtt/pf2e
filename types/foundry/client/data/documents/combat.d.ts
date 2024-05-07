@@ -173,6 +173,12 @@ declare global {
             userId: string,
         ): void;
 
+        /**
+         * Get the current history state of the Combat encounter.
+         * @param [combatant]       The new active combatant
+         */
+        protected _getCurrentState(combatant?: Combatant<this>): CombatHistoryData;
+
         /* -------------------------------------------- */
         /*  Turn Events                                 */
         /* -------------------------------------------- */
