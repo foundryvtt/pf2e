@@ -169,7 +169,6 @@ function highlightGrid({
     object,
     colors,
     document,
-    snappingMode = CONST.GRID_SNAPPING_MODES.CENTER,
     collisionType = "move",
     preview = false,
 }: HighlightGridParams): void {
@@ -193,7 +192,10 @@ function highlightGrid({
 
     const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
-    const snappedOrigin = canvas.grid.getSnappedPoint({ x: document.x, y: document.y }, { mode: snappingMode });
+    const snappedOrigin =
+        "snappingMode" in object
+            ? canvas.grid.getSnappedPoint({ x: document.x, y: document.y }, { mode: object.snappingMode })
+            : object.center;
     const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
