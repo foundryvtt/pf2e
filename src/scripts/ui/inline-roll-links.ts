@@ -61,215 +61,243 @@ export const InlineRollLinks = {
         InlineRollLinks.flavorDamageRolls(html, foundryDoc instanceof ActorPF2e ? foundryDoc : null);
 
         for (const link of links.filter((l) => l.dataset.pf2Action)) {
-            const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = link.dataset;
             link.addEventListener("click", (event) => {
-                const slug = sluggify(pf2Action ?? "");
-                const visibility = pf2ShowDc ?? "all";
-                const difficultyClass = Number.isNumeric(pf2Dc)
-                    ? { scope: "check", value: Number(pf2Dc) || 0, visibility }
-                    : pf2Dc;
-                if (slug && game.pf2e.actions.has(slug)) {
-                    game.pf2e.actions
-                        .get(slug)
-                        ?.use({ event, variant: pf2Variant, difficultyClass, statistic: pf2Skill })
-                        .catch((reason: string) => ui.notifications.warn(reason));
-                } else {
-                    const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
-                    if (pf2Action && action) {
-                        action({
-                            event,
-                            glyph: pf2Glyph,
-                            variant: pf2Variant,
-                            difficultyClass,
-                            skill: pf2Skill,
-                        });
-                    } else {
-                        console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
-                    }
-                }
+                InlineRollLinks._onClickInlineAction(event, link);
             });
         }
 
         for (const link of links.filter((l) => l.dataset.pf2Check && !l.dataset.invalid)) {
-            const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
-                link.dataset;
-            const overrideTraits = "overrideTraits" in link.dataset;
-            const targetOwner = "targetOwner" in link.dataset;
-
-            if (!pf2Check) return;
-
             link.addEventListener("click", async (event) => {
-                const parent = resolveActor(foundryDoc, link);
-                const actors = ((): ActorPF2e[] => {
-                    switch (pf2Roller) {
-                        case "self":
-                            return parent?.canUserModify(game.user, "update") ? [parent] : [];
-                        case "party":
-                            if (parent?.isOfType("party")) return [parent];
-                            return R.compact([game.actors.party]);
-                    }
-
-                    // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-                    const sheetActor = ((): ActorPF2e | null => {
-                        const maybeActor: ActorPF2e | null =
-                            foundryDoc instanceof ActorPF2e
-                                ? foundryDoc
-                                : foundryDoc instanceof ItemPF2e && foundryDoc.actor
-                                  ? foundryDoc.actor
-                                  : null;
-                        return maybeActor?.isOwner && !maybeActor.isOfType("loot", "party") ? maybeActor : null;
-                    })();
-                    const rollingActors = [
-                        sheetActor ?? getSelectedActors({ exclude: ["loot"], assignedFallback: true }),
-                    ].flat();
-
-                    const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
-                    if (parent?.isOfType("party") || (rollingActors.length === 0 && parent && !isSave)) {
-                        return [parent];
-                    }
-
-                    return rollingActors;
-                })();
-
-                if (actors.length === 0) {
-                    ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
-                    return;
-                }
-
-                const extraRollOptions = [
-                    ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
-                    ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
-                ];
-                const eventRollParams = eventToRollParams(event, { type: "check" });
-                const checkSlug = link.dataset.slug ? sluggify(link.dataset.slug) : null;
-
-                switch (pf2Check) {
-                    case "flat": {
-                        for (const actor of actors) {
-                            const flatCheck = new Statistic(actor, {
-                                label: "",
-                                slug: "flat",
-                                modifiers: [],
-                                check: { type: "flat-check" },
-                            });
-                            const dc = Number.isInteger(Number(pf2Dc))
-                                ? { label: pf2Label, value: Number(pf2Dc) }
-                                : null;
-                            flatCheck.roll({ ...eventRollParams, slug: checkSlug, extraRollOptions, dc });
-                        }
-                        break;
-                    }
-                    default: {
-                        const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
-
-                        // Get actual traits for display in chat cards
-                        const traits = isSavingThrow
-                            ? []
-                            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
-
-                        for (const actor of actors) {
-                            const statistic = ((): Statistic | null => {
-                                if (pf2Check in CONFIG.PF2E.magicTraditions && actor.isOfType("creature")) {
-                                    const bestSpellcasting =
-                                        actor.spellcasting
-                                            .filter((c) => c.tradition === pf2Check)
-                                            .flatMap((s) => s.statistic ?? [])
-                                            .sort((a, b) => b.check.mod - a.check.mod)
-                                            .shift() ?? null;
-                                    if (bestSpellcasting) return bestSpellcasting;
-                                }
-                                return actor.getStatistic(pf2Check);
-                            })();
-
-                            if (!statistic) {
-                                console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
-                                continue;
-                            }
-
-                            const targetActor = pf2Defense
-                                ? targetOwner
-                                    ? parent
-                                    : game.user.targets.first()?.actor
-                                : null;
-
-                            const dcValue = (() => {
-                                const adjustment = Number(pf2Adjustment) || 0;
-                                if (pf2Dc === "@self.level") {
-                                    return calculateDC(actor.level) + adjustment;
-                                }
-                                return Number(pf2Dc ?? "NaN") + adjustment;
-                            })();
-
-                            const dc = ((): CheckDC | null => {
-                                if (Number.isInteger(dcValue)) {
-                                    return { label: pf2Label, value: dcValue };
-                                } else if (pf2Defense) {
-                                    const defenseStat = targetActor?.getStatistic(pf2Defense);
-                                    return defenseStat
-                                        ? {
-                                              statistic: defenseStat.dc,
-                                              scope: "check",
-                                              value: defenseStat.dc.value,
-                                          }
-                                        : null;
-                                }
-                                return null;
-                            })();
-
-                            // Retrieve the item if:
-                            // (2) The item is an action or,
-                            // (1) The check is a saving throw and the item is not a weapon.
-                            // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
-                            const item = (() => {
-                                const itemFromDoc =
-                                    foundryDoc instanceof ItemPF2e
-                                        ? foundryDoc
-                                        : foundryDoc instanceof ChatMessagePF2e
-                                          ? foundryDoc.item
-                                          : null;
-
-                                return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
-                                    (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
-                                    ? itemFromDoc
-                                    : null;
-                            })();
-
-                            const args: StatisticRollParameters = {
-                                ...eventRollParams,
-                                extraRollOptions,
-                                origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
-                                dc,
-                                target: !isSavingThrow && dc?.statistic ? targetActor : null,
-                                item,
-                                traits,
-                            };
-
-                            // Use a special header for checks against defenses
-                            const itemIsEncounterAction =
-                                !overrideTraits &&
-                                !!(item?.isOfType("action", "feat") && item.actionCost) &&
-                                !["flat-check", "saving-throw"].includes(statistic.check.type);
-                            if (itemIsEncounterAction) {
-                                const subtitleLocKey =
-                                    pf2Check in CONFIG.PF2E.magicTraditions
-                                        ? "PF2E.ActionsCheck.spell"
-                                        : statistic.check.type === "attack-roll"
-                                          ? "PF2E.ActionsCheck.x-attack-roll"
-                                          : "PF2E.ActionsCheck.x";
-                                args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
-                                    glyph: getActionGlyph(item.actionCost),
-                                    subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
-                                    title: item.name,
-                                });
-                                extraRollOptions.push(...TextEditorPF2e.createActionOptions(item));
-                            }
-
-                            statistic.roll(args);
-                        }
-                    }
-                }
+                InlineRollLinks._onClickInlineCheck(event, link, foundryDoc);
             });
         }
+
+        for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
+            link.addEventListener("click", (event) => {
+                InlineRollLinks._onClickInlineTemplate(event, html, link, foundryDoc);
+            });
+        }
+    },
+
+    makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
+        const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
+        const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
+        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+    },
+
+    _onClickInlineAction: (event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): void => {
+        const { pf2Action, pf2Glyph, pf2Variant, pf2Dc, pf2ShowDc, pf2Skill } = link.dataset;
+
+        const slug = sluggify(pf2Action ?? "");
+        const visibility = pf2ShowDc ?? "all";
+        const difficultyClass = Number.isNumeric(pf2Dc)
+            ? { scope: "check", value: Number(pf2Dc) || 0, visibility }
+            : pf2Dc;
+        if (slug && game.pf2e.actions.has(slug)) {
+            game.pf2e.actions
+                .get(slug)
+                ?.use({ event, variant: pf2Variant, difficultyClass, statistic: pf2Skill })
+                .catch((reason: string) => ui.notifications.warn(reason));
+        } else {
+            const action = game.pf2e.actions[pf2Action ? sluggify(pf2Action, { camel: "dromedary" }) : ""];
+            if (pf2Action && action) {
+                action({
+                    event,
+                    glyph: pf2Glyph,
+                    variant: pf2Variant,
+                    difficultyClass,
+                    skill: pf2Skill,
+                });
+            } else {
+                console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
+            }
+        }
+    },
+
+    _onClickInlineCheck: async (
+        event: MouseEvent,
+        link: HTMLAnchorElement | HTMLSpanElement,
+        foundryDoc: ClientDocument | null,
+    ): Promise<void> => {
+        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
+            link.dataset;
+        const overrideTraits = "overrideTraits" in link.dataset;
+        const targetOwner = "targetOwner" in link.dataset;
+
+        if (!pf2Check) return;
+
+        const parent = resolveActor(foundryDoc, link);
+        const actors = ((): ActorPF2e[] => {
+            switch (pf2Roller) {
+                case "self":
+                    return parent?.canUserModify(game.user, "update") ? [parent] : [];
+                case "party":
+                    if (parent?.isOfType("party")) return [parent];
+                    return R.compact([game.actors.party]);
+            }
+
+            // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
+            const sheetActor = ((): ActorPF2e | null => {
+                const maybeActor: ActorPF2e | null =
+                    foundryDoc instanceof ActorPF2e
+                        ? foundryDoc
+                        : foundryDoc instanceof ItemPF2e && foundryDoc.actor
+                          ? foundryDoc.actor
+                          : null;
+                return maybeActor?.isOwner && !maybeActor.isOfType("loot", "party") ? maybeActor : null;
+            })();
+            const rollingActors = [
+                sheetActor ?? getSelectedActors({ exclude: ["loot"], assignedFallback: true }),
+            ].flat();
+
+            const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
+            if (parent?.isOfType("party") || (rollingActors.length === 0 && parent && !isSave)) {
+                return [parent];
+            }
+
+            return rollingActors;
+        })();
+
+        if (actors.length === 0) {
+            ui.notifications.error("PF2E.ErrorMessage.NoTokenSelected", { localize: true });
+            return;
+        }
+
+        const extraRollOptions = [
+            ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
+            ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
+        ];
+        const eventRollParams = eventToRollParams(event, { type: "check" });
+        const checkSlug = link.dataset.slug ? sluggify(link.dataset.slug) : null;
+
+        switch (pf2Check) {
+            case "flat": {
+                for (const actor of actors) {
+                    const flatCheck = new Statistic(actor, {
+                        label: "",
+                        slug: "flat",
+                        modifiers: [],
+                        check: { type: "flat-check" },
+                    });
+                    const dc = Number.isInteger(Number(pf2Dc)) ? { label: pf2Label, value: Number(pf2Dc) } : null;
+                    flatCheck.roll({ ...eventRollParams, slug: checkSlug, extraRollOptions, dc });
+                }
+                break;
+            }
+            default: {
+                const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
+
+                // Get actual traits for display in chat cards
+                const traits = isSavingThrow
+                    ? []
+                    : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+
+                for (const actor of actors) {
+                    const statistic = ((): Statistic | null => {
+                        if (pf2Check in CONFIG.PF2E.magicTraditions && actor.isOfType("creature")) {
+                            const bestSpellcasting =
+                                actor.spellcasting
+                                    .filter((c) => c.tradition === pf2Check)
+                                    .flatMap((s) => s.statistic ?? [])
+                                    .sort((a, b) => b.check.mod - a.check.mod)
+                                    .shift() ?? null;
+                            if (bestSpellcasting) return bestSpellcasting;
+                        }
+                        return actor.getStatistic(pf2Check);
+                    })();
+
+                    if (!statistic) {
+                        console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check}`).message);
+                        continue;
+                    }
+
+                    const targetActor = pf2Defense ? (targetOwner ? parent : game.user.targets.first()?.actor) : null;
+
+                    const dcValue = (() => {
+                        const adjustment = Number(pf2Adjustment) || 0;
+                        if (pf2Dc === "@self.level") {
+                            return calculateDC(actor.level) + adjustment;
+                        }
+                        return Number(pf2Dc ?? "NaN") + adjustment;
+                    })();
+
+                    const dc = ((): CheckDC | null => {
+                        if (Number.isInteger(dcValue)) {
+                            return { label: pf2Label, value: dcValue };
+                        } else if (pf2Defense) {
+                            const defenseStat = targetActor?.getStatistic(pf2Defense);
+                            return defenseStat
+                                ? {
+                                      statistic: defenseStat.dc,
+                                      scope: "check",
+                                      value: defenseStat.dc.value,
+                                  }
+                                : null;
+                        }
+                        return null;
+                    })();
+
+                    // Retrieve the item if:
+                    // (2) The item is an action or,
+                    // (1) The check is a saving throw and the item is not a weapon.
+                    // Exclude weapons so that roll notes on strikes from incapacitation abilities continue to work.
+                    const item = (() => {
+                        const itemFromDoc =
+                            foundryDoc instanceof ItemPF2e
+                                ? foundryDoc
+                                : foundryDoc instanceof ChatMessagePF2e
+                                  ? foundryDoc.item
+                                  : null;
+
+                        return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
+                            (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
+                            ? itemFromDoc
+                            : null;
+                    })();
+
+                    const args: StatisticRollParameters = {
+                        ...eventRollParams,
+                        extraRollOptions,
+                        origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
+                        dc,
+                        target: !isSavingThrow && dc?.statistic ? targetActor : null,
+                        item,
+                        traits,
+                    };
+
+                    // Use a special header for checks against defenses
+                    const itemIsEncounterAction =
+                        !overrideTraits &&
+                        !!(item?.isOfType("action", "feat") && item.actionCost) &&
+                        !["flat-check", "saving-throw"].includes(statistic.check.type);
+                    if (itemIsEncounterAction) {
+                        const subtitleLocKey =
+                            pf2Check in CONFIG.PF2E.magicTraditions
+                                ? "PF2E.ActionsCheck.spell"
+                                : statistic.check.type === "attack-roll"
+                                  ? "PF2E.ActionsCheck.x-attack-roll"
+                                  : "PF2E.ActionsCheck.x";
+                        args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
+                            glyph: getActionGlyph(item.actionCost),
+                            subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
+                            title: item.name,
+                        });
+                        extraRollOptions.push(...TextEditorPF2e.createActionOptions(item));
+                    }
+
+                    statistic.roll(args);
+                }
+            }
+        }
+    },
+
+    _onClickInlineTemplate: (
+        _event: MouseEvent,
+        html: HTMLElement,
+        link: HTMLAnchorElement | HTMLSpanElement,
+        foundryDoc: ClientDocument | null,
+    ): void => {
+        if (!canvas.ready) return;
 
         const templateConversion: Record<string, MeasuredTemplateType> = {
             burst: "circle",
@@ -281,80 +309,68 @@ export const InlineRollLinks = {
             square: "rect",
         } as const;
 
-        for (const link of links.filter((l) => l.hasAttribute("data-pf2-effect-area"))) {
-            const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
-            link.addEventListener("click", () => {
-                if (!canvas.ready) return;
+        const { pf2EffectArea, pf2Distance, pf2TemplateData, pf2Traits, pf2Width } = link.dataset;
 
-                if (typeof pf2EffectArea !== "string") {
-                    console.warn(`PF2e System | Could not create template'`);
-                    return;
-                }
-
-                const data: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(pf2TemplateData ?? "{}");
-                data.distance ||= Number(pf2Distance);
-                data.fillColor ||= game.user.color;
-                data.t = templateConversion[pf2EffectArea];
-
-                switch (data.t) {
-                    case "ray":
-                        data.width =
-                            Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * canvas.dimensions.distance;
-                        break;
-                    case "cone":
-                        data.angle ||= CONFIG.MeasuredTemplate.defaults.angle;
-                        break;
-                    case "rect": {
-                        const distance = data.distance ?? 0;
-                        data.distance = Math.hypot(distance, distance);
-                        data.width = distance;
-                        data.direction = 45;
-                        break;
-                    }
-                }
-
-                const flags: { pf2e: Record<string, unknown> } = {
-                    pf2e: {},
-                };
-
-                const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
-                if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {
-                    flags.pf2e.areaShape = pf2EffectArea;
-                }
-
-                const messageId =
-                    foundryDoc instanceof ChatMessagePF2e
-                        ? foundryDoc.id
-                        : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
-                if (messageId) {
-                    flags.pf2e.messageId = messageId;
-                }
-
-                const actor = resolveActor(foundryDoc, link);
-                if (actor || pf2Traits) {
-                    const origin: Record<string, unknown> = {};
-                    if (actor) {
-                        origin.actor = actor.uuid;
-                    }
-                    if (pf2Traits) {
-                        origin.traits = pf2Traits.split(",");
-                    }
-                    flags.pf2e.origin = origin;
-                }
-
-                if (!R.isEmpty(flags.pf2e)) {
-                    data.flags = flags;
-                }
-
-                canvas.templates.createPreview(data);
-            });
+        if (typeof pf2EffectArea !== "string") {
+            console.warn(`PF2e System | Could not create template'`);
+            return;
         }
-    },
 
-    makeRepostHtml: (target: HTMLElement, defaultVisibility: string): string => {
-        const flavor = game.i18n.localize(target.dataset.pf2RepostFlavor ?? "");
-        const showDC = target.dataset.pf2ShowDc ?? defaultVisibility;
-        return `<span data-visibility="${showDC}">${flavor}</span> ${target.outerHTML}`.trim();
+        const data: DeepPartial<foundry.documents.MeasuredTemplateSource> = JSON.parse(pf2TemplateData ?? "{}");
+        data.distance ||= Number(pf2Distance);
+        data.fillColor ||= game.user.color;
+        data.t = templateConversion[pf2EffectArea];
+
+        switch (data.t) {
+            case "ray":
+                data.width = Number(pf2Width) || CONFIG.MeasuredTemplate.defaults.width * canvas.dimensions.distance;
+                break;
+            case "cone":
+                data.angle ||= CONFIG.MeasuredTemplate.defaults.angle;
+                break;
+            case "rect": {
+                const distance = data.distance ?? 0;
+                data.distance = Math.hypot(distance, distance);
+                data.width = distance;
+                data.direction = 45;
+                break;
+            }
+        }
+
+        const flags: { pf2e: Record<string, unknown> } = {
+            pf2e: {},
+        };
+
+        const normalSize = (Math.ceil(data.distance) / 5) * 5 || 5;
+        if (tupleHasValue(EFFECT_AREA_SHAPES, pf2EffectArea) && data.distance === normalSize) {
+            flags.pf2e.areaShape = pf2EffectArea;
+        }
+
+        const messageId =
+            foundryDoc instanceof ChatMessagePF2e
+                ? foundryDoc.id
+                : htmlClosest(html, "[data-message-id]")?.dataset.messageId ?? null;
+        if (messageId) {
+            flags.pf2e.messageId = messageId;
+        }
+
+        const actor = resolveActor(foundryDoc, link);
+        if (actor || pf2Traits) {
+            const origin: Record<string, unknown> = {};
+            if (actor) {
+                origin.actor = actor.uuid;
+            }
+            if (pf2Traits) {
+                origin.traits = pf2Traits.split(",");
+            }
+            flags.pf2e.origin = origin;
+        }
+
+        if (!R.isEmpty(flags.pf2e)) {
+            data.flags = flags;
+        }
+
+        canvas.templates.createPreview(data);
     },
 
     repostAction: async (
