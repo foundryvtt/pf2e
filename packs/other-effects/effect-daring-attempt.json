@@ -1,0 +1,162 @@
+{
+    "_id": "w0kwwWC7QTmytbVt",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Daring Attempt",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.jHn1m1r95YgMQSvM]{Daring Attempt}</p>\n<p>Select one untrained skill. You are trained in that skill until the end of your next turn. If you use that skill before the end of your next turn and succeed at your skill check, you keep this benefit until the end of the combat, or for 1 minute if not in combat.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "predicate": [
+                            "skill:acr:rank:0"
+                        ],
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillArc",
+                        "predicate": [
+                            "skill:arc:rank:0"
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "predicate": [
+                            "skill:ath:rank:0"
+                        ],
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:0"
+                        ],
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "predicate": [
+                            "skill:dec:rank:0"
+                        ],
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "predicate": [
+                            "skill:dip:rank:0"
+                        ],
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "predicate": [
+                            "skill:itm:rank:0"
+                        ],
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "predicate": [
+                            "skill:med:rank:0"
+                        ],
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "predicate": [
+                            "skill:nat:rank:0"
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "predicate": [
+                            "skill:occ:rank:0"
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "predicate": [
+                            "skill:prf:rank:0"
+                        ],
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "predicate": [
+                            "skill:rel:rank:0"
+                        ],
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "predicate": [
+                            "skill:soc:rank:0"
+                        ],
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "predicate": [
+                            "skill:ste:rank:0"
+                        ],
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "predicate": [
+                            "skill:sur:rank:0"
+                        ],
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "predicate": [
+                            "skill:thi:rank:0"
+                        ],
+                        "value": "thievery"
+                    }
+                ],
+                "flag": "daringAttempt",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.daringAttempt}.rank",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

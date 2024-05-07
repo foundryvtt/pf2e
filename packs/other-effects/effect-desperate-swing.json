@@ -1,0 +1,60 @@
+{
+    "_id": "Bjwlrq0mF64nZJjK",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Desperate Swing",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.d15Zjdqplmj7ZTKK]{Desperate Swing}</p>\n<p>Make a Strike, ignoring the multiple attack penalty. If you roll a critical success, you get a normal success instead. If the attack fails, you release your weapon, or drop Prone if you were using an unarmed attack or otherwise can't release your weapon.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "selector": "strike-attack-roll",
+                "slug": "multiple-attack-penalty",
+                "suppress": true
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "strike-attack-roll"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.HeroPointDeck.DesperateSwing.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
