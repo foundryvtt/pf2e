@@ -47,6 +47,9 @@ declare global {
         /** A layer which adds color-based effects to the scene. */
         coloration: CanvasLayer;
 
+        /** A layer which adds darkness effects to the scene */
+        darkness: CanvasLayer;
+
         /** Clear all effects containers and animated sources. */
         clearEffects(): void;
 
