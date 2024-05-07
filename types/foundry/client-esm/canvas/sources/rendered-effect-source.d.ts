@@ -74,9 +74,6 @@ export default class RenderedEffectSource<TObject extends PlaceableObject | null
     /** Specific configuration for a layer. */
     protected _configureLayer(layer: RenderedEffectSourceLayer, layerId: string): void;
 
-    /** Initialize the blend mode and vertical sorting of this source relative to others in the container. */
-    protected _initializeBlending(): void;
-
     /* -------------------------------------------- */
     /*  Rendered Source Canvas Rendering            */
     /* -------------------------------------------- */
@@ -162,10 +159,17 @@ interface RenderedPointSourceAnimationConfig {
     colorationShader?: PIXI.Shader;
     /** A custom background shader used by this animation */
     backgroundShader?: PIXI.Shader;
+    /** A custom darkness shader used by this animation */
+    darknessShader?: PIXI.Shader;
     /** The animation seed */
     seed?: number;
     /** The animation time */
     time?: number;
+}
+
+interface RendereedEffectLayerConfig {
+    defaultShader: AdaptiveLightingShader;
+    blendMode: PIXI.BLEND_MODES;
 }
 
 interface RenderedEffectSourceLayer {

@@ -82,6 +82,9 @@ declare class MouseInteractionManager {
      */
     viewId: string;
 
+    /** The client position of the last left/right-click */
+    lastClick: PIXI.Point;
+
     constructor(
         object: PlaceableObject,
         layer: PlaceablesLayer,
@@ -107,6 +110,24 @@ declare class MouseInteractionManager {
         DRAG: 4;
         DROP: 5;
     };
+
+    /** The maximum number of milliseconds between two clicks to be considered a double-click. */
+    static DOUBLE_CLICK_TIME_MS: number;
+
+    /** The maximum number of pixels between two clicks to be considered a double-click. */
+    static DOUBLE_CLICK_DISTANCE_PX: number;
+
+    /** The number of milliseconds of mouse click depression to consider it a long press. */
+    static LONG_PRESS_DURATION_MS: number;
+
+    /** Global timeout for the long-press event. */
+    static longPressTimeout: number | null;
+
+    /**
+     * Emulate a pointermove event. Needs to be called when an object with the static event mode
+     * or any of its parents is transformed or its visibility is changed.
+     */
+    static emulateMoveEvent(): void;
 
     /** Get the target */
     get target(): PlaceableObject;
