@@ -23,13 +23,21 @@
         "rules": [
             {
                 "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "not": "feat:fully-flighted"
+                    }
+                ],
                 "selector": "fly",
                 "value": "@actor.attributes.speed.total"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "feat:fledgling-flight"
+                    "feat:fledgling-flight",
+                    {
+                        "not": "feat:fully-flighted"
+                    }
                 ],
                 "selector": "fly-speed",
                 "type": "status",
