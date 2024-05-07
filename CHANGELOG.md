@@ -1,3 +1,13 @@
+## 5.15.3
+
+### Bugfixes
+
+-   (Supe) Fix invalid centering in spell descriptions
+
+### Data Updates
+
+-   (Rigo) Fix inventor class DC in Gigaton Strike / Deep Freeze / Megavolt
+
 ## 5.15.2
 
 ### System Improvements
