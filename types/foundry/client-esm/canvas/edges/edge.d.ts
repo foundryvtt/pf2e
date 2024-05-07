@@ -35,6 +35,9 @@ export class Edge {
     /** The rectangular bounds of the edge. Used by the quadtree. */
     bounds: PIXI.Rectangle;
 
+    /** The direction of effect for the edge */
+    direction: number;
+
     /** A string used to uniquely identify this edge. */
     id?: string;
 
@@ -49,6 +52,9 @@ export class Edge {
 
     /** How this edge restricts sound. */
     sound: WallSenseType;
+
+    /** Specialized threshold data for this edge. */
+    threshold?: unknown;
 
     /** Record other edges which this one intersects with. */
     intersections: { edge: Edge; intersection: LineIntersection }[];
@@ -73,6 +79,17 @@ export class Edge {
 
     /** Get an intersection point between this Edge and another. */
     getIntersection(other: Edge): LineIntersection | void;
+
+    /**
+     * Test whether to apply a proximity threshold to this edge.
+     * If the proximity threshold is met, this edge excluded from perception calculations.
+     * @param sourceType     Sense type for the source
+     * @param sourceOrigin    The origin or position of the source on the canvas
+     * @param [externalRadius=0] The external radius of the source
+     * @returns              True if the edge has a threshold greater than 0 for the source type,
+     *                       and the source type is within that distance.
+     */
+    applyThreshold(sourceType: string, sourceOrigin: Point, externalRadius?: number): boolean;
 
     /**
      * Determine the orientation of this Edge with respect to a reference point.
@@ -106,10 +123,18 @@ interface EdgeOptions {
     id?: string;
     object?: PlaceableObject;
     type?: EdgeTypes;
+    /** How this edge restricts light */
     light?: WallSenseType;
+    /** How this edge restricts movement */
     move?: WallSenseType;
+    /** How this edge restricts sight */
     sight?: WallSenseType;
+    /** How this edge restricts sound */
     sound?: WallSenseType;
+    /** A direction of effect for the edge */
+    direction?: number;
+    /** Configuration of threshold data for this edge */
+    threshold?: unknown;
 }
 
 type EdgeTypes = "wall" | "darkness" | "innerBounds" | "outerBounds";
