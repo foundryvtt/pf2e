@@ -1,3 +1,79 @@
+## 5.15.3
+
+### Bugfixes
+
+-   (Supe) Fix invalid centering in spell descriptions
+
+### Data Updates
+
+-   (Rigo) Fix inventor class DC in Gigaton Strike / Deep Freeze / Megavolt
+
+## 5.15.2
+
+### System Improvements
+
+-   (Dire Weasel) Remove some redundant data from npc spell slots in the build
+-   (DocShlock) Add damage roll toggle for the twin trait
+-   (In3luki) Handle search queries with diacritics in compendium and compendium browser searches
+-   (Supe) Show exploration mode Travel Speeds in the Party Sheet's exploration tab
+-   (Supe) When applying an effect with labels that rolls a formula (such as Ancestral Influence), also show the label in the roll chat message.
+-   (Supe) Run predicates on the Choice Set rule element's options when loaded from a path, such as when injected by ActiveEffectLikes.
+
+### Bugfixes
+
+-   (Abaddon) Fix incorrect use label for consumables
+-   (In3luki) Prevent players from gaining vision from lootable tokens by selecting them
+-   (DocShlock) Fix the display of rollmode (private/blind roll and such) in the damage roll dialog
+-   (Supe) Allow tokens of the same linked actor to flank with each other to support abilities such as Mirror's Reflection.
+-   (Supe) When rolling inline damage from a hazard's routine when name visibility is hidden, avoid revealing the actor's name
+-   (Supe) Fix IWR for inline damage involving certain traits such as holy/unholy damage in certain cases
+-   (Supe) Fix inline checks and saves in expanded descriptions from self effect actions
+-   (Supe) Fix disabled toggleables with dropdowns that have been expanded by class features. This fixes finisher damage continuing to be rolled even without panache.
+-   (Supe) Restore an item with unresolved choice selection's ability to disable its own rule elements. This avoids certain scenarios where not selecting an option led to a bricked actor.
+-   (Supe) Fix the Actor Traits rule element form from removing resolvable traits
+-   (Supe) Fix target mark predication for ephemeral effects
+-   (Supe) Remove references from the previous master when changing the familiar to a new master
+
+### Data Updates
+
+-   (Chas) Fix action cost of Familiar Focus
+-   (Cuingamehtar) Add missing ability names to some AV NPCs
+-   (Cuingamehtar) Add missing monster core trample strikes
+-   (Cuingamehtar) Fix some textual errors in some of the bestiary creatures
+-   (Cuingamehtar) Fix Otyugh Filth Fever stage 1 duration
+-   (Cuingamehtar) Fix some grammer and formatting issues in Bestiary 3
+-   (Cuingamehtar) Fix Electrify Armor's inline damage roll
+-   (Cuingamehtar) Fix Devourer's Devour Soul Save DC
+-   (Dire Weasel) Add automation for Martyr
+-   (Dire Weasel) Add a 5th slot to Kyra (level 5)'s divine font for remaster rules
+-   (Dire Weasel) Add inline intimidation check to Spiritual Disruptor
+-   (Dire Weasel) Add inline damage link to Fire Ray
+-   (Dire Weasel) Add inline diplomacy check for No Cause for Alarm
+-   (Dire Weasel) Add inline damage roll for Algriever Venom
+-   (Dire Weasel) Add unified effect for Tempest Form
+-   (Dire Weasel) Fix ordering of Argyrzei's Silver Blade damage types
+-   (Dire Weasel) Fix effects for Recall Under Pressure and Deck of Destiny
+-   (Dire Weasel) Fix damage label for scorching blast and clean up some lighting data in several effects
+-   (Dire Weasel) Fix Cilio's fist attack effect to be Blinding Rot
+-   (Dire Weasel) Fix name for Shadow of Sezruth
+-   (Dire Weasel) Update Forbidden Ward to use a TokenMark rather than a RollOption toggle
+-   (Dire Weasel) Refresh The Keeper's spell list and fix Spell DC
+-   (DocShlock) Add Relic trait to armor and shields
+-   (Drental) Fix Tian Xia World Guide bestiary not being assigned to the correct pack folder
+-   (eepMoody) Fix duration of Guided by the Stars
+-   (Intervención) Update Cassisian helmet's inline damage to area damage
+-   (jfn4th) Fix Simeek's Attribute Modifiers
+-   (rectulo) Update avatar's description for remaster
+-   (reyzor1991) Fix Fury Instinct Raging Resistance
+-   (Rigo) Add hidden vs invisible suboption to the Wisp's go dark ability
+-   (Rigo) Allow surface cantrips to be chosen with the PSI Development feat
+-   (Supe) Do not show the Megaton Strike toggle for construct innovation inventors
+-   (TMun) Add PFS Quest 18 npcs
+-   (Tikael) Add damage traits to armor and shield traits
+-   (Tikael) Organize Heritages into subfolders
+-   (Trent) Add automation for the Keen Follower feat
+-   (Valinora) Fix typo in Artisan's toolkit description
+
 ## 5.15.1
 
 ### System Improvements

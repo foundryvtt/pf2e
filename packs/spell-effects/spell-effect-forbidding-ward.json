@@ -4,7 +4,7 @@
     "name": "Spell Effect: Forbidding Ward",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Forbidding Ward].</p>\n<p>You are warded against the attacks and hostile spells from the target enemy. You gain a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Forbidding Ward]</p>\n<p>You gain a status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,41 +16,26 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Attacked by target of Forbidding Ward",
-                "option": "forbidding-ward",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "forbidding-ward"
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "forbidding-ward"
+                    "origin:mark:forbidding-ward"
                 ],
                 "selector": [
                     "ac",
                     "saving-throw"
                 ],
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 5,
-                            "value": 1
-                        },
-                        {
-                            "start": 6,
-                            "value": 2
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "ternary(gte(@item.level,6),2,1)"
             }
         ],
         "start": {
