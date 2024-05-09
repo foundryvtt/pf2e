@@ -29,6 +29,11 @@ export const Ready = {
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
+            // Enforce certain grid settings (if the settings are the same, onChange isn't triggered)
+            game.settings.set("core", "gridDiagonals", 4);
+            game.settings.set("core", "gridTemplates", false);
+            game.settings.set("core", "coneTemplateType", "round");
+
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
 
