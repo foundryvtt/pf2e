@@ -1,0 +1,110 @@
+{
+    "_id": "7jeSUb3zjcsBYfEP",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fEGFzFkqmQWDr7fX",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pollinate",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> The door is touched, or the lock is opened</p>\n<hr />\n<p><strong>Effect</strong> The flowers spray poisonous pollen in a @Template[type:cone|distance:30]. A creature in the area must attempt a @Check[type:fortitude|dc:24] save, with the following effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes @Damage[(2d10+11)[poison]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Failure</strong> The creature takes @Damage[(3d10+16)[poison]] damage and @Damage[1d10[persistent,poison]] damage, becomes enfeebled 2, and takes a –2 status penalty to Perception checks for [[/br 1d4 #hours]]{1d4 hours}.</p>\n<p><strong>Critical Failure</strong> The creature takes @Damage[(4d10+22)[poison]] damage and @Damage[1d10[persistent,poison]] damage, becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}, and takes a –2 status penalty to Perception checks and saves against poison for 24 hours.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "mental",
+                        "poison",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Poisonous Pollen Trap",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 15,
+            "hp": {
+                "details": "",
+                "max": 62,
+                "temp": 0,
+                "value": 62
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert)</p>",
+                "value": 18
+            }
+        },
+        "details": {
+            "description": "<p>Flowers carved into the door emit colorful pollen when the door is touched.</p>",
+            "disable": "<p>@Check[type:thievery|dc:26] (expert) to deface the flower carvings, @Check[type:nature|dc:25] (expert) to neutralize the pollen, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (4th rank; counteract DC 26) to counteract the conjuration</p>",
+            "isComplex": false,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            },
+            "reset": "<p>The trap resets after 1 hour.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

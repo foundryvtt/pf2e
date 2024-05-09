@@ -1,0 +1,427 @@
+{
+    "_id": "kisnb8UHvS72yYH4",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IlK9eTChLQHjnKdv",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fascinating Mimicry",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. While a glitterspore mimics a plant, its glittering spores and vibrant colors make it unnaturally beautiful. A creature that starts its turn in the aura must succeed at a @Check[type:will|dc:23] save or become @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the glitterspore for 1 round. This aura activates automatically when a glitterspore uses Plant Mimicry, and it deactivates when the glitterspore reverts to its natural form.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "predicate": [
+                            "plant-mimicry"
+                        ],
+                        "radius": 30,
+                        "traits": [
+                            "mental",
+                            "visual"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "mental",
+                        "visual"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aZjRdxKNqX9KXw2m",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Burrowing Spores",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Each enemy in the glitterspore's space takes @Damage[4d8[piercing]] damage (@Check[type:reflex|dc:26|basic:true] save) and is exposed to spore rot.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HPGGTfILLP66dFV1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Invade",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The glitterspore enters the ears, mouth, and nostrils of a living non-fungus or non-plant creature, then bursts out through their flesh. One enemy in the glitterspore's space takes @Damage[7d8[piercing]] damage (@Check[type:reflex|dc:26|basic:true] save). On a failed save, the target also takes @Damage[1d8[persistent,bleed]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1i7VfgfbBXFCSaoH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Plant Mimicry",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The glitterspore reconfigures its component spores to assume the shape and appearance of another plant, such as a flower bed, shrubbery, tree, or topiary. This doesn't change the glitterspore's texture or overall size but does alter its coloration and appearance. The glitterspore has an automatic result of 29 (33 in gardens, forests, or swamps) on Deception checks and DCs to pass as a non-creature plant. The glitterspore stays in this shape until it takes an action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "plant-mimicry",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "XTtekftfRPi3l7nU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Cloud",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A glitterspore unleashes a cloud of sparkling, hypnotic spores in a 60-foot-radius burst. Each creature in the area is exposed to spore rot and must succeed at a @Check[type:will|dc:26] save or be @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "yekrZu8ra2FoJGcd",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Spore Rot",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} and –5-foot status penalty to Speed (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and –10-foot status penalty to Speed (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[3d8[poison]] damage plus @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] (1d4 rounds)</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "poison"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "0czBWFHMnKcILq3O",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "ZzlRUwvgZfSr8Qh6",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 18
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Glitterspore",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 105,
+                "temp": 0,
+                "value": 105
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fatigued"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                },
+                {
+                    "exceptions": [],
+                    "type": "visual"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 6
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 11
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 11
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 25
+                    }
+                ],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A glitterspore is a colony of mold spores that function as a mindless yet cunning conglomerate. Composed of razor-sharp spores that glitter hypnotically, this insidious fungus adopts the appearance of plants to lure in prey, altering its form and coloration to perfectly impersonate a variety of flora.</p>\n<p>Ghorus designed glitterspores to be pernicious and deadly. They can gain sustenance from a variety of sources, including sunlight and soil, but their preferred food source is blood. When possible, glitterspores enter their prey through open orifices or by burrowing directly into their flesh. They then consume their prey from within, cutting through muscle and bone to bathe in blood.</p>\n<h2>Living Legacy</h2>\n<p>While Ghorus and his followers are long dead, many of Ghorus's creations live on, including deadly plant creatures like the glitterspore, dangerous weapons, and—of course—ghorans. From the heart of the Verduran Forest, these successful creations and half-finished experiments have spread across Golarion.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "no vision",
+            "mod": 17,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 13
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fungus",
+                "mindless",
+                "swarm"
+            ]
+        }
+    },
+    "type": "npc"
+}

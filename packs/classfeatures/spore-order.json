@@ -1,0 +1,63 @@
+{
+    "_id": "X0k3njLOLX0322Po",
+    "img": "icons/magic/nature/plant-undersea-seaweed-glow-green.webp",
+    "name": "Spore Order",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're fascinated by molds and fungi, and you understand the important role they play in the continued health of ecosystems. This interest often puts you at odds with local communities, who view molds and fungi as something to be eradicated, rather than nurtured.</p>\n<p>You're trained in Intimidation. You also gain the Leshy Familiar druid feat, but you must create a fungus leshy. You gain the <em>mushroom patch</em> order spell. Committing wanton cruelty to molds or fungi, killing molds or fungi unnecessarily, or interfering with the natural processes of decay, is anathema to your order. This doesn't prevent you from defending yourself against fungi or molds or from harvesting fungi or molds for sustenance.</p>\n<hr />\n<p><strong>Order Skill</strong> Crafting</p>\n<p><strong>Druid Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Leshy Familiar]</p>\n<p><strong>Order Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Mushroom Patch]</p>\n<p><strong>Anathema</strong> Committing wanton cruelty to molds or fungi, killing molds or fungi unnecessarily, or interfering with the natural processes of decay, is anathema to your order. This doesn't prevent you from defending yourself against fungi or molds or from harvesting fungi or molds for sustenance.</p>\n<hr />\n<p><strong>Special</strong>: The spore order is a variant of the leaf order. If you have the spore order, you count as a member of the leaf order, and you qualify for leaf order feats.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.cra.rank",
+                "predicate": [
+                    {
+                        "not": "feat:order-explorer:leaf-order"
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:druid",
+                            "feat:order-explorer:leaf-order"
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Leshy Familiar"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "druid-order"
+            ],
+            "rarity": "common",
+            "value": [
+                "druid"
+            ]
+        }
+    },
+    "type": "feat"
+}

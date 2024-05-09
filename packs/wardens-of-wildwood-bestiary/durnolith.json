@@ -1,0 +1,421 @@
+{
+    "_id": "kGZ9TvZWq4eOG9hk",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "kOK1MdbYny8ajDbW",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Armored Frill",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "BWldrFkF03yr5gJh": {
+                        "damage": "2d8+12",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "zFMFLU5vq3vbrUZg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 20
+                },
+                "damageRolls": {
+                    "XjqkxSM0Vc6hBewQ": {
+                        "damage": "2d6+10",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "aEnZPMhbFnTJq6ja",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Battering Frill",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature in the durnolith's reach misses the durnolith with a Strike</p>\n<hr />\n<p><strong>Effect</strong> The durnolith Strikes the attacker with its armored frill. If the strike hits, the durnolith automatically pushes the target 10 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "xAbXswd4QpYBhv9h",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Battering Charge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The durnolith Strides twice in a straight line and then makes an armored frill Strike. As long as it moved at least 10 feet, it gains a +2 circumstance bonus to its attack roll and the strike gains @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Improved Push] 10 feet.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "battering-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "battering-charge"
+                        ],
+                        "selector": "armored-frill-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "b7t2rgUWf5rWRd8L",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pain-Fueled Roar",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The durnolith unleashes a roar of pain and fury. The durnolith attempts a single Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] all living creatures within 60 feet that can hear the durnolith. Roll once and apply the results to all creatures. Each creature is then temporarily immune for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "auditory",
+                        "emotion",
+                        "fear",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "7vGa3iVT99huQ77s",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "GC1NYLDVbNb40BqD",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 700000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "loaTWDvmCBvxa5Pp",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Intimidation",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 16
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "g8iLNOsoVsq5W9Jf",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Survival",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Durnolith",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 28
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 6
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 6
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "axe-vulnerability",
+                    "value": 6
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 12
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 9
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a human, elf, orc, satyr, or other Medium creature is transformed into a woodwarp, they become a durnolith. Sometimes called a \"batterfrill\" by members of the Rootweft Lodge, durnoliths are stocky quadrupedal powerhouses encased in dense wooden plates. While they may look slow and lumbering, their wide-set, muscular legs bear their weight with ease. Durnoliths have a hard bone and wood frill framing their head, which they use both offensively and defensively. Easily angered, durnoliths are prone to charging headlong into a fight, battering and smashing their prey senseless with their armored frill, then clawing their prey to ribbons with their razor-sharp claws.</p>\n<hr />\n<p>Woodwarps are mutated monsters created when a sapient creature is flooded with unchecked energy from the Plane of Wood that they're unable to control. This rush of all-consuming planar energy scours the creature from the inside out, subsequently warping them into a monstrous humanoid-plant hybrid—an aberration possessing the physiological features of both, painfully reshaped into something dreadful to behold.</p>\n<p>A woodwarp's form and features are determined by the size of the creature they were before their transformation—thrailorns were Small, and durnoliths were Medium. Regardless of their appearance and form, woodwarps endure constant pain from the dense root network that grows inside of them, piercing bone, muscle, and internal organs. This agonizing, all-consuming pain drives woodwarps to violence, causing them to lash out at everything around them.</p>\n<p>In her quest for ultimate power, Ruzadoya Quickmane devised a ritual to purposefully funnel energy from the Plane of Wood into her followers, transforming them into either a woodwarped monstrosity or an elite woodblessed soldier known as Ruzadoya's Chosen. An elaborate wooden ritual focus carved from Idyllis, a tree from the Plane of Wood, serves as the focus for this ritual and the source of planar energy. During a woodwarp's transformation, this wooden ritual focus fuses to the body and becomes the origin point for the woodwarp's root network. Woodwarps created through such rituals are easier to control than woodwarps created by happenstance, as an experienced ritualist can imprint their will upon a woodwarp during their transformation. Such woodwarps serve Ruzadoya as hunters, sentries, and vicious shock troops.</p>\n<h2>Just A Name</h2>\n<p>While woodwarps have proper names, it's unlikely that members of the Rootweft Lodge will discover them. Instead, the woodwarps are referred to by monikers or nicknames. Thrailorns are dubbed \"thornbacks\" and durnoliths are dubbed \"batterfrills.\"</p>\n<h2>Other Woodwarps</h2>\n<p>Thrailorns and durnoliths are not the only types of woodwarps. Creatures of different sizes result in different woodwarps. Sprites, fey dragonets, jinkins, and other Tiny creatures become izifaines—headless woodwarps with fleshy wings and a sharp stinger shrouded in toxic flower petals. Centaurs, minotaurs, giants, and other Large creatures become rogoars—athletic woodwarps with muscular, elongated arms who wrestle their prey.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #202: Severed at the Root"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 16
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aberration",
+                "plant"
+            ]
+        }
+    },
+    "type": "npc"
+}

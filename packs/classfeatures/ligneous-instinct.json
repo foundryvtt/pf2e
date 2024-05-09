@@ -1,0 +1,124 @@
+{
+    "_id": "qVAeSFTI1dq64bB8",
+    "img": "icons/magic/nature/hand-weapon-wood-bark-brown.webp",
+    "name": "Ligneous Instinct",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your rage is powered by the steady growth of the natural world, from the blossoming of flowers to the cultivation of vegetables and the towering, imposing might of the grandest trees. You might be descended from powerful druids or dryads, been exposed to powerful primal magic, or been transformed by the resurgence of the Plane of Wood. As you unleash your rage, your flesh becomes covered in woody growths, which spread like bark across your body.</p>\n<h2>Anathema</h2>\n<p>Despoiling nature and killing plants unnecessarily is anathema to your instinct. Defending yourself against plant creatures or hazards is not.</p>\n<h2>Wooden Rage (Instinct Ability)</h2>\n<p>While raging, you can increase the additional damage from Rage from 2 to 6. If you do this, reduce your Speed by 10 feet, as the bark plates covering your body are a hinderance to mobility. This speed reduction can't be overcome by any means, though it can be offset by speed increases.</p>\n<h2>Specialization Ability<span style=\"float:right\">Level 7</span></h2>\n<p>When you use wooden rage, increase the additional damage from Rage from 6 to 10. If you have greater weapon specialization, instead increase the damage from Rage when using wooden rage from 10 to 18.</p>\n<h2>Raging Resistance<span style=\"float:right\">Level 9</span></h2>\n<p>You resist piercing and slashing damage, but you gain weakness to fire equal to 3 + your Constitution modifier, as your bark-like flesh is highly flammable.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Barbarian.Ligneous.ToggleLabel",
+                "option": "wooden-rage",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "piercing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "slashing",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "fire",
+                "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "damageType": "poison",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "wooden-rage"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "wooden-rage",
+                    {
+                        "gte": [
+                            "self:level",
+                            7
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 10
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization",
+                    "wooden-rage"
+                ],
+                "selector": "strike-damage",
+                "slug": "rage",
+                "value": 18
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "barbarian-instinct"
+            ],
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

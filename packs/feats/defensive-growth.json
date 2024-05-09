@@ -1,0 +1,51 @@
+{
+    "_id": "pGjSh6qk9kQLznKn",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Defensive Growth",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You're the target of a physical attack.</p>\n<hr />\n<p>You grow a shield of woven flowers and branches, then Raise that Shield to defend yourself from the triggering attack. If you would take damage from the attack, you immediately @UUID[Compendium.pf2e.feats-srd.Item.Shield Block]. This is a @UUID[Compendium.pf2e.equipment-srd.Item.Wooden Shield] (Hardness 3, HP 12, BT 6). The shield remains in your possession for a number of rounds equal to your level, or until it's destroyed.</p>\n<p><strong>Awakening</strong> The shield becomes stronger. It has Hardness 5, HP 40, BT 20.</p>\n<p><strong>Awakening</strong> The shield takes on a mind of its own and lashes out vengefully when destroyed. When the shield is destroyed, is explodes, dealing @Damage[4d6[piercing]] damage to your attacker, with a @Check[type:reflex|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "flag": "verdantCoreDeviantClassification",
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:verdant-core-deviant-classification"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.classfeatures.Item.Verdant Core Deviant Classification"
+            }
+        ],
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "deviant",
+                "magical",
+                "plant",
+                "wood"
+            ]
+        }
+    },
+    "type": "feat"
+}

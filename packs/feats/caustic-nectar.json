@@ -1,0 +1,67 @@
+{
+    "_id": "3wYqZuyaIredjSZ6",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Caustic Nectar",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have specialized glands inside your throat, which produce acidic nectar that you can spit long distances. You gain a nectar ranged unarmed attack with a range increment of 20 feet that deals 1d4 acid damage. On a critical hit, the target is additionally @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}. Your nectar doesn't add critical specialization effects. You're immune to your own nectar.</p>\n<hr />\n<p><strong>Special</strong> This feat gains the trait for your ancestry.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ardande trait, plant trait, or wood trait"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "acid",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/magic/acid/dissolve-drip-droplet-smoke.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Nectar",
+                "range": {
+                    "increment": 20
+                },
+                "slug": "nectar",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "PF2E.SpecificRule.Ardande.CausticNectar.Note"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}
