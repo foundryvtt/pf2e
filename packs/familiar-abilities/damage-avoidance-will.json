@@ -1,7 +1,7 @@
 {
     "_id": "5gwqSpkRqWzrbDDU",
     "img": "systems/pf2e/icons/actions/Passive.webp",
-    "name": "Damage Avoidance: Will",
+    "name": "Damage Avoidance (Will)",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,14 +11,25 @@
         },
         "category": "familiar",
         "description": {
-            "value": "<p>It takes no damage when it succeeds at Will saves; this doesn't prevent effects other than damage.</p>"
+            "value": "<p>Your familiar takes no damage when it succeeds at Will saves; this doesn't prevent effects other than damage.</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "will-check",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
