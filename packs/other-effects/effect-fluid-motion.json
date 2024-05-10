@@ -1,0 +1,47 @@
+{
+    "_id": "QjvNcjLMaDJ0ig0D",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Fluid Motion",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.D6hqfmZUksRvqNFR]{Fluid Motion}</p>\n<p>For the rest of your turn, you gain a climb Speed and a swim Speed equal to half your Speed. If you make a horizontal Leap, increase the distance jumped by 10 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

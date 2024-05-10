@@ -1,0 +1,76 @@
+{
+    "_id": "l9bMRAoKnFP8vb3D",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Strike True",
+    "system": {
+        "description": {
+            "value": "<p>The target rolls twice and takes the higher result. This strike deals an extra die of damage on a hit if the attacker has fewer than half their maximum Hit Points, or two extra dice if they have fewer than one quarter their maximum Hit Points. This is a fortune effect.</p>\n<p>@UUID[Compendium.pf2e.other-effects.Item.Effect: Strike True]</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "selector": "strike-attack-roll"
+            },
+            {
+                "diceNumber": 1,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "gte": [
+                            "hp-percent",
+                            25
+                        ]
+                    },
+                    {
+                        "lt": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "diceNumber": 2,
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "lt": [
+                            "hp-percent",
+                            25
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

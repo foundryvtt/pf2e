@@ -1,0 +1,125 @@
+{
+    "_id": "qKS1TilScX0SmesO",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Ancestral Might",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.quxPxuMub8k6abzN]{Ancestral Might}</p>\n<p>Until the start of your next turn, you gain a +2 status bonus to checks based on the attributes that are boosted by your ancestry (ignoring free boosts). If your ancestry only grants free boosts, select one attribute to gain the bonus to instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityCon",
+                        "value": "con-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityInt",
+                        "value": "int-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityWis",
+                        "value": "wis-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityCha",
+                        "value": "cha-based"
+                    }
+                ],
+                "flag": "firstBoost",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HeroPointDeck.AncestralMight.FirstBoostPrompt"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.HeroPointDeck.AncestralMight.SkipChoice",
+                        "value": "skip"
+                    },
+                    {
+                        "label": "PF2E.AbilityStr",
+                        "value": "str-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityDex",
+                        "value": "dex-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityCon",
+                        "value": "con-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityInt",
+                        "value": "int-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityWis",
+                        "value": "wis-based"
+                    },
+                    {
+                        "label": "PF2E.AbilityCha",
+                        "value": "cha-based"
+                    }
+                ],
+                "flag": "secondBoost",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HeroPointDeck.AncestralMight.SecondBoostPrompt",
+                "rollOption": "ancestral-might"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.firstBoost}",
+                "slug": "ancestral-might-first",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "ancestral-might:skip"
+                    }
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.secondBoost}",
+                "slug": "ancestral-might-second",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

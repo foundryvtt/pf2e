@@ -1,0 +1,53 @@
+{
+    "_id": "NyUWMdcABrlVsSBy",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Critical Moment",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.P3mSUWRvCCwEouB0]{Critical Moment}</p>\n<p>Reroll the check twice and take the best result. This is a fortune effect. If you still fail this check, you become @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1}.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "removeAfterRoll": true,
+                "selector": "check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "criticalFailure"
+                ],
+                "selector": "check",
+                "text": "PF2E.SpecificRule.HeroPointDeck.CriticalMoment.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

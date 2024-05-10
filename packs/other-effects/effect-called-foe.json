@@ -1,0 +1,77 @@
+{
+    "_id": "63ia9YXlCIX7PXyp",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Called Foe",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.spzRl5CS4vnvcrm5]{Called Foe}</p>\n<p>Designate a foe that you can see. You gain a +2 status bonus to attack rolls made against that foe, but you take a -4 status penalty to attack rolls made against any other creature. This lasts until the end of your next turn or until you critically hit the designated foe, whichever comes first.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "called-foe"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:called-foe"
+                ],
+                "selector": "attack-roll",
+                "slug": "called-foe-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:mark:called-foe"
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "called-foe-penalty",
+                "type": "status",
+                "value": -4
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:mark:called-foe"
+                ],
+                "selector": "attack-roll",
+                "text": "PF2E.SpecificRule.HeroPointDeck.CalledFoe.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

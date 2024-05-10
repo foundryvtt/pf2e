@@ -1,0 +1,42 @@
+{
+    "_id": "datPIlarC3SudOSd",
+    "img": "icons/sundries/gaming/playing-cards-brown.webp",
+    "name": "Effect: Endure the Onslaught",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.journals.JournalEntry.BSp4LUSaOmUyjBko.JournalEntryPage.TU21DvdpQG7U2Q9Y]{Endure the Onslaught}</p>\n<p>Give a creature you can see resistance 5 to all damage until the start of your next turn. If you are 7th level or higher, the resistance is 10, and if you are 12th level or higher, the resistance is 15.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Hero Point Deck"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "ternary(gte(@item.origin.level,12),15,ternary(gte(@item.origin.level,7),10,5))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
