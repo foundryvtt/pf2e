@@ -274,6 +274,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 }
             }
 
+            // Remove other edit button. Will be restored by editor save rerender
+            if (name === "system.description.value") {
+                htmlQuery(html, "a[data-action=add-gm-notes]")?.remove();
+            } else if (name === "system.description.gm") {
+                htmlQuery(html, "a.editor-edit")?.remove();
+            }
+
             htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 

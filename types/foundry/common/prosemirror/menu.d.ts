@@ -34,7 +34,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
     /** Additional options to configure the plugin's behaviour. */
     options: ProseMirrorMenuOptions;
 
-    static build(schema: ProseMirror.Schema, options?: ProseMirrorMenuOptions): ProseMirrorMenu;
+    static build(schema: ProseMirror.Schema, options?: ProseMirrorMenuOptions): ProseMirror.Plugin;
 
     /** Render the menu's HTML. */
     render(): this;
@@ -132,10 +132,10 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]               Additional options to configure behaviour.
      * @param  [options.attrs]         Attributes for the node.
      */
-    protected _toggleBlock(
-        node: Node,
-        wrap: (node: Node, attrs?: object | null) => ProseMirror.Command,
-        options?: { attrs?: Record<string, string> | null },
+    _toggleBlock(
+        node: ProseMirror.NodeType,
+        wrap: (node: ProseMirror.NodeType, attrs?: object | null) => ProseMirror.Command,
+        options?: { attrs?: Record<string, unknown> | null },
     ): void;
 
     /**
@@ -144,7 +144,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]        Additional options to configure behaviour.
      * @param  [options.attrs]  Attributes for the node.
      */
-    protected _toggleTextBlock(node: Node, options?: { attrs?: Record<string, string> | null }): void;
+    _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
 }
 
 declare global {
@@ -171,11 +171,11 @@ declare global {
         /** The menu item's icon HTML. */
         icon?: string;
         /** The mark to apply to the selected text. */
-        mark?: string;
+        mark?: ProseMirror.MarkType;
         /** The node to wrap the selected text in. */
-        node?: unknown; // NodeType
+        node?: ProseMirror.NodeType;
         /** An object of attributes for the node or mark. */
-        attrs?: Record<string, string>;
+        attrs?: Record<string, unknown>;
         /**
          * Entries with the same group number will be grouped together in the drop-down.
          * Lower-numbered groups appear higher in the list.
@@ -187,7 +187,7 @@ declare global {
          */
         priority?: number;
         /** The command to run when the menu item is clicked. */
-        cmd?: unknown; // ProseMirrorCommand
+        cmd?: ProseMirror.Command;
         /** Whether the current item is active under the given selection or cursor. Default: false */
         active?: boolean;
     }
