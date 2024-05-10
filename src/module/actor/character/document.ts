@@ -1841,10 +1841,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        if (changed.system.details?.level || changed.system.build?.attributes) {
+        const newLevel = changed.system.details?.level?.value ?? this.level;
+        const attributeChanged =
+            !!changed.system.build?.attributes &&
+            !R.isEmpty(fu.diffObject(this._source.system.build?.attributes ?? {}, changed.system.build.attributes));
+        if (newLevel !== this.level || attributeChanged) {
             const level = changed.system.details?.level;
-            if (typeof level?.value === "number") {
-                level.value = Math.clamp(Number(level.value) || 0, 0, 30) || 0;
+            if (level) {
+                level.value = Math.clamp(newLevel, 0, 30);
             }
 
             // Adjust hit points if level is changing
@@ -1901,7 +1905,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (typeof xp.max === "number") xp.max = Math.max(xp.max, 1);
 
         // Add or remove class features as necessary, appropriate to the PC's level
-        const newLevel = changed.system.details?.level?.value ?? this.level;
         const actorClass = this.class;
         if (actorClass && newLevel !== this.level) {
             const current = this.itemTypes.feat.filter((feat) => feat.category === "classfeature");
