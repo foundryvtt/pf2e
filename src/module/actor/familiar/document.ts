@@ -260,7 +260,8 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         options: FamiliarUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.master?.id) {
+        const newId = changed.system?.master?.id ?? this.system.master.id;
+        if (newId !== this.system.master.id) {
             options.previousMaster = this.master?.uuid;
         }
 
