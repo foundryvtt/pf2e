@@ -52,9 +52,11 @@ interface EffectBadgeValueSource extends EffectBadgeBaseSource {
         /** The initial value of this badge */
         initial?: number;
     } | null;
+    min?: never;
+    max?: never;
 }
 
-interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
+interface EffectBadgeValue extends Omit<EffectBadgeValueSource, "min" | "max">, EffectBadgeBase {
     min: number;
     max: number;
 }
@@ -64,6 +66,8 @@ interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     value: string;
     evaluate?: boolean;
     reevaluate?: BadgeReevaluationEventType | null;
+    min?: never;
+    max?: never;
 }
 
 type BadgeReevaluationEventType = "initiative-roll" | "turn-start" | "turn-end";
