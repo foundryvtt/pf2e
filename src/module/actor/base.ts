@@ -1673,7 +1673,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
+        changed: DeepPartial<ActorSourcePF2e>,
         options: ActorUpdateContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
@@ -1681,12 +1681,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         if (isFullReplace) return super._preUpdate(changed, options, user);
 
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
-        const changedHP = changed.system?.attributes?.hp;
-        const currentHP = this.hitPoints;
-        if (!options.damageTaken && this.hasPlayerOwner && typeof changedHP?.value === "number" && currentHP) {
-            const damageTaken = -1 * (changedHP.value - currentHP.value);
-            const levelChanged = !!changed.system?.details && "level" in changed.system.details;
-            if (damageTaken && !levelChanged) options.damageTaken = damageTaken;
+        const currentHP = this._source.system.attributes.hp?.value;
+        const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
+        if (!options.damageTaken && this.hasPlayerOwner && currentHP && updatedHP && updatedHP !== currentHP) {
+            const damageTaken = -1 * (updatedHP - currentHP);
+            const currentLevel = this._source.system.details.level?.value;
+            const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
+            if (damageTaken && currentLevel === updatedLevel) options.damageTaken = damageTaken;
         }
 
         return super._preUpdate(changed, options, user);
