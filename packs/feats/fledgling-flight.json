@@ -29,7 +29,30 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "fledgling-flight",
+                "predicate": [
+	                {
+		            "nor": [
+			            "self:effect:juvenile-flight",
+			            "feat:fully-flighted"
+		                ]
+	                }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "fledgling-flight"
+                ],
+                "selector": "fly",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -28,7 +28,25 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:juvenile-flight"
+                ],
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "feat:fledgling-flight"
+                ],
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
