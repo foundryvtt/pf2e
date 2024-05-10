@@ -26,6 +26,8 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
     if (changed.system && ("actionType" in changed.system || "actions" in changed.system)) {
         const actionType = changed.system?.actionType?.value ?? document.system.actionType.value;
         const actionCount = Number(changed.system?.actions?.value ?? document.system.actions.value);
+        if (actionType === document.system.actionType.value && actionCount === Number(document.system.actions.value))
+            return;
         changed.system = fu.mergeObject(changed.system, {
             actionType: { value: actionType },
             actions: { value: actionType !== "action" ? null : Math.clamp(actionCount, 1, 3) },
