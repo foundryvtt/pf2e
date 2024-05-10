@@ -16,5 +16,5 @@ export abstract class ProseMirrorPlugin {
      * @returns {Plugin}
      * @abstract
      */
-    static build(schema: ProseMirror.Schema, options: object): ProseMirrorPlugin;
+    static build(schema: ProseMirror.Schema, options: object): ProseMirror.Plugin;
 }
