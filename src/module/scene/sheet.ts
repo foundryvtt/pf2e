@@ -28,8 +28,8 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                     value: "",
                     label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", { worldDefault }),
                 },
-                { value: "true", label: "PF2E.SETTINGS.EnabledDisabled.Enabled" },
-                { value: "false", label: "PF2E.SETTINGS.EnabledDisabled.Disabled" },
+                { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
+                { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
             ];
             const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvOptions });
 

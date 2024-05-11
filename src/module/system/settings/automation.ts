@@ -23,10 +23,12 @@ export class AutomationSettings extends SettingsMenuPF2e {
                 hint: CONFIG.PF2E.SETTINGS.automation.rulesBasedVision.hint,
                 default: true,
                 type: Boolean,
-                requiresReload: true,
                 onChange: (value) => {
                     game.pf2e.settings.rbv = !!value;
-                    canvas.perception.update({ initializeVision: true }, true);
+                    for (const token of canvas.scene?.tokens ?? []) {
+                        token.reset();
+                    }
+                    canvas.perception.update({ initializeLighting: true, initializeVision: true }, true);
                 },
             },
             iwr: {
