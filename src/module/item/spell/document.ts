@@ -53,14 +53,7 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
-import {
-    SpellArea,
-    SpellHeightenLayer,
-    SpellOverlayType,
-    SpellSource,
-    SpellSystemData,
-    SpellSystemSource,
-} from "./data.ts";
+import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";
 import { SpellOverlayCollection } from "./overlay.ts";
 import { EffectAreaShape, MagicTradition, SpellTrait } from "./types.ts";
@@ -1110,7 +1103,9 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         options: DocumentModificationContext<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        this._source.system.location.value ||= null;
+        if (!this.actor) {
+            this._source.system.location = { value: null };
+        }
 
         if (this._source.system.ritual) {
             this._source.system.damage = {};
@@ -1132,30 +1127,24 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     ): Promise<boolean | void> {
         if (!changed.system) return super._preUpdate(changed, options, user);
 
-        // If dragged to outside an actor, location properties should be cleaned up
-        const diff = (options.diff ??= true);
-        const newLocation = changed.system.location?.value;
-        const locationChanged = typeof newLocation === "string" && newLocation !== this._source.system.location.value;
-        if (diff && (!this.actor || locationChanged)) {
-            type SystemSourceWithDeletions = DeepPartial<SpellSystemSource> & {
-                location?: Record<`-=${string}`, null>;
-            };
-            const system: SystemSourceWithDeletions = changed.system;
-            const locationUpdates = (system.location = this.actor ? system.location ?? {} : { value: "" });
+        // Clean up location
+        const newLocation = changed.system.location?.value ?? this._source.system.location.value;
+        if (this.actor && changed.system.location && newLocation !== this._source.system.location.value) {
+            const locationUpdates = changed.system.location;
 
             // Grab the keys to delete (everything except value), filter out what we're updating, and then delete them
             const keys = Object.keys(this._source.system.location).filter(
                 (k) => k !== "value" && !(k in locationUpdates),
             );
             for (const key of keys) {
-                locationUpdates[`-=${key}`] = null;
+                (locationUpdates as Record<string, unknown>)[`-=${key}`] = null;
             }
         }
 
         // Ensure level is an integer between 1 and 10
         if (changed.system.level) {
-            const { level } = changed.system;
-            level.value = Math.clamp(Math.trunc(Number(level.value) || 1), 1, 10) as OneToTen;
+            const level = changed.system.level.value ?? this._source.system.level.value;
+            changed.system.level.value = Math.clamp(Math.trunc(Number(level) || 1), 1, 10) as OneToTen;
         }
 
         const systemChanges = R.compact([
