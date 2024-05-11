@@ -31,6 +31,32 @@
         "rules": [
             {
                 "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:thaumaturge-implement"
+                    ]
+                },
+                "flag": "implement",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.FirstImplement"
+            },
+            {
+                "flag": "firstImplement",
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.implement}"
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.firstImplement.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feat:implement-initiate"
+                ],
+                "property": "other-tags",
+                "value": "thaumaturge-implement-initiate"
+            },
+            {
+                "adjustName": false,
                 "choices": [
                     {
                         "label": "PF2E.SkillArc",
