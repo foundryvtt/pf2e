@@ -62,6 +62,22 @@
 -   (Tikael) Incorporate Errata from May 17, 2024
 -   (Dire Weasel, Tikael) Minor corrections for PFS and Bestiary NPCs
 
+## 6.0.0 Beta 1
+
+### New Features
+
+-   (In3luki, stwlam, Supe) Add support for Foundry VTT version 12
+
+### System Improvements
+
+-   (In3luki) Switched text editor to prosemirror for item sheets
+-   (Supe) Tweaked token config to better represent modifications from Rules Based Vision
+-   (Supe) Reduced Rules Based Vision's brightness value to default foundry values for darkvision.
+
+### Bugfixes
+
+-   (Supe) Rerender token vision when global RBV setting is changed
+
 ## 5.15.3
 
 ### Bugfixes
