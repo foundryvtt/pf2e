@@ -9,10 +9,12 @@ declare global {
         type EditorView = View.EditorView;
         type EditorState = State.EditorState;
         type Schema = Model.Schema;
+        type Mark = Model.Mark;
         type Node = Model.Node;
         type MarkType = Model.MarkType;
         type NodeType = Model.NodeType;
         type Plugin = State.Plugin;
+        type ResolvedPos = Model.ResolvedPos;
         type Step = Transform.Step;
     }
 }
