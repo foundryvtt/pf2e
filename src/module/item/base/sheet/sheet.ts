@@ -11,6 +11,7 @@ import {
     TraitTagifyEntry,
 } from "@module/sheet/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import {
     BasicConstructorOptions,
     LanguageSelector,
@@ -296,6 +297,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     override async close(options?: { force?: boolean }): Promise<void> {
         this.#editingRuleElementIndex = null;
         return super.close(options);
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+        });
+        return plugins;
     }
 
     /* -------------------------------------------- */
