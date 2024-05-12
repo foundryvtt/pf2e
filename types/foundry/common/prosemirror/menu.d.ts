@@ -132,7 +132,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]               Additional options to configure behaviour.
      * @param  [options.attrs]         Attributes for the node.
      */
-    _toggleBlock(
+    protected _toggleBlock(
         node: ProseMirror.NodeType,
         wrap: (node: ProseMirror.NodeType, attrs?: object | null) => ProseMirror.Command,
         options?: { attrs?: Record<string, unknown> | null },
@@ -144,7 +144,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]        Additional options to configure behaviour.
      * @param  [options.attrs]  Attributes for the node.
      */
-    _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
+    protected _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
 }
 
 declare global {

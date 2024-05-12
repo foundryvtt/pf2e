@@ -9,7 +9,6 @@ import { I18nInit } from "./i18n-init.ts";
 import { Init } from "./init.ts";
 import { LightingRefresh } from "./lighting-refresh.ts";
 import { Load } from "./load.ts";
-import { GetProseMirrorMenuDropDowns } from "./prosemirror-menu.ts";
 import { Ready } from "./ready.ts";
 import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
@@ -33,7 +32,6 @@ export const HooksPF2e = {
             DiceSoNiceReady,
             DiceSoNiceRollStart,
             DropCanvasData,
-            GetProseMirrorMenuDropDowns,
             GetSceneControlButtons,
             I18nInit,
             Init,
