@@ -30,7 +30,119 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillAcr",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.SkillAth",
+                        "value": "athletics"
+                    },
+                    {
+                        "label": "PF2E.SkillCra",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SkillDec",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.SkillDip",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.SkillItm",
+                        "value": "intimidation"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.SkillNat",
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.SkillOcc",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "value": "performance"
+                    },
+                    {
+                        "label": "PF2E.SkillRel",
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.SkillSoc",
+                        "value": "society"
+                    },
+                    {
+                        "label": "PF2E.SkillSte",
+                        "value": "stealth"
+                    },
+                    {
+                        "label": "PF2E.SkillSur",
+                        "value": "survival"
+                    },
+                    {
+                        "label": "PF2E.SkillThi",
+                        "value": "thievery"
+                    }
+                ],
+                "flag": "entitySkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.entitySkill}.rank",
+                "value": 1
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "entity-is-aiding",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Mechanical Symbiosis",
+                "predicate": [
+                    "entity-is-aiding"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.entitySkill}",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "entity-is-aiding"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.entitySkill}",
+                "text": "PF2E.SpecificRule.MechanicalSymbiosis.FailureNote"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "entity-is-aiding"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.entitySkill}",
+                "text": "PF2E.SpecificRule.MechanicalSymbiosis.CriticalFailureNote"
+            }
+        ],
         "trainedLore": "",
         "trainedSkills": {
             "custom": "",
