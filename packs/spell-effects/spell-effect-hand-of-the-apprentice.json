@@ -1,0 +1,60 @@
+{
+    "_id": "MsXuzUrCGVuRGWK7",
+    "img": "systems/pf2e/icons/spells/hand-of-the-apprentice.webp",
+    "name": "Spell Effect: Hand of the Apprentice",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Hand of the Apprentice]</p>\n<p>You take advantage of one of the most fundamental lessons of magic to levitate and propel your weapon. You hurl a held melee weapon with which you are trained at the target, making a spell attack roll. On a success, you deal the weapon's damage as if you had hit with a melee Strike, but adding your spellcasting ability modifier to damage, rather than your Strength modifier. On a critical success, you deal double damage, and you add the weapon's critical specialization effect. Regardless of the outcome, the weapon flies back to you and returns to your hand.</p>\n<p> </p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "ability": "int",
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "type": "ability"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
