@@ -27,8 +27,8 @@
             {{/if}}
         </label>
         <select name="system.range" id="{{fieldIdPrefix}}range" data-dtype="Number" {{disabled mandatoryMelee}}>
-            {{#if mandatoryMelee}}
-                <option value="">{{localize "PF2E.Item.Weapon.NoRangeMelee"}}</option>
+            {{#if (not mandatoryRanged)}}
+                {{selectOptions weaponRanges selected=item._source.system.range blank="PF2E.Item.Weapon.NoRangeMelee" localize=true}}
             {{else}}
                 {{selectOptions weaponRanges selected=item._source.system.range}}
             {{/if}}
