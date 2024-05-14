@@ -75,10 +75,17 @@
         padding: var(--space-4) var(--space-6) 0;
 
         .editor {
-            width: 100%;
+            // Hide editor button for those controlled by section controls
+            // In the current version of foundry, not rendering the button in handlebars auto opens the prompt instead.
+            .editor-edit {
+                display: none;
+            }
 
-            .tox {
-                width: 100%;
+            &.prosemirror {
+                height: 12.5rem; // When the editor is open, fill more space
+                .editor-container {
+                    margin: var(--space-4) 0;
+                }
             }
         }
 
@@ -145,17 +152,5 @@
                 }
             }
         }
-    }
-
-    // When the editor is open, fill more space so the user has something to work with
-    .tox.tox-tinymce {
-        // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-        height: 12.5rem !important;
-    }
-
-    // Hide editor button for those controlled by section controls
-    // In the current version of foundry, not rendering the button in handlebars auto opens the prompt instead.
-    .hazard-editor .editor .editor-edit {
-        display: none;
     }
 }
