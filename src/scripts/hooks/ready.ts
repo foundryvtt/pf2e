@@ -29,10 +29,19 @@ export const Ready = {
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
-            // Enforce certain grid settings (if the settings are the same, onChange isn't triggered)
-            game.settings.set("core", "gridDiagonals", 4);
-            game.settings.set("core", "gridTemplates", false);
-            game.settings.set("core", "coneTemplateType", "round");
+            // Enforce certain grid settings. These should be handled by our defaults, but a user may have changed them.
+            // Changing a setting to the default still triggers onChange, and in V12.322 can trigger console errors
+            // The actual manipulation of the setting is locked down by the renderSettingsConfig hook.
+            const defaultGridSettings = {
+                gridDiagonals: 4,
+                gridTemplates: false,
+                coneTemplateType: "round",
+            };
+            for (const [key, value] of Object.entries(defaultGridSettings)) {
+                if (game.settings.get("core", key) !== value) {
+                    game.settings.set("core", key, value);
+                }
+            }
 
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
