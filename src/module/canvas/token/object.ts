@@ -548,7 +548,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         if (["undetected", "unnoticed"].includes(statusId)) {
             canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
-            this.mesh.refresh();
         }
     }
 
