@@ -1,4 +1,6 @@
 &.biography {
+    padding-bottom: 1rem;
+
     & > header {
         align-items: baseline;
         display: flex;
@@ -12,7 +14,7 @@
 
     section {
         &.editable {
-            .editor-content,
+            .editor,
             input {
                 background: rgba(0, 0, 0, 5%);
             }
@@ -157,135 +159,24 @@
                 margin-bottom: var(--space-1);
                 width: 100%;
             }
+        }
 
-            .biography-content {
-                padding: 0 0 var(--space-8);
+        // Styling for the editor and editor content, especially to fit better in a small space
+        .editor {
+            .editor-content {
+                @include journal-styling;
+                padding: 0 var(--space-4);
+            }
 
-                /* Typography */
-                h1,
-                h2 {
-                    font-family: var(--serif);
-                    line-height: 1.1;
-                }
-                h1 {
-                    text-align: center;
-                    font-size: 2.5em;
-                    margin-bottom: 1.875rem;
-                }
+            .editor-edit {
+                background: var(--color-pf-primary);
+                color: var(--text-light);
+            }
 
-                h2 {
-                    color: var(--color-pf-secondary);
-                    font-size: 2.25em;
-                }
-
-                h3 {
-                    font-size: 2em;
-                    border-bottom: 0;
-                }
-
-                h4 {
-                    border-bottom: 1px solid var(--color-border-dark-primary);
-                    color: var(--text-dark);
-                    margin-bottom: 0;
-                    text-transform: uppercase;
-                }
-
-                h5 {
-                    text-transform: uppercase;
-                }
-
-                h6 {
-                    background-color: var(--header-bg);
-                    border-radius: var(--space-12) var(--space-12) 0 0;
-                    color: var(--header-color);
-                    font-size: 1.25em;
-                    margin-bottom: var(--space-5);
-                    padding-bottom: var(--space-3);
-                    padding-left: var(--space-8);
-                    padding-top: var(--space-5);
-                    text-transform: uppercase;
-                }
-
-                p,
-                p + p,
-                ul,
-                ol {
-                    font-family: var(--body-serif);
-                }
-
-                .editor {
-                    .editor-edit {
-                        background: var(--color-pf-primary);
-                        color: var(--text-light);
-                    }
-
-                    // When the editor is open, fill more space so the user has something to work with
-                    .tox.tox-tinymce {
-                        // !important to work around tox's limitations and a foundry issue where initial height is overwritten
-                        height: 12.5rem !important;
-                    }
-
-                    .tox {
-                        .tox-editor-container {
-                            .tox-editor-header {
-                                background: none;
-
-                                .tox-toolbar-overlord {
-                                    background-color: var(--color-pf-secondary);
-
-                                    .tox-toolbar {
-                                        &__primary {
-                                            background-color: var(--color-pf-alternate);
-                                            box-shadow: inset 0 0 0 1px rgba(white, 0.3);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        .tox-tbtn {
-                            &:not(&--disabled) {
-                                border-radius: 1px;
-                                color: var(--text-light);
-                                cursor: pointer;
-
-                                &:hover {
-                                    background: var(--color-pf-secondary);
-
-                                    svg {
-                                        fill: var(--text-light);
-                                    }
-                                }
-
-                                span {
-                                    cursor: pointer;
-                                }
-
-                                svg {
-                                    fill: var(--text-light);
-                                }
-                            }
-
-                            &--disabled {
-                                svg {
-                                    fill: var(--text-light-disabled);
-                                }
-                            }
-
-                            &--select {
-                                background: var(--color-pf-alternate);
-
-                                .tox-tbtn__select-label {
-                                    width: 5em;
-                                }
-                            }
-                        }
-                    }
-
-                    .editor-content {
-                        overflow-y: inherit;
-                        padding: 0 0.25rem;
-                    }
+            &.prosemirror {
+                height: 13.5rem; // When the editor is open, fill more space
+                .editor-container {
+                    margin: var(--space-4) 0;
                 }
             }
         }
