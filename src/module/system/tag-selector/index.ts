@@ -14,7 +14,6 @@ const SELECTABLE_TAG_FIELDS = [
     "otherConsumableTags",
     "otherWeaponTags",
     "senses",
-    "skills",
     "speedTypes",
     "vehicleTraits",
     "weaponTraits",

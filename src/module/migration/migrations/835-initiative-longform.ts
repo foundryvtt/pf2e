@@ -1,7 +1,7 @@
-import { CreatureInitiativeSource, SkillAbbreviation } from "@actor/creature/index.ts";
+import { CreatureInitiativeSource } from "@actor/creature/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { SKILL_DICTIONARY } from "@actor/values.ts";
 import { objectHasKey } from "@util";
+import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
 /** Converts sheet selected skills from shortform (ath) to longform (athletics) */
@@ -34,3 +34,25 @@ interface OldInitiativeSource extends Partial<CreatureInitiativeSource> {
     ability?: SkillAbbreviation | "perception";
     "-=ability"?: null;
 }
+
+const SKILL_DICTIONARY = {
+    acr: "acrobatics",
+    arc: "arcana",
+    ath: "athletics",
+    cra: "crafting",
+    dec: "deception",
+    dip: "diplomacy",
+    itm: "intimidation",
+    med: "medicine",
+    nat: "nature",
+    occ: "occultism",
+    prf: "performance",
+    rel: "religion",
+    soc: "society",
+    ste: "stealth",
+    sur: "survival",
+    thi: "thievery",
+} as const;
+
+const SKILL_ABBREVIATIONS = R.keys.strict(SKILL_DICTIONARY);
+type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];

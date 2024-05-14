@@ -1,5 +1,5 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
-import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
+import { Abilities, CreatureSpeeds, LabeledSpeed } from "@actor/creature/data.ts";
 import { CreatureUpdateContext } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
@@ -25,13 +25,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillLongForm } from "@actor/types.ts";
-import {
-    ATTRIBUTE_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_DICTIONARY,
-    SKILL_EXPANDED,
-} from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,
@@ -410,9 +404,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(SKILL_ABBREVIATIONS, (key) => {
+        system.skills = R.mapToObj([...SKILL_LONG_FORMS], (key) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
-            const attribute = SKILL_EXPANDED[SKILL_DICTIONARY[key]].attribute;
+            const attribute = SKILL_EXPANDED[key].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
 
@@ -742,7 +736,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of SKILL_ABBREVIATIONS) {
+        for (const key of SKILL_LONG_FORMS) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
@@ -887,9 +881,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
-        const skills = R.mapToObj(Array.from(SKILL_ABBREVIATIONS), (shortForm) => {
-            const skill = system.skills[shortForm];
-            const longForm = SKILL_DICTIONARY[shortForm];
+        const skills = R.mapToObj(Array.from(SKILL_LONG_FORMS), (longForm) => {
+            const skill = system.skills[longForm];
             const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
 
             const domains = [
@@ -942,7 +935,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
 
-            system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), system.skills[shortForm]);
+            system.skills[longForm] = fu.mergeObject(statistic.getTraceData(), system.skills[longForm]);
 
             return [longForm, statistic];
         });
@@ -964,7 +957,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }) as CharacterSkill<this>;
 
             skills[longForm as SkillLongForm] = statistic;
-            system.skills[longForm as SkillAbbreviation] = {
+            system.skills[longForm as SkillLongForm] = {
                 ...statistic.getTraceData(),
                 armor: false,
                 attribute: "int",

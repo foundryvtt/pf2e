@@ -1,5 +1,4 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
-import { AttributeString } from "@actor/types.ts";
+import { AttributeString, SkillLongForm } from "@actor/types.ts";
 import { ABCSystemData, ABCSystemSource } from "@item/abc/data.ts";
 import { BaseItemSourcePF2e, ItemTraits } from "@item/base/data/system.ts";
 import { BackgroundTrait } from "./types.ts";
@@ -11,7 +10,7 @@ interface BackgroundSystemSource extends ABCSystemSource {
     boosts: Record<number, { value: AttributeString[]; selected: AttributeString | null }>;
     trainedLore: string;
     trainedSkills: {
-        value: SkillAbbreviation[];
+        value: SkillLongForm[];
     };
     level?: never;
 }

@@ -13,7 +13,7 @@ import type {
 } from "@actor/data/base.ts";
 import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
-import type { AttributeString, MovementType, SaveType, SkillAbbreviation, SkillLongForm } from "@actor/types.ts";
+import type { AttributeString, MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import type { LabeledNumber, Size, ValueAndMax, ZeroToThree } from "@module/data.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
@@ -254,7 +254,6 @@ export type {
     LabeledSpeed,
     SaveData,
     SenseData,
-    SkillAbbreviation,
     SkillData,
     VisionLevel,
 };

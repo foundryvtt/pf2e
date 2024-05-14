@@ -1,7 +1,6 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
 import * as R from "remeda";
-import { SKILL_DICTIONARY } from "@actor/values.ts";
+import { MigrationBase } from "../base.ts";
 
 /** Fix skills section of deities */
 export class Migration918DeitySkills extends MigrationBase {
@@ -18,3 +17,22 @@ export class Migration918DeitySkills extends MigrationBase {
         );
     }
 }
+
+const SKILL_DICTIONARY = {
+    acr: "acrobatics",
+    arc: "arcana",
+    ath: "athletics",
+    cra: "crafting",
+    dec: "deception",
+    dip: "diplomacy",
+    itm: "intimidation",
+    med: "medicine",
+    nat: "nature",
+    occ: "occultism",
+    prf: "performance",
+    rel: "religion",
+    soc: "society",
+    ste: "stealth",
+    sur: "survival",
+    thi: "thievery",
+} as const;

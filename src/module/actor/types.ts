@@ -16,7 +16,6 @@ import type {
     DC_SLUGS,
     MOVEMENT_TYPES,
     SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
     SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
 } from "./values.ts";
@@ -47,7 +46,6 @@ interface ActorDimensions {
     height: number;
 }
 
-type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
 type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
 
 type ActorAlliance = "party" | "opposition" | null;
@@ -138,7 +136,6 @@ export type {
     MovementType,
     ResistanceType,
     SaveType,
-    SkillAbbreviation,
     SkillLongForm,
     UnaffectedType,
     WeaknessType,
