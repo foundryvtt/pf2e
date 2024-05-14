@@ -156,7 +156,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         handlers["edit-section"] = (event) => {
             const container = htmlClosest(event.target, ".section-container");
             const name = htmlQuery(container, "[data-edit]")?.dataset.edit;
-            return name ? this.activateEditor(name) : null;
+            const active = this.editors[name ?? ""]?.active;
+            return name && !active ? this.activateEditor(name) : null;
         };
 
         return handlers;
