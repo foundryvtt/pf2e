@@ -1672,6 +1672,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return diff;
     }
 
+    // todo: Remove when https://github.com/foundryvtt/foundryvtt/issues/10916 is fixed
+    protected override async _preCreate(
+        data: this["_source"],
+        options: DocumentModificationContext<TParent>,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        const allowed = await super._preCreate(data, options, user);
+        if (allowed === false) return false;
+        if (!this.prototypeToken.texture.src || this.prototypeToken.texture.src === CONST.DEFAULT_TOKEN) {
+            this.prototypeToken.updateSource({ texture: { src: `systems/pf2e/icons/default-icons/${this.type}.svg` } });
+        }
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<ActorSourcePF2e>,
         options: ActorUpdateContext<TParent>,
