@@ -21,6 +21,39 @@ const darkvision = new VisionMode({
     },
 });
 
+class LightPerceptionMode extends DetectionModeLightPerception {
+    constructor() {
+        super({
+            id: "lightPerception",
+            label: "DETECTION.LightPerception",
+            type: DetectionMode.DETECTION_TYPES.SIGHT,
+        });
+    }
+
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+        if (target instanceof PlaceableObject && target.document.hidden) return false;
+        if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
+            return false;
+        }
+
+        return super._canDetect(visionSource, target);
+    }
+
+    /** Potentially short-circuit range test */
+    protected override _testRange(
+        visionSource: PointVisionSourcePF2e,
+        mode: TokenDetectionMode,
+        target: PlaceableObject<CanvasDocument>,
+        test: CanvasVisibilityTest,
+    ): boolean {
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
+    }
+}
+
 class VisionDetectionMode extends DetectionModeBasicSight {
     constructor() {
         super({
@@ -46,7 +79,11 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
     }
 }
 
@@ -113,7 +150,11 @@ class HearingDetectionMode extends DetectionMode {
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
     }
 }
 
@@ -156,6 +197,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
+    CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }
