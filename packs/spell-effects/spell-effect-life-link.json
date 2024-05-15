@@ -1,0 +1,87 @@
+{
+    "_id": "M7Py1RCoiuYm01DH",
+    "img": "systems/pf2e/icons/spells/life-link.webp",
+    "name": "Spell Effect: Life Link",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Life Link]</p>\n<p>You forge a connection of life energy between you and your target, distributing harm between both of you.<br /><br /><strong>Apply Damage (Caster)</strong> @Damage[(3)[Hit Points]].</p>\n<p><strong>Heightened (3rd)</strong> @Damage[(5)[Hit Points]].</p>\n<p><strong>Heightened (6th)</strong>@Damage[(10)[Hit Points]].</p>\n<p><strong>Heightened (9th)</strong>@Damage[(15)[Hit Points]].</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "alwaysActive": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Life Link",
+                "option": "life-linked",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hardness.value",
+                "predicate": [
+                    "life-linked",
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "value": 3
+                        },
+                        {
+                            "end": 5,
+                            "start": 3,
+                            "value": 5
+                        },
+                        {
+                            "end": 8,
+                            "start": 6,
+                            "value": 10
+                        },
+                        {
+                            "start": 9,
+                            "value": 15
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
