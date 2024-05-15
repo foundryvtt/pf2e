@@ -5,14 +5,6 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
         const menus = super._getDropDownMenus();
         const toggleMark = foundry.prosemirror.commands.toggleMark;
         const wrapIn = foundry.prosemirror.commands.wrapIn;
-        const fonts = menus.fonts;
-
-        menus.format.entries.push({
-            action: "fonts",
-            title: fonts.title,
-            children: [...fonts.entries],
-        });
-        delete menus.fonts;
 
         if ("format" in menus) {
             menus.format.entries.push({
@@ -21,6 +13,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                 children: [
                     {
                         action: "pf2e-action-glyph",
+                        class: "action-glyph",
                         title: "Icons 1 2 3 F R",
                         mark: this.schema.marks.span,
                         attrs: { _preserve: { class: "action-glyph" } },
@@ -31,6 +24,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-inline-header",
+                        class: "inline-header",
                         title: "Inline Header",
                         node: this.schema.nodes.heading,
                         attrs: { _preserve: { class: "inline-header" }, level: 4 },
@@ -44,6 +38,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-info-block",
+                        class: "info",
                         title: "Info Block",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "info" } },
@@ -57,6 +52,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-stat-block",
+                        class: "statblock",
                         title: "Stat Block",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "statblock" } },
@@ -70,6 +66,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-traits",
+                        class: "traits",
                         title: "Trait",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "traits" } },
@@ -83,6 +80,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-written-note",
+                        class: "message",
                         title: "Written Note",
                         node: this.schema.nodes.paragraph,
                         attrs: { _preserve: { class: "message" } },
@@ -96,6 +94,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-gm-text-block",
+                        class: "visibility-gm",
                         title: "GM Text Block",
                         node: this.schema.nodes.div,
                         attrs: { _preserve: { "data-visibility": "gm" } },
@@ -109,6 +108,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-gm-text-inline",
+                        class: "visibility-gm",
                         title: "GM Text Inline",
                         mark: this.schema.marks.span,
                         attrs: { _preserve: { "data-visibility": "gm" } },

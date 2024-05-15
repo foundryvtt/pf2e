@@ -369,6 +369,45 @@ a[href]:hover {
     @include journal-styling;
 }
 
+#prosemirror-dropdown {
+    @include journal-styling;
+
+    .info:hover {
+        color: black;
+    }
+
+    .inline-header {
+        padding: inherit;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    .statblock {
+        margin-top: unset;
+    }
+
+    li[data-action="pf2e"] {
+        li {
+            height: 1.9rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .visibility-gm {
+            background: var(--visibility-gm-bg);
+            border-radius: 1px;
+            box-sizing: border-box;
+            line-height: 1em;
+            outline: 1px dotted rgba(75, 74, 68, 0.5);
+
+            &:hover {
+                background: var(--color-hover-bg);
+            }
+        }
+    }
+}
+
 .prosemirror menu {
     gap: 3px;
 }
