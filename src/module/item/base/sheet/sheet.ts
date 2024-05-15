@@ -307,6 +307,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
             onSave: () => this.saveEditor(name, options),
+            compact: this.options.hasSidebar,
         });
         return plugins;
     }

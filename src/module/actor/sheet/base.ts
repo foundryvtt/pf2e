@@ -1340,6 +1340,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
             onSave: () => this.saveEditor(name, options),
+            compact: true,
         });
         return plugins;
     }
