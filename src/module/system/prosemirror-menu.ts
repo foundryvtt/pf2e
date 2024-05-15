@@ -22,10 +22,9 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     {
                         action: "pf2e-inline-header",
                         title: "Inline Header",
-                        class: "level4",
                         node: this.schema.nodes.heading,
                         attrs: { _preserve: { class: "inline-header" }, level: 4 },
-                        priority: 1,
+                        priority: 0,
                         cmd: () => {
                             this._toggleTextBlock(this.schema.nodes.heading, {
                                 attrs: { _preserve: { class: "inline-header" }, level: 4 },
