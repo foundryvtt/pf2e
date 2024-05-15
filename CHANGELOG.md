@@ -1,3 +1,22 @@
+## 6.0.0 Beta 2
+
+This release requires Foundry VTT version 12.323
+
+### System Improvements
+
+-   (In3luki) Compact prosemirror to avoid wrapping in several locations
+-   (In3luki) Style pf2e custom elements in prosemirror editor
+-   (Supe) Use Prosemirror in character biographies, hazard sheet, npc sheet, and simple npc sheet
+
+### Bugfixes
+
+-   (Idle) Fix dropdown in Token Light RE form
+-   (In3luki) Fix visibility of hidden, undetected, and unnoticed tokens
+-   (In3luki) Fix melee weapons gaining a range
+-   (In3luki) Fix new actors being assigned the wrong prototype token image
+-   (In3luki) Fix rolling deterministic damage such as splash
+-   (stwlam) Fix importing actors and items from module compendia
+
 ## 6.0.0 Beta 1
 
 ### New Features
