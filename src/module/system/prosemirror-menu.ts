@@ -1,3 +1,5 @@
+import * as R from "remeda";
+
 class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
     protected override _getDropDownMenus(): Record<string, ProseMirrorDropDownConfig> {
         const menus = super._getDropDownMenus();
@@ -11,6 +13,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                 children: [
                     {
                         action: "pf2e-action-glyph",
+                        class: "action-glyph",
                         title: "Icons 1 2 3 F R",
                         mark: this.schema.marks.span,
                         attrs: { _preserve: { class: "action-glyph" } },
@@ -21,6 +24,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-inline-header",
+                        class: "inline-header",
                         title: "Inline Header",
                         node: this.schema.nodes.heading,
                         attrs: { _preserve: { class: "inline-header" }, level: 4 },
@@ -34,6 +38,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-info-block",
+                        class: "info",
                         title: "Info Block",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "info" } },
@@ -47,6 +52,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-stat-block",
+                        class: "statblock",
                         title: "Stat Block",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "statblock" } },
@@ -60,6 +66,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-traits",
+                        class: "traits",
                         title: "Trait",
                         node: this.schema.nodes.section,
                         attrs: { _preserve: { class: "traits" } },
@@ -73,6 +80,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-written-note",
+                        class: "message",
                         title: "Written Note",
                         node: this.schema.nodes.paragraph,
                         attrs: { _preserve: { class: "message" } },
@@ -86,6 +94,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-gm-text-block",
+                        class: "visibility-gm",
                         title: "GM Text Block",
                         node: this.schema.nodes.div,
                         attrs: { _preserve: { "data-visibility": "gm" } },
@@ -99,6 +108,7 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
                     },
                     {
                         action: "pf2e-gm-text-inline",
+                        class: "visibility-gm",
                         title: "GM Text Inline",
                         mark: this.schema.marks.span,
                         attrs: { _preserve: { "data-visibility": "gm" } },
@@ -146,10 +156,33 @@ class ProseMirrorMenuPF2e extends foundry.prosemirror.ProseMirrorMenu {
         return state.doc.nodeAt($from.pos)?.type === item.node || this.#hasAncestor($from, item.node, item.attrs);
     }
 
+    protected override _toggleTextBlock(
+        node: ProseMirror.NodeType,
+        { attrs = null }: { attrs?: Record<string, unknown> | null },
+    ): void {
+        const state = this.view.state;
+        const { $from, $to } = state.selection;
+        const range = $from.blockRange($to);
+        if (!range) return;
+        const inBlock = this.#hasAncestor($from, node, attrs);
+        if (inBlock) {
+            node = this.schema.nodes.paragraph;
+            // Remove the preserved class property that was added by the pf2e system
+            if (R.isPlainObject(attrs?._preserve) && attrs._preserve?.class) {
+                delete attrs._preserve;
+            }
+        }
+        this.view.dispatch(state.tr.setBlockType(range.start, range.end, node, attrs));
+    }
+
     /** A reimplementation of Foundry's `ResolvedPos.prototype.hasAncestor` extension that keeps the
      *  `attrs._preserve` property when comparing nodes
      */
-    #hasAncestor(pos: ProseMirror.ResolvedPos, other?: ProseMirror.NodeType, attrs?: Record<string, unknown>): boolean {
+    #hasAncestor(
+        pos: ProseMirror.ResolvedPos,
+        other?: ProseMirror.NodeType,
+        attrs?: Record<string, unknown> | null,
+    ): boolean {
         if (!pos.depth || !other) return false;
         for (let i = pos.depth; i > 0; i--) {
             // Depth 0 is the root document, so we don't need to test that.
