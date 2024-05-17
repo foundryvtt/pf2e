@@ -1,4 +1,10 @@
 import type { Socket } from "socket.io";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseGetOperation,
+    DatabaseUpdateOperation,
+} from "../../../common/abstract/_types.d.ts";
 import type { DatabaseBackend, Document } from "../../../common/abstract/module.d.ts";
 
 /** The client-side database backend implementation which handles Document modification operations. */
@@ -9,26 +15,26 @@ export declare class ClientDatabaseBackend extends DatabaseBackend {
 
     protected override _getDocuments(
         documentClass: typeof Document,
-        request: DatabaseBackendGetContext,
-        user: User,
+        operation: DatabaseGetOperation,
+        user?: User,
     ): Promise<CompendiumIndexData[] | Document[]>;
 
     protected override _createDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendCreateContext<Document>,
-        user: User,
+        operation: DatabaseCreateOperation,
+        user?: User,
     ): Promise<ClientDocument[]>;
 
     protected override _updateDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendUpdateContext<Document>,
-        user: User,
+        operation: DatabaseUpdateOperation,
+        user?: User,
     ): Promise<Document[]>;
 
     protected override _deleteDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendDeleteContext,
-        user: User,
+        operation: DatabaseDeleteOperation,
+        user?: User,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
