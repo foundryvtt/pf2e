@@ -130,17 +130,6 @@ class ScenePF2e extends Scene {
             canvas.perception.update({ initializeLighting: true, initializeVision: true });
         }
     }
-
-    protected override async _preCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        user: User,
-    ): Promise<boolean | void> {
-        // Override core luminosity of -0.5 which makes tokens nearly invisible in dark scenes
-        this.updateSource({ "environment.dark": { luminosity: 0 } });
-
-        return super._preCreate(data, options, user);
-    }
 }
 
 interface ScenePF2e extends Scene {
