@@ -34,10 +34,6 @@ abstract class AbstractDamageRoll extends Roll {
 
     /** The theoretically highest total of this roll */
     abstract get maximumValue(): number;
-
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
-    }
 }
 
 class DamageRoll extends AbstractDamageRoll {
