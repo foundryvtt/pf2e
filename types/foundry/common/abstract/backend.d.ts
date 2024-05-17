@@ -1,5 +1,11 @@
 import type Document from "../abstract/document.d.ts";
 import type BaseUser from "../documents/user.d.ts";
+import type {
+    DatabaseCreateOperation,
+    DatabaseDeleteOperation,
+    DatabaseGetOperation,
+    DatabaseUpdateOperation,
+} from "./_types.d.ts";
 
 /**
  * An interface shared by both the client and server-side which defines how creation, update, and deletion operations are transacted.
@@ -11,46 +17,54 @@ export default abstract class DatabaseBackend {
 
     /**
      * Retrieve Documents based on provided query parameters
-     * @param documentClass   The Document definition
-     * @param context         Context for the requested operation
-     * @param [user]          The requesting User
-     * @returns               The created Document instances
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the get operation
+     * @param [user]        The requesting User
+     * @returns An array of retrieved Document instances or index objects
      */
     get(
         documentClass: typeof Document,
-        context: Partial<DatabaseBackendGetContext>,
+        operation: DatabaseGetOperation,
         user?: BaseUser,
-    ): Promise<Document[]>;
+    ): Promise<CompendiumIndexData[] | Document[]>;
 
-    /** Get primary Document instances */
+    /**
+     * Retrieve Document instances using the specified operation parameters.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the get operation
+     * @param [user]        The requesting User
+     * @returns An array of retrieved Document instances or index objects
+     */
     protected abstract _getDocuments(
         documentClass: typeof Document,
-        request: DatabaseBackendGetContext,
-        user: BaseUser,
+        operation: DatabaseGetOperation,
+        user?: BaseUser,
     ): Promise<CompendiumIndexData[] | Document[]>;
 
     /* -------------------------------------------- */
     /*  Create Operations                           */
     /* -------------------------------------------- */
 
+    create(documentClass: typeof Document, operation: DatabaseCreateOperation, user?: BaseUser): Promise<Document[]>;
+
     /**
-     * Perform document creation operations
-     * @param documentClass    The Document definition
-     * @param context          Context for the requested operation
-     * @param [user]           The requesting User
-     * @returns                The created Document instances
+     * Create Document instances using provided data and operation parameters.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the create operation
+     * @param [user]        The requesting User
+     * @returns An array of created Document instances
      */
-    create(
+    protected abstract _createDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendCreateContext<Document>,
+        operation: DatabaseCreateOperation,
         user?: BaseUser,
     ): Promise<Document[]>;
 
     /** Create primary Document instances */
     protected abstract _createDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendCreateContext<Document>,
-        user: BaseUser,
+        operation: DatabaseCreateOperation,
+        user?: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -58,23 +72,27 @@ export default abstract class DatabaseBackend {
     /* -------------------------------------------- */
 
     /**
-     * Perform document update operations
-     * @param documentClass    The Document definition
-     * @param context          Context for the requested operation
-     * @param [user]           The requesting User
-     * @returns                The updated Document instances
+     * Update Documents using provided data and context.
+     * It is recommended to use {@link Document.updateDocuments} or {@link Document#update} rather than calling this
+     * method directly.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the update operation
+     * @param [user]        The requesting User
+     * @returns An array of updated Document instances
      */
-    update(
-        documentClass: typeof Document,
-        context: DatabaseBackendUpdateContext<Document>,
-        user?: User,
-    ): Promise<Document[]>;
+    update(documentClass: typeof Document, operation: DatabaseUpdateOperation, user?: BaseUser): Promise<Document[]>;
 
-    /** Update primary Document instances */
+    /**
+     * Update Document instances using provided data and operation parameters.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the update operation
+     * @param [user]        The requesting User
+     * @returns An array of updated Document instances
+     */
     protected abstract _updateDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendUpdateContext<Document>,
-        user: BaseUser,
+        operation: DatabaseUpdateOperation,
+        user?: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -82,23 +100,27 @@ export default abstract class DatabaseBackend {
     /* -------------------------------------------- */
 
     /**
-     * Perform document deletion operations
-     * @param documentClass   The Document definition
-     * @param context         Context for the requested operation
-     * @param [user]          The requesting User
-     * @returns               The deleted Document instances
+     * Delete Documents using provided ids and context.
+     * It is recommended to use {@link foundry.abstract.Document.deleteDocuments} or
+     * {@link foundry.abstract.Document#delete} rather than calling this method directly.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the delete operation
+     * @param [user]        The requesting User
+     * @returns An array of deleted Document instances
      */
-    delete(
-        documentClass: ConstructorOf<Document>,
-        context: DatabaseBackendDeleteContext,
-        user: BaseUser,
-    ): Promise<Document>;
+    delete(documentClass: typeof Document, operation: DatabaseDeleteOperation, user?: BaseUser): Promise<Document[]>;
 
-    /** Delete primary Document instances */
+    /**
+     * Delete Document instances using provided ids and operation parameters.
+     * @param documentClass The Document class definition
+     * @param operation     Parameters of the delete operation
+     * @param [user]        The requesting User
+     * @returns An array of deleted Document instances
+     */
     protected abstract _deleteDocuments(
         documentClass: typeof Document,
-        context: DatabaseBackendDeleteContext,
-        user: BaseUser,
+        operation: DatabaseDeleteOperation,
+        user?: BaseUser,
     ): Promise<Document[]>;
 
     /* -------------------------------------------- */
@@ -133,52 +155,9 @@ export default abstract class DatabaseBackend {
 
     /** Construct a standardized error message given the context of an attempted operation */
     protected _logError(
-        user: User,
+        user: BaseUser,
         action: string,
         subject: string,
         options?: { parent: foundry.abstract.Document; pack?: string },
     ): string;
-}
-
-declare global {
-    interface DatabaseBackendBaseContext {
-        query?: Record<string, unknown>;
-        options?: object;
-        pack?: string;
-    }
-
-    interface DatabaseBackendGetContext extends DatabaseBackendBaseContext {
-        options?: {
-            broadcast?: boolean;
-            index?: boolean;
-            indexFields?: string[];
-        };
-    }
-
-    interface DatabaseBackendCreateContext<TDocument extends foundry.abstract.Document>
-        extends DatabaseBackendBaseContext {
-        data?: DeepPartial<TDocument["_source"]>[];
-        options?: {
-            temporary?: boolean;
-            renderSheet?: boolean;
-            render?: boolean;
-            noHook?: boolean;
-        };
-    }
-
-    interface DatabaseBackendUpdateContext<TDocument extends foundry.abstract.Document>
-        extends DatabaseBackendBaseContext {
-        updates?: DeepPartial<TDocument["_source"]>[];
-        options?: {
-            diff?: boolean;
-            render?: boolean;
-        };
-    }
-
-    interface DatabaseBackendDeleteContext extends DatabaseBackendBaseContext {
-        ids?: string[];
-        options?: {
-            render?: boolean;
-        };
-    }
 }
