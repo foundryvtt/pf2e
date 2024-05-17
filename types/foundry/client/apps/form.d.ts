@@ -134,8 +134,12 @@ declare global {
          * Handle saving the content of a specific editor by name
          * @param name     The named editor to save
          * @param [remove] Remove the editor after saving its content
+         * @param [preventRender] Prevent normal re-rendering of the sheet after saving
          */
-        saveEditor(name: string, { remove }?: { remove?: boolean }): Promise<void>;
+        saveEditor(
+            name: string,
+            { remove, preventRender }?: { remove?: boolean; preventRender?: boolean },
+        ): Promise<void>;
 
         /** Activate a TinyMCE editor instance present within the form */
         protected _activateEditor(div: JQuery | HTMLElement): void;

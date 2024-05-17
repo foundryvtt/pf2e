@@ -65,8 +65,6 @@ export default class PointVisionSource<
     /** Data overrides that could happen with blindness vision mode. */
     visionModeOverrides: object;
 
-    static blindedColorRGB(): number[];
-
     /* -------------------------------------------- */
     /*  Vision Source Initialization                */
     /* -------------------------------------------- */

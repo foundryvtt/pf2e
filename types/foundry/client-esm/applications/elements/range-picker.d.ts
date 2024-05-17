@@ -6,6 +6,9 @@ import type { AbstractFormInputElement } from "./form-element.d.ts";
 export default class HTMLRangePickerElement extends AbstractFormInputElement<number> {
     static override tagName: "range-picker";
 
+    /** The value of the input element. */
+    get valueAsNumber(): number;
+
     protected override _buildElements(): HTMLInputElement[];
 
     /** Create a HTMLRangePickerElement using provided configuration data. */
