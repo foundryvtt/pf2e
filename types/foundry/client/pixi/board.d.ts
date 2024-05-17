@@ -398,12 +398,6 @@ declare global {
          * @param event The originating mouse movement event
          */
         _onDragCanvasPan(event: MouseEvent): void;
-
-        /**
-         * Determine selection coordinate rectangle during a mouse-drag workflow
-         * @param event
-         */
-        _onDragSelect(event: PIXI.FederatedEvent): void;
     }
 
     type DrawnCanvas<T extends Canvas = Canvas> = {

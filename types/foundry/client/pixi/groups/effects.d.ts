@@ -69,6 +69,22 @@ declare global {
         refreshLighting(): void;
 
         /**
+         * Test whether the point is inside light.
+         * @param position      The point.
+         * @param elevation     The elevation of the point.
+         * @returns             Is inside light?
+         */
+        testInsideLight(position: Point, elevation: number): boolean;
+
+        /**
+         * Test whether the point is inside darkness.
+         * @param position      The point.
+         * @param elevation     The elevation of the point.
+         * @returns             Is inside a darkness?
+         */
+        testInsideDarkness(position: Point, elevation: number): boolean;
+
+        /**
          * Activate vision masking for visual effects
          * @param [enabled=true]    Whether to enable or disable vision masking
          */
