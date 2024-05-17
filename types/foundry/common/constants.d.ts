@@ -764,6 +764,40 @@ export const TIMEOUTS: {
     IP_DISCOVERY: 5000;
 };
 
+/** The Region events that are supported by core. */
+export const REGION_EVENTS: {
+    /** Triggered when the shapes or bottom/top elevation of the Region are changed. */
+    REGION_BOUNDARY: "regionBoundary";
+    /** Triggered when the behavior is enabled/disabled or the Scene its Region is in is viewed/unviewed. */
+    BEHAVIOR_STATUS: "behaviorStatus";
+    /** Triggered when a Token enters a Region. */
+    TOKEN_ENTER: "tokenEnter";
+    /** Triggered when a Token exists a Region. */
+    TOKEN_EXIT: "tokenExit";
+    /** Triggered when a Token moves in a Region. */
+    TOKEN_MOVE: "tokenMove";
+    /** Triggered when a Token is about to move into, out of, through, or within a Region. */
+    TOKEN_PRE_MOVE: "tokenPreMove";
+    /** Triggered when a Token starts its Combat turn in a Region. */
+    TOKEN_TURN_START: "tokenTurnStart";
+    /** Triggered when a Token ends its Combat turn in a Region.  */
+    TOKEN_TURN_END: "tokenTurnEnd";
+    /** Triggered when a Token starts the Combat round in a Region. */
+    TOKEN_ROUND_START: "tokenRoundStart";
+    /** Triggered when a Token ends the Combat round in a Region. */
+    TOKEN_ROUND_END: "tokenRoundEnd";
+};
+
+/** The possible visibility state of Region. */
+export const REGION_VISIBILITY: {
+    /** Only visible on the RegionLayer. */
+    LAYER: 0;
+    /** Only visible to Gamemasters. */
+    GAMEMASTER: 1;
+    /** Visible to anyone. */
+    ALWAYS: 2;
+};
+
 declare global {
     interface UserPermission {
         label: string;
