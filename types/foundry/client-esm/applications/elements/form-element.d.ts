@@ -46,6 +46,9 @@ export abstract class AbstractFormInputElement<TInternalValue, TInputValue = TIn
     get disabled(): boolean;
     set disabled(value: boolean);
 
+    /** Is this field editable? The field can be neither disabled nor readonly. */
+    get editable(): boolean;
+
     /**
      * Special behaviors that the subclass should implement when toggling the disabled state of the input.
      * @param disabled    The new disabled state

@@ -65,6 +65,8 @@ declare global {
     interface FormGroupConfig {
         /** A text label to apply to the form group */
         label: string;
+        /** An optional units string which is appended to the label */
+        units?: string;
         /** An HTML element or collection of elements which provide the inputs for the group  */
         input: HTMLElement | HTMLCollection;
         /** Hint text displayed as part of the form group */

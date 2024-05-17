@@ -96,6 +96,13 @@ declare global {
         /** Is the HUD display active for this Placeable? */
         get hasActiveHUD(): boolean;
 
+        /**
+         * Get the snapped position for a given position or the current position.
+         * @param [position]    The position to be used instead of the current position
+         * @returns             The snapped position
+         */
+        getSnappedPosition(position?: Point): Point;
+
         /* -------------------------------------------- */
         /*  Rendering                                   */
         /* -------------------------------------------- */
@@ -282,6 +289,14 @@ declare global {
 
         /** Does the User have permission to drag this Placeable Object? */
         protected _canDrag(user: User, event?: PIXI.FederatedEvent): boolean;
+
+        /**
+         * Does the User have permission to left-click drag this Placeable Object?
+         * @param user      The User performing the action.
+         * @param event     The event object.
+         * @returns         The returned status.
+         */
+        protected _canDragLeftStart(user: User, event: PIXI.FederatedEvent): boolean;
 
         /** Does the User have permission to hover on this Placeable Object? */
         protected _canHover(user: User, event?: PIXI.FederatedEvent): boolean;
