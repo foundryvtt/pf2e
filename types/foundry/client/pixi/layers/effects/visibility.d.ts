@@ -50,6 +50,9 @@ declare global {
         /** The configured options used for the saved fog-of-war texture. */
         get textureConfiguration(): FogTextureConfiguration;
 
+        /** Optional overrides for exploration sprite dimensions. */
+        set explorationRect(rect: FogTextureConfiguration);
+
         /* -------------------------------------------- */
         /*  Layer Initialization                        */
         /* -------------------------------------------- */
@@ -118,13 +121,14 @@ declare global {
 
     interface CanvasVisibilityTestConfig {
         /** The target object */
-        object: PlaceableObject | DoorControl;
+        object: object | null;
         /** An array of visibility tests */
         tests: CanvasVisibilityTest[];
     }
 
     interface CanvasVisibilityTest {
         point: Point;
+        elevation: number;
         los: Map<PointVisionSource<Token>, boolean>;
     }
 }
