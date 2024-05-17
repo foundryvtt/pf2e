@@ -35,9 +35,10 @@ export default class HTMLStringTagsElement extends AbstractFormInputElement<Set<
      * Render the HTML fragment used to represent a tag.
      * @param tag       The raw tag value
      * @param label     An optional tag element
+     * @param [editable=true] Is the tag editable?
      * @returns         An HTML string for the tag
      */
-    static renderTag(tag: string, label?: string): string;
+    static renderTag(tag: string, label?: string, editable?: boolean): string;
 
     /* -------------------------------------------- */
     /*  Form Handling                               */

@@ -112,13 +112,14 @@ type VisionModeSchema = {
         background: LightingSchema;
         coloration: LightingSchema;
         illumination: LightingSchema;
-        ignoreDarkness: fields.BooleanField;
+        darkness: LightingSchema;
         levels: fields.ObjectField<{}>;
         multipliers: fields.ObjectField<{}>;
     }>;
     vision: fields.SchemaField<{
         background: ShaderSchema;
         coloration: ShaderSchema;
+        illumination: ShaderSchema;
         darkness: fields.SchemaField<{
             adaptive: fields.BooleanField;
         }>;
