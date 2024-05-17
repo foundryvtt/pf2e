@@ -1087,6 +1087,31 @@ export class TypeDataField<
     migrateSource(sourceData: Record<string, unknown>, fieldData: Record<string, unknown>): void;
 }
 
+/** A subclass of [DataField]{@link DataField} which allows typed schemas. */
+export class TypedSchemaField<
+    TSourceProp extends Record<string, DataSchema | SchemaField<DataSchema> | abstract.DataModel>,
+    TModelProp extends DataSchema | SchemaField<DataSchema> | abstract.DataModel =
+        | DataSchema
+        | SchemaField<DataSchema>
+        | abstract.DataModel,
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = false,
+> extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    /**
+     * @param types      The different types this field can represent.
+     * @param [options]  Options which configure the behavior of the field
+     * @param [context]  Additional context which describes the field
+     */
+    constructor(
+        types: TSourceProp,
+        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+        context?: object,
+    );
+
+    protected override _cast(value?: unknown): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+}
+
 // System utility types
 
 export type SourcePropFromDataField<T> =
