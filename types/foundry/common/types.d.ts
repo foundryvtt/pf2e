@@ -219,7 +219,7 @@ declare global {
         /** The ID of a parent document */
         parentId?: string;
         /** A Compendium pack name */
-        pack?: string;
+        pack?: string | null;
         /** Additional options applied to the request */
         options?: object;
     }
