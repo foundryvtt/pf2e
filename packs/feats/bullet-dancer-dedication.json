@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've learned how to synchronize traditional martial arts and guns. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance] action. Whenever your proficiency in any weapon increases to expert or beyond, you gain that new proficiency with bayonets, reinforced stocks, simple firearms and unarmed attacks.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5nd8ON2kFGOsCdwQ]{Bullet Dancer} dedication archetype.</p>"
+            "value": "<p>You've learned how to synchronize traditional martial arts and guns. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance] action and are trained in bayonets and reinforced stocks. Whenever your proficiency in any weapon increases to expert or beyond, you gain that new proficiency with bayonets, reinforced stocks, simple firearms and unarmed attacks.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.5nd8ON2kFGOsCdwQ]{Bullet Dancer} dedication archetype.</p>"
         },
         "level": {
             "value": 2
@@ -32,6 +32,20 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Bullet Dancer Stance"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:bayonet",
+                            "item:base:reinforced-stock"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.BayonetsAndReinforcedStocks",
+                "sameAs": "unarmed",
+                "slug": "bayonets-and-reinforced-stocks"
             }
         ],
         "traits": {

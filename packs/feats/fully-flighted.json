@@ -11,11 +11,12 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You gain the effects of Juvenile Flight at all times, rather than just once per day for 10 minutes. This includes the status bonus to your Speed if you have Fledgling Flight.</p>"
+            "value": "<p>You can take to the skies at any time. You have a fly Speed of 25 feet at all times.</p>\n<hr />\n<p><strong>Special</strong> You can take this feat a second time. If you do, your fly Speed increases to 35 feet.</p>"
         },
         "level": {
-            "value": 13
+            "value": 9
         },
+        "maxTakable": 2,
         "prerequisites": {
             "value": [
                 {
@@ -31,20 +32,22 @@
         "rules": [
             {
                 "key": "BaseSpeed",
-                "predicate": [
-                    "feat:juvenile-flight"
-                ],
                 "selector": "fly",
-                "value": "@actor.attributes.speed.total"
+                "value": 25
             },
             {
-                "key": "FlatModifier",
+                "count": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "fully-flighted"
+            },
+            {
+                "key": "BaseSpeed",
                 "predicate": [
-                    "feat:fledgling-flight"
+                    "fully-flighted:2"
                 ],
-                "selector": "fly-speed",
-                "type": "status",
-                "value": 10
+                "selector": "fly",
+                "value": 35
             }
         ],
         "traits": {

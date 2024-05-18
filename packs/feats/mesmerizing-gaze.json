@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you meet someone's gaze, they are unable to look away.</p>\n<p>Choose one target creature. That creature must succeed at a Will save or be @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] until the end of your next turn; the DC for this save is equal to your class DC or spell DC, whichever is higher. If the creature succeeds at its save or its fascination ends due to a hostile action, it becomes temporarily immune to your Mesmerizing Gaze for 1 day.</p>\n<p>When you select this feat, it gains either the arcane or occult trait; once you make this choice, you can't change it.</p>"
+            "value": "<p>When you meet someone's gaze, they are unable to look away.</p>\n<p>Choose one target creature. That creature must succeed at a @Check[type:will|dc:resolve(@actor.system.attributes.classOrSpellDC.value)] save or be @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] until the end of your next turn; the DC for this save is equal to your class DC or spell DC, whichever is higher. If the creature succeeds at its save or its fascination ends due to a hostile action, it becomes temporarily immune to your Mesmerizing Gaze for 1 day.</p>\n<p>When you select this feat, it gains either the arcane or occult trait; once you make this choice, you can't change it.</p>"
         },
         "level": {
             "value": 6
@@ -28,7 +28,35 @@
             "remaster": false,
             "title": "Pathfinder Advanced Player's Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitArcane",
+                        "value": "arcane"
+                    },
+                    {
+                        "label": "PF2E.TraitOccult",
+                        "value": "occult"
+                    }
+                ],
+                "flag": "mesmerizingGaze",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Trait"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "value": "{actor|flags.pf2e.mesmerizingGaze}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
