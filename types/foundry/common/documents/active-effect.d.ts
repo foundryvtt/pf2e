@@ -58,14 +58,7 @@ export interface ActiveEffectMetadata extends DocumentMetadata {
 type ActiveEffectSchema = {
     _id: fields.DocumentIdField;
     name: fields.StringField<string, string, true, false, false>;
-    changes: fields.ArrayField<
-        fields.SchemaField<{
-            key: fields.StringField<string, string, true, false, false>;
-            value: fields.StringField<string, string, true, false, false>;
-            mode: fields.NumberField<ActiveEffectChangeMode, ActiveEffectChangeMode, false, false, true>;
-            priority: fields.NumberField;
-        }>
-    >;
+    changes: fields.ArrayField<fields.SchemaField<EffectChangeSchema>>;
     system: fields.TypeDataField;
     type: fields.StringField<string, string, false, true, true>;
     disabled: fields.BooleanField;
@@ -88,7 +81,14 @@ type ActiveEffectSchema = {
     _stats: fields.DocumentStatsField;
 };
 
+type EffectChangeSchema = {
+    key: fields.StringField<string, string, true, false, false>;
+    value: fields.StringField<string, string, true, false, false>;
+    mode: fields.NumberField<ActiveEffectChangeMode, ActiveEffectChangeMode, false, false, true>;
+    priority: fields.NumberField;
+};
+
 export type ActiveEffectSource = SourceFromSchema<ActiveEffectSchema>;
 
-export type EffectChangeData = BaseActiveEffect<null>["changes"][number];
+export type EffectChangeData = SourceFromSchema<EffectChangeSchema>;
 export type EffectDurationData = BaseActiveEffect<null>["duration"];
