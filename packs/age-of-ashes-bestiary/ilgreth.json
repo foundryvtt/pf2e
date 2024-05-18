@@ -201,7 +201,7 @@
                         "max": 4,
                         "prepared": [
                             {
-                                "id": "qIhk32nFzOkXfJ0U"
+                                "id": "WdEL9RlGZAsCEIDU"
                             },
                             {
                                 "id": "yke2CA9DIe7ifv4k"
@@ -223,7 +223,8 @@
                 },
                 "tradition": {
                     "value": "arcane"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -403,7 +404,7 @@
             "type": "spell"
         },
         {
-            "_id": "qIhk32nFzOkXfJ0U",
+            "_id": "WdEL9RlGZAsCEIDU",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.spells-srd.Item.jrBa9deU2ULFWvSl"
@@ -413,7 +414,10 @@
             "name": "Meteor Swarm",
             "sort": 400000,
             "system": {
-                "area": null,
+                "area": {
+                    "type": "burst",
+                    "value": 40
+                },
                 "cost": {
                     "value": ""
                 },
@@ -428,6 +432,16 @@
                         ],
                         "materials": [],
                         "type": "bludgeoning"
+                    },
+                    "6BEyrCCNpDfJh5P8": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "14d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
                     }
                 },
                 "defense": {
@@ -437,7 +451,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You call down four meteors that explode in a fiery blast. Each meteor deals 6d10 bludgeoning damage to any creatures in the 10-foot burst at the center of its area of effect before exploding, dealing 14d6 fire damage to any creatures in its 40-foot burst. The meteors' central 10-foot bursts can't overlap, and a creature attempts only one saving throw against the spell no matter how many overlapping explosions it's caught in, and they can take each type of damage once once. The saving throw applies to both the bludgeoning and the fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d10, and the fire damage increases by 2d6.</p>"
+                    "value": "<p>You call down four meteors that explode in a fiery blast. Each meteor deals 6d10 bludgeoning damage to any creatures in the @Template[type:burst|distance:10] at the center of its area of effect before exploding, dealing 14d6 fire damage to any creatures in its @Template[type:burst|distance:40]. The meteors' central 10-foot bursts can't overlap, and a creature attempts only one saving throw against the spell no matter how many overlapping explosions it's caught in, and they can take each type of damage once. The saving throw applies to both the bludgeoning and the fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d10, and the fire damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -445,7 +459,8 @@
                 },
                 "heightening": {
                     "damage": {
-                        "0": "1d10"
+                        "0": "1d10",
+                        "6BEyrCCNpDfJh5P8": "2d6"
                     },
                     "interval": 1,
                     "type": "interval"
