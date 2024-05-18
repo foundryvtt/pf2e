@@ -181,8 +181,11 @@
                     .gm-notes {
                         background-color: var(--visibility-gm-bg);
                         border: 1px dotted rgba(75, 74, 68, 0.5);
-                        padding: 0 0.25em;
                         flex: 0 0 auto;
+
+                        .editor-content:not(.ProseMirror) {
+                            padding: 0 0.25em;
+                        }
 
                         &:not(.has-content) {
                             display: none;
