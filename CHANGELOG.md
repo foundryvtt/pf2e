@@ -47,7 +47,7 @@
 
 -   (Abbadon) Minor corrections for Triggerbrand Salvo, Malevolent Mannequins, and Harlo Krant
 -   (Ambrose M) Add automation for Strix Flight feats, Life Link, and Hand of the Apprentice
--   (Cuingamehtar) Add new creature trait descriptions from Monster Core
+-   (kromko) Add new creature trait descriptions from Monster Core
 -   (Dire Weasel) Improve automation of Emblazon Feats
 -   (Dire Weasel) Update Sending's target and refresh it on all NPCs
 -   (DocSchlock) Fix description of the Injection trait
@@ -61,6 +61,25 @@
 -   (Tikael) Restored Ancestry Guide Tiefling and Aasimar feats as Nephilim feats with remaster edits
 -   (Tikael) Incorporate Errata from May 17, 2024
 -   (Dire Weasel, Tikael) Minor corrections for PFS and Bestiary NPCs
+
+## 6.0.0 Beta 2
+
+This release requires Foundry VTT version 12.323
+
+### System Improvements
+
+-   (In3luki) Compact prosemirror to avoid wrapping in several locations
+-   (In3luki) Style pf2e custom elements in prosemirror editor
+-   (Supe) Use Prosemirror in character biographies, hazard sheet, npc sheet, and simple npc sheet
+
+### Bugfixes
+
+-   (Idle) Fix dropdown in Token Light RE form
+-   (In3luki) Fix visibility of hidden, undetected, and unnoticed tokens
+-   (In3luki) Fix melee weapons gaining a range
+-   (In3luki) Fix new actors being assigned the wrong prototype token image
+-   (In3luki) Fix rolling deterministic damage such as splash
+-   (stwlam) Fix importing actors and items from module compendia
 
 ## 6.0.0 Beta 1
 
