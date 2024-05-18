@@ -71,20 +71,19 @@
                 "choices": [
                     {
                         "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
-                        "value": "true"
+                        "value": "d6"
                     },
                     {
                         "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
-                        "value": "false"
+                        "value": "d4"
                     }
                 ],
-                "flag": "domain",
+                "flag": "dieSize",
                 "key": "ChoiceSet",
                 "predicate": [
                     "emblazon-energy:item:weapon"
                 ],
-                "prompt": "PF2E.SpecificRule.Cleric.EmblazonEnergy.MatchingDomainPrompt",
-                "rollOption": "emblazon-energy:domain"
+                "prompt": "PF2E.SpecificRule.Cleric.EmblazonEnergy.MatchingDomainPrompt"
             },
             {
                 "choices": {
@@ -127,24 +126,10 @@
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.damage}",
                 "diceNumber": 1,
-                "dieSize": "d4",
+                "dieSize": "{item|flags.pf2e.rulesSelections.dieSize}",
                 "key": "DamageDice",
                 "predicate": [
-                    "emblazon-energy:item:weapon",
-                    {
-                        "not": "emblazon-energy:domain:true"
-                    }
-                ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
-            },
-            {
-                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
-                "diceNumber": 1,
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "predicate": [
-                    "emblazon-energy:item:weapon",
-                    "emblazon-energy:domain:true"
+                    "emblazon-energy:item:weapon"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }
