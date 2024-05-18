@@ -90,25 +90,105 @@ export const COMPATIBILITY_MODES: {
 /** The default artwork used for Token images if none is provided */
 export const DEFAULT_TOKEN: "icons/svg/mystery-man.svg";
 
-/** Define the allowed Document class types. */
-export const DOCUMENT_TYPES: [
+/** The primary Document types. */
+export const PRIMARY_DOCUMENT_TYPES = [
+    "Actor",
+    "Adventure",
+    "Cards",
+    "ChatMessage",
+    "Combat",
+    "FogExploration",
+    "Folder",
+    "Item",
+    "JournalEntry",
+    "Macro",
+    "Playlist",
+    "RollTable",
+    "Scene",
+    "Setting",
+    "User",
+] as const;
+
+/** The embedded Document types. */
+export const EMBEDDED_DOCUMENT_TYPES = [
+    "ActiveEffect",
+    "ActorDelta",
+    "AmbientLight",
+    "AmbientSound",
+    "Card",
+    "Combatant",
+    "Drawing",
+    "Item",
+    "JournalEntryPage",
+    "MeasuredTemplate",
+    "Note",
+    "PlaylistSound",
+    "Region",
+    "RegionBehavior",
+    "TableResult",
+    "Tile",
+    "Token",
+    "Wall",
+] as const;
+
+/** A listing of all valid Document types, both primary and embedded. */
+export const ALL_DOCUMENT_TYPES = [
+    "ActiveEffect",
+    "Actor",
+    "ActorDelta",
+    "Adventure",
+    "AmbientLight",
+    "AmbientSound",
+    "Card",
+    "Cards",
+    "ChatMessage",
+    "Combat",
+    "Combatant",
+    "Drawing",
+    "FogExploration",
+    "Folder",
+    "Item",
+    "JournalEntry",
+    "JournalEntryPage",
+    "Macro",
+    "MeasuredTemplate",
+    "Note",
+    "Playlist",
+    "PlaylistSound",
+    "Region",
+    "RegionBehavior",
+    "RollTable",
+    "Scene",
+    "Setting",
+    "TableResult",
+    "Tile",
+    "Token",
+    "User",
+    "Wall",
+] as const;
+
+/** The allowed primary Document types which may exist within a World. */
+export const WORLD_DOCUMENT_TYPES = [
     "Actor",
     "Cards",
     "ChatMessage",
     "Combat",
-    "Item",
+    "FogExploration",
     "Folder",
+    "Item",
     "JournalEntry",
     "Macro",
     "Playlist",
     "RollTable",
     "Scene",
+    "Setting",
     "User",
-];
+] as const;
 
-/** The allowed Document types which may exist within a Compendium pack. */
-export const COMPENDIUM_DOCUMENT_TYPES: [
+/** The allowed primary Document types which may exist within a Compendium pack. */
+export const COMPENDIUM_DOCUMENT_TYPES = [
     "Actor",
+    "Adventure",
     "Cards",
     "Item",
     "JournalEntry",
@@ -116,8 +196,7 @@ export const COMPENDIUM_DOCUMENT_TYPES: [
     "Playlist",
     "RollTable",
     "Scene",
-    "Adventure",
-];
+] as const;
 
 /**
  * Define the allowed ownership levels for a Document.
