@@ -1,0 +1,65 @@
+{
+    "_id": "EyG0zdHA9NbavYlC",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fiendish Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your festering connection to the forces of evil infuses your weapons with debilitating malevolence, tearing down creatures of good with every attack. All your weapon and unarmed Strikes gain the unholy and magical traits.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "unholy"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}

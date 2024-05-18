@@ -1,0 +1,65 @@
+{
+    "_id": "6dlwZBjBnKtuq9HD",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Celestial Strikes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your connection to good arms all your attacks against forces of evil. All your weapon and unarmed Strikes gain the holy and magical traits.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "magical"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:melee",
+                            "item:ranged"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "holy"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "nephilim"
+            ]
+        }
+    },
+    "type": "feat"
+}
