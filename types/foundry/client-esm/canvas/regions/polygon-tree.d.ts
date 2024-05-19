@@ -47,7 +47,6 @@ declare class RegionPolygonTreeNode {
     /**
      * The polygon of this node.
      * It is `null` in case of the root node.
-     * @type {PIXI.Polygon|null}
      */
     get polygon(): PIXI.Polygon | null;
 
@@ -74,11 +73,11 @@ declare class RegionPolygonTreeNode {
 
     /**
      * Test circle containment/intersection with this node.
-     * @param {Point} center     The center point of the circle.
-     * @param {number} radius    The radius of the circle.
-     * @returns {-1|0|1}          - -1: the circle is in the exterior and does not intersect the boundary.
-     *                            - 0: the circle is intersects the boundary.
-     *                            - 1: the circle is in the interior and does not intersect the boundary.
+     * @param   center    The center point of the circle.
+     * @param   radius    The radius of the circle.
+     * @returns           - -1: the circle is in the exterior and does not intersect the boundary.
+     *                    - 0: the circle is intersects the boundary.
+     *                    - 1: the circle is in the interior and does not intersect the boundary.
      */
     testCircle(center: Point, radius: number): -1 | 0 | 1;
 }

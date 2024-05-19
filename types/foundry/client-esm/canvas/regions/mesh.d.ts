@@ -43,7 +43,7 @@ export class RegionMesh<TShader extends AbstractBaseShader = RegionShader> exten
 
     /**
      * Initialize shader based on the shader class type.
-     * @param {type AbstractBaseShader} shaderClass  The shader class, which must inherit from {@link AbstractBaseShader}.
+     * @param shaderClass  The shader class, which must inherit from {@link AbstractBaseShader}.
      */
     setShaderClass(shaderClass: AbstractBaseShader): void;
 
