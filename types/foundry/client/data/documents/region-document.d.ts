@@ -1,8 +1,15 @@
-import type { RegionBehaviorSource } from "../../../common/documents/region-behavior.d.ts";
+import type { RegionSource } from "../../../common/documents/region.d.ts";
 import type { CanvasBaseRegion } from "./client-base-mixes.d.ts";
 
 declare global {
     class RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+        /**
+         * Construct a Region document using provided data and context.
+         * @param data      Initial data from which to construct the Region
+         * @param context   Construction context options
+         */
+        constructor(data: PreCreate<RegionSource>, context: DocumentConstructionContext<TParent>);
+
         /**
          * Activate the Socket event listeners.
          * @param    socket    The active game socket
@@ -36,11 +43,33 @@ declare global {
          * @internal
          */
         _updateTokens(options?: { deleted?: boolean }): Promise<boolean>;
+    }
 
-        override createEmbeddedDocuments(
-            embeddedName: "RegionBehavior",
-            data: PreCreate<RegionBehaviorSource>[],
-            context?: DocumentModificationContext<this>,
-        ): Promise<foundry.documents.BaseRegionBehavior[]>;
+    interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+        readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehavior<this>>;
+    }
+
+    interface RegionEvent<TData extends object = object> {
+        /** The name of the event */
+        name: string;
+        /** The data of the event */
+        data: TData;
+        /** The Region the event was triggered on */
+        region: RegionDocument;
+        /** The User that triggered the event */
+        user: User;
+    }
+
+    interface SocketRegionEvent<TData extends object = object> {
+        /** The UUID of the Region the event was triggered on */
+        regionUuid: string;
+        /** The ID of the User that triggered the event */
+        userId: string;
+        /** The name of the event */
+        eventName: string;
+        /** The data of the event */
+        eventData: TData;
+        /** The keys of the event data that are Documents */
+        eventDataUuids: string[];
     }
 }

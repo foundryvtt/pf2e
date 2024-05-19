@@ -57,12 +57,7 @@ declare class RegionCircle extends RegionShape<foundry.data.CircleShapeData> {
     protected override _createClipperPolyTree(): (ClipperLib.PolyTree | ClipperLib.IntPoint)[];
 }
 
-/**
- * An ellipse of a {@link Region}.
- * @extends {RegionShape<foundry.data.EllipseShapeData>}
- *
- * @param {foundry.data.EllipseShapeData} data    The shape data.
- */
+/** An ellipse of a {@link Region}. */
 declare class RegionEllipse extends RegionShape<foundry.data.EllipseShapeData> {
     protected override _createClipperPolyTree(): (ClipperLib.PolyTree | ClipperLib.IntPoint)[];
 }

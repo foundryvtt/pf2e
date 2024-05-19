@@ -8898,8 +8898,8 @@ export class CanvasBaseRegion<TParent extends ClientBaseScene | null> extends Cl
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 
-export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion> extends foundry.documents
-    .BaseRegionBehavior<TParent> {
+export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBaseScene | null> | null> extends foundry
+    .documents.BaseRegionBehavior<TParent> {
     protected _sheet: DocumentSheet<this> | null;
 
     /**

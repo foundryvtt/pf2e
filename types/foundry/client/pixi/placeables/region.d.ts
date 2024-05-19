@@ -52,10 +52,7 @@ declare class Region<
     /** The Clipper paths of this Region. */
     get clipperPaths(): readonly (readonly ClipperLib.IntPoint[])[];
 
-    /**
-     * The triangulation of this Region.
-     * @type {Readonly<{vertices: Float32Array, indices: Uint16Array|Uint32Array}>}
-     */
+    /** The triangulation of this Region. */
     get triangulation(): { vertices: Float32Array; indices: Uint16Array | Uint32Array };
 
     /** The geometry of this Region. */

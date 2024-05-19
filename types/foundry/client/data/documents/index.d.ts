@@ -22,6 +22,7 @@ import "./measured-template-document.d.ts";
 import "./note-document.d.ts";
 import "./playlist-sound.d.ts";
 import "./playlist.d.ts";
+import "./region-behavior.d.ts";
 import "./region-document.d.ts";
 import "./roll-table.d.ts";
 import "./scene.d.ts";
