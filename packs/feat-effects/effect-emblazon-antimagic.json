@@ -1,0 +1,106 @@
+{
+    "_id": "RyGaB5hDRcOeb34Q",
+    "img": "icons/skills/melee/strike-sword-slashing-red.webp",
+    "name": "Effect: Emblazon Antimagic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Emblazon Antimagic]</p>\n<ul>\n<li><strong>Shield</strong> When the wielder has the shield raised, they gain the shield's circumstance bonus to saving throws against magic.</li>\n<li><strong>Weapon</strong> When the weapon's wielder critically hits with the weapon, they can attempt to counteract a spell on their target, using half their level, rounded up, as the counteract rank.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "TYPES.Item.shield",
+                        "value": "shield"
+                    },
+                    {
+                        "label": "TYPES.Item.weapon",
+                        "value": "weapon"
+                    }
+                ],
+                "flag": "item",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.ShieldOrWeapon",
+                "rollOption": "emblazon-antimagic:item"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "shield"
+                    ]
+                },
+                "flag": "shield",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "emblazon-antimagic:item:shield"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Shield"
+            },
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "emblazon-antimagic:item:weapon"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emblazon-antimagic:item:shield",
+                    "item:magical",
+                    "self:shield:raised"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@actor.heldShield.acBonus"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "emblazon-antimagic:item:weapon"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                "text": "PF2E.SpecificRule.Cleric.EmblazonAntimagic.WeaponNote",
+                "title": "{item|name}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Trigger</strong> You are hit by an attack, spell, or other effect that deals electricity damage.</p>\n<hr />\n<p>You conduct the damage through your body, taking damage as normal (if applicable) and redirecting it at one target within 10 feet that you can see. The creature must make a Fortitude save using your class DC or spell DC, whichever is higher. On a failure, they take the electrical damage; on a success, they take half damage.</p>"
+            "value": "<p><strong>Trigger</strong> You are hit by an attack, spell, or other effect that deals electricity damage.</p>\n<hr />\n<p>You conduct the damage through your body, taking damage as normal (if applicable) and redirecting it at one target within 10 feet that you can see. That target takes an equal amount of damage with a @Check[type:fortitude|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save against the higher of your class DC or spell DC. The damage they take is based on the triggering damage, not modified by your degree of success, resistances, and so forth.</p>"
         },
         "level": {
             "value": 5

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've steeped yourself in magic and gunplay to the extent that you can conjure bullets from thin air, using a rudimentary knowledge of arcane theory to create a temporary piece of ammunition. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Conjure Bullet] action.</p>\n<p><strong>Special</strong> You can't select another dedication feat other than Beast Gunner Dedication until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.FJGPBhYmD7xTFsrW]{Spellshot} or @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.jTiXRtNNvMOnsg98]{Beast Gunner} archetypes.</p>"
+            "value": "<p>You cast arcane spells like a wizard, gaining a spellbook with four common arcane cantrips of your choice. You gain the Cast a Spell activity. You can prepare two cantrips each day from your spellbook. You're trained in the spell attack modifier and spell DC statistics. Your key spellcasting attribute for spellshot archetype spells is Intelligence, and they are arcane spells. You become trained in Arcana; if you were already trained in Arcana, you instead become trained in a skill of your choice. This counts as the wizard archetype for the benefits of @UUID[Compendium.pf2e.feats-srd.Item.Basic Wizard Spellcasting].</p>\n<hr />\n<p><strong>Special</strong> You can't select another dedication feat other than Beast Gunner Dedication until you've gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.FJGPBhYmD7xTFsrW]{Spellshot} or @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.jTiXRtNNvMOnsg98]{Beast Gunner} archetypes.</p>"
         },
         "level": {
             "taken": 2,
@@ -34,8 +34,21 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Conjure Bullet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "value": 1
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "spellcasting": {
+                    "rank": 1
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
