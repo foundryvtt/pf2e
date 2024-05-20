@@ -141,6 +141,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, master, masterAttributeModifier, system } = this;
         const { attributes, traits } = system;
+        const minimumAbilityModifier = new ModifierPF2e(`Minimum Ability Modifier`, 3, "untyped")
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
@@ -204,6 +205,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         this.system.attack = this.attackStatistic.getTraceData();
+        const abilityBreakdown = (
+                                  masterAttributeModifier > 2 ? 
+                                  new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped") : 
+                                  minimumAbilityModifier
+                                 )
 
         // Perception
         this.perception = new PerceptionStatistic(this, {
@@ -213,7 +219,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             domains: ["perception", "wis-based", "all"],
             modifiers: [
                 new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
-                new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped"),
+                abilityBreakdown,
             ],
             check: { type: "perception-check" },
             senses: system.perception.senses,
@@ -225,8 +231,12 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             const longForm = SKILL_DICTIONARY[shortForm];
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acr", "ste"].includes(shortForm)) {
-                const label = `PF2E.MasterAbility.${system.master.ability}`;
-                modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
+                if(masterAttributeModifier > 2) {
+                    const label = `PF2E.MasterAbility.${system.master.ability}`;
+                    modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
+                } else {
+                    modifiers.push(minimumAbilityModifier);
+                }
             }
 
             const attribute = SKILL_EXPANDED[longForm].attribute;
