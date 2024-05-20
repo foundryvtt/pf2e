@@ -1,4 +1,14 @@
-import { ArmyPF2e, CharacterPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, NPCPF2e, PartyPF2e, VehiclePF2e } from "@actor";
+import {
+    ActorPF2e,
+    ArmyPF2e,
+    CharacterPF2e,
+    FamiliarPF2e,
+    HazardPF2e,
+    LootPF2e,
+    NPCPF2e,
+    PartyPF2e,
+    VehiclePF2e,
+} from "@actor";
 import { SenseAcuity } from "@actor/creature/types.ts";
 import { LANGUAGES, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorType, AttributeString } from "@actor/types.ts";
@@ -20,6 +30,7 @@ import {
     EquipmentPF2e,
     FeatPF2e,
     HeritagePF2e,
+    ItemPF2e,
     KitPF2e,
     LorePF2e,
     MeleePF2e,
@@ -944,6 +955,7 @@ export const PF2ECONFIG = {
     },
 
     Actor: {
+        base: ActorPF2e,
         documentClasses: {
             army: ArmyPF2e,
             character: CharacterPF2e,
@@ -957,6 +969,7 @@ export const PF2ECONFIG = {
     },
 
     Item: {
+        base: ItemPF2e,
         documentClasses: {
             action: AbilityItemPF2e,
             affliction: AfflictionPF2e,

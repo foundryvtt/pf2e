@@ -1819,7 +1819,9 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
         _target,
         args: [source: PreCreate<ActorSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e["parent"]>],
     ) {
-        return new CONFIG.PF2E.Actor.documentClasses[args[0].type](...args);
+        const type = args[0]?.type;
+        const ActorClass = CONFIG.PF2E.Actor.documentClasses[type] ?? ActorPF2e;
+        return new ActorClass(...args);
     },
 });
 
