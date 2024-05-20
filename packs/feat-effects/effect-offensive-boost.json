@@ -40,7 +40,13 @@
                 "label": "PF2E.SpecificRule.Inventor.PersistentBoost.ConstructLabel",
                 "option": "persistent-boost",
                 "predicate": [
-                    "self:trait:minion"
+                    "self:trait:minion",
+                    {
+                        "gte": [
+                            "self:level",
+                            16
+                        ]
+                    }
                 ],
                 "priority": 51,
                 "toggleable": true
@@ -74,6 +80,7 @@
                 "dieSize": "d8",
                 "hideIfDisabled": true,
                 "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Inventor.PersistentBoost.Label",
                 "predicate": [
                     "self:trait:minion",
                     "persistent-boost"
