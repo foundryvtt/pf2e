@@ -36,9 +36,20 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.PersistentBoost.ConstructLabel",
+                "option": "persistent-boost",
+                "predicate": [
+                    "self:trait:minion"
+                ],
+                "priority": 51,
+                "toggleable": true
+            },
+            {
                 "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "self:trait:minion"
@@ -49,9 +60,37 @@
                 "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "feature:armor-innovation"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "self:trait:minion",
+                    "persistent-boost"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Inventor.PersistentBoost.Label",
+                "predicate": [
+                    "feature:armor-innovation",
+                    "feat:persistent-boost"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }
