@@ -218,12 +218,6 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
         };
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
-
-        //Checks for any shield weapon attachments and gives them the thrown property.
-        if(this.system.subitems[0]?.type === 'weapon' && shieldThrowTrait) {
-            this.system.subitems[0].system.traits.value.push(`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait)
-        }
-        
         const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
