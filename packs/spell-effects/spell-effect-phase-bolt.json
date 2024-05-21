@@ -1,0 +1,55 @@
+{
+    "_id": "ZVPlFsk5Zimd8Mc9",
+    "img": "systems/pf2e/icons/spells/phase-bolt.webp",
+    "name": "Spell Effect: Phase Bolt",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Phase Bolt]</p>\n<p>If the target has any circumstance bonuses to AC, reduce that bonus by 2 for this attack.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "predicate": [
+                    "bonus:type:circumstance"
+                ],
+                "selector": "ac",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "bonus:type:circumstance"
+                ],
+                "selector": "ac",
+                "value": 0
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
