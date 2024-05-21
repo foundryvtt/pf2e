@@ -27,6 +27,11 @@ interface TagifyValue {
     value: string;
 }
 
+interface PromptData {
+    flavor: string;
+    content: string;
+}
+
 class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
@@ -113,7 +118,19 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         // Setup buttons
         htmlQuery(html, "[data-action=post]")?.addEventListener("click", async () => {
-            this.#generatePrompt();
+            const promptData = this.#getPromptData();
+            if (promptData) {
+                ChatMessagePF2e.create({ user: game.user.id, flavor: promptData.flavor, content: promptData.content });
+            }
+        });
+
+        htmlQuery(html, "[data-action=copy]")?.addEventListener("click", async () => {
+            const promptData = this.#getPromptData();
+            if (promptData) {
+                const clipText = promptData.content.replace(/<\/?p>/g, " ").trim();
+                game.clipboard.copyPlainText(clipText);
+                ui.notifications.info(game.i18n.format("PF2E.ClipboardNotification", { clipText }));
+            }
         });
 
         htmlQuery(html, "[data-action=cancel]")?.addEventListener("click", async () => {
@@ -121,12 +138,13 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         });
     }
 
-    #generatePrompt(): void {
+    #getPromptData(): PromptData | null {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
+
         if (activeSkillSaveTab?.dataset.tab === "skills") {
             // get skill tags
             types.push(...this.#htmlQueryTags(html, "input#check-prompt-skills"));
@@ -154,9 +172,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
             const dc = this.#getDC(html);
             const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
-
-            ChatMessagePF2e.create({ user: game.user.id, flavor, content });
+            return { flavor, content };
         }
+        return null;
     }
 
     #htmlQueryTags(html: HTMLElement, selector: string): string[] {
