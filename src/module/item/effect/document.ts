@@ -140,7 +140,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (this.isOwned) {
@@ -154,12 +154,12 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             this._source.system.badge = await this.#evaluateFormulaBadge(badge);
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<EffectSource>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
@@ -211,14 +211,14 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
-        super._onDelete(options, userId);
+        super._onDelete(operation, userId);
     }
 
     /** If applicable, reevaluate this effect's badge */

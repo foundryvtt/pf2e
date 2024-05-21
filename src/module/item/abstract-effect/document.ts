@@ -147,7 +147,7 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
     /** Log whether this effect originated from a spell */
     protected override _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         data.system.fromSpell ??= ((): boolean => {
@@ -161,20 +161,20 @@ abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e |
             );
         })();
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         this.handleChange({ create: this });
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         this.handleChange({ delete: { name: this._source.name } });
     }
 

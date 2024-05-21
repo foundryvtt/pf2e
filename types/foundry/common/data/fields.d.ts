@@ -1,6 +1,6 @@
-import type { EffectChangeData } from "types/foundry/common/documents/active-effect.d.ts";
 import type * as abstract from "../abstract/module.d.ts";
 import { ALL_DOCUMENT_TYPES } from "../constants.js";
+import type { EffectChangeData } from "../documents/active-effect.d.ts";
 import type Color from "../utils/color.d.ts";
 import type { TombstoneDataSchema } from "./data.d.ts";
 import type { DataModelValidationFailure } from "./validation-failure.d.ts";
@@ -320,7 +320,7 @@ export abstract class DataField<
      * @param   delta  The change delta.
      * @internal
      */
-    _castChangeDelta(delta: unknown): ReturnType<this["_cast"]>;
+    _castChangeDelta(delta: unknown): unknown;
 
     /**
      * Apply an ADD change to this field.
@@ -1341,7 +1341,7 @@ interface JavaScriptFieldOptions<TRequired extends boolean, TNullable extends bo
 }
 
 /** A subclass of {@link StringField} which contains JavaScript code. */
-class JavaScriptField<
+export class JavaScriptField<
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = false,

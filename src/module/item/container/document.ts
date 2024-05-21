@@ -82,10 +82,10 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     /** Coerce changes to container bulk data into validity */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system?.bulk) return super._preUpdate(changed, options, user);
+        if (!changed.system?.bulk) return super._preUpdate(changed, operation, user);
 
         if (changed.system.bulk.heldOrStowed !== undefined) {
             changed.system.bulk.heldOrStowed = Math.clamp(Number(changed.system.bulk.heldOrStowed), 0, 999) || 0;
@@ -99,7 +99,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

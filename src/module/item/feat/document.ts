@@ -333,7 +333,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
@@ -345,15 +345,15 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         // Ensure an empty-string `location` property is null
         if ("location" in changed.system) {
@@ -380,16 +380,12 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             fu.mergeObject(changed, { system: { maxTakable: 1 } });
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     /** Warn the owning user(s) if this feat was taken despite some restriction */
-    protected override _onCreate(
-        data: FeatSource,
-        options: DocumentModificationContext<TParent>,
-        userId: string,
-    ): void {
-        super._onCreate(data, options, userId);
+    protected override _onCreate(data: FeatSource, operation: DatabaseCreateOperation<TParent>, userId: string): void {
+        super._onCreate(data, operation, userId);
 
         if (!(this.isOwner && this.actor?.isOfType("character") && this.isFeat)) return;
 

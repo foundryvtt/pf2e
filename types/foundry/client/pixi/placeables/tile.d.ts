@@ -84,11 +84,11 @@ declare global {
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
-        override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
         /**
          * Update wall states and refresh lighting and vision when a tile becomes a roof, or when an existing roof tile's

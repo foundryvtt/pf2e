@@ -90,7 +90,7 @@ interface ChatMessageMetadata extends DocumentMetadata {
 }
 
 declare global {
-    interface ChatMessageModificationContext extends DocumentModificationContext<null> {
+    interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
         rollMode?: RollMode | "roll";
     }
 }

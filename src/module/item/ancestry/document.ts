@@ -153,10 +153,10 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Ensure certain fields are positive integers. */
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         const additionalLanguages = changed.system.additionalLanguages;
         if (additionalLanguages?.count !== undefined) {
@@ -171,7 +171,7 @@ class AncestryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

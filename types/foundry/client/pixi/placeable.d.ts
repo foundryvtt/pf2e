@@ -174,7 +174,7 @@ declare global {
         /** Register pending canvas operations which should occur after a new PlaceableObject of this type is created */
         protected _onCreate(
             data: TDocument["_source"],
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseCreateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
@@ -182,13 +182,13 @@ declare global {
 
         protected _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentUpdateContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
 
-        protected _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        protected _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
         /* -------------------------------------------- */
         /*  Methods                                     */

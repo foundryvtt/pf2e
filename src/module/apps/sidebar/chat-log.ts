@@ -102,7 +102,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         command: string,
         matches: RegExpMatchArray[],
         chatData: PreCreate<Omit<ChatMessagePF2e["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-        createOptions: ChatMessageModificationContext,
+        createOptions: ChatMessageCreateOperation,
     ): Promise<void> {
         const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
         const rollData = actor?.getRollData() ?? {};

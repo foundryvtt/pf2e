@@ -144,10 +144,10 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
 
     protected override async _preUpdate(
         changed: DeepPartial<VehicleSource>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const result = await super._preUpdate(changed, options, user);
+        const result = await super._preUpdate(changed, operation, user);
         if (result === false) return result;
 
         if (this.prototypeToken.flags?.pf2e?.linkToActorSize) {

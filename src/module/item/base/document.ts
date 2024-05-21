@@ -120,17 +120,13 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Redirect the deletion of any owned items to ActorPF2e#deleteEmbeddedDocuments for a single workflow */
-    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
+    override async delete(operation: Partial<DatabaseDeleteOperation<TParent>> = {}): Promise<this | undefined> {
         if (this.actor) {
-            await this.actor.deleteEmbeddedDocuments(
-                "Item",
-                [this.id],
-                context as DocumentModificationContext<NonNullable<TParent>>,
-            );
+            await this.actor.deleteEmbeddedDocuments("Item", [this.id], R.omit(operation, ["parent"]));
             return this;
         }
 
-        return super.delete(context);
+        return super.delete(operation);
     }
 
     /** Generate a list of strings for use in predication */
@@ -515,11 +511,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ItemPF2e | PreCreate<ItemSourcePF2e>)[] = [],
-        context: DocumentModificationContext<ActorPF2e | null> = {},
+        operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
     ): Promise<foundry.abstract.Document[]> {
         // Convert all `ItemPF2e`s to source objects
         const sources: PreCreate<ItemSourcePF2e>[] = data.map(
@@ -541,8 +537,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             data.splice(data.indexOf(source), 1, item.toObject());
         }
 
-        const actor = context.parent;
-        if (!actor) return super.createDocuments(sources, context);
+        const actor = operation.parent;
+        if (!actor) return super.createDocuments(sources, operation);
 
         // Check if this item is valid for this actor
         if (sources.some((s) => !actor.checkItemValidity(s))) {
@@ -585,7 +581,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const items = await (async (): Promise<ItemPF2e<ActorPF2e>[]> => {
             /** Internal function to recursively get all simple granted items */
             async function getSimpleGrants(item: ItemPF2e<ActorPF2e>): Promise<ItemPF2e<ActorPF2e>[]> {
-                const granted = (await item.createGrantedItems?.({ size: context.parent?.size })) ?? [];
+                const granted = (await item.createGrantedItems?.({ size: operation.parent?.size })) ?? [];
                 if (granted.length === 0) return [];
                 const reparented = granted.map(
                     (i): ItemPF2e<ActorPF2e> =>
@@ -597,7 +593,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
 
             const items = sources.map((source): ItemPF2e<ActorPF2e> => {
-                if (!(context.keepId || context.keepEmbeddedIds)) {
+                if (!(operation.keepId || operation.keepEmbeddedIds)) {
                     source._id = fu.randomID();
                 }
                 return new CONFIG.Item.documentClass(source, { parent: actor }) as ItemPF2e<ActorPF2e>;
@@ -608,7 +604,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             for (const item of [...items]) {
                 const grants = await getSimpleGrants(item);
                 if (grants.length) {
-                    context.keepId = true;
+                    operation.keepId = true;
                     items.push(...grants);
                 }
             }
@@ -633,7 +629,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                     ruleSource,
                     pendingItems: outputSources,
                     tempItems: items,
-                    context,
+                    operation,
                 });
             }
         }
@@ -653,20 +649,20 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         const nonKits = outputSources.filter((source) => source.type !== "kit");
-        return super.createDocuments(nonKits, context);
+        return super.createDocuments(nonKits, operation);
     }
 
     static override async deleteDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async deleteDocuments(
         ids: string[] = [],
-        context: DocumentModificationContext<ActorPF2e | null> = {},
+        operation: Partial<DatabaseCreateOperation<ActorPF2e | null>> = {},
     ): Promise<foundry.abstract.Document[]> {
         ids = Array.from(new Set(ids));
-        const actor = context.parent;
+        const actor = operation.parent;
         if (actor) {
             const items = ids.flatMap((id) => actor.items.get(id) ?? []);
 
@@ -679,7 +675,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             // Run RE pre-delete callbacks
             for (const item of [...items]) {
                 for (const rule of item.rules) {
-                    await rule.preDelete?.({ pendingItems: items, context });
+                    await rule.preDelete?.({ pendingItems: items, operation });
                 }
 
                 await processGrantDeletions(item, items);
@@ -687,7 +683,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ids = Array.from(new Set(items.map((i) => i.id))).filter((id) => actor.items.has(id));
         }
 
-        return super.deleteDocuments(ids, context);
+        return super.deleteDocuments(ids, operation);
     }
 
     /* -------------------------------------------- */
@@ -696,7 +692,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // Sort traits
@@ -726,7 +722,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Keep `TextEditor` and anything else up to no good from setting this item's description to `null` */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (changed.system?.description?.value === null) {
@@ -782,10 +778,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Call onCreate rule-element hooks */
     protected override _onCreate(
         data: ItemSourcePF2e,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
         this.actor.reset();
@@ -803,18 +799,18 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** Refresh the Item Directory if this item isn't embedded */
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(data, options, userId);
+        super._onUpdate(data, operation, userId);
         if (game.ready && game.items.get(this.id) === this) {
             ui.items.render();
         }
     }
 
     /** Call onDelete rule-element hooks */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         if (!(this.actor && game.user.id === userId)) return;
 
         if (!(this.actor.isOfType("creature") && this.canUserModify(game.user, "update"))) return;
