@@ -141,7 +141,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, master, masterAttributeModifier, system } = this;
         const { attributes, traits } = system;
-        const minimumAbilityModifier = new ModifierPF2e(`Minimum Ability Modifier`, 3, "untyped")
+        const minimumAbilityModifier = new ModifierPF2e(game.i18n.localize("Minimum Ability Modifier"), 3, "untyped")
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
