@@ -208,7 +208,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         });
 
         this.system.attack = this.attackStatistic.getTraceData();
-        const abilityBreakdown = attributeModifier;
 
         // Perception
         this.perception = new PerceptionStatistic(this, {
@@ -216,7 +215,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             domains: ["perception", "wis-based", "all"],
-            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"), abilityBreakdown],
+            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
             check: { type: "perception-check" },
             senses: system.perception.senses,
         });
