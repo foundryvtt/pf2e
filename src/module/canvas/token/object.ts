@@ -190,6 +190,17 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             });
         if (sideBySide) return true;
 
+        // Support for Eidolons
+        const kindredFlank =
+            this.isAdjacentTo(flankee) &&
+            flanking.canGangUp.includes("eidolon") &&
+            flankingBuddies.some((b) => {
+                if (!b.actor?.isOfType("character")) return false;
+                const traits = b.actor.traits;
+                return traits.has("eidolon") && b.isAdjacentTo(flankee);
+            });
+        if (kindredFlank) return true;
+
         // Find a flanking buddy opposite this token
         return flankingBuddies.some((b) => this.onOppositeSides(this, b, flankee));
     }
