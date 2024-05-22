@@ -107,7 +107,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     override async preCreate(args: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.inMemoryOnly || this.invalid) return;
 
-        const { itemSource, pendingItems, context } = args;
+        const { itemSource, pendingItems, operation } = args;
         const ruleSource: GrantItemSource = args.ruleSource;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
@@ -208,7 +208,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         this.grantedId = grantedSource._id;
-        context.keepId = true;
+        operation.keepId = true;
 
         this.#setGrantFlags(itemSource, grantedSource);
         this.#trackItem(tempGranted);
@@ -218,7 +218,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
 
         // Run the granted item's preCreate callbacks unless this is a pre-actor-update reevaluation
         if (!args.reevaluation) {
-            await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, context);
+            await this.#runGrantedItemPreCreates(args, tempGranted, grantedSource, operation);
         }
     }
 
@@ -242,8 +242,8 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         if (!ruleSource) return noAction;
 
         const pendingItems: ItemSourcePF2e[] = [];
-        const context = { parent: this.actor, render: false };
-        await this.preCreate({ itemSource, pendingItems, ruleSource, tempItems: [], context, reevaluation: true });
+        const operation = { parent: this.actor, render: false };
+        await this.preCreate({ itemSource, pendingItems, ruleSource, tempItems: [], operation, reevaluation: true });
 
         if (pendingItems.length > 0) {
             const updatedGrants = itemSource.flags.pf2e?.itemGrants ?? {};
@@ -327,7 +327,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         originalArgs: Omit<RuleElementPF2e.PreCreateParams, "ruleSource">,
         grantedItem: ItemPF2e<ActorPF2e>,
         grantedSource: ItemSourcePF2e,
-        context: DocumentModificationContext<ActorPF2e | null>,
+        operation: Partial<DatabaseCreateOperation<ActorPF2e | null>>,
     ): Promise<void> {
         // Create a temporary embedded version of the item to run its pre-create REs
         for (const rule of grantedItem.rules) {
@@ -336,7 +336,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
                 ...originalArgs,
                 itemSource: grantedSource,
                 ruleSource,
-                context,
+                operation,
             });
         }
     }

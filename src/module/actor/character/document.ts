@@ -1,6 +1,6 @@
 import { CreaturePF2e, type FamiliarPF2e } from "@actor";
 import { Abilities, CreatureSpeeds, LabeledSpeed, SkillAbbreviation } from "@actor/creature/data.ts";
-import { CreatureUpdateContext } from "@actor/creature/types.ts";
+import { CreatureUpdateOperation } from "@actor/creature/types.ts";
 import { ALLIANCES, SAVING_THROW_ATTRIBUTES } from "@actor/creature/values.ts";
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
@@ -1824,7 +1824,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     protected override async _preUpdate(
         changed: DeepPartial<CharacterSource>,
-        options: CreatureUpdateContext<TParent>,
+        options: CreatureUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));

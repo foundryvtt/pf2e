@@ -106,17 +106,17 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
     protected override _onCreate(
         data: TDocument["_source"],
-        options: DocumentModificationContext<TDocument["parent"]>,
+        options: DatabaseCreateOperation<TDocument["parent"]>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
+        options: DatabaseUpdateOperation<TDocument["parent"]>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
     /**
      * Callback actions when a wall that contains a door is moved or its state is changed

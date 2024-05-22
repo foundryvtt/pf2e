@@ -272,7 +272,7 @@ declare global {
         updateAll(
             transformation: (document: TObject) => Record<string, unknown>,
             condition?: Function | null,
-            options?: DocumentModificationContext<TObject["document"]["parent"]>,
+            options?: DatabaseCreateOperation<TObject["document"]["parent"]>,
         ): Promise<TObject["document"][]>;
 
         /**

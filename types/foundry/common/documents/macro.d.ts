@@ -34,7 +34,7 @@ export default class BaseMacro extends Document<null, MacroSchema> {
 
     protected override _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<null>,
+        options: DatabaseCreateOperation<null>,
         user: documents.BaseUser,
     ): Promise<boolean | void>;
 }

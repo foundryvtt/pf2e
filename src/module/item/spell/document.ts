@@ -1085,22 +1085,22 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     override async update(
         data: Record<string, unknown>,
-        options: DocumentUpdateContext<TParent> = {},
+        operation: Partial<DatabaseUpdateOperation<TParent>> = {},
     ): Promise<this | undefined> {
         // Redirect the update of override spell variants to the appropriate update method if the spell sheet is currently rendered
         if (this.original && this.appliedOverlays!.has("override") && this.sheet.rendered) {
             return this.original.overlays.updateOverride(
                 this as SpellPF2e<ActorPF2e>,
                 data,
-                options as DocumentUpdateContext<ActorPF2e>,
+                operation as Partial<DatabaseUpdateOperation<ActorPF2e>>,
             ) as Promise<this | undefined>;
         }
-        return super.update(data, options);
+        return super.update(data, operation);
     }
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (!this.actor) {
@@ -1117,15 +1117,15 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             this._source.system.traits.traditions = [];
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<SpellSource>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         // Clean up location
         const newLocation = changed.system.location?.value ?? this._source.system.location.value;
@@ -1214,7 +1214,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

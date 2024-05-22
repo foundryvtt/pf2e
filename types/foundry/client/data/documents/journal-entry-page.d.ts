@@ -61,7 +61,7 @@ declare global {
 
         protected override _onUpdate(
             data: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<TParent>,
+            options: DatabaseUpdateOperation<TParent>,
             userId: string,
         ): void;
     }
