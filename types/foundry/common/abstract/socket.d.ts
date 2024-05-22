@@ -1,4 +1,5 @@
 import type { DatabaseAction, DatabaseOperation, DocumentSocketRequest } from "./_types.d.ts";
+import type * as abstract from "./module.d.ts";
 
 /**
  * The data structure of a modifyDocument socket response.
@@ -21,7 +22,7 @@ export default class DocumentSocketResponse {
     broadcast: boolean;
 
     /** The database operation that was requested. */
-    operation: DatabaseOperation;
+    operation: DatabaseOperation<abstract.Document | null>;
 
     /** The identifier of the requesting user. */
     userId: string;

@@ -19,7 +19,7 @@ import type { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ArmorStatistic, Statistic, StatisticDifficultyClass } from "@system/statistic/index.ts";
 import { createHTMLElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { ActorPF2e, type ActorUpdateContext, type HitPointsSummary } from "../base.ts";
+import { ActorPF2e, type ActorUpdateOperation, type HitPointsSummary } from "../base.ts";
 import type { ArmySource, ArmySystemData } from "./data.ts";
 import type { ArmyStrike } from "./types.ts";
 import { ARMY_STATS, ARMY_TYPES } from "./values.ts";
@@ -436,22 +436,22 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ActorUpdateContext<TParent>,
+        operation: ActorUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
-        if (isFullReplace) return super._preUpdate(changed, options, user);
+        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, operation, user);
 
         if (typeof changed?.system?.attributes?.hp?.value === "number") {
             const max = Number(changed.system.attributes.hp.max ?? this.system.attributes.hp.max);
             changed.system.attributes.hp.value = Math.clamp(changed.system.attributes.hp.value, 0, max);
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
-    override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         this.kingdom?.reset();
     }
 }

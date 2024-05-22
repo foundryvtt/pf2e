@@ -49,7 +49,7 @@ declare class Note<
 
     protected override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
+        options: DatabaseUpdateOperation<TDocument["parent"]>,
         userId: string,
     ): void;
 

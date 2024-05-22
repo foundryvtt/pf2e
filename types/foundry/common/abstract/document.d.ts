@@ -12,6 +12,9 @@ export default abstract class Document<
     TParent extends Document | null = _Document | null,
     TSchema extends DataSchema = DataSchema,
 > extends DataModel<TParent, TSchema> {
+    /** A set of localization prefix paths which are used by this Document model. */
+    static LOCALIZATION_PREFIXES: string[];
+
     protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 
     /**
@@ -22,7 +25,11 @@ export default abstract class Document<
     /** An immutable reference to a containing Compendium collection to which this Document belongs. */
     readonly pack: string | null;
 
+    readonly collections: Readonly<Record<string, EmbeddedCollection<Document<this>>>>;
+
     protected override _initialize(options?: Record<string, unknown>): void;
+
+    protected static override _initializationOrder(): Generator<[string, DataField], void>;
 
     /* -------------------------------------------- */
     /*  Model Configuration                         */
@@ -50,6 +57,9 @@ export default abstract class Document<
     /** The canonical name of this Document type, for example "Actor". */
     get documentName(): string;
 
+    /** The allowed types which may exist for this Document class. */
+    static get TYPES(): string[];
+
     /** Does this Document support additional sub-types? */
     static get hasTypeData(): boolean;
 
@@ -71,6 +81,9 @@ export default abstract class Document<
 
     /** Test whether this Document is embedded within a parent Document */
     get isEmbedded(): boolean;
+
+    /** A Universally Unique Identifier (uuid) for this Document instance. */
+    get uuid(): DocumentUUID;
 
     /* ---------------------------------------- */
     /*  Model Permissions                       */
@@ -208,7 +221,7 @@ export default abstract class Document<
     static createDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
 
     /**
@@ -216,7 +229,7 @@ export default abstract class Document<
      * Data is provided as an array of objects where each individual object updates one existing Document.
      *
      * @param updates An array of differential data objects, each used to update a single Document
-     * @param [context={}] Additional context which customizes the update workflow
+     * @param [operation={}] Additional context which customizes the update workflow
      * @return An array of updated Document instances
      *
      * @example <caption>Update a single Document</caption>
@@ -239,7 +252,7 @@ export default abstract class Document<
     static updateDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         updates?: Record<string, unknown>[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseUpdateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
 
     /**
@@ -247,7 +260,7 @@ export default abstract class Document<
      * Data is provided as an array of string ids for the documents to delete.
      *
      * @param ids           An array of string ids for the documents to be deleted
-     * @param [context={}] Additional context which customizes the deletion workflow
+     * @param [operation={}] Additional context which customizes the deletion workflow
      * @return An array of deleted Document instances
      *
      * @example <caption>Delete a single Document</caption>
@@ -272,7 +285,7 @@ export default abstract class Document<
     static deleteDocuments<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         ids?: string[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseDeleteOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
 
     /**
@@ -298,35 +311,49 @@ export default abstract class Document<
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]>,
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument | undefined>;
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]>[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static create<TDocument extends Document>(
         this: ConstructorOf<TDocument>,
         data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[] | TDocument | undefined>;
 
     /**
      * Update this Document using incremental data, saving it to the database.
      * @see {@link Document.updateDocuments}
      * @param [data={}]    Differential update data which modifies the existing values of this document data
-     * @param [context={}] Additional context which customizes the update workflow
+     * @param [operation={}] Additional context which customizes the update workflow
      * @returns The updated Document instance
      */
-    update(data: Record<string, unknown>, context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<DatabaseUpdateOperation<TParent>>,
+    ): Promise<this | undefined>;
 
     /**
      * Delete the current Document.
      * @see {Document.delete}
-     * @param context Options which customize the deletion workflow
+     * @param operation Options which customize the deletion workflow
      * @return The deleted Document
      */
-    delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    delete(operation?: Partial<DatabaseDeleteOperation<TParent>>): Promise<this | undefined>;
+
+    /**
+     * Get a World-level Document of this type by its id.
+     * @param documentId  The Document ID
+     * @param [operation] Parameters of the get operation
+     * @returns The retrieved Document, or null
+     */
+    static get(
+        documentId: string,
+        operation?: Partial<DatabaseGetOperation<abstract.Document | null>>,
+    ): Document | null;
 
     /* -------------------------------------------- */
     /*  Embedded Operations                         */
@@ -375,45 +402,48 @@ export default abstract class Document<
      * @see {@link Document.createDocuments}
      * @param embeddedName The name of the embedded Document type
      * @param data An array of data objects used to create multiple documents
-     * @param [context={}] Additional context which customizes the creation workflow
+     * @param [operation={}] Additional context which customizes the creation workflow
      * @return An array of created Document instances
      */
     createEmbeddedDocuments(
         embeddedName: string,
         data: object[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseCreateOperation<this>>,
     ): Promise<Document[]>;
 
     /**
-                 * Update one or multiple existing entities using provided input data.
-                 * Data may be provided as a single object to update one Document, or as an Array of Objects.
-                 /**
-                 * Update multiple embedded Document instances within a parent Document using provided differential data.
-                 * @see {@link Document.updateDocuments}
-                 * @param embeddedName               The name of the embedded Document type
-                 * @param updates An array of differential data objects, each used to update a single Document
-                 * @param [context={}] Additional context which customizes the update workflow
-                 * @return An array of updated Document instances
-                 */
+     * Update multiple embedded Document instances within a parent Document using provided differential data.
+     * @see {@link Document.updateDocuments}
+     * @param embeddedName               The name of the embedded Document type
+     * @param updates An array of differential data objects, each used to update a single Document
+     * @param [operation={}] Additional context which customizes the update workflow
+     * @return An array of updated Document instances
+     */
     updateEmbeddedDocuments(
         embeddedName: string,
         updateData: EmbeddedDocumentUpdateData[],
-        context?: DocumentUpdateContext<this>,
-    ): Promise<Document[]>;
+        operation?: Partial<DatabaseUpdateOperation<this>>,
+    ): Promise<Document<Document>[]>;
 
     /**
      * Delete multiple embedded Document instances within a parent Document using provided string ids.
      * @see {@link Document.deleteDocuments}
      * @param embeddedName               The name of the embedded Document type
      * @param ids                      An array of string ids for each Document to be deleted
-     * @param [context={}] Additional context which customizes the deletion workflow
+     * @param [operation={}] Additional context which customizes the deletion workflow
      * @return An array of deleted Document instances
      */
     deleteEmbeddedDocuments(
         embeddedName: string,
         dataId: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<Document<this>[]>;
+
+    /**
+     * Iterate over all embedded Documents that are hierarchical children of this Document.
+     * @param [_parentPath] A parent field path already traversed
+     */
+    traverseEmbeddedDocuments(_parentPath: string): Generator<[string, Document], void>;
 
     /* -------------------------------------------- */
     /*  Flag Operations                             */
@@ -455,10 +485,10 @@ export default abstract class Document<
      * @param key   The flag key
      * @return A Promise resolving to the updated Document
      */
-    unsetFlag(scope: string, key: string): Promise<this>;
+    unsetFlag(scope: string, key: string): Promise<this | undefined>;
 
     /* -------------------------------------------- */
-    /*  Event Handlers                              */
+    /*  Database Creation Operations                */
     /* -------------------------------------------- */
 
     /**
@@ -472,9 +502,58 @@ export default abstract class Document<
      */
     protected _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseCreateOperation<TParent>,
         user: BaseUser,
     ): Promise<boolean | void>;
+
+    /**
+     * Perform follow-up operations after a Document of this type is created.
+     * Post-creation operations occur for all clients after the creation is broadcast.
+     * @param data    The initial data object provided to the document creation request
+     * @param options Additional options which modify the creation request
+     */
+    protected _onCreate(data: this["_source"], options: DatabaseCreateOperation<TParent>, userId: string): void;
+
+    /**
+     * Pre-process a creation operation, potentially altering its instructions or input data. Pre-operation events only
+     * occur for the client which requested the operation.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_preCreate} workflows and provides a final
+     * pre-flight check before a database operation occurs.
+     *
+     * Modifications to pending documents must mutate the documents array or alter individual document instances using
+     * {@link Document#updateSource}.
+     *
+     * @param documents Pending document instances to be created
+     * @param operation Parameters of the database creation operation
+     * @param user      The User requesting the creation operation
+     * @returns Return false to cancel the creation operation entirely
+     */
+    protected static _preCreateOperation(
+        documents: Document[],
+        operation: DatabaseCreateOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<boolean | void>;
+
+    /**
+     * Post-process a creation operation, reacting to database changes which have occurred. Post-operation events occur
+     * for all connected clients.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_onCreate} workflows.
+     *
+     * @param documents The Document instances which were created
+     * @param operation Parameters of the database creation operation
+     * @param user      The User who performed the creation operation
+     */
+    protected static _onCreateOperation(
+        documents: Document[],
+        operation: DatabaseCreateOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<void>;
+
+    /* -------------------------------------------- */
+    /*  Database Update Operations                  */
+    /* -------------------------------------------- */
 
     /**
      * Perform preliminary operations before a Document of this type is updated.
@@ -486,26 +565,9 @@ export default abstract class Document<
      */
     protected _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         user: BaseUser,
     ): Promise<boolean | void>;
-
-    /**
-     * Perform preliminary operations before a Document of this type is deleted.
-     * Pre-delete operations only occur for the client which requested the operation.
-     * @param options Additional options which modify the deletion request
-     * @param user    The User requesting the document deletion
-     * @returns A return value of false indicates the deletion operation should be cancelled.
-     */
-    protected _preDelete(options: DocumentModificationContext<TParent>, user: BaseUser): Promise<boolean | void>;
-
-    /**
-     * Perform follow-up operations after a Document of this type is created.
-     * Post-creation operations occur for all clients after the creation is broadcast.
-     * @param data    The initial data object provided to the document creation request
-     * @param options Additional options which modify the creation request
-     */
-    protected _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
 
     /**
      * Perform follow-up operations after a Document of this type is updated.
@@ -516,9 +578,59 @@ export default abstract class Document<
      */
     protected _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
+
+    /**
+     * Pre-process an update operation, potentially altering its instructions or input data. Pre-operation events only
+     * occur for the client which requested the operation.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_preUpdate} workflows and provides a final
+     * pre-flight check before a database operation occurs.
+     *
+     * Modifications to the requested updates are performed by mutating the data array of the operation.
+     * {@link Document#updateSource}.
+     *
+     * @param documents Document instances to be updated
+     * @param operation Parameters of the database update operation
+     * @param user      The User requesting the update operation
+     * @returns Return false to cancel the update operation entirely
+     */
+    protected static _preUpdateOperation(
+        documents: Document[],
+        operation: DatabaseUpdateOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<boolean | void>;
+
+    /**
+     * Post-process an update operation, reacting to database changes which have occurred. Post-operation events occur
+     * for all connected clients.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_onUpdate} workflows.
+     *
+     * @param documents The Document instances which were updated
+     * @param operation Parameters of the database update operation
+     * @param user      The User who performed the update operation
+     */
+    protected static _onUpdateOperation(
+        documents: Document[],
+        operation: DatabaseUpdateOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<void>;
+
+    /* -------------------------------------------- */
+    /*  Database Delete Operations                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Perform preliminary operations before a Document of this type is deleted.
+     * Pre-delete operations only occur for the client which requested the operation.
+     * @param options Additional options which modify the deletion request
+     * @param user    The User requesting the document deletion
+     * @returns A return value of false indicates the deletion operation should be cancelled.
+     */
+    protected _preDelete(options: DatabaseDeleteOperation<TParent>, user: BaseUser): Promise<boolean | void>;
 
     /**
      * Perform follow-up operations after a Document of this type is deleted.
@@ -526,47 +638,44 @@ export default abstract class Document<
      * @param options Additional options which modify the deletion request
      * @param userId The ID of the User requesting the document deletion
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(options: DatabaseDeleteOperation<TParent>, userId: string): void;
 
     /**
-     * Perform follow-up operations when a set of Documents of this type are created.
-     * This is where side effects of creation should be implemented.
-     * Post-creation side effects are performed only for the client which requested the operation.
-     * @param documents The Document instances which were created
-     * @param context   The context for the modification operation
+     * Pre-process a deletion operation, potentially altering its instructions or input data. Pre-operation events only
+     * occur for the client which requested the operation.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_preDelete} workflows and provides a final
+     * pre-flight check before a database operation occurs.
+     *
+     * Modifications to the requested deletions are performed by mutating the operation object.
+     * {@link Document#updateSource}.
+     *
+     * @param documents                Document instances to be deleted
+     * @param operation   Parameters of the database update operation
+     * @param user             The User requesting the deletion operation
+     * @returns Return false to cancel the deletion operation entirely
      */
-    protected static _onCreateDocuments(
+    protected static _preDeleteOperation(
         documents: Document[],
-        context: DocumentModificationContext<Document | null>,
-    ): void;
+        operation: DatabaseDeleteOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<boolean | void>;
 
     /**
-     * Perform follow-up operations when a set of Documents of this type are updated.
-     * This is where side effects of updates should be implemented.
-     * Post-update side effects are performed only for the client which requested the operation.
-     * @param documents The Document instances which were updated
-     * @param context   The context for the modification operation
-     */
-    protected static _onUpdateDocuments(
-        documents: Document[],
-        context: DocumentModificationContext<Document | null>,
-    ): void;
-
-    /**
-     * Perform follow-up operations when a set of Documents of this type are deleted.
-     * This is where side effects of deletion should be implemented.
-     * Post-deletion side effects are performed only for the client which requested the operation.
+     * Post-process a deletion operation, reacting to database changes which have occurred. Post-operation events occur
+     * for all connected clients.
+     *
+     * This batch-wise workflow occurs after individual {@link Document#_onDelete} workflows.
+     *
      * @param documents The Document instances which were deleted
-     * @param context   The context for the modification operation
+     * @param operation Parameters of the database deletion operation
+     * @param user      The User who performed the deletion operation
      */
-    protected static _onDeleteDocuments(
+    protected static _onDeleteOperation(
         documents: Document[],
-        context: DocumentModificationContext<Document | null>,
-    ): void;
-
-    /* ---------------------------------------- */
-    /*  Serialization and Storage               */
-    /* ---------------------------------------- */
+        operation: DatabaseDeleteOperation<abstract.Document | null>,
+        user: BaseUser,
+    ): Promise<void>;
 
     /**
      * Transform the Document instance into a plain object.
@@ -578,11 +687,6 @@ export default abstract class Document<
     toObject(source?: true): this["_source"];
     toObject(source: false): RawObject<this>;
     toObject(source?: boolean): this["_source"] | RawObject<this>;
-
-    /**
-     * Serializing an Document should simply serialize its inner data, not the entire instance
-     */
-    toJSON(): RawObject<this>;
 }
 
 type MetadataPermission =
@@ -631,7 +735,7 @@ declare global {
         keepId?: boolean;
     }
 
-    interface DocumentSourceUpdateContext extends Omit<DocumentModificationContext<null>, "parent"> {
+    interface DocumentSourceUpdateContext extends Omit<DatabaseUpdateOperation<null>, "parent"> {
         dryRun?: boolean;
         fallback?: boolean;
     }

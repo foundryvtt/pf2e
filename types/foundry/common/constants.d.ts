@@ -91,7 +91,7 @@ export const COMPATIBILITY_MODES: {
 export const DEFAULT_TOKEN: "icons/svg/mystery-man.svg";
 
 /** The primary Document types. */
-export const PRIMARY_DOCUMENT_TYPES = [
+export const PRIMARY_DOCUMENT_TYPES: [
     "Actor",
     "Adventure",
     "Cards",
@@ -107,10 +107,10 @@ export const PRIMARY_DOCUMENT_TYPES = [
     "Scene",
     "Setting",
     "User",
-] as const;
+];
 
 /** The embedded Document types. */
-export const EMBEDDED_DOCUMENT_TYPES = [
+export const EMBEDDED_DOCUMENT_TYPES: [
     "ActiveEffect",
     "ActorDelta",
     "AmbientLight",
@@ -129,10 +129,10 @@ export const EMBEDDED_DOCUMENT_TYPES = [
     "Tile",
     "Token",
     "Wall",
-] as const;
+];
 
 /** A listing of all valid Document types, both primary and embedded. */
-export const ALL_DOCUMENT_TYPES = [
+export const ALL_DOCUMENT_TYPES: [
     "ActiveEffect",
     "Actor",
     "ActorDelta",
@@ -165,10 +165,10 @@ export const ALL_DOCUMENT_TYPES = [
     "Token",
     "User",
     "Wall",
-] as const;
+];
 
 /** The allowed primary Document types which may exist within a World. */
-export const WORLD_DOCUMENT_TYPES = [
+export const WORLD_DOCUMENT_TYPES: [
     "Actor",
     "Cards",
     "ChatMessage",
@@ -183,10 +183,10 @@ export const WORLD_DOCUMENT_TYPES = [
     "Scene",
     "Setting",
     "User",
-] as const;
+];
 
 /** The allowed primary Document types which may exist within a Compendium pack. */
-export const COMPENDIUM_DOCUMENT_TYPES = [
+export const COMPENDIUM_DOCUMENT_TYPES: [
     "Actor",
     "Adventure",
     "Cards",
@@ -196,7 +196,7 @@ export const COMPENDIUM_DOCUMENT_TYPES = [
     "Playlist",
     "RollTable",
     "Scene",
-] as const;
+];
 
 /**
  * Define the allowed ownership levels for a Document.

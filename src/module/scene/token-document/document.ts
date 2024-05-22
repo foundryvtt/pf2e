@@ -4,13 +4,13 @@ import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
-import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 
 class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this document completed `DataModel` initialization? */
@@ -378,7 +378,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            this.object?._onUpdate(tokenChanges, {}, game.user.id);
+            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [] }, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
@@ -396,10 +396,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
         }
@@ -407,7 +407,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: TokenUpdateOperation<TParent>,
         userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
@@ -421,19 +421,19 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.object.release();
         }
 
-        return super._onUpdate(changed, options, userId);
+        return super._onUpdate(changed, operation, userId);
     }
 
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
-        options: DocumentModificationContext<null> = {},
+        operation: DatabaseUpdateOperation<null>,
     ): void {
-        super._onRelatedUpdate(update, options);
+        super._onRelatedUpdate(update, operation);
         this.simulateUpdate(update);
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         if (!this.actor) return;
 
         if (this.isLinked) {

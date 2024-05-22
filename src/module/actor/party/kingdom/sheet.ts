@@ -310,7 +310,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             if (uuid) {
                 for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
-                    clickable.addEventListener("click", () => fromUuid(uuid).then((a) => a?.sheet.render(true)));
+                    clickable.addEventListener("click", async () => {
+                        const actor = await fromUuid(uuid);
+                        actor?.sheet.render(true);
+                    });
                 }
             }
 

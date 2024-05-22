@@ -32,7 +32,7 @@ import { ErrorPF2e, localizer, setHasElement } from "@util";
 import * as R from "remeda";
 import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -710,12 +710,12 @@ abstract class CreaturePF2e<
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
@@ -723,12 +723,12 @@ abstract class CreaturePF2e<
             ids.push(...linked.map((item) => item.id));
         }
 
-        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context);
+        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], operation);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: CreatureUpdateContext<TParent>,
+        options: CreatureUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
@@ -774,8 +774,8 @@ abstract class CreaturePF2e<
     }
 
     /** Overriden to notify the party that an update is required */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
 
         for (const party of this.parties) {
             const updater = party.primaryUpdater;
@@ -799,40 +799,43 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
 
     get hitPoints(): HitPointsSummary;
 
-    /** Expand DocumentModificationContext for creatures */
-    update(data: Record<string, unknown>, options?: CreatureUpdateContext<TParent>): Promise<this>;
+    /** Extend `DatabaseUpdateOperation` for creatures */
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<CreatureUpdateOperation<TParent>>,
+    ): Promise<this | undefined>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 

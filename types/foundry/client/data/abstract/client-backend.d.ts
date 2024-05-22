@@ -1,41 +1,40 @@
 import type { Socket } from "socket.io";
 import type {
     DatabaseCreateOperation,
-    DatabaseDeleteOperation,
     DatabaseGetOperation,
     DatabaseUpdateOperation,
 } from "../../../common/abstract/_types.d.ts";
-import type { DatabaseBackend, Document } from "../../../common/abstract/module.d.ts";
+import type * as abstract from "../../../common/abstract/module.d.ts";
 
 /** The client-side database backend implementation which handles Document modification operations. */
-export declare class ClientDatabaseBackend extends DatabaseBackend {
+export declare class ClientDatabaseBackend extends abstract.DatabaseBackend {
     /* -------------------------------------------- */
     /*  Document Modification Operations            */
     /* -------------------------------------------- */
 
     protected override _getDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseGetOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseGetOperation<abstract.Document | null>,
         user?: User,
-    ): Promise<CompendiumIndexData[] | Document[]>;
+    ): Promise<CompendiumIndexData[] | abstract.Document[]>;
 
     protected override _createDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseCreateOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
         user?: User,
     ): Promise<ClientDocument[]>;
 
     protected override _updateDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseUpdateOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseUpdateOperation<abstract.Document | null>,
         user?: User,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     protected override _deleteDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseDeleteOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
         user?: User,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     /* -------------------------------------------- */
     /*  Socket Workflows                            */

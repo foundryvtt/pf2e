@@ -75,9 +75,6 @@ const genClientBase = (
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
     get sheet(): ${hasSheet ? "DocumentSheet<this> | DocumentSheetV2<this> " : "null"};
 
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
-
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
      * Different Document types may have more specialized rules for what determines visibility.
@@ -150,31 +147,51 @@ const genClientBase = (
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<${tParentOrNull}>,
+        operation: DatabaseCreateOperation<${tParentOrNull}>,
         userId: string
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<${tParentOrNull}>,
+        operation: DatabaseUpdateOperation<${tParentOrNull}>,
         userId: string
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<${tParentOrNull}>, userId: string): void;
+    protected override _onDelete(options: DatabaseDeleteOperation<${tParentOrNull}>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+    */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string
     ): void;
 
@@ -184,7 +201,7 @@ const genClientBase = (
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -192,23 +209,23 @@ const genClientBase = (
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string
     ): void;
 
@@ -218,7 +235,7 @@ const genClientBase = (
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -226,7 +243,7 @@ const genClientBase = (
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string
     ): void;
 
@@ -235,14 +252,14 @@ const genClientBase = (
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string
     ): void;
 
@@ -252,7 +269,7 @@ const genClientBase = (
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -260,7 +277,7 @@ const genClientBase = (
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string
     ): void;
 
@@ -414,21 +431,21 @@ export class ${canvasBaseName}<
     /**
      * @see abstract.Document#_onCreate
      */
-    protected override _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<TParent>, userId: string): void;
 
     /**
      * @see abstract.Document#_onUpdate
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 `);
     }
@@ -446,6 +463,7 @@ const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; pa
     Actor: { parents: [{ name: "Token", hasParents: true }] },
     ActorDelta: { parents: [{ name: "Token", hasParents: true }] },
     Adventure: {},
+    Card: { parents: [{ name: "Cards", hasParents: false }] },
     Cards: {},
     ChatMessage: {},
     Combat: {},
@@ -463,6 +481,7 @@ const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; pa
     PlaylistSound: { parents: [{ name: "Playlist", hasParents: false }] },
     RollTable: {},
     Scene: {},
+    Setting: {},
     TableResult: { parents: [{ name: "RollTable", hasParents: false }] },
     Tile: { isCanvasDoc: true },
     Token: { isCanvasDoc: true },

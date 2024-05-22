@@ -1,11 +1,11 @@
-import { ActorUpdateContext } from "@actor/base.ts";
+import { ActorUpdateOperation } from "@actor/base.ts";
 import { ItemType } from "@item/base/data/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { Statistic } from "@system/statistic/index.ts";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
 import type { PartyPF2e } from "./document.ts";
 
-interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
+interface PartyUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
     removedMembers?: string[];
 }
 
@@ -32,4 +32,4 @@ interface PartyCampaign extends DataModel<PartyPF2e, {}> {
     _preUpdate?(changed: Record<string, unknown>): void;
 }
 
-export type { PartyCampaign, PartyUpdateContext };
+export type { PartyCampaign, PartyUpdateOperation };
