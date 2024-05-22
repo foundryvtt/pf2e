@@ -1,0 +1,44 @@
+{
+    "_id": "Ul1KW7KI6SXiPFfu",
+    "img": "systems/pf2e/icons/spells/hyperfocus.webp",
+    "name": "Effect: Eagle Eyes",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Eagle Eyes].</p>\n<p>You and your spotter are adept at watching out for one another. As long as you can see or hear each other, neither of you is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to @UUID[Compendium.pf2e.conditionitems.Item.Hidden], undetected, or flanking creatures of your level or lower, or to creatures of your level or lower using a surprise attack. However, they can still help their allies flank.</p>"
+        },
+        "duration": {
+            "expiry": "null",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+            "rules": [
+      {
+        "key": "ActiveEffectLike",
+        "mode": "override",
+        "path": "system.attributes.flanking.offGuardable",
+        "value": "@actor.level"
+      }
+    ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
