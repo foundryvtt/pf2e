@@ -2123,6 +2123,13 @@
                     "Note": "You can grant the temporary Hit Points from Replenishment of War to an ally within 10 feet instead of gaining them yourself."
                 }
             },
+            "ConcertFrog": {
+                "Conduct": {
+                    "Blue": "Blue",
+                    "Red": "Red",
+                    "Yellow": "Yellow"
+                }
+            },
             "Conditions": {
                 "Sickened": {
                     "Reduce": {
@@ -4142,33 +4149,56 @@
                     "Prompt": "Select a patron.",
                     "FamiliarAbility": {
                         "BalancedLuck": {
-                            "Title": "Familiar of Balanced Luck",
-                            "Description": "When you Cast or Sustain a hex, one creature within 15 feet of your familiar gets your choice of either a +1 status bonus to its AC or a –1 status penalty to its AC until the start of your next turn."
+                            "Description": "When you Cast or Sustain a hex, one creature within 15 feet of your familiar gets your choice of either a +1 status bonus to its AC or a –1 status penalty to its AC until the start of your next turn.",
+                            "Title": "Familiar of Balanced Luck"
                         },
                         "FlowingScript": {
-                            "Title": "Familiar of Flowing Script",
-                            "Description": "When you Cast or Sustain a hex, the letters begin to rapidly change, causing a distraction. Until the start of your next turn, your familiar can provide flanking for you and your allies as though it were able to attack and had a reach of 5 feet; this is a visual effect."
+                            "Description": "When you Cast or Sustain a hex, the letters begin to rapidly change, causing a distraction. Until the start of your next turn, your familiar can provide flanking for you and your allies as though it were able to attack and had a reach of 5 feet; this is a visual effect.",
+                            "Title": "Familiar of Flowing Script"
                         },
                         "FreezingRime": {
-                            "Title": "Familiar of Freezing Rime",
-                            "Description": "Your familiar is cold to the touch, its breath always visible. When you Cast or Sustain a hex, you can cause ice to form in a @Template[type:burst|distance:5] centered on a square of your familiar's space. Those squares are difficult terrain until the start of your next turn."
+                            "Description": "Your familiar is cold to the touch, its breath always visible. When you Cast or Sustain a hex, you can cause ice to form in a @Template[type:burst|distance:5] centered on a square of your familiar's space. Those squares are difficult terrain until the start of your next turn.",
+                            "Title": "Familiar of Freezing Rime"
                         },
                         "KeenSenses": {
-                            "Title": "Familiar of Keen Senses",
-                            "Description": "When you Cast or Sustain a hex, your familiar gains your choice of an imprecise scent, tremorsense, or wavesense, with a range of 60 feet until the start of your next turn, and it can immediately @UUID[Compendium.pf2e.actionspf2e.Item.sn2hIy1iIJX9Vpgj]{Point Out} as a free action."
+                            "Description": "When you Cast or Sustain a hex, your familiar gains your choice of an imprecise scent, tremorsense, or wavesense, with a range of 60 feet until the start of your next turn, and it can immediately @UUID[Compendium.pf2e.actionspf2e.Item.sn2hIy1iIJX9Vpgj]{Point Out} as a free action.",
+                            "Title": "Familiar of Keen Senses"
+                        },
+                        "NimbleFlight": {
+                            "Description": "When you Cast or Sustain a hex, your familiar can Fly up to 15 feet; this movement doesn't trigger reactions.",
+                            "Title": "Familiar of Nimble Flight"
                         },
                         "OngoingMisery": {
-                            "Title": "Familiar of Ongoing Misery",
-                            "Description": "When you Cast or Sustain a hex, your familiar can curse a creature within 15 feet of it, prolonging the duration of any negative conditions affecting it by 1 round. This is a curse effect. This prolongs only conditions with a timed duration (such as '1 round' or 'until the end of your next turn') and doesn't prevent conditions from being removed by other means."
+                            "Description": "When you Cast or Sustain a hex, your familiar can curse a creature within 15 feet of it, prolonging the duration of any negative conditions affecting it by 1 round. This is a curse effect. This prolongs only conditions with a timed duration (such as '1 round' or 'until the end of your next turn') and doesn't prevent conditions from being removed by other means.",
+                            "Title": "Familiar of Ongoing Misery"
+                        },
+                        "OverwhelmingTides": {
+                            "Description": "When you Cast or Sustain a hex, you can cause a small wave to surge forth from your familiar. One creature within 10 feet of your familiar is pushed 5 feet away from your familiar.",
+                            "Title": "Familiar of Overwhelming Tides"
+                        },
+                        "ParasiticMight": {
+                            "Description": "When you Cast or Sustain a hex, one creature within 15 feet of your familiar with less than half of its maximum Hit Points becomes @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} unless it succeeds at a @Check[type:fortitude|dc:resolve(@actor.system.attributes.spellDC.value)] saving throw.",
+                            "Title": "Familiar of Parasitic Might"
                         },
                         "RestoredSpirit": {
-                            "Title": "Familiar of Restored Spirit",
-                            "Description": "When you Cast or Sustain a hex, one willing creature within 15 feet of your familiar gains temporary Hit Points equal to 2 + half your level, which last until the start of your next turn."
+                            "Description": "When you Cast or Sustain a hex, one willing creature within 15 feet of your familiar gains temporary Hit Points equal to 2 + half your level, which last until the start of your next turn.",
+                            "Title": "Familiar of Restored Spirit"
                         },
                         "StalkingNight": {
-                            "Title": "Familiar of Stalking Night",
-                            "Description": "Your familiar is dark of fur or feather, and light seems to disappear into it. When you Cast or Sustain a hex, and your familiar is adjacent to an enemy to which it's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden}, or undetected, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}."
+                            "Description": "When you Cast or Sustain a hex, and your familiar is adjacent to an enemy to which it's @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden}, or undetected, the enemy becomes @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 1}.",
+                            "Title": "Familiar of Stalking Night"
                         }
+                    }
+                },
+                "WildWitchsArmaments": {
+                    "EldritchNails": {
+                        "RollOptionLabel": "You hit the same enemy with two consecutive nail strikes"
+                    },
+                    "IronTeeth": {
+                        "Note": "A creature that you critically hit with a jaws Strike must succeed at a @Check[type:fortitude|dc:resolve(@actor.system.attributes.classDC.value)] save or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1}."
+                    },
+                    "LivingHair": {
+                        "SrikeLabel": "Quill"
                     }
                 },
                 "WitchsArmaments": {
