@@ -138,6 +138,8 @@ type GangUpCircumstance =
     | number
     /** Requires the actor's animal companion to be adjacent to the target */
     | "animal-companion"
+    /** Requires the actor's eidolon to be adjacent to the target */
+    | "eidolon"
     /** The Gang Up rogue feat allows allies to flank with the gang-upper */
     | true;
 
