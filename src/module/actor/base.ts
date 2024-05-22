@@ -1823,7 +1823,10 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
         args: [source: PreCreate<ActorSourcePF2e>, context?: DocumentConstructionContext<ActorPF2e["parent"]>],
     ) {
         const type = args[0]?.type;
-        const ActorClass = CONFIG.PF2E.Actor.documentClasses[type] ?? ActorPF2e;
+        const ActorClass = CONFIG.PF2E.Actor.documentClasses[type];
+        if (!ActorClass) {
+            throw ErrorPF2e(`Actor type ${type} does not exist and actor module sub-types are not supported`);
+        }
         return new ActorClass(...args);
     },
 });
