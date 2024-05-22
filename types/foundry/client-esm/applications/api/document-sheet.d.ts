@@ -47,8 +47,8 @@ declare global {
 
     interface DocumentSheetRenderOptions extends ApplicationRenderOptions {
         /** A string with the format "{operation}{documentName}" providing context */
-        renderContext: string;
+        renderContext?: string;
         /** Data describing the document modification that occurred */
-        renderData: object;
+        renderData?: object;
     }
 }

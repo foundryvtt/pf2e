@@ -508,13 +508,13 @@ declare global {
 
         protected override _onCreate(
             data: TDocument["_source"],
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseCreateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
@@ -522,11 +522,11 @@ declare global {
         protected _onUpdateAppearance(
             data: DeepPartial<TDocument["_source"]>,
             changed: Set<string>,
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
         ): Promise<void>;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
         protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 

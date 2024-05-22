@@ -77,15 +77,15 @@ class CombatantPF2e<
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (CombatantPF2e | PreCreate<foundry.documents.CombatantSource>)[] = [],
-        context: DocumentModificationContext<EncounterPF2e> = {},
+        operation: Partial<DatabaseCreateOperation<EncounterPF2e>> = {},
     ): Promise<Combatant<EncounterPF2e, TokenDocument<Scene | null> | null>[]> {
         type DataType = (typeof data)[number];
         const entries: { token: TokenDocumentPF2e | null; data: DataType }[] = data.map((d) => {
-            const scene = d.sceneId ? game.scenes.get(d.sceneId) : context.parent?.scene;
+            const scene = d.sceneId ? game.scenes.get(d.sceneId) : operation.parent?.scene;
             const token = scene?.tokens.get(d.tokenId ?? "") || null;
             return { token, data: d };
         });
@@ -94,12 +94,12 @@ class CombatantPF2e<
         const tokens = entries.map((e) => e.token);
         for (const token of tokens) {
             if (token?.actor?.isOfType("party")) {
-                await token?.actor.addToCombat({ combat: context.parent });
+                await token?.actor.addToCombat({ combat: operation.parent });
             }
         }
 
         const nonPartyData = entries.filter((e) => !e.token?.actor?.isOfType("party")).map((e) => e.data);
-        return super.createDocuments<Combatant<EncounterPF2e, TokenDocument<Scene | null>>>(nonPartyData, context);
+        return super.createDocuments<Combatant<EncounterPF2e, TokenDocument<Scene | null>>>(nonPartyData, operation);
     }
 
     async startTurn(): Promise<void> {
@@ -240,10 +240,10 @@ class CombatantPF2e<
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
         if (typeof changed.initiative === "number") {
             // Reset actor data in case initiative order changed
@@ -269,8 +269,8 @@ class CombatantPF2e<
         }
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
 
         // Reset actor data in case initiative order changed
         if (this.encounter?.started) {

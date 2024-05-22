@@ -212,11 +212,10 @@ type EnvironmentDataSchema = {
 type SceneSource = SourceFromSchema<SceneSchema>;
 
 declare global {
-    export interface SceneEmbeddedModificationContext<TParent extends BaseScene>
-        extends DocumentModificationContext<TParent> {
+    export type SceneEmbeddedOperation<TParent extends BaseScene> = DatabaseOperation<TParent> & {
         /** Is the operation undoing a previous operation, only used by embedded Documents within a Scene */
         isUndo?: boolean;
-    }
+    };
 
     export interface GetDimensionsParams {
         gridDistance: number;

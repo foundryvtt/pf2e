@@ -110,9 +110,9 @@ declare global {
 
     interface ApplicationClosingOptions {
         /** Whether to animate the close, or perform it instantaneously */
-        animate: boolean;
+        animate?: boolean;
         /** Whether the application was closed via keypress. */
-        closeKey: boolean;
+        closeKey?: boolean;
     }
 
     /**

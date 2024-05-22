@@ -74,7 +74,7 @@ export class MockActor {
 
     static async updateDocuments(
         updates: Record<string, unknown>[] = [],
-        _context: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>> = {},
+        _operation: Partial<DatabaseUpdateOperation<TokenDocumentPF2e<ScenePF2e | null>>> = {},
     ): Promise<ActorPF2e[]> {
         return updates.flatMap((update) => {
             const actor = game.actors.find((a) => a.id === update._id);
@@ -112,7 +112,7 @@ export class MockActor {
     async createEmbeddedDocuments(
         type: string,
         data: ItemSourcePF2e[],
-        _context: DocumentModificationContext<ActorPF2e>,
+        _context: DatabaseCreateOperation<ActorPF2e>,
     ): Promise<void> {
         if (type === "Item") {
             for (const source of data) {

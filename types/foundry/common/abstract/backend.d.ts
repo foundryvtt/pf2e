@@ -1,11 +1,6 @@
-import type Document from "../abstract/document.d.ts";
+import type * as abstract from "../abstract/module.d.ts";
 import type BaseUser from "../documents/user.d.ts";
-import type {
-    DatabaseCreateOperation,
-    DatabaseDeleteOperation,
-    DatabaseGetOperation,
-    DatabaseUpdateOperation,
-} from "./_types.d.ts";
+import type { DatabaseCreateOperation, DatabaseGetOperation, DatabaseUpdateOperation } from "./_types.d.ts";
 
 /**
  * An interface shared by both the client and server-side which defines how creation, update, and deletion operations are transacted.
@@ -23,10 +18,10 @@ export default abstract class DatabaseBackend {
      * @returns An array of retrieved Document instances or index objects
      */
     get(
-        documentClass: typeof Document,
-        operation: DatabaseGetOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseGetOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<CompendiumIndexData[] | Document[]>;
+    ): Promise<CompendiumIndexData[] | abstract.Document[]>;
 
     /**
      * Retrieve Document instances using the specified operation parameters.
@@ -36,16 +31,20 @@ export default abstract class DatabaseBackend {
      * @returns An array of retrieved Document instances or index objects
      */
     protected abstract _getDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseGetOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseGetOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<CompendiumIndexData[] | Document[]>;
+    ): Promise<CompendiumIndexData[] | abstract.Document[]>;
 
     /* -------------------------------------------- */
     /*  Create Operations                           */
     /* -------------------------------------------- */
 
-    create(documentClass: typeof Document, operation: DatabaseCreateOperation, user?: BaseUser): Promise<Document[]>;
+    create(
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
+        user?: BaseUser,
+    ): Promise<abstract.Document[]>;
 
     /**
      * Create Document instances using provided data and operation parameters.
@@ -55,17 +54,17 @@ export default abstract class DatabaseBackend {
      * @returns An array of created Document instances
      */
     protected abstract _createDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseCreateOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     /** Create primary Document instances */
     protected abstract _createDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseCreateOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     /* -------------------------------------------- */
     /*  Update Operations                           */
@@ -80,7 +79,11 @@ export default abstract class DatabaseBackend {
      * @param [user]        The requesting User
      * @returns An array of updated Document instances
      */
-    update(documentClass: typeof Document, operation: DatabaseUpdateOperation, user?: BaseUser): Promise<Document[]>;
+    update(
+        documentClass: typeof abstract.Document,
+        operation: DatabaseUpdateOperation<abstract.Document | null>,
+        user?: BaseUser,
+    ): Promise<abstract.Document[]>;
 
     /**
      * Update Document instances using provided data and operation parameters.
@@ -90,10 +93,10 @@ export default abstract class DatabaseBackend {
      * @returns An array of updated Document instances
      */
     protected abstract _updateDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseUpdateOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseUpdateOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     /* -------------------------------------------- */
     /*  Delete Operations                           */
@@ -108,7 +111,11 @@ export default abstract class DatabaseBackend {
      * @param [user]        The requesting User
      * @returns An array of deleted Document instances
      */
-    delete(documentClass: typeof Document, operation: DatabaseDeleteOperation, user?: BaseUser): Promise<Document[]>;
+    delete(
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
+        user?: BaseUser,
+    ): Promise<abstract.Document[]>;
 
     /**
      * Delete Document instances using provided ids and operation parameters.
@@ -118,10 +125,10 @@ export default abstract class DatabaseBackend {
      * @returns An array of deleted Document instances
      */
     protected abstract _deleteDocuments(
-        documentClass: typeof Document,
-        operation: DatabaseDeleteOperation,
+        documentClass: typeof abstract.Document,
+        operation: DatabaseCreateOperation<abstract.Document | null>,
         user?: BaseUser,
-    ): Promise<Document[]>;
+    ): Promise<abstract.Document[]>;
 
     /* -------------------------------------------- */
     /*  Helper Methods                              */
@@ -149,8 +156,8 @@ export default abstract class DatabaseBackend {
     protected _logOperation(
         action: string,
         type: string,
-        documents: foundry.abstract.Document[],
-        options?: { level?: string; parent?: foundry.abstract.Document; pack: string },
+        documents: abstract.Document[],
+        options?: { level?: string; parent?: abstract.Document; pack: string },
     ): void;
 
     /** Construct a standardized error message given the context of an attempted operation */
@@ -158,6 +165,6 @@ export default abstract class DatabaseBackend {
         user: BaseUser,
         action: string,
         subject: string,
-        options?: { parent: foundry.abstract.Document; pack?: string },
+        options?: { parent: abstract.Document; pack?: string },
     ): string;
 }

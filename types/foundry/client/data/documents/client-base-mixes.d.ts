@@ -1,3 +1,5 @@
+import type { ApplicationV2, DocumentSheetV2 } from "../../../client-esm/applications/api/module.d.ts";
+
 declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> extends foundry.documents
     .BaseAmbientLight<TParent> {
     protected _sheet: DocumentSheet<this> | null;
@@ -8,7 +10,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -55,10 +57,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -132,31 +131,51 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -166,7 +185,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -174,23 +193,23 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -200,7 +219,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -208,7 +227,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -217,14 +236,14 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -234,7 +253,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -242,7 +261,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -368,7 +387,7 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -392,7 +411,7 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -401,14 +420,14 @@ export class CanvasBaseAmbientLight<TParent extends ClientBaseScene | null> exte
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> extends foundry.documents
@@ -421,7 +440,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -468,10 +487,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -545,31 +561,51 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -579,7 +615,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -587,23 +623,23 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -613,7 +649,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -621,7 +657,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -630,14 +666,14 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -647,7 +683,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -655,7 +691,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -781,7 +817,7 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -805,7 +841,7 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -814,14 +850,14 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 export class ClientBaseActiveEffect<
@@ -838,7 +874,7 @@ export class ClientBaseActiveEffect<
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -885,10 +921,7 @@ export class ClientBaseActiveEffect<
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -962,31 +995,51 @@ export class ClientBaseActiveEffect<
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -996,7 +1049,7 @@ export class ClientBaseActiveEffect<
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -1004,23 +1057,23 @@ export class ClientBaseActiveEffect<
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1030,7 +1083,7 @@ export class ClientBaseActiveEffect<
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -1038,7 +1091,7 @@ export class ClientBaseActiveEffect<
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1047,14 +1100,14 @@ export class ClientBaseActiveEffect<
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1064,7 +1117,7 @@ export class ClientBaseActiveEffect<
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -1072,7 +1125,7 @@ export class ClientBaseActiveEffect<
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1196,7 +1249,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -1243,10 +1296,9 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet():
+        | DocumentSheet<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>>
+        | DocumentSheetV2<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -1320,31 +1372,51 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -1354,7 +1426,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -1362,23 +1434,23 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1388,7 +1460,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -1396,7 +1468,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1405,14 +1477,14 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1422,7 +1494,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -1430,7 +1502,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1554,7 +1626,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -1601,10 +1673,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -1678,17 +1747,21 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
 
     /**
      * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
@@ -1711,14 +1784,14 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -1728,7 +1801,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -1736,23 +1809,23 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1762,7 +1835,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -1770,7 +1843,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -1779,14 +1852,14 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1796,7 +1869,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -1804,7 +1877,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -1927,7 +2000,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -1974,10 +2047,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -2049,33 +2119,49 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -2085,7 +2171,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -2093,23 +2179,23 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2119,7 +2205,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -2127,7 +2213,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2136,14 +2222,14 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2153,7 +2239,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -2161,7 +2247,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2284,7 +2370,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -2331,10 +2417,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -2408,31 +2491,51 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -2442,7 +2545,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -2450,23 +2553,23 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2476,7 +2579,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -2484,7 +2587,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2493,14 +2596,14 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2510,7 +2613,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -2518,7 +2621,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2641,7 +2744,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -2688,10 +2791,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -2763,33 +2863,49 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -2799,7 +2915,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -2807,23 +2923,23 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2833,7 +2949,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -2841,7 +2957,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -2850,14 +2966,14 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2867,7 +2983,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -2875,7 +2991,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -2998,7 +3114,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -3045,10 +3161,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -3120,33 +3233,49 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -3156,7 +3285,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -3164,23 +3293,23 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3190,7 +3319,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -3198,7 +3327,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3207,14 +3336,14 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -3224,7 +3353,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -3232,7 +3361,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -3355,7 +3484,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -3402,10 +3531,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -3477,33 +3603,49 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -3513,7 +3655,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -3521,23 +3663,23 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3547,7 +3689,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -3555,7 +3697,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3564,14 +3706,14 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -3581,7 +3723,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -3589,7 +3731,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -3713,7 +3855,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -3760,10 +3902,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -3837,31 +3976,51 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -3871,7 +4030,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -3879,23 +4038,23 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3905,7 +4064,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -3913,7 +4072,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -3922,14 +4081,14 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -3939,7 +4098,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -3947,7 +4106,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -4070,7 +4229,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -4117,10 +4276,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -4194,31 +4350,51 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -4228,7 +4404,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -4236,23 +4412,23 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -4262,7 +4438,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -4270,7 +4446,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -4279,14 +4455,14 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -4296,7 +4472,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -4304,7 +4480,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -4430,7 +4606,7 @@ export class CanvasBaseDrawing<TParent extends ClientBaseScene | null> extends C
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -4454,7 +4630,7 @@ export class CanvasBaseDrawing<TParent extends ClientBaseScene | null> extends C
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -4463,14 +4639,14 @@ export class CanvasBaseDrawing<TParent extends ClientBaseScene | null> extends C
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 export class ClientBaseFogExploration extends foundry.documents.BaseFogExploration {
@@ -4482,7 +4658,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -4530,9 +4706,6 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
     get sheet(): null;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -4604,33 +4777,49 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -4640,7 +4829,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -4648,23 +4837,23 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -4674,7 +4863,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -4682,7 +4871,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -4691,14 +4880,14 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -4708,7 +4897,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -4716,7 +4905,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -4839,7 +5028,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -4886,10 +5075,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -4961,33 +5147,49 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -4997,7 +5199,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -5005,23 +5207,23 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5031,7 +5233,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -5039,7 +5241,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5048,14 +5250,14 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5065,7 +5267,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -5073,7 +5275,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5198,7 +5400,7 @@ export class ClientBaseItem<
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -5245,10 +5447,7 @@ export class ClientBaseItem<
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -5322,31 +5521,51 @@ export class ClientBaseItem<
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -5356,7 +5575,7 @@ export class ClientBaseItem<
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -5364,23 +5583,23 @@ export class ClientBaseItem<
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5390,7 +5609,7 @@ export class ClientBaseItem<
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -5398,7 +5617,7 @@ export class ClientBaseItem<
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5407,14 +5626,14 @@ export class ClientBaseItem<
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5424,7 +5643,7 @@ export class ClientBaseItem<
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -5432,7 +5651,7 @@ export class ClientBaseItem<
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5464,7 +5683,7 @@ export class ClientBaseItem<
      * @param [options] Positioning and sizing options for the resulting dialog
      * @return A Promise which resolves to the deleted Document
      */
-    deleteDialog(options?: ConfirmDialogParameters): Promise<this | undefined>;
+    deleteDialog(options?: ConfirmDialogParameters): Promise<this>;
 
     /**
      * Export document data to a JSON file which can be saved by the client and later imported into a different session.
@@ -5555,7 +5774,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -5602,10 +5821,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -5677,33 +5893,49 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -5713,7 +5945,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -5721,23 +5953,23 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5747,7 +5979,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -5755,7 +5987,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -5764,14 +5996,14 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5781,7 +6013,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -5789,7 +6021,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -5913,7 +6145,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -5960,10 +6192,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -6037,31 +6266,51 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -6071,7 +6320,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -6079,23 +6328,23 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6105,7 +6354,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -6113,7 +6362,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6122,14 +6371,14 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6139,7 +6388,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -6147,7 +6396,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6270,7 +6519,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -6317,10 +6566,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -6392,33 +6638,49 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -6428,7 +6690,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -6436,23 +6698,23 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6462,7 +6724,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -6470,7 +6732,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6479,14 +6741,14 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6496,7 +6758,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -6504,7 +6766,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6628,7 +6890,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -6675,10 +6937,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -6752,31 +7011,51 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -6786,7 +7065,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -6794,23 +7073,23 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6820,7 +7099,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -6828,7 +7107,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -6837,14 +7116,14 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6854,7 +7133,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -6862,7 +7141,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -6990,10 +7269,7 @@ export class CanvasBaseMeasuredTemplate<
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    /** System note: undocumented */
-    locked?: boolean;
-
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -7017,7 +7293,7 @@ export class CanvasBaseMeasuredTemplate<
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -7026,14 +7302,14 @@ export class CanvasBaseMeasuredTemplate<
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends foundry.documents.BaseNote<TParent> {
@@ -7045,7 +7321,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -7092,10 +7368,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -7169,31 +7442,51 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -7203,7 +7496,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -7211,23 +7504,23 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -7237,7 +7530,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -7245,7 +7538,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -7254,14 +7547,14 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -7271,7 +7564,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -7279,7 +7572,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -7405,7 +7698,7 @@ export class CanvasBaseNote<TParent extends ClientBaseScene | null> extends Clie
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -7429,7 +7722,7 @@ export class CanvasBaseNote<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -7438,14 +7731,14 @@ export class CanvasBaseNote<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
@@ -7457,7 +7750,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -7504,10 +7797,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -7579,33 +7869,49 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -7615,7 +7921,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -7623,23 +7929,23 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -7649,7 +7955,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -7657,7 +7963,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -7666,14 +7972,14 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -7683,7 +7989,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -7691,7 +7997,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -7815,7 +8121,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -7862,10 +8168,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -7939,31 +8242,51 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -7973,7 +8296,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -7981,23 +8304,23 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8007,7 +8330,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -8015,7 +8338,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8024,14 +8347,14 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8041,7 +8364,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -8049,7 +8372,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8172,7 +8495,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -8219,10 +8542,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -8294,33 +8614,49 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -8330,7 +8666,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -8338,23 +8674,23 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8364,7 +8700,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -8372,7 +8708,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8381,14 +8717,14 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8398,7 +8734,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -8406,7 +8742,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8529,7 +8865,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -8576,10 +8912,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -8651,33 +8984,49 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -8687,7 +9036,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -8695,23 +9044,23 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8721,7 +9070,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -8729,7 +9078,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8738,14 +9087,14 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8755,7 +9104,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -8763,7 +9112,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8886,7 +9235,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -8933,10 +9282,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -9008,33 +9354,49 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -9044,7 +9406,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -9052,23 +9414,23 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9078,7 +9440,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -9086,7 +9448,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9095,14 +9457,14 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9112,7 +9474,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -9120,7 +9482,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9244,7 +9606,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -9291,10 +9653,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -9368,31 +9727,51 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -9402,7 +9781,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -9410,23 +9789,23 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9436,7 +9815,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -9444,7 +9823,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9453,14 +9832,14 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9470,7 +9849,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -9478,7 +9857,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9601,7 +9980,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -9648,10 +10027,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -9725,31 +10101,51 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -9759,7 +10155,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -9767,23 +10163,23 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9793,7 +10189,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -9801,7 +10197,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9810,14 +10206,14 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9827,7 +10223,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -9835,7 +10231,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9961,7 +10357,7 @@ export class CanvasBaseTile<TParent extends ClientBaseScene | null> extends Clie
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -9985,7 +10381,7 @@ export class CanvasBaseTile<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -9994,14 +10390,14 @@ export class CanvasBaseTile<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends foundry.documents.BaseToken<TParent> {
@@ -10013,7 +10409,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -10060,10 +10456,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -10137,31 +10530,51 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -10171,7 +10584,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -10179,23 +10592,23 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10205,7 +10618,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -10213,7 +10626,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10222,14 +10635,14 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -10239,7 +10652,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -10247,7 +10660,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -10397,7 +10810,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -10406,14 +10819,14 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends foundry.documents.BaseUser<TCharacter> {
@@ -10425,7 +10838,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 
@@ -10472,10 +10885,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -10547,33 +10957,49 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: this["_source"],
-        options: DocumentModificationContext<null>,
-        userId: string,
-    ): void;
+    protected override _onCreate(data: this["_source"], operation: DatabaseCreateOperation<null>, userId: string): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -10583,7 +11009,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -10591,23 +11017,23 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10617,7 +11043,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -10625,7 +11051,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10634,14 +11060,14 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -10651,7 +11077,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -10659,7 +11085,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -10782,7 +11208,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application };
+    apps: { [K in number]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
@@ -10829,10 +11255,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
     get permission(): DocumentOwnershipLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    get sheet(): DocumentSheet<this>;
-
-    /** A Universally Unique Identifier (uuid) for this Document instance. */
-    get uuid(): DocumentUUID;
+    get sheet(): DocumentSheet<this> | DocumentSheetV2<this>;
 
     /**
      * A boolean indicator for whether the current game User has at least limited visibility for this Document.
@@ -10906,31 +11329,51 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
+
+    /* -------------------------------------------- */
+    /*  Descendant Document Events                  */
+    /* -------------------------------------------- */
+
+    /**
+     * Orchestrate dispatching descendant document events to parent documents when embedded children are modified.
+     * @param event      The event name, preCreate, onCreate, etc...
+     * @param collection The collection name being modified within this parent document
+     * @param args       Arguments passed to each dispatched function
+     * @param [_parent]  The document with directly modified embedded documents. Either this document or a descendant
+     *                   of this one.
+     * @internal
+     */
+    protected _dispatchDescendantDocumentEvents(
+        event: string,
+        collection: string,
+        args: unknown[],
+        _parent?: foundry.abstract.Document,
+    ): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
      * @param parent     The direct parent of the created Documents, may be this Document or a child
      * @param collection The collection within which documents are being created
      * @param data       The source data for new documents that are being created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preCreateDescendantDocuments(
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -10940,7 +11383,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were created
      * @param documents  The array of created Documents
      * @param data       The source data for new documents that were created
-     * @param options    Options which modified the creation operation
+     * @param operation  Options which modified the creation operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onCreateDescendantDocuments(
@@ -10948,23 +11391,23 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
     /**
      * Actions taken after descendant documents have been updated, but before changes are applied to the client data.
-     * @param parent         The direct parent of the updated Documents, may be this Document or a child
-     * @param collection       The collection within which documents are being updated
-     * @param changes        The array of differential Document updates to be applied
-     * @param options          Options which modified the update operation
-     * @param userId           The ID of the User who triggered the operation
+     * @param parent     The direct parent of the updated Documents, may be this Document or a child
+     * @param collection The collection within which documents are being updated
+     * @param changes    The array of differential Document updates to be applied
+     * @param operation  Options which modified the update operation
+     * @param userId     The ID of the User who triggered the operation
      */
     protected _preUpdateDescendantDocuments(
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10974,7 +11417,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were updated
      * @param documents  The array of updated Documents
      * @param changes    The array of differential Document updates which were applied
-     * @param options    Options which modified the update operation
+     * @param operation  Options which modified the update operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onUpdateDescendantDocuments(
@@ -10982,7 +11425,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -10991,14 +11434,14 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param parent     The direct parent of the deleted Documents, may be this Document or a child
      * @param collection The collection within which documents were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _preDeleteDescendantDocuments(
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -11008,7 +11451,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
      * @param collection The collection within which documents were deleted
      * @param documents  The array of Documents which were deleted
      * @param ids        The array of document IDs which were deleted
-     * @param options    Options which modified the deletion operation
+     * @param operation  Options which modified the deletion operation
      * @param userId     The ID of the User who triggered the operation
      */
     protected _onDeleteDescendantDocuments(
@@ -11016,7 +11459,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -11142,7 +11585,7 @@ export class CanvasBaseWall<TParent extends ClientBaseScene | null> extends Clie
     /** Has this object been deliberately destroyed as part of the deletion workflow? */
     protected _destroyed: boolean;
 
-    constructor(data: object, context: DocumentConstructionContext<TParent>);
+    constructor(data: object, context?: DocumentConstructionContext<TParent>);
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -11166,7 +11609,7 @@ export class CanvasBaseWall<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -11175,12 +11618,12 @@ export class CanvasBaseWall<TParent extends ClientBaseScene | null> extends Clie
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }

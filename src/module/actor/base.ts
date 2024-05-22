@@ -545,11 +545,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     static override async createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: DocumentModificationContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
         data: (ActorPF2e | PreCreate<ActorSourcePF2e>)[] = [],
-        context: DocumentModificationContext<TokenDocumentPF2e | null> = {},
+        operation: Partial<DatabaseCreateOperation<TokenDocumentPF2e | null>> = {},
     ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
         // Convert all `ActorPF2e`s to source objects
         const sources = data.map((d) => (d instanceof ActorPF2e ? d.toObject() : d));
@@ -606,27 +606,27 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             sources.splice(sources.indexOf(source), 1, migrated);
         }
 
-        return super.createDocuments(sources, context);
+        return super.createDocuments(sources, operation);
     }
 
     static override updateDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         updates?: Record<string, unknown>[],
-        context?: DocumentUpdateContext<TDocument["parent"]>,
+        operation?: Partial<DatabaseUpdateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async updateDocuments(
         updates: Record<string, unknown>[] = [],
-        context: DocumentModificationContext<TokenDocumentPF2e | null> = {},
+        operation: Partial<DatabaseUpdateOperation<TokenDocumentPF2e | null>> = {},
     ): Promise<Actor<TokenDocument<Scene | null> | null>[]> {
-        const isFullReplace = !((context?.diff ?? true) && (context?.recursive ?? true));
-        if (isFullReplace) return super.updateDocuments(updates, context);
+        const isFullReplace = !((operation?.diff ?? true) && (operation?.recursive ?? true));
+        if (isFullReplace) return super.updateDocuments(updates, operation);
 
         // Process rule element hooks for each actor update
         for (const changed of updates) {
-            await processPreUpdateActorHooks(changed, { pack: context.pack ?? null });
+            await processPreUpdateActorHooks(changed, { pack: operation.pack ?? null });
         }
 
-        return super.updateDocuments(updates, context);
+        return super.updateDocuments(updates, operation);
     }
 
     /** Set module art if available */
@@ -1674,37 +1674,37 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<ActorSourcePF2e>,
-        options: ActorUpdateContext<TParent>,
+        operation: ActorUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
-        if (isFullReplace) return super._preUpdate(changed, options, user);
+        const isFullReplace = !((operation.diff ?? true) && (operation.recursive ?? true));
+        if (isFullReplace) return super._preUpdate(changed, operation, user);
 
         // Always announce HP changes for player-owned actors as floaty text (via `damageTaken` option)
         const currentHP = this._source.system.attributes.hp?.value;
         const updatedHP = changed.system?.attributes?.hp?.value ?? currentHP;
-        if (!options.damageTaken && this.hasPlayerOwner && currentHP && updatedHP && updatedHP !== currentHP) {
+        if (!operation.damageTaken && this.hasPlayerOwner && currentHP && updatedHP && updatedHP !== currentHP) {
             const damageTaken = -1 * (updatedHP - currentHP);
             const currentLevel = this._source.system.details.level?.value;
             const updatedLevel = changed.system?.details?.level?.value ?? currentLevel;
-            if (damageTaken && currentLevel === updatedLevel) options.damageTaken = damageTaken;
+            if (damageTaken && currentLevel === updatedLevel) operation.damageTaken = damageTaken;
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ActorUpdateContext<TParent>,
+        operation: ActorUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
         const hideFromUser =
             !this.hasPlayerOwner && !game.user.isGM && game.settings.get("pf2e", "metagame_secretDamage");
-        if (options.damageTaken && !hideFromUser) {
+        if (operation.damageTaken && !hideFromUser) {
             const tokens = this.getActiveTokens();
             for (const token of tokens) {
-                token.showFloatyText(-1 * options.damageTaken);
+                token.showFloatyText(-1 * operation.damageTaken);
             }
         }
 
@@ -1729,11 +1729,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Unregister all effects possessed by this actor */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
         for (const effect of this.itemTypes.effect) {
             game.pf2e.effectTracker.unregister(effect);
         }
-        super._onDelete(options, userId);
+        super._onDelete(operation, userId);
     }
 }
 
@@ -1748,7 +1748,10 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     get sheet(): ActorSheetPF2e<ActorPF2e>;
 
-    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this | undefined>;
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<ActorUpdateOperation<TParent>>,
+    ): Promise<this | undefined>;
 
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
@@ -1761,34 +1764,34 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     createEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         data: PreCreate<foundry.documents.ActiveEffectSource>[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseCreateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     createEmbeddedDocuments(
         embeddedName: "Item",
         data: PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseCreateOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     createEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         data: PreCreate<foundry.documents.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseCreateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: EmbeddedItemUpdateContext<this>,
+        operation?: Partial<EmbeddedItemUpdateOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     /** Added as debounced method */
@@ -1803,13 +1806,13 @@ interface HitPointsSummary {
     negativeHealing: boolean;
 }
 
-interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
+interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends DatabaseUpdateOperation<TParent> {
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
 }
 
-interface EmbeddedItemUpdateContext<TParent extends ActorPF2e> extends DocumentUpdateContext<TParent> {
+interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
 }
 
@@ -1826,4 +1829,4 @@ const ActorProxyPF2e = new Proxy(ActorPF2e, {
 });
 
 export { ActorPF2e, ActorProxyPF2e };
-export type { ActorUpdateContext, HitPointsSummary };
+export type { ActorUpdateOperation, HitPointsSummary };

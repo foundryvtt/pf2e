@@ -37,7 +37,7 @@ export default class BaseActiveEffect<TParent extends BaseActor | BaseItem<BaseA
 
     protected override _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseCreateOperation<TParent>,
         user: BaseUser,
     ): Promise<boolean | void>;
 }
