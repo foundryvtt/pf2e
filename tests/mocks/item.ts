@@ -46,7 +46,7 @@ export class MockItem {
 
     static async updateDocuments(
         updates: Record<string, unknown>[] = [],
-        _context: DocumentModificationContext<ActorPF2e | null> = {},
+        _operation: Partial<DatabaseUpdateOperation<ActorPF2e | null>> = {},
     ): Promise<ItemPF2e<ActorPF2e | null>[]> {
         return updates.flatMap((update) => {
             const item = game.items.find((item) => item.id === update._id);

@@ -57,16 +57,16 @@ class MeasuredTemplateDocumentPF2e<
     /** If present, show the clear-template button on the message from which this template was spawned */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         toggleClearTemplatesButton(this.message);
     }
 
     /** If present, hide the clear-template button on the message from which this template was spawned */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         toggleClearTemplatesButton(this.message);
     }
 }

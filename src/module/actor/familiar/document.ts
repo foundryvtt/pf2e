@@ -1,5 +1,5 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
-import type { ActorPF2e, ActorUpdateContext } from "@actor/base.ts";
+import type { ActorPF2e, ActorUpdateOperation } from "@actor/base.ts";
 import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
@@ -257,27 +257,27 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** Detect if a familiar is being reassigned from a master */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: FamiliarUpdateContext<TParent>,
+        operation: FamiliarUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const newId = changed.system?.master?.id ?? this.system.master.id;
         if (newId !== this.system.master.id) {
-            options.previousMaster = this.master?.uuid;
+            operation.previousMaster = this.master?.uuid;
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     /** Remove familiar from former master if the master changed */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: FamiliarUpdateContext<TParent>,
+        operation: FamiliarUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
-        if (options.previousMaster && options.previousMaster !== this.master?.uuid) {
-            const previousMaster = fromUuidSync<ActorPF2e>(options.previousMaster);
+        if (operation.previousMaster && operation.previousMaster !== this.master?.uuid) {
+            const previousMaster = fromUuidSync<ActorPF2e>(operation.previousMaster);
             if (previousMaster?.isOfType("character")) {
                 previousMaster.familiar = null;
             }
@@ -285,9 +285,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     }
 
     /** Remove the master's reference to this familiar */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
         if (this.master) this.master.familiar = null;
-        super._onDelete(options, userId);
+        super._onDelete(operation, userId);
     }
 }
 
@@ -297,7 +297,7 @@ interface FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     system: FamiliarSystemData;
 }
 
-interface FamiliarUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
+interface FamiliarUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
     previousMaster?: ActorUUID;
 }
 

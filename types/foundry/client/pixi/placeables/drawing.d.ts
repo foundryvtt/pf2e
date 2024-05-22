@@ -97,7 +97,7 @@ declare class Drawing<
 
     protected override _onRelease(options?: object): void;
 
-    override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+    override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
     /** Handle text entry in an active text tool */
     protected _onDrawingTextKeydown(event: KeyboardEvent): void;

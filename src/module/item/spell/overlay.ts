@@ -55,13 +55,13 @@ class SpellOverlayCollection extends Collection<SpellOverlay> {
     async updateOverride<TSpell extends SpellPF2e>(
         variantSpell: TSpell,
         data: Partial<SpellSource>,
-        options?: DocumentModificationContext<ActorPF2e>,
+        operation?: Partial<DatabaseUpdateOperation<ActorPF2e>>,
     ): Promise<TSpell | null> {
         const variantId = variantSpell.variantId;
         if (!variantId) return null;
 
         // Perform local data update of spell variant data
-        variantSpell.updateSource(data, options);
+        variantSpell.updateSource(data, operation);
 
         // Diff data and only save the difference
         const variantSource = R.omit(variantSpell.toObject(), ["_stats"]);

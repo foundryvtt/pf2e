@@ -50,10 +50,10 @@ class UserPF2e extends User<ActorPF2e<null>> {
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
         if (game.user.id !== userId) return;
 
         const keys = Object.keys(fu.flattenObject(changed));

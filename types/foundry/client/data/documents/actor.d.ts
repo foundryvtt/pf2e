@@ -170,7 +170,7 @@ declare global {
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<TParent>,
+            options: DatabaseCreateOperation<TParent>,
             user: User,
         ): Promise<boolean | void>;
 
@@ -187,7 +187,7 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentUpdateContext<TParent>,
+            options: DatabaseUpdateOperation<TParent>,
             userId: string,
         ): void;
 
@@ -196,7 +196,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseCreateOperation<this>,
             userId: string,
         ): void;
 
@@ -205,7 +205,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseUpdateOperation<this>,
             userId: string,
         ): void;
 
@@ -219,7 +219,7 @@ declare global {
          */
         protected _updateDependentTokens(
             update?: Record<string, unknown>,
-            options?: DocumentModificationContext<TParent>,
+            options?: DatabaseUpdateOperation<TParent>,
         ): void;
     }
 
