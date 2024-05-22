@@ -1,0 +1,56 @@
+{
+    "_id": "2phzdvmFJaUUGDmY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Fierce Grasp",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Requirements</strong> You have an opponent @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] or @UUID[Compendium.pf2e.conditionitems.Item.Restrained].</p>\n<hr />\n<p>Once you get your hands on someone, it's hard for them to get away. Your opponent takes a –2 circumstance penalty to their next attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Escape] from being grabbed or restrained by you, and you gain a +1 circumstance bonus to your AC against any attacks they make against you while you have them grabbed.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "climbing animal heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "fierce-grasp",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "fierce-grasp"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

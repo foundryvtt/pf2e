@@ -1,0 +1,68 @@
+{
+    "_id": "aFi3p8CEYEM8ZNTT",
+    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "name": "Tubeworm Gland",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Thanks to a graft from a hardy deep-sea invertebrate in your stomach, you can ingest food and water that would be toxic to others. You gain a +2 item bonus to Fortitude saving throws against ingested diseases and poisons.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 330
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "ingested",
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "graft",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

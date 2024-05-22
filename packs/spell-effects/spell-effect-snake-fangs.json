@@ -1,0 +1,62 @@
+{
+    "_id": "ubKx634Kbl1hHzL9",
+    "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+    "name": "Spell Effect: Snake Fangs",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Snake Fangs]</p>\n<p>You gain a fangs unarmed attack. They're a finesse, grapple, unarmed attack that deals piercing damage and extra poison damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "slug": "snake-fangs",
+                "traits": [
+                    "finesse",
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": "ternary(gte(@item.level,10),4,ternary(gte(@item.level,7),3,2))",
+                "dieSize": "d10",
+                "key": "DamageDice",
+                "selector": "snake-fangs-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,54 @@
+{
+    "_id": "OuUQDwoQaubig5VL",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ocean Wariness",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Stories about those who have mistreated your people in the past (particularly stories about alghollthu mind control) left you untrusting of those outside your community. You gain a +1 circumstance bonus to your defenses against Deception, Diplomacy, Intimidation, and Performance checks.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "check:statistic:deception",
+                            "check:statistic:diplomacy",
+                            "check:statistic:intimidation",
+                            "check:statistic:performance"
+                        ]
+                    }
+                ],
+                "selector": "all",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "athamaru"
+            ]
+        }
+    },
+    "type": "feat"
+}

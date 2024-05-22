@@ -1,0 +1,131 @@
+{
+    "_id": "GFOgV3MzWkYwJoJW",
+    "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/awakened-animal.svg",
+    "name": "Awakened Animal",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": []
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "wis"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You once enjoyed the simple and boundless pleasures of nature with an innocent, uncluttered mind. You lived from moment to moment, never questioning what comes next or pondering the ramifications of what happened before. You were at one with the wild. Then came the event that changed everything. You drank from a glowing lake, someone pulled a magical prank, a druid sought to elevate your mind. You were pulled out of the present moment of the wild and into a land of thought.</p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "int"
+                ]
+            }
+        },
+        "hp": 6,
+        "items": {
+            "9KYmO": {
+                "img": "icons/creatures/mammals/humanoid-wolf-dog-blue.webp",
+                "level": 1,
+                "name": "Awakened Mind",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Awakened Mind"
+            },
+            "TQ7e5": {
+                "img": "icons/magic/nature/wolf-paw-glow-green.webp",
+                "level": 1,
+                "name": "Awakened Form",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Awakened Form"
+            }
+        },
+        "languages": {
+            "custom": "",
+            "value": [
+                "common"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.ActorSizeLarge",
+                        "value": {
+                            "hitPoints": 10,
+                            "size": "large"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": {
+                            "hitPoints": 8,
+                            "size": "medium"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": {
+                            "hitPoints": 6,
+                            "size": "small"
+                        }
+                    },
+                    {
+                        "label": "PF2E.ActorSizeTiny",
+                        "value": {
+                            "hitPoints": 6,
+                            "size": "tiny"
+                        }
+                    }
+                ],
+                "flag": "choice",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "{item|flags.pf2e.rulesSelections.choice.size}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.ancestryhp",
+                "priority": 51,
+                "value": "{item|flags.pf2e.rulesSelections.choice.hitPoints}"
+            }
+        ],
+        "size": "med",
+        "speed": 5,
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "awakened-animal",
+                "beast"
+            ]
+        },
+        "vision": "normal"
+    },
+    "type": "ancestry"
+}

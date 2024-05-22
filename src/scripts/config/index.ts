@@ -557,6 +557,7 @@ export const PF2ECONFIG = {
         "held-in-one-hand-or-free-standing": "PF2E.TraitHeldOneHandFreeStanding",
         "held-in-one-or-two-hands": "PF2E.TraitHeldOneTwoHands",
         "held-in-two-hands": "PF2E.TraitHeldTwoHands",
+        implanted: "PF2E.TraitImplanted",
         other: "Other",
         "sewn-into-clothing": "PF2E.TraitSewnIntoClothing",
         "tattooed-on-the-body": "PF2E.TraitTattooedOnTheBody",

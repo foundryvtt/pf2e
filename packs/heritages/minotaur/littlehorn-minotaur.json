@@ -1,0 +1,48 @@
+{
+    "_id": "23MEmXuyw75jiGKq",
+    "folder": "Ju1C4OBaEF5fhvGn",
+    "img": "icons/creatures/mammals/bull-horns-eyes-glowin-orange.webp",
+    "name": "Littlehorn Minotaur",
+    "system": {
+        "ancestry": {
+            "name": "Minotaur",
+            "slug": "minotaur",
+            "uuid": "Compendium.pf2e.ancestries.Item.3wQ49DoWFYQgVsq6"
+        },
+        "description": {
+            "value": "<p>Though no less powerful, your frame (and your horns) are smaller than those of most other minotaurs. Instead of Large, your size is Medium. Your horns unarmed attack deals 1d6 piercing damage instead of 1d8, but it has the agile trait.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
+                },
+                "selector": "horns-damage"
+            },
+            {
+                "definition": [
+                    "item:slug:horns"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "agile"
+            },
+            {
+                "key": "CreatureSize",
+                "value": "medium"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

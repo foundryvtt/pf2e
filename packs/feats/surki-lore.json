@@ -1,0 +1,53 @@
+{
+    "_id": "P9KuYKeaH2Scpkgy",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Surki Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Either through the tales of elders in your settlement or through the messages thumped by those who oversaw your generation dig, you hold the knowledge of many surkis before you. You become trained in Survival and the skill associated with the magical tradition from your magiphage ability (Arcana for arcane, Nature for primal, Occultism for occult, or Religion for divine). If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Surki Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.sur.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{actor|flags.pf2e.magiphage.skill}.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "surki"
+            ]
+        }
+    },
+    "type": "feat"
+}

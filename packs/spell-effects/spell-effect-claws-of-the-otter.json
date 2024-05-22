@@ -1,0 +1,71 @@
+{
+    "_id": "UPisuG2cfjMIJOPa",
+    "img": "icons/magic/nature/wolf-paw-glow-large-purple-teal.webp",
+    "name": "Spell Effect: Claws of the Otter",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Claws of the Otter]</p>\n<p>You gain a +1 status bonus to Athletics checks to Swim and you gain a claws unarmed attack. They're an agile, finesse, unarmed attack that deals slashing damage and additional cold damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:swim"
+                ],
+                "selector": "athletics",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "slug": "claws-of-the-otter",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "cold",
+                "diceNumber": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "claws-of-the-otter-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,53 @@
+{
+    "_id": "0faPAjBozoKxMAo3",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Awakened Animal Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have taken the time to learn about the process of awakening and the experiences of your fellow awakened animals. You gain the trained proficiency rank in Arcana and Nature. If you would automatically become trained in one of those skills, you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Awakened Animal Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.arc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

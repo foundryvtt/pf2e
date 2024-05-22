@@ -1,0 +1,135 @@
+{
+    "_id": "Wyw1tkO0e199Wm8o",
+    "folder": "5JDsmrECqKiwTUA8",
+    "img": "icons/magic/light/orb-container-orange.webp",
+    "name": "Lantern Surki",
+    "system": {
+        "ancestry": {
+            "name": "Surki",
+            "slug": "surki",
+            "uuid": "Compendium.pf2e.ancestries.Item.ALOmLePjbc37ca3Y"
+        },
+        "description": {
+            "value": "<p>The nodes in your abdomen are particularly luminous. You can use an Interact action to shed light from your abdomen in a 20-foot radius (and dim light for the next 20 feet). This is a magical light effect with a level equal to your own. You can change the color of the light or extinguish it with another Interact action.</p>\n<ul>\n<li><strong>Evolution</strong> Your abdominal nodes have evolved into a pair of secondary limbs that project a magical focusing lens. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Lantern Beam] action.</li>\n<li><strong>Evolution</strong> Secondary light emitters grow from your shoulder nodes that flash in time with your lantern. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Lantern Strobe] action.</li>\n</ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.surki.evolutions",
+                "value": {
+                    "label": "PF2E.SpecificRule.Surki.Evolutions.LanternBeam",
+                    "predicate": [
+                        {
+                            "not": "evolution:lantern-beam"
+                        }
+                    ],
+                    "value": "lantern-beam"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.surki.evolutions",
+                "value": {
+                    "label": "PF2E.SpecificRule.Surki.Evolutions.LanternStrobe",
+                    "predicate": [
+                        {
+                            "not": "evolution:lantern-strobe"
+                        }
+                    ],
+                    "value": "lantern-strobe"
+                }
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Surki.LanternSurki.ToggleLabel",
+                "option": "lantern-surki-lit",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "lantern-surki-lit"
+                ],
+                "value": {
+                    "alpha": 0.1,
+                    "bright": 20,
+                    "color": "{item|flags.pf2e.rulesSelections.lanternSurkiLit}",
+                    "dim": 40,
+                    "luminosity": 0.15
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "evolution:lantern-beam"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Lantern Beam"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "evolution:lantern-strobe"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Lantern Strobe"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}
