@@ -892,7 +892,10 @@ const ItemProxyPF2e = new Proxy(ItemPF2e, {
             source?.type === "armor" && (source.system?.category as string | undefined) === "shield"
                 ? "shield"
                 : source?.type;
-        const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type] ?? ItemPF2e;
+        const ItemClass: typeof ItemPF2e = CONFIG.PF2E.Item.documentClasses[type];
+        if (!ItemClass) {
+            throw ErrorPF2e(`Item type ${type} does not exist and item module sub-types are not supported`);
+        }
         return new ItemClass(...args);
     },
 });
