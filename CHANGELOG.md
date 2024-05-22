@@ -1,3 +1,14 @@
+## 5.16.0
+
+### Data Updates
+
+-   (Avagdu, DocSchlock, Dogstarrb, Rigo, Roxim, Tikael, TMun) Add content from Howl of the Wild
+-   (Abaddon) Update familiar elemental ability for remaster
+-   (DocSchlock) Update Winter Sleet stance effect to also match the errata
+-   (kromko) Fix localization for angel and animal traits
+-   (Rigo) Add automation for Phase Bolt
+-   (Rigo) Update missing instances of Inventor Unstable DC errata (Clockwork Celerity/Explosive Leap/Haphazard Repair/Negate Damage)
+
 ## 5.15.4
 
 ### Bugfixes
