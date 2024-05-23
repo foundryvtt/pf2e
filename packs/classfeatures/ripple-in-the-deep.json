@@ -1,0 +1,69 @@
+{
+    "_id": "lgv4VIoj5TLhm9u0",
+    "img": "icons/magic/water/pseudopod-teal.webp",
+    "name": "Ripple in the Deep",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>When your patron appeared, it was as an unfathomably large shadow beneath the waves, possibly as an ancient denizen of the vast waters like a kraken. Whether channeling the lethal terror of an oceanic predator or singing the ancestral wisdom of its gentle giants, your leviathan patron brings you lessons from the unplumbed depths of the world.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Patron Skill</strong> Nature</p>\n<p><strong>Lesson of Surface and Seas</strong> Your patron teaches of the dangers and wonders of its domain, even at the very edges of the water. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Sting of the Sea] hex cantrip, and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Dizzying Colors] or @UUID[Compendium.pf2e.spells-srd.Item.Grease].</p>\n<p><strong>Familiar of Overwhelming Tides</strong> Your familiar constantly drips with ocean water. When you Cast or Sustain a hex, you can cause a small wave to surge forth from your familiar. One creature within 10 feet of your familiar is pushed 5 feet away from your familiar.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "primal"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.OverwhelmingTides.Description",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.OverwhelmingTides.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": [
+                "witch"
+            ]
+        }
+    },
+    "type": "feat"
+}

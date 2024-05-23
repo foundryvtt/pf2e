@@ -1,0 +1,71 @@
+{
+    "_id": "Z3zahFC7SzzkX6Cs",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Learn by Watching",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Before your awakening, you watched humanoids performing some skill near you frequently. You didn't know it at the time, but your curiosity led to you picking up the skill. You become trained in your choice of Crafting, Medicine, or Performance. In addition, when you @UUID[Compendium.pf2e.actionspf2e.Item.Follow the Expert] in exploration mode, you add 2 + your level as your proficiency bonus if you're untrained instead of adding your level alone.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SkillCra",
+                        "predicate": [
+                            "skill:cra:rank:0"
+                        ],
+                        "value": "cra"
+                    },
+                    {
+                        "label": "PF2E.SkillMed",
+                        "predicate": [
+                            "skill:med:rank:0"
+                        ],
+                        "value": "med"
+                    },
+                    {
+                        "label": "PF2E.SkillPrf",
+                        "predicate": [
+                            "skill:prf:rank:0"
+                        ],
+                        "value": "prf"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

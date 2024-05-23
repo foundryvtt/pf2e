@@ -1,0 +1,55 @@
+{
+    "_id": "czFQyDI8Wur7F8bO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Persistent Odor",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your pheromones now linger on creatures. When a target fails its save against your Emit Defensive Odor ability, they also take @Damage[(floor((@actor.level -1)/4) - 1)d6[persistent,poison]] damage. The damage increases to 2d6 at 13th level and 3d6 at 17th level.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Emit Defensive Odor"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:emit-defensive-odor"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "athamaru"
+            ]
+        }
+    },
+    "type": "feat"
+}

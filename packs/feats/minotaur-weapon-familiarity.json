@@ -1,0 +1,72 @@
+{
+    "_id": "gMWDVkLZMZz7Zy8F",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Minotaur Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your elders taught you to wield weapons that can split skulls and smash through shields. You have familiarity with the battle axe, falchion, glaive, and greataxe—for the purposes of proficiency, you treat these martial weapons as simple weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:falchion",
+                            "item:base:glaive",
+                            "item:base:greataxe"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MinotaurWeapons",
+                "sameAs": "simple",
+                "slug": "minotaur-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:falchion",
+                            "item:base:glaive",
+                            "item:base:greataxe"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

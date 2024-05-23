@@ -1,0 +1,66 @@
+{
+    "_id": "MmrE6B5eM1RshXKY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Phantom Charm",
+    "system": {
+        "actionType": {
+            "value": "free"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You attempt a check that would be subject to a misfortune effect.</p>\n<hr />\n<p>You can harness the spiritual connection in your blood, allowing you to shift the negative threads of fate. You negate the misfortune effect and gain a +2 circumstance bonus to the triggering check.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ghost bull minotaur heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "phantom-charm",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "phantom-charm"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "skill-check",
+                    "saving-throw"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "divine",
+                "fortune",
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

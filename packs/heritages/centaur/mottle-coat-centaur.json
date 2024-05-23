@@ -1,0 +1,78 @@
+{
+    "_id": "3aKeX3q9hRdxgP1J",
+    "folder": "MORwBv0P0zPrX27k",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Mottle-Coat Centaur",
+    "system": {
+        "ancestry": {
+            "name": "Centaur",
+            "slug": "centaur",
+            "uuid": "Compendium.pf2e.ancestries.Item.pJkQlFTvpQ5GjZ5e"
+        },
+        "description": {
+            "value": "<p>Your coat is mottled or striped, granting you natural camouflage in your home environment. Select a terrain from the following: arctic, desert, forest, mountain, plains, or swamp. In your selected terrain, you gain a +1 circumstance bonus to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak] and to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint].</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Terrain.Arctic",
+                        "value": "arctic"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Desert",
+                        "value": "desert"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Forest",
+                        "value": "forest"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Mountain",
+                        "value": "mountain"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Plains",
+                        "value": "plain"
+                    },
+                    {
+                        "label": "PF2E.Terrain.Swamp",
+                        "value": "swamp"
+                    }
+                ],
+                "flag": "terrain",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.TerrainExpertise.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:{item|flags.pf2e.rulesSelections.terrain}",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak",
+                            "action:feint"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth",
+                    "deception"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "gx9QawjDOZSfSBlN",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Goring Charge",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Driven by the momentum of your thundering steps and powerful mass, your horns can pierce your foes. Stride twice, then make a horns Strike. If you moved at least 20 feet from your starting position, your horns Strike also deals 1d6 persistent bleed damage.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "goring-charge",
+                "toggleable": true
+            },
+            {
+                "damageType": "bleed",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "goring-charge"
+                ],
+                "selector": "horns-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}
