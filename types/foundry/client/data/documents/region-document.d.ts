@@ -49,16 +49,73 @@ declare global {
         readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehavior<this>>;
     }
 
-    interface RegionEvent<TData extends object = object> {
+    interface BaseRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User> {
         /** The name of the event */
         name: string;
         /** The data of the event */
-        data: TData;
+        data: object;
         /** The Region the event was triggered on */
-        region: RegionDocument;
+        region: TDocument;
         /** The User that triggered the event */
-        user: User;
+        user: TUser;
     }
+
+    interface BehaviorStatusRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
+        extends BaseRegionEvent<TDocument, TUser> {
+        name: "behaviorStatus";
+        data: {
+            active: boolean;
+            viewed: boolean;
+        };
+    }
+
+    interface ComabtRegionEvent<
+        TDocument extends RegionDocument = RegionDocument,
+        TUser extends User = User,
+        TTokenDocument extends TokenDocument = TokenDocument,
+        TCombatant extends Combatant<Combat, TTokenDocument> = Combatant<Combat, TTokenDocument>,
+    > extends BaseRegionEvent<TDocument, TUser> {
+        name: "tokenRoundStart" | "tokenRoundEnd" | "tokenTurnStart" | "tokenTurnEnd";
+        data: {
+            token: TTokenDocument;
+            combatant: TCombatant;
+        };
+    }
+
+    interface TokenBasicMoveRegionEvent<
+        TDocument extends RegionDocument = RegionDocument,
+        TUser extends User = User,
+        TTokenDocument extends TokenDocument = TokenDocument,
+    > extends BaseRegionEvent<TDocument, TUser> {
+        name: "tokenEnter" | "tokenExit";
+        data: {
+            token: TTokenDocument;
+        };
+    }
+
+    interface TokenMoveRegionEvent<
+        TDocument extends RegionDocument = RegionDocument,
+        TUser extends User = User,
+        TTokenDocument extends TokenDocument = TokenDocument,
+    > extends BaseRegionEvent<TDocument, TUser> {
+        name: "tokenPreMove" | "tokenMove" | "tokenMoveIn" | "tokenMoveOut";
+        data: {
+            destination: RegionMovementWaypoint;
+            forced: boolean;
+            origin: RegionMovementWaypoint;
+            segments: RegionMovementSegment[];
+            teleport: boolean;
+            token: TTokenDocument;
+        };
+    }
+
+    interface RegionBoundaryRegionEvent<TDocument extends RegionDocument = RegionDocument, TUser extends User = User>
+        extends BaseRegionEvent<TDocument, TUser> {
+        name: "regionBoundary";
+        data: {};
+    }
+
+    type RegionEvent = BehaviorStatusRegionEvent | ComabtRegionEvent | TokenMoveRegionEvent | TokenBasicMoveRegionEvent;
 
     interface SocketRegionEvent<TData extends object = object> {
         /** The UUID of the Region the event was triggered on */
