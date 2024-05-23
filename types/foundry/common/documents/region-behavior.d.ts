@@ -32,6 +32,7 @@ interface RegionBehaviorMetadata extends abstract.DocumentMetadata {
         "pauseGame",
         "suppressWeather",
         "teleportToken",
+        "toggleBehavior",
     ];
     hasTypeData: true;
     isEmbedded: true;
