@@ -268,7 +268,7 @@ export abstract class DataField<
      * Recursively traverse a schema and retrieve a field specification by a given path
      * @param path The field path as an array of strings
      */
-    protected _getField(path: string[]): this | undefined;
+    protected _getField(path: string[]): DataField | undefined;
 
     /* -------------------------------------------- */
     /*  Form Field Integration                      */
@@ -421,7 +421,7 @@ export type DataSchema = Record<string, DataField<JSONValue, unknown, boolean>>;
 
 /** A special class of {@link DataField} which defines a data schema. */
 export class SchemaField<
-    TDataSchema extends DataSchema,
+    TDataSchema extends DataSchema = DataSchema,
     TSourceProp extends SourceFromSchema<TDataSchema> = SourceFromSchema<TDataSchema>,
     TModelProp extends NonNullable<JSONValue> = ModelPropsFromSchema<TDataSchema>,
     TRequired extends boolean = true,
@@ -1309,30 +1309,107 @@ export class TypeDataField<
     migrateSource(sourceData: Record<string, unknown>, fieldData: Record<string, unknown>): void;
 }
 
-/** A subclass of [DataField]{@link DataField} which allows typed schemas. */
+/** A subclass of [DataField]{@link DataField} which allows to typed schemas. */
 export class TypedSchemaField<
-    TSourceProp extends Record<string, DataSchema | SchemaField<DataSchema> | abstract.DataModel>,
-    TModelProp extends DataSchema | SchemaField<DataSchema> | abstract.DataModel =
-        | DataSchema
-        | SchemaField<DataSchema>
-        | abstract.DataModel,
+    TTypes extends Record<string, DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = false,
-> extends DataField<TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+> extends DataField<
+    SourceFromTypedSchemaTypes<TTypes>,
+    ModelFromTypedSchemaTypes<TTypes>,
+    TRequired,
+    TNullable,
+    THasInitial
+> {
     /**
-     * @param types      The different types this field can represent.
-     * @param [options]  Options which configure the behavior of the field
-     * @param [context]  Additional context which describes the field
+     * @param types     The different types this field can represent.
+     * @param [options] Options which configure the behavior of the field
+     * @param [context] Additional context which describes the field
      */
     constructor(
-        types: TSourceProp,
-        options?: DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+        types: TTypes,
+        options?: DataFieldOptions<SourceFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>,
         context?: DataFieldContext,
     );
 
-    protected override _cast(value?: unknown): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+    static override get _defaults(): DataFieldOptions<object, boolean, boolean, boolean>;
+
+    /** The types of this field. */
+    types: TTypes;
+
+    protected override _getField(path: string[]): DataField;
+
+    /* -------------------------------------------- */
+    /*  Data Field Methods                          */
+    /* -------------------------------------------- */
+
+    protected override _cleanType(value: JSONValue | undefined, options: CleanFieldOptions): JSONValue | undefined;
+
+    protected override _cast(value: JSONValue): object;
+
+    protected override _validateSpecial(value: JSONValue | undefined): boolean | void;
+
+    protected override _validateType(
+        value: unknown,
+        options?: DataFieldValidationOptions,
+    ): boolean | DataModelValidationFailure | void;
+
+    override initialize(
+        value: JSONValue | undefined,
+        model?: ConstructorOf<abstract.DataModel>,
+        options?: object,
+    ): MaybeSchemaProp<ModelFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>;
+
+    override toObject(
+        value: ModelFromTypedSchemaTypes<TTypes>,
+    ): MaybeSchemaProp<SourceFromTypedSchemaTypes<TTypes>, TRequired, TNullable, THasInitial>;
+
+    override apply(
+        fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
+        value?: unknown,
+        options?: Record<string, unknown>,
+    ): unknown;
+
+    /**
+     * Migrate this field's candidate source data.
+     * @param sourceData Candidate source data of the root model
+     * @param fieldData  The value of this field within the source data
+     */
+    migrateSource(sourceData: object, fieldData: JSONValue | undefined): void;
 }
+
+type SourceMapFromTypedSchemaTypes<
+    TTypes extends Record<string, DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
+> = {
+    [K in keyof TTypes]: TTypes[K] extends ConstructorOf<abstract.DataModel>
+        ? InstanceType<TTypes[K]>["_source"]
+        : TTypes[K] extends SchemaField
+          ? SourcePropFromDataField<TTypes[K]>
+          : TTypes[K] extends DataSchema
+            ? SourceFromSchema<TTypes[K]>
+            : Record<string, JSONValue>;
+};
+
+type SourceFromTypedSchemaTypes<
+    TTypes extends Record<string, DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
+> = SourceMapFromTypedSchemaTypes<TTypes>[keyof TTypes];
+
+type ModelMapFromTypedSchemaTypes<
+    TTypes extends Record<string, DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
+> = {
+    [K in keyof TTypes]: TTypes[K] extends ConstructorOf<abstract.DataModel>
+        ? InstanceType<TTypes[K]>
+        : TTypes[K] extends SchemaField
+          ? ModelPropFromDataField<TTypes[K]>
+          : TTypes[K] extends DataSchema
+            ? ModelPropsFromSchema<TTypes[K]>
+            : object;
+};
+
+type ModelFromTypedSchemaTypes<
+    TTypes extends Record<string, DataSchema | SchemaField | ConstructorOf<abstract.DataModel>>,
+> = ModelMapFromTypedSchemaTypes<TTypes>[keyof TTypes];
 
 interface JavaScriptFieldOptions<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean>
     extends StringFieldOptions<string, TRequired, TNullable, THasInitial> {
