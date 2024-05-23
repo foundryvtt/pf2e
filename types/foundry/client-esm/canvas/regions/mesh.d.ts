@@ -33,10 +33,10 @@ export class RegionMesh<TShader extends AbstractBaseShader = RegionShader> exten
 
     /**
      * Cached tint value for the shader uniforms.
-     * @type {[red: number, green: number, blue: number, alpha: number]}
+     * @returns [red, green, blue, alpha]
      * @internal
      */
-    protected _cachedTint: number[];
+    protected _cachedTint: [number, number, number, number];
 
     /** Used to track a tint or alpha change to execute a recomputation of _cachedTint. */
     protected _tintAlphaDirty: boolean;
