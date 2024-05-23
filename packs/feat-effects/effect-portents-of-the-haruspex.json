@@ -1,0 +1,145 @@
+{
+    "_id": "l5NDN9V3DwFYPIsD",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Portents of the Haruspex",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Acid",
+                "Bludgeoning",
+                "Bludgeoning",
+                "Cold",
+                "Electricity",
+                "Fire",
+                "Mental",
+                "Piercing",
+                "Piercing",
+                "Poison",
+                "Slashing",
+                "Slashing"
+            ],
+            "loop": false,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d12"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Portents of the Haruspex]</p>\n<p>Roll 1d12 to determine the damage type. The next time before the end of your next turn that you or your allies deals that damage type to an enemy, that enemy has weakness equal to your level against that damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "type": "acid",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:2",
+                            "parent:badge:value:3"
+                        ]
+                    }
+                ],
+                "type": "bludgeoning",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:4"
+                ],
+                "type": "cold",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:5"
+                ],
+                "type": "electricity",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:6"
+                ],
+                "type": "fire",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:7"
+                ],
+                "type": "mental",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:8",
+                            "parent:badge:value:9"
+                        ]
+                    }
+                ],
+                "type": "piercing",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "parent:badge:value:10"
+                ],
+                "type": "poison",
+                "value": "@item.origin.level"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:badge:value:11",
+                            "parent:badge:value:12"
+                        ]
+                    }
+                ],
+                "type": "slashing",
+                "value": "@item.origin.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,49 @@
+{
+    "_id": "Rs64h4dLbYVWvFJe",
+    "img": "icons/creatures/tentacles/tentacles-eyes-poisoned-green.webp",
+    "name": "Effect: All Are One",
+    "system": {
+        "description": {
+            "value": "<p>The area of bioluminescent maelstrom and the reach of their tentacle Strike increase by 10 feet for 1 minute, to a maximum of an additional 30 feet.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "count": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "all-are-one"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.bioluminescentMaelstrom.radius",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

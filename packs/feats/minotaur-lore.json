@@ -1,0 +1,53 @@
+{
+    "_id": "Aw0kevD364Kqu1qB",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Minotaur Lore",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You were raised in a minotaur enclave or have spent a great deal of time studying your culture and ancestry. You become trained in Society and Stealth. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice.</p>\n<p>You also gain the @UUID[Compendium.pf2e.feats-srd.Item.Additional Lore] general feat for Minotaur Lore.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.soc.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.ste.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Additional Lore"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

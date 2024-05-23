@@ -1,0 +1,139 @@
+{
+    "_id": "l9kHsnm7dBQx52JI",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Spirit of the Beast",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Spirit of the Beast]</p>\n<p>When you Cast this Spell, select from one of the following aspects.</p>\n<ul>\n<li><strong>Aspect of Might:</strong> Your companion gains a status bonus to Athletics checks, Intimidation checks to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], and Fortitude saves.</li>\n<li><strong>Aspect of Swiftness:</strong> Your companion gains a status bonus to Acrobatics checks, Stealth checks to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], and Reflex saves.</li>\n<li><strong>Aspect of Insight</strong>: Your companion gains a status bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek], Survival checks to Sense Direction or @UUID[Compendium.pf2e.actionspf2e.Item.Track], and Will saves.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Aspect of Might",
+                        "value": "might"
+                    },
+                    {
+                        "label": "Aspect of Swiftness",
+                        "value": "swiftness"
+                    },
+                    {
+                        "label": "Aspect of Insight",
+                        "value": "insight"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "spirit-of-the-beast"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-of-the-beast:might"
+                ],
+                "selector": [
+                    "athletics",
+                    "fortitude"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-of-the-beast:might",
+                    "action:demoralize"
+                ],
+                "selector": "intimidation",
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-of-the-beast:swiftness"
+                ],
+                "selector": [
+                    "acrobatics",
+                    "reflex"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-of-the-beast:swiftness",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "spirit-of-the-beast:insight",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "check:statistic:perception",
+                                    "action:seek"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "check:statistic:survival",
+                                    {
+                                        "or": [
+                                            "action:sense-direction",
+                                            "action:track"
+                                        ]
+                                    }
+                                ]
+                            },
+                            "check:statistic:will"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "will",
+                    "perception",
+                    "survival"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@item.level,8),3,ternary(gte(@item.level,5),2,1))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

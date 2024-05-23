@@ -1,0 +1,56 @@
+{
+    "_id": "z5meCd4ZidBAPtUt",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "You're So Cute!",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You know how to put on the charm, doing playful tricks to win favor. You are trained in Performance and gain the @UUID[Compendium.pf2e.feats-srd.Item.Impressive Performance] feat. When performing for humanoids, you gain a +1 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] with Performance.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.prf.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Impressive Performance"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,70 @@
+{
+    "_id": "jABl7ROkV1tsX87g",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Practiced Brawn",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You're accustomed to long days filled with hard physical labor. You gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] and @UUID[Compendium.pf2e.actionspf2e.Item.Shove], and to Fortitude saving throws to resist becoming @UUID[Compendium.pf2e.conditionitems.Item.Fatigued]. When you roll a success on an Athletics check to Shove, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:force-open"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "inflicts:fatigued"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "centaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

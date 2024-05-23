@@ -1,0 +1,61 @@
+{
+    "_id": "xYCoyHRLdOXm8Ndr",
+    "img": "icons/magic/water/wave-water-explosion.webp",
+    "name": "Effect: Shielding Wave",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to acid or fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Merfolk.ShieldingWave.Dry",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Merfolk.ShieldingWave.Wet",
+                        "value": 1
+                    }
+                ],
+                "flag": "shieldingWave",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Merfolk.ShieldingWave.Prompt"
+            },
+            {
+                "key": "Resistance",
+                "type": [
+                    "fire",
+                    "acid"
+                ],
+                "value": "floor(@actor.level/@item.flags.pf2e.rulesSelections.shieldingWave)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,67 @@
+{
+    "_id": "4zE3seVFtLPNw9EQ",
+    "img": "icons/commodities/materials/feather-teal.webp",
+    "name": "Whisper of Wings",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Wings and swirling winds announced the approach of your patron. The wings might have been radiantly feathered, jeweled like a dragonfly's, strangely mechanical, or leathery with the scent of sulfur, but the controlled chaos of their movements contained countless teachings.</p>\n<p><strong>Spell List</strong> primal</p>\n<p><strong>Patron Skill</strong> Nature</p>\n<p><strong>Lesson of the Observed Sky</strong> Your patron teaches that the sky can guide you anywhere you let it. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Murmuration] hex cantrip, and your familiar learns @UUID[Compendium.pf2e.spells-srd.Item.Gentle Landing].</p>\n<p><strong>Familiar of Nimble Flight</strong> Even if your familiar doesn't have wings, it can sometimes move as if carried aloft by the wind. When you Cast or Sustain a hex, your familiar can Fly up to 15 feet; this movement doesn't trigger reactions.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.nat.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.proficiencies.aliases.witch",
+                "priority": 39,
+                "value": "primal"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:witch",
+                    "item:trait:hex"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.NimbleFlight.Description",
+                        "title": "PF2E.SpecificRule.Witch.Patron.FamiliarAbility.NimbleFlight.Title"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "witch-patron"
+            ],
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,91 @@
+{
+    "_id": "nlhVoQDfLKYM3j1l",
+    "folder": "nguycUZHCFcrt3bf",
+    "img": "icons/creatures/fish/fish-marlin-swordfight-blue.webp",
+    "name": "Swimming Animal",
+    "system": {
+        "ancestry": {
+            "name": "Awakened Animal",
+            "slug": "awakened-animal",
+            "uuid": "Compendium.pf2e.ancestries.Item.GFOgV3MzWkYwJoJW"
+        },
+        "description": {
+            "value": "<p>You are an aquatic animal who is most comfortable in the water. You may spend much of your time in the water like an alligator, seal, whale, or dolphin, or you may require the water to breathe like a fish or some crustaceans.</p>\n<p>You have one animal attack of your choice (typically claw, jaws, or tail; see the sidebar). Choose if you are aquatic or water-dwelling.</p>\n<ul>\n<li><strong>Aquatic:</strong> You gain the aquatic trait and you have a swim Speed of 30 feet. The aquatic trait means you breathe water but not air, and your bludgeoning and slashing unarmed Strikes don't take the usual –2 penalty for being underwater.</li>\n<li><strong>Water-dwelling:</strong> You can hold your breath underwater for 10 minutes before needing air. You have a swim Speed of 20 feet, and if you can move on land, you have base Speed of 20 feet.</li>\n</ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "adjustName": "false",
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAquatic",
+                        "value": "aquatic"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.AwakenedAnimal.SwimmingAnimal.WaterDwelling",
+                        "value": "water-dwelling"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.AwakenedAnimal.SwimmingAnimal.Prompt",
+                "rollOption": "swimming-animal"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "swimming-animal:aquatic"
+                ],
+                "selector": "land",
+                "value": 30
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "swimming-animal:water-dwelling"
+                ],
+                "selector": "swim",
+                "value": 20
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "swimming-animal:water-dwelling"
+                ],
+                "selector": "land",
+                "value": 20
+            },
+            {
+                "add": [
+                    "aquatic"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "swimming-animal:aquatic"
+                ]
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "swimming-animal:aquatic"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "aquatic-combat",
+                "suppress": true
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Animal Attack"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

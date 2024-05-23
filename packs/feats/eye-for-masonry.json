@@ -1,0 +1,64 @@
+{
+    "_id": "ULa46pgES3yWw3NJ",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Eye for Masonry",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your familiarity with architecture allows you to easily spot subtle stonework. You gain a +2 circumstance bonus to Perception checks to notice unusual stonework. This bonus applies to checks to discover mechanical traps made of stone or hidden within stone, as well as secret doors in stone.</p>\n<p>When using Athletics to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] a stone door or Thievery to @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device] made primarily of stone, you gain a +1 circumstance bonus to that check.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "unusual-stonework"
+                ],
+                "selector": "perceprtion",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:force-open",
+                            "action:disable-a-device"
+                        ]
+                    },
+                    "stonework"
+                ],
+                "selector": [
+                    "athletics",
+                    "thievery"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

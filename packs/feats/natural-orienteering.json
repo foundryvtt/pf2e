@@ -1,0 +1,52 @@
+{
+    "_id": "JC5mUJssZQKslLct",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Natural Orienteering",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>There are few twisting paths that can disorient you. When you roll a success on a Survival check to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction] or @UUID[Compendium.pf2e.actionspf2e.Item.Track], you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:sense-direction",
+                            "action:track"
+                        ]
+                    }
+                ],
+                "selector": "survival"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

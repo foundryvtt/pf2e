@@ -1,0 +1,49 @@
+{
+    "_id": "ra23dnNfwyIE3vTY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Beast of Burden",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your broad frame can allow you to carry weights that immobilize smaller creatures. Increase your maximum and encumbered Bulk limits by 4. You can rest normally while wearing medium armor.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.encumberedAfterAddend",
+                "value": 4
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "inventory.bulk.maxAddend",
+                "value": 4
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

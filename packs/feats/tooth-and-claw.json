@@ -1,0 +1,392 @@
+{
+    "_id": "hLJgvbq1uJwMMl0C",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tooth and Claw",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've become adept with your born weapons. Choose a second animal attack appropriate to your animal type and heritage.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.BattleForm.Attack.Antler",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:antler"
+                            }
+                        ],
+                        "value": "antler"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Beak",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:beak"
+                            }
+                        ],
+                        "value": "beak"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Claw",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:claw"
+                            }
+                        ],
+                        "value": "claw"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Fangs",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:fangs"
+                            }
+                        ],
+                        "value": "fangs"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Fist",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:fist"
+                            }
+                        ],
+                        "value": "fist"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Horn",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:horn"
+                            }
+                        ],
+                        "value": "horn"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Jaws",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:jaws"
+                            }
+                        ],
+                        "value": "jaws"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tail",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:tail"
+                            }
+                        ],
+                        "value": "tail"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Talon",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:talon"
+                            }
+                        ],
+                        "value": "talon"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Tongue",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:tongue"
+                            }
+                        ],
+                        "value": "tongue"
+                    },
+                    {
+                        "label": "PF2E.BattleForm.Attack.Wing",
+                        "predicate": [
+                            {
+                                "not": "animal-attack:wing"
+                            }
+                        ],
+                        "value": "wing"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
+                "rollOption": "tooth-and-claw"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/antler.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Antler",
+                "predicate": [
+                    "tooth-and-claw:antler"
+                ],
+                "slug": "antler",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/beak.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Beak",
+                "predicate": [
+                    "tooth-and-claw:beak"
+                ],
+                "slug": "beak",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "tooth-and-claw:claw"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    "tooth-and-claw:fangs"
+                ],
+                "slug": "fangs",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fist.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fist",
+                "predicate": [
+                    "tooth-and-claw:fist"
+                ],
+                "slug": "fist",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/horn.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Horn",
+                "predicate": [
+                    "tooth-and-claw:horn"
+                ],
+                "slug": "horn",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "tooth-and-claw:jaws"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "predicate": [
+                    "tooth-and-claw:tail"
+                ],
+                "slug": "tail",
+                "traits": [
+                    "finesse",
+                    "trip",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/talon.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Talon",
+                "predicate": [
+                    "tooth-and-claw:talon"
+                ],
+                "slug": "talon",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tongue.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tongue",
+                "predicate": [
+                    "tooth-and-claw:tongue"
+                ],
+                "slug": "tongue",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/wing.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Wing",
+                "predicate": [
+                    "tooth-and-claw:wing"
+                ],
+                "slug": "wing",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "awakened-animal"
+            ]
+        }
+    },
+    "type": "feat"
+}

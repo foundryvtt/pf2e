@@ -1,0 +1,89 @@
+{
+    "_id": "Q5NrFWKDMCoVn9qR",
+    "folder": "YJU2hq0o4Pfh0OPw",
+    "img": "systems/pf2e/icons/spells/prismatic-armor.webp",
+    "name": "Reef Merfolk",
+    "system": {
+        "ancestry": {
+            "name": "Merfolk",
+            "slug": "merfolk",
+            "uuid": "Compendium.pf2e.ancestries.Item.FUqZRllwn6kmFA8K"
+        },
+        "description": {
+            "value": "<p>You were raised amid colorful corals and schools of tropical fish. Compared to most merfolk, your body is vividly hued with stripes, spots, and patterns like a clownfish or angelfish. You're used to the occasionally toxic denizens of your home and are bothered little by stings or petty poisons. You gain poison resistance equal to half your level (minimum 1), and each of your successful saving throws against a poison affliction reduces its stage by 2, or by 1 for a virulent poison. Each critical success against an ongoing poison reduces its stage by 3, or by 2 for a virulent poison.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "poison",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "item:trait:poison",
+                    {
+                        "not": "item:trait:virulent"
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Merfolk.ReefMerfolk.SuccessNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:trait:poison",
+                    {
+                        "not": "item:trait:virulent"
+                    }
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Merfolk.ReefMerfolk.CriticalSuccessNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "predicate": [
+                    "item:trait:poison",
+                    "item:trait:virulent"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Merfolk.ReefMerfolk.VirulentSuccessNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "item:trait:poison",
+                    "item:trait:virulent"
+                ],
+                "selector": "saving-throw",
+                "text": "PF2E.SpecificRule.Merfolk.ReefMerfolk.VirulentCriticalSuccessNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

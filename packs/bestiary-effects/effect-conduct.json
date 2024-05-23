@@ -1,0 +1,98 @@
+{
+    "_id": "I4C55X7AzchlF9FM",
+    "img": "icons/creatures/amphibians/bullfrog-glass-teal.webp",
+    "name": "Effect: Conduct",
+    "system": {
+        "description": {
+            "value": "<p>The concert frog and all allies within 60 feet gain one of the following three effects until the beginning of the concert frog’s next turn.</p>\n<ul>\n<li><strong>Red</strong> Grants a +10-foot status bonus to their Speeds.</li>\n<li><strong>Blue</strong> Grants a +1 status bonus to AC and Fortitude saving throws.</li>\n<li><strong>Yellow</strong> Allies gain a +1 status bonus to attack rolls and deal an additional 1d4 sonic damage on successful melee Strikes.</li>\n</ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ConcertFrog.Conduct.Blue",
+                        "value": "blue"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ConcertFrog.Conduct.Red",
+                        "value": "red"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ConcertFrog.Conduct.Yellow",
+                        "value": "yellow"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "conduct"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "conduct:blue"
+                ],
+                "selector": [
+                    "ac",
+                    "fortitude"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "conduct:red"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": 10
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "conduct:yellow"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "sonic",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "conduct:yellow"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
