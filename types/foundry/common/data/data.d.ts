@@ -123,10 +123,10 @@ export class BaseShapeData<TSchema extends BaseShapeDataSchema> extends DataMode
 
     /** The possible shape types. */
     static get TYPES(): {
-        rectangle: RectangleShapeData;
-        circle: CircleShapeData;
-        ellipse: EllipseShapeData;
-        polygon: PolygonShapeData;
+        rectangle: typeof RectangleShapeData;
+        circle: typeof CircleShapeData;
+        ellipse: typeof EllipseShapeData;
+        polygon: typeof PolygonShapeData;
     };
 
     /** The bottom and top elevation of the shape. A value of null means -/+Infinity. */
@@ -139,7 +139,7 @@ interface BaseShapeData<TSchema extends BaseShapeDataSchema = BaseShapeDataSchem
 
 type BaseShapeDataSchema = {
     /** The type of shape, a value in BaseShapeData.TYPES. */
-    type: fields.StringField<string, string, true, false, true>;
+    type: fields.StringField<ShapeDataType, ShapeDataType, true, false, true>;
     /** Is this shape a hole? */
     hole: fields.BooleanField;
 };
@@ -153,7 +153,10 @@ export class RectangleShapeData extends BaseShapeData<RectangleShapeDataSchema> 
 
 interface RectangleShapeData
     extends BaseShapeData<RectangleShapeDataSchema>,
-        ModelPropsFromSchema<RectangleShapeDataSchema> {}
+        ModelPropsFromSchema<RectangleShapeDataSchema> {
+    readonly _source: Omit<SourceFromSchema<RectangleShapeDataSchema>, "type"> & { type: "rectangle" };
+    type: "rectangle";
+}
 
 type RectangleShapeDataSchema = BaseShapeDataSchema & {
     /** The top-left x-coordinate in pixels before rotation. */
@@ -175,7 +178,10 @@ export class CircleShapeData extends BaseShapeData<CircleShapeDataSchema> {
     static override TYPE: "circle";
 }
 
-interface CircleShapeData extends BaseShapeData<CircleShapeDataSchema>, ModelPropsFromSchema<CircleShapeDataSchema> {}
+interface CircleShapeData extends BaseShapeData<CircleShapeDataSchema>, ModelPropsFromSchema<CircleShapeDataSchema> {
+    readonly _source: Omit<SourceFromSchema<CircleShapeDataSchema>, "type"> & { type: "circle" };
+    type: "circle";
+}
 
 type CircleShapeDataSchema = BaseShapeDataSchema & {
     /** The x-coordinate of the center point in pixels. */
@@ -193,9 +199,10 @@ export class EllipseShapeData extends BaseShapeData<EllipseShapeDataSchema> {
     static override TYPE: "ellipse";
 }
 
-interface EllipseShapeData
-    extends BaseShapeData<EllipseShapeDataSchema>,
-        ModelPropsFromSchema<EllipseShapeDataSchema> {}
+interface EllipseShapeData extends BaseShapeData<EllipseShapeDataSchema>, ModelPropsFromSchema<EllipseShapeDataSchema> {
+    readonly _source: Omit<SourceFromSchema<EllipseShapeDataSchema>, "type"> & { type: "ellipse" };
+    type: "ellipse";
+}
 
 type EllipseShapeDataSchema = BaseShapeDataSchema & {
     /** The x-coordinate of the center point in pixels. */
@@ -217,9 +224,10 @@ export class PolygonShapeData extends BaseShapeData<PolygonShapeDataSchema> {
     static override TYPE: "polygon";
 }
 
-interface PolygonShapeData
-    extends BaseShapeData<PolygonShapeDataSchema>,
-        ModelPropsFromSchema<PolygonShapeDataSchema> {}
+interface PolygonShapeData extends BaseShapeData<PolygonShapeDataSchema>, ModelPropsFromSchema<PolygonShapeDataSchema> {
+    readonly _source: Omit<SourceFromSchema<PolygonShapeDataSchema>, "type"> & { type: "polygon" };
+    type: "polygon";
+}
 
 type PolygonShapeDataSchema = BaseShapeDataSchema & {
     /** The points of the polygon ([x0, y0, x1, y1, ...]). The polygon must not be self-intersecting. */

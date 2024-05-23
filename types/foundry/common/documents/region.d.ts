@@ -38,12 +38,7 @@ type RegionSchema = {
     /** The color used to highlight the Region */
     color: fields.ColorField<true, false, false>;
     /** The shapes that make up the Region */
-    shapes: fields.ArrayField<
-        fields.TypedSchemaField<
-            typeof BaseShapeData.TYPES,
-            (typeof BaseShapeData.TYPES)[keyof typeof BaseShapeData.TYPES]
-        >
-    >;
+    shapes: fields.ArrayField<fields.TypedSchemaField<typeof BaseShapeData.TYPES>>;
     elevation: fields.SchemaField<RegionElevationSchema>;
     /** A collection of embedded RegionBehavior objects */
     behaviours: fields.EmbeddedCollectionField<BaseRegionBehavior>;
