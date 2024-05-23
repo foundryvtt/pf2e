@@ -8619,17 +8619,17 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
@@ -8643,7 +8643,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -8661,7 +8661,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -8677,7 +8677,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8695,7 +8695,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -8711,7 +8711,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8729,7 +8729,7 @@ declare class ClientBaseRegion<TParent extends ClientBaseScene | null> extends f
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -8879,7 +8879,7 @@ export class CanvasBaseRegion<TParent extends ClientBaseScene | null> extends Cl
      */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
@@ -8888,14 +8888,14 @@ export class CanvasBaseRegion<TParent extends ClientBaseScene | null> extends Cl
      */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
     /**
      * @see abstract.Document#_onDelete
      */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 
 export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBaseScene | null> | null> extends foundry
@@ -9032,17 +9032,17 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
 
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void;
 
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 
     /**
      * Actions taken after descendant documents have been created, but before changes are applied to the client data.
@@ -9056,7 +9056,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         parent: this,
         collection: string,
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -9074,7 +9074,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         collection: string,
         documents: foundry.abstract.Document[],
         data: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void;
 
@@ -9090,7 +9090,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         parent: this,
         collection: string,
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9108,7 +9108,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         collection: string,
         documents: ClientDocument[],
         changes: object[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseUpdateOperation<this>,
         userId: string,
     ): void;
 
@@ -9124,7 +9124,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         parent: this,
         collection: string,
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
@@ -9142,7 +9142,7 @@ export class ClientBaseRegionBehavior<TParent extends ClientBaseRegion<ClientBas
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void;
 
