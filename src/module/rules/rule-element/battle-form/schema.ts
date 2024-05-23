@@ -40,12 +40,12 @@ type BattleFormRuleOverrideSchema = {
         SchemaField<OverrideSenseSchema>,
         false,
         false,
-        false
+        true
     >;
     size: StringField<string, string, false, true, false>;
-    speeds: ObjectField<BattleFormSpeeds, BattleFormSpeeds, false, false, false>;
-    skills: ObjectField<BattleFormSkills, BattleFormSkills, false, false, false>;
-    strikes: ObjectField<Record<string, BattleFormStrike>, Record<string, BattleFormStrike>, false, false, false>;
+    speeds: ObjectField<BattleFormSpeeds, BattleFormSpeeds, false, false, true>;
+    skills: ObjectField<BattleFormSkills, BattleFormSkills, false, false, true>;
+    strikes: ObjectField<Record<string, BattleFormStrike>, Record<string, BattleFormStrike>, false, false, true>;
     immunities: ArrayField<ObjectField<Omit<ImmunityRuleElement["_source"], "key">>>;
     weaknesses: ArrayField<ObjectField<Omit<WeaknessRuleElement["_source"], "key">>>;
     resistances: ArrayField<ObjectField<Omit<ResistanceRuleElement["_source"], "key">>>;
