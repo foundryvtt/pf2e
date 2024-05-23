@@ -2,15 +2,15 @@ import type * as fields from "../../../common/data/fields.d.ts";
 import type { EventsField, RegionBehaviorType } from "./base.d.ts";
 
 /** The data model for a behavior that toggles Region Behaviors when one of the subscribed events occurs. */
-export class ToggleBehaviorRegionType extends RegionBehaviorType<ToggleBehaviorRegionTypeSchema> {
-    static override defineSchema(): ToggleBehaviorRegionTypeSchema;
+export class ToggleBehaviorRegionBehaviorType extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema> {
+    static override defineSchema(): ToggleBehaviorRegionBehaviorTypeSchema;
 }
 
-export interface ToggleBehaviorRegionType
-    extends RegionBehaviorType<ToggleBehaviorRegionTypeSchema>,
-        ModelPropsFromSchema<ToggleBehaviorRegionTypeSchema> {}
+export interface ToggleBehaviorRegionBehaviorType
+    extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema>,
+        ModelPropsFromSchema<ToggleBehaviorRegionBehaviorTypeSchema> {}
 
-type ToggleBehaviorRegionTypeSchema = {
+type ToggleBehaviorRegionBehaviorTypeSchema = {
     /** The events that are handled by the behavior. */
     events: EventsField;
     /** The Region Behavior UUIDs that are enabled. */

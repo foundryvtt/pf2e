@@ -24,6 +24,8 @@ declare global {
         TItem extends Item<TActor | null>,
         TMacro extends Macro,
         TMeasuredTemplateDocument extends MeasuredTemplateDocument<TScene | null>,
+        TRegionDocument extends RegionDocument<TScene | null>,
+        TRegionBehavior extends RegionBehavior<TRegionDocument | null>,
         TTileDocument extends TileDocument<TScene | null>,
         TTokenDocument extends TokenDocument<TScene | null>,
         TWallDocument extends WallDocument<TScene | null>,
@@ -254,6 +256,48 @@ declare global {
             documentClass: ConstructorOf<TMeasuredTemplateDocument>;
             objectClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>>;
             layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
+        };
+
+        /** Configuration for the Region embedded document type and its representation on the game Canvas  */
+        Region: {
+            documentClass: ConstructorOf<TRegionDocument>;
+            objectClass: ConstructorOf<TRegionDocument["object"]>;
+            layerClass: ConstructorOf<NonNullable<TRegionDocument["object"]>["layer"]>;
+        };
+
+        /** Configuration for the RegionBehavior embedded document type */
+        RegionBehavior: {
+            documentClass: ConstructorOf<TRegionBehavior>;
+            dataModels: {
+                [key: string]: ConstructorOf<foundry.data.regionBehaviors.RegionBehaviorType>;
+                adjustDarknessLevel: ConstructorOf<foundry.data.regionBehaviors.AdjustDarknessLevelRegionBehaviorType>;
+                executeMacro: ConstructorOf<foundry.data.regionBehaviors.ExecuteMacroRegionBehaviorType>;
+                executeScript: ConstructorOf<foundry.data.regionBehaviors.ExecuteScriptRegionBehaviorType>;
+                pauseGame: ConstructorOf<foundry.data.regionBehaviors.PauseGameRegionBehaviorType>;
+                suppressWeather: ConstructorOf<foundry.data.regionBehaviors.SuppressWeatherRegionBehaviorType>;
+                teleportToken: ConstructorOf<foundry.data.regionBehaviors.TeleportTokenRegionBehaviorType>;
+                toggleBehavior: ConstructorOf<foundry.data.regionBehaviors.ToggleBehaviorRegionBehaviorType>;
+            };
+            typeIcons: {
+                [key: string]: string;
+                adjustDarknessLevel: "fa-solid fa-circle-half-stroke";
+                executeMacro: "fa-solid fa-code";
+                executeScript: "fa-brands fa-js";
+                pauseGame: "fa-solid fa-pause";
+                suppressWeather: "fa-solid fa-cloud-slash";
+                teleportToken: "fa-solid fa-transporter-1";
+                toggleBehavior: "fa-solid fa-sliders";
+            };
+            typeLabels: {
+                [key: string]: string;
+                adjustDarknessLevel: "TYPES.RegionBehavior.adjustDarknessLevel";
+                executeMacro: "TYPES.RegionBehavior.executeMacro";
+                executeScript: "TYPES.RegionBehavior.executeScript";
+                pauseGame: "TYPES.RegionBehavior.pauseGame";
+                suppressWeather: "TYPES.RegionBehavior.suppressWeather";
+                teleportToken: "TYPES.RegionBehavior.teleportToken";
+                toggleBehavior: "TYPES.RegionBehavior.toggleBehavior";
+            };
         };
 
         /** Configuration for the Tile embedded document type and its representation on the game Canvas */
