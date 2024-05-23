@@ -1,13 +1,6 @@
 import type { PartyPF2e } from "@actor";
 
 export function registerKeybindings(): void {
-    game.keybindings.register("pf2e", "cycle-token-stack", {
-        name: "PF2E.Keybinding.CycleTokenStack.Label",
-        hint: "PF2E.Keybinding.CycleTokenStack.Hint",
-        editable: [{ key: "KeyZ", modifiers: [] }],
-        onUp: (): boolean => canvas.tokens.cycleStack(),
-    });
-
     game.keybindings.register("pf2e", "toggle-party-sheet", {
         name: "PF2E.Keybinding.TogglePartySheet.Label",
         hint: "PF2E.Keybinding.TogglePartySheet.Hint",
