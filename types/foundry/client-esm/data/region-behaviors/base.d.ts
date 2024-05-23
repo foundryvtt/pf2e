@@ -26,6 +26,9 @@ export abstract class RegionBehaviorType<
      */
     static events: Record<string, EventBehaviorStaticHandler>;
 
+    /** The events that are handled by the behavior. */
+    events: fields.ModelPropFromDataField<EventsField>;
+
     /** A convenience reference to the RegionBehavior which contains this behavior sub-type. */
     get behavior(): RegionBehavior | null;
 
