@@ -31,7 +31,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                 { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
                 { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
             ];
-            const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvOptions });
+            const templates = await renderTemplate(hbsPath, {
+                scene: this.scene,
+                rbvOptions,
+                terrainTypes: CONFIG.PF2E.terrainTypes,
+            });
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
         })();

@@ -9,6 +9,9 @@ declare global {
         /** A singleton collection which holds a reference to the synthetic token actor by its base actor's ID. */
         actors: Collection<Actor>;
 
+        /** The Regions this Token is currently in. */
+        regions: Set<RegionDocument> | null;
+
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
          * If actorLink is true, then the document is the primary Actor document.

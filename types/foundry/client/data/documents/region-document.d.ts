@@ -1,4 +1,5 @@
 import type { RegionSource } from "../../../common/documents/region.d.ts";
+import type { Region } from "../../pixi/placeables/region.d.ts";
 import type { CanvasBaseRegion } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -46,6 +47,8 @@ declare global {
     }
 
     interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+        _object: Region<this>;
+
         readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehavior<this>>;
     }
 

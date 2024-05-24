@@ -39,6 +39,7 @@ import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
+import type { TerrainType } from "@scene/data.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
@@ -1511,7 +1512,36 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
-        return Array.from(toReturn);
+        const terrains = new Set<TerrainType>();
+        const sceneTerrainType = canvas.scene?.flags.pf2e.terrainType;
+        if (sceneTerrainType) terrains.add(sceneTerrainType);
+        const token = this.getActiveTokens(false, true).at(0);
+        if (token) {
+            for (const region of token.regions ?? []) {
+                if (
+                    token.elevation < Number(region.elevation.bottom) ||
+                    token.elevation > Number(region.elevation.top)
+                ) {
+                    continue;
+                }
+                for (const behavior of region.behaviors) {
+                    if (behavior.type === "terrain-pf2e") {
+                        // todo: remove once type resolution is possible
+                        const system = behavior.system as { exclusive: boolean; terrainType: TerrainType };
+                        if (system.exclusive) {
+                            terrains.clear();
+                            if (system.terrainType) {
+                                terrains.add(system.terrainType);
+                            }
+                            break;
+                        }
+                        terrains.add(system.terrainType);
+                    }
+                }
+            }
+        }
+
+        return Array.from(toReturn).concat(...terrains.map((t) => `terrain:${t}`));
     }
 
     /** This allows @actor.level and such to work for macros and inline rolls */
