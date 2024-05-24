@@ -311,6 +311,7 @@ declare global {
                 PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
             >;
             globalLightSourceClass: ConstructorOf<GlobalLightSource>;
+            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>>;
             visionSourceClass: ConstructorOf<PointVisionSource<TTokenDocument["object"]>>;
             soundSourceClass: ConstructorOf<PointSoundSource>;
             groups: {
