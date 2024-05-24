@@ -16,6 +16,8 @@ export default class BaseRegion<
 export default interface BaseRegion<TParent extends documents.BaseScene | null = documents.BaseScene | null>
     extends abstract.Document<TParent, RegionSchema>,
         ModelPropsFromSchema<RegionSchema> {
+    get documentName(): RegionMetadata["name"];
+
     readonly behaviors: abstract.EmbeddedCollection<BaseRegionBehavior<this>>;
 }
 
@@ -41,7 +43,7 @@ type RegionSchema = {
     shapes: fields.ArrayField<fields.TypedSchemaField<typeof BaseShapeData.TYPES>>;
     elevation: fields.SchemaField<RegionElevationSchema>;
     /** A collection of embedded RegionBehavior objects */
-    behaviours: fields.EmbeddedCollectionField<BaseRegionBehavior>;
+    behaviours: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
     visibility: fields.NumberField<RegionVisibilityValue, RegionVisibilityValue, true>;
     locked: fields.BooleanField;
     /** An object of optional key/value flags */

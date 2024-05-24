@@ -20,6 +20,7 @@ export default interface BaseScene extends Document<null, SceneSchema>, ModelPro
     readonly drawings: EmbeddedCollection<documents.BaseDrawing<this>>;
     readonly lights: EmbeddedCollection<documents.BaseAmbientLight<this>>;
     readonly notes: EmbeddedCollection<documents.BaseNote<this>>;
+    readonly regions: EmbeddedCollection<documents.BaseRegion<this>>;
     readonly sounds: EmbeddedCollection<documents.BaseAmbientSound<this>>;
     readonly templates: EmbeddedCollection<documents.BaseMeasuredTemplate<this>>;
     readonly tokens: EmbeddedCollection<documents.BaseToken<this>>;
@@ -37,6 +38,7 @@ export interface SceneMetadata extends DocumentMetadata {
         AmbientSound: "sounds";
         Drawing: "drawings";
         MeasuredTemplate: "templates";
+        Region: "regions";
         Note: "notes";
         Tile: "tiles";
         Token: "tokens";
@@ -117,6 +119,8 @@ type SceneSchema = {
     lights: fields.EmbeddedCollectionField<documents.BaseAmbientLight<BaseScene>>;
     /** A collection of embedded Note objects. */
     notes: fields.EmbeddedCollectionField<documents.BaseNote<BaseScene>>;
+    /** A collection of embedded Region objects */
+    regions: fields.EmbeddedCollectionField<documents.BaseRegion<BaseScene>>;
     /** A collection of embedded AmbientSound objects. */
     sounds: fields.EmbeddedCollectionField<documents.BaseAmbientSound<BaseScene>>;
     /** A collection of embedded MeasuredTemplate objects. */
