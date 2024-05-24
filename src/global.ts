@@ -201,6 +201,8 @@ type ConfiguredConfig = Config<
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
+    RegionDocument<ScenePF2e | null>,
+    RegionBehavior<RegionDocument<ScenePF2e | null>>,
     TileDocumentPF2e,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
