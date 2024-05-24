@@ -479,6 +479,8 @@ const clientDocs: Record<string, { hasSheet?: boolean; isCanvasDoc?: boolean; pa
     Note: { isCanvasDoc: true },
     Playlist: {},
     PlaylistSound: { parents: [{ name: "Playlist", hasParents: false }] },
+    Region: { isCanvasDoc: true },
+    RegionBehavior: { parents: [{ name: "Region", hasParents: true }] },
     RollTable: {},
     Scene: {},
     Setting: {},
