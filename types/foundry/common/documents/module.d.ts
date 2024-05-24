@@ -20,6 +20,8 @@ export { default as BaseMeasuredTemplate, MeasuredTemplateSource } from "./measu
 export { default as BaseNote, NoteSource } from "./note.ts";
 export { default as BasePlaylistSound, PlaylistSoundSource } from "./playlist-sound.ts";
 export { default as BasePlaylist } from "./playlist.ts";
+export { default as BaseRegionBehavior } from "./region-behavior.ts";
+export { default as BaseRegion } from "./region.ts";
 export { default as BaseRollTable, RollTableSource } from "./roll-table.ts";
 export { default as BaseScene, SceneSource } from "./scene.ts";
 export { default as BaseSetting } from "./setting.ts";

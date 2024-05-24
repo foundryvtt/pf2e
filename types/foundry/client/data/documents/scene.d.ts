@@ -1,4 +1,5 @@
 import type { NoteSource, TokenSource } from "../../../common/documents/module.d.ts";
+import type { RegionSource } from "../../../common/documents/region.d.ts";
 import type { ClientBaseScene } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -139,6 +140,7 @@ declare global {
         readonly drawings: foundry.abstract.EmbeddedCollection<DrawingDocument<this>>;
         readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocument<this>>;
         readonly notes: foundry.abstract.EmbeddedCollection<NoteDocument<this>>;
+        readonly regions: foundry.abstract.EmbeddedCollection<RegionDocument<this>>;
         readonly sounds: foundry.abstract.EmbeddedCollection<AmbientSoundDocument<this>>;
         readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocument<this>>;
         readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocument<this>>;
@@ -164,6 +166,11 @@ declare global {
             operation?: DatabaseCreateOperation<this>,
         ): Promise<CollectionValue<this["tokens"]>[]>;
         createEmbeddedDocuments(
+            embeddedName: "Region",
+            data: PreCreate<RegionSource>[],
+            context?: SceneEmbeddedModificationContext<this>,
+        ): Promise<CollectionValue<this["regions"]>[]>;
+        createEmbeddedDocuments(
             embeddedName: SceneEmbeddedName,
             data: Record<string, unknown>[],
             operation?: DatabaseCreateOperation<this>,
@@ -171,6 +178,7 @@ declare global {
             | CollectionValue<this["drawings"]>[]
             | CollectionValue<this["lights"]>[]
             | CollectionValue<this["notes"]>[]
+            | CollectionValue<this["regions"]>[]
             | CollectionValue<this["sounds"]>[]
             | CollectionValue<this["tiles"]>[]
             | CollectionValue<this["tokens"]>[]
@@ -204,6 +212,11 @@ declare global {
             operation?: Partial<DatabaseUpdateOperation<this>>,
         ): Promise<CollectionValue<this["notes"]>[]>;
         updateEmbeddedDocuments(
+            embeddedName: "Region",
+            updateData: EmbeddedDocumentUpdateData[],
+            context?: SceneEmbeddedModificationContext<this>,
+        ): Promise<CollectionValue<this["regions"]>[]>;
+        updateEmbeddedDocuments(
             embeddedName: "Tile",
             updateData: EmbeddedDocumentUpdateData[],
             operation?: Partial<DatabaseUpdateOperation<this>>,
@@ -226,6 +239,7 @@ declare global {
             | CollectionValue<this["drawings"]>[]
             | CollectionValue<this["lights"]>[]
             | CollectionValue<this["notes"]>[]
+            | CollectionValue<this["regions"]>[]
             | CollectionValue<this["sounds"]>[]
             | CollectionValue<this["tiles"]>[]
             | CollectionValue<this["tokens"]>[]
@@ -282,6 +296,7 @@ type SceneEmbeddedName =
     | "Drawing"
     | "MeasuredTemplate"
     | "Note"
+    | "Region"
     | "Tile"
     | "Token"
     | "Wall";

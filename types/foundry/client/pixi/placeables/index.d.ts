@@ -2,6 +2,7 @@ import "./drawing.d.ts";
 import "./light.d.ts";
 import "./note.d.ts";
 import "./primary-canvas-objects/index.d.ts";
+import "./region.d.ts";
 import "./sound.d.ts";
 import "./template.d.ts";
 import "./tile.d.ts";
