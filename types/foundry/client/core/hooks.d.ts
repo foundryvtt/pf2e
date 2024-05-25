@@ -1,3 +1,5 @@
+import ApplicationV2 from "../../client-esm/applications/api/application.js";
+
 export {};
 declare global {
     type HookCallback<P extends unknown[]> = (...args: P) => boolean | void | Promise<boolean | void>;
@@ -36,9 +38,9 @@ declare global {
             string,
         ]
     >;
-    type HookParamsRender<T extends Application, N extends string> = HookParameters<
+    type HookParamsRender<T extends Application | ApplicationV2, N extends string> = HookParameters<
         `render${N}`,
-        [T, JQuery, Awaited<ReturnType<T["getData"]>>]
+        T extends Application ? [T, JQuery, Awaited<ReturnType<T["getData"]>>] : [T, HTMLElement]
     >;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",
@@ -98,6 +100,7 @@ declare global {
                 "JournalTextPageSheet"
             >
         ): number;
+        static on(...args: HookParamsRender<ApplicationV2, "RegionLegend">): number;
         static on(...args: HookParamsTargetToken): number;
         static on(...args: HookParamsUpdate<Combat, "Combat">): number;
         static on(...args: HookParamsUpdate<Scene, "Scene">): number;

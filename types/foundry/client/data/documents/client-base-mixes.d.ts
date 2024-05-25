@@ -9635,7 +9635,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
      * Application in this object will have its render method called by {@link Document#render}.
      * @see {@link Document#render}
      */
-    apps: { [K in number]?: Application | ApplicationV2 };
+    apps: { [K in number | string]?: Application | ApplicationV2 };
 
     constructor(data: object, context?: DocumentConstructionContext<null>);
 

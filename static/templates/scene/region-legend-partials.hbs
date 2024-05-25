@@ -1,0 +1,15 @@
+<template>
+    <section class="standard-form">
+        <fieldset aria-label="{{localize "PF2E.Regions.Terrain.RegionLegend.Header"}}">
+            <legend>{{localize "PF2E.Regions.Terrain.RegionLegend.Header"}}</legend>
+            <div class="form-group">
+                <label>{{localize "PF2E.Regions.Terrain.Type.SceneLabel"}}</label>
+                <div class="tags input-element-tags">
+                    {{#each terrainTypes as |type|}}
+                        <div class="tag">{{type}}</div>
+                    {{/each}}
+                </div>
+            </div>
+        </fieldset>
+    </section>
+</template>
