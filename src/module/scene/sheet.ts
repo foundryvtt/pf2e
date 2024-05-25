@@ -1,6 +1,6 @@
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
 import type { ScenePF2e } from "./document.ts";
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
@@ -34,7 +34,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             const templates = await renderTemplate(hbsPath, {
                 scene: this.scene,
                 rbvOptions,
-                terrainTypes: CONFIG.PF2E.terrainTypes,
+                terrainTypes: this.document.flags.pf2e.terrainTypes ?? [],
             });
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
@@ -69,6 +69,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                 const app = new menu.type(undefined, options);
                 app.render(true);
             }
+        });
+
+        tagify(htmlQuery<HTMLInputElement>(html, 'input[name="flags.pf2e.terrainTypes"]'), {
+            whitelist: CONFIG.PF2E.terrainTypes,
+            enforceWhitelist: true,
         });
 
         this.#activateRBVListeners(html);
@@ -122,6 +127,14 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                 darknessInput.closest(".form-group")?.querySelector("p.notes")?.append(managedBy);
             }
         }
+    }
+
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+        const terrainTypes = htmlQuery<HTMLInputElement>(this.element[0], 'input[name="flags.pf2e.terrainTypes"]');
+        if (terrainTypes?.value === "") {
+            terrainTypes.value = "[]";
+        }
+        return super._getSubmitData(updateData);
     }
 
     /** Intercept flag update and change to boolean/null. */

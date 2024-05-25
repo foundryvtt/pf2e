@@ -39,7 +39,6 @@ import type { RuleElementSynthetics } from "@module/rules/index.ts";
 import type { RuleElementPF2e } from "@module/rules/rule-element/base.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import type { TerrainType } from "@scene/data.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import { IWRApplicationData, applyIWR } from "@system/damage/iwr.ts";
@@ -1512,9 +1511,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             }
         }
 
-        const terrains = new Set<TerrainType>();
-        const sceneTerrainType = canvas.scene?.flags.pf2e.terrainType;
-        if (sceneTerrainType) terrains.add(sceneTerrainType);
+        const terrains = new Set<string>();
+        const sceneTerrainTypes = canvas.scene?.flags.pf2e.terrainTypes ?? [];
+        for (const terrain of sceneTerrainTypes) {
+            terrains.add(terrain.id);
+        }
         const token = this.getActiveTokens(false, true).at(0);
         if (token) {
             for (const region of token.regions ?? []) {
@@ -1527,7 +1528,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 for (const behavior of region.behaviors) {
                     if (behavior.type === "terrain-pf2e") {
                         // todo: remove once type resolution is possible
-                        const system = behavior.system as { exclusive: boolean; terrainType: TerrainType };
+                        const system = behavior.system as { exclusive: boolean; terrainType: string };
                         if (system.exclusive) {
                             terrains.clear();
                             if (system.terrainType) {

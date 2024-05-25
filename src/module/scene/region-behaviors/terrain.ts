@@ -1,4 +1,3 @@
-import type { TerrainType } from "@scene/data.ts";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<TerrainTypeSchema> {
@@ -26,7 +25,7 @@ interface TerrainBehaviorTypePF2e
 
 type TerrainTypeSchema = {
     exclusive: BooleanField;
-    terrainType: StringField<TerrainType>;
+    terrainType: StringField<string>;
 };
 
 export { TerrainBehaviorTypePF2e };
