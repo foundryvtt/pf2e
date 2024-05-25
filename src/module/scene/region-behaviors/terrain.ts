@@ -1,6 +1,9 @@
+import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<TerrainTypeSchema> {
+    override events = new Set<RegionEventType>(["tokenEnter", "tokenExit"]);
+
     static override defineSchema(): TerrainTypeSchema {
         const fields = foundry.data.fields;
         return {
@@ -16,6 +19,14 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
                 hint: "PF2E.Regions.Terrain.Type.Hint",
             }),
         };
+    }
+
+    protected override async _handleRegionEvent(event: RegionEvent): Promise<void> {
+        if (event.name === "tokenEnter" || event.name === "tokenExit") {
+            const actor = event.data.token.actor;
+            actor?.reset();
+            if (actor?.sheet.rendered) actor.sheet.render();
+        }
     }
 }
 

@@ -4,11 +4,15 @@ import { toggleClearTemplatesButton } from "@module/chat-message/helpers.ts";
 export const CanvasReady = {
     listen: (): void => {
         Hooks.once("canvasReady", () => {
-            // Register aura effects on synthetic actors after scene and canvas are ready
-            const tokenActors = canvas.scene?.tokens.contents.flatMap((t) => t.actor ?? []) ?? [];
-            for (const actor of tokenActors) {
-                for (const effect of actor.itemTypes.effect.filter((e) => e.fromAura)) {
+            const tokens = canvas.scene?.tokens.contents ?? [];
+            for (const token of tokens) {
+                // Register aura effects on synthetic actors after scene and canvas are ready
+                for (const effect of token.actor?.itemTypes.effect.filter((e) => e.fromAura) ?? []) {
                     game.pf2e.effectTracker.register(effect);
+                }
+                // Reset actors inside scene regions to refresh the available roll options
+                if (token.regions?.size) {
+                    token.actor?.reset();
                 }
             }
         });

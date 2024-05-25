@@ -252,6 +252,39 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     return Object.fromEntries(entries);
 }
 
+/** Create roll options pertaining to the terrain  the actor is currently in */
+function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
+    const terrains = new Set<string>();
+    const sceneTerrainTypes = canvas.scene?.flags.pf2e.terrainTypes ?? [];
+    for (const terrain of sceneTerrainTypes) {
+        terrains.add(terrain.id);
+    }
+    const token = actor.getActiveTokens(false, true).at(0);
+    if (token) {
+        for (const region of token.regions ?? []) {
+            if (token.elevation < Number(region.elevation.bottom) || token.elevation > Number(region.elevation.top)) {
+                continue;
+            }
+            for (const behavior of region.behaviors) {
+                if (behavior.type === "terrain-pf2e") {
+                    // todo: remove once type resolution is possible
+                    const system = behavior.system as { exclusive: boolean; terrainType: string };
+                    if (system.exclusive) {
+                        terrains.clear();
+                        if (system.terrainType) {
+                            terrains.add(system.terrainType);
+                        }
+                        break;
+                    }
+                    terrains.add(system.terrainType);
+                }
+            }
+        }
+    }
+
+    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
+}
+
 /** Whether flanking puts this actor off-guard */
 function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
     if (!target.isOfType("creature") || !target.attributes.flanking.flankable) {
@@ -688,6 +721,7 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    createTerrainRollOptions,
     getRangeIncrement,
     getStrikeAttackDomains,
     getStrikeDamageDomains,
