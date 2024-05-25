@@ -1,5 +1,5 @@
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 
 class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<TerrainTypeSchema> {
     override events = new Set<RegionEventType>(["tokenEnter", "tokenExit"]);
@@ -7,16 +7,23 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
     static override defineSchema(): TerrainTypeSchema {
         const fields = foundry.data.fields;
         return {
-            terrainType: new fields.StringField({
-                blank: true,
-                choices: () => CONFIG.PF2E.terrainTypes,
-                label: "PF2E.Regions.Terrain.Type.Label",
-                hint: "PF2E.Regions.Terrain.Type.Hint",
-            }),
-            exclude: new fields.BooleanField({
-                initial: false,
-                label: "PF2E.Regions.Terrain.Exclude.Label",
-                hint: "PF2E.Regions.Terrain.Exclude.Hint",
+            terrainType: new fields.SetField(
+                new fields.StringField({
+                    blank: true,
+                    choices: () => CONFIG.PF2E.terrainTypes,
+                }),
+                { label: "PF2E.Regions.Terrain.Type.Label", hint: "PF2E.Regions.Terrain.Type.Hint" },
+            ),
+            mode: new fields.StringField({
+                blank: false,
+                choices: () => ({
+                    add: "PF2E.Regions.Terrain.Modes.Add.Label",
+                    override: "PF2E.Regions.Terrain.Modes.Override.Label",
+                    remove: "PF2E.Regions.Terrain.Modes.Remove.Label",
+                }),
+                initial: "add",
+                label: "PF2E.Regions.Terrain.Modes.Label",
+                hint: "PF2E.Regions.Terrain.Modes.Hint",
             }),
         };
     }
@@ -35,8 +42,11 @@ interface TerrainBehaviorTypePF2e
         ModelPropsFromSchema<TerrainTypeSchema> {}
 
 type TerrainTypeSchema = {
-    exclude: BooleanField;
-    terrainType: StringField<string>;
+    terrainType: SetField<StringField>;
+    mode: StringField<"add" | "remove" | "override", "add" | "remove" | "override">;
 };
 
+type TerrainTypeData = ModelPropsFromSchema<TerrainTypeSchema>;
+
 export { TerrainBehaviorTypePF2e };
+export type { TerrainTypeData };
