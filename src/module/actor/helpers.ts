@@ -255,6 +255,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 /** Create roll options pertaining to the terrain  the actor is currently in */
 function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const terrains = new Set<string>();
+    const excluded = new Set<string>();
     const sceneTerrainTypes = canvas.scene?.flags.pf2e.terrainTypes ?? [];
     for (const terrain of sceneTerrainTypes) {
         terrains.add(terrain.id);
@@ -268,18 +269,22 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
             for (const behavior of region.behaviors) {
                 if (behavior.type === "terrain-pf2e") {
                     // todo: remove once type resolution is possible
-                    const system = behavior.system as { exclusive: boolean; terrainType: string };
-                    if (system.exclusive) {
-                        terrains.clear();
+                    const system = behavior.system as { exclude: boolean; terrainType: string };
+                    if (system.exclude) {
                         if (system.terrainType) {
-                            terrains.add(system.terrainType);
+                            excluded.add(system.terrainType);
+                        } else {
+                            terrains.clear();
+                            break;
                         }
-                        break;
                     }
                     terrains.add(system.terrainType);
                 }
             }
         }
+    }
+    for (const terrain of excluded) {
+        terrains.delete(terrain);
     }
 
     return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));

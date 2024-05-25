@@ -7,16 +7,16 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
     static override defineSchema(): TerrainTypeSchema {
         const fields = foundry.data.fields;
         return {
-            exclusive: new fields.BooleanField({
-                initial: false,
-                label: "PF2E.Regions.Terrain.Exclusive.Label",
-                hint: "PF2E.Regions.Terrain.Exclusive.Hint",
-            }),
             terrainType: new fields.StringField({
                 blank: true,
                 choices: () => CONFIG.PF2E.terrainTypes,
                 label: "PF2E.Regions.Terrain.Type.Label",
                 hint: "PF2E.Regions.Terrain.Type.Hint",
+            }),
+            exclude: new fields.BooleanField({
+                initial: false,
+                label: "PF2E.Regions.Terrain.Exclude.Label",
+                hint: "PF2E.Regions.Terrain.Exclude.Hint",
             }),
         };
     }
@@ -35,7 +35,7 @@ interface TerrainBehaviorTypePF2e
         ModelPropsFromSchema<TerrainTypeSchema> {}
 
 type TerrainTypeSchema = {
-    exclusive: BooleanField;
+    exclude: BooleanField;
     terrainType: StringField<string>;
 };
 
