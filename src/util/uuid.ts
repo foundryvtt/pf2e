@@ -35,17 +35,29 @@ class UUIDUtils {
     }
 
     static isItemUUID(uuid: unknown): uuid is ItemUUID {
-        return typeof uuid === "string" && fu.parseUuid(uuid).documentType === "Item";
+        try {
+            return typeof uuid === "string" && fu.parseUuid(uuid).documentType === "Item";
+        } catch {
+            return false;
+        }
     }
 
     static isCompendiumUUID(uuid: unknown): uuid is CompendiumUUID {
-        return typeof uuid === "string" && fu.parseUuid(uuid).collection instanceof CompendiumCollection;
+        try {
+            return typeof uuid === "string" && fu.parseUuid(uuid).collection instanceof CompendiumCollection;
+        } catch {
+            return false;
+        }
     }
 
     static isTokenUUID(uuid: unknown): uuid is TokenDocumentUUID {
         if (typeof uuid !== "string") return false;
-        const parsed = fu.parseUuid(uuid);
-        return parsed.documentType === "Scene" && parsed.embedded[0] === "Token";
+        try {
+            const parsed = fu.parseUuid(uuid);
+            return parsed.documentType === "Scene" && parsed.embedded[0] === "Token";
+        } catch {
+            return false;
+        }
     }
 }
 
