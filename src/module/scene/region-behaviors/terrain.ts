@@ -1,3 +1,5 @@
+import { resetActors } from "@actor/helpers.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 
@@ -28,11 +30,9 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
         };
     }
 
-    protected override async _handleRegionEvent(event: RegionEvent): Promise<void> {
+    protected override async _handleRegionEvent(event: RegionEvent<TokenDocumentPF2e>): Promise<void> {
         if (event.name === "tokenEnter" || event.name === "tokenExit") {
-            const actor = event.data.token.actor;
-            actor?.reset();
-            if (actor?.sheet.rendered) actor.sheet.render();
+            if (event.data.token.actor) resetActors([event.data.token.actor], { tokens: true });
         }
     }
 }
@@ -43,7 +43,7 @@ interface TerrainBehaviorTypePF2e
 
 type TerrainTypeSchema = {
     terrainTypes: SetField<StringField>;
-    mode: StringField<"add" | "remove" | "override", "add" | "remove" | "override">;
+    mode: StringField<"add" | "remove" | "override">;
 };
 
 type TerrainTypeData = ModelPropsFromSchema<TerrainTypeSchema>;

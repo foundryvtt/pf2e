@@ -150,13 +150,13 @@ export const Ready = {
                 [
                     ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
                     ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                    ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
                     ...game.actors.filter((a) => a.type === "familiar"),
                     ...parties,
-                    ...inTerrains,
                 ],
                 R.isTruthy,
             );
-            resetActors(new Set(actorsToReprepare), { sheets: false });
+            resetActors(new Set(actorsToReprepare), { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.

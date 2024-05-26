@@ -1,3 +1,4 @@
+import { resetActors } from "@actor/helpers.ts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
 import { processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
@@ -172,9 +173,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         if (terrainChanged) {
             // Scene terrain changed. Reset all affected actors
             for (const token of this.scene.tokens) {
-                const actor = token.actor;
-                actor?.reset();
-                if (actor?.sheet.rendered) actor.sheet.render();
+                if (token.actor) resetActors([token.actor], { tokens: true });
             }
         }
         // Rerender scene region legend to update the scene terrain tags

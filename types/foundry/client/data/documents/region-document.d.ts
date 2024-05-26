@@ -118,7 +118,16 @@ declare global {
         data: {};
     }
 
-    type RegionEvent = BehaviorStatusRegionEvent | ComabtRegionEvent | TokenMoveRegionEvent | TokenBasicMoveRegionEvent;
+    type RegionEvent<
+        TTokenDocument extends TokenDocument = TokenDocument,
+        TUser extends User = User,
+        TCombatant extends Combatant<Combat, TTokenDocument> = Combatant<Combat, TTokenDocument>,
+        TDocument extends RegionDocument = RegionDocument,
+    > =
+        | BehaviorStatusRegionEvent<TDocument, TUser>
+        | ComabtRegionEvent<TDocument, TUser, TTokenDocument, TCombatant>
+        | TokenMoveRegionEvent<TDocument, TUser, TTokenDocument>
+        | TokenBasicMoveRegionEvent<TDocument, TUser, TTokenDocument>;
 
     interface SocketRegionEvent<TData extends object = object> {
         /** The UUID of the Region the event was triggered on */
