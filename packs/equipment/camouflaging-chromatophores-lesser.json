@@ -34,7 +34,22 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
