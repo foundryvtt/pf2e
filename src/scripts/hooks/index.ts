@@ -13,7 +13,6 @@ import { Ready } from "./ready.ts";
 import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
 import { RenderDialog } from "./render-dialog.ts";
-import { RenderJournalPageSheet } from "./render-journal-page-sheet.ts";
 import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet.ts";
 import { RenderSettingsConfig } from "./render-settings-config.ts";
 import { RenderSettings } from "./render-settings.ts";
@@ -40,7 +39,6 @@ export const HooksPF2e = {
             RenderChatPopout,
             RenderCombatTrackerConfig,
             RenderDialog,
-            RenderJournalPageSheet,
             RenderJournalTextPageSheet,
             RenderSettings,
             RenderSettingsConfig,
