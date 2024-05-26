@@ -74,21 +74,23 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     #activateRBVListeners(html: HTMLElement): void {
         if (!this.document.rulesBasedVision) return;
 
-        const globalLight = html.querySelector<HTMLInputElement>("input[name^=globalLight]");
-        const hasglobalThreshold = html.querySelector<HTMLInputElement>("input[name=hasGlobalThreshold]");
-        const globalLightThreshold = html.querySelector<HTMLInputElement>("input[name=globalLightThreshold]");
-        if (!(globalLight && hasglobalThreshold && globalLightThreshold)) {
-            return;
+        const globalLight = html.querySelector<HTMLInputElement>('input[name="environment.globalLight.enabled"]');
+        const globalLightThreshold = htmlQueryAll<HTMLInputElement>(
+            html,
+            'range-picker[name="environment.globalLight.darkness.max"] > input',
+        );
+        if (!(globalLight && globalLightThreshold)) {
+            throw ErrorPF2e("Unexpected error retrieving scene global light form elements");
         }
 
         // Disable all global light settings
         globalLight.disabled = true;
-        hasglobalThreshold.disabled = true;
-        globalLightThreshold.disabled = true;
-        globalLightThreshold.nextElementSibling?.classList.add("disabled");
+        for (const input of globalLightThreshold) {
+            input.disabled = true;
+        }
 
         // Indicate that this setting is managed by rules-based vision and create link to open settings
-        for (const input of [globalLight, globalLightThreshold]) {
+        for (const input of [globalLight, globalLightThreshold[0]]) {
             const managedBy = document.createElement("span");
             managedBy.classList.add("managed");
             managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy"));
