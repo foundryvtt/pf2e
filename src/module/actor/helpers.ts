@@ -253,11 +253,11 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     return Object.fromEntries(entries);
 }
 
-/** Create roll options pertaining to the terrain  the actor is currently in */
+/** Create roll options pertaining to the terrain the actor is currently in */
 function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const toAdd = new Set<string>();
-    const sceneTerrainTypes = canvas.scene?.flags.pf2e.terrainTypes ?? [];
-    for (const terrain of sceneTerrainTypes) {
+    // Always add the scene terrain types
+    for (const terrain of canvas.scene?.flags.pf2e.terrainTypes ?? []) {
         toAdd.add(terrain);
     }
     const token = actor.getActiveTokens(false, true).at(0);
@@ -266,9 +266,11 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
         if (!token) return new Set<string>();
         const toRemove = new Set<string>();
         for (const region of token.regions ?? []) {
-            if (token.elevation < Number(region.elevation.bottom) || token.elevation > Number(region.elevation.top)) {
-                continue;
-            }
+            // An elevation value of null translates to Infinity
+            const bottom = region.elevation.bottom ?? -Infinity;
+            const top = region.elevation.top ?? Infinity;
+            if (token.elevation < bottom || token.elevation > top) continue;
+
             for (const behavior of region.behaviors.filter((b) => b.type === "pf2eTerrain")) {
                 // todo: remove once type resolution is possible
                 const system = behavior.system as TerrainTypeData;
@@ -286,7 +288,14 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
                         break;
                     }
                     case "override": {
-                        return system.terrainTypes;
+                        // Only clear out the exisiting values in case there is another
+                        // behavior after the override
+                        toAdd.clear();
+                        toRemove.clear();
+                        for (const terrain of system.terrainTypes) {
+                            toAdd.add(terrain);
+                        }
+                        break;
                     }
                 }
             }
