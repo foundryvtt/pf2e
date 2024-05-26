@@ -1,4 +1,5 @@
 import { WorldClock } from "@module/apps/world-clock/app.ts";
+import { processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
 import type { ScenePF2e } from "./document.ts";
@@ -129,12 +130,26 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         }
     }
 
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+    protected override async _onSubmit(
+        event: Event,
+        options?: OnSubmitFormOptions,
+    ): Promise<false | Record<string, unknown>> {
+        // Prevent tagify input JSON parsing from blowing up
         const terrainTypes = htmlQuery<HTMLInputElement>(this.element[0], 'input[name="flags.pf2e.terrainTypes"]');
-        if (terrainTypes?.value === "") {
-            terrainTypes.value = "[]";
-        }
-        return super._getSubmitData(updateData);
+        if (terrainTypes?.value === "") terrainTypes.value = "[]";
+        return super._onSubmit(event, options);
+    }
+
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+        // create the expanded update data object
+        const fd = new FormDataExtended(this.form, { editors: this.editors });
+        const data: Record<string, unknown> = updateData
+            ? fu.mergeObject(fd.object, updateData)
+            : fu.expandObject(fd.object);
+
+        const flattenedData = fu.flattenObject(data);
+        processTagifyInSubmitData(this.form, flattenedData);
+        return flattenedData;
     }
 
     /** Intercept flag update and change to boolean/null. */

@@ -13,7 +13,6 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TokenDocumentPF2e } from "@scene";
 import { TerrainTypeData } from "@scene/region-behaviors/terrain.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
@@ -259,53 +258,46 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const toAdd = new Set<string>();
     const sceneTerrainTypes = canvas.scene?.flags.pf2e.terrainTypes ?? [];
     for (const terrain of sceneTerrainTypes) {
-        toAdd.add(terrain.id);
+        toAdd.add(terrain);
     }
     const token = actor.getActiveTokens(false, true).at(0);
-    const terrains = (() => {
-        if (token) {
-            return extractTerrainTypes(toAdd, token);
-        }
-        return toAdd;
-    })();
-
-    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
-}
-
-function extractTerrainTypes(toAdd: Set<string>, token: TokenDocumentPF2e): Set<string> {
-    const toRemove = new Set<string>();
-    for (const region of token.regions ?? []) {
-        if (token.elevation < Number(region.elevation.bottom) || token.elevation > Number(region.elevation.top)) {
-            continue;
-        }
-        for (const behavior of region.behaviors) {
-            if (behavior.type === "terrain-pf2e") {
+    const terrains = ((): Set<string> => {
+        // No token on the scene means no terrain roll options
+        if (!token) return new Set<string>();
+        const toRemove = new Set<string>();
+        for (const region of token.regions ?? []) {
+            if (token.elevation < Number(region.elevation.bottom) || token.elevation > Number(region.elevation.top)) {
+                continue;
+            }
+            for (const behavior of region.behaviors.filter((b) => b.type === "pf2eTerrain")) {
                 // todo: remove once type resolution is possible
                 const system = behavior.system as TerrainTypeData;
                 switch (system.mode) {
                     case "add": {
-                        for (const terrain of system.terrainType) {
+                        for (const terrain of system.terrainTypes) {
                             toAdd.add(terrain);
                         }
                         break;
                     }
                     case "remove": {
-                        for (const terrain of system.terrainType) {
+                        for (const terrain of system.terrainTypes) {
                             toRemove.add(terrain);
                         }
                         break;
                     }
                     case "override": {
-                        return system.terrainType;
+                        return system.terrainTypes;
                     }
                 }
             }
         }
-    }
-    for (const terrain of toRemove) {
-        toAdd.delete(terrain);
-    }
-    return toAdd;
+        for (const terrain of toRemove) {
+            toAdd.delete(terrain);
+        }
+        return toAdd;
+    })();
+
+    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
 }
 
 /** Whether flanking puts this actor off-guard */

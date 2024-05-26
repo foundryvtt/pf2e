@@ -51,9 +51,9 @@ export const Init = {
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
-            CONFIG.RegionBehavior.dataModels["terrain-pf2e"] = TerrainBehaviorTypePF2e;
-            CONFIG.RegionBehavior.typeLabels["terrain-pf2e"] = "PF2E.Regions.Terrain.Label";
-            CONFIG.RegionBehavior.typeIcons["terrain-pf2e"] = "fa-solid fa-mountain-sun";
+            CONFIG.RegionBehavior.dataModels.pf2eTerrain = TerrainBehaviorTypePF2e;
+            CONFIG.RegionBehavior.typeLabels.pf2eTerrain = "PF2E.Regions.Terrain.Label";
+            CONFIG.RegionBehavior.typeIcons.pf2eTerrain = "fa-solid fa-mountain-sun";
 
             setPerceptionModes();
 

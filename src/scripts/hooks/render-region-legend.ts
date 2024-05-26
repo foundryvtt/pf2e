@@ -7,8 +7,8 @@ export const RenderRegionLegend = {
             if (!terrainTypes || terrainTypes.length === 0) return;
 
             const template = await (async () => {
-                const markup = await renderTemplate("systems/pf2e/templates/scene/region-legend-partials.hbs", {
-                    terrainTypes: terrainTypes.map((t) => t.value),
+                const markup = await renderTemplate("systems/pf2e/templates/scene/region-legend-partial.hbs", {
+                    terrainTypes: terrainTypes.map((t) => game.i18n.localize(CONFIG.PF2E.terrainTypes[t])),
                 });
                 const tempElem = document.createElement("div");
                 tempElem.innerHTML = markup;

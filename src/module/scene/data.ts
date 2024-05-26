@@ -8,7 +8,7 @@ interface SceneFlagsPF2e extends DocumentFlags {
         rulesBasedVision: boolean | null;
         syncDarkness: "enabled" | "disabled" | "default";
         /** The global terrain types for this scene */
-        terrainTypes?: { id: string; value: string }[];
+        terrainTypes?: TerrainType[];
     };
 }
 
@@ -18,6 +18,7 @@ enum LightLevels {
 }
 
 type LightLevel = ZeroToTwo;
+type TerrainType = keyof typeof CONFIG.PF2E.terrainTypes;
 
 export { LightLevels };
-export type { LightLevel, SceneFlagsPF2e };
+export type { LightLevel, SceneFlagsPF2e, TerrainType };

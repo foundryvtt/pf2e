@@ -959,6 +959,10 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
                 hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
             },
+            terrainTypes: {
+                name: "PF2E.SETTINGS.Homebrew.TerrainTypes.Name",
+                hint: "PF2E.SETTINGS.Homebrew.TerrainTypes.Hint",
+            },
         },
         worldClock: {
             name: "PF2E.SETTINGS.WorldClock.Name",

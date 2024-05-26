@@ -7,7 +7,7 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
     static override defineSchema(): TerrainTypeSchema {
         const fields = foundry.data.fields;
         return {
-            terrainType: new fields.SetField(
+            terrainTypes: new fields.SetField(
                 new fields.StringField({
                     blank: true,
                     choices: () => CONFIG.PF2E.terrainTypes,
@@ -42,7 +42,7 @@ interface TerrainBehaviorTypePF2e
         ModelPropsFromSchema<TerrainTypeSchema> {}
 
 type TerrainTypeSchema = {
-    terrainType: SetField<StringField>;
+    terrainTypes: SetField<StringField>;
     mode: StringField<"add" | "remove" | "override", "add" | "remove" | "override">;
 };
 

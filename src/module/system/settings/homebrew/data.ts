@@ -15,6 +15,7 @@ const HOMEBREW_TRAIT_KEYS = [
     "baseWeapons",
     "weaponTraits",
     "equipmentTraits",
+    "terrainTypes",
 ] as const;
 
 /** Homebrew elements from some of the above records are propagated to related records */

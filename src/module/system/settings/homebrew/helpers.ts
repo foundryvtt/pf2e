@@ -47,6 +47,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.skillList),
         ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
+        ...Object.keys(CONFIG.PF2E.terrainTypes),
         "damage",
         "healing",
         "perception",
@@ -67,6 +68,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
         weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...universalReservedTerms]),
+        terrainTypes: new Set([...Object.keys(CONFIG.PF2E.terrainTypes), ...universalReservedTerms]),
     };
 }
 
