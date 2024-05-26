@@ -22,10 +22,17 @@ export const CanvasReady = {
             // Accomodate hex grid play with a usable default cone angle
             CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
 
+            const hasSceneTerrains = !!canvas.scene.flags.pf2e.terrainTypes?.length;
             for (const token of canvas.tokens.placeables) {
                 // Reset actors to add scene and region terrains and refresh their available roll options
-                if (canvas.scene.flags.pf2e.terrainTypes?.length || token.document.regions?.size) {
-                    token.actor?.reset();
+                // The first reset is performed in the ready hook
+                if (game.ready) {
+                    if (
+                        hasSceneTerrains ||
+                        (token.document.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "pf2eTerrain"))
+                    ) {
+                        token.actor?.reset();
+                    }
                 }
                 // Redraw effects on visible tokens
                 if (token.visible) {
