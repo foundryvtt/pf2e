@@ -2,6 +2,7 @@ import { WorldClock } from "@module/apps/world-clock/app.ts";
 import { processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
+import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
@@ -161,8 +162,21 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         formData["flags.pf2e.hearingRange"] =
             typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
+        const terrainChanged = !R.isDeepEqual(
+            formData["flags.pf2e.terrainTypes"],
+            this.scene._source.flags?.pf2e?.terrainTypes ?? [],
+        );
+
         await super._updateObject(event, formData);
 
+        if (terrainChanged) {
+            // Scene terrain changed. Reset all affected actors
+            for (const token of this.scene.tokens) {
+                const actor = token.actor;
+                actor?.reset();
+                if (actor?.sheet.rendered) actor.sheet.render();
+            }
+        }
         // Rerender scene region legend to update the scene terrain tags
         canvas.scene?.apps["region-legend"]?.render();
     }

@@ -23,8 +23,8 @@ export const CanvasReady = {
             CONFIG.MeasuredTemplate.defaults.angle = canvas.scene.hasHexGrid ? 60 : 90;
 
             for (const token of canvas.tokens.placeables) {
-                // Reset actors inside scene regions to refresh their available roll options
-                if (token.document.regions?.size) {
+                // Reset actors to add scene and region terrains and refresh their available roll options
+                if (canvas.scene.flags.pf2e.terrainTypes?.length || token.document.regions?.size) {
                     token.actor?.reset();
                 }
                 // Redraw effects on visible tokens
