@@ -87,36 +87,22 @@
 
 // Disabled range input
 input[type="range"]:disabled {
-    &::-webkit-slider-runnable-track {
-        background: rgba(0, 0, 0, 0.1);
-        border: rgba(0, 0, 0, 0.1);
-        box-shadow:
-            1px 1px 1px rgba(0, 0, 0, 0.1),
-            0px 0px 1px rgba(0, 0, 0, 0.1);
-        cursor: default;
-    }
-    &::-moz-range-track {
-        background: rgba(0, 0, 0, 0.1);
-        border: rgba(0, 0, 0, 0.1);
-        box-shadow:
-            1px 1px 1px rgba(0, 0, 0, 0.1),
-            0px 0px 1px rgba(0, 0, 0, 0.1);
-        cursor: default;
-    }
+    &::-webkit-slider-runnable-track,
     &::-webkit-slider-thumb {
-        background: var(--color-text-light-1);
-        border: var(--color-text-light-1);
-        box-shadow:
-            1px 1px 1px var(--color-text-light-1),
-            0px 0px 1px var(--color-text-light-1);
         cursor: default;
     }
-    &::-moz-range-thumb {
-        background: var(--color-text-light-1);
-        border: var(--color-text-light-1);
-        box-shadow:
-            1px 1px 1px var(--color-text-light-1),
-            0px 0px 1px var(--color-text-light-1);
+
+    &::-moz-range-thumb,
+    &::-moz-range-track {
+        cursor: default;
+    }
+}
+
+input[type="range"]:disabled {
+    &::-webkit-slider-runnable-track,
+    &::-webkit-slider-thumb,
+    &::-moz-range-thumb,
+    &::-moz-range-track {
         cursor: default;
     }
 }
