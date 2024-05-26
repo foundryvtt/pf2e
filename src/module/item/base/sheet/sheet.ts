@@ -20,6 +20,7 @@ import {
     TagSelectorBasic,
 } from "@system/tag-selector/index.ts";
 import {
+    createHTMLElement,
     ErrorPF2e,
     fontAwesomeIcon,
     htmlClosest,
@@ -344,6 +345,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
             this.#selectedRuleElementType = ruleElementSelect.value;
+        });
+
+        // Add implementation for viewing an item's roll options
+        const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
+        viewRollOptionsElement?.addEventListener("click", async () => {
+            const rollOptions = R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":"));
+            const content = await renderTemplate("systems/pf2e/templates/items/roll-options.hbs", { rollOptions });
+            game.tooltip.dismissLockedTooltips();
+            game.tooltip.activate(viewRollOptionsElement, {
+                content: createHTMLElement("div", { innerHTML: content }),
+                locked: true,
+            });
         });
 
         for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
