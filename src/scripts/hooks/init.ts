@@ -17,6 +17,7 @@ import {
 } from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
+import { EnvironmentBehaviorTypePF2e } from "@scene/region-behaviors/terrain.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -49,6 +50,10 @@ export const Init = {
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
+
+            CONFIG.RegionBehavior.dataModels.pf2eEnvironment = EnvironmentBehaviorTypePF2e;
+            CONFIG.RegionBehavior.typeLabels.pf2eEnvironment = "PF2E.Region.Environment.Label";
+            CONFIG.RegionBehavior.typeIcons.pf2eEnvironment = "fa-solid fa-mountain-sun";
 
             setPerceptionModes();
 

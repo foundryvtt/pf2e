@@ -14,6 +14,7 @@ import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
 import { RenderDialog } from "./render-dialog.ts";
 import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet.ts";
+import { RenderRegionLegend } from "./render-region-legend.ts";
 import { RenderSettingsConfig } from "./render-settings-config.ts";
 import { RenderSettings } from "./render-settings.ts";
 import { RenderTokenHUD } from "./render-token-hud.ts";
@@ -40,6 +41,7 @@ export const HooksPF2e = {
             RenderCombatTrackerConfig,
             RenderDialog,
             RenderJournalTextPageSheet,
+            RenderRegionLegend,
             RenderSettings,
             RenderSettingsConfig,
             RenderTokenHUD,
