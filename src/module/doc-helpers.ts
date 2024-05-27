@@ -17,7 +17,14 @@ async function preImportJSON(json: string): Promise<string | null> {
             ItemPF2e.migrateData(source);
         }
     }
-    if (!R.isPlainObject(source.system) || !R.isPlainObject(source.system._migration)) {
+    if (!R.isPlainObject(source.system)) return null;
+
+    if (R.isPlainObject(source.system.schema) && !R.isPlainObject(source.system._migration)) {
+        source.system._migration = { version: Number(source.system.schema.version) || null };
+        delete source.system.schema;
+    }
+
+    if (!R.isPlainObject(source.system._migration)) {
         return null;
     }
 
