@@ -1,7 +1,7 @@
 {
-    "_id": "U8jSeVsUSnVTwxO6",
+    "_id": "v2aOpKhNP0uIZFER",
     "img": "systems/pf2e/icons/default-icons/equipment.svg",
-    "name": "Camouflaging Chromatophores (Lesser) (Copy)",
+    "name": "Camouflaging Chromatophores (Greater)",
     "system": {
         "baseItem": null,
         "bulk": {
@@ -17,7 +17,7 @@
             "value": 0
         },
         "level": {
-            "value": 4
+            "value": 9
         },
         "material": {
             "grade": null,
@@ -25,7 +25,7 @@
         },
         "price": {
             "value": {
-                "gp": 95
+                "gp": 665
             }
         },
         "publication": {
@@ -34,7 +34,22 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": 2
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
