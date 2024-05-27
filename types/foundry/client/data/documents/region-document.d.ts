@@ -1,4 +1,5 @@
 import type { RegionSource } from "../../../common/documents/region.d.ts";
+import type { Region } from "../../pixi/placeables/region.d.ts";
 import type { CanvasBaseRegion } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -46,6 +47,8 @@ declare global {
     }
 
     interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+        _object: Region<this>;
+
         readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehavior<this>>;
     }
 
@@ -69,7 +72,7 @@ declare global {
         };
     }
 
-    interface ComabtRegionEvent<
+    interface CombatRegionEvent<
         TDocument extends RegionDocument = RegionDocument,
         TUser extends User = User,
         TTokenDocument extends TokenDocument = TokenDocument,
@@ -115,7 +118,16 @@ declare global {
         data: {};
     }
 
-    type RegionEvent = BehaviorStatusRegionEvent | ComabtRegionEvent | TokenMoveRegionEvent | TokenBasicMoveRegionEvent;
+    type RegionEvent<
+        TTokenDocument extends TokenDocument = TokenDocument,
+        TUser extends User = User,
+        TCombatant extends Combatant<Combat, TTokenDocument> = Combatant<Combat, TTokenDocument>,
+        TDocument extends RegionDocument = RegionDocument,
+    > =
+        | BehaviorStatusRegionEvent<TDocument, TUser>
+        | CombatRegionEvent<TDocument, TUser, TTokenDocument, TCombatant>
+        | TokenMoveRegionEvent<TDocument, TUser, TTokenDocument>
+        | TokenBasicMoveRegionEvent<TDocument, TUser, TTokenDocument>;
 
     interface SocketRegionEvent<TData extends object = object> {
         /** The UUID of the Region the event was triggered on */
