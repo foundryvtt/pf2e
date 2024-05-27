@@ -64,6 +64,7 @@ import {
     auraAffectsActor,
     checkAreaEffects,
     createEncounterRollOptions,
+    createEnvironmentRollOptions,
     isReallyPC,
     migrateActorSource,
 } from "./helpers.ts";
@@ -762,6 +763,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                     [`self:type:${this.type}`]: true,
                     [`self:signature:${this.signature}`]: true,
                     ...createEncounterRollOptions(this),
+                    ...createEnvironmentRollOptions(this),
                 },
             },
             trackedItems: {},

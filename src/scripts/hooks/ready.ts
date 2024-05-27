@@ -1,4 +1,4 @@
-import { PartyPF2e } from "@actor";
+import { ActorPF2e, PartyPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
@@ -134,15 +134,29 @@ export const Ready = {
             });
 
             // Now that all game data is available, Determine what actors we need to reprepare.
-            // Add actors currently in an encounter, then in a party, then all familiars, then parties
+            // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
+            const inTerrains: ActorPF2e[] = [];
+            const hasSceneTerrains = !!canvas.scene?.flags.pf2e.environmentTypes?.length;
+            for (const token of canvas.scene?.tokens ?? []) {
+                if (!token.actor) continue;
+                if (hasSceneTerrains) {
+                    inTerrains.push(token.actor);
+                } else if ((token.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "pf2eEnvironment"))) {
+                    inTerrains.push(token.actor);
+                }
+            }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
-            const actorsToReprepare = R.compact([
-                ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                ...game.actors.filter((a) => a.type === "familiar"),
-                ...parties,
-            ]);
-            resetActors(new Set(actorsToReprepare), { sheets: false });
+            const actorsToReprepare = R.filter(
+                [
+                    ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
+                    ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                    ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
+                    ...game.actors.filter((a) => a.type === "familiar"),
+                    ...parties,
+                ],
+                R.isTruthy,
+            );
+            resetActors(new Set(actorsToReprepare), { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
