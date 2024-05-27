@@ -14,18 +14,18 @@ class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBeh
                     blank: true,
                     choices: () => CONFIG.PF2E.environmentTypes,
                 }),
-                { label: "PF2E.Regions.Environment.Type.Label", hint: "PF2E.Regions.Environment.Type.Hint" },
+                { label: "PF2E.Region.Environment.Type.Label", hint: "PF2E.Region.Environment.Type.Hint" },
             ),
             mode: new fields.StringField({
                 blank: false,
                 choices: () => ({
-                    add: "PF2E.Regions.Environment.Mode.Add.Label",
-                    override: "PF2E.Regions.Environment.Mode.Override.Label",
-                    remove: "PF2E.Regions.Environment.Mode.Remove.Label",
+                    add: "PF2E.Region.Environment.Mode.Add.Label",
+                    override: "PF2E.Region.Environment.Mode.Override.Label",
+                    remove: "PF2E.Region.Environment.Mode.Remove.Label",
                 }),
                 initial: "add",
-                label: "PF2E.Regions.Environment.Mode.Label",
-                hint: "PF2E.Regions.Environment.Mode.Hint",
+                label: "PF2E.Region.Environment.Mode.Label",
+                hint: "PF2E.Region.Environment.Mode.Hint",
             }),
         };
     }

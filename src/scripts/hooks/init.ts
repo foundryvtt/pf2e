@@ -52,7 +52,7 @@ export const Init = {
             CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
             CONFIG.RegionBehavior.dataModels.pf2eEnvironment = EnvironmentBehaviorTypePF2e;
-            CONFIG.RegionBehavior.typeLabels.pf2eEnvironment = "PF2E.Regions.Environment.Label";
+            CONFIG.RegionBehavior.typeLabels.pf2eEnvironment = "PF2E.Region.Environment.Label";
             CONFIG.RegionBehavior.typeIcons.pf2eEnvironment = "fa-solid fa-mountain-sun";
 
             setPerceptionModes();
