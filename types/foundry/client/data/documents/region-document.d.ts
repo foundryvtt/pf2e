@@ -72,7 +72,7 @@ declare global {
         };
     }
 
-    interface ComabtRegionEvent<
+    interface CombatRegionEvent<
         TDocument extends RegionDocument = RegionDocument,
         TUser extends User = User,
         TTokenDocument extends TokenDocument = TokenDocument,
@@ -125,7 +125,7 @@ declare global {
         TDocument extends RegionDocument = RegionDocument,
     > =
         | BehaviorStatusRegionEvent<TDocument, TUser>
-        | ComabtRegionEvent<TDocument, TUser, TTokenDocument, TCombatant>
+        | CombatRegionEvent<TDocument, TUser, TTokenDocument, TCombatant>
         | TokenMoveRegionEvent<TDocument, TUser, TTokenDocument>
         | TokenBasicMoveRegionEvent<TDocument, TUser, TTokenDocument>;
 

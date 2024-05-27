@@ -13,7 +13,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { TerrainTypeData } from "@scene/region-behaviors/terrain.ts";
+import { EnvironmentTypeData } from "@scene/region-behaviors/terrain.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
@@ -254,10 +254,10 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 }
 
 /** Create roll options pertaining to the terrain the actor is currently in */
-function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
+function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const toAdd = new Set<string>();
     // Always add the scene terrain types
-    for (const terrain of canvas.scene?.flags.pf2e.terrainTypes ?? []) {
+    for (const terrain of canvas.scene?.flags.pf2e.environmentTypes ?? []) {
         toAdd.add(terrain);
     }
     const token = actor.getActiveTokens(false, true).at(0);
@@ -271,18 +271,18 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
             const top = region.elevation.top ?? Infinity;
             if (token.elevation < bottom || token.elevation > top) continue;
 
-            for (const behavior of region.behaviors.filter((b) => b.type === "pf2eTerrain")) {
+            for (const behavior of region.behaviors.filter((b) => b.type === "pf2eEnvironment")) {
                 // todo: remove once type resolution is possible
-                const system = behavior.system as TerrainTypeData;
+                const system = behavior.system as EnvironmentTypeData;
                 switch (system.mode) {
                     case "add": {
-                        for (const terrain of system.terrainTypes) {
+                        for (const terrain of system.environmentTypes) {
                             toAdd.add(terrain);
                         }
                         break;
                     }
                     case "remove": {
-                        for (const terrain of system.terrainTypes) {
+                        for (const terrain of system.environmentTypes) {
                             toRemove.add(terrain);
                         }
                         break;
@@ -292,7 +292,7 @@ function createTerrainRollOptions(actor: ActorPF2e): Record<string, boolean> {
                         // behavior after the override
                         toAdd.clear();
                         toRemove.clear();
-                        for (const terrain of system.terrainTypes) {
+                        for (const terrain of system.environmentTypes) {
                             toAdd.add(terrain);
                         }
                         break;
@@ -745,7 +745,7 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
-    createTerrainRollOptions,
+    createEnvironmentRollOptions,
     getRangeIncrement,
     getStrikeAttackDomains,
     getStrikeDamageDomains,

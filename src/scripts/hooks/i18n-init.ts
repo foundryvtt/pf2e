@@ -10,7 +10,7 @@ export const I18nInit = {
             // Document.defaultName only checks `TYPES` for documents with a `TypeDataModel`
             // todo: Remove once https://github.com/foundryvtt/foundryvtt/issues/11029 is fixed
             fu.mergeObject(game.i18n.translations, {
-                "TYPES.RegionBehavior.pf2eTerrain": game.i18n.localize("PF2E.Regions.Terrain.Label"),
+                "TYPES.RegionBehavior.pf2eEnvironment": game.i18n.localize("PF2E.Regions.Environment.Label"),
             });
         });
     },

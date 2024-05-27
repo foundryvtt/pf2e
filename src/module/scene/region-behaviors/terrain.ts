@@ -3,29 +3,29 @@ import type { TokenDocumentPF2e } from "@scene";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 
-class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<TerrainTypeSchema> {
+class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema> {
     override events = new Set<RegionEventType>(["tokenEnter", "tokenExit"]);
 
-    static override defineSchema(): TerrainTypeSchema {
+    static override defineSchema(): EnvironmentTypeSchema {
         const fields = foundry.data.fields;
         return {
-            terrainTypes: new fields.SetField(
+            environmentTypes: new fields.SetField(
                 new fields.StringField({
                     blank: true,
-                    choices: () => CONFIG.PF2E.terrainTypes,
+                    choices: () => CONFIG.PF2E.environmentTypes,
                 }),
-                { label: "PF2E.Regions.Terrain.Type.Label", hint: "PF2E.Regions.Terrain.Type.Hint" },
+                { label: "PF2E.Regions.Environment.Type.Label", hint: "PF2E.Regions.Environment.Type.Hint" },
             ),
             mode: new fields.StringField({
                 blank: false,
                 choices: () => ({
-                    add: "PF2E.Regions.Terrain.Modes.Add.Label",
-                    override: "PF2E.Regions.Terrain.Modes.Override.Label",
-                    remove: "PF2E.Regions.Terrain.Modes.Remove.Label",
+                    add: "PF2E.Regions.Environment.Mode.Add.Label",
+                    override: "PF2E.Regions.Environment.Mode.Override.Label",
+                    remove: "PF2E.Regions.Environment.Mode.Remove.Label",
                 }),
                 initial: "add",
-                label: "PF2E.Regions.Terrain.Modes.Label",
-                hint: "PF2E.Regions.Terrain.Modes.Hint",
+                label: "PF2E.Regions.Environment.Mode.Label",
+                hint: "PF2E.Regions.Environment.Mode.Hint",
             }),
         };
     }
@@ -37,16 +37,16 @@ class TerrainBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehavio
     }
 }
 
-interface TerrainBehaviorTypePF2e
-    extends foundry.data.regionBehaviors.RegionBehaviorType<TerrainTypeSchema>,
-        ModelPropsFromSchema<TerrainTypeSchema> {}
+interface EnvironmentBehaviorTypePF2e
+    extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema>,
+        ModelPropsFromSchema<EnvironmentTypeSchema> {}
 
-type TerrainTypeSchema = {
-    terrainTypes: SetField<StringField>;
+type EnvironmentTypeSchema = {
+    environmentTypes: SetField<StringField>;
     mode: StringField<"add" | "remove" | "override">;
 };
 
-type TerrainTypeData = ModelPropsFromSchema<TerrainTypeSchema>;
+type EnvironmentTypeData = ModelPropsFromSchema<EnvironmentTypeSchema>;
 
-export { TerrainBehaviorTypePF2e };
-export type { TerrainTypeData };
+export { EnvironmentBehaviorTypePF2e };
+export type { EnvironmentTypeData };

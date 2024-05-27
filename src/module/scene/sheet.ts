@@ -37,7 +37,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             const templates = await renderTemplate(hbsPath, {
                 scene: this.scene,
                 rbvOptions,
-                terrainTypes: this.document.flags.pf2e.terrainTypes ?? [],
+                environmentTypes: this.document.flags.pf2e.environmentTypes ?? [],
             });
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
@@ -74,8 +74,8 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
-        tagify(htmlQuery<HTMLInputElement>(html, 'input[name="flags.pf2e.terrainTypes"]'), {
-            whitelist: CONFIG.PF2E.terrainTypes,
+        tagify(htmlQuery<HTMLInputElement>(html, 'input[name="flags.pf2e.environmentTypes"]'), {
+            whitelist: CONFIG.PF2E.environmentTypes,
             enforceWhitelist: true,
         });
 
@@ -137,8 +137,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         options?: OnSubmitFormOptions,
     ): Promise<false | Record<string, unknown>> {
         // Prevent tagify input JSON parsing from blowing up
-        const terrainTypes = htmlQuery<HTMLInputElement>(this.element[0], 'input[name="flags.pf2e.terrainTypes"]');
-        if (terrainTypes?.value === "") terrainTypes.value = "[]";
+        const environmentTypes = htmlQuery<HTMLInputElement>(
+            this.element[0],
+            'input[name="flags.pf2e.environmentTypes"]',
+        );
+        if (environmentTypes?.value === "") environmentTypes.value = "[]";
         return super._onSubmit(event, options);
     }
 
@@ -164,8 +167,8 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
         const terrainChanged = !R.isDeepEqual(
-            formData["flags.pf2e.terrainTypes"],
-            this.scene._source.flags?.pf2e?.terrainTypes ?? [],
+            formData["flags.pf2e.environmentTypes"],
+            this.scene._source.flags?.pf2e?.environmentTypes ?? [],
         );
 
         await super._updateObject(event, formData);

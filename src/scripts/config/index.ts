@@ -832,16 +832,16 @@ export const PF2ECONFIG = {
         snow: "PF2E.Environment.Feature.Snow",
     },
 
-    terrainTypes: {
-        aquatic: "PF2E.Terrain.Aquatic",
-        arctic: "PF2E.Terrain.Arctic",
-        desert: "PF2E.Terrain.Desert",
-        forest: "PF2E.Terrain.Forest",
-        mountain: "PF2E.Terrain.Mountain",
-        plains: "PF2E.Terrain.Plains",
-        swamp: "PF2E.Terrain.Swamp",
-        underground: "PF2E.Terrain.Underground",
-        urban: "PF2E.Terrain.Urban",
+    environmentTypes: {
+        aquatic: "PF2E.Environment.Type.Aquatic",
+        arctic: "PF2E.Environment.Type.Arctic",
+        desert: "PF2E.Environment.Type.Desert",
+        forest: "PF2E.Environment.Type.Forest",
+        mountain: "PF2E.Environment.Type.Mountain",
+        plains: "PF2E.Environment.Type.Plains",
+        swamp: "PF2E.Environment.Type.Swamp",
+        underground: "PF2E.Environment.Type.Underground",
+        urban: "PF2E.Environment.Type.Urban",
     },
 
     SETTINGS: {
@@ -915,9 +915,9 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
                 hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
             },
-            terrainTypes: {
-                name: "PF2E.SETTINGS.Homebrew.TerrainTypes.Name",
-                hint: "PF2E.SETTINGS.Homebrew.TerrainTypes.Hint",
+            environmentTypes: {
+                name: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Name",
+                hint: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Hint",
             },
         },
         worldClock: {
