@@ -26,12 +26,59 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Werebat.Label",
+                        "value": "werebat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Werebear.Label",
+                        "value": "werebear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Wereboar.Label",
+                        "value": "wereboar"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Werecrocodile.Label",
+                        "value": "werecrocodile"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Weremoose.Label",
+                        "value": "weremoose"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Wererat.Label",
+                        "value": "wererat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Wereshark.Label",
+                        "value": "wereshark"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Weretiger.Label",
+                        "value": "weretiger"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Werecreature.Werewolf.Label",
+                        "value": "werewolf"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "werecreature"
+            },
+            {
                 "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Toughness"
             },
             {
                 "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "feat:beastkin-resilience"
+                    }
+                ],
                 "type": "silver",
                 "value": "@actor.level/2"
             },
@@ -41,6 +88,11 @@
                     "werecreature"
                 ],
                 "key": "ActorTraits"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape (Werecreature)"
             }
         ],
         "traits": {
