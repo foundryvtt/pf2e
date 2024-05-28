@@ -3,7 +3,7 @@ import { ClassDCData } from "@actor/character/data.ts";
 import type { FeatGroup } from "@actor/character/feats.ts";
 import type { SenseData } from "@actor/creature/index.ts";
 import { ItemPF2e, type HeritagePF2e } from "@item";
-import { normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
+import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "@item/ability/helpers.ts";
 import { AbilityTraitToggles } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, RawItemChatData } from "@item/base/data/index.ts";
 import { Rarity } from "@module/data.ts";
@@ -323,6 +323,10 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         rollOptions.delete(`${prefix}:level:0`);
         if (!this.isFeat) rollOptions.delete(`${prefix}:rarity:${this.rarity}`);
         if (this.frequency) rollOptions.add(`${prefix}:frequency:limited`);
+
+        for (const option of getActionCostRollOptions(prefix, this)) {
+            rollOptions.add(option);
+        }
 
         return Array.from(rollOptions);
     }
