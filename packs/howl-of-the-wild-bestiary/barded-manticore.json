@@ -1002,7 +1002,7 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "range-40"
+                        "range-increment-40"
                     ]
                 },
                 "weaponType": {
@@ -1067,7 +1067,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "saving-throw",
+                        "key": "RollOption",
+                        "option": "spell-reflection",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:type:spell",
+                            "spell-reflection"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1096,7 +1113,45 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "arrange-scales",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitBludgeoning",
+                                "value": "bludgeoning"
+                            },
+                            {
+                                "label": "PF2E.TraitPiercing",
+                                "value": "piercing"
+                            },
+                            {
+                                "label": "PF2E.TraitSlashing",
+                                "value": "slashing"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "arrange-scales"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "arrange-scales"
+                        ],
+                        "type": "{item|flags.pf2e.rulesSelections.arrangeScales}",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -1172,7 +1227,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The barded manticore flings two spikes from their tail, targeting up to two creatures within 20 feet of each other. They make a separate ranged Strike against each creature, which counts as a single Strike for the barded manticore's multiple attack penalty, and the penalty doesn't increase until they've made both Strikes. If the manticore targeted only one creature and hits, that creature takes normal damage for a single spike, but also gains weakness 15 to electricity damage until the spikes are removed with an Interact action.</p>"
+                    "value": "<p>The barded manticore flings two spikes from their tail, targeting up to two creatures within 20 feet of each other. They make a separate ranged Strike against each creature, which counts as a single Strike for the barded manticore's multiple attack penalty, and the penalty doesn't increase until they've made both Strikes. If the manticore targeted only one creature and hits, that creature takes normal damage for a single spike, but also gains weakness 15 to electricity damage until the spikes are removed with an Interact action.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Paired Spikes]</p>"
                 },
                 "publication": {
                     "license": "OGL",

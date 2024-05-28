@@ -143,6 +143,7 @@
                     "value": null
                 },
                 "category": "defensive",
+                "deathNote": true,
                 "description": {
                     "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> The desert manticore is reduced to 0 HP</p>\n<hr />\n<p><strong>Effect</strong> The desert manticore avoids being knocked out and remains at 1 HP, then can make a stinger Strike against a creature in its reach.</p>"
                 },
@@ -173,7 +174,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]; Maximum Duration 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round);</p>\n<p><strong>Stage 2</strong> @Damage[4d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[5d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:32]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[3d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[5d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -204,14 +205,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The desert manticore Strikes an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature with its stinger. The attack injects venom deeply, dealing an additional @Damage[4d8[poison]] damage and giving the target a –2 circumstance penalty to their initial save against the poison.</p>"
+                    "value": "<p>The desert manticore Strikes an @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creature with its stinger. The attack injects venom deeply, dealing an additional 4d8 poison damage and giving the target a –2 circumstance penalty to their initial save against the poison.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "scorpion-sting",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 4,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "scorpion-sting",
+                            "target:condition:off-guard"
+                        ],
+                        "selector": "stinger-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

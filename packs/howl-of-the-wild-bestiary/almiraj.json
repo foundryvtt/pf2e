@@ -254,14 +254,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The almiraj lowers its head and moves with ferocity toward its selected prey. The almiraj Strides twice. If it ends its movement within melee reach of at least one enemy, it makes a horn Strike against that enemy. This Strike deals an additional @Damage[1d6[persistent,bleed]] damage.</p>"
+                    "value": "<p>The almiraj lowers its head and moves with ferocity toward its selected prey. The almiraj Strides twice. If it ends its movement within melee reach of at least one enemy, it makes a horn Strike against that enemy. This Strike deals an additional 1d6 persistent bleed damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "goring-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "goring-charge"
+                        ],
+                        "selector": "horn-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
