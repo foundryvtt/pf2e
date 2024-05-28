@@ -28,7 +28,19 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "traits",
+                "selector": "{item|_id}",
+                "value": "{actor|system.details.class.trait}"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": []
