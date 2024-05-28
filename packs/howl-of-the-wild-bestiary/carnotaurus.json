@@ -5,7 +5,7 @@
         {
             "_id": "61CtEzeJE3UzbyD0",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -49,7 +49,7 @@
         {
             "_id": "ELnUHPcIhYGPyULm",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "horn",
+            "name": "Horn",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -131,14 +131,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The carnotaurus lowers its horns and surges toward a foe. It Strides twice, then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to @Damage[(2d12+9)[piercing]] and knocks the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] if successful.</p>"
+                    "value": "<p>The carnotaurus lowers its horns and surges toward a foe. It Strides twice, then makes a horn Strike. If it moved at least 20 feet from its starting position, the Strike's damage is increased to 2d12+9 and knocks the target @UUID[Compendium.pf2e.conditionitems.Item.Prone] if successful.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "powerful-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "powerful-charge"
+                        ],
+                        "selector": "horn-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -160,14 +176,25 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The carnotaurus's jaws Strike deals an additional @Damage[1d8[bleed]] damage to @UUID[Compendium.pf2e.conditionitems.Item.Prone] targets.</p>"
+                    "value": "<p>The carnotaurus's jaws Strike deals an additional 1d8 persistent bleed damage to @UUID[Compendium.pf2e.conditionitems.Item.Prone] targets.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:condition:prone"
+                        ],
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

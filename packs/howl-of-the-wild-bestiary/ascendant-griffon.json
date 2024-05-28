@@ -19,7 +19,7 @@
                 },
                 "damageRolls": {
                     "JGt7P1Qvs4NAlQZd": {
-                        "damage": "4d6+10",
+                        "damage": "4d8+10",
                         "damageType": "piercing"
                     }
                 },
@@ -240,7 +240,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ascendant griffon has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its talons;</p>\n<hr />\n<p><strong>Effect</strong> The griffon makes a beak Strike to rip at the flesh of its prey. If the Strike hits, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or increases its drained value by 1, to a maximum of 4).</p>"
+                    "value": "<p><strong>Requirements</strong> The ascendant griffon has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in its talons</p>\n<hr />\n<p><strong>Effect</strong> The griffon makes a beak Strike to rip at the flesh of its prey. If the Strike hits, that creature becomes @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (or increases its drained value by 1, to a maximum of 4).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -269,14 +269,32 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ascendant griffon glides violently forward, Flying twice. It makes a wing Strike at any point during the movement against up to two different targets; if either of these attacks is a critical hit, the target also takes @Damage[2d6[persistent,bleed]] damage.</p>"
+                    "value": "<p>The ascendant griffon glides violently forward, Flying twice. It makes a wing Strike at any point during the movement against up to two different targets; if either of these attacks is a critical hit, the target also takes 2d6 persistent bleed damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "razor-edged-flight",
+                        "toggleable": true
+                    },
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "razor-edged-flight"
+                        ],
+                        "selector": "wing-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -298,7 +316,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The ascendant griffon unleashes a fearsome cry that strikes terror into its prey. Each creature within 100 feet must attempt a @Check[type:will|dc:30] save. Regardless of the result, creatures are temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
+                    "value": "<p>The ascendant griffon unleashes a fearsome cry that strikes terror into its prey. Each creature within @Template[type:emanation|distance:100]{100 feet} must attempt a @Check[type:will|dc:30] save. Regardless of the result, creatures are temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 2 and @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",

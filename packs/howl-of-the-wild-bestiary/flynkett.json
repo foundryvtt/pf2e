@@ -5,7 +5,7 @@
         {
             "_id": "gU0KATAOWTIIx1dS",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "claw",
+            "name": "Claw",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -47,7 +47,7 @@
         {
             "_id": "nZLRo7EoUuyGF4iZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "acid spit",
+            "name": "Acid Spit",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -112,7 +112,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "move"
+                    ]
                 }
             },
             "type": "action"
@@ -160,7 +162,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The flynkett is Kettled Up</p>\n<p><strong>Trigger</strong> The flynkett takes physical damage or is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>\n<hr />\n<p><strong>Effect</strong> The flynkett spills the contents of its full skin flaps, releasing its digestive juices in a cloud of acidic vapor that deals @Damage[2d8[acid]] damage to all non-flynkett creatures within 20 feet (@Check[type:fortitude|dc:18|basic:true] save). If the flynkett was boiling, the damage is increased to @Damage[4d8[acid]].</p>"
+                    "value": "<p><strong>Requirements</strong> The flynkett is Kettled Up</p>\n<p><strong>Trigger</strong> The flynkett takes physical damage or is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]</p>\n<hr />\n<p><strong>Effect</strong> The flynkett spills the contents of its full skin flaps, releasing its digestive juices in a cloud of acidic vapor that deals @Damage[2d8[acid]] damage to all non-flynkett creatures within @Template[type:emanation|distance:20]{20 feet} (@Check[type:fortitude|dc:18|basic:true] save). If the flynkett was boiling, the damage is increased to @Damage[4d8[acid]].</p>"
                 },
                 "publication": {
                     "license": "OGL",

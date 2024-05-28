@@ -5,7 +5,7 @@
         {
             "_id": "tzptdlJDAdhoM6mR",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -45,7 +45,7 @@
         {
             "_id": "aWjYJL5Ev7eMHY9U",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "croak",
+            "name": "Croak",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -193,13 +193,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+20 to High Jump or Long Jump",
-                        "options": ""
+                        "options": "action:long-jump, action:high-jump"
                     }
                 }
             },

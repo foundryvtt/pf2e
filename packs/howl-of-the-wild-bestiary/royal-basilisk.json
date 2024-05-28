@@ -197,14 +197,22 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>The royal basilisk's crown is firmly attached to its head but can be Disarmed as though it were a held item. Without a crown, the royal basilisk's mastery over poison is weakened enough that it loses its miasmatic shroud. The royal basilisk can equip a crown within its tail's reach as an Interact action. A royal basilisk's crown is normally made of iron and enables the basilisk to use miasmatic shroud, but crowns made of other, more exotic materials might confer different abilities.</p>"
+                    "value": "<p>The royal basilisk's crown is firmly attached to its head but can be @UUID[Compendium.pf2e.actionspf2e.Item.Disarm]{Disarmed} as though it were a held item. Without a crown, the royal basilisk's mastery over poison is weakened enough that it loses its miasmatic shroud. The royal basilisk can equip a crown within its tail's reach as an Interact action. A royal basilisk's crown is normally made of iron and enables the basilisk to use miasmatic shroud, but crowns made of other, more exotic materials might confer different abilities.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "crowned-royalty",
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -236,6 +244,9 @@
                 "rules": [
                     {
                         "key": "Aura",
+                        "predicate": [
+                            "crowned-royalty"
+                        ],
                         "radius": 15,
                         "traits": [
                             "poison"
@@ -301,7 +312,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> DC 36</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d10[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d10[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d10[poison]], @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3}, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 36</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d10[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d10[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d10[poison]], clumsy 3, and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -332,7 +343,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The royal basilisk spits its poison with immense force, dealing @Damage[5d10[acid]] and @Damage[5d8[piercing]] damage (@Check[type:reflex|dc:32|basic:true] save) to creatures in a @Template[type:line|distance:240] and exposing each creature that took damage to royal basilisk venom. The line penetrates barriers with Hardness of less than 20, ignoring any bonuses they'd provide from cover. The royal basilisk can't use Stone-Hewing Spit again for [[/br 1d4 #Recharge Stone-Hewing Spit]]{1d4 rounds}.</p>"
+                    "value": "<p>The royal basilisk spits its poison with immense force, dealing @Damage[5d10[acid],5d8[piercing]]{5d10 acid and 5d8 piercing} damage (@Check[type:reflex|dc:32|basic:true] save) to creatures in a @Template[type:line|distance:240] and exposing each creature that took damage to royal basilisk venom. The line penetrates barriers with Hardness of less than 20, ignoring any bonuses they'd provide from cover. The royal basilisk can't use Stone-Hewing Spit again for [[/br 1d4 #Recharge Stone-Hewing Spit]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
