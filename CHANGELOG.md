@@ -1,3 +1,30 @@
+## 5.16.1
+
+### Bugfixes
+
+-   (stwlam) Also support markdown parsing for item alteration description overrides
+-   (stwlam) Fix foundry content links being treated as markdown links in description item alterations
+
+### Data Updates
+
+-   (Abbadon, DocSchlock, kromko, Rigo) Many corrections for Howl of the Wild data
+-   (Abbadon) Fix localization and slug for the ethereal trait
+-   (Dire Weasel) Add effect for Aeon Stone (Pink Rhomboid)
+-   (Dire Weasel) Update Heal companion to remaster
+-   (Dire Weasel) Replace more system icons for higher res core icons
+-   (Dire Weasel) Add effects for Howl of the Wild elixirs
+-   (DocSchlock) Add Breaker Surki Digging Damage to the evolution
+-   (DocSchlock) Automate Chromatophores from Howl of the Wild
+-   (DocSchlock) Add some automation for Werecreatures, Clawdancer, Thlipit, and Winged Warrior
+-   (DocSchlock) Fix Gun Sword damage values
+-   (DocSchlock) Fix Organsight not applying to spells
+-   (kromko) Fix invalid casters in Awaken Portal
+-   (kromko) Update distances for telepathy and sense acuity for a large number of bestiary creatures
+-   (kromko) Simplify descriptions for Dracolisk abilities
+-   (Nisviik) Fix automation for Sweet Dream Insight and Sweet Dream Glamour
+-   (rectulo) Fix order skill for Spore Order
+-   (Tikael) Update Green Man deity to remaster
+
 ## 5.16.0
 
 ### Data Updates
