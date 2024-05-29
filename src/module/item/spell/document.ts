@@ -107,7 +107,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ? fixedHeightenedRank || Math.ceil(this.actor.level / 2) || null
             : this.system.location.heightenedLevel || null;
 
-        return Math.clamped(heightenedRank || this.baseRank, 1, 10) as OneToTen;
+        return Math.clamp(heightenedRank || this.baseRank, 1, 10) as OneToTen;
     }
 
     /**
