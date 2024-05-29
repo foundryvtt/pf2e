@@ -8,7 +8,7 @@ export interface ExecuteScriptRegionBehaviorType
     extends RegionBehaviorType<ExecuteScriptRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<ExecuteScriptRegionBehaviorTypeSchema> {}
 
-export type ExecuteScriptRegionBehaviorTypeSchema = {
+type ExecuteScriptRegionBehaviorTypeSchema = {
     /** The events that are handled by the behavior. */
     events: EventsField;
     /** The source code of the script. */
