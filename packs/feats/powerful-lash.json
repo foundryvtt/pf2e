@@ -28,7 +28,32 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:lash"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "sweep"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "upgrade": true
+                },
+                "predicate": [
+                    {
+                        "lte": [
+                            "item:damage:die:faces",
+                            6
+                        ]
+                    }
+                ],
+                "selector": "lash-damage"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1180,7 +1180,7 @@ const traitDescriptions = {
     "entrench-ranged": "PF2E.TraitDescriptionEntrench",
     environment: "PF2E.TraitDescriptionEnvironment",
     esoterica: "PF2E.TraitDescriptionEsoterica",
-    etherial: "PF2E.TraitDescriptionEtherial",
+    ethereal: "PF2E.TraitDescriptionEthereal",
     evolution: "PF2E.TraitDescriptionEvolution",
     expandable: "PF2E.TraitDescriptionExpandable",
     experiment: "PF2E.TraitDescriptionExperiment",
