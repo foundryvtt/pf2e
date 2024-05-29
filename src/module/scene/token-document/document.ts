@@ -5,7 +5,6 @@ import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
-import { RegionDocumentPF2e } from "@scene/region/document.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
@@ -13,10 +12,7 @@ import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
 
-class TokenDocumentPF2e<
-    TParent extends ScenePF2e | null = ScenePF2e | null,
-    TRegionDocument extends RegionDocumentPF2e<TParent> = RegionDocumentPF2e<TParent>,
-> extends TokenDocument<TParent, TRegionDocument> {
+class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
@@ -452,10 +448,7 @@ class TokenDocumentPF2e<
     }
 }
 
-interface TokenDocumentPF2e<
-    TParent extends ScenePF2e | null = ScenePF2e | null,
-    TRegionDocument extends RegionDocumentPF2e<TParent> = RegionDocumentPF2e<TParent>,
-> extends TokenDocument<TParent, TRegionDocument> {
+interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
 
     get actor(): ActorPF2e<this | null> | null;

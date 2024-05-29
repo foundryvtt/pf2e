@@ -10,7 +10,7 @@ export interface ExecuteMacroRegionBehaviorType
     extends RegionBehaviorType<ExecuteMacroRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<ExecuteMacroRegionBehaviorTypeSchema> {}
 
-export type ExecuteMacroRegionBehaviorTypeSchema = {
+type ExecuteMacroRegionBehaviorTypeSchema = {
     /** The events that are handled by the behavior. */
     events: EventsField;
     /** The Macro UUID. */
