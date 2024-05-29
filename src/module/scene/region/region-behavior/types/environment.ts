@@ -1,5 +1,5 @@
 import { resetActors } from "@actor/helpers.ts";
-import type { TokenDocumentPF2e } from "@scene";
+import type { RegionEventPF2e } from "@scene/region/types.ts";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 
@@ -30,7 +30,7 @@ class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBeh
         };
     }
 
-    protected override async _handleRegionEvent(event: RegionEvent<TokenDocumentPF2e>): Promise<void> {
+    protected override async _handleRegionEvent(event: RegionEventPF2e): Promise<void> {
         if (event.name === "tokenEnter" || event.name === "tokenExit") {
             if (event.data.token.actor) resetActors([event.data.token.actor], { tokens: true });
         }
@@ -39,7 +39,9 @@ class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBeh
 
 interface EnvironmentBehaviorTypePF2e
     extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema>,
-        ModelPropsFromSchema<EnvironmentTypeSchema> {}
+        ModelPropsFromSchema<EnvironmentTypeSchema> {
+    readonly _source: SourceFromSchema<EnvironmentTypeSchema>;
+}
 
 type EnvironmentTypeSchema = {
     environmentTypes: SetField<StringField>;

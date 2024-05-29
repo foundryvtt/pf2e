@@ -19,7 +19,7 @@ declare global {
         static _activateSocketListeners(socket: unknown): void;
 
         /** The tokens inside this region. */
-        tokens: Set<TokenDocument<TParent>>;
+        tokens: Set<TokenDocument>;
 
         /**
          * Trigger the Region event.
@@ -76,7 +76,10 @@ declare global {
         TDocument extends RegionDocument = RegionDocument,
         TUser extends User = User,
         TTokenDocument extends TokenDocument = TokenDocument,
-        TCombatant extends Combatant<Combat, TTokenDocument> = Combatant<Combat, TTokenDocument>,
+        TCombatant extends Combatant<Combat | null, TTokenDocument | null> = Combatant<
+            Combat | null,
+            TTokenDocument | null
+        >,
     > extends BaseRegionEvent<TDocument, TUser> {
         name: "tokenRoundStart" | "tokenRoundEnd" | "tokenTurnStart" | "tokenTurnEnd";
         data: {
@@ -121,7 +124,10 @@ declare global {
     type RegionEvent<
         TTokenDocument extends TokenDocument = TokenDocument,
         TUser extends User = User,
-        TCombatant extends Combatant<Combat, TTokenDocument> = Combatant<Combat, TTokenDocument>,
+        TCombatant extends Combatant<Combat | null, TTokenDocument | null> = Combatant<
+            Combat | null,
+            TTokenDocument | null
+        >,
         TDocument extends RegionDocument = RegionDocument,
     > =
         | BehaviorStatusRegionEvent<TDocument, TUser>

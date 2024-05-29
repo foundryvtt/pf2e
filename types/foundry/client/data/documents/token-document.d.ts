@@ -1,7 +1,10 @@
 import type { CanvasBaseToken } from "./client-base-mixes.d.ts";
 
 declare global {
-    class TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
+    class TokenDocument<
+        TParent extends Scene | null = Scene | null,
+        TRegionDocument extends RegionDocument<TParent> = RegionDocument<TParent>,
+    > extends CanvasBaseToken<TParent> {
         /* -------------------------------------------- */
         /*  Properties                                  */
         /* -------------------------------------------- */
@@ -10,7 +13,7 @@ declare global {
         actors: Collection<Actor>;
 
         /** The Regions this Token is currently in. */
-        regions: Set<RegionDocument> | null;
+        regions: Set<TRegionDocument> | null;
 
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
@@ -194,7 +197,10 @@ declare global {
         static getTrackedAttributeChoices(attributes?: TrackedAttributesDescription): TrackedAttributesDescription;
     }
 
-    interface TokenDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseToken<TParent> {
+    interface TokenDocument<
+        TParent extends Scene | null = Scene | null,
+        TRegionDocument extends RegionDocument<TParent> = RegionDocument<TParent>,
+    > extends CanvasBaseToken<TParent> {
         delta: ActorDelta<this> | null;
 
         get object(): Token<this> | null;
