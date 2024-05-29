@@ -10,7 +10,7 @@ export interface ToggleBehaviorRegionBehaviorType
     extends RegionBehaviorType<ToggleBehaviorRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<ToggleBehaviorRegionBehaviorTypeSchema> {}
 
-export type ToggleBehaviorRegionBehaviorTypeSchema = {
+type ToggleBehaviorRegionBehaviorTypeSchema = {
     /** The events that are handled by the behavior. */
     events: EventsField;
     /** The Region Behavior UUIDs that are enabled. */

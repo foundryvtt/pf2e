@@ -40,8 +40,6 @@ import type {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene";
-import type { RegionDocumentPF2e } from "@scene/region/document.ts";
-import type { RegionBehaviorPF2e } from "@scene/region/region-behavior/document.ts";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
@@ -203,8 +201,8 @@ type ConfiguredConfig = Config<
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
-    RegionDocumentPF2e<ScenePF2e | null>,
-    RegionBehaviorPF2e<RegionDocumentPF2e<ScenePF2e | null>>,
+    RegionDocument<ScenePF2e | null>,
+    RegionBehavior<RegionDocument<ScenePF2e | null>>,
     TileDocumentPF2e,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
