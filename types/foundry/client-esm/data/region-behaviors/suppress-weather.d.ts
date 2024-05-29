@@ -9,4 +9,4 @@ export interface SuppressWeatherRegionBehaviorType
     extends RegionBehaviorType<SuppressWeatherRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<SuppressWeatherRegionBehaviorTypeSchema> {}
 
-type SuppressWeatherRegionBehaviorTypeSchema = {};
+export type SuppressWeatherRegionBehaviorTypeSchema = {};
