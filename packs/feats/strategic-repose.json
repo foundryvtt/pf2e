@@ -1,0 +1,61 @@
+{
+    "_id": "3geVePXUZELDVQZG",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Strategic Repose",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've trained extensively in fighting the undead and have learned to infuse a small amount of vitality energy into your weapon. When you deal precision damage with strategic strike, you may choose for that damage to be vitality damage instead.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Religion"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder: Wake the Dead #4"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "strategic-repose",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "strategic-repose"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "strategic-strike",
+                "value": "vitality"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "investigator",
+                "vitality"
+            ]
+        }
+    },
+    "type": "feat"
+}
