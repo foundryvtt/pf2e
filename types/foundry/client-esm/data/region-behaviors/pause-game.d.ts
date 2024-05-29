@@ -10,7 +10,7 @@ export interface PauseGameRegionBehaviorType
     extends RegionBehaviorType<PauseGameRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<PauseGameRegionBehaviorTypeSchema> {}
 
-type PauseGameRegionBehaviorTypeSchema = {
+export type PauseGameRegionBehaviorTypeSchema = {
     /** Disable the behavior once a player-controlled Token enters the region? */
     once: fields.BooleanField;
 };
