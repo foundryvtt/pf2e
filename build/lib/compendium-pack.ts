@@ -8,9 +8,11 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
-import coreIconsJSON from "../core-icons.json" assert { type: "json" };
+import type { DocumentStatsData } from "types/foundry/common/data/fields.d.ts";
+import systemJSON from "../../static/system.json";
+import coreIconsJSON from "../core-icons.json";
 import "./foundry-utils.ts";
-import { getFilesRecursively, PackError } from "./helpers.ts";
+import { PackError, getFilesRecursively } from "./helpers.ts";
 import { DBFolder, LevelDatabase } from "./level-database.ts";
 import { PackEntry } from "./types.ts";
 
@@ -246,6 +248,16 @@ class CompendiumPack {
             throw PackError(`${docSource.name} (${this.packId}) has a link to a world item: ${worldItemLink[0]}`);
         }
 
+        // Stamp actors and items with partial stats data so the server won't attempt to migrate
+        const partialStats = {
+            coreVersion: systemJSON.compatibility.minimum,
+            systemId: "pf2e",
+            systemVersion: systemJSON.version,
+        } as DocumentStatsData;
+        if (isActorSource(docSource) || isItemSource(docSource)) {
+            docSource._stats = partialStats;
+        }
+
         docSource.flags ??= {};
         if (isActorSource(docSource)) {
             docSource.effects = [];
@@ -253,6 +265,7 @@ class CompendiumPack {
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
+                item._stats = partialStats;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
@@ -462,5 +475,5 @@ interface ConvertUUIDOptions {
     map: Map<string, Map<string, string>>;
 }
 
-export { CompendiumPack, isActorSource, isItemSource, PackError };
+export { CompendiumPack, PackError, isActorSource, isItemSource };
 export type { PackMetadata, REMaybeWithUUIDs };
