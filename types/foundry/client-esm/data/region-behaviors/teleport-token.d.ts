@@ -10,7 +10,7 @@ export interface TeleportTokenRegionBehaviorType
     extends RegionBehaviorType<TeleportTokenRegionBehaviorTypeSchema>,
         ModelPropsFromSchema<TeleportTokenRegionBehaviorTypeSchema> {}
 
-export type TeleportTokenRegionBehaviorTypeSchema = {
+type TeleportTokenRegionBehaviorTypeSchema = {
     /** The destination Region the Token is teleported to. */
     destination: fields.DocumentUUIDField;
 };
