@@ -233,7 +233,7 @@
         {
             "_id": "phw58zMxVqdZUYbK",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "antlers",
+            "name": "Antlers",
             "sort": 500000,
             "system": {
                 "attack": {
@@ -273,7 +273,7 @@
         {
             "_id": "ApHkKkrBHmWn5boI",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "hooves",
+            "name": "Hooves",
             "sort": 600000,
             "system": {
                 "attack": {
@@ -434,14 +434,55 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The flowers on the blooming guardian's antlers bloom, unveiling their brilliance as they eat away at their host. While in this stance, the blooming guardian's Strikes deal an additional @Damage[2d4[poison]] damage plus @Damage[5[persistent,poison]] damage; on a hit, a target must succeed at a @Check[type:fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. The blooming guardian takes @Damage[5[persistent,poison]] damage as long as it's in Full Bloom.</p>"
+                    "value": "<p>The flowers on the blooming guardian's antlers bloom, unveiling their brilliance as they eat away at their host. While in this stance, the blooming guardian's Strikes deal an additional 2d4 poison damage plus 5 persistent poison damage; on a hit, a target must succeed at a @Check[type:fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2}. The blooming guardian takes @Damage[5[persistent,poison]] damage as long as it's in Full Bloom.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "full-bloom",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "poison",
+                        "diceNumber": 2,
+                        "dieSize": "d4",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "full-bloom"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "damageCategory": "persistent",
+                        "damageType": "poison",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "full-bloom"
+                        ],
+                        "selector": "strike-damage",
+                        "value": 5
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess",
+                            "success"
+                        ],
+                        "predicate": [
+                            "full-bloom"
+                        ],
+                        "selector": "strike-attack-roll",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -467,14 +508,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The blooming guardian Strides twice and makes an antlers Strike after either Stride. If the Strike hits, the blooming guardian deals an extra @Damage[2d12[bludgeoning]] damage, and the target takes a –2 circumstance penalty to its next Fortitude save against blossom siphon.</p>"
+                    "value": "<p>The blooming guardian Strides twice and makes an antlers Strike after either Stride. If the Strike hits, the blooming guardian deals an extra 2d12 bludgeoning damage, and the target takes a –2 circumstance penalty to its next Fortitude save against blossom siphon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "goring-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bludgeoning",
+                        "diceNumber": 2,
+                        "dieSize": "d12",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "goring-charge"
+                        ],
+                        "selector": "antlers-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

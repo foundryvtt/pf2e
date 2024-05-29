@@ -1,0 +1,367 @@
+{
+    "_id": "Q8pD29NcGGuRxWwh",
+    "img": "systems/pf2e/icons/spells/beastmaster-trance.webp",
+    "name": "Effect: Change Shape (Werecreature)",
+    "system": {
+        "description": {
+            "value": "<p>You transform into your hybrid or animal shape. Your equipment transforms with you and continues to provide bonuses, but your animal shape cannot use weapons, shields, or other held items and cannot use manipulate actions. You gain a movement speed, unarmed attacks, and potentially other abilities based on your werecreature type. These unarmed attacks are in the brawling group. You can Dismiss the effect to return to your humanoid shape, and you resume your humanoid shape automatically if you're reduced to 0 Hit Points.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Animal",
+                        "value": "animal"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Hybrid",
+                        "value": "hybrid"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "rollOption": "change-shape"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werebat"
+                ],
+                "selector": "land",
+                "value": 10
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werebat"
+                ],
+                "selector": "fly",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:werebear",
+                            "werecreature:werecrocodile",
+                            "werecreature:weremoose",
+                            "werecreature:wererat",
+                            "werecreature:weretiger"
+                        ]
+                    }
+                ],
+                "selector": "land",
+                "value": 25
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereboar",
+                    "werecreature:werewolf"
+                ],
+                "selector": "land",
+                "value": 30
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:werecrocodile"
+                ],
+                "selector": "swim",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:hybrid"
+                ],
+                "selector": "land",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:hybrid"
+                ],
+                "selector": "swim",
+                "value": 25
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "predicate": [
+                    "werecreature:werebat"
+                ],
+                "slug": "fangs",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:werebear",
+                            "werecreature:weretiger"
+                        ]
+                    }
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:werebear",
+                            "werecreature:weretiger"
+                        ]
+                    }
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tusk.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tusk",
+                "predicate": [
+                    "werecreature:wereboar"
+                ],
+                "slug": "tusk",
+                "traits": [
+                    "sweep",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    {
+                        "or": [
+                            "werecreature:werecrocodile",
+                            "werecreature:wereshark"
+                        ]
+                    }
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "grapple",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/antler.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Antler",
+                "predicate": [
+                    "werecreature:weremoose"
+                ],
+                "slug": "antler",
+                "traits": [
+                    "shove",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "werecreature:wererat"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "finesse",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/claw.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Claw",
+                "predicate": [
+                    "werecreature:wererat"
+                ],
+                "slug": "claw",
+                "traits": [
+                    "agile",
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d8"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/jaws.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Jaws",
+                "predicate": [
+                    "werecreature:werewolf"
+                ],
+                "slug": "jaws",
+                "traits": [
+                    "trip",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "werecreature:wererat",
+                    "change-shape:animal"
+                ],
+                "value": "small"
+            },
+            {
+                "add": [
+                    "amphibious"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:hybrid"
+                ]
+            },
+            {
+                "add": [
+                    "aquatic"
+                ],
+                "key": "ActorTraits",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:animal"
+                ]
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "werecreature:wereshark",
+                    "change-shape:animal"
+                ],
+                "selector": "swim",
+                "value": 35
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,57 @@
+{
+    "_id": "jJ038JXfHdvDindo",
+    "img": "icons/consumables/potions/round-decorated-snake-green.webp",
+    "name": "Effect: Hydra Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Hydra Mutagen]</p>\n<p><strong>Benefit</strong> You gain all-around vision and a +3 item bonus to all Intelligence- and Wisdom-based skill checks.</p>\n<p><strong>Drawback</strong> You are clumsy 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "int-skill-check",
+                    "wis-skill-check"
+                ],
+                "type": "item",
+                "value": 3
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
