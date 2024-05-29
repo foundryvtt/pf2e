@@ -57,22 +57,6 @@
                                 />
                             {{/if}}
                         </div>
-                        <div class="attribute inline-field">
-                            {{#if entry.isEphemeral}}
-                                <span class="attribute">{{entry.attribute}}</span>
-                            {{else}}
-                                <select data-base-property="data.items.{{eid}}.system.ability.value">
-                                    {{#select entry.attribute}}
-                                        <option value="str">{{localize "PF2E.AbilityId.str"}}</option>
-                                        <option value="dex">{{localize "PF2E.AbilityId.dex"}}</option>
-                                        <option value="con">{{localize "PF2E.AbilityId.con"}}</option>
-                                        <option value="int">{{localize "PF2E.AbilityId.int"}}</option>
-                                        <option value="wis">{{localize "PF2E.AbilityId.wis"}}</option>
-                                        <option value="cha">{{localize "PF2E.AbilityId.cha"}}</option>
-                                    {{/select}}
-                                </select>
-                            {{/if}}
-                        </div>
                     {{/unless}}
 
                     {{#if (and ../editable (not entry.isEphemeral))}}

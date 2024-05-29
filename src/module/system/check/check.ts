@@ -23,6 +23,7 @@ import {
     traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
+import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -177,7 +178,7 @@ class CheckPF2e {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
+        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate();
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
@@ -442,7 +443,7 @@ class CheckPF2e {
                 const heroPointCount = rerollingActor.heroPoints.value;
                 if (heroPointCount) {
                     await rerollingActor.update({
-                        "system.resources.heroPoints.value": Math.clamped(
+                        "system.resources.heroPoints.value": Math.clamp(
                             heroPointCount - 1,
                             0,
                             rerollingActor.heroPoints.max,
@@ -483,7 +484,7 @@ class CheckPF2e {
         );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
-        const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
+        const newRoll = await unevaluatedNewRoll.evaluate();
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded
@@ -594,7 +595,7 @@ class CheckPF2e {
      * @param isOld This is the old roll render, so remove damage or other buttons
      */
     static async renderReroll(roll: Rolled<Roll>, { isOld }: { isOld: boolean }): Promise<string> {
-        const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
+        const die = roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
         const html = await roll.render();

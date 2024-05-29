@@ -134,24 +134,24 @@ declare global {
 
         protected override _onCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            operation: DatabaseCreateOperation<null>,
             userId: string,
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<null>,
+            operation: DatabaseUpdateOperation<null>,
             userId: string,
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+        protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void;
 
         protected override _onCreateDescendantDocuments(
             parent: this,
             collection: "combatants",
             documents: Combatant<this>[],
             data: Combatant<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            operation: DatabaseCreateOperation<this>,
             userId: string,
         ): void;
 
@@ -160,7 +160,7 @@ declare global {
             collection: "combatants",
             documents: Combatant<this>[],
             changes: DeepPartial<Combatant<this>["_source"]>[],
-            options: DocumentModificationContext<this>,
+            operation: DatabaseUpdateOperation<this>,
             userId: string,
         ): void;
 
@@ -169,9 +169,15 @@ declare global {
             collection: "combatants",
             documents: Combatant<this>[],
             ids: string[],
-            options: DocumentModificationContext<this>,
+            operation: DatabaseDeleteOperation<this>,
             userId: string,
         ): void;
+
+        /**
+         * Get the current history state of the Combat encounter.
+         * @param [combatant]       The new active combatant
+         */
+        protected _getCurrentState(combatant?: Combatant<this>): CombatHistoryData;
 
         /* -------------------------------------------- */
         /*  Turn Events                                 */
@@ -238,6 +244,6 @@ declare global {
     interface RollInitiativeOptions {
         formula?: number | null;
         updateTurn?: boolean;
-        messageOptions?: ChatMessageModificationContext;
+        messageOptions?: Partial<ChatMessageCreateOperation>;
     }
 }

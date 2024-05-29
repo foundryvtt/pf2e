@@ -5,7 +5,7 @@ import { ActorPF2e } from "./base.ts";
 export class TokenEffect implements TemporaryEffect {
     #effect: AbstractEffectPF2e<ActorPF2e>;
 
-    tint: HexColorString | null = null;
+    tint: Color | null = null;
 
     readonly isTemporary = true;
 
@@ -29,8 +29,16 @@ export class TokenEffect implements TemporaryEffect {
         return this.#effect.name;
     }
 
-    get icon(): ImageFilePath {
+    get img(): ImageFilePath {
         return this.#effect.img;
+    }
+
+    get type(): string {
+        return this.#effect.type;
+    }
+
+    get system(): AbstractEffectPF2e["system"] {
+        return this.#effect.system;
     }
 
     get changes(): never[] {
@@ -76,6 +84,10 @@ export class TokenEffect implements TemporaryEffect {
 
     get origin(): ItemUUID {
         return this.#effect.uuid;
+    }
+
+    get _stats(): AbstractEffectPF2e["_stats"] {
+        return this.#effect._stats;
     }
 
     getFlag(scope: string, flag: string): unknown {

@@ -1,8 +1,11 @@
 import * as R from "remeda";
+import type { DiceTerm, Die, FunctionTerm, PoolTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { isSystemDamageTerm, isUnsimplifableArithmetic, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { DamageInstance } from "./roll.ts";
 
-class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
+const terms = foundry.dice.terms;
+
+class ArithmeticExpression extends terms.RollTerm<ArithmeticExpressionData> {
     operator: ArithmeticOperator;
 
     operands: [RollTerm, RollTerm];
@@ -12,11 +15,11 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
         this.operator = termData.operator;
         this.operands = termData.operands.slice(0, 2).map((datum) => {
-            if (datum instanceof RollTerm) return datum;
+            if (datum instanceof terms.RollTerm) return datum;
             const TermCls =
                 CONFIG.Dice.termTypes[datum.class ?? ""] ??
                 Object.values(CONFIG.Dice.terms).find((t) => t.name === datum.class) ??
-                Die;
+                terms.Die;
             return simplifyTerm(TermCls.fromData(datum));
         }) as [RollTerm, RollTerm];
     }
@@ -57,7 +60,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
 
     get dice(): DiceTerm[] {
         return this.operands.flatMap((o) =>
-            o instanceof DiceTerm
+            o instanceof terms.DiceTerm
                 ? o
                 : o instanceof Grouping || o instanceof ArithmeticExpression || o instanceof IntermediateDie
                   ? o.dice
@@ -102,7 +105,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         const [left, right] = this.operands;
 
         // Critical doubling will always have the 2 operand on the left
-        if (left instanceof NumericTerm && left.number === 2 && this.operator === "*") {
+        if (left instanceof terms.NumericTerm && left.number === 2 && this.operator === "*") {
             return typeof right.total === "string" ? Number(right.total) : right.total;
         }
 
@@ -147,7 +150,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
         const fragment = new DocumentFragment();
         const { operator, operands } = this;
         // Display a simplified formula if the expression is merely a multiplied pair of numeric terms
-        if (operator === "*" && operands[0] instanceof NumericTerm && operands[1] instanceof NumericTerm) {
+        if (operator === "*" && operands[0] instanceof terms.NumericTerm && operands[1] instanceof terms.NumericTerm) {
             fragment.append((operands[0].total * operands[1].total).toString());
             return fragment;
         }
@@ -170,7 +173,7 @@ class ArithmeticExpression extends RollTerm<ArithmeticExpressionData> {
     ): Promise<Evaluated<this>> {
         for (const operand of this.operands) {
             if (!operand._evaluated) {
-                await operand.evaluate({ async: true, ...options });
+                await operand.evaluate(options);
             }
         }
         this._evaluated = true;
@@ -199,14 +202,14 @@ interface ArithmeticExpressionData extends RollTermData {
 type ArithmeticOperator = "+" | "-" | "*" | "/" | "%";
 
 /** A parenthetically-exclosed expression as a single arithmetic term or number */
-class Grouping extends RollTerm<GroupingData> {
+class Grouping extends terms.RollTerm<GroupingData> {
     term: RollTerm;
 
     constructor(termData: GroupingData) {
         const TermCls =
             CONFIG.Dice.termTypes[termData.term.class ?? ""] ??
             Object.values(CONFIG.Dice.terms).find((t) => t.name === termData.term.class) ??
-            NumericTerm;
+            terms.NumericTerm;
         const childTerm = simplifyTerm(TermCls.fromData(termData.term));
 
         // Remove redundant groupings
@@ -232,10 +235,10 @@ class Grouping extends RollTerm<GroupingData> {
     }
 
     get dice(): DiceTerm[] {
-        if (this.term instanceof DiceTerm) return [this.term];
+        if (this.term instanceof terms.DiceTerm) return [this.term];
 
         const childDice = "dice" in this.term ? this.term.dice : null;
-        return Array.isArray(childDice) && childDice.every((d): d is DiceTerm => d instanceof DiceTerm)
+        return Array.isArray(childDice) && childDice.every((d): d is DiceTerm => d instanceof terms.DiceTerm)
             ? childDice
             : [];
     }
@@ -250,7 +253,7 @@ class Grouping extends RollTerm<GroupingData> {
         ) {
             return this.total.toString();
         }
-        return this.term instanceof DiceTerm || this.term instanceof MathTerm
+        return this.term instanceof terms.DiceTerm || this.term instanceof terms.FunctionTerm
             ? this.term.expression
             : `(${this.term.expression})`;
     }
@@ -308,7 +311,7 @@ class Grouping extends RollTerm<GroupingData> {
         options: { minimize?: boolean; maximize?: boolean } = {},
     ): Promise<Evaluated<this>> {
         if (!this.term._evaluated) {
-            await this.term.evaluate({ async: true, ...options });
+            await this.term.evaluate(options);
         }
         this._evaluated = true;
 
@@ -333,7 +336,9 @@ class Grouping extends RollTerm<GroupingData> {
         const fragment = new DocumentFragment();
         // Don't render unnecessary parentheses
         const nodes =
-            this.term instanceof NumericTerm || this.term instanceof Die ? [expression] : ["(", expression, ")"];
+            this.term instanceof terms.NumericTerm || this.term instanceof terms.Die
+                ? [expression]
+                : ["(", expression, ")"];
         fragment.append(...nodes);
 
         return fragment;
@@ -349,10 +354,10 @@ interface GroupingData extends RollTermData {
  * A `Die` surrogate where the `number` or `faces` were not resolvable to numbers at parse time: serializes itself as a
  * `Die` as soon it is able (guaranteed after evaluation)
  */
-class IntermediateDie extends RollTerm<IntermediateDieData> {
-    number: number | MathTerm | Grouping;
+class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
+    number: number | FunctionTerm | Grouping;
 
-    faces: number | MathTerm | Grouping;
+    faces: number | FunctionTerm | Grouping;
 
     die: Die | null;
 
@@ -360,13 +365,13 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
         super(data);
 
         const setTerm = (
-            termData: number | NumericTermData | MathTermData | GroupingData,
-        ): number | MathTerm | Grouping => {
+            termData: number | NumericTermData | FunctionTermData | GroupingData,
+        ): number | FunctionTerm | Grouping => {
             if (typeof termData === "number") return termData;
 
             const TermCls = CONFIG.Dice.termTypes[termData.class ?? "NumericTerm"];
             const term = simplifyTerm(TermCls.fromData(termData));
-            if (term instanceof NumericTerm) return term.number;
+            if (term instanceof terms.NumericTerm) return term.number;
 
             // Immediately evaluate deterministic number or faces
             if (term.isDeterministic) return Roll.safeEval(term.formula);
@@ -378,19 +383,19 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
             }
 
             // User is up to something _really_ weird
-            if (!(term instanceof MathTerm)) {
+            if (!(term instanceof terms.FunctionTerm)) {
                 console.warn(`Unexpected term type: ${term.constructor.name}`);
             }
 
-            return term as MathTerm;
+            return term as FunctionTerm;
         };
 
         this.number = setTerm(data.number);
         this.faces = setTerm(data.faces);
         this.die = ((): Die | null => {
-            if (data.die) return Die.fromData({ ...data.die, class: "Die" });
+            if (data.die) return terms.Die.fromData({ ...data.die, class: "Die" });
             if (typeof this.number === "number" && typeof this.faces === "number") {
-                return Die.fromData({
+                return terms.Die.fromData({
                     number: this.number,
                     faces: this.faces,
                     evaluated: this._evaluated,
@@ -421,19 +426,21 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
 
     get minimumValue(): number {
         return DamageInstance.getValue(
-            this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
+            this.die ?? new terms.Die({ number: Number(this.number), faces: Number(this.faces) }),
             "minimum",
         );
     }
 
     /** Not able to get an expected value from a Math term */
     get expectedValue(): number {
-        return DamageInstance.getValue(this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }));
+        return DamageInstance.getValue(
+            this.die ?? new terms.Die({ number: Number(this.number), faces: Number(this.faces) }),
+        );
     }
 
     get maximumValue(): number {
         return DamageInstance.getValue(
-            this.die ?? new Die({ number: Number(this.number), faces: Number(this.faces) }),
+            this.die ?? new terms.Die({ number: Number(this.number), faces: Number(this.faces) }),
             "maximum",
         );
     }
@@ -441,17 +448,17 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     protected override async _evaluate(): Promise<Evaluated<this>>;
     protected override async _evaluate(): Promise<this> {
         if (typeof this.number !== "number") {
-            this.number = (await this.number.evaluate({ async: true })).total;
+            this.number = (await this.number.evaluate()).total;
         }
         if (typeof this.faces !== "number") {
-            this.faces = (await this.faces.evaluate({ async: true })).total;
+            this.faces = (await this.faces.evaluate()).total;
         }
 
-        this.die = await new Die({
+        this.die = await new terms.Die({
             number: this.number,
             faces: this.faces,
             options: this.options,
-        }).evaluate({ async: true });
+        }).evaluate();
         this._evaluated = true;
 
         return this;
@@ -460,7 +467,7 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
     override toJSON(): DieData | IntermediateDieData {
         if (this.die) return this.die.toJSON();
         if (typeof this.number === "number" && typeof this.faces === "number") {
-            return Die.fromData({
+            return terms.Die.fromData({
                 class: "Die",
                 number: this.number,
                 faces: this.faces,
@@ -478,12 +485,12 @@ class IntermediateDie extends RollTerm<IntermediateDieData> {
 
 interface IntermediateDieData extends RollTermData {
     class?: string;
-    number: number | NumericTermData | MathTermData | GroupingData;
-    faces: number | NumericTermData | MathTermData | GroupingData;
+    number: number | NumericTermData | FunctionTermData | GroupingData;
+    faces: number | NumericTermData | FunctionTermData | GroupingData;
     die?: DieData | null;
 }
 
-class InstancePool extends PoolTerm {
+class InstancePool extends terms.PoolTerm {
     /** Work around upstream bug in which method attempts to construct `Roll`s from display formulas */
     static override fromRolls<TTerm extends PoolTerm>(this: ConstructorOf<TTerm>, rolls?: Roll[]): TTerm;
     static override fromRolls(rolls: DamageInstance[] = []): PoolTerm {

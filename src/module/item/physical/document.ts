@@ -361,7 +361,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         if (!this.isEmbedded) {
             // Otherwise called in`onPrepareSynthetics`
-            this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+            this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
         }
     }
 
@@ -392,7 +392,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
-        this.system.hp.value = Math.clamped(this.system.hp.value, 0, this.system.hp.max);
+        this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
     }
 
     override prepareActorData(): void {
@@ -600,39 +600,43 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Redirect subitem updates to the parent item */
     override async update(
         data: Record<string, unknown>,
-        context: DocumentModificationContext<TParent> = {},
+        operation: Partial<DatabaseUpdateOperation<TParent>> = {},
     ): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.map((i) =>
-                i._id === this.id ? fu.mergeObject(i, data, { ...context, inplace: false }) : i,
+                i._id === this.id ? fu.mergeObject(i, data, { ...operation, inplace: false }) : i,
             );
-            const parentContext = { ...context, diff: true, recursive: true };
+            const parentContext = { ...operation, diff: true, recursive: true };
             const updated = await parentItem.update({ system: { subitems: newSubitems } }, parentContext);
             if (updated) {
-                this._onUpdate(data as DeepPartial<this["_source"]>, context, game.user.id);
+                this._onUpdate(
+                    data as DeepPartial<this["_source"]>,
+                    { broadcast: false, updates: [], ...operation },
+                    game.user.id,
+                );
                 return this;
             }
             return undefined;
         }
 
-        return super.update(data, context);
+        return super.update(data, operation);
     }
 
     /** Redirect subitem deletes to parent-item updates */
-    override async delete(context: DocumentModificationContext<TParent> = {}): Promise<this | undefined> {
+    override async delete(operation: Partial<DatabaseDeleteOperation<TParent>> = {}): Promise<this | undefined> {
         if (this.parentItem) {
             const parentItem = this.parentItem;
             const newSubitems = parentItem._source.system.subitems?.filter((i) => i._id !== this.id) ?? [];
-            const updated = await parentItem.update({ "system.subitems": newSubitems }, context);
+            const updated = await parentItem.update({ "system.subitems": newSubitems }, operation);
             if (updated) {
-                this._onDelete(context, game.user.id);
+                this._onDelete(operation as DatabaseDeleteOperation<TParent>, game.user.id);
                 return this;
             }
             return undefined;
         }
 
-        return super.delete(context);
+        return super.delete(operation);
     }
 
     /* -------------------------------------------- */
@@ -642,7 +646,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     /** Set to unequipped upon acquiring */
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (!this.actor || this._source.system.containerId?.length !== 16) {
@@ -663,19 +667,19 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: PhysicalItemUpdateContext<TParent>,
+        operation: PhysicalItemUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         for (const property of ["quantity", "hardness"] as const) {
             if (changed.system[property] !== undefined) {
                 const max = property === "quantity" ? 999_999 : 999;
-                changed.system[property] = Math.clamped(Math.trunc(Number(changed.system[property])), 0, max) || 0;
+                changed.system[property] = Math.clamp(Math.trunc(Number(changed.system[property])), 0, max) || 0;
             }
         }
 
-        if (options.checkHP ?? true) handleHPChange(this, changed);
+        if (operation.checkHP ?? true) handleHPChange(this, changed);
 
         // Clear 0 price denominations and per fields with values 0 or 1
         if (isObject<Record<string, unknown>>(changed.system.price)) {
@@ -725,7 +729,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             changed.system = fu.mergeObject(changed.system!, { "-=apex": null });
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 
@@ -739,7 +743,7 @@ interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null>
     parentItem?: PhysicalItemPF2e<TParent>;
 }
 
-interface PhysicalItemUpdateContext<TParent extends ActorPF2e | null> extends DocumentUpdateContext<TParent> {
+interface PhysicalItemUpdateOperation<TParent extends ActorPF2e | null> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
 }
 

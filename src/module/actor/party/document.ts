@@ -14,7 +14,7 @@ import { MemberData, PartySource, PartySystemData } from "./data.ts";
 import { InvalidCampaign } from "./invalid-campaign.ts";
 import { Kingdom } from "./kingdom/index.ts";
 import { PartySheetRenderOptions } from "./sheet.ts";
-import { PartyCampaign, PartyUpdateContext } from "./types.ts";
+import { PartyCampaign, PartyUpdateOperation } from "./types.ts";
 
 class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     override armorClass = null;
@@ -252,7 +252,7 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
-        options: PartyUpdateContext<TParent>,
+        options: PartyUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const members = this.members;
@@ -274,12 +274,12 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Override to inform creatures when they were booted from a party */
     protected override _onUpdate(
         changed: DeepPartial<PartySource>,
-        options: PartyUpdateContext<TParent>,
+        operation: PartyUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
-        const removedCreatures = (options.removedMembers ?? [])
+        const removedCreatures = (operation.removedMembers ?? [])
             .map((uuid) => fromUuidSync(uuid))
             .filter((a): a is CreaturePF2e => a instanceof ActorPF2e && a.isOfType("creature"));
         for (const actor of removedCreatures) {
@@ -303,8 +303,8 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Overriden to inform creatures the party is defunct */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         for (const member of this.members) {
             member.parties.delete(this);
         }

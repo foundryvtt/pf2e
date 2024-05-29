@@ -11,6 +11,7 @@ import {
     TraitTagifyEntry,
 } from "@module/sheet/helpers.ts";
 import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
+import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import {
     BasicConstructorOptions,
     LanguageSelector,
@@ -19,6 +20,7 @@ import {
     TagSelectorBasic,
 } from "@system/tag-selector/index.ts";
 import {
+    createHTMLElement,
     ErrorPF2e,
     fontAwesomeIcon,
     htmlClosest,
@@ -104,12 +106,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         enrichedContent.description = await TextEditor.enrichHTML(item._source.system.description.value, {
             rollData,
             secrets: item.isOwner,
-            async: true,
         });
-        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), {
-            rollData,
-            async: true,
-        });
+        enrichedContent.gmNotes = await TextEditor.enrichHTML(item.system.description.gm.trim(), { rollData });
 
         const validTraits = this.validTraits;
         const hasRarity = !item.isOfType("action", "condition", "deity", "effect", "lore", "melee");
@@ -167,6 +165,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 ),
             },
             proficiencyRanks: CONFIG.PF2E.proficiencyLevels, // lore only, will be removed later
+            publicationLicenses: [
+                { label: "PF2E.Publication.License.OGL", value: "OGL" },
+                { label: "PF2E.Publication.License.ORC", value: "ORC" },
+            ],
         };
     }
 
@@ -274,6 +276,13 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 }
             }
 
+            // Remove other edit button. Will be restored by editor save rerender
+            if (name === "system.description.value") {
+                htmlQuery(html, "a[data-action=add-gm-notes]")?.remove();
+            } else if (name === "system.description.gm") {
+                htmlQuery(html, "a.editor-edit")?.remove();
+            }
+
             htmlQuery(html, ".tab.description")?.classList.add("editing");
         }
 
@@ -289,6 +298,19 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
     override async close(options?: { force?: boolean }): Promise<void> {
         this.#editingRuleElementIndex = null;
         return super.close(options);
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: this.options.hasSidebar,
+        });
+        return plugins;
     }
 
     /* -------------------------------------------- */
@@ -323,6 +345,18 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const ruleElementSelect = htmlQuery<HTMLSelectElement>(rulesPanel, "select[data-action=select-rule-element]");
         ruleElementSelect?.addEventListener("change", () => {
             this.#selectedRuleElementType = ruleElementSelect.value;
+        });
+
+        // Add implementation for viewing an item's roll options
+        const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
+        viewRollOptionsElement?.addEventListener("click", async () => {
+            const rollOptions = R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":"));
+            const content = await renderTemplate("systems/pf2e/templates/items/roll-options.hbs", { rollOptions });
+            game.tooltip.dismissLockedTooltips();
+            game.tooltip.activate(viewRollOptionsElement, {
+                content: createHTMLElement("div", { innerHTML: content }),
+                locked: true,
+            });
         });
 
         for (const anchor of htmlQueryAll(rulesPanel, "a[data-action=add-rule-element]")) {
@@ -675,6 +709,7 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
             template: string;
         }[];
     };
+    publicationLicenses: FormSelectOption[];
     /** Lore only, will be removed later */
     proficiencyRanks: typeof CONFIG.PF2E.proficiencyLevels;
 }

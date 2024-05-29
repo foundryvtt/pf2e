@@ -95,15 +95,15 @@ export class StatusEffects {
     static #updateStatusIcons(): void {
         const iconTheme = game.settings.get("pf2e", "statusEffectType");
         const directory = iconTheme === "default" ? "conditions" : "conditions-2";
-        CONFIG.statusEffects = Object.entries(CONFIG.PF2E.statusEffects.conditions).map(([id, label]) => ({
+        CONFIG.statusEffects = Object.entries(CONFIG.PF2E.statusEffects.conditions).map(([id, name]) => ({
             id,
-            label,
-            icon: `systems/pf2e/icons/${directory}/${id}.webp` as const,
+            name,
+            img: `systems/pf2e/icons/${directory}/${id}.webp` as const,
         }));
         CONFIG.statusEffects.push({
             id: "dead",
-            label: "PF2E.Actor.Dead",
-            icon: CONFIG.controlIcons.defeated,
+            name: "PF2E.Actor.Dead",
+            img: CONFIG.controlIcons.defeated,
         });
     }
 
@@ -121,13 +121,14 @@ export class StatusEffects {
         iconGrid.append(titleBar);
 
         const statusIcons = iconGrid.querySelectorAll<HTMLImageElement>(".effect-control");
+        const deathIcon = game.settings.get("pf2e", "deathIcon");
 
         for (const icon of statusIcons) {
             // Replace the img element with a picture element, which can display ::after content
             const picture = document.createElement("picture");
             picture.classList.add("effect-control");
             picture.dataset.statusId = icon.dataset.statusId;
-            picture.title = icon.title;
+            picture.title = icon.dataset.tooltip ?? "";
             const iconSrc = icon.getAttribute("src") as ImageFilePath;
             picture.setAttribute("src", iconSrc);
             const newIcon = document.createElement("img");
@@ -145,7 +146,7 @@ export class StatusEffects {
             if (hideIcon) picture.style.display = "none";
 
             const affecting = affectingConditions.filter((c) => c.slug === slug);
-            if (affecting.length > 0 || iconSrc === token.document.overlayEffect) {
+            if (affecting.length > 0 || (iconSrc === deathIcon && token.actor?.statuses.has("dead"))) {
                 picture.classList.add("active");
             }
 
@@ -220,9 +221,10 @@ export class StatusEffects {
             return;
         }
 
-        const tokensAndActors = R.uniqBy(
-            R.compact(
+        const tokensAndActors = R.uniqueBy(
+            R.filter(
                 canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null)),
+                R.isTruthy,
             ),
             ([, a]) => a,
         );
@@ -269,9 +271,6 @@ export class StatusEffects {
             return;
         }
 
-        const imgElement = control.querySelector("img");
-        const iconSrc = imgElement?.getAttribute("src") as ImageFilePath | null | undefined;
-
         const affecting = actor?.conditions
             .bySlug(slug, { active: true, temporary: false })
             .find((c) => !c.system.references.parent);
@@ -281,16 +280,14 @@ export class StatusEffects {
             if (objectHasKey(CONFIG.PF2E.conditionTypes, slug)) {
                 const newCondition = game.pf2e.ConditionManager.getCondition(slug).toObject();
                 await token.actor?.createEmbeddedDocuments("Item", [newCondition]);
-            } else if (iconSrc && (event.shiftKey || control.dataset.statusId === "dead")) {
-                await token.toggleEffect(iconSrc, { overlay: true, active: true });
+            } else if (slug === "dead") {
+                await token.actor?.toggleStatusEffect(slug, { overlay: true });
             }
         } else if (event.type === "contextmenu") {
             if (affecting) conditionIds.push(affecting.id);
 
             if (conditionIds.length > 0) {
                 await token.actor?.deleteEmbeddedDocuments("Item", conditionIds);
-            } else if (token.document.overlayEffect === iconSrc) {
-                await token.document.update({ overlayEffect: "" });
             }
         }
     }
@@ -302,17 +299,17 @@ export class StatusEffects {
         const conditions = await Promise.all(
             token.actor.conditions.active.map(async (c) => ({
                 ...R.pick(c, ["name", "img"]),
-                description: await TextEditor.enrichHTML(c.description, { async: true }),
+                description: await TextEditor.enrichHTML(c.description),
             })),
         );
         if (conditions.length === 0) return null;
 
         const content = await renderTemplate("systems/pf2e/templates/chat/participant-conditions.hbs", { conditions });
         const messageSource: Partial<foundry.documents.ChatMessageSource> = {
-            user: game.user.id,
+            author: game.user.id,
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             content,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            style: CONST.CHAT_MESSAGE_STYLES.OTHER,
         };
         const isNPCEvent = !token.actor?.hasPlayerOwner;
         const whisperMessage = whisper || (isNPCEvent && game.settings.get("pf2e", "metagame_secretCondition"));

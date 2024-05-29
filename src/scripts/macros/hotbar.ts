@@ -146,7 +146,7 @@ export async function rollActionMacro({
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
     const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
-    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description), { async: true });
+    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description));
 
     const templateData = { actor, strike, identifier, description };
 
@@ -155,7 +155,7 @@ export async function rollActionMacro({
     const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
 
     const rollMode = game.settings.get("core", "rollMode");

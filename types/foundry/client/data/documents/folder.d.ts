@@ -55,7 +55,7 @@ declare global {
 
         override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            options: DatabaseCreateOperation<null>,
             user: User,
         ): Promise<boolean | void>;
 
@@ -94,7 +94,7 @@ declare global {
          */
         exportDialog(pack: string, options?: Record<string, unknown>): Promise<void>;
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
 
         /**
          * Get the Folder documents which are sub-folders of the current folder, either direct children or recursively.

@@ -13,6 +13,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import { EnviornmentPF2eRegionBehavior } from "@scene/region-behaviors/types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
@@ -94,7 +95,7 @@ function userColorForActor(actor: ActorPF2e): HexColorString {
         game.users.find((u) => u.character === actor) ??
         game.users.players.find((u) => actor.testUserPermission(u, "OWNER")) ??
         actor.primaryUpdater;
-    return user?.color ?? "#43dfdf";
+    return user?.color.toString() ?? "#43dfdf";
 }
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
@@ -250,6 +251,63 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     ).filter(([, value]) => !!value);
 
     return Object.fromEntries(entries);
+}
+
+/** Create roll options pertaining to the terrain the actor is currently in */
+function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean> {
+    const toAdd = new Set<string>();
+    // Always add the scene terrain types
+    for (const terrain of canvas.scene?.flags.pf2e.environmentTypes ?? []) {
+        toAdd.add(terrain);
+    }
+    const token = actor.getActiveTokens(false, true).at(0);
+    const terrains = ((): Set<string> => {
+        // No token on the scene means no terrain roll options
+        if (!token) return new Set<string>();
+        const toRemove = new Set<string>();
+        for (const region of token.regions ?? []) {
+            // An elevation value of null translates to Infinity
+            const bottom = region.elevation.bottom ?? -Infinity;
+            const top = region.elevation.top ?? Infinity;
+            if (token.elevation < bottom || token.elevation > top) continue;
+
+            for (const behavior of region.behaviors.filter(
+                (b): b is EnviornmentPF2eRegionBehavior => b.type === "pf2eEnvironment",
+            )) {
+                const system = behavior.system;
+                switch (system.mode) {
+                    case "add": {
+                        for (const terrain of system.environmentTypes) {
+                            toAdd.add(terrain);
+                        }
+                        break;
+                    }
+                    case "remove": {
+                        for (const terrain of system.environmentTypes) {
+                            toRemove.add(terrain);
+                        }
+                        break;
+                    }
+                    case "override": {
+                        // Only clear out the exisiting values in case there is another
+                        // behavior after the override
+                        toAdd.clear();
+                        toRemove.clear();
+                        for (const terrain of system.environmentTypes) {
+                            toAdd.add(terrain);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        for (const terrain of toRemove) {
+            toAdd.delete(terrain);
+        }
+        return toAdd;
+    })();
+
+    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
 }
 
 /** Whether flanking puts this actor off-guard */
@@ -688,6 +746,7 @@ export {
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    createEnvironmentRollOptions,
     getRangeIncrement,
     getStrikeAttackDomains,
     getStrikeDamageDomains,

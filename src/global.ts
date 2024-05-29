@@ -40,6 +40,7 @@ import type {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene";
+import type { RegionBehaviorInstance } from "@scene/region-behaviors/types.ts";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
@@ -69,6 +70,7 @@ import type {
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
+import type { CanvasBaseRegion } from "types/foundry/client/data/documents/client-base-mixes.d.ts";
 
 interface GamePF2e
     extends Game<
@@ -201,6 +203,8 @@ type ConfiguredConfig = Config<
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
+    RegionDocument<ScenePF2e | null>,
+    RegionBehavior<RegionDocument<ScenePF2e | null>>,
     TileDocumentPF2e,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
@@ -339,6 +343,12 @@ declare global {
         lte: (a: number, b: number) => boolean;
         ne: (a: number, b: number) => boolean;
         ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+    }
+
+    interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
+        tokens: Set<TokenDocumentPF2e>;
+
+        readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehaviorInstance<this>>;
     }
 
     const BUILD_MODE: "development" | "production";

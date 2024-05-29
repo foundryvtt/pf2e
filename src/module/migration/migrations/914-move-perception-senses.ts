@@ -143,7 +143,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 const save = saves[saveType];
                 if (R.isObject(save) && typeof save.rank === "number" && save.rank > 1) {
                     customChangesFeat.system = fu.mergeObject(
-                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamped(save.rank, 2, 4) } } } },
+                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamp(save.rank, 2, 4) } } } },
                         customChangesFeat.system,
                     );
                 }
@@ -158,7 +158,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             for (const category of categories) {
                 const proficiency = section[category];
                 if (R.isObject(proficiency) && typeof proficiency.rank === "number" && proficiency.rank > 0) {
-                    const rank = Math.clamped(proficiency.rank, 1, 4);
+                    const rank = Math.clamp(proficiency.rank, 1, 4);
                     customChangesFeat.system = fu.mergeObject(
                         {
                             subfeatures: {

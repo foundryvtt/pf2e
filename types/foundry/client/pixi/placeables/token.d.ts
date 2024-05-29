@@ -1,4 +1,5 @@
-export {};
+import type { PolygonVertex } from "../../../client-esm/canvas/edges/module.d.ts";
+import type { PointLightSource, PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
@@ -59,10 +60,10 @@ declare global {
         mesh: TokenMesh;
 
         /** A reference to the PointSource object which defines this vision source area of effect */
-        vision: VisionSource<this>;
+        vision: PointVisionSource<this>;
 
         /** A reference to the PointSource object which defines this light source area of effect */
-        light: LightSource<this>;
+        light: PointLightSource<this>;
 
         /** A reference to an animation that is currently in progress for this Token, if any */
         _animation: Promise<unknown> | null;
@@ -210,6 +211,13 @@ declare global {
          * @param [deleted] Indicate that this light source has been deleted.
          */
         updateLightSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
+
+        /**
+         * Update the VisionSource instance associated with this Token.
+         * @param {object} [options]        Options which affect how the vision source is updated
+         * @param {boolean} [options.deleted]   Indicate that this vision source has been deleted.
+         */
+        initializeVisionSource(options?: { deleted?: boolean }): void;
 
         /**
          * Update an Token vision source associated for this token.
@@ -473,23 +481,6 @@ declare global {
         toggleCombat(combat?: Combat): Promise<this>;
 
         /**
-         * Toggle an active effect by its texture path.
-         * Copy the existing Array in order to ensure the update method detects the data as changed.
-         * @param effect  The texture file-path of the effect icon to toggle on the Token.
-         * @param [options]      Additional optional arguments which configure how the effect is handled.
-         * @param [options.active]    Force a certain active state for the effect
-         * @param [options.overlay]   Whether to set the effect as the overlay effect?
-         * @return Was the texture applied (true) or removed (false)
-         */
-        toggleEffect(
-            effect: StatusEffect | ImageFilePath,
-            { active, overlay }?: { active?: boolean; overlay?: boolean },
-        ): Promise<boolean>;
-
-        /** A helper function to toggle the overlay status icon on the Token */
-        protected _toggleOverlayEffect(texture: ImageFilePath, { active }: { active: boolean }): Promise<this>;
-
-        /**
          * Toggle the visibility state of any Tokens in the currently selected set
          * @return A Promise which resolves to the updated Token documents
          */
@@ -517,13 +508,13 @@ declare global {
 
         protected override _onCreate(
             data: TDocument["_source"],
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseCreateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
         override _onUpdate(
             changed: DeepPartial<TDocument["_source"]>,
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
 
@@ -531,11 +522,11 @@ declare global {
         protected _onUpdateAppearance(
             data: DeepPartial<TDocument["_source"]>,
             changed: Set<string>,
-            options: DocumentModificationContext<TDocument["parent"]>,
+            options: DatabaseUpdateOperation<TDocument["parent"]>,
         ): Promise<void>;
 
         /** Define additional steps taken when an existing placeable object of this type is deleted */
-        protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
 
         protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
 

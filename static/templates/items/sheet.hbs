@@ -38,11 +38,7 @@
             <template class="traits-extra">
                 {{#if item.rarity}}
                     <select class="tag rarity {{item.rarity}}" data-property="system.traits.rarity">
-                        {{#select item.rarity}}
-                            {{#each rarities as |label key|}}
-                                <option value="{{key}}">{{localize label}}</option>
-                            {{/each}}
-                        {{/select}}
+                        {{selectOptions rarities selected=item.rarity localize=true}}
                     </select>
                 {{/if}}
             </template>
@@ -87,12 +83,12 @@
             <section class="tab description" data-tab="description" data-tooltip-class="">
                 {{#if user.isGM}}
                     <section class="editor-container gm-notes{{#if enrichedContent.gmNotes}} has-content{{/if}}">
-                        {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable}}
+                        {{editor enrichedContent.gmNotes target="system.description.gm" button=true owner=owner editable=editable engine="prosemirror"}}
                     </section>
                 {{/if}}
                 <section class="main editor-container">
                     {{#if (not isVariant)}}
-                        {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable}}
+                        {{editor enrichedContent.description target="system.description.value" button=true owner=owner editable=editable engine="prosemirror"}}
                     {{else}}
                         <div class="editor">
                             <div class="editor-content">{{{enrichedContent.description}}}</div>

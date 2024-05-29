@@ -4,22 +4,14 @@
         <div class="form-group">
             <p><label>{{localize "PF2E.CastingItemCreateDialog.spellLevelLabel"}}</label>
             <select name="level" data-dtype="Number">
-                {{#select level}}
-                    {{#each validLevels as |key|}}
-                        <option value="{{key}}">{{key}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions validLevels selected=level valueAttr="label"}}
             </select></p>
         </div>
     {{/if}}
     <div class="form-group">
         <p><label>{{localize "PF2E.CastingItemCreateDialog.itemTypeLabel"}}</label>
         <select name="itemType" data-dtype="String">
-            {{#select itemType}}
-                {{#each itemTypeOptions}}
-                    <option value="{{@key}}">{{localize this}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions itemTypeOptions selected=itemType localize=true}}
         </select></p>
     </div>
     <button type="submit"><i class="fa-regular fa-save"></i>{{localize "PF2E.CastingItemCreateDialog.submit"}}</button>

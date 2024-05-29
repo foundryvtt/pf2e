@@ -10,23 +10,14 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}usage">{{localize "PF2E.Item.Weapon.HandsLabel"}}</label>
             <select name="system.usage.value" id="{{fieldIdPrefix}}usage">
-                {{#select data.usage.value}}
-                    <option value="worngloves">0</option>
-                    <option value="held-in-one-hand">1</option>
-                    <option value="held-in-one-plus-hands">1+</option>
-                    <option value="held-in-two-hands">2</option>
-                {{/select}}
+                {{selectOptions usageOptions selected=data.usage.value}}
             </select>
         </div>
     {{else if (nor (eq item.type "armor") (eq item.type "shield") (eq item.type "treasure"))}}
         <div class="form-group">
             <label for="{{fieldIdPrefix}}usage">{{localize "PF2E.Usage"}}</label>
             <select name="system.usage.value" id="{{fieldIdPrefix}}usage">
-                {{#select data.usage.value}}
-                    {{#each usages as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions usages selected=data.usage.value localize=true}}
             </select>
         </div>
     {{/if}}
@@ -43,22 +34,14 @@
             data-dtype="Number"
             {{disabled bulkDisabled}}
         >
-            {{#select data.bulk.value}}
-                {{#each bulks as |bulk|}}
-                    <option value="{{bulk.value}}">{{bulk.label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions bulks selected=data.bulk.value valueAttr="value" labelAttr="label"}}
         </select>
     </div>
 
     <div class="form-group">
         <label for="{{fieldIdPrefix}}size">{{localize "PF2E.Size"}}</label>
         <select id="{{fieldIdPrefix}}size" data-property="system.size">
-            {{#select data.size}}
-                {{#each sizes as |name value|}}
-                    <option value="{{value}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions sizes selected=data.size localize=true}}
         </select>
     </div>
 
@@ -88,12 +71,7 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}stack-group">{{localize "PF2E.StackGroupLabel"}}</label>
             <select name="system.stackGroup" id="{{filedIdPrefix}}stack-group">
-                {{#select data.stackGroup}}
-                    <option value="">{{localize "None"}}</option>
-                    {{#each stackGroups as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions stackGroups selected=data.stackGroup blank="None" localize=true}}
             </select>
         </div>
     {{/if}}
@@ -123,9 +101,9 @@
 
     {{#if otherTags}}
         <ol class="item-tags tags">
-                {{#each otherTags as |tag|}}
-                    <li class="tag tag_transparent">{{tag.label}}</li>
-                {{/each}}
+            {{#each otherTags as |tag|}}
+                <li class="tag tag_transparent">{{tag.label}}</li>
+            {{/each}}
         </ol>
     {{/if}}
 </div>

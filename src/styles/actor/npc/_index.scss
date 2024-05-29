@@ -390,8 +390,6 @@ $faded-color: #7a7971;
                 flex-grow: 1;
 
                 .editor {
-                    height: 100%;
-
                     .editor-content {
                         min-height: 75px;
                     }
@@ -403,6 +401,13 @@ $faded-color: #7a7971;
 
                     a.editor-edit {
                         padding: 2px 2px 2px 0.25rem;
+                    }
+
+                    &.prosemirror {
+                        min-height: 18rem;
+                        .editor-container {
+                            margin: var(--space-4) 0;
+                        }
                     }
                 }
             }
@@ -419,10 +424,6 @@ $faded-color: #7a7971;
                     }
                 }
             }
-        }
-
-        .tox {
-            min-height: 20em;
         }
     }
 

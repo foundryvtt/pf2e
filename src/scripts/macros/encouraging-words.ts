@@ -36,13 +36,12 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                     successLabel = localize("CritFailure");
                 }
                 if (healFormula) {
-                    const healRoll = await new Roll(healFormula).roll({ async: true });
+                    const healRoll = await new Roll(healFormula).roll();
                     const rollType = degreeOfSuccess > 1 ? localize("Recovery") : localize("Damage");
                     const token = actor.getActiveTokens().shift()?.document ?? null;
 
                     ChatMessagePF2e.create({
                         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
-                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} ${localize("Title")}</strong> (${successLabel})`,
                         rolls: [healRoll.toJSON()],
                     });

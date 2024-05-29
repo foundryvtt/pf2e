@@ -2,9 +2,20 @@ export {};
 
 declare global {
     /** The Ruler - used to measure distances and trigger movements */
-    class Ruler extends PIXI.Container {
+    class Ruler<TToken extends Token | null, TUser extends User = User> extends PIXI.Container {
+        /** The possible Ruler measurement states. */
+        static get STATES(): {
+            INACTIVE: 0;
+            STARTING: 1;
+            MEASURING: 2;
+            MOVING: 3;
+        };
+
+        /** Is the ruler ready for measure? */
+        static get canMeasure(): boolean;
+
         /** Record the User which this Ruler references */
-        user: User;
+        user: TUser;
 
         /** The ruler name - used to differentiate between players */
         name: string;
@@ -12,45 +23,55 @@ declare global {
         /** The ruler color - by default the color of the active user */
         color: foundry.utils.Color;
 
-        /**
-         * This Array tracks individual waypoints along the ruler's measured path.
-         * The first waypoint is always the origin of the route.
-         */
-        waypoints: PIXI.Point[];
-
         /** The Ruler element is a Graphics instance which draws the line and points of the measured path */
         ruler: PIXI.Graphics;
 
         /** The Labels element is a Container of Text elements which label the measured path */
         labels: PIXI.Container;
 
-        /** Track the current measurement state */
-        protected _state: RulerState;
-
         /** The current destination point at the end of the measurement */
-        destination: Point;
+        destination: Point | null;
+
+        /** The origin point of the measurement, which is the first waypoint.  */
+        get origin(): Point | null;
+
+        /**
+         * This Array tracks individual waypoints along the ruler's measured path.
+         * The first waypoint is always the origin of the route.
+         */
+        waypoints: Point[];
 
         /** The array of most recently computed ruler measurement segments */
         segments: RulerMeasurementSegment[];
 
-        /** An enumeration of the possible Ruler measurement states. */
-        static STATES: {
-            INACTIVE: 0;
-            STARTING: 1;
-            MEASURING: 2;
-            MOVING: 3;
-        };
+        /** The measurement history. */
+        get history(): RulerMeasurementHistoryWaypoint[];
+
+        /** The computed total distance of the Ruler. */
+        totalDistance: number;
+
+        /** The computed total cost of the Ruler. */
+        totalCost: number;
+
+        /** The current state of the Ruler (one of {@link Ruler.STATES}). */
+        get state(): RulerState;
+
+        /** Track the current measurement state */
+        protected _state: RulerState;
 
         /**
          * @param user The User for whom to construct the Ruler instance
          */
-        constructor(user: User | undefined | null, { color }?: { color?: HexColorString | null });
+        constructor(user?: TUser | null, { color }?: { color?: ColorSource });
 
         /** Is the Ruler being actively used to measure distance? */
         get active(): boolean;
 
         /** Get a GridHighlight layer for this Ruler */
         get highlightLayer(): GridHighlight;
+
+        /** The Token that is moved by the Ruler. */
+        get token(): TToken | null;
 
         /* -------------------------------------------- */
         /*  Ruler Methods                               */
@@ -61,18 +82,31 @@ declare global {
 
         /**
          * Measure the distance between two points and render the ruler UI to illustrate it
-         * @param destination  The destination point to which to measure
-         * @param [gridSpaces] Restrict measurement only to grid spaces
-         * @returns The array of measured segments
+         * @param destination              The destination point to which to measure
+         * @param [options]                Additional options
+         * @param [options.snap=true]      Snap the destination?
+         * @param [options.force=false]    If not forced and the destination matches the current destination
+         *                                 of this ruler, no measuring is done and nothing is returned
+         * @returns                        The array of measured segments if measured
          */
-        measure(destination: PIXI.Point, { gridSpaces }?: { gridSpaces?: boolean }): RulerMeasurementSegment[] | void;
+        measure(destination: Point, options?: { snap?: boolean; force?: boolean }): RulerMeasurementSegment[] | void;
 
         /**
-         * While measurement is in progress, update the destination to be the central point of the target grid space.
-         * @param destination The current pixel coordinates of the mouse movement
-         * @returns The destination point, a center of a grid space
+         * Get the measurement origin.
+         * @param point                  The waypoint
+         * @param [options]              Additional options
+         * @param [options.snap=true]    Snap the waypoint?
          */
-        protected _getMeasurementDestination(destination: Point): PIXI.Point;
+        protected _getMeasurementOrigin(point: Point, options?: { snap?: boolean }): Point;
+
+        /**
+         * Get the destination point. By default the point is snapped to grid space centers.
+         * @param point                  The point coordinates
+         * @param [options]              Additional options
+         * @param [options.snap=true]    Snap the point?
+         * @returns                      The snapped destination point
+         */
+        protected _getMeasurementDestination(point: Point, options?: { snap?: boolean }): void;
 
         /**
          * Translate the waypoints and destination point of the Ruler into an array of Ray segments.
@@ -81,18 +115,47 @@ declare global {
         protected _getMeasurementSegments(): RulerMeasurementSegment[];
 
         /**
-         * Compute the distance of each segment and the total distance of the measured path.
-         * @param gridSpaces Base distance on the number of grid spaces moved?
+         * Handle the start of a Ruler measurement workflow
+         * @param origin                 The origin
+         * @param [options]              Additional options
+         * @param [options.snap=true]    Snap the origin?
+         * @param [options.token]        The token that is moved (defaults to {@link Ruler#_getMovementToken})
          */
-        protected _computeDistance(gridSpaces: boolean): void;
+        protected _startMeasurement(origin: Point, options?: { snap?: boolean; token?: TToken | null }): void;
 
-        /** Get the text label for a segment of the measured path */
-        protected _getSegmentLabel(segment: RulerMeasurementSegment, totalDistance: number): string;
+        /** Handle the conclusion of a Ruler measurement workflow */
+        protected _endMeasurement(): void;
+
+        /**
+         * Handle the addition of a new waypoint in the Ruler measurement path
+         * @param point                  The waypoint
+         * @param [options]              Additional options
+         * @param [options.snap=true]    Snap the waypoint?
+         */
+        protected _addWaypoint(point: Point, options?: { snap?: boolean }): void;
+
+        /** Handle the removal of a waypoint in the Ruler measurement path */
+        protected _removeWaypoint(): void;
+
+        /** Get the cost function to be used for Ruler measurements. */
+        protected _getCostFunction(): GridMeasurePathCostFunction | undefined;
+
+        /** Compute the distance of each segment and the total distance of the measured path. */
+        protected _computeDistance(): void;
+
+        /**
+         * Get the text label for a segment of the measured path
+         * @param segment
+         */
+        protected _getSegmentLabel(segment: RulerMeasurementSegment): string;
 
         /** Draw each segment of the measured path. */
         protected _drawMeasuredPath(): void;
 
-        /** Highlight the measurement required to complete the move in the minimum number of discrete spaces */
+        /**
+         * Highlight the measurement required to complete the move in the minimum number of discrete spaces
+         * @param segment
+         */
         protected _highlightMeasurementSegment(segment: RulerMeasurementSegment): void;
 
         /* -------------------------------------------- */
@@ -107,89 +170,134 @@ declare global {
          */
         moveToken(): Promise<boolean>;
 
-        /** Acquire a Token, if any, which is eligible to perform a movement based on the starting point of the Ruler */
-        protected _getMovementToken(): Token | undefined;
+        /**
+         * Acquire a Token, if any, which is eligible to perform a movement based on the starting point of the Ruler
+         * @param origin    The origin of the Ruler
+         * @returns         The Token that is to be moved, if any
+         */
+        protected _getMovementToken(origin: Point): TToken | null;
+
+        /**
+         * Get the current measurement history.
+         * @returns    The current measurement history, if any
+         */
+        protected _getMeasurementHistory(): RulerMeasurementHistoryWaypoint[] | void;
+
+        /**
+         * Create the next measurement history from the current history and current Ruler state.
+         * @returns    The next measurement history
+         */
+        protected _createMeasurementHistory(): RulerMeasurementHistoryWaypoint[];
+
+        /**
+         * Test whether a Token is allowed to execute a measured movement path.
+         * @param token    The Token being tested
+         * @returns        Whether the movement is allowed
+         * @throws         A specific Error message used instead of returning false
+         */
+        protected _canMove(token: TToken): boolean;
 
         /**
          * Animate piecewise Token movement along the measured segment path.
-         * @param token The Token being animated
-         * @returns A Promise which resolves once all animation is completed
+         * @param token           The Token being animated
+         * @returns               A Promise which resolves once all animation is completed
          */
-        protected _animateMovement(token: Token): Promise<void>;
+        protected _animateMovement(token: TToken): Promise<void>;
 
         /**
          * Update Token position and configure its animation properties for the next leg of its animation.
-         * @param token       The Token being updated
-         * @param segment     The measured segment being moved
-         * @param destination The adjusted destination coordinate
-         * @returns A Promise which resolves once the animation for this segment is done
+         * @param token          The Token being updated
+         * @param segment        The measured segment being moved
+         * @param destination    The adjusted destination coordinate
+         * @returns              A Promise which resolves once the animation for this segment is done
          */
-        protected _animateSegment(token: Token, segment: RulerMeasurementSegment, destination: Point): Promise<unknown>;
+        protected _animateSegment(
+            token: TToken,
+            segment: RulerMeasurementSegment,
+            destination: Point,
+        ): Promise<unknown>;
+
+        /**
+         * An method which can be extended by a subclass of Ruler to define custom behaviors before a confirmed movement.
+         * @param token       The Token that will be moving
+         */
+        protected _preMove(token: TToken): Promise<void>;
+
+        /**
+         * An event which can be extended by a subclass of Ruler to define custom behaviors before a confirmed movement.
+         * @param token       The Token that finished moving
+         */
+        protected _postMove(token: TToken): Promise<void>;
 
         /* -------------------------------------------- */
-        /*  Event Listeners and Handlers                */
+        /*  Saving and Loading
         /* -------------------------------------------- */
+
+        /**
+         * Broadcast Ruler measurement if its User is the connected client.
+         * The broadcast is throttled to 100ms.
+         */
+        protected _broadcastMeasurement(): void;
+
+        /** Package Ruler data to an object which can be serialized to a string. */
+        protected _getMeasurementData(): RulerMeasurementData;
+
+        /**
+         * Update a Ruler instance using data provided through the cursor activity socket
+         * @param data   Ruler data with which to update the display
+         */
+        update(data: RulerMeasurementData | null): void;
+
+        /* -------------------------------------------- */
+        /*  Event Listeners and Handlers
+       /* -------------------------------------------- */
 
         /**
          * Handle the beginning of a new Ruler measurement workflow
-         * @param event The drag start event
-         * @see {Canvas._onDragLeftStart}
+         * @see {Canvas.#onDragLeftStart}
+         * @param event   The drag start event
+         * @internal
          */
-        _onDragStart(event: PIXI.FederatedEvent): void;
+        protected _onDragStart(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle left-click events on the Canvas during Ruler measurement.
-         * @param event The pointer-down event
          * @see {Canvas._onClickLeft}
+         * @param event   The pointer-down event
+         * @internal
          */
         protected _onClickLeft(event: PIXI.FederatedEvent): void;
 
         /**
          * Handle right-click events on the Canvas during Ruler measurement.
-         * @param event The pointer-down event
          * @see {Canvas._onClickRight}
+         * @param event   The pointer-down event
+         * @internal
          */
         protected _onClickRight(event: PIXI.FederatedEvent): void;
 
         /**
          * Continue a Ruler measurement workflow for left-mouse movements on the Canvas.
-         * @param event The mouse move event
-         * @see {Canvas._onDragLeftMove}
+         * @see {Canvas.#onDragLeftMove}
+         * @param event   The mouse move event
+         * @internal
          */
         protected _onMouseMove(event: PIXI.FederatedEvent): void;
 
         /**
          * Conclude a Ruler measurement workflow by releasing the left-mouse button.
-         * @param event The pointer-up event
-         * @see {Canvas._onDragLeftDrop}
+         * @see {Canvas.#onDragLeftDrop}
+         * @param event   The pointer-up event
+         * @internal
          */
         protected _onMouseUp(event: PIXI.FederatedEvent): void;
 
-        /** Handle the addition of a new waypoint in the Ruler measurement path */
-        protected _addWaypoint(point: PIXI.Point): void;
-
         /**
-         * Handle the removal of a waypoint in the Ruler measurement path
-         * @param point  The current cursor position to snap to
-         * @param [snap] Snap exactly to grid spaces?
+         * Move the Token along the measured path when the move key is pressed.
+         * @param context
+         * @internal
          */
-        protected _removeWaypoint(point: PIXI.Point, { snap }?: { snap?: boolean }): void;
-
-        /** Handle the conclusion of a Ruler measurement workflow */
-        protected _endMeasurement(): void;
-
-        /* -------------------------------------------- */
-        /*  Saving and Loading                          */
-        /* -------------------------------------------- */
-
-        /** Package Ruler data to an object which can be serialized to a string. */
-        toJSON(): RulerData;
-
-        /**
-         * Update a Ruler instance using data provided through the cursor activity socket
-         * @param data Ruler data with which to update the display
-         */
-        update(data: RulerData): void;
+        protected _onMoveKeyDown(context: KeyboardEventContext): void;
     }
 
     interface RulerMeasurementSegment {
@@ -199,23 +307,45 @@ declare global {
         label: PreciseText;
         /** The measured distance of the segment */
         distance: number;
-        /** The string text displayed in the label */
-        text: string;
+        /** The measured cost of the segment */
+        cost: number;
+        /** The cumulative measured distance of this segment and the segments before it */
+        cumulativeDistance: number;
+        /** The cumulative measured cost of this segment and the segments before it */
+        cumulativeCost: number;
+        /** Is this segment part of the measurement history? */
+        history: boolean;
+        /** Is this segment the first one after the measurement history? */
+        first: boolean;
         /** Is this segment the last one? */
         last: boolean;
+        /** Animation options passed to {@link TokenDocument#update} */
+        animation: DatabaseUpdateOperation<TokenDocument>;
+        teleport: boolean;
     }
 
-    interface RulerData {
-        /** The ruler measurement state. */
-        _state: RulerState;
-        /** A unique name for the ruler containing the owning user's ID. */
-        name: string;
-        /** The current point the ruler has been extended to. */
-        destination: PIXI.Point;
-        /** The class name of this ruler instance. */
-        class: string;
-        /** Additional waypoints along the ruler's length, including the starting point. */
-        waypoints: PIXI.Point[];
+    interface RulerMeasurementHistoryWaypoint {
+        /** The x-coordinate of the waypoint */
+        x: number;
+        /** The y-coordinate of the waypoint */
+        y: number;
+        /** Teleported to from the previous waypoint this waypoint? */
+        teleport: boolean;
+        /** The cost of having moved from the previous waypoint to this waypoint */
+        cost: number;
+    }
+
+    interface RulerMeasurementData {
+        /** The state ({@link Ruler#state}) */
+        state: number;
+        /** The token ID ({@link Ruler#token}) */
+        token: string | null;
+        /** The measurement history ({@link Ruler#history}) */
+        history: RulerMeasurementHistoryWaypoint[];
+        /** The waypoints ({@link Ruler#waypoints}) */
+        waypoints: Point[];
+        /** The destination ({@link Ruler#destination}) */
+        destination: Point | null;
     }
 
     type RulerState = (typeof Ruler.STATES)[keyof typeof Ruler.STATES];

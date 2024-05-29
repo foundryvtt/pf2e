@@ -5,7 +5,7 @@
         {
             "_id": "gjSOMa3GBfSiK4Zr",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "bite",
+            "name": "Bite",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -46,6 +46,35 @@
             "type": "melee"
         },
         {
+            "_id": "cvbTdPKEcpuu4Kmf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sunless Sight",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>In an area of bright light, the giant fangtooth is @UUID[Compendium.pf2e.conditionitems.Item.Blinded] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "DIpqKd7UHJ1FKYIB",
             "flags": {
                 "core": {
@@ -54,7 +83,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Constrict",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -84,7 +113,7 @@
             "_id": "v7zAov3bUwcF8NFP",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Deep Puncture",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -94,14 +123,23 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Creatures critically hit by the fangtooth's bite take an additional @Damage[1d8[bleed]] damage.</p>"
+                    "value": "<p>Creatures critically hit by the fangtooth's bite take an additional 1d8 persistent bleed damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "bite-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -113,7 +151,7 @@
             "_id": "0ltEVxmK7WhyRI4r",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
@@ -139,7 +177,7 @@
             "_id": "6qC9RsbWbYZBGXIM",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""

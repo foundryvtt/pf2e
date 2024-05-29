@@ -244,12 +244,7 @@
         {{numberFormat data.initiative.totalModifier decimals=0 sign=true}}
     </a>
     <select name="system.initiative.statistic">
-        {{#select data.initiative.statistic}}
-            <option value="perception">{{localize "PF2E.PerceptionLabel"}}</option>
-            {{#each data.skills as |skill|}}
-                <option value="{{skill.slug}}">{{localize skill.label}}</option>
-            {{/each}}
-        {{/select}}
+        {{selectOptions initiativeOptions selected=data.initiative.statistic localize=true sort=true}}
     </select>
 </section>
 {{#with data.initiative}}

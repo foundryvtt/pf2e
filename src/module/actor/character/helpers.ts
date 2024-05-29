@@ -271,7 +271,7 @@ class WeaponAuxiliaryAction {
             content,
             speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
             flavor,
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
         });
     }
 }

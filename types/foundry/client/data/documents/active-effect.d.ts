@@ -123,7 +123,7 @@ declare global {
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<TParent>,
+            operation: DatabaseCreateOperation<TParent>,
             user: User,
         ): Promise<boolean | void>;
     }

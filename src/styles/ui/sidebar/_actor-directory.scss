@@ -14,6 +14,7 @@
     }
 
     ol.party-list {
+        border-bottom: 1px solid black;
         list-style-type: none;
         margin: 0 0 0.25rem 0;
         padding: 0;
@@ -21,15 +22,11 @@
     }
 
     li.folder-like {
-        border-top: none;
-        border-bottom: none;
-
         & > header {
-            border-bottom: 1px solid var(--color-border-dark);
-            border-top: 1px solid var(--color-border-dark);
             display: flex;
             line-height: 1.5rem;
             padding: 6px;
+            text-shadow: 0px 0px 3px var(--color-shadow-dark);
 
             .icon {
                 cursor: pointer;
@@ -117,13 +114,12 @@
                 margin-right: 8px;
             }
         }
-    }
 
-    .subdirectory .folder-like {
-        border-left: 1px solid var(--color-border-dark-1);
-
-        > header {
-            background: var(--primary-darker);
+        .directory-item {
+            border-left: 1px solid var(--color-border-dark-1);
+            .folder-like > header {
+                background: var(--primary-darker);
+            }
         }
     }
 

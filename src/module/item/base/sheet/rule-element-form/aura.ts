@@ -67,34 +67,36 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
         // Ensure only one checkbox or text input for each color input group has a `name` attribute
         for (const key of ["border", "highlight"] as const) {
             const inputName = `system.rules.${this.index}.appearance.${key}.color`;
-            const textInput = htmlQuery<HTMLInputElement>(html, `input[type=text][name="${inputName}"]`);
-            const colorInput = htmlQuery<HTMLInputElement>(html, `input[type=color][data-edit="${inputName}"]`);
+            const colorPicker = htmlQuery<HTMLInputElement>(html, `color-picker[name="${inputName}"]`);
+            const textInput = htmlQuery<HTMLInputElement>(colorPicker, "input[type=text]");
             const checkbox = htmlQuery<HTMLInputElement>(html, `input[type=checkbox][name="${inputName}"]`);
-            if (!(textInput && colorInput && checkbox)) {
+            if (!(colorPicker && textInput && checkbox)) {
                 continue;
             }
 
             if (this.object.appearance[key]?.color === "user-color") {
-                textInput.removeAttribute("name");
+                colorPicker.removeAttribute("name");
+                colorPicker.disabled = true;
                 textInput.disabled = true;
-                colorInput.disabled = true;
             } else {
                 checkbox.removeAttribute("name");
             }
 
-            checkbox.addEventListener("change", () => {
+            checkbox.addEventListener("change", (event) => {
+                event.stopPropagation();
+
                 if (checkbox.checked) {
-                    checkbox.name = textInput.name;
-                    textInput.removeAttribute("name");
+                    checkbox.name = inputName;
+                    colorPicker.removeAttribute("name");
+                    colorPicker.disabled = true;
                     textInput.disabled = true;
-                    colorInput.disabled = true;
-                    textInput.value = colorInput.value = userColorForActor(this.object.actor);
+                    textInput.value = colorPicker.value = userColorForActor(this.object.actor);
                 } else {
-                    textInput.name = checkbox.name;
+                    colorPicker.name = inputName;
                     checkbox.removeAttribute("name");
+                    colorPicker.disabled = false;
                     textInput.disabled = false;
-                    colorInput.disabled = false;
-                    textInput.value = colorInput.value = "#000000";
+                    textInput.value = colorPicker.value = "#000000";
                 }
             });
         }
@@ -130,8 +132,8 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
                 ...e,
                 item: fromUuidSync(e.uuid),
             })),
-            borderColor: border?.color === "user-color" ? userColor : border?.color ?? null,
-            highlightColor: highlight.color === "user-color" ? userColor : highlight?.color,
+            borderColor: border?.color === "user-color" ? userColor : border?.color?.toString() ?? null,
+            highlightColor: highlight.color === "user-color" ? userColor : highlight?.color?.toString(),
             saveTypes: CONFIG.PF2E.saves,
             isImageFile: isImageFilePath(this.rule.appearance?.texture?.src),
         };
@@ -176,17 +178,8 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
 
         // Clean up appearance data
         const appearance: DeepPartial<AuraRuleElementSource["appearance"]> = source.appearance;
-
-        // A color value will be `null` if a checkbox has be unchecked
-        if (appearance?.border?.color === null) {
-            appearance.border.color = "#000000";
-        }
-        if (appearance?.highlight?.color === null) {
-            appearance.highlight.color = "#000000";
-        }
-
-        const texture = appearance?.texture;
-        if (texture) {
+        if (appearance.texture) {
+            const texture = appearance.texture;
             if (texture.translation) {
                 const { x, y } = texture.translation;
                 if (!x && !y) {

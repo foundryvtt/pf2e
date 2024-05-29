@@ -137,6 +137,23 @@ declare global {
         }): Promise<Combat | null>;
 
         /**
+         * Toggle a configured status effect for the Actor.
+         * @param   statusId                A status effect ID defined in CONFIG.statusEffects
+         * @param   [options={}]            Additional options which modify how the effect is created
+         * @param   [options.active]        Force the effect to be active or inactive regardless of its current state
+         * @param   [options.overlay=false] Display the toggled effect as an overlay
+         * @returns A promise which resolves to one of the following values:
+         *                                 - ActiveEffect if a new effect need to be created
+         *                                 - true if was already an existing effect
+         *                                 - false if an existing effect needed to be removed
+         *                                 - undefined if no changes need to be made
+         */
+        toggleStatusEffect(
+            statusId: string,
+            options?: { active?: boolean; overlay?: boolean },
+        ): Promise<ActiveEffect<this> | boolean | void>;
+
+        /**
          * Request wildcard token images from the server and return them.
          * @param actorId   The actor whose prototype token contains the wildcard image path.
          * @param [options]
@@ -153,7 +170,7 @@ declare global {
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<TParent>,
+            options: DatabaseCreateOperation<TParent>,
             user: User,
         ): Promise<boolean | void>;
 
@@ -170,7 +187,7 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentUpdateContext<TParent>,
+            options: DatabaseUpdateOperation<TParent>,
             userId: string,
         ): void;
 
@@ -179,7 +196,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseCreateOperation<this>,
             userId: string,
         ): void;
 
@@ -188,7 +205,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseUpdateOperation<this>,
             userId: string,
         ): void;
 
@@ -202,7 +219,7 @@ declare global {
          */
         protected _updateDependentTokens(
             update?: Record<string, unknown>,
-            options?: DocumentModificationContext<TParent>,
+            options?: DatabaseUpdateOperation<TParent>,
         ): void;
     }
 

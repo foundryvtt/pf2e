@@ -17,6 +17,7 @@ import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -88,7 +89,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const baseWidth = this.options.width;
         if (typeof baseWidth === "number") {
             const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
-            this.position.width &&= Math.floor(Math.clamped(calculatedWidth, 0.75 * baseWidth, 1024));
+            this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
         }
     }
 
@@ -170,6 +171,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             totalWealthGold,
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             user: { isGM: game.user.isGM },
+            publicationLicenses: [
+                { label: "PF2E.Publication.License.OGL", value: "OGL" },
+                { label: "PF2E.Publication.License.ORC", value: "ORC" },
+            ],
         };
 
         await this.prepareItems?.(sheetData);
@@ -1325,6 +1330,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         return data;
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: true,
+        });
+        return plugins;
     }
 }
 

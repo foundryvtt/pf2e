@@ -50,11 +50,7 @@
                     </td>
                     <td class="acuity">
                         <select name="{{key}}" {{disabled (not choice.canSetAcuity)}}>
-                            {{#select choice.acuity}}
-                                {{#each ../senseAcuities as |label acuity|}}
-                                    <option value="{{acuity}}">{{localize label}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions ../senseAcuities selected=choice.acuity localize=true}}
                         </select>
                     </td>
                     <td class="range">

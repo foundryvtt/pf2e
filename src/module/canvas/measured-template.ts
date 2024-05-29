@@ -25,9 +25,22 @@ class MeasuredTemplatePF2e<
         return this.document.areaShape;
     }
 
-    /** Set the template layer's grid precision appropriately for this measured template's shape. */
-    snapForShape(): void {
-        this.layer.snapFor(this.areaShape);
+    /**
+     * Returns the snapping for this template's highlight.
+     * Note that circle templates created via the canvas controls are neither bursts nor emanations, and thus can go in either position.
+     */
+    get snappingMode(): number {
+        const M = CONST.GRID_SNAPPING_MODES;
+        switch (this.areaShape) {
+            case "burst":
+                return M.CORNER;
+            case "emanation":
+                return M.CENTER;
+            case "cone":
+                return M.CENTER | M.CORNER | M.SIDE_MIDPOINT;
+            default:
+                return M.CENTER | M.CORNER;
+        }
     }
 
     override highlightGrid(): void {
@@ -39,27 +52,17 @@ class MeasuredTemplatePF2e<
 
         // Refrain from highlighting if not visible
         if (!this.isVisible) {
-            canvas.grid.getHighlightLayer(this.highlightId)?.clear();
+            canvas.interface.grid.getHighlightLayer(this.highlightId)?.clear();
             return;
         }
 
-        this.snapForShape();
         highlightGrid({
             areaShape: this.areaShape,
             object: this,
             document: this.document,
-            colors: { border: this.borderColor, fill: this.fillColor },
+            colors: { border: Number(this.document.borderColor), fill: Number(this.document.fillColor) },
             preview: true,
         });
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Handlers                              */
-    /* -------------------------------------------- */
-
-    protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<void | TDocument[]> {
-        this.snapForShape();
-        return super._onDragLeftDrop(event);
     }
 }
 

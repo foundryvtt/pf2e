@@ -158,7 +158,7 @@ export class DamagePF2e {
         const roll = await (() => {
             const damage = data.damage;
             if (damage.roll) {
-                return damage.roll.evaluate({ async: true });
+                return damage.roll.evaluate();
             }
 
             const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
@@ -185,7 +185,7 @@ export class DamagePF2e {
                 showBreakdown,
             };
 
-            return new DamageRoll(formula, {}, options).evaluate({ async: true });
+            return new DamageRoll(formula, {}, options).evaluate();
         })();
 
         if (roll === null) return null;
@@ -277,7 +277,7 @@ export class DamagePF2e {
             const rolls: RollJSON[] = [];
             for (const splash of splashInstances) {
                 const formula = `(${splash.total}[splash])[${splash.damageType}]`;
-                const roll = await new DamageRoll(formula).evaluate({ async: true });
+                const roll = await new DamageRoll(formula).evaluate();
                 roll.options.splashOnly = true;
                 rolls.push(roll.toJSON());
             }

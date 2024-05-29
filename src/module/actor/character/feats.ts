@@ -360,7 +360,9 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
 
         // If this is a new feat, create a new feat item on the actor first
         if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
-            const source = fu.mergeObject(feat.toObject(), { system: { location } });
+            const source = fu.mergeObject(feat.toObject(), {
+                system: { location, level: { taken: slot?.level ?? this.actor.level } },
+            });
             changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
             const label = game.i18n.localize(this.label);
             ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));

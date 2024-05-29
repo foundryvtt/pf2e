@@ -110,11 +110,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: LootSource,
-        options: DocumentModificationContext<TParent>,
-        userId: string,
-    ): void {
+    protected override _onCreate(data: LootSource, options: DatabaseCreateOperation<TParent>, userId: string): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
@@ -123,13 +119,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
         if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
     }
 
     protected override _onCreateDescendantDocuments(
@@ -137,13 +133,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         collection: "effects" | "items",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         result: ActiveEffectPF2e<this>["_source"][] | ItemPF2e<this>["_source"][],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
-        super._onCreateDescendantDocuments(parent, collection, documents, result, options, userId);
+        super._onCreateDescendantDocuments(parent, collection, documents, result, operation, userId);
     }
 
     protected override _onDeleteDescendantDocuments(
@@ -151,13 +147,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         collection: "items" | "effects",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, operation, userId);
     }
 }
 

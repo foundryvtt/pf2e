@@ -10,25 +10,13 @@
             {{!-- TRAITS --}}
             <div class="tags paizo-style">
                 <select class="tag rarity {{data.traits.rarity}}" data-property="system.traits.rarity">
-                    {{#select data.traits.rarity}}
-                        {{#each rarityTraits as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions rarityTraits selected=data.traits.rarity localize=true}}
                 </select>
                 <select class="alignment tag {{data.details.alignment}}" name="system.details.alignment">
-                    {{#select data.details.alignment}}
-                        {{#each alignments as |alignment|}}
-                            <option value="{{alignment}}">{{alignment}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions alignments selected=data.details.alignment}}
                 </select>
                 <select name="system.traits.type" class="tag">
-                    {{#select data.traits.type}}
-                        {{#each armyTypes as |label type|}}
-                            <option value="{{type}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions armyTypes selected=data.traits.type localize=true}}
                 </select>
             </div>
             <label class="level-label stats">

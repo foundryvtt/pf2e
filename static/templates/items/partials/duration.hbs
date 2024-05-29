@@ -5,10 +5,6 @@
         <input type="number" name="{{base}}.value" value="{{duration.value}}" />
     {{/if}}
     <select id="{{item.uuid}}-duration" name="{{base}}.unit">
-        {{#select duration.unit}}
-            {{#each units as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-            {{/each}}
-        {{/select}}
+        {{selectOptions units selected=duration.unit localize=true}}
     </select>
 </div>

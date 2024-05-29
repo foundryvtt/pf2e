@@ -78,7 +78,9 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         if (showBordersHighlights && (this.token.hover || this.token.layer.highlightObjects)) {
             const { highlightId } = this;
-            const highlight = canvas.grid.highlightLayers[highlightId] ?? canvas.grid.addHighlightLayer(highlightId);
+            const highlight =
+                canvas.interface.grid.highlightLayers[highlightId] ??
+                canvas.interface.grid.addHighlightLayer(highlightId);
             highlight.clear();
             for (const aura of this.values()) {
                 aura.highlight();
@@ -113,6 +115,6 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
     }
 
     clearHighlights(): void {
-        canvas.grid.destroyHighlightLayer(this.highlightId);
+        canvas.interface.grid.destroyHighlightLayer(this.highlightId);
     }
 }

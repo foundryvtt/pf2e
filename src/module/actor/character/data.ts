@@ -71,6 +71,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
     };
+    skills: Partial<Record<SkillAbbreviation, { rank: ZeroToFour }>>;
     resources: CharacterResourcesSource;
     initiative: CreatureInitiativeSource;
     crafting?: { formulas: CraftingFormulaData[] };
