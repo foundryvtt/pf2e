@@ -134,11 +134,26 @@ declare global {
          * Handle saving the content of a specific editor by name
          * @param name     The named editor to save
          * @param [remove] Remove the editor after saving its content
+         * @param [preventRender] Prevent normal re-rendering of the sheet after saving
          */
-        saveEditor(name: string, { remove }?: { remove?: boolean }): Promise<void>;
+        saveEditor(
+            name: string,
+            { remove, preventRender }?: { remove?: boolean; preventRender?: boolean },
+        ): Promise<void>;
 
         /** Activate a TinyMCE editor instance present within the form */
         protected _activateEditor(div: JQuery | HTMLElement): void;
+
+        /**
+         * Configure ProseMirror plugins for this sheet.
+         * @param name                   The name of the editor.
+         * @param [options]              Additional options to configure the plugins.
+         * @param [options.remove=true]  Whether the editor should destroy itself on save.
+         */
+        protected _configureProseMirrorPlugins(
+            name: string,
+            options?: { remove?: boolean },
+        ): Record<string, ProseMirror.Plugin>;
 
         /** Activate a FilePicker instance present within the form */
         protected _activateFilePicker(button: JQuery | HTMLElement): void;

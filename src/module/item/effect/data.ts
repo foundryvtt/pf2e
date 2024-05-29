@@ -39,7 +39,7 @@ interface EffectSystemSource extends AbstractEffectSystemSource {
 }
 
 interface EffectSystemData
-    extends Omit<EffectSystemSource, "description" | "fromSpell">,
+    extends Omit<EffectSystemSource, "badge" | "description" | "fromSpell">,
         Omit<AbstractEffectSystemData, "level"> {
     expired: boolean;
     badge: EffectBadge | null;

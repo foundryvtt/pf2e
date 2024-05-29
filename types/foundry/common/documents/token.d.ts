@@ -55,18 +55,21 @@ type TokenSchema = {
     delta: ActorDeltaField<documents.BaseActorDelta<BaseToken>>;
     appendNumber: fields.BooleanField;
     prependAdjective: fields.BooleanField;
-    /** The token's texture on the canvas. */
-    texture: data.TextureData;
     /** The width of the Token in grid units */
     width: fields.NumberField<number, number, true, false>;
     /** The height of the Token in grid units */
     height: fields.NumberField<number, number, true, false>;
+    /** The token's texture on the canvas. */
+    texture: data.TextureData;
+    hexagonalShape: fields.NumberField;
     /** The x-coordinate of the top-left corner of the Token */
     x: fields.NumberField<number, number, true, false>;
     /** The y-coordinate of the top-left corner of the Token */
     y: fields.NumberField<number, number, true, false>;
     /** The vertical elevation of the Token, in distance units */
     elevation: fields.NumberField<number, number, true, false>;
+    sort: fields.NumberField<number, number, true, false, true>;
+    locked: fields.BooleanField;
     /** Prevent the Token image from visually rotating? */
     lockRotation: fields.BooleanField;
     /** The rotation of the Token in degrees, from 0 to 360. A value of 0 represents a southward-facing Token. */
@@ -75,8 +78,6 @@ type TokenSchema = {
     effects: fields.ArrayField<
         fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, false>
     >;
-    /** A single icon path which is displayed as an overlay on the Token */
-    overlayEffect: fields.StringField<ImageFilePath | VideoFilePath | "">;
     /** The opacity of the token image */
     alpha: fields.AlphaField;
     /** Is the Token currently hidden from player view? */
@@ -102,7 +103,7 @@ type TokenSchema = {
         /** Should vision computation and rendering be active for this Token? */
         enabled: fields.BooleanField;
         /** How far in distance units the Token can see without the aid of a light source */
-        range: fields.NumberField<number, number, true, false>;
+        range: fields.NumberField<number, number, true, true, true>;
         /** An angle at which the Token can see relative to their direction of facing */
         angle: fields.AngleField;
         /** The vision mode which is used to render the appearance of the visible area */
@@ -126,9 +127,24 @@ type TokenSchema = {
             /** Whether or not this detection mode is presently enabled */
             enabled: fields.BooleanField;
             /** The maximum range in distance units at which this mode can detect targets */
-            range: fields.NumberField<number, number, true, false>;
+            range: fields.NumberField<number, number, true>;
         }>
     >;
+    occludable: fields.SchemaField<{
+        radius: fields.NumberField<number, number, false, false>;
+    }>;
+    ring: fields.SchemaField<{
+        enabled: fields.BooleanField;
+        colors: fields.SchemaField<{
+            ring: fields.ColorField;
+            background: fields.ColorField;
+        }>;
+        effects: fields.NumberField;
+        subject: fields.SchemaField<{
+            scale: fields.NumberField;
+            texture: fields.FilePathField;
+        }>;
+    }>;
     /** An object of optional key/value flags */
     flags: fields.ObjectField<DocumentFlags>;
 };

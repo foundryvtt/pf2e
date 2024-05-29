@@ -3,12 +3,7 @@
     <div class="form-group">
         <label for="{{fieldIdPrefix}}base">{{localize "PF2E.Item.Physical.Base"}}</label>
         <select id="{{fieldIdPrefix}}base" data-property="system.baseItem">
-            {{#select data.baseItem}}
-                <option value=""></option>
-                {{#each baseTypes as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions baseTypes selected=data.baseItem blank=""}}
         </select>
     </div>
 
@@ -82,29 +77,14 @@
             data-dtype="JSON"
             {{disabled (not canChangeMaterial)}}
         >
-            {{#select preciousMaterials.value}}
-                <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
-                {{#each preciousMaterials.materials as |material|}}
-                    <optgroup label="{{material.label}}">
-                        {{#each material.grades as |grade|}}
-                            <option value="{{grade.value}}">
-                                {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
-                            </option>
-                        {{/each}}
-                    </optgroup>
-                {{/each}}
-            {{/select}}
+            {{selectOptions preciousMaterials.materials selected=preciousMaterials.value}}
         </select>
     </div>
 
     <div class="form-group">
         <label for="{{fieldIdPrefix}}runes-reinforcing">{{localize "PF2E.Item.Shield.Rune.Reinforcing.Label"}}</label>
         <select name="system.runes.reinforcing" id="{{fieldIdPrefix}}runes-reinforcing" data-dtype="Number">
-            {{#select data.runes.reinforcing}}
-                {{#each reinforcing as |label number|}}
-                    <option value="{{number}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions (omit reinforcing 0) selected=data.runes.reinforcing blank="" labelAttr="name" localize=true}}
         </select>
     </div>
 
@@ -112,22 +92,14 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}integrated-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
             <select name="system.traits.integrated.runes.potency" id="{{fieldIdPrefix}}integrated-potency" data-dtype="Number">
-                {{#select data.traits.integrated.runes.potency}}
-                    {{#each weaponRunes.potency as |data number|}}
-                        <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (omit weaponRunes.potency 0) selected=data.traits.integrated.runes.potency labelAttr="name" blank="" localize=true}}
             </select>
         </div>
 
         <div class="form-group">
             <label for="{{fieldIdPrefix}}integrated-runes-potency">{{localize "PF2E.StrikingRuneLabel"}}</label>
             <select name="system.traits.integrated.runes.striking" id="{{fieldIdPrefix}}integrated-runes-potency" data-dtype="Number">
-                {{#select data.traits.integrated.runes.striking}}
-                    {{#each weaponRunes.striking as |data number|}}
-                        <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (omit weaponRunes.striking 0) selected=data.traits.integrated.runes.striking labelAttr="name" blank="" localize=true}}
             </select>
         </div>
 
@@ -145,12 +117,7 @@
                     {{disabled slot.disabled}}
                     {{#if slot.readOnly}}class="readonly"{{/if}}
                 >
-                    {{#select slot.slug}}
-                        <option value=""></option>
-                        {{#each @root.weaponRunes.property as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions @root.weaponRunes.property selected=slot.slug valueAttr="slug" labelAttr="name" blank="" localize=true}}
                 </select>
             </div>
         {{/each}}

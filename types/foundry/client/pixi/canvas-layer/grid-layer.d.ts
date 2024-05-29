@@ -3,8 +3,6 @@ export {};
 declare global {
     /** A CanvasLayer responsible for drawing a square grid */
     class GridLayer extends CanvasLayer {
-        grid: BaseGrid;
-
         highlight: PIXI.Container;
 
         highlightLayers: Record<string, PIXI.Graphics>;
@@ -45,31 +43,6 @@ declare global {
          * @return An Array [x, y] of the top-left coordinate of the square which contains (x, y)
          */
         getTopLeft(x: number, y: number): PointArray;
-
-        /**
-         * Given a pair of coordinates (x, y), return the center of the grid square which contains that point
-         * @return An Array [x, y] of the central point of the square which contains (x, y)
-         */
-        getCenter(x: number, y: number): PointArray;
-
-        /**
-         * Measure the grid-wise distance between two point coordinates.
-         * @param origin The origin point
-         * @param target The target point
-         * @param [options] Additional options which modify the measurement
-         * @return The measured distance between these points
-         *
-         * @example
-         * let distance = canvas.grid.measureDistance({x: 1000, y: 1000}, {x: 2000, y: 2000});
-         */
-        measureDistance(origin: Point, target: Point, options?: MeasureDistancesOptions): number;
-
-        /**
-         * Measure the distance traveled over an array of distance segments.
-         * @param segments  An array of measured segments
-         * @param [options] Additional options which modify the measurement
-         */
-        measureDistances(segments: Segment[], options?: MeasureDistancesOptions): number[];
 
         /* -------------------------------------------- */
         /*  Grid Highlighting Methods                   */

@@ -2,8 +2,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.SETTINGS.DeathIcon.Name"}}</label>
         <div class="form-fields">
-            {{filePicker target="deathIcon" type="imagevideo"}}
-            <input class="image" type="text" name="deathIcon" placeholder="path/image.png" value="{{values.deathIcon}}" />
+            <file-picker name="deathIcon" type="imagevideo" value="{{values.deathIcon}}"></file-picker>
         </div>
         <p class="hint">{{localize "PF2E.SETTINGS.DeathIcon.Hint"}}</p>
     </div>
@@ -11,11 +10,7 @@
         <label>{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Name"}}</label>
         <div class="form-fields">
             <select name="actorsDeadAtZero">
-                {{#select values.actorsDeadAtZero}}
-                    <option value="both">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both"}}</option>
-                    <option value="npcsOnly">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly"}}</option>
-                    <option value="neither">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither"}}</option>
-                {{/select}}
+                {{selectOptions values.deadAtZeroOptions selected=values.actorsDeadAtZero localize=true}}
             </select>
         </div>
         <p class="hint">{{localize "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Hint"}}</p>

@@ -41,6 +41,12 @@
                     <a data-action="regenerate-slug" data-tooltip="PF2E.Item.Rules.RegenerateSlug"><i class="fa-solid fa-fw fa-sync-alt"></i></a>
                 </div>
             </div>
+            <div class="form-group">
+                <a data-action="view-roll-options" data-tooltip-class="pf2e roll-options" data-tooltip-direction="RIGHT">
+                    {{localize "PF2E.Item.Rules.ViewRollOptions"}}
+                    <i class="fa-solid fa-circle-info"></i>
+                </a>
+            </div>
         </div>
         <div class="rule-element-forms">
             {{#each rules.elements as |form|}}
@@ -49,11 +55,7 @@
         </div>
         <div class="create-rule-element">
             <select data-action="select-rule-element">
-                {{#select rules.selection.selected}}
-                    {{#each rules.selection.types as |value key|}}
-                        <option value="{{key}}">{{value}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions rules.selection.types selected=rules.selection.selected}}
             </select>
             <a data-action="add-rule-element"><i class="fa-solid fa-plus"></i> {{localize "PF2E.Item.Rules.New"}}</a>
         </div>

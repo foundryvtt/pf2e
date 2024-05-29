@@ -22,10 +22,10 @@ function measureDistanceCuboid(
 ): number {
     if (!canvas.grid) return NaN;
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return canvas.grid.measureDistance(r0, r1);
+        return canvas.grid.measurePath([r0, r1]).distance;
     }
 
-    const gridWidth = canvas.grid.grid.w;
+    const gridWidth = canvas.grid.sizeX;
 
     const distance = {
         dx: 0,
@@ -120,7 +120,7 @@ function measureDistanceCuboid(
  */
 function measureDistance(p0: Point, p1: Point): number {
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return canvas.grid.measureDistance(p0, p1);
+        return canvas.grid.measurePath([p0, p1]).distance;
     }
 
     return measureDistanceOnGrid(new Ray(p0, p1));
@@ -175,7 +175,8 @@ function highlightGrid({
     // Only highlight for objects that are non-previews (have IDs)
     if (!object.id && !preview) return;
 
-    const { grid, dimensions } = canvas;
+    const dimensions = canvas.dimensions;
+    const grid = canvas.interface.grid;
     if (!(grid && dimensions)) return;
 
     // Set data defaults
@@ -186,11 +187,15 @@ function highlightGrid({
     const highlightLayer = grid.getHighlightLayer(object.highlightId)?.clear();
     if (!highlightLayer) return;
 
-    const [cx, cy] = grid.getCenter(document.x, document.y);
-    const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
+    const center = canvas.grid.getCenterPoint({ x: document.x, y: document.y });
+    const { i: col0, j: row0 } = canvas.grid.getOffset({ x: center.x, y: center.y });
+
     const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
-    const snappedOrigin = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
+    const snappedOrigin =
+        "snappingMode" in object
+            ? canvas.grid.getSnappedPoint({ x: document.x, y: document.y }, { mode: object.snappingMode })
+            : object.center;
     const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
@@ -220,11 +225,11 @@ function highlightGrid({
     })();
 
     // Point we are measuring distances from
-    const padding = Math.clamped(document.width ?? 0, 1.5, 2);
+    const padding = Math.clamp(document.width ?? 0, 1.5, 2);
     const docDistance = document.distance ?? 0;
     const padded = (docDistance * padding) / dimensions.distance;
-    const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
-    const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
+    const rowCount = Math.ceil(padded / (dimensions.size / canvas.grid.sizeX));
+    const columnCount = Math.ceil(padded / (dimensions.size / canvas.grid.sizeY));
 
     // If this is an emanation, measure from the outer squares of the token's space
     const offsetEmanationOrigin = (destination: Point): Point => {
@@ -248,7 +253,7 @@ function highlightGrid({
     for (let a = -columnCount; a < columnCount; a++) {
         for (let b = -rowCount; b < rowCount; b++) {
             // Position of cell's top-left corner, in pixels
-            const [gx, gy] = canvas.grid.grid.getPixelsFromGridPosition(col0 + a, row0 + b);
+            const { x: gx, y: gy } = canvas.grid.getTopLeftPoint({ i: col0 + a, j: row0 + b });
             // Position of cell's center in pixels
             const destination = {
                 x: gx + dimensions.size * 0.5,
@@ -283,7 +288,7 @@ function highlightGrid({
                 });
 
             if (hasCollision) {
-                grid.grid.highlightGridPosition(highlightLayer, {
+                grid.highlightPosition(highlightLayer.name, {
                     x: gx,
                     y: gy,
                     border: 0x000001,
@@ -295,7 +300,7 @@ function highlightGrid({
                     .lineTo(gx + dimensions.size, gy + dimensions.size)
                     .endFill();
             } else {
-                grid.grid.highlightGridPosition(highlightLayer, {
+                grid.highlightPosition(highlightLayer.name, {
                     x: gx,
                     y: gy,
                     border: colors.border,
@@ -320,6 +325,7 @@ interface HighlightGridParams {
         direction?: number;
         width: number | null;
     }>;
+    snappingMode?: number;
     collisionType?: WallRestrictionType;
     preview?: boolean;
 }

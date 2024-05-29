@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { BadgeReevaluationEventType, EffectBadge, EffectBadgeSource } from "@item/abstract-effect/data.ts";
+import type { BadgeReevaluationEventType, EffectBadge } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e, EffectBadgeFormulaSource, EffectBadgeValueSource } from "@item/abstract-effect/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -55,7 +55,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                 if (badge.type === "counter") badge.loop ??= false;
                 badge.min = badge.labels ? 1 : badge.min ?? 1;
                 badge.max = badge.labels?.length ?? badge.max ?? Infinity;
-                badge.value = Math.clamped(badge.value, badge.min, badge.max);
+                badge.value = Math.clamp(badge.value, badge.min, badge.max);
                 badge.label = badge.labels?.at(badge.value - 1)?.trim() || null;
             }
 
@@ -120,7 +120,9 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const actor = this.actor;
         if (!actor) throw ErrorPF2e("A formula badge can only be evaluated if part of an embedded effect");
 
-        const roll = await new Roll(badge.value, this.getRollData()).evaluate({ async: true });
+        const roll = await new Roll(badge.value, this.getRollData()).evaluate();
+        const initial = initialValue ?? roll.total;
+        const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
         const token = actor.getActiveTokens(false, true).shift();
         const label = badge.labels ? badge.labels?.at(roll.total - 1)?.trim() : null;
         roll.toMessage({
@@ -128,8 +130,6 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         });
 
-        const initial = initialValue ?? roll.total;
-        const reevaluate = badge.reevaluate ? { event: badge.reevaluate, formula: badge.value, initial } : null;
         return { type: "value", value: roll.total, labels: badge.labels, reevaluate };
     }
 
@@ -140,7 +140,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (this.isOwned) {
@@ -154,12 +154,12 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             this._source.system.badge = await this.#evaluateFormulaBadge(badge);
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
-        changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        changed: DeepPartial<EffectSource>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
@@ -170,27 +170,20 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
             if (duration.value === -1) duration.value = 1;
         }
 
-        type BadgeUpdateData = DeepPartial<EffectBadgeSource> & DeepPartial<Record<string, unknown>>;
-        const currentBadge = this.system.badge;
-        const badgeChange = (changed.system?.badge ?? null) as BadgeUpdateData | null;
-        if (badgeChange) {
-            const badgeTypeChanged = badgeChange?.type && badgeChange.type !== currentBadge?.type;
-            const labels =
-                "labels" in badgeChange && Array.isArray(badgeChange.labels)
-                    ? badgeChange.labels
-                    : currentBadge?.labels;
-
+        // Run all badge change checks. As of V12, incoming data is not diffed, so we check the merged result
+        if (changed.system?.badge) {
+            const badgeSource = this._source.system.badge;
+            const badgeChange = fu.mergeObject(changed.system.badge, badgeSource ?? {}, { overwrite: false });
+            const badgeTypeChanged = badgeChange.type !== badgeSource?.type;
             if (badgeTypeChanged) {
                 // If the badge type changes, reset the value and min/max
                 badgeChange.value = 1;
-            } else if (currentBadge?.type === "counter") {
-                const [minValue, maxValue] = ((): [number, number] => {
-                    const configuredMin = Number(badgeChange.min ?? currentBadge.min);
-                    const configuredMax = Number(badgeChange.max ?? currentBadge.max);
-
-                    // Even if there are labels setting a max, an AE may have reduced the max (ex: oracle curses)
-                    return labels ? [1, Math.min(labels.length, configuredMax)] : [configuredMin, configuredMax];
-                })();
+            } else if (badgeChange.type === "counter") {
+                // Clamp to the counter value, or delete if decremented to 0
+                const labels = badgeChange.labels;
+                const [minValue, maxValue] = labels
+                    ? [1, Math.min(labels.length, badgeChange.max ?? Infinity)]
+                    : [badgeChange.min ?? 1, badgeChange.max ?? Infinity];
 
                 // Delete the item if it goes below the minimum value, but only if it is embedded
                 if (typeof badgeChange.value === "number" && badgeChange.value < minValue && this.actor) {
@@ -198,35 +191,34 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
                     return false;
                 }
 
-                const currentValue = Number(badgeChange.value ?? currentBadge.value ?? 1);
-                badgeChange.value = Math.clamped(currentValue, minValue, maxValue);
+                badgeChange.value = Math.clamp(badgeChange.value, minValue, maxValue);
             }
 
-            // Delete min/max under certain conditions. Foundry is a bit shakey with -= behavior in _preUpdates
-            if (badgeTypeChanged || labels || badgeChange.min === null) {
+            // Delete min/max under certain conditions.
+            if (badgeTypeChanged || badgeChange.labels || badgeChange.min === null) {
                 delete badgeChange.min;
-                if ("min" in (this._source.system.badge ?? {})) badgeChange["-=min"] = null;
+                if (badgeSource) fu.mergeObject(badgeChange, { "-=min": null });
             }
-            if (badgeTypeChanged || labels || badgeChange.max === null) {
+            if (badgeTypeChanged || badgeChange.labels || badgeChange.max === null) {
                 delete badgeChange.max;
-                if ("max" in (this._source.system.badge ?? {})) badgeChange["-=max"] = null;
+                if (badgeSource) fu.mergeObject(badgeChange, { "-=max": null });
             }
 
             // remove loop when type changes or labels are removed
-            if (badgeChange["-=labels"] === null || badgeTypeChanged) {
+            if ("loop" in badgeChange && (!badgeChange.labels || badgeTypeChanged)) {
                 delete badgeChange.loop;
-                if ("loop" in (this._source.system.badge ?? {})) badgeChange["-=loop"] = null;
+                if (badgeSource) fu.mergeObject(badgeChange, { "-=loop": null });
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
         if (this.actor) {
             game.pf2e.effectTracker.unregister(this as EffectPF2e<ActorPF2e>);
         }
-        super._onDelete(options, userId);
+        super._onDelete(operation, userId);
     }
 
     /** If applicable, reevaluate this effect's badge */

@@ -15,7 +15,7 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
     /** Following synthetic actor  updates, send the `Token` a fake update notification to trigger redraws */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
         super._onUpdate(changed, options, userId);
@@ -59,7 +59,11 @@ class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelt
             if (sizeChanged) fakeUpdates.width = this.parent.width;
             if (textureChanged) fakeUpdates.texture = fu.deepClone(this.parent._source.texture);
             if (lightChanged) fakeUpdates.light = this.parent.light.toObject();
-            this.parent.object?._onUpdate(fakeUpdates, { parent: this.parent.scene }, game.user.id);
+            this.parent.object?._onUpdate(
+                fakeUpdates,
+                { broadcast: false, updates: [], parent: this.parent.scene },
+                game.user.id,
+            );
         }
     }
 }

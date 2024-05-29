@@ -80,6 +80,10 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             damage: { type: "piercing", die: "d4" },
             traits: [],
         };
+        const meleeUsageBaseDamage = Object.entries(CONFIG.PF2E.damageDie).map(([die, label]) => ({
+            label: `1${game.i18n.localize(label)}`,
+            value: die,
+        }));
 
         const specificMagicData =
             weapon._source.system.specific ?? R.pick(weapon._source.system, ["material", "runes"]);
@@ -103,6 +107,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             mandatoryRanged,
             meleeGroups: sortStringRecord(CONFIG.PF2E.meleeWeaponGroups),
             meleeUsage,
+            meleeUsageBaseDamage,
             meleeUsageTraits: createSheetTags(CONFIG.PF2E.weaponTraits, meleeUsage.traits ?? []),
             otherTags,
             preciousMaterials: this.getMaterialSheetData(weapon, MATERIAL_DATA.weapon),
@@ -173,6 +178,8 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
                 delete formData[`system.runes.property.${index}`];
             }
         }
+        formData["system.runes.potency"] ||= 0;
+        formData["system.runes.striking"] ||= 0;
 
         return super._updateObject(event, formData);
     }
@@ -204,6 +211,7 @@ interface WeaponSheetData extends PhysicalItemSheetData<WeaponPF2e> {
     mandatoryRanged: boolean;
     meleeGroups: typeof CONFIG.PF2E.meleeWeaponGroups;
     meleeUsage: ComboWeaponMeleeUsage | undefined;
+    meleeUsageBaseDamage: FormSelectOption[];
     meleeUsageTraits: SheetOptions;
     otherTags: SheetOptions;
     preciousMaterials: MaterialSheetData;

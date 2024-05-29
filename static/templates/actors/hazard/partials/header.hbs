@@ -24,17 +24,10 @@
         {{#if editing}}
             <template class="traits-extra">
                 <select class="tag rarity" name="system.traits.rarity" value="{{data.traits.rarity}}">
-                    {{#select data.traits.rarity}}
-                        {{#each rarity as |label key|}}
-                            <option value="{{key}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions rarity selected=data.traits.rarity localize=true}}
                 </select>
                 <select class="tag" name="system.details.isComplex" data-dtype="Boolean">
-                    {{#select data.details.isComplex}}
-                        <option value="false">{{localize "PF2E.Actor.Hazard.Simple"}}</option>
-                        <option value="true">{{localize "PF2E.TraitComplex"}}</option>
-                    {{/select}}
+                    {{selectOptions complexityOptions selected=data.details.isComplex localize=true}}
                 </select>
             </template>
             <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON"

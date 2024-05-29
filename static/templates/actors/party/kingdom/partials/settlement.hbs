@@ -4,11 +4,7 @@
             <h4 class="drag-handle" data-drag-handle><i class="fa-solid fa-bars"></i></h4>
             <input class="name" type="text" value="{{settlement.name}}" name="settlements.{{settlement.id}}.name" placeholder="{{localize "PF2E.Kingmaker.Settlement.Name"}}" />
             <select class="type" name="settlements.{{settlement.id}}.type" data-dtype="String">
-                {{#select settlement.type}}
-                    {{#each @root.settlementTypes as |label value|}}
-                        <option value="{{value}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions @root.settlementTypes selected=settlement.type localize=true}}
             </select>
         {{else}}
             <h4 class="name drag-handle" data-drag-handle><a data-action="toggle-summary">{{settlement.name}}</a></h4>

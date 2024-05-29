@@ -4,9 +4,9 @@ import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
-import { LightLevels } from "../data.ts";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
@@ -29,7 +29,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
     override hasStatusEffect(statusId: string): boolean {
-        if (statusId === "dead") return this.overlayEffect === CONFIG.controlIcons.defeated;
+        if (statusId === "dead") return !!this.actor?.statuses.has("dead");
 
         const actor = this.actor;
         if (!actor || !game.pf2e.settings.rbv) {
@@ -49,7 +49,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     ): TrackedAttributesDescription {
         // This method is being called with no associated actor: fill from the models
         if (_path.length === 0 && Object.keys(data).length === 0) {
-            for (const [type, model] of Object.entries(game.system.model.Actor)) {
+            for (const [type, model] of Object.entries(game.model.Actor)) {
                 if (!["character", "npc"].includes(type)) continue;
                 fu.mergeObject(data, model);
             }
@@ -151,10 +151,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = this.bounds;
         if (this.width < 1) {
-            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            const position = canvas.grid.getTopLeftPoint({
+                x: bounds.x + bounds.width / 2,
+                y: bounds.y + bounds.height / 2,
+            });
             return new PIXI.Rectangle(
-                position[0],
-                position[1],
+                position.x,
+                position.y,
                 Math.max(canvas.grid.size, bounds.width),
                 Math.max(canvas.grid.size, bounds.height),
             );
@@ -247,52 +250,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** Set vision and detection modes based on actor data */
     protected override _prepareDetectionModes(): void {
-        const scene = this.parent;
-        const actor = this.actor;
-        if (!(scene && actor?.isOfType("creature") && this.rulesBasedVision)) {
-            return super._prepareDetectionModes();
-        }
-
-        // Reset sight defaults if using rules-based vision
-        this.detectionModes = [{ id: "basicSight", enabled: !!actor.perception?.hasVision, range: 0 }];
-        this.sight.attenuation = 0.1;
-        this.sight.brightness = 0;
-        this.sight.contrast = 0;
-        this.sight.range = 0;
-        this.sight.saturation = 0;
-        this.sight.visionMode = "basic";
-
-        const visionMode = this.hasDarkvision ? "darkvision" : "basic";
-        this.sight.visionMode = visionMode;
-        const visionModeDefaults = CONFIG.Canvas.visionModes[visionMode].vision.defaults;
-        this.sight.brightness = visionModeDefaults.brightness ?? 0;
-        this.sight.saturation = visionModeDefaults.saturation ?? 0;
-
-        if (visionMode === "darkvision" || scene.lightLevel > LightLevels.DARKNESS) {
-            const basicDetection = this.detectionModes.at(0);
-            if (!basicDetection) return;
-            this.sight.range = basicDetection.range = visionModeDefaults.range ?? 0;
-
-            if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
-                this.sight.saturation = 1;
-            } else if (!game.user.settings.monochromeDarkvision) {
-                this.sight.saturation = 0;
-            }
-        }
-
-        const maxRadius = scene.dimensions.maxR;
-        if (actor.perception.senses.has("see-invisibility")) {
-            this.detectionModes.push({ id: "seeInvisibility", enabled: true, range: maxRadius });
-        }
-
-        const tremorsense = actor.perception.senses.get("tremorsense");
-        if (tremorsense) {
-            this.detectionModes.push({ id: "feelTremor", enabled: true, range: tremorsense.range });
-        }
-
-        if (!actor.hasCondition("deafened")) {
-            const range = scene.flags.pf2e.hearingRange ?? maxRadius;
-            this.detectionModes.push({ id: "hearing", enabled: true, range });
+        if (this.scene && this.rulesBasedVision) {
+            computeSightAndDetectionForRBV(this);
+        } else {
+            super._prepareDetectionModes();
         }
     }
 
@@ -417,7 +378,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            this.object?._onUpdate(tokenChanges, {}, game.user.id);
+            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [] }, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
@@ -435,10 +396,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Toggle token hiding if this token's actor is a loot actor */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
         }
@@ -446,7 +407,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: TokenUpdateOperation<TParent>,
         userId: string,
     ): void {
         // Possibly re-render encounter tracker if token's `displayName` property has changed
@@ -460,19 +421,19 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.object.release();
         }
 
-        return super._onUpdate(changed, options, userId);
+        return super._onUpdate(changed, operation, userId);
     }
 
     protected override _onRelatedUpdate(
         update: Record<string, unknown> = {},
-        options: DocumentModificationContext<null> = {},
+        operation: DatabaseUpdateOperation<null>,
     ): void {
-        super._onRelatedUpdate(update, options);
+        super._onRelatedUpdate(update, operation);
         this.simulateUpdate(update);
     }
 
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
         if (!this.actor) return;
 
         if (this.isLinked) {

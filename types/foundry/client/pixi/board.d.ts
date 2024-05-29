@@ -10,17 +10,11 @@ declare global {
         TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
         TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
     > {
-        /** A perception manager interface for batching lighting, sight, and sound updates */
-        perception: PerceptionManager;
-
         /** A flag to indicate whether a new Scene is currently being drawn. */
         loading: boolean;
 
         /** A promise that resolves when the canvas is first initialized and ready. */
         initializing: Promise<void> | null;
-
-        /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
-        dimensions: SceneDimensions;
 
         /** A set of blur filter instances which are modified by the zoom level and the "soft shadows" setting */
         blurFilters: Set<PIXI.Filter>;
@@ -98,6 +92,21 @@ declare global {
         /** The primary stage container of the PIXI.Application. */
         stage: PIXI.Container;
 
+        /** The rendered canvas group which render the environment canvas group and the interface canvas group. */
+        rendered: RenderedCanvasGroup;
+
+        /** A singleton CanvasEdges instance. */
+        edges: foundry.canvas.edges.CanvasEdges;
+
+        /** The singleton FogManager instance. */
+        fog: FogManager;
+
+        /** A perception manager interface for batching lighting, sight, and sound updates. */
+        perception: PerceptionManager;
+
+        /** The environment canvas group which render the primary canvas group and the effects canvas group. */
+        environment: EnvironmentCanvasGroup;
+
         /**
          * The primary Canvas group which generally contains tangible physical objects which exist within the Scene.
          * This group is a {@link CachedContainer} which is rendered to the Scene as a {@link SpriteMesh}.
@@ -107,9 +116,15 @@ declare global {
 
         /**
          * The effects Canvas group which modifies the result of the {@link PrimaryCanvasGroup} by adding special effects.
-         * This includes lighting, weather, vision, and other visual effects which modify the appearance of the Scene.
+         * This includes lighting, vision, fog of war and related animations.
          */
         effects: TEffectsCanvasGroup;
+
+        /**
+         * The visibility Canvas group which handles the fog of war overlay by consolidating multiple render textures,
+         * and applying a filter with special effects and blur.
+         */
+        visibility: CanvasVisibility;
 
         /**
          * The interface Canvas group which is rendered above other groups and contains all interactive elements.
@@ -119,7 +134,7 @@ declare global {
         interface: InterfaceCanvasGroup;
 
         /** The overlay Canvas group which is rendered above other groups and contains elements not bound to stage transform. */
-        overlay: object;
+        overlay: OverlayCanvasGroup;
 
         /** The singleton HeadsUpDisplay container which overlays HTML rendering on top of this Canvas. */
         hud: HeadsUpDisplay;
@@ -127,10 +142,12 @@ declare global {
         /** Position of the mouse on stage. */
         mousePosition: PIXI.Point;
 
+        /** Force snapping to grid vertices? */
+        forceSnapVertices: boolean;
+
         // Layers
         controls: ControlsLayer;
         drawings: DrawingsLayer;
-        grid: GridLayer;
         lighting: TAmbientLight["layer"];
         notes: NotesLayer;
         sounds: SoundsLayer;
@@ -151,17 +168,20 @@ declare global {
         /** A reference to the currently displayed Scene document, or null if the Canvas is currently blank. */
         get scene(): TScene | null;
 
+        /** A SceneManager instance which adds behaviors to this Scene, or null if there is no manager. */
+        get manager(): foundry.canvas.SceneManager | null;
+
+        /** The current pixel dimensions of the displayed Scene, or null if the Canvas is blank. */
+        get dimensions(): SceneDimensions;
+
+        /** A reference to the grid of the currently displayed Scene document, or null if the Canvas is currently blank. */
+        get grid(): foundry.grid.BaseGrid;
+
         /** A flag for whether the game Canvas is ready to be used. False if the canvas is not yet drawn, true otherwise. */
         get ready(): boolean;
 
-        /** The fog of war bound to this canvas */
-        get fog(): object;
-
-        /** The color manager class bound to this canvas */
-        get colorManager(): CanvasColorManager;
-
         /** The colors bound to this scene and handled by the color manager. */
-        get colors(): CanvasColorManager["colors"];
+        get colors(): this["environment"]["colors"];
 
         /** Shortcut to get the masks container from HiddenCanvasGroup. */
         get masks(): PIXI.Container;
@@ -318,8 +338,9 @@ declare global {
         /**
          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
          * @param blurStrength The desired blur strength to use for this filter
+         * @param blurQuality The desired quality to use for this filter
          */
-        createBlurFilter(blurStrength?: number): PIXI.BlurFilter;
+        createBlurFilter(blurStrength?: number, blurQuality?: number): PIXI.BlurFilter;
 
         /**
          * Add a filter to the blur filter list. The filter must have the blur property
@@ -377,12 +398,6 @@ declare global {
          * @param event The originating mouse movement event
          */
         _onDragCanvasPan(event: MouseEvent): void;
-
-        /**
-         * Determine selection coordinate rectangle during a mouse-drag workflow
-         * @param event
-         */
-        _onDragSelect(event: PIXI.FederatedEvent): void;
     }
 
     type DrawnCanvas<T extends Canvas = Canvas> = {

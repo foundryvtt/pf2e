@@ -19,7 +19,7 @@ declare global {
     type DocumentConstructorOf<T extends foundry.abstract.Document> = {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         new (...args: any[]): T;
-        updateDocuments(updates?: object[], context?: DocumentModificationContext<T["parent"]>): Promise<T[]>;
+        updateDocuments(updates?: object[], operation?: Partial<DatabaseUpdateOperation<T["parent"]>>): Promise<T[]>;
     };
 
     type ParentOf<TDataModel> = TDataModel extends DataModel<infer P extends DataModel | null> ? P : never;

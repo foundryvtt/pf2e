@@ -228,14 +228,53 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The lightning turtle withdraws into its shell. This increases its AC to 36, but it can't act except to use Shell Shock or reemerge as a single action. While in its shell, the turtle's Shell Shock deals another @Damage[4d6[electricity]] damage and loses the nonlethal trait.</p>"
+                    "value": "<p>The lightning turtle withdraws into its shell. This increases its AC to 36, but it can't act except to use Shell Shock or reemerge as a single action. While in its shell, the turtle's Shell Shock deals another 4d6 damage and loses the nonlethal trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sparking-shell",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sparking-shell"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:shell-shock",
+                            "sparking-shell"
+                        ],
+                        "property": "dice-number",
+                        "selectors": [
+                            "inline-damage"
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "remove",
+                        "predicate": [
+                            "item:slug:shell-shock",
+                            "sparking-shell"
+                        ],
+                        "property": "traits",
+                        "value": "nonlethal"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -277,7 +316,7 @@
                 "mod": 1
             },
             "con": {
-                "mod": 0
+                "mod": 7
             },
             "dex": {
                 "mod": 1

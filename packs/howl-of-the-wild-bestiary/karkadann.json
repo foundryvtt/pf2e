@@ -344,7 +344,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The karkadann becomes frightened</p>\n<hr />\n<p><strong>Effect</strong> The karkadann reduces their frightened value by 1 (to a minimum of 0). The karkadann then Strides toward an enemy.</p>"
+                    "value": "<p><strong>Trigger</strong> The karkadann becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]</p>\n<hr />\n<p><strong>Effect</strong> The karkadann reduces their frightened value by 1 (to a minimum of 0). The karkadann then Strides toward an enemy.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -416,7 +416,24 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "impaling-charge",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "impaling-charge"
+                        ],
+                        "selector": "horn-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -443,7 +460,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Medium or smaller, Hoof, @Check[type:reflex|dc:25|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Medium or smaller, hoof, @Check[type:reflex|dc:25|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "publication": {
                     "license": "ORC",

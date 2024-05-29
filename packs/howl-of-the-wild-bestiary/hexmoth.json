@@ -12,7 +12,9 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "value": [
+                        "arcane-consumption"
+                    ]
                 },
                 "bonus": {
                     "value": 13
@@ -60,7 +62,7 @@
                 "damageRolls": {
                     "16emnHbKQlKOahUX": {
                         "damage": "2d8+6",
-                        "damageType": "acid"
+                        "damageType": "untyped"
                     }
                 },
                 "description": {
@@ -134,7 +136,61 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "advanced-arcanovore",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitAcid",
+                                "value": "acid"
+                            },
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            },
+                            {
+                                "label": "PF2E.TraitSonic",
+                                "value": "sonic"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "Immunity",
+                        "type": "{item|flags.pf2e.rulesSelections.advancedArcanovore}"
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:hexdust-wind"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.advancedArcanovore}"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.pf2e.rulesSelections.advancedArcanovore}"
+                        },
+                        "selector": "hexbolt-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -214,7 +270,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>With a few fierce wingbeats, the hexmoth expels magical scale dust in a @Template[type:cone|distance:30]. This deals 10d6 damage of the type to which the hexmoth is immune (DC 23 basic Fortitude save). It can't use Hexdust Wind again for [[/br 1d4 #Recharge Hexdust Wind]]{1d4 rounds}.</p>"
+                    "value": "<p>With a few fierce wingbeats, the hexmoth expels magical scale dust in a @Template[type:cone|distance:30]. This deals @Damage[10d6[untyped]] damage of the type to which the hexmoth is immune (@Check[type:fortitude|dc:23|basic:true] save). It can't use Hexdust Wind again for [[/br 1d4 #Recharge Hexdust Wind]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -222,7 +278,7 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "hexdust-wind",
                 "traits": {
                     "value": []
                 }

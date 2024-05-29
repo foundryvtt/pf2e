@@ -28,11 +28,7 @@
     <div class="form-fields">
         {{#if (eq rule.type "ability")}}
             <select name="{{basePath}}.ability">
-                {{#select rule.ability}}
-                    {{#each abilities as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions abilities selected=rule.ability localize=true}}
             </select>
             <label>
                 {{localize "PF2E.RuleEditor.FlatModifier.Force"}}
@@ -42,11 +38,7 @@
             {{{form.resolvableValue "value" hideButton=true}}}
         {{/if}}
         <select name="{{basePath}}.type" class="short">
-            {{#select rule.type}}
-                {{#each types as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions types selected=rule.type localize=true}}
         </select>
 
         {{{form.resolvableAddBracket "value"}}}
@@ -61,19 +53,10 @@
     <div class="form-fields">
         <input type="text" class="pf2e-tagify damage-type" name="{{basePath}}.damageType" value="{{rule.damageType}}"/>
         <select name="{{basePath}}.damageCategory" class="short">
-            {{#select rule.damageCategory}}
-                <option value=""></option>
-                {{#each damageCategories as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions damageCategories selected=rule.damageCategory blank="" localize=true}}
         </select>
         <select name="{{basePath}}.critical" class="short">
-            {{#select rule.critical}}
-                <option value="">{{localize "PF2E.RuleEditor.General.CriticalBehavior.null"}}</option>
-                <option value="false">{{localize "PF2E.RuleEditor.General.CriticalBehavior.false"}}</option>
-                <option value="true">{{localize "PF2E.RuleEditor.General.CriticalBehavior.true"}}</option>
-            {{/select}}
+            {{selectOptions criticalOptions selected=rule.critical blank="PF2E.RuleEditor.General.CriticalBehavior.null" localize=true}}
         </select>
     </div>
 </div>

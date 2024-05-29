@@ -68,6 +68,11 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
                     this.actor._source.system.saves.fortitude.value,
                 ),
             },
+            emitsSoundOptions: [
+                { value: "true", label: "PF2E.Actor.Hazard.EmitsSound.True" },
+                { value: "false", label: "PF2E.Actor.Hazard.EmitsSound.False" },
+                { value: "encounter", label: "PF2E.Actor.Hazard.EmitsSound.Encounter" },
+            ],
         };
     }
 
@@ -115,6 +120,7 @@ interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
     ac: AdjustedValue;
     frequencies: typeof CONFIG.PF2E.frequencies;
     saves: { fortitude: AdjustedValue };
+    emitsSoundOptions: FormSelectOption[];
 }
 
 type ActionsSheetData = Record<"action" | "reaction" | "free", { label: string; actions: ActionSheetData[] }>;

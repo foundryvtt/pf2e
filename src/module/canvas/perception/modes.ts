@@ -1,5 +1,5 @@
 import { TokenPF2e } from "../token/object.ts";
-import type { HearingSource } from "./hearing-source.ts";
+import type { PointVisionSourcePF2e } from "./point-vision-source.ts";
 
 const darkvision = new VisionMode({
     id: "darkvision",
@@ -17,20 +17,20 @@ const darkvision = new VisionMode({
     },
     vision: {
         darkness: { adaptive: true },
-        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0.75, range: Infinity },
+        defaults: { attenuation: 0, contrast: 0, saturation: -1.0, brightness: 0 },
     },
 });
 
-class VisionDetectionMode extends DetectionModeBasicSight {
+class LightPerceptionMode extends DetectionModeLightPerception {
     constructor() {
         super({
-            id: "basicSight",
-            label: "DETECTION.BasicSight",
+            id: "lightPerception",
+            label: "DETECTION.LightPerception",
             type: DetectionMode.DETECTION_TYPES.SIGHT,
         });
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
         if (target instanceof PlaceableObject && target.document.hidden) return false;
         if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
             return false;
@@ -41,12 +41,49 @@ class VisionDetectionMode extends DetectionModeBasicSight {
 
     /** Potentially short-circuit range test */
     protected override _testRange(
-        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        visionSource: PointVisionSourcePF2e,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
+    }
+}
+
+class VisionDetectionMode extends DetectionModeBasicSight {
+    constructor() {
+        super({
+            id: "basicSight",
+            label: "DETECTION.BasicSight",
+            type: DetectionMode.DETECTION_TYPES.SIGHT,
+        });
+    }
+
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+        if (target instanceof PlaceableObject && target.document.hidden) return false;
+        if (target instanceof TokenPF2e && target.actor?.hasCondition("hidden", "undetected", "unnoticed")) {
+            return false;
+        }
+
+        return super._canDetect(visionSource, target);
+    }
+
+    /** Potentially short-circuit range test */
+    protected override _testRange(
+        visionSource: PointVisionSourcePF2e,
+        mode: TokenDetectionMode,
+        target: PlaceableObject<CanvasDocument>,
+        test: CanvasVisibilityTest,
+    ): boolean {
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
     }
 }
 
@@ -68,7 +105,7 @@ class HearingDetectionMode extends DetectionMode {
         return filter;
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
 
@@ -94,27 +131,30 @@ class HearingDetectionMode extends DetectionMode {
      * Retrieve hearing source and test against that.
      */
     protected override _testLOS(
-        visionSource: VisionSource<TokenPF2e>,
+        visionSource: PointVisionSourcePF2e,
         _mode: TokenDetectionMode,
         _target: PlaceableObject,
         test: CanvasVisibilityTestPF2e,
     ): boolean {
         test.loh ??= new Map();
-        const hearingSource = visionSource.object.hearing;
-        const hasLOH = test.loh.get(hearingSource) ?? hearingSource.shape.contains(test.point.x, test.point.y);
-        test.loh.set(hearingSource, hasLOH);
+        const hasLOH = test.loh.get(visionSource) ?? !!visionSource.hearing?.contains(test.point.x, test.point.y);
+        test.loh.set(visionSource, hasLOH);
 
         return hasLOH;
     }
 
     /** Potentially short-circuit range test */
     protected override _testRange(
-        visionSource: VisionSource<Token<TokenDocument<Scene | null>>>,
+        visionSource: PointVisionSourcePF2e,
         mode: TokenDetectionMode,
         target: PlaceableObject<CanvasDocument>,
         test: CanvasVisibilityTest,
     ): boolean {
-        return mode.range >= canvas.dimensions.maxR || super._testRange(visionSource, mode, target, test);
+        return (
+            mode.range === null ||
+            mode.range >= canvas.dimensions.maxR ||
+            super._testRange(visionSource, mode, target, test)
+        );
     }
 }
 
@@ -124,7 +164,7 @@ declare namespace HearingDetectionMode {
 }
 
 interface CanvasVisibilityTestPF2e extends CanvasVisibilityTest {
-    loh?: Map<HearingSource<TokenPF2e>, boolean>;
+    loh?: Map<PointVisionSourcePF2e, boolean>;
 }
 
 class DetectionModeTremorPF2e extends DetectionModeTremor {
@@ -143,7 +183,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
         return filter;
     }
 
-    protected override _canDetect(visionSource: VisionSource<TokenPF2e>, target: PlaceableObject): boolean {
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
         return (
             super._canDetect(visionSource, target) &&
             target instanceof TokenPF2e &&
@@ -157,6 +197,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
+    CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
 }

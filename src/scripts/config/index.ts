@@ -298,13 +298,6 @@ const weaponReload: Record<WeaponReloadTime, string> = {
     10: "PF2E.Item.Weapon.Reload.OneMinute",
 };
 
-function notifyDeprecatedPath(configPath: string, locPath: string): void {
-    fu.logCompatibilityWarning(
-        `CONFIG.PF2E.${configPath} is deprecated. Use localization path ${locPath} directly instead.`,
-        { since: "5.2.0", until: "6.0.0" },
-    );
-}
-
 export const PF2ECONFIG = {
     defaultPartyId: "xxxPF2ExPARTYxxx",
     chatDamageButtonShieldToggle: false,
@@ -339,24 +332,6 @@ export const PF2ECONFIG = {
     },
 
     abilities,
-
-    attributes: {
-        get perception(): string {
-            const locPath = "PF2E.PerceptionLabel";
-            notifyDeprecatedPath("attributes.perception", locPath);
-            return locPath;
-        },
-        get stealth(): string {
-            const locPath = "PF2E.StealthLabel";
-            notifyDeprecatedPath("attributes.stealth", locPath);
-            return locPath;
-        },
-        get initiative(): string {
-            const locPath = "PF2E.InitiativeLabel";
-            notifyDeprecatedPath("attributes.initiative", locPath);
-            return locPath;
-        },
-    },
 
     dcAdjustments: {
         "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
@@ -848,6 +823,28 @@ export const PF2ECONFIG = {
         Infinity: 4,
     },
 
+    environmentFeatures: {
+        crowd: "PF2E.Environment.Feature.Crowd",
+        ice: "PF2E.Environment.Feature.Ice",
+        lava: "PF2E.Environment.Feature.Lava",
+        rubble: "PF2E.Environment.Feature.Rubble",
+        sand: "PF2E.Environment.Feature.Sand",
+        sewer: "PF2E.Environment.Feature.Sewer",
+        snow: "PF2E.Environment.Feature.Snow",
+    },
+
+    environmentTypes: {
+        aquatic: "PF2E.Environment.Type.Aquatic",
+        arctic: "PF2E.Environment.Type.Arctic",
+        desert: "PF2E.Environment.Type.Desert",
+        forest: "PF2E.Environment.Type.Forest",
+        mountain: "PF2E.Environment.Type.Mountain",
+        plains: "PF2E.Environment.Type.Plains",
+        swamp: "PF2E.Environment.Type.Swamp",
+        underground: "PF2E.Environment.Type.Underground",
+        urban: "PF2E.Environment.Type.Urban",
+    },
+
     SETTINGS: {
         automation: {
             rulesBasedVision: {
@@ -918,6 +915,10 @@ export const PF2ECONFIG = {
             equipmentTraits: {
                 name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
                 hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
+            },
+            environmentTypes: {
+                name: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Name",
+                hint: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Hint",
             },
         },
         worldClock: {

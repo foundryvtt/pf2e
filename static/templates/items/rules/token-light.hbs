@@ -38,7 +38,7 @@
     <div class="form-group">
         <label>{{ localize "LIGHT.Color" }}</label>
         <div class="form-fields">
-            {{colorPicker name=(concat "system.rules." index ".value.color") value=light.color}}
+            <color-picker name="{{concat "system.rules." index ".value.color"}}" value="{{light.color}}"></color-picker>
         </div>
     </div>
 
@@ -92,7 +92,7 @@
         <label>{{ localize 'LIGHT.ColorationTechnique' }}</label>
         <div class="form-fields">
             <select name="system.rules.{{index}}.value.coloration" data-dtype="Number">
-                {{selectOptions colorationTechniques selected=light.coloration nameAttr="id" labelAttr="label" localize=true}}
+                {{selectOptions colorationTechniques selected=light.coloration valueAttr="id" labelAttr="label" localize=true}}
             </select>
         </div>
     </div>

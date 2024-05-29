@@ -52,11 +52,11 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentUpdateContext<null>,
+            options: DatabaseUpdateOperation<null>,
             userId: string,
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
     }
 
     interface JournalEntry extends ClientBaseJournalEntry {

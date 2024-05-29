@@ -1,18 +1,15 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 
-/** Disable Active Effects */
 export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> extends ActiveEffect<TParent> {
-    constructor(
-        data: DeepPartial<foundry.documents.ActiveEffectSource>,
-        context?: DocumentConstructionContext<TParent>,
-    ) {
-        data.disabled = true;
-        data.transfer = false;
-        super(data, context);
-    }
+    protected override async _preCreate(
+        data: this["_source"],
+        operation: DatabaseCreateOperation<TParent>,
+        user: User,
+    ): Promise<boolean | void> {
+        // Only allow the death overlay effect
+        if (!data.statuses.includes("dead")) return false;
 
-    static override async createDocuments<T extends foundry.abstract.Document>(this: ConstructorOf<T>): Promise<T[]> {
-        return [];
+        return super._preCreate(data, operation, user);
     }
 }

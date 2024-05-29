@@ -58,7 +58,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 
     /** ID of `GridHighlight` container for this aura's token */
     get highlightLayer(): GridHighlight | null {
-        return canvas.grid?.getHighlightLayer(this.token.highlightId) ?? null;
+        return canvas.interface.grid?.getHighlightLayer(this.token.highlightId) ?? null;
     }
 
     /** The squares covered by this aura */
@@ -141,7 +141,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
             .endFill();
         this.textureContainer.position.set(bounds.x + radiusPixels, bounds.y + radiusPixels);
 
-        canvas.grid.grid.addChild(this.textureContainer);
+        canvas.interface.grid.addChild(this.textureContainer);
     }
 
     /** Highlight the affected grid squares of this aura and indicate the radius */
@@ -173,7 +173,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         style.align = "center";
 
         const bounds = this.token.mechanicalBounds;
-        const gridUnits = canvas.scene?.grid.units.trim() || game.system.gridUnits;
+        const gridUnits = canvas.scene?.grid.units.trim() || game.system.grid.units;
         const label = [this.radius, gridUnits].join("");
         const text = new PreciseText(label, style);
         const center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
@@ -192,7 +192,7 @@ class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
         super.destroy(options);
 
         if (this.textureContainer) {
-            canvas.grid.grid.removeChild(this.textureContainer);
+            canvas.interface.grid.removeChild(this.textureContainer);
             if (!this.textureContainer.destroyed) this.textureContainer.destroy();
         }
     }

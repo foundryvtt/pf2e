@@ -1,6 +1,9 @@
+import { resetActors } from "@actor/helpers.ts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
+import { processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
-import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll } from "@util";
+import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
+import * as R from "remeda";
 import type { ScenePF2e } from "./document.ts";
 
 export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TDocument> {
@@ -18,12 +21,24 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         // Rules-based vision
         const [tab, panel] = await (async (): Promise<HTMLTemplateElement[]> => {
             const hbsPath = "systems/pf2e/templates/scene/sheet-partials.hbs";
-            const rbvWorldDefault = game.i18n.localize(
+            const worldDefault = game.i18n.localize(
                 game.pf2e.settings.rbv
                     ? "PF2E.SETTINGS.EnabledDisabled.Enabled"
                     : "PF2E.SETTINGS.EnabledDisabled.Disabled",
             );
-            const templates = await renderTemplate(hbsPath, { scene: this.scene, rbvWorldDefault });
+            const rbvOptions: FormSelectOption[] = [
+                {
+                    value: "",
+                    label: game.i18n.format("PF2E.SETTINGS.EnabledDisabled.Default", { worldDefault }),
+                },
+                { value: "true", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Enabled") },
+                { value: "false", label: game.i18n.localize("PF2E.SETTINGS.EnabledDisabled.Disabled") },
+            ];
+            const templates = await renderTemplate(hbsPath, {
+                scene: this.scene,
+                rbvOptions,
+                environmentTypes: this.document.flags.pf2e.environmentTypes ?? [],
+            });
 
             return htmlQueryAll(createHTMLElement("div", { innerHTML: templates }), "template");
         })();
@@ -59,6 +74,11 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
+        tagify(htmlQuery<HTMLInputElement>(html, 'input[name="flags.pf2e.environmentTypes"]'), {
+            whitelist: CONFIG.PF2E.environmentTypes,
+            enforceWhitelist: true,
+        });
+
         this.#activateRBVListeners(html);
     }
 
@@ -66,21 +86,23 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
     #activateRBVListeners(html: HTMLElement): void {
         if (!this.document.rulesBasedVision) return;
 
-        const globalLight = html.querySelector<HTMLInputElement>("input[name^=globalLight]");
-        const hasglobalThreshold = html.querySelector<HTMLInputElement>("input[name=hasGlobalThreshold]");
-        const globalLightThreshold = html.querySelector<HTMLInputElement>("input[name=globalLightThreshold]");
-        if (!(globalLight && hasglobalThreshold && globalLightThreshold)) {
-            return;
+        const globalLight = html.querySelector<HTMLInputElement>('input[name="environment.globalLight.enabled"]');
+        const globalLightThreshold = htmlQueryAll<HTMLInputElement>(
+            html,
+            'range-picker[name="environment.globalLight.darkness.max"] > input',
+        );
+        if (!(globalLight && globalLightThreshold)) {
+            throw ErrorPF2e("Unexpected error retrieving scene global light form elements");
         }
 
         // Disable all global light settings
         globalLight.disabled = true;
-        hasglobalThreshold.disabled = true;
-        globalLightThreshold.disabled = true;
-        globalLightThreshold.nextElementSibling?.classList.add("disabled");
+        for (const input of globalLightThreshold) {
+            input.disabled = true;
+        }
 
         // Indicate that this setting is managed by rules-based vision and create link to open settings
-        for (const input of [globalLight, globalLightThreshold]) {
+        for (const input of [globalLight, globalLightThreshold[0]]) {
             const managedBy = document.createElement("span");
             managedBy.classList.add("managed");
             managedBy.innerHTML = " ".concat(game.i18n.localize("PF2E.SETTINGS.Automation.RulesBasedVision.ManagedBy"));
@@ -112,6 +134,31 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         }
     }
 
+    protected override async _onSubmit(
+        event: Event,
+        options?: OnSubmitFormOptions,
+    ): Promise<false | Record<string, unknown>> {
+        // Prevent tagify input JSON parsing from blowing up
+        const environmentTypes = htmlQuery<HTMLInputElement>(
+            this.element[0],
+            'input[name="flags.pf2e.environmentTypes"]',
+        );
+        if (environmentTypes?.value === "") environmentTypes.value = "[]";
+        return super._onSubmit(event, options);
+    }
+
+    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
+        // create the expanded update data object
+        const fd = new FormDataExtended(this.form, { editors: this.editors });
+        const data: Record<string, unknown> = updateData
+            ? fu.mergeObject(fd.object, updateData)
+            : fu.expandObject(fd.object);
+
+        const flattenedData = fu.flattenObject(data);
+        processTagifyInSubmitData(this.form, flattenedData);
+        return flattenedData;
+    }
+
     /** Intercept flag update and change to boolean/null. */
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         const rbvSetting = formData["flags.pf2e.rulesBasedVision"];
@@ -119,8 +166,22 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
 
         const hearingRange = formData["flags.pf2e.hearingRange"];
         formData["flags.pf2e.hearingRange"] =
-            typeof hearingRange === "number" ? Math.ceil(Math.clamped(hearingRange || 5, 5, 3000) / 5) * 5 : null;
+            typeof hearingRange === "number" ? Math.ceil(Math.clamp(hearingRange || 5, 5, 3000) / 5) * 5 : null;
 
-        return super._updateObject(event, formData);
+        const terrainChanged = !R.isDeepEqual(
+            formData["flags.pf2e.environmentTypes"],
+            this.scene._source.flags?.pf2e?.environmentTypes ?? [],
+        );
+
+        await super._updateObject(event, formData);
+
+        if (terrainChanged) {
+            // Scene terrain changed. Reset all affected actors
+            for (const token of this.scene.tokens) {
+                if (token.actor) resetActors([token.actor], { tokens: true });
+            }
+        }
+        // Rerender scene region legend to update the scene terrain tags
+        canvas.scene?.apps["region-legend"]?.render();
     }
 }

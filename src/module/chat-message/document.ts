@@ -28,7 +28,10 @@ class ChatMessagePF2e extends ChatMessage {
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
         const firstRoll = this.rolls.at(0);
-        if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
+        if (
+            !firstRoll ||
+            firstRoll.terms.some((t) => t instanceof foundry.dice.terms.FateDie || t instanceof foundry.dice.terms.Coin)
+        ) {
             return false;
         }
 
@@ -268,8 +271,8 @@ class ChatMessagePF2e extends ChatMessage {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    protected override _onCreate(data: this["_source"], options: MessageModificationContextPF2e, userId: string): void {
-        super._onCreate(data, options, userId);
+    protected override _onCreate(data: this["_source"], operation: MessageCreateOperationPF2e, userId: string): void {
+        super._onCreate(data, operation, userId);
 
         // Handle critical hit and fumble card drawing
         if (this.isRoll && game.pf2e.settings.critFumble.cards) {
@@ -277,7 +280,7 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // If this is a rest notification, re-render sheet for anyone currently viewing it
-        if (options.restForTheNight) this.actor?.render();
+        if (operation.restForTheNight) this.actor?.render();
     }
 }
 
@@ -292,13 +295,13 @@ declare namespace ChatMessagePF2e {
     function createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: MessageModificationContextPF2e,
+        operation?: Partial<MessageCreateOperationPF2e>,
     ): Promise<TDocument[]>;
 
     function getSpeakerActor(speaker: foundry.documents.ChatSpeakerData): ActorPF2e | null;
 }
 
-interface MessageModificationContextPF2e extends ChatMessageModificationContext {
+interface MessageCreateOperationPF2e extends ChatMessageCreateOperation {
     /** Whether this is a Rest for the Night message */
     restForTheNight?: boolean;
 }

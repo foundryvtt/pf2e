@@ -2,8 +2,7 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { measureDistanceCuboid, type CanvasPF2e, type TokenLayerPF2e } from "../index.ts";
-import { HearingSource } from "../perception/hearing-source.ts";
+import { measureDistanceCuboid, type CanvasPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -14,13 +13,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
 
-    /** The token's line hearing source */
-    hearing: HearingSource<this>;
-
     constructor(document: TDocument) {
         super(document);
 
-        this.hearing = new HearingSource({ object: this });
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
@@ -35,12 +30,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this.document.hidden && !game.user.isGM) return false;
 
         // Some tokens are always visible
-        if (!canvas.effects.visibility.tokenVision || this.controlled) return true;
+        if (!canvas.visibility.tokenVision || this.controlled) return true;
 
         // Otherwise, test visibility against current sight polygons
         if (canvas.effects.visionSources.get(this.sourceId)?.active) return true;
         const tolerance = Math.floor(0.35 * Math.min(this.w, this.h));
-        return canvas.effects.visibility.testVisibility(this.center, { tolerance, object: this });
+        return canvas.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
     /** Is this token currently animating? */
@@ -77,10 +72,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = super.bounds;
         if (this.document.width < 1) {
-            const position = canvas.grid.getTopLeft(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+            const position = canvas.grid.getTopLeftPoint({
+                x: bounds.x + bounds.width / 2,
+                y: bounds.y + bounds.height / 2,
+            });
             return new PIXI.Rectangle(
-                position[0],
-                position[1],
+                position.x,
+                position.y,
                 Math.max(canvas.grid.size, bounds.width),
                 Math.max(canvas.grid.size, bounds.height),
             );
@@ -93,7 +91,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     override get sightRange(): number {
         if (!canvas.ready) return 0;
         const dimensions = canvas.dimensions;
-        return this.document.sight.range >= dimensions.maxR ? dimensions.maxR : super.sightRange;
+        return (this.document.sight.range ?? 0) >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
     isAdjacentTo(token: TokenPF2e): boolean {
@@ -190,6 +188,17 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             });
         if (sideBySide) return true;
 
+        // Support for Eidolons
+        const kindredFlank =
+            this.isAdjacentTo(flankee) &&
+            flanking.canGangUp.includes("eidolon") &&
+            flankingBuddies.some((b) => {
+                if (!b.actor?.isOfType("character")) return false;
+                const traits = b.actor.traits;
+                return traits.has("eidolon") && b.isAdjacentTo(flankee);
+            });
+        if (kindredFlank) return true;
+
         // Find a flanking buddy opposite this token
         return flankingBuddies.some((b) => this.onOppositeSides(this, b, flankee));
     }
@@ -257,7 +266,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         const { value, max, temp } = actor.attributes.hp ?? {};
-        const healthPercent = Math.clamped(value, 0, max) / max;
+        const healthPercent = Math.clamp(value, 0, max) / max;
 
         // Compute the color based on health percentage, this formula is the one core Foundry uses
         const black = 0x000000;
@@ -267,7 +276,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         // Bar size logic stolen from core
         let h = Math.max(canvas.dimensions.size / 12, 8);
-        const bs = Math.clamped(h / 8, 1, 2);
+        const bs = Math.clamp(h / 8, 1, 2);
         if (this.document.height >= 2) h *= 1.6; // Enlarge the bar for large tokens
 
         const numBars = temp > 0 ? 2 : 1;
@@ -284,7 +293,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         // Draw temp hp
         if (temp > 0) {
             const tempColor = 0x66ccff;
-            const tempPercent = Math.clamped(temp, 0, max) / max;
+            const tempPercent = Math.clamp(temp, 0, max) / max;
             const tempWidth = tempPercent * this.w - 2 * (bs - 1);
             bar.beginFill(tempColor, 1.0).drawRoundedRect(0, 0, tempWidth, barHeight, 2);
         }
@@ -391,7 +400,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 const maxHP = this.actor?.hitPoints?.max;
                 if (!(quantity && typeof maxHP === "number")) return null;
 
-                const percent = Math.clamped(Math.abs(quantity) / maxHP, 0, 1);
+                const percent = Math.clamp(Math.abs(quantity) / maxHP, 0, 1);
                 const textColors = {
                     damage: 16711680, // reddish
                     healing: 65280, // greenish
@@ -446,7 +455,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         if (this === target) return 0;
 
         if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-            return canvas.grid.measureDistance(this.position, target.position);
+            const waypoints: GridMeasurePathWaypoint[] = [
+                { x: this.x, y: this.y },
+                { x: target.x, y: target.y },
+            ];
+            return canvas.grid.measurePath(waypoints).distance;
         }
 
         const selfElevation = this.document.elevation;
@@ -494,31 +507,22 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.document.lockRotation = this.document._source.lockRotation;
     }
 
-    /** Hearing should be updated whenever vision is */
-    override updateVisionSource({ defer = false, deleted = false } = {}): void {
-        super.updateVisionSource({ defer, deleted });
-        if (this._isVisionSource() && !deleted) {
-            this.hearing.initialize();
-        }
-    }
-
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
     override render(renderer: PIXI.Renderer): void {
         super.render(renderer);
         if (!this.mesh) return;
 
-        const configuredTint = this.document.texture.tint ?? "#FFFFFF";
+        const configuredTint = this.document.texture.tint ?? Color.fromString("#FFFFFF");
         if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
             this.mesh.tint = 0;
-        } else if (this.mesh.tint === 0 && configuredTint !== "#000000" && !this.detectionFilter) {
-            this.mesh.tint = Number(Color.fromString(configuredTint));
+        } else if (this.mesh.tint === 0 && configuredTint.toString() !== "#000000" && !this.detectionFilter) {
+            this.mesh.tint = Number(configuredTint);
         }
     }
 
     protected override _destroy(): void {
         super._destroy();
         this.auras.destroy();
-        this.hearing.destroy();
         this.flankingHighlight.destroy();
     }
 
@@ -555,17 +559,16 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
         if (["undetected", "unnoticed"].includes(statusId)) {
             canvas.perception.update({ refreshVision: true, refreshLighting: true }, true);
-            this.mesh.refresh();
         }
     }
 
     /** Reset aura renders when token size changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
+        operation: DatabaseUpdateOperation<TDocument["parent"]>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
         if (changed.width) {
             if (this._animation) {
@@ -580,7 +583,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 }
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
-    get layer(): TokenLayerPF2e<this>;
+    get layer(): TokenLayer<this>;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };

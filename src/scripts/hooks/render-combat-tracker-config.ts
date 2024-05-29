@@ -13,6 +13,11 @@ export const RenderCombatTrackerConfig = {
                     values: {
                         deathIcon: game.settings.get("pf2e", "deathIcon"),
                         actorsDeadAtZero: game.settings.get("pf2e", "automation.actorsDeadAtZero"),
+                        deadAtZeroOptions: [
+                            { value: "both", label: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Both" },
+                            { value: "npcsOnly", label: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.NPCsOnly" },
+                            { value: "neither", label: "PF2E.SETTINGS.Automation.ActorsDeadAtZero.Neither" },
+                        ],
                     },
                 });
                 const tempElem = document.createElement("div");

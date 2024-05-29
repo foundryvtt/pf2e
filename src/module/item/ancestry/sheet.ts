@@ -23,6 +23,11 @@ class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
             sizes: createSheetOptions(CONFIG.PF2E.actorSizes, { value: [itemData.system.size] }),
             languages: createSheetTags(CONFIG.PF2E.languages, itemData.system.languages),
             additionalLanguages: createSheetTags(CONFIG.PF2E.languages, itemData.system.additionalLanguages),
+            visionTypeOptions: [
+                { value: "normal", label: "PF2E.Item.Ancestry.Vision.Normal" },
+                { value: "low-light-vision", label: "PF2E.Actor.Creature.Sense.Type.LowLightVision" },
+                { value: "darkvision", label: "PF2E.Actor.Creature.Sense.Type.Darkvision" },
+            ],
         };
     }
 }
@@ -33,6 +38,7 @@ interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     sizes: SheetOptions;
     languages: SheetOptions;
     additionalLanguages: SheetOptions;
+    visionTypeOptions: FormSelectOption[];
 }
 
 export { AncestrySheetPF2e };

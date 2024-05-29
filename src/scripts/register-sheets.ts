@@ -32,7 +32,7 @@ import { ShieldSheetPF2e } from "@item/shield/sheet.ts";
 import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
-import { JournalSheetPF2e, JournalTextTinyMCESheetPF2e } from "@module/journal-entry/sheet.ts";
+import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -174,15 +174,9 @@ export function registerSheets(): void {
             game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
     });
-    // Replace the TinyMCE sheet with the version that'll let us inject themes
-    DocumentSheetConfig.unregisterSheet(JournalEntryPage, "core", JournalTextTinyMCESheet);
-    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalTextTinyMCESheetPF2e, {
-        types: ["text"],
-        label: game.i18n.localize("EDITOR.TinyMCE"),
-    });
 
     // USER
-    Users.unregisterSheet("core", UserConfig);
+    Users.unregisterSheet("core", foundry.applications.sheets.UserConfig);
     Users.registerSheet("pf2e", UserConfigPF2e, {
         makeDefault: true,
         label: () => game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.User") }),

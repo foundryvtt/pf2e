@@ -4,33 +4,19 @@
     <div class="form-group">
         <label for="{{fieldIdPrefix}}category">{{localize "PF2E.Category"}}</label>
         <select name="system.category" id="{{fieldIdPrefix}}category">
-            {{#select data.category}}
-                {{#each categories as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions categories selected=data.category}}
         </select>
     </div>
     <div class="form-group">
         <label for="{{fieldIdPrefix}}group">{{localize "PF2E.WeaponGroupLabel"}}</label>
         <select name="system.group" id="{{fieldIdPrefix}}group">
-            {{#select data.group}}
-                <option value=""></option>
-                {{#each groups as |name type|}}
-                    <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions groups selected=data.group blank="" localize=true}}
         </select>
     </div>
     <div class="form-group">
         <label for="{{fieldIdPrefix}}base">{{localize "PF2E.WeaponBaseLabel"}}</label>
         <select id="{{fieldIdPrefix}}base" data-property="system.baseItem">
-            {{#select data.baseItem}}
-                <option value=""></option>
-                {{#each baseTypes as |label slug|}}
-                    <option value="{{slug}}">{{label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions baseTypes selected=data.baseItem blank=""}}
         </select>
     </div>
     <div class="form-group">
@@ -41,24 +27,18 @@
             {{/if}}
         </label>
         <select name="system.range" id="{{fieldIdPrefix}}range" data-dtype="Number" {{disabled mandatoryMelee}}>
-            {{#select item._source.system.range}}
-                {{#unless mandatoryRanged}}<option value="">{{localize "PF2E.Item.Weapon.NoRangeMelee"}}</option>{{/unless}}
-                {{#each weaponRanges as |label range|}}
-                    <option value="{{range}}">{{localize label range=range}}</option>
-                {{/each}}
-            {{/select}}
+            {{#if (not mandatoryRanged)}}
+                {{selectOptions weaponRanges selected=item._source.system.range blank="PF2E.Item.Weapon.NoRangeMelee" localize=true}}
+            {{else}}
+                {{selectOptions weaponRanges selected=item._source.system.range}}
+            {{/if}}
         </select>
     </div>
     {{#if data.range}}
         <div class="form-group">
             <label for="{{fieldIdPrefix}}reload">{{localize "PF2E.WeaponReloadLabel"}}</label>
             <select name="system.reload.value" id="{{fieldIdPrefix}}reload">
-                {{#select data.reload.value}}
-                    <option value=""></option>
-                    {{#each weaponReload as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions weaponReload selected=data.reload.value blank="" localize=true}}
             </select>
         </div>
     {{/if}}
@@ -83,18 +63,7 @@
                 data-value-base="{{json item._source.system.material}}"
                 data-dtype="JSON"
             >
-                {{#select preciousMaterials.value}}
-                    <option value="{&quot;type&quot;:null,&quot;grade&quot;:null}"></option>
-                    {{#each preciousMaterials.materials as |material|}}
-                        <optgroup label="{{material.label}}">
-                            {{#each material.grades as |grade|}}
-                                <option value="{{grade.value}}">
-                                    {{localize "PF2E.Item.Weapon.MaterialAndRunes.MaterialOption" type=material.label grade=grade.label}}
-                                </option>
-                            {{/each}}
-                        </optgroup>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions preciousMaterials.materials selected=preciousMaterials.value}}
             </select>
         </div>
 
@@ -102,21 +71,13 @@
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
                 <select name="system.runes.potency" id="{{fieldIdPrefix}}rune-potency" data-dtype="Number">
-                    {{#select data.runes.potency}}
-                        {{#each runeTypes.potency as |data number|}}
-                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions (omit runeTypes.potency 0) selected=data.runes.potency labelAttr="name" blank="" localize=true}}
                 </select>
             </div>
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-striking">{{localize "PF2E.StrikingRuneLabel"}}</label>
                 <select name="system.runes.striking" id="{{fieldIdPrefix}}rune-striking" data-dtype="Number">
-                    {{#select data.runes.striking}}
-                        {{#each runeTypes.striking as |data number|}}
-                            <option value="{{number}}">{{localize (coalesce data.name "")}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions (omit runeTypes.striking 0) selected=data.runes.striking labelAttr="name" blank="" localize=true}}
                 </select>
             </div>
         {{/unless}}
@@ -135,12 +96,13 @@
                     {{disabled slot.disabled}}
                     {{#if @root.item.isSpecific}}class="readonly"{{/if}}
                 >
-                    {{#select slot.slug}}
-                        <option value=""></option>
-                        {{#each @root.runeTypes.property as |rune|}}
-                            <option value="{{rune.slug}}">{{localize rune.name}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions
+                        @root.runeTypes.property
+                        selected=slot.slug
+                        valueAttr="slug"
+                        labelAttr="name"
+                        blank=""
+                        localize=true}}
                 </select>
             </div>
         {{/each}}
@@ -182,20 +144,11 @@
                 value="{{data.damage.dice}}"
             />
             <select data-property="system.damage.die">
-                {{#select data.damage.die}}
-                    <option value=""></option>
-                    {{#each damageDie as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDie selected=data.damage.die blank="" localize=true}}
             </select>
 
             <select data-property="system.damage.damageType">
-                {{#select data.damage.damageType}}
-                    {{#each damageTypes as |label slug|}}
-                        {{#unless (eq slug "bleed")}}<option value="{{slug}}">{{label}}</option>{{/unless}}
-                    {{/each}}
-                {{/select}}
+                {{selectOptions (omit damageTypes "bleed") selected=data.damage.damageType localize=true}}
             </select>
         </div>
     </div>
@@ -221,21 +174,11 @@
             />
 
             <select data-action="update-persistent" data-persistent-field="faces">
-                {{#select data.damage.persistent.faces}}
-                    <option value=""></option>
-                    {{#each damageDieFaces as |label value|}}
-                        <option value="{{value}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDieFaces selected=data.damage.persistent.faces blank="" localize=true}}
             </select>
 
             <select data-action="update-persistent" data-persistent-field="type" value="{{data.damage.persistent.damageType}}">
-                {{#select data.damage.persistent.type}}
-                    <option value=""></option>
-                    {{#each damageTypes as |label slug|}}
-                        <option value="{{slug}}">{{label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageTypes selected=data.damage.persistent.type blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -263,20 +206,10 @@
         <div class="dice-data">
             <input type="number" name="system.property1.dice" value="{{data.property1.dice}}" />
             <select name="system.property1.die">
-                {{#select data.property1.die}}
-                    <option value=""></option>
-                    {{#each damageDie as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDie selected=data.property1.die blank="" localize=true}}
             </select>
             <select name="system.property1.damageType">
-                {{#select data.property1.damageType}}
-                    <option value=""></option>
-                    {{#each damageTypes as |label slug|}}
-                        <option value="{{slug}}">{{label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageTypes selected=data.property1.damageType blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -285,20 +218,10 @@
         <label>{{localize "PF2E.WeaponPropertyStrikeEffectLabel"}}</label>
         <div class="effects-container">
             <select name="system.property1.strikeConditionType">
-                {{#select data.property1.strikeConditionType}}
-                    <option value=""></option>
-                    {{#each conditionTypes as |label slug|}}
-                        <option value="{{slug}}">{{label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions conditionTypes selected=data.property1.strikeConditionType blank="" localize=true}}
             </select>
             <select name="system.property1.strikeConditionValue" data-dtype="Number">
-                {{#select data.property1.strikeConditionValue}}
-                    <option value=""></option>
-                    {{#each damageDice as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDice selected=data.property1.strikeConditionValue blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -308,20 +231,10 @@
         <div class="dice-data">
             <input type="number" name="system.property1.critDice" value="{{data.property1.critDice}}" />
             <select name="system.property1.critDie">
-                {{#select data.property1.critDie}}
-                    <option value=""></option>
-                    {{#each damageDie as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDie selected=data.property1.critDie blank="" localize=true}}
             </select>
             <select name="system.property1.critDamageType">
-                {{#select data.property1.critDamageType}}
-                    <option value=""></option>
-                    {{#each damageTypes as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageTypes selected=data.property1.critDamageType blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -330,20 +243,10 @@
         <label>{{localize "PF2E.WeaponPropertyCriticalEffectLabel"}}</label>
         <div class="effects-container">
             <select name="system.property1.criticalConditionType">
-                {{#select data.property1.criticalConditionType}}
-                    <option value=""></option>
-                    {{#each conditionTypes as |label slug|}}
-                        <option value="{{slug}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions conditionTypes selected=data.property1.criticalConditionType blank="" localize=true}}
             </select>
             <select name="system.property1.criticalConditionValue" data-dtype="Number">
-                {{#select data.property1.criticalConditionValue}}
-                    <option value=""></option>
-                    {{#each damageDice as |name type|}}
-                        <option value="{{type}}">{{localize name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions damageDice selected=data.property1.criticalConditionValue blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -358,29 +261,17 @@
         <div class="form-group">
             <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
             <select name="system.meleeUsage.group">
-                {{#select meleeUsage.group}}
-                    {{#each meleeGroups as |label slug|}}
-                        <option value="{{slug}}">{{label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions meleeGroups selected=meleeUsage.group}}
             </select>
         </div>
         <div class="form-group">
             <label>{{localize "PF2E.WeaponDamageLabel"}}</label>
             <div class="details-container-three-columns">
                 <select name="system.meleeUsage.damage.die">
-                    {{#select meleeUsage.damage.die}}
-                        {{#each damageDie as |value faces|}}
-                            <option value="{{faces}}">1{{faces}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions meleeUsageBaseDamage selected=meleeUsage.damage.die}}
                 </select>
                 <select name="system.meleeUsage.damage.type">
-                    {{#select meleeUsage.damage.type}}
-                        {{#each damageTypes as |label type|}}
-                            <option value="{{type}}">{{label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions damageTypes selected=meleeUsage.damage.type}}
                 </select>
             </div>
         </div>

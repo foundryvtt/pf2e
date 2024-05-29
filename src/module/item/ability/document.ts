@@ -5,7 +5,7 @@ import type { RangeData } from "@item/types.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
-import { normalizeActionChangeData, processSanctification } from "./helpers.ts";
+import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { AbilityTraitToggles } from "./trait-toggles.ts";
 import type { ActionTrait } from "./types.ts";
 
@@ -72,6 +72,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
             rollOptions.push(`${prefix}:frequency:limited`);
         }
 
+        rollOptions.push(...getActionCostRollOptions(prefix, this));
         return rollOptions;
     }
 
@@ -87,7 +88,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear any active frequency value
@@ -97,12 +98,12 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
             }
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (typeof changed.system?.category === "string") {
@@ -110,7 +111,7 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         }
         normalizeActionChangeData(this, changed);
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

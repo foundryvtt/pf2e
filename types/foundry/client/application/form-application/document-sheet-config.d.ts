@@ -1,4 +1,4 @@
-export {};
+import DocumentSheetV2 from "../../../client-esm/applications/api/document-sheet.js";
 
 declare global {
     interface DocumentSheetConfigData<TDocument extends foundry.abstract.Document>
@@ -58,7 +58,9 @@ declare global {
          * @param [options.types]       An array of document types for which this sheet should be used
          * @param [options.makeDefault] Whether to make this sheet the default for provided types
          */
-        static registerSheet<T extends foundry.abstract.Document & { get sheet(): FormApplication<T> }>(
+        static registerSheet<
+            T extends foundry.abstract.Document & { get sheet(): FormApplication<T> | DocumentSheetV2<T> },
+        >(
             documentClass: ConstructorOf<T>,
             scope: string,
             sheetClass: ConstructorOf<T["sheet"]>,
@@ -75,7 +77,9 @@ declare global {
          * @param sheetClass  A defined Application class used to render the sheet
          * @param types             An Array of types for which this sheet should be removed
          */
-        static unregisterSheet<T extends foundry.abstract.Document & { get sheet(): FormApplication<T> }>(
+        static unregisterSheet<
+            T extends foundry.abstract.Document & { get sheet(): FormApplication<T> | DocumentSheetV2<T> },
+        >(
             documentClass: ConstructorOf<T>,
             scope: string,
             sheetClass: ConstructorOf<T["sheet"]>,

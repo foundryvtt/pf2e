@@ -46,6 +46,10 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
             types,
             damageCategories: R.pick(CONFIG.PF2E.damageCategories, Array.from(DAMAGE_CATEGORIES_UNIQUE)),
             isDamage: this.isDamage,
+            criticalOptions: [
+                { value: "false", label: "PF2E.RuleEditor.General.CriticalBehavior.false" },
+                { value: "true", label: "PF2E.RuleEditor.General.CriticalBehavior.true" },
+            ],
         };
     }
 
@@ -73,6 +77,7 @@ interface FlatModifierFormSheetData extends RuleElementFormSheetData<FlatModifie
     types: Record<ModifierType, string>;
     damageCategories: Pick<ConfigPF2e["PF2E"]["damageCategories"], "persistent" | "precision" | "splash">;
     isDamage: boolean;
+    criticalOptions: FormSelectOption[];
 }
 
 export { FlatModifierForm };

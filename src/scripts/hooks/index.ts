@@ -1,4 +1,3 @@
-import { CanvasInit } from "./canvas-init.ts";
 import { CanvasReady } from "./canvas-ready.ts";
 import { CloseCombatTrackerConfig } from "./close-combat-tracker-config.ts";
 import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
@@ -14,8 +13,9 @@ import { Ready } from "./ready.ts";
 import { RenderChatPopout } from "./render-chat-popout.ts";
 import { RenderCombatTrackerConfig } from "./render-combat-tracker-config.ts";
 import { RenderDialog } from "./render-dialog.ts";
-import { RenderJournalPageSheet } from "./render-journal-page-sheet.ts";
 import { RenderJournalTextPageSheet } from "./render-journal-text-page-sheet.ts";
+import { RenderRegionLegend } from "./render-region-legend.ts";
+import { RenderSettingsConfig } from "./render-settings-config.ts";
 import { RenderSettings } from "./render-settings.ts";
 import { RenderTokenHUD } from "./render-token-hud.ts";
 import { Setup } from "./setup.ts";
@@ -26,7 +26,6 @@ export const HooksPF2e = {
     listen(): void {
         const listeners: { listen(): void }[] = [
             Load, // Run this first since it's not an actual hook listener
-            CanvasInit,
             CanvasReady,
             CloseCombatTrackerConfig,
             CloseWorldClockSettings,
@@ -41,9 +40,10 @@ export const HooksPF2e = {
             RenderChatPopout,
             RenderCombatTrackerConfig,
             RenderDialog,
-            RenderJournalPageSheet,
             RenderJournalTextPageSheet,
+            RenderRegionLegend,
             RenderSettings,
+            RenderSettingsConfig,
             RenderTokenHUD,
             Setup,
             TargetToken,

@@ -160,23 +160,23 @@ declare global {
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            options: DatabaseCreateOperation<null>,
             user: BaseUser<BaseActor<null>>,
         ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            options: DatabaseCreateOperation<null>,
             userId: string,
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<null>,
+            options: DatabaseUpdateOperation<null>,
             userId: string,
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
 
         /* -------------------------------------------- */
         /*  Importing and Exporting                     */
@@ -194,20 +194,20 @@ declare global {
         function create<TDocument extends ChatMessage>(
             this: ConstructorOf<TDocument>,
             data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[],
-            context?: ChatMessageModificationContext,
+            operation?: Partial<ChatMessageCreateOperation>,
         ): Promise<TDocument[]>;
-        function create<T extends ChatMessage>(
-            this: ConstructorOf<T>,
-            data: DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext,
-        ): Promise<T | undefined>;
-        function create<T extends ChatMessage>(
-            this: ConstructorOf<T>,
+        function create<TDocument extends ChatMessage>(
+            this: ConstructorOf<TDocument>,
+            data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
+            operation?: Partial<ChatMessageCreateOperation>,
+        ): Promise<TDocument | undefined>;
+        function create<TDocument extends ChatMessage>(
+            this: ConstructorOf<TDocument>,
             data:
-                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
-                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext,
-        ): Promise<T[] | T | undefined>;
+                | DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
+                | DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
+            operation?: Partial<ChatMessageCreateOperation>,
+        ): Promise<TDocument[] | TDocument | undefined>;
     }
 
     interface MessageConstructionContext extends DocumentConstructionContext<null> {

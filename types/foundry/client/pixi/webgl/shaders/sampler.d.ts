@@ -51,4 +51,6 @@ declare global {
     class AdaptiveLightingShader extends AbstractBaseShader {
         static SHADER_TECHNIQUES: Record<string, { label: string }>;
     }
+
+    class AdaptiveVisionShader extends AdaptiveLightingShader {}
 }

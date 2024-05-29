@@ -93,11 +93,7 @@
         <label class="roll-mode">
             {{localize "PF2E.RollModeLabel"}}
             <select name="rollmode">
-                {{#select rollMode}}
-                    {{#each rollModes as |label key|}}
-                        <option value="{{key}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions rollModes selected=rollMode localize=true}}
             </select>
         </label>
         <label data-tooltip="PF2E.Roll.Dialog.ShowDefaultHint">

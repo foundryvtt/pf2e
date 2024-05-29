@@ -287,7 +287,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     override afterPrepareData(): void {
         if (!this.test()) return;
 
-        const radius = Math.clamped(Math.ceil(Number(this.resolveValue(this.radius)) / 5) * 5, 5, 240);
+        const radius = Math.clamp(Math.ceil(Number(this.resolveValue(this.radius)) / 5) * 5, 5, 240);
 
         if (Number.isInteger(radius) && radius > 0) {
             const level = this.resolveValue(this.level, null);
@@ -355,12 +355,16 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             return isImageOrVideoPath(maybeTextureSrc) ? maybeTextureSrc : "icons/svg/hazard.svg";
         })();
 
-        if (border) border.color = border.color === "user-color" ? userColorForActor(this.actor) : border.color;
-        highlight.color = highlight.color === "user-color" ? userColorForActor(this.actor) : highlight.color;
+        if (border) {
+            border.color =
+                border.color === "user-color" ? Color.fromString(userColorForActor(this.actor)) : border.color;
+        }
+        highlight.color =
+            highlight.color === "user-color" ? Color.fromString(userColorForActor(this.actor)) : highlight.color;
 
         return {
-            border: border && { color: Number(Color.fromString(border.color)), alpha: border.alpha },
-            highlight: { color: Number(Color.fromString(highlight.color)), alpha: highlight.alpha },
+            border: border && { color: Number(border.color), alpha: border.alpha },
+            highlight: { color: Number(highlight.color), alpha: highlight.alpha },
             texture: texture?.alpha && textureSrc ? { ...texture, src: textureSrc } : null,
         };
     }
@@ -458,7 +462,7 @@ type AuraAppearanceSchema = {
             alpha: AlphaField<true, false, true>;
         },
         { color: "user-color" | HexColorString; alpha: number },
-        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | Color; alpha: number },
         false,
         true,
         true
@@ -475,7 +479,7 @@ type AuraAppearanceSchema = {
             alpha: AlphaField<false, false, true>;
         },
         { color: "user-color" | HexColorString; alpha: number },
-        { color: "user-color" | HexColorString; alpha: number },
+        { color: "user-color" | Color; alpha: number },
         false,
         false,
         true

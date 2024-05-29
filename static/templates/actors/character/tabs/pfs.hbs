@@ -17,11 +17,7 @@
     <section class="faction">
         <label class="details-label" for="{{options.id}}-pfs-current-faction">{{localize "PF2E.PFS.CurrentFaction"}}</label>
         <select id="{{options.id}}-pfs-current-faction" name="system.pfs.currentFaction">
-            {{#select data.pfs.currentFaction}}
-                {{#each pfsFactions as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions pfsFactions selected=data.pfs.currentFaction localize=true}}
         </select>
     </section>
     <section class="reputations">

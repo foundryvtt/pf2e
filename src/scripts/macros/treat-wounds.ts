@@ -163,23 +163,21 @@ async function treat(
             if (riskySurgery) {
                 ChatMessagePF2e.create({
                     flags: message.toObject().flags,
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.RiskySurgery")}</strong>`,
-                    rolls: [(await new DamageRoll("{1d8[slashing]}").roll({ async: true })).toJSON()],
+                    rolls: [(await new DamageRoll("{1d8[slashing]}").roll()).toJSON()],
                     speaker,
                 });
             }
 
             if (healFormula) {
                 const formulaModifier = outcome === "criticalFailure" ? "" : "[healing]";
-                const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll({ async: true });
+                const healRoll = await new DamageRoll(`{(${healFormula})${formulaModifier}}`).roll();
                 const rollType =
                     outcome !== "criticalFailure"
                         ? game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWounds")
                         : game.i18n.localize("PF2E.Actions.TreatWounds.Rolls.TreatWoundsCriticalFailure");
                 ChatMessagePF2e.create({
                     flags: message.toObject().flags,
-                    type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                     flavor: `<strong>${rollType}</strong> (${successLabel})`,
                     rolls: [healRoll.toJSON()],
                     speaker,

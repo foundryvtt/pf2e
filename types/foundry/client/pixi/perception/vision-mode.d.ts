@@ -1,11 +1,16 @@
-export {};
+import type { PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
+import type * as fields from "../../../common/data/fields.d.ts";
 
 declare global {
+    class ShaderField extends foundry.data.fields.DataField {
+        override _cast(value: unknown): unknown;
+    }
+
     /**
      * A Vision Mode which can be selected for use by a Token.
      * The selected Vision Mode alters the appearance of various aspects of the canvas while that Token is the POV.
      */
-    class VisionMode {
+    class VisionMode extends foundry.abstract.DataModel<null, VisionModeSchema> {
         /**
          * Construct a Vision Mode using provided configuration parameters and callback functions.
          * @param data      Data which fulfills the model defined by the VisionMode schema.
@@ -13,45 +18,7 @@ declare global {
          */
         constructor(data?: object, options?: { animated?: boolean });
 
-        id: string;
-        label: string;
-        tokenConfig: boolean;
-        canvas: {
-            shader: PIXI.Shader;
-            uniforms: object;
-        };
-
-        lighting: {
-            background: {
-                visibility: LightingVisibility;
-                postProcessingModes: string[];
-                uniforms: object;
-            };
-            coloration: {
-                visibility: LightingVisibility;
-                postProcessingModes: string[];
-                uniforms: LightingVisibility;
-            };
-            illumination: {
-                visibility: number;
-                postProcessingModes: string[];
-                uniforms: object;
-            };
-            levels: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: (typeof VisionMode.LIGHTING_LEVELS)[K] };
-            multipliers: { [K in keyof typeof VisionMode.LIGHTING_LEVELS]?: (typeof VisionMode.LIGHTING_LEVELS)[K] };
-        };
-
-        vision: {
-            background: { shader: PIXI.Shader; uniforms: object };
-            coloration: { shader: PIXI.Shader; uniforms: object };
-            illumination: { shader: PIXI.Shader; uniforms: object };
-            darkness: {
-                adaptive: boolean;
-            };
-            defaults: Partial<
-                Pick<TokenDocument["sight"], "attenuation" | "brightness" | "saturation" | "contrast" | "range">
-            >;
-        };
+        static override defineSchema(): VisionModeSchema;
 
         /** The lighting illumination levels which are supported. */
         static LIGHTING_LEVELS: {
@@ -79,23 +46,90 @@ declare global {
         animated: boolean;
 
         /**
+         * Does this vision mode enable light sources?
+         * True unless it disables lighting entirely.
+         */
+        get perceivesLight(): boolean;
+
+        /**
+         * Special activation handling that could be implemented by VisionMode subclasses
+         * @param source   Activate this VisionMode for a specific source
+         */
+        _activate(source: PointVisionSource): void;
+
+        /**
+         * Special deactivation handling that could be implemented by VisionMode subclasses
+         * @param source   Deactivate this VisionMode for a specific source
+         */
+        protected _deactivate(source: PointVisionSource): void;
+
+        /**
          * Special handling which is needed when this Vision Mode is activated for a VisionSource.
          * @param source Activate this VisionMode for a specific source
          */
-        activate(source: VisionSource<Token>): void;
+        activate(source: PointVisionSource<Token>): void;
+
+        /**
+         * Special handling which is needed when this Vision Mode is deactivated for a VisionSource.
+         * @param source Deactivate this VisionMode for a specific source
+         */
+        deactivate(source: PointVisionSource<Token>): void;
 
         /**
          * An animation function which runs every frame while this Vision Mode is active.
          * @param dt The deltaTime passed by the PIXI Ticker
          */
         animate(dt: number): Promise<void>;
-
-        /**
-         * Special handling which is needed when this Vision Mode is deactivated for a VisionSource.
-         * @param source Deactivate this VisionMode for a specific source
-         */
-        deactivate(source: VisionSource<Token>): void;
     }
+
+    interface VisionMode
+        extends foundry.abstract.DataModel<null, VisionModeSchema>,
+            ModelPropsFromSchema<VisionModeSchema> {}
 
     type LightingVisibility = (typeof VisionMode.LIGHTING_VISIBILITY)[keyof typeof VisionMode.LIGHTING_VISIBILITY];
 }
+
+type ShaderSchema = fields.SchemaField<{
+    shader: ShaderField;
+    uniforms: fields.ObjectField<{}>;
+}>;
+
+type LightingSchema = fields.SchemaField<{
+    visibility: fields.NumberField;
+    postProcessingModes: fields.ArrayField<fields.StringField>;
+    uniforms: fields.ObjectField<{}>;
+}>;
+
+type VisionModeSchema = {
+    id: fields.StringField;
+    label: fields.StringField;
+    tokenConfig: fields.BooleanField;
+    canvas: fields.SchemaField<{
+        shader: ShaderField;
+        uniforms: fields.ObjectField<{}>;
+    }>;
+    lighting: fields.SchemaField<{
+        background: LightingSchema;
+        coloration: LightingSchema;
+        illumination: LightingSchema;
+        darkness: LightingSchema;
+        levels: fields.ObjectField<{}>;
+        multipliers: fields.ObjectField<{}>;
+    }>;
+    vision: fields.SchemaField<{
+        background: ShaderSchema;
+        coloration: ShaderSchema;
+        illumination: ShaderSchema;
+        darkness: fields.SchemaField<{
+            adaptive: fields.BooleanField;
+        }>;
+        defaults: fields.SchemaField<{
+            color: fields.ColorField;
+            attenuation: fields.AlphaField;
+            brightness: fields.NumberField;
+            saturation: fields.NumberField;
+            contrast: fields.NumberField;
+        }>;
+        preferred: fields.BooleanField;
+    }>;
+};

@@ -65,7 +65,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-modifier]")) {
             input.addEventListener("change", async () => {
-                const modifier = Math.clamped(Math.trunc(Number(input.value) || 0), -999, 999);
+                const modifier = Math.clamp(Math.trunc(Number(input.value) || 0), -999, 999);
                 if (Number.isInteger(modifier)) {
                     const itemId = htmlClosest(input, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });
