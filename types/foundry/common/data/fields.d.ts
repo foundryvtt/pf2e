@@ -1218,6 +1218,8 @@ type DocumentStatsSchema = {
     lastModifiedBy: ForeignDocumentField<string>;
 };
 
+export type DocumentStatsData = SourceFromSchema<DocumentStatsSchema>;
+
 /**
  * A subclass of [StringField]{@link StringField} that is used specifically for the Document "type" field.
  */
