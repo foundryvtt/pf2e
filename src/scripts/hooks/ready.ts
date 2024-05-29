@@ -141,7 +141,7 @@ export const Ready = {
                 if (!token.actor) continue;
                 if (hasSceneTerrains) {
                     inTerrains.push(token.actor);
-                } else if ((token.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "pf2eEnvironment"))) {
+                } else if ((token.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "environment"))) {
                     inTerrains.push(token.actor);
                 }
             }
