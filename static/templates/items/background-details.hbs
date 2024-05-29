@@ -23,7 +23,7 @@
 <div class="form-group form-group-trait">
     <label class="pf-title">
         {{localize "PF2E.TrainedSkillsLabel"}}
-        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skills" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
+        <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skillList" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
     </label>
 
     <ul class="abc-traits-list">
@@ -36,12 +36,35 @@
 </div>
 
 <div class="form-group">
-    <label>{{localize "PF2E.Lore"}}</label>
-    <input type="text" name="system.trainedLore" value="{{data.trainedLore}}" data-dtype="String" />
+    <label>
+        {{localize "PF2E.Lore"}}
+        <a class="small-button" data-action="add-lore">
+            <i class="fa-solid fa-plus"></i>{{localize "PF2E.Item.ABC.Add"}}
+        </a>
+    </label>
+    <div>
+        {{#if data.trainedSkills.lore}}
+            <ol class="lore-list">
+                {{#each data.trainedSkills.lore as |lore index|}}
+                    <li>
+                        <input type="text" name="system.trainedSkills.lore.{{index}}" value="{{lore}}" data-dtype="String" />
+                        <a
+                            data-action="delete-lore"
+                            data-tooltip="Delete"
+                            data-index="{{index}}"
+                        ><i class="fa-solid fa-trash"></i></a>
+                    </li>
+                {{/each}}
+            </ol>
+        {{else}}
+            {{localize "None"}}
+        {{/if}}
+    </div>
+
 </div>
 
 {{~#*inline "abcItems"~}}
-    <ul class="item-refs">
+    <ul class="item-refs {{#unless data.items}}empty{{/unless}}">
         {{~#each items as |item i|}}
             <li data-index="{{i}}" data-item-uuid="{{item.uuid}}">
                 <img src="{{item.img}}">
@@ -57,10 +80,12 @@
     </ul>
 {{~/inline~}}
 
-<div class="form-group stacked item-ref-group" data-valid-drops="skill">
+<div class="form-group item-ref-group" data-valid-drops="skill">
     <label for="data.traits">
         {{localize "PF2E.BackgroundSkillFeats"}}
     </label>
     {{#> abcItems data}}data.{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+    <p class="hint">
+        {{localize "PF2E.DragDropFeats"}}
+    </p>
 </div>
