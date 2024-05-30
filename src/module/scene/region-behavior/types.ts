@@ -8,11 +8,12 @@ import type { PauseGameRegionBehaviorTypeSchema } from "types/foundry/client-esm
 import type { SuppressWeatherRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/suppress-weather.d.ts";
 import type { TeleportTokenRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/teleport-token.d.ts";
 import type { ToggleBehaviorRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/toggle-behavior.d.ts";
+import type { RegionBehaviorPF2e } from "./document.ts";
 import type { EnvironmentTypeData } from "./environment.ts";
 
 type RegionEventPF2e = RegionEvent<TokenDocumentPF2e, UserPF2e, CombatantPF2e, RegionDocument<ScenePF2e | null>>;
 
-interface BaseRegionBehavior<TParent extends RegionDocument = RegionDocument> extends RegionBehavior<TParent> {
+interface BaseRegionBehavior<TParent extends RegionDocument = RegionDocument> extends RegionBehaviorPF2e<TParent> {
     get scene(): ScenePF2e | null;
 
     _handleRegionEvent(event: RegionEventPF2e): Promise<void>;
@@ -73,14 +74,26 @@ interface EnvironmentRegionBehaviorPF2e<TParent extends RegionDocument = RegionD
     system: EnvironmentTypeData;
 }
 
-type RegionBehaviorInstance<TParent extends RegionDocument = RegionDocument> =
-    | AdjustDarknessLevelRegionBehavior<TParent>
-    | ExecuteMacroRegionBehavior<TParent>
-    | ExecuteScriptRegionBehavior<TParent>
-    | PauseGameRegionBehavior<TParent>
-    | SuppressWeatherRegionBehavior<TParent>
-    | TeleportTokenRegionBehavior<TParent>
-    | ToggleBehaviorRegionBehavior<TParent>
-    | EnvironmentRegionBehaviorPF2e<TParent>;
+interface RegionBehaviorInstances<TParent extends RegionDocument = RegionDocument> {
+    adjustDarknessLevel: AdjustDarknessLevelRegionBehavior<TParent>;
+    executeMacro: ExecuteMacroRegionBehavior<TParent>;
+    executeScript: ExecuteScriptRegionBehavior<TParent>;
+    pauseGame: PauseGameRegionBehavior<TParent>;
+    suppressWeather: SuppressWeatherRegionBehavior<TParent>;
+    teleportToken: TeleportTokenRegionBehavior<TParent>;
+    toggleBehavior: ToggleBehaviorRegionBehavior<TParent>;
+    environment: EnvironmentRegionBehaviorPF2e<TParent>;
+}
 
-export type { EnvironmentRegionBehaviorPF2e, RegionBehaviorInstance, RegionEventPF2e };
+type RegionBehaviorInstance<TParent extends RegionDocument = RegionDocument> =
+    RegionBehaviorInstances<TParent>[keyof RegionBehaviorInstances];
+
+type RegionBehaviorInstanceType = RegionBehaviorInstance["type"];
+
+export type {
+    EnvironmentRegionBehaviorPF2e,
+    RegionBehaviorInstance,
+    RegionBehaviorInstances,
+    RegionBehaviorInstanceType,
+    RegionEventPF2e,
+};

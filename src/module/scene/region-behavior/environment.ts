@@ -47,6 +47,7 @@ type EnvironmentTypeSchema = {
 };
 
 type EnvironmentTypeData = ModelPropsFromSchema<EnvironmentTypeSchema>;
+type EnvironmentTypeSource = SourceFromSchema<EnvironmentTypeSchema>;
 
 export { EnvironmentBehaviorTypePF2e };
-export type { EnvironmentTypeData };
+export type { EnvironmentTypeData, EnvironmentTypeSource };
