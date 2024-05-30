@@ -13,7 +13,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { EnviornmentPF2eRegionBehavior } from "@scene/region-behaviors/types.ts";
+import { EnvironmentRegionBehaviorPF2e } from "@scene/region-behaviors/types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
@@ -272,7 +272,7 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
             if (token.elevation < bottom || token.elevation > top) continue;
 
             for (const behavior of region.behaviors.filter(
-                (b): b is EnviornmentPF2eRegionBehavior => b.type === "pf2eEnvironment",
+                (b): b is EnvironmentRegionBehaviorPF2e => b.type === "environment",
             )) {
                 const system = behavior.system;
                 switch (system.mode) {

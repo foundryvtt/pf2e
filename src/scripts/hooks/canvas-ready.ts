@@ -29,9 +29,7 @@ export const CanvasReady = {
                 if (game.ready) {
                     if (
                         hasSceneTerrains ||
-                        (token.document.regions ?? []).some((r) =>
-                            r.behaviors.some((b) => b.type === "pf2eEnvironment"),
-                        )
+                        (token.document.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "environment"))
                     ) {
                         token.actor?.reset();
                     }

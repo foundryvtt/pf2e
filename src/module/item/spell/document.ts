@@ -1002,7 +1002,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // If this isn't a variant, it probably needs to be heightened via overlays
         if (!this.isVariant) {
             const variant = this.loadVariant({ castRank });
-            if (variant) return variant.rollDamage(event);
+            if (variant) return variant.rollDamage(event, mapIncreases);
         }
 
         const targetToken =

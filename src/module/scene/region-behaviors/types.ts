@@ -8,7 +8,7 @@ import type { PauseGameRegionBehaviorTypeSchema } from "types/foundry/client-esm
 import type { SuppressWeatherRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/suppress-weather.d.ts";
 import type { TeleportTokenRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/teleport-token.d.ts";
 import type { ToggleBehaviorRegionBehaviorTypeSchema } from "types/foundry/client-esm/data/region-behaviors/toggle-behavior.d.ts";
-import type { EnvironmentTypeData } from "./terrain.ts";
+import type { EnvironmentTypeData } from "./environment.ts";
 
 type RegionEventPF2e = RegionEvent<TokenDocumentPF2e, UserPF2e, CombatantPF2e, RegionDocument<ScenePF2e | null>>;
 
@@ -66,9 +66,9 @@ interface ToggleBehaviorRegionBehavior<TParent extends RegionDocument = RegionDo
     system: ModelPropsFromSchema<ToggleBehaviorRegionBehaviorTypeSchema>;
 }
 
-interface EnviornmentPF2eRegionBehavior<TParent extends RegionDocument = RegionDocument>
+interface EnvironmentRegionBehaviorPF2e<TParent extends RegionDocument = RegionDocument>
     extends BaseRegionBehavior<TParent> {
-    type: "pf2eEnvironment";
+    type: "environment";
 
     system: EnvironmentTypeData;
 }
@@ -81,6 +81,6 @@ type RegionBehaviorInstance<TParent extends RegionDocument = RegionDocument> =
     | SuppressWeatherRegionBehavior<TParent>
     | TeleportTokenRegionBehavior<TParent>
     | ToggleBehaviorRegionBehavior<TParent>
-    | EnviornmentPF2eRegionBehavior<TParent>;
+    | EnvironmentRegionBehaviorPF2e<TParent>;
 
-export type { EnviornmentPF2eRegionBehavior, RegionBehaviorInstance, RegionEventPF2e };
+export type { EnvironmentRegionBehaviorPF2e, RegionBehaviorInstance, RegionEventPF2e };
