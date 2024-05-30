@@ -1120,6 +1120,7 @@ const traitDescriptions = {
     concussive: "PF2E.TraitDescriptionConcussive",
     conrasu: "PF2E.TraitDescriptionConrasu",
     consecration: "PF2E.TraitDescriptionConsecration",
+    construct: "PF2E.TraitDescriptionConstruct",
     consumable: "PF2E.TraitDescriptionConsumable",
     contact: "PF2E.TraitDescriptionContact",
     contingency: "PF2E.TraitDescriptionContingency",
