@@ -7,7 +7,14 @@
         <div class="actions-title">
             {{#unless omitName}}
                 <div class="action-name">
-                    <h4 class="name"><a data-action="toggle-summary">{{action.label}}</a></h4>
+                    <h4 class="name">
+                        <a data-action="toggle-summary">{{action.label}}</a>
+                        {{#if (and action.item.flags.pf2e.renamableStrike @root.editable)~}}
+                            <a class="rename" data-action="rename-strike" data-tooltip="PF2E.Actor.Character.Strike.Rename">
+                                <i class="fa-regular fa-input-text"></i>
+                            </a>
+                        {{~/if}}
+                    </h4>
                     {{#if action.item.isTemporary}}
                         <i
                             class="fa-solid fa-info-circle"
