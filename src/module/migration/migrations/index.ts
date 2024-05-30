@@ -292,3 +292,4 @@ export { Migration923KineticistRestructure } from "./923-kineticist-restructure.
 export { Migration924JiuHuanDoa } from "./924-jiu-huan-dao.ts";
 export { Migration925TouchOfCorruption } from "./925-touch-of-corruption.ts";
 export { Migration926RemoveVisionFeatureLinks } from "./926-remove-vision-feature-links.ts";
+export { Migration927ClassBackgroundBattleFormSkillLongform } from "./927-class-background-skill-longform.ts";
