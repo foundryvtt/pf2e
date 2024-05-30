@@ -439,6 +439,13 @@ declare global {
         getCenter(x: number, y: number): Point;
 
         /**
+         * Get the center point for a given position or the current position.
+         * @param [position]    The position to be used instead of the current position
+         * @returns             The center point
+         */
+        getCenterPoint(position?: Point): Point;
+
+        /**
          * Set the token's position by comparing its center position vs the nearest grid vertex
          * Return a Promise that resolves to the Token once the animation for the movement has been completed
          * @param x The x-coordinate of the token center
