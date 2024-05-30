@@ -13,7 +13,7 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
-import { EnvironmentRegionBehaviorPF2e } from "@scene/region-behaviors/types.ts";
+import { EnvironmentRegionBehaviorPF2e } from "@scene/region-behavior/types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
