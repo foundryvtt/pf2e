@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ItemSystemData } from "@item/base/data/system.ts";
@@ -643,22 +643,19 @@ class TextEditorPF2e extends TextEditor {
                     return game.i18n.localize("PF2E.PerceptionLabel");
                 default: {
                     // Skill or Lore
-                    const shortForm = (() => {
-                        if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                            return SKILL_EXPANDED[params.type].shortForm;
-                        } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                            return params.type;
-                        }
-                        return;
-                    })();
-                    return shortForm
-                        ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                        : params.type
-                              .split("-")
-                              .map((word) => {
-                                  return word.slice(0, 1).toUpperCase() + word.slice(1);
-                              })
-                              .join(" ");
+                    const skillLabel = objectHasKey(CONFIG.PF2E.skillList, params.type)
+                        ? game.i18n.localize(CONFIG.PF2E.skillList[params.type])
+                        : null;
+
+                    return (
+                        skillLabel ??
+                        params.type
+                            .split("-")
+                            .map((word) => {
+                                return word.slice(0, 1).toUpperCase() + word.slice(1);
+                            })
+                            .join(" ")
+                    );
                 }
             }
         })();

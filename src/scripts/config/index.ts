@@ -345,25 +345,6 @@ export const PF2ECONFIG = {
 
     checkDCs: configFromLocalization(EN_JSON.PF2E.Check.DC, "PF2E.Check.DC"),
 
-    skills: {
-        acr: "PF2E.SkillAcr",
-        arc: "PF2E.SkillArc",
-        ath: "PF2E.SkillAth",
-        cra: "PF2E.SkillCra",
-        dec: "PF2E.SkillDec",
-        dip: "PF2E.SkillDip",
-        itm: "PF2E.SkillItm",
-        med: "PF2E.SkillMed",
-        nat: "PF2E.SkillNat",
-        occ: "PF2E.SkillOcc",
-        prf: "PF2E.SkillPrf",
-        rel: "PF2E.SkillRel",
-        soc: "PF2E.SkillSoc",
-        ste: "PF2E.SkillSte",
-        sur: "PF2E.SkillSur",
-        thi: "PF2E.SkillThi",
-    },
-
     saves: {
         fortitude: "PF2E.SavesFortitude",
         reflex: "PF2E.SavesReflex",
