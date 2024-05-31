@@ -79,7 +79,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         });
 
         if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
-            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> | null }> =
                 source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = this.#replaceUUID(entry.uuid, "Item");

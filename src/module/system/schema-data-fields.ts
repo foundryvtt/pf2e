@@ -328,12 +328,27 @@ class PredicateField<
 type RecordFieldModelProp<
     TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
     TValueField extends DataField,
-> = Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
+    TDense extends boolean = false,
+> = TDense extends true
+    ? Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
+    : TDense extends false
+      ? Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>
+      :
+            | Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>
+            | Partial<Record<ModelPropFromDataField<TKeyField>, ModelPropFromDataField<TValueField>>>;
 
 type RecordFieldSourceProp<
     TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
     TValueField extends DataField,
-> = Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>;
+    /** Whether this is to be treated as a "dense" record; i.e., any valid key should return a value */
+    TDense extends boolean = false,
+> = TDense extends true
+    ? Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>
+    : TDense extends false
+      ? Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>
+      :
+            | Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>
+            | Partial<Record<SourcePropFromDataField<TKeyField>, SourcePropFromDataField<TValueField>>>;
 
 class RecordField<
     TKeyField extends StringField<string, string, true, false, false> | NumberField<number, number, true, false, false>,
@@ -341,9 +356,10 @@ class RecordField<
     TRequired extends boolean = true,
     TNullable extends boolean = false,
     THasInitial extends boolean = true,
+    TDense extends boolean = false,
 > extends fields.ObjectField<
-    RecordFieldSourceProp<TKeyField, TValueField>,
-    RecordFieldModelProp<TKeyField, TValueField>,
+    RecordFieldSourceProp<TKeyField, TValueField, TDense>,
+    RecordFieldModelProp<TKeyField, TValueField, TDense>,
     TRequired,
     TNullable,
     THasInitial
@@ -356,7 +372,12 @@ class RecordField<
     constructor(
         keyField: TKeyField,
         valueField: TValueField,
-        options: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>,
+        options?: ObjectFieldOptions<
+            RecordFieldSourceProp<TKeyField, TValueField, TDense>,
+            TRequired,
+            TNullable,
+            THasInitial
+        >,
     ) {
         super(options);
 
@@ -413,6 +434,7 @@ class RecordField<
         options?: CleanFieldOptions | undefined,
     ): Record<string, unknown> {
         for (const [key, value] of Object.entries(values)) {
+            if (key.startsWith("-=")) continue; // Don't attempt to clean deletion entries
             values[key] = this.valueField.clean(value, options);
         }
         return values;
@@ -432,24 +454,36 @@ class RecordField<
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>,
-    ): MaybeSchemaProp<RecordFieldModelProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>;
+    ): MaybeSchemaProp<RecordFieldModelProp<TKeyField, TValueField, TDense>, TRequired, TNullable, THasInitial>;
     override initialize(
         values: object | null | undefined,
         model: ConstructorOf<foundry.abstract.DataModel>,
         options?: ObjectFieldOptions<RecordFieldSourceProp<TKeyField, TValueField>, TRequired, TNullable, THasInitial>,
-    ): RecordFieldModelProp<TKeyField, TValueField> | null | undefined {
+    ): Record<string, unknown> | null | undefined {
         if (!values) return values;
         const data: Record<string, unknown> = {};
         for (const [key, value] of Object.entries(values)) {
             data[key] = this.valueField.initialize(value, model, options);
         }
-        return data as RecordFieldModelProp<TKeyField, TValueField>;
+        return data;
+    }
+}
+
+/** A field that always results in a value of `null` */
+class NullField extends fields.DataField<null, null, true, true, true> {
+    constructor() {
+        super({ required: true, nullable: true, initial: null });
+    }
+
+    protected override _cast(): null {
+        return null;
     }
 }
 
 export {
     DataUnionField,
     LaxSchemaField,
+    NullField,
     PredicateField,
     RecordField,
     SlugField,
