@@ -3,7 +3,6 @@ import { ABCItemPF2e, type FeatPF2e } from "@item";
 import { OneToFour } from "@module/data.ts";
 import { BackgroundSource, BackgroundSystemData } from "./data.ts";
 import { BackgroundTrait } from "./types.ts";
-import { SKILL_DICTIONARY_REVERSE } from "@actor/values.ts";
 
 class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABCItemPF2e<TParent> {
     get traits(): Set<BackgroundTrait> {
@@ -47,8 +46,7 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         const { trainedSkills } = this.system;
-        for (const skillLongForm of trainedSkills.value) {
-            const key = SKILL_DICTIONARY_REVERSE[skillLongForm];
+        for (const key of trainedSkills.value) {
             const skill = this.actor.system.skills[key];
             if (skill) {
                 skill.rank = Math.max(skill.rank, 1) as OneToFour;

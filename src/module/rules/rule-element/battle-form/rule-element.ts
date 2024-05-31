@@ -3,7 +3,7 @@ import { CharacterStrike } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { MOVEMENT_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { MOVEMENT_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
@@ -346,7 +346,6 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             }
             newSkill.ownIfHigher ??= true;
 
-            const shortForm = SKILL_DICTIONARY_REVERSE[key];
             const currentSkill = actor.skills[key];
             const newModifier = Number(this.resolveValue(newSkill.modifier)) || 0;
             if (currentSkill.mod > newModifier && newSkill.ownIfHigher) {
@@ -361,10 +360,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
             });
 
             actor.skills[key] = currentSkill.extend({ modifiers: [baseMod], filter: this.#filterModifier });
-            actor.system.skills[shortForm] = fu.mergeObject(
-                actor.system.skills[shortForm],
-                actor.skills[key].getTraceData(),
-            );
+            actor.system.skills[key] = fu.mergeObject(actor.system.skills[key], actor.skills[key].getTraceData());
         }
     }
 
