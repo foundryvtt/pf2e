@@ -202,7 +202,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When a plated python burrows through ground, it petrifies and destroys the material in front of it, leaving a 5-foot diameter tunnel in its wake. A plated python doesn't need to Squeeze to pass through any space at least that wide.</p>"
+                    "value": "<p>When a plated python burrows through ground, it petrifies and destroys the material in front of it, leaving a 5-foot diameter tunnel in its wake. A plated python doesn't need to @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze] to pass through any space at least that wide.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -275,7 +275,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "towering-bite",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:jaws"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "towering-bite"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-60"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

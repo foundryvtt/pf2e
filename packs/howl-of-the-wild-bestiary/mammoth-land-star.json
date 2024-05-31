@@ -3,10 +3,64 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "6Typ7XPcNRs2tSi3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.Dby3ecpqPheBrgnT"
+                }
+            },
+            "img": "icons/environment/creatures/starfish-blue.webp",
+            "name": "Effect: Mammoth Land Star Limbs",
+            "sort": 100000,
+            "system": {
+                "badge": {
+                    "type": "counter",
+                    "value": 5
+                },
+                "description": {
+                    "value": "<p>The number of limbs the mammoth land star currently has.</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 8
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [
+                    {
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": "@item.system.badge.value * 4"
+                    }
+                ],
+                "slug": "effect-mammoth-land-star-limbs",
+                "start": {
+                    "initiative": 27,
+                    "value": 6852
+                },
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
             "_id": "E92966nW4Esk7jDi",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Feet",
-            "sort": 100000,
+            "sort": 200000,
             "system": {
                 "attack": {
                     "value": ""
@@ -51,7 +105,7 @@
             "_id": "CA68rsSG7WvYMyBu",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Limb Spines",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "attack": {
                     "value": ""
@@ -100,7 +154,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 20 (reduced by 4 for each missing limb)",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -118,14 +172,7 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [
-                    {
-                        "deactivatedBy": [],
-                        "key": "FastHealing",
-                        "type": "regeneration",
-                        "value": 20
-                    }
-                ],
+                "rules": [],
                 "slug": "regeneration",
                 "traits": {
                     "rarity": "common",
@@ -138,7 +185,7 @@
             "_id": "su08qYwM1EZB8BNV",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Limb Regrowth",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -148,7 +195,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A healthy mammoth land star typically has five limbs. A creature can sever a limb by targeting it and dealing damage equal to the limb's Hit Points. The mammoth land star can regrow a missing limb over the course of 24 hours.</p>"
+                    "value": "<p>A healthy mammoth land star typically has five limbs. A creature can sever a limb by targeting it and dealing damage equal to the limb's Hit Points. The mammoth land star can regrow a missing limb over the course of 24 hours.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Mammoth Land Star Limbs]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -167,7 +214,7 @@
             "_id": "cPXzKyloAQRiS69B",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Limbs",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -196,7 +243,7 @@
             "_id": "PcbvgtJAmPJMUMi0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Regrowth",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -225,7 +272,7 @@
             "_id": "5g4IJLaMtEhPW6ra",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Detach",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -256,7 +303,7 @@
             "_id": "fTN4TsTSO1TZ0TDT",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Digest",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -266,7 +313,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The mammoth land star has a target @UUID[Compendium.pf2e.conditionitems.Item.Grabbed];</p>\n<hr />\n<p><strong>Effect</strong> The mammoth land star extrudes its stomach onto its prey and digests it alive. The target takes @Damage[(2d12+6)[acid]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                    "value": "<p><strong>Requirements</strong> The mammoth land star has a target @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The mammoth land star extrudes its stomach onto its prey and digests it alive. The target takes @Damage[(2d12+6)[acid]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -285,13 +332,13 @@
             "_id": "CD5zD0yBK4gwgKyE",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Glide",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": 2
                 },
                 "category": "offensive",
                 "description": {
@@ -302,7 +349,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "glide",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "glide"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -316,7 +379,7 @@
             "_id": "qBZJ1ZbM6jBcfV4L",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Pry",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -345,7 +408,7 @@
             "_id": "9WlgMEC7dF3Vx1de",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Spiny Venom",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -355,7 +418,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26];</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> 1d6 poison and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}</p>\n<p><strong>Stage 2</strong> 2d6 poison and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}</p>\n<p><strong>Stage 3</strong> 2d8 poison and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:26]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[1d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}</p>\n<p><strong>Stage 2</strong> @Damage[2d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2}</p>\n<p><strong>Stage 3</strong> @Damage[2d8[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -382,7 +445,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -412,7 +475,7 @@
             "_id": "Z2vAEGTTxkJz8GuI",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -438,7 +501,7 @@
             "_id": "SD6Yt7hRuIR3CVdN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -464,7 +527,7 @@
             "_id": "VHw0u19WIfsjxtoJ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""
@@ -480,13 +543,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Track",
+                        "predicate": [
+                            "action:track"
+                        ],
+                        "selector": "survival",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+19 to Track",
-                        "options": ""
+                        "options": "action:track"
                     }
                 }
             },

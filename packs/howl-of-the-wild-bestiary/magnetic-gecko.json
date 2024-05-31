@@ -207,7 +207,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "repel",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "repel"
+                        ],
+                        "type": "metal",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -229,7 +244,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>If the gecko hits Small or smaller creature with its tongue, and the target is made of metal or is wearing metallic armor, the gecko's tongue latches on to the creature. The creature must attempt a @Check[type:reflex|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. While the gecko is Grabbing a creature in this way, it can attempt an Athletics check against the target's Fortitude DC to pull the creature to a space adjacent to the gecko. A creature grabbed in this way can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] normally.</p>"
+                    "value": "<p>If the gecko hits Small or smaller creature with its tongue, and the target is made of metal or is wearing metallic armor, the gecko's tongue latches on to the creature. The creature must attempt a @Check[type:reflex|dc:17] save or become @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. While the gecko is Grabbing a creature in this way, it can attempt an @Check[type:athletics|defense:fortitude] check against the target's Fortitude DC to pull the creature to a space adjacent to the gecko. A creature grabbed in this way can @UUID[Compendium.pf2e.actionspf2e.Item.Escape] normally.</p>"
                 },
                 "publication": {
                     "license": "OGL",
