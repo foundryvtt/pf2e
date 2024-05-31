@@ -14,9 +14,8 @@ import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/r
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
-import * as R from "remeda";
 import { createHTMLElement, signedInteger, sluggify } from "@util";
+import * as R from "remeda";
 import { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import { VariantCloneParams } from "./types.ts";
 import { PredicatePF2e } from "../../system/predication.ts";
@@ -335,6 +334,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: mod,
+                        type: "proficiency",
                         adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                     ...variants
@@ -344,8 +344,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                                 new ModifierPF2e({
                                     slug: sluggify(v.label),
                                     label: v.label,
-                                    modifier: v.value - mod,
-                                    type: "untyped",
+                                    modifier: v.value,
+                                    type: "proficiency",
                                     predicate: Array.isArray(v.predicate) ? new PredicatePF2e(v.predicate) : undefined,
                                     adjustments: undefined,
                                 }),

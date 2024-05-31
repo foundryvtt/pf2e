@@ -122,7 +122,7 @@
                             <a class="rollable">{{skill.label}} <span class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}">{{numberFormat skill.value decimals=0 sign=true}}</span></a>
                             {{#if skill.variants}}
                                 {{#each skill.variants as |variant variantId|}}
-                                    <a class="rollable variant" data-skill="{{id}}" data-options="{{variant.options}}">({{variant.label}})</a>
+                                    <a class="rollable variant" data-options="skill" data-skill="{{id}}" data-variant="{{variantId}}">({{numberFormat variant.value decimals=0 sign=true}} {{variant.label}})</a>
                                 {{/each}}
                             {{/if}}
                         </div>

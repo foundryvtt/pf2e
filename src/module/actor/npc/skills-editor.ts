@@ -78,24 +78,23 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
                     slug: slug,
                     label: "",
                     base: 0,
-                    visible: false,
+                    visible: true,
                 });
 
                 loresList?.insertAdjacentHTML("beforeend", content);
 
                 const newCheckbox = loresList?.querySelector<HTMLInputElement>(`input[name="lore.${slug}.enabled"]`);
-                newCheckbox?.addEventListener(
-                    "input",
-                    () => {
-                        createAdditionalLore();
-                    },
-                    { once: true },
-                );
 
-                const newInput = htmlQuery<HTMLInputElement>(loresList, `input[name="lore.${slug}.mod"]`);
-                if (newInput && newCheckbox) {
-                    newInput.addEventListener("input", () => {
-                        newCheckbox.checked = !!Number(newInput.value);
+                const labelInput = htmlQuery<HTMLInputElement>(loresList, `input[name="lore.${slug}.label"]`);
+                if (labelInput) {
+                    labelInput.focus();
+                    labelInput.select();
+                }
+
+                const modInput = htmlQuery<HTMLInputElement>(loresList, `input[name="lore.${slug}.mod"]`);
+                if (modInput && newCheckbox) {
+                    modInput.addEventListener("input", () => {
+                        newCheckbox.checked = !!Number(modInput.value);
                         newCheckbox.dispatchEvent(new Event("input"));
                     });
                 }
@@ -104,35 +103,19 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
             }
         }
 
-        createAdditionalLore();
-
-        htmlQuery(html, "button[data-action=add-lore]")?.addEventListener("click", async (event) => {
-            const loreNameElement = htmlQuery(htmlClosest(event.currentTarget, ".lore-skill-creator"), "input");
-            if (loreNameElement === null) return;
-            const loreName = loreNameElement.value.trim();
-            if (loreName) {
-                const loresList = htmlClosest(event.currentTarget, ".scroll-container")?.querySelector(".lores-list");
-
-                const content = await renderTemplate("/systems/pf2e/templates/actors/npc/partials/lore.hbs", {
-                    actor: this.actor.uuid,
-                    slug: sluggify(loreName),
-                    label: loreName,
-                    base: 0,
-                    visible: true,
-                });
-
-                loresList?.insertAdjacentHTML("beforeend", content);
-
-                const newTextElem = loresList?.querySelector<HTMLInputElement>(
-                    `input[name="${sluggify(loreName)}"][type="number"]`,
-                );
-                if (newTextElem) {
-                    newTextElem.focus();
-                    newTextElem.select();
-                }
-            }
-            loreNameElement.value = "";
+        htmlQuery(html, "a[data-action=add-lore]")?.addEventListener("click", async (event) => {
+            createAdditionalLore();
         });
+
+        for (const removeVariant of htmlQueryAll<HTMLAnchorElement>(html, `a[data-action="remove-variant"]`)) {
+            removeVariant.addEventListener("click", () => {
+                const element = removeVariant.closest("li.variant");
+                if (element) {
+                    element.remove();
+                }
+            });
+        }
+
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {

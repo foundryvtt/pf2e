@@ -13,14 +13,17 @@
                         <input type="number" name="skill.{{skill.key}}.mod" {{#if skill.visible}}value="{{skill.value}}"{{/if}} placeholder="0" {{disabled skill.disabled}} />
 
                         <div class="item-controls">
-                            <a class="item-control" data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-plus"></i></a>
+                            <a class="item-control" data-action="add-skill-variant" data-tooltip="PF2E.Actor.NPC.SkillsEditor.AddSituationalSkill"><i class="fa-solid fa-plus"></i></a>
                         </div>
                     </li>
                 {{/unless}}
             {{/each}}
         </ol>
 
-        <h2>Lores</h2>
+        <h2>
+            Lores
+            <a class="item-control" data-action="add-lore" data-tooltip="PF2E.Actor.NPC.SkillsEditor.AddLore"><i class="fa-solid fa-plus"></i></a>
+        </h2>
         <ol class="lores-list">
             {{#each skills as |skill|}}
                 {{#if skill.isLore}}
@@ -29,10 +32,8 @@
             {{/each}}
         </ol>
 
-        {{#if variants}}
         <div>
-            {{!-- <h2>{{localize "PF2E.Variants"}}</h2> --}}
-            <h2>Situational Skill Rolls</h2>
+            <h2>{{localize "PF2E.Actor.NPC.SkillsEditor.SituationalSkillRolls"}}</h2>
             <ol>
                 {{#each variants as |variant|}}
                     <li class="variant">
@@ -42,19 +43,7 @@
                         <input type="text" value="{{variant.label}}"/>
                         <input type="text" value="{{variant.mod}}" />
                         <div class="item-controls">
-                            <a class="item-control" data-action="edit-skill" data-tooltip="{{localize "PF2E.EditItemTitle"}}">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <a class="item-control" data-action="remove-skill" data-tooltip="{{localize "PF2E.NPC.Remove"}}">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                            <a data-action="edit-skill" data-tooltip="CONTROLS.CommonEdit"><i class="fa-solid fa-edit"></i></a>
-                            <a data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
-                            <a class="item-control" data-action="remove-skill" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
-                        </div>
-                        <div class="form-group form-fields">
-                            <label>Options</label>
-                            <input type="text" value="{{variant.options}}" placeholder="action:climb"/>
+                            <a data-action="remove-variant" data-tooltip="Delete"><i class="fa-solid fa-trash"></i></a>
                         </div>
                         <div class="form-group form-fields">
                             <label>Predicate</label>
@@ -64,10 +53,8 @@
                 {{/each}}
             </ol>
         </div>
-        {{/if}}
-
-        <button type="submit" class="trait-footer">
-            <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize "PF2E.SkillsLabel")}}
-        </button>
     </div>
+    <button type="submit" class="trait-footer">
+        <i class="fa-regular fa-save"></i>{{localize "DOCUMENT.Update" type=(localize "PF2E.SkillsLabel")}}
+    </button>
 </form>

@@ -34,6 +34,8 @@ import {
     NPCStrikeSheetData,
     NPCSystemSheetData,
 } from "./types.ts";
+import { PredicatePF2e } from "../../system/predication.ts";
+import { ModifierPF2e } from "../modifiers.ts";
 
 abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2e<TActor> {
     protected readonly actorConfigClass = NPCConfig;
@@ -179,8 +181,26 @@ abstract class AbstractNPCSheet<TActor extends NPCPF2e> extends CreatureSheetPF2
                 .map((o) => o.trim())
                 .filter((o) => !!o);
 
+            const variantIndex = link.dataset.variant;
             const key = objectHasKey(SKILL_DICTIONARY, skill) ? SKILL_DICTIONARY[skill] : skill;
-            await this.actor.skills[key]?.check.roll({ ...rollParams, extraRollOptions });
+            let skillStat = this.actor.skills[key];
+            if (variantIndex !== undefined) {
+                const variant = this.actor.system.skills[skill]?.variants[Number(variantIndex)];
+                const modifiers = skillStat?.modifiers.map((m) => {
+                    if (m.label === variant?.label) {
+                        return new ModifierPF2e({
+                            ...m,
+                            predicate: new PredicatePF2e([]),
+                        });
+                    }
+                    return m;
+                });
+                skillStat = skillStat?.extend({
+                    // label: variant?.label,
+                    modifiers: modifiers,
+                });
+            }
+            await skillStat?.check.roll({ ...rollParams, extraRollOptions });
         } else if (objectHasKey(this.actor.saves, save)) {
             await this.actor.saves[save].check.roll(rollParams);
         }

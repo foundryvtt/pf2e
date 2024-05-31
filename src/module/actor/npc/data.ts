@@ -48,7 +48,6 @@ type NPCSourceSkillData = {
 
 type NPCSkillVariantSource = {
     label: string;
-    options: string;
     value: number;
     predicate: JSONValue;
 };
