@@ -27,7 +27,7 @@ const abilityMap: Record<string, { attribute: string; shortForm: SkillAbbreviati
     thievery: { attribute: "dex", shortForm: "thi" },
 };
 
-const lores: string[] = [];
+const printed: string[] = [];
 function handleFolder(folder: string, _compendium: string) {
     // console.log(`${folder} : ${compendium}`);
     for (const comp of fs.readdirSync(folder, { withFileTypes: true })) {
@@ -63,12 +63,17 @@ function handleFolder(folder: string, _compendium: string) {
                     if (variants !== undefined && Object.values(variants).length > 0) {
                         currentSkill.variants = [];
                         for (const variant of Object.values(variants)) {
+                            variant.label = variant.label.replace(/^[-+]?\d+ /, "");
+
+                            if (!printed.includes(variant.label)) {
+                                printed.push(variant.label);
+                            }
+
                             if (item.system.rules.length === 0) {
                                 // console.log(`${actor.name} - ${variant.label} - ${variant.options}`);
                                 currentSkill.variants.push({
                                     label: variant.label,
                                     skill: SKILL_DICTIONARY[ability.shortForm],
-                                    options: variant.options,
                                     value: 0,
                                     predicate: [],
                                 });
@@ -84,7 +89,6 @@ function handleFolder(folder: string, _compendium: string) {
                                 currentSkill.variants.push({
                                     label: variant.label,
                                     skill: SKILL_DICTIONARY[ability.shortForm],
-                                    options: variant.options,
                                     value: item.system.mod.value + (re.value as number),
                                     predicate: re.predicate,
                                 });
@@ -94,7 +98,6 @@ function handleFolder(folder: string, _compendium: string) {
                                 currentSkill.variants.push({
                                     label: variant.label,
                                     skill: SKILL_DICTIONARY[ability.shortForm],
-                                    options: variant.options,
                                     value: 0,
                                     predicate: [],
                                 });
@@ -142,6 +145,8 @@ for (const comp of systemJson.packs) {
     handleFolder(path.join(baseDir, comp.path), `Compendium.pf2e.${comp.name}`);
 }
 
-console.log(lores.length);
+printed.sort();
+for (const p of printed) console.log(p);
+console.log(printed.length);
 
 // fs.writeFileSync("src/web/npclookup.json", JSON.stringify(npcLookup, null, 4));
