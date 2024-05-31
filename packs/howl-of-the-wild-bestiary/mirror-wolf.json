@@ -308,7 +308,77 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bond-with-mortal",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "hp",
+                        "value": 14
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": [
+                            "attack-roll",
+                            "damage"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "add": [
+                            "incorporeal",
+                            "spirit"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "bond-with-mortal"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "type": [
+                            "disease",
+                            "paralyzed",
+                            "poison"
+                        ]
+                    },
+                    {
+                        "key": "Resistance",
+                        "mode": "remove",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "type": "all-damage",
+                        "value": 0
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "piercing"
+                        },
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -401,7 +471,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "pack-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "pack-attack"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -666,8 +752,8 @@
                     "exceptions": [
                         "force",
                         "ghost-touch",
-                        "vitality",
-                        "spirit"
+                        "spirit",
+                        "vitality"
                     ],
                     "type": "all-damage",
                     "value": 7
@@ -735,9 +821,7 @@
                 "value": "med"
             },
             "value": [
-                "beast",
-                "incorporeal",
-                "spirit"
+                "beast"
             ]
         }
     },

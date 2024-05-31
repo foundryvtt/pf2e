@@ -5,7 +5,7 @@
         {
             "_id": "kSxZCAZUdZA1SadN",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -47,7 +47,7 @@
         {
             "_id": "Fn1PmwJ67vvKy7UF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "tail",
+            "name": "Tail",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -89,7 +89,7 @@
         {
             "_id": "c6uN20xlN08RQqpQ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "tongue",
+            "name": "Tongue",
             "sort": 300000,
             "system": {
                 "attack": {
@@ -177,7 +177,22 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "flickering-dash",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "flickering-dash"
+                        ],
+                        "type": "physical",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -371,13 +386,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Hide",
+                        "predicate": [
+                            "action:hide"
+                        ],
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+13 to Hide",
-                        "options": ""
+                        "options": "action:hide"
                     }
                 }
             },
