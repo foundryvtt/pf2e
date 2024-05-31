@@ -16,9 +16,9 @@ export class MigrationRunnerBase {
 
     static LATEST_SCHEMA_VERSION = 0.927;
 
-    static MINIMUM_SAFE_VERSION = 0.634;
+    static MINIMUM_SAFE_VERSION = 0.7;
 
-    static RECOMMENDED_SAFE_VERSION = 0.781;
+    static RECOMMENDED_SAFE_VERSION = 0.841;
 
     /** The minimum schema version for the foundry version number */
     static FOUNDRY_SCHEMA_VERSIONS = {
