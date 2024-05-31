@@ -232,7 +232,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             const attribute = SKILL_EXPANDED[longForm].attribute;
             const domains = [longForm, `${attribute}-based`, "skill-check", "all"];
 
-            const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
+            const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
             const statistic = new Statistic(this, {
                 slug: longForm,
                 label,
