@@ -94,6 +94,33 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return (this.document.sight.range ?? 0) >= dimensions.maxR ? dimensions.maxR : super.sightRange;
     }
 
+    /** Returns every grid square this token occupies as an array of grid square center points. Empty for non-square grids
+     *  @param [center] The center point of the token. Defaults to the current center point
+     */
+    getGridSquaresFromCenterPoint(center: Point = this.getCenterPoint()): Point[] {
+        if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) return [];
+        const { width, height } = this.document.bounds;
+        const size = canvas.dimensions.size;
+        if (width === size && height === size) {
+            return [center];
+        }
+        const rows = height / size;
+        const columns = width / size;
+        // Calculate the coordinates for the center point of the top left square of this token from the given token center point
+        const x = center.x - columns * size * 0.5 + size * 0.5;
+        const y = center.y - rows * size * 0.5 + size * 0.5;
+        // Generate center Points row by row from the top left to the bottom right
+        const points: Point[] = [];
+        for (let i = 0; i < rows; i++) {
+            const gy = y + i * size;
+            for (let j = 0; j < columns; j++) {
+                const gx = x + j * size;
+                points.push({ x: gx, y: gy });
+            }
+        }
+        return points;
+    }
+
     isAdjacentTo(token: TokenPF2e): boolean {
         return this.distanceTo(token) === 5;
     }

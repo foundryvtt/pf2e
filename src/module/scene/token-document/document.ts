@@ -18,6 +18,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     declare auras: Map<string, TokenAura>;
 
+    /** The new position of this token. Only set between `_preUpdate` and `update` if the token moves */
+    newPosition: Point | null = null;
+
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
         if (this.actor?.isOfType("party")) {
@@ -193,6 +196,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
         this.flags = fu.mergeObject(this.flags, { pf2e: {} });
+        this.newPosition = null;
         const actor = this.actor;
         if (!actor) return;
 
@@ -403,6 +407,20 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (game.user.id === userId && this.actor?.isOfType("loot")) {
             this.actor.toggleTokenHiding();
         }
+    }
+
+    protected override async _preUpdate(
+        data: DeepPartial<this["_source"]>,
+        options: TokenUpdateOperation<TParent>,
+        user: User,
+    ): Promise<boolean | void> {
+        if (Number(data.x) !== this.x || Number(data.y) !== this.y) {
+            this.newPosition = {
+                x: (data.x as number) ?? this.x,
+                y: (data.y as number) ?? this.y,
+            };
+        }
+        return super._preUpdate(data, options, user);
     }
 
     protected override _onUpdate(
