@@ -143,6 +143,7 @@ interface GamePF2e
                 buttons: boolean;
                 cards: boolean;
             };
+            disableExperienceTracking: boolean;
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;
@@ -320,6 +321,7 @@ declare global {
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
+        get(module: "pf2e", setting: "disableExperienceTracking"): boolean;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "gmVision"): boolean;
