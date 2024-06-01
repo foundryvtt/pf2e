@@ -1,5 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
+import { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { ItemSheetPF2e, type ItemPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
@@ -85,6 +86,21 @@ export function registerSettings(): void {
         onChange: () => {
             game.pf2e.compendiumBrowser.packLoader.reset();
             game.pf2e.compendiumBrowser.initCompendiumList();
+        },
+    });
+
+    game.settings.register("pf2e", "disableExperienceTracking", {
+        name: "PF2E.SETTINGS.DisableExperienceTracking.Name",
+        hint: "PF2E.SETTINGS.DisableExperienceTracking.Hint",
+        scope: "world",
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: (value) => {
+            game.pf2e.settings.disableExperienceTracking = !!value;
+            for (const sheet of Object.values(ui.windows).filter((w) => w instanceof CharacterSheetPF2e)) {
+                sheet.render();
+            }
         },
     });
 

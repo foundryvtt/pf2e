@@ -290,6 +290,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.bonus];
 
+        // Is experience tracking disabled?
+        sheetData.experienceTrackingDisabled = game.pf2e.settings.disableExperienceTracking;
+        console.log(sheetData.experienceTrackingDisabled);
+
         const craftingFormulas = await actor.getCraftingFormulas();
         const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);
         const flags = actor.flags.pf2e;
@@ -1642,6 +1646,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     data: CharacterSystemSheetData;
     deity: DeityPF2e<CharacterPF2e> | null;
     hasStamina: boolean;
+    experienceTrackingDisabled: boolean;
     /** This actor has actual containers for stowing, rather than just containers serving as a UI convenience */
     hasRealContainers: boolean;
     languages: LanguageSheetData[];
