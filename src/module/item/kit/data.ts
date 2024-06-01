@@ -1,23 +1,14 @@
-import type { ItemPF2e } from "@item";
+import type { KitPF2e } from "@item";
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/schema.ts";
 import type { BaseItemSourcePF2e, ItemSystemSource } from "@item/base/data/system.ts";
 import type { ClassTrait } from "@item/class/types.ts";
 import { PriceField } from "@item/physical/schema.ts";
-import type { RuleElementSource } from "@module/rules/index.ts";
 import { NullField, RecordField, SlugField } from "@system/schema-data-fields.ts";
-import type {
-    ArrayField,
-    BooleanField,
-    DocumentUUIDField,
-    FilePathField,
-    NumberField,
-    SchemaField,
-    StringField,
-} from "types/foundry/common/data/fields.d.ts";
+import fields = foundry.data.fields;
 
 class KitEntriesField extends RecordField<
-    StringField<string, string, true, false, false>,
-    SchemaField<KitEntryValueSchema>,
+    fields.StringField<string, string, true, false, false>,
+    fields.SchemaField<KitEntryValueSchema>,
     true,
     false,
     true,
@@ -30,11 +21,11 @@ class KitEntriesField extends RecordField<
         const fields = foundry.data.fields;
 
         type KitEntryValueSchema = {
-            uuid: DocumentUUIDField<ItemUUID, true, false, false>;
-            img: FilePathField<ImageFilePath, ImageFilePath, true, false, false>;
-            quantity: NumberField<number, number, true, false, false>;
-            name: StringField<string, string, true, false, false>;
-            isContainer: BooleanField<boolean, boolean, true, false, false>;
+            uuid: fields.DocumentUUIDField<ItemUUID, true, false, false>;
+            img: fields.FilePathField<ImageFilePath, ImageFilePath, true, false, false>;
+            quantity: fields.NumberField<number, number, true, false, false>;
+            name: fields.StringField<string, string, true, false, false>;
+            isContainer: fields.BooleanField<boolean, boolean, true, false, false>;
             items: KitEntriesField | NullField;
         };
         const hasNestedItems = depth <= 2;
@@ -78,7 +69,7 @@ class KitEntriesField extends RecordField<
     }
 }
 
-class KitSystemData extends ItemSystemModel<ItemPF2e, KitSystemSchema> {
+class KitSystemData extends ItemSystemModel<KitPF2e, KitSystemSchema> {
     static override defineSchema(): KitSystemSchema {
         const fields = foundry.data.fields;
 
@@ -108,25 +99,25 @@ class KitSystemData extends ItemSystemModel<ItemPF2e, KitSystemSchema> {
 }
 
 interface KitSystemData
-    extends ItemSystemModel<ItemPF2e, KitSystemSchema>,
+    extends ItemSystemModel<KitPF2e, KitSystemSchema>,
         Omit<ModelPropsFromSchema<KitSystemSchema>, "description"> {}
 
 type KitEntryData = NonNullable<KitSystemData["items"][string]>;
 
 type KitEntryValueSchema = {
-    uuid: DocumentUUIDField<ItemUUID, true, false, false>;
-    img: FilePathField<ImageFilePath, ImageFilePath, true, false, false>;
-    quantity: NumberField<number, number, true, false, false>;
-    name: StringField<string, string, true, false, false>;
-    isContainer: BooleanField<boolean, boolean, true, false, false>;
+    uuid: fields.DocumentUUIDField<ItemUUID, true, false, false>;
+    img: fields.FilePathField<ImageFilePath, ImageFilePath, true, false, false>;
+    quantity: fields.NumberField<number, number, true, false, false>;
+    name: fields.StringField<string, string, true, false, false>;
+    isContainer: fields.BooleanField<boolean, boolean, true, false, false>;
     items: KitEntriesField | NullField;
 };
 
 type KitSystemSchema = Omit<ItemSystemSchema, "traits"> & {
-    traits: SchemaField<{
-        otherTags: ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
-        value: ArrayField<
-            StringField<ClassTrait, ClassTrait, true, false, false>,
+    traits: fields.SchemaField<{
+        otherTags: fields.ArrayField<SlugField<true, false, false>, string[], string[], true, false, true>;
+        value: fields.ArrayField<
+            fields.StringField<ClassTrait, ClassTrait, true, false, false>,
             ClassTrait[],
             ClassTrait[],
             true,
@@ -138,10 +129,9 @@ type KitSystemSchema = Omit<ItemSystemSchema, "traits"> & {
     price: PriceField;
 };
 
-type KitSystemSource = Omit<SourceFromSchema<KitSystemSchema>, "rules"> & {
+type KitSystemSource = SourceFromSchema<KitSystemSchema> & {
     level?: never;
     schema?: ItemSystemSource["schema"];
-    rules: RuleElementSource[];
 };
 
 type KitSource = BaseItemSourcePF2e<"kit", KitSystemSource>;
