@@ -45,7 +45,7 @@ class PartyClownCar {
 
         await Promise.all(
             tokens.map(async (token) => {
-                await token.object?._animation;
+                await token.object?.animation;
                 return token.delete();
             }),
         );

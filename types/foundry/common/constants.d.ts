@@ -476,19 +476,20 @@ export const TILE_OCCLUSION_MODES: {
 
 /**
  * Describe the various thresholds of token control upon which to show certain pieces of information
- * NONE - no information is displayed
- * CONTROL - displayed when the token is controlled
- * OWNER HOVER - displayed when hovered by a GM or a user who owns the actor
- * HOVER - displayed when hovered by any user
- * OWNER - always displayed for a GM or for a user who owns the actor
- * ALWAYS - always displayed for everyone
+ * @see https://foundryvtt.com/article/tokens/
  */
 export const TOKEN_DISPLAY_MODES: {
+    /** No information is displayed.*/
     NONE: 0;
+    /** Displayed when the token is controlled. */
     CONTROL: 10;
+    /** Displayed when hovered by a GM or a user who owns the actor. */
     OWNER_HOVER: 20;
+    /** Displayed when hovered by any user. */
     HOVER: 30;
+    /** Always displayed for a GM or for a user who owns the actor. */
     OWNER: 40;
+    /** Always displayed for everyone. */
     ALWAYS: 50;
 };
 
