@@ -1,6 +1,6 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { NPCAttackDamageSource } from "@item/melee/data.ts";
+import { NPCAttackDamage } from "@item/melee/data.ts";
 import { SpellSystemSource } from "@item/spell/data.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject } from "@util";
@@ -114,7 +114,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                 actorTraits.value.push("unholy");
             }
 
-            const partials: Record<string, NPCAttackDamageSource | null> = source.system.damageRolls;
+            const partials: Record<string, NPCAttackDamage | null> = source.system.damageRolls;
             for (const [key, partial] of Object.entries(partials)) {
                 if (!isObject(partial)) continue;
 

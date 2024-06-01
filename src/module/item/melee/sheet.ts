@@ -11,7 +11,6 @@ export class MeleeSheetPF2e extends ItemSheetPF2e<MeleePF2e> {
 
         // In case of weak/elite adjustments, display source values for attack modifier and damage formulas
         const itemSource = this.item._source;
-        sheetData.data.attack.value = itemSource.system.attack.value;
         for (const key of Object.keys(sheetData.data.damageRolls)) {
             sheetData.data.damageRolls[key].damage = itemSource.system.damageRolls[key].damage;
         }
