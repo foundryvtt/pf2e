@@ -25,7 +25,7 @@ import {
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
-import { AttributeString, MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
@@ -70,7 +70,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
     };
-    skills: Partial<Record<SkillLongForm, { rank: ZeroToFour }>>;
+    skills: Partial<Record<SkillSlug, { rank: ZeroToFour }>>;
     resources: CharacterResourcesSource;
     initiative: CreatureInitiativeSource;
     crafting?: { formulas: CraftingFormulaData[] };

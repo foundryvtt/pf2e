@@ -3,7 +3,7 @@ import type { DexterityModifierCapData } from "@actor/character/types.ts";
 import type { Abilities } from "@actor/creature/data.ts";
 import type { InitiativeTraceData } from "@actor/initiative.ts";
 import type { StatisticModifier } from "@actor/modifiers.ts";
-import type { ActorAlliance, AttributeString, SkillLongForm } from "@actor/types.ts";
+import type { ActorAlliance, AttributeString, SkillSlug } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
 import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { MigrationRecord, Rarity, Size, ValueAndMaybeMax, ZeroToTwo } from "@module/data.ts";
@@ -177,7 +177,7 @@ type RollFunction<T extends RollParameters = RollParameters> = (
 type DamageRollFunction = (params?: DamageRollParams) => Promise<string | Rolled<DamageRoll> | null>;
 
 interface InitiativeData extends StatisticTraceData {
-    statistic: SkillLongForm | "perception";
+    statistic: SkillSlug | "perception";
     /**
      * If a pair of initiative rolls are tied, the next resolution step is the tiebreak priority. A lower value
      * constitutes a higher priority.

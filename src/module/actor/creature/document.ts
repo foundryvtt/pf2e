@@ -3,7 +3,7 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
-import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -195,7 +195,7 @@ abstract class CreaturePF2e<
     }
 
     /** Retrieve percpetion and spellcasting statistics */
-    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic<this>;
+    override getStatistic(slug: SaveType | SkillSlug | "perception"): Statistic<this>;
     override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         switch (slug) {

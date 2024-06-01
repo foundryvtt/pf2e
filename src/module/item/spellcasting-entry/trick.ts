@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { createProficiencyModifier } from "@actor/modifiers.ts";
-import { AttributeString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SkillSlug } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
@@ -33,7 +33,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
 
     actor: TActor;
 
-    skill: SkillLongForm;
+    skill: SkillSlug;
 
     statistic: Statistic;
 

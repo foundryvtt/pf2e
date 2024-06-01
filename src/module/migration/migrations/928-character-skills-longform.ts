@@ -1,5 +1,5 @@
 import { MigrationBase } from "../base.ts";
-import { SkillLongForm } from "@actor/types.ts";
+import { SkillSlug } from "@actor/types.ts";
 import { objectHasKey, recursiveReplaceString } from "@util";
 import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
@@ -54,6 +54,6 @@ export class Migration928CharacterSkillsLongform extends MigrationBase {
 }
 
 interface CharacterSystemSourceMaybeOld extends CharacterSystemSource {
-    skills: Partial<Record<SkillLongForm | SkillAbbreviation, { rank: ZeroToFour }>> &
+    skills: Partial<Record<SkillSlug | SkillAbbreviation, { rank: ZeroToFour }>> &
         Partial<Record<`-=${SkillAbbreviation}`, null>>;
 }
