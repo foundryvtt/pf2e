@@ -1,4 +1,4 @@
-import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
+import { SKILL_DICTIONARY } from "@actor/values.ts";
 import { isObject, objectHasKey } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -54,7 +54,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
      * Temporary solution until skill data has fully migrated to long form
      */
     static #SKILL_SHORT_FORM_PATH = ((): RegExp => {
-        const skillShortForms = Array.from(SKILL_ABBREVIATIONS).join("|");
+        const skillShortForms = R.keys.strict(SKILL_DICTIONARY).join("|");
         return new RegExp(String.raw`^system\.skills\.(${skillShortForms})\b`);
     })();
 

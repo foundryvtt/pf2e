@@ -3,7 +3,7 @@ import { CharacterStrike } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { MOVEMENT_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { MOVEMENT_TYPES, SKILL_SLUGS } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
@@ -255,7 +255,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         // Inform predicates that this battle form grants a skill modifier
         for (const key of Object.keys(this.overrides.skills)) {
-            if (!setHasElement(SKILL_LONG_FORMS, key)) continue;
+            if (!setHasElement(SKILL_SLUGS, key)) continue;
             rollOptions.all[`battle-form:${key}`] = true;
         }
 
@@ -341,7 +341,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #prepareSkills(): void {
         const actor = this.actor;
         for (const [key, newSkill] of Object.entries(this.overrides.skills)) {
-            if (!setHasElement(SKILL_LONG_FORMS, key)) {
+            if (!setHasElement(SKILL_SLUGS, key)) {
                 return this.failValidation(`Unrecognized skill: ${key}`);
             }
             newSkill.ownIfHigher ??= true;

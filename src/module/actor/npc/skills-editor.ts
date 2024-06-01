@@ -1,6 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { NPCSkillData } from "@actor/npc/data.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SKILL_SLUGS } from "@actor/values.ts";
 import { LoreSource } from "@item/base/data/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
@@ -46,7 +46,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
             const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
-            if (setHasElement(SKILL_LONG_FORMS, slug)) {
+            if (setHasElement(SKILL_SLUGS, slug)) {
                 await this.actor.createEmbeddedDocuments("Item", [{ name: slug.titleCase(), type: "lore" }]);
             }
         });

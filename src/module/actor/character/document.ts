@@ -24,13 +24,13 @@ import {
 } from "@actor/modifiers.ts";
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
-import { AttributeString, MovementType, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import {
     ATTRIBUTE_ABBREVIATIONS,
     SAVE_TYPES,
     SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
-    SKILL_LONG_FORMS,
+    SKILL_SLUGS,
 } from "@actor/values.ts";
 import type {
     AncestryPF2e,
@@ -410,7 +410,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj([...SKILL_LONG_FORMS], (key) => {
+        system.skills = R.mapToObj([...SKILL_SLUGS], (key) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
             const attribute = SKILL_EXPANDED[key].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
@@ -742,7 +742,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of SKILL_LONG_FORMS) {
+        for (const key of SKILL_SLUGS) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
             // Add a backwards compatibility roll option as well, which will be removed soon
@@ -889,7 +889,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
-        const skills = R.mapToObj([...SKILL_LONG_FORMS], (longForm) => {
+        const skills = R.mapToObj([...SKILL_SLUGS], (longForm) => {
             const skill = system.skills[longForm];
             const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
 
@@ -951,7 +951,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Make temporary backwards compatible short form shims
         // This will be removed very very soon
         Object.defineProperties(this.system.skills, {
-            ...R.mapToObj([...SKILL_LONG_FORMS], (longform) => {
+            ...R.mapToObj([...SKILL_SLUGS], (longform) => {
                 const shortForm = SKILL_DICTIONARY_REVERSE[longform];
                 return [shortForm, { get: () => this.skills[longform] }];
             }),
@@ -973,7 +973,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
 
-            skills[longForm as SkillLongForm] = statistic;
+            skills[longForm as SkillSlug] = statistic;
             system.skills[longForm] = {
                 ...statistic.getTraceData(),
                 armor: false,
