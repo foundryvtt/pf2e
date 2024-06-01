@@ -1,4 +1,4 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from "@actor/values.ts";
 import { isObject, objectHasKey } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -50,12 +50,12 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
     /**
-     * Pattern to match system.skills.${longForm} paths for replacement
-     * Temporary solution until skill data is represented in long form
+     * Pattern to match system.skills.${shortForm} paths for replacement
+     * Temporary solution until skill data has fully migrated to long form
      */
-    static #SKILL_LONG_FORM_PATH = ((): RegExp => {
-        const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
+    static #SKILL_SHORT_FORM_PATH = ((): RegExp => {
+        const skillShortForms = Array.from(SKILL_ABBREVIATIONS).join("|");
+        return new RegExp(String.raw`^system\.skills\.(${skillShortForms})\b`);
     })();
 
     static override validateJoint(data: SourceFromSchema<AELikeSchema>): void {
@@ -71,9 +71,9 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
         }
     }
 
-    #rewriteSkillLongFormPath(path: string): string {
-        return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
-            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match,
+    #rewriteSkillShortFormPath(path: string): string {
+        return path.replace(AELikeRuleElement.#SKILL_SHORT_FORM_PATH, (match, group) =>
+            objectHasKey(SKILL_DICTIONARY, group) ? `system.skills.${SKILL_DICTIONARY[group]}` : match,
         );
     }
 
@@ -117,7 +117,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     #applyAELike(rollOptions?: Set<string>): void {
         if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
-        const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
+        const path = this.#rewriteSkillShortFormPath(this.resolveInjectedProperties(this.path));
         if (this.ignored) return;
         if (!this.#pathIsValid(path)) {
             return this.failValidation(`no data found at or near "${path}"`);

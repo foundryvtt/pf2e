@@ -5,6 +5,7 @@ import { SkillLongForm } from "@actor/types.ts";
 import { BackgroundSystemSource } from "@item/background/data.ts";
 import { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
 import { objectHasKey } from "@util";
+import * as R from "remeda";
 
 export class Migration927ClassBackgroundBattleFormSkillLongform extends MigrationBase {
     static override version = 0.927;
@@ -56,7 +57,7 @@ export class Migration927ClassBackgroundBattleFormSkillLongform extends Migratio
     }
 }
 
-const SKILL_DICTIONARY = {
+export const SKILL_DICTIONARY = {
     acr: "acrobatics",
     arc: "arcana",
     ath: "athletics",
@@ -75,7 +76,9 @@ const SKILL_DICTIONARY = {
     thi: "thievery",
 } as const;
 
-type SkillAbbreviation = keyof typeof SKILL_DICTIONARY;
+export type SkillAbbreviation = keyof typeof SKILL_DICTIONARY;
+
+export const SKILL_ABBREVIATIONS = R.keys.strict(SKILL_DICTIONARY);
 
 interface ClassSystemSourceMaybeOld extends Omit<ClassSystemSource, "trainedSkills"> {
     trainedSkills: {

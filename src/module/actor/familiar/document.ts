@@ -5,7 +5,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -221,20 +221,19 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = SKILL_ABBREVIATIONS.reduce((builtSkills: Record<string, Statistic<this>>, shortForm) => {
-            const longForm = SKILL_DICTIONARY[shortForm];
+        this.skills = [...SKILL_LONG_FORMS].reduce((builtSkills: Record<string, Statistic<this>>, skill) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
-            if (["acr", "ste"].includes(shortForm)) {
+            if (["acrobatics", "stealth"].includes(skill)) {
                 const label = `PF2E.MasterAbility.${system.master.ability}`;
                 modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
             }
 
-            const attribute = SKILL_EXPANDED[longForm].attribute;
-            const domains = [longForm, `${attribute}-based`, "skill-check", "all"];
+            const attribute = SKILL_EXPANDED[skill].attribute;
+            const domains = [skill, `${attribute}-based`, "skill-check", "all"];
 
-            const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
+            const label = CONFIG.PF2E.skillList[skill] ?? skill;
             const statistic = new Statistic(this, {
-                slug: longForm,
+                slug: skill,
                 label,
                 attribute,
                 domains,
@@ -243,11 +242,20 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 check: { type: "skill-check" },
             });
 
-            builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), { attribute });
+            builtSkills[skill] = statistic;
+            this.system.skills[skill] = fu.mergeObject(statistic.getTraceData(), { attribute });
 
             return builtSkills;
         }, {});
+
+        // Make temporary backwards compatible short form shims
+        // This will be removed very very soon
+        Object.defineProperties(this.system.skills, {
+            ...R.mapToObj([...SKILL_LONG_FORMS], (longform) => {
+                const shortForm = SKILL_DICTIONARY_REVERSE[longform];
+                return [shortForm, { get: () => this.skills[longform] }];
+            }),
+        });
     }
 
     /* -------------------------------------------- */

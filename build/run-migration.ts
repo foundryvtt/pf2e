@@ -30,6 +30,7 @@ import { Migration924JiuHuanDoa } from "@module/migration/migrations/924-jiu-hua
 import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-touch-of-corruption.ts";
 import { Migration926RemoveVisionFeatureLinks } from "@module/migration/migrations/926-remove-vision-feature-links.ts";
 import { Migration927ClassBackgroundBattleFormSkillLongform } from "@module/migration/migrations/927-class-background-skill-longform.ts";
+import { Migration928CharacterSkillsLongform } from "@module/migration/migrations/928-character-skills-longform.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -56,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration925TouchOfCorruption(),
     new Migration926RemoveVisionFeatureLinks(),
     new Migration927ClassBackgroundBattleFormSkillLongform(),
+    new Migration928CharacterSkillsLongform(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
