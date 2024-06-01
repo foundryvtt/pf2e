@@ -68,7 +68,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The recorded schema version of this item, updated after each data migration */
     get schemaVersion(): number | null {
-        return Number(this.system._migration?.version ?? this.system.schema?.version) || null;
+        const legacyValue = R.isPlainObject(this._source.system.schema)
+            ? Number(this._source.system.schema.version) || null
+            : null;
+        return Number(this._source.system._migration?.version) ?? legacyValue;
     }
 
     get description(): string {
@@ -714,7 +717,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // Remove any rule elements that request their own removal upon item creation
-        this._source.system.rules = this._source.system.rules.filter((r) => !r.removeUponCreate);
+        this._source.system.rules = this._source.system.rules.filter(
+            (r) => !("removeUponCreate" in r) || !r.removeUponCreate,
+        );
 
         return super._preCreate(data, options, user);
     }

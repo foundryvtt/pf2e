@@ -84,7 +84,7 @@ type ItemSystemSource = {
     /** A record of this actor's current world schema version as well a log of the last migration to occur */
     _migration: MigrationRecord;
     /** Legacy location of `MigrationRecord` */
-    schema?: Readonly<{ version: number | null; lastMigration: object | null }>;
+    schema?: object;
 };
 
 interface ItemDescriptionSource {
@@ -92,7 +92,7 @@ interface ItemDescriptionSource {
     value: string;
 }
 
-interface ItemSystemData extends ItemSystemSource {
+interface ItemSystemData extends Omit<ItemSystemSource, "schema"> {
     description: ItemDescriptionData;
 }
 
