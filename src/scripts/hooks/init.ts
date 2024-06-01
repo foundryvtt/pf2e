@@ -1,5 +1,6 @@
 import { MystifiedTraits } from "@item/base/data/values.ts";
 import { KitSystemData } from "@item/kit/data.ts";
+import { MeleeSystemData } from "@item/melee/data.ts";
 import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
@@ -38,6 +39,7 @@ export const Init = {
             CONFIG.debug.ruleElement ??= false;
 
             CONFIG.Item.dataModels.kit = KitSystemData;
+            CONFIG.Item.dataModels.melee = MeleeSystemData;
 
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
