@@ -422,3 +422,4 @@ interface RollOptionSource extends RuleElementSource {
 }
 
 export { RollOptionRuleElement };
+export type { RollOptionSource };
