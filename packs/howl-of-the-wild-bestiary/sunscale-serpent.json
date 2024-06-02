@@ -240,7 +240,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
-            "name": "Reactive Strike (Tail only)",
+            "name": "Reactive Strike (Tail Only)",
             "sort": 600000,
             "system": {
                 "actionType": {
@@ -288,7 +288,87 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "bond-with-mortal",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "hp",
+                        "value": 28
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": [
+                            "attack-roll",
+                            "damage"
+                        ],
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "add": [
+                            "incorporeal",
+                            "spirit"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "bond-with-mortal"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "type": [
+                            "disease",
+                            "paralyzed",
+                            "poison"
+                        ]
+                    },
+                    {
+                        "key": "Resistance",
+                        "mode": "remove",
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "type": "all-damage",
+                        "value": 0
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "piercing"
+                        },
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "jaws-damage"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "slashing"
+                        },
+                        "predicate": [
+                            "bond-with-mortal"
+                        ],
+                        "selector": "tail-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -371,7 +451,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> @Damage[6d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:34]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d8[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[6d10[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] (1 round)</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -407,7 +487,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Large, @Damage[(2d10+9)[force],(2d10)[fire]], Rupture 32</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                    "value": "<p>Large, @Damage[(2d10+9)[force],(2d10)[fire]]{2d10+9 force and 2d10 fire}, Rupture 32</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -766,9 +846,7 @@
                 "value": "huge"
             },
             "value": [
-                "beast",
-                "incorporeal",
-                "spirit"
+                "beast"
             ]
         }
     },

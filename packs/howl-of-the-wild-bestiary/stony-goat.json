@@ -107,7 +107,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A stony goat can trot across the steepest cliffs. It doesn't need to attempt Climb checks to scale inclines, and it isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while Climbing an incline. It ignores difficult terrain caused by rocks, rubble, and uneven ground made of earth and stone.</p>"
+                    "value": "<p>A stony goat can trot across the steepest cliffs. It doesn't need to attempt @UUID[Compendium.pf2e.actionspf2e.Item.Climb] checks to scale inclines, and it isn't @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] while Climbing an incline. It ignores difficult terrain caused by rocks, rubble, and uneven ground made of earth and stone.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -178,14 +178,29 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The stony goat gains the frightened condition or takes more than 8 damage in a single hit</p>\n<hr />\n<p><strong>Effect</strong> The stony goat turns to stone in self-defense. It gains the petrified condition for [[/br 1d4 #rounds]]{1d4 rounds}. If the goat is damaged while it's petrified, it immediately heals by that amount by absorbing minerals from its cud, causing its cud to lose value equal to the amount of Hit Points restored (for instance, losing 5 gp worth of value to restore 5 Hit Points); if the goat's cud is reduced to 0 gp, it has the minerals fully drained from it, and the goat won't form more cud until it has eaten a sufficient quantity of rock and slept.</p>"
+                    "value": "<p><strong>Trigger</strong> The stony goat gains the @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition or takes more than 8 damage in a single hit</p>\n<hr />\n<p><strong>Effect</strong> The stony goat turns to stone in self-defense. It gains the @UUID[Compendium.pf2e.conditionitems.Item.Petrified] condition for [[/br 1d4 #rounds]]{1d4 rounds}. If the goat is damaged while it's petrified, it immediately heals by that amount by absorbing minerals from its cud, causing its cud to lose value equal to the amount of Hit Points restored (for instance, losing 5 gp worth of value to restore 5 Hit Points); if the goat's cud is reduced to 0 gp, it has the minerals fully drained from it, and the goat won't form more cud until it has eaten a sufficient quantity of rock and slept.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self-petrify",
+                        "toggleable": true
+                    },
+                    {
+                        "inMemoryOnly": true,
+                        "key": "GrantItem",
+                        "predicate": [
+                            "self-petrify"
+                        ],
+                        "uuid": "Compendium.pf2e.conditionitems.Item.Petrified"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -209,7 +224,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The stony goat Leaps up to 12 feet vertically and 20 feet horizontally; this movement doesn't trigger reactions.</p>"
+                    "value": "<p>The stony goat @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps} up to 12 feet vertically and 20 feet horizontally; this movement doesn't trigger reactions.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -247,7 +262,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "shove-and-run",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "shove-and-run"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 20
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -269,14 +300,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The stony goat loses the petrified condition</p>\n<hr />\n<p><strong>Effect</strong> The stony goat's first instinct is to escape. It Strides with a +20 circumstance bonus to its Speed.</p>"
+                    "value": "<p><strong>Trigger</strong> The stony goat loses the @UUID[Compendium.pf2e.conditionitems.Item.Petrified] condition</p>\n<hr />\n<p><strong>Effect</strong> The stony goat's first instinct is to escape. It Strides with a +20 circumstance bonus to its Speed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "stone-bolt",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "stone-bolt"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 20
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -304,13 +351,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Escape",
+                        "predicate": [
+                            "action:escape"
+                        ],
+                        "selector": "acrobatics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+10 to Escape",
-                        "options": ""
+                        "options": "action:escape"
                     }
                 }
             },
@@ -336,13 +393,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Climb",
+                        "predicate": [
+                            "action:climb"
+                        ],
+                        "selector": "athletics",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+11 to Climb",
-                        "options": ""
+                        "options": "action:climb"
                     }
                 }
             },
