@@ -282,25 +282,25 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<TParent>,
+        operation: ConditionUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        options.conditionValue = this.value;
-        return super._preUpdate(changed, options, user);
+        operation.conditionValue = this.value;
+        return super._preUpdate(changed, operation, user);
     }
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: ConditionModificationContext<TParent>,
+        operation: ConditionUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
         if (!game.user.isGM && !this.actor?.hasPlayerOwner && game.settings.get("pf2e", "metagame_secretCondition")) {
             return;
         }
 
-        const [priorValue, newValue] = [options.conditionValue, this.value];
+        const [priorValue, newValue] = [operation.conditionValue, this.value];
         const valueChanged = !!priorValue && !!newValue && priorValue !== newValue;
 
         /* Show floaty text only for unlinked conditions */
@@ -324,9 +324,9 @@ interface PersistentDamagePF2e<TParent extends ActorPF2e | null> extends Conditi
     system: Omit<ConditionSystemData, "persistent"> & { persistent: PersistentDamageData };
 }
 
-interface ConditionModificationContext<TParent extends ActorPF2e | null> extends DocumentModificationContext<TParent> {
+interface ConditionUpdateOperation<TParent extends ActorPF2e | null> extends DatabaseUpdateOperation<TParent> {
     conditionValue?: number | null;
 }
 
 export { ConditionPF2e };
-export type { ConditionModificationContext, PersistentDamagePF2e };
+export type { ConditionUpdateOperation, PersistentDamagePF2e };

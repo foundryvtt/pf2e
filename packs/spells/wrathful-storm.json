@@ -3,7 +3,10 @@
     "img": "systems/pf2e/icons/spells/storm-lord.webp",
     "name": "Wrathful Storm",
     "system": {
-        "area": null,
+        "area": {
+            "type": "burst",
+            "value": 400
+        },
         "cost": {
             "value": ""
         },
@@ -16,6 +19,20 @@
         "duration": {
             "sustained": true,
             "value": "1 minute"
+        },
+        "heightening": {
+            "levels": {
+                "10": {
+                    "area": {
+                        "type": "burst",
+                        "value": 1000
+                    },
+                    "range": {
+                        "value": "2000 feet"
+                    }
+                }
+            },
+            "type": "fixed"
         },
         "level": {
             "value": 9

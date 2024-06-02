@@ -18,12 +18,7 @@
         <div class="form-group common-language">
             <label for="{{options.id}}-common">{{localize "PF2E.SETTINGS.Homebrew.Languages.CommonLanguage.Label"}}</label>
             <select id="{{options.id}}-common" data-common-language>
-                <option></option>
-                {{#each languageRarities.common as |language|}}
-                    {{#select ../languageRarities.commonLanguage}}
-                        <option value="{{language.slug}}">{{language.label}}</option>
-                    {{/select}}
-                {{/each}}
+                {{selectOptions languageRarities.common selected=languageRarities.commonLanguage valueAttr="slug" blank="" localize=true}}
             </select>
             <p class="hint">{{localize "PF2E.SETTINGS.Homebrew.Languages.CommonLanguage.Hint"}}</p>
         </div>
@@ -122,12 +117,7 @@
                         <td>{{type.slug}}</td>
                         <td>
                             <select name="damageTypes.{{idx}}.category">
-                                {{#select type.category}}
-                                    <option value="">{{localize "PF2E.NoneOption"}}</option>
-                                    {{#each @root.damageCategories as |label category|}}
-                                        <option value="{{category}}">{{localize label}}</option>
-                                    {{/each}}
-                                {{/select}}
+                                {{selectOptions @root.damageCategories selected=type.category blank="" localize=true}}
                             </select>
                         </td>
                         <td>

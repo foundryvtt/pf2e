@@ -4,7 +4,7 @@ import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE, SENSE_TYPE
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { NPCPerceptionSource } from "@actor/npc/data.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { AncestrySource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HeritageSource } from "@item/heritage/data.ts";
@@ -25,7 +25,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 if (
                     R.isObject(attributes.initiative) &&
                     "statistic" in attributes.initiative &&
-                    setHasElement(SKILL_LONG_FORMS, attributes.initiative.statistic)
+                    setHasElement(SKILL_SLUGS, attributes.initiative.statistic)
                 ) {
                     source.system.initiative.statistic = attributes.initiative.statistic;
                 }
@@ -143,7 +143,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 const save = saves[saveType];
                 if (R.isObject(save) && typeof save.rank === "number" && save.rank > 1) {
                     customChangesFeat.system = fu.mergeObject(
-                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamped(save.rank, 2, 4) } } } },
+                        { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamp(save.rank, 2, 4) } } } },
                         customChangesFeat.system,
                     );
                 }
@@ -158,7 +158,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             for (const category of categories) {
                 const proficiency = section[category];
                 if (R.isObject(proficiency) && typeof proficiency.rank === "number" && proficiency.rank > 0) {
-                    const rank = Math.clamped(proficiency.rank, 1, 4);
+                    const rank = Math.clamp(proficiency.rank, 1, 4);
                     customChangesFeat.system = fu.mergeObject(
                         {
                             subfeatures: {

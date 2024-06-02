@@ -1,9 +1,10 @@
-import "./ambient-light.d.ts";
-import "./ambient-sound.d.ts";
 import "./drawing.d.ts";
-import "./measured-template.d.ts";
+import "./light.d.ts";
 import "./note.d.ts";
 import "./primary-canvas-objects/index.d.ts";
+import "./region.d.ts";
+import "./sound.d.ts";
+import "./template.d.ts";
 import "./tile.d.ts";
 import "./token.d.ts";
 import "./wall.d.ts";

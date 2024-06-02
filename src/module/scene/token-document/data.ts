@@ -1,3 +1,5 @@
+import type { TokenSchema } from "types/foundry/common/documents/token.d.ts";
+
 type TokenFlagsPF2e = DocumentFlags & {
     pf2e: {
         [key: string]: unknown;
@@ -7,4 +9,6 @@ type TokenFlagsPF2e = DocumentFlags & {
     [key: string]: Record<string, unknown>;
 };
 
-export type { TokenFlagsPF2e };
+type DetectionModeEntry = ModelPropsFromSchema<TokenSchema>["detectionModes"][number];
+
+export type { DetectionModeEntry, TokenFlagsPF2e };

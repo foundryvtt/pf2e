@@ -1,4 +1,4 @@
-export {};
+import type { PointVisionSource } from "../../../../client-esm/canvas/sources/module.ts";
 
 declare global {
     /**
@@ -22,7 +22,7 @@ declare global {
 
         /** The active vision source data object */
         visionModeData: {
-            source: VisionSource | null;
+            source: PointVisionSource | null;
             activeLightingOptions: object;
         };
 
@@ -49,6 +49,9 @@ declare global {
 
         /** The configured options used for the saved fog-of-war texture. */
         get textureConfiguration(): FogTextureConfiguration;
+
+        /** Optional overrides for exploration sprite dimensions. */
+        set explorationRect(rect: FogTextureConfiguration);
 
         /* -------------------------------------------- */
         /*  Layer Initialization                        */
@@ -118,13 +121,14 @@ declare global {
 
     interface CanvasVisibilityTestConfig {
         /** The target object */
-        object: PlaceableObject | DoorControl;
+        object: object | null;
         /** An array of visibility tests */
         tests: CanvasVisibilityTest[];
     }
 
     interface CanvasVisibilityTest {
         point: Point;
-        los: Map<VisionSource<Token>, boolean>;
+        elevation: number;
+        los: Map<PointVisionSource<Token>, boolean>;
     }
 }

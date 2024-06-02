@@ -1,8 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/attack-popouts.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
-import type { SkillAbbreviation } from "@actor/creature/data.ts";
-import { SKILL_DICTIONARY } from "@actor/values.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
@@ -146,7 +144,7 @@ export async function rollActionMacro({
 
     const meleeOrRanged = strike.item.isMelee ? "melee" : "ranged";
     const identifier = `${strike.item.id}.${strike.slug}.${meleeOrRanged}`;
-    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description), { async: true });
+    const description = await TextEditor.enrichHTML(game.i18n.localize(strike.description));
 
     const templateData = { actor, strike, identifier, description };
 
@@ -155,7 +153,7 @@ export async function rollActionMacro({
     const chatData: PreCreate<foundry.documents.ChatMessageSource> = {
         speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         content,
-        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+        style: CONST.CHAT_MESSAGE_STYLES.OTHER,
     };
 
     const rollMode = game.settings.get("core", "rollMode");
@@ -164,37 +162,6 @@ export async function rollActionMacro({
     if (rollMode === "blindroll") chatData.blind = true;
 
     return ChatMessagePF2e.create(chatData);
-}
-
-export async function createSkillMacro(
-    skill: SkillAbbreviation,
-    skillName: string,
-    actorId: string,
-    slot: number,
-): Promise<void> {
-    const dictName = SKILL_DICTIONARY[skill] ?? skill;
-    const command = `
-const a = game.actors.get("${actorId}");
-if (a) {
-    const opts = a.getRollOptions(["all", "skill-check", "${dictName}"]);
-    a.system.skills["${skill}"]?.roll(event, opts);
-} else {
-    ui.notifications.error(game.i18n.localize("PF2E.MacroActionNoActorError"));
-}`;
-    const macroName = game.i18n.format("PF2E.SkillCheckWithName", { skillName });
-    const skillMacro =
-        game.macros.find((macro) => macro.name === macroName && macro.command === command) ??
-        (await MacroPF2e.create(
-            {
-                command,
-                name: macroName,
-                type: "script",
-                img: "icons/svg/d20-grey.svg",
-                flags: { pf2e: { skillMacro: true } },
-            },
-            { renderSheet: false },
-        ));
-    game.user.assignHotbarMacro(skillMacro ?? null, slot);
 }
 
 export async function createToggleEffectMacro(effect: ConditionPF2e | EffectPF2e, slot: number): Promise<void> {

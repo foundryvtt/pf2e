@@ -17,9 +17,7 @@ export default class BaseAmbientLight<TParent extends documents.BaseScene | null
 
 export default interface BaseAmbientLight<TParent extends documents.BaseScene | null>
     extends Document<TParent, AmbientLightSchema>,
-        ModelPropsFromSchema<AmbientLightSchema> {
-    light: data.LightData<this>;
-}
+        ModelPropsFromSchema<AmbientLightSchema> {}
 
 interface AmbientLightMetadata extends DocumentMetadata {
     name: "AmbientLight";
@@ -35,6 +33,7 @@ type AmbientLightSchema = {
     x: fields.NumberField<number, number, true, false, true>;
     /** The y-coordinate position of the origin of the light */
     y: fields.NumberField<number, number, true, false, true>;
+    elevation: fields.NumberField<number, number, true, false, true>;
     /** The angle of rotation for the tile between 0 and 360 */
     rotation: fields.AngleField;
     /** Whether or not this light source is constrained by Walls */

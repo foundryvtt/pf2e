@@ -1,4 +1,5 @@
 import { ZeroToThree } from "@module/data.ts";
+import type { Die, NumericTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import type { CheckRoll } from "./check/roll.ts";
 import type { Predicate } from "./predication.ts";
 import type { StatisticDifficultyClass } from "./statistic/index.ts";
@@ -31,8 +32,8 @@ class DegreeOfSuccess {
         if (roll instanceof Roll) {
             this.dieResult =
                 (roll.isDeterministic
-                    ? roll.terms.find((t): t is NumericTerm => t instanceof NumericTerm)
-                    : roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20)
+                    ? roll.terms.find((t): t is NumericTerm => t instanceof foundry.dice.terms.NumericTerm)
+                    : roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20)
                 )?.total ?? 1;
             this.rollTotal = roll.total;
         } else {
@@ -90,7 +91,7 @@ class DegreeOfSuccess {
             case "criticalSuccess":
                 return 3;
             default:
-                return Math.clamped(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
+                return Math.clamp(degreeOfSuccess + amount, 0, 3) as DegreeOfSuccessIndex;
         }
     }
 

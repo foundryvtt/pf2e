@@ -1,5 +1,5 @@
 <div class="tab" data-group="main" data-tab="light">
-    <nav class="tabs sheet-tabs light-tabs" data-group="light" aria-role="{{localize "LIGHT.NavLabel"}}">
+    <nav class="tabs sheet-tabs secondary-tabs" data-group="light" aria-role="{{localize "LIGHT.NavLabel"}}">
         <a class="item" data-tab="basic" data-group="light"><i class="fa-solid fa-lightbulb"></i> {{localize "LIGHT.HeaderBasic"}}</a>
         <a class="item" data-tab="animation" data-group="light"><i class="fa-solid fa-play"></i> {{localize "LIGHT.HeaderAnimation"}}</a>
         <a class="item" data-tab="advanced" data-group="light"><i class="fa-solid fa-cogs"></i> {{localize "LIGHT.HeaderAdvanced"}}</a>
@@ -20,7 +20,6 @@
         <div class="form-group slim">
             <label>{{localize "LIGHT.Angle"}} <span class="units">({{localize "Degrees"}})</span></label>
             <div class="form-fields">
-                <label>{{localize "Degrees"}}</label>
                 <input type="number" name="light.angle" value="{{object.light.angle}}" placeholder="{{localize "Degrees"}}"/>
             </div>
         </div>
@@ -28,7 +27,7 @@
         <div class="form-group">
             <label>{{localize "LIGHT.Color"}}</label>
             <div class="form-fields">
-                {{colorPicker name="light.color" value=object.light.color}}
+                <color-picker name="light.color" value="{{object.light.color}}"></color-picker>
             </div>
         </div>
 
@@ -79,7 +78,7 @@
             <label>{{localize "LIGHT.ColorationTechnique"}}</label>
             <div class="form-fields">
                 <select name="light.coloration" data-dtype="Number">
-                    {{selectOptions colorationTechniques selected=object.light.coloration nameAttr="id" labelAttr="label" localize=true}}
+                    {{selectOptions colorationTechniques selected=object.light.coloration valueAttr="id" labelAttr="label" localize=true}}
                 </select>
             </div>
             <p class="hint">{{localize "LIGHT.ColorationTechniqueHint"}}</p>
@@ -88,7 +87,7 @@
         <div class="form-group">
             <label>{{localize "LIGHT.Luminosity"}}</label>
             <div class="form-fields">
-                {{rangePicker name="light.luminosity" value=object.light.luminosity min="-1" max="1" step="0.05"}}
+                {{rangePicker name="light.luminosity" value=object.light.luminosity min="0" max="1" step="0.05"}}
             </div>
             <p class="hint">{{localize "LIGHT.LuminosityHint"}}</p>
         </div>

@@ -6,7 +6,7 @@ declare interface Math {
      * @param max The maximum allowed value
      * @returns The clamped number
      */
-    clamped(num: number, min: number, max: number): number;
+    clamp(num: number, min: number, max: number): number;
 
     /**
      * Linear interpolation function

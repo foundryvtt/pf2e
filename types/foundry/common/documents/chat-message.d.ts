@@ -26,10 +26,14 @@ export default interface BaseChatMessage
 export type ChatMessageSchema = {
     /** The _id which uniquely identifies this ChatMessage document */
     _id: fields.DocumentIdField;
-    /** The message type from CONST.CHAT_MESSAGE_TYPES */
-    type: fields.NumberField<ChatMessageType, ChatMessageType, true, true, true>;
+    /** An ChatMessage subtype which configures the system data model applied */
+    type: fields.DocumentTypeField<string, string, true, false, true, BaseChatMessage>;
+    /** The system data object */
+    system: fields.TypeDataField;
+    /** The message style from CONST.CHAT_MESSAGE_STYLES */
+    style: fields.NumberField<ChatMessageStyle, ChatMessageStyle, true, true, true>;
     /** The _id of the User document who generated this message */
-    user: fields.ForeignDocumentField<BaseUser, true, false, true>;
+    author: fields.ForeignDocumentField<BaseUser, true, false, true>;
     /** The timestamp at which point this message was generated */
     timestamp: fields.NumberField<number, number, true, false, true>;
     /** An optional flavor text message which summarizes this message */
@@ -50,6 +54,8 @@ export type ChatMessageSchema = {
     emote: fields.BooleanField;
     /** An object of optional key/value flags */
     flags: fields.ObjectField<ChatMessageFlags>;
+    /** An object of creation and access information. */
+    _stats: fields.DocumentStatsField;
 };
 
 export type ChatMessageSource = SourceFromSchema<ChatMessageSchema>;
@@ -84,7 +90,7 @@ interface ChatMessageMetadata extends DocumentMetadata {
 }
 
 declare global {
-    interface ChatMessageModificationContext extends DocumentModificationContext<null> {
+    interface ChatMessageCreateOperation extends DatabaseCreateOperation<null> {
         rollMode?: RollMode | "roll";
     }
 }

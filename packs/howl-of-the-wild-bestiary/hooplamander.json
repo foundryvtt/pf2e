@@ -113,7 +113,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "flexible-dodge",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "flexible-dodge"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -135,7 +151,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The hooplamander is Wheels Up</p>\n<hr />\n<p><strong>Effect</strong> As @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Trample] (Large or smaller, ridged tail, DC 22), except targets that critically fail their Reflex save are @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}, and the hooplamander Unfurls at the end of its movement.</p>"
+                    "value": "<p><strong>Requirements</strong> The hooplamander is Wheels Up</p>\n<hr />\n<p><strong>Effect</strong> As @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Trample] (Large or smaller, ridged tail, @Check[type:reflex|dc:22|basic:true]), except targets that critically fail their Reflex save are @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}, and the hooplamander Unfurls at the end of its movement.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -164,7 +180,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The hooplamander is Wheels Up</p>\n<hr />\n<p><strong>Effect</strong> The hooplamander releases its tail, Leaping up to 20 feet as it exists its wheeled shape and unfurls to land on its four legs.</p>"
+                    "value": "<p><strong>Requirements</strong> The hooplamander is Wheels Up</p>\n<hr />\n<p><strong>Effect</strong> The hooplamander releases its tail, @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaping} up to 20 feet as it exits its wheeled shape and unfurls to land on its four legs.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -193,14 +209,29 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The hooplamander is Unfurled</p>\n<hr />\n<p><strong>Effect</strong> The hooplamander Leaps and then rolls into its wheeled form. Any creature within 5 feet must succeed at a @Check[type:reflex|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for one round. While it's Wheels Up, the hooplamander can't make Strikes and its Speed increases to 40 feet.</p>"
+                    "value": "<p><strong>Requirements</strong> The hooplamander is Unfurled</p>\n<hr />\n<p><strong>Effect</strong> The hooplamander @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps} and then rolls into its wheeled form. Any creature within 5 feet must succeed at a @Check[type:reflex|dc:22] save or be @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for one round. While it's Wheels Up, the hooplamander can't make Strikes and its Speed increases to 40 feet.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "wheels-up",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "wheels-up"
+                        ],
+                        "selector": "land",
+                        "value": 40
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [

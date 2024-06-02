@@ -2,6 +2,8 @@ import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
 import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
 import type { BackgroundPF2e } from "./document.ts";
+import { BackgroundSource } from "./data.ts";
+import { htmlQuery, htmlQueryAll } from "@util";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<BackgroundSheetData> {
@@ -10,11 +12,39 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
 
         return {
             ...data,
-            trainedSkills: createSheetOptions(CONFIG.PF2E.skills, itemData.system.trainedSkills),
+            trainedSkills: createSheetOptions(CONFIG.PF2E.skillList, itemData.system.trainedSkills),
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),
         };
+    }
+
+    override activateListeners($html: JQuery<HTMLElement>): void {
+        super.activateListeners($html);
+        const html = $html[0];
+
+        htmlQuery(html, "a[data-action=add-lore]")?.addEventListener("click", () => {
+            const lore = [...this.item.system.trainedSkills.lore, ""];
+            this.item.update({ system: { trainedSkills: { lore } } });
+        });
+
+        for (const deleteLoreButton of htmlQueryAll(html, "a[data-action=delete-lore]")) {
+            const idx = Number(deleteLoreButton.dataset.index);
+            deleteLoreButton.addEventListener("click", () => {
+                const lore = [...this.item.system.trainedSkills.lore];
+                lore.splice(idx, 1);
+                this.item.update({ system: { trainedSkills: { lore } } });
+            });
+        }
+    }
+
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const data = fu.expandObject<DeepPartial<BackgroundSource>>(formData);
+        if (data.system?.trainedSkills?.lore) {
+            data.system.trainedSkills.lore = Object.values(data.system.trainedSkills.lore);
+        }
+
+        return super._updateObject(event, fu.flattenObject(data));
     }
 }
 

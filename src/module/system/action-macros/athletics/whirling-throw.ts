@@ -1,12 +1,12 @@
-import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 import { CreaturePF2e } from "@actor";
 import { ActorSizePF2e } from "@actor/data/size.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
+import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 function determineSizeBonus(actorSize: ActorSizePF2e, targetSize: ActorSizePF2e) {
     const sizeDifference = actorSize.difference(targetSize);
 
-    return Math.clamped(2 * sizeDifference, -4, 4);
+    return Math.clamp(2 * sizeDifference, -4, 4);
 }
 
 export function whirlingThrow(options: SkillActionOptions): void {

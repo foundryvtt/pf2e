@@ -85,7 +85,7 @@ class CraftingFormula implements CraftingFormulaData {
 
         return Math.max(
             this.minimumBatchSize,
-            isMundaneAmmo ? Math.clamped(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
+            isMundaneAmmo ? Math.clamp(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
         );
     }
 

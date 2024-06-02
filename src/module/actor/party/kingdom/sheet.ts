@@ -209,19 +209,22 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 }),
             ),
             eventText: await TextEditor.enrichHTML(kingdom.event.text, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
             abilityLabels: KINGDOM_ABILITY_LABELS,
             skillLabels: KINGDOM_SKILL_LABELS,
+            proficiencyOptions: Object.values(CONFIG.PF2E.proficiencyRanks).map((label, i) => ({
+                value: i.toString(),
+                label,
+            })),
         };
     }
 
     async #prepareArmies(): Promise<ArmySheetData[]> {
         const data = this.kingdom.armies.map(async (a) => ({
             document: a,
-            link: await TextEditor.enrichHTML(a.link, { async: true }),
+            link: await TextEditor.enrichHTML(a.link),
             consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
                 better: "lower",
             }),
@@ -246,7 +249,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...settlement,
             id,
             description: await TextEditor.enrichHTML(settlement.description, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             editing: this.#editingSettlements[id] ?? false,
@@ -308,7 +310,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             if (uuid) {
                 for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
-                    clickable.addEventListener("click", () => fromUuid(uuid).then((a) => a?.sheet.render(true)));
+                    clickable.addEventListener("click", async () => {
+                        const actor = await fromUuid(uuid);
+                        actor?.sheet.render(true);
+                    });
                 }
             }
 
@@ -724,6 +729,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+    proficiencyOptions: FormSelectOption[];
 }
 
 interface ArmySheetData {

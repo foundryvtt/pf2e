@@ -129,7 +129,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>A holdfast treats any tight space it can barely fit its head in or wider as difficult terrain and doesn't need to Squeeze to move through it.</p>"
+                    "value": "<p>A holdfast treats any tight space it can barely fit its head in or wider as difficult terrain and doesn't need to @UUID[Compendium.pf2e.actionspf2e.Item.Squeeze] to move through it.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -192,7 +192,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(2d6+2)[piercing]], @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>@Damage[(2d6+2)[piercing]] plus crush throat, @Check[type:fortitude|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -344,13 +344,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.RockyOrBarren",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:rocky",
+                                    "terrain:barren"
+                                ]
+                            }
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+14 in rocky or barren terrain",
-                        "options": ""
+                        "options": "terrain:rocky, terrain:barren"
                     }
                 }
             },

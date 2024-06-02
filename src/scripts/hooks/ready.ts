@@ -1,4 +1,4 @@
-import { PartyPF2e } from "@actor";
+import { ActorPF2e, PartyPF2e } from "@actor";
 import { resetActors } from "@actor/helpers.ts";
 import { createFirstParty } from "@actor/party/helpers.ts";
 import { MigrationSummary } from "@module/apps/migration-summary.ts";
@@ -28,6 +28,20 @@ export const Ready = {
             /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
             console.log("PF2e System | Starting Pathfinder 2nd Edition System");
             console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
+
+            // Enforce certain grid settings. These should be handled by our defaults, but a user may have changed them.
+            // Changing a setting to the default still triggers onChange, and in V12.322 can trigger console errors
+            // The actual manipulation of the setting is locked down by the renderSettingsConfig hook.
+            const defaultGridSettings = {
+                gridDiagonals: 4,
+                gridTemplates: false,
+                coneTemplateType: "round",
+            };
+            for (const [key, value] of Object.entries(defaultGridSettings)) {
+                if (game.settings.get("core", key) !== value) {
+                    game.settings.set("core", key, value);
+                }
+            }
 
             // Some of game.pf2e must wait until the ready phase
             SetGamePF2e.onReady();
@@ -103,15 +117,8 @@ export const Ready = {
                 game.pf2e.settings.gmVision
             ) {
                 CONFIG.Canvas.darknessColor = CONFIG.PF2E.Canvas.darkness.gmVision;
-                canvas.colorManager.initialize();
+                canvas.environment.initialize();
             }
-
-            // Sort item types for display in sidebar create-item dialog
-            game.system.documentTypes.Item.sort((typeA, typeB) => {
-                return game.i18n
-                    .localize(CONFIG.Item.typeLabels[typeA] ?? "")
-                    .localeCompare(game.i18n.localize(CONFIG.Item.typeLabels[typeB] ?? ""));
-            });
 
             game.pf2e.system.moduleArt.refresh().then(() => {
                 if (game.modules.get("babele")?.active && game.i18n.lang !== "en") {
@@ -127,15 +134,29 @@ export const Ready = {
             });
 
             // Now that all game data is available, Determine what actors we need to reprepare.
-            // Add actors currently in an encounter, then in a party, then all familiars, then parties
+            // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
+            const inTerrains: ActorPF2e[] = [];
+            const hasSceneTerrains = !!canvas.scene?.flags.pf2e.environmentTypes?.length;
+            for (const token of canvas.scene?.tokens ?? []) {
+                if (!token.actor) continue;
+                if (hasSceneTerrains) {
+                    inTerrains.push(token.actor);
+                } else if ((token.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "environment"))) {
+                    inTerrains.push(token.actor);
+                }
+            }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
-            const actorsToReprepare = R.compact([
-                ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                ...game.actors.filter((a) => a.type === "familiar"),
-                ...parties,
-            ]);
-            resetActors(new Set(actorsToReprepare), { sheets: false });
+            const actorsToReprepare = R.filter(
+                [
+                    ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
+                    ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                    ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
+                    ...game.actors.filter((a) => a.type === "familiar"),
+                    ...parties,
+                ],
+                R.isTruthy,
+            );
+            resetActors(new Set(actorsToReprepare), { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.

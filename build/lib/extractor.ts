@@ -632,8 +632,11 @@ class PackExtractor {
                     return this.#sortAbilities(docSource.name, itemsByType.action);
                 case "lore":
                     return R.sortBy(itemsByType.lore ?? [], (l) => l.name);
-                case "melee":
-                    return R.sortBy(itemsByType.melee ?? [], (m) => m.system.weaponType.value);
+                case "melee": {
+                    return R.sortBy(itemsByType.melee ?? [], (m) =>
+                        m.system.traits.value.some((t) => t.startsWith("range-")),
+                    );
+                }
                 case "spell":
                     return R.sortBy(itemsByType.spell ?? [], [(s) => s.system.level.value, "desc"], (s) => s.name);
                 case "spellcastingEntry":

@@ -4,7 +4,7 @@ import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts"
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { AttributeString, SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
 import type { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -13,7 +13,7 @@ import { CreatureIdentificationData, creatureIdentificationDCs } from "@module/r
 import { extractModifierAdjustments, extractModifiers } from "@module/rules/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
-import { createHTMLElement, objectHasKey, signedInteger, sluggify } from "@util";
+import { createHTMLElement, signedInteger, sluggify } from "@util";
 import * as R from "remeda";
 import type { NPCFlags, NPCSource, NPCSystemData } from "./data.ts";
 import type { VariantCloneParams } from "./types.ts";
@@ -97,7 +97,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // NPC level needs to be known before the rest of the weak/elite adjustments
         const level = details.level;
-        level.base = Math.clamped(level.value, -1, 100);
+        level.base = Math.clamp(level.value, -1, 100);
 
         // Elite: Increase the creature's level by 1; if the creature is -1 or 0, instead increase its level by 2
         // Weak : Decrease the creature's level by 1; if the creature is level 1, instead decrease its level by 2
@@ -249,9 +249,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
         const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
         this.system.skills = R.mapToObj(Object.values(this.skills), (statistic) => [
-            objectHasKey(SKILL_DICTIONARY_REVERSE, statistic.slug)
-                ? SKILL_DICTIONARY_REVERSE[statistic.slug]
-                : statistic.slug,
+            statistic.slug,
             {
                 ...statistic.getTraceData(),
                 base: loreItems[statistic.slug]?.system.mod.value ?? 0,
@@ -322,7 +320,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
         const trainedSkills = R.mapToObj(this.itemTypes.lore, (s) => [sluggify(s.name), s]);
-        const coreSkillSlugs = Array.from(SKILL_LONG_FORMS);
+        const coreSkillSlugs = Array.from(SKILL_SLUGS);
         const skillOrNull = {
             ...R.mapToObj(coreSkillSlugs, (s) => [s, trainedSkills[s] ?? null]),
             ...R.omit(trainedSkills, coreSkillSlugs),
@@ -383,7 +381,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         const formatNoteText = (item: ItemPF2e<this | null>): Promise<string> => {
             // Call enrichHTML with the correct item context
             const rollData = item.getRollData();
-            return TextEditor.enrichHTML(item.description, { rollData, async: true });
+            return TextEditor.enrichHTML(item.description, { rollData });
         };
 
         for (const attackEffect of attack.attackEffects) {

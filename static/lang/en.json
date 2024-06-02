@@ -1487,6 +1487,28 @@
             "RevealName": "Reveal Name",
             "XP": "XP"
         },
+        "Environment": {
+            "Type": {
+                "Aquatic": "Aquatic",
+                "Arctic": "Arctic",
+                "Desert": "Desert",
+                "Forest": "Forest",
+                "Mountain": "Mountain",
+                "Plains": "Plains",
+                "Swamp": "Swamp",
+                "Underground": "Underground",
+                "Urban": "Urban"
+            },
+            "Feature": {
+                "Crowd": "Crowd",
+                "Ice": "Ice",
+                "Lava": "Lava",
+                "Rubble": "Rubble",
+                "Sand": "Sand",
+                "Sewer": "Sewer",
+                "Snow": "Snow"
+            }
+        },
         "ErrorMessage": {
             "CantCreateEffectMacro": "An effect for a toggle macro must come from a compendium or world item.",
             "CantImportTooHighVersion": "Unable to import {sourceName}: its schema version ({sourceSchemaVersion}) is higher than this world's ({worldSchemaVersion}).",
@@ -1653,6 +1675,7 @@
         "InvestedLabel": "Invested",
         "Item": {
             "ABC": {
+                "Add": "Add",
                 "Features": "Features",
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
@@ -2298,6 +2321,7 @@
                         "Label": "Detach Item",
                         "Prompt": "Are you sure you want to detach {attachable}?"
                     },
+                    "Label": "Attach",
                     "Outcome": {
                         "Failure": "You were unable to attach {attachable}.",
                         "Success": "{attachable} is now attached to {target}."
@@ -2438,12 +2462,14 @@
                 "Hint": {
                     "Slug": "A stable, human-readable identifier: if set, it will remain in place even if the item is renamed.",
                     "SourceId": "The UUID of the original compendium item",
-                    "UUID": "A universally unique identifier for this item"
+                    "UUID": "A universally unique identifier for this item",
+                    "RollOptions": "An item roll option's prefix depends on its usage. <em>item:</em> is used most of the time, but <em>parent:</em> is used for the item containing the rule element."
                 },
                 "New": "New Rule Element",
                 "RegenerateSlug": "(Re)generate Slug",
                 "Remove": "Remove Rule Element",
-                "Tab": "Rules"
+                "Tab": "Rules",
+                "ViewRollOptions": "View Roll Options"
             },
             "Shield": {
                 "Base": {
@@ -2621,10 +2647,6 @@
         "ItemTitle": "Item",
         "ItemsLabel": "Items",
         "Keybinding": {
-            "CycleTokenStack": {
-                "Hint": "Cycle the Z indices of a mouse-hovered stack of tokens, pushing the top to the bottom.",
-                "Label": "Cycle Token Stack"
-            },
             "GMVision": {
                 "Hint": "Brighten dark scenes for easier viewing.",
                 "Label": "GM Vision"
@@ -3060,6 +3082,33 @@
             "rollingDescription": "DC {dc} (Dying {dying})",
             "success": "Reduce your dying value by 1."
         },
+        "Region": {
+            "Environment": {
+                "Mode": {
+                    "Add": {
+                        "Label": "Add"
+                    },
+                    "Hint": "Set the mode for this terrain behavior. Either adds the selected types to the exisiting environment types, removes the selected types from the exisiting types or overrides the exsiting types with the selected types.",
+                    "Label": "Mode",
+                    "Override": {
+                        "Label": "Override"
+                    },
+                    "Remove": {
+                        "Label": "Remove"
+                    }
+                },
+                "Label": "Environment",
+                "RegionLegend": {
+                    "Header": "Scene Defaults",
+                    "SceneRegionsHeader": "Scene Regions"
+                },
+                "Type": {
+                    "Hint": "One or more environment types for this scene region.",
+                    "Label": "Environment",
+                    "SceneHint": "Specify one or more environment types for the entire scene."
+                }
+            }
+        },
         "RemoveCoinsByValueLabel": "Remove value, not specific type",
         "RemoveCoinsTitle": "Remove Coins",
         "RemoveCombatProficiency": {
@@ -3205,6 +3254,9 @@
                 "ShowUnknownSources": "Do not filter entries with unknown sources.",
                 "SourcesListHeader": "Specified Sources"
             },
+            "Core": {
+                "ManagedBySystem": "Managed and locked by the PF2e System"
+            },
             "CritRule": {
                 "Choices": {
                     "Doubledamage": "Double the damage",
@@ -3285,6 +3337,10 @@
                     "Campaign": "Campaign",
                     "Damage": "Damage Types",
                     "Traits": "Traits and Categories"
+                },
+                "EnvironmentTypes": {
+                    "Hint": "Any custom environment type",
+                    "Name": "Environment Types"
                 },
                 "WeaponCategories": {
                     "Hint": "The top level of Pathfinder 2e weapon taxonomy (e.g., Simple, Martial)",

@@ -31,12 +31,7 @@
         <div class="details-container-two-columns">
             <input type="number" name="system.area.value" min="5" step="5" value="{{data.area.value}}" />
             <select name="system.area.type">
-                <option value=""></option>
-                {{#select data.area.type}}
-                    {{#each areaShapes as |label shape|}}
-                        <option value="{{shape}}">{{localize label}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions areaShapes selected=data.area.type blank="" localize=true}}
             </select>
         </div>
     </div>
@@ -86,13 +81,7 @@
         <div class="form-group">
             <label>{{localize "PF2E.ActionTypePassive"}}</label>
             <select data-property="system.defense.passive.statistic" data-nullable>
-                <option value=""></option>
-                {{#select item.system.defense.passive.statistic}}
-                    <option value="ac">{{localize "PF2E.Check.DC.Specific.armor"}}</option>
-                    <option value="fortitude-dc">{{localize "PF2E.Check.DC.Specific.fortitude"}}</option>
-                    <option value="reflex-dc">{{localize "PF2E.Check.DC.Specific.reflex"}}</option>
-                    <option value="will-dc">{{localize "PF2E.Check.DC.Specific.will"}}</option>
-                {{/select}}
+                {{selectOptions defensePassiveOptions selected=item.system.defense.passive.statistic blank="" localize=true}}
             </select>
         </div>
 
@@ -100,12 +89,7 @@
             <label>{{localize "PF2E.SavingThrow"}}</label>
             <div class="form-fields">
                 <select name="system.defense.save.statistic">
-                    <option value=""></option>
-                    {{#select data.defense.save.statistic}}
-                        <option value="fortitude">{{localize "PF2E.SavesFortitude"}}</option>
-                        <option value="reflex">{{localize "PF2E.SavesReflex"}}</option>
-                        <option value="will">{{localize "PF2E.SavesWill"}}</option>
-                    {{/select}}
+                    {{selectOptions defenseSaveOptions selected=data.defense.save.statistic blank="" localize=true}}
                 </select>
                 <label {{#unless data.defense.save.statistic}}class="disabled"{{/unless}}>
                     {{localize "PF2E.Item.Spell.Defense.BasicSave"}}
@@ -137,19 +121,10 @@
                             <input type="checkbox" name="system.damage.{{id}}.applyMod" {{checked partial.applyMod}} />
                         </label>
                         <select name="system.damage.{{id}}.category">
-                            {{#select partial.category}}
-                                <option value=""></option>
-                                {{#each @root.damageSubtypes as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageSubtypes selected=partial.category blank="" localize=true}}
                         </select>
                         <select name="system.damage.{{id}}.type">
-                            {{#select partial.type}}
-                                {{#each @root.damageTypes as |name type|}}
-                                    <option value="{{type}}">{{localize name}}</option>
-                                {{/each}}
-                            {{/select}}
+                            {{selectOptions @root.damageTypes selected=partial.type localize=true}}
                         </select>
                         <select class="kinds" name="system.damage.{{id}}.kinds" data-dtype="JSON">
                             {{#each (lookup @root.damageKinds id) as |kind|}}
@@ -214,11 +189,7 @@
         <div class="form-group">
             <label>{{localize "PF2E.SpellScalingInterval.Label"}}</label>
             <select name="system.heightening.interval" data-dtype="Number">
-                {{#select data.heightening.interval}}
-                    {{#each @root.heightenIntervals as |key|}}
-                        <option value="{{key}}">{{localize "PF2E.SpellScalingInterval.Selection" interval=key}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions heightenIntervals selected=data.heightening.interval localize=true}}
             </select>
         </div>
 

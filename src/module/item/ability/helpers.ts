@@ -1,6 +1,6 @@
 import type { AbilityItemPF2e, FeatPF2e, SpellPF2e } from "@item";
 import { ItemPF2e } from "@item";
-import { FrequencySource } from "@item/base/data/system.ts";
+import { ActionCost, FrequencySource } from "@item/base/data/system.ts";
 import type { FeatSheetPF2e } from "@item/feat/sheet.ts";
 import { RangeData } from "@item/types.ts";
 import { ErrorPF2e, htmlQuery, isImageFilePath } from "@util";
@@ -28,7 +28,7 @@ function normalizeActionChangeData(document: SourceWithActionData, changed: Deep
         const actionCount = Number(changed.system?.actions?.value ?? document.system.actions.value);
         changed.system = fu.mergeObject(changed.system, {
             actionType: { value: actionType },
-            actions: { value: actionType !== "action" ? null : Math.clamped(actionCount, 1, 3) },
+            actions: { value: actionType !== "action" ? null : Math.clamp(actionCount, 1, 3) },
         });
     }
 }
@@ -51,6 +51,14 @@ function activateActionSheetListeners(item: ItemPF2e & SourceWithFrequencyData, 
             }
         });
     }
+}
+
+function getActionCostRollOptions(prefix: string, item: { actionCost?: ActionCost | null }): string[] {
+    const actionCost = item.actionCost;
+    if (!actionCost) return [];
+
+    const value = actionCost.type === "free" ? 0 : actionCost.type === "reaction" ? 1 : actionCost.value ?? 0;
+    return [`${prefix}:action:type:${actionCost.type}`, `${prefix}:action:cost:${value}`];
 }
 
 /** Create data for the "self-applied effect" drop zone on an ability or feat sheet. */
@@ -124,6 +132,7 @@ export {
     activateActionSheetListeners,
     createActionRangeLabel,
     createSelfEffectSheetData,
+    getActionCostRollOptions,
     handleSelfEffectDrop,
     normalizeActionChangeData,
     processSanctification,

@@ -46,10 +46,11 @@ class BackgroundPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         const { trainedSkills } = this.system;
-        if (trainedSkills.value.length === 1) {
-            const key = trainedSkills.value[0];
+        for (const key of trainedSkills.value) {
             const skill = this.actor.system.skills[key];
-            skill.rank = Math.max(skill.rank, 1) as OneToFour;
+            if (skill) {
+                skill.rank = Math.max(skill.rank, 1) as OneToFour;
+            }
         }
     }
 }

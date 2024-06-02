@@ -95,7 +95,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override prepareBaseData(): void {
         super.prepareBaseData();
-        this.system.stage = Math.clamped(this.system.stage, this.badge.min, this.maxStage);
+        this.system.stage = Math.clamp(this.system.stage, this.badge.min, this.maxStage);
 
         // Set certain defaults
         for (const stage of Object.values(this.system.stages)) {
@@ -254,7 +254,7 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     /** Set the start time and initiative roll of a newly created effect */
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (this.isOwned) {
@@ -266,12 +266,12 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             if (data.system.onset) data.system.onset.active = true;
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<AfflictionSource>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const duration = changed.system?.duration;
@@ -279,15 +279,15 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             if (duration.value === -1) duration.value = 1;
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     protected override _onCreate(
         data: AfflictionSource,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
         if (game.user === this.actor?.primaryUpdater) {
             this.handleStageChange();
         }
@@ -295,10 +295,10 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
         // If the stage changed, perform stage change events
         if (changed.system?.stage && game.user === this.actor?.primaryUpdater) {

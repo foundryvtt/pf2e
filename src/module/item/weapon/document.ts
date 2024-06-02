@@ -679,7 +679,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             type: "melee",
             system: {
                 slug: this.slug ?? sluggify(this._source.name),
-                weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
                     value: this.flags.pf2e.fixedAttack || Math.round(1.5 * this.actor.level + 7),
@@ -729,10 +728,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         const traits = changed.system.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
@@ -748,7 +747,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (changed.system.damage) {
             // Clamp `dice` to between 0 and 12
             if (changed.system.damage.dice !== undefined) {
-                changed.system.damage.dice = Math.clamped(Number(changed.system.damage.dice) || 0, 0, 12);
+                changed.system.damage.dice = Math.clamp(Number(changed.system.damage.dice) || 0, 0, 12);
             }
 
             // Null out empty `die`
@@ -757,12 +756,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     /** Remove links to this weapon from NPC attacks */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
 
         if (game.user.id === userId) {
             const updates =

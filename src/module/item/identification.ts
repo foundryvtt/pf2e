@@ -1,4 +1,4 @@
-import { SkillLongForm } from "@actor/types.ts";
+import { SkillSlug } from "@actor/types.ts";
 import { Rarity } from "@module/data.ts";
 import { setHasElement } from "@util";
 import { adjustDCByRarity, calculateDC, DCOptions } from "../dc.ts";
@@ -23,7 +23,7 @@ function getMagicTraditions(item: PhysicalItemPF2e): Set<MagicTradition> {
     return new Set(traits.filter((t): t is MagicTradition => setHasElement(MAGIC_TRADITIONS, t)));
 }
 
-type MagicSkill = Extract<SkillLongForm, "arcana" | "nature" | "religion" | "occultism">;
+type MagicSkill = Extract<SkillSlug, "arcana" | "nature" | "religion" | "occultism">;
 
 /** All cursed items are incredibly hard to identify */
 function getDcRarity(item: PhysicalItemPF2e): Rarity {

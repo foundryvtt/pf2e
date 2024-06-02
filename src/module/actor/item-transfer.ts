@@ -148,9 +148,9 @@ export class ItemTransfer implements ItemTransferData {
                 const flavor = await this.#messageFlavor(sourceActor, targetActor, localize("BuySubtitle"));
 
                 await ChatMessage.create({
-                    user: requester.id,
+                    author: requester.id,
                     speaker: { alias: ItemTransfer.#tokenName(targetActor) },
-                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                    style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
                     flavor,
                     content,
                 });
@@ -298,7 +298,7 @@ export class ItemTransfer implements ItemTransferData {
         const formatProperties = formatArgs[1];
         if (!formatProperties) throw ErrorPF2e("Unexpected item-transfer failure");
         formatProperties.quantity = this.quantity;
-        formatProperties.item = await TextEditor.enrichHTML(item.link, { async: true });
+        formatProperties.item = await TextEditor.enrichHTML(item.link);
 
         // Don't bother showing quantity if it's only 1:
         const content = await renderTemplate(this.#templatePaths.content, {
@@ -309,9 +309,9 @@ export class ItemTransfer implements ItemTransferData {
         const flavor = await this.#messageFlavor(sourceActor, targetActor, subtitle);
 
         await ChatMessage.create({
-            user: requester.id,
+            author: requester.id,
             speaker: { alias: speaker },
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            style: CONST.CHAT_MESSAGE_STYLES.EMOTE,
             flavor,
             content,
         });

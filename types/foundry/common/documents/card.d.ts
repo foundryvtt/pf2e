@@ -24,7 +24,7 @@ export default class BaseCard<TParent extends documents.BaseCards | null> extend
     static DEFAULT_ICON: ImageFilePath | VideoFilePath;
 
     /** The allowed set of Card types which may exist */
-    static get TYPES(): string;
+    static get TYPES(): string[];
 
     /* -------------------------------------------- */
     /*  Model Methods                               */

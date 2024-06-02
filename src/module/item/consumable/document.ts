@@ -230,10 +230,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         if (typeof changed.system.damage?.type === "string") {
             const category = changed.system.category ?? this.system.category;
@@ -251,7 +251,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         if (changed.system.uses) {
             if ("value" in changed.system.uses) {
                 const minimum = this.system.uses.autoDestroy ? 1 : 0;
-                changed.system.uses.value = Math.clamped(
+                changed.system.uses.value = Math.clamp(
                     Math.floor(Number(changed.system.uses.value)) || minimum,
                     minimum,
                     9999,
@@ -259,7 +259,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             }
 
             if ("max" in changed.system.uses) {
-                changed.system.uses.max = Math.clamped(Math.floor(Number(changed.system.uses.max)) || 1, 1, 9999);
+                changed.system.uses.max = Math.clamp(Math.floor(Number(changed.system.uses.max)) || 1, 1, 9999);
             }
 
             if (typeof changed.system.uses.value === "number" && typeof changed.system.uses.max === "number") {
@@ -268,10 +268,10 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
         }
 
         if (changed.system.price?.per !== undefined) {
-            changed.system.price.per = Math.clamped(Math.floor(Number(changed.system.price.per)) || 1, 1, 999);
+            changed.system.price.per = Math.clamp(Math.floor(Number(changed.system.price.per)) || 1, 1, 999);
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

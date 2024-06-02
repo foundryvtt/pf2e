@@ -5,7 +5,7 @@
         {
             "_id": "fKDKMJtOFcpWNega",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Bite",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -87,7 +87,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>The goblin shark's coloration blends in with the water. It doesn't need cover to attempt to Hide with a Stealth check while underwater</p>"
+                    "value": "<p>The goblin shark's coloration blends in with the water. It doesn't need cover to attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] with a Stealth check while underwater.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -181,7 +181,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "lunging-bite",
+                        "toggleable": true
+                    },
+                    {
+                        "definition": [
+                            "item:slug:jaws"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "lunging-bite"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "reach-10"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

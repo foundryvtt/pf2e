@@ -1,5 +1,5 @@
-import { SkillLongForm } from "@actor/types.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SkillSlug } from "@actor/types.ts";
+import { SKILL_SLUGS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
@@ -13,7 +13,7 @@ export class Migration749AssuranceREs extends MigrationBase {
         return rule.key === "ChoiceSet";
     }
 
-    #newRules(skill: SkillLongForm | "choice"): RuleElementSource[] {
+    #newRules(skill: SkillSlug | "choice"): RuleElementSource[] {
         const selector = skill === "choice" ? "{item|flags.pf2e.rulesSelections.assurance}" : skill;
         const rules = [
             {
@@ -49,7 +49,7 @@ export class Migration749AssuranceREs extends MigrationBase {
             rules.push(...this.#newRules("choice"));
         } else if (rules.length === 0) {
             const skill = /^assurance-([a-z]+)$/.exec(slug)?.at(1);
-            if (setHasElement(SKILL_LONG_FORMS, skill)) {
+            if (setHasElement(SKILL_SLUGS, skill)) {
                 rules.push(...this.#newRules(skill));
             }
         }

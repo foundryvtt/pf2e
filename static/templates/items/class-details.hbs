@@ -27,11 +27,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.PerceptionLabel"}}</label>
         <select name="system.perception" data-dtype="Number">
-            {{#select data.perception}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.perception localize=true}}
         </select>
     </div>
 </fieldset>
@@ -42,33 +38,21 @@
     <div class="form-group">
         <label>{{localize "PF2E.SavesFortitude"}}</label>
         <select name="system.savingThrows.fortitude" data-dtype="Number">
-            {{#select data.savingThrows.fortitude}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.savingThrows.fortitude localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.SavesReflex"}}</label>
         <select name="system.savingThrows.reflex" data-dtype="Number">
-            {{#select data.savingThrows.reflex}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.savingThrows.reflex localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.SavesWill"}}</label>
         <select name="system.savingThrows.will" data-dtype="Number">
-            {{#select data.savingThrows.will}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.savingThrows.will localize=true}}
         </select>
     </div>
 </fieldset>
@@ -79,44 +63,28 @@
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Simple"}}</label>
         <select name="system.attacks.simple" data-dtype="Number">
-            {{#select data.attacks.simple}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.attacks.simple localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Martial"}}</label>
         <select name="system.attacks.martial" data-dtype="Number">
-            {{#select data.attacks.martial}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.attacks.martial localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Advanced"}}</label>
         <select name="system.attacks.advanced" data-dtype="Number">
-            {{#select data.attacks.advanced}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.attacks.advanced localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Attack.Unarmed"}}</label>
         <select name="system.attacks.unarmed" data-dtype="Number">
-            {{#select data.attacks.unarmed}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.attacks.unarmed localize=true}}
         </select>
     </div>
 
@@ -124,11 +92,7 @@
         <label>{{localize "PF2E.WeaponTypeSpecial"}}</label>
         <input type="text" name="system.attacks.other.name" value="{{data.attacks.other.name}}">
         <select name="system.attacks.other.rank" data-dtype="Number">
-            {{#select data.attacks.other.rank}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.attacks.other.rank localize=true}}
         </select>
     </div>
 </fieldset>
@@ -139,44 +103,28 @@
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Light"}}</label>
         <select name="system.defenses.light" data-dtype="Number">
-            {{#select data.defenses.light}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.defenses.light localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Medium"}}</label>
         <select name="system.defenses.medium" data-dtype="Number">
-            {{#select data.defenses.medium}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.defenses.medium localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Heavy"}}</label>
         <select name="system.defenses.heavy" data-dtype="Number">
-            {{#select data.defenses.heavy}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.defenses.heavy localize=true}}
         </select>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Character.Proficiency.Defense.Unarmored"}}</label>
         <select name="system.defenses.unarmored" data-dtype="Number">
-            {{#select data.defenses.unarmored}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.defenses.unarmored localize=true}}
         </select>
     </div>
 </fieldset>
@@ -187,11 +135,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Actor.Creature.Spellcasting.Label"}}</label>
         <select name="system.spellcasting" data-dtype="Number">
-            {{#select data.spellcasting}}
-                {{#each proficiencyChoices as |label key|}}
-                    <option value="{{key}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions proficiencyChoices selected=data.spellcasting localize=true}}
         </select>
     </div>
 </fieldset>
@@ -202,7 +146,7 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.TrainedSkillsLabel"}}
-            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skills" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
+            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skillList" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
@@ -299,10 +243,12 @@
     </div>
 </fieldset>
 
-<fieldset class="form-group stacked item-ref-group" data-valid-drops="classfeature">
+<fieldset data-valid-drops="classfeature">
     <legend>{{localize "PF2E.ClassFeatures"}}</legend>
-    {{#> abcItems}}{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+    <div class="item-ref-group">
+        {{#> abcItems}}{{/abcItems}}
+        {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+    </div>
 </fieldset>
 
 {{~#*inline "abcItem"~}}

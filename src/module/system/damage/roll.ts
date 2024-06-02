@@ -5,10 +5,13 @@ import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
 import { ErrorPF2e, fontAwesomeIcon, isObject, tupleHasValue } from "@util";
 import type Peggy from "peggy";
+import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
+
+const terms = foundry.dice.terms;
 
 abstract class AbstractDamageRoll extends Roll {
     declare static parser: Peggy.Parser;
@@ -31,10 +34,6 @@ abstract class AbstractDamageRoll extends Roll {
 
     /** The theoretically highest total of this roll */
     abstract get maximumValue(): number;
-
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
-    }
 }
 
 class DamageRoll extends AbstractDamageRoll {
@@ -241,7 +240,7 @@ class DamageRoll extends AbstractDamageRoll {
             return super.render({ flavor, template, isPrivate });
         }
 
-        if (!this._evaluated) await this.evaluate({ async: true });
+        if (!this._evaluated) await this.evaluate();
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
         const total = this.total ?? NaN;
         const damageKinds = this.kinds;
@@ -374,7 +373,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         DamageRoll.classifyDice(syntaxTree);
 
-        return [RollTerm.fromData(syntaxTree)];
+        return [terms.RollTerm.fromData(syntaxTree)];
     }
 
     static override fromData<TRoll extends Roll>(this: ConstructorOf<TRoll>, data: RollJSON): TRoll;
@@ -390,9 +389,9 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Get the expected, minimum, or maximum value of a term */
     static getValue(term: RollTerm, type: "minimum" | "maximum" | "expected" = "expected"): number {
-        if (term instanceof NumericTerm) return term.number;
+        if (term instanceof terms.NumericTerm) return term.number;
 
-        if (term instanceof MathTerm) {
+        if (term instanceof terms.FunctionTerm) {
             try {
                 return Roll.safeEval(term.formula);
             } catch {
@@ -402,7 +401,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         switch (type) {
             case "minimum":
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number;
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -413,7 +412,7 @@ class DamageInstance extends AbstractDamageRoll {
                 }
                 break;
             case "maximum":
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number * term.faces;
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -424,7 +423,7 @@ class DamageInstance extends AbstractDamageRoll {
                 }
                 break;
             default: {
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number * ((term.faces + 1) / 2);
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -528,7 +527,7 @@ class DamageInstance extends AbstractDamageRoll {
             this.terms
                 .reduce(
                     (dice: (DiceTerm | never[])[], term) => {
-                        if (term instanceof DiceTerm) {
+                        if (term instanceof terms.DiceTerm) {
                             dice.push(term);
                         } else if (
                             term instanceof Grouping ||

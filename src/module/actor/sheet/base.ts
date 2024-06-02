@@ -9,6 +9,7 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { NPCAttackTrait } from "@item/melee/types.ts";
 import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -17,6 +18,7 @@ import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
+import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -88,7 +90,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const baseWidth = this.options.width;
         if (typeof baseWidth === "number") {
             const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
-            this.position.width &&= Math.floor(Math.clamped(calculatedWidth, 0.75 * baseWidth, 1024));
+            this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
         }
     }
 
@@ -170,6 +172,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             totalWealthGold,
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             user: { isGM: game.user.isGM },
+            publicationLicenses: [
+                { label: "PF2E.Publication.License.OGL", value: "OGL" },
+                { label: "PF2E.Publication.License.ORC", value: "ORC" },
+            ],
         };
 
         await this.prepareItems?.(sheetData);
@@ -1182,8 +1188,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 case "melee": {
                     const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
-                    const meleeOrRanged = dataset.actionType === "melee" ? "melee" : "ranged";
-                    return { type: itemType, name, system: { weaponType: { value: meleeOrRanged } } };
+                    const traits: { value: NPCAttackTrait[] } = {
+                        value: dataset.actionType === "melee" ? [] : ["range-increment-10"],
+                    };
+                    return { type: itemType, name, system: { traits } };
                 }
                 case "lore": {
                     const name =
@@ -1325,6 +1333,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         return data;
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: true,
+        });
+        return plugins;
     }
 }
 

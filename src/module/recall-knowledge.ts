@@ -1,6 +1,6 @@
 import { NPCPF2e } from "@actor";
 import { CreatureTrait } from "@actor/creature/types.ts";
-import { SkillLongForm } from "@actor/types.ts";
+import { SkillSlug } from "@actor/types.ts";
 import { Rarity } from "@module/data.ts";
 import {
     adjustDC,
@@ -21,7 +21,7 @@ import {
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-const identifySkills = new Map<CreatureTrait, SkillLongForm[]>([
+const identifySkills = new Map<CreatureTrait, SkillSlug[]>([
     ["aberration", ["occultism"]],
     ["animal", ["nature"]],
     ["astral", ["occultism"]],
@@ -74,7 +74,7 @@ interface RecallKnowledgeDC {
 }
 
 interface CreatureIdentificationData {
-    skills: SkillLongForm[];
+    skills: SkillSlug[];
     standard: RecallKnowledgeDC;
     lore: [RecallKnowledgeDC, RecallKnowledgeDC];
 }

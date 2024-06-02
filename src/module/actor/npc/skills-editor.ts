@@ -1,6 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { NPCSkillData } from "@actor/npc/data.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SKILL_SLUGS } from "@actor/values.ts";
 import { LoreSource } from "@item/base/data/index.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
 
@@ -46,7 +46,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
             const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
-            if (setHasElement(SKILL_LONG_FORMS, slug)) {
+            if (setHasElement(SKILL_SLUGS, slug)) {
                 await this.actor.createEmbeddedDocuments("Item", [{ name: slug.titleCase(), type: "lore" }]);
             }
         });
@@ -65,7 +65,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-modifier]")) {
             input.addEventListener("change", async () => {
-                const modifier = Math.clamped(Math.trunc(Number(input.value) || 0), -999, 999);
+                const modifier = Math.clamp(Math.trunc(Number(input.value) || 0), -999, 999);
                 if (Number.isInteger(modifier)) {
                     const itemId = htmlClosest(input, "[data-item-id]")?.dataset.itemId;
                     const item = this.actor.items.get(itemId, { strict: true });

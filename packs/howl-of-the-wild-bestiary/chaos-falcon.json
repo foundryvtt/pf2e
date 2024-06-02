@@ -5,7 +5,7 @@
         {
             "_id": "5MR5AuUCs3eO5Zql",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "beak",
+            "name": "Beak",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -47,7 +47,7 @@
         {
             "_id": "p5k5p4UMeBR4dz2q",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "talon",
+            "name": "Talon",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -89,7 +89,7 @@
         {
             "_id": "AhdMkfthLUkAIfEi",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "bolt",
+            "name": "Bolt",
             "sort": 300000,
             "system": {
                 "attack": {
@@ -106,7 +106,7 @@
                 "damageRolls": {
                     "spHQCMbGKIpJkGLN": {
                         "damage": "6d6",
-                        "damageType": "fire"
+                        "damageType": "untyped"
                     }
                 },
                 "description": {
@@ -202,7 +202,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The chaos falcon is Flying</p>\n<hr />\n<p><strong>Effect</strong> The chaos falcon Flies twice straight down. If they reach the ground or a similarly solid object at the end of this movement, their landing shatters that surface into sharp shards and droplets of molten stone deal @Damage[4d6[fire]] and @Damage[3d8[piercing]] damage (@Check[type:reflex|dc:26|basic:true] save) to all other creatures within 20 feet.</p>"
+                    "value": "<p><strong>Requirements</strong> The chaos falcon is Flying</p>\n<hr />\n<p><strong>Effect</strong> The chaos falcon Flies twice straight down. If they reach the ground or a similarly solid object at the end of this movement, their landing shatters that surface into sharp shards and droplets of molten stone deal @Damage[4d6[fire],3d8[piercing]]{4d6 fire and 3d8 piercing} damage (@Check[type:reflex|dc:26|basic:true] save) to all other creatures within @Template[type:emanation|distance:20]{20 feet}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -268,7 +268,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>15 feet, @Damage[3d6[fire]], @Check[reflex|dc:26|basic] save. The chaos falcon is surrounded by a cloud of volcanic ash, lightning arcing within the cloud as it glows hot in some areas and collects ice in others. A chaos falcon can change the damage type of this aura to @Damage[3d6[cold]], @Damage[3d6[electricity]], or @Damage[3d6[fire]] as an action, which has the concentrate trait.</p>"
+                    "value": "<p>15 feet, @Damage[3d6[untyped]], @Check[reflex|dc:26|basic] save. The chaos falcon is surrounded by a cloud of volcanic ash, lightning arcing within the cloud as it glows hot in some areas and collects ice in others. A chaos falcon can change the damage type of this aura to cold, electricity, or fire as an action, which has the concentrate trait.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -282,9 +282,51 @@
                         "traits": [
                             "primal"
                         ]
+                    },
+                    {
+                        "alwaysActive": true,
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "storm-nexus",
+                        "selection": "fire",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitCold",
+                                "value": "cold"
+                            },
+                            {
+                                "label": "PF2E.TraitElectricity",
+                                "value": "electricity"
+                            },
+                            {
+                                "label": "PF2E.TraitFire",
+                                "value": "fire"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "key": "DamageAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:storm-nexus"
+                        ],
+                        "property": "damage-type",
+                        "selectors": [
+                            "inline-damage"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.stormNexus}"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "damageType": "{item|flags.pf2e.rulesSelections.stormNexus}"
+                        },
+                        "selector": "bolt-damage"
                     }
                 ],
-                "slug": null,
+                "slug": "storm-nexus",
                 "traits": {
                     "value": [
                         "aura",

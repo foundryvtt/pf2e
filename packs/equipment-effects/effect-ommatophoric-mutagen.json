@@ -1,0 +1,64 @@
+{
+    "_id": "ZxT8Shp8NZaQRjlQ",
+    "img": "icons/consumables/potions/potion-flask-corked-cyan.webp",
+    "name": "Effect: Ommatophoric Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Ommatophoric Mutagen]</p>\n<p><strong>Benefit</strong> You gain all-around vision, a +2 item bonus to visual Perception checks, and low-light vision if you don't already have it.</p>\n<p><strong>Drawback</strong> You take a –2 penalty to saving throws against effects that have the visual trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.flanking.flankable",
+                "value": false
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "visual"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "Sense",
+                "selector": "low-light-vision"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "visual"
+                ],
+                "selector": "saving-throw",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

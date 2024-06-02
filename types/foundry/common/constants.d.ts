@@ -1,3 +1,5 @@
+import type * as data from "./data/data.d.ts";
+
 /** The shortened software name */
 export const vtt: "Foundry VTT";
 
@@ -52,14 +54,22 @@ export const CANVAS_PERFORMANCE_MODES: {
     MAX: 3;
 };
 
-/** Valid Chat Message types */
-export const CHAT_MESSAGE_TYPES: {
+/** Valid Chat Message styles which affect how the message is presented in the chat log. */
+export const CHAT_MESSAGE_STYLES: {
+    /** An uncategorized chat message */
     OTHER: 0;
+    /**
+     * The message is spoken out of character (OOC).
+     * OOC messages will be outlined by the player's color to make them more easily recognizable.
+     */
     OOC: 1;
+    /** The message is spoken by an associated character. */
     IC: 2;
+    /**
+     * The message is an emote performed by the selected character.
+     * Entering "/emote waves his hand." while controlling a character named Simon will send the message, "Simon waves his hand."
+     */
     EMOTE: 3;
-    WHISPER: 4;
-    ROLL: 5;
 };
 
 /** Define the set of languages which have built-in support in the core software */
@@ -82,25 +92,105 @@ export const COMPATIBILITY_MODES: {
 /** The default artwork used for Token images if none is provided */
 export const DEFAULT_TOKEN: "icons/svg/mystery-man.svg";
 
-/** Define the allowed Document class types. */
-export const DOCUMENT_TYPES: [
+/** The primary Document types. */
+export const PRIMARY_DOCUMENT_TYPES: [
+    "Actor",
+    "Adventure",
+    "Cards",
+    "ChatMessage",
+    "Combat",
+    "FogExploration",
+    "Folder",
+    "Item",
+    "JournalEntry",
+    "Macro",
+    "Playlist",
+    "RollTable",
+    "Scene",
+    "Setting",
+    "User",
+];
+
+/** The embedded Document types. */
+export const EMBEDDED_DOCUMENT_TYPES: [
+    "ActiveEffect",
+    "ActorDelta",
+    "AmbientLight",
+    "AmbientSound",
+    "Card",
+    "Combatant",
+    "Drawing",
+    "Item",
+    "JournalEntryPage",
+    "MeasuredTemplate",
+    "Note",
+    "PlaylistSound",
+    "Region",
+    "RegionBehavior",
+    "TableResult",
+    "Tile",
+    "Token",
+    "Wall",
+];
+
+/** A listing of all valid Document types, both primary and embedded. */
+export const ALL_DOCUMENT_TYPES: [
+    "ActiveEffect",
+    "Actor",
+    "ActorDelta",
+    "Adventure",
+    "AmbientLight",
+    "AmbientSound",
+    "Card",
+    "Cards",
+    "ChatMessage",
+    "Combat",
+    "Combatant",
+    "Drawing",
+    "FogExploration",
+    "Folder",
+    "Item",
+    "JournalEntry",
+    "JournalEntryPage",
+    "Macro",
+    "MeasuredTemplate",
+    "Note",
+    "Playlist",
+    "PlaylistSound",
+    "Region",
+    "RegionBehavior",
+    "RollTable",
+    "Scene",
+    "Setting",
+    "TableResult",
+    "Tile",
+    "Token",
+    "User",
+    "Wall",
+];
+
+/** The allowed primary Document types which may exist within a World. */
+export const WORLD_DOCUMENT_TYPES: [
     "Actor",
     "Cards",
     "ChatMessage",
     "Combat",
-    "Item",
+    "FogExploration",
     "Folder",
+    "Item",
     "JournalEntry",
     "Macro",
     "Playlist",
     "RollTable",
     "Scene",
+    "Setting",
     "User",
 ];
 
-/** The allowed Document types which may exist within a Compendium pack. */
+/** The allowed primary Document types which may exist within a Compendium pack. */
 export const COMPENDIUM_DOCUMENT_TYPES: [
     "Actor",
+    "Adventure",
     "Cards",
     "Item",
     "JournalEntry",
@@ -108,7 +198,6 @@ export const COMPENDIUM_DOCUMENT_TYPES: [
     "Playlist",
     "RollTable",
     "Scene",
-    "Adventure",
 ];
 
 /**
@@ -182,6 +271,18 @@ export const FOLDER_MAX_DEPTH: 3;
 /** A list of allowed game URL names */
 export const GAME_VIEWS: ["game", "stream"];
 
+/** The directions of movement. */
+export const MOVEMENT_DIRECTIONS: {
+    UP: 0x1;
+    DOWN: 0x2;
+    LEFT: 0x4;
+    RIGHT: 0x8;
+    UP_LEFT: 0x1 | 0x4;
+    UP_RIGHT: 0x1 | 0x8;
+    DOWN_LEFT: 0x2 | 0x4;
+    DOWN_RIGHT: 0x2 | 0x8;
+};
+
 /** The minimum allowed grid size which is supported by the software */
 export const GRID_MIN_SIZE: 50;
 
@@ -193,6 +294,83 @@ export const GRID_TYPES: {
     HEXEVENR: 3;
     HEXODDQ: 4;
     HEXEVENQ: 5;
+};
+
+/**
+ * The different rules to define and measure diagonal distance/cost in a square grid.
+ * The description of each option refers to the distance/cost of moving diagonally relative to the distance/cost of a horizontal or vertical move.
+ */
+export const GRID_DIAGONALS: {
+    /** The diagonal distance is 1. Diagonal movement costs the same as horizontal/vertical movement. */
+    EQUIDISTANT: 0;
+    /** The diagonal distance is √2. Diagonal movement costs √2 times as much as horizontal/vertical movement. */
+    EXACT: 1;
+    /** The diagonal distance is 1.5. Diagonal movement costs 1.5 times as much as horizontal/vertical movement. */
+    APPROXIMATE: 2;
+    /** The diagonal distance is 2. Diagonal movement costs 2 times as much as horizontal/vertical movement. */
+    RECTILINEAR: 3;
+    /**
+     * The diagonal distance alternates between 1 and 2 starting at 1.
+     * The first diagonal movement costs the same as horizontal/vertical movement
+     * The second diagonal movement costs 2 times as much as horizontal/vertical movement.
+     * And so on...
+     */
+    ALTERNATING_1: 4;
+    /**
+     * The diagonal distance alternates between 2 and 1 starting at 2.
+     * The first diagonal movement costs 2 times as much as horizontal/vertical movement.
+     * The second diagonal movement costs the same as horizontal/vertical movement.
+     * And so on...
+     */
+    ALTERNATING_2: 5;
+    /** The diagonal distance is ∞. Diagonal movement is not allowed/possible. */
+    ILLEGAL: 6;
+};
+
+export const GRID_SNAPPING_MODES: {
+    /** Nearest center point. */
+    CENTER: 0x1;
+    /** Nearest edge midpoint. */
+    EDGE_MIDPOINT: 0x2;
+    /** Nearest top-left vertex. */
+    TOP_LEFT_VERTEX: 0x10;
+    /** Nearest top-right vertex. */
+    TOP_RIGHT_VERTEX: 0x20;
+    /** Nearest bottom-left vertex. */
+    BOTTOM_LEFT_VERTEX: 0x40;
+    /** Nearest bottom-right vertex. */
+    BOTTOM_RIGHT_VERTEX: 0x80;
+    /**
+     *  Nearest vertex.
+     *  Alias for `TOP_LEFT_VERTEX | TOP_RIGHT_VERTEX | BOTTOM_LEFT_VERTEX | BOTTOM_RIGHT_VERTEX`.
+     */
+    VERTEX: 0xf0;
+    /** Nearest top-left corner. */
+    TOP_LEFT_CORNER: 0x100;
+    /** Nearest top-right corner. */
+    TOP_RIGHT_CORNER: 0x200;
+    /** Nearest bottom-left corner. */
+    BOTTOM_LEFT_CORNER: 0x400;
+    /** Nearest bottom-right corner. */
+    BOTTOM_RIGHT_CORNER: 0x800;
+    /**
+     * Nearest corner.
+     * Alias for `TOP_LEFT_CORNER | TOP_RIGHT_CORNER | BOTTOM_LEFT_CORNER | BOTTOM_RIGHT_CORNER`.
+     */
+    CORNER: 0xf00;
+    /** Nearest top side midpoint. */
+    TOP_SIDE_MIDPOINT: 0x1000;
+    /** Nearest bottom side midpoint. */
+    BOTTOM_SIDE_MIDPOINT: 0x2000;
+    /** Nearest left side midpoint. */
+    LEFT_SIDE_MIDPOINT: 0x4000;
+    /** Nearest right side midpoint. */
+    RIGHT_SIDE_MIDPOINT: 0x8000;
+    /**
+     * Nearest side midpoint.
+     * Alias for `TOP_SIDE_MIDPOINT | BOTTOM_SIDE_MIDPOINT | LEFT_SIDE_MIDPOINT | RIGHT_SIDE_MIDPOINT`.
+     */
+    SIDE_MIDPOINT: 0xf000;
 };
 
 /** A list of supported setup URL names */
@@ -298,19 +476,20 @@ export const TILE_OCCLUSION_MODES: {
 
 /**
  * Describe the various thresholds of token control upon which to show certain pieces of information
- * NONE - no information is displayed
- * CONTROL - displayed when the token is controlled
- * OWNER HOVER - displayed when hovered by a GM or a user who owns the actor
- * HOVER - displayed when hovered by any user
- * OWNER - always displayed for a GM or for a user who owns the actor
- * ALWAYS - always displayed for everyone
+ * @see https://foundryvtt.com/article/tokens/
  */
 export const TOKEN_DISPLAY_MODES: {
+    /** No information is displayed.*/
     NONE: 0;
+    /** Displayed when the token is controlled. */
     CONTROL: 10;
+    /** Displayed when hovered by a GM or a user who owns the actor. */
     OWNER_HOVER: 20;
+    /** Displayed when hovered by any user. */
     HOVER: 30;
+    /** Always displayed for a GM or for a user who owns the actor. */
     OWNER: 40;
+    /** Always displayed for everyone. */
     ALWAYS: 50;
 };
 
@@ -667,6 +846,40 @@ export const TIMEOUTS: {
     IP_DISCOVERY: 5000;
 };
 
+/** The Region events that are supported by core. */
+export const REGION_EVENTS: {
+    /** Triggered when the shapes or bottom/top elevation of the Region are changed. */
+    REGION_BOUNDARY: "regionBoundary";
+    /** Triggered when the behavior is enabled/disabled or the Scene its Region is in is viewed/unviewed. */
+    BEHAVIOR_STATUS: "behaviorStatus";
+    /** Triggered when a Token enters a Region. */
+    TOKEN_ENTER: "tokenEnter";
+    /** Triggered when a Token exists a Region. */
+    TOKEN_EXIT: "tokenExit";
+    /** Triggered when a Token moves in a Region. */
+    TOKEN_MOVE: "tokenMove";
+    /** Triggered when a Token is about to move into, out of, through, or within a Region. */
+    TOKEN_PRE_MOVE: "tokenPreMove";
+    /** Triggered when a Token starts its Combat turn in a Region. */
+    TOKEN_TURN_START: "tokenTurnStart";
+    /** Triggered when a Token ends its Combat turn in a Region.  */
+    TOKEN_TURN_END: "tokenTurnEnd";
+    /** Triggered when a Token starts the Combat round in a Region. */
+    TOKEN_ROUND_START: "tokenRoundStart";
+    /** Triggered when a Token ends the Combat round in a Region. */
+    TOKEN_ROUND_END: "tokenRoundEnd";
+};
+
+/** The possible visibility state of Region. */
+export const REGION_VISIBILITY: {
+    /** Only visible on the RegionLayer. */
+    LAYER: 0;
+    /** Only visible to Gamemasters. */
+    GAMEMASTER: 1;
+    /** Visible to anyone. */
+    ALWAYS: 2;
+};
+
 declare global {
     interface UserPermission {
         label: string;
@@ -678,7 +891,7 @@ declare global {
     type ActiveEffectChangeMode = (typeof CONST.ACTIVE_EFFECT_MODES)[keyof typeof CONST.ACTIVE_EFFECT_MODES];
     type AudioFileExtension = keyof typeof AUDIO_FILE_EXTENSIONS;
     type CanvasPerformanceMode = (typeof CANVAS_PERFORMANCE_MODES)[keyof typeof CANVAS_PERFORMANCE_MODES];
-    type ChatMessageType = (typeof CONST.CHAT_MESSAGE_TYPES)[keyof typeof CONST.CHAT_MESSAGE_TYPES];
+    type ChatMessageStyle = (typeof CONST.CHAT_MESSAGE_STYLES)[keyof typeof CONST.CHAT_MESSAGE_STYLES];
     type CompatibilityMode = (typeof CONST.COMPATIBILITY_MODES)[keyof typeof CONST.COMPATIBILITY_MODES];
     type DirectorySearchMode = (typeof DIRECTORY_SEARCH_MODES)[keyof typeof DIRECTORY_SEARCH_MODES];
     type DocumentOwnershipLevel = (typeof DOCUMENT_OWNERSHIP_LEVELS)[DocumentOwnershipString];
@@ -699,6 +912,7 @@ declare global {
     type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];
     type PlaylistSortMode = (typeof PLAYLIST_SORT_MODES)[keyof typeof PLAYLIST_SORT_MODES];
     type RollMode = (typeof CONST.DICE_ROLL_MODES)[keyof typeof CONST.DICE_ROLL_MODES];
+    type ShapeDataType = keyof typeof data.BaseShapeData.TYPES;
     type TableResultType = (typeof TABLE_RESULT_TYPES)[keyof typeof TABLE_RESULT_TYPES];
     type TextAnchorPoint = (typeof TEXT_ANCHOR_POINTS)[keyof typeof TEXT_ANCHOR_POINTS];
     type TileOcclusionMode = (typeof TILE_OCCLUSION_MODES)[keyof typeof TILE_OCCLUSION_MODES];

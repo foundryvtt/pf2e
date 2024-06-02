@@ -1,0 +1,67 @@
+{
+    "_id": "FgwkowiWGfZpnIAc",
+    "img": "icons/consumables/potions/potion-flask-corked-capped-green.webp",
+    "name": "Effect: Viperous Elixir (Moderate)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Viperous Elixir (Moderate)]</p>\n<p>You gain a fangs unarmed attack that deals 1d6 piercing damage. You gain a +2 item bonus to unarmed attack and damage rolls when you Strike with your fangs or another bite attack.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 8
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "bite-attack",
+                    "bite-damage",
+                    "fangs-attack",
+                    "fangs-damage",
+                    "jaws-attack",
+                    "jaws-damage"
+                ],
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
