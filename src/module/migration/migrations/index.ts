@@ -227,3 +227,4 @@ export { Migration925TouchOfCorruption } from "./925-touch-of-corruption.ts";
 export { Migration926RemoveVisionFeatureLinks } from "./926-remove-vision-feature-links.ts";
 export { Migration927ClassBackgroundBattleFormSkillLongform } from "./927-class-background-skill-longform.ts";
 export { Migration928CharacterSkillsLongform } from "./928-character-skills-longform.ts";
+export { Migration929RemoveSkillAbbreviations } from "./929-more-skills-longform.ts";

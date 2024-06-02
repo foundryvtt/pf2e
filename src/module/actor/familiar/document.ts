@@ -5,7 +5,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -247,15 +247,6 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
             return builtSkills;
         }, {});
-
-        // Make temporary backwards compatible short form shims
-        // This will be removed very very soon
-        Object.defineProperties(this.system.skills, {
-            ...R.mapToObj([...SKILL_SLUGS], (longform) => {
-                const shortForm = SKILL_DICTIONARY_REVERSE[longform];
-                return [shortForm, { get: () => this.skills[longform] }];
-            }),
-        });
     }
 
     /* -------------------------------------------- */
