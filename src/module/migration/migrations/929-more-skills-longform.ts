@@ -20,6 +20,11 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
         return new RegExp(String.raw`PF2E.Skill(${skillSlugs})\b`, "g");
     })();
 
+    #SKILL_SHORT_FORM_OPTION_PATH = ((): RegExp => {
+        const skillShortForms = SKILL_ABBREVIATIONS.join("|");
+        return new RegExp(String.raw`\b([\w-]+):(${skillShortForms})(?=:|$)`, "g");
+    })();
+
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.rules = recursiveReplaceString(source.system.rules, (s) => {
             return s.replace(
@@ -40,6 +45,20 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
                 this.#transformRollOption(rule);
             }
         }
+
+        // After conversion, also try to convert any predicates relying on converted choice sets
+        // However, lets do a quick sanity check first to see if this is for a size property
+        const invalidOptions = source.system.rules
+            .filter((s): s is ChoiceSetSource => s?.key === "ChoiceSet")
+            .filter((r): r is ChoiceSetSource & { rollOption: string } => !!r.rollOption && isSizeChoice(r))
+            .map((r) => r.rollOption);
+        source.system.rules = recursiveReplaceString(source.system.rules, (s) => {
+            return s.replace(this.#SKILL_SHORT_FORM_OPTION_PATH, (match, option, value) => {
+                if (invalidOptions.includes(option)) return match;
+                if (value === "med" && String(option).includes("size")) return match;
+                return objectHasKey(SKILL_DICTIONARY, value) ? `${option}:${SKILL_DICTIONARY[value]}` : match;
+            });
+        });
     }
 
     #transformAELike(rule: AELikeSource) {
@@ -81,14 +100,8 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
             for (const choice of choices) {
                 if (typeof choice !== "object") continue;
 
-                if ("value" in choice && choice.value) {
-                    // Make sure we're not treating "med" as in "medium" as medicine.
-                    if (choice.value === "med") {
-                        const isLabelMedium = "label" in choice && choice.label === "PF2E.ActorSizeMedium";
-                        const hasSizeProp = choices.some((c) => c.value !== "med" && tupleHasValue(SIZES, c.value));
-                        if (isLabelMedium || hasSizeProp) continue;
-                    }
-
+                // Convert the value, make sure we're not treating "med" as in "medium" as medicine.
+                if (choice.value && !(choice.value === "med" && isSizeChoice(rule))) {
                     choice.value = recursiveReplaceString(choice.value, (s) => resolveLongForm(s));
                 }
             }
@@ -107,6 +120,25 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
             }
         }
     }
+}
+
+function isSizeChoice(rule: ChoiceSetSource): boolean {
+    const choices = rule.choices ? (rule.choices as UninflatedChoiceSet) : null;
+    if (Array.isArray(choices)) {
+        return choices.some((choice) => {
+            if (!choice || typeof choice !== "object") return false;
+
+            if (choice.value !== "med" && tupleHasValue(SIZES, choice.value)) {
+                return true;
+            }
+            if (choice.label?.startsWith("PF2E.ActorSize")) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+    return false;
 }
 
 function resolveLongForm<T>(value: T): T | SkillSlug {
