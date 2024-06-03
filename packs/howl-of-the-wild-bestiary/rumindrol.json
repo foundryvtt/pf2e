@@ -21,7 +21,7 @@
                 },
                 "damageRolls": {
                     "mt2PclTDCPEHKCUg": {
-                        "damage": "2d12+15",
+                        "damage": "3d12+15",
                         "damageType": "piercing"
                     }
                 },
@@ -132,10 +132,39 @@
             "type": "melee"
         },
         {
+            "_id": "qoJZmD2HLQXVS5qY",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Motion Sense",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A rumindrol can sense nearby motion through vibration and air movement.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "AsHXubWWh9IZnPhY",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Dreadful Resonance",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -145,7 +174,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>60 feet. Each creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure) and take 3d8 sonic damage.</p>"
+                    "value": "<p>60 feet. Each creature that enters or starts its turn in the emanation must succeed at a @Check[type:fortitude|dc:36] save or become @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (@UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} on a critical failure) and take @Damage[3d8[sonic]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -177,7 +206,7 @@
             "_id": "rtr0WHiLIFMDOLrM",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Enthralling Call",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -211,7 +240,7 @@
             "_id": "7KrYQNfJEo32CsPy",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Entropic Cry",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -243,7 +272,7 @@
             "_id": "ZJJADpm0KkKvAPWt",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fast Swallow",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -272,7 +301,7 @@
             "_id": "3K6igu8m8zgxofGA",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Inexorable",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -282,14 +311,19 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The rumindrol recovers from the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], slowed, and stunned conditions at the end of its turn. It's also immune to penalties to its Speeds and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition, and it ignores difficult terrain and greater difficult terrain.</p>"
+                    "value": "<p>The rumindrol recovers from the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], @UUID[Compendium.pf2e.conditionitems.Item.Slowed], and @UUID[Compendium.pf2e.conditionitems.Item.Stunned] conditions at the end of its turn. It's also immune to penalties to its Speeds and the @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] condition, and it ignores difficult terrain and greater difficult terrain.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "type": "immobilized"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -306,7 +340,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swallow Whole",
-            "sort": 900000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -338,7 +372,7 @@
             "_id": "2Cv5TIKMVRX9Kkh2",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Thrash",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -374,7 +408,7 @@
             },
             "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Trample",
-            "sort": 1100000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -384,7 +418,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Huge or smaller, Leg, @Check[type:reflex|dc:36|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Huge or smaller, leg, @Check[type:reflex|dc:36|basic:true]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -409,7 +443,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Grab",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -439,7 +473,7 @@
             "_id": "preMeyKqD5FOPdKD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -465,7 +499,7 @@
             "_id": "iiETfryXeAuQNY7q",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -491,7 +525,7 @@
             "_id": "RJDn14Xla6gen6dn",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "description": {
                     "value": ""

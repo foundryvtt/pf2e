@@ -1,5 +1,4 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { isObject, objectHasKey } from "@util";
+import { isObject } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
@@ -49,15 +48,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
-    /**
-     * Pattern to match system.skills.${longForm} paths for replacement
-     * Temporary solution until skill data is represented in long form
-     */
-    static #SKILL_LONG_FORM_PATH = ((): RegExp => {
-        const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
-    })();
-
     static override validateJoint(data: SourceFromSchema<AELikeSchema>): void {
         super.validateJoint(data);
 
@@ -69,12 +59,6 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 throw new foundry.data.validation.DataModelValidationError("  merge: `value` must an object");
             }
         }
-    }
-
-    #rewriteSkillLongFormPath(path: string): string {
-        return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
-            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match,
-        );
     }
 
     #pathIsValid(path: string): boolean {
@@ -117,7 +101,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     #applyAELike(rollOptions?: Set<string>): void {
         if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
-        const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
+        const path = this.resolveInjectedProperties(this.path);
         if (this.ignored) return;
         if (!this.#pathIsValid(path)) {
             return this.failValidation(`no data found at or near "${path}"`);

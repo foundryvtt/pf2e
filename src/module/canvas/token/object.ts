@@ -38,14 +38,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return canvas.visibility.testVisibility(this.center, { tolerance, object: this });
     }
 
-    /** Is this token currently animating? */
-    get isAnimating(): boolean {
-        return !!this._animation;
+    /** A reference to an animation that is currently in progress for this Token, if any */
+    get animation(): Promise<boolean> | null {
+        return this.animationContexts.get(this.animationName)?.promise ?? null;
     }
 
-    /** Is this token emitting light with a negative value */
-    get emitsDarkness(): boolean {
-        return this.document.emitsDarkness;
+    /** Is this token currently animating? */
+    get isAnimating(): boolean {
+        return !!this.animation;
     }
 
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
@@ -234,8 +234,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
      * Use border color corresponding with disposition even when the token's actor is player-owned.
      * @see https://github.com/foundryvtt/foundryvtt/issues/9993
      */
-    protected override _getBorderColor(options?: { hover?: boolean }): number | null {
-        const isHovered = options?.hover ?? (this.hover || this.layer.highlightObjects);
+    protected override _getBorderColor(): number {
+        const isHovered = this.hover || this.layer.highlightObjects;
         const isControlled = this.controlled || (!game.user.isGM && this.isOwner);
         const isFriendly = this.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
         if (!isHovered || isControlled || isFriendly || !this.actor?.hasPlayerOwner) {
@@ -250,9 +250,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
             case CONST.TOKEN_DISPOSITIONS.HOSTILE:
                 return colors.HOSTILE;
             case CONST.TOKEN_DISPOSITIONS.SECRET:
-                return this.isOwner ? colors.SECRET : null;
+                return this.isOwner ? colors.SECRET : 0;
             default:
-                return super._getBorderColor(options);
+                return super._getBorderColor();
         }
     }
 
@@ -312,7 +312,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Draw auras along with effect icons */
     override async drawEffects(): Promise<void> {
         await super.drawEffects();
-        await this._animation;
+        await this.animation;
 
         if (this.auras.size === 0) {
             return this.auras.reset();
@@ -440,7 +440,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         })();
         if (!scrollingTextArgs) return;
 
-        await this._animation;
+        await this.animation;
         await canvas.interface?.createScrollingText(...scrollingTextArgs);
     }
 
@@ -475,10 +475,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         });
     }
 
-    override async animate(
-        updateData: Record<string, unknown>,
-        options?: TokenAnimationOptionsPF2e<this>,
-    ): Promise<void> {
+    override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
         // Handle system "spin" animation option
         if (options?.spin) {
             let attributeAdded = false;
@@ -571,8 +568,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         super._onUpdate(changed, operation, userId);
 
         if (changed.width) {
-            if (this._animation) {
-                this._animation.then(() => {
+            if (this.animation) {
+                this.animation.then(() => {
                     this.auras.reset();
                 });
             } else {
@@ -593,7 +590,7 @@ type ShowFloatyEffectParams =
     | { update: NumericFloatyEffect }
     | { delete: NumericFloatyEffect };
 
-interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
     spin?: boolean;
 }
 

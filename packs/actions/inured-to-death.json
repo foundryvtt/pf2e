@@ -1,0 +1,46 @@
+{
+    "_id": "travkW5KLTnIUt9Y",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Inured to Death",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> You take damage from an effect with the death or void trait</p>\n<hr />\n<p><strong>Effect</strong> You gain resistance to that damage equal to half your level (minimum 1).</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder: Wake the Dead #5"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "inured-to-death",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "inured-to-death"
+                ],
+                "type": "all-damage",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

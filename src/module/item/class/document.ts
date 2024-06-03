@@ -2,7 +2,7 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
 import { FeatSlotCreationData } from "@actor/character/feats.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
@@ -134,7 +134,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {
-            if (SKILL_ABBREVIATIONS.includes(trainedSkill)) {
+            if (SKILL_SLUGS.has(trainedSkill)) {
                 skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
             }
         }

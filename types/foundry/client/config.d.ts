@@ -7,6 +7,8 @@ import type {
     PointVisionSource,
 } from "../client-esm/canvas/sources/module.ts";
 import type * as terms from "../client-esm/dice/terms/module.d.ts";
+import TypeDataModel from "../common/abstract/type-data.js";
+import { DataSchema } from "../common/data/fields.js";
 
 declare global {
     interface Config<
@@ -117,6 +119,9 @@ declare global {
                 new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
             };
             collection: typeof Items;
+            dataModels: Record<string, ConstructorOf<TypeDataModel<Item, DataSchema>>>;
+            typeIcons: Record<string, string>;
+            typeLabels: Record<string, string | undefined>;
             sheetClasses: Record<
                 string,
                 Record<
@@ -131,8 +136,6 @@ declare global {
                     }
                 >
             >;
-            typeIcons: Record<string, string>;
-            typeLabels: Record<string, string | undefined>;
         };
 
         /** Configuration for the Combat document */

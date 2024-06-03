@@ -470,6 +470,8 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder: Wake the Dead #1 © 2023, Paizo Inc.; Authors: Mikhail Rekun and Fred Van Lente.
     * Pathfinder: Wake the Dead #2 © 2023, Paizo Inc.; Authors: Mikhail Rekun and Fred Van Lente.
     * Pathfinder: Wake the Dead #3 © 2023, Paizo Inc.; Authors: Mikhail Rekun and Fred Van Lente.
+    * Pathfinder: Wake the Dead #4 © 2023, Paizo Inc.; Authors: Kendra Leigh Speedling and Fred Van Lente.
+    * Pathfinder: Wake the Dead #5 © 2023, Paizo Inc.; Authors: Kendra Leigh Speedling and Fred Van Lente.
     * Pathfinder Society Year 4 Rule Updates © 2022, Paizo Inc.; Authors: Mike Kimmel, Alex Speidel
 	* There is No Certainty, Only Adventure! © 2015, Paizo Inc.; Author: Chris Lambertz; Illustrator: Dion Harris.
 	* Pathfinder Society (second edition) Faction Showcase © 2020, Paizo Inc.; Author: Tonya Woldridge

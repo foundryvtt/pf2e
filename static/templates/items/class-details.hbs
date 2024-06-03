@@ -146,7 +146,7 @@
     <div class="form-group form-group-trait">
         <label class="pf-title">
             {{localize "PF2E.TrainedSkillsLabel"}}
-            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skills" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
+            <a class="tag-selector" data-tag-selector="basic" data-title="PF2E.TrainedSkillsLabel" data-config-types="skillList" data-property="system.trainedSkills"><i class="fa-solid fa-edit"></i></a>
         </label>
 
         <ul class="abc-traits-list">
@@ -243,10 +243,12 @@
     </div>
 </fieldset>
 
-<fieldset class="form-group stacked item-ref-group" data-valid-drops="classfeature">
+<fieldset data-valid-drops="classfeature">
     <legend>{{localize "PF2E.ClassFeatures"}}</legend>
-    {{#> abcItems}}{{/abcItems}}
-    {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+    <div class="item-ref-group">
+        {{#> abcItems}}{{/abcItems}}
+        {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
+    </div>
 </fieldset>
 
 {{~#*inline "abcItem"~}}

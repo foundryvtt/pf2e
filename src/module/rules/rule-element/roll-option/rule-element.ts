@@ -147,7 +147,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
     /** Filter suboptions, including those among the same merge family. */
     #resolveSuboptions(test?: Set<string>): Suboption[] {
+        // Extract local suboptions first. If any exist but all fail predication, return none so we can fail later.
         const localSuboptions = this.suboptions.filter((s) => !test || s.predicate.test(test));
+        if (this.suboptions.length > 0 && localSuboptions.length === 0) {
+            return [];
+        }
+
         const foreignSuboptions = this.mergeable
             ? this.actor.rules.flatMap((r) =>
                   r !== this &&
@@ -229,17 +234,21 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
                 this.value = this.disabledValue;
             }
 
+            // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle.
+            // Also prevent further processing, such as from beforeRoll().
+            if (this.suboptions.length > 0 && suboptions.length === 0) {
+                this.ignored = true;
+                return;
+            }
+
             // Exit early if another mergeable roll option has already completed the following
             if (this.mergeable && toggleDomain[this.option]) return;
 
             if (suboptions.length > 0 && !suboptions.some((s) => s.value === this.selection)) {
                 // If predicate testing eliminated the selected suboption, select the first and deselect the rest
                 this.selection = suboptions[0].value;
-            } else if (this.suboptions.length > 0 && suboptions.length === 0) {
-                // If no suboptions remain after predicate testing, don't set the roll option or expose the toggle
-                return;
             } else if (this.mergeable && this.actor.synthetics.toggles[this.domain]?.[this.option]) {
-                // Also return if this is a mergeable toggle and the sheet toggle has already bee created
+                // Also return if this is a mergeable toggle and the sheet toggle has already been created
                 return;
             }
 
@@ -326,13 +335,13 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rules = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
-            for (const itemId of Object.keys(rules)) {
+            const rulesByItem = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
+            for (const [itemId, rules] of Object.entries(rulesByItem)) {
                 const item = actor.items.get(itemId, { strict: true });
                 const ruleSources = item.toObject().system.rules;
-                const rollOptionSources = ruleSources.filter(
-                    (_r, index): _r is RollOptionSource => rules[itemId][index]?.sourceIndex === index,
-                );
+                const rollOptionSources = rules
+                    .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
+                    .filter((source): source is RollOptionSource => source?.key === "RollOption");
                 for (const ruleSource of rollOptionSources) {
                     ruleSource.value = value;
                     ruleSource.selection = selection;
@@ -413,3 +422,4 @@ interface RollOptionSource extends RuleElementSource {
 }
 
 export { RollOptionRuleElement };
+export type { RollOptionSource };

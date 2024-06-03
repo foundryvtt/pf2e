@@ -1,0 +1,51 @@
+{
+    "_id": "OqKYkzbc7NEWmJWB",
+    "img": "systems/pf2e/icons/actions/OneAction.webp",
+    "name": "Rearrange Bones",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>You arrange your bones into the form of a Small or Medium humanoid's skeleton. This doesn't change your normal Speeds, Strikes, or senses. If you are wearing heavy clothing or impersonating a skeleton, this counts as setting up a disguise for the Impersonate use of Deception and grants a +1 status bonus to those Deception checks.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder: Wake the Dead #4"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "rearrange-bones",
+                "suboptions": [
+                    {
+                        "label": "PF2E.ActorSizeSmall",
+                        "value": "small"
+                    },
+                    {
+                        "label": "PF2E.ActorSizeMedium",
+                        "value": "medium"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "CreatureSize",
+                "value": "{item|flags.pf2e.rulesSelections.rearrangeBones}"
+            }
+        ],
+        "traits": {
+            "value": [
+                "manipulate"
+            ]
+        }
+    },
+    "type": "action"
+}

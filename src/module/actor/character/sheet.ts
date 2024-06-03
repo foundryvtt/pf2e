@@ -1,4 +1,3 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData, Language } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -6,7 +5,7 @@ import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
-import { AttributeString, SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
     AncestryPF2e,
@@ -364,7 +363,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     .localize(skillA.label ?? "")
                     .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang),
             ),
-        ) as Record<SkillAbbreviation, CharacterSkillData>;
+        ) as Record<SkillSlug, CharacterSkillData>;
 
         sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
 

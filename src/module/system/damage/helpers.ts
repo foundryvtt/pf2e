@@ -1,8 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import { DamageDicePF2e, ModifierPF2e, RawDamageDice } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
 import { extractDamageAlterations } from "@module/rules/helpers.ts";
-import { ErrorPF2e, fontAwesomeIcon, setHasElement, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, setHasElement, signedInteger, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { Die, NumericTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { combinePartialTerms } from "./formula.ts";
@@ -377,6 +377,34 @@ function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth = false 
     return fontAwesomeIcon(glyph, { fixedWidth });
 }
 
+function getDamageDiceValueLabel(d: DamageDicePF2e | RawDamageDice, props: { sign?: boolean } = {}): string {
+    return d.diceNumber && d.dieSize
+        ? `${props.sign ? "+" : ""}${d.diceNumber}${d.dieSize}`
+        : d.diceNumber
+          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
+          : "";
+}
+
+function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
+    const parts = [
+        d.override?.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
+        d.override?.diceNumber || d.override?.dieSize
+            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
+                  value:
+                      d.override.diceNumber && d.override.dieSize
+                          ? `${d.override.diceNumber}${d.override.dieSize}`
+                          : d.override.diceNumber
+                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
+                                  dice: d.override.diceNumber,
+                              })
+                            : d.override.dieSize ?? "",
+              })
+            : null,
+    ].filter(R.isTruthy);
+
+    return parts.join(" + ");
+}
+
 export {
     applyBaseDamageAlterations,
     applyDamageDiceOverrides,
@@ -385,6 +413,8 @@ export {
     damageDieSizeToFaces,
     deepFindTerms,
     extractBaseDamage,
+    getDamageDiceOverrideLabel,
+    getDamageDiceValueLabel,
     isSystemDamageTerm,
     isUnsimplifableArithmetic,
     looksLikeDamageRoll,

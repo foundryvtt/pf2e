@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { SkillLongForm } from "@actor/types.ts";
+import type { SkillSlug } from "@actor/types.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
 import type { EncounterPF2e } from "./index.ts";
@@ -288,7 +288,7 @@ interface CombatantPF2e<
 
 interface CombatantFlags extends DocumentFlags {
     pf2e: {
-        initiativeStatistic: SkillLongForm | "perception" | null;
+        initiativeStatistic: SkillSlug | "perception" | null;
         roundOfLastTurn: number | null;
         roundOfLastTurnEnd: number | null;
         overridePriority: Record<number, number | null | undefined>;

@@ -115,10 +115,12 @@
                 },
                 "rules": [],
                 "slug": "fortune-teller",
-                "trainedLore": "Fortune-Telling Lore",
                 "trainedSkills": {
+                    "lore": [
+                        "Fortune-Telling Lore"
+                    ],
                     "value": [
-                        "occ"
+                        "occultism"
                     ]
                 },
                 "traits": {
@@ -536,7 +538,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.build.languages.max",
-                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                        "value": "ternary(eq(@actor.system.skills.society.rank, 4), 2, ternary(eq(@actor.system.skills.society.rank, 3), 1, 0))"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -3007,7 +3009,7 @@
                         "flag": "fleshwarpSize",
                         "key": "ChoiceSet",
                         "prompt": "PF2E.SpecificRule.Prompt.CreatureSize",
-                        "selection": "med"
+                        "selection": "medicine"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -3387,13 +3389,13 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.skills.itm.rank",
+                        "path": "system.skills.intimidation.rank",
                         "value": 1
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.skills.occ.rank",
+                        "path": "system.skills.occultism.rank",
                         "value": 1
                     },
                     {
@@ -3602,52 +3604,52 @@
             }
         },
         "skills": {
-            "acr": {
+            "acrobatics": {
                 "rank": 1
             },
-            "arc": {
+            "arcana": {
                 "rank": 0
             },
-            "ath": {
+            "athletics": {
                 "rank": 0
             },
-            "cra": {
+            "crafting": {
                 "rank": 1
             },
-            "dec": {
+            "deception": {
                 "rank": 0
             },
-            "dip": {
+            "diplomacy": {
                 "rank": 0
             },
-            "itm": {
+            "intimidation": {
                 "rank": 1
             },
-            "med": {
+            "medicine": {
                 "rank": 0
             },
-            "nat": {
+            "nature": {
                 "rank": 0
             },
-            "occ": {
+            "occultism": {
                 "rank": 2
             },
-            "prf": {
+            "performance": {
                 "rank": 1
             },
-            "rel": {
+            "religion": {
                 "rank": 0
             },
-            "soc": {
+            "society": {
                 "rank": 1
             },
-            "ste": {
+            "stealth": {
                 "rank": 1
             },
-            "sur": {
+            "survival": {
                 "rank": 0
             },
-            "thi": {
+            "thievery": {
                 "rank": 0
             }
         }

@@ -70,6 +70,7 @@ type ChoiceSetObject = ChoiceSetOwnedItems | ChoiceSetAttacks | ChoiceSetPackQue
 type UninflatedChoiceSet = string | PickableThing[] | ChoiceSetObject;
 
 interface ChoiceSetSource extends RuleElementSource {
+    choices?: unknown;
     flag?: unknown;
     prompt?: unknown;
     selection?: unknown;

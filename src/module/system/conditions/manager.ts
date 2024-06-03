@@ -12,8 +12,6 @@ export class ConditionManager {
 
     static conditions: Map<ConditionSlug | ItemUUID, ConditionPF2e<null>> = new Map();
 
-    private static CONDITION_SOURCES?: ConditionSource[] = CONDITION_SOURCES;
-
     /** Gets a list of condition slugs. */
     static get conditionsSlugs(): string[] {
         return [...this.conditions.keys()].filter((k) => !k.startsWith("Compendium."));
@@ -23,7 +21,7 @@ export class ConditionManager {
         if (this.#initialized) return;
 
         this.conditions = new Map(
-            this.CONDITION_SOURCES?.flatMap((source) => {
+            CONDITION_SOURCES.flatMap((source) => {
                 const condition: ConditionPF2e<null> = new ConditionPF2e(source, { pack: "pf2e.conditionitems" });
                 return [
                     [condition.slug, condition],
@@ -31,7 +29,6 @@ export class ConditionManager {
                 ];
             }) ?? [],
         );
-        delete this.CONDITION_SOURCES;
 
         if (game.i18n.lang !== "en") {
             const localize = localizer("PF2E.condition");

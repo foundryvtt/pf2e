@@ -13,7 +13,6 @@ import {
     CreatureSystemSource,
     HeldShieldData,
     SaveData,
-    SkillAbbreviation,
     SkillData,
 } from "@actor/creature/data.ts";
 import { CreatureInitiativeSource, CreatureSpeeds, Language } from "@actor/creature/index.ts";
@@ -26,7 +25,7 @@ import {
     StrikeData,
     TraitViewData,
 } from "@actor/data/base.ts";
-import { AttributeString, MovementType, SaveType } from "@actor/types.ts";
+import { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { WeaponPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/types.ts";
 import { ProficiencyRank } from "@item/base/data/index.ts";
@@ -71,7 +70,7 @@ interface CharacterSystemSource extends CreatureSystemSource {
     proficiencies?: {
         attacks?: Record<string, MartialProficiencySource | undefined>;
     };
-    skills: Partial<Record<SkillAbbreviation, { rank: ZeroToFour }>>;
+    skills: Partial<Record<SkillSlug, { rank: ZeroToFour }>>;
     resources: CharacterResourcesSource;
     initiative: CreatureInitiativeSource;
     crafting?: { formulas: CraftingFormulaData[] };
@@ -258,7 +257,7 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
     };
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillAbbreviation, CharacterSkillData>;
+    skills: Record<string, CharacterSkillData>;
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];

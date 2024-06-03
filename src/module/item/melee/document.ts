@@ -27,11 +27,11 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get isMelee(): boolean {
-        return this.system.weaponType.value === "melee";
+        return !this.isRanged;
     }
 
     get isRanged(): boolean {
-        return this.system.weaponType.value === "ranged";
+        return this.system.traits.value.some((t) => t.startsWith("range-"));
     }
 
     get isThrown(): boolean {

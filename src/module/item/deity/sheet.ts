@@ -1,4 +1,4 @@
-import type { SkillLongForm } from "@actor/types.ts";
+import type { SkillSlug } from "@actor/types.ts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
@@ -28,6 +28,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             .sort((spellA, spellB) => spellA.level - spellB.level);
 
         const sanctifications = [
+            { value: "null", label: "PF2E.Item.Deity.Sanctification.None" },
             ...DEITY_SANCTIFICATIONS.map((value) => {
                 const modal = value.modal.capitalize();
                 const what = value.what.map((c) => c.capitalize()).join("");
@@ -174,7 +175,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
     categories: FormSelectOption[];
     sanctifications: FormSelectOption[];
-    skills: Record<SkillLongForm, string>;
+    skills: Record<SkillSlug, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];
 }

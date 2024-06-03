@@ -333,7 +333,7 @@ class CompendiumPack {
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
             source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
         } else if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
-            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> | null }> =
                 source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = CompendiumPack.convertUUID(entry.uuid, convertOptions);

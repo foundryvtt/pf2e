@@ -3,8 +3,8 @@ import type { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
-import { SkillLongForm } from "@actor/types.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SkillSlug } from "@actor/types.ts";
+import { SKILL_SLUGS } from "@actor/values.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
@@ -179,8 +179,7 @@ class EncounterPF2e extends Combat {
                       value: result.roll.total,
                       statistic:
                           result.roll.options.domains?.find(
-                              (s): s is SkillLongForm | "perception" =>
-                                  setHasElement(SKILL_LONG_FORMS, s) || s === "perception",
+                              (s): s is SkillSlug | "perception" => setHasElement(SKILL_SLUGS, s) || s === "perception",
                           ) ?? null,
                   }
                 : [],
@@ -375,7 +374,7 @@ interface EncounterMetrics {
 interface SetInitiativeData {
     id: string;
     value: number;
-    statistic?: SkillLongForm | "perception" | null;
+    statistic?: SkillSlug | "perception" | null;
     overridePriority?: number | null;
 }
 
