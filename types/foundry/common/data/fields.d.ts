@@ -1192,15 +1192,6 @@ export class IntegerSortField<
     protected static override get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean>;
 }
 
-/** @typedef DocumentStats
- * @property systemId       The package name of the system the Document was created in.
- * @property systemVersion  The version of the system the Document was created in.
- * @property coreVersion    The core version the Document was created in.
- * @property createdTime    A timestamp of when the Document was created.
- * @property modifiedTime   A timestamp of when the Document was last modified.
- * @property lastModifiedBy The ID of the user who last modified the Document.
- */
-
 /**
  * A subclass of {@link SchemaField} which stores document metadata in the _stats field.
  * @mixes DocumentStats
@@ -1210,12 +1201,22 @@ export class DocumentStatsField extends SchemaField<DocumentStatsSchema> {
 }
 
 type DocumentStatsSchema = {
+    /** The package name of the system the Document was created in. */
     systemId: StringField<string, string, true, false, true>;
+    /** The version of the system the Document was created or last modified in. */
     systemVersion: StringField<string, string, true, false, true>;
+    /** The core version the Document was created in. */
     coreVersion: StringField<string, string, true, false, true>;
+    /** A timestamp of when the Document was created. */
     createdTime: NumberField;
+    /** A timestamp of when the Document was last modified. */
     modifiedTime: NumberField;
+    /** The ID of the user who last modified the Document. */
     lastModifiedBy: ForeignDocumentField<string>;
+    /** The UUID of the compendium Document this one was imported from. */
+    compendiumSource: DocumentUUIDField<CompendiumUUID>;
+    /** The UUID of the Document this one is a duplicate of. */
+    duplicateSource: DocumentUUIDField<DocumentUUID>;
 };
 
 export type DocumentStatsData = SourceFromSchema<DocumentStatsSchema>;
