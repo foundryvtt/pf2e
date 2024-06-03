@@ -22,6 +22,21 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
                 "adjustName": false,
                 "choices": [
                     {
@@ -33,17 +48,13 @@
                         "value": 1
                     }
                 ],
-                "flag": "shieldingWave",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Merfolk.ShieldingWave.Prompt"
+                "flag": "value",
+                "key": "ChoiceSet"
             },
             {
                 "key": "Resistance",
-                "type": [
-                    "fire",
-                    "acid"
-                ],
-                "value": "floor(@actor.level/@item.flags.pf2e.rulesSelections.shieldingWave)"
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "floor(@actor.level/@item.flags.pf2e.rulesSelections.value)"
             }
         ],
         "start": {
