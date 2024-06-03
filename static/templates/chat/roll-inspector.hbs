@@ -32,7 +32,7 @@
                 <li class="empty">
                     {{localize "PF2E.ChatRollDetails.FlatCheckNoModifiers"}}
                 </li>
-            {{else if (eq modifiers.length 0)}}
+            {{else if (and (not modifiers.length) (not dice.length))}}
                 <li class="empty">
                     {{localize "None"}}
                 </li>

@@ -2,6 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, RawDamageDice, RawModifier } from "@actor
 import { createHTMLElement, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
 import type { ChatContextFlag, ChatMessagePF2e } from "./index.ts";
+import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "@system/damage/helpers.ts";
 
 class RollInspector extends Application {
     message: ChatMessagePF2e;
@@ -37,25 +38,25 @@ class RollInspector extends Application {
 
         const rollOptions = R.sortBy(context?.options?.sort() ?? [], (o) => o.includes(":"));
 
-        const dice =
-            this.dice.map((dice) => ({
-                ...dice,
-                value: `+${dice.diceNumber}${dice.dieSize}`,
-                critical:
-                    typeof dice.critical === "boolean"
-                        ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${dice.critical}`)
-                        : null,
-            })) ?? [];
+        const dice = this.dice.map((dice) => ({
+            ...dice,
+            value: [getDamageDiceValueLabel(dice, { sign: true }), getDamageDiceOverrideLabel(dice)]
+                .filter(R.isTruthy)
+                .join(" "),
+            critical:
+                typeof dice.critical === "boolean"
+                    ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${dice.critical}`)
+                    : null,
+        }));
 
-        const modifiers =
-            this.modifiers.map((mod) => ({
-                ...mod,
-                value: signedInteger(mod.modifier),
-                critical:
-                    typeof mod.critical === "boolean"
-                        ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${mod.critical}`)
-                        : null,
-            })) ?? [];
+        const modifiers = this.modifiers.map((mod) => ({
+            ...mod,
+            value: signedInteger(mod.modifier),
+            critical:
+                typeof mod.critical === "boolean"
+                    ? game.i18n.localize(`PF2E.RuleEditor.General.CriticalBehavior.${mod.critical}`)
+                    : null,
+        }));
 
         return {
             context,

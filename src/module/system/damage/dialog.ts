@@ -6,7 +6,6 @@ import {
     htmlQuery,
     htmlQueryAll,
     setHasElement,
-    signedInteger,
     sluggify,
     sortStringRecord,
     tupleHasValue,
@@ -16,6 +15,7 @@ import { createDamageFormula } from "./formula.ts";
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
+import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -167,12 +167,7 @@ class DamageModifierDialog extends Application {
                 damageType: d.damageType,
                 typeLabel: this.#getTypeLabel(d.damageType, d.category),
                 hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
-                diceLabel:
-                    d.diceNumber && d.dieSize
-                        ? `${d.diceNumber}${d.dieSize}`
-                        : d.diceNumber
-                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
-                          : "",
+                diceLabel: getDamageDiceValueLabel(d),
                 enabled: d.enabled,
                 ignored: d.ignored,
                 critical: d.critical,
@@ -189,21 +184,7 @@ class DamageModifierDialog extends Application {
                     damageType: d.override.damageType ?? d.damageType,
                     hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
-                    diceLabel: R.compact([
-                        d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
-                        d.override.diceNumber || d.override.dieSize
-                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
-                                  value:
-                                      d.override.diceNumber && d.override.dieSize
-                                          ? `${d.override.diceNumber}${d.override.dieSize}`
-                                          : d.override.diceNumber
-                                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
-                                                  dice: d.override.diceNumber,
-                                              })
-                                            : d.override.dieSize ?? "",
-                              })
-                            : null,
-                    ]).join(" + "),
+                    diceLabel: getDamageDiceOverrideLabel(d),
                     enabled: d.enabled,
                     ignored: d.ignored,
                     critical: d.critical,
