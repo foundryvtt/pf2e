@@ -1,5 +1,4 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
@@ -143,7 +142,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             ability: new fields.StringField({
                 required: false,
                 blank: false,
-                choices: CONFIG.PF2E.abilities,
                 nullable: true,
                 initial: null,
             }),
@@ -234,6 +232,12 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         if (!this.test()) return null;
         const actor = this.actor;
 
+        const attribute = this.resolveInjectedProperties(this.ability) || null;
+        if (attribute !== null && !objectHasKey(CONFIG.PF2E.abilities, attribute)) {
+            this.failValidation(`Unrecognized attribute: ${attribute}`);
+            return null;
+        }
+
         const damageType = this.resolveInjectedProperties(this.damage.base.damageType);
         if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
             this.failValidation(`Unrecognized damage type: ${damageType}`);
@@ -264,7 +268,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 category: this.category,
                 group: this.group,
                 baseItem: this.baseType,
-                attribute: this.ability,
+                attribute,
                 bonus: {
                     value: actorIsNPC ? this.attackModifier ?? 0 : 0,
                 },
@@ -376,7 +380,7 @@ type StrikeSchema = RuleElementSchema & {
             modifier: NumberField<number, number, false, false, true>;
         }>;
     }>;
-    ability: StringField<AttributeString, AttributeString, false, true, true>;
+    ability: StringField<string, string, false, true, true>;
     /** A representative icon for the strike */
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     /** Whether to replace all other strike actions */
