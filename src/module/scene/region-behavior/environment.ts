@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
-import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { BooleanField, SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { RegionEventPF2e } from "./types.ts";
 
 class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema> {
@@ -27,6 +27,25 @@ class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBeh
                 label: "PF2E.Region.Environment.Mode.Label",
                 hint: "PF2E.Region.Environment.Mode.Hint",
             }),
+            difficultTerrain: new fields.StringField({
+                blank: true,
+                choices: () => ({
+                    standard: "PF2E.Region.Environment.DifficultTerrain.Option.Standard",
+                    greater: "PF2E.Region.Environment.DifficultTerrain.Option.Greater",
+                }),
+                label: "PF2E.Region.Environment.DifficultTerrain.Standard",
+                hint: "PF2E.Region.Environment.DifficultTerrain.Option.Hint",
+            }),
+            isMagical: new fields.BooleanField({
+                initial: false,
+                label: "PF2E.Region.Environment.DifficultTerrain.Magical.Label",
+                hint: "PF2E.Region.Environment.DifficultTerrain.Magical.Hint",
+            }),
+            groundOnly: new fields.BooleanField({
+                initial: true,
+                label: "PF2E.Region.Environment.DifficultTerrain.GroundOnly.Label",
+                hint: "PF2E.Region.Environment.DifficultTerrain.GroundOnly.Hint",
+            }),
         };
     }
 
@@ -44,6 +63,9 @@ interface EnvironmentBehaviorTypePF2e
 type EnvironmentTypeSchema = {
     environmentTypes: SetField<StringField>;
     mode: StringField<"add" | "remove" | "override">;
+    difficultTerrain: StringField<"standard" | "greater">;
+    isMagical: BooleanField;
+    groundOnly: BooleanField;
 };
 
 type EnvironmentTypeData = ModelPropsFromSchema<EnvironmentTypeSchema>;

@@ -138,7 +138,7 @@ declare global {
         protected _removeWaypoint(): void;
 
         /** Get the cost function to be used for Ruler measurements. */
-        protected _getCostFunction(): GridMeasurePathCostFunction | undefined;
+        protected _getCostFunction(): GridMeasurePathCostFunction | void;
 
         /** Compute the distance of each segment and the total distance of the measured path. */
         protected _computeDistance(): void;

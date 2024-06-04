@@ -20,6 +20,7 @@ import {
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
 import { RegionPF2e } from "@module/canvas/region.ts";
+import { RulerPF2e } from "@module/canvas/ruler.ts";
 import { RegionBehaviorPF2e } from "@scene/region-behavior/document.ts";
 import { EnvironmentBehaviorTypePF2e } from "@scene/region-behavior/environment.ts";
 import { RegionDocumentPF2e } from "@scene/region-document/document.ts";
@@ -57,6 +58,7 @@ export const Init = {
             CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+            CONFIG.Canvas.rulerClass = RulerPF2e;
             CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
 
             CONFIG.Region.documentClass = RegionDocumentPF2e;
