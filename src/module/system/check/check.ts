@@ -184,26 +184,28 @@ class CheckPF2e {
         const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
+        // Collect the check specific options. These only exist for DoS Adjustments.
+        const naturalTotal = roll.dice
+            .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+            .find(R.isTruthy);
+        const checkOptions = context.dc
+            ? [
+                  `check:total:${roll.total}`,
+                  `check:total:natural:${naturalTotal}`,
+                  `check:total:delta:${roll.total - context.dc.value}`,
+                  // @todo migrate me
+                  // backwards compatibility
+                  `check:roll:total:natural:${naturalTotal}`,
+              ]
+            : [];
+
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = roll.dice
-                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
-                .filter(R.isTruthy)
-                .shift();
-
             // Include tentative results in case an adjustment is predicated on it
-            const temporaryRollOptions = new Set([
-                ...rollOptions,
-                `check:total:${roll.total}`,
-                `check:total:natural:${naturalTotal}`,
-                `check:total:delta:${roll.total - context.dc.value}`,
-                // @todo migrate me
-                // backward compatibility
-                `check:roll:total:natural:${naturalTotal}`,
-            ]);
+            const temporaryRollOptions = new Set([...checkOptions, ...rollOptions]);
 
             return (
                 context.dosAdjustments
@@ -283,6 +285,9 @@ class CheckPF2e {
                 ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
                 : null,
             options: Array.from(rollOptions).sort(),
+            contextualOptions: {
+                dosAdjustments: checkOptions,
+            },
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
