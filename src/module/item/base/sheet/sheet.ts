@@ -350,8 +350,10 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         // Add implementation for viewing an item's roll options
         const viewRollOptionsElement = htmlQuery(rulesPanel, "a[data-action=view-roll-options]");
         viewRollOptionsElement?.addEventListener("click", async () => {
-            const rollOptions = R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":"));
-            const content = await renderTemplate("systems/pf2e/templates/items/roll-options.hbs", { rollOptions });
+            const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+                description: game.i18n.localize("PF2E.Item.Rules.Hint.RollOptions"),
+                rollOptions: R.sortBy(this.item.getRollOptions("item").sort(), (o) => o.includes(":")),
+            });
             game.tooltip.dismissLockedTooltips();
             game.tooltip.activate(viewRollOptionsElement, {
                 content: createHTMLElement("div", { innerHTML: content }),
