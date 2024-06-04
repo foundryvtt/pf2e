@@ -25,6 +25,105 @@
                 "key": "Resistance",
                 "type": "cold",
                 "value": "5 + 5*floor((@item.level -4)/2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 5,
+                            "value": {
+                                "ac": 1,
+                                "broken": false,
+                                "brokenThreshold": 0,
+                                "destroyed": false,
+                                "hp": {
+                                    "max": 40,
+                                    "value": 40
+                                }
+                            }
+                        },
+                        {
+                            "end": 7,
+                            "start": 6,
+                            "value": {
+                                "ac": 1,
+                                "broken": false,
+                                "brokenThreshold": 0,
+                                "destroyed": false,
+                                "hp": {
+                                    "max": 50,
+                                    "value": 50
+                                }
+                            }
+                        },
+                        {
+                            "end": 9,
+                            "start": 8,
+                            "value": {
+                                "ac": 1,
+                                "broken": false,
+                                "brokenThreshold": 0,
+                                "destroyed": false,
+                                "hp": {
+                                    "max": 60,
+                                    "value": 60
+                                }
+                            }
+                        },
+                        {
+                            "start": 10,
+                            "value": {
+                                "ac": 1,
+                                "broken": false,
+                                "brokenThreshold": 0,
+                                "destroyed": false,
+                                "hp": {
+                                    "max": 70,
+                                    "value": 70
+                                }
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": 10
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
             }
         ],
         "start": {

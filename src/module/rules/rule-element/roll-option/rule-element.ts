@@ -335,13 +335,13 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rules = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
-            for (const itemId of Object.keys(rules)) {
+            const rulesByItem = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
+            for (const [itemId, rules] of Object.entries(rulesByItem)) {
                 const item = actor.items.get(itemId, { strict: true });
                 const ruleSources = item.toObject().system.rules;
-                const rollOptionSources = ruleSources.filter(
-                    (_r, index): _r is RollOptionSource => rules[itemId][index]?.sourceIndex === index,
-                );
+                const rollOptionSources = rules
+                    .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
+                    .filter((source): source is RollOptionSource => source?.key === "RollOption");
                 for (const ruleSource of rollOptionSources) {
                     ruleSource.value = value;
                     ruleSource.selection = selection;
@@ -422,3 +422,4 @@ interface RollOptionSource extends RuleElementSource {
 }
 
 export { RollOptionRuleElement };
+export type { RollOptionSource };

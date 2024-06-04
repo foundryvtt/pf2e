@@ -16,7 +16,6 @@ import type {
     DC_SLUGS,
     MOVEMENT_TYPES,
     SAVE_TYPES,
-    SKILL_DICTIONARY,
     SKILL_SLUGS,
     UNAFFECTED_TYPES,
 } from "./values.ts";
@@ -47,7 +46,6 @@ interface ActorDimensions {
     height: number;
 }
 
-type SkillAbbreviation = keyof typeof SKILL_DICTIONARY;
 type SkillSlug = SetElement<typeof SKILL_SLUGS>;
 
 type ActorAlliance = "party" | "opposition" | null;
@@ -138,7 +136,6 @@ export type {
     MovementType,
     ResistanceType,
     SaveType,
-    SkillAbbreviation,
     SkillSlug,
     UnaffectedType,
     WeaknessType,

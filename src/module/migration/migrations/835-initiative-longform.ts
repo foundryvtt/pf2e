@@ -1,8 +1,8 @@
-import { CreatureInitiativeSource, SkillAbbreviation } from "@actor/creature/index.ts";
+import { CreatureInitiativeSource } from "@actor/creature/index.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { SKILL_DICTIONARY } from "@actor/values.ts";
 import { objectHasKey } from "@util";
 import { MigrationBase } from "../base.ts";
+import { SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
 
 /** Converts sheet selected skills from shortform (ath) to longform (athletics) */
 export class Migration835InitiativeLongform extends MigrationBase {

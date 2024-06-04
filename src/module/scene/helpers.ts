@@ -31,7 +31,7 @@ const checkAuras = foundry.utils.debounce(async function (this: ScenePF2e): Prom
 
         // Wait for any token animation to finish
         for (const token of tokens) {
-            await token.object?._animation;
+            await token.object?.animation;
         }
 
         for (const aura of tokens.flatMap((t) => Array.from(t.auras.values()))) {
@@ -99,4 +99,4 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     }
 }
 
-export { computeSightAndDetectionForRBV, checkAuras };
+export { checkAuras, computeSightAndDetectionForRBV };

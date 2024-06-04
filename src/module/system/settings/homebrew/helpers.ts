@@ -7,7 +7,6 @@ import { isObject } from "@util";
 import * as R from "remeda";
 import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
-import { SKILL_DICTIONARY } from "@actor/values.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
@@ -46,7 +45,6 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
         ...Object.keys(CONFIG.PF2E.saves),
         ...Object.keys(CONFIG.PF2E.skillList),
-        ...R.keys.strict(SKILL_DICTIONARY), // will be removed once skill abbreviations are removed fully
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
         ...Object.keys(CONFIG.PF2E.environmentTypes),
         "damage",

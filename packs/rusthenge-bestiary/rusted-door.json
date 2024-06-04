@@ -9,14 +9,14 @@
             "sort": 0,
             "system": {
                 "actionType": {
-                    "value": "action"
+                    "value": "reaction"
                 },
                 "actions": {
-                    "value": 1
+                    "value": null
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A non-worshipper of Xar-Azmak attempts to open the door or causes damage to it with a melee Strike</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature is exposed to rust creep as tendrils of rust-red energy seem to slither out of the rusty patches on the door to rasp strangely gently against exposed skin.</p>\n<hr />\n<p>Those afflicted by rust creep develop uncomfortable rust-colored bruises on their flesh and endure full-body aches like those one might experience after a long workout. As the affliction progresses, their bodies—as well as the clothing and items they wear or carry—increasingly break down until a painful death occurs. If a character successfully resists contracting rust creep, or recovers from a case of rust creep, they are temporarily immune to future rust creep infections for 24 hours.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15|traits:disease,divine,transmutation]</p>\n<p><strong>Stage 1</strong> –1 status penalty to Athletics checks (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 4</strong> enfeebled 1 and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, plus any armor, clothing and items you carry and that are of a level equal to or less than the disease become broken as the decay spreads to them (1 day; broken items remain broken)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> unconscious (1 day)</p>\n<p><strong>Stage 7</strong> death</p>"
+                    "value": "<p><strong>Trigger</strong> A non-worshipper of Xar-Azmak attempts to open the door or causes damage to it with a melee Strike</p><hr /><p><strong>Effect</strong> The triggering creature is exposed to rust creep as tendrils of rust-red energy seem to slither out of the rusty patches on the door to rasp strangely gently against exposed skin.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -27,6 +27,38 @@
                 "slug": null,
                 "traits": {
                     "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qm5fECYwi6fAl37z",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rust Creep",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Those afflicted by rust creep develop uncomfortable rust-colored bruises on their flesh and endure full-body aches like those one might experience after a long workout. As the affliction progresses, their bodies—as well as the clothing and items they wear or carry—increasingly break down until a painful death occurs. If a character successfully resists contracting rust creep, or recovers from a case of rust creep, they are temporarily immune to future rust creep infections for 24 hours.</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:15]</p>\n<p><strong>Stage 1</strong> –1 status penalty to Athletics checks (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} (1 day)</p>\n<p><strong>Stage 4</strong> enfeebled 1 and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1}, plus any armor, clothing and items you carry and that are of a level equal to or less than the disease become broken as the decay spreads to them (1 day; broken items remain broken)</p>\n<p><strong>Stage 5</strong> @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] (1 day)</p>\n<p><strong>Stage 6</strong> unconscious (1 day)</p>\n<p><strong>Stage 7</strong> death</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "disease",
+                        "divine"
+                    ]
                 }
             },
             "type": "action"
@@ -93,11 +125,14 @@
         },
         "statusEffects": [],
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "size": {
                 "value": "med"
             },
-            "value": []
+            "value": [
+                "magical",
+                "trap"
+            ]
         }
     },
     "type": "hazard"

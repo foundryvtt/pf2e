@@ -361,6 +361,15 @@ declare global {
         /** Callback actions which occur on a mouse-move operation. */
         protected _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<TDocument[] | void>;
 
+        /**
+         * Perform the database updates that should occur as the result of a drag-left-drop operation.
+         * @param event The triggering canvas interaction event
+         * @returns    An array of database updates to perform for documents in this collection
+         */
+        protected _prepareDragLeftDropUpdates(
+            event: PlaceablesLayerPointerEvent<this>,
+        ): Record<string, unknown>[] | null;
+
         /** Callback actions which occur on a mouse-move operation. */
         protected _onDragLeftCancel(event: PlaceablesLayerPointerEvent<this>): void;
 

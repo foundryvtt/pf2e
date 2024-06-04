@@ -25,13 +25,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
-import {
-    ATTRIBUTE_ABBREVIATIONS,
-    SAVE_TYPES,
-    SKILL_DICTIONARY_REVERSE,
-    SKILL_EXPANDED,
-    SKILL_SLUGS,
-} from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,
@@ -745,8 +739,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         for (const key of SKILL_SLUGS) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
-            // Add a backwards compatibility roll option as well, which will be removed soon
-            rollOptionsAll[`skill:${SKILL_DICTIONARY_REVERSE[key]}:rank:${rank}`] = true;
         }
 
         for (const key of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
@@ -946,15 +938,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             system.skills[longForm] = fu.mergeObject(statistic.getTraceData(), system.skills[longForm]);
 
             return [longForm, statistic];
-        });
-
-        // Make temporary backwards compatible short form shims
-        // This will be removed very very soon
-        Object.defineProperties(this.system.skills, {
-            ...R.mapToObj([...SKILL_SLUGS], (longform) => {
-                const shortForm = SKILL_DICTIONARY_REVERSE[longform];
-                return [shortForm, { get: () => this.skills[longform] }];
-            }),
         });
 
         // Lore skills

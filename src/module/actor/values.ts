@@ -1,4 +1,3 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { AttributeString, ImmunityType, ResistanceType, SkillSlug, WeaknessType } from "@actor/types.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
 
@@ -18,30 +17,24 @@ const RESISTANCE_TYPES = new Set(Object.keys(resistanceTypes)) as Set<Resistance
 
 const UNAFFECTED_TYPES = new Set(["bleed", "good", "evil", "lawful", "chaotic", "spirit", "vitality", "void"] as const);
 
-const SKILL_DICTIONARY = {
-    acr: "acrobatics",
-    arc: "arcana",
-    ath: "athletics",
-    cra: "crafting",
-    dec: "deception",
-    dip: "diplomacy",
-    itm: "intimidation",
-    med: "medicine",
-    nat: "nature",
-    occ: "occultism",
-    prf: "performance",
-    rel: "religion",
-    soc: "society",
-    ste: "stealth",
-    sur: "survival",
-    thi: "thievery",
-} as const;
-
-const SKILL_SLUGS = new Set(Object.values(SKILL_DICTIONARY));
-
-const SKILL_DICTIONARY_REVERSE = Object.fromEntries(
-    Object.entries(SKILL_DICTIONARY).map(([abbrev, value]) => [value, abbrev] as [SkillSlug, SkillAbbreviation]),
-);
+const SKILL_SLUGS = new Set([
+    "acrobatics",
+    "arcana",
+    "athletics",
+    "crafting",
+    "deception",
+    "diplomacy",
+    "intimidation",
+    "medicine",
+    "nature",
+    "occultism",
+    "performance",
+    "religion",
+    "society",
+    "stealth",
+    "survival",
+    "thievery",
+] as const);
 
 const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_SLUGS] as const);
 
@@ -83,8 +76,6 @@ export {
     RESISTANCE_TYPES,
     SAVE_TYPES,
     SIZE_LINKABLE_ACTOR_TYPES,
-    SKILL_DICTIONARY,
-    SKILL_DICTIONARY_REVERSE,
     SKILL_EXPANDED,
     SKILL_SLUGS,
     UNAFFECTED_TYPES,

@@ -28,6 +28,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             .sort((spellA, spellB) => spellA.level - spellB.level);
 
         const sanctifications = [
+            { value: "null", label: "PF2E.Item.Deity.Sanctification.None" },
             ...DEITY_SANCTIFICATIONS.map((value) => {
                 const modal = value.modal.capitalize();
                 const what = value.what.map((c) => c.capitalize()).join("");
