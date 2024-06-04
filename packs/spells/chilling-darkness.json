@@ -1,6 +1,6 @@
 {
     "_id": "sRfSBHWHdbIa0aGc",
-    "img": "systems/pf2e/icons/spells/chilling-darkness.webp",
+    "img": "icons/magic/light/beam-explosion-pink-purple.webp",
     "name": "Chilling Darkness",
     "system": {
         "area": null,
@@ -22,7 +22,7 @@
         },
         "defense": null,
         "description": {
-            "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack. The ray deals 5d6 cold damage. If the target has the holy trait, you deal an extra 5d6 spirit damage.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the spirit damage against holy creatures increases by 2d6.</p>"
+            "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack. The ray deals 5d6 cold damage. If the target has the holy trait, you deal an extra 5d6 spirit damage.</p><hr /><p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, <em>chilling darkness</em> attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p><hr /><p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the spirit damage against holy creatures increases by 2d6.</p>"
         },
         "duration": {
             "sustained": false,
@@ -38,36 +38,6 @@
         "level": {
             "value": 3
         },
-        "overlays": {
-            "qXeevJsP6ve5B3fk": {
-                "_id": "qXeevJsP6ve5B3fk",
-                "overlayType": "override",
-                "sort": 1,
-                "system": {}
-            },
-            "tsL9OtpmoVJcZbcV": {
-                "_id": "tsL9OtpmoVJcZbcV",
-                "name": "Chilling Darkness (Vs. Holy Trait)",
-                "overlayType": "override",
-                "sort": 2,
-                "system": {
-                    "damage": {
-                        "2S1a6g60omQDPEP6": {
-                            "applyMod": false,
-                            "category": null,
-                            "formula": "5d6",
-                            "materials": [],
-                            "type": "spirit"
-                        }
-                    },
-                    "heightening": {
-                        "damage": {
-                            "2S1a6g60omQDPEP6": "2d6"
-                        }
-                    }
-                }
-            }
-        },
         "publication": {
             "license": "ORC",
             "remaster": true,
@@ -77,7 +47,18 @@
             "value": "120 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "spirit",
+                "diceNumber": "(@spell.level*2)-1",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:holy"
+                ],
+                "selector": "{item|_id}-damage"
+            }
+        ],
         "target": {
             "value": "1 creature"
         },
