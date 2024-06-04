@@ -15,7 +15,16 @@
             {{#each rollOptions as |option|}}
                 <li>{{option}}</li>
             {{/each}}
+            {{#each contextualOptions as |list|}}
+                <ul class="sub-list">
+                    <li class="header"><h3>{{list.header}}</h3></li>
+                    {{#each list.options as |option|}}
+                        <li>{{option}}</li>
+                    {{/each}}
+                </ul>
+            {{/each}}
         </ul>
+
     </section>
 
     <section class="modifiers">
