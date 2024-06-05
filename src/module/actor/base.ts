@@ -638,7 +638,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const initialized = super._initializeSource(source, options);
 
         if (options?.pack && initialized._id) {
-            const uuid: CompendiumUUID = `Compendium.${options.pack}.${initialized._id}`;
+            const uuid = `Compendium.${options.pack}.Actor.${initialized._id}` as const;
             const art = game.pf2e.system.moduleArt.map.get(uuid) ?? {};
             return fu.mergeObject(initialized, art);
         }
