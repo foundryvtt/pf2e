@@ -65,8 +65,7 @@
             </section>
         </section>
         <section class="details">
-            <h4>{{localize "PF2E.Kingmaker.Settlement.Details"}}</h4>
-            {{editor settlement.description target=(concat "settlements." settlement.id ".description") button=false owner=@root.owner editable=settlement.editing}}
+            {{editor settlement.description target=(concat "system.campaign.settlements." settlement.id ".description") button=true owner=@root.owner editable=editable engine="prosemirror"}}
         </section>
     </div>
 </li>
