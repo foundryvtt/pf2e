@@ -1,3 +1,42 @@
+## 6.0.0 Beta 3
+
+This release includes all data from system release 5.16.1 and requires Foundry VTT version 12.323. Several major under the hood changes have been made that would benefit from testing.
+
+### System Improvements
+
+-   (Abaddon) Localize physical item attach button label
+-   (In3luki) Add support for scene environment types as well as scene environment region overrides
+-   (Supe) Add button to view item specific roll options in the item rules tab
+
+### Bugfixes
+
+-   (In3luki) Fix grant item form erroring when resolvables fail
+-   (MrVauxs) Add support for eidolon gang up flanking
+-   (stwlam) Fix updating deity sanctification
+-   (stwlam) Remove Z key token cycling now that a similar feature exists in FoundryVTT
+-   (Supe) Allow class traits to be added to ability items
+-   (Supe) Fix display of upgrade dice in roll inspector
+-   (Supe) Fix resolution and updates of mergeable toggleable roll option dropdowns
+
+### Data Updates
+
+-   (Abaddon) Fix prerequites of certain feats
+-   (Ambrose M) Fix and update Glass Shield and Fire Shield
+-   (Dire Weasel) Add effect for Mind of Menace
+-   (Dire Weasel) Update effect for Distracting Decoy and Shielding Wave
+-   (Dire Weasel) Update Cry of Destruction and Chilling Darkness
+-   (Dire Weasel) Fixes for Falling Portcullis and Rusted Door traps
+-   (Rigo) Move impulse junction notes to feat description alterations
+-   (rectulo) Fix malformed html in reveal hidden self
+-   (stwlam) Fix source id for Padli's Wand of Magic Missile
+
+### Under the Hood
+
+-   (In3luki) Fix multiple errors caused by various uuid testing functions
+-   (stwlam) Convert npc attacks and kit items to foundry data models
+-   (Supe) Finish converting all short form skill abbreviations (ath) to skill slugs (athletics)
+-   (Supe) Add roll options for item and feat action type and cost
+
 ## 6.0.0 Beta 2
 
 This release requires Foundry VTT version 12.323
