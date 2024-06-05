@@ -99,6 +99,33 @@
                 }
             },
             {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Fire Shield Block",
+                "option": "water-trait",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "All traits - Except Water",
+                        "value": "10"
+                    },
+                    {
+                        "label": "Water trait",
+                        "value": "5"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield.hardness",
@@ -110,7 +137,7 @@
                         ]
                     }
                 ],
-                "value": 10
+                "value": "{item|flags.pf2e.rulesSelections.waterTrait}"
             },
             {
                 "domain": "all",
