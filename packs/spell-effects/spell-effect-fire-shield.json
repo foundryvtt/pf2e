@@ -99,45 +99,20 @@
                 }
             },
             {
-                "alwaysActive": true,
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Fire Shield Block",
+                "label": "Defending against a water effect",
                 "option": "water-trait",
-                "predicate": [
-                    {
-                        "or": [
-                            "self:type:character",
-                            "self:type:npc"
-                        ]
-                    }
-                ],
-                "suboptions": [
-                    {
-                        "label": "All traits - Except Water",
-                        "value": "10"
-                    },
-                    {
-                        "label": "Water trait",
-                        "value": "5"
-                    }
-                ],
-                "toggleable": true,
-                "value": true
+                "toggleable": true
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    {
-                        "or": [
-                            "self:type:character",
-                            "self:type:npc"
-                        ]
-                    }
+                    "water-trait"
                 ],
-                "value": "{item|flags.pf2e.rulesSelections.waterTrait}"
+                "value": 5
             },
             {
                 "domain": "all",
@@ -151,6 +126,17 @@
                         ]
                     }
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "not": "water-trait"
+                    }
+                ],
+                "value": 10
             }
         ],
         "start": {
