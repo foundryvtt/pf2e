@@ -48,7 +48,7 @@ class ModuleArt {
                         }
                     }
 
-                    this.map.set(`Compendium.pf2e.${packName}.${actorId}`, actorArtPartial);
+                    this.map.set(`Compendium.pf2e.${packName}.Actor.${actorId}`, actorArtPartial);
                 }
             }
         }

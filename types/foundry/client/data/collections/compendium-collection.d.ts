@@ -170,7 +170,7 @@ declare global {
     }
 
     type CompendiumDocumentType = (typeof CONST.COMPENDIUM_DOCUMENT_TYPES)[number];
-    type CompendiumUUID = `Compendium.${string}.${string}` | `Compendium.${string}.${CompendiumDocumentType}.${string}`;
+    type CompendiumUUID = `Compendium.${string}.${CompendiumDocumentType}.${string}`;
     type DocumentUUID = WorldDocumentUUID | CompendiumUUID | TokenDocumentUUID;
 
     function fromUuid(uuid: CompendiumUUID, relative?: Maybe<ClientDocument>): Promise<CompendiumDocument | null>;

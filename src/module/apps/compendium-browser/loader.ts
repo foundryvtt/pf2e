@@ -47,7 +47,7 @@ class PackLoader {
     #setModuleArt(packName: string, index: CompendiumIndex): void {
         if (!packName.startsWith("pf2e.")) return;
         for (const record of index) {
-            const uuid: CompendiumUUID = `Compendium.${packName}.${record._id}`;
+            const uuid = `Compendium.${packName}.Actor.${record._id}` as const;
             const actorArt = game.pf2e.system.moduleArt.map.get(uuid)?.img;
             record.img = actorArt ?? record.img;
         }
