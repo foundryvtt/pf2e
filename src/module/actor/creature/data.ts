@@ -2,6 +2,7 @@ import type {
     ActorAttributes,
     ActorAttributesSource,
     ActorDetailsSource,
+    ActorFlagsPF2e,
     ActorHitPoints,
     ActorHitPointsSource,
     ActorSystemData,
@@ -15,6 +16,7 @@ import type { ActorSizePF2e } from "@actor/data/size.ts";
 import type { DamageDicePF2e, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import type { AttributeString, MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import type { LabeledNumber, Size, ValueAndMax, ZeroToThree } from "@module/data.ts";
+import type { PredicateStatement } from "@system/predication.ts";
 import type { ArmorClassTraceData } from "@system/statistic/index.ts";
 import type { PerceptionTraceData } from "@system/statistic/perception.ts";
 import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType, SpecialVisionType } from "./types.ts";
@@ -22,9 +24,20 @@ import type { CreatureActorType, CreatureTrait, Language, SenseAcuity, SenseType
 type BaseCreatureSource<
     TType extends CreatureActorType,
     TSystemSource extends CreatureSystemSource,
-> = BaseActorSourcePF2e<TType, TSystemSource>;
+> = BaseActorSourcePF2e<TType, TSystemSource> & {
+    flags: DeepPartial<CreatureFlags>;
+};
 
-/** Skill and Lore statistics for rolling. */
+type CreatureFlags = ActorFlagsPF2e & {
+    pf2e: {
+        difficultTerrain: {
+            /** Predicate statements used to test whether this actor ignores difficult terrain  */
+            ignore: PredicateStatement[];
+            /** Predicate statements used to test whether this actor ignores greater difficult terrain */
+            ignoreGreater: PredicateStatement[];
+        };
+    };
+};
 
 interface CreatureSystemSource extends ActorSystemSource {
     attributes: CreatureAttributesSource;
@@ -238,6 +251,7 @@ export type {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureFlags,
     CreatureHitPointsSource,
     CreatureInitiativeSource,
     CreatureLanguagesData,

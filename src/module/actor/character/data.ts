@@ -6,6 +6,7 @@ import {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureFlags,
     CreatureLanguagesData,
     CreaturePerceptionData,
     CreatureResources,
@@ -18,7 +19,6 @@ import {
 import { CreatureInitiativeSource, CreatureSpeeds, Language } from "@actor/creature/index.ts";
 import {
     ActorAttributesSource,
-    ActorFlagsPF2e,
     AttributeBasedTraceData,
     HitPointsStatistic,
     InitiativeData,
@@ -43,7 +43,7 @@ type CharacterSource = BaseCreatureSource<"character", CharacterSystemSource> & 
     flags: DeepPartial<CharacterFlags>;
 };
 
-type CharacterFlags = ActorFlagsPF2e & {
+type CharacterFlags = CreatureFlags & {
     pf2e: {
         /** If applicable, the character's proficiency rank in their deity's favored weapon */
         favoredWeaponRank: number;

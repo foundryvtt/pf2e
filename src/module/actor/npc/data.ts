@@ -5,6 +5,7 @@ import type {
     CreatureAttributes,
     CreatureDetails,
     CreatureDetailsSource,
+    CreatureFlags,
     CreatureHitPointsSource,
     CreatureInitiativeSource,
     CreatureLanguagesData,
@@ -22,7 +23,6 @@ import type {
 } from "@actor/creature/data.ts";
 import type {
     ActorAttributesSource,
-    ActorFlagsPF2e,
     AttributeBasedTraceData,
     HitPointsStatistic,
     StrikeData,
@@ -37,7 +37,7 @@ type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
 };
 
-type NPCFlags = ActorFlagsPF2e & {
+type NPCFlags = CreatureFlags & {
     pf2e: { lootable: boolean };
 };
 

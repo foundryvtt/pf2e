@@ -1,9 +1,8 @@
 import type { ActorPF2e } from "@actor";
-import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehaviorPF2e } from "@scene/region-behavior/types.ts";
+import { Predicate, PredicateStatement } from "@system/predication.ts";
 import type { TokenPF2e } from "./token/object.ts";
 
 class RulerPF2e<TToken extends TokenPF2e = TokenPF2e, TUser extends UserPF2e = UserPF2e> extends Ruler<TToken, TUser> {
@@ -17,6 +16,10 @@ class RulerPF2e<TToken extends TokenPF2e = TokenPF2e, TUser extends UserPF2e = U
     #difficultyLabel: string | null = null;
     /** Difficult terrain labels */
     #difficultTerrainLabels: { standard: string; greater: string };
+    /** A Predicate to test for difficult terrain cost reduction */
+    #ignore: Predicate | null = null;
+    /** A Predicate to test for greater difficult terrain cost reduction */
+    #ignoreGreater: Predicate | null = null;
 
     constructor() {
         super();
@@ -39,6 +42,8 @@ class RulerPF2e<TToken extends TokenPF2e = TokenPF2e, TUser extends UserPF2e = U
 
     protected override _endMeasurement(): void {
         this.#behaviors = [];
+        this.#ignore = null;
+        this.#ignoreGreater = null;
         this.#behaviorCosts.clear();
         this.#coordinatesCache.clear();
         this.#difficultyLabel = null;
@@ -87,11 +92,10 @@ class RulerPF2e<TToken extends TokenPF2e = TokenPF2e, TUser extends UserPF2e = U
             const cumulativeCost = `${Math.round(segment.cumulativeCost * 100) / 100}${units ? ` ${units}` : ""}`;
             label += ` [${cumulativeCost}]`;
         }
-        const lines = [label];
         if (this.#difficultyLabel && !isWaypoint) {
-            lines.push(this.#difficultyLabel);
+            label += `\n${this.#difficultyLabel}`;
         }
-        return lines.join("\n");
+        return label;
     }
 
     #calculateCost(behaviors: EnvironmentRegionBehaviorPF2e[], distance: number, isGreater: boolean): number {
@@ -102,22 +106,36 @@ class RulerPF2e<TToken extends TokenPF2e = TokenPF2e, TUser extends UserPF2e = U
             }
         }
         const actor = this.token?.actor;
-        if (!actor) return distance;
+        if (!actor?.isOfType("creature")) return distance;
 
-        const difficulTerrainModifier = new ModifierPF2e({
-            label: "",
-            modifier: 1,
-            adjustments: extractModifierAdjustments(
-                actor.synthetics.modifierAdjustments,
-                ["difficult-terrain-multiplier"],
-                "difficult-terrain-multiplier",
-            ),
-        });
-        const rollOptions = this.#getRollOptionsForBehaviors(actor, behaviors);
-        const statistic = new StatisticModifier("difficult-terrain-multiplier", [difficulTerrainModifier], rollOptions);
-        const multiplier = Math.clamp(isGreater ? statistic.totalModifier + 1 : statistic.totalModifier, 0, 2);
-        const cost = distance + multiplier * 5;
-
+        const createPredicate = (statements: PredicateStatement[]): Predicate => {
+            // Combine multiple ignore statements to a Disjunction statement
+            if (statements.length > 1) {
+                return new Predicate({ or: [...statements] });
+            }
+            return new Predicate(statements[0]);
+        };
+        const cost = ((): number => {
+            const { ignore, ignoreGreater } = actor.flags.pf2e.difficultTerrain;
+            const options =
+                ignore.length > 0 || ignoreGreater.length > 0 ? this.#getRollOptionsForBehaviors(actor, behaviors) : [];
+            // First check if we should ignore greater difficult terrain
+            if (isGreater && ignoreGreater.length > 0) {
+                this.#ignoreGreater ??= createPredicate(ignoreGreater);
+                if (this.#ignoreGreater.test(options)) {
+                    return distance;
+                }
+            }
+            // Then check if standard is ignored or greater should be downgraded
+            if (ignore.length > 0) {
+                this.#ignore ??= createPredicate(ignore);
+                if (this.#ignore.test(options)) {
+                    return distance + (isGreater ? 5 : 0);
+                }
+            }
+            // Otherwise return an additional cost of 10 for greater and 5 for standarad difficult terrain
+            return distance + (isGreater ? 10 : 5);
+        })();
         for (const behavior of behaviors) {
             this.#behaviorCosts.set(behavior.id, cost);
         }
