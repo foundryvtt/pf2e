@@ -21,7 +21,7 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
         return;
     }
 
-    const medicineName = game.i18n.localize("PF2E.SkillMedicine");
+    const medicineName = game.i18n.localize("PF2E.Skill.Medicine");
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
@@ -35,8 +35,8 @@ export async function treatWounds(options: ActionDefaultOptions): Promise<void> 
 <label for="skill-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.SkillSelect")}</label>
 <select id="skill-${domIdAppend}"${!chirurgeon && !naturalMedicine ? " disabled" : ""}>
   <option value="medicine">${medicineName}</option>
-  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.SkillCrafting")}</option>` : ``}
-  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.SkillNature")}</option>` : ``}
+  ${chirurgeon ? `<option value="crafting">${game.i18n.localize("PF2E.Skill.Crafting")}</option>` : ``}
+  ${naturalMedicine ? `<option value="nature">${game.i18n.localize("PF2E.Skill.Nature")}</option>` : ``}
 </select>
 </div>
 </form>
