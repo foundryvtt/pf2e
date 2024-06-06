@@ -1,4 +1,5 @@
 export { CompendiumBrowserActionTab as Actions } from "./action.ts";
+export { CompendiumBrowserAncestryTab as Ancestries } from "./ancestry.ts";
 export { CompendiumBrowserBestiaryTab as Bestiary } from "./bestiary.ts";
 export { CompendiumBrowserCampaignFeaturesTab as CampaignFeatures } from "./campaign-feature.ts";
 export { CompendiumBrowserEquipmentTab as Equipment } from "./equipment.ts";
