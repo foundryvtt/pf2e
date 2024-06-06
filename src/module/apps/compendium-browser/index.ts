@@ -24,6 +24,7 @@ import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import {
     ActionFilters,
+    AncestryFilters,
     BestiaryFilters,
     BrowserFilter,
     CheckboxData,
@@ -39,7 +40,16 @@ import * as browserTabs from "./tabs/index.ts";
 
 class CompendiumBrowser extends Application {
     settings: CompendiumBrowserSettings;
-    dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
+    dataTabsList = [
+        "action",
+        "ancestry",
+        "bestiary",
+        "campaignFeature",
+        "equipment",
+        "feat",
+        "hazard",
+        "spell",
+    ] as const;
     navigationTab: Tabs;
     tabs: BrowserTabs;
 
@@ -53,6 +63,7 @@ class CompendiumBrowser extends Application {
         this.navigationTab = this.hookTab();
         this.tabs = {
             action: new browserTabs.Actions(this),
+            ancestry: new browserTabs.Ancestries(this),
             bestiary: new browserTabs.Bestiary(this),
             campaignFeature: new browserTabs.CampaignFeatures(this),
             equipment: new browserTabs.Equipment(this),
@@ -115,6 +126,7 @@ class CompendiumBrowser extends Application {
     initCompendiumList(): void {
         const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
             action: {},
+            ancestry: {},
             bestiary: {},
             campaignFeature: {},
             hazard: {},
@@ -128,6 +140,7 @@ class CompendiumBrowser extends Application {
             bestiary: true,
             hazard: true,
             "pf2e.actionspf2e": true,
+            "pf2e.ancestries": true,
             "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
             "pf2e.ancestryfeatures": true,
@@ -139,6 +152,7 @@ class CompendiumBrowser extends Application {
 
         const browsableTypes = new Set([
             "action",
+            "ancestry",
             "campaignFeature",
             "feat",
             "kit",
@@ -148,8 +162,9 @@ class CompendiumBrowser extends Application {
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc" | "ancestry", Exclude<TabName, "settings">>([
             ["action", "action"],
+            ["ancestry", "ancestry"],
             ["campaignFeature", "campaignFeature"],
             ["feat", "feat"],
             ["kit", "equipment"],
@@ -167,6 +182,7 @@ class CompendiumBrowser extends Application {
             );
 
             for (const tabName of tabNames) {
+                console.log(this.settings[tabName]);
                 const load =
                     this.settings[tabName]?.[pack.collection]?.load ??
                     loadDefault[tabName] ??
@@ -191,6 +207,7 @@ class CompendiumBrowser extends Application {
     }
 
     openTab(name: "action", filter?: ActionFilters): Promise<void>;
+    openTab(name: "ancestry", filter?: AncestryFilters): Promise<void>;
     openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
     openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
