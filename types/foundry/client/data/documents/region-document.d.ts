@@ -1,5 +1,4 @@
 import type { RegionSource } from "../../../common/documents/region.d.ts";
-import type { Region } from "../../pixi/placeables/region.d.ts";
 import type { CanvasBaseRegion } from "./client-base-mixes.d.ts";
 
 declare global {
