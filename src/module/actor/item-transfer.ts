@@ -17,6 +17,9 @@ export interface ItemTransferData {
     };
     quantity: number;
     containerId?: string;
+
+    /** Whether this is a merchant transaction. If null, presume yes if merchant */
+    isPurchase?: boolean | null;
 }
 
 export class ItemTransfer implements ItemTransferData {
@@ -25,12 +28,19 @@ export class ItemTransfer implements ItemTransferData {
         content: "./systems/pf2e/templates/chat/action/content.hbs",
     };
 
-    constructor(
-        public source: ItemTransferData["source"],
-        public target: ItemTransferData["target"],
-        public quantity: number,
-        public containerId?: string,
-    ) {}
+    source: ItemTransferData["source"];
+    target: ItemTransferData["target"];
+    quantity: number;
+    containerId?: string;
+    isPurchase: boolean | null;
+
+    constructor(data: ItemTransferData) {
+        this.source = data.source;
+        this.target = data.target;
+        this.quantity = data.quantity;
+        this.containerId = data.containerId;
+        this.isPurchase = data.isPurchase ?? null;
+    }
 
     async request(): Promise<void> {
         const gamemaster = game.users.find((u) => u.isGM && u.active);
@@ -66,12 +76,16 @@ export class ItemTransfer implements ItemTransferData {
             throw ErrorPF2e("Failed sanity check during item transfer");
         }
 
+        this.isPurchase ??= sourceActor.isOfType("loot") && sourceActor.isMerchant;
         const targetItem = await sourceActor.transferItemToActor(
             targetActor,
             sourceItem,
             this.quantity,
             this.containerId,
+            false,
+            this.isPurchase,
         );
+
         const sourceIsLoot = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Loot";
 
         // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
@@ -135,8 +149,7 @@ export class ItemTransfer implements ItemTransferData {
         const localize = localizer("PF2E.loot");
 
         if (!item) {
-            const sourceIsMerchant = sourceActor.isOfType("loot") && sourceActor.system.lootSheetType === "Merchant";
-            if (sourceIsMerchant) {
+            if (this.isPurchase) {
                 const message = localize("InsufficientFundsMessage");
                 // The buyer didn't have enough funds! No transaction.
 
