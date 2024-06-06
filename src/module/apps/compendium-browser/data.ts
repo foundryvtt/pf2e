@@ -14,7 +14,6 @@ interface SourceInfo {
 interface BrowserTabs {
     action: browserTabs.Actions;
     ancestry: browserTabs.Ancestries;
-    background: browserTabs.Backgrounds;
     bestiary: browserTabs.Bestiary;
     campaignFeature: browserTabs.CampaignFeatures;
     class: browserTabs.Classes;
@@ -29,15 +28,11 @@ interface BrowserTabs {
 type TabName =
     | "action"
     | "ancestry"
-    | "background"
     | "bestiary"
     | "campaignFeature"
-    | "class"
-    | "deity"
     | "equipment"
     | "feat"
     | "hazard"
-    | "heritage"
     | "spell"
     | "settings";
 type ContentTabName = Exclude<TabName, "settings">;
