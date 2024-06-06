@@ -75,6 +75,7 @@ abstract class IWR<TType extends IWRType> {
                 return ["item:group:bow"];
             case "auditory":
                 return ["item:trait:auditory"];
+            case "axes":
             case "axe-vulnerability":
                 return ["item:group:axe"];
             case "custom":

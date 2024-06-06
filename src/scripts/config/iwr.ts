@@ -174,6 +174,7 @@ const resistanceTypes = {
     alchemical: "PF2E.Damage.IWR.Type.alchemical",
     "all-damage": "PF2E.Damage.IWR.Type.all-damage",
     "area-damage": "PF2E.Damage.IWR.Type.area-damage",
+    axes: "PF2E.Damage.IWR.Type.axes",
     bleed: "PF2E.Damage.RollFlavor.bleed",
     bludgeoning: "PF2E.Damage.RollFlavor.bludgeoning",
     cold: "PF2E.Damage.RollFlavor.cold",
