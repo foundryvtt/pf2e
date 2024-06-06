@@ -300,6 +300,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         });
 
         const weapon = new WeaponPF2e(source, { parent: actor });
+        weapon.rule = this;
         weapon.name = weapon._source.name; // Remove renaming by runes
         const alterations = actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
         for (const alteration of alterations) {
