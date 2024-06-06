@@ -13,6 +13,7 @@ import type { PhysicalItemConstructionContext } from "@item/physical/document.ts
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
+import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
@@ -33,6 +34,9 @@ import { MANDATORY_RANGED_GROUPS, MELEE_ONLY_TRAITS, RANGED_ONLY_TRAITS, THROWN_
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
+
+    /** The rule element that generated this weapon, if applicable */
+    declare rule?: StrikeRuleElement;
 
     static override get validTraits(): Record<NPCAttackTrait, string> {
         return CONFIG.PF2E.npcAttackTraits;
@@ -547,7 +551,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a melee item from this weapon for use by NPCs */
     toNPCAttacks(this: WeaponPF2e<NonNullable<TParent>>, { keepId = false } = {}): MeleePF2e<NonNullable<TParent>>[] {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const baseDamage = ((): NPCAttackDamage => {
@@ -614,8 +618,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 .filter(
                     // Omitted traits include ...
                     (t) =>
-                        // Creature traits
-                        (["holy", "unholy"].includes(t) || !(t in CONFIG.PF2E.creatureTraits)) &&
+                        // Creature traits (unless coming from a Strike RE)
+                        (["holy", "unholy"].includes(t) || !!this.rule || !(t in CONFIG.PF2E.creatureTraits)) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
@@ -649,7 +653,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 newTraits.push(reloadTrait);
             }
 
-            return R.uniq(newTraits).sort();
+            return R.unique(newTraits).sort();
         };
 
         const persistentDamage = ((): NPCAttackDamage | never[] => {

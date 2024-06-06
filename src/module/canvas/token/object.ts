@@ -87,13 +87,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return bounds;
     }
 
-    /** Short-circuit calculation for long sight ranges */
-    override get sightRange(): number {
-        if (!canvas.ready) return 0;
-        const dimensions = canvas.dimensions;
-        return (this.document.sight.range ?? 0) >= dimensions.maxR ? dimensions.maxR : super.sightRange;
-    }
-
     isAdjacentTo(token: TokenPF2e): boolean {
         return this.distanceTo(token) === 5;
     }

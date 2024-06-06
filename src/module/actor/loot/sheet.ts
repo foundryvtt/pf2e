@@ -3,8 +3,8 @@ import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/s
 import type { PhysicalItemPF2e } from "@item";
 import { htmlClosest, htmlQuery } from "@util";
 import { ActorSheetPF2e } from "../sheet/base.ts";
-import { LootNPCsPopup } from "../sheet/loot/loot-npcs-popup.ts";
 import { DistributeCoinsPopup } from "../sheet/popups/distribute-coins-popup.ts";
+import { LootNPCsPopup } from "../sheet/popups/loot-npcs-popup.ts";
 
 export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActor> {
     static override get defaultOptions(): ActorSheetOptions {

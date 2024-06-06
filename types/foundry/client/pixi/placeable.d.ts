@@ -14,6 +14,9 @@ declare global {
             refreshState: {};
         };
 
+        /** The object that this object is a preview of if this object is a preview. */
+        get _original(): this | undefined;
+
         /** Retain a reference to the Scene within which this Placeable Object resides */
         scene: TDocument["parent"];
 
@@ -98,8 +101,8 @@ declare global {
 
         /**
          * Get the snapped position for a given position or the current position.
-         * @param [position]    The position to be used instead of the current position
-         * @returns             The snapped position
+         * @param [position] The position to be used instead of the current position
+         * @returns The snapped position
          */
         getSnappedPosition(position?: Point): Point;
 

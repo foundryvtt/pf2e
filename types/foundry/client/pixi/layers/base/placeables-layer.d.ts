@@ -87,8 +87,8 @@ declare global {
 
         /**
          * Snaps the given point to grid. The layer defines the snapping behavior.
-         * @param point    The point that is to be snapped
-         * @returns        The snapped point
+         * @param point The point that is to be snapped
+         * @returns The snapped point
          */
         getSnappedPoint(point: Point): Point;
 
@@ -390,6 +390,7 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> {
     clearPreviewContainer: boolean;
     preview?: TObject | null;
     clones?: TObject[];
+    dragHandle?: unknown;
     object: PIXI.Container | PIXI.Mesh;
     origin: Point;
     destination: Point;
