@@ -549,6 +549,7 @@ const npcAttackTraits = {
     "deadly-2d12": "PF2E.TraitDeadly2D12",
     "deadly-3d12": "PF2E.TraitDeadly3D12",
     "deadly-4d12": "PF2E.TraitDeadly4D12",
+    illusion: "PF2E.TraitIllusion",
     incorporeal: "PF2E.TraitIncorporeal",
     radiation: "PF2E.TraitRadiation",
     "reach-0": "PF2E.TraitReach0",
