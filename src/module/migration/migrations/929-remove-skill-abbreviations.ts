@@ -1,14 +1,14 @@
-import { MigrationBase } from "../base.ts";
-import { objectHasKey, recursiveReplaceString, tupleHasValue } from "@util";
-import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
-import { ItemSourcePF2e } from "@item/base/data/index.ts";
-import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
-import { ChoiceSetSource, UninflatedChoiceSet } from "@module/rules/rule-element/choice-set/data.ts";
-import { RollOptionSource } from "@module/rules/rule-element/roll-option/rule-element.ts";
 import { SkillSlug } from "@actor/types.ts";
 import { SKILL_SLUGS } from "@actor/values.ts";
-import { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SIZES } from "@module/data.ts";
+import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
+import { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
+import { ChoiceSetSource, UninflatedChoiceSet } from "@module/rules/rule-element/choice-set/data.ts";
+import { RollOptionSource } from "@module/rules/rule-element/roll-option/rule-element.ts";
+import { objectHasKey, recursiveReplaceString, tupleHasValue } from "@util";
+import { MigrationBase } from "../base.ts";
+import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
 
 const capitalize = (s: string) => s[0].toUpperCase() + s.slice(1);
 
@@ -91,6 +91,9 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
     }
 
     #transformChoiceSet(rule: ChoiceSetSource) {
+        // make sure we're not treating "med" as in "medium" as medicine.
+        if (isSizeChoice(rule)) return;
+
         if (objectHasKey(SKILL_DICTIONARY, rule.selection)) {
             rule.selection = SKILL_DICTIONARY[rule.selection];
         }
@@ -98,10 +101,7 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
         const choices = rule.choices ? (rule.choices as UninflatedChoiceSet) : null;
         if (Array.isArray(choices)) {
             for (const choice of choices) {
-                if (typeof choice !== "object") continue;
-
-                // Convert the value, make sure we're not treating "med" as in "medium" as medicine.
-                if (choice.value && !(choice.value === "med" && isSizeChoice(rule))) {
+                if (typeof choice === "object" && choice.value) {
                     choice.value = recursiveReplaceString(choice.value, (s) => resolveLongForm(s));
                 }
             }
@@ -122,7 +122,7 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
     }
 }
 
-function isSizeChoice(rule: ChoiceSetSource): boolean {
+export function isSizeChoice(rule: ChoiceSetSource): boolean {
     const choices = rule.choices ? (rule.choices as UninflatedChoiceSet) : null;
     if (Array.isArray(choices)) {
         return choices.some((choice) => {
