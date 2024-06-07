@@ -192,6 +192,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
+        super.prepareBaseData();
+
         this.flags = fu.mergeObject(this.flags, { pf2e: {} });
         const actor = this.actor;
         if (!actor) return;
@@ -209,8 +211,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this);
-
-        super.prepareBaseData();
 
         // Merge token overrides from REs into this document
         const tokenOverrides = actor.synthetics.tokenOverrides;
