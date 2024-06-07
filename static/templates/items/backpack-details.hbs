@@ -1,6 +1,13 @@
 {{> "systems/pf2e/templates/items/partials/apex.hbs"}}
 
 <div class="form-group">
+    <label for="{{fieldIdPrefix}}stowing">{{localize "PF2E.Item.Container.Stowing"}}</label>
+    <input type="checkbox" name="system.stowing" id="{{fieldIdPrefix}}stowing" {{checked data.stowing}} />
+</div>
+
+{{#if item._source.system.stowing}}
+
+<div class="form-group">
     <label for="{{fieldIdPrefix}}bulk-held-stowed">{{localize "PF2E.Item.Physical.Bulk.HeldOrStowed"}}</label>
     <select name="system.bulk.heldOrStowed" id="{{fieldIdPrefix}}bulk-held-stowed" data-dtype="Number">
         {{selectOptions bulks selected=item._source.system.bulk.heldOrStowed}}
@@ -17,7 +24,4 @@
     <input type="number" name="system.bulk.ignored" id="{{fieldIdPrefix}}ignored" value="{{data.bulk.ignored}}" />
 </div>
 
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}stowing">{{localize "PF2E.Item.Container.Stowing"}}</label>
-    <input type="checkbox" name="system.stowing" id="{{fieldIdPrefix}}stowing" {{checked data.stowing}} />
-</div>
+{{/if}}
