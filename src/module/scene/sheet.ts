@@ -147,6 +147,16 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
         return super._onSubmit(event, options);
     }
 
+    protected override async _onChangeInput(event: Event): Promise<void> {
+        // Prevent tagify input JSON parsing from blowing up
+        const environmentTypes = htmlQuery<HTMLInputElement>(
+            this.element[0],
+            'input[name="flags.pf2e.environmentTypes"]',
+        );
+        if (environmentTypes?.value === "") environmentTypes.value = "[]";
+        super._onChangeInput(event);
+    }
+
     protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
