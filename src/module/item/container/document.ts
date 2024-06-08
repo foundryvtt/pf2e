@@ -94,7 +94,7 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
 
         for (const property of ["capacity", "ignored"] as const) {
             if (!changed.system.stowing) {
-                changed.system.bulk[property] = 0
+                changed.system.bulk[property] = 0;
             }
 
             if (changed.system.bulk[property] !== undefined) {
