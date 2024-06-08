@@ -188,12 +188,12 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return !!this.container?.system.stowing;
     }
 
-    get actionDrawCost(): ZeroToThree {
+    get actionCostToDraw(): ZeroToThree {
         const { container } = this;
+        if (!container) return 1;
         if (container?.isHeld) return 1;
         const usage = container?.system.usage;
-        const actionCost = usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
-        return actionCost
+        return usage?.type === "held" || usage?.where === "backpack" ? 2 : 1;
     }
 
     /** Get this item's container, returning null if it is not in a container */
