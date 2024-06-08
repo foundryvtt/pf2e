@@ -3,7 +3,6 @@ import { StrikeData } from "@actor/data/base.ts";
 import { ItemProxyPF2e, type ItemPF2e } from "@item";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -197,11 +196,9 @@ class ChatMessagePF2e extends ChatMessage {
             });
         }
 
-        UserVisibilityPF2e.process(html, { message: this });
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
         Listeners.ChatCards.listen(this, html);
-        InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
         if (canvas.ready || !game.settings.get("core", "noCanvas")) {
             Listeners.SetAsInitiative.listen(this, html);

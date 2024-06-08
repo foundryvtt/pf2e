@@ -4,7 +4,6 @@ import { AbstractEffectPF2e } from "@item";
 import type { EffectExpiryType } from "@item/abstract-effect/index.ts";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
 
 export class EffectsPanel extends Application {
@@ -92,9 +91,6 @@ export class EffectsPanel extends Application {
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
-
-        // For inline roll links in descriptions
-        InlineRollLinks.listen(html, this.actor);
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
             const { actor } = this;
