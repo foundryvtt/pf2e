@@ -165,7 +165,7 @@ class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSheet<TAct
 
         const spell = this.actor.items.get(itemData._id!);
         if (itemData.system.location.value !== this.item.id && spell?.isOfType("spell")) {
-            const addedSpell = await this.item.spells?.addSpell(spell);
+            const addedSpell = (await this.item.spells?.addSpell(spell)) as SpellPF2e | null;
             return [addedSpell ?? []].flat();
         }
 
