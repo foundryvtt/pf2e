@@ -1,0 +1,57 @@
+{
+    "_id": "WQsMv2KlURI9OKQQ",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Aggravating Aura",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Failure",
+                        "value": 3
+                    },
+                    {
+                        "label": "Critical Failure",
+                        "value": 5
+                    }
+                ],
+                "flag": "weakness",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "Weakness",
+                "type": "all-damage",
+                "value": "{item|flags.pf2e.rulesSelections.weakness}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
