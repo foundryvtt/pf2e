@@ -688,13 +688,13 @@
                     "value": 40
                 },
                 "damageRolls": {
-                    "4ISuaKzUovZYVfEF": {
-                        "damage": "3d6",
-                        "damageType": "mental"
-                    },
-                    "B7tZY9fJ2p2q7EfY": {
+                    "0": {
                         "damage": "4d10",
                         "damageType": "sonic"
+                    },
+                    "1": {
+                        "damage": "3d6",
+                        "damageType": "mental"
                     }
                 },
                 "description": {
@@ -710,7 +710,7 @@
                 "traits": {
                     "value": [
                         "magical",
-                        "range-150"
+                        "range-120"
                     ]
                 },
                 "weaponType": {
@@ -790,6 +790,74 @@
             "type": "action"
         },
         {
+            "_id": "jNiNkOIBxGv7ls8D",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.QOwFuM3LwNzOSb6B"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Voice of Nature",
+            "sort": 1500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Though the Wardens of the Wild do not speak in words, they can communicate complex concepts flawlessly and wordlessly with any animal, beast, plant, or other creature of the natural world through prolonged eye contact. Sapient creatures with strong ties to the natural world, such as animal instinct barbarians or druids who speak the Wildsong, can somewhat understand a Warden of the Wild, though the meaning can be vague.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-voice-of-nature",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "SqsiYSb8KFHPnGDY",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.b0MH9TC5Cdnc9c0i"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Warden's Crown",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A Warden of the Wild's horned crown commands respect from wild creatures. Wild creatures native to a warden's biome automatically improve their attitude toward it by one step (up to friendly) and typically do not take hostile actions towards each other while in the warden's presence.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-wardens-crown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "iiSCtn7fVrib0nlZ",
             "flags": {
                 "core": {
@@ -798,7 +866,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "At-Will Spells",
-            "sort": 1500000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -833,7 +901,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1600000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -860,10 +928,48 @@
             "type": "action"
         },
         {
+            "_id": "JisHy0g8lu6mg8KG",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 To All Saves vs. Primal",
+            "sort": 1900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:primal"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "4hxuRQeozI2YcGao",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Wild Trickery",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -900,7 +1006,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Change Shape",
-            "sort": 1800000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -917,7 +1023,39 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.ActorSizeTiny",
+                                "value": "tiny"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeSmall",
+                                "value": "small"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeMedium",
+                                "value": "medium"
+                            },
+                            {
+                                "label": "PF2E.ActorSizeHuge",
+                                "value": "huge"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape"
+                        ],
+                        "value": "{item|flags.pf2e.rulesSelections.changeShape}"
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -934,7 +1072,7 @@
             "_id": "CSU1nwsLk8jcgev0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Forest Passage",
-            "sort": 1900000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -963,7 +1101,7 @@
             "_id": "q2Ut12vsCILmClE8",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Fox's Wager",
-            "sort": 2000000,
+            "sort": 2300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -973,7 +1111,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The warden grants a boon to a willing creature he can see other than himself, requesting that the creature promise to use the granted power to destroy or undermine the creations of civilization. The target gains a +1 status bonus to attack rolls and a +5 status bonus to damage against constructs, objects, and structures constructed by humanoids. It also gains a +2 status bonus to Stealth checks against humanoids. The warden can have only one wager granted at a time. The wager ends if the target is captured or dies.</p>"
+                    "value": "<p>The warden grants a boon to a willing creature he can see other than himself, requesting that the creature promise to use the granted power to destroy or undermine the creations of civilization. The target gains a +1 status bonus to attack rolls and a +5 status bonus to damage against constructs, objects, and structures constructed by humanoids. It also gains a +2 status bonus to Stealth checks against humanoids. The warden can have only one wager granted at a time. The wager ends if the target is captured or dies.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Fox's Wager]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -996,7 +1134,7 @@
             "_id": "83BZB1SWTBDiRPsE",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Idyllic Panorama",
-            "sort": 2100000,
+            "sort": 2400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1032,7 +1170,7 @@
             "_id": "dkMORZZnD9bglG5r",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Magical Pounce",
-            "sort": 2200000,
+            "sort": 2500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1066,7 +1204,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 2300000,
+            "sort": 2600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1076,7 +1214,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The creature's Strikes deal an additional 1d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
+                    "value": "<p>The warden deals an additional 3d6 precision damage to @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1086,7 +1224,7 @@
                 "rules": [
                     {
                         "category": "precision",
-                        "diceNumber": 1,
+                        "diceNumber": 3,
                         "dieSize": "d6",
                         "key": "DamageDice",
                         "predicate": [
@@ -1114,7 +1252,7 @@
             "_id": "2QFPRFyXAVw8yDDB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2400000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1133,6 +1271,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Escape",
                         "predicate": [
                             "action:escape"
                         ],
@@ -1155,7 +1294,7 @@
             "_id": "48zpHv42xWke4fsd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2500000,
+            "sort": 2800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1181,7 +1320,7 @@
             "_id": "sC1pqH5Up7aYxFpD",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
-            "sort": 2600000,
+            "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
@@ -1207,7 +1346,7 @@
             "_id": "5fZcNtZSyQGWzjJ2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2700000,
+            "sort": 3000000,
             "system": {
                 "description": {
                     "value": ""
@@ -1233,7 +1372,7 @@
             "_id": "oKvyhZo6iviYGH7C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2800000,
+            "sort": 3100000,
             "system": {
                 "description": {
                     "value": ""
@@ -1259,7 +1398,7 @@
             "_id": "2AEMnk72NK1OwKJh",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
-            "sort": 2900000,
+            "sort": 3200000,
             "system": {
                 "description": {
                     "value": ""
@@ -1285,7 +1424,7 @@
             "_id": "pFvcTWke2W60xKnA",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 3000000,
+            "sort": 3300000,
             "system": {
                 "description": {
                     "value": ""
@@ -1311,7 +1450,7 @@
             "_id": "WhuMBBACirZOxTq2",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 3100000,
+            "sort": 3400000,
             "system": {
                 "description": {
                     "value": ""
@@ -1337,7 +1476,7 @@
             "_id": "kPhNLDLHN8NeZJDi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 3200000,
+            "sort": 3500000,
             "system": {
                 "description": {
                     "value": ""

@@ -33,7 +33,7 @@
                 "slug": null,
                 "spelldc": {
                     "dc": 45,
-                    "value": 37
+                    "value": 0
                 },
                 "tradition": {
                     "value": "primal"
@@ -567,10 +567,116 @@
             "type": "action"
         },
         {
+            "_id": "5W28CDdkSL1shdR1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.QOwFuM3LwNzOSb6B"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Voice of Nature",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Though the Wardens of the Wild do not speak in words, they can communicate complex concepts flawlessly and wordlessly with any animal, beast, plant, or other creature of the natural world through prolonged eye contact. Sapient creatures with strong ties to the natural world, such as animal instinct barbarians or druids who speak the Wildsong, can somewhat understand a Warden of the Wild, though the meaning can be vague.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-voice-of-nature",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4XFCPLuB7hfdXmDz",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.b0MH9TC5Cdnc9c0i"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Warden's Crown",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A Warden of the Wild's horned crown commands respect from wild creatures. Wild creatures native to a warden's biome automatically improve their attitude toward it by one step (up to friendly) and typically do not take hostile actions towards each other while in the warden's presence.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-wardens-crown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "qE8cZAPciUC2VTkE",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 To All Saves vs. Primal",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:primal"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "m31f7gFeLKTcuV5I",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Crystal Exhalation",
-            "sort": 1200000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -580,7 +686,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The warden breathes, creating a storm of ice crystals. All creatures in a @Template[type:cone|distance:60] take @Damage[4d8[cold]] damage and @Damage[4d8[slashing]] damage (@Check[type:reflex|dc:44|basic:true] save). On a critical failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by ice. The warden then can't use Crystal Exhalation for [[/br 1d4 #rounds]]{1d4 rounds}.</p>"
+                    "value": "<p>The warden breathes, creating a storm of ice crystals. All creatures in a @Template[type:cone|distance:60] take @Damage[4d8[cold],4d8[slashing]]{4d8 cold damage and 4d8 slashing damage} (@Check[type:reflex|dc:44|basic:true] save). On a critical failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] by ice. The warden then can't use Crystal Exhalation for [[/br 1d4 #Recharge Crystal Exhalation]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -602,7 +708,7 @@
             "_id": "OSyHzaEUEnuN2yN4",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Orogenesis Dive",
-            "sort": 1300000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -636,7 +742,7 @@
             "_id": "qOrbqjETiPFlD3bW",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Song of the Skies",
-            "sort": 1400000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -646,7 +752,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The warden trills a cheerful birdsong, granting a boon to all allies within 60 feet and evoking the freedom of flight. For the next minute, affected allies gain @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement], a fly speed of 60 feet, and treat creatures on the ground as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] when they are airborne.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Song of the Skies]</p>"
+                    "value": "<p>The warden trills a cheerful birdsong, granting a boon to all allies within @Template[type:emanation|distance:60]{60 feet} and evoking the freedom of flight. For the next minute, affected allies gain @UUID[Compendium.pf2e.spells-srd.Item.Unfettered Movement], a fly speed of 60 feet, and treat creatures on the ground as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] when they are airborne.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Song of the Skies]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -669,7 +775,7 @@
             "_id": "vBzwVdv5SH12bUnj",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Tempest Downdrafts",
-            "sort": 1500000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "free"
@@ -701,7 +807,7 @@
             "_id": "kCXD3CE0TYm2kTND",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -727,7 +833,7 @@
             "_id": "6aP8ECXETvcSIjV3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Bird Lore",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
@@ -750,10 +856,10 @@
             "type": "lore"
         },
         {
-            "_id": "S68bYmj0svEGfdtl",
+            "_id": "Yqj5ZBZGe6QwIbjs",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1800000,
+            "name": "Diplomacy",
+            "sort": 2100000,
             "system": {
                 "description": {
                     "value": ""
@@ -779,7 +885,7 @@
             "_id": "XqhLB0Eyx3tk7A8r",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 1900000,
+            "sort": 2200000,
             "system": {
                 "description": {
                     "value": ""
@@ -805,7 +911,7 @@
             "_id": "YoaOAEkwGIXTPts6",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Mountain Lore",
-            "sort": 2000000,
+            "sort": 2300000,
             "system": {
                 "description": {
                     "value": ""
@@ -831,7 +937,7 @@
             "_id": "lMJGrCmb8oYM3zxe",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2100000,
+            "sort": 2400000,
             "system": {
                 "description": {
                     "value": ""
@@ -857,7 +963,7 @@
             "_id": "wpBZqo0w7y5O5Qh0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 2200000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
