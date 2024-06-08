@@ -5,7 +5,7 @@
         {
             "_id": "RFHZXOSjLvrWSGkP",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -47,7 +47,7 @@
         {
             "_id": "YVldUS2t42KMRCg8",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "tongue",
+            "name": "Tongue",
             "sort": 200000,
             "system": {
                 "attack": {
@@ -126,7 +126,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The sporeback frog shakes the plants and fungi on its back until they emit a cloud of spores in a @Template[type:emanation|distance:20]. All creatures in the area must succeed a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} on a critical failure). This ability can't be used again for [[/br 1d4 #Recharge be used]]{1d4 rounds}.</p>"
+                    "value": "<p>The sporeback frog shakes the plants and fungi on its back until they emit a cloud of spores in a @Template[type:emanation|distance:20]. All creatures in the area must succeed a @Check[type:fortitude|dc:22] save or become @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2} for 1 minute (@UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 3} and @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 3} on a critical failure). This ability can't be used again for [[/br 1d4 #Recharge Soporific Spores]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -190,13 +190,28 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ],
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+16 to High Jump or Long Jump",
-                        "options": ""
+                        "options": "action:long-jump, action:high-jump"
                     }
                 }
             },
