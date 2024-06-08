@@ -13,15 +13,13 @@
 </div>
 
 {{#if item._source.system.stowing}}
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}capacity">{{localize "PF2E.Item.Container.Bulk.Capacity"}}</label>
+        <input type="number" name="system.bulk.capacity" id="{{fieldIdPrefix}}capacity" value="{{data.bulk.capacity}}" />
+    </div>
 
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}capacity">{{localize "PF2E.Item.Container.Bulk.Capacity"}}</label>
-    <input type="number" name="system.bulk.capacity" id="{{fieldIdPrefix}}capacity" value="{{data.bulk.capacity}}" />
-</div>
-
-<div class="form-group">
-    <label for="{{fieldIdPrefix}}ignored">{{localize "PF2E.Item.Container.Bulk.Ignored"}}</label>
-    <input type="number" name="system.bulk.ignored" id="{{fieldIdPrefix}}ignored" value="{{data.bulk.ignored}}" />
-</div>
-
+    <div class="form-group">
+        <label for="{{fieldIdPrefix}}ignored">{{localize "PF2E.Item.Container.Bulk.Ignored"}}</label>
+        <input type="number" name="system.bulk.ignored" id="{{fieldIdPrefix}}ignored" value="{{data.bulk.ignored}}" />
+    </div>
 {{/if}}
