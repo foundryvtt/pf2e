@@ -1,5 +1,5 @@
 import type { PolygonVertex } from "../../../../client-esm/canvas/edges/module.d.ts";
-import type { PointEffectSource } from "../../../../client-esm/canvas/sources/point-effect-source-mixes.d.ts";
+import type * as sources from "../../../../client-esm/canvas/sources/module.d.ts";
 
 declare global {
     /** An extension of the default PIXI.Polygon which is used to represent the line of sight for a point source. */
@@ -139,7 +139,7 @@ declare global {
         /** Is this polygon constrained by any walls? */
         walls?: boolean;
         /** The object (if any) that spawned this polygon. */
-        source?: PointEffectSource;
+        source?: sources.BaseEffectSource;
         /** Limiting polygon boundary shape*/
         boundaryShape?: (PIXI.Rectangle | PIXI.Circle | PIXI.Polygon)[];
     }
