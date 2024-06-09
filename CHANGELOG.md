@@ -1,3 +1,53 @@
+## 6.0.1
+
+This release requires Foundry VTT version 12.327
+
+### Highlights
+
+-   (TangledLion) Add new icon for Serum of Sex Shift
+
+### System Improvements
+
+-   (stwlam) Add support for drag/drop repositioning of regions
+-   (stwlam) Add "axes" as a resistance type
+-   (Supe) Add ability for GMs to gift items from merchants to players for free
+
+### Bugfixes
+
+-   (In3luki) Make pf2e specific prosemirror menu options available in journal sheets
+-   (In3luki) Fix scene config terrain updates with blank inputs
+-   (In3luki) Fix vision mode initialization before the canvas is ready
+-   (In3luki) Update Token Config with changes from the latest core version
+-   (In3luki) Show roll mode indicator for damage rolls
+-   (Maple) Hide non-functional UI elements when editing non-stowing containers
+-   (stwlam) Fix certain errors that sometimes occured with npc melee item traits
+-   (stwlam) Fix UUIDs for older migrations and module art
+-   (Supe) Fix errors with skill migrations from 6.0.0 beta 3.
+-   (Supe) Fix Kingmaker settlements and update to Prosemirror
+-   (Supe) Fix text issues in treat wounds and identify item
+-   (Supe) Fix rendering of invested items within non-stowing containers
+
+### Data Updates
+
+-   (Ambrose M) Improve automation for Fire Shield
+-   (Dire Weasel) Add campaign effect for Stoop
+-   (Dire Weasel) Update automation for Howl of the Wild automation
+-   (DocSchlock) Add max badge value to Multilating Bite
+-   (DocSchlock) Update more skill ability scores to attribute modifiers for remaster
+-   (DocSchlock) Fixes for Season of Ghosts major story npc
+-   (Rigo) Add damage button to Thermal Nimbus
+-   (Rigo) Fix the second Clan Lore skill
+-   (Rigo) Move certain impulse junctions to feat description alterations
+-   (SpartanCPA) Minor fixes to Trample and Corrupting Gaze
+-   (stwlam) Fix malformed source uuids for wands held by certain NPCs
+-   (Tikael) Add Howl of the Wild barbarian instincts
+-   (Tikael) Fix automation of Awakened Animal and Swimming Animal heritage
+
+### Under the Hood
+
+-   (stwlam) Skip excluding creature traits for NPC strikes generated from rule elements
+-   (Supe) Make the Strike rule's "ability" property into a resolvable
+
 ## 6.0.0 Beta 3
 
 This release includes all data from system release 5.16.1 and requires Foundry VTT version 12.323. Several major under the hood changes have been made that would benefit from testing.
