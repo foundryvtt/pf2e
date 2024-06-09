@@ -141,6 +141,6 @@ export function isSizeChoice(rule: ChoiceSetSource): boolean {
     return false;
 }
 
-function resolveLongForm<T>(value: T): T | SkillSlug {
+export function resolveLongForm<T>(value: T): T | SkillSlug {
     return objectHasKey(SKILL_DICTIONARY, value) ? SKILL_DICTIONARY[value] : value;
 }

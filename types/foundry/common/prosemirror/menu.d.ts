@@ -73,7 +73,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param   item  The menu item representing a {@link MarkType}.
      * @returns Whether the cursor or selection is in a state represented by the given mark.
      */
-    protected _isMarkActive(item: ProseMirrorMenuItem): boolean;
+    _isMarkActive(item: ProseMirrorMenuItem): boolean;
 
     /**
      * Determine whether the given menu item representing a node is active or not.
@@ -81,7 +81,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @returns       Whether the cursor or selection is currently within a block of this menu item's
      *                node type.
      */
-    protected _isNodeActive(item: ProseMirrorMenuItem): boolean;
+    _isNodeActive(item: ProseMirrorMenuItem): boolean;
 
     /**
      * Handle a button press.
@@ -132,7 +132,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]               Additional options to configure behaviour.
      * @param  [options.attrs]         Attributes for the node.
      */
-    protected _toggleBlock(
+    _toggleBlock(
         node: ProseMirror.NodeType,
         wrap: (node: ProseMirror.NodeType, attrs?: object | null) => ProseMirror.Command,
         options?: { attrs?: Record<string, unknown> | null },
@@ -144,7 +144,7 @@ export class ProseMirrorMenu extends ProseMirrorPlugin {
      * @param  [options]        Additional options to configure behaviour.
      * @param  [options.attrs]  Attributes for the node.
      */
-    protected _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
+    _toggleTextBlock(node: ProseMirror.NodeType, options?: { attrs?: Record<string, unknown> | null }): void;
 }
 
 declare global {

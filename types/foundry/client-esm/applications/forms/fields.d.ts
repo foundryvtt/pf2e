@@ -131,6 +131,9 @@ declare global {
     }
 
     interface SelectInputConfig {
+        /** The name of the form element */
+        name: string;
+        /** The select options */
         options: FormSelectOption[];
         /**
          * An option to control the order and display of optgroup elements. The order of
@@ -151,7 +154,12 @@ declare global {
         sort?: boolean;
     }
 
-    type MultiSelectInputConfig = Omit<SelectInputConfig, "blank">;
+    type MultiSelectInputConfig = Omit<SelectInputConfig, "blank"> & {
+        /** Creates a multi-checkbox element instead */
+        type?: "checkboxes";
+        /** The currently selected values */
+        value?: string[];
+    };
 
     interface NumberInputConfig {
         min: number;
