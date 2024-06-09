@@ -18,7 +18,6 @@ import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -1316,7 +1315,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         options: { remove?: boolean },
     ): Record<string, ProseMirror.Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
-        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
             onSave: () => this.saveEditor(name, options),
             compact: true,
