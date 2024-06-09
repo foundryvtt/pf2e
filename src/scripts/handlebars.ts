@@ -150,6 +150,22 @@ export function registerHandlebarsHelpers(): void {
     Handlebars.registerHelper("raw", function (this: unknown, options: Handlebars.HelperOptions): string {
         return options.fn(this);
     });
+
+    /**
+     * Work around core issue with numberFormat where null/undefined values crash the sheet
+     * https://github.com/foundryvtt/foundryvtt/issues/11165
+     */
+    Handlebars.registerHelper(
+        "numberFormat",
+        (value: unknown, options: { hash: { decimals: number; sign: boolean } }) => {
+            const numValue = Number(value);
+            const dec = options.hash.decimals ?? 0;
+            const sign = options.hash.sign || false;
+            return new Handlebars.SafeString(
+                sign && numValue >= 0 ? `+${numValue.toFixed(dec)}` : numValue.toFixed(dec),
+            );
+        },
+    );
 }
 
 /** Used by the "pick" and "omit" helpers */
