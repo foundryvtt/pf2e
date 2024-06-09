@@ -168,15 +168,15 @@
                             {{#if (eq spell.parentItem.isEquipped false)}}
                                 <button
                                     type="button"
-                                    class="cast-spell blue nowrap"
+                                    class="cast-spell"
                                     data-action="draw-item"
                                     data-item-id="{{spell.parentItem.id}}"
                                     >
                                     {{#if (eq spell.parentItem.isStowed true)}}
-                                        {{localize "PF2E.Actions.Interact.Retrieve.Title"}}
+                                        {{localize "PF2E.Actions.Interact.Retrieve.Title"}}&nbsp;
                                         <span class="action-glyph">{{ spell.parentItem.actionCostToDraw }}</span>
                                     {{else}}
-                                        {{localize "PF2E.Actions.Interact.Draw.Title"}}
+                                        {{localize "PF2E.Actions.Interact.Draw.Title"}}&nbsp;
                                         <span class="action-glyph"> 1</span>
                                     {{/if}}
                                 </button>
