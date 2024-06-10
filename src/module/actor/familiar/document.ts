@@ -223,9 +223,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         // Skills
         this.skills = [...SKILL_SLUGS].reduce((builtSkills: Record<string, Statistic<this>>, skill) => {
-            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];                                    
+            const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
-              modifiers.push(attributeModifier);
+                modifiers.push(attributeModifier);
             }
 
             const attribute = SKILL_EXPANDED[skill].attribute;
