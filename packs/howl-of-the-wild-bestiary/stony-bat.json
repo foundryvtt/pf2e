@@ -47,10 +47,39 @@
             "type": "melee"
         },
         {
+            "_id": "1WbksIeaf3hGSwB5",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Echolocation",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>The stony bat can use hearing as a precise sense with the listed range.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "bpzkvokQICPTqRCn",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Petrify Body Part",
-            "sort": 200000,
+            "sort": 300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -82,7 +111,7 @@
             "_id": "sI3QMH0zN2o1CNCo",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Petrify Vapor",
-            "sort": 300000,
+            "sort": 400000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -92,7 +121,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The stony bat breathes petrifying gas in a 15-foot cone, too thin to harm creatures in the area. However, it petrifies ambient moisture, raining down a cascade of tiny stones onto any creatures in the space directly below the cone. The falling rocks deal @Damage[4d6[bludgeoning]] damage (@Check[type:reflex|dc:20|basic:true]). The stony bat can't use Petrify Vapor again for [[/br 1d4 #Recharge Petrify Vapor]]{1d4 rounds}</p>"
+                    "value": "<p>The stony bat breathes petrifying gas in a @Template[type:cone|distance:15], too thin to harm creatures in the area. However, it petrifies ambient moisture, raining down a cascade of tiny stones onto any creatures in the space directly below the cone. The falling rocks deal @Damage[4d6[bludgeoning]] damage (@Check[type:reflex|dc:20|basic:true]). The stony bat can't use Petrify Vapor again for [[/br 1d4 #Recharge Petrify Vapor]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -114,7 +143,7 @@
             "_id": "hITWxw0rfE7Mw2zr",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Stone Feast",
-            "sort": 400000,
+            "sort": 500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -124,14 +153,30 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The stony bat specifically targets petrified body parts, which it can consume, unlike flesh. The stony bat's jaws deal an extra @Damage[1d6[untyped]] damage against a creature that has been petrified, either partially or completely, and ignore the Hardness of petrified creatures.</p>"
+                    "value": "<p>The stony bat specifically targets petrified body parts, which it can consume, unlike flesh. The stony bat's jaws deal an extra 1d6 damage against a creature that has been petrified, either partially or completely, and ignore the Hardness of petrified creatures.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "stone-feast",
+                        "toggleable": true
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "stone-feast"
+                        ],
+                        "selector": "jaws-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -143,7 +188,7 @@
             "_id": "d1qMRAn5HKpg2zYi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "system": {
                 "description": {
                     "value": ""
@@ -169,7 +214,7 @@
             "_id": "AuFIgOCUzbS3FRYT",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -291,7 +336,7 @@
             }
         },
         "traits": {
-            "rarity": "common",
+            "rarity": "uncommon",
             "size": {
                 "value": "sm"
             },

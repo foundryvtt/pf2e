@@ -43,11 +43,14 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         if (options.instant) {
             summaryElem.hidden = !showSummary;
         } else if (showSummary) {
-            await gsap.fromTo(
-                summaryElem,
-                { height: 0, opacity: 0, hidden: false },
-                { height: "auto", opacity: 1, duration },
-            );
+            // Only animate if not already showing
+            if (summaryElem.hidden) {
+                await gsap.fromTo(
+                    summaryElem,
+                    { height: 0, opacity: 0, hidden: false },
+                    { height: "auto", opacity: 1, duration },
+                );
+            }
         } else {
             await gsap.to(summaryElem, {
                 height: 0,

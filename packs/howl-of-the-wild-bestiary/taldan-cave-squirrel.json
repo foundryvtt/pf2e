@@ -182,7 +182,15 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -235,7 +243,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cave squirrel dives underground in search of gems. The cave squirrel Burrows up to its Speed. It must end its movement back on the surface. During its burrow, it happens upon [[/r 1d4]] cheap gems (such as salt or quartz), which it stuffs in its cheeks, up to its maximum of 6.</p>"
+                    "value": "<p>The cave squirrel dives underground in search of gems. The cave squirrel Burrows up to its Speed. It must end its movement back on the surface. During its burrow, it happens upon [[/br 1d4 #Gems]] cheap gems (such as salt or quartz), which it stuffs in its cheeks, up to its maximum of 6.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -293,7 +301,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The cave squirrel lets out a terrible scream. Non–cave squirrel creatures within 30 feet must succeed at a @Check[type:fortitude|dc:22] save or take @Damage[2d10[sonic]] damage. On a critical failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute. The cave squirrel can't use Screaming Force again for [[/br 1d4 #Recharge Screaming Force]]{1d4 rounds}.</p>"
+                    "value": "<p>The cave squirrel lets out a terrible scream. Non–cave squirrel creatures within @Template[type:emanation|distance:30]{30 feet} must succeed at a @Check[type:fortitude|dc:22] save or take @Damage[2d10[sonic]] damage. On a critical failure, a creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute. The cave squirrel can't use Screaming Force again for [[/br 1d4 #Recharge Screaming Force]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

@@ -9,14 +9,14 @@ export class Migration720UpdateSpellDescriptions extends MigrationBase {
     static override version = 0.72;
 
     private spellUUIDs: Set<CompendiumUUID> = new Set([
-        "Compendium.pf2e.spells-srd.GoKkejPj5yWJPIPK", // Adaptive Ablation
-        "Compendium.pf2e.spells-srd.1b55SgYTV65JvmQd", // Blessing of Defiance
-        "Compendium.pf2e.spells-srd.b515AZlB0sridKSq", // Calm Emotions
-        "Compendium.pf2e.spells-srd.NBSBFHxBm88qxQUy", // Chromatic Armor
-        "Compendium.pf2e.spells-srd.9TauMFkIsmvKJNzZ", // Elemental Absorption
-        "Compendium.pf2e.spells-srd.LoBjvguamA12iyW0", // Energy Absorption
-        "Compendium.pf2e.spells-srd.IWUe32Y5k2QFd7YQ", // Gravity Weapon
-        "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4", // Light
+        "Compendium.pf2e.spells-srd.Item.GoKkejPj5yWJPIPK", // Adaptive Ablation
+        "Compendium.pf2e.spells-srd.Item.1b55SgYTV65JvmQd", // Blessing of Defiance
+        "Compendium.pf2e.spells-srd.Item.b515AZlB0sridKSq", // Calm Emotions
+        "Compendium.pf2e.spells-srd.Item.NBSBFHxBm88qxQUy", // Chromatic Armor
+        "Compendium.pf2e.spells-srd.Item.9TauMFkIsmvKJNzZ", // Elemental Absorption
+        "Compendium.pf2e.spells-srd.Item.LoBjvguamA12iyW0", // Energy Absorption
+        "Compendium.pf2e.spells-srd.Item.IWUe32Y5k2QFd7YQ", // Gravity Weapon
+        "Compendium.pf2e.spells-srd.Item.WBmvzNDfpwka3qT4", // Light
     ]);
 
     private spells = UUIDUtils.fromUUIDs([...this.spellUUIDs]);

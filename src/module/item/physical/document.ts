@@ -184,8 +184,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return !!this.container;
     }
 
+    /** Returns true if any of this item's containers is a stowing container */
     get isStowed(): boolean {
-        return !!this.container?.system.stowing;
+        const container = this.container;
+        return !!container && (container.system.stowing || container.isStowed);
     }
 
     /** Get this item's container, returning null if it is not in a container */

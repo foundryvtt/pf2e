@@ -18,7 +18,6 @@ import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
     BasicConstructorOptions,
@@ -57,10 +56,10 @@ import type {
 } from "./data-types.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
-import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
 import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
+import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 
@@ -231,7 +230,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         return {
             item,
-            canBeEquipped: !item.isInContainer,
+            canBeEquipped: !item.isStowed,
             hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
             heldItems,
             isContainer: item.isOfType("backpack"),
@@ -940,14 +939,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         if (item.actor && item.isOfType("physical")) {
-            await this.moveItemBetweenActors(
-                event,
-                item.actor.id,
-                item.actor?.token?.id ?? null,
-                this.actor.id,
-                this.actor.token?.id ?? null,
-                item.id,
-            );
+            await this.moveItemBetweenActors(event, item, this.actor);
             return [item];
         }
 
@@ -1118,49 +1110,32 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * @param targetActorId ID of the actor where the item will be stored.
      * @param itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(
-        event: DragEvent,
-        sourceActorId: string,
-        sourceTokenId: string | null,
-        targetActorId: string,
-        targetTokenId: string | null,
-        itemId: string,
-    ): Promise<void> {
-        const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
-        const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
-        const item = sourceActor?.items.get(itemId);
-
+    async moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, targetActor: ActorPF2e): Promise<void> {
+        const sourceActor = item.actor;
         if (!sourceActor || !targetActor) {
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
-        if (!item?.isOfType("physical")) {
-            throw ErrorPF2e("Missing or invalid item");
-        }
 
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
-        const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.inventory.findStackableItem(item._source);
-        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
-        const isAmmunition = item.isOfType("consumable") && item.isAmmo;
+        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant;
 
         // If more than one item can be moved, show a popup to ask how many to move
-        if (sourceItemQuantity > 1) {
-            const defaultQuantity = isPurchase
-                ? isAmmunition
-                    ? Math.min(10, sourceItemQuantity)
-                    : 1
-                : sourceItemQuantity;
-            const popup = new MoveLootPopup(
-                sourceActor,
-                { quantity: { max: sourceItemQuantity, default: defaultQuantity }, lockStack: !stackable, isPurchase },
-                (quantity, newStack) => {
-                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-                },
-            );
+        const result = await new ItemTransferDialog(item, {
+            targetActor,
+            lockStack: !stackable,
+            isPurchase,
+        }).resolve();
 
-            popup.render(true);
-        } else {
-            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+        if (result !== null) {
+            sourceActor.transferItemToActor(
+                targetActor,
+                item as PhysicalItemPF2e<ActorPF2e>,
+                result.quantity,
+                containerId,
+                result.newStack,
+                result.isPurchase,
+            );
         }
     }
 
@@ -1340,7 +1315,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         options: { remove?: boolean },
     ): Record<string, ProseMirror.Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
-        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
             onSave: () => this.saveEditor(name, options),
             compact: true,

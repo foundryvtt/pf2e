@@ -239,7 +239,7 @@ export abstract class DataField<
      * @throws  An error if joint model validation fails
      * @internal
      */
-    _validateModel(data: TSourceProp, options?: Record<string, unknown>): void;
+    _validateModel(data: TSourceProp, options?: DataFieldValidationOptions): void;
 
     /* -------------------------------------------- */
     /*  Initialization and Serialization            */
@@ -500,7 +500,7 @@ export class SchemaField<
 
     protected override _validateType(
         data: object,
-        options?: Record<string, unknown>,
+        options?: DataFieldValidationOptions,
     ): boolean | DataModelValidationFailure | void;
 
     override toObject(value: TModelProp): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
@@ -722,7 +722,7 @@ export class ArrayField<
      */
     protected static _validateElementType(element: unknown): unknown;
 
-    override _validateModel(changes: TSourceProp, options?: Record<string, unknown>): void;
+    override _validateModel(changes: TSourceProp, options?: DataFieldValidationOptions): void;
 
     protected static override get _defaults(): ArrayFieldOptions<unknown[], boolean, boolean, boolean>;
 
@@ -730,7 +730,7 @@ export class ArrayField<
 
     protected _cleanType(value: unknown, options?: CleanFieldOptions): unknown;
 
-    protected override _validateType(value: unknown, options?: Record<string, unknown>): void;
+    protected override _validateType(value: unknown, options?: DataFieldValidationOptions): void;
 
     /**
      * Validate every element of the ArrayField
@@ -738,7 +738,10 @@ export class ArrayField<
      * @param options Validation options
      * @returns An array of element-specific errors
      */
-    protected _validateElements(value: unknown[], options?: Record<string, unknown>): DataModelValidationFailure | void;
+    protected _validateElements(
+        value: unknown[],
+        options?: DataFieldValidationOptions,
+    ): DataModelValidationFailure | void;
 
     override initialize(
         value: JSONValue,
@@ -780,7 +783,7 @@ export class SetField<
 > extends ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
     protected override _validateElements(
         value: unknown[],
-        options?: Record<string, unknown>,
+        options?: DataFieldValidationOptions,
     ): DataModelValidationFailure | void;
 
     override initialize(
@@ -920,7 +923,7 @@ export class EmbeddedCollectionField<
 
     protected override _validateElements(
         value: unknown[],
-        options?: Record<string, unknown>,
+        options?: DataFieldValidationOptions,
     ): DataModelValidationFailure | void;
 
     override initialize(
@@ -1192,15 +1195,6 @@ export class IntegerSortField<
     protected static override get _defaults(): NumberFieldOptions<number, boolean, boolean, boolean>;
 }
 
-/** @typedef DocumentStats
- * @property systemId       The package name of the system the Document was created in.
- * @property systemVersion  The version of the system the Document was created in.
- * @property coreVersion    The core version the Document was created in.
- * @property createdTime    A timestamp of when the Document was created.
- * @property modifiedTime   A timestamp of when the Document was last modified.
- * @property lastModifiedBy The ID of the user who last modified the Document.
- */
-
 /**
  * A subclass of {@link SchemaField} which stores document metadata in the _stats field.
  * @mixes DocumentStats
@@ -1210,12 +1204,22 @@ export class DocumentStatsField extends SchemaField<DocumentStatsSchema> {
 }
 
 type DocumentStatsSchema = {
+    /** The package name of the system the Document was created in. */
     systemId: StringField<string, string, true, false, true>;
+    /** The version of the system the Document was created or last modified in. */
     systemVersion: StringField<string, string, true, false, true>;
+    /** The core version the Document was created in. */
     coreVersion: StringField<string, string, true, false, true>;
+    /** A timestamp of when the Document was created. */
     createdTime: NumberField;
+    /** A timestamp of when the Document was last modified. */
     modifiedTime: NumberField;
+    /** The ID of the user who last modified the Document. */
     lastModifiedBy: ForeignDocumentField<string>;
+    /** The UUID of the compendium Document this one was imported from. */
+    compendiumSource: DocumentUUIDField<CompendiumUUID>;
+    /** The UUID of the Document this one is a duplicate of. */
+    duplicateSource: DocumentUUIDField<DocumentUUID>;
 };
 
 export type DocumentStatsData = SourceFromSchema<DocumentStatsSchema>;
@@ -1296,10 +1300,10 @@ export class TypeDataField<
 
     protected override _validateType(
         data: unknown,
-        options?: Record<string, unknown>,
+        options?: DataFieldValidationOptions,
     ): void | DataModelValidationFailure;
 
-    override _validateModel(changes: TSourceProp, options?: Record<string, unknown>): void;
+    override _validateModel(changes: TSourceProp, options?: DataFieldValidationOptions): void;
 
     override toObject(value: TModelProp): TSourceProp;
 

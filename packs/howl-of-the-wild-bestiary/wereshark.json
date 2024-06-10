@@ -417,7 +417,87 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitHuman",
+                                "value": "human"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Shark",
+                                "value": "shark"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:human"
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "add": [
+                            "amphibious"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            {
+                                "not": "change-shape"
+                            }
+                        ]
+                    },
+                    {
+                        "add": [
+                            "aquatic"
+                        ],
+                        "key": "ActorTraits",
+                        "predicate": [
+                            "change-shape:shark"
+                        ]
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            {
+                                "not": "change-shape:shark"
+                            }
+                        ],
+                        "selector": "land",
+                        "value": 25
+                    },
+                    {
+                        "key": "BaseSpeed",
+                        "predicate": [
+                            "change-shape:shark"
+                        ],
+                        "selector": "swim",
+                        "value": 40
+                    },
+                    {
+                        "attackModifier": 14,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 7
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Fist",
+                        "predicate": [
+                            "change-shape:human"
+                        ],
+                        "slug": "fist",
+                        "traits": []
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -581,13 +661,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Water",
+                        "predicate": [
+                            "terrain:water"
+                        ],
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+11 in water",
-                        "options": ""
+                        "options": "terrain:water"
                     }
                 }
             },
@@ -663,7 +753,7 @@
                         "value": 25
                     }
                 ],
-                "value": 25
+                "value": 0
             },
             "weaknesses": [
                 {
@@ -727,7 +817,6 @@
                 "value": "lg"
             },
             "value": [
-                "amphibious",
                 "beast",
                 "human",
                 "humanoid",

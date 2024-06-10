@@ -91,7 +91,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return {
             ...options,
             classes: [...options.classes, "kingdom"],
-            width: 720,
+            width: 750,
             height: 620,
             template: "systems/pf2e/templates/actors/party/kingdom/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
@@ -219,6 +219,19 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 label,
             })),
         };
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: true,
+        });
+        return plugins;
     }
 
     async #prepareArmies(): Promise<ArmySheetData[]> {
@@ -525,11 +538,17 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             // activateListeners() handles both rich text editing and expanding the item summary
             const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstElementChild;
             if (newElement instanceof HTMLElement) {
-                newElement.classList.toggle("expanded", settlementElement.classList.contains("expanded"));
+                // Preserve item summary expanded state
+                const isExpanded = !htmlQuery(settlementElement, ".item-summary")?.hidden;
+                htmlQuery(newElement, ".item-summary")!.hidden = !isExpanded;
+
+                // Perform replacement and activate listeners
                 settlementElement.replaceWith(newElement);
                 super.activateListeners($(newElement));
                 this.#activateSettlementEvents(newElement);
-                if (this.#editingSettlements[id] && !newElement.classList.contains("expanded")) {
+
+                // If we're editing, ensure it opens
+                if (this.#editingSettlements[id]) {
                     this.itemRenderer.toggleSummary(newElement, { visible: true });
                 }
             }
@@ -541,7 +560,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         });
         htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", async () => {
             this.#editingSettlements[id] = false;
-            await this.saveEditor(`settlements.${id}.description`);
             rerenderSettlement();
         });
         htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", async (event) => {

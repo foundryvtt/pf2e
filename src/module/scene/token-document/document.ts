@@ -192,6 +192,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
     override prepareBaseData(): void {
+        super.prepareBaseData();
+
         this.flags = fu.mergeObject(this.flags, { pf2e: {} });
         const actor = this.actor;
         if (!actor) return;
@@ -209,8 +211,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         // Token dimensions from actor size
         TokenDocumentPF2e.prepareSize(this);
-
-        super.prepareBaseData();
 
         // Merge token overrides from REs into this document
         const tokenOverrides = actor.synthetics.tokenOverrides;
@@ -287,14 +287,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         if (!(actor && token.flags.pf2e.linkToActorSize)) return;
 
         // If not overridden by an actor override, set according to creature size (skipping gargantuan)
-        const size = {
-            tiny: 0.5,
-            sm: 1,
-            med: 1,
-            lg: 2,
-            huge: 3,
-            grg: Math.max(token.width, 4),
-        }[actor.size];
+        const size =
+            {
+                tiny: 0.5,
+                sm: 1,
+                med: 1,
+                lg: 2,
+                huge: 3,
+                grg: Math.max(token.width, 4),
+            }[actor.size] ?? 1; // In case an AE-like corrupted actor size data
         if (actor.isOfType("vehicle")) {
             // Vehicles can have unequal dimensions
             const dimensions = actor.getTokenDimensions();

@@ -19,8 +19,10 @@ import {
 } from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
+import { RegionPF2e } from "@module/canvas/region.ts";
 import { RegionBehaviorPF2e } from "@scene/region-behavior/document.ts";
 import { EnvironmentBehaviorTypePF2e } from "@scene/region-behavior/environment.ts";
+import { RegionDocumentPF2e } from "@scene/region-document/document.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -38,12 +40,12 @@ export const Init = {
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
-            CONFIG.Item.dataModels.kit = KitSystemData;
-            CONFIG.Item.dataModels.melee = MeleeSystemData;
-
             // Assign canvas layer and placeable classes
             CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
             CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
+
+            CONFIG.Item.dataModels.kit = KitSystemData;
+            CONFIG.Item.dataModels.melee = MeleeSystemData;
 
             CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
             CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
@@ -56,6 +58,9 @@ export const Init = {
             CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
             CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
             CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
+
+            CONFIG.Region.documentClass = RegionDocumentPF2e;
+            CONFIG.Region.objectClass = RegionPF2e;
 
             CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
             CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorTypePF2e;
