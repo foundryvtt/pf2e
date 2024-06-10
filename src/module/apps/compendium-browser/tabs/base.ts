@@ -43,6 +43,9 @@ export abstract class CompendiumBrowserTab {
      *  By default none, so resuts would only contain the id field. */
     storeFields: string[] = [];
 
+    /** Maximum size to create a roll table from as a sanity check, erring towards still too large. */
+    #MAX_TABLE_SIZE = 1000;
+
     constructor(browser: CompendiumBrowser) {
         this.browser = browser;
     }
@@ -319,6 +322,17 @@ export abstract class CompendiumBrowserTab {
         if (!this.isInitialized) {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
+
+        if (this.currentIndex.length > this.#MAX_TABLE_SIZE) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
+                    size: this.currentIndex.length,
+                    maxSize: this.#MAX_TABLE_SIZE,
+                }),
+            );
+            return;
+        }
+
         const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
             count: this.currentIndex.length,
         });
@@ -346,6 +360,17 @@ export abstract class CompendiumBrowserTab {
         if (!this.isInitialized) {
             throw ErrorPF2e(`Compendium Browser Tab "${this.tabName}" is not initialized!`);
         }
+
+        if (this.currentIndex.length > this.#MAX_TABLE_SIZE) {
+            ui.notifications.warn(
+                game.i18n.format("PF2E.CompendiumBrowser.RollTable.TooManyResults", {
+                    size: this.currentIndex.length,
+                    maxSize: this.#MAX_TABLE_SIZE,
+                }),
+            );
+            return;
+        }
+
         const content = await renderTemplate("systems/pf2e/templates/compendium-browser/roll-table-dialog.hbs", {
             count: this.currentIndex.length,
             rollTables: game.tables.contents,
