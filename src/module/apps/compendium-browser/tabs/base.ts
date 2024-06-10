@@ -298,21 +298,23 @@ export abstract class CompendiumBrowserTab {
         initial?: number;
         weight?: number;
     }): Partial<TableResultSource>[] {
-        return this.currentIndex.flatMap((e, i) => {
-            const data = fromUuidSync(e.uuid);
-            if (!data?.pack || !data._id || !("name" in data)) return [];
-            const rangeMinMax = initial + i + 1;
-            return {
-                text: data.name,
-                type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
-                collection: data.pack,
-                resultId: data._id,
-                img: e.img,
-                weight,
-                range: [rangeMinMax, rangeMinMax],
-                drawn: false,
-            };
-        });
+        return this.currentIndex
+            .map((e, i): Partial<TableResultSource> | null => {
+                const data = fromUuidSync(e.uuid);
+                if (!data?.pack || !data._id || !("name" in data)) return null;
+                const rangeMinMax = initial + i + 1;
+                return {
+                    text: data.name,
+                    type: CONST.TABLE_RESULT_TYPES.COMPENDIUM,
+                    documentCollection: data.pack,
+                    documentId: data._id,
+                    img: e.img,
+                    weight,
+                    range: [rangeMinMax, rangeMinMax],
+                    drawn: false,
+                };
+            })
+            .filter((r): r is Partial<TableResultSource> => !!r);
     }
 
     async createRollTable(): Promise<void> {
