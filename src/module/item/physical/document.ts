@@ -188,7 +188,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         return !!this.container?.system.stowing;
     }
 
-    get actionCostToDraw(): ZeroToThree {
+    get drawActions(): ZeroToThree {
         const { container } = this;
         if (!container) return 1;
         if (container?.isHeld) return 1;
