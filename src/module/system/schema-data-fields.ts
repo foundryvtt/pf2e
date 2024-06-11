@@ -127,6 +127,31 @@ class StrictArrayField<
     }
 }
 
+/** An array field that will prune invalid elements without complaint */
+class LaxArrayField<
+    TElementField extends DataField,
+    TSourceProp extends Partial<SourcePropFromDataField<TElementField>>[] = SourcePropFromDataField<TElementField>[],
+    TModelProp extends object = ModelPropFromDataField<TElementField>[],
+    TRequired extends boolean = true,
+    TNullable extends boolean = false,
+    THasInitial extends boolean = true,
+> extends fields.ArrayField<TElementField, TSourceProp, TModelProp, TRequired, TNullable, THasInitial> {
+    protected override _validateElements(
+        value: unknown[],
+        options?: DataFieldValidationOptions,
+    ): void | DataModelValidationFailure {
+        const failure = super._validateElements(value, options);
+        if (!failure) return failure;
+
+        for (const element of failure.elements) {
+            value.splice(Number(element.id), 1);
+        }
+        failure.unresolved = false;
+
+        return failure;
+    }
+}
+
 class StrictObjectField<
     TSourceProp extends object,
     TModelProp extends object = TSourceProp,
@@ -482,6 +507,7 @@ class NullField extends fields.DataField<null, null, true, true, true> {
 
 export {
     DataUnionField,
+    LaxArrayField,
     LaxSchemaField,
     NullField,
     PredicateField,

@@ -13,7 +13,6 @@ import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
 
-import { Migration912RmFocusTraitFocusCantrips } from "@module/migration/migrations/912-rm-focus-trait-focus-cantrips.ts";
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
 import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
 import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
@@ -30,7 +29,8 @@ import { Migration925TouchOfCorruption } from "@module/migration/migrations/925-
 import { Migration926RemoveVisionFeatureLinks } from "@module/migration/migrations/926-remove-vision-feature-links.ts";
 import { Migration927ClassBackgroundBattleFormSkillLongform } from "@module/migration/migrations/927-class-background-skill-longform.ts";
 import { Migration928CharacterSkillsLongform } from "@module/migration/migrations/928-character-skills-longform.ts";
-import { Migration929RemoveSkillAbbreviations } from "@module/migration/migrations/929-more-skills-longform.ts";
+import { Migration929RemoveSkillAbbreviations } from "@module/migration/migrations/929-remove-skill-abbreviations.ts";
+import { Migration930ChoiceSetMedium } from "@module/migration/migrations/930-choice-set-medium.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -40,7 +40,6 @@ globalThis.HTMLParagraphElement = window.HTMLParagraphElement;
 globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
-    new Migration912RmFocusTraitFocusCantrips(),
     new Migration913SpellSustainedText(),
     new Migration914MovePerceptionSenses(),
     new Migration915MoveLanguages(),
@@ -58,6 +57,7 @@ const migrations: MigrationBase[] = [
     new Migration927ClassBackgroundBattleFormSkillLongform(),
     new Migration928CharacterSkillsLongform(),
     new Migration929RemoveSkillAbbreviations(),
+    new Migration930ChoiceSetMedium(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

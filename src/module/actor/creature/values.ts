@@ -147,6 +147,7 @@ const RARE_LANGUAGES = [
     "kaava",
     "kashrishi",
     "kovintal",
+    "lashunta",
     "mahwek",
     "migo",
     "minaten",

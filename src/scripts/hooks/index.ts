@@ -4,6 +4,7 @@ import { CloseWorldClockSettings } from "./close-world-clock-settings.ts";
 import { DiceSoNiceReady } from "./dice-so-nice-ready.ts";
 import { DiceSoNiceRollStart } from "./dice-so-nice-roll-start.ts";
 import { DropCanvasData } from "./drop-canvas-data.ts";
+import { GetProseMirrorMenuDropDowns } from "./get-prosemirror-menu-dropdowns.ts";
 import { GetSceneControlButtons } from "./get-scene-control-buttons.ts";
 import { I18nInit } from "./i18n-init.ts";
 import { Init } from "./init.ts";
@@ -32,6 +33,7 @@ export const HooksPF2e = {
             DiceSoNiceReady,
             DiceSoNiceRollStart,
             DropCanvasData,
+            GetProseMirrorMenuDropDowns,
             GetSceneControlButtons,
             I18nInit,
             Init,

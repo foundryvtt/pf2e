@@ -10,7 +10,7 @@ import type { WeaponMaterialData } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import { damageCategoriesUnique } from "@scripts/config/damage.ts";
 import type { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
-import { RecordField, SlugField } from "@system/schema-data-fields.ts";
+import { LaxArrayField, RecordField, SlugField } from "@system/schema-data-fields.ts";
 import type { NPCAttackTrait } from "./types.ts";
 import fields = foundry.data.fields;
 
@@ -40,7 +40,7 @@ class MeleeSystemData extends ItemSystemModel<MeleePF2e, NPCAttackSystemSchema> 
                 otherTags: new fields.ArrayField(
                     new SlugField({ required: true, nullable: false, initial: undefined }),
                 ),
-                value: new fields.ArrayField(
+                value: new LaxArrayField(
                     new fields.StringField({
                         required: true,
                         nullable: false,

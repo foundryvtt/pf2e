@@ -16,7 +16,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The vibrant pup swarm is critically hit by a Strike;</p>\n<hr />\n<p><strong>Effect</strong> The worker pups become insensitive to pain and leap to the front. The swarm gains 10 temporary Hit Points that last for 1 round.</p>"
+                    "value": "<p><strong>Trigger</strong> The vibrant pup swarm is critically hit by a Strike</p><hr /><p><strong>Effect</strong> The worker pups become insensitive to pain and leap to the front. The swarm gains 10 temporary Hit Points that last for 1 round.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -24,6 +24,10 @@
                     "title": ""
                 },
                 "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Feel No Pain",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Feel No Pain"
+                },
                 "slug": null,
                 "traits": {
                     "value": []
@@ -54,7 +58,17 @@
                 },
                 "rules": [
                     {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "reflective-skin",
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
                         "key": "Aura",
+                        "predicate": [
+                            "reflective-skin"
+                        ],
                         "radius": 10,
                         "traits": [
                             "light",
@@ -87,7 +101,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The vibrant pup swarm is in bright light</p>\n<hr />\n<p><strong>Effect</strong> The swarm simultaneously turns to focus the light in an arcing beam, dealing @Damage[(6d12)[fire]] damage to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:30|basic:true]). A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (or 1 minute on a critical failure). The swarm can't use Focused Reflection again for [[/br 1d4 #Recharge Focused Reflection]]{1d4 rounds}.</p>"
+                    "value": "<p><strong>Requirements</strong> The vibrant pup swarm is in bright light</p><hr /><p><strong>Effect</strong> The swarm simultaneously turns to focus the light in an arcing beam, dealing @Damage[(6d12)[fire]] damage to all creatures in a @Template[type:cone|distance:30] (@Check[type:reflex|dc:30|basic:true] save). A creature that fails its save is also @UUID[Compendium.pf2e.conditionitems.Item.Blinded] for 1 round (or 1 minute on a critical failure). The swarm can't use Focused Reflection again for [[/br 1d4 #Recharge Focused Reflection]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

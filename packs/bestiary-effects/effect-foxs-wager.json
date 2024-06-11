@@ -1,0 +1,70 @@
+{
+    "_id": "Hc0BhuLHaldO3vqG",
+    "img": "icons/creatures/mammals/humanoid-fox-cat-archer.webp",
+    "name": "Effect: Fox's Wager",
+    "system": {
+        "description": {
+            "value": "<p>The target gains a +1 status bonus to attack rolls and a +5 status bonus to damage against constructs, objects, and structures constructed by humanoids. It also gains a +2 status bonus to Stealth checks against humanoids.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 22
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "foxs-wager",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "foxs-wager"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "foxs-wager"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "foxs-wager"
+                ],
+                "selector": "stealth",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -347,7 +347,7 @@
         {
             "_id": "Wi40ecNm1HWCr4IZ",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Antlers",
+            "name": "Antler",
             "sort": 600000,
             "system": {
                 "attack": {
@@ -448,7 +448,7 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>A weremoose can communicate with deer, including moose</p>"
+                    "value": "<p>A weremoose can communicate with deer, including moose.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -520,7 +520,67 @@
                     "remaster": true,
                     "title": "Pathfinder Monster Core"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "change-shape",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.TraitHuman",
+                                "value": "human"
+                            },
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Moose",
+                                "value": "moose"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "CreatureSize",
+                        "predicate": [
+                            "change-shape:human"
+                        ],
+                        "value": "medium"
+                    },
+                    {
+                        "attackModifier": 11,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Fist",
+                        "predicate": [
+                            "change-shape:human"
+                        ],
+                        "slug": "fist",
+                        "traits": []
+                    },
+                    {
+                        "attackModifier": 11,
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d8",
+                                "modifier": 6
+                            }
+                        },
+                        "key": "Strike",
+                        "label": "PF2E.BattleForm.Attack.Hoof",
+                        "predicate": [
+                            "change-shape:moose"
+                        ],
+                        "slug": "hoof",
+                        "traits": []
+                    }
+                ],
                 "slug": "change-shape",
                 "traits": {
                     "rarity": "common",
@@ -658,13 +718,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.Swim",
+                        "predicate": [
+                            "action:swim"
+                        ],
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {},
                 "variants": {
                     "0": {
                         "label": "+11 to Swim",
-                        "options": ""
+                        "options": "action:swim"
                     }
                 }
             },
@@ -701,7 +771,7 @@
     "system": {
         "abilities": {
             "cha": {
-                "mod": -1
+                "mod": 1
             },
             "con": {
                 "mod": 4

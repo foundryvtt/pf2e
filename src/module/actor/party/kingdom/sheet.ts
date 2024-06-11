@@ -54,7 +54,6 @@ import {
     KINGDOM_SETTLEMENT_TYPE_LABELS,
     KINGDOM_SKILL_LABELS,
 } from "./values.ts";
-import { ProseMirrorMenuPF2e } from "@system/prosemirror-menu.ts";
 
 // Kingdom traits in order of when the phases occur in the process
 const KINGDOM_TRAITS = ["commerce", "leadership", "region", "civic", "army"] as const;
@@ -227,7 +226,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         options: { remove?: boolean },
     ): Record<string, ProseMirror.Plugin> {
         const plugins = super._configureProseMirrorPlugins(name, options);
-        plugins.menu = ProseMirrorMenuPF2e.build(foundry.prosemirror.defaultSchema, {
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
             destroyOnSave: options.remove,
             onSave: () => this.saveEditor(name, options),
             compact: true,

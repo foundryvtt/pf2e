@@ -544,7 +544,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
         const data = super.prepareInventoryItem(item);
-        data.isInvestable = !item.isInContainer && item.isIdentified && item.isInvested !== null;
+        data.isInvestable = !item.isStowed && item.isIdentified && item.isInvested !== null;
 
         // If armor is equipped, and can be invested, hint at the user that it should be invested
         const invested = this.actor.inventory.invested;

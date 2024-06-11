@@ -5,7 +5,7 @@
         {
             "_id": "jCzhh1zwTEoBIUk4",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "bill",
+            "name": "Bill",
             "sort": 100000,
             "system": {
                 "attack": {
@@ -58,14 +58,22 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The swordfish is in cold water</p>\n<p><strong>Trigger</strong> The swordfish rolls initiative</p>\n<hr />\n<p><strong>Effect</strong> The swordfish Seeks or Swims.</p>"
+                    "value": "<p><strong>Requirements</strong> The swordfish is in cold water</p>\n<p><strong>Trigger</strong> The swordfish rolls initiative</p><hr /><p><strong>Effect</strong> The swordfish @UUID[Compendium.pf2e.actionspf2e.Item.Seek]{Seeks} or @UUID[Compendium.pf2e.actionspf2e.Item.Swim]{Swims}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Note",
+                        "selector": "initiative",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -94,7 +102,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "fast-sweep",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "fast-sweep"
+                        ],
+                        "selector": "bill-attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

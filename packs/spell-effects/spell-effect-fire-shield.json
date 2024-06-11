@@ -99,18 +99,20 @@
                 }
             },
             {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.FireShield.DefendingAgainstWaterLabel",
+                "option": "water-trait",
+                "toggleable": true
+            },
+            {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    {
-                        "or": [
-                            "self:type:character",
-                            "self:type:npc"
-                        ]
-                    }
+                    "water-trait"
                 ],
-                "value": 10
+                "value": 5
             },
             {
                 "domain": "all",
@@ -124,6 +126,17 @@
                         ]
                     }
                 ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    {
+                        "not": "water-trait"
+                    }
+                ],
+                "value": 10
             }
         ],
         "start": {

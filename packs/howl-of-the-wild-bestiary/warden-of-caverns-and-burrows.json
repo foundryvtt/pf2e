@@ -152,13 +152,13 @@
                     "value": 33
                 },
                 "damageRolls": {
-                    "2uFCdwGLMYLhBAKh": {
-                        "category": "persistent",
-                        "damage": "2d6",
+                    "0": {
+                        "damage": "4d8+13",
                         "damageType": "fire"
                     },
-                    "XMNpfVEn4n9C4vBt": {
-                        "damage": "4d8+13",
+                    "1": {
+                        "category": "persistent",
+                        "damage": "2d6",
                         "damageType": "fire"
                     }
                 },
@@ -255,10 +255,116 @@
             "type": "action"
         },
         {
+            "_id": "froEwR05j1sIErDb",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.QOwFuM3LwNzOSb6B"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Voice of Nature",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>Though the Wardens of the Wild do not speak in words, they can communicate complex concepts flawlessly and wordlessly with any animal, beast, plant, or other creature of the natural world through prolonged eye contact. Sapient creatures with strong ties to the natural world, such as animal instinct barbarians or druids who speak the Wildsong, can somewhat understand a Warden of the Wild, though the meaning can be vague.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-voice-of-nature",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M6uEBleX6mMYU242",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-family-ability-glossary.Item.b0MH9TC5Cdnc9c0i"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Warden's Crown",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A Warden of the Wild's horned crown commands respect from wild creatures. Wild creatures native to a warden's biome automatically improve their attitude toward it by one step (up to friendly) and typically do not take hostile actions towards each other while in the warden's presence.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [],
+                "slug": "warden-of-the-wild-wardens-crown",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "VAexo9PzHHfjyq7w",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 To All Saves vs. Primal",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Howl of the Wild"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:primal"
+                        ],
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "xZpqgaOSfAIieweF",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Magmatic Reflex",
-            "sort": 700000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -275,7 +381,23 @@
                     "remaster": true,
                     "title": "Pathfinder Howl of the Wild"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "magmatic-reflex",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "magmatic-reflex"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -287,7 +409,7 @@
             "_id": "9y73RR8Oukdu0LR2",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Bury Beneath Stone",
-            "sort": 800000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -297,7 +419,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The warden has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p>\n<hr />\n<p><strong>Effect</strong> The warden attempts to wedge a creature they have grabbed in their mandibles within a crack in the earth that opens beneath them. The warden attempts an Athletics check against the grabbed creature's Reflex DC. If they succeed, they bury the creature in the ground. The creature takes @Damage[10d10[bludgeoning]] damage. It is also @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and has to hold its breath or start suffocating until it Escapes (DC 42). If the creature is still buried at the end of its turn, it takes @Damage[5d10[bludgeoning]] damage.</p>"
+                    "value": "<p><strong>Requirements</strong> The warden has a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The warden attempts to wedge a creature they have grabbed in their mandibles within a crack in the earth that opens beneath them. The warden attempts an @Check[type:athletics|defense:reflex] check against the grabbed creature's Reflex DC. If they succeed, they bury the creature in the ground. The creature takes @Damage[10d10[bludgeoning]] damage. It is also @UUID[Compendium.pf2e.conditionitems.Item.Restrained], @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1}, and has to hold its breath or start suffocating until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 42). If the creature is still buried at the end of its turn, it takes @Damage[5d10[bludgeoning]] damage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -319,7 +441,7 @@
             "_id": "1R03lSgMof62gZ9x",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Called to Depths",
-            "sort": 900000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -329,7 +451,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The depths call to the warden, especially as they move through the air. When they @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], they can use any unused movement from the Long Jump to Burrow. Additionally, the warden can Burrow through any earthen matter, including rock. When they do so, they move at their full burrow Speed.</p>"
+                    "value": "<p>The depths call to the warden, especially as they move through the air. When they @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump], they can use any unused movement from the Long Jump to @UUID[Compendium.pf2e.actionspf2e.Item.Burrow]. Additionally, the warden can Burrow through any earthen matter, including rock. When they do so, they move at their full burrow Speed.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -348,7 +470,7 @@
             "_id": "twmWdzuIfOtysw73",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Erupting Jump",
-            "sort": 1000000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -358,7 +480,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The warden draws out a stream of lava, then jumps off the solidifying mass as it cools. The warden Leaps up to twice their Speed. When they land, the force of the impact deals @Damage[6d12[bludgeoning]] damage to all creatures within a @Template[type:emanation|distance:15] with a @Check[type:fortitude|dc:42|basic:true] save. On a critical failure, the creature is also pushed 10 feet away from the warden.</p>"
+                    "value": "<p>The warden draws out a stream of lava, then jumps off the solidifying mass as it cools. The warden @UUID[Compendium.pf2e.actionspf2e.Item.Leap]{Leaps} up to twice their Speed. When they land, the force of the impact deals @Damage[6d12[bludgeoning]] damage to all creatures within a @Template[type:emanation|distance:15] with a @Check[type:fortitude|dc:42|basic:true] save. On a critical failure, the creature is also pushed 10 feet away from the warden.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -379,7 +501,7 @@
             "_id": "tCBjmjZJjM3CRcp6",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Obsidian Cage",
-            "sort": 1100000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -408,7 +530,7 @@
             "_id": "SMbxooGFfHJk1iAh",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Vibratory Excavation",
-            "sort": 1200000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -440,7 +562,7 @@
             "_id": "DbnyJTJcNZglKgOK",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Wall Cling",
-            "sort": 1300000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -469,7 +591,7 @@
             "_id": "RjqnNtxUbjOFqVo4",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1400000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -488,6 +610,7 @@
                 "rules": [
                     {
                         "key": "FlatModifier",
+                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
                         "predicate": [
                             {
                                 "or": [
@@ -505,7 +628,7 @@
                 "variants": {
                     "0": {
                         "label": "+45 to High Jump or Long Jump",
-                        "options": "action:high-jump,action:long-jump"
+                        "options": "action:high-jump, action:long-jump"
                     }
                 }
             },
@@ -515,7 +638,7 @@
             "_id": "x2jUomjZBFIV2KIN",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1500000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -541,7 +664,7 @@
             "_id": "w0YmHZ0bfJ9eNL2o",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
@@ -567,7 +690,7 @@
             "_id": "0mLIYZwwVIP2S65X",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Subterranean Lore",
-            "sort": 1700000,
+            "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
