@@ -254,9 +254,7 @@ class CompendiumPack {
             systemId: "pf2e",
             systemVersion: systemJSON.version,
         } as DocumentStatsData;
-        if (isActorSource(docSource) || isItemSource(docSource)) {
-            docSource._stats = partialStats;
-        }
+        docSource._stats = partialStats;
 
         docSource.flags ??= {};
         if (isActorSource(docSource)) {
@@ -270,9 +268,7 @@ class CompendiumPack {
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
-        }
-
-        if (isItemSource(docSource)) {
+        } else if (isItemSource(docSource)) {
             docSource.effects = [];
             docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Item" }) };
             docSource.system.slug = sluggify(docSource.name);
@@ -289,6 +285,10 @@ class CompendiumPack {
 
             // Convert uuids with names in GrantItem REs to well-formedness
             CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+        } else if ("pages" in docSource) {
+            for (const page of docSource.pages) {
+                page._stats = partialStats;
+            }
         }
 
         const replace = (match: string, packId: string, docType: string, docName: string): string => {
