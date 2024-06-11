@@ -172,7 +172,7 @@
                                     data-action="draw-item"
                                     data-item-id="{{spell.parentItem.id}}"
                                     >
-                                    {{#if (eq spell.parentItem.isStowed true)}}
+                                    {{#if spell.parentItem.isStowed}}
                                         {{localize "PF2E.Actions.Interact.Retrieve.Title"}}&nbsp;
                                         <span class="action-glyph">{{ spell.parentItem.actionCostToDraw }}</span>
                                     {{else}}
