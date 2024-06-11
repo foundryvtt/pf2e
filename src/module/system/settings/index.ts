@@ -88,13 +88,19 @@ export function registerSettings(): void {
         },
     });
 
-    game.settings.register("pf2e", "enabledRulesUI", {
-        name: "PF2E.SETTINGS.EnabledRulesUI.Name",
-        hint: "PF2E.SETTINGS.EnabledRulesUI.Hint",
+    game.settings.register("pf2e", "minimumRulesUI", {
+        name: "PF2E.SETTINGS.MinimumRulesUI.Name",
+        hint: "PF2E.SETTINGS.MinimumRulesUI.Hint",
         scope: "world",
         config: true,
-        default: false,
-        type: Boolean,
+        default: 4,
+        type: Number,
+        choices: {
+            1: "USER.RolePlayer",
+            2: "USER.RoleTrusted",
+            3: "USER.RoleAssistant",
+            4: "USER.RoleGamemaster",
+        },
         onChange: () => {
             const itemSheets = Object.values(ui.windows).filter(
                 (w): w is ItemSheetPF2e<ItemPF2e> => w instanceof ItemSheetPF2e,
