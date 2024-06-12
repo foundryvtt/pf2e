@@ -51,6 +51,7 @@ class CompendiumBrowser extends Application {
         "equipment",
         "feat",
         "hazard",
+        "heritage",
         "spell",
     ] as const;
     navigationTab: Tabs;
@@ -175,7 +176,7 @@ class CompendiumBrowser extends Application {
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc" | "ancestry", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc" | "ancestry" | "heritage", Exclude<TabName, "settings">>([
             ["action", "action"],
             ["ancestry", "ancestry"],
             ["campaignFeature", "campaignFeature"],
@@ -198,7 +199,6 @@ class CompendiumBrowser extends Application {
             );
 
             for (const tabName of tabNames) {
-                console.log(this.settings[tabName]);
                 const load =
                     this.settings[tabName]?.[pack.collection]?.load ??
                     loadDefault[tabName] ??

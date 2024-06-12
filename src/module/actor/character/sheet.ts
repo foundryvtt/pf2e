@@ -886,6 +886,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return game.pf2e.compendiumBrowser.tabs.ancestry.open();
         };
 
+        handlers["browse-heritage"] = () => {
+            return this.#onClickBrowseHeritages();
+        };
+
         // ACTIONS
 
         handlers["toggle-hide-stowed"] = () => {

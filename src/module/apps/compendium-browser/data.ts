@@ -33,6 +33,7 @@ type TabName =
     | "equipment"
     | "feat"
     | "hazard"
+    | "heritage"
     | "spell"
     | "settings";
 type ContentTabName = Exclude<TabName, "settings">;

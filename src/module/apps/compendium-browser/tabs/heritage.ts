@@ -61,7 +61,12 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
                         ? ancestries[t.ancestry]
                         : t.ancestry === "versatile"
                           ? "PF2E.Item.Heritage.NoneVersatile"
-                          : t.ancestry.replaceAll("-", " ").titleCase();
+                          : t.ancestry
+                                .split("-")
+                                .map((word: string) => {
+                                    return word.charAt(0).toUpperCase() + word.slice(1);
+                                })
+                                .join(" ");
                     return [t.ancestry, ancestryString];
                 }),
             );
