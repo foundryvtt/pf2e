@@ -153,6 +153,17 @@ interface HazardFilters extends BaseFilterData {
     };
 }
 
+interface HeritageFilters extends BaseFilterData {
+    checkboxes: {
+        rarity: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        ancestry: MultiselectData<string>;
+        traits: MultiselectData<string>;
+    };
+}
+
 interface SpellFilters extends BaseFilterData {
     checkboxes: {
         category: CheckboxData;
@@ -177,6 +188,7 @@ type BrowserFilter =
     | EquipmentFilters
     | FeatFilters
     | HazardFilters
+    | HeritageFilters
     | SpellFilters;
 
 type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
@@ -200,6 +212,7 @@ export type {
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
+    HeritageFilters,
     MultiselectData,
     RangesInputData,
     RenderResultListOptions,

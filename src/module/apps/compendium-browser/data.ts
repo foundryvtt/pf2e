@@ -19,6 +19,7 @@ interface BrowserTabs {
     equipment: browserTabs.Equipment;
     feat: browserTabs.Feats;
     hazard: browserTabs.Hazards;
+    heritage: browserTabs.Heritages;
     spell: browserTabs.Spells;
 }
 
@@ -30,6 +31,7 @@ type TabName =
     | "equipment"
     | "feat"
     | "hazard"
+    | "heritage"
     | "spell"
     | "settings";
 type ContentTabName = Exclude<TabName, "settings">;
