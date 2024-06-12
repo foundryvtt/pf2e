@@ -31,6 +31,7 @@ import {
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
+    HeritageFilters,
     RangesInputData,
     RenderResultListOptions,
     SliderData,
@@ -48,6 +49,7 @@ class CompendiumBrowser extends Application {
         "equipment",
         "feat",
         "hazard",
+        "heritage",
         "spell",
     ] as const;
     navigationTab: Tabs;
@@ -69,6 +71,7 @@ class CompendiumBrowser extends Application {
             equipment: new browserTabs.Equipment(this),
             feat: new browserTabs.Feats(this),
             hazard: new browserTabs.Hazards(this),
+            heritage: new browserTabs.Heritages(this),
             spell: new browserTabs.Spells(this),
         };
 
@@ -130,6 +133,7 @@ class CompendiumBrowser extends Application {
             bestiary: {},
             campaignFeature: {},
             hazard: {},
+            heritage: {},
             equipment: {},
             feat: {},
             spell: {},
@@ -148,6 +152,7 @@ class CompendiumBrowser extends Application {
             "pf2e.feats-srd": true,
             "pf2e.spells-srd": true,
             "pf2e.kingmaker-features": true,
+            "pf2e.heritages": true,
         };
 
         const browsableTypes = new Set([
@@ -157,18 +162,20 @@ class CompendiumBrowser extends Application {
             "feat",
             "kit",
             "hazard",
+            "heritage",
             "npc",
             "spell",
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc" | "ancestry", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc" | "ancestry" | "heritage", Exclude<TabName, "settings">>([
             ["action", "action"],
             ["ancestry", "ancestry"],
             ["campaignFeature", "campaignFeature"],
             ["feat", "feat"],
             ["kit", "equipment"],
             ["hazard", "hazard"],
+            ["heritage", "heritage"],
             ["npc", "bestiary"],
             ["spell", "spell"],
             ...Array.from(PHYSICAL_ITEM_TYPES).map((t): [ItemType, "equipment"] => [t, "equipment"]),
@@ -182,7 +189,6 @@ class CompendiumBrowser extends Application {
             );
 
             for (const tabName of tabNames) {
-                console.log(this.settings[tabName]);
                 const load =
                     this.settings[tabName]?.[pack.collection]?.load ??
                     loadDefault[tabName] ??
@@ -212,6 +218,7 @@ class CompendiumBrowser extends Application {
     openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
+    openTab(name: "heritage", filter?: HeritageFilters): Promise<void>;
     openTab(name: "spell", filter?: SpellFilters): Promise<void>;
     openTab(name: "settings"): Promise<void>;
     async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
