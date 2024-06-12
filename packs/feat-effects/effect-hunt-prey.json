@@ -1,0 +1,58 @@
+{
+    "_id": "5zzq64T2kZqjLHAm",
+    "img": "icons/creatures/eyes/humanoid-single-red-brown.webp",
+    "name": "Effect: Hunt Prey",
+    "system": {
+        "description": {
+            "value": ""
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "self:prey:{item|origin.signature}"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:signature:{item|origin.signature}",
+                            "origin:effect:hunters-edge-flurry",
+                            "origin:effect:masterful-hunters-edge-flurry"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-attack-roll"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Flurry"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

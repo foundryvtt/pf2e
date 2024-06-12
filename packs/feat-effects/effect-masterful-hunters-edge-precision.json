@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter (Precision)] with you.</p>\n<p>The second time in a round you hit your hunted prey, you also deal 1d8 precision damage.</p>\n<p>At 19th level, your second hit in a round against your hunted prey deals 2d8 precision damage, and your third hit in a round against your hunted prey deals 1d8 precision damage.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -24,117 +24,116 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "label": "Track or Seek Hunted Prey",
+                "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "To Track hunted prey (Masterful Hunter)",
-                "predicate": [
-                    "action:track",
-                    "hunted-prey"
-                ],
-                "selector": "survival",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.survival.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey (Masterful Hunter)",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.perception.rank"
-                }
+                "value": "ternary(gte(@actor.system.perception.rank,3),4,2)"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
+                "predicate": [
+                    "action:track",
+                    "hunted-prey:track-or-seek"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.skills.survival.rank,3),4,2)"
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:3",
+                "predicate": [
+                    "target:prey:{item|origin.signature}",
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
+                        ]
+                    }
+                ]
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Second attack on hunted prey this round",
-                "option": "second-attack",
+                "label": "Precision Edge",
+                "option": "precision",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                        "value": "first-attack"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.SecondAttack",
+                        "value": "second-attack"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.ThirdAttack",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:origin:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": "third-attack"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "category": "precision",
+                "diceNumber": "ternary(lt(@item.origin.level, 11), 1, ternary(lt(@item.origin.level, 19), 2, 3))",
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "label": "1st attack against prey",
                 "predicate": [
-                    "second-attack"
+                    "precision:first-attack",
+                    "target:prey:{item|origin.signature}"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 18,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Third attack on hunted prey this round",
-                "option": "third-attack",
-                "toggleable": true
+                "selector": "strike-damage"
             },
             {
                 "category": "precision",
+                "diceNumber": "ternary(gte(@item.origin.level,19),2,1)",
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "label": "2nd attack against prey",
                 "predicate": [
-                    "third-attack"
+                    "precision:second-attack",
+                    "target:prey:{item|origin.signature}"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
+            },
+            {
+                "category": "precision",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "label": "3rd attack against prey",
+                "predicate": [
+                    "target:prey:{item|origin.signature}",
+                    "precision:third-attack",
+                    {
+                        "gte": [
+                            "{item|origin.level}",
+                            19
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
             }
         ],
         "start": {

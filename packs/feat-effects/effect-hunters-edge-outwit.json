@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Outwit] edge with you.</p>\n<p>You gain a +2 circumstance bonus to Deception checks, Intimidation checks, Stealth checks, and any checks to Recall Knowledge about the prey, and a +1 circumstance bonus to AC against your prey's attacks.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -24,8 +24,14 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "label": "Track or Seek Hunted Prey",
+                "option": "hunted-prey:track-or-seek",
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "Using Outwit skill checks against Hunted Prey",
+                "option": "outwit-skill-bonus",
                 "toggleable": true
             },
             {
@@ -33,9 +39,10 @@
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "perception",
+                "slug": "seek-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
@@ -44,44 +51,50 @@
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "survival",
+                "slug": "track-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Vs. hunted prey",
                 "predicate": [
-                    "hunted-prey"
+                    {
+                        "or": [
+                            "outwit-skill-bonus",
+                            "target:prey:{item|origin.signature}"
+                        ]
+                    }
                 ],
                 "selector": [
                     "deception",
                     "intimidation",
                     "stealth"
                 ],
+                "slug": "skill-outwit",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Recall knowledge on hunted prey",
                 "predicate": [
                     "action:recall-knowledge",
-                    "hunted-prey"
+                    "outwit-skill-bonus"
                 ],
                 "selector": "skill-check",
+                "slug": "recall-knowledge-outwit",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
-                "label": "Vs. attacks from hunted prey",
                 "predicate": [
-                    "hunted-prey"
+                    "origin:prey:{item|origin.signature}"
                 ],
                 "selector": "ac",
+                "slug": "ac-outwit",
                 "type": "circumstance",
                 "value": 1
             }

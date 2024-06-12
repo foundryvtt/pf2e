@@ -26,56 +26,6 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "To Track hunted prey (Masterful Hunter)",
-                "predicate": [
-                    "action:track",
-                    "hunted-prey"
-                ],
-                "selector": "survival",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.survival.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey (Masterful Hunter)",
-                "predicate": [
-                    "action:seek",
-                    "hunted-prey"
-                ],
-                "selector": "perception",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.perception.rank"
-                }
-            },
-            {
                 "key": "GrantItem",
                 "predicate": [
                     "feature:flurry"
@@ -101,7 +51,7 @@
                 "key": "RollOption",
                 "option": "ignore-range-penalty:3",
                 "predicate": [
-                    "hunted-prey",
+                    "target:prey:{actor|signature}",
                     {
                         "gte": [
                             "item:proficiency:rank",
@@ -118,6 +68,36 @@
                     "feat:initiate-warden"
                 ],
                 "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "perception:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "slug": "seek-hunted-prey",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:survival:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "survival",
+                "slug": "track-hunted-prey",
+                "value": 4
             }
         ],
         "subfeatures": {

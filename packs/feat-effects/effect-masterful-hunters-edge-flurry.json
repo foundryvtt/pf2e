@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Masterful Hunter (Flurry)] with you.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -24,91 +24,45 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "label": "Track or Seek Hunted Prey",
+                "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
-                "label": "To Track hunted prey (Masterful Hunter)",
-                "predicate": [
-                    "action:track",
-                    "hunted-prey"
-                ],
-                "selector": "survival",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.skills.survival.rank"
-                }
-            },
-            {
-                "key": "FlatModifier",
-                "label": "To Seek hunted prey (Masterful Hunter)",
+                "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "perception",
                 "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "start": 3,
-                            "value": 4
-                        },
-                        {
-                            "end": 2,
-                            "start": 1,
-                            "value": 2
-                        }
-                    ],
-                    "field": "actor|system.perception.rank"
-                }
+                "value": "ternary(gte(@actor.system.perception.rank,3),4,2)"
             },
             {
-                "key": "MultipleAttackPenalty",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
-                    "hunted-prey",
-                    {
-                        "or": [
-                            "proficiency:master",
-                            "proficiency:legendary"
-                        ]
-                    },
-                    {
-                        "not": "agile"
-                    }
+                    "action:track",
+                    "hunted-prey:track-or-seek"
                 ],
-                "selector": "attack",
-                "value": -2
+                "selector": "survival",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.skills.survival.rank,3),4,2)"
             },
             {
-                "key": "MultipleAttackPenalty",
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:3",
                 "predicate": [
-                    "agile",
-                    "hunted-prey",
+                    "target:prey:{item|origin.signature}",
                     {
-                        "or": [
-                            "proficiency:master",
-                            "proficiency:legendary"
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
                         ]
                     }
-                ],
-                "selector": "attack",
-                "value": -1
+                ]
             }
         ],
         "start": {

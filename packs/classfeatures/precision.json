@@ -28,8 +28,14 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
-                "option": "first-attack",
+                "mergeable": true,
+                "option": "precision",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                        "value": "first-attack"
+                    }
+                ],
                 "toggleable": true
             },
             {
@@ -38,7 +44,8 @@
                 "dieSize": "d8",
                 "key": "DamageDice",
                 "predicate": [
-                    "first-attack"
+                    "precision:first-attack",
+                    "target:prey:{actor|signature}"
                 ],
                 "selector": "strike-damage"
             }

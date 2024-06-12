@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Hunter]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against that prey.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,16 +22,9 @@
         },
         "rules": [
             {
-                "domain": "attack-roll",
-                "key": "RollOption",
-                "label": "Target is the subject of Monster Hunter",
-                "option": "monster-hunter",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "monster-hunter"
+                    "target:prey:{item|origin.signature}"
                 ],
                 "removeAfterRoll": "if-enabled",
                 "selector": "attack",

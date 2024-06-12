@@ -32,60 +32,61 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Second attack on hunted prey this round",
-                "option": "second-attack",
+                "mergeable": true,
+                "option": "precision",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.SecondAttack",
+                        "value": "second-attack"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.ThirdAttack",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    19
+                                ]
+                            }
+                        ],
+                        "value": "third-attack"
+                    }
+                ],
                 "toggleable": true
             },
             {
                 "category": "precision",
+                "diceNumber": "ternary(gte(@actor.level,19),2,1)",
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "label": "2nd attack against prey",
                 "predicate": [
-                    "second-attack"
+                    "precision:second-attack",
+                    {
+                        "or": [
+                            "hunt-prey",
+                            "target:prey:{actor|signature}"
+                        ]
+                    }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 18,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Third attack on hunted prey this round",
-                "option": "third-attack",
-                "toggleable": true
+                "selector": "strike-damage"
             },
             {
                 "category": "precision",
+                "diceNumber": 1,
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "label": "3rd attack against prey",
                 "predicate": [
-                    "third-attack"
+                    {
+                        "or": [
+                            "hunt-prey",
+                            "target:prey:{actor|signature}"
+                        ]
+                    },
+                    "precision:third-attack"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             }
         ],
         "traits": {

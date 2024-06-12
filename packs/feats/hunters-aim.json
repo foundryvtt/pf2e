@@ -35,10 +35,9 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "hunters-aim",
-                    "hunted-prey",
-                    "ranged"
+                    "target:prey:{actor|signature}"
                 ],
-                "selector": "attack",
+                "selector": "ranged-strike-attack-roll",
                 "type": "circumstance",
                 "value": 2
             },
@@ -46,11 +45,10 @@
                 "key": "Note",
                 "predicate": [
                     "hunters-aim",
-                    "hunted-prey",
-                    "ranged",
+                    "target:prey:{actor|signature}",
                     "target:condition:concealed"
                 ],
-                "selector": "attack",
+                "selector": "ranged-strike-attack-roll",
                 "text": "Ignore your prey's concealed condition.",
                 "title": "{item|name}"
             }
