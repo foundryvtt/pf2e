@@ -2,6 +2,7 @@ import type { SkillSlug } from "@actor/types.ts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
@@ -65,7 +66,8 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const html = $html[0];
 
         // Create tagify selection inputs
-        const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
+        const getInput = (name: string): HTMLTagifyTraitsElement | null =>
+            htmlQuery<HTMLTagifyTraitsElement>(html, `tagify-traits[name="${name}"]`);
 
         tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 

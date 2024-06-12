@@ -8,6 +8,7 @@ import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/valu
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
 import {
     getActionGlyph,
     htmlClosest,
@@ -100,7 +101,7 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         const html = $html[0];
 
         // Tagify the traits selection
-        const traitsEl = htmlQuery<HTMLInputElement>(html, 'input[name="system.traits.value"]');
+        const traitsEl = htmlQuery<HTMLTagifyTraitsElement>(html, 'tagify-traits[name="system.traits.value"]');
         tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
     }
 

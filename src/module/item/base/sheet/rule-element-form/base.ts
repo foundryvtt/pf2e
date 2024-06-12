@@ -3,6 +3,7 @@ import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
@@ -199,7 +200,7 @@ class RuleElementForm<
         this.element = html;
 
         // Tagify selectors lists
-        const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
+        const selectorElement = htmlQuery<HTMLTagifyTraitsElement>(html, "tagify-traits.selector-list");
         tagify(selectorElement);
 
         // Add event listener for priority. This exists because normal form submission won't work for text-area forms

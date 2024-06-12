@@ -1,6 +1,7 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import Tagify from "@yaireo/tagify";
-import { ErrorPF2e, objectHasKey } from "./misc.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
+import Tagify, { TagifySettings } from "@yaireo/tagify";
+import { objectHasKey } from "./misc.ts";
 
 type WhitelistData = string[] | Record<string, string | { label: string }>;
 
@@ -31,15 +32,23 @@ function transformWhitelist(whitelist: WhitelistData) {
 }
 
 /** Create a tagify select menu out of a JSON input element */
-function tagify(input: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
-function tagify(input: HTMLInputElement | null, options?: TagifyOptions): Tagify<TagRecord> | null;
+function tagify(element: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
+function tagify(element: HTMLTagifyTraitsElement, options?: TagifyOptions): Tagify<TagRecord>;
 function tagify(
-    input: HTMLInputElement | null,
-    { whitelist, maxTags, enforceWhitelist = true }: TagifyOptions = {},
+    element: HTMLInputElement | HTMLTagifyTraitsElement | null,
+    options?: TagifyOptions,
+): Tagify<TagRecord> | null;
+function tagify(
+    element: HTMLInputElement | HTMLTagifyTraitsElement | null,
+    { whitelist, maxTags, enforceWhitelist = true, editTags }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    if (input?.hasAttribute("name") && input.dataset.dtype !== "JSON") {
-        throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
-    } else if (!input) {
+    // Avoid importing the HTMLTagifyTraitsElement class that references the foundry API
+    const isTagifyTraitsElement = (element: HTMLElement | null): element is HTMLTagifyTraitsElement => {
+        return element?.tagName.toLowerCase() === "tagify-traits";
+    };
+
+    const input = isTagifyTraitsElement(element) ? element.input : element;
+    if (!input) {
         return null;
     }
 
@@ -56,6 +65,7 @@ function tagify(
             maxItems,
             searchKeys: ["id", "value"],
         },
+        editTags,
         whitelist: whitelistTransformed,
     });
 
@@ -84,6 +94,12 @@ interface TagifyOptions {
     whitelist?: WhitelistData;
     /** Whether this whitelist is exhaustive */
     enforceWhitelist?: boolean;
+    /**
+     *  Number of clicks to enter edit mode: `1` for single click, `2` for a double-click.
+     * `false` or `null` will disallow editing.
+     * @default {clicks: 2, keepInvalid: true}
+     */
+    editTags?: TagifySettings["editTags"];
 }
 
 export { tagify, traitSlugToObject };

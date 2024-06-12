@@ -1,5 +1,6 @@
 import type { NoteRESource, RollNoteRuleElement } from "@module/rules/rule-element/roll-note.ts";
 import { DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
 import { htmlQuery, tagify } from "@util";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
@@ -23,7 +24,7 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
             const newValue = Array.isArray(selector) ? selector.at(0) ?? "" : [selector ?? ""].filter((s) => !!s);
             this.updateItem({ selector: newValue });
         });
-        const optionsEl = htmlQuery<HTMLInputElement>(html, ".outcomes");
+        const optionsEl = htmlQuery<HTMLTagifyTraitsElement>(html, "tagify-traits.outcomes");
         tagify(optionsEl, { whitelist: [...DEGREE_OF_SUCCESS_STRINGS], maxTags: 3 });
     }
 

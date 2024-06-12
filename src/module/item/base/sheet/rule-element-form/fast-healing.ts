@@ -3,6 +3,7 @@ import type {
     FastHealingSource,
     FastHealingType,
 } from "@module/rules/rule-element/fast-healing.ts";
+import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
 import { htmlQuery, tagify } from "@util";
 import { RuleElementForm, RuleElementFormSheetData } from "./base.ts";
 
@@ -12,7 +13,7 @@ class FastHealingForm extends RuleElementForm<FastHealingSource, FastHealingRule
         super.activateListeners(html);
 
         // Tagify the selector list. Valid defaults should be the IWR weakness types
-        const selectorElement = htmlQuery<HTMLInputElement>(html, ".deactivated-by");
+        const selectorElement = htmlQuery<HTMLTagifyTraitsElement>(html, "tagify-traits.deactivated-by");
         if (selectorElement) {
             const whitelist = CONFIG.PF2E.weaknessTypes;
             tagify(selectorElement, { whitelist, enforceWhitelist: false });
