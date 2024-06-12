@@ -1,6 +1,6 @@
 import type { Document, DocumentMetadata } from "../abstract/module.d.ts";
-import type * as documents from "./module.d.ts";
 import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /** The TableResult document model. */
 export default class BaseTableResult<TParent extends documents.BaseRollTable | null> extends Document<
@@ -39,7 +39,7 @@ type TableResultSchema = {
     /** The _id which uniquely identifies this TableResult embedded document */
     _id: fields.DocumentIdField;
     /** A result subtype from CONST.TABLE_RESULT_TYPES */
-    type: fields.NumberField<TableResultType, TableResultType, true, true, true>;
+    type: fields.DocumentTypeField<TableResultType>;
     /** The text which describes the table result */
     text: fields.HTMLField;
     /** An image file url that represents the table result */

@@ -445,9 +445,9 @@ export const SORT_INTEGER_DENSITY: 100000;
 
 /** The allowed types of a TableResult document */
 export const TABLE_RESULT_TYPES: {
-    TEXT: 0;
-    DOCUMENT: 1;
-    COMPENDIUM: 2;
+    TEXT: "text";
+    DOCUMENT: "document";
+    COMPENDIUM: "pack";
 };
 
 /** The allowed formats of a Journal Entry Page. */
