@@ -42,7 +42,6 @@ const SENSES_WITH_MANDATORY_ACUITIES: { [K in SenseType]?: SenseAcuity } = {
     "greater-darkvision": "precise",
     "infrared-vision": "precise",
     "low-light-vision": "precise",
-    "motion-sense": "precise",
     "see-invisibility": "precise",
     truesight: "precise",
 };
