@@ -1,7 +1,6 @@
-import type { AlphaField, ColorField, NumberField } from "types/foundry/common/data/fields.d.ts";
-import { isBracketedValue } from "../helpers.ts";
+import type { AlphaField, ColorField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
-import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
+import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 
 /**
  * Change the image representing an actor's token
@@ -13,12 +12,11 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
 
         return {
             ...super.defineSchema(),
-            value: new ResolvableValueField({
+            value: new fields.StringField({
                 required: true,
                 nullable: false,
                 initial: undefined,
                 label: "TOKEN.ImagePath",
-                validate: (v) => typeof v === "string" || isBracketedValue(v),
             }),
             scale: new fields.NumberField({
                 required: false,
@@ -73,7 +71,7 @@ interface TokenImageRuleElement
 
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
-    value: ResolvableValueField<true, false, false>;
+    value: StringField<string, string, true, false, false>;
     /** An optional scale adjustment */
     scale: NumberField<number, number, false, true, true>;
     /** An optional tint adjustment */
