@@ -1,0 +1,43 @@
+{
+    "_id": "Bds5RP9grJxhZALW",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Stargut Hydra) Skymetal Metamorphosis (Adamantine)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p>Each stargut hydra has at least one metamorphosis resulting from consuming a specific skymetal and internalizing its properties.</p>\n<p><strong>Adamantine</strong> The stargut hydra's Strikes bypass Hardness and are treated as adamantine. The stargut hydra gains resistance 10 to physical damage (except adamantine).</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "selector": "strike-damage",
+                "value": "adamantine"
+            },
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

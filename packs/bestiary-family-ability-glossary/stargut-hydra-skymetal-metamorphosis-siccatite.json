@@ -1,0 +1,75 @@
+{
+    "_id": "SXJRjw4R8m7NPDGc",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Stargut Hydra) Skymetal Metamorphosis (Siccatite)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p>Each stargut hydra has at least one metamorphosis resulting from consuming a specific skymetal and internalizing its properties.</p>\n<p><strong>Siccatite</strong> After the stargut hydra takes fire damage, it becomes superheated, gaining immunity to fire and weakness 10 to cold. While superheated, cold damage can be used to cauterize a stump. After the stargut hydra takes cold damage, it becomes chilled, gaining immunity to cold and weakness 10 to fire.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.StargutHydra.SkymetalMetamorphosis.Siccatite.Label",
+                "option": "skymetal-metamorphosis:siccatite",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.StargutHydra.SkymetalMetamorphosis.Siccatite.Superheated",
+                        "value": "superheated"
+                    },
+                    {
+                        "label": "PF2E.NPCAbility.StargutHydra.SkymetalMetamorphosis.Siccatite.Chilled",
+                        "value": "chilled"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "skymetal-metamorphosis:siccatite:superheated"
+                ],
+                "type": "fire"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "skymetal-metamorphosis:siccatite:superheated"
+                ],
+                "type": "cold",
+                "value": 10
+            },
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "skymetal-metamorphosis:siccatite:chilled"
+                ],
+                "type": "cold"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "skymetal-metamorphosis:siccatite:chilled"
+                ],
+                "type": "fire",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

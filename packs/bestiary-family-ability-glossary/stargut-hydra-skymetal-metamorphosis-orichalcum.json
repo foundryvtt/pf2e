@@ -1,0 +1,41 @@
+{
+    "_id": "6Z0v9Tsthm9hyzb3",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "(Stargut Hydra) Skymetal Metamorphosis (Orichalcum)",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "defensive",
+        "description": {
+            "value": "<p>Each stargut hydra has at least one metamorphosis resulting from consuming a specific skymetal and internalizing its properties.</p>\n<p><strong>Orichalcum</strong> When the stargut hydra has only two heads remaining, it is @UUID[Compendium.pf2e.conditionitems.Item.Quickened]. It can use the extra action only to Stride or Strike.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "lte": [
+                            "self:effect:hydra-heads",
+                            2
+                        ]
+                    }
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Quickened"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}
