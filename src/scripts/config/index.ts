@@ -91,49 +91,6 @@ const abilities: Record<AttributeString, string> = {
     cha: "PF2E.AbilityCha",
 };
 
-const ancestries = {
-    anadi: "PF2E.TraitAnadi",
-    android: "PF2E.TraitAndroid",
-    athamaru: "PF2E.TraitAthamaru",
-    automaton: "PF2E.TraitAutomaton",
-    "awakened-animal": "PF2E.TraitAwakenedAnimal",
-    azarketi: "PF2E.TraitAzarketi",
-    catfolk: "PF2E.TraitCatfolk",
-    centaur: "PF2E.TraitCentaur",
-    conrasu: "PF2E.TraitConrasu",
-    dwarf: "PF2E.TraitDwarf",
-    elf: "PF2E.TraitElf",
-    fetchling: "PF2E.TraitFetchling",
-    fleshwarp: "PF2E.TraitFleshwarp",
-    ghoran: "PF2E.TraitGhoran",
-    gnoll: "PF2E.TraitGnoll",
-    gnome: "PF2E.TraitGnome",
-    goblin: "PF2E.TraitGoblin",
-    goloma: "PF2E.TraitGoloma",
-    grippli: "PF2E.TraitGrippli",
-    halfling: "PF2E.TraitHalfling",
-    human: "PF2E.TraitHuman",
-    kashrishi: "PF2E.TraitKashrishi",
-    kitsune: "PF2E.TraitKitsune",
-    kobold: "PF2E.TraitKobold",
-    leshy: "PF2E.TraitLeshy",
-    lizardfolk: "PF2E.TraitLizardfolk",
-    merfolk: "PF2E.TraitMerfolk",
-    minotaur: "PF2E.TraitMinotaur",
-    nagaji: "PF2E.TraitNagaji",
-    orc: "PF2E.TraitOrc",
-    poppet: "PF2E.TraitPoppet",
-    ratfolk: "PF2E.TraitRatfolk",
-    shisk: "PF2E.TraitShisk",
-    shoony: "PF2E.TraitShoony",
-    skeleton: "PF2E.TraitSkeleton",
-    sprite: "PF2E.TraitSprite",
-    strix: "PF2E.TraitStrix",
-    tengu: "PF2E.TraitTengu",
-    vanara: "PF2E.TraitVanara",
-    vishkanya: "PF2E.TraitVishkanya",
-};
-
 // Senses
 const senses = R.mapToObj(Array.from(SENSE_TYPES), (t) => [
     t,
@@ -376,8 +333,6 @@ export const PF2ECONFIG = {
     },
 
     abilities,
-
-    ancestries,
 
     dcAdjustments: {
         "incredibly-easy": "PF2E.DCAdjustmentIncrediblyEasy",
