@@ -8,7 +8,7 @@ export const RenderSettingsConfig = {
     listen: (): void => {
         Hooks.on("renderSettingsConfig", (_app, $html) => {
             const html = $html[0];
-            const lockedSettings = ["core.gridDiagonals", "core.gridTemplates", "core.coneTemplateType"];
+            const lockedSettings = ["core.gridTemplates", "core.coneTemplateType"];
             for (const locked of lockedSettings) {
                 const element = htmlQuery(html, `div[data-setting-id="${locked}"]`);
                 if (!element) continue;
