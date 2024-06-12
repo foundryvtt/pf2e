@@ -5,4 +5,5 @@ export { CompendiumBrowserCampaignFeaturesTab as CampaignFeatures } from "./camp
 export { CompendiumBrowserEquipmentTab as Equipment } from "./equipment.ts";
 export { CompendiumBrowserFeatTab as Feats } from "./feat.ts";
 export { CompendiumBrowserHazardTab as Hazards } from "./hazard.ts";
+export { CompendiumBrowserHeritageTab as Heritages } from "./heritage.ts";
 export { CompendiumBrowserSpellTab as Spells } from "./spell.ts";
