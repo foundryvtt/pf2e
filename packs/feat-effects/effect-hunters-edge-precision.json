@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Precision] edge with you.</p>\n<p>You have trained to aim for your prey's weak points. The first time you hit your hunted prey in a round, you also deal 1d8 additional precision damage. (Precision damage increases the damage you already deal, using the same type, but is ineffective against creatures that lack vital organs or weak points.)</p>\n<p>At 11th level, the extra damage increases to 2d8 precision damage, and at 19th level, the extra damage increases to 3d8 precision damage.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -24,8 +24,8 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "label": "Track or Seek Hunted Prey",
+                "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
             {
@@ -33,9 +33,10 @@
                 "label": "PF2E.SpecificRule.HuntPrey.SeekHuntedPrey",
                 "predicate": [
                     "action:seek",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "perception",
+                "slug": "seek-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
@@ -44,50 +45,31 @@
                 "label": "PF2E.SpecificRule.HuntPrey.TrackHuntedPrey",
                 "predicate": [
                     "action:track",
-                    "hunted-prey"
+                    "hunted-prey:track-or-seek"
                 ],
                 "selector": "survival",
+                "slug": "track-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "First attack on hunted prey this round",
-                "option": "first-attack",
+                "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                "option": "precision:first-attack",
                 "toggleable": true
             },
             {
                 "category": "precision",
+                "diceNumber": "ternary(lt(@item.origin.level, 11), 1, ternary(lt(@item.origin.level, 19), 2, 3))",
                 "dieSize": "d8",
                 "key": "DamageDice",
+                "label": "1st attack against prey",
                 "predicate": [
-                    "first-attack"
+                    "precision:first-attack",
+                    "target:prey:{item|origin.signature}"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 10,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 18,
-                            "start": 11,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 19,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ]
-                }
+                "selector": "strike-damage"
             }
         ],
         "start": {

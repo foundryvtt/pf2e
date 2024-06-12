@@ -7,7 +7,7 @@
             "value": "<p>Granted when a ranger shares their @UUID[Compendium.pf2e.classfeatures.Item.Flurry] edge with you.</p>\n<p>Your multiple attack penalty for attacks against your hunted prey is -3 (-2 with an agile weapon) on your second attack of the turn instead of -5, and -6 (-4 with an agile weapon) on your third or subsequent attack of the turn, instead of -10.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -24,8 +24,8 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.HuntPrey.TargetHuntedPrey",
-                "option": "hunted-prey",
+                "label": "Track or Seek Hunted Prey",
+                "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
             {
@@ -36,6 +36,7 @@
                     "hunted-prey"
                 ],
                 "selector": "perception",
+                "slug": "seek-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
@@ -47,28 +48,22 @@
                     "hunted-prey"
                 ],
                 "selector": "survival",
+                "slug": "track-hunted-prey",
                 "type": "circumstance",
                 "value": 2
             },
             {
-                "key": "MultipleAttackPenalty",
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:2",
                 "predicate": [
-                    "agile",
-                    "hunted-prey"
-                ],
-                "selector": "attack",
-                "value": -2
-            },
-            {
-                "key": "MultipleAttackPenalty",
-                "predicate": [
-                    "hunted-prey",
                     {
-                        "not": "agile"
+                        "or": [
+                            "hunted-prey",
+                            "target:prey:{item|origin.signature}"
+                        ]
                     }
-                ],
-                "selector": "attack",
-                "value": -3
+                ]
             }
         ],
         "start": {

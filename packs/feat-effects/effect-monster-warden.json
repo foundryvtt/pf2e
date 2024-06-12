@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Monster Warden]</p>\n<p>You gain a +1 circumstance bonus to your next attack roll against that prey.</p>\n<p>You gain a +1 circumstance bonus to your next saving throw against that particular creature and to your AC against that creature's next attack against you.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,22 +22,24 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Target is the subject of Monster Hunter",
-                "option": "monster-hunter",
-                "toggleable": true
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "monster-hunter"
+                    "origin:prey:{item|origin.signature}"
                 ],
                 "selector": [
                     "ac",
                     "attack",
                     "saving-throw"
                 ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:prey:{item|origin.signature}"
+                ],
+                "selector": "attack",
                 "type": "circumstance",
                 "value": 1
             }

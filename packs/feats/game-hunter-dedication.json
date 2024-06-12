@@ -70,7 +70,7 @@
                 ],
                 "predicate": [
                     "target:condition:off-guard",
-                    "hunted-prey",
+                    "target:prey:{actor|signature}",
                     {
                         "or": [
                             "hunted-prey-game-hunter",
@@ -96,10 +96,15 @@
                 "value": 2
             },
             {
+                "key": "RollOption",
+                "option": "hunted-prey:stealth",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "label": "Using Stealth against Hunted Prey",
                 "predicate": [
-                    "hunted-prey",
+                    "hunted-prey:stealth",
                     {
                         "or": [
                             "hunted-prey-game-hunter",

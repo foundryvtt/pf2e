@@ -26,15 +26,27 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "Using Outwit skill checks against Hunted Prey",
+                "option": "outwit-skill-bonus",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hunted-prey"
+                    {
+                        "or": [
+                            "outwit-skill-bonus",
+                            "target:prey:{actor|signature}"
+                        ]
+                    }
                 ],
                 "selector": [
                     "deception",
                     "intimidation",
                     "stealth"
                 ],
+                "slug": "skill-outwit",
                 "type": "circumstance",
                 "value": 2
             },
@@ -42,18 +54,20 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "action:recall-knowledge",
-                    "hunted-prey"
+                    "outwit-skill-bonus"
                 ],
                 "selector": "skill-check",
+                "slug": "recall-knowledge-outwit",
                 "type": "circumstance",
                 "value": 2
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hunted-prey"
+                    "origin:prey:{actor|signature}"
                 ],
                 "selector": "ac",
+                "slug": "ac-outwit",
                 "type": "circumstance",
                 "value": 1
             }
