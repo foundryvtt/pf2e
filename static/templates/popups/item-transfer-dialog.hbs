@@ -21,9 +21,11 @@
 
     <div class="dialog-buttons">
         {{#if options.isPurchase}}
-            <button type="submit" data-action="give">
-                <i class="fa-regular fa-save"></i>{{localize "PF2E.loot.Give"}}
-            </button>
+            {{#if canGift}}
+                <button type="submit" data-action="give">
+                    <i class="fa-regular fa-save"></i>{{localize "PF2E.loot.Give"}}
+                </button>
+            {{/if}}
             <button type="submit">
                 <i class="fa-regular fa-coins"></i>{{localize "PF2E.loot.Purchase"}}
                 <span class="price"></span>
