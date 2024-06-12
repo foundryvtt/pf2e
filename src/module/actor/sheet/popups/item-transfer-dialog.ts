@@ -80,14 +80,13 @@ class ItemTransferDialog extends FormApplication<PhysicalItemPF2e, MoveLootOptio
 
         const priceElement = htmlQuery(html, ".price");
         const quantityInput = htmlQuery<HTMLInputElement>(html, "input[name=quantity]");
-        const giveElement = htmlQuery<HTMLInputElement>(html, "input[name=give]");
 
         // If the price element exists, update it and listen for quantity changes
         if (priceElement) {
             const getQuantity = () => Math.clamp(Number(quantityInput?.value ?? 1), 1, this.item.quantity);
             const updatePrice = () => {
                 const quantity = Math.clamp(Number(quantityInput?.value ?? 1), 1, this.item.quantity);
-                const cost = giveElement?.checked ? new CoinsPF2e() : CoinsPF2e.fromPrice(this.item.price, quantity);
+                const cost = CoinsPF2e.fromPrice(this.item.price, quantity);
                 priceElement.innerText = `(${cost.toString()})`;
             };
 
@@ -99,10 +98,6 @@ class ItemTransferDialog extends FormApplication<PhysicalItemPF2e, MoveLootOptio
 
             quantityInput?.addEventListener("blur", () => {
                 quantityInput.value = String(getQuantity());
-                updatePrice();
-            });
-
-            giveElement?.addEventListener("change", () => {
                 updatePrice();
             });
         }
