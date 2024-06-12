@@ -402,13 +402,16 @@ function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
             : null,
     ].filter(R.isTruthy);
 
-    return parts.join(" + ");
+    // If this is only a damage type override, show "Override" and let the icon sort out the meaning
+    return parts.length === 0 && d.override?.damageType
+        ? game.i18n.format("PF2E.Roll.Dialog.Damage.OverrideLabel")
+        : parts.join(" + ");
 }
 
 export {
+    DamageCategorization,
     applyBaseDamageAlterations,
     applyDamageDiceOverrides,
-    DamageCategorization,
     damageDiceIcon,
     damageDieSizeToFaces,
     deepFindTerms,
