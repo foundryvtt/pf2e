@@ -30,7 +30,7 @@ import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@syste
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
 import * as R from "remeda";
-import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
+import { CreatureFlags, CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
 import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
 
@@ -275,6 +275,14 @@ abstract class CreaturePF2e<
         super.prepareBaseData();
 
         this.flags.pf2e.rollOptions.all["self:creature"] = true;
+
+        // Setup initial diffcult terrain flag and work around mergeObject not merging arrays
+        const ignore = this._source.flags.pf2e?.difficultTerrain?.ignore ?? [];
+        const ignoreGreater = this._source.flags.pf2e?.difficultTerrain?.ignoreGreater ?? [];
+        this.flags.pf2e.difficultTerrain = {
+            ignore: [...R.filter(ignore, R.isTruthy)],
+            ignoreGreater: [...R.filter(ignoreGreater, R.isTruthy)],
+        };
 
         this.system.perception = fu.mergeObject({ attribute: "wis", senses: [] }, this.system.perception);
 
@@ -793,6 +801,7 @@ abstract class CreaturePF2e<
 
 interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
     readonly _source: CreatureSource;
+    flags: CreatureFlags;
     system: CreatureSystemData;
 
     get traits(): Set<CreatureTrait>;

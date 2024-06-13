@@ -256,6 +256,7 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
 /** Create roll options pertaining to the terrain the actor is currently in */
 function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean> {
     const toAdd = new Set<string>();
+    const difficultTerrains = new Set<string>();
     // Always add the scene terrain types
     for (const terrain of canvas.scene?.flags.pf2e.environmentTypes ?? []) {
         toAdd.add(terrain);
@@ -275,6 +276,18 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
                 (b): b is EnvironmentRegionBehaviorPF2e => b.type === "environment",
             )) {
                 const system = behavior.system;
+                if (system.groundOnly && token.elevation > 0) continue;
+
+                if (system.difficultTerrain) {
+                    difficultTerrains.add(`difficult`);
+                    if (system.difficultTerrain === "greater") {
+                        difficultTerrains.add(`difficult:greater`);
+                    }
+                    if (system.isMagical) {
+                        difficultTerrains.add(`difficult:magical`);
+                    }
+                }
+
                 switch (system.mode) {
                     case "add": {
                         for (const terrain of system.environmentTypes) {
@@ -307,7 +320,7 @@ function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean>
         return toAdd;
     })();
 
-    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
+    return Object.fromEntries([...terrains, ...difficultTerrains].map((t) => [`terrain:${t}`, true]));
 }
 
 /** Whether flanking puts this actor off-guard */
