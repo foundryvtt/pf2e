@@ -42,27 +42,6 @@
                 "priority": 99
             },
             {
-                "disabledIf": [
-                    {
-                        "not": "hunted-prey"
-                    }
-                ],
-                "domain": "all",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.GameHunterDedication.TargetHuntedPrey",
-                "option": "hunted-prey-game-hunter",
-                "predicate": [
-                    {
-                        "gt": [
-                            "grants-hunt-prey",
-                            1
-                        ]
-                    }
-                ],
-                "priority": 101,
-                "toggleable": true
-            },
-            {
                 "key": "Note",
                 "outcome": [
                     "criticalSuccess",
@@ -73,13 +52,15 @@
                     "target:prey:{actor|signature}",
                     {
                         "or": [
-                            "hunted-prey-game-hunter",
-                            "grants-hunt-prey:1"
+                            "target:trait:animal",
+                            "target:trait:beast",
+                            "target:trait:dragon"
                         ]
                     }
                 ],
-                "selector": "attack",
-                "text": "When you succeed at a Strike against your hunted prey while it's off-guard, it must attempt a Fortitude save against your class DC. On a failure, the prey's Speeds are each reduced by 10 feet for 1 round; on a critical failure, the duration of this effect is 1 minute. The prey is then temporarily immune to this effect for 10 minutes."
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.GameHunterDedication.Note",
+                "title": "{item|name}"
             },
             {
                 "key": "ActiveEffectLike",
@@ -104,13 +85,7 @@
                 "key": "FlatModifier",
                 "label": "Using Stealth against Hunted Prey",
                 "predicate": [
-                    "hunted-prey:stealth",
-                    {
-                        "or": [
-                            "hunted-prey-game-hunter",
-                            "grants-hunt-prey:1"
-                        ]
-                    }
+                    "hunted-prey:stealth"
                 ],
                 "selector": "stealth",
                 "type": "circumstance",
