@@ -27,14 +27,15 @@ class RegionDocumentPF2e extends RegionDocument<ScenePF2e | null> {
     }
 
     set x(value: number) {
-        const docX = this.x;
+        const difference = value - this.x;
+
         for (const shape of this.shapes) {
             if ("x" in shape && typeof shape.x === "number") {
-                shape.x += value - docX;
+                shape.x += difference;
             } else if ("points" in shape && Array.isArray(shape.points)) {
                 shape.points.forEach((coordinate, index) => {
                     if (index % 2 === 0) {
-                        shape.points[index] = coordinate += value - docX;
+                        shape.points[index] = coordinate + difference;
                     }
                 });
             }
@@ -42,14 +43,15 @@ class RegionDocumentPF2e extends RegionDocument<ScenePF2e | null> {
     }
 
     set y(value: number) {
-        const docY = this.y;
+        const difference = value - this.y;
+
         for (const shape of this.shapes) {
             if ("y" in shape && typeof shape.y === "number") {
-                shape.y += value - docY;
+                shape.y += difference;
             } else if ("points" in shape && Array.isArray(shape.points)) {
                 shape.points.forEach((coordinate, index) => {
                     if (index % 2 === 1) {
-                        shape.points[index] = coordinate += value - docY;
+                        shape.points[index] = coordinate + difference;
                     }
                 });
             }
