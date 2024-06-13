@@ -7,10 +7,10 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Hunt Prey]</p>\n<p>You designate a single creature as your prey and focus your attacks against that creature.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "days",
+            "value": 1
         },
         "level": {
             "value": 1
@@ -32,8 +32,7 @@
                     {
                         "or": [
                             "origin:signature:{item|origin.signature}",
-                            "origin:effect:hunters-edge-flurry",
-                            "origin:effect:masterful-hunters-edge-flurry"
+                            "origin:shared-flurry:{item|origin.signature}"
                         ]
                     }
                 ],
