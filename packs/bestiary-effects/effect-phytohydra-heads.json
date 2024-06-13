@@ -1,0 +1,57 @@
+{
+    "_id": "PSRUF9Elf05KtgvF",
+    "img": "systems/pf2e/icons/spells/summon-animal.webp",
+    "name": "Effect: Phytohydra Heads",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>The number of heads the hydra currently has.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Monster Core"
+        },
+        "rules": [
+            {
+                "diceNumber": "(@item.system.badge.value - 1) * 2",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "focused-assault"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "deactivatedBy": [],
+                "key": "FastHealing",
+                "type": "regeneration",
+                "value": "@item.system.badge.value * 5"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,491 @@
+{
+    "_id": "N0LZl2XaP8pFByuq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "dvaNmzHemFogcZlq",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Stalk",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "improved-grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "1vnyTWQFkjxuAdJ4": {
+                        "damage": "2d8+9",
+                        "damageType": "piercing"
+                    },
+                    "AFjtNFRgLjQcVxMs": {
+                        "damage": "2d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-15"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "OoHwfDZZm5W2c3El",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tremorsense (Imprecise) 60 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Tremorsense]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "td4bMZOi8EhyTKRL",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Quick Capture",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature hits or touches the reborn devotee</p><hr /><p><strong>Effect</strong> The reborn devotee makes a stalk Strike against the triggering creature. If it hits, the creature is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] in that stalk.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aHFZtaNUXgrwz2wO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Focused Assault",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The reborn devotee attacks a single target with four stalks, making one stalk Strike. On a success, the reborn devotee deals the damage from one stalk Strike plus an additional 1d8 damage for every stalk beyond the first. On a failure, the reborn devotee deals the damage from one stalk Strike, but it can't use Improved Grab. It deals no damage on a critical failure. This counts toward the reborn devotee's multiple attack penalty as a number of attacks equal to the number of stalks the devotee has.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "focused-assault",
+                        "toggleable": true
+                    },
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.RebornDevotee.RebornDevoteeFocusedAssault",
+                        "option": "stalk-number",
+                        "predicate": [
+                            "focused-assault"
+                        ],
+                        "selection": "1",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.One",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Two",
+                                "value": "2"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Three",
+                                "value": "3"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Numbers.Four",
+                                "value": "4"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    },
+                    {
+                        "diceNumber": "(@item.flags.pf2e.rulesSelections.stalkNumber)-1",
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "focused-assault"
+                        ],
+                        "selector": "stalk-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oUMLv10vI63KNOP1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hungry Flurry",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The reborn devotee makes four stalk Strikes at a –2 penalty, each against a different target. These attacks count toward the reborn devotee's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "attack-roll",
+                        "key": "RollOption",
+                        "option": "hungry-flurry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "hungry-flurry"
+                        ],
+                        "selector": "attack-roll",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jEsS23wy9aS1eutm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Swallow Whole",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Large, @Damage[(2d8+5)[bludgeoning],(2d6)[acid]], Rupture 17</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "WrWiadA2Joq2Qzba",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
+            "name": "Improved Grab",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ImprovedGrab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6TBOwy89xacYpXHm",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 800000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "zB4I45AyB6QgSpiv",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
+            "sort": 900000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 23
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ],
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
+                "traits": {},
+                "variants": {
+                    "0": {
+                        "label": "+26 in undergrowth",
+                        "options": "terrain:undergrowth"
+                    }
+                }
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Reborn Devotee",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -5
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 31
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 120,
+                "temp": 0,
+                "value": 120
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "acid",
+                    "value": 10
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 11
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #203: Shepard of Decay"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 19,
+            "senses": [
+                {
+                    "acuity": "imprecise",
+                    "range": 60,
+                    "type": "tremorsense"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 21
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 17
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "fungus",
+                "mindless",
+                "mutant"
+            ]
+        }
+    },
+    "type": "npc"
+}
