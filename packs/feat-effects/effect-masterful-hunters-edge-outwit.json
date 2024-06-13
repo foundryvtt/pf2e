@@ -24,7 +24,7 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Track or Seek Hunted Prey",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackOrSeek",
                 "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
@@ -54,7 +54,7 @@
                 ],
                 "selector": "survival",
                 "type": "circumstance",
-                "value": "ternary(gte(@actor.skills.survival.rank,3),4,2)"
+                "value": "ternary(gte(@actor.system.skills.survival.rank,3),4,2)"
             },
             {
                 "domain": "ranged-attack-roll",
@@ -129,6 +129,73 @@
                 "selector": "skill-check",
                 "slug": "outwit-recall-knowledge",
                 "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:prey:{item|origin.signature}"
+                ],
+                "selector": "ac",
+                "slug": "ac-outwit",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "armor:category:light",
+                                    {
+                                        "gte": [
+                                            "defense:light:rank",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "armor:category:medium",
+                                    {
+                                        "gte": [
+                                            "defense:medium:rank",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "armor:category:heavy",
+                                    {
+                                        "gte": [
+                                            "defense:heavy:rank",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "armor:category:unarmored",
+                                    {
+                                        "gte": [
+                                            "defense:unarmored:rank",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "ac-outwit",
+                "value": 2
             }
         ],
         "start": {

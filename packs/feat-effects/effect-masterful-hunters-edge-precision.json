@@ -24,7 +24,7 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Track or Seek Hunted Prey",
+                "label": "PF2E.SpecificRule.HuntPrey.TrackOrSeek",
                 "option": "hunted-prey:track-or-seek",
                 "toggleable": true
             },
@@ -71,15 +71,15 @@
                 "option": "precision",
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.FirstAttack",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.FirstAttack",
                         "value": "first-attack"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.SecondAttack",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.SecondAttack",
                         "value": "second-attack"
                     },
                     {
-                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.ThirdAttack",
+                        "label": "PF2E.SpecificRule.Ranger.HuntersEdge.Precision.ThirdAttack",
                         "predicate": [
                             {
                                 "gte": [
@@ -98,7 +98,6 @@
                 "diceNumber": "ternary(lt(@item.origin.level, 11), 1, ternary(lt(@item.origin.level, 19), 2, 3))",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "label": "1st attack against prey",
                 "predicate": [
                     "precision:first-attack",
                     "target:prey:{item|origin.signature}"
@@ -110,7 +109,6 @@
                 "diceNumber": "ternary(gte(@item.origin.level,19),2,1)",
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "label": "2nd attack against prey",
                 "predicate": [
                     "precision:second-attack",
                     "target:prey:{item|origin.signature}"
@@ -122,7 +120,6 @@
                 "diceNumber": 1,
                 "dieSize": "d8",
                 "key": "DamageDice",
-                "label": "3rd attack against prey",
                 "predicate": [
                     "target:prey:{item|origin.signature}",
                     "precision:third-attack",
