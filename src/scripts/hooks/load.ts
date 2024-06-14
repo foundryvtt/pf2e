@@ -4,6 +4,10 @@ import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { EnvironmentCanvasGroupPF2e } from "@module/canvas/group/environment.ts";
+import { EffectsCanvasGroupPF2e, LightingLayerPF2e, TemplateLayerPF2e, TokenPF2e } from "@module/canvas/index.ts";
+import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
+import { RegionPF2e } from "@module/canvas/region.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActorsPF2e } from "@module/collection/actors.ts";
 import { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
@@ -16,6 +20,9 @@ import {
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene/index.ts";
+import { RegionBehaviorPF2e } from "@scene/region-behavior/document.ts";
+import { EnvironmentBehaviorTypePF2e } from "@scene/region-behavior/environment.ts";
+import { RegionDocumentPF2e } from "@scene/region-document/document.ts";
 import { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import { TokenConfigPF2e } from "@scene/token-document/sheet.ts";
 import { monkeyPatchFoundry } from "@scripts/🐵🩹.ts";
@@ -46,11 +53,25 @@ export const Load = {
         CONFIG.Scene.documentClass = ScenePF2e;
         CONFIG.Tile.documentClass = TileDocumentPF2e;
         CONFIG.Token.documentClass = TokenDocumentPF2e;
+        CONFIG.Token.objectClass = TokenPF2e;
         CONFIG.Token.prototypeSheetClass = TokenConfigPF2e;
         CONFIG.User.documentClass = UserPF2e;
 
         CONFIG.Canvas.darknessColor = 0x2d2d52; // Lightness increased by ~0.4/10 (Munsell value)
         CONFIG.Canvas.exploredColor = 0x262626; // Increased from 0 (black)
+        CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
+        CONFIG.Canvas.groups.environment.groupClass = EnvironmentCanvasGroupPF2e;
+        CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
+        CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
+        CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
+
+        CONFIG.Region.documentClass = RegionDocumentPF2e;
+        CONFIG.Region.objectClass = RegionPF2e;
+
+        CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorTypePF2e;
+        CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
+        CONFIG.RegionBehavior.typeIcons.environment = "fa-solid fa-mountain-sun";
+        CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
 
         CONFIG.Dice.rolls.push(CheckRoll, StrikeAttackRoll, DamageRoll, DamageInstance);
         for (const TermCls of [ArithmeticExpression, Grouping, InstancePool, IntermediateDie]) {

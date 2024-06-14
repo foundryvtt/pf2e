@@ -1,7 +1,6 @@
 import type { CreaturePF2e } from "@actor/creature/document.ts";
 import { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
-import { LightLevels } from "./data.ts";
 import { DetectionModeEntry } from "./token-document/data.ts";
 
 // Prevent concurrent executions of this method in case of network latency
@@ -74,7 +73,7 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     token.sight.saturation = visionModeDefaults.saturation ?? 0;
 
     // Update basic sight and adjust saturation based on darkvision or light levels
-    if (visionMode === "darkvision" || (scene && scene.lightLevel > LightLevels.DARKNESS)) {
+    if (visionMode === "darkvision") {
         token.sight.range = basicSight.range = null;
 
         if (actor.isOfType("character") && actor.flags.pf2e.colorDarkvision) {
