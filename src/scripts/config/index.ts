@@ -901,9 +901,9 @@ export const PF2ECONFIG = {
                 name: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Name",
                 hint: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Hint",
             },
-            elementTypes: {
-                name: "PF2E.SETTINGS.Homebrew.ElementTypes.Name",
-                hint: "PF2E.SETTINGS.Homebrew.ElementTypes.Hint",
+            elementTraits: {
+                name: "PF2E.SETTINGS.Homebrew.ElementTraits.Name",
+                hint: "PF2E.SETTINGS.Homebrew.ElementTraits.Hint",
             },
         },
         worldClock: {
