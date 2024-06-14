@@ -68,6 +68,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
         weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...universalReservedTerms]),
         environmentTypes: new Set([...Object.keys(CONFIG.PF2E.environmentTypes), ...universalReservedTerms]),
+        elementTraits: new Set([...Object.keys(CONFIG.PF2E.elementTraits), ...universalReservedTerms]),
     };
 }
 
