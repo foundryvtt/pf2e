@@ -9,20 +9,8 @@ import {
     EncounterTrackerPF2e,
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
-import {
-    AmbientLightPF2e,
-    EffectsCanvasGroupPF2e,
-    LightingLayerPF2e,
-    MeasuredTemplatePF2e,
-    TemplateLayerPF2e,
-    TokenPF2e,
-} from "@module/canvas/index.ts";
+import { AmbientLightPF2e, LightingLayerPF2e, MeasuredTemplatePF2e, TemplateLayerPF2e } from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
-import { PointVisionSourcePF2e } from "@module/canvas/perception/point-vision-source.ts";
-import { RegionPF2e } from "@module/canvas/region.ts";
-import { RegionBehaviorPF2e } from "@scene/region-behavior/document.ts";
-import { EnvironmentBehaviorTypePF2e } from "@scene/region-behavior/environment.ts";
-import { RegionDocumentPF2e } from "@scene/region-document/document.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -51,21 +39,6 @@ export const Init = {
             CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
             CONFIG.MeasuredTemplate.defaults.angle = 90;
             CONFIG.MeasuredTemplate.defaults.width = 1;
-
-            CONFIG.Token.objectClass = TokenPF2e;
-
-            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
-            CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-            CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
-            CONFIG.Canvas.visionSourceClass = PointVisionSourcePF2e;
-
-            CONFIG.Region.documentClass = RegionDocumentPF2e;
-            CONFIG.Region.objectClass = RegionPF2e;
-
-            CONFIG.RegionBehavior.documentClass = RegionBehaviorPF2e;
-            CONFIG.RegionBehavior.dataModels.environment = EnvironmentBehaviorTypePF2e;
-            CONFIG.RegionBehavior.typeLabels.environment = "PF2E.Region.Environment.Label";
-            CONFIG.RegionBehavior.typeIcons.environment = "fa-solid fa-mountain-sun";
 
             setPerceptionModes();
 
