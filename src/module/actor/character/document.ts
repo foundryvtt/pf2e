@@ -34,6 +34,7 @@ import type {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
+    LorePF2e,
     PhysicalItemPF2e,
 } from "@item";
 import { ItemPF2e, WeaponPF2e } from "@item";
@@ -73,6 +74,7 @@ import {
     CharacterAbilities,
     CharacterAttributes,
     CharacterFlags,
+    CharacterSkillData,
     CharacterSource,
     CharacterStrike,
     CharacterSystemData,
@@ -621,7 +623,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
 
         // Skills
-        this.skills = this.prepareSkills();
+        this.prepareSkills();
 
         // Class DC
         this.classDC = null;
@@ -877,16 +879,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         });
     }
 
-    private prepareSkills(): CharacterSkills<this> {
+    private prepareSkills() {
         // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
-        const skills = R.mapToObj([...SKILL_SLUGS], (longForm) => {
-            const skill = system.skills[longForm];
-            const label = CONFIG.PF2E.skillList[longForm] ?? longForm;
+        this.skills = R.mapToObj([...SKILL_SLUGS], (skillSlug) => {
+            const skill = system.skills[skillSlug];
+            const label = CONFIG.PF2E.skillList[skillSlug] ?? skillSlug;
 
             const domains = [
-                longForm,
+                skillSlug,
                 `${skill.attribute}-based`,
                 "skill-check",
                 `${skill.attribute}-skill-check`,
@@ -906,11 +908,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 // Set requirements for ignoring the check penalty according to skill
                 armorCheckPenalty.predicate.push({ nor: ["attack", "armor:ignore-check-penalty"] });
-                if (["acrobatics", "athletics"].includes(longForm)) {
+                if (["acrobatics", "athletics"].includes(skillSlug)) {
                     armorCheckPenalty.predicate.push({
                         nor: ["armor:strength-requirement-met", "armor:trait:flexible"],
                     });
-                } else if (longForm === "stealth" && wornArmor.traits.has("noisy")) {
+                } else if (skillSlug === "stealth" && wornArmor.traits.has("noisy")) {
                     armorCheckPenalty.predicate.push({
                         nand: ["armor:strength-requirement-met", "armor:ignore-noisy-penalty"],
                     });
@@ -922,10 +924,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             }
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
-            if (longForm === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+            if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
 
             const statistic = new Statistic(this, {
-                slug: longForm,
+                slug: skillSlug,
                 label,
                 rank: skill.rank,
                 attribute: skill.attribute,
@@ -935,18 +937,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
 
-            system.skills[longForm] = fu.mergeObject(statistic.getTraceData(), system.skills[longForm]);
-
-            return [longForm, statistic];
+            return [skillSlug, statistic];
         });
 
-        // Lore skills
+        // Add Lore skills to skill statistics
         for (const loreItem of this.itemTypes.lore) {
-            // normalize skill name to lower-case and dash-separated words
             const longForm = sluggify(loreItem.name);
             const rank = loreItem.system.proficient.value;
-
-            const statistic = new Statistic(this, {
+            this.skills[longForm as SkillSlug] = new Statistic(this, {
                 slug: longForm,
                 label: loreItem.name,
                 rank,
@@ -955,19 +953,23 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
-
-            skills[longForm as SkillSlug] = statistic;
-            system.skills[longForm] = {
-                ...statistic.getTraceData(),
-                armor: false,
-                attribute: "int",
-                rank,
-                lore: true,
-                itemID: loreItem.id,
-            };
         }
 
-        return skills;
+        // Create trace skill data in system data and omit unprepared skills
+        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
+        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
+        this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
+            const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
+            const baseData = this.system.skills[key] ?? {};
+            const data: CharacterSkillData = fu.mergeObject(baseData, {
+                ...statistic.getTraceData(),
+                rank: statistic.rank,
+                armor: baseData.armor ?? false,
+                itemID: loreItem?.id ?? null,
+                lore: !!statistic.lore,
+            });
+            return [key, data];
+        });
     }
 
     override prepareSpeed(movementType: "land"): CreatureSpeeds;
