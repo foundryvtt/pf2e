@@ -4,13 +4,14 @@ import type { CharacterStrike } from "./data.ts";
 import type { CharacterPF2e } from "./document.ts";
 import type { ElementalBlastConfig } from "./elemental-blast.ts";
 import { CharacterSheetPF2e, type CharacterSheetData } from "./sheet.ts";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 
 class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TActor> {
     type: "strike" | "blast" = "strike";
     #strikeItemId = "";
     #strikeSlug = "";
     #strike?: CharacterStrike;
-    #elementTrait?: ElementTrait;
+    #elementTrait?: EffectTrait;
     #blasts: ElementalBlastConfig[] = [];
 
     override get template(): string {
