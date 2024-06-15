@@ -22,7 +22,7 @@ const HOMEBREW_TRAIT_KEYS = [
 const TRAIT_PROPAGATIONS = {
     creatureTraits: ["ancestryTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
-    featTraits: ["actionTraits"],
+    featTraits: ["actionTraits", "effectTraits"],
     weaponTraits: ["npcAttackTraits"],
 } as const;
 
