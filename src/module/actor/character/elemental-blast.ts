@@ -13,7 +13,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
+import { elementTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -42,6 +42,7 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;
@@ -71,9 +72,9 @@ class ElementalBlast {
         const { fields } = foundry.data;
 
         return new fields.SchemaField({
-            element: new fields.StringField<ElementTrait, ElementTrait, true, false, false>({
+            element: new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
                 required: true,
-                choices: () => CONFIG.PF2E.elementTraits,
+                choices: () => CONFIG.PF2E.effectTraits,
                 initial: undefined,
             }),
             label: new fields.StringField({ required: true, blank: false, initial: undefined }),
@@ -259,7 +260,7 @@ class ElementalBlast {
     }
 
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
-    #getBlastConfig(element: ElementTrait, damageType: DamageType): ElementalBlastConfig {
+    #getBlastConfig(element: EffectTrait, damageType: DamageType): ElementalBlastConfig {
         const config = this.configs.find(
             (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType),
         );
@@ -509,7 +510,7 @@ class ElementalBlast {
     }
 
     /** Set damage type according to the user's selection on the PC sheet */
-    async setDamageType({ element, damageType }: { element: ElementTrait; damageType: DamageType }): Promise<void> {
+    async setDamageType({ element, damageType }: { element: EffectTrait; damageType: DamageType }): Promise<void> {
         if (!this.configs.some((c) => c.element === element && c.damageTypes.some((dt) => dt.value === damageType))) {
             throw ErrorPF2e(`Damage type "${damageType}" not available for ${element}`);
         }
@@ -525,13 +526,13 @@ interface CreateModifiedItemParams {
 
 interface BlastAttackParams extends AttackRollParams {
     mapIncreases: number;
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
 }
 
 interface BlastDamageParams extends DamageRollParams {
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
     actionCost?: number;
@@ -539,7 +540,7 @@ interface BlastDamageParams extends DamageRollParams {
 }
 
 type BlastConfigSchema = {
-    element: StringField<ElementTrait, ElementTrait, true, false, false>;
+    element: StringField<EffectTrait, EffectTrait, true, false, false>;
     label: StringField<string, string, true, false, false>;
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     damageTypes: ArrayField<StringField<DamageType, DamageType, true, false, false>>;

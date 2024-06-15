@@ -732,6 +732,7 @@ const effectTraits = R.omit(actionTraits, [
     ...R.keys.strict(ancestryTraits),
     ...R.keys.strict(classTraits),
     ...R.keys.strict(weaponActionTraits),
+    ...R.keys.strict(elementTraits),
     "additive1",
     "additive2",
     "additive3",

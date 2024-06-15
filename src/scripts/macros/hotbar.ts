@@ -45,7 +45,7 @@ export async function createActionMacro({
     if (!actor?.isOfType("character", "npc")) return;
 
     const data = ((): { name: string; command: string; img: ImageFilePath } | null => {
-        if (actor.isOfType("character") && objectHasKey(CONFIG.PF2E.elementTraits, elementTrait)) {
+        if (actor.isOfType("character") && objectHasKey(CONFIG.PF2E.effectTraits, elementTrait)) {
             const blast = new ElementalBlast(actor);
             const config = blast.configs.find((c) => c.element === elementTrait);
             if (!config) return null;
