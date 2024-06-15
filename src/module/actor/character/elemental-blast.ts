@@ -13,7 +13,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { elementTraits } from "@scripts/config/traits.ts";
+import { effectTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -226,15 +226,15 @@ class ElementalBlast {
             const maxRange = infusion?.range?.max ?? blast.range;
             const range = infusion?.range?.increment
                 ? {
-                      increment: infusion.range.increment,
-                      max: infusion.range.increment * 6,
-                      label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
-                  }
+                    increment: infusion.range.increment,
+                    max: infusion.range.increment * 6,
+                    label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
+                }
                 : {
-                      increment: null,
-                      max: maxRange,
-                      label: game.i18n.format("PF2E.Action.Range.MaxN", { n: maxRange }),
-                  };
+                    increment: null,
+                    max: maxRange,
+                    label: game.i18n.format("PF2E.Action.Range.MaxN", { n: maxRange }),
+                };
 
             return {
                 ...blast,
@@ -317,7 +317,7 @@ class ElementalBlast {
 
         const { element, damageType } = params;
         if (!element) throw ErrorPF2e("No element provided");
-        if (!objectHasKey(elementTraits, element)) {
+        if (!objectHasKey(effectTraits, element)) {
             throw ErrorPF2e(`Unrecognized element: ${element}`);
         }
         if (!damageType) throw ErrorPF2e("No damage type provided");
@@ -492,20 +492,20 @@ class ElementalBlast {
         const modifierValue = traits.has("thrown")
             ? strengthModValue
             : traits.has("propulsive")
-              ? strengthModValue < 0
-                  ? strengthModValue
-                  : Math.floor(strengthModValue / 2)
-              : null;
+                ? strengthModValue < 0
+                    ? strengthModValue
+                    : Math.floor(strengthModValue / 2)
+                : null;
 
         return typeof modifierValue === "number"
             ? new ModifierPF2e({
-                  slug: "str",
-                  label: CONFIG.PF2E.abilities.str,
-                  ability: "str",
-                  modifier: modifierValue,
-                  type: "ability",
-                  adjustments: extractModifierAdjustments(this.actor.synthetics.modifierAdjustments, domains, "str"),
-              })
+                slug: "str",
+                label: CONFIG.PF2E.abilities.str,
+                ability: "str",
+                modifier: modifierValue,
+                type: "ability",
+                adjustments: extractModifierAdjustments(this.actor.synthetics.modifierAdjustments, domains, "str"),
+            })
             : null;
     }
 

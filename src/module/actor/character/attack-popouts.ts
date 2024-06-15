@@ -1,4 +1,3 @@
-import type { ElementTrait } from "@scripts/config/traits.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
 import type { CharacterStrike } from "./data.ts";
 import type { CharacterPF2e } from "./document.ts";
@@ -124,7 +123,7 @@ interface StrikePopoutOptions extends BaseAttackPopoutOptions {
 
 interface BlastPopoutOptions extends BaseAttackPopoutOptions {
     type: "blast";
-    elementTrait?: ElementTrait;
+    elementTrait?: EffectTrait;
 }
 
 type AttackPopoutOptions = StrikePopoutOptions | BlastPopoutOptions;
