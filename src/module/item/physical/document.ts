@@ -390,15 +390,23 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
                 }
             }
         }
+
+        for (const subitem of this.subitems) {
+            subitem.prepareSiblingData();
+        }
     }
 
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     override onPrepareSynthetics(): void {
         this.system.hp.value = Math.clamp(this.system.hp.value, 0, this.system.hp.max);
+
+        for (const subitem of this.subitems) {
+            subitem.onPrepareSynthetics();
+        }
     }
 
     override prepareActorData(): void {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor?.isOfType("character")) return;
 
         // Apply this item's apex attribute upgrade if applicable
@@ -408,6 +416,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             } else {
                 actor.system.build.attributes.apex = this.system.apex.attribute;
             }
+        }
+
+        for (const subitem of this.subitems) {
+            subitem.prepareActorData();
         }
     }
 
