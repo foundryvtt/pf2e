@@ -303,8 +303,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /** Draw auras along with effect icons */
-    override async drawEffects(): Promise<void> {
-        await super.drawEffects();
+    override async _drawEffects(): Promise<void> {
+        await super._drawEffects();
         await this.animation;
 
         if (this.auras.size === 0) {
