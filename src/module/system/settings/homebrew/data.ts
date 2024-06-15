@@ -31,12 +31,12 @@ type HomebrewTraitSettingsKey = `homebrew.${HomebrewTraitKey}`;
 
 interface HomebrewTag<T extends HomebrewTraitKey = HomebrewTraitKey> {
     id: T extends "baseWeapons"
-    ? BaseWeaponType
-    : T extends "languages"
-    ? LanguageNotCommon
-    : T extends Exclude<HomebrewTraitKey, "baseWeapons" | "languages">
-    ? keyof (typeof CONFIG.PF2E)[T]
-    : never;
+        ? BaseWeaponType
+        : T extends "languages"
+          ? LanguageNotCommon
+          : T extends Exclude<HomebrewTraitKey, "baseWeapons" | "languages">
+            ? keyof (typeof CONFIG.PF2E)[T]
+            : never;
     value: string;
 }
 
@@ -122,10 +122,10 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
         return source
             ? obj
             : {
-                ...obj,
-                common: Array.from(this.common),
-                homebrew: Array.from(this.homebrew),
-            };
+                  ...obj,
+                  common: Array.from(this.common),
+                  homebrew: Array.from(this.homebrew),
+              };
     }
 
     /** Schema-restricting choices removes homebrew languages before they're registered: prune in ready hook instead. */
@@ -141,7 +141,7 @@ class LanguageSettings extends foundry.abstract.DataModel<null, LanguageSettings
 
 interface LanguageSettings
     extends foundry.abstract.DataModel<null, LanguageSettingsSchema>,
-    ModelPropsFromSchema<LanguageSettingsSchema> { }
+        ModelPropsFromSchema<LanguageSettingsSchema> {}
 
 type LanguageSettingsSchema = {
     /** The "common" tongue of the region, rather than languages of common rarity */
