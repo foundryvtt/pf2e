@@ -120,9 +120,9 @@ const UNCOMMON_LANGUAGES = [
 ] as const;
 
 const RARE_LANGUAGES = [
-    "ancient-osiriani",
     "akitonian",
     "anadi",
+    "ancient-osiriani",
     "androffan",
     "anugobu",
     "arcadian",
@@ -167,6 +167,7 @@ const RARE_LANGUAGES = [
     "shoony",
     "shory",
     "strix",
+    "surki",
     "talican",
     "tanuki",
     "tekritanin",
