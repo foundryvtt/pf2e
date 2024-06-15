@@ -226,15 +226,15 @@ class ElementalBlast {
             const maxRange = infusion?.range?.max ?? blast.range;
             const range = infusion?.range?.increment
                 ? {
-                    increment: infusion.range.increment,
-                    max: infusion.range.increment * 6,
-                    label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
-                }
+                      increment: infusion.range.increment,
+                      max: infusion.range.increment * 6,
+                      label: game.i18n.format("PF2E.Action.Range.IncrementN", { n: infusion.range.increment }),
+                  }
                 : {
-                    increment: null,
-                    max: maxRange,
-                    label: game.i18n.format("PF2E.Action.Range.MaxN", { n: maxRange }),
-                };
+                      increment: null,
+                      max: maxRange,
+                      label: game.i18n.format("PF2E.Action.Range.MaxN", { n: maxRange }),
+                  };
 
             return {
                 ...blast,
@@ -492,20 +492,20 @@ class ElementalBlast {
         const modifierValue = traits.has("thrown")
             ? strengthModValue
             : traits.has("propulsive")
-                ? strengthModValue < 0
-                    ? strengthModValue
-                    : Math.floor(strengthModValue / 2)
-                : null;
+              ? strengthModValue < 0
+                  ? strengthModValue
+                  : Math.floor(strengthModValue / 2)
+              : null;
 
         return typeof modifierValue === "number"
             ? new ModifierPF2e({
-                slug: "str",
-                label: CONFIG.PF2E.abilities.str,
-                ability: "str",
-                modifier: modifierValue,
-                type: "ability",
-                adjustments: extractModifierAdjustments(this.actor.synthetics.modifierAdjustments, domains, "str"),
-            })
+                  slug: "str",
+                  label: CONFIG.PF2E.abilities.str,
+                  ability: "str",
+                  modifier: modifierValue,
+                  type: "ability",
+                  adjustments: extractModifierAdjustments(this.actor.synthetics.modifierAdjustments, domains, "str"),
+              })
             : null;
     }
 
