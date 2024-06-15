@@ -33,6 +33,7 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         preformatted?: "flavor" | "content" | "both";
         journalEntry?: DocumentUUID;
         appliedDamage?: AppliedDamageFlag | null;
+        treatWoundsMacroFlag?: { bonus: number };
         [key: string]: unknown;
     };
     core: NonNullable<ChatMessageFlags["core"]>;
