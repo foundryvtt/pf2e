@@ -7,6 +7,7 @@
 
 ### Bugfixes
 
+-   (In3luki) Fix auras not being drawn when a token is created
 -   (Rigo) Fix localization for token light rule element form
 -   (stwlam) Fix NPC strikes with the thrown trait not being detected as ranged attacks
 -   (stwlam) Fix darkness regions not hiding tokens from players without darkvision
