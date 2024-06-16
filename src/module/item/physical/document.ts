@@ -33,7 +33,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
      * The cached container of this item, if in a container, or null
      * @ignore
      */
-    private declare _container: ContainerPF2e<ActorPF2e> | null;
+    private declare _container?: ContainerPF2e<ActorPF2e> | null;
 
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     declare subitems: Collection<PhysicalItemPF2e<TParent>>;
@@ -192,9 +192,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
     /** Get this item's container, returning null if it is not in a container */
     get container(): ContainerPF2e<ActorPF2e> | null {
-        if (this.system.containerId === null) return (this._container = null);
-        return (this._container ??=
-            this.actor?.itemTypes.backpack.find((c) => c.id === this.system.containerId) ?? null);
+        this.updateContainerCache();
+        return this._container ?? null;
     }
 
     /** Returns the bulk of this item and all sub-containers */
@@ -250,7 +249,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
-        this._container = null;
+        delete this._container;
         this.subitems ??= new Collection();
         super._initialize(options);
     }
@@ -293,9 +292,9 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
             equipped.inSlot = false;
         }
 
-        // Set the _container cache property to null if it no longer matches this item's container ID
+        // Remove the _container cache property if it no longer matches this item's container ID
         if (this._container?.id !== this.system.containerId) {
-            this._container = null;
+            delete this._container;
         }
 
         // Prepare doubly-embedded items if this is of an appropriate physical-item type
@@ -377,7 +376,8 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
 
         // Clear the container reference if it turns out to be stale
         if (this._container && !this.actor.items.has(this._container.id)) {
-            this._container = this.system.containerId = null;
+            this.system.containerId = null;
+            delete this._container;
         }
 
         // Ensure that there is only one selected apex item, and all others are set to false
@@ -590,6 +590,23 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         if (typeOnly) return itemType;
 
         return game.i18n.format("PF2E.identification.UnidentifiedItem", { item: itemType });
+    }
+
+    /** Updates this container's cache while also resolving cyclical references. Skips if already cached */
+    protected updateContainerCache(seen: string[] = []): void {
+        // If already cached or there is no container, return
+        if ("_container" in this) {
+            return;
+        }
+
+        const container = this.actor?.items.get(this.system.containerId ?? "") ?? null;
+        if (!container?.isOfType("backpack") || this.id === container.id || seen.includes(container.id)) {
+            this._container = null;
+        } else {
+            seen.push(this.id);
+            this._container = container;
+            container.updateContainerCache(seen);
+        }
     }
 
     /** Include mystification-related rendering instructions for views that will display this data. */
