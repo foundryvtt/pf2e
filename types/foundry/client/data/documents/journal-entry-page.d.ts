@@ -6,7 +6,9 @@ declare global {
      *
      * @see {@link JournalEntry}  The JournalEntry document type which contains JournalEntryPage embedded documents.
      */
-    class JournalEntryPage<TParent extends JournalEntry | null> extends ClientBaseJournalEntryPage<TParent> {
+    class JournalEntryPage<
+        TParent extends JournalEntry | null = JournalEntry | null,
+    > extends ClientBaseJournalEntryPage<TParent> {
         /** The table of contents for this JournalEntryPage. */
         get toc(): JournalEntryPageHeading;
 
@@ -66,7 +68,8 @@ declare global {
         ): void;
     }
 
-    interface JournalEntryPage<TParent extends JournalEntry | null> extends ClientBaseJournalEntryPage<TParent> {
+    interface JournalEntryPage<TParent extends JournalEntry | null = JournalEntry | null>
+        extends ClientBaseJournalEntryPage<TParent> {
         get documentName(): "JournalEntryPage";
         get sheet(): JournalPageSheet<this>;
     }
