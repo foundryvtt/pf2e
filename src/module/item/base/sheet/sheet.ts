@@ -144,7 +144,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
-            enabledRulesUI: game.user.isGM || game.settings.get("pf2e", "enabledRulesUI"),
+            enabledRulesUI: game.user.hasRole(game.settings.get("pf2e", "minimumRulesUI")),
             ruleEditing: !!this.editingRuleElement,
             rules: {
                 selection: {

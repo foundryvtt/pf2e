@@ -33,7 +33,6 @@ export const Ready = {
             // Changing a setting to the default still triggers onChange, and in V12.322 can trigger console errors
             // The actual manipulation of the setting is locked down by the renderSettingsConfig hook.
             const defaultGridSettings = {
-                gridDiagonals: 4,
                 gridTemplates: false,
                 coneTemplateType: "round",
             };
@@ -98,7 +97,6 @@ export const Ready = {
                 for (const badModule of subV10Modules) {
                     const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
-                    console.warn(message);
                 }
             });
 

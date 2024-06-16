@@ -194,7 +194,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    {
+                                        "or": [
+                                            "damage:type:acid",
+                                            "spell:cause-rust"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.AcidAndSpellsThatCauseRust"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "spells",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -340,14 +359,6 @@
                         "adamantine"
                     ],
                     "type": "physical",
-                    "value": 15
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [
-                        "acid"
-                    ],
-                    "type": "spells",
                     "value": 15
                 }
             ],

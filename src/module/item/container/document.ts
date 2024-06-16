@@ -51,11 +51,19 @@ class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         return super.bulk.plus(this.capacity.value.minus(this.bulkIgnored));
     }
 
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+
+        // Simple measure to avoid self-recursive containers
+        if (this.system.containerId === this.id) {
+            this.system.containerId = null;
+        }
+    }
+
     /** Reload this container's contents following Actor embedded-document preparation */
     override prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void {
         super.prepareSiblingData();
 
-        if (this.system.containerId === this.id) this.system.containerId = null;
         this.contents = new Collection(
             this.actor.inventory.filter((i) => i.container?.id === this.id).map((item) => [item.id, item]),
         );

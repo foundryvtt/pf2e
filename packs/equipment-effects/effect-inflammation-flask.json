@@ -1,0 +1,69 @@
+{
+    "_id": "li52UFA2ErqRLeer",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
+    "name": "Effect: Inflammation Flask",
+    "system": {
+        "description": {
+            "value": "<p>On a hit, the target also gains weakness to acid, fire, and slashing damage for 3 rounds based on the bomb type.</p>\n<p>The target can end the weakness effect by three means: being drenched with water (such as submersion or exposure to an area water effect), being Administered First Aid (whose DC is based on the bomb type), or regaining Hit Points from a single effect equal to twice the inflammation flask's level. A creature that critically fails to Administer First Aid in this way deals untyped damage to the target equal to the inflammation flask's initial acid damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #203: Shepard of Decay"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Lesser",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Moderate",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Greater",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Bomb.Type.Major",
+                        "value": 4
+                    }
+                ],
+                "flag": "weakness",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Equipment.Bomb.Choice"
+            },
+            {
+                "key": "Weakness",
+                "type": [
+                    "acid",
+                    "fire",
+                    "slashing"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.weakness}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
