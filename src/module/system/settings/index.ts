@@ -93,7 +93,7 @@ export function registerSettings(): void {
         hint: "PF2E.SETTINGS.MinimumRulesUI.Hint",
         scope: "world",
         config: true,
-        default: 4,
+        default: CONST.USER_ROLES.ASSISTANT,
         type: Number,
         choices: {
             1: "USER.RolePlayer",

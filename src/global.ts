@@ -323,7 +323,7 @@ declare global {
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "gmVision"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
-        get(module: "pf2e", setting: "minimumRulesUI"): 1 | 2 | 3 | 4;
+        get(module: "pf2e", setting: "minimumRulesUI"): Exclude<UserRole, 0>;
         get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "seenRemasterJournalEntry"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
