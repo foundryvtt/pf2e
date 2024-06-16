@@ -25,7 +25,41 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Impossible Lands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "crystal-luminescence"
+                ],
+                "value": {
+                    "animation": {
+                        "type": "torch"
+                    },
+                    "bright": "20+@item.flags.pf2e.rulesSelections.crystalLuminescence",
+                    "color": "#1e0ab8",
+                    "dim": "40+@item.flags.pf2e.rulesSelections.crystalLuminescence"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Crystal Luminescence",
+                "option": "crystal-luminescence",
+                "selection": "0",
+                "suboptions": [
+                    {
+                        "label": "Normal",
+                        "value": "0"
+                    },
+                    {
+                        "label": "Enhanced",
+                        "value": "10"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
