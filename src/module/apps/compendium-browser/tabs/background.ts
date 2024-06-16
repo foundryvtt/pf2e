@@ -54,6 +54,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                     originalName: backgroundData.originalName,
                     img: backgroundData.img,
                     uuid: backgroundData.uuid,
+                    traits: backgroundData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: backgroundData.system.traits.rarity,
                     source: sourceSlug,
                     boosts: backgroundData.system.boosts[0].value,
@@ -74,7 +75,12 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 backgrounds
                     .map((t) => {
                         return t.feats.flatMap((feat: string) => {
-                            const featString = feat.replaceAll("-", " ").titleCase();
+                            const featString = feat
+                                .split("-")
+                                .map((word: string) => {
+                                    return word.charAt(0).toUpperCase() + word.slice(1);
+                                })
+                                .join(" ");
                             return [feat, featString];
                         });
                     })
@@ -86,33 +92,24 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 backgrounds
                     .map((t) => {
                         return t.lores.flatMap((lore: string) => {
-                            const loreString = lore.replaceAll("-", " ").titleCase();
+                            const loreString = lore
+                                .split("-")
+                                .map((word: string) => {
+                                    return word.charAt(0).toUpperCase() + word.slice(1);
+                                })
+                                .join(" ");
                             return [lore, loreString];
                         });
                     })
                     .filter(([_value, label]) => label != undefined),
             );
 
-<<<<<<< HEAD
-            const skillList = Object.fromEntries(
-                Object.keys(CONFIG.PF2E.skills).map((t) => {
-                    const skills = CONFIG.PF2E.skills as { [key: string]: { label: string; attribute: string } };
-                    return [t, skills[t].label];
-                }),
-            );
-
-=======
->>>>>>> d93425cd76b74162bc385dfbc2c8458fd8127354
             this.indexData = backgrounds;
 
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
-<<<<<<< HEAD
-            this.filterData.multiselects.skills.options = this.generateMultiselectOptions(skillList);
-=======
             this.filterData.multiselects.skills.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
->>>>>>> d93425cd76b74162bc385dfbc2c8458fd8127354
             this.filterData.multiselects.lores.options = this.generateMultiselectOptions(loreOptions);
             this.filterData.multiselects.feats.options = this.generateMultiselectOptions(featOptions);
 
@@ -130,6 +127,8 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
 
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
+            return false;
         if (!this.filterTraits(entry.boosts, multiselects.boosts.selected, multiselects.boosts.conjunction))
             return false;
         if (!this.filterTraits(entry.skills, multiselects.skills.selected, multiselects.skills.conjunction))
@@ -157,6 +156,12 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 },
             },
             multiselects: {
+                traits: {
+                    conjunction: "and",
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
+                    selected: [],
+                },
                 boosts: {
                     conjunction: "and",
                     label: "PF2E.BrowserFilterBoosts",

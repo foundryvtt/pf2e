@@ -86,6 +86,20 @@ interface AncestryFilters extends BaseFilterData {
     multiselects: { traits: MultiselectData; boosts: MultiselectData };
 }
 
+interface BackgroundFilters extends BaseFilterData {
+    checkboxes: {
+        rarity: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData;
+        boosts: MultiselectData;
+        skills: MultiselectData;
+        lores: MultiselectData;
+        feats: MultiselectData;
+    };
+}
+
 interface BestiaryFilters extends BaseFilterData {
     checkboxes: {
         rarity: CheckboxData;
@@ -210,6 +224,7 @@ interface SpellFilters extends BaseFilterData {
 type BrowserFilter =
     | ActionFilters
     | AncestryFilters
+    | BackgroundFilters
     | BestiaryFilters
     | ClassFilters
     | CampaignFeatureFilters
@@ -231,6 +246,7 @@ interface RenderResultListOptions {
 export type {
     ActionFilters,
     AncestryFilters,
+    BackgroundFilters,
     BaseFilterData,
     BestiaryFilters,
     BrowserFilter,
