@@ -293,6 +293,11 @@ class HomebrewElements extends SettingsMenuPF2e {
         }
     }
 
+    #getAllTraitPropagations(listKey: string): ValueOf<typeof TRAIT_PROPAGATIONS>[number][] {
+        if (!objectHasKey(TRAIT_PROPAGATIONS, listKey)) return [];
+        return TRAIT_PROPAGATIONS[listKey].flatMap((p) => [p, ...this.#getAllTraitPropagations(p)]);
+    }
+
     /** Prepare and run a migration for each set of tag deletions from a tag map */
     #processDeletions(listKey: HomebrewTraitKey, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get("pf2e", `homebrew.${listKey}`);
@@ -303,11 +308,9 @@ class HomebrewElements extends SettingsMenuPF2e {
             listKey === "baseWeapons" ? CONFIG.PF2E.baseWeaponTypes : CONFIG.PF2E[listKey];
         for (const id of deletions) {
             delete coreElements[id];
-            if (objectHasKey(TRAIT_PROPAGATIONS, listKey)) {
-                for (const recordKey of TRAIT_PROPAGATIONS[listKey]) {
-                    const secondaryRecord: Record<string, string> = CONFIG.PF2E[recordKey];
-                    delete secondaryRecord[id];
-                }
+            for (const recordKey of this.#getAllTraitPropagations(listKey)) {
+                const secondaryRecord: Record<string, string> = CONFIG.PF2E[recordKey];
+                delete secondaryRecord[id];
             }
         }
 
@@ -396,11 +399,9 @@ class HomebrewElements extends SettingsMenuPF2e {
         const coreElements: Record<string, string> = this.#getConfigRecord(listKey);
         for (const element of elements) {
             coreElements[element.id] = element.value;
-            if (objectHasKey(TRAIT_PROPAGATIONS, listKey)) {
-                for (const recordKey of TRAIT_PROPAGATIONS[listKey]) {
-                    const record: Record<string, string> = CONFIG.PF2E[recordKey];
-                    record[element.id] = element.value;
-                }
+            for (const recordKey of this.#getAllTraitPropagations(listKey)) {
+                const record: Record<string, string> = CONFIG.PF2E[recordKey];
+                record[element.id] = element.value;
             }
         }
     }
