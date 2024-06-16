@@ -7,8 +7,8 @@ import type {
     PointVisionSource,
 } from "../client-esm/canvas/sources/module.ts";
 import type * as terms from "../client-esm/dice/terms/module.d.ts";
-import TypeDataModel from "../common/abstract/type-data.js";
-import { DataSchema } from "../common/data/fields.js";
+import abstract = foundry.abstract;
+import data = foundry.data;
 
 declare global {
     interface Config<
@@ -119,7 +119,7 @@ declare global {
                 new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
             };
             collection: typeof Items;
-            dataModels: Record<string, ConstructorOf<TypeDataModel<Item, DataSchema>>>;
+            dataModels: Record<string, ConstructorOf<abstract.TypeDataModel<Item, data.fields.DataSchema>>>;
             typeIcons: Record<string, string>;
             typeLabels: Record<string, string | undefined>;
             sheetClasses: Record<
@@ -244,6 +244,21 @@ declare global {
             ) => TCombatant;
         };
 
+        /**
+         * Configuration for the JournalEntryPage embedded document type.
+         */
+        JournalEntryPage: {
+            documentClass: typeof JournalEntryPage;
+            dataModels: Record<
+                string,
+                ConstructorOf<abstract.TypeDataModel<abstract.Document, data.fields.DataSchema>>
+            >;
+            typeLabels: {};
+            typeIcons: Record<string, string>;
+            defaultType: string;
+            sidebarIcon: string;
+        };
+
         /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
         MeasuredTemplate: {
             defaults: {
@@ -271,36 +286,9 @@ declare global {
         /** Configuration for the RegionBehavior embedded document type */
         RegionBehavior: {
             documentClass: ConstructorOf<TRegionBehavior>;
-            dataModels: {
-                [key: string]: ConstructorOf<foundry.data.regionBehaviors.RegionBehaviorType>;
-                adjustDarknessLevel: ConstructorOf<foundry.data.regionBehaviors.AdjustDarknessLevelRegionBehaviorType>;
-                executeMacro: ConstructorOf<foundry.data.regionBehaviors.ExecuteMacroRegionBehaviorType>;
-                executeScript: ConstructorOf<foundry.data.regionBehaviors.ExecuteScriptRegionBehaviorType>;
-                pauseGame: ConstructorOf<foundry.data.regionBehaviors.PauseGameRegionBehaviorType>;
-                suppressWeather: ConstructorOf<foundry.data.regionBehaviors.SuppressWeatherRegionBehaviorType>;
-                teleportToken: ConstructorOf<foundry.data.regionBehaviors.TeleportTokenRegionBehaviorType>;
-                toggleBehavior: ConstructorOf<foundry.data.regionBehaviors.ToggleBehaviorRegionBehaviorType>;
-            };
-            typeIcons: {
-                [key: string]: string;
-                adjustDarknessLevel: "fa-solid fa-circle-half-stroke";
-                executeMacro: "fa-solid fa-code";
-                executeScript: "fa-brands fa-js";
-                pauseGame: "fa-solid fa-pause";
-                suppressWeather: "fa-solid fa-cloud-slash";
-                teleportToken: "fa-solid fa-transporter-1";
-                toggleBehavior: "fa-solid fa-sliders";
-            };
-            typeLabels: {
-                [key: string]: string;
-                adjustDarknessLevel: "TYPES.RegionBehavior.adjustDarknessLevel";
-                executeMacro: "TYPES.RegionBehavior.executeMacro";
-                executeScript: "TYPES.RegionBehavior.executeScript";
-                pauseGame: "TYPES.RegionBehavior.pauseGame";
-                suppressWeather: "TYPES.RegionBehavior.suppressWeather";
-                teleportToken: "TYPES.RegionBehavior.teleportToken";
-                toggleBehavior: "TYPES.RegionBehavior.toggleBehavior";
-            };
+            dataModels: Record<string, ConstructorOf<foundry.data.regionBehaviors.RegionBehaviorType>>;
+            typeIcons: Record<string, string>;
+            typeLabels: Record<string, string>;
         };
 
         /** Configuration for the Tile embedded document type and its representation on the game Canvas */
