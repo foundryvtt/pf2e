@@ -1,23 +1,22 @@
 import { resetActors } from "@actor/helpers.ts";
-import type { RegionBehaviorInstanceType, RegionBehaviorInstances } from "./types.ts";
+import type { RegionDocumentPF2e } from "@scene";
+import type { EnvironmentBehaviorTypePF2e } from "./environment.ts";
 
-class RegionBehaviorPF2e<TParent extends RegionDocument = RegionDocument> extends RegionBehavior<TParent> {
-    isOfType<T extends RegionBehaviorInstanceType>(...types: T[]): this is RegionBehaviorInstances<TParent>[T];
-    isOfType(...types: string[]): boolean {
-        return types.some((t) => t === this.type);
-    }
-
+class RegionBehaviorPF2e<
+    TParent extends RegionDocumentPF2e | null = RegionDocumentPF2e | null,
+> extends RegionBehavior<TParent> {
     protected override _onUpdate(
         data: DeepPartial<this["_source"]>,
         operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
         // Reset actors inside the region of this behavior
-        if (this.viewed && this.isOfType("environment")) {
-            const system = data.system ?? {};
-            if ("environmentTypes" in system || "mode" in system) {
+        if (this.viewed && this.type === "environment") {
+            const system: Partial<EnvironmentBehaviorTypePF2e["_source"]> = data.system ?? {};
+            if (system.environmentTypes || system.mode) {
+                const tokens = [...(this.region?.tokens ?? [])];
                 resetActors(
-                    [...this.region.tokens].flatMap((t) => t.actor ?? []),
+                    tokens.flatMap((t) => t.actor ?? []),
                     { tokens: true },
                 );
             }

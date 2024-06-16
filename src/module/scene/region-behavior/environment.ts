@@ -1,7 +1,7 @@
 import { resetActors } from "@actor/helpers.ts";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
-import type { RegionEventPF2e } from "./types.ts";
+import { RegionEventPF2e } from "./types.ts";
 
 class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema> {
     override events = new Set<RegionEventType>(["tokenEnter", "tokenExit"]);

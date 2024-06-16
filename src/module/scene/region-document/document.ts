@@ -1,6 +1,7 @@
 import type { ScenePF2e } from "@scene";
+import { SpecificRegionBehavior } from "@scene/region-behavior/types.ts";
 
-class RegionDocumentPF2e extends RegionDocument<ScenePF2e | null> {
+class RegionDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends RegionDocument<TParent> {
     /** Set an informal top-left coordinate pair from the coordinates minima of all embedded shapes. */
     get x(): number {
         return this.shapes.reduce((leftMost, shape) => {
@@ -57,6 +58,10 @@ class RegionDocumentPF2e extends RegionDocument<ScenePF2e | null> {
             }
         }
     }
+}
+
+interface RegionDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends RegionDocument<TParent> {
+    readonly behaviors: foundry.abstract.EmbeddedCollection<SpecificRegionBehavior<this>>;
 }
 
 export { RegionDocumentPF2e };
