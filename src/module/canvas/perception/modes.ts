@@ -152,12 +152,57 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
     }
 }
 
+class ThoughtsDetectionMode extends DetectionMode {
+    constructor() {
+        super({
+            id: "thoughtsense",
+            label: "PF2E.Actor.Creature.Sense.Type.Thoughts",
+            type: DetectionMode.DETECTION_TYPES.OTHER,
+            walls: false,
+            angle: false,
+        });
+    }
+
+    static override getDetectionFilter(): OutlineOverlayFilter {
+        const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
+            wave: true,
+            knockout: false,
+        }));
+        filter.thickness = 1;
+        return filter;
+    }
+
+    protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
+        // Not if the target isn't a token
+        if (!(target instanceof TokenPF2e)) return false;
+
+        // Not if the token is GM-hidden
+        if (target.document.hidden) return false;
+
+        // Detection only works on creatures
+        if (!target.actor.isOfType("character") &&
+            !target.actor.isOfType("npc") &&
+            !target.actor.isOfType("familiar")) return false;
+
+        // Detection cails on mindless creatures
+        if (target.actor.system?.traits?.value?.includes('mindless')) return false;
+
+        return super._canDetect(visionSource, target);
+    }
+}
+
+declare namespace ThoughtsDetectionMode {
+    // eslint-disable-next-line no-var
+    var _detectionFilter: OutlineOverlayFilter | undefined;
+}
+
 function setPerceptionModes(): void {
     CONFIG.Canvas.visionModes.darkvision = darkvision;
     CONFIG.Canvas.detectionModes.basicSight = new VisionDetectionMode();
     CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
+    CONFIG.Canvas.detectionModes.thoughtSense = new ThoughtsDetectionMode();
 }
 
 export { setPerceptionModes };

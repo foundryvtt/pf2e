@@ -96,6 +96,11 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
         const range = scene?.flags.pf2e.hearingRange ?? null;
         token.detectionModes.push({ id: "hearing", enabled: true, range });
     }
+
+    const thsense = actor.perception.senses.get("thoughtsense");
+    if (thsense) {
+        token.detectionModes.push({ id: "thoughtSense", enabled: true, range: thsense.range })
+    }
 }
 
 export { checkAuras, computeSightAndDetectionForRBV };
