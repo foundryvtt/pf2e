@@ -14,6 +14,7 @@ interface SourceInfo {
 interface BrowserTabs {
     action: browserTabs.Actions;
     ancestry: browserTabs.Ancestries;
+    background: browserTabs.Backgrounds;
     bestiary: browserTabs.Bestiary;
     campaignFeature: browserTabs.CampaignFeatures;
     equipment: browserTabs.Equipment;
@@ -26,6 +27,7 @@ interface BrowserTabs {
 type TabName =
     | "action"
     | "ancestry"
+    | "background"
     | "bestiary"
     | "campaignFeature"
     | "equipment"

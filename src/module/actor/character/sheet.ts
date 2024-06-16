@@ -892,6 +892,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return this.#onClickBrowseHeritages();
         };
 
+        handlers["browse-background"] = () => {
+            return game.pf2e.compendiumBrowser.tabs.background.open();
+        };
+
         // ACTIONS
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
