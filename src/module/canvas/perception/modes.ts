@@ -156,7 +156,7 @@ class ThoughtsDetectionMode extends DetectionMode {
     constructor() {
         super({
             id: "thoughtsense",
-            label: "PF2E.Actor.Creature.Sense.Type.Thoughts",
+            label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
             type: DetectionMode.DETECTION_TYPES.OTHER,
             walls: false,
             angle: false,
