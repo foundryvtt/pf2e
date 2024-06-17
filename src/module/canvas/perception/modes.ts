@@ -155,7 +155,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
 class ThoughtsDetectionMode extends DetectionMode {
     constructor() {
         super({
-            id: "thoughtsense",
+            id: "thoughtSense",   // Must match key in CONFIG.Canvas.detectionModes
             label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
             type: DetectionMode.DETECTION_TYPES.OTHER,
             walls: false,
@@ -167,6 +167,7 @@ class ThoughtsDetectionMode extends DetectionMode {
         const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
             wave: true,
             knockout: false,
+            outlineColor: [0,1,0,1],
         }));
         filter.thickness = 1;
         return filter;
