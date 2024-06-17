@@ -34,13 +34,21 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Werecreature.YouDontSmellRight.Label",
                 "option": "seek-disguise",
+                "predicate": [
+                    "self:effect:change-shape-werecreature"
+                ],
                 "toggleable": true
             },
             {
                 "acuity": "imprecise",
                 "key": "Sense",
                 "predicate": [
-                    "feat:feral-senses"
+                    {
+                        "and": [
+                            "self:effect:change-shape-werecreature",
+                            "feat:feral-senses"
+                        ]
+                    }
                 ],
                 "range": 60,
                 "selector": "scent"
