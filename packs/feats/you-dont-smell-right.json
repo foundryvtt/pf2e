@@ -28,7 +28,33 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "Smell disguise",
+                "option": "seek-disguise",
+                "toggleable": true
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    "feat:feral-senses"
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "seek-disguise"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
