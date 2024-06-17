@@ -1,6 +1,6 @@
 {
     "_id": "nymtBfivudt7t75q",
-    "img": "systems/pf2e/icons/default-icons/weapon.svg",
+    "img": "icons/weapons/fist/fist-knuckles-brass.webp",
     "name": "Ankhrav Duster",
     "system": {
         "baseItem": "knuckle-duster",
@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>Acid drips from the ankhrav mandibles protruding from this +1 knuckle duster. Strikes with this weapon deal an additional @Damage[1[acid]] damage.</p>\n<p><strong>Activate—Caustic Jabs</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Until the end of your next turn, your Strikes with the ankhrav duster deal an additional 1d6 persistent acid damage.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include the mandibles of an ankhrav.</p>"
+            "value": "<p>Acid drips from the ankhrav mandibles protruding from this <em>+1 @UUID[Compendium.pf2e.equipment-srd.Item.Knuckle Duster]</em>. Strikes with this weapon deal an additional 1 acid damage.</p><hr /><p><strong>Activate—Caustic Jabs</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> Until the end of your next turn, your Strikes with the <em>ankhrav duster</em> deal an additional 1d6 persistent acid damage.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Caustic Jabs]</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the mandibles of an ankhrav.</p>"
         },
         "group": "brawling",
         "hardness": 0,
@@ -51,7 +51,14 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "acid",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 1
+            }
+        ],
         "runes": {
             "potency": 1,
             "property": [],

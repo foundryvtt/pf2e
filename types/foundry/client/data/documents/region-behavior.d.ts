@@ -4,20 +4,20 @@ import type { ClientBaseRegionBehavior } from "./client-base-mixes.d.ts";
 declare global {
     /** The client-side RegionBehavior document which extends the common BaseRegionBehavior model. */
     class RegionBehavior<
-        TRegion extends RegionDocument | null = RegionDocument | null,
-    > extends ClientBaseRegionBehavior<TRegion> {
+        TParent extends RegionDocument | null = RegionDocument | null,
+    > extends ClientBaseRegionBehavior<TParent> {
         /**
          * Construct a RegionBehavior document using provided data and context.
          * @param data    Initial data from which to construct the RegionBehavior
          * @param context      Construction context options
          */
-        constructor(data: DeepPartial<RegionBehaviorSource>, context: DocumentConstructionContext<TRegion>);
+        constructor(data: DeepPartial<RegionBehaviorSource>, context: DocumentConstructionContext<TParent>);
 
         /** A convenience reference to the RegionDocument which contains this RegionBehavior. */
-        get region(): TRegion;
+        get region(): TParent;
 
         /** A convenience reference to the Scene which contains this RegionBehavior. */
-        get scene(): Scene | null;
+        get scene(): NonNullable<TParent>["parent"];
 
         /** A RegionBehavior is active if and only if it was created, hasn't been deleted yet, and isn't disabled. */
         get active(): boolean;
