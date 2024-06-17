@@ -38,7 +38,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
 
         sheetData.data.perception.senses = R.sortBy(sheetData.data.perception.senses, (a) => a.label ?? "");
         const initiativeOptions = [{ value: "perception", label: "PF2E.PerceptionLabel" }];
-        initiativeOptions.push(...Object.values(sheetData.data.skills).map((s) => ({ value: s.slug, label: s.label })));
+        initiativeOptions.push(...Object.values(this.actor.skills).map((s) => ({ value: s.slug, label: s.label })));
 
         return {
             ...sheetData,

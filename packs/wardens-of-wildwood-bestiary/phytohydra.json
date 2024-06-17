@@ -1,0 +1,574 @@
+{
+    "_id": "j39LXy9R6i6y4coq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "w33aECAh1vyUugtX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-effects.Item.uZJOdounIHaFDC1t"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/summon-animal.webp",
+            "name": "Effect: Phytohydra Heads",
+            "sort": 100000,
+            "system": {
+                "badge": {
+                    "type": "counter",
+                    "value": 5
+                },
+                "description": {
+                    "value": "<p>The number of heads the hydra currently has.</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 12
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "diceNumber": "(@item.system.badge.value - 1) * 2",
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "focused-assault"
+                        ],
+                        "selector": "strike-damage"
+                    },
+                    {
+                        "deactivatedBy": [],
+                        "key": "FastHealing",
+                        "type": "regeneration",
+                        "value": "@item.system.badge.value * 5"
+                    }
+                ],
+                "slug": "effect-hydra-heads",
+                "start": {
+                    "initiative": null,
+                    "value": 30
+                },
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "effect"
+        },
+        {
+            "_id": "9c8CjhdARYmrQiei",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Branch",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "push"
+                    ]
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "kUuhTZw3NuH9aBiv": {
+                        "damage": "4d6+11",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "QkIROV5YMgrttMAe",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Fangs",
+            "sort": 300000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "fV8rp8XXV2GWOR8x": {
+                        "damage": "4d6+13",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wGHqlV0d3NInRNVI",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Phytohydra Regeneration",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The phytohydra has regeneration equal to 5 × the number of heads it has. If a phytohydra's body is missing any heads and the remaining stumps haven't been cauterized, the phytohydra attempts a @Check[type:fortitude|dc:35] save after it regains Hit Points from regeneration. On a success, one unsealed stump regrows two heads; on a critical success, two unsealed stumps regrow into two heads each. The phytohydra can never grow more than double the number of heads it ordinarily has. The phytohydra's regeneration only fully deactivates if all its heads are severed and all stumps are sealed, at which point it dies.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Aw5EtOlUJdD4Q89I",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Coppice Regrowth",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A phytohydra ordinarily has five heads. A creature can attempt to sever one of the heads by specifically targeting it and dealing damage equal to the head's Hit Points. A head that isn't completely severed returns to full Hit Points at the end of any creature's turn.</p>\n<p>A phytohydra can regrow a severed head using phytohydra regeneration. A creature can prevent this regrowth by dealing fire damage to the stump, sealing it. Single-target fire effects need to be targeted at a specific stump, but effects that deal splash damage or affect areas covering the hydra's whole space seal all stumps if they deal fire damage. If the attack that severs a head deals any fire damage or was dealt by an axe, the stump is sealed instantly. If all five heads are sealed, the phytohydra dies.</p><hr /><p><strong>Phytohydra Head</strong></p><ul><li><p><strong>Hit Points</strong> 30</p></li><li><p><strong>Immunities</strong> Area Damage, Bleed, Paralyzed, Poison, Sleep</p></li><li><p><strong>Weaknesses</strong> Fire 10, Slashing 5<br /></p></li></ul><p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Phytohydra Heads]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jtxTMuYq5Z2tv0G1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.W7SbTykXrNwxDzJc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Reactive Strike (See Reactive Heads)",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.ReactiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "reactive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BpQjbPdH1RXPT2i2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Focused Assault",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phytohydra attacks a single target with its many heads. The phytohydra Strikes with its branches or its fangs. On a successful attack, the phytohydra deals damage from its branches or fangs Strike to the target, plus an additional 2d6 damage for every head it has beyond the first. On a failure (but not a critical failure), the phytohydra deals the damage from one branch or fangs Strike to the target creature. This Strike counts as a number of attacks equal to the number of heads the phytohydra has toward its multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "focused-assault",
+                        "toggleable": true
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "kb6FCQQurY1CNTpz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reactive Heads",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A phytohydra gains an extra reaction per round for each of its heads beyond the first, which it can use only to make Reactive Strikes. It can't use more than 1 reaction on the same triggering action, even if a creature leaves several squares within its reach, and the phytohydra must use a different head for each Reactive Strike it makes. Whenever one of the phytohydra's heads is severed, the phytohydra loses one of its extra reactions per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AHm0AjeItKsyiRd9",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Splinter Breath",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phytohydra spews splinters in a @Template[type:cone|distance:60] that deals @Damage[4d6[piercing]] damage to all creatures in the area (@Check[type:reflex|dc:32|basic:true] save). The damage increases by 2d6 for each head the phytohydra has.</p>\n<p>The phytohydra can't use Splinter Breath again for [[/br 1d4 #Recharge Splinter Breath]]{1d4 rounds}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "iYpTJp3IDHaWYBAZ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Storm of Branches",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The phytohydra makes a number of Strikes up to its number of heads, each against a different target. These attacks count toward the phytohydra's multiple attack penalty, but the multiple attack penalty doesn't increase until after the phytohydra makes all its attacks.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AO6shPbKQVGcv6tp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 10 feet",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "3j6GzoUq5kxFk84g",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Acrobatics",
+            "sort": 1200000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 21
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "d352dfrojVFi3Iqk",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Athletics",
+            "sort": 1300000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 25
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Phytohydra",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 3
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 32
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "phytohydra regeneration",
+                "max": 180,
+                "temp": 0,
+                "value": 180
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "bleed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "sleep"
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 25
+                    }
+                ],
+                "value": 25
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "(can't speak any languages)",
+                "value": [
+                    "arboreal",
+                    "muan"
+                ]
+            },
+            "level": {
+                "value": 12
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>The fresh shoots that sprout from especially grievous cuts sometimes develop minds of their own, eventually budding off from the injured plant to create a phytohydra.</p><hr /><p>Wood elementals are nearly as varied as plant life itself. The following are particularly powerful elementals formed when immense plants experience environmental stress.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #203: Shepard of Decay"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "huge"
+            },
+            "value": [
+                "elemental",
+                "plant",
+                "wood"
+            ]
+        }
+    },
+    "type": "npc"
+}

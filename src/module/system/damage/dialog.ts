@@ -12,10 +12,10 @@ import {
 } from "@util";
 import * as R from "remeda";
 import { createDamageFormula } from "./formula.ts";
+import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.ts";
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
-import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.ts";
 
 /**
  * Dialog for excluding certain modifiers before rolling damage.
@@ -188,7 +188,10 @@ class DamageModifierDialog extends Application {
                     enabled: d.enabled,
                     ignored: d.ignored,
                     critical: d.critical,
-                    icon: this.#getModifierIcon(d),
+                    icon: this.#getModifierIcon({
+                        damageType: d.override.damageType ?? d.damageType,
+                        category: d.category,
+                    }),
                 })),
             ),
             isCritical: this.isCritical,

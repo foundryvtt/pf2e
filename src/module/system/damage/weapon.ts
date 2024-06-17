@@ -358,6 +358,18 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Venomous trait
+        if (weaponTraits.some((t) => t === "venomous")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.venomous,
+                slug: "venomous",
+                modifier: strikingDice > 1 ? 2 : 1,
+                damageType: "poison",
+                damageCategory: "persistent",
+            });
+            modifiers.push(modifier);
+        }
+
         // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];

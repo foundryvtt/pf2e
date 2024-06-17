@@ -13,7 +13,7 @@ import type { PhysicalItemConstructionContext } from "@item/physical/document.ts
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
-import { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
+import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
 import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
@@ -166,7 +166,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Does this weapon deal damage? */
     get dealsDamage(): boolean {
-        const { baseDamage } = this;
+        const baseDamage = this.baseDamage;
         return (
             baseDamage.dice > 0 ||
             baseDamage.modifier > 0 ||
@@ -415,6 +415,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Add the rule elements of this weapon's linked ammunition to its own list */
     override prepareSiblingData(): void {
         super.prepareSiblingData();
+
         // Set the default label to the ammunition item's name
         const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...fu.deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);

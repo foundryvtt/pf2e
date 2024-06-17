@@ -91,14 +91,20 @@ class ItemChatData {
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
                     const hr = line.divider ? document.createElement("hr") : null;
-                    const title = line.title
-                        ? createHTMLElement("strong", { children: [game.i18n.localize(line.title)] })
-                        : null;
-                    const whitespace = title ? " " : null;
+
+                    // Create paragraph element
+                    const paragraph = createHTMLElement("p");
+                    if (line.title) {
+                        paragraph.appendChild(
+                            createHTMLElement("strong", { children: [game.i18n.localize(line.title)] }),
+                        );
+                        paragraph.appendChild(new Text(" "));
+                    }
                     const text = ItemChatData.markdownToHTML(line.text);
-                    const paragraph = createHTMLElement("p", {
-                        children: R.filter([title, whitespace, text], R.isTruthy),
-                    });
+                    if (text) {
+                        paragraph.insertAdjacentHTML("beforeend", text);
+                    }
+
                     return R.filter(
                         [hr, paragraph].map((e) => e?.outerHTML),
                         R.isTruthy,

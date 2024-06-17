@@ -36,12 +36,12 @@ import type { UserPF2e } from "@module/user/index.ts";
 import type {
     AmbientLightDocumentPF2e,
     MeasuredTemplateDocumentPF2e,
+    RegionBehaviorPF2e,
+    RegionDocumentPF2e,
     ScenePF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
 } from "@scene";
-import type { RegionBehaviorPF2e } from "@scene/region-behavior/document.ts";
-import type { RegionBehaviorInstance } from "@scene/region-behavior/types.ts";
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
@@ -71,7 +71,6 @@ import type {
 import type { TextEditorPF2e } from "@system/text-editor.ts";
 import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
-import type { CanvasBaseRegion } from "types/foundry/client/data/documents/client-base-mixes.d.ts";
 
 interface GamePF2e
     extends Game<
@@ -204,8 +203,8 @@ type ConfiguredConfig = Config<
     ItemPF2e,
     MacroPF2e,
     MeasuredTemplateDocumentPF2e,
-    RegionDocument<ScenePF2e | null>,
-    RegionBehaviorPF2e<RegionDocument<ScenePF2e | null>>,
+    RegionDocumentPF2e,
+    RegionBehaviorPF2e,
     TileDocumentPF2e,
     TokenDocumentPF2e,
     WallDocument<ScenePF2e | null>,
@@ -321,9 +320,9 @@ declare global {
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
-        get(module: "pf2e", setting: "enabledRulesUI"): boolean;
         get(module: "pf2e", setting: "gmVision"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
+        get(module: "pf2e", setting: "minimumRulesUI"): Exclude<UserRole, 0>;
         get(module: "pf2e", setting: "nathMode"): boolean;
         get(module: "pf2e", setting: "seenRemasterJournalEntry"): boolean;
         get(module: "pf2e", setting: "statusEffectType"): StatusEffectIconTheme;
@@ -344,12 +343,6 @@ declare global {
         lte: (a: number, b: number) => boolean;
         ne: (a: number, b: number) => boolean;
         ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
-    }
-
-    interface RegionDocument<TParent extends Scene | null = Scene | null> extends CanvasBaseRegion<TParent> {
-        tokens: Set<TokenDocumentPF2e>;
-
-        readonly behaviors: foundry.abstract.EmbeddedCollection<RegionBehaviorInstance<this>>;
     }
 
     const BUILD_MODE: "development" | "production";

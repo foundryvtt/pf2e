@@ -31,6 +31,7 @@ import { Migration927ClassBackgroundBattleFormSkillLongform } from "@module/migr
 import { Migration928CharacterSkillsLongform } from "@module/migration/migrations/928-character-skills-longform.ts";
 import { Migration929RemoveSkillAbbreviations } from "@module/migration/migrations/929-remove-skill-abbreviations.ts";
 import { Migration930ChoiceSetMedium } from "@module/migration/migrations/930-choice-set-medium.ts";
+import { Migration931ExpandREPermissions } from "@module/migration/migrations/931-expand-re-permissions.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -58,6 +59,7 @@ const migrations: MigrationBase[] = [
     new Migration928CharacterSkillsLongform(),
     new Migration929RemoveSkillAbbreviations(),
     new Migration930ChoiceSetMedium(),
+    new Migration931ExpandREPermissions(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");

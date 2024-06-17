@@ -38,20 +38,6 @@ class LightPerceptionMode extends DetectionModeLightPerception {
 
         return super._canDetect(visionSource, target);
     }
-
-    /** Potentially short-circuit range test */
-    protected override _testRange(
-        visionSource: PointVisionSourcePF2e,
-        mode: TokenDetectionMode,
-        target: PlaceableObject<CanvasDocument>,
-        test: CanvasVisibilityTest,
-    ): boolean {
-        return (
-            mode.range === null ||
-            mode.range >= canvas.dimensions.maxR ||
-            super._testRange(visionSource, mode, target, test)
-        );
-    }
 }
 
 class VisionDetectionMode extends DetectionModeBasicSight {
@@ -70,20 +56,6 @@ class VisionDetectionMode extends DetectionModeBasicSight {
         }
 
         return super._canDetect(visionSource, target);
-    }
-
-    /** Potentially short-circuit range test */
-    protected override _testRange(
-        visionSource: PointVisionSourcePF2e,
-        mode: TokenDetectionMode,
-        target: PlaceableObject<CanvasDocument>,
-        test: CanvasVisibilityTest,
-    ): boolean {
-        return (
-            mode.range === null ||
-            mode.range >= canvas.dimensions.maxR ||
-            super._testRange(visionSource, mode, target, test)
-        );
     }
 }
 
@@ -141,20 +113,6 @@ class HearingDetectionMode extends DetectionMode {
         test.loh.set(visionSource, hasLOH);
 
         return hasLOH;
-    }
-
-    /** Potentially short-circuit range test */
-    protected override _testRange(
-        visionSource: PointVisionSourcePF2e,
-        mode: TokenDetectionMode,
-        target: PlaceableObject<CanvasDocument>,
-        test: CanvasVisibilityTest,
-    ): boolean {
-        return (
-            mode.range === null ||
-            mode.range >= canvas.dimensions.maxR ||
-            super._testRange(visionSource, mode, target, test)
-        );
     }
 }
 

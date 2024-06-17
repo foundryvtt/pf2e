@@ -1,3 +1,40 @@
+## 6.0.2
+
+### System Improvements
+
+-   (MrVauxs) Add additional damage from venomous trait
+-   (Supe) Undo restriction for variant grid diagonals such as 5 foot diagonals. This has no impact on templates.
+
+### Bugfixes
+
+-   (In3luki) Fix auras not being drawn when a token is created
+-   (Rigo) Fix localization for token light rule element form
+-   (stwlam) Fix NPC strikes with the thrown trait not being detected as ranged attacks
+-   (stwlam) Fix darkness regions not hiding tokens from players without darkvision
+-   (stwlam) Fix reinforced stock not benefitting from the two hand trait when the weapon is held with both hands
+-   (Supe) Fix creating roll tables from compendium results
+-   (Supe) Fix overriding striking dice using the Striking Rule Element, used in some effects such as Runic Weapon.
+-   (Supe) Fix the "Give" button sometimes showing to players when purchasing an item
+-   (Supe) Fix label for damage type overrides in the damage roll dialog
+-   (Supe) Fixed the Token Image Rule Element form
+-   (Supe) Fix markdown rendering for item alteration description overrides
+-   (Supe) Prevent sheet crashes from invalid skills data
+
+### Data Updates
+
+-   (Abaddon) Fix errors in relic action descriptions
+-   (Abaddon) Fix broken spell link in Mahathallah
+-   (Ambrose M) Add missing grab ability to Unrisen (BotD) and Shisagishin (SoG)
+-   (Ambrose M) Correct Flame Attack for Fire Giant
+-   (Dire Weasel) Add ancestry feature items to Centaur
+-   (Dire Weasel) Add inline buttons to Summon Warden of the Wild
+-   (Dire Weasel) Add spell effect for Hippocampus Retreat
+-   (Dire Weasel) Add Surki language
+-   (Dire Weasel) Add automation to Mocking Chorus, Prismhydra, Stargut Hydra, and Tyrafdir
+-   (kromko) Fix formatting issues in some Howl of the Wild feats
+-   (stwlam) Update internal macros, journal entries, and roll tables to V12 schema
+-   (Tikael) Add inline check to the Thaumaturge's Ring Bell action
+
 ## 6.0.1
 
 This release requires Foundry VTT version 12.327
