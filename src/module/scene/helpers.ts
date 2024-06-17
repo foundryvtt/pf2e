@@ -99,7 +99,7 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
 
     const thsense = actor.perception.senses.get("thoughtsense");
     if (thsense) {
-        token.detectionModes.push({ id: "thoughtSense", enabled: true, range: thsense.range })
+        token.detectionModes.push({ id: "senseThoughts", enabled: true, range: thsense.range })
     }
 }
 

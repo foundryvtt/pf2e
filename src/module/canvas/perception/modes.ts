@@ -155,7 +155,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
 class ThoughtsDetectionMode extends DetectionMode {
     constructor() {
         super({
-            id: "thoughtSense",   // Must match key in CONFIG.Canvas.detectionModes
+            id: "senseThoughts",   // Must match key in CONFIG.Canvas.detectionModes
             label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
             type: DetectionMode.DETECTION_TYPES.OTHER,
             walls: false,
@@ -203,7 +203,7 @@ function setPerceptionModes(): void {
     CONFIG.Canvas.detectionModes.lightPerception = new LightPerceptionMode();
     CONFIG.Canvas.detectionModes.hearing = new HearingDetectionMode();
     CONFIG.Canvas.detectionModes.feelTremor = new DetectionModeTremorPF2e();
-    CONFIG.Canvas.detectionModes.thoughtSense = new ThoughtsDetectionMode();
+    CONFIG.Canvas.detectionModes.senseThoughts = new ThoughtsDetectionMode();
 }
 
 export { setPerceptionModes };
