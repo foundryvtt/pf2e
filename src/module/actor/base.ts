@@ -1659,16 +1659,32 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
-    async toggleCondition(conditionSlug: ConditionSlug): Promise<void> {
+    async toggleCondition(conditionSlug: ConditionSlug, options?: { active?: boolean }): Promise<boolean | void> {
         if (!setHasElement(CONDITION_SLUGS, conditionSlug)) {
             throw ErrorPF2e(`Unrecognized condition: ${conditionSlug}`);
         }
 
-        if (this.hasCondition(conditionSlug)) {
-            await this.decreaseCondition(conditionSlug, { forceRemove: true });
-        } else {
+        const hasCondition = this.hasCondition(conditionSlug);
+        const active = options?.active ?? !hasCondition;
+
+        if (active && !hasCondition) {
             await this.increaseCondition(conditionSlug);
+        } else if (active) {
+            return true;
+        } else if (!active && hasCondition) {
+            await this.decreaseCondition(conditionSlug, { forceRemove: true });
+            return false;
         }
+    }
+
+    /** Redirect to `toggleCondition` if possible. */
+    override async toggleStatusEffect(
+        statusId: string,
+        options?: { active?: boolean; overlay?: boolean },
+    ): Promise<boolean | void | ActiveEffect<this>> {
+        return setHasElement(CONDITION_SLUGS, statusId)
+            ? this.toggleCondition(statusId, options)
+            : super.toggleStatusEffect(statusId, options);
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
