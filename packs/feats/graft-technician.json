@@ -28,7 +28,17 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:implant-grafts"
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.medicine.rank,3),2,1)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
