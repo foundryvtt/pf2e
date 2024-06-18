@@ -77,7 +77,13 @@ import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import { TokenEffect } from "./token-effect.ts";
 import type { ActorType } from "./types.ts";
-import { CREATURE_ACTOR_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, UNAFFECTED_TYPES } from "./values.ts";
+import {
+    ACTOR_TYPES,
+    CREATURE_ACTOR_TYPES,
+    SAVE_TYPES,
+    SIZE_LINKABLE_ACTOR_TYPES,
+    UNAFFECTED_TYPES,
+} from "./values.ts";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
@@ -500,44 +506,32 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
-    /** Don't allow the user to create in development actor types. */
+    /** Don't allow the user to create in-development actor types. */
     static override createDialog<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: Record<string, unknown>,
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
-            types?: (ActorType | "creature")[];
+            types?: ActorType[];
         } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
-    static override async createDialog(
-        data: { folder?: string | undefined } = {},
+    static override createDialog(
+        data?: Record<string, unknown>,
         context: {
-            parent?: TokenDocumentPF2e | null;
-            pack?: Collection<ActorPF2e<null>> | null;
-            types?: (ActorType | "creature")[];
-            [key: string]: unknown;
-        } = {},
-    ): Promise<Actor<TokenDocument<Scene | null> | null> | null> {
-        const omittedTypes: ActorType[] = [];
-        if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("army");
-
-        const original = game.system.documentTypes.Actor;
-        try {
-            game.system.documentTypes.Actor = R.difference(original, omittedTypes);
-
-            if (context.types) {
-                const validTypes = context.types ?? [];
-                if (validTypes.includes("creature")) validTypes.push(...CREATURE_ACTOR_TYPES);
-                game.system.documentTypes.Actor = game.system.documentTypes.Actor.filter((type) =>
-                    tupleHasValue(validTypes, type),
-                );
-            }
-
-            return super.createDialog(data, context);
-        } finally {
-            game.system.documentTypes.Actor = original;
+            parent?: TokenDocument | null;
+            pack?: Collection<Actor> | null;
+            types?: string[];
+        } & Partial<FormApplicationOptions> = {},
+    ): Promise<Actor | null> {
+        context.types &&= R.unique(context.types);
+        context.types ??= [...ACTOR_TYPES];
+        const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        for (const type of omittedTypes) {
+            context.types.findSplice((t) => t === type);
         }
+
+        return super.createDialog(data, context);
     }
 
     /**
