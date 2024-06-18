@@ -1,0 +1,69 @@
+{
+    "_id": "uRwnbZ0xWrB5ZzZ9",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Turn Aside Ambient Magic",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Turn Aside Ambient Magic]</p>\n<p><span style=\"font-family:Roboto, sans-serif\">Your ostilli glows a faint yellow as it establishes a barrier. Choose acid, cold, electricity, fire, or sonic damage. Until the beginning of your next turn, you gain resistance against the chosen damage type equal to half your level.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "Acid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "Cold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "Electricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "Fire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "Sonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet",
+                "prompt": "Choose a damage type"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.damage}",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
