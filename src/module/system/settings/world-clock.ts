@@ -1,4 +1,4 @@
-import { localizer } from "@util";
+import { htmlQuery, localizer } from "@util";
 import { DateTime } from "luxon";
 
 type SettingsKey =
@@ -104,6 +104,7 @@ export class WorldClockSettings extends FormApplication {
 
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
+        const html = $html[0];
 
         const localize = localizer("PF2E.SETTINGS.WorldClock");
         const title = localize("ResetWorldTime.Name");
@@ -122,12 +123,17 @@ export class WorldClockSettings extends FormApplication {
             });
         });
 
-        $html.find<HTMLInputElement>('input[name="syncDarkness"]').on("change", (event) => {
-            const worldDefault = $(event.currentTarget)[0].checked
-                ? localize("SyncDarknessScene.Enabled")
-                : localize("SyncDarknessScene.Disabled");
-            const optionSelector = 'select[name="syncDarknessScene"] > option[value="default"]';
-            $html.find(optionSelector).text(localize("SyncDarknessScene.Default", { worldDefault }));
+        const syncDarknessInput = htmlQuery<HTMLInputElement>(html, 'input[name="syncDarkness"]');
+        syncDarknessInput?.addEventListener("change", () => {
+            const worldDefault = syncDarknessInput.checked
+                ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.enabled)
+                : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.disabled);
+            const option = htmlQuery(html, 'select[name="syncDarknessScene"] > option[value="default"]');
+            if (option) {
+                option.innerText = game.i18n.format(CONFIG.PF2E.SETTINGS.worldClock.syncDarknessScene.default, {
+                    worldDefault,
+                });
+            }
         });
     }
 

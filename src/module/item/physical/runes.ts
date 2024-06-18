@@ -1677,11 +1677,6 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     title: "PF2E.WeaponPropertyRune.greaterRooting.Name",
                     text: "PF2E.WeaponPropertyRune.greaterRooting.Note.criticalSuccess",
                 },
-                {
-                    outcome: ["success"],
-                    title: "PF2E.WeaponPropertyRune.greaterRooting.Name",
-                    text: "PF2E.WeaponPropertyRune.greaterRooting.Note.success",
-                },
             ],
         },
     },
