@@ -1,3 +1,20 @@
+## 6.0.3
+
+### System Improvements
+
+-   (jfn4th) Control rule element viewing permissions using foundry user role
+-   (Vauxs) Copy all homebrew feat traits to effect traits
+
+### Bugfixes
+
+-   (Supe) Fix sheets not opening in certain instances involving bad inventory data.
+-   (Supe) Fix the current scene sync darkness option becoming unlocalized when the world sync setting is changed.
+
+### Data Updates
+
+-   (Dire Weasel) Add automation and links for Howl of the Wild's Ankhrav Duster, Hive Mother Bottle, and Sargassum Phial
+-   (kromko) Add minor fixes for Venomtail Kobold
+
 ## 6.0.2
 
 ### System Improvements
