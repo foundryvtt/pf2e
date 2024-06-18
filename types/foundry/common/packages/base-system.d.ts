@@ -22,7 +22,7 @@ export default class BaseSystem extends packages.BasePackage<BaseSystemSchema> {
     static icon: string;
 
     /** An alias for the document types available in the currently active World. */
-    get documentTypes(): Record<string, string[]>;
+    get documentTypes(): Record<"Actor" | "Item" | "RegionBehavior", Record<string, object>>;
 
     /** An alias for the raw template JSON loaded from the game System. */
     get template(): object;
