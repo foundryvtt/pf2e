@@ -209,7 +209,7 @@ class TextEditorPF2e extends TextEditor {
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const html = createHTMLElement("div", { innerHTML: content });
-        const document = options.rollData?.actor ?? null;
+        const document = options.rollData?.actor ?? options.relativeTo;
         UserVisibilityPF2e.process(html, { document });
 
         return html.innerHTML;
