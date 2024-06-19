@@ -137,25 +137,24 @@ export class InlineRollLinks {
                     return parent?.canUserModify(game.user, "update") ? [parent] : [];
                 case "party":
                     if (parent?.isOfType("party")) return [parent];
-                    return R.compact([game.actors.party]);
+                    return R.filter([game.actors.party], R.isTruthy);
             }
 
-            // Use the DOM document as a fallback if it's an actor and the check isn't a saving throw
-            const sheetActor = ((): ActorPF2e | null => {
-                const maybeActor: ActorPF2e | null =
-                    foundryDoc instanceof ActorPF2e
-                        ? foundryDoc
-                        : foundryDoc instanceof ItemPF2e && foundryDoc.actor
-                          ? foundryDoc.actor
-                          : null;
-                return maybeActor?.isOwner && !maybeActor.isOfType("loot", "party") ? maybeActor : null;
-            })();
-            const rollingActors = [
-                sheetActor ?? getSelectedActors({ exclude: ["loot"], assignedFallback: true }),
-            ].flat();
+            // If this is inside a sheet, return the actor always
+            const actorFromSheet = resolveActor(resolveSheetDocument(link), link);
+            if (actorFromSheet && !actorFromSheet.isOfType("loot", "party") && actorFromSheet.isOwner) {
+                return [actorFromSheet];
+            }
 
+            // If the parent is a party actor, return it (likely kingmaker)
+            if (parent?.isOfType("party")) {
+                return [parent];
+            }
+
+            // Get selected actors, but fallback to parent if its not a save
+            const rollingActors = getSelectedActors({ exclude: ["loot"], assignedFallback: true });
             const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
-            if (parent?.isOfType("party") || (rollingActors.length === 0 && parent && !isSave)) {
+            if (rollingActors.length === 0 && parent && !isSave) {
                 return [parent];
             }
 
@@ -428,7 +427,7 @@ function resolveSheetDocument(html: HTMLElement): ClientDocument | null {
     return doc && (doc instanceof ActorPF2e || doc instanceof ItemPF2e || doc instanceof JournalEntry) ? doc : null;
 }
 
-/** If the provided document exists returns it, otherwise attempt to derive it from the sheet */
+/** Attempt to derive the related document via the sheet or chat message, handling any item summaries */
 function resolveDocument(html: HTMLElement): ClientDocument | null {
     // Retrieve the sheet document first
     const sheetDocument = resolveSheetDocument(html);
@@ -439,7 +438,13 @@ function resolveDocument(html: HTMLElement): ClientDocument | null {
         return sheetDocument.items.get(itemId) ?? null;
     }
 
-    return sheetDocument;
+    if (sheetDocument) {
+        return sheetDocument;
+    }
+
+    // Return the chat message if there is one
+    const messageId = htmlClosest(html, "[data-message-id]")?.dataset.messageId;
+    return messageId ? game.messages.get(messageId) ?? null : null;
 }
 
 /** Retrieve an actor via a passed document or item UUID in the dataset of a link */
