@@ -12,7 +12,7 @@
         "checkPenalty": -3,
         "containerId": null,
         "description": {
-            "value": "<p>The beautiful plates of this +2 resilient greater ready full plate armor are shaped from the carapace of a deadly mantis, providing excellent protection with added flexibility. When wearing a suit of mantis plate, you gain a +1 item bonus to your Athletics DC.</p>\n<p><strong>Activate—Mandible Vambraces</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Effect</strong> Make a melee Strike. If you succeed, the target is caught by the spikes on the armor's forearms, taking an additional @Damage[6d6[piercing]] damage (@Check[type:reflex|dc:30|basic:true] save).</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include the arms and carapace of a deadly mantis.</p>"
+            "value": "<p>The beautiful plates of this <em>+2 resilient @UUID[Compendium.pf2e.equipment-srd.Item.Ready (Greater)]{Greater Ready} full plate</em> armor are shaped from the carapace of a deadly mantis, providing excellent protection with added flexibility. When wearing a suit of mantis plate, you gain a +1 item bonus to your Athletics DC.</p><hr /><p><strong>Activate—Mandible Vambraces</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Effect</strong> Make a melee Strike. If you succeed, the target is caught by the spikes on the armor's forearms, taking an additional @Damage[6d6[piercing]] damage (@Check[type:reflex|dc:30|basic:true] save).</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the arms and carapace of a deadly mantis.</p>"
         },
         "dexCap": 0,
         "group": "plate",
@@ -39,7 +39,14 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "athletics-dc",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "runes": {
             "potency": 2,
             "property": [
