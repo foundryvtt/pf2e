@@ -62,15 +62,7 @@ type ActiveEffectSchema = {
     system: fields.TypeDataField;
     type: fields.StringField<string, string, false, true, true>;
     disabled: fields.BooleanField;
-    duration: fields.SchemaField<{
-        startTime: fields.NumberField<number, number, false, true, true>;
-        seconds: fields.NumberField;
-        combat: fields.ForeignDocumentField;
-        rounds: fields.NumberField;
-        turns: fields.NumberField;
-        startRound: fields.NumberField;
-        startTurn: fields.NumberField;
-    }>;
+    duration: fields.SchemaField<EffectDurationSchema>;
     description: fields.HTMLField;
     img: fields.FilePathField<ImageFilePath>;
     origin: fields.StringField<ActorUUID | ItemUUID, ActorUUID | ItemUUID, false, true, true>;
@@ -88,7 +80,18 @@ type EffectChangeSchema = {
     priority: fields.NumberField;
 };
 
+type EffectDurationSchema = {
+    startTime: fields.NumberField<number, number, false, true, true>;
+    seconds: fields.NumberField;
+    combat: fields.ForeignDocumentField;
+    rounds: fields.NumberField;
+    turns: fields.NumberField;
+    startRound: fields.NumberField;
+    startTurn: fields.NumberField;
+};
+
 export type ActiveEffectSource = SourceFromSchema<ActiveEffectSchema>;
 
 export type EffectChangeData = SourceFromSchema<EffectChangeSchema>;
+export type EffectDurationSource = SourceFromSchema<EffectDurationSchema>;
 export type EffectDurationData = BaseActiveEffect<null>["duration"];

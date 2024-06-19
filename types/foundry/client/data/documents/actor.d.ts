@@ -56,7 +56,7 @@ declare global {
         get appliedEffects(): ActiveEffect<this>[];
 
         /** An array of ActiveEffect instances which are present on the Actor which have a limited duration. */
-        get temporaryEffects(): TemporaryEffect[];
+        get temporaryEffects(): ActiveEffect<this>[];
 
         /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
         get token(): TParent;

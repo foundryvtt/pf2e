@@ -22,7 +22,7 @@ import { createDisintegrateEffect } from "@item/effect/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { CoinsPF2e } from "@item/physical/coins.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
-import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { AppliedDamageFlag } from "@module/chat-message/index.ts";
@@ -75,7 +75,6 @@ import { ItemTransfer } from "./item-transfer.ts";
 import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
-import { TokenEffect } from "./token-effect.ts";
 import type { ActorType } from "./types.ts";
 import {
     ACTOR_TYPES,
@@ -110,7 +109,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /** Rule elements drawn from owned items */
     declare rules: RuleElementPF2e[];
 
-    declare synthetics: RuleElementSynthetics;
+    declare synthetics: RuleElementSynthetics<this>;
 
     /** Saving throw statistics */
     declare saves?: { [K in SaveType]?: Statistic };
@@ -309,11 +308,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Add effect icons from effect items and rule elements */
-    override get temporaryEffects(): TemporaryEffect[] {
-        const fromConditions = this.conditions.active.map((c) => new TokenEffect(c));
+    override get temporaryEffects(): ActiveEffect<this>[] {
+        const fromConditions = this.conditions.map((c) => ActiveEffectPF2e.fromEffect(c));
         const fromEffects = this.itemTypes.effect
             .filter((e) => e.system.tokenIcon?.show && (e.isIdentified || game.user.isGM))
-            .map((e) => new TokenEffect(e));
+            .map((e) => ActiveEffectPF2e.fromEffect(e));
 
         return R.uniqueBy(
             [super.temporaryEffects, fromConditions, fromEffects, this.synthetics.tokenEffectIcons].flat(),
