@@ -1465,11 +1465,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         action.breakdown = action.modifiers
             .filter((m) => m.enabled)
-            .map((m) => `${m.label} ${m.modifier < 0 ? "" : "+"}${m.modifier}`)
+            .map((m) => `${m.label} ${m.signedValue}`)
             .join(", ");
 
         // Multiple attack penalty
-        const createMAPenalty = (data: MultipleAttackPenaltyData, increases: ZeroToTwo, rollOptions: Set<string>) => {
+        const createMAPenalty = (data: MultipleAttackPenaltyData, increases: ZeroToTwo) => {
             if (increases === 0) return null;
             const penalty = new ModifierPF2e({
                 slug: data.slug,
@@ -1477,7 +1477,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 modifier: data[`map${increases}`],
                 adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, attackDomains, data.slug),
             });
-            adjustModifiers([penalty], new Set(rollOptions));
             return penalty;
         };
         const initialMAPs = calculateMAPs(weapon, { domains: attackDomains, options: initialRollOptions });
@@ -1493,7 +1492,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
             get label(): string {
-                const penalty = createMAPenalty(initialMAPs, mapIncreases, initialRollOptions);
+                const penalty = createMAPenalty(initialMAPs, mapIncreases);
+                adjustModifiers(R.filter([penalty], R.isTruthy), initialRollOptions);
+
                 return penalty
                     ? game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
                           value: signedInteger(action.totalModifier + penalty.value),
@@ -1537,8 +1538,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
                 const statistic = context.origin.statistic ?? action;
                 const maps = calculateMAPs(context.origin.item, { domains: context.domains, options: context.options });
-                const maPenalty = createMAPenalty(maps, mapIncreases, context.options);
-                const allModifiers = R.compact([maPenalty, params.modifiers, context.origin.modifiers].flat());
+                const maPenalty = createMAPenalty(maps, mapIncreases);
+                const allModifiers = R.filter(
+                    [maPenalty, params.modifiers, context.origin.modifiers].flat(),
+                    R.isTruthy,
+                );
                 const check = checkModifiers[mapIncreases](statistic, allModifiers);
 
                 // Check whether target is out of maximum range; abort early if so
