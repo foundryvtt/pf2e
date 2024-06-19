@@ -505,7 +505,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         const configuredTint = this.document.texture.tint ?? Color.fromString("#FFFFFF");
         if (this.mesh.tint !== 0 && this.detectionFilter instanceof OutlineOverlayFilter) {
             this.mesh.tint = 0;
-        } else if (this.mesh.tint === 0 && configuredTint.toString() !== "#000000" && !this.detectionFilter) {
+        } else if (
+            this.mesh.tint === 0 &&
+            configuredTint.toString() !== "#000000" &&
+            !(this.detectionFilter instanceof OutlineOverlayFilter)
+        ) {
             this.mesh.tint = Number(configuredTint);
         }
     }
