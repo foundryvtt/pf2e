@@ -94,7 +94,13 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
     /** Make stamina and resolve editable despite not being present in template.json */
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
-        if (attribute && ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute)) {
+        if (
+            attribute &&
+            (["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute) ||
+                (this.actor?.isOfType("character", "npc") &&
+                    attribute.attribute === "attributes.shield.hp" &&
+                    this.actor.attributes.shield.itemId))
+        ) {
             attribute.editable = true;
         }
 

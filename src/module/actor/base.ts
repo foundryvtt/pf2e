@@ -918,6 +918,17 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const damage = isDelta ? -1 * value : hitPoints.value - value;
             return this.applyDamage({ damage, token, final: true });
         }
+        const isShield = !!(attribute === "attributes.shield.hp" && this.isOfType("character", "npc"));
+        if (isShield && token) {
+            const { hp, itemId } = this.attributes.shield;
+            if (itemId) {
+                const damage = isDelta ? hp.value + value : value;
+                const item = this.items.get(itemId);
+                await item?.update({ "system.hp.value": damage });
+            }
+            return this;
+        }
+
         return super.modifyTokenAttribute(attribute, value, isDelta, isBar);
     }
 
