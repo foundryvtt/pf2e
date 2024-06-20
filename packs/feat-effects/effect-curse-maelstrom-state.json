@@ -1,0 +1,88 @@
+{
+    "_id": "85w9OI1gMd6uJRKh",
+    "img": "icons/magic/control/debuff-energy-hold-pink.webp",
+    "name": "Effect: Curse Maelstrom State",
+    "system": {
+        "badge": {
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Curse Maelstrom Dedication]</p>\n<p>All creatures other than you within a 10-foot emanation take a -1 status penalty to all saving throws and skill checks. You gain the Expel Maelstrom action.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "not": "feat:unnerving-expansion"
+                    }
+                ],
+                "property": "badge-max",
+                "value": 1
+            },
+            {
+                "effects": [
+                    {
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Curse Maelstrom State"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": "5*@item.badge.value"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Expel Maelstrom"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

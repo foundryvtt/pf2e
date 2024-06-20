@@ -473,6 +473,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context?: {
             parent?: TDocument["parent"];
             pack?: Collection<TDocument> | null;
+            types?: ItemType[];
         } & Partial<FormApplicationOptions>,
     ): Promise<TDocument | null>;
     static override async createDialog(
@@ -480,24 +481,23 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         context: {
             parent?: ActorPF2e | null;
             pack?: Collection<ItemPF2e<null>> | null;
+            types?: string[];
         } & Partial<FormApplicationOptions> = {},
-    ): Promise<Item<ActorPF2e | null> | null> {
+    ): Promise<Item | null> {
+        context.classes = [...(context.classes ?? []), "dialog-item-create"];
+        context.types &&= R.unique(context.types);
+        context.types ??= Object.keys(game.system.documentTypes.Item);
+
         // Figure out the types to omit
         const omittedTypes: ItemType[] = ["condition", "spellcastingEntry", "lore"];
         if (BUILD_MODE === "production") omittedTypes.push("affliction", "book");
         if (game.settings.get("pf2e", "campaignType") !== "kingmaker") omittedTypes.push("campaignFeature");
 
-        // Create the dialog, temporarily changing the list of allowed items
-        const original = game.system.documentTypes.Item;
-        try {
-            game.system.documentTypes.Item = R.difference(original, omittedTypes);
-            return super.createDialog<ItemPF2e>(data, {
-                ...context,
-                classes: [...(context.classes ?? []), "dialog-item-create"],
-            });
-        } finally {
-            game.system.documentTypes.Item = original;
+        for (const type of omittedTypes) {
+            context.types.findSplice((t) => t === type);
         }
+
+        return super.createDialog(data, context);
     }
 
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */

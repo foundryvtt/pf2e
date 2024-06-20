@@ -1,4 +1,5 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
+import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
@@ -115,7 +116,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                         width: 320,
                         left: window.innerWidth - 630,
                         top: button?.offsetTop ?? 0,
-                        types: ["creature"],
+                        types: [...CREATURE_ACTOR_TYPES],
                     },
                 );
 

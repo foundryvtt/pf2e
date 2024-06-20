@@ -16,10 +16,11 @@ import * as R from "remeda";
 
 function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
     const fromMaterial = item.system.material.type === "orichalcum" ? 1 : 0;
+    const getABPPotency = item.isOfType("weapon") ? ABP.getAttackPotency : ABP.getDefensePotency;
 
     const fromPotency = ABP.isEnabled(item.actor)
         ? // If the item is unowned or on a loot actor, place no limit on slots
-          ABP.getAttackPotency(!item.actor || item.actor.isOfType("loot") ? 20 : item.actor.level)
+          getABPPotency(!item.actor || item.actor.isOfType("loot") ? 20 : item.actor.level)
         : item.system.runes.potency;
     return (fromMaterial + fromPotency) as ZeroToFour;
 }
