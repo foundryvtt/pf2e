@@ -30,17 +30,30 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:trait:summon"
+                    "item:trait:summon",
+                    "spellshape:explosive-arrival"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "predicate": [
-                            "item:trait:summon"
-                        ],
-                        "text": "PF2E.SpecificRule.Wizard.ExplosiveArrival"
+                        "text": "PF2E.SpecificRule.Spellshape.ExplosiveArrival"
                     }
                 ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Spellshape.Label",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "explosive-arrival"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
             }
         ],
         "traits": {
