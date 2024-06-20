@@ -10,7 +10,6 @@ import {
     SheetOptions,
     TraitTagifyEntry,
 } from "@module/sheet/helpers.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import {
     BasicConstructorOptions,
     LanguageSelector,
@@ -457,8 +456,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             const idx = ruleSection.dataset.idx ? Number(ruleSection.dataset.idx) : NaN;
             this.#ruleElementForms.at(idx)?.activateListeners(ruleSection);
         }
-
-        InlineRollLinks.listen(html, this.item);
 
         // Set up traits selection in the header
         const { validTraits } = this;

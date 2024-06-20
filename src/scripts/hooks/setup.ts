@@ -1,10 +1,13 @@
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
+import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { registerSheets } from "../register-sheets.ts";
 
 /** This runs after game data has been requested and loaded from the servers, so entities exist */
 export const Setup = {
     listen: (): void => {
         Hooks.once("setup", () => {
+            InlineRollLinks.activatePF2eListeners();
+
             // Register actor and item sheets
             registerSheets();
 
