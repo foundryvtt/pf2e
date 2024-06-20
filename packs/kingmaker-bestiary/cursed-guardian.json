@@ -109,7 +109,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "origin:deity:slug:erastil"
+                        ],
+                        "key": "Weakness",
+                        "type": "custom",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "origin:deity:slug:erastil"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -186,7 +204,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rush"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

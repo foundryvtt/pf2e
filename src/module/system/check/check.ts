@@ -195,6 +195,9 @@ class CheckPF2e {
                 `check:total:${roll.total}`,
                 `check:total:natural:${naturalTotal}`,
                 `check:total:delta:${roll.total - context.dc.value}`,
+                // @todo migrate me
+                // backward compatibility
+                `check:roll:total:natural:${naturalTotal}`,
             ]);
 
             return (

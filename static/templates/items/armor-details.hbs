@@ -137,7 +137,7 @@
         </select>
     </div>
 
-    {{#unless (or item.isBarding abpEnabled)}}
+    {{#unless item.isBarding}}
         {{#unless abpEnabled}}
             <div class="form-group">
                 <label for="{{fieldIdPrefix}}rune-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
@@ -179,13 +179,14 @@
         {{/each}}
 
         <div class="form-group">
-            <label class="large">
+            <label class="large" for="{{../fieldIdPrefix}}specific-magic-{{index}}">
                 {{localize "PF2E.Item.Armor.Specific.Label"}}
                 <i class="fa-solid fa-info-circle" data-tooltip="PF2E.Item.Armor.Specific.Hint"></i>
             </label>
             <input
                 type="checkbox"
                 name="system.specific"
+                id="{{../fieldIdPrefix}}specific-magic-{{index}}"
                 value="{{json specificMagicData}}"
                 data-dtype="JSON"
                 {{checked data.specific}}

@@ -1,11 +1,11 @@
-import { MigrationBase } from "../base.ts";
-import { SkillSlug } from "@actor/types.ts";
-import { objectHasKey, recursiveReplaceString } from "@util";
 import { CharacterSystemSource } from "@actor/character/data.ts";
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ZeroToFour } from "@module/data.ts";
-import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
+import { SkillSlug } from "@actor/types.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ZeroToFour } from "@module/data.ts";
+import { objectHasKey, recursiveReplaceString } from "@util";
+import { MigrationBase } from "../base.ts";
+import { SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SkillAbbreviation } from "./927-class-background-skill-longform.ts";
 
 export class Migration928CharacterSkillsLongform extends MigrationBase {
     static override version = 0.928;
@@ -34,6 +34,12 @@ export class Migration928CharacterSkillsLongform extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
+        for (const rule of source.system.rules) {
+            if (rule.key === "ActiveEffectLike" && "path" in rule && typeof rule.path === "string") {
+                // An ancient path from before FVTT 0.8
+                rule.path = rule.path.replace(/^data\./, "system.");
+            }
+        }
         this.#replacePathsAndOptions(source);
     }
 

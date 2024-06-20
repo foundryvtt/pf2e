@@ -16,7 +16,6 @@ import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
 import * as R from "remeda";
@@ -390,7 +389,6 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                     classes: ["item-summary"],
                     innerHTML: await TextEditor.enrichHTML(document.description, { rollData }),
                 });
-                InlineRollLinks.listen(content, document);
                 $(activityElem).tooltipster({
                     contentAsHTML: true,
                     content,

@@ -36,7 +36,7 @@ class UUIDUtils {
 
     static isItemUUID(uuid: unknown): uuid is ItemUUID {
         try {
-            return typeof uuid === "string" && fu.parseUuid(uuid).documentType === "Item";
+            return typeof uuid === "string" && fu.parseUuid(uuid).type === "Item";
         } catch {
             return false;
         }
