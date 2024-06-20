@@ -64,7 +64,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     #pathIsValid(path: string): boolean {
         const actor = this.item.actor;
         return (
-            path.length > 0 &&
+            !path.startsWith("data.") &&
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
