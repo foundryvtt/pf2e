@@ -144,7 +144,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const attributeModifier =
             masterAttributeModifier > 2
                 ? new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
-                : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAbilityModifier`, 3, "untyped");
+                : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
