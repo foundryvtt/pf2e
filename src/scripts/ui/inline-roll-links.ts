@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { SAVE_TYPES } from "@actor/values.ts";
+import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
@@ -274,9 +274,11 @@ export class InlineRollLinks {
                 const subtitleLocKey =
                     pf2Check in CONFIG.PF2E.magicTraditions
                         ? "PF2E.ActionsCheck.spell"
-                        : statistic.check.type === "attack-roll"
-                          ? "PF2E.ActionsCheck.x-attack-roll"
-                          : "PF2E.ActionsCheck.x";
+                        : [...SKILL_SLUGS, "perception"].includes(statistic.slug)
+                          ? `PF2E.ActionsCheck.${statistic.slug}`
+                          : statistic.check.type === "attack-roll"
+                            ? "PF2E.ActionsCheck.x-attack-roll"
+                            : "PF2E.ActionsCheck.x";
                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                     glyph: getActionGlyph(item.actionCost),
                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),

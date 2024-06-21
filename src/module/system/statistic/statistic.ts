@@ -282,7 +282,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.type = data.check?.type ?? "check";
         data.check = fu.mergeObject(data.check ?? {}, { type: this.type });
 
-        const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
+        const checkDomains = new Set(["check", data.check.domains].flat().filter(R.isTruthy));
         if (this.type === "attack-roll") {
             checkDomains.add("attack");
             checkDomains.add("attack-roll");
@@ -297,7 +297,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         data.check.domains = Array.from(checkDomains);
-        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat()));
+        this.domains = R.unique([data.domains, data.check.domains].flat().filter(R.isTruthy));
 
         this.label = this.#determineLabel(data);
 
@@ -346,7 +346,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
     #determineLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
-        if (data.check?.label) return game.i18n.localize(data.check?.label);
+        if (data.check?.label) return data.check.label;
 
         // Check for specific check localization, and use if it exists
         const checkKey = `PF2E.ActionsCheck.${this.parent.slug}`;

@@ -247,7 +247,7 @@ class CheckPF2e {
         const flavor = await (async (): Promise<string> => {
             const result = await this.#createResultFlavor({ degree, self, opposer, targeting });
             const tags = this.#createTagFlavor({ check, context, extraTags });
-            const title = (context.title ?? check.slug).trim();
+            const title = game.i18n.localize((context.title ?? check.slug).trim());
             const header = title.startsWith("<h4")
                 ? title
                 : ((): HTMLElement => {
