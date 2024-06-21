@@ -1,5 +1,5 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import Tagify, { TagifySettings } from "@yaireo/tagify";
 import { objectHasKey } from "./misc.ts";
 
@@ -33,18 +33,18 @@ function transformWhitelist(whitelist: WhitelistData) {
 
 /** Create a tagify select menu out of a JSON input element */
 function tagify(element: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
-function tagify(element: HTMLTagifyTraitsElement, options?: TagifyOptions): Tagify<TagRecord>;
+function tagify(element: HTMLTagifyTagsElement, options?: TagifyOptions): Tagify<TagRecord>;
 function tagify(
-    element: HTMLInputElement | HTMLTagifyTraitsElement | null,
+    element: HTMLInputElement | HTMLTagifyTagsElement | null,
     options?: TagifyOptions,
 ): Tagify<TagRecord> | null;
 function tagify(
-    element: HTMLInputElement | HTMLTagifyTraitsElement | null,
+    element: HTMLInputElement | HTMLTagifyTagsElement | null,
     { whitelist, maxTags, enforceWhitelist = true, editTags }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
     // Avoid importing the HTMLTagifyTraitsElement class that references the foundry API
-    const isTagifyTraitsElement = (element: HTMLElement | null): element is HTMLTagifyTraitsElement => {
-        return element?.tagName.toLowerCase() === "tagify-traits";
+    const isTagifyTraitsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
+        return element?.tagName.toLowerCase() === "tagify-tags";
     };
 
     const input = isTagifyTraitsElement(element) ? element.input : element;

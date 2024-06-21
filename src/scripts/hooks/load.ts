@@ -30,7 +30,7 @@ import { CheckRoll, StrikeAttackRoll } from "@system/check/roll.ts";
 import { ClientDatabaseBackendPF2e } from "@system/client-backend.ts";
 import { DamageInstance, DamageRoll } from "@system/damage/roll.ts";
 import { ArithmeticExpression, Grouping, InstancePool, IntermediateDie } from "@system/damage/terms.ts";
-import { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import * as R from "remeda";
 
 /** Not an actual hook listener but rather things to run on initial load */
@@ -120,7 +120,7 @@ export const Load = {
         window.AutomaticBonusProgression = AutomaticBonusProgression;
 
         // Add custom HTML elements
-        window.customElements.define(HTMLTagifyTraitsElement.tagName, HTMLTagifyTraitsElement);
+        window.customElements.define(HTMLTagifyTagsElement.tagName, HTMLTagifyTagsElement);
 
         // Monkey-patch `TextEditor.enrichHTML`
         monkeyPatchFoundry();

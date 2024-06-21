@@ -4,8 +4,8 @@ import * as R from "remeda";
  * A HTML Element that handles `Tagify` data and always has a `value` of `string[]`.
  * `Tagify` must be bound to the child input element that can be accessed at `HTMLTagifyTraitsElement#input`
  */
-class HTMLTagifyTraitsElement extends foundry.applications.elements.AbstractFormInputElement<string[], string> {
-    static override tagName = "tagify-traits";
+class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormInputElement<string[], string> {
+    static override tagName = "tagify-tags";
 
     /** The input elmement that the `Tagify` instance is bound to */
     declare input: HTMLInputElement;
@@ -79,4 +79,4 @@ class HTMLTagifyTraitsElement extends foundry.applications.elements.AbstractForm
 
 type TagifySelection = { id?: string; value?: string; readonly?: boolean };
 
-export { HTMLTagifyTraitsElement };
+export { HTMLTagifyTagsElement };

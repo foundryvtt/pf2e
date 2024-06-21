@@ -9,7 +9,7 @@ import {
     SheetOptions,
     TraitTagifyEntry,
 } from "@module/sheet/helpers.ts";
-import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     BasicConstructorOptions,
     LanguageSelector,
@@ -459,7 +459,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
 
         // Set up traits selection in the header
         const { validTraits } = this;
-        const tagElement = htmlQuery<HTMLTagifyTraitsElement>(this.form, ":scope > header tagify-traits");
+        const tagElement = htmlQuery<HTMLTagifyTagsElement>(this.form, ":scope > header tagify-tags");
         const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");
         if (validTraits !== null && tagElement) {
             const tags = tagify(tagElement, { whitelist: validTraits });
@@ -472,7 +472,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         }
 
         // Tagify other-tags input if present
-        tagify(htmlQuery<HTMLTagifyTraitsElement>(html, 'tagify-traits[name="system.traits.otherTags"]'), {
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.otherTags"]'), {
             maxTags: 6,
         });
 

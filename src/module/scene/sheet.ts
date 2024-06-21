@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
-import type { HTMLTagifyTraitsElement } from "@system/html-elements/tagify-traits.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
 import * as R from "remeda";
@@ -74,7 +74,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
-        tagify(htmlQuery<HTMLTagifyTraitsElement>(html, 'tagify-traits[name="flags.pf2e.environmentTypes"]'), {
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
             whitelist: CONFIG.PF2E.environmentTypes,
             enforceWhitelist: true,
         });
