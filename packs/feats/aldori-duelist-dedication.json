@@ -28,7 +28,28 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: World Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "value": "athletics"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": "ternary(gte(@actor.system.skills.{item|flags.pf2e.rulesSelections.skill}.rank,1),2,1)"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
