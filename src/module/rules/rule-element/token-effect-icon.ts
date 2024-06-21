@@ -33,7 +33,7 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
                         type: "effect",
                         name: this.label,
                         img: path,
-                        system: { description: this.item.description },
+                        system: { description: { value: this.item.description } },
                     },
                     { parent: this.actor },
                 ),
