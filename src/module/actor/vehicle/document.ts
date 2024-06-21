@@ -63,14 +63,6 @@ class VehiclePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e |
         }
     }
 
-    override prepareEmbeddedDocuments(): void {
-        super.prepareEmbeddedDocuments();
-
-        for (const rule of this.rules) {
-            rule.onApplyActiveEffects?.();
-        }
-    }
-
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         this.prepareSynthetics();

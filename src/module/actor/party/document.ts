@@ -159,14 +159,6 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         this.system.details.level.value = partyLevel;
     }
 
-    /** Run rule elements (which may occur if it contains a kingdom) */
-    override prepareEmbeddedDocuments(): void {
-        super.prepareEmbeddedDocuments();
-        for (const rule of this.rules) {
-            rule.onApplyActiveEffects?.();
-        }
-    }
-
     override prepareDerivedData(): void {
         super.prepareDerivedData();
         if (!game.ready) return; // exit early if game isn't ready yet
