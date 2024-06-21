@@ -684,9 +684,7 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.invalid = "";
         }
 
-        // In case this is a note on some other action like a Strike, provide the UUID of the item that actually
-        // provokes a saving throw.
-        if (tupleHasValue(SAVE_TYPES, params.type) && item?.uuid) {
+        if (item?.uuid) {
             anchor.dataset.itemUuid = item.uuid;
         }
 
