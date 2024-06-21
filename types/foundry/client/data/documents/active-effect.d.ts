@@ -1,8 +1,4 @@
-import type {
-    ActiveEffectSchema,
-    ActiveEffectSource,
-    EffectDurationData,
-} from "../../../common/documents/active-effect.d.ts";
+import type { ActiveEffectSource, EffectDurationData } from "../../../common/documents/active-effect.d.ts";
 import type { ClientBaseActiveEffect } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -11,10 +7,7 @@ declare global {
      * Each ActiveEffect belongs to the effects collection of its parent Document.
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
      */
-    class ActiveEffect<TParent extends Actor | Item | null>
-        extends ClientBaseActiveEffect<TParent>
-        implements TemporaryEffect
-    {
+    class ActiveEffect<TParent extends Actor | Item | null> extends ClientBaseActiveEffect<TParent> {
         constructor(data: PreCreate<ActiveEffectSource>, context?: DocumentConstructionContext<TParent>);
 
         /** A cached reference to the source name to avoid recurring database lookups */
@@ -136,10 +129,5 @@ declare global {
         type: string;
         remaining?: string;
         label?: string;
-    }
-
-    interface TemporaryEffect extends ModelPropsFromSchema<ActiveEffectSchema> {
-        isTemporary: boolean;
-        duration: PreparedEffectDurationData;
     }
 }

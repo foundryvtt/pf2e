@@ -218,6 +218,16 @@ abstract class CreaturePF2e<
                 );
         }
 
+        if (slug in CONFIG.PF2E.magicTraditions) {
+            const bestSpellcasting =
+                this.spellcasting
+                    .filter((c) => c.tradition === slug)
+                    .flatMap((s) => s.statistic ?? [])
+                    .sort((a, b) => b.check.mod - a.check.mod)
+                    .shift() ?? null;
+            return bestSpellcasting ?? null;
+        }
+
         return (
             this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
             super.getStatistic(slug)
