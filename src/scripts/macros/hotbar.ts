@@ -2,10 +2,10 @@ import { ActorPF2e } from "@actor";
 import { AttackPopout } from "@actor/character/attack-popouts.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
-import type { ElementTrait } from "@scripts/config/traits.ts";
 import { objectHasKey } from "@util";
 
 /**
@@ -45,7 +45,7 @@ export async function createActionMacro({
     if (!actor?.isOfType("character", "npc")) return;
 
     const data = ((): { name: string; command: string; img: ImageFilePath } | null => {
-        if (actor.isOfType("character") && objectHasKey(CONFIG.PF2E.elementTraits, elementTrait)) {
+        if (actor.isOfType("character") && objectHasKey(CONFIG.PF2E.effectTraits, elementTrait)) {
             const blast = new ElementalBlast(actor);
             const config = blast.configs.find((c) => c.element === elementTrait);
             if (!config) return null;
@@ -225,6 +225,6 @@ interface RollActionMacroParams {
     actorUUID?: ActorUUID;
     itemId?: string;
     slug?: string;
-    elementTrait?: ElementTrait;
+    elementTrait?: EffectTrait;
     type?: "blast" | "strike";
 }
