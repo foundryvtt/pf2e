@@ -141,6 +141,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, master, masterAttributeModifier, system } = this;
         const { attributes, traits } = system;
+        const attributeModifier =
+            masterAttributeModifier > 2
+                ? new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
+                : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
@@ -211,10 +215,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             domains: ["perception", "wis-based", "all"],
-            modifiers: [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
-                new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped"),
-            ],
+            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
             check: { type: "perception-check" },
             senses: system.perception.senses,
         });
@@ -224,8 +225,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         this.skills = [...SKILL_SLUGS].reduce((builtSkills: Record<string, Statistic<this>>, skill) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
-                const label = `PF2E.MasterAbility.${system.master.ability}`;
-                modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
+                modifiers.push(attributeModifier);
             }
 
             const attribute = SKILL_EXPANDED[skill].attribute;
