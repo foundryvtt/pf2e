@@ -604,6 +604,41 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return super.createDocuments(sources, operation);
     }
 
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: true },
+    ): foundry.abstract.Document;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: false },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined {
+        if (embeddedName !== "Item") {
+            return super.getEmbeddedDocument(embeddedName, id, options);
+        }
+
+        const subitem = this.inventory.subitems.get(id) as foundry.abstract.Document | undefined;
+
+        try {
+            const document = super.getEmbeddedDocument(embeddedName, id, options);
+            return document ?? subitem;
+        } catch (error) {
+            if (subitem) return subitem;
+            throw error;
+        }
+    }
+
     static override updateDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         updates?: Record<string, unknown>[],

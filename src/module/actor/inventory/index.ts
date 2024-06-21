@@ -11,9 +11,17 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
     actor: TActor;
     bulk: InventoryBulk;
 
+    /** A collection of all subitems in this actor's inventory */
+    subitems = new Collection<PhysicalItemPF2e>();
+
     constructor(actor: TActor, entries?: PhysicalItemPF2e<TActor>[]) {
         super(entries?.map((entry) => [entry.id, entry]));
         this.actor = actor;
+
+        // Add any subitems introduced to the subitems collection
+        for (const entry of entries ?? []) {
+            this.#addSubitems(entry);
+        }
 
         // Created in the constructor so its ready for RE modification
         this.bulk = new InventoryBulk(this.actor);
@@ -40,6 +48,42 @@ class ActorInventory<TActor extends ActorPF2e> extends DelegatedCollection<Physi
         }
 
         return null;
+    }
+
+    /** Sets the physical item but also updates the subitem collection */
+    override set(key: string, value: PhysicalItemPF2e<TActor>): this {
+        const existing = this.get(key);
+        if (existing) {
+            this.#removeSubitems(existing);
+        }
+
+        super.set(key, value);
+        this.#addSubitems(value);
+        return this;
+    }
+
+    /** Removes the physical item and all of its subitems from the inventory */
+    override delete(key: string): boolean {
+        const existing = this.get(key);
+        if (existing) {
+            this.#removeSubitems(existing);
+        }
+
+        return super.delete(key);
+    }
+
+    #addSubitems(item: PhysicalItemPF2e) {
+        for (const subitem of item.subitems) {
+            this.subitems.set(subitem.id, subitem);
+            this.#addSubitems(subitem);
+        }
+    }
+
+    #removeSubitems(item: PhysicalItemPF2e) {
+        for (const subitem of item.subitems) {
+            this.subitems.delete(subitem.id);
+            this.#removeSubitems(subitem);
+        }
     }
 
     /** Find an item already owned by the actor that can stack with the given item */
