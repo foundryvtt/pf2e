@@ -11,6 +11,7 @@ import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -130,7 +131,7 @@ export class InlineRollLinks {
         if (!pf2Check) return;
 
         const foundryDoc = resolveDocument(link);
-        const parent = resolveActor(foundryDoc, link);
+        const parent = resolveActor(foundryDoc);
         const actors = ((): ActorPF2e[] => {
             switch (pf2Roller) {
                 case "self":
@@ -141,7 +142,7 @@ export class InlineRollLinks {
             }
 
             // If this is inside a sheet, return the actor always
-            const actorFromSheet = resolveActor(resolveSheetDocument(link), link);
+            const actorFromSheet = resolveActor(resolveSheetDocument(link));
             if (actorFromSheet && !actorFromSheet.isOfType("loot", "party") && actorFromSheet.isOwner) {
                 return [actorFromSheet];
             }
@@ -353,7 +354,7 @@ export class InlineRollLinks {
             flags.pf2e.messageId = messageId;
         }
 
-        const actor = resolveActor(foundryDoc, link);
+        const actor = resolveActor(foundryDoc ?? resolveDocument(link));
         if (actor || pf2Traits) {
             const origin: Record<string, unknown> = {};
             if (actor) {
@@ -378,7 +379,7 @@ export class InlineRollLinks {
         }
 
         const foundryDoc = resolveDocument(target);
-        const actor = resolveActor(foundryDoc, target);
+        const actor = resolveActor(foundryDoc);
         const defaultVisibility = (actor ?? foundryDoc)?.hasPlayerOwner ? "all" : "gm";
         const content = (() => {
             if (target.parentElement?.dataset?.pf2Checkgroup !== undefined) {
@@ -411,7 +412,7 @@ export class InlineRollLinks {
 
     /** Give inline damage-roll links from items flavor text of the item name */
     static flavorDamageRolls(html: HTMLElement, document: ClientDocument | null = null): void {
-        const actor = resolveActor(document, html);
+        const actor = resolveActor(document ?? resolveDocument(html));
         for (const rollLink of htmlQueryAll(html, "a.inline-roll[data-damage-roll]")) {
             const itemId = htmlClosest(rollLink, "[data-item-id]")?.dataset.itemId;
             const item = actor?.items.get(itemId ?? "");
@@ -429,15 +430,14 @@ function resolveSheetDocument(html: HTMLElement): ClientDocument | null {
 
 /** Attempt to derive the related document via the sheet or chat message, handling any item summaries */
 function resolveDocument(html: HTMLElement): ClientDocument | null {
-    // Retrieve the sheet document first
-    const sheetDocument = resolveSheetDocument(html);
-
-    // Items are often embedded, so it has priority
-    const itemId = htmlClosest(html, "[data-item-id]")?.dataset.itemId;
-    if (itemId && sheetDocument instanceof ActorPF2e) {
-        return sheetDocument.items.get(itemId) ?? null;
+    // If an item UUID is provided, utilize it
+    if (UUIDUtils.isItemUUID(html.dataset.itemUuid)) {
+        const document = fromUuidSync(html.dataset.itemUuid);
+        if (document instanceof foundry.abstract.Document) return document;
     }
 
+    // Attempt to figure out the document from the sheet. This might be an item description or actor notes.
+    const sheetDocument = resolveSheetDocument(html);
     if (sheetDocument) {
         return sheetDocument;
     }
@@ -447,13 +447,9 @@ function resolveDocument(html: HTMLElement): ClientDocument | null {
     return messageId ? game.messages.get(messageId) ?? null : null;
 }
 
-/** Retrieve an actor via a passed document or item UUID in the dataset of a link */
-function resolveActor(foundryDoc: ClientDocument | null, anchor: HTMLElement): ActorPF2e | null {
+/** Retrieve an actor via a passed document. Handles item owners and chat message actors. */
+function resolveActor(foundryDoc: ClientDocument | null): ActorPF2e | null {
     if (foundryDoc instanceof ActorPF2e) return foundryDoc;
     if (foundryDoc instanceof ItemPF2e || foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor;
-
-    // Retrieve item/actor from anywhere via UUID
-    const itemUuid = anchor.dataset.itemUuid;
-    const itemByUUID = itemUuid && !itemUuid.startsWith("Compendium.") ? fromUuidSync(itemUuid) : null;
-    return itemByUUID instanceof ItemPF2e ? itemByUUID.actor : null;
+    return null;
 }
