@@ -444,7 +444,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                         item: contextItem,
                     },
                     domains,
-                    against: args.dc?.slug ?? "ac",
+                    against: args.dc?.slug ?? null,
                     options: optionSet,
                 }).resolve();
             } else {
@@ -468,7 +468,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
-            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.origin?.modifiers].flat());
+            this.type === "flat-check"
+                ? []
+                : [args.modifiers, rollContext?.origin?.modifiers].flat().filter(R.isTruthy);
 
         // Get roll options and roll notes
         const extraRollOptions = R.compact([
