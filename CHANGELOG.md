@@ -1,3 +1,12 @@
+## 6.0.4
+
+### Bugfixes
+
+-   (stwlam) Fix rendering of invisible creatures when see-invisibility detection mode is in use
+-   (stwlam) Add temporary measure to fix abilities that function similarly to the Keen weapon property rune
+-   (stwlam) Update actor/item hiding from creation dialog windows for V12 (sorry about the book-item tease)
+-   (stwlam) Prevent AE-like rule elements from sometimes catastrophically exploding on very old actors
+
 ## 6.0.3
 
 ### System Improvements

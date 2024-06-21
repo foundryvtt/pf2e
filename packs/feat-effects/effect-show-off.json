@@ -1,0 +1,66 @@
+{
+    "_id": "U7QM4yqxcoGSysoG",
+    "img": "icons/skills/social/peace-luck-insult.webp",
+    "name": "Effect: Show Off",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Show-Off]</p>\n<p>You gain temporary Hit Points equal to your level (double your level on a critical success). You lose any remaining temporary Hit Points after 1 minute.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Firebrands"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "show-off"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "show-off:success"
+                ],
+                "value": "@actor.level"
+            },
+            {
+                "key": "TempHP",
+                "predicate": [
+                    "show-off:critical-success"
+                ],
+                "value": "2*@actor.level"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -615,7 +615,6 @@ class DamageInstance extends AbstractDamageRoll {
 Promise.resolve().then(() => {
     // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
     // function constructor.
-    // biome-ignore lint/complexity/noBannedTypes:
     const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
     new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
 });

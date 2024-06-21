@@ -209,7 +209,7 @@ class TextEditorPF2e extends TextEditor {
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const html = createHTMLElement("div", { innerHTML: content });
-        const document = options.rollData?.actor ?? null;
+        const document = options.rollData?.actor ?? options.relativeTo;
         UserVisibilityPF2e.process(html, { document });
 
         return html.innerHTML;
@@ -684,6 +684,10 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.invalid = "";
         }
 
+        if (item?.uuid) {
+            anchor.dataset.itemUuid = item.uuid;
+        }
+
         if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
             anchor.dataset.pf2Defense = params.defense;
         }
@@ -747,7 +751,11 @@ class TextEditorPF2e extends TextEditor {
             return overrideTraits ? fromParams : R.unique([...fromParams, ...fromItem]);
         })();
 
-        const extraRollOptions = R.filter(rawParams.options?.split(",").map((t) => t.trim()) ?? [], R.isTruthy);
+        const extraRollOptions =
+            rawParams.options
+                ?.split(",")
+                .map((t) => t.trim())
+                .filter(R.isTruthy) ?? [];
 
         const result = await augmentInlineDamageRoll(rawParams.formula, {
             skipDialog: true,
@@ -818,13 +826,13 @@ class TextEditorPF2e extends TextEditor {
         const traits = R.uniq([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
         const actionCost = item.actionCost.value;
 
-        return R.compact([
+        return [
             `action:${slug}`,
             `action:cost:${actionCost}`,
             `self:action:slug:${slug}`,
             `self:action:cost:${actionCost}`,
             ...traits.map((t) => `self:action:trait:${t}`),
-        ]);
+        ].filter(R.isTruthy);
     }
 }
 
@@ -910,16 +918,15 @@ async function augmentInlineDamageRoll(
 
         const domains = immutable
             ? []
-            : R.filter(
-                  [
-                      kinds,
-                      kinds.map((k) => `inline-${k}`),
-                      item ? kinds.map((k) => `${item.id}-inline-${k}`) : null,
-                      item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
-                      options.domains,
-                  ].flat(),
-                  R.isTruthy,
-              );
+            : [
+                  kinds,
+                  kinds.map((k) => `inline-${k}`),
+                  item ? kinds.map((k) => `${item.id}-inline-${k}`) : null,
+                  item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
+                  options.domains,
+              ]
+                  .flat()
+                  .filter(R.isTruthy);
 
         const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),

@@ -9,6 +9,7 @@ import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
+import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
@@ -195,6 +196,9 @@ class CheckPF2e {
                 `check:total:${roll.total}`,
                 `check:total:natural:${naturalTotal}`,
                 `check:total:delta:${roll.total - context.dc.value}`,
+                // @todo migrate me
+                // backward compatibility
+                `check:roll:total:natural:${naturalTotal}`,
             ]);
 
             return (
@@ -575,7 +579,7 @@ class CheckPF2e {
         }
 
         await message.delete({ render: false });
-        await keptRoll.toMessage(
+        const keptMessage = (await keptRoll.toMessage(
             {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
@@ -586,7 +590,17 @@ class CheckPF2e {
                 },
             },
             { rollMode: context.rollMode },
-        );
+        )) as ChatMessagePF2e;
+
+        if (systemFlags.treatWoundsMacroFlag) {
+            treatWoundsMacroCallback({
+                actor,
+                bonus: systemFlags.treatWoundsMacroFlag.bonus,
+                message: keptMessage,
+                originalMessageId: message.id,
+                outcome: context.outcome,
+            });
+        }
     }
 
     /**

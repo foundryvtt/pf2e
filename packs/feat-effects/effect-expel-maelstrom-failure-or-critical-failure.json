@@ -1,0 +1,68 @@
+{
+    "_id": "lc8ez8O4eN73hNpR",
+    "img": "icons/magic/control/energy-stream-link-spiral-white.webp",
+    "name": "Effect: Expel Maelstrom (Failure or Critical Failure)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Expel Maelstrom]</p>\n<p>The creature takes a -2 status penalty to all saving throws and skill checks for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "expel-maelstrom"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "expel-maelstrom:critical-failure"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Expel Maelstrom (Misfortune)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
