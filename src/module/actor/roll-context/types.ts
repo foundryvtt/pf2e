@@ -134,7 +134,7 @@ type CheckContextConstructorParams<
     TStatistic extends Statistic | StrikeData = Statistic | StrikeData,
     TItem extends ItemPF2e<ActorPF2e> | null = ItemPF2e<ActorPF2e> | null,
 > = RollContextConstructorParams<TSelf, TStatistic, TItem> & {
-    against?: string;
+    against?: string | null;
 };
 
 type DamageContextConstructorParams<

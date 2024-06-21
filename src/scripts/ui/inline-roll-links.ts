@@ -11,6 +11,7 @@ import { Statistic, StatisticRollParameters } from "@system/statistic/index.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, getActionGlyph, htmlClosest, htmlQueryAll, sluggify, tupleHasValue } from "@util";
 import { getSelectedActors } from "@util/token-actor-utils.ts";
+import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 
 const inlineSelector = ["action", "check", "effect-area"].map((keyword) => `[data-pf2-${keyword}]`).join(",");
@@ -429,6 +430,12 @@ function resolveSheetDocument(html: HTMLElement): ClientDocument | null {
 
 /** Attempt to derive the related document via the sheet or chat message, handling any item summaries */
 function resolveDocument(html: HTMLElement): ClientDocument | null {
+    // If an item UUID is provided, utilize it
+    if (UUIDUtils.isItemUUID(html.dataset.itemUuid)) {
+        const document = fromUuidSync(html.dataset.itemUuid);
+        if (document instanceof foundry.abstract.Document) return document;
+    }
+
     // Retrieve the sheet document first
     const sheetDocument = resolveSheetDocument(html);
 
