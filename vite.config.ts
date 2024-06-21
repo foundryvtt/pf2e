@@ -22,8 +22,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
-        "return {\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };",
-        "AbstractDamageRoll.parser = { SyntaxError: peg$SyntaxError, parse: peg$parse };",
+        'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };',
+        'AbstractDamageRoll.parser = { StartRules: ["Expression"], SyntaxError: peg$SyntaxError, parse: peg$parse };',
     );
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
