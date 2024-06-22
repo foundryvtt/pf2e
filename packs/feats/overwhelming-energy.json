@@ -24,7 +24,95 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:overwhelming-energy",
+                    {
+                        "or": [
+                            "class:wizard",
+                            "feat:wizard-dedication"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.OverwhelmingEnergyWizard"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:overwhelming-energy",
+                    {
+                        "or": [
+                            "class:druid",
+                            "feat:druid-dedication"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.OverwhelmingEnergyDruid"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:overwhelming-energy",
+                    {
+                        "or": [
+                            "class:sorcerer",
+                            "feat:sorcerer-dedication"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.OverwhelmingEnergySorcerer"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:druid",
+                            "class:sorcerer",
+                            "class:wizard",
+                            "feat:wizard-dedication",
+                            "feat:druid-dedication",
+                            "feat:sorcerer-dedication"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "overwhelming-energy"
+                    }
+                ],
+                "toggleable": true,
+                "value": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
