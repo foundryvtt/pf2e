@@ -1,5 +1,6 @@
-import BaseActor from "../../../common/documents/actor.js";
-import BaseUser from "../../../common/documents/user.js";
+import type BaseActor from "../../../common/documents/actor.d.ts";
+import type { ChatMessageSource } from "../../../common/documents/chat-message.d.ts";
+import type BaseUser from "../../../common/documents/user.d.ts";
 import type { ClientBaseChatMessage } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -12,7 +13,15 @@ declare global {
     class ChatMessage extends ClientBaseChatMessage {
         constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: MessageConstructionContext);
 
-        _rollExpanded: boolean;
+        /** Is the display of dice rolls in this message collapsed (false) or expanded (true) */
+        protected _rollExpanded: boolean;
+
+        /** Is this ChatMessage currently displayed in the sidebar ChatLog? */
+        logged: boolean;
+
+        /* -------------------------------------------- */
+        /*  Properties                                  */
+        /* -------------------------------------------- */
 
         /**
          * Return the recommended String alias for this message.
@@ -39,7 +48,11 @@ declare global {
          */
         override get visible(): boolean;
 
-        override prepareData(): void;
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
+
+        override prepareDerivedData(): void;
 
         /**
          * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
@@ -47,7 +60,7 @@ declare global {
          * @param rollMode The rollMode preference to apply to this message data
          * @returns The modified ChatMessage data with rollMode preferences applied
          */
-        static applyRollMode<TData extends DeepPartial<ChatMessage["_source"]>>(
+        static applyRollMode<TData extends DeepPartial<ChatMessageSource>>(
             chatData: TData,
             rollMode: RollMode | "roll",
         ): TData;
@@ -184,10 +197,6 @@ declare global {
 
         /** Export the content of the chat message into a standardized log format */
         export(): string;
-    }
-
-    interface ChatMessage extends ClientBaseChatMessage {
-        user: User;
     }
 
     namespace ChatMessage {

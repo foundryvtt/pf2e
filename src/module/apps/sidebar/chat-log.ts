@@ -310,7 +310,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         if (!token) {
             ui.notifications.error(
                 game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                    actor: message.actor?.name ?? message.user?.name ?? "",
+                    actor: message.actor?.name ?? message.author?.name ?? "",
                 }),
             );
             return;
