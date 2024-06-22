@@ -21,9 +21,6 @@ declare global {
         /** Get grid unit height */
         get h(): number;
 
-        /** A boolean flag for whether the current grid is hexagonal */
-        get isHex(): boolean;
-
         /**
          * Draw the grid
          * @param preview Override settings used in place of those saved to the Scene data

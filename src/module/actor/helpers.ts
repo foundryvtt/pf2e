@@ -1,5 +1,5 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
-import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
@@ -742,6 +742,19 @@ function isReallyPC(actor: ActorPF2e): boolean {
     return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
 }
 
+/** Recursive generator function to iterate over all items and their sub items */
+function* iterateAllItems<T extends ActorPF2e>(document: T | PhysicalItemPF2e<T>): Generator<ItemPF2e<T>> {
+    const collection = document instanceof Actor ? document.items : document.subitems;
+    for (const item of collection ?? []) {
+        yield item;
+        if (item.isOfType("physical")) {
+            for (const subitem of iterateAllItems(item)) {
+                yield subitem;
+            }
+        }
+    }
+}
+
 export {
     auraAffectsActor,
     calculateMAPs,
@@ -754,6 +767,7 @@ export {
     getStrikeDamageDomains,
     isOffGuardFromFlanking,
     isReallyPC,
+    iterateAllItems,
     migrateActorSource,
     resetActors,
     setHitPointsRollOptions,

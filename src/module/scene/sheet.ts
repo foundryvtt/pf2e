@@ -1,6 +1,6 @@
 import { resetActors } from "@actor/helpers.ts";
 import { WorldClock } from "@module/apps/world-clock/app.ts";
-import { processTagifyInSubmitData } from "@module/sheet/helpers.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { ErrorPF2e, createHTMLElement, htmlQuery, htmlQueryAll, tagify } from "@util";
 import * as R from "remeda";
@@ -74,7 +74,7 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
             }
         });
 
-        tagify(htmlQuery<HTMLInputElement>(html, 'input[name="flags.pf2e.environmentTypes"]'), {
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="flags.pf2e.environmentTypes"]'), {
             whitelist: CONFIG.PF2E.environmentTypes,
             enforceWhitelist: true,
         });
@@ -132,41 +132,6 @@ export class SceneConfigPF2e<TDocument extends ScenePF2e> extends SceneConfig<TD
                 darknessInput.closest(".form-group")?.querySelector("p.notes")?.append(managedBy);
             }
         }
-    }
-
-    protected override async _onSubmit(
-        event: Event,
-        options?: OnSubmitFormOptions,
-    ): Promise<false | Record<string, unknown>> {
-        // Prevent tagify input JSON parsing from blowing up
-        const environmentTypes = htmlQuery<HTMLInputElement>(
-            this.element[0],
-            'input[name="flags.pf2e.environmentTypes"]',
-        );
-        if (environmentTypes?.value === "") environmentTypes.value = "[]";
-        return super._onSubmit(event, options);
-    }
-
-    protected override async _onChangeInput(event: Event): Promise<void> {
-        // Prevent tagify input JSON parsing from blowing up
-        const environmentTypes = htmlQuery<HTMLInputElement>(
-            this.element[0],
-            'input[name="flags.pf2e.environmentTypes"]',
-        );
-        if (environmentTypes?.value === "") environmentTypes.value = "[]";
-        super._onChangeInput(event);
-    }
-
-    protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
-        // create the expanded update data object
-        const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> = updateData
-            ? fu.mergeObject(fd.object, updateData)
-            : fu.expandObject(fd.object);
-
-        const flattenedData = fu.flattenObject(data);
-        processTagifyInSubmitData(this.form, flattenedData);
-        return flattenedData;
     }
 
     /** Intercept flag update and change to boolean/null. */

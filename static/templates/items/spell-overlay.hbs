@@ -35,11 +35,10 @@
     {{#if (includes system "traits")}}
         <div class="traits">
             <a data-action="delete-overlay-property" data-property="traits"><i class="fa-solid fa-times"></i></a>
-            <input
+            <tagify-tags
                 class="paizo-style tags spell-traits"
                 name="{{dataPath}}.traits.value"
                 value="{{json traits}}"
-                data-dtype="JSON"
                 {{#if (eq system.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
         </div>
     {{/if}}

@@ -30,7 +30,7 @@
                     {{selectOptions complexityOptions selected=data.details.isComplex localize=true}}
                 </select>
             </template>
-            <input class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}" data-dtype="JSON"
+            <tagify-tags class="tags paizo-style" name="system.traits.value" value="{{json data.traits.value}}"
                 {{#if (eq data.traits.value.length 0)}}placeholder="{{localize "PF2E.Traits"}}"{{/if}} />
         {{else}}
             <div class="tags paizo-style">

@@ -59,7 +59,12 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:psychic",
+                    {
+                        "or": [
+                            "class:psychic",
+                            "feat:psychic-dedication"
+                        ]
+                    },
                     "spellcasting:tradition:occult",
                     "item:slug:{item|flags.pf2e.rulesSelections.spell}"
                 ],

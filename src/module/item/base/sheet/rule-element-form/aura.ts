@@ -1,6 +1,7 @@
 import { userColorForActor } from "@actor/helpers.ts";
 import type { ItemPF2e } from "@item";
 import type { AuraRuleElement, AuraRuleElementSchema } from "@module/rules/rule-element/aura.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, isImageFilePath, tagify } from "@util";
 import * as R from "remeda";
 import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } from "./base.ts";
@@ -30,13 +31,13 @@ class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override activateListeners(html: HTMLElement): void {
         super.activateListeners(html);
 
-        const traitsElement = htmlQuery<HTMLInputElement>(html, ".tagify-traits");
+        const traitsElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-traits");
         if (traitsElement) {
             const whitelist = { ...CONFIG.PF2E.spellTraits, ...CONFIG.PF2E.actionTraits };
             tagify(traitsElement, { whitelist, enforceWhitelist: false });
         }
 
-        for (const eventsElement of htmlQueryAll<HTMLInputElement>(html, ".tagify-events")) {
+        for (const eventsElement of htmlQueryAll<HTMLTagifyTagsElement>(html, "tagify-tags.tagify-events")) {
             const whitelist = [
                 ["enter", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.Enter")],
                 ["turn-start", game.i18n.localize("PF2E.RuleEditor.Aura.Effects.EventsOptions.TurnStart")],

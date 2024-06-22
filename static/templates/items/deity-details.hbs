@@ -20,21 +20,21 @@
         {{!-- Divine Attribute --}}
         <div class="form-group form-group-trait">
             <label>{{localize "PF2E.Item.Deity.DivineAttribute.Label"}}</label>
-            <input type="text" name="system.attribute" value="{{json data.attribute}}" class="pf2e-tagify" data-dtype="JSON" />
+            <tagify-tags name="system.attribute" value="{{json data.attribute}}" class="pf2e-tagify" />
             <p class="hint">{{localize "PF2E.Item.Deity.DivineAttribute.Hint"}}</p>
         </div>
 
         {{!-- Divine Skill --}}
         <div class="form-group form-group-trait">
             <label>{{localize "PF2E.Item.Deity.DivineSkill.Label"}}</label>
-            <input type="text" name="system.skill" value="{{json data.skill}}" class="pf2e-tagify" data-dtype="JSON" />
+            <tagify-tags name="system.skill" value="{{json data.skill}}" class="pf2e-tagify" />
             <p class="hint">{{localize "PF2E.Item.Deity.DivineSkill.Hint"}}</p>
         </div>
 
         {{!-- Favored Weapon --}}
         <div class="form-group">
             <label>{{localize "PF2E.Item.Deity.FavoredWeapons.Label"}}</label>
-            <input name="system.weapons" value="{{json data.weapons}}" class="pf2e-tagify" data-dtype="JSON" />
+            <tagify-tags name="system.weapons" value="{{json data.weapons}}" class="pf2e-tagify" />
             <p class="hint">{{localize "PF2E.Item.Deity.FavoredWeapons.Hint"}}</p>
         </div>
     {{/unless}}
@@ -50,7 +50,7 @@
         <div class="form-group">
             <label>{{localize "PF2E.Item.Deity.Domains.Primary"}}</label>
             <div class="form-fields">
-                <input name="system.domains.primary" class="pf2e-tagify" value="{{json data.domains.primary}}" data-dtype="JSON" />
+                <tagify-tags name="system.domains.primary" class="pf2e-tagify" value="{{json data.domains.primary}}" />
             </div>
         </div>
 
@@ -58,7 +58,7 @@
         <div class="form-group">
             <label>{{localize "PF2E.Item.Deity.Domains.Alternate.Label"}}</label>
             <div class="form-fields">
-                <input name="system.domains.alternate" class="pf2e-tagify" value="{{json data.domains.alternate}}" data-dtype="JSON" />
+                <tagify-tags name="system.domains.alternate" class="pf2e-tagify" value="{{json data.domains.alternate}}" />
             </div>
             <p class="hint">{{localize "PF2E.Item.Deity.Domains.Alternate.Hint"}}</p>
         </div>

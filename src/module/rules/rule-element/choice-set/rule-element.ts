@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
+import { iterateAllItems } from "@actor/helpers.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
@@ -325,7 +326,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const { includeHandwraps, types } = options;
         const predicate = new Predicate(this.resolveInjectedProperties(options.predicate));
 
-        const choices = this.actor.items
+        const choices = [...iterateAllItems(this.actor)]
             .filter((i) => i.isOfType(...types) && predicate.test([...actorRollOptions, ...i.getRollOptions("item")]))
             .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
             .map(
