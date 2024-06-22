@@ -4,6 +4,7 @@ import { OneToTen } from "@module/data.ts";
 import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     ErrorPF2e,
     fontAwesomeIcon,
@@ -147,7 +148,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             if (levelInput) levelInput.readOnly = true;
         }
 
-        tagify(html.querySelector('input[name="system.traits.traditions"]'), {
+        tagify(htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.traditions"]'), {
             whitelist: CONFIG.PF2E.magicTraditions,
         });
 

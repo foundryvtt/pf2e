@@ -35,13 +35,12 @@
     <div class="form-group stacked">
         <label for="{{fieldIdPrefix}}prerequisites">{{localize "PF2E.FeatPrereqLabel"}}</label>
         <div class="form-fields">
-            <input
+            <tagify-tags
                 class="pf2e-tagify"
                 type="text"
                 name="system.prerequisites.value"
                 id="{{fieldIdPrefix}}prerequisites"
                 value="{{json item.system.prerequisites.value}}"
-                data-dtype="JSON"
             />
         </div>
     </div>
@@ -54,12 +53,11 @@
         <div class="form-group stacked">
             <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Label"}}</label>
             <div class="form-fields">
-                <input class="pf2e-tagify"
+                <tagify-tags class="pf2e-tagify"
                     type="text"
                     name="system.subfeatures.keyOptions"
                     id="{{fieldIdPrefix}}key-options"
                     value="{{json item.system.subfeatures.keyOptions}}"
-                    data-dtype="JSON"
                 />
             </div>
             <p class="hint">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Hint"}}</p>
