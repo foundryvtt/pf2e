@@ -103,6 +103,14 @@ class ChatMessagePF2e extends ChatMessage {
             return item ?? null;
         }
 
+        if ("appliedDamage" in this.flags.pf2e) {
+            const origin = this.flags.pf2e?.origin ?? null;
+            const matchActor = /Actor\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
+            const actor = game.actors.get(matchActor?.[1] ?? "");
+            const matchItem = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
+            return actor?.items.get(matchItem?.[1] ?? "") ?? null;
+        }
+
         // If this is a strike, return the strike's weapon or unarmed attack
         const strike = this._strike;
         if (strike?.item) return strike.item;

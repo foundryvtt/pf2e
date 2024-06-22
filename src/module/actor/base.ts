@@ -1282,7 +1282,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             speaker: ChatMessagePF2e.getSpeaker({ token }),
             flags: {
                 pf2e: {
+                    type: "damage-taken",
                     appliedDamage,
+                    options: Array.from(rollOptions),
+                    origin: item?.getOriginData(),
                 },
             },
             flavor,
