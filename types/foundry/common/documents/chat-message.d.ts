@@ -19,8 +19,10 @@ export default class BaseChatMessage extends Document<null, ChatMessageSchema> {
 
 export default interface BaseChatMessage
     extends Document<null, ChatMessageSchema>,
-        ModelPropsFromSchema<ChatMessageSchema> {
+        Omit<ModelPropsFromSchema<ChatMessageSchema>, "author"> {
     get documentName(): ChatMessageMetadata["name"];
+
+    author: BaseUser | null;
 }
 
 export type ChatMessageSchema = {

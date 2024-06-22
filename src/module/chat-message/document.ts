@@ -14,14 +14,15 @@ import * as Listeners from "./listeners/index.ts";
 import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
-    /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: MessageConstructionContext = {}) {
-        const expandedFlags = fu.expandObject<DeepPartial<ChatMessageFlagsPF2e>>(data.flags ?? {});
-        data.flags = fu.mergeObject(expandedFlags, {
-            core: { canPopout: expandedFlags.core?.canPopout ?? true },
+    /** Set some flags/flag scopes early. */
+    protected override _initializeSource(data: object, options?: DataModelConstructionOptions<null>): this["_source"] {
+        const source = super._initializeSource(data, options);
+        source.flags = fu.mergeObject(source.flags, {
+            core: { canPopout: source.flags.core?.canPopout ?? true },
             pf2e: {},
         });
-        super(data, context);
+
+        return source;
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */
@@ -282,10 +283,9 @@ class ChatMessagePF2e extends ChatMessage {
 }
 
 interface ChatMessagePF2e extends ChatMessage {
-    readonly _source: ChatMessageSourcePF2e;
+    author: UserPF2e | null;
     flags: ChatMessageFlagsPF2e;
-
-    get user(): UserPF2e;
+    readonly _source: ChatMessageSourcePF2e;
 }
 
 declare namespace ChatMessagePF2e {

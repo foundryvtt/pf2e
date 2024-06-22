@@ -90,7 +90,7 @@ class UserVisibilityPF2e {
                 if (game.user.isGM) {
                     sender.dataset.visibility = "gm";
                 } else {
-                    sender.innerText = message.user?.name ?? "Gamemaster";
+                    sender.innerText = message.author?.name ?? "Gamemaster";
                 }
             }
         }
