@@ -26,61 +26,11 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:conceal-spell",
-                    {
-                        "or": [
-                            "class:wizard",
-                            "feat:wizard-dedication"
-                        ]
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.ConcealSpellWizard"
-                    }
-                ]
-            },
-            {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:conceal-spell",
-                    {
-                        "or": [
-                            "class:witch",
-                            "feat:witch-dedication"
-                        ]
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.ConcealSpellWitch"
-                    }
-                ]
-            },
-            {
                 "key": "RollOption",
                 "label": "PF2E.TraitSpellshape",
                 "mergeable": true,
                 "option": "spellshape",
                 "placement": "spellcasting",
-                "predicate": [
-                    {
-                        "or": [
-                            "class:wizard",
-                            "class:witch",
-                            "feat:wizard-dedication",
-                            "feat:witch-dedication"
-                        ]
-                    }
-                ],
                 "suboptions": [
                     {
                         "label": "{item|name}",
@@ -89,6 +39,20 @@
                 ],
                 "toggleable": true,
                 "value": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:conceal-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.ConcealSpell"
+                    }
+                ]
             }
         ],
         "traits": {

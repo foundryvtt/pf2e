@@ -30,13 +30,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "spellshape:secondary-detonation-array",
-                    {
-                        "or": [
-                            "class:wizard",
-                            "feat:wizard-dedication"
-                        ]
-                    }
+                    "spellshape:secondary-detonation-array"
                 ],
                 "property": "description",
                 "value": [
@@ -51,22 +45,54 @@
                 "mergeable": true,
                 "option": "spellshape",
                 "placement": "spellcasting",
-                "predicate": [
-                    {
-                        "or": [
-                            "class:wizard",
-                            "feat:wizard-dedication"
-                        ]
-                    }
-                ],
                 "suboptions": [
                     {
                         "label": "{item|name}",
                         "value": "secondary-detonation-array"
                     }
                 ],
-                "toggleable": true,
-                "value": true
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "Select damage Type",
+                "option": "spellshape-damage",
+                "placement": "spellcasting",
+                "predicate": [
+                    "spellshape:secondary-detonation-array"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "traits": {
