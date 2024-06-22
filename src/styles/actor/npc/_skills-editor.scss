@@ -18,12 +18,38 @@ $table-odd: #f5efe0;
 
         li {
             align-items: center;
-            column-gap: 1rem;
+            column-gap: 0.5rem;
             display: grid;
-            grid-template-columns: auto 3rem 2rem;
+            grid-template-columns: 6rem auto 4rem 1rem;
             grid-template-rows: auto;
             padding: 0.25rem;
             width: 100%;
+
+            section.skill-special-modifiers {
+                grid-column: 1 / 5;
+                overflow: hidden;
+                table {
+                    border: none;
+                    table-layout: fixed;
+                    .name {
+                        width: 6.5rem;
+                        padding-right: 0.5rem;
+                    }
+                    .predicate {
+                        padding-right: 0.5rem;
+                    }
+                    .modifier {
+                        width: 4rem;
+                    }
+                    .controls {
+                        width: 1.5rem;
+                        text-align: right;
+                    }
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
 
             &.skill {
                 &:nth-child(even) {
@@ -46,13 +72,31 @@ $table-odd: #f5efe0;
                     }
                 }
 
+                .modifier {
+                    width: 100%;
+                    margin: 0;
+                }
+
                 .item-controls {
                     text-align: right;
                 }
             }
 
+            &.lore {
+                grid-template-columns: auto 4rem 2rem;
+            }
+
+            a[data-action="add-special-skill"] {
+                display: inline-block;
+                margin-top: var(--space-2);
+            }
+
             &.skill-selector,
             &.lore-skill-creator {
+                margin-top: var(--space-4);
+                .name {
+                    grid-column: span 2;
+                }
                 button {
                     background-color: var(--color-pf-secondary);
                     border-radius: 3px;
@@ -62,7 +106,7 @@ $table-odd: #f5efe0;
                     grid-column: span 2;
                     justify-content: center;
                     line-height: 1em;
-                    padding: 4px;
+                    padding: var(--space-4) var(--space-8);
                     white-space: nowrap;
                 }
             }
