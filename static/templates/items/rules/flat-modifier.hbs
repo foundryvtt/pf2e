@@ -16,7 +16,7 @@
             {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
         </button>
         {{#if selectorIsArray}}
-            <input type="text" class="pf2e-tagify selector-list" name="{{basePath}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
+            <tagify-tags class="pf2e-tagify selector-list" name="{{basePath}}.selector" value="{{json rule.selector}}" />
         {{else}}
             <input type="text" name="{{basePath}}.selector" value="{{rule.selector}}" />
         {{/if}}
