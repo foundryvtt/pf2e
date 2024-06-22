@@ -44,6 +44,11 @@ class MeasuredTemplatePF2e<
     }
 
     override highlightGrid(): void {
+        // Only square grids use overriden code. The future might add collision detection to hex but not gridless
+        if (!canvas.grid.isSquare) {
+            return super.highlightGrid();
+        }
+
         const grid = canvas.interface.grid;
         const highlightLayer = grid.getHighlightLayer(this.highlightId);
         highlightLayer?.clear();
@@ -82,8 +87,7 @@ class MeasuredTemplatePF2e<
     /** Overriden to also return collision information */
     protected override _getGridHighlightPositions(): PointCollision[] {
         const isCircleOrCone = ["circle", "cone"].includes(this.document.t);
-        const hasSquareGrid = canvas.grid.type === CONST.GRID_TYPES.SQUARE;
-        if (!isCircleOrCone || !hasSquareGrid) {
+        if (!isCircleOrCone || !canvas.grid.isSquare) {
             return super._getGridHighlightPositions();
         }
 
