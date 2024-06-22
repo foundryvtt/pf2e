@@ -46,7 +46,8 @@
                     }
                 ],
                 "selector": "legal-lore",
-                "value": "ternary(eq(@actor.skills.diplomacy.rank,4),3,ternary(eq(@actor.skills.diplomacy.rank,3),2,1))"
+                "type": "circumstance",
+                "value": "ternary(gte(@actor.system.skills.diplomacy.rank,4),3,ternary(gte(@actor.system.skills.diplomacy.rank,3),2,ternary(gte(@actor.system.skills.diplomacy.rank,2),1,0)))"
             }
         ],
         "traits": {
