@@ -1,0 +1,57 @@
+{
+    "_id": "CdWAXaePkMP4hts9",
+    "img": "icons/magic/control/hypnosis-mesmerism-eye-tan.webp",
+    "name": "Effect: Combat Premonition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Combat Premonition]</p>\n<p>Choose two allies. Those allies roll their initiative roll twice and take the better result; You roll your initiative roll twice and take the worse result.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "removeAfterRoll": true,
+                "selector": "initiative"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "removeAfterRoll": true,
+                "selector": "initiative"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

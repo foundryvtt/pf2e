@@ -30,32 +30,16 @@
                 "option": "chronoskimmer-dedication",
                 "suboptions": [
                     {
-                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeLabel",
-                        "value": "destabilize"
+                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeFailureLabel",
+                        "value": "destabilize-failure"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeSuccessLabel",
+                        "value": "destabilize-success"
                     },
                     {
                         "label": "PF2E.SpecificRule.Chronoskimmer.StabilizeLabel",
                         "value": "stabilize"
-                    }
-                ],
-                "toggleable": true
-            },
-            {
-                "alwaysActive": true,
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeResult",
-                "option": "destabilize-timestream",
-                "predicate": [
-                    "chronoskimmer-dedication:destabilize"
-                ],
-                "suboptions": [
-                    {
-                        "label": "PF2E.Check.Result.Degree.Check.failure",
-                        "value": "failure"
-                    },
-                    {
-                        "label": "PF2E.Check.Result.Degree.Check.success",
-                        "value": "success"
                     }
                 ],
                 "toggleable": true
@@ -76,8 +60,7 @@
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeSuccessLabel",
                 "predicate": [
-                    "chronoskimmer-dedication:destabilize",
-                    "destabilize-timestream:success"
+                    "chronoskimmer-dedication:destabilize-success"
                 ],
                 "required": true,
                 "selector": "initiative",
@@ -88,8 +71,7 @@
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeFailureLabel",
                 "predicate": [
-                    "chronoskimmer-dedication:destabilize",
-                    "destabilize-timestream:failure"
+                    "chronoskimmer-dedication:destabilize-failure"
                 ],
                 "required": true,
                 "selector": "initiative",
