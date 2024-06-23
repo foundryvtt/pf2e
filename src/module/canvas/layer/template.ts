@@ -1,4 +1,4 @@
-import { MeasuredTemplatePF2e } from "../measured-template.ts";
+import type { MeasuredTemplatePF2e } from "../measured-template.ts";
 
 export class TemplateLayerPF2e<
     TObject extends MeasuredTemplatePF2e = MeasuredTemplatePF2e,
@@ -16,7 +16,7 @@ export class TemplateLayerPF2e<
     /** Overriden to snap according to the dragged template's type */
     override getSnappedPoint(point: Point): Point {
         const template = this.preview.children.at(0);
-        if (!(template instanceof MeasuredTemplatePF2e) || !canvas.grid.isSquare) {
+        if (!template || !canvas.grid.isSquare) {
             return super.getSnappedPoint(point);
         }
 
