@@ -245,21 +245,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             });
         }
 
-        this.skills = this.prepareSkills();
-        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
-        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
-        this.system.skills = R.mapToObj(Object.values(this.skills), (statistic) => [
-            statistic.slug,
-            {
-                ...statistic.getTraceData(),
-                base: loreItems[statistic.slug]?.system.mod.value ?? 0,
-                itemId: loreItems[statistic.slug]?.id ?? null,
-                lore: !!statistic.lore,
-                mod: statistic.check.mod,
-                variants: Object.values(loreItems[statistic.slug]?.system.variants ?? {}),
-                visible: statistic.proficient,
-            },
-        ]);
+        this.prepareSkills();
 
         // Process strikes
         const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s())), (w) => w.slug);
@@ -316,7 +302,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.saves = saves as Record<SaveType, Statistic>;
     }
 
-    private prepareSkills(): Record<string, Statistic<this>> {
+    private prepareSkills(): void {
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
         const trainedSkills = R.mapToObj(this.itemTypes.lore, (s) => [sluggify(s.name), s]);
@@ -327,7 +313,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         };
         const slugToAttribute: Record<string, { attribute: AttributeString }> = SKILL_EXPANDED;
 
-        return R.mapValues(skillOrNull, (item, slug) => {
+        this.skills = R.mapValues(skillOrNull, (item, slug) => {
             const { label, attribute, lore } =
                 slug in slugToAttribute
                     ? { label: CONFIG.PF2E.skillList[slug], attribute: slugToAttribute[slug].attribute, lore: false }
@@ -352,6 +338,23 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 proficient: !!item,
                 check: { type: "skill-check" },
             });
+        });
+
+        // Create trace skill data in system data and omit unprepared skills
+        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
+        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
+        this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
+            const loreItem = loreItems[statistic.slug];
+            const data = {
+                ...statistic.getTraceData(),
+                base: loreItem?.system.mod.value ?? 0,
+                mod: statistic.check.mod,
+                itemId: loreItem?.id ?? null,
+                lore: !!statistic.lore,
+                variants: Object.values(loreItem?.system.variants ?? {}),
+                visible: statistic.proficient,
+            };
+            return [key, data];
         });
     }
 
