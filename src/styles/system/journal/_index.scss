@@ -1,4 +1,26 @@
 .journal-entry-page {
+    &.map {
+        .journal-header {
+            gap: 1rem;
+
+            [name="system.code"] {
+                height: 50px;
+                block-size: 100%;
+                inline-size: 3em;
+                background: rgb(0 0 0 / 0.1);
+                font-size: var(--font-size-24);
+                text-align: center;
+            }
+
+            .page-level {
+                margin-inline-start: 0;
+            }
+        }
+        [data-map-location-code]::before {
+            content: attr(data-map-location-code) ": ";
+        }
+    }
+
     .journal-page-content {
         @include journal-styling;
         @import "critical-fumble-deck";

@@ -33,6 +33,7 @@ import { SpellSheetPF2e } from "@item/spell/sheet.ts";
 import { TreasureSheetPF2e } from "@item/treasure/sheet.ts";
 import { WeaponSheetPF2e } from "@item/weapon/sheet.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
+import { JournalMapLocationPageSheet } from "@module/journal-page/map/sheet.ts";
 import { UserConfigPF2e } from "@module/user/sheet.ts";
 import { SceneConfigPF2e } from "@scene/sheet.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
@@ -173,6 +174,13 @@ export function registerSheets(): void {
         label: () =>
             game.i18n.format("SHEETS.DefaultDocumentSheet", { document: game.i18n.localize("DOCUMENT.JournalEntry") }),
         makeDefault: true,
+    });
+
+    // JOURNAL PAGE
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "pf2e", JournalMapLocationPageSheet, {
+        label: game.i18n.format(sheetLabel, { type: game.i18n.localize("TYPES.JournalEntryPage.map") }),
+        makeDefault: true,
+        types: ["map"],
     });
 
     // USER

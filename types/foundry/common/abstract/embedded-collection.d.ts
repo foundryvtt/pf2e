@@ -74,7 +74,10 @@ export default class EmbeddedCollection<
      * @throws If strict is true and the Embedded Document cannot be found.
      */
     override get<T extends TDocument = TDocument>(key: Maybe<string>, options: { strict: true; invalid?: boolean }): T;
-    override get<T extends TDocument = TDocument>(key: string, options?: EmbeddedCollectionGetOptions): T | undefined;
+    override get<T extends TDocument = TDocument>(
+        key: Maybe<string>,
+        options?: EmbeddedCollectionGetOptions,
+    ): T | undefined;
 
     /**
      * Add an item to the collection.
