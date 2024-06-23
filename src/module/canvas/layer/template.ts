@@ -13,6 +13,19 @@ export class TemplateLayerPF2e<
         return preview;
     }
 
+    /** Overriden to snap according to the dragged template's type */
+    override getSnappedPoint(point: Point): Point {
+        const template = this.preview.children.at(0);
+        if (!template || !canvas.grid.isSquare) {
+            return super.getSnappedPoint(point);
+        }
+
+        return canvas.grid.getSnappedPoint(point, {
+            mode: template.snappingMode,
+            resolution: 1,
+        });
+    }
+
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */

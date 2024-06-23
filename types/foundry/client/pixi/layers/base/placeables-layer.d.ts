@@ -9,10 +9,10 @@ declare global {
     abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
         constructor();
 
-        objects: PIXI.Container | null;
+        objects: PIXI.Container<TObject> | null;
 
         /** Preview Object Placement */
-        preview: PIXI.Container;
+        preview: PIXI.Container<TObject>;
 
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
