@@ -2,7 +2,7 @@ export {};
 
 declare global {
     /** The Ruler - used to measure distances and trigger movements */
-    class Ruler<TToken extends Token | null, TUser extends User = User> extends PIXI.Container {
+    class Ruler<TToken extends Token | null = Token | null, TUser extends User = User> extends PIXI.Container {
         /** The possible Ruler measurement states. */
         static get STATES(): {
             INACTIVE: 0;

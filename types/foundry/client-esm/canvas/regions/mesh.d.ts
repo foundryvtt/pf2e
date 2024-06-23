@@ -1,5 +1,3 @@
-import type { Region } from "../../../client/pixi/placeables/region.d.ts";
-
 /** A mesh of a {@link Region}. */
 export class RegionMesh<TShader extends AbstractBaseShader = RegionShader> extends PIXI.Container {
     /**
