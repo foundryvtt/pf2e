@@ -26,10 +26,48 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "chronoskimmer-dedication",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeLabel",
+                        "value": "destabilize"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.StabilizeLabel",
+                        "value": "stabilize"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeResult",
+                "option": "destabilize-timestream",
+                "predicate": [
+                    "chronoskimmer-dedication:destabilize"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.StabilizeLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:stabilize"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 10
             },
@@ -37,7 +75,11 @@
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeSuccessLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:destabilize",
+                    "destabilize-timestream:success"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 19
             },
@@ -45,7 +87,11 @@
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeFailureLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:destabilize",
+                    "destabilize-timestream:failure"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 1
             }
