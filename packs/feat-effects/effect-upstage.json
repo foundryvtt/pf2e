@@ -1,13 +1,13 @@
 {
-    "_id": "zUvicEXd4OgCZ1cO",
-    "img": "systems/pf2e/icons/spells/agitate.webp",
-    "name": "Effect: You're an Embarrassment",
+    "_id": "fSZH0aVKyPxatE6i",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Upstage",
     "system": {
         "description": {
-            "value": "<p>You reroll the triggering Will saving throw with a +1 circumstance bonus.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Upstage]</p>\n<p>You gain a +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks until the end of your next turn.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
             "value": 1
@@ -18,14 +18,18 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Lost Omens: Firebrands"
+            "title": "Pathfinder Advanced Player's Guide"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "removeAfterRoll": true,
-                "selector": "will",
-                "type": "circumstance",
+                "selector": [
+                    "attack-roll",
+                    "perception",
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
                 "value": 1
             }
         ],
