@@ -1,6 +1,6 @@
 import type { ApplicationV2, DocumentSheetV2 } from "../../../client-esm/applications/api/module.d.ts";
 
-declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> extends foundry.documents
+export declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> extends foundry.documents
     .BaseAmbientLight<TParent> {
     protected _sheet: DocumentSheet<this> | null;
 
