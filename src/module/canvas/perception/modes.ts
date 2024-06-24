@@ -155,7 +155,7 @@ class DetectionModeTremorPF2e extends DetectionModeTremor {
 class ThoughtsDetectionMode extends DetectionMode {
     constructor() {
         super({
-            id: "senseThoughts",   // Must match key in CONFIG.Canvas.detectionModes
+            id: "senseThoughts",
             label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
             type: DetectionMode.DETECTION_TYPES.OTHER,
             walls: false,
@@ -167,7 +167,7 @@ class ThoughtsDetectionMode extends DetectionMode {
         const filter = (this._detectionFilter ??= OutlineOverlayFilter.create({
             wave: true,
             knockout: false,
-            outlineColor: [0,1,0,1],
+            outlineColor: [0, 1, 0, 1],
         }));
         filter.thickness = 1;
         return filter;
@@ -181,12 +181,11 @@ class ThoughtsDetectionMode extends DetectionMode {
         if (target.document.hidden) return false;
 
         // Detection only works on creatures
-        if (!target.actor.isOfType("character") &&
-            !target.actor.isOfType("npc") &&
-            !target.actor.isOfType("familiar")) return false;
+        if (!target.actor.isOfType("character") && !target.actor.isOfType("npc") && !target.actor.isOfType("familiar")) 
+          return false;
 
         // Detection cails on mindless creatures
-        if (target.actor.system?.traits?.value?.includes('mindless')) return false;
+        if (target.actor.system?.traits?.value?.includes("mindless")) return false;
 
         return super._canDetect(visionSource, target);
     }
