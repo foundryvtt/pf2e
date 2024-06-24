@@ -30,6 +30,7 @@ function swim(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
+    img: "icons/skills/movement/figure-running-gray.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },

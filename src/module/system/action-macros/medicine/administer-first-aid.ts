@@ -103,6 +103,7 @@ class AdministerFirstAidAction extends SingleCheckAction {
         super({
             cost: 2,
             description: `${PREFIX}.Description`,
+            img: "icons/skills/wounds/blood-cells-red.webp",
             name: `${PREFIX}.Title`,
             section: "skill",
             slug: "administer-first-aid",

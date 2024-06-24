@@ -64,6 +64,7 @@ class DisarmAction extends SingleCheckAction {
             cost: 1,
             description: `${PREFIX}.Description`,
             difficultyClass: "reflex",
+            img: "icons/skills/melee/unarmed-punch-fist-white.webp",
             name: `${PREFIX}.Title`,
             notes: [
                 { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },

@@ -34,6 +34,7 @@ function senseDirection(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.SenseDirection.Description",
+    img: "icons/skills/movement/arrow-upward-yellow.webp",
     modifiers: [
         {
             label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",

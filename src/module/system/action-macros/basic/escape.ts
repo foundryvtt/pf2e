@@ -172,6 +172,7 @@ class EscapeAction extends SingleCheckAction {
             cost: 1,
             description: "PF2E.Actions.Escape.Description",
             difficultyClass: "athletics",
+            img: "icons/skills/movement/figure-running-gray.webp",
             name: "PF2E.Actions.Escape.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.Escape.Notes.criticalSuccess" },

@@ -29,6 +29,7 @@ function coerce(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     description: "PF2E.Actions.Coerce.Description",
     difficultyClass: "will",
+    img: "icons/skills/social/intimidation-impressing.webp",
     name: "PF2E.Actions.Coerce.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Coerce.Notes.criticalSuccess" },

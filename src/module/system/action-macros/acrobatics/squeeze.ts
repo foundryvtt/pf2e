@@ -29,6 +29,7 @@ function squeeze(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: `${PREFIX}.Description`,
+    img: "icons/skills/movement/figure-running-gray.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
