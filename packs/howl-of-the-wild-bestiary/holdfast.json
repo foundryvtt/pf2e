@@ -271,105 +271,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "3yYPfYHuHdm3RrAc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "aN7vFsQQjLh2Xg8o",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oW5q0vqwS2wqfDAE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.RockyOrBarren",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:rocky",
-                                    "terrain:barren"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+14 in rocky or barren terrain",
-                        "options": "terrain:rocky, terrain:barren"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Holdfast",
@@ -470,6 +371,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 10
+            },
+            "athletics": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in rocky or barren terrain",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:rocky",
+                                    "terrain:barren"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {
