@@ -28,7 +28,62 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: World Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            "skill:acrobatics:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            "skill:athletics:rank:0"
+                        ],
+                        "value": {
+                            "rank": 1,
+                            "slug": "athletics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "predicate": [
+                            "skill:acrobatics:rank:1"
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "slug": "acrobatics"
+                        }
+                    },
+                    {
+                        "label": "PF2E.Skill.Athletics",
+                        "predicate": [
+                            "skill:athletics:rank:1"
+                        ],
+                        "value": {
+                            "rank": 2,
+                            "slug": "acrobatics"
+                        }
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill.slug}.rank",
+                "value": "@item.flags.pf2e.rulesSelections.skill.rank"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
