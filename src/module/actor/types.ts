@@ -13,7 +13,6 @@ import type { Predicate } from "@system/predication.ts";
 import type {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
-    DC_SLUGS,
     MOVEMENT_TYPES,
     SAVE_TYPES,
     SKILL_SLUGS,
@@ -50,9 +49,9 @@ type SkillSlug = SetElement<typeof SKILL_SLUGS>;
 
 type ActorAlliance = "party" | "opposition" | null;
 
-type DCSlug = SetElement<typeof DC_SLUGS>;
-
 type SaveType = (typeof SAVE_TYPES)[number];
+
+type DCSlug = "ac" | "armor" | "perception" | SaveType | SkillSlug;
 
 type MovementType = (typeof MOVEMENT_TYPES)[number];
 

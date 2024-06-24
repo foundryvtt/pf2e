@@ -36,8 +36,6 @@ const SKILL_SLUGS = new Set([
     "thievery",
 ] as const);
 
-const DC_SLUGS = new Set(["ac", "armor", "perception", ...SAVE_TYPES, ...SKILL_SLUGS] as const);
-
 interface SkillExpanded {
     attribute: AttributeString;
 }
@@ -70,7 +68,6 @@ export {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
     CREATURE_ACTOR_TYPES,
-    DC_SLUGS,
     IMMUNITY_TYPES,
     MOVEMENT_TYPES,
     RESISTANCE_TYPES,
