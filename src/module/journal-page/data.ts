@@ -1,17 +1,17 @@
 import { MapLocationControlIcon } from "@module/canvas/map-location-control-icon.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
+import { JournalEntryPageSource } from "types/foundry/common/documents/journal-entry-page.js";
 
-type JournalMapLocationPageSystemSchema = {
+interface JournalEntryPagePF2eSystemSchema extends JournalEntryPageSource {
     code: StringField<string, string, false, false, true>;
-};
+}
 
-class JournalMapLocationPageSystemData extends foundry.abstract.TypeDataModel<
-    JournalEntryPage,
-    JournalMapLocationPageSystemSchema
-> {
-    static override defineSchema(): JournalMapLocationPageSystemSchema {
+class JournalEntryPagePF2e extends JournalEntryPage {
+    static override defineSchema(): JournalEntryPagePF2eSystemSchema {
+        const superFields = super.defineSchema();
         const fields = foundry.data.fields;
         return {
+            ...superFields,
             code: new fields.StringField(),
         };
     }
@@ -21,8 +21,8 @@ class JournalMapLocationPageSystemData extends foundry.abstract.TypeDataModel<
      * @param {number} number  Current position number.
      */
     adjustTOCNumbering(): { number: string; adjustment: number } | void {
-        if (!this.code) return;
-        return { number: this.code, adjustment: -1 };
+        if (!this.system.code) return;
+        return { number: this.system.code, adjustment: -1 };
     }
 
     /**
@@ -30,14 +30,14 @@ class JournalMapLocationPageSystemData extends foundry.abstract.TypeDataModel<
      * @param {object} options  Options passed through to ControlIcon construction.
      */
     getControlIcon(options: object): PIXI.Container | void {
-        if (!this.code) return;
+        if (!this.system.code) return;
         const style = foundry.utils.mergeObject(
             CONFIG.PF2E.mapLocationMarker.default,
             CONFIG.PF2E.mapLocationMarker[this.parent.getFlag("pf2e", "mapMarkerStyle")] ?? {},
             { inplace: false },
         );
-        return new MapLocationControlIcon({ code: this.code, ...options, ...style });
+        return new MapLocationControlIcon({ code: this.system.code, ...options, ...style });
     }
 }
 
-export { JournalMapLocationPageSystemData };
+export { JournalEntryPagePF2e };

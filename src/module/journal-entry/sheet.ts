@@ -8,7 +8,7 @@ class JournalSheetPF2e<TJournalEntry extends JournalEntry> extends JournalSheet<
             const pageDocument = this.document.pages.get(entry._id);
             let needsAdjustment = true;
             if (pageDocument) {
-                const numbering = pageDocument.system?.adjustTOCNumbering?.(entry.number);
+                const numbering = pageDocument.adjustTOCNumbering?.(entry.number);
                 if (numbering) {
                     entry.number = numbering.number;
                     adjustment += numbering.adjustment ?? 0;

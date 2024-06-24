@@ -1,14 +1,4 @@
-class JournalMapLocationPageSheet extends JournalTextPageSheet<JournalEntryPage> {
-    static override get defaultOptions(): DocumentSheetOptions {
-        const options = super.defaultOptions;
-        options.classes.push("map");
-        return options;
-    }
-
-    override get template(): string {
-        return `templates/journal/page-text-${this.isEditable ? "edit" : "view"}.html`;
-    }
-
+class JournalPageSheetPF2e extends JournalTextPageSheet<JournalEntryPage> {
     override async _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery> {
         const jQuery = await super._renderInner(data, options);
         const editingHeader = jQuery[0].querySelector(".journal-header");
@@ -16,6 +6,7 @@ class JournalMapLocationPageSheet extends JournalTextPageSheet<JournalEntryPage>
 
         if (editingHeader) {
             const input = document.createElement("input");
+            input.classList.add("title");
             input.name = "system.code";
             input.type = "text";
             input.value = this.document.system.code ?? "";
@@ -28,4 +19,4 @@ class JournalMapLocationPageSheet extends JournalTextPageSheet<JournalEntryPage>
     }
 }
 
-export { JournalMapLocationPageSheet };
+export { JournalPageSheetPF2e };
