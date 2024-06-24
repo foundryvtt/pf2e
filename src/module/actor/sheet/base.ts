@@ -809,7 +809,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Avoid intercepting content-link drag targets
-        const isContentLink = event.target.classList.contains("content-link");
+        const isContentLink = event.target.dataset.link !== undefined && !!event.target.dataset.uuid;
         const isPersistent = "persistent" in event.target.dataset;
         if (event.target !== event.currentTarget && (isContentLink || isPersistent)) {
             return;
