@@ -724,72 +724,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "3IrzjRB89Xfvuqf2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bo6bsp0fKrJ9ddNK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Buried",
-                        "predicate": [
-                            "buried"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+20 while buried in a bog",
-                        "options": "buried"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Bog Mummy Cultist",
@@ -921,6 +855,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 21
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 19
+            },
+            "stealth": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "while buried in a bog",
+                        "predicate": [
+                            "buried"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

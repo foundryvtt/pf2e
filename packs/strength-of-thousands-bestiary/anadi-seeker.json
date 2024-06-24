@@ -936,196 +936,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "y4pG7XtJaPtJBo6e",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pzAD03HO6vlwiKMM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Ry6JwFD9jnPodjVg",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
-                        "predicate": [
-                            "action:climb",
-                            {
-                                "or": [
-                                    "spider-form",
-                                    "hybrid-form"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "type": "untyped",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 to climb in spider or hybrid form",
-                        "options": "action:climb,spider-form,hybrid-form"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "TzHpF88jVfggaTOn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Weave",
-                        "predicate": [
-                            "action:craft:weave"
-                        ],
-                        "selector": "crafting",
-                        "type": "untyped",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+11 to weave",
-                        "options": "action:craft:weave"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "IfojLGIRVOFXXLHi",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Cc2grfgi4xKLuNNQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Anadi Seeker",
@@ -1215,6 +1025,50 @@
             "will": {
                 "saveDetail": "",
                 "value": 7
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 6
+            },
+            "arcana": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to climb in spider or hybrid form",
+                        "predicate": [
+                            "action:climb",
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "crafting": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "to weave",
+                        "predicate": [
+                            "action:craft:weave"
+                        ]
+                    }
+                ]
+            },
+            "nature": {
+                "base": 5
+            },
+            "occultism": {
+                "base": 7
             }
         },
         "traits": {

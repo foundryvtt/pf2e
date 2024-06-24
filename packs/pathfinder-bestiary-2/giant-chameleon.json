@@ -188,72 +188,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "UvjHmCtGgBMatBA4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vOVPKQFfOLMWV7F2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Hide",
-                        "predicate": [
-                            "action:hide"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 to Hide",
-                        "options": "action:hide"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Giant Chameleon",
@@ -344,6 +278,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "stealth": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Hide",
+                        "predicate": [
+                            "action:hide"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

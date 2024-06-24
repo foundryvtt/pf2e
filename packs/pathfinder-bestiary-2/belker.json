@@ -210,72 +210,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "eQt6ITSoF9D9pNOc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "c4ByZjVeW0km1U7W",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Smoke",
-                        "predicate": [
-                            "terrain:smoke"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 in smoke",
-                        "options": "terrain:smoke"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Belker",
@@ -385,6 +319,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "in smoke",
+                        "predicate": [
+                            "terrain:smoke"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

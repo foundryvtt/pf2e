@@ -261,81 +261,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Q2TToiZaW4GBsEjH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "WWQwqsaUXwuRwu4b",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TrashAndRubbish",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:trash",
-                                    "terrain:rubbish"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+23 in trash",
-                        "options": "terrain:trash"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Ofalth",
@@ -431,6 +356,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 18
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "in trash",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:trash",
+                                    "terrain:rubbish"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

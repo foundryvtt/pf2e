@@ -246,98 +246,6 @@
                 "slug": null
             },
             "type": "lore"
-        },
-        {
-            "_id": "P4VimjFKa7O09lOU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xgfHuCYsYIIbtjwz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jaF864bUYkmqmrC8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DarknessOrSmoke",
-                        "predicate": [
-                            "lighting:darkness",
-                            "terrain:smoke"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+19 in darkness or smoke",
-                        "options": "lighting:darkness,terrain:smoke"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Soul Eater",
@@ -462,6 +370,27 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 17
+            },
+            "intimidation": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 17,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "in darkness or smoke",
+                        "predicate": [
+                            "lighting:darkness",
+                            "terrain:smoke"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

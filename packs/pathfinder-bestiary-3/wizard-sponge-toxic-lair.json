@@ -156,77 +156,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "dO8YIdebcg6JU7kQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HofMxPk6h7wuflyA",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DecayingPlantFungus",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:decaying-plants",
-                                    "terrain:fungus"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+15 amid decaying plant matter or fungus",
-                        "options": "terrain:decaying-plants, terrain:fungus"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Wizard Sponge (Toxic Lair)",
@@ -357,6 +286,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "amid decaying plant matter or fungus",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:decaying-plants",
+                                    "terrain:fungus"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

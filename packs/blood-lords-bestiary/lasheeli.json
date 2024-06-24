@@ -2491,31 +2491,6 @@
             "type": "action"
         },
         {
-            "_id": "1A3pMCwRAj9vwsH1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 4100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "CYgmnellsZOTsXPx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Bardic Lore",
@@ -2541,151 +2516,10 @@
             "type": "lore"
         },
         {
-            "_id": "nJNxKg8kYps6FB6P",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 4300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Orate",
-                        "predicate": [
-                            "action:perform:oratory"
-                        ],
-                        "selector": "diplomacy",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 when orating",
-                        "options": "action:perform:oratory"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
             "_id": "YtNXbGTLwW1Ju63J",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Holomog Lore",
             "sort": 4400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "gOLNhWLzEWy1NSEC",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 4500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "A1WQwbwTjWHkZaNB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 4600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "34kVg6hqs3nRvHBj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 4700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "AJHBtRLwdFlirFwc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 4800000,
             "system": {
                 "description": {
                     "value": ""
@@ -2799,6 +2633,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "diplomacy": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "when orating",
+                        "predicate": [
+                            "action:perform:oratory"
+                        ]
+                    }
+                ]
+            },
+            "occultism": {
+                "base": 20
+            },
+            "performance": {
+                "base": 21
+            },
+            "religion": {
+                "base": 19
+            },
+            "society": {
+                "base": 20
             }
         },
         "traits": {

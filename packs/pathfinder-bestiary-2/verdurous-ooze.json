@@ -315,77 +315,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "XShGKtvsWOjzekVI",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "L3qJCQDZiZu5wjEW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Tall Grass or Undergrowth",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:undergrowth",
-                                    "terrain:grass"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 in tall grass or undergrowth",
-                        "options": "terrain:grass,terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Verdurous Ooze",
@@ -497,6 +426,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "in tall grass or undergrowth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:undergrowth",
+                                    "terrain:grass"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

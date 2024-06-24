@@ -154,88 +154,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "x8nenxl6un8manoy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ManeuverInFlight",
-                        "predicate": [
-                            "action:maneuver-in-flight"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 to Manuver in Flight",
-                        "options": "action:maneuver-in-flight"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "0gikfhrrftrwkz2g",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Demoralize",
-                        "predicate": [
-                            "action:demoralize"
-                        ],
-                        "selector": "intimidation",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 to Demoralize",
-                        "options": "action:demoralize"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Taunting Skull",
@@ -353,6 +271,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "to Manuver in Flight",
+                        "predicate": [
+                            "action:maneuver-in-flight"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "to Demoralize",
+                        "predicate": [
+                            "action:demoralize"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

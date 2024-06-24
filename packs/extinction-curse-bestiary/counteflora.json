@@ -286,77 +286,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "DbcHR9RRUZjJmu9a",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NlljUPjO3NTY37sa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.JunglesOrFlowerFields",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:jungle",
-                                    "terrain:flower-field"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+24 in jungles and flower fields",
-                        "options": "terrain:jungle, terrain:flower-fields"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Counteflora",
@@ -459,6 +388,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in jungles and flower fields",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:jungle",
+                                    "terrain:flower-field"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

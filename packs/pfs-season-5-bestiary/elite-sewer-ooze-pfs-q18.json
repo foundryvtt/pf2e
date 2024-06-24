@@ -111,48 +111,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "iUzYuqnjkPvxjVq6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Sewers",
-                        "predicate": [
-                            "terrain:sewer"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+6 in sewers",
-                        "options": "terrain:sewer"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Elite Sewer Ooze (PFS Q18)",
@@ -270,6 +228,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 3,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "in sewers",
+                        "predicate": [
+                            "terrain:sewer"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

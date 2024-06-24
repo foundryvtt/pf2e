@@ -1370,123 +1370,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "r4Bpf3irtNew0HBK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OPEPpHbA4wBLALHL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Delivering a Sermon",
-                        "predicate": [
-                            "action:deliver-sermon"
-                        ],
-                        "selector": "performance",
-                        "type": "untyped",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 to deliver sermons",
-                        "options": "action:deliver-sermon"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Ib9vbCCnAqPtkN4B",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "G6vM76clyKu2SQpH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Reast Mycer (1-2)",
@@ -1578,6 +1461,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "diplomacy": {
+                "base": 8
+            },
+            "performance": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "to deliver sermons",
+                        "predicate": [
+                            "action:deliver-sermon"
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 7
+            },
+            "survival": {
+                "base": 7
             }
         },
         "traits": {

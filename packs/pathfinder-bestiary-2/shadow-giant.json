@@ -554,98 +554,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "TLHGT236Ue23xa5c",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "KfqefWVAj0eO7iKx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nWSidIDFacSNApv8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HideInDim",
-                        "predicate": [
-                            "action:hide",
-                            "lighting:dim-light"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 to Hide in dim light",
-                        "options": "action:hide,lighting:dim-light"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Shadow Giant",
@@ -735,6 +643,27 @@
             "will": {
                 "saveDetail": "",
                 "value": 23
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27
+            },
+            "intimidation": {
+                "base": 22
+            },
+            "stealth": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "to Hide in dim light",
+                        "predicate": [
+                            "action:hide",
+                            "lighting:dim-light"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {
