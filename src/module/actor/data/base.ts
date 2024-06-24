@@ -85,6 +85,7 @@ interface ActorAttributes extends ActorAttributesSource {
     shield?: {
         raised: boolean;
         broken: boolean;
+        itemId: string | null;
     };
     flanking: {
         /** Whether the actor can flank at all */
@@ -309,9 +310,9 @@ export type {
     HitPointsStatistic,
     InitiativeData,
     PrototypeTokenPF2e,
-    Rollable,
     RollFunction,
     RollOptionFlags,
+    Rollable,
     StrikeData,
     TraitViewData,
 };

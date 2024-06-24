@@ -15,7 +15,7 @@ import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
+import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
@@ -502,12 +502,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "roll-check": (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
-                // Currently only used on NPC sheets for skill variants
-                const extraRollOptions = R.compact(anchor.dataset.options?.split(",").map((o) => o.trim()) ?? []);
-                const args: StatisticRollParameters = {
-                    ...eventToRollParams(event, { type: "check" }),
-                    extraRollOptions,
-                };
+                const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }
@@ -1281,21 +1276,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected override async _onSubmit(
-        event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown> | false> {
-        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
-            if (input.value === "") input.value = "[]";
-        }
-
-        return super._onSubmit(event, { updateData, preventClose, preventRender });
-    }
-
     protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
         const data = super._getSubmitData(updateData);
-        processTagifyInSubmitData(this.form, data);
 
         // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
         for (const el of this.form.elements) {

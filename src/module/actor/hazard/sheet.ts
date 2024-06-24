@@ -1,6 +1,7 @@
 import { StrikeData } from "@actor/data/base.ts";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
+import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { htmlClosest, htmlQuery, tagify, traitSlugToObject } from "@util";
 import type { HazardPF2e } from "./document.ts";
 import { HazardActionSheetData, HazardSaveSheetData, HazardSheetData } from "./types.ts";
@@ -136,7 +137,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         const html = $html[0];
 
         // Tagify the traits selection
-        const traitsEl = html.querySelector<HTMLInputElement>('input[name="system.traits.value"]');
+        const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
         if (traitsEl) {
             const tags = tagify(traitsEl, { whitelist: CONFIG.PF2E.hazardTraits });
             const traitsPrepend = html.querySelector<HTMLTemplateElement>(".traits-extra");

@@ -28,7 +28,47 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Werecreature.YouDontSmellRight.Label",
+                "option": "seek-disguise",
+                "predicate": [
+                    "self:effect:change-shape-werecreature"
+                ],
+                "toggleable": true
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "predicate": [
+                    {
+                        "and": [
+                            "self:effect:change-shape-werecreature",
+                            "feat:feral-senses"
+                        ]
+                    }
+                ],
+                "range": 60,
+                "selector": "scent"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "seek-disguise"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

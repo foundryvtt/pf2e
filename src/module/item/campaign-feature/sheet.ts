@@ -1,7 +1,7 @@
 import { activateActionSheetListeners } from "@item/ability/helpers.ts";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { htmlQuery } from "@util";
-import Tagify from "@yaireo/tagify";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import { htmlQuery, tagify } from "@util";
 import type { CampaignFeaturePF2e } from "./document.ts";
 import { KINGMAKER_CATEGORIES } from "./values.ts";
 
@@ -35,9 +35,9 @@ class CampaignFeatureSheetPF2e extends ItemSheetPF2e<CampaignFeaturePF2e> {
         const html = $html[0];
         activateActionSheetListeners(this.item, html);
 
-        const prerequisites = htmlQuery<HTMLInputElement>(html, 'input[name="system.prerequisites.value"]');
+        const prerequisites = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.prerequisites.value"]');
         if (prerequisites) {
-            new Tagify(prerequisites, {
+            tagify(prerequisites, {
                 editTags: 1,
             });
         }

@@ -13,7 +13,7 @@
 {{#if (eq rule.type "regeneration")}}
     <div class="form-group">
         <label class="short">{{localize "PF2E.RuleEditor.FastHealing.DeactivatedBy"}}</label>
-        <input type="text" class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" data-dtype="JSON"/>
+        <tagify-tags class="pf2e-tagify deactivated-by" name="system.rules.{{index}}.deactivatedBy" value="{{json rule.deactivatedBy}}" />
     </div>
 {{else}}
     <div class="form-group">

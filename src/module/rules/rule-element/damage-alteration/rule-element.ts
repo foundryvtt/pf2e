@@ -90,7 +90,7 @@ class DamageAlterationRuleElement extends RuleElementPF2e<DamageAlterationSchema
         if (this.ignored) return;
 
         const alteration = new DamageAlteration(this);
-        for (const selector of this.selectors) {
+        for (const selector of this.resolveInjectedProperties(this.selectors)) {
             const synthetics = (this.actor.synthetics.damageAlterations[selector] ??= []);
             synthetics.push(alteration);
         }

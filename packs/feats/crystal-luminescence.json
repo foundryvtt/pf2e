@@ -25,7 +25,98 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Impossible Lands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "crystal-luminescence"
+                ],
+                "value": {
+                    "animation": {
+                        "type": "torch"
+                    },
+                    "bright": "@actor.flags.pf2e.crystalLuminescence.brightRadius+@item.flags.pf2e.rulesSelections.crystalLuminescence",
+                    "color": "{item|flags.pf2e.rulesSelections.color}",
+                    "dim": "@actor.flags.pf2e.crystalLuminescence.dimRadius+@item.flags.pf2e.rulesSelections.crystalLuminescence"
+                }
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "crystal-luminescence",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.CrystalLuminescence.Normal",
+                        "value": "0"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CrystalLuminescence.Enhanced",
+                        "value": "10"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "#0000FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Cyan",
+                        "value": "#43D6D6"
+                    },
+                    {
+                        "label": "PF2E.Color.Green",
+                        "value": "#00FF00"
+                    },
+                    {
+                        "label": "PF2E.Color.Indigo",
+                        "value": "#4B0082"
+                    },
+                    {
+                        "label": "PF2E.Color.Magenta",
+                        "value": "#FF00FF"
+                    },
+                    {
+                        "label": "PF2E.Color.Orange",
+                        "value": "#FFA400"
+                    },
+                    {
+                        "label": "PF2E.Color.Red",
+                        "value": "#FF0000"
+                    },
+                    {
+                        "label": "PF2E.Color.Violet",
+                        "value": "#9400D3"
+                    },
+                    {
+                        "label": "PF2E.Color.White",
+                        "value": "#AAAAAA"
+                    },
+                    {
+                        "label": "PF2E.Color.Yellow",
+                        "value": "#FAFA00"
+                    }
+                ],
+                "flag": "color",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Color"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.crystalLuminescence.brightRadius",
+                "value": 20
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.crystalLuminescence.dimRadius",
+                "value": 40
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
