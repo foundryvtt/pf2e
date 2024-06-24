@@ -12,18 +12,18 @@
             {{else}}
                 <h1 class="charname">{{actor.name}}</h1>
             {{/if}}
-            <section class="sheet-type tags">
+            <section class="sheet-type">
                 {{#if owner}}
                     <i
                         class="fa-solid fa-info-circle"
                         data-tooltip="<div>{{localize "PF2E.loot.LootLabel"}}: {{localize "PF2E.loot.LootDescription"}}</div><div>{{localize "PF2E.loot.MerchantLabel"}}: {{localize "PF2E.loot.MerchantDescription"}}</div>"
                         data-tooltip-direction="LEFT"
                     ></i>
-                    <select name="system.lootSheetType" class="tag">
+                    <select name="system.lootSheetType" class="type">
                         {{selectOptions lootSheetTypeOptions selected=data.lootSheetType localize=true}}
                     </select>
                 {{else}}
-                    <span class="tag">{{data.lootSheetType}}</span>
+                    <span class="type">{{data.lootSheetType}}</span>
                 {{/if}}
             </section>
         </div>
