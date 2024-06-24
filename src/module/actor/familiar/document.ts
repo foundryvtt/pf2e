@@ -38,9 +38,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         return null;
     }
 
+    /** Returns attribute modifier value from the master, or 0 if no attribute */
     get masterAttributeModifier(): number {
-        this.system.master.ability ||= "cha";
-        return this.master?.system.abilities[this.system.master.ability].mod ?? 0;
+        const attribute = this.system.master.ability;
+        return attribute ? this.master?.system.abilities[attribute].mod ?? 0 : 0;
     }
 
     /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
@@ -262,6 +263,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const newId = changed.system?.master?.id ?? this.system.master.id;
         if (newId !== this.system.master.id) {
             operation.previousMaster = this.master?.uuid;
+        }
+
+        if (changed.system?.master) {
+            changed.system.master.ability ||= null;
         }
 
         return super._preUpdate(changed, operation, user);

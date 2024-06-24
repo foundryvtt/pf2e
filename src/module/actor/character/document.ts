@@ -880,7 +880,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     private prepareSkills() {
-        // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
         this.skills = R.mapToObj([...SKILL_SLUGS], (skillSlug) => {

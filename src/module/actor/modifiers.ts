@@ -502,7 +502,8 @@ class StatisticModifier {
         rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
         this.slug = slug;
 
-        // De-duplication. Prefer higher valued
+        // De-duplication. Prefer higher valued, and deprioritize disabled ones
+        // This behavior is used by kingmaker to create "custom modifier types" as well special skill modifiers when rolling manually
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             const existing = result[modifier.slug];
             if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
@@ -780,17 +781,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
-    adjustModifiers,
-    applyStackingRules,
     CheckModifier,
-    createAttributeModifier,
-    createProficiencyModifier,
     DamageDicePF2e,
-    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
+    adjustModifiers,
+    applyStackingRules,
+    createAttributeModifier,
+    createProficiencyModifier,
+    ensureProficiencyOption,
 };
 export type {
     DamageDiceOverride,
