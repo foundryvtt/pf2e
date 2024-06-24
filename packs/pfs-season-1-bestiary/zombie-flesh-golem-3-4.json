@@ -229,73 +229,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "sfITZwNt96sDjCk7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "yxu3kxnSasw7RYr8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Impersonate a Zombie",
-                        "predicate": [
-                            "action:impersonate-zombie"
-                        ],
-                        "selector": "deception",
-                        "type": "untyped",
-                        "value": 9
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 to impersonate a zombie",
-                        "options": "action:impersonate-zombie"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "'Zombie' Flesh Golem (3-4)",
@@ -397,6 +330,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 7
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7
+            },
+            "deception": {
+                "base": 0,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to impersonate a zombie",
+                        "predicate": [
+                            "action:impersonate-zombie"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

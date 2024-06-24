@@ -106,77 +106,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "FWNpp6eGTXrlU85E",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "7iLw2emMidGNxyzJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Amid Decaying Plant Matter of Fungus",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:fungus",
-                                    "terrain:plant"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 amid decaying plant matter or fungus",
-                        "options": "terrain:plant,terrain:fungus"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Slime Mold",
@@ -284,6 +213,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7
+            },
+            "stealth": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "amid decaying plant matter or fungus",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:fungus",
+                                    "terrain:plant"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -152,71 +152,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Nu5VBEBB4ncwfmHm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cbhhzA952sTW7Nlb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "terrain:undergrowth"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 in Undergrowth",
-                        "options": "terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Megalania",
@@ -312,6 +247,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "in Undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

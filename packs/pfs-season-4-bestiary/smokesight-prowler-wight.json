@@ -517,97 +517,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "gwm1iew21xv75yh7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pc8xvfr0j4febds5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Feinting",
-                        "predicate": [
-                            "action:feint"
-                        ],
-                        "selector": "deception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+20 to feint",
-                        "options": "action:feint"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8z1h6mwnctd41one",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Smokesight Prowler Wight",
@@ -714,6 +623,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "deception": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "to feint",
+                        "predicate": [
+                            "action:feint"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 20
             }
         },
         "traits": {

@@ -561,127 +561,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "llza0ybjw1l14vkt",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rm4dixr2pehff9sr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1lm9gc35zg25iu8t",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rix2i0mh1hsq8h7r",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ForestsOrSnow",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:forest",
-                                    "terrain:snow"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+25 in forests and snow",
-                        "options": "terrain:forest,terrain:snow"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Ainamuuren",
@@ -787,6 +666,34 @@
             "will": {
                 "saveDetail": "",
                 "value": 27
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28
+            },
+            "medicine": {
+                "base": 24
+            },
+            "nature": {
+                "base": 26
+            },
+            "stealth": {
+                "base": 24,
+                "special": [
+                    {
+                        "base": 25,
+                        "label": "in forests and snow",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

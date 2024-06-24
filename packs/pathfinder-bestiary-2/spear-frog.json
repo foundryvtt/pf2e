@@ -149,79 +149,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Se3HtKRBKVee0xNz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Zi1IXK4SmJsyEThu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Climb, High Jump, Long Jump, and Swim",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:long-jump",
-                                    "action:swim",
-                                    "action:climb",
-                                    "action:high-jump"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 to Climb, High Jump, Long Jump, and Swim",
-                        "options": "action:climb,action:high-jump,action:long-jump,action:swim"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Spear Frog",
@@ -316,6 +243,30 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "athletics": {
+                "base": 0,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to Climb, High Jump, Long Jump, and Swim",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:swim",
+                                    "action:climb",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

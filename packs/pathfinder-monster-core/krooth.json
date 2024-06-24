@@ -332,117 +332,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "acdhgR9bYgIuA3Wb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "LhJUXHtFD2J1svlu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+20 in water",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BmNxcRZobjNuBKwb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TrackBleedingCreature",
-                        "predicate": [
-                            "action:track",
-                            "target:bleeding"
-                        ],
-                        "selector": "survival",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+20 to Track a bleeding creature",
-                        "options": "action:track, target:bleeding"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Krooth",
@@ -538,6 +427,36 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18
+            },
+            "stealth": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "in water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 17,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "to Track a bleeding creature",
+                        "predicate": [
+                            "action:track",
+                            "target:bleeding"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

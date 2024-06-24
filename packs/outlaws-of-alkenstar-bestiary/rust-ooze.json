@@ -198,72 +198,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "1zjz3ekbj7rtcp3v",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "dycsusutzn7ffq5p",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.RustyTerrain",
-                        "predicate": [
-                            "terrain:rust"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+7 in areas of rusty objects",
-                        "options": "terrain:rust"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Rust Ooze",
@@ -383,6 +317,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "in areas of rusty objects",
+                        "predicate": [
+                            "terrain:rust"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

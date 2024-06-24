@@ -270,127 +270,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "b1YQtHUTyT87GZPH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xrD7IZz445jQXJ8L",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Leap or Climb",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:climb",
-                                    "action:leap"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 to Leap or Climb",
-                        "options": "action:leap,action:climb"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cEx0ujBVLZP4gU7C",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "iRisXjax8lVFnhcD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Dig-Widget",
@@ -487,6 +366,34 @@
             "will": {
                 "saveDetail": "",
                 "value": 7
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "athletics": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "to Leap or Climb",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:leap"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 14
+            },
+            "thievery": {
+                "base": 15
             }
         },
         "traits": {

@@ -231,72 +231,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "bXps5KBas5PmjmRH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Jar",
-                        "predicate": [
-                            "terrain:jar"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+7 while inside its jar",
-                        "options": "terrain:jar"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "g8BwLxIPpP2AEb4N",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Hermit Rat",
@@ -392,6 +326,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "while inside its jar",
+                        "predicate": [
+                            "terrain:jar"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 5
             }
         },
         "traits": {

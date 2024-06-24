@@ -1626,126 +1626,10 @@
             "type": "action"
         },
         {
-            "_id": "rio6I4h12OtJdAbs",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OW9XOD4ssqRZAZk2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.Target.AgainstDevils",
-                        "predicate": [
-                            "target:trait:devil"
-                        ],
-                        "selector": "diplomacy",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 against Devils",
-                        "options": "target:trait:devil"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
             "_id": "2uDTTLnPGGNUafjb",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Fiend Lore",
             "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nCPW9aZAEem1FKo5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "S7ZddRdy0Odnf5HE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1855,6 +1739,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "diplomacy": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "against Devils",
+                        "predicate": [
+                            "target:trait:devil"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 10
+            },
+            "religion": {
+                "base": 10
             }
         },
         "traits": {

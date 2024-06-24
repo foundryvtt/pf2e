@@ -174,72 +174,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "OOgOPxe66wl8FqEm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Grapple",
-                        "predicate": [
-                            "action:grapple"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+11 to Grapple",
-                        "options": "action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jZ2FrHuO08Yr5pbi",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Choker",
@@ -333,6 +267,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 7
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "to Grapple",
+                        "predicate": [
+                            "action:grapple"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 9
             }
         },
         "traits": {

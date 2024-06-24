@@ -470,100 +470,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Z2vAEGTTxkJz8GuI",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "SD6Yt7hRuIR3CVdN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "VHw0u19WIfsjxtoJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Track",
-                        "predicate": [
-                            "action:track"
-                        ],
-                        "selector": "survival",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+19 to Track",
-                        "options": "action:track"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Mammoth Land Star",
@@ -656,6 +562,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 16
+            },
+            "stealth": {
+                "base": 15
+            },
+            "survival": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "to Track",
+                        "predicate": [
+                            "action:track"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

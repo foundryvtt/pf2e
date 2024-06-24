@@ -192,97 +192,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "7Ik8WbV7r4dXszxh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Escape",
-                        "predicate": [
-                            "action:escape"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 to Escape",
-                        "options": "action:escape"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "3MNb3VLSYyNj6WAk",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "uZQtLQTAYMNvJHc4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Megalictis",
@@ -373,6 +282,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Escape",
+                        "predicate": [
+                            "action:escape"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 9
             }
         },
         "traits": {

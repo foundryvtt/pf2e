@@ -884,103 +884,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "pbaTi43HiVMdbVWJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "j4ZlU2AHV5d0i6wj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "kry7QWW5PONsNRlw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HideSneakInscriptions",
-                        "predicate": [
-                            "terrain:inscription",
-                            {
-                                "or": [
-                                    "action:hide",
-                                    "action:sneak"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+31 to Hide or Sneak among inscriptions",
-                        "options": "action:hide,action:sneak,terrain:inscription"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Living Rune (Primal)",
@@ -1080,6 +983,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 27
+            }
+        },
+        "skills": {
+            "deception": {
+                "base": 24
+            },
+            "nature": {
+                "base": 0
+            },
+            "stealth": {
+                "base": 25,
+                "special": [
+                    {
+                        "base": 31,
+                        "label": "to Hide or Sneak among inscriptions",
+                        "predicate": [
+                            "terrain:inscription",
+                            {
+                                "or": [
+                                    "action:hide",
+                                    "action:sneak"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

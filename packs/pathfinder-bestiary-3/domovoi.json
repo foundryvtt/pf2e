@@ -696,31 +696,6 @@
             "type": "action"
         },
         {
-            "_id": "a4whGeWkMz6TbIR7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "pFF77x8PA51YY8TF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Household Lore",
@@ -742,47 +717,6 @@
                 },
                 "rules": [],
                 "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "CG0ROboEmdpQKFaJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.BoundHome",
-                        "predicate": [
-                            "bound-home"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 within their bound home",
-                        "options": "bound-home"
-                    }
-                }
             },
             "type": "lore"
         }
@@ -880,6 +814,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "within their bound home",
+                        "predicate": [
+                            "bound-home"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

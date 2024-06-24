@@ -32,48 +32,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "9c3g4yNI2sNlNpvD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Jump",
-                        "predicate": [
-                            "action:jump"
-                        ],
-                        "selector": "acrobatics",
-                        "type": "untyped",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 to jump",
-                        "options": "action:jump"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Frog Swarm",
@@ -191,6 +149,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "to jump",
+                        "predicate": [
+                            "action:jump"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

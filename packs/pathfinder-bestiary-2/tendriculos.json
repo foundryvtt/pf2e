@@ -262,72 +262,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "NpvQxfYKWuMlQZbR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jljKVq6TmhKOQUSh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Undergrowth",
-                        "predicate": [
-                            "terrain:undergrowth"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 in undergrowth",
-                        "options": "terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Tendriculos",
@@ -436,6 +370,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 17
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

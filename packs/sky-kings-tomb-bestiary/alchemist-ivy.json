@@ -316,77 +316,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "RZHkoi3YAaKReEBK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "UaG0xt5nSwesLzma",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Forests or Grasslands",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:forest",
-                                    "terrain:grasslands"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+11 in forests or grasslands",
-                        "options": "terrain:forest,terrain:grasslands"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Alchemist Ivy",
@@ -488,6 +417,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 9
+            },
+            "stealth": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "in forests or grasslands",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:grasslands"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {
