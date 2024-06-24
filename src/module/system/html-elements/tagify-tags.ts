@@ -2,7 +2,7 @@ import * as R from "remeda";
 
 /**
  * A HTML Element that handles `Tagify` data and always has a `value` of `string[]`.
- * `Tagify` must be bound to the child input element that can be accessed at `HTMLTagifyTraitsElement#input`
+ * `Tagify` must be bound to the child input element that can be accessed at `HTMLTagifyTagsElement#input`
  */
 class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormInputElement<string[], string> {
     static override tagName = "tagify-tags";
@@ -40,7 +40,7 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
         } catch (error) {
             if (error instanceof Error) {
                 console.error(
-                    new Error(`PF2e System | Invalid value for HTMLTagifyTraitsElement: ${value}`, {
+                    new Error(`PF2e System | Invalid value for HTMLTagifyTagsElement: ${value}`, {
                         cause: error,
                     }),
                 );
@@ -60,7 +60,7 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
                 this.removeAttribute(attribute.name);
             }
         }
-        this.input.setAttribute("data-tagify-traits-name", this.name);
+        this.input.setAttribute("data-tagify-tags-name", this.name);
         this.input.value = JSON.stringify(this._value);
     }
 

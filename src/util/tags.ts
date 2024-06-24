@@ -42,12 +42,12 @@ function tagify(
     element: HTMLInputElement | HTMLTagifyTagsElement | null,
     { whitelist, maxTags, enforceWhitelist = true, editTags }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    // Avoid importing the HTMLTagifyTraitsElement class that references the foundry API
-    const isTagifyTraitsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
+    // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
+    const isTagifyTagsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
         return element?.tagName.toLowerCase() === "tagify-tags";
     };
 
-    const input = isTagifyTraitsElement(element) ? element.input : element;
+    const input = isTagifyTagsElement(element) ? element.input : element;
     if (!input) {
         return null;
     }
