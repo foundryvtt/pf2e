@@ -31,6 +31,7 @@ async function maneuverInFlight(options: SkillActionOptions): Promise<void> {
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
+    img: "icons/skills/movement/feet-winged-boots-blue.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

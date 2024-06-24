@@ -56,6 +56,7 @@ class DecipherWritingAction extends SingleCheckAction {
     constructor() {
         super({
             description: "PF2E.Actions.DecipherWriting.Description",
+            img: "icons/skills/social/diplomacy-writing-letter.webp",
             name: "PF2E.Actions.DecipherWriting.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.DecipherWriting.Notes.criticalSuccess" },
