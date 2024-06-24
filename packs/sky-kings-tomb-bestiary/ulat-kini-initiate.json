@@ -151,97 +151,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "PFJO7JYp2kwqVoUG",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "2PG88UbLusyVmkgV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "AlqdyPZ3apDHkTG2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 while swimming",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Ulat-Kini Initiate",
@@ -343,6 +252,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 11
+            },
+            "intimidation": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "while swimming",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

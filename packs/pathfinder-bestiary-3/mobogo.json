@@ -982,122 +982,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "xiv0rYuCm5NRtc7v",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9OK0n34Pgbx5IQ5Q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HBno6qNDhJ5xKt6b",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "IXlGwryzhB2V9aPV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swamps",
-                        "predicate": [
-                            "terrain:swamp"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+21 in Swamps",
-                        "options": "terrain:swamp"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Mobogo",
@@ -1200,6 +1084,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19
+            },
+            "athletics": {
+                "base": 23
+            },
+            "nature": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 21,
+                        "label": "in Swamps",
+                        "predicate": [
+                            "terrain:swamp"
+                        ]
+                    }
+                ]
             }
         },
         "spellcasting": {

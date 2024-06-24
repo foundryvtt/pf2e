@@ -244,72 +244,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "8g3z3risxnfvs0ql",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 35
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "wfwvtgwxsem2j3gk",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.AcidicEnvironment",
-                        "predicate": [
-                            "terrain:acidic"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+34 in Acidic Surroundings",
-                        "options": "terrain:acidic"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Crawling Slurry",
@@ -431,6 +365,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 20
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 35
+            },
+            "stealth": {
+                "base": 30,
+                "special": [
+                    {
+                        "base": 34,
+                        "label": "in Acidic Surroundings",
+                        "predicate": [
+                            "terrain:acidic"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

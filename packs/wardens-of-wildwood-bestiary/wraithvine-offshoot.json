@@ -292,100 +292,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "iWX9xJurU9y34sZ8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DGvSLoUDiyqdqwn6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rs8cxUHAMnuhP7nv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Vegetation",
-                        "predicate": [
-                            "terrain:vegetation"
-                        ],
-                        "selector": "stealth",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+20 in vegetation",
-                        "options": "terrain:vegetation"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Wraithvine Offshoot",
@@ -504,6 +410,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 10
+            },
+            "athletics": {
+                "base": 10
+            },
+            "stealth": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "in vegetation",
+                        "predicate": [
+                            "terrain:vegetation"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -513,100 +513,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "EFx4hXqGbiQzb6EW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "297zCbQ1MMwahhg6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Traps",
-                        "predicate": [
-                            "action:craft:trap"
-                        ],
-                        "selector": "crafting",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+3 traps",
-                        "options": "action:craft:trap"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zaZXtNcC2Ek0ZRhL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Tok Loyalist",
@@ -695,6 +601,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "crafting": {
+                "base": 2,
+                "special": [
+                    {
+                        "base": 3,
+                        "label": "traps",
+                        "predicate": [
+                            "action:craft:trap"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 5
             }
         },
         "traits": {

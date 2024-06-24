@@ -375,122 +375,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "DyyeMB58jc4js7Zu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "a9pJTuCtvZCUpnCc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Impersonate",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+31 to Impersonate",
-                        "options": "action:impersonate"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "z2VdkSe9B7frggjy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "2tv1ASDA6d0CoMsT",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Mezlan",
@@ -596,6 +480,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 23
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28
+            },
+            "deception": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 31,
+                        "label": "to Impersonate",
+                        "predicate": [
+                            "action:impersonate"
+                        ]
+                    }
+                ]
+            },
+            "occultism": {
+                "base": 24
+            },
+            "stealth": {
+                "base": 28
             }
         },
         "traits": {

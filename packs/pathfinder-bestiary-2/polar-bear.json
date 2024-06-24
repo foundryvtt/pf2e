@@ -222,106 +222,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "incV0DXnC2umvX5c",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jsZXrLmJJQhLrRL0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Icy or Snowy Areas",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:icy",
-                                    "terrain:snow"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 in icy areas",
-                        "options": "terrain:icy"
-                    },
-                    "1": {
-                        "label": "+14 in snowy areas",
-                        "options": "terrain:snow"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "4LkPSggrvcK8SJH8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Polar Bear",
@@ -417,6 +317,43 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in icy areas",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:icy",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "base": 14,
+                        "label": "in snowy areas",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:icy",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 10
             }
         },
         "traits": {

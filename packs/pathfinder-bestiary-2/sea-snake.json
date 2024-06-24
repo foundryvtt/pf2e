@@ -142,97 +142,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "0D7BuUymOeEx7VEM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "swimming"
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 to Swim",
-                        "options": "swimming"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "FmXboigHE8wTQZza",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pMwNQSj0NYsWXH3i",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Sea Snake",
@@ -328,6 +237,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 2,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to Swim",
+                        "predicate": [
+                            "swimming"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 5
+            },
+            "survival": {
+                "base": 5
             }
         },
         "traits": {

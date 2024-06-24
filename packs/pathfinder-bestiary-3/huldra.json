@@ -207,147 +207,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "ubaWuPQNXfzZ8yAj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tYt3A9hKDpzLb05E",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ImpersonateHumanVersion",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 to Impersonate a human version of themselves",
-                        "options": "action:impersonate"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "JHkJSMb5KPu6vSvF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pBv0CLWwxoVCDRWl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "FnWvli5ZEzPkTDG5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Huldra",
@@ -451,6 +310,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 11
+            },
+            "deception": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "to Impersonate a human version of themselves",
+                        "predicate": [
+                            "action:impersonate"
+                        ]
+                    }
+                ]
+            },
+            "diplomacy": {
+                "base": 13
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "nature": {
+                "base": 10
             }
         },
         "traits": {

@@ -381,100 +381,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "IqJWeigyORBMo2Go",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "LTW5DHnhGB6HMte6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
-                        "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+16 in forests",
-                        "options": "terrain:forest"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "amq39bdeRIubOxNa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Cruncher",
@@ -569,6 +475,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 12
             }
         },
         "traits": {

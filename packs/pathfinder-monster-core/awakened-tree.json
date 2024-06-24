@@ -89,74 +89,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "oaKXuHH4r2ZWfaWZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cOLbXO3zU7Pc0b9h",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
-                        "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+14 in forests",
-                        "options": "terrain:forest"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Awakened Tree",
@@ -264,6 +196,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

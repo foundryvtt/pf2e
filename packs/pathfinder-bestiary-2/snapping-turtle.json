@@ -147,72 +147,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "joBfuDASat61LRg3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "KwNXLXzskiVB9RLh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+5 in Water",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Snapping Turtle",
@@ -308,6 +242,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 3,
+                "special": [
+                    {
+                        "base": 5,
+                        "label": "in Water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

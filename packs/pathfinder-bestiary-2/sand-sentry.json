@@ -201,72 +201,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "k1W45MkufYejTTye",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "3IKSOIIWyaxP7Xbh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Sand",
-                        "predicate": [
-                            "terrain:sand"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 in sand",
-                        "options": "terrain:sand"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Sand Sentry",
@@ -378,6 +312,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "in sand",
+                        "predicate": [
+                            "terrain:sand"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

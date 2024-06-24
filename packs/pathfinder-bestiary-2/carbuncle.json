@@ -428,77 +428,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "NEQLZhd63z6qQPXJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Grass or Undergrowth",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:grass",
-                                    "terrain:undergrowth"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+7 in grass or undergrowth",
-                        "options": "terrain:grass,terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "28h5iIfNfzTkMILw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Carbuncle",
@@ -589,6 +518,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 3,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "in grass or undergrowth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:grass",
+                                    "terrain:undergrowth"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 6
             }
         },
         "traits": {

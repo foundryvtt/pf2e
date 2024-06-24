@@ -445,72 +445,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "2IcWyeM8uGRjmvT2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 35
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9pSZmQj35SeMZawo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 31
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Ruins",
-                        "predicate": [
-                            "terrain:ruins"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+35 in ruins",
-                        "options": "terrain:ruins"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Desecrated Guardian",
@@ -614,6 +548,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 25
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 35
+            },
+            "stealth": {
+                "base": 31,
+                "special": [
+                    {
+                        "base": 35,
+                        "label": "in ruins"
+                    }
+                ]
             }
         },
         "traits": {

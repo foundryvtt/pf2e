@@ -522,128 +522,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "k3l9AdQJqhM9CRVG",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 33
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "l3r94jdrw4qRtdG9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Q5SqR1EJbyl6chwk",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Xq4X0gvbkHZe6r7T",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HideInDimOrDark",
-                        "predicate": [
-                            "action:hide",
-                            {
-                                "or": [
-                                    "terrain:dim-light",
-                                    "terrain:darkness"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+33 to Hide in Dim Light or Darkness",
-                        "options": "lighting:dim-light,lighting:darkness,action:hide"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Tenebric Giant",
@@ -764,6 +642,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 30
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 33
+            },
+            "intimidation": {
+                "base": 30
+            },
+            "religion": {
+                "base": 30
+            },
+            "stealth": {
+                "base": 29,
+                "special": [
+                    {
+                        "base": 33,
+                        "label": "to Hide in Dim Light or Darkness",
+                        "predicate": [
+                            "action:hide",
+                            {
+                                "or": [
+                                    "terrain:dim-light",
+                                    "terrain:darkness"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

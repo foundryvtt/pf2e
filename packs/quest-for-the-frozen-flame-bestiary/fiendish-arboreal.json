@@ -378,72 +378,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "UlgPgEiOksGEJQxN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hE4DVzxWFecGtuNZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
-                        "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 in forests",
-                        "options": "terrain:forest"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Fiendish Arboreal",
@@ -561,6 +495,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 9,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

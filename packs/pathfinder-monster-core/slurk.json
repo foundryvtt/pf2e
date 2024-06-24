@@ -197,100 +197,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "tDk92ryyiwtL1nav",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Escape",
-                        "predicate": [
-                            "action:escape"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+8 to Escape",
-                        "options": "action:escape"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nF97pPO9fHLyd0KI",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "v4CQ5Z5v4gNMqZU6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Slurk",
@@ -381,6 +287,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "to Escape",
+                        "predicate": [
+                            "action:escape"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 5
             }
         },
         "traits": {

@@ -189,102 +189,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "dizug9tTM81CY1uX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "48eItql3Drlle3Rb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:long-jump",
-                                    "action:high-jump"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 to High Jump or Long Jump",
-                        "options": "action:high-jump,action:long-jump"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DGMDe89FRlzXb7HH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Giant Frog",
@@ -375,6 +279,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "athletics": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "to High Jump or Long Jump",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 7
             }
         },
         "traits": {

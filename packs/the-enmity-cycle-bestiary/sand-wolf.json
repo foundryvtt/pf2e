@@ -307,122 +307,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "7ETroGn6XjTk6J8G",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DY9JYy6PKZ6rNvjR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ypcf7coS2ImfGg5v",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Deserts",
-                        "predicate": [
-                            "terrain:desert"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 in deserts",
-                        "options": "terrain:desert"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "H8X7Iq32oLmjf0kZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Sand Wolf",
@@ -552,6 +436,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 9
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "performance": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "in deserts",
+                        "predicate": [
+                            "terrain:desert"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 12
             }
         },
         "traits": {

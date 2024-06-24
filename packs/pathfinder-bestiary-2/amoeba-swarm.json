@@ -91,47 +91,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "1yoCf7iLNmn7SD5D",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 1
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+3 in Water",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Amoeba Swarm",
@@ -270,6 +229,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 1,
+                "special": [
+                    {
+                        "base": 3,
+                        "label": "in Water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -28,7 +28,31 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: World Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "duelists-edge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "duelists-edge"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "duelists-edge"
+                ],
+                "selector": "initiative",
+                "text": "PF2E.SpecificRule.AldoriDuelist.DuelistsEdge.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

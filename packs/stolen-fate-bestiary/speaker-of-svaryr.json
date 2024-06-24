@@ -2007,172 +2007,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "4S6ewTxkd4Am66nS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 34
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ubaWuPQNXfzZ8yAj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 34
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tYt3A9hKDpzLb05E",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 36
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ImpersonateHumanVersion",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "value": 4
-                    }
-                ],
-                "slug": "",
-                "variants": {
-                    "0": {
-                        "label": "+40 to Impersonate a human version of themselves",
-                        "options": "action:impersonate"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "JHkJSMb5KPu6vSvF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 38
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pBv0CLWwxoVCDRWl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 36
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "FnWvli5ZEzPkTDG5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 34
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Speaker Of Svaryr",
@@ -2278,6 +2112,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 33
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 34
+            },
+            "athletics": {
+                "base": 34
+            },
+            "deception": {
+                "base": 36,
+                "special": [
+                    {
+                        "base": 40,
+                        "label": "to Impersonate a human version of themselves",
+                        "predicate": [
+                            "action:impersonate"
+                        ]
+                    }
+                ]
+            },
+            "diplomacy": {
+                "base": 38
+            },
+            "intimidation": {
+                "base": 36
+            },
+            "nature": {
+                "base": 34
             }
         },
         "traits": {

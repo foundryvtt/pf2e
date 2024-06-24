@@ -220,122 +220,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "JCTMNa7QfednvGsM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Squeeze",
-                        "predicate": [
-                            "action:squeeze"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 to Squeeze",
-                        "options": "action:squeeze"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8GVmc51lbdbhk1Ut",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "L0uJFTbWLzEKIPMb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bK2Bmyz4Gs9v8nTE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Gug",
@@ -428,6 +312,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "to Squeeze",
+                        "predicate": [
+                            "action:squeeze"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 19
+            },
+            "survival": {
+                "base": 17
             }
         },
         "traits": {

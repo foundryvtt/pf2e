@@ -151,77 +151,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "HaODnrzFZhNIvOGP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "TR4cyHvC9ZLMHS2p",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder #177: Burning Tundra"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.JunkOrDebris",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:junk",
-                                    "terrain:debris"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+19 among junk or debris",
-                        "options": "terrain:junk,terrain:debris"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Weykoward",
@@ -317,6 +246,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 17,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "among junk or debris",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:junk",
+                                    "terrain:debris"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

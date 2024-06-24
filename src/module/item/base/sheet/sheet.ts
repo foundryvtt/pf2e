@@ -497,24 +497,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             });
         }
 
-        // Lore items
-        htmlQuery(html, ".add-skill-variant")?.addEventListener("click", (): void => {
-            if (!this.item.isOfType("lore")) return;
-            const variants = this.item.system.variants ?? {};
-            const index = Object.keys(variants).length;
-            this.item.update({
-                [`system.variants.${index}`]: { label: "+X in terrain", options: "" },
-            });
-        });
-
-        for (const button of htmlQueryAll(html, ".skill-variants .remove-skill-variant")) {
-            button.addEventListener("click", (event): void => {
-                if (!(event.currentTarget instanceof HTMLElement)) return;
-                const index = event.currentTarget.dataset.skillVariantIndex;
-                this.item.update({ [`system.variants.-=${index}`]: null });
-            });
-        }
-
         // Add a link to add GM notes
         if (
             this.isEditable &&

@@ -181,72 +181,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "pehc20l18pqOw5oN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hbOaUWBaLQy0R2Bn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 to Swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Reefclaw",
@@ -339,6 +273,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "to Swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

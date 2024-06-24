@@ -567,169 +567,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "lsr3iYAC1dDHEvjp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "V1vRcDQ2IFRycIBj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SpecificRule.Anadi.SpiderOrHybridForm",
-                        "predicate": [
-                            "action:climb",
-                            {
-                                "or": [
-                                    "spider-form",
-                                    "hybrid-form"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 to Climb in hybrid or spider form",
-                        "options": "action:climb,hybrid-form,spider-form"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "QiiW6xq0JsWBKt2T",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Weave",
-                        "predicate": [
-                            "action:craft:weave"
-                        ],
-                        "selector": "crafting",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 to weaving",
-                        "options": "action:craft:weave"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "B55kzbft00dUvKCw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZXBa4bXIidBdMhxP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Anadi Hunter",
@@ -819,6 +656,47 @@
             "will": {
                 "saveDetail": "",
                 "value": 7
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "to Climb in hybrid or spider form",
+                        "predicate": [
+                            "action:climb",
+                            {
+                                "or": [
+                                    "spider-form",
+                                    "hybrid-form"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "crafting": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "to weaving",
+                        "predicate": [
+                            "action:craft:weave"
+                        ]
+                    }
+                ]
+            },
+            "nature": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 8
             }
         },
         "traits": {
