@@ -601,6 +601,7 @@
                 "AllStrikeDamageFromUndeadCreatures": "all damage from Strikes made by undead creatures",
                 "AttacksWaterCreatures": "attacks by water creatures",
                 "ColdIronBludgeoning": "cold iron bludgeoning",
+                "CrystalHazards": "crystal hazards",
                 "ImpulseFireFrom": "impulse fire from {origin}",
                 "IngestedPoisons": "ingested poisons",
                 "MagicalBludgeoning": "magical bludgeoning",
@@ -613,6 +614,7 @@
                 "PersistentPoison": "persistent poison",
                 "PhysicalRangedAttacks": "physical ranged attacks",
                 "RangedWeaponAttacks": "ranged weapon attacks",
+                "Spirits": "spirits",
                 "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon"
             }
         },
@@ -2238,6 +2240,9 @@
                     "Label": "Critical Effect"
                 }
             },
+            "CrystalKeeper": {
+                "RollOptionLabel": "Damage from hazards associated with crystals"
+            },
             "CrystalLuminescence": {
               "Normal": "Normal",
               "Enhanced": "Enhanced"
@@ -2450,6 +2455,9 @@
                     "GreaterNote": "Whenever you use an action to Climb or Swim and you succeed at the Athletics check, add a +10-foot item bonus to the distance you move.",
                     "Note": "Whenever you use an action to Climb or Swim and you succeed at the Athletics check, add a +5-foot item bonus to the distance you move."
                 },
+                "BlackScorpionStingmace": {
+                    "BlackScorpionVenomNote": "<p>On a critical hit, the target is exposed to black scorpion venom.</p>\n<p><strong>Black Scorpion Venom</strong> (poison)</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:36]</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d12[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 2} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[3d12[poison]] damage, clumsy 2, and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[4d12[poison]] damage, @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 4}, and @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 2} (1 round).</p>"
+                },
                 "BoastfulHunter": {
                     "BoredLabel": "The Boastful Hunter is Bored",
                     "InsultedLabel": "The Boastful Hunter is Insulted",
@@ -2485,6 +2493,20 @@
                 "ChaplainsCudgel": {
                     "BowToAHigherPowerLabel": "Chaplain's Cudgel — Bow to a Higher Power",
                     "CastTwoActionSpellLabel": "Cast a divine spell that takes two or more actions"
+                },
+                "ChimeraFlail": {
+                    "BurstingBreathUsedLabel": "Chimera Flail - Bursting Breath Used",
+                    "ChargingHornsLabel": "Chimera Flail - Charging Horns",
+                    "ChargingHornsUsedLabel": "Chimera Flail - Charging Horns Used",
+                    "DragonHeadDamagePrompt": "Select a dragon head damage type.",
+                    "GoatLabel": "Goat",
+                    "LionLabel": "Lion",
+                    "PouncingWhirlLabel": "Chimera Flail - Pouncing Whirl",
+                    "PouncingWhirlUsedLabel": "Chimera Flail - Pouncing Whirl Used",
+                    "StrideHalfLabel": "Chimera Flail - Stride at least half your Speed"
+                },
+                "ConstrictingMeteor": {
+                    "CoilingChainLabel": "Constricting Meteor - Coiling Chain"
                 },
                 "CoyoteCloak": {
                     "Note": "If you critically succeed at your Survival check to Subsist, you can feed twice as many additional creatures.",
@@ -2523,6 +2545,9 @@
                 },
                 "FightersFork": {
                     "FluidLengthLabel": "Fighter's Fork — Fluid Length"
+                },
+                "FulminationFang": {
+                    "LightningRodResistanceLabel": "Fulmination Fang - Lightning Rod Resistance"
                 },
                 "FuryCocktail": {
                     "AnimalisticLabel": "Animalistic",
@@ -2563,6 +2588,9 @@
                     "CriticalHitNote": "On a critical hit, you cause the target to become @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round.",
                     "StrikeLabel": "Sparkler"
                 },
+                "SplitheadBow": {
+                    "HealingLabel": "Splithead Bow - Healing"
+                },
                 "SoothingToddy": {
                     "AmarettoLabel": "Amaretto",
                     "LimoncelloLabel": "Limoncello",
@@ -2586,7 +2614,13 @@
                 "Wit": "The foe takes a -2 circumstance penalty to attack rolls against you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.cu10OjQUdY0a9gpj]{Effect: Exemplary Finisher (Wit)}"
             },
             "ExorcistDedication": {
-                "SpiritDwelling": "Your Spirit Dwelling contains a spirit"
+                "SpiritDwelling": "Your Spirit Dwelling contains a spirit",
+                "SpiritsMercy": {
+                    "Prompt": "Select the cost of your Spirit's Mercy",
+                    "PromptLevel": "Select the level of your Spirit Remnant"
+                },
+                "SpiritRemnant": "Spirit Remnant",
+                "SpiritWisp": "Spirit Wisp"
             },
             "FanesFourberie": {
                 "Prompt": "Treat Cards as darts or daggers?"
@@ -2711,6 +2745,21 @@
             },
             "GeneralTraining": {
                 "Prompt": "Select a 1st-level general feat."
+            },
+            "Geomancer": {
+                "AttunementShift": "Attunement Shift",
+                "TerrainAttunement": {
+                    "Aquatic": "You gain a swim Speed equal to your land Speed. If you're on a surface, temporary waves of water follow your movements, allowing you to use your swim Speed—if you have one—as your land Speed.",
+                    "Arctic": "Enemies must attempt a @Check[type:fortitude] save. They take a –5-foot status penalty to their Speeds for 2 rounds (–10-foot on a critical failure).",
+                    "Desert": "Enemies must attempt a @Check[type:fortitude] save. On a failure, they're @UUID[Compendium.pf2e.conditionitems.HL2l2VRSaQHu9lUw]{Fatigued} until they drink water or another potable liquid.",
+                    "Forest": "Branches and vines reach out to get in your foes' way. Enemies must attempt a @Check[type:reflex] save. On a failure, they become @UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round (@UUID[Compendium.pf2e.conditionitems.i3OJZU2nk64Df3xm]{Clumsy 2} on a critical failure).",
+                    "Label": "Terrain Attunement",
+                    "Mountain": "You gain resistance to physical damage (except adamantine) equal to the spell level for 1 round.",
+                    "Plains": "You gain temporary Hit Points equal to the spell level for 1 round.",
+                    "Sky": "You can Fly up to 10 feet. If you're in the air at the end of the turn and don't have a fly Speed, you fall.",
+                    "Swamp": "Affected foes take @Damage[(max(1,floor(@item.level/2)))[persistent,poison]] damage with a @Check[type:fortitude|basic:true] save.",
+                    "Underground": "For 1 round, you gain darkvision as well as imprecise tremorsense out to 15 feet."
+                }
             },
             "Ghoul": {
                 "FullySatiated": "Fully Satiated",
@@ -3906,7 +3955,17 @@
                 "Third": "3rd-Rank"
             },
             "Spellshape": {
-                "ExplosiveArrival": "Your summoned creature appears in a detonation of arcane runes. If your next action is to Cast a Spell with the summon trait, all creatures in a @Template[type:emanation|distance:10] around the creature you summoned take @Damage[(@item.level)d4[fire]] damage. If the creature summoned has the @Damage[(@item.level)d4[acid]]{acid}, @Damage[(@item.level)d4[cold]]{cold}, @Damage[(@item.level)d4[electricity]]{electricity}, @Damage[(@item.level)d4[sonic]]{sonic}, or @Damage[(@item.level)d4[spirit]]{spirit} trait, you can deal damage of that type instead."
+                "BondConservation": "You gain an extra use of Drain Bonded Item. You can use it to cast a spell 2 or more ranks lower than the previous spell, and must use it before the end of your next turn or you lose it.",
+                "ConcealSpell": "If the next action you use is to Cast a Spell, the spell gains the subtle trait, hiding the shining runes, sparks of magic, and other manifestations that would usually give away your spellcasting. The trait hides only the spell's spellcasting actions and manifestations, not its effects, so an observer might still see a ray streak out from you or see you vanish into thin air.",
+                "EnergyAblation": "If your next action is to Cast a Spell that deals at least one type of energy damage (acid, cold, electricity, fire, force, sonic, vitality, or void), you gain resistance to an energy damage type of your choice equal to the spell's rank. The resistance lasts until the end of your next turn. You get the resistance regardless of whether or not your spell dealt damage.",
+                "ExplosiveArrival": "If your next action is to Cast a Spell with the summon trait, all creatures in a @Template[type:emanation|distance:10] around the creature you summoned take @Damage[(@item.level)d4[fire]] damage. If the creature summoned has the @Damage[(@item.level)d4[acid]]{acid}, @Damage[(@item.level)d4[cold]]{cold}, @Damage[(@item.level)d4[electricity]]{electricity}, @Damage[(@item.level)d4[sonic]]{sonic}, or @Damage[(@item.level)d4[spirit]]{spirit} trait, you can deal damage of that type instead.",
+                "ForcibleEnergy": "If your next action is to Cast a Spell that deals acid, cold, electricity, fire, or sonic damage, you can select one target that was damaged to gain weakness 5 to that damage type until the end of your next turn. If a spell deals multiple types of energy damage, choose one that the target gains weakness to. This has no effect on creatures with resistance or immunity to the energy type you choose. @UUID[Compendium.pf2e.feat-effects.Item.0Ai0u9kNJrEudPnN]{Effect: Forcible Energy}",
+                "NonLethal": "If your next action is to Cast a Spell that deals damage and doesn't have the death or void trait, that spell gains the nonlethal trait.",
+                "OverwhelmingEnergy": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by wall of fire. A creature's immunities are unaffected.",
+                "QuickenedCasting": "If your next action is to cast a cantrip or a spell that is at least 2 ranks lower than the highest-rank bard spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).",
+                "ReachSpell": "If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.",
+                "ScintillatingSpell": "If your next action is to Cast a Spell that doesn't have the darkness trait, has no duration, and requires creatures to attempt a Reflex save, the spell explodes in a spray of scintillating lights, in addition to its other effects. Each creature that failed its Reflex save against the spell is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round, and those who critically failed are instead @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
+                "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[type:burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]] damage to all creatures within the circle, with a basic Reflex save against your spell DC. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.pf2e.spellshape.arrayDamage]]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)"
             },
             "SpellTrickster": {
                 "AgileHand": {

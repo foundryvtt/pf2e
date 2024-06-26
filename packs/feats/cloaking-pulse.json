@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your ostilli can emit illusion magic to mask your position, granting you the Drape Ambient Magic action.</p>\n<p><strong>Drape Ambient Magic</strong> <span class=\"action-glyph\">1</span> (illusion)</p>\n<p><strong>Frequency</strong> once per round;</p>\n<hr />\n<p><strong>Effect</strong> Your ostilli turns clear as it converts its stored magic into a bubble of refracting light around you. You become @UUID[Compendium.pf2e.conditionitems.Item.Hidden] to all creatures until the end of your turn. If you Strike a creature, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] against that attack, and you then become observed.</p>"
+            "value": "<p>Your ostilli can emit illusion magic to mask your position, granting you the @UUID[Compendium.pf2e.actionspf2e.Item.Drape Ambient Magic] action.</p>"
         },
         "level": {
             "value": 6
@@ -28,7 +28,16 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:ostilli-host-dedication"
+                ],
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Drape Ambient Magic"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

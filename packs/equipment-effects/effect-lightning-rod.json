@@ -1,0 +1,47 @@
+{
+    "_id": "f3I8KyhABpDBwdwB",
+    "img": "icons/magic/lightning/bolt-strike-forked-sparks-blue.webp",
+    "name": "Effect: Lightning Rod",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Fulmination Fang]</p>\n<p>The next melee Strike you make with the <em>fulmination fang</em> deals an additional 1d6 electricity damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "fulmination-fang-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

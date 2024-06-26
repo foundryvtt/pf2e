@@ -1,0 +1,60 @@
+{
+    "_id": "S1phrCuGYR8NtV5l",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/mana-rattler-liniment.webp",
+    "name": "Effect: Mana-Rattler Liniment",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Mana-Rattler Liniment]</p>\n<p>You gain a fangs unarmed attack that deals 1d6 piercing damage plus 1 poison damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #180: The Smoking Gun"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
+                "range": null,
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "poison",
+                "key": "FlatModifier",
+                "selector": "{item|id}-damage",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -97,16 +97,14 @@
         align-items: center;
         gap: 0.2rem;
 
-        padding-top: 0.25rem;
+        padding: var(--space-4) var(--space-8) 0 var(--space-8);
         border-bottom: 1px solid var(--color-text-light-7);
-        box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 var(--space-8) rgba(0, 0, 0, 0.2);
 
         h1 {
             margin: 0;
             border: none;
             flex: 1;
-
-            padding-left: 0.5rem;
 
             > input {
                 height: 40px;
@@ -125,8 +123,26 @@
 
         .sheet-type {
             i {
-                padding: 0 0.25rem 0 0.5rem;
+                padding: 0 var(--space-4) 0 var(--space-8);
                 font-size: var(--font-size-16);
+            }
+
+            .type,
+            .type option {
+                background-color: var(--color-pf-primary);
+                border-radius: 0;
+                color: var(--text-light);
+                display: inline-block;
+                font-family: var(--sans-serif);
+                font-size: var(--font-size-16);
+                font-weight: 500;
+                height: var(--form-field-height);
+                line-height: var(--form-field-height);
+                text-transform: uppercase;
+
+                &:not(select) {
+                    padding: 0 var(--space-8);
+                }
             }
         }
 

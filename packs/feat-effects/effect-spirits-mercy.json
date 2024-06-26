@@ -1,0 +1,212 @@
+{
+    "_id": "nV2zH7OcQeoQrrvB",
+    "img": "icons/creatures/magical/spirit-mischief-fire-blue.webp",
+    "name": "Effect: Spirit's Mercy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Spirit's Mercy]</p>\n<p>You gain resistance to vitality and void damage (or resistance to all damage if caused by a haunt or incorporeal undead) against the triggering effect. If you expend a spirit wisp, the resistance is equal to twice your level. If you expend a spirit remnant, the resistance is equal to three times the level of the incorporeal undead or haunt from which you gained the remnant.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Book of the Dead"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.ExorcistDedication.SpiritRemnant",
+                        "value": "spirit-remnant"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.ExorcistDedication.SpiritWisp",
+                        "value": "spirit-wisp"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.ExorcistDedication.SpiritsMercy.Prompt",
+                "rollOption": "spirits-mercy"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Level1",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Level2",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Level3",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.Level4",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.Level5",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Level6",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.Level7",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.Level8",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.Level9",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.Level10",
+                        "value": 10
+                    },
+                    {
+                        "label": "PF2E.Level11",
+                        "value": 11
+                    },
+                    {
+                        "label": "PF2E.Level12",
+                        "value": 12
+                    },
+                    {
+                        "label": "PF2E.Level13",
+                        "value": 13
+                    },
+                    {
+                        "label": "PF2E.Level14",
+                        "value": 14
+                    },
+                    {
+                        "label": "PF2E.Level15",
+                        "value": 15
+                    },
+                    {
+                        "label": "PF2E.Level16",
+                        "value": 16
+                    },
+                    {
+                        "label": "PF2E.Level17",
+                        "value": 17
+                    },
+                    {
+                        "label": "PF2E.Level18",
+                        "value": 18
+                    },
+                    {
+                        "label": "PF2E.Level19",
+                        "value": 19
+                    },
+                    {
+                        "label": "PF2E.Level20",
+                        "value": 20
+                    },
+                    {
+                        "label": "PF2E.Level21",
+                        "value": 21
+                    },
+                    {
+                        "label": "PF2E.Level22",
+                        "value": 22
+                    },
+                    {
+                        "label": "PF2E.Level23",
+                        "value": 23
+                    },
+                    {
+                        "label": "PF2E.Level24",
+                        "value": 24
+                    },
+                    {
+                        "label": "PF2E.Level25",
+                        "value": 25
+                    }
+                ],
+                "flag": "spiritRemnant",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "spirits-mercy:spirit-remnant"
+                ],
+                "prompt": "PF2E.SpecificRule.ExorcistDedication.SpiritsMercy.PromptLevel"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:vitality",
+                            "damage:type:void",
+                            {
+                                "and": [
+                                    "origin:trait:undead",
+                                    "origin:trait:incorporeal"
+                                ]
+                            },
+                            "origin:trait:haunt"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.Spirits",
+                "predicate": [
+                    "spirits-mercy:spirit-wisp"
+                ],
+                "type": "custom",
+                "value": "2*@actor.level"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "damage:type:vitality",
+                            "damage:type:void",
+                            {
+                                "and": [
+                                    "origin:trait:undead",
+                                    "origin:trait:incorporeal"
+                                ]
+                            },
+                            "origin:trait:haunt"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.Spirits",
+                "predicate": [
+                    "spirits-mercy:spirit-remnant"
+                ],
+                "type": "custom",
+                "value": "3*@item.flags.pf2e.rulesSelections.spiritRemnant"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
