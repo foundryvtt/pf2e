@@ -124,6 +124,18 @@ interface CampaignFeatureFilters extends BaseFilterData {
     };
 }
 
+interface ClassFilters extends BaseFilterData {
+    checkboxes: {
+        source: CheckboxData;
+        hitpoints: CheckboxData;
+        rarity: CheckboxData;
+    };
+    multiselects: {
+        traits: MultiselectData;
+        keyAttribute: MultiselectData;
+    };
+}
+
 interface EquipmentFilters extends BaseFilterData {
     checkboxes: {
         armorTypes: CheckboxData;
@@ -199,6 +211,7 @@ type BrowserFilter =
     | AncestryFilters
     | BackgroundFilters
     | BestiaryFilters
+    | ClassFilters
     | CampaignFeatureFilters
     | EquipmentFilters
     | FeatFilters
@@ -222,6 +235,7 @@ export type {
     BestiaryFilters,
     BrowserFilter,
     CampaignFeatureFilters,
+    ClassFilters,
     CheckboxData,
     CheckboxOptions,
     CompendiumBrowserIndexData,
