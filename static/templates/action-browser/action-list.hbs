@@ -1,0 +1,55 @@
+<div class="action-list">
+    {{#each actions as |action|}}
+        <div class="action-list-item" data-action-slug="{{ action.slug }}">
+            <div class="action">
+                <div class="action-icon" data-action-handler="chat">
+                    <img src="{{coalesce action.img 'systems/pf2e/icons/features/classes/choice-feature.webp'}}" alt="{{localize action.name}}">
+                </div>
+                <div class="action-summary">
+                    <div class="action-heading">
+                        {{localize action.name}}
+                        {{#if (eq action.variants.size 0)}}
+                            {{{actionGlyph action.cost}}}
+                        {{/if}}
+                    </div>
+                    <div class="tags">
+                        {{#if (eq action.variants.size 0)}}
+                            {{#each action.traits as |trait|}}
+                                <span class="tag">{{ trait }}</span>
+                            {{/each}}
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <div class="button-group tags{{#if (includes action.traits "attack")}} multiple-attack-penalty{{/if}}">
+                        {{#if (eq action.variants.size 0)}}
+                            {{> systems/pf2e/templates/action-browser/action-buttons.hbs action=action actor=@root.actor disabled=@root.disabled}}
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            {{#if action.variants.size}}
+                <div class="action-variants">
+                    {{#each action.variants as |variant|}}
+                        <div data-action-variant-slug="{{variant.slug}}" class="action-variant">
+                            <div>
+                                <span>
+                                    {{localize (coalesce variant.name action.name)}}
+                                    {{{actionGlyph variant.cost}}}
+                                </span>
+                                <div class="tags">
+                                    {{#each variant.traits as |trait|}}
+                                        <span class="tag">{{ trait }}</span>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="button-group tags{{#if (includes variant.traits "attack")}} multiple-attack-penalty{{/if}}">
+                                {{> systems/pf2e/templates/action-browser/action-buttons.hbs action=variant actor=@root.actor disabled=@root.disabled}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+        </div>
+    {{/each}}
+</div>

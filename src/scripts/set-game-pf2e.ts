@@ -37,6 +37,7 @@ import { ModuleArt } from "@system/module-art.ts";
 import { Predicate } from "@system/predication.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import { sluggify } from "@util";
+import { ActionBrowser } from "@module/apps/action-browser/app.ts";
 
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
@@ -158,6 +159,9 @@ export const SetGamePF2e = {
     onSetup: (): void => {},
 
     onReady: (): void => {
+        if (BUILD_MODE === "development") {
+            game.pf2e.actionBrowser = new ActionBrowser();
+        }
         game.pf2e.compendiumBrowser = new CompendiumBrowser();
         game.pf2e.worldClock = new WorldClock();
     },

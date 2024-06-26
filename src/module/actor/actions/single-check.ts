@@ -118,7 +118,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
 
     preview(options: Partial<ActionVariantCheckPreviewOptions> = {}): ActionCheckPreview[] {
         const slugs = this.#statistic || this.#action.statistic;
-        const candidates = Array.isArray(slugs) ? slugs : [slugs];
+        const candidates = [slugs].flat().filter((slug) => !!slug?.trim());
 
         // TODO: append relevant statistic replacements from the actor
 
