@@ -1,0 +1,62 @@
+{
+    "_id": "FaEvoqZXfQ7xnpRo",
+    "img": "icons/weapons/guns/gun-purple.webp",
+    "name": "Effect: Gunpowder Gauntlet",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Gunpowder Gauntlet]</p>\n<p>The target takes a penalty to attack rolls against creatures other than you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": -1
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "target:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "attack-roll",
+                "value": "@item.flags.pf2e.rulesSelections.penalty"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
