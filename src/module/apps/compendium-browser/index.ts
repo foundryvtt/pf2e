@@ -619,7 +619,7 @@ class CompendiumBrowser extends Application {
                 });
             }
 
-            if (filterType === "multiselects") {
+            if (filterType === "multiselects" && !currentTab.isOfType("background", "class", "deity")) {
                 // Multiselects using tagify
                 const multiselects = currentTab.filterData.multiselects;
                 if (!multiselects) continue;
