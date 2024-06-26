@@ -58,6 +58,7 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
                     originalName: classData.originalName,
                     img: classData.img,
                     uuid: classData.uuid,
+                    traits: classData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: classData.system.traits.rarity,
                     source: sourceSlug,
                     hitpoints: classData.system.hp.toString(),
@@ -93,7 +94,8 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
             )
         )
             return false;
-
+        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
+            return false;
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
@@ -124,6 +126,12 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
                 },
             },
             multiselects: {
+                traits: {
+                    conjunction: "and",
+                    label: "PF2E.BrowserFilterTraits",
+                    options: [],
+                    selected: [],
+                },
                 keyAttribute: {
                     conjunction: "and",
                     label: "PF2E.BrowserFilterKeyAttribute",

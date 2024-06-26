@@ -131,23 +131,8 @@ interface ClassFilters extends BaseFilterData {
         rarity: CheckboxData;
     };
     multiselects: {
+        traits: MultiselectData;
         keyAttribute: MultiselectData;
-    };
-}
-
-interface DeityFilters extends BaseFilterData {
-    checkboxes: {
-        category: CheckboxData;
-        source: CheckboxData;
-    };
-    multiselects: {
-        attribute: MultiselectData;
-        primaryDomain: MultiselectData;
-        alternateDomain: MultiselectData;
-        font: MultiselectData;
-        sanctification: MultiselectData;
-        skill: MultiselectData;
-        weapon: MultiselectData;
     };
 }
 

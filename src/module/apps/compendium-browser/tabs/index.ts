@@ -4,7 +4,6 @@ export { CompendiumBrowserBackgroundTab as Backgrounds } from "./background.ts";
 export { CompendiumBrowserBestiaryTab as Bestiary } from "./bestiary.ts";
 export { CompendiumBrowserCampaignFeaturesTab as CampaignFeatures } from "./campaign-feature.ts";
 export { CompendiumBrowserClassTab as Classes } from "./class.ts";
-export { CompendiumBrowserDeityTab as Deities } from "./deity.ts";
 export { CompendiumBrowserEquipmentTab as Equipment } from "./equipment.ts";
 export { CompendiumBrowserFeatTab as Feats } from "./feat.ts";
 export { CompendiumBrowserHazardTab as Hazards } from "./hazard.ts";
