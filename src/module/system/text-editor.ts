@@ -847,9 +847,13 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
-    const { dc, type } = params;
+    // Retrieve the base value and identify immutability.
+    // resolve() is usually a dc that we don't want to re-apply modifiers to.
+    const dc = params.dc;
+    const resolvable = !!dc && dc.startsWith("resolve") && !!(item || actor);
+    const immutable = params.immutable || resolvable;
     const base = (() => {
-        if (dc?.startsWith("resolve") && (item || actor)) {
+        if (resolvable) {
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
@@ -865,37 +869,29 @@ function getCheckDC({
         return Number(dc) || null;
     })();
 
-    if (!base) return "0";
+    // Apply modifiers if this item is mutable
+    if (base && actor && !immutable) {
+        const idDomain = item ? `${item.id}-inline-dc` : null;
+        const slugDomain = `${sluggify(name)}-inline-dc`;
+        const domains = ["inline-dc", idDomain, slugDomain].filter(R.isTruthy);
+        const { synthetics } = actor;
+        const modifier = new ModifierPF2e({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: base - 10,
+            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, "base"),
+        });
+        const stat = new Statistic(actor, {
+            slug: params.type,
+            label: name,
+            domains,
+            modifiers: [modifier],
+        });
 
-    const getStatisticValue = (selectors: string[]): string => {
-        if (actor && !params.immutable) {
-            const { synthetics } = actor;
-            const modifier = new ModifierPF2e({
-                slug: "base",
-                label: "PF2E.ModifierTitle",
-                modifier: base - 10,
-                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
-            });
-            const stat = new Statistic(actor, {
-                slug: type,
-                label: name,
-                domains: selectors,
-                modifiers: [modifier],
-            });
-
-            return String(stat.dc.value);
-        }
-        return base.toString();
-    };
-
-    const idDomain = item ? `${item.id}-inline-dc` : null;
-    const slugDomain = `${sluggify(name)}-inline-dc`;
-    if (type === "flat") {
-        return params.immutable ? base.toString() : getStatisticValue(R.compact(["inline-dc", idDomain, slugDomain]));
-    } else {
-        const selectors = R.compact(["all", "inline-dc", idDomain, slugDomain]);
-        return getStatisticValue(selectors);
+        return String(stat.dc.value);
     }
+
+    return base?.toString() ?? "0";
 }
 
 /** Given a damage formula, augments it with modifiers and damage dice for inline rolls */
