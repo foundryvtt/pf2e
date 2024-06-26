@@ -17,6 +17,7 @@ interface BrowserTabs {
     background: browserTabs.Backgrounds;
     bestiary: browserTabs.Bestiary;
     campaignFeature: browserTabs.CampaignFeatures;
+    class: browserTabs.Classes;
     equipment: browserTabs.Equipment;
     feat: browserTabs.Feats;
     hazard: browserTabs.Hazards;
@@ -30,6 +31,7 @@ type TabName =
     | "background"
     | "bestiary"
     | "campaignFeature"
+    | "class"
     | "equipment"
     | "feat"
     | "hazard"

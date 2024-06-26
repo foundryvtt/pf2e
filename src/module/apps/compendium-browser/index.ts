@@ -29,6 +29,7 @@ import {
     BestiaryFilters,
     BrowserFilter,
     CheckboxData,
+    ClassFilters,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
@@ -48,6 +49,7 @@ class CompendiumBrowser extends Application {
         "background",
         "bestiary",
         "campaignFeature",
+        "class",
         "equipment",
         "feat",
         "hazard",
@@ -71,6 +73,7 @@ class CompendiumBrowser extends Application {
             background: new browserTabs.Backgrounds(this),
             bestiary: new browserTabs.Bestiary(this),
             campaignFeature: new browserTabs.CampaignFeatures(this),
+            class: new browserTabs.Classes(this),
             equipment: new browserTabs.Equipment(this),
             feat: new browserTabs.Feats(this),
             hazard: new browserTabs.Hazards(this),
@@ -136,6 +139,7 @@ class CompendiumBrowser extends Application {
             background: {},
             bestiary: {},
             campaignFeature: {},
+            class: {},
             hazard: {},
             heritage: {},
             equipment: {},
@@ -150,6 +154,7 @@ class CompendiumBrowser extends Application {
             "pf2e.actionspf2e": true,
             "pf2e.ancestries": true,
             "pf2e.backgrounds": true,
+            "pf2e.classes": true,
             "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
             "pf2e.ancestryfeatures": true,
@@ -165,6 +170,7 @@ class CompendiumBrowser extends Application {
             "ancestry",
             "background",
             "campaignFeature",
+            "class",
             "feat",
             "kit",
             "hazard",
@@ -182,6 +188,7 @@ class CompendiumBrowser extends Application {
             ["ancestry", "ancestry"],
             ["background", "background"],
             ["campaignFeature", "campaignFeature"],
+            ["class", "class"],
             ["feat", "feat"],
             ["kit", "equipment"],
             ["hazard", "hazard"],
@@ -226,6 +233,7 @@ class CompendiumBrowser extends Application {
     openTab(name: "ancestry", filter?: AncestryFilters): Promise<void>;
     openTab(name: "background", filter?: BackgroundFilters): Promise<void>;
     openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
+    openTab(name: "class", filter?: ClassFilters): Promise<void>;
     openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
