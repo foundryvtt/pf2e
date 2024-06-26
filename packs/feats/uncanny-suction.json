@@ -43,6 +43,19 @@
                 "selector": "reflex-dc",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "max(5,floor(@actor.attributes.speed.total/2))"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "feat:quick-climb"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
             }
         ],
         "traits": {
