@@ -1,6 +1,6 @@
 {
     "_id": "g9UMdKV1TxNdhpDO",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/skills/targeting/target-glowing-yellow.webp",
     "name": "Momentum Retainer",
     "system": {
         "actionType": {
@@ -24,7 +24,26 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "forceful"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-b"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "melee",
