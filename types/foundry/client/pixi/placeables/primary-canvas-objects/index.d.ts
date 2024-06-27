@@ -1,3 +1,3 @@
-import "./primary-canvas-object.d.ts";
-import "./primary-occludable-object.ts";
-import "./primary-sprite-mesh.ts";
+export * from "./primary-canvas-object.ts";
+export * from "./primary-occludable-object.ts";
+export * from "./primary-sprite-mesh.ts";

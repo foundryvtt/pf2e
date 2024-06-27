@@ -1,4 +1,4 @@
-import { HandlebarsApplicationDocumentSheet } from "../api/handlebars-application.js";
+import type { HandlebarsApplicationDocumentSheet } from "../api/handlebars-application.d.ts";
 
 /**
  * The Application responsible for configuring a single User document.

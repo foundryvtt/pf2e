@@ -1,4 +1,4 @@
-import type * as fields from "../../../../common/data/fields.js";
+import type * as fields from "../../../../common/data/fields.d.ts";
 
 export interface PrimaryCanvasObjectData {
     /** The x-coordinate of the PCO location */
