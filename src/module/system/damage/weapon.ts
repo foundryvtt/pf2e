@@ -39,7 +39,7 @@ class WeaponDamagePF2e {
         const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.equals(d, baseDamage));
+            .filter((d) => !R.isDeepEqual(d, baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];

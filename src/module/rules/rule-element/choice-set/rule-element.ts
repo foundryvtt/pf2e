@@ -56,7 +56,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.flag = this.#setDefaultFlag(this);
         this.selection =
-            typeof data.selection === "string" || typeof data.selection === "number" || R.isObjectType(data.selection)
+            typeof data.selection === "string" || typeof data.selection === "number" || R.isPlainObject(data.selection)
                 ? data.selection
                 : null;
 
@@ -404,7 +404,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const itemType = objectHasKey(CONFIG.PF2E.Item.documentClasses, choices.itemType) ? choices.itemType : "feat";
         const packs =
             typeof choices.pack === "string"
-                ? R.compact([game.packs.get(choices.pack)])
+                ? [game.packs.get(choices.pack)].filter(R.isTruthy)
                 : game.packs.filter(
                       (p): p is CompendiumCollection<ItemPF2e<null>> =>
                           p.metadata.type === "Item" && p.index.some((e) => e.type === itemType),
@@ -473,7 +473,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
     #getPreselection(inflatedChoices: PickableThing[]): PickableThing | null {
         if (this.selection === null) return null;
-        const choice = inflatedChoices.find((c) => R.equals(c.value, this.selection));
+        const choice = inflatedChoices.find((c) => R.isDeepEqual(this.selection, c.value));
         return choice ?? null;
     }
 

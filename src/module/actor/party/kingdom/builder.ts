@@ -145,12 +145,14 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     }
                 })();
 
+                const savedEntry = this.kingdom.build[category];
                 const result = {
                     selected,
                     active: getActiveForCategory(category),
                     buildEntry,
                     featLink: featItem ? await TextEditor.enrichHTML(featItem.link) : null,
-                    stale: !R.equals(buildEntry, this.kingdom.build[category]),
+                    stale:
+                        !buildEntry || !savedEntry ? buildEntry !== savedEntry : !R.isDeepEqual(buildEntry, savedEntry),
                 };
                 return [category, result];
             }),

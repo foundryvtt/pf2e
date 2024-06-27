@@ -168,7 +168,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
         // Categories
         if (
             checkboxes.category.selected.length > 0 &&
-            !R.equals(checkboxes.category.selected.sort(), indexData.categories.sort())
+            !R.isDeepEqual(checkboxes.category.selected.sort(), indexData.categories.sort())
         ) {
             return false;
         }
