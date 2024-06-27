@@ -1,2 +1,3 @@
 import "./primary-canvas-object.d.ts";
-import "./token-mesh.d.ts";
+import "./primary-occludable-object.ts";
+import "./primary-sprite-mesh.ts";
