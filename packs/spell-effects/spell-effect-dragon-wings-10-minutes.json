@@ -1,0 +1,84 @@
+{
+    "_id": "jy4edd6pvJvJgOSP",
+    "img": "icons/creatures/abilities/wing-batlike-red-pink.webp",
+    "name": "Spell Effect: Dragon Wings (10 minutes)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by casting @UUID[Compendium.pf2e.spells-srd.Item.Dragon Wings].<p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Core Rulebook"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "max(60, @actor.attributes.speed.total)"
+            },
+            {
+                "baseType": "claw",
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "Strike",
+                "label": "PF2E.Weapon.Base.claw",
+                "range": null,
+                "slug": "dragon-claw",
+                "traits": [
+                    "unarmed",
+                    "finesse"
+                ],
+                "predicate": [
+                    "dragon-wings:2-focus-points"
+                ]
+            },
+            {
+                "damageType": "{actor|flags.pf2e.dragonBloodline.damageType}",
+                "diceNumber": "ternary(gte(@item.level, 9), 3, ternary(gte(@item.level, 5), 2, 1))",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "label": "PF2E.Weapon.Base.claw",
+                "selector": "dragon-claw-damage",
+                "predicate": [
+                    "dragon-wings:2-focus-points"
+                ]
+            },
+            {
+                "key": "Resistance",
+                "type": "{actor|flags.pf2e.dragonBloodline.damageType}",
+                "value": "ternary(gte(@item.level, 9), 15, ternary(gte(@item.level, 5), 10, 5))",
+                "predicate": [
+                    "dragon-wings:2-focus-points"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
