@@ -1,4 +1,4 @@
-import DocumentSheetV2 from "../../../client-esm/applications/api/document-sheet.js";
+import type DocumentSheetV2 from "../../../client-esm/applications/api/document-sheet.d.ts";
 
 declare global {
     interface DocumentSheetConfigData<TDocument extends foundry.abstract.Document>
