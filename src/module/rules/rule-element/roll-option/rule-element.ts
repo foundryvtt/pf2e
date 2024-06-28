@@ -168,7 +168,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
               )
             : [];
 
-        const suboptions = R.uniqBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
+        const suboptions = R.uniqueBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
             .filter((s) => !test || s.predicate.test(test))
             .map((suboption) => {
                 suboption.label = suboption.rule.resolveInjectedProperties(suboption.label);
