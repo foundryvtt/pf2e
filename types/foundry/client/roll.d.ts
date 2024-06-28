@@ -115,7 +115,7 @@ declare global {
          * console.log(r.result); // 5 + 4 + 2
          * console.log(r.total);  // 11
          */
-        evaluate({ minimize, maximize }?: EvaluateRollParams): Rolled<this> | Promise<Rolled<this>>;
+        evaluate({ minimize, maximize, allowInteractive }?: EvaluateRollParams): Promise<Rolled<this>>;
 
         /**
          * Evaluate the roll asynchronously.
@@ -456,6 +456,7 @@ declare global {
     interface EvaluateRollParams {
         minimize?: boolean;
         maximize?: boolean;
+        allowInteractive?: boolean;
     }
 
     // Empty extended interface that can be expanded by the system without polluting Math itself
