@@ -156,7 +156,7 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                 };
                 return [category, result];
             }),
-            (items) => Promise.all(items).then((result) => R.fromPairs(result)),
+            (items) => Promise.all(items).then((result) => R.fromEntries(result)),
         );
 
         const { build } = this.kingdom;
