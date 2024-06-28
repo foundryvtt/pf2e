@@ -594,6 +594,11 @@ class PackExtractor {
 
     #pruneRuleElement(source: RuleElementSource): void {
         switch (source.key) {
+            case "Aura":
+                if ("appearance" in source) {
+                    delete source.appearance;
+                }
+                break;
             case "RollOption":
                 if ("toggleable" in source && source.toggleable && "value" in source && !source.value) {
                     delete source.value;
