@@ -343,7 +343,7 @@ class CheckPF2e {
         };
 
         const traits =
-            R.uniqBy(
+            R.uniqueBy(
                 context.traits
                     ?.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits))
                     .map((trait) => {
