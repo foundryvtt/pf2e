@@ -54,7 +54,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } = source.system.traits ?? { value: [] };
         if (Array.isArray(traits.value)) {
-            traits.value = R.uniq(R.compact(traits.value).filter((t) => !this.#SCHOOL_TRAITS.has(t))).sort();
+            traits.value = R.unique(R.compact(traits.value).filter((t) => !this.#SCHOOL_TRAITS.has(t))).sort();
         }
 
         source.system.attributes.immunities = source.system.attributes.immunities?.filter(
@@ -81,7 +81,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         // Remove school traits from any item
         const traits: { value?: (string | undefined)[] } = source.system?.traits ?? { value: [] };
         if (Array.isArray(traits.value)) {
-            traits.value = R.uniq(
+            traits.value = R.unique(
                 R.compact(traits.value)
                     .filter((t) => !this.#SCHOOL_TRAITS.has(t))
                     .map((t) => (t === "metamagic" ? "spellshape" : t))

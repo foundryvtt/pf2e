@@ -11,7 +11,7 @@ const actorTypes: (ActorType | "creature")[] = [...ACTOR_TYPES];
  */
 function getSelectedActors(options: GetSelectedActorsOptions = {}): ActorPF2e[] {
     const { include = actorTypes, exclude = [], assignedFallback = false } = options;
-    const actors = R.uniq(
+    const actors = R.unique(
         game.user
             .getActiveTokens()
             .flatMap((t) =>

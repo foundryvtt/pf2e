@@ -50,7 +50,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
-    actors = R.uniq(Array.from(actors));
+    actors = R.unique(Array.from(actors));
     options.sheets ??= true;
 
     for (const actor of actors) {
@@ -65,7 +65,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         !game.settings.get("pf2e", "automation.removeExpiredEffects");
 
     if (refreshScenes) {
-        const scenes = R.uniq(
+        const scenes = R.unique(
             Array.from(actors)
                 .flatMap((a) => a.getActiveTokens(false, true))
                 .flatMap((t) => t.scene),
@@ -79,7 +79,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
     }
 
     if (options.tokens) {
-        for (const token of R.uniq(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
+        for (const token of R.unique(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
             token.simulateUpdate();
         }
     }
@@ -385,7 +385,7 @@ function getStrikeAttackDomains(
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
 
-    return R.uniq(domains);
+    return R.unique(domains);
 }
 
 function getStrikeDamageDomains(
@@ -444,7 +444,7 @@ function getStrikeDamageDomains(
         }
     }
 
-    return R.uniq(domains);
+    return R.unique(domains);
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */

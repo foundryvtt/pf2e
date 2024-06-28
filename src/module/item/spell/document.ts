@@ -346,7 +346,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             ].flat(),
         );
 
-        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition])).sort();
+        const spellTraits = R.unique(R.compact([...this.traits, spellcasting.tradition])).sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
             origin: { actor: this.actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
@@ -931,7 +931,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         const spellTraits = this.traitChatData(
             CONFIG.PF2E.spellTraits,
-            R.uniq(R.compact([...this.traits, spellcasting.tradition])),
+            R.unique(R.compact([...this.traits, spellcasting.tradition])),
         );
         const rarity =
             this.rarity === "common"
@@ -978,14 +978,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        context.extraRollOptions = R.uniq(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
+        context.extraRollOptions = R.unique(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
 
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             ...context,
             action: "cast-a-spell",
             item: this,
-            traits: R.uniq(R.compact([...this.traits, tradition])),
+            traits: R.unique(R.compact([...this.traits, tradition])),
             attackNumber,
             dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
         });
@@ -1064,7 +1064,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }),
         ];
 
-        const traits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
+        const traits = R.unique(R.compact([...this.traits, spellcasting.tradition]));
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),

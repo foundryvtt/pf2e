@@ -491,7 +491,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const sourceLanguages = this._source.system.details.languages.value.filter((l) => l in CONFIG.PF2E.languages);
         build.languages.granted = build.languages.granted.filter((l) => l.slug in CONFIG.PF2E.languages);
         const grantedLanguages = build.languages.granted.map((g) => g.slug);
-        this.system.details.languages.value = R.uniq([...sourceLanguages, ...grantedLanguages]);
+        this.system.details.languages.value = R.unique([...sourceLanguages, ...grantedLanguages]);
 
         // When tallying the number of languages taken, make sure Common and its actual language aren't counted twice
         const commonAndCommon = R.compact(["common", game.pf2e.settings.campaign.languages.commonLanguage]);

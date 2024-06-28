@@ -208,7 +208,7 @@ class ElementalBlast {
         })();
 
         return blasts.map((blast) => {
-            const damageTypes: BlastConfigDamageType[] = R.uniq(
+            const damageTypes: BlastConfigDamageType[] = R.unique(
                 R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
             )
                 .map((dt) => ({
@@ -284,7 +284,7 @@ class ElementalBlast {
         const traits = ((): ActionTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
-            return R.uniq(
+            return R.unique(
                 R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
                     (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
                 ),

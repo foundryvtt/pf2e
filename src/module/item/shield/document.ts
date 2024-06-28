@@ -133,7 +133,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+        this.system.traits.value = R.unique(R.compact([...baseTraits, magicTrait]).sort());
 
         // Fill out integrated weapon data if applicable
         const integratedTrait = this.system.traits.value.find((t) => t.startsWith("integrated"));

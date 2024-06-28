@@ -38,10 +38,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const system = this.system;
 
         return {
-            ancestry: R.uniq(system.ancestryFeatLevels.value).sort((a, b) => a - b),
-            class: R.uniq(system.classFeatLevels.value).sort((a, b) => a - b),
-            skill: R.uniq(system.skillFeatLevels.value).sort((a, b) => a - b),
-            general: R.uniq(system.generalFeatLevels.value).sort((a, b) => a - b),
+            ancestry: R.unique(system.ancestryFeatLevels.value).sort((a, b) => a - b),
+            class: R.unique(system.classFeatLevels.value).sort((a, b) => a - b),
+            skill: R.unique(system.skillFeatLevels.value).sort((a, b) => a - b),
+            general: R.unique(system.generalFeatLevels.value).sort((a, b) => a - b),
         };
     }
 

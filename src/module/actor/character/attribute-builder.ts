@@ -341,7 +341,7 @@ class AttributeBuilder extends Application {
             const voluntary = ancestry.system.voluntary;
             if (voluntary?.boost !== undefined) {
                 // Convert from legacy. Flaws must each be unique
-                const flaws = R.uniq(voluntary.flaws);
+                const flaws = R.unique(voluntary.flaws);
                 ancestry.update({ system: { voluntary: { "-=boost": null, flaws } } });
             } else {
                 // Convert to legacy. We can only have up to 2 total flaws in legacy
