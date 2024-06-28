@@ -20,7 +20,6 @@ import {
     htmlClosest,
     htmlQuery,
     htmlQueryAll,
-    isObject,
     localizer,
     objectHasKey,
     setHasElement,
@@ -354,14 +353,14 @@ class HomebrewElements extends SettingsMenuPF2e {
 
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isObject(homebrew)) continue;
+            if (!R.isPlainObject(homebrew)) continue;
 
             for (const recordKey of Object.keys(homebrew)) {
                 if (recordKey === "damageTypes") continue; // handled elsewhere
 
                 if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
                     const elements = homebrew[recordKey];
-                    if (!isObject(elements) || !isHomebrewFlagCategory(elements)) {
+                    if (!R.isPlainObject(elements) || !isHomebrewFlagCategory(elements)) {
                         console.warn(ErrorPF2e(`Homebrew record ${recordKey} is malformed in module ${key}`).message);
                         continue;
                     }
@@ -475,10 +474,10 @@ class DamageTypeManager {
         const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
         for (const [key, foundryModule] of activeModules) {
             const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isObject(homebrew) || !homebrew.damageTypes) continue;
+            if (!R.isPlainObject(homebrew) || !homebrew.damageTypes) continue;
 
             const elements = homebrew.damageTypes;
-            if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
+            if (!R.isPlainObject(elements) || !isHomebrewCustomDamage(elements)) {
                 console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
                 continue;
             }

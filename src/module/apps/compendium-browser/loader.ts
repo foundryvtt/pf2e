@@ -1,6 +1,5 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
-import * as R from "remeda";
 import { CompendiumBrowserSources } from "./index.ts";
 
 class PackLoader {
@@ -77,7 +76,7 @@ class PackLoader {
         const knownSources = Object.values(this.sourcesSettings.sources).map((value) => value?.name);
 
         for (const data of index) {
-            const source = this.#getSourceFromDocument(data);
+            const source = this.#getSourceFromIndexData(data);
 
             if (
                 (!source && this.sourcesSettings.showEmptySources) ||
@@ -127,7 +126,7 @@ class PackLoader {
             const index = await pack.getIndex({ fields: indexFields });
 
             for (const element of index) {
-                const source = this.#getSourceFromDocument(element);
+                const source = this.#getSourceFromIndexData(element);
                 if (source && source !== "") {
                     loadedSources.add(source);
                 }
@@ -139,9 +138,9 @@ class PackLoader {
         this.loadedSources = loadedSourcesArray;
     }
 
-    #getSourceFromDocument(document: CompendiumIndexData): string {
-        const { system } = document;
-        if (!R.isObject(system)) return "";
+    #getSourceFromIndexData(indexData: CompendiumIndexData & { system?: MaybeLegacySystemData }): string {
+        const system = indexData.system;
+        if (!system) return "";
 
         // Handle unmigrated data
         return (
@@ -167,6 +166,15 @@ class PackLoader {
         };
         await this.updateSources(packs);
     }
+}
+
+interface MaybeLegacySystemData {
+    details?: {
+        publication?: { title?: string };
+        source?: { value?: string };
+    };
+    publication?: { title?: string };
+    source?: { value?: string };
 }
 
 export { PackLoader };

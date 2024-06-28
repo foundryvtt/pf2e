@@ -324,7 +324,7 @@ function sortStringRecord(record: Record<string, string>): Record<string, string
 function sortObjByKey(value: unknown): unknown {
     return Array.isArray(value)
         ? value.map(sortObjByKey)
-        : R.isObject(value)
+        : R.isPlainObject(value)
           ? Object.keys(value)
                 .sort()
                 .reduce((o: Record<string, unknown>, key) => {
@@ -338,12 +338,12 @@ function sortObjByKey(value: unknown): unknown {
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = Array.isArray(source) || R.isObject(source) ? fu.deepClone(source) : source;
+    const clone = Array.isArray(source) || R.isPlainObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
         return clone.map((e) => recursiveReplaceString(e, replace));
-    } else if (R.isObject(clone)) {
+    } else if (R.isPlainObject(clone)) {
         for (const [key, value] of Object.entries(clone)) {
             clone[key] = recursiveReplaceString(value, replace);
         }

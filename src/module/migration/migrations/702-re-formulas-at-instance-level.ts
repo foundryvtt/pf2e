@@ -30,9 +30,13 @@ export class Migration702REFormulasAtInstanceLevel extends MigrationBase {
             try {
                 if (typeof rule.value === "string") {
                     rule.value = this.raiseToInstanceLevel(rule.value);
-                } else if (R.isObject(rule.value) && "brackets" in rule.value && Array.isArray(rule.value.brackets)) {
+                } else if (
+                    R.isPlainObject(rule.value) &&
+                    "brackets" in rule.value &&
+                    Array.isArray(rule.value.brackets)
+                ) {
                     for (const bracket of rule.value.brackets) {
-                        if (R.isObject(bracket) && typeof bracket.value === "string") {
+                        if (R.isPlainObject(bracket) && typeof bracket.value === "string") {
                             bracket.value = this.raiseToInstanceLevel(bracket.value);
                         }
                     }

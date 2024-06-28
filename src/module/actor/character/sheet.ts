@@ -1436,7 +1436,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async _onDrop(event: DragEvent): Promise<boolean | void> {
         const dropData = TextEditor.getDragEventData(event);
-        if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
+        if (R.isPlainObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {
                 // Prepare formula if dropped on a crafting entry.

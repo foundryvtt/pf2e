@@ -27,7 +27,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
 
     #fixHarmHeal(source: SpellSource): void {
         const damage = source.system.damage["0"];
-        if (R.isObject(damage)) {
+        if (R.isPlainObject(damage)) {
             damage.kinds = ["damage", "healing"];
         }
         if (source.system.slug === "heal") {
@@ -36,9 +36,10 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
             source.system.traits.value = ["manipulate", "void"];
         }
 
-        const variants = R.isObject(source.system.overlays)
+        const variants = R.isPlainObject(source.system.overlays)
             ? Object.values(source.system.overlays).filter(
-                  (o) => R.isObject(o) && R.isObject(o.system?.traits) && Array.isArray(o.system?.traits.value),
+                  (o) =>
+                      R.isPlainObject(o) && R.isPlainObject(o.system?.traits) && Array.isArray(o.system?.traits.value),
               )
             : [];
 
@@ -75,7 +76,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     }
 
     #fixOtherVariants(source: SpellSource): void {
-        for (const partial of Object.values(source.system.damage).filter((p) => R.isObject(p))) {
+        for (const partial of Object.values(source.system.damage).filter((p) => R.isPlainObject(p))) {
             if (typeof partial.type === "string") {
                 partial.type = partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
                 partial.type ||= "untyped";

@@ -57,7 +57,7 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                 spellData.filters = {};
 
                 if (spellData.type === "spell") {
-                    if ("system" in spellData && R.isObject(spellData.system)) {
+                    if ("system" in spellData && R.isPlainObject(spellData.system)) {
                         spellData.system.ritual ??= null;
                     }
 

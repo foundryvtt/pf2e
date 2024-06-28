@@ -632,7 +632,7 @@ class CheckModifier extends StatisticModifier {
         const baseModifiers = statistic.modifiers
             .filter((modifier: unknown) => {
                 if (modifier instanceof ModifierPF2e) return true;
-                if (R.isObject(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
+                if (R.isObjectType(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
                     ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
                 }
                 return false;

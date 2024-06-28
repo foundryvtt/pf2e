@@ -302,7 +302,7 @@ class Grouping extends terms.RollTerm<GroupingData> {
             "operands" in data &&
             Array.isArray(data.operands) &&
             data.operands.length === 2 &&
-            data.operands.every((o): o is Record<string, unknown> => R.isObject(o)) &&
+            data.operands.every((o): o is Record<string, unknown> => R.isPlainObject(o)) &&
             data.operands[0].number === 2
         );
     }

@@ -7,7 +7,7 @@ export class Migration919WeaponToggleStructure extends MigrationBase {
     static override version = 0.919;
 
     #updateToggle(toggle: Maybe<TraitToggleWithDeletion>): void {
-        if (R.isObject(toggle) && "selection" in toggle) {
+        if (R.isPlainObject(toggle) && "selection" in toggle) {
             toggle.selected = toggle.selection ?? null;
             toggle["-=selection"] = null;
         }
