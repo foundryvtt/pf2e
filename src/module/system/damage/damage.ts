@@ -7,7 +7,7 @@ import { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { extractNotes } from "@module/rules/helpers.ts";
 import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-success.ts";
-import { createHTMLElement } from "@util";
+import { createHTMLElement, objectHasKey } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
 import { DamageDamageContext, DamageTemplate } from "./types.ts";
 
@@ -19,9 +19,11 @@ export class DamagePF2e {
         callback?: Function,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
-
-        context.rollMode ??= (context.secret ? "blindroll" : undefined) ?? game.settings.get("core", "rollMode");
         context.createMessage ??= true;
+
+        context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
+            ? context.rollMode
+            : game.settings.get("core", "rollMode");
 
         // Change default roll mode to blind GM roll if the "secret" option is specified
         if (context.options.has("secret")) {
@@ -157,8 +159,10 @@ export class DamagePF2e {
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
+            const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
+
             if (damage.roll) {
-                return damage.roll.evaluate();
+                return damage.roll.evaluate({ allowInteractive });
             }
 
             const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
@@ -185,7 +189,7 @@ export class DamagePF2e {
                 showBreakdown,
             };
 
-            return new DamageRoll(formula, {}, options).evaluate();
+            return new DamageRoll(formula, {}, options).evaluate({ allowInteractive });
         })();
 
         if (roll === null) return null;
