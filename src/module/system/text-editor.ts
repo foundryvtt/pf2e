@@ -162,7 +162,7 @@ class TextEditorPF2e extends TextEditor {
             const immutable = "immutable" in anchor.dataset;
             const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
             const domains = anchor.dataset.domains?.split(",") ?? [];
-            const extraRollOptions = R.uniq(R.compact([...traits, ...rollOptions]));
+            const extraRollOptions = R.unique(R.compact([...traits, ...rollOptions]));
 
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
@@ -544,7 +544,7 @@ class TextEditorPF2e extends TextEditor {
         const basic = "basic" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
-        const traits = R.uniq(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
+        const traits = R.unique(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -823,7 +823,7 @@ class TextEditorPF2e extends TextEditor {
         if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
 
         const slug = item.slug ?? sluggify(item.name);
-        const traits = R.uniq([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
+        const traits = R.unique([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
         const actionCost = item.actionCost.value;
 
         return [
@@ -942,7 +942,7 @@ async function augmentInlineDamageRoll(
             firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
         }
         if (item?.isOfType("physical")) {
-            firstBase.materials = R.uniq(R.compact([item.material.effects, firstBase.materials].flat()).sort());
+            firstBase.materials = R.unique(R.compact([item.material.effects, firstBase.materials].flat()).sort());
         }
 
         const { modifiers, dice } = (() => {

@@ -1230,7 +1230,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
             };
             condition.system.traits = {
-                value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
+                value: R.unique(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
                     (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
                 ),
                 otherTags: [],

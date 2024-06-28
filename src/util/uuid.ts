@@ -3,7 +3,7 @@ import * as R from "remeda";
 class UUIDUtils {
     /** Retrieve multiple documents by UUID */
     static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]> {
-        const resolvedUUIDs = R.uniq(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
+        const resolvedUUIDs = R.unique(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
 
         // These can't be retrieved via `fromUuidSync`: separate and retrieve directly via `fromUuid`
         const packEmbeddedLinks = resolvedUUIDs.filter((u) => {
@@ -21,7 +21,7 @@ class UUIDUtils {
         const indexEntries = documentsAndIndexData.filter(
             (d): d is CompendiumIndexData => !(d instanceof foundry.abstract.Document),
         );
-        const packs = R.uniq(indexEntries.flatMap((e) => game.packs.get(e.pack ?? "") ?? []));
+        const packs = R.unique(indexEntries.flatMap((e) => game.packs.get(e.pack ?? "") ?? []));
         const packDocs = (
             await Promise.all(
                 packs.map(async (pack) => {

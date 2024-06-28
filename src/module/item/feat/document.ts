@@ -158,7 +158,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Key attribute options
         if (subfeatures.keyOptions.length > 0) {
-            actor.system.build.attributes.keyOptions = R.uniq([
+            actor.system.build.attributes.keyOptions = R.unique([
                 ...actor.system.build.attributes.keyOptions,
                 ...subfeatures.keyOptions,
             ]);

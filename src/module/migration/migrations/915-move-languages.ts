@@ -54,7 +54,7 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
                     { languages: { granted: [], slots: 0 } },
                     source.system.subfeatures,
                 ));
-                subfeatures.languages.granted = R.uniq([...subfeatures.languages.granted, language]);
+                subfeatures.languages.granted = R.unique([...subfeatures.languages.granted, language]);
                 source.system.rules.splice(source.system.rules.indexOf(rule), 1);
             } else {
                 rule.path = "system.build.languages.granted";

@@ -88,7 +88,7 @@ export class Migration883BanishAlignment extends MigrationBase {
                 }
             }
 
-            traits.value = R.uniq(traits.value.sort());
+            traits.value = R.unique(traits.value.sort());
         }
 
         if ("alignment" in details) {
@@ -130,7 +130,7 @@ export class Migration883BanishAlignment extends MigrationBase {
 
             if ("ability" in system) {
                 system.attribute = Array.isArray(system.ability)
-                    ? R.uniq(
+                    ? R.unique(
                           system.ability
                               .filter((a): a is AttributeString => setHasElement(ATTRIBUTE_ABBREVIATIONS, a))
                               .sort(),

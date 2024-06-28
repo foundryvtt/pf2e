@@ -101,7 +101,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
                 : null;
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTrait = investedTrait && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, investedTrait, magicTrait]).sort());
+        this.system.traits.value = R.unique(R.compact([...baseTraits, investedTrait, magicTrait]).sort());
     }
 
     override prepareDerivedData(): void {

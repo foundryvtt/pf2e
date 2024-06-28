@@ -82,7 +82,7 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
 }
 
 function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
-    return R.uniq(
+    return R.unique(
         R.compact(
             [
                 item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),

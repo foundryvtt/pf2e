@@ -63,7 +63,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     }
 
     #removeOverlayTraits(source: SpellSource): void {
-        source.system.traits.value = R.uniq([
+        source.system.traits.value = R.unique([
             ...source.system.traits.value,
             "concentrate",
             "manipulate",
@@ -89,7 +89,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
                 if (!R.compact(overlaySystem.traits.value).every((t) => ["concentrate", "manipulate"].includes(t))) {
                     continue;
                 }
-                overlaySystem.traits.value = R.uniq(
+                overlaySystem.traits.value = R.unique(
                     [...overlaySystem.traits.value, ...source.system.traits.value].sort(),
                 );
                 if (R.isDeepEqual(overlaySystem.traits.value, R.unique(source.system.traits.value.sort()))) {

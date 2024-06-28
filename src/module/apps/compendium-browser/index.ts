@@ -160,8 +160,8 @@ class CompendiumBrowser extends Application {
         ]);
 
         for (const pack of game.packs) {
-            const tabNames = R.uniq(
-                R.uniq(pack.index.map((entry) => entry.type))
+            const tabNames = R.unique(
+                R.unique(pack.index.map((entry) => entry.type))
                     .filter((t): t is BrowsableType => setHasElement(browsableTypes, t))
                     .flatMap((t) => typeToTab.get(t) ?? []),
             );
@@ -303,7 +303,7 @@ class CompendiumBrowser extends Application {
     }
 
     loadedPacksAll(): string[] {
-        return R.uniq(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
+        return R.unique(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
     }
 
     override activateListeners($html: JQuery): void {

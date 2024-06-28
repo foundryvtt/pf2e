@@ -777,7 +777,7 @@ abstract class CreaturePF2e<
             const sourceAlignmentTraits = this._source.system.traits?.value.filter(
                 (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
             );
-            traitChanges.value = R.uniq(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
+            traitChanges.value = R.unique(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
         }
 
         return super._preUpdate(changed, options, user);

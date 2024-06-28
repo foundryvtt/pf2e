@@ -21,7 +21,7 @@ function upgradeWeaponTrait(trait: string): string {
  */
 function addOrUpgradeTrait<TTrait extends string>(traits: TTrait[], newTrait: TTrait): TTrait[] {
     const annotatedTraitMatch = newTrait.match(/^([a-z][-a-z]+)-(\d*d?\d+)$/);
-    if (!annotatedTraitMatch) return R.uniq([...traits, newTrait]);
+    if (!annotatedTraitMatch) return R.unique([...traits, newTrait]);
 
     const traitBase = annotatedTraitMatch[1];
     const upgradeAnnotation = annotatedTraitMatch[2];
@@ -29,7 +29,7 @@ function addOrUpgradeTrait<TTrait extends string>(traits: TTrait[], newTrait: TT
     const existingTrait = traits.find((t) => traitPattern.test(t));
     const existingAnnotation = existingTrait?.match(traitPattern)?.at(1);
     if (!(existingTrait && existingAnnotation)) {
-        return R.uniq([...traits, newTrait]);
+        return R.unique([...traits, newTrait]);
     }
 
     if (_expectedValueOf(upgradeAnnotation) > _expectedValueOf(existingAnnotation)) {

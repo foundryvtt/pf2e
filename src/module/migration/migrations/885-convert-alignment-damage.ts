@@ -77,7 +77,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
         }
 
         fu.mergeObject(source.system.attributes, iwr);
-        traits.value = R.uniq(traits.value.sort());
+        traits.value = R.unique(traits.value.sort());
         if (traits.value.includes("holy") && traits.value.includes("unholy")) {
             // Something weird about this one!
             traits.value = traits.value.filter((t) => !["holy", "unholy"].includes(t));
@@ -98,7 +98,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             traits.value = traits.value.map((t) =>
                 t === "sanctified" ? (traits.value.includes("good") ? "holy" : "unholy") : t,
             );
-            traits.value = R.uniq(traits.value.sort());
+            traits.value = R.unique(traits.value.sort());
         } else if (source.type === "melee") {
             const traits: { value: string[] } = source.system.traits;
             const actorTraits: { value: string[] } = actorSource?.system.traits ?? { value: [] };
@@ -138,8 +138,8 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                 }
             }
 
-            traits.value = R.uniq(traits.value.sort());
-            actorTraits.value = R.uniq(actorTraits.value.sort());
+            traits.value = R.unique(traits.value.sort());
+            actorTraits.value = R.unique(actorTraits.value.sort());
         } else if (source.type === "spell") {
             const damage: { type: string }[] = Object.values(source.system.damage).filter(
                 (d) => isObject(d) && typeof d.type === "string",
@@ -157,7 +157,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
                     traits.value.push("unholy");
                 }
             }
-            traits.value = R.uniq(traits.value.sort());
+            traits.value = R.unique(traits.value.sort());
             if (source.system.slug === "divine-decree") {
                 // Special case for Divine Decree spell
                 const system: Pick<SpellSystemSource, "damage"> & { "-=overlays"?: null } = source.system;
@@ -195,7 +195,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             } else if (hasEvilInlineRoll && actorSource.system.traits.value.includes("unholy")) {
                 source.system.traits.value.push("unholy");
             }
-            source.system.traits.value = R.uniq(source.system.traits.value.sort());
+            source.system.traits.value = R.unique(source.system.traits.value.sort());
         }
 
         description.value = description.value

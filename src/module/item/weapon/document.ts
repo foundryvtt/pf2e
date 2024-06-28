@@ -403,7 +403,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
+        traits.value = R.unique(R.compact([...traits.value, magicTrait]).sort());
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
