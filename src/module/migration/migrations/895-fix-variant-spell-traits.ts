@@ -92,7 +92,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
                 overlaySystem.traits.value = R.uniq(
                     [...overlaySystem.traits.value, ...source.system.traits.value].sort(),
                 );
-                if (R.equals(overlaySystem.traits.value, R.uniq(source.system.traits.value.sort()))) {
+                if (R.isDeepEqual(overlaySystem.traits.value, R.unique(source.system.traits.value.sort()))) {
                     overlaySystem["-=traits"] = null;
                 }
             }

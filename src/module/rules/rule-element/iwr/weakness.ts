@@ -32,8 +32,8 @@ class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
             const current = weaknesses.find(
                 (w) =>
                     w.type === weaknessType &&
-                    R.equals(w.exceptions, this.exceptions) &&
-                    R.equals(w.definition, this.definition ?? null),
+                    R.isDeepEqual(w.exceptions, this.exceptions) &&
+                    R.isDeepEqual(w.definition, this.definition ?? null),
             );
             if (current) {
                 if (this.override) {

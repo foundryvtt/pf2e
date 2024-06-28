@@ -1767,7 +1767,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     "definition" in proficiency &&
                     "definition" in p &&
                     proficiency.sameAs === p.sameAs &&
-                    R.equals(p.definition ?? [], [...(proficiency.definition ?? [])])
+                    R.isDeepEqual(p.definition ?? [], proficiency.definition ?? [])
                         ? k
                         : [],
                 );

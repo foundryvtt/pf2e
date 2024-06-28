@@ -32,9 +32,9 @@ class ResistanceRuleElement extends IWRRuleElement<ResistanceRuleSchema> {
             const current = resistances.find(
                 (r) =>
                     r.type === resistanceType &&
-                    R.equals(r.exceptions, this.exceptions) &&
-                    R.equals(r.doubleVs, this.doubleVs) &&
-                    R.equals(r.definition, this.definition ?? null),
+                    R.isDeepEqual(r.exceptions, this.exceptions) &&
+                    R.isDeepEqual(r.doubleVs, this.doubleVs) &&
+                    R.isDeepEqual(r.definition, this.definition ?? null),
             );
             if (current) {
                 if (this.override) {

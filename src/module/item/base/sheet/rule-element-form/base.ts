@@ -343,7 +343,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         const initialValue = typeof field.initial === "function" ? field.initial(data) : field.initial;
         const valueRaw = data[key];
         const value = R.isObject(valueRaw) && R.isObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
-        const isInitial = R.equals(initialValue, value);
+        const isInitial = R.isDeepEqual(initialValue, value);
         if (isInitial) delete data[key];
         return !(key in data);
     };
