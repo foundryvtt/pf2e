@@ -173,7 +173,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
         const propertyRuneIndices = [0, 1, 2, 3] as const;
         const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => formData[`system.runes.property.${i}`] ?? []);
         if (propertyRuneUpdates.length > 0) {
-            formData[`system.runes.property`] = R.compact(propertyRuneUpdates);
+            formData[`system.runes.property`] = propertyRuneUpdates.filter(R.isTruthy);
             for (const index of propertyRuneIndices) {
                 delete formData[`system.runes.property.${index}`];
             }

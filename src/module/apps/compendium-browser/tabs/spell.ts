@@ -74,12 +74,12 @@ export class CompendiumBrowserSpellTab extends CompendiumBrowserTab {
                         (isCantrip && (spellData.system.traits.traditions ?? []).length === 0);
                     const isRitual = !!spellData.system.ritual;
                     const isSpell = !isCantrip && !isFocusSpell && !isRitual;
-                    const categories = R.compact([
+                    const categories = [
                         isSpell ? "spell" : null,
                         isCantrip ? "cantrip" : null,
                         isFocusSpell ? "focus" : null,
                         isRitual ? "ritual" : null,
-                    ]);
+                    ].filter(R.isTruthy);
 
                     // format casting time (before value is sluggified)
                     const actionGlyph = getActionGlyph(spellData.system.time.value);

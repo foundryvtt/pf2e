@@ -47,7 +47,7 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: R.omit(
                 CONFIG.PF2E.preparationType,
-                R.compact(["ritual", actor.type === "character" ? "items" : null]),
+                (["ritual", actor.type === "character" ? "items" : null] as const).filter(R.isTruthy),
             ),
             attributes: CONFIG.PF2E.abilities,
             isAttributeConfigurable: this.#canSetAttribute(),

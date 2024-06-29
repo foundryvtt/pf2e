@@ -255,10 +255,10 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        const damageKinds = R.compact([
+        const damageKinds = [
             this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
             this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
-        ]);
+        ].filter(R.isTruthy);
 
         for (const damageKind of damageKinds) {
             options.push(damageKind);

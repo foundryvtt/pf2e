@@ -162,7 +162,7 @@ class TextEditorPF2e extends TextEditor {
             const immutable = "immutable" in anchor.dataset;
             const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
             const domains = anchor.dataset.domains?.split(",") ?? [];
-            const extraRollOptions = R.unique(R.compact([...traits, ...rollOptions]));
+            const extraRollOptions = R.unique([...traits, ...rollOptions]).filter(R.isTruthy);
 
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
@@ -544,7 +544,9 @@ class TextEditorPF2e extends TextEditor {
         const basic = "basic" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
-        const traits = R.unique(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
+        const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()).filter(
+            R.isTruthy,
+        );
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -557,10 +559,12 @@ class TextEditorPF2e extends TextEditor {
             traits,
             immutable: "immutable" in rawParams,
             // Set action slug, damaging effect for basic saves, and any parameterized options
-            extraRollOptions: R.compact([
+            extraRollOptions: [
                 ...(basic ? ["damaging-effect"] : []),
                 ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
-            ]).sort(),
+            ]
+                .filter(R.isTruthy)
+                .sort(),
             targetOwner: "targetOwner" in rawParams,
         };
 
@@ -789,7 +793,9 @@ class TextEditorPF2e extends TextEditor {
         const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {
-            classes: R.compact(["inline-roll", "roll", baseFormula && baseFormula !== formula ? "altered" : null]),
+            classes: ["inline-roll", "roll", baseFormula && baseFormula !== formula ? "altered" : null].filter(
+                R.isTruthy,
+            ),
             children: [damageDiceIcon(roll), labelEl],
             dataset: {
                 formula: roll._formula,
@@ -942,7 +948,9 @@ async function augmentInlineDamageRoll(
             firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
         }
         if (item?.isOfType("physical")) {
-            firstBase.materials = R.unique(R.compact([item.material.effects, firstBase.materials].flat()).sort());
+            firstBase.materials = R.unique([item.material.effects, firstBase.materials].flat())
+                .filter(R.isTruthy)
+                .sort();
         }
 
         const { modifiers, dice } = (() => {

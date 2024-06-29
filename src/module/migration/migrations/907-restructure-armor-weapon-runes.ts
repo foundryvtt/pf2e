@@ -86,7 +86,7 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 const runeValue = this.#getRuneValue(source.system, runeKey);
                 if (setHasElement(ARMOR_PROPERTY_RUNE_TYPES, runeValue)) {
                     source.system.runes.property.push(runeValue);
-                    source.system.runes.property = R.unique(R.compact(source.system.runes.property));
+                    source.system.runes.property = R.unique(source.system.runes.property).filter(R.isTruthy);
                     source.system.runes.property.length = Math.min(source.system.runes.property.length, 4);
                 }
             }
@@ -103,7 +103,7 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 const runeValue = this.#getRuneValue(source.system, runeKey);
                 if (setHasElement(WEAPON_PROPERTY_RUNE_TYPES, runeValue)) {
                     source.system.runes.property.push(runeValue);
-                    source.system.runes.property = R.unique(R.compact(source.system.runes.property));
+                    source.system.runes.property = R.unique(source.system.runes.property).filter(R.isTruthy);
                     source.system.runes.property.length = Math.min(source.system.runes.property.length, 4);
                 }
             }

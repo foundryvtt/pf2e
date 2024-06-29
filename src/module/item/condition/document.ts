@@ -79,12 +79,12 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
         if (!this.active) return null;
 
         const granters = R.unique(
-            R.compact(
+            (
                 this.actor?.conditions.bySlug(this.slug).map((condition) => {
                     const { appliedBy } = condition;
                     return !appliedBy?.isOfType("condition") || appliedBy?.active ? appliedBy : null;
-                }) ?? [],
-            ),
+                }) ?? []
+            ).filter(R.isTruthy),
         );
 
         const list = granters

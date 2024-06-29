@@ -387,7 +387,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.toPairs.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }
@@ -777,7 +777,7 @@ abstract class CreaturePF2e<
             const sourceAlignmentTraits = this._source.system.traits?.value.filter(
                 (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
             );
-            traitChanges.value = R.unique(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
+            traitChanges.value = R.unique([traitChanges.value, sourceAlignmentTraits].flat()).filter(R.isTruthy).sort();
         }
 
         return super._preUpdate(changed, options, user);

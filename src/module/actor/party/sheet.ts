@@ -143,7 +143,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const heroPoints =
                 actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")
-                ? R.compact(actor.system.exploration.map((id) => actor.items.get(id)))
+                ? actor.system.exploration.map((id) => actor.items.get(id)).filter(R.isTruthy)
                 : [];
 
             return {
@@ -212,7 +212,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         );
 
         function getBestSkill(slug: string): SkillData | null {
-            const bestMember = R.maxBy(members, (m) => m.skills[slug]?.mod ?? -Infinity);
+            const bestMember = R.firstBy(members, [(m) => m.skills[slug]?.mod ?? -Infinity, "desc"]);
             const statistic = bestMember?.skills[slug];
             return statistic ? R.pick(statistic, ["slug", "mod", "label", "rank"]) : null;
         }
@@ -242,8 +242,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 (s) => s.label,
             ),
             knowledge: {
-                regular: R.compact(baseKnowledgeSkills.map(getBestSkill)),
-                lore: R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => s.label),
+                regular: baseKnowledgeSkills.map(getBestSkill).filter(R.isTruthy),
+                lore: R.sortBy([...loreSkills].map(getBestSkill).filter(R.isTruthy), (s) => s.label),
             },
         };
     }
@@ -364,7 +364,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Mouseover summary skill tooltips to show all actor modifiers
         for (const skillTag of htmlQueryAll(html, ".summary .skills [data-slug]")) {
             const slug = skillTag.dataset.slug ?? "";
-            const statistics = R.compact(this.actor.members.map((m) => m.skills[slug]));
+            const statistics = this.actor.members.map((m) => m.skills[slug]).filter(R.isTruthy);
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
                 const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);

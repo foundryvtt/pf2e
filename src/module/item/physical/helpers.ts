@@ -153,7 +153,7 @@ function generateItemName(item: PhysicalItemPF2e): string {
                   ? "OneProperty"
                   : null;
         const material = params.material && "Material";
-        const key = R.compact([potency, reinforcing, fundamental2, properties, material]).join("") || null;
+        const key = [potency, reinforcing, fundamental2, properties, material].filter(R.isTruthy).join("") || null;
         return key && game.i18n.localize(key);
     })();
 

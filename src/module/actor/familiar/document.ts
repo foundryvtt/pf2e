@@ -170,7 +170,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
               })
             : null;
 
-        const statistic = new ArmorStatistic(this, { modifiers: R.compact([masterModifier]) });
+        const statistic = new ArmorStatistic(this, { modifiers: [masterModifier].filter(R.isTruthy) });
         this.armorClass = statistic.dc;
         system.attributes.ac = fu.mergeObject(statistic.getTraceData(), { attribute: statistic.attribute ?? "dex" });
 
