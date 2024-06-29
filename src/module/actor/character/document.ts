@@ -967,7 +967,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 ...statistic.getTraceData(),
                 rank: statistic.rank,
                 armor: baseData.armor ?? false,
-                itemID: loreItem?.id ?? null,
+                itemId: loreItem?.id ?? null,
                 lore: !!statistic.lore,
             });
             return [key, data];
