@@ -200,12 +200,8 @@ class SingleCheckActionVariant extends BaseActionVariant {
                 return { label: statistic.label, modifier: modifier.totalModifier, slug: args.slug };
             }
         } else {
-            const labels: Record<string, string> = {
-                perception: "PF2E.PerceptionLabel",
-                ...CONFIG.PF2E.saves,
-                ...CONFIG.PF2E.skillList,
-            };
-            return { label: game.i18n.localize(labels[args.slug] ?? args.slug), slug: args.slug };
+            const label = ActionMacroHelpers.getSimpleCheckLabel(args.slug) ?? game.i18n.localize(args.slug);
+            return { label, slug: args.slug };
         }
         return null;
     }

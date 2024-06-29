@@ -324,6 +324,24 @@ class ActionMacroHelpers {
         }
     }
 
+    /** Attempts to get the label for the given statistic using a slug */
+    static getSimpleCheckLabel(slug: string): string | null {
+        switch (slug) {
+            case "flat":
+                return game.i18n.localize("PF2E.FlatCheck");
+            case "perception":
+                return game.i18n.localize("PF2E.PerceptionLabel");
+            case "unarmed":
+                return game.i18n.localize("PF2E.TraitUnarmed");
+            default: {
+                const saves: Record<string, string> = CONFIG.PF2E.saves;
+                const skills: Record<string, string> = CONFIG.PF2E.skillList;
+                const label = saves[slug] ?? skills[slug];
+                return label ? game.i18n.localize(label) : null;
+            }
+        }
+    }
+
     /** A DC can be fully resolved, retrieving the `Statistic` if provided a reference */
     static #resolveCheckDC(params: ResolveCheckDCParams & { fully: true }): CheckDC | null;
     static #resolveCheckDC(params: ResolveCheckDCParams): CheckDC | CheckDCReference | null;
