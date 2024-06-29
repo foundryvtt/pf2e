@@ -3,12 +3,12 @@ import { CharacterStrike } from "@actor/character/data.ts";
 import { SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorInitiative } from "@actor/initiative.ts";
 import { DamageDicePF2e, ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import { MOVEMENT_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { MOVEMENT_TYPES } from "@actor/values.ts";
 import { WeaponPF2e } from "@item";
 import { RollNotePF2e } from "@module/notes.ts";
 import { Predicate } from "@system/predication.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
-import { ErrorPF2e, isObject, setHasElement, sluggify, tupleHasValue } from "@util";
+import { ErrorPF2e, isObject, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { CreatureSizeRuleElement } from "../creature-size.ts";
@@ -255,8 +255,9 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
 
         // Inform predicates that this battle form grants a skill modifier
         for (const key of Object.keys(this.overrides.skills)) {
-            if (!setHasElement(SKILL_SLUGS, key)) continue;
-            rollOptions.all[`battle-form:${key}`] = true;
+            if (key in CONFIG.PF2E.skills) {
+                rollOptions.all[`battle-form:${key}`] = true;
+            }
         }
 
         // Reestablish hands free
@@ -341,7 +342,7 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
     #prepareSkills(): void {
         const actor = this.actor;
         for (const [key, newSkill] of Object.entries(this.overrides.skills)) {
-            if (!setHasElement(SKILL_SLUGS, key)) {
+            if (!objectHasKey(actor.skills, key)) {
                 return this.failValidation(`Unrecognized skill: ${key}`);
             }
             newSkill.ownIfHigher ??= true;

@@ -1,18 +1,19 @@
 import { htmlClosest, htmlQuery, sortLabeledRecord } from "@util";
+import * as R from "remeda";
 
 /** Prepare form options on an item or actor sheet */
 function createSheetOptions(
-    options: Record<string, string>,
+    options: Record<string, string | { label: string }>,
     selections: SheetSelections = [],
     { selected = false } = {},
 ): SheetOptions {
-    const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
+    const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, value]) => {
         const selectionList = Array.isArray(selections) ? selections : selections.value;
         const key = typeof selectionList[0] === "number" ? Number(stringKey) : stringKey;
         const isSelected = selectionList.includes(key);
         if (isSelected || !selected) {
             compiledOptions[key] = {
-                label: game.i18n.localize(label),
+                label: game.i18n.localize(R.isObjectType(value) ? value.label : value),
                 value: stringKey,
                 selected: isSelected,
             };
@@ -24,7 +25,10 @@ function createSheetOptions(
     return sortLabeledRecord(sheetOptions);
 }
 
-function createSheetTags(options: Record<string, string>, selections: SheetSelections): SheetOptions {
+function createSheetTags(
+    options: Record<string, string | { label: string }>,
+    selections: SheetSelections,
+): SheetOptions {
     return createSheetOptions(options, selections, { selected: true });
 }
 

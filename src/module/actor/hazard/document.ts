@@ -109,7 +109,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         this.skills = {
             stealth: new Statistic(this, {
                 slug: "stealth",
-                label: CONFIG.PF2E.skillList.stealth,
+                label: CONFIG.PF2E.skills.stealth.label,
                 domains: ["stealth", `dex-based`, "skill-check", `dex-skill-check`, "all"],
                 modifiers: [
                     new ModifierPF2e({

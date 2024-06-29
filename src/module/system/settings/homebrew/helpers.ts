@@ -45,7 +45,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.immunityTypes),
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
         ...Object.keys(CONFIG.PF2E.saves),
-        ...Object.keys(CONFIG.PF2E.skillList),
+        ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
         ...Object.keys(CONFIG.PF2E.environmentTypes),
         "damage",

@@ -1,13 +1,13 @@
 import type { CreaturePF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ItemSpellcasting } from "@item/spellcasting-entry/item-spellcasting.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { Statistic, StatisticData } from "@system/statistic/index.ts";
-import { setHasElement, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "../index.ts";
@@ -31,7 +31,7 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
                     !(
                         v in CONFIG.PF2E.magicTraditions ||
                         v in CONFIG.PF2E.classTraits ||
-                        setHasElement(SKILL_SLUGS, v) ||
+                        v in CONFIG.PF2E.skills ||
                         tupleHasValue(SAVE_TYPES, v) ||
                         ["perception", "initiative"].includes(v)
                     ),
