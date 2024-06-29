@@ -31,7 +31,23 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Make an impression on animals",
+                "predicate": [
+                    {
+                        "or": [
+                            "animal-empathy",
+                            "animal-empathy-ranger"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
