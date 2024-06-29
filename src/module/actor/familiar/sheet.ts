@@ -69,6 +69,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
                         _id: item.id,
                         name: item.name,
                         glyph: getActionGlyph(item.actionCost) || null,
+                        frequency: item.system.frequency || null,
                         traits,
                         has: {
                             aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
