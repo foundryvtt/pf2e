@@ -27,6 +27,7 @@ import {
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
+import { ActionMacroHelpers } from "./action-macros/helpers.ts";
 import { DamagePF2e } from "./damage/damage.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
@@ -457,12 +458,6 @@ class TextEditorPF2e extends TextEditor {
             const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
 
             if ((dc && showDC) || statistic) {
-                const STATISTIC_LABELS: Record<string, string> = {
-                    perception: "PF2E.PerceptionLabel",
-                    ...CONFIG.PF2E.saves,
-                    ...CONFIG.PF2E.skillList,
-                    unarmed: "PF2E.TraitUnarmed",
-                };
                 element.appendChild(document.createTextNode(" "));
 
                 const details = document.createElement("span");
@@ -474,7 +469,7 @@ class TextEditorPF2e extends TextEditor {
                     span.innerText = game.i18n.format("PF2E.InlineAction.Check.DC", { dc });
                     details.appendChild(span);
                     const suffix = statistic
-                        ? ` ${game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic})`
+                        ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
                         : ")";
                     details.appendChild(document.createTextNode(suffix));
                 } else if (dc && showDC) {
@@ -483,13 +478,13 @@ class TextEditorPF2e extends TextEditor {
                     const text = statistic
                         ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
                               defense,
-                              statistic: game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic,
+                              statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
                           })
                         : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
                     details.innerText = `(${text})`;
                 } else if (statistic) {
                     // (Statistic)
-                    const text = game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic;
+                    const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
                     details.innerText = `(${text})`;
                 }
                 element.appendChild(details);
@@ -636,28 +631,15 @@ class TextEditorPF2e extends TextEditor {
                 return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
             }
 
-            switch (params.type) {
-                case "flat":
-                    return game.i18n.localize("PF2E.FlatCheck");
-                case "perception":
-                    return game.i18n.localize("PF2E.PerceptionLabel");
-                default: {
-                    // Skill or Lore
-                    const skillLabel = objectHasKey(CONFIG.PF2E.skillList, params.type)
-                        ? game.i18n.localize(CONFIG.PF2E.skillList[params.type])
-                        : null;
-
-                    return (
-                        skillLabel ??
-                        params.type
-                            .split("-")
-                            .map((word) => {
-                                return word.slice(0, 1).toUpperCase() + word.slice(1);
-                            })
-                            .join(" ")
-                    );
-                }
-            }
+            return (
+                ActionMacroHelpers.getSimpleCheckLabel(params.type) ??
+                params.type
+                    .split("-")
+                    .map((word) => {
+                        return word.slice(0, 1).toUpperCase() + word.slice(1);
+                    })
+                    .join(" ")
+            );
         })();
 
         const createLabel = (content: string): HTMLSpanElement =>
