@@ -3,7 +3,7 @@ import { SenseAcuity } from "@actor/creature/index.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { NPCPerceptionSource } from "@actor/npc/data.ts";
-import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { CORE_SKILL_SLUGS, SAVE_TYPES } from "@actor/values.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { AncestrySource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HeritageSource } from "@item/heritage/data.ts";
@@ -24,7 +24,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 if (
                     R.isPlainObject(attributes.initiative) &&
                     "statistic" in attributes.initiative &&
-                    setHasElement(SKILL_SLUGS, attributes.initiative.statistic)
+                    setHasElement(CORE_SKILL_SLUGS, attributes.initiative.statistic)
                 ) {
                     source.system.initiative.statistic = attributes.initiative.statistic;
                 }

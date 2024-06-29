@@ -333,10 +333,12 @@ class ActionMacroHelpers {
                 return game.i18n.localize("PF2E.PerceptionLabel");
             case "unarmed":
                 return game.i18n.localize("PF2E.TraitUnarmed");
+            case "lore":
+                return game.i18n.localize("PF2E.SkillLore");
             default: {
                 const saves: Record<string, string> = CONFIG.PF2E.saves;
-                const skills: Record<string, string> = CONFIG.PF2E.skillList;
-                const label = saves[slug] ?? skills[slug];
+                const skills: Record<string, { label: string }> = CONFIG.PF2E.skills;
+                const label = saves[slug] ?? skills[slug]?.label;
                 return label ? game.i18n.localize(label) : null;
             }
         }

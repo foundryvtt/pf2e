@@ -6,7 +6,6 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
@@ -234,9 +233,8 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 (l) => l.label,
             ),
             skills: R.sortBy(
-                Array.from(SKILL_SLUGS).map((slug): SkillData => {
+                Object.entries(CONFIG.PF2E.skills).map(([slug, { label }]): SkillData => {
                     const best = getBestSkill(slug);
-                    const label = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
                     return best ?? { mod: 0, label, slug, rank: 0 };
                 }),
                 (s) => s.label,

@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import type { ItemPF2e } from "@item";
 import { TokenPF2e } from "@module/canvas/index.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
@@ -14,7 +14,7 @@ import {
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
-import { getActionGlyph, isObject, setHasElement, tupleHasValue } from "@util";
+import { getActionGlyph, isObject, tupleHasValue } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
 
@@ -31,9 +31,7 @@ function isValidDifficultyClass(dc: unknown): dc is CheckDC | DCSlug {
 
     const slug = String(dc);
     return (
-        ["ac", "armor", "perception"].includes(slug) ||
-        tupleHasValue(SAVE_TYPES, slug) ||
-        setHasElement(SKILL_SLUGS, slug)
+        ["ac", "armor", "perception"].includes(slug) || tupleHasValue(SAVE_TYPES, slug) || slug in CONFIG.PF2E.skills
     );
 }
 

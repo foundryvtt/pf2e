@@ -25,7 +25,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,
@@ -407,9 +407,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj([...SKILL_SLUGS], (key) => {
+        system.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([key, { attribute }]) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
-            const attribute = SKILL_EXPANDED[key].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
 
@@ -741,7 +740,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of SKILL_SLUGS) {
+        for (const key of R.keys.strict(CONFIG.PF2E.skills)) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
@@ -885,17 +884,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     private prepareSkills() {
         const { synthetics, system, wornArmor } = this;
 
-        this.skills = R.mapToObj([...SKILL_SLUGS], (skillSlug) => {
+        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
             const skill = system.skills[skillSlug];
-            const label = CONFIG.PF2E.skillList[skillSlug] ?? skillSlug;
 
-            const domains = [
-                skillSlug,
-                `${skill.attribute}-based`,
-                "skill-check",
-                `${skill.attribute}-skill-check`,
-                "all",
-            ];
+            const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
             const modifiers: ModifierPF2e[] = [];
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
@@ -932,7 +924,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 slug: skillSlug,
                 label,
                 rank: skill.rank,
-                attribute: skill.attribute,
+                attribute,
                 domains,
                 modifiers,
                 lore: false,
