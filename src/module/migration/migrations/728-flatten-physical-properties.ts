@@ -27,7 +27,7 @@ export class Migration728FlattenPhysicalProperties extends MigrationBase {
             system["-=hands"] = null;
         }
 
-        if (system.equipped && R.isObject(system.invested)) {
+        if (system.equipped && R.isPlainObject(system.invested)) {
             const value = system.invested.value;
             if (typeof value === "boolean" || value === null) {
                 const traits: string[] = source.system.traits.value;

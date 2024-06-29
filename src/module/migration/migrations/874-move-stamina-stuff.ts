@@ -18,7 +18,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
             game.settings.get("pf2e", "staminaVariant");
         const systemSource: PCSystemSourceWithOldStaminaData = source.system;
 
-        if (R.isObject(systemSource.attributes.sp)) {
+        if (R.isPlainObject(systemSource.attributes.sp)) {
             const value = Math.floor(Number(systemSource.attributes.sp.value)) || 0;
             if (value > 0 && variantEnabled) systemSource.attributes.hp.sp = { value };
 
@@ -26,7 +26,7 @@ export class Migration874MoveStaminaStuff extends MigrationBase {
             systemSource.attributes["-=sp"] = null;
         }
 
-        if (R.isObject(systemSource.attributes.resolve)) {
+        if (R.isPlainObject(systemSource.attributes.resolve)) {
             const value = Math.floor(Number(systemSource.attributes.resolve.value)) || 0;
             if (value > 0 && variantEnabled) systemSource.resources.resolve = { value };
 

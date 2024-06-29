@@ -26,7 +26,7 @@ export class Migration829RMRitualEntries extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
             !("category" in source.system) ||
-            !R.isObject(source.system.category) ||
+            !R.isPlainObject(source.system.category) ||
             typeof source.system.category.value !== "string"
         ) {
             return;

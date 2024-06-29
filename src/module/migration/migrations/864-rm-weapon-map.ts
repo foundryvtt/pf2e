@@ -9,7 +9,7 @@ export class Migration864RemoveWeaponMAP extends MigrationBase {
     override async updateItem(source: MaybeWithMAPProperty): Promise<void> {
         if (source.type !== "weapon") return;
 
-        if (R.isObject(source.system.MAP)) {
+        if (R.isPlainObject(source.system.MAP)) {
             const mapValue = -1 * Number(source.system.MAP.value);
             if (mapValue < 0 && mapValue !== -5) {
                 const rule = { key: "MultipleAttackPenalty", selector: "{item|id}-attack", value: mapValue };

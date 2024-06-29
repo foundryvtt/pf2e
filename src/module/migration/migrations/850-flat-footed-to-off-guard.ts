@@ -49,7 +49,7 @@ export class Migration850FlatFootedToOffGuard extends MigrationBase {
 
         if (
             "attributes" in source.system &&
-            R.isObject(source.system.attributes) &&
+            R.isPlainObject(source.system.attributes) &&
             "immunities" in source.system.attributes
         ) {
             source.system.attributes.immunities = recursiveReplaceString(source.system.attributes.immunities, (s) =>

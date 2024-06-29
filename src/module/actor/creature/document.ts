@@ -773,7 +773,7 @@ abstract class CreaturePF2e<
 
         // Preserve alignment traits if not exposed
         const traitChanges = changed.system.traits;
-        if (R.isObject(traitChanges) && Array.isArray(traitChanges.value)) {
+        if (R.isPlainObject(traitChanges) && Array.isArray(traitChanges.value)) {
             const sourceAlignmentTraits = this._source.system.traits?.value.filter(
                 (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
             );

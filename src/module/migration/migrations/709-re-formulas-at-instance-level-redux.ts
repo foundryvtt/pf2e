@@ -20,7 +20,7 @@ export class Migration709REFormulasAtInstanceLevelRedux extends Migration702REFo
     private findAndMigrateFormulas(value: unknown): unknown {
         if (typeof value === "string" && value.includes("@")) {
             return this.raiseToInstanceLevel(value);
-        } else if (R.isObject(value) || Array.isArray(value)) {
+        } else if (R.isPlainObject(value) || Array.isArray(value)) {
             this.walkObject(value);
         }
 

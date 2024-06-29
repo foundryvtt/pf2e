@@ -652,7 +652,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Ensure formulas are never empty string and default to 0
         for (const damage of Object.values(this.system.damage)) {
             // Temporary measure to skip some data preparation during migration 882
-            if (!R.isObject(damage) || typeof damage.formula !== "string") {
+            if (!R.isObjectType(damage) || typeof damage.formula !== "string") {
                 this.system.damage = {};
                 delete this.system.heightening;
                 delete this.system.overlays;

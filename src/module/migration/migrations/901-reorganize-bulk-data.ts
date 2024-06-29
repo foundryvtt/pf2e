@@ -47,7 +47,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
 
         if ("bulkCapacity" in system) {
             if (source.type === "backpack") {
-                source.system.bulk.capacity = R.isObject(system.bulkCapacity)
+                source.system.bulk.capacity = R.isPlainObject(system.bulkCapacity)
                     ? Math.floor(Math.abs(Number(system.bulkCapacity.value))) || 0
                     : 0;
             }
@@ -56,7 +56,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
 
         if ("negateBulk" in system) {
             if (source.type === "backpack") {
-                source.system.bulk.ignored = R.isObject(system.negateBulk)
+                source.system.bulk.ignored = R.isPlainObject(system.negateBulk)
                     ? Math.floor(Math.abs(Number(system.negateBulk.value))) || 0
                     : 0;
             }
@@ -84,7 +84,7 @@ export class Migration901ReorganizeBulkData extends MigrationBase {
     }
 
     #bulkStringToNumber(bulkObject: unknown): number {
-        if (!R.isObject(bulkObject)) return 0;
+        if (!R.isPlainObject(bulkObject)) return 0;
         const bulkString = String(bulkObject["value"] || "-").toLocaleUpperCase("en");
 
         switch (bulkString) {

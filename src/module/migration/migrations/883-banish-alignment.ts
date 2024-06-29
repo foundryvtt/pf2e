@@ -103,7 +103,7 @@ export class Migration883BanishAlignment extends MigrationBase {
             const system: MaybeOldDeitySystemSource = source.system;
             if ("alignment" in system) {
                 const { alignment } = system;
-                if (R.isObject(alignment) && "follower" in alignment && Array.isArray(alignment.follower)) {
+                if (R.isPlainObject(alignment) && "follower" in alignment && Array.isArray(alignment.follower)) {
                     const followers = alignment.follower.filter((a): a is string => typeof a === "string");
                     const modal =
                         system.category === "philosophy"

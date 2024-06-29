@@ -16,8 +16,8 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
             const system: WithMisplacedLanguages = source.system;
             system.details.languages ??= { value: [], details: "" };
             if (
-                R.isObject(system.traits) &&
-                R.isObject(system.traits.languages) &&
+                R.isPlainObject(system.traits) &&
+                R.isPlainObject(system.traits.languages) &&
                 Array.isArray(system.traits.languages.value)
             ) {
                 system.details.languages = {
@@ -33,7 +33,7 @@ export class Migration915MoveLanguages extends Migration914MovePerceptionSenses 
             if (source.type === "character" && "traits" in system) {
                 this.#deduplicateWildsong(source);
                 system["-=traits"] = null;
-            } else if (R.isObject(system.traits) && "languages" in system.traits) {
+            } else if (R.isPlainObject(system.traits) && "languages" in system.traits) {
                 system.traits["-=languages"] = null;
             }
         }

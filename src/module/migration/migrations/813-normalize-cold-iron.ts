@@ -31,7 +31,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
                 r.key === "ChoiceSet" &&
                 "choices" in r &&
                 Array.isArray(r.choices) &&
-                r.choices.every((c) => R.isObject(c) && typeof c.value === "string"),
+                r.choices.every((c) => R.isPlainObject(c) && typeof c.value === "string"),
         );
         for (const choiceSet of choiceSets) {
             this.#updateChoiceSet(choiceSet);
@@ -40,7 +40,7 @@ export class Migration813NormalizeColdIron extends MigrationBase {
 
     #updateWeaponMaterialData(source: WeaponSource): void {
         // Material was logged in specific-magic-item data but ended up not being needed
-        if (source.type !== "weapon" || !R.isObject(source.system.specific)) {
+        if (source.type !== "weapon" || !R.isPlainObject(source.system.specific)) {
             return;
         }
 

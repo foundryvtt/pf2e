@@ -21,9 +21,9 @@ export class Migration727TrimSelfRollOptions extends MigrationBase {
                 obj[key] = this.#trimRollOption(value);
             } else if (Array.isArray(value)) {
                 obj[key] = value.map((e: unknown) =>
-                    typeof e === "string" ? this.#trimRollOption(e) : R.isObject(e) ? this.trimPredicates(e) : e,
+                    typeof e === "string" ? this.#trimRollOption(e) : R.isPlainObject(e) ? this.trimPredicates(e) : e,
                 );
-            } else if (R.isObject(value)) {
+            } else if (R.isPlainObject(value)) {
                 obj[key] = this.trimPredicates(value);
             }
         }

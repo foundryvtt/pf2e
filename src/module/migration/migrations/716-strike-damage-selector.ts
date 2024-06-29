@@ -21,7 +21,7 @@ export class Migration716StrikeDamageSelector extends MigrationBase {
 
         const rules: unknown[] = source.system.rules;
         for (const rule of rules) {
-            if (R.isObject(rule) && ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))) {
+            if (R.isPlainObject(rule) && ["damage", "mundane-damage"].includes(String(rule.selector ?? ""))) {
                 rule.selector = "strike-damage";
             }
         }

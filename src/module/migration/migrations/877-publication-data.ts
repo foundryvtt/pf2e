@@ -18,7 +18,7 @@ export class Migration877PublicationData extends MigrationBase {
         const remaster = ["Pathfinder Player Core", "Pathfinder Rage of Elements"].includes(title);
         const publication = { title, authors, license, remaster } as const;
 
-        if (R.isObject(systemSource.details)) {
+        if (R.isPlainObject(systemSource.details)) {
             systemSource.details.publication = publication;
         } else {
             systemSource.publication = publication;
@@ -30,14 +30,17 @@ export class Migration877PublicationData extends MigrationBase {
             return;
         }
 
-        if (source.type === "vehicle" && R.isObject(source.system.source)) {
+        if (source.type === "vehicle" && R.isPlainObject(source.system.source)) {
             this.#setPublicationData(source.system, source.system.source);
             if ("game" in globalThis) {
                 source.system["-=source"] = null;
             } else {
                 delete source.system.source;
             }
-        } else if ((source.type === "hazard" || source.type === "npc") && R.isObject(source.system.details.source)) {
+        } else if (
+            (source.type === "hazard" || source.type === "npc") &&
+            R.isPlainObject(source.system.details.source)
+        ) {
             this.#setPublicationData(source.system, source.system.details.source);
             if ("game" in globalThis) {
                 source.system.details["-=source"] = null;
@@ -49,9 +52,9 @@ export class Migration877PublicationData extends MigrationBase {
 
     override async updateItem(source: ItemWithOldPublicationData): Promise<void> {
         // Data entry script snafu?
-        if ("details" in source.system && R.isObject(source.system.details)) {
+        if ("details" in source.system && R.isPlainObject(source.system.details)) {
             const oldDataInWrongPlace = source.system.details.source;
-            if (R.isObject(oldDataInWrongPlace) && typeof oldDataInWrongPlace.value === "string") {
+            if (R.isPlainObject(oldDataInWrongPlace) && typeof oldDataInWrongPlace.value === "string") {
                 source.system.source = { value: oldDataInWrongPlace.value.trim() };
             }
             if ("game" in globalThis) {
@@ -61,7 +64,7 @@ export class Migration877PublicationData extends MigrationBase {
             }
         }
 
-        if (R.isObject(source.system.source)) {
+        if (R.isPlainObject(source.system.source)) {
             this.#setPublicationData(source.system, source.system.source);
 
             if ("game" in globalThis) {
