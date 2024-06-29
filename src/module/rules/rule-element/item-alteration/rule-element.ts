@@ -45,7 +45,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["description", "pd-recovery-dc"];
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
