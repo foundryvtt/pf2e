@@ -9,7 +9,7 @@ export class Migration921SpellSlotArrays extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (source.type === "spellcastingEntry") {
             for (const slotGroup of Object.values(source.system.slots)) {
-                slotGroup.prepared &&= R.compact(Object.values(slotGroup.prepared));
+                slotGroup.prepared &&= Object.values(slotGroup.prepared).filter(R.isTruthy);
             }
         }
     }

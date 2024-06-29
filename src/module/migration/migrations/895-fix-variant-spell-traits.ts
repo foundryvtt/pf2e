@@ -87,12 +87,16 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
             const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } =
                 overlay.system ?? {};
             if (overlaySystem.traits?.value && Array.isArray(overlaySystem.traits.value)) {
-                if (!R.compact(overlaySystem.traits.value).every((t) => ["concentrate", "manipulate"].includes(t))) {
+                if (
+                    !overlaySystem.traits.value
+                        .filter(R.isTruthy)
+                        .every((t) => ["concentrate", "manipulate"].includes(t))
+                ) {
                     continue;
                 }
-                overlaySystem.traits.value = R.unique(
-                    [...overlaySystem.traits.value, ...source.system.traits.value].sort(),
-                );
+                overlaySystem.traits.value = R.unique([...overlaySystem.traits.value, ...source.system.traits.value])
+                    .filter(R.isTruthy)
+                    .sort();
                 if (R.isDeepEqual(overlaySystem.traits.value, R.unique(source.system.traits.value.sort()))) {
                     overlaySystem["-=traits"] = null;
                 }

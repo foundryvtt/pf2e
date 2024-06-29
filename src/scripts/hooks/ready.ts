@@ -144,16 +144,13 @@ export const Ready = {
                 }
             }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
-            const actorsToReprepare = R.filter(
-                [
-                    ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                    ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                    ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
-                    ...game.actors.filter((a) => a.type === "familiar"),
-                    ...parties,
-                ],
-                R.isTruthy,
-            );
+            const actorsToReprepare = [
+                ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
+                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
+                ...game.actors.filter((a) => a.type === "familiar"),
+                ...parties,
+            ].filter(R.isTruthy);
             resetActors(new Set(actorsToReprepare), { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 

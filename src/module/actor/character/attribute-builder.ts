@@ -218,7 +218,7 @@ class AttributeBuilder extends Application {
             if (level < 5 || build.manual || isApex) {
                 return false;
             }
-            const boosts = R.compact([
+            const boosts = [
                 build.boosts.ancestry.find((a) => a === attribute),
                 build.boosts.background.find((a) => a === attribute),
                 build.boosts.class === attribute ? attribute : null,
@@ -227,7 +227,7 @@ class AttributeBuilder extends Application {
                 level >= 15 ? build.boosts[15].find((a) => a === attribute) : null,
                 level >= 10 ? build.boosts[10].find((a) => a === attribute) : null,
                 level >= 5 ? build.boosts[5].find((a) => a === attribute) : null,
-            ]).length;
+            ].filter(R.isTruthy).length;
             const flaws = Number(build.flaws.ancestry.some((a) => a === attribute));
             const netBoosts = boosts - flaws;
 

@@ -29,7 +29,7 @@ export class ActiveEffectPF2e<TParent extends ActorPF2e | ItemPF2e | null> exten
                 duration,
                 origin: effect.uuid,
                 transfer: true,
-                statuses: R.filter([effect.slug], R.isTruthy),
+                statuses: [effect.slug].filter(R.isTruthy),
                 flags: fu.deepClone(effect.flags),
                 _stats: fu.deepClone(effect._stats),
             },

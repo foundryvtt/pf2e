@@ -89,9 +89,9 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
         if (source.type === "weapon") {
             const traits: { value: string[] } = source.system.traits;
-            traits.value = R.compact(
-                traits.value.map((t) => (this.#ALIGNMENT_VERSATILE_TRAITS.includes(t) ? "versatile-spirit" : t)),
-            );
+            traits.value = traits.value
+                .map((t) => (this.#ALIGNMENT_VERSATILE_TRAITS.includes(t) ? "versatile-spirit" : t))
+                .filter(R.isTruthy);
             if (this.#ALIGNMENTS.has(source.system.damage.damageType)) {
                 source.system.damage.damageType = "spirit";
             }
@@ -103,9 +103,9 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             const traits: { value: string[] } = source.system.traits;
             const actorTraits: { value: string[] } = actorSource?.system.traits ?? { value: [] };
 
-            traits.value = R.compact(
-                traits.value.map((t) => (this.#ALIGNMENT_VERSATILE_TRAITS.includes(t) ? "versatile-spirit" : t)),
-            );
+            traits.value = traits.value
+                .map((t) => (this.#ALIGNMENT_VERSATILE_TRAITS.includes(t) ? "versatile-spirit" : t))
+                .filter(R.isTruthy);
             if (traits.value.some((t) => t === "good")) {
                 traits.value.push("holy");
                 actorTraits.value.push("holy");
@@ -167,13 +167,12 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
             } else {
                 // Let's play this one safe
                 try {
-                    const overlayPartials = R.compact(
-                        Object.values(source.system.overlays ?? {})
-                            .filter((o) => isObject(o) && o.overlayType === "override")
-                            .map((o) => (o.system ??= {})?.damage)
-                            .flatMap((p) => (isObject(p) ? Object.values(p) : []))
-                            .flat(),
-                    );
+                    const overlayPartials = Object.values(source.system.overlays ?? {})
+                        .filter((o) => isObject(o) && o.overlayType === "override")
+                        .map((o) => (o.system ??= {})?.damage)
+                        .flatMap((p) => (isObject(p) ? Object.values(p) : []))
+                        .flat()
+                        .filter(R.isTruthy);
                     for (const partial of overlayPartials) {
                         if (this.#ALIGNMENTS.has(partial.type ?? "")) {
                             partial.type = "spirit";

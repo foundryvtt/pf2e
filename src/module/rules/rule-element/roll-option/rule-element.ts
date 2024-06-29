@@ -180,9 +180,9 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
             const suboptionValues = R.unique(suboptions.map((s) => s.value));
             const rules = R.unique(suboptions.map((s) => s.rule));
             const consensusSelection = R.unique(
-                R.compact(suboptions.map((s) => s.rule._source.selection ?? s.rule.selection)).filter((s) =>
-                    suboptionValues.includes(s),
-                ),
+                suboptions
+                    .map((s) => s.rule._source.selection ?? s.rule.selection)
+                    .filter((s): s is string => !!s && suboptionValues.includes(s)),
             ).at(0);
             const selection = consensusSelection ?? suboptionValues[0];
             for (const rule of rules) {

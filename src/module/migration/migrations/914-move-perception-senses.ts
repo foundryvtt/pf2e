@@ -241,9 +241,10 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
 
     #convertNPCSenses(system: { perception: NPCPerceptionSource; traits: OldTraitsSource }): void {
         if (R.isPlainObject(system.traits.senses) && typeof system.traits.senses.value === "string") {
-            const senseStrings = R.compact(
-                system.traits.senses.value.split(",").map((s) => s.toLocaleLowerCase("en").trim()),
-            );
+            const senseStrings = system.traits.senses.value
+                .split(",")
+                .map((s) => s.toLocaleLowerCase("en").trim())
+                .filter(R.isTruthy);
             // Sort such that superstrings of shorter strings are matched
             const senseTypes = R.sortBy(Array.from(SENSE_TYPES), (t) => t !== "greater-darkvision");
             const acuities = ["imprecise", "precise", "vague"] as const;
@@ -253,7 +254,9 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                     system.perception.vision = false;
                     continue;
                 } else if (text.includes("blood scent")) {
-                    system.perception.details = R.compact([system.perception.details, "blood scent"]).join(", ");
+                    system.perception.details = [system.perception.details, "blood scent"]
+                        .filter(R.isTruthy)
+                        .join(", ");
                 }
 
                 const sluggified = sluggify(
@@ -281,7 +284,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 if (sense) {
                     system.perception.senses.push(sense);
                 } else {
-                    system.perception.details = R.compact([system.perception.details, text]).join(", ");
+                    system.perception.details = [system.perception.details, text].filter(R.isTruthy).join(", ");
                 }
             }
         }

@@ -138,7 +138,7 @@ export class InlineRollLinks {
                     return parent?.canUserModify(game.user, "update") ? [parent] : [];
                 case "party":
                     if (parent?.isOfType("party")) return [parent];
-                    return R.filter([game.actors.party], R.isTruthy);
+                    return [game.actors.party].filter(R.isTruthy);
             }
 
             // If this is inside a sheet, return the actor always

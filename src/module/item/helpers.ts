@@ -81,7 +81,7 @@ class ItemChatData {
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
         const { data, item } = this;
         const rollOptions = new Set(
-            R.filter([item.actor?.getRollOptions(), item.getRollOptions("item")].flat(), R.isTruthy),
+            [item.actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy),
         );
 
         const baseText = await (async (): Promise<string> => {
@@ -105,10 +105,7 @@ class ItemChatData {
                         paragraph.insertAdjacentHTML("beforeend", text);
                     }
 
-                    return R.filter(
-                        [hr, paragraph].map((e) => e?.outerHTML),
-                        R.isTruthy,
-                    );
+                    return [hr, paragraph].map((e) => e?.outerHTML).filter(R.isTruthy);
                 })
                 .join("\n");
         })();
@@ -134,9 +131,9 @@ class ItemChatData {
             );
         })();
 
-        const assembled = R.filter([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda], R.isTruthy).join(
-            "\n",
-        );
+        const assembled = [baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]
+            .filter(R.isTruthy)
+            .join("\n");
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
         return {

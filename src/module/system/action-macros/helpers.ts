@@ -151,7 +151,7 @@ class ActionMacroHelpers {
                 } = await options.checkContext({
                     actor,
                     buildContext: (args) => {
-                        const combinedOptions = R.compact([args.rollOptions, options.traits].flat());
+                        const combinedOptions = [args.rollOptions, options.traits].flat().filter(R.isTruthy);
                         combinedOptions.push(...(args.item?.getRollOptions("item") ?? []));
                         return { item: args.item, rollOptions: combinedOptions.sort(), target: args.target };
                     },
