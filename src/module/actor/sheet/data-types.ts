@@ -69,7 +69,7 @@ interface AbilityViewData {
     name: string;
     traits: TraitViewData[];
     glyph: string | null;
-    frequency: Frequency | null
+    frequency: Frequency | null;
     has: {
         aura: boolean;
         deathNote: boolean;
