@@ -386,7 +386,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const data = fu.mergeObject(baseData, {
                 ...statistic.getTraceData(),
                 mod: statistic.check.mod,
-                itemID: loreItem?.id ?? null,
+                itemId: loreItem?.id ?? null,
                 lore: !!statistic.lore,
                 visible: statistic.proficient,
             });
