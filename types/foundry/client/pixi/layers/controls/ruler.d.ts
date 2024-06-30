@@ -258,7 +258,7 @@ declare global {
          * @param event   The drag start event
          * @internal
          */
-        protected _onDragStart(event: PIXI.FederatedEvent): void;
+        protected _onDragStart(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle left-click events on the Canvas during Ruler measurement.
@@ -266,7 +266,7 @@ declare global {
          * @param event   The pointer-down event
          * @internal
          */
-        protected _onClickLeft(event: PIXI.FederatedEvent): void;
+        protected _onClickLeft(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Handle right-click events on the Canvas during Ruler measurement.
@@ -274,7 +274,7 @@ declare global {
          * @param event   The pointer-down event
          * @internal
          */
-        protected _onClickRight(event: PIXI.FederatedEvent): void;
+        protected _onClickRight(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Continue a Ruler measurement workflow for left-mouse movements on the Canvas.
@@ -282,7 +282,7 @@ declare global {
          * @param event   The mouse move event
          * @internal
          */
-        protected _onMouseMove(event: PIXI.FederatedEvent): void;
+        protected _onMouseMove(event: PIXI.FederatedPointerEvent): void;
 
         /**
          * Conclude a Ruler measurement workflow by releasing the left-mouse button.
@@ -290,7 +290,7 @@ declare global {
          * @param event   The pointer-up event
          * @internal
          */
-        protected _onMouseUp(event: PIXI.FederatedEvent): void;
+        protected _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Move the Token along the measured path when the move key is pressed.
