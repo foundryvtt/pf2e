@@ -2,10 +2,10 @@ export {};
 
 declare global {
     /** The Tokens Container */
-    class TokenLayer<TToken extends Token = Token> extends PlaceablesLayer<TToken> {
+    class TokenLayer<TObject extends Token = Token> extends PlaceablesLayer<TObject> {
         constructor();
 
-        override quadtree: CanvasQuadtree<TToken>;
+        override quadtree: CanvasQuadtree<TObject>;
 
         /** The current index position in the tab cycle */
         protected _tabIndex: number | null;
@@ -22,10 +22,10 @@ declare global {
         /* -------------------------------------------- */
 
         /** Token objects on this layer utilize the TokenHUD */
-        override get hud(): TokenHUD<TToken>;
+        override get hud(): TokenHUD<TObject>;
 
         /** An Array of tokens which belong to actors which are owned */
-        get ownedTokens(): TToken[];
+        get ownedTokens(): TObject[];
 
         /* -------------------------------------------- */
         /*  Methods                                     */
@@ -74,7 +74,7 @@ declare global {
          * @param reset    Restart the cycle order back at the beginning?
          * @return The Token object which was cycled to, or null
          */
-        cycleTokens(forwards: boolean, reset: boolean): TToken | null;
+        cycleTokens(forwards: boolean, reset: boolean): TObject | null;
 
         /**
          * Add or remove the set of currently controlled Tokens from the active combat encounter
@@ -86,11 +86,11 @@ declare global {
         toggleCombat(
             state: boolean | undefined,
             combat: Combat,
-            { token }?: { token?: TToken | null },
-        ): Promise<NonNullable<TToken["combatant"]>>[];
+            { token }?: { token?: TObject | null },
+        ): Promise<NonNullable<TObject["combatant"]>>[];
 
         /** Get the tab cycle order for tokens by sorting observable tokens based on their distance from top-left. */
-        protected _getCycleOrder(): TToken[];
+        protected _getCycleOrder(): TObject[];
 
         /** Immediately conclude the animation of any/all tokens */
         concludeAnimation(): void;
@@ -102,14 +102,16 @@ declare global {
         /** Handle dropping of Actor data onto the Scene canvas */
         protected _onDropActorData(
             event: DragEvent,
-            data: DropCanvasData<"Actor", NonNullable<TToken["actor"]>["_source"]>,
-        ): Promise<TToken["actor"]>;
+            data: DropCanvasData<"Actor", NonNullable<TObject["actor"]>["_source"]>,
+        ): Promise<TObject["actor"]>;
 
-        protected override _onClickLeft(event: PIXI.FederatedEvent): void;
+        protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void;
+
+        protected override _onMouseWheel(event: WheelEvent): TObject[] | void;
     }
 
-    interface TokenLayer<TToken extends Token = Token> extends PlaceablesLayer<TToken> {
-        children: [CanvasStage<TToken>, PIXI.Container];
+    interface TokenLayer<TObject extends Token = Token> extends PlaceablesLayer<TObject> {
+        children: [CanvasStage<TObject>, PIXI.Container];
     }
 }
 
