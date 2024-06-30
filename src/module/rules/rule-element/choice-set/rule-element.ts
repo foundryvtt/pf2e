@@ -309,7 +309,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
             choiceObject.every((c) => R.isObjectType<{ value: string }>(c) && typeof c.value === "string")
         ) {
             return choiceObject.filter((c) =>
-                this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
+                this.resolveInjectedProperties(new Predicate(c.predicate ?? []), {
+                    injectables: { choice: { value: c.value } },
+                }).test(actorRollOptions),
             );
         } else if (R.isObjectType(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
             return Object.entries(choiceObject).map(([value, label]) => ({

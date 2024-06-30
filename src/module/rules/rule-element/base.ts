@@ -219,11 +219,11 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveInjectedProperties<T extends string | number | object | null | undefined>(
         source: T,
-        options?: { warn?: boolean },
+        options?: { injectables?: Record<string, unknown>; warn?: boolean },
     ): T;
     resolveInjectedProperties(
         source: string | number | object | null | undefined,
-        { warn = true } = {},
+        { injectables = {}, warn = true }: { injectables?: Record<string, unknown>; warn?: boolean } = {},
     ): string | number | object | null | undefined {
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
@@ -243,8 +243,21 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
 
             return source;
         } else if (typeof source === "string") {
-            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
+            const injectableKeys = [
+                "actor",
+                "item",
+                "rule",
+                ...Object.keys(injectables).filter((i) => /^[a-z][a-z]+$/g.test(i)),
+            ];
+            const pattern = new RegExp(String.raw`{(${injectableKeys.join("|")})\|(.*?)}`, "g");
+            const allInjectables: Record<string, object> = {
+                actor: this.actor,
+                item: this.item,
+                rule: this,
+                ...injectables,
+            };
+            return source.replace(pattern, (_match, key: string, prop: string) => {
+                const data = allInjectables[key];
                 const value = fu.getProperty(data, prop);
                 if (value === undefined) {
                     this.ignored = true;
@@ -288,8 +301,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             : value;
         if (typeof resolvedFromBracket === "number") return resolvedFromBracket;
 
-        if (resolvedFromBracket instanceof Object) {
-            return defaultValue instanceof Object
+        if (R.isPlainObject(resolvedFromBracket)) {
+            return R.isPlainObject(defaultValue)
                 ? fu.mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
                 : resolvedFromBracket;
         }
