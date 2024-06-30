@@ -1,7 +1,7 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
 import { NPCSkillSource, NPCSpecialSkillSource } from "@actor/npc/data.ts";
 import { SkillSlug } from "@actor/types.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
+import { CORE_SKILL_SLUGS } from "@actor/values.ts";
 import { LoreSource } from "@item/lore.ts";
 import { FlatModifierSource } from "@module/rules/rule-element/flat-modifier.ts";
 import { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
@@ -18,7 +18,7 @@ export class Migration932NPCSystemSkills extends MigrationBase {
 
         // Pull all lores that should be in actor system data. If none, exit
         const skillLores = source.items.filter(
-            (i): i is LoreSource => i.type === "lore" && setHasElement(SKILL_SLUGS, sluggify(i.name)),
+            (i): i is LoreSource => i.type === "lore" && setHasElement(CORE_SKILL_SLUGS, sluggify(i.name)),
         );
         if (skillLores.length === 0) return;
 

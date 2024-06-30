@@ -11,7 +11,7 @@ export class Migration746StandardizePricing extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (!itemIsOfType(source, "physical") && source.type !== "kit") return;
 
-        if (!R.isObject(source.system.price)) {
+        if (!R.isPlainObject(source.system.price)) {
             source.system.price = { value: CoinsPF2e.fromString(String(source.system.price)).toObject() };
         }
 
@@ -27,7 +27,7 @@ export class Migration746StandardizePricing extends MigrationBase {
                 systemData["-=value"] = null;
                 delete systemData.value;
             }
-        } else if (!R.isObject(source.system.price.value)) {
+        } else if (!R.isPlainObject(source.system.price.value)) {
             source.system.price.value = CoinsPF2e.fromString(String(source.system.price.value)).toObject();
         }
     }

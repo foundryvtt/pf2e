@@ -1,6 +1,4 @@
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { KitSystemData } from "@item/kit/data.ts";
-import { MeleeSystemData } from "@item/melee/data.ts";
 import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
@@ -9,7 +7,6 @@ import {
     EncounterTrackerPF2e,
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
-import { AmbientLightPF2e, LightingLayerPF2e, MeasuredTemplatePF2e, TemplateLayerPF2e } from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
@@ -27,18 +24,6 @@ export const Init = {
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
-
-            // Assign canvas layer and placeable classes
-            CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
-            CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
-
-            CONFIG.Item.dataModels.kit = KitSystemData;
-            CONFIG.Item.dataModels.melee = MeleeSystemData;
-
-            CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
-            CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
-            CONFIG.MeasuredTemplate.defaults.angle = 90;
-            CONFIG.MeasuredTemplate.defaults.width = 1;
 
             setPerceptionModes();
 

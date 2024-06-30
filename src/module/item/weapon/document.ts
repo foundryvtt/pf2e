@@ -403,7 +403,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
+        traits.value = R.unique([...traits.value, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
@@ -442,11 +444,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         const rangeLabel = createActionRangeLabel(this.range);
-        const properties = R.compact([
-            CONFIG.PF2E.weaponCategories[this.category],
-            this.system.reload.label,
-            rangeLabel,
-        ]);
+        const properties = [CONFIG.PF2E.weaponCategories[this.category], this.system.reload.label, rangeLabel].filter(
+            R.isTruthy,
+        );
 
         return this.processChatData(htmlOptions, {
             ...chatData,

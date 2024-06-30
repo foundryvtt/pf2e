@@ -255,10 +255,10 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        const damageKinds = R.compact([
+        const damageKinds = [
             this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
             this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
-        ]);
+        ].filter(R.isTruthy);
 
         for (const damageKind of damageKinds) {
             options.push(damageKind);
@@ -632,7 +632,7 @@ class CheckModifier extends StatisticModifier {
         const baseModifiers = statistic.modifiers
             .filter((modifier: unknown) => {
                 if (modifier instanceof ModifierPF2e) return true;
-                if (R.isObject(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
+                if (R.isObjectType(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
                     ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
                 }
                 return false;

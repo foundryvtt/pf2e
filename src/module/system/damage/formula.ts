@@ -306,7 +306,7 @@ function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
         dice: { ...terms[0].dice, number: R.sumBy(terms, (t) => t.dice.number) },
     }));
 
-    const combined = R.compact([...combinedDice, constantTerm]);
+    const combined = [...combinedDice, constantTerm].filter(R.isTruthy);
     return combined.length ? combined : [{ dice: null, modifier: 0 }];
 }
 

@@ -33,7 +33,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         const damage: Record<string, unknown> | { value: Record<string, unknown> } = spell.system.damage;
         damage.value = newDamage.value;
         for (const deleteKey of diff) {
-            if (R.isObject(damage.value)) {
+            if (R.isPlainObject(damage.value)) {
                 damage.value[`-=${deleteKey}`] = null;
             }
         }

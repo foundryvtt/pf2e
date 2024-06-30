@@ -23,7 +23,7 @@ export class Migration912RmFocusTraitFocusCantrips extends MigrationBase {
             traits.value = traits.value.filter((t) => t !== "focus");
         }
 
-        traits.traditions = R.uniq(traits.traditions.sort());
-        traits.value = R.uniq(traits.value.sort());
+        traits.traditions = R.unique(traits.traditions.sort());
+        traits.value = R.unique(traits.value.sort());
     }
 }

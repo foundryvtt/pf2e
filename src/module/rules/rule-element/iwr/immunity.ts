@@ -43,8 +43,8 @@ class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
                 const existing = immunities.find(
                     (i) =>
                         i.type === immunity.type &&
-                        (this.exceptions.length === 0 || R.equals(i.exceptions, this.exceptions)) &&
-                        R.equals(i.definition, this.definition ?? null),
+                        (this.exceptions.length === 0 || R.isDeepEqual(i.exceptions, this.exceptions)) &&
+                        R.isDeepEqual(i.definition, this.definition ?? null),
                 );
                 return !existing || this.mode === "remove";
             });

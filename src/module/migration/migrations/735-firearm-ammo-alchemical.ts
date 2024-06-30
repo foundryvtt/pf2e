@@ -9,7 +9,7 @@ export class Migration735FirearmAmmoAlchemical extends MigrationBase {
     #needsTrait(source: ConsumableSource): boolean {
         return (
             "consumableType" in source.system &&
-            R.isObject(source.system.consumableType) &&
+            R.isPlainObject(source.system.consumableType) &&
             source.system.consumableType.value === "ammo" &&
             !!source.system.stackGroup?.startsWith("rounds") &&
             source.system.slug !== "cutlery" &&

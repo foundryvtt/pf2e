@@ -10,7 +10,7 @@ declare global {
         actors: Collection<Actor>;
 
         /** The Regions this Token is currently in. */
-        regions: Set<RegionDocument> | null;
+        regions: Set<RegionDocument<TParent>> | null;
 
         /**
          * A lazily evaluated reference to the Actor this Token modifies.

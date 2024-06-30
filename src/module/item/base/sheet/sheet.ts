@@ -189,7 +189,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             // If we find a match, delete it so that we don't use the same form for two different REs
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
             const existing =
-                previousForms.find((f) => R.equals(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
+                previousForms.find((f) => R.isDeepEqual(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
             if (existing) {
                 previousForms.splice(previousForms.indexOf(existing), 1);
             }

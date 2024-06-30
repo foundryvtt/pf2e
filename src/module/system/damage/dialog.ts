@@ -82,7 +82,7 @@ class DamageModifierDialog extends Application {
         const icons = (() => {
             switch (object.category) {
                 case "splash":
-                    return R.compact([fontAwesomeIcon("fa-burst"), damageTypeIcon]);
+                    return [fontAwesomeIcon("fa-burst"), damageTypeIcon].filter(R.isTruthy);
                 case "persistent":
                     if (object.damageType !== "bleed") {
                         return [damageTypeIcon, fontAwesomeIcon("fa-hourglass", { style: "duotone" })];

@@ -1,6 +1,7 @@
 import { CompendiumDirectoryPF2e } from "@module/apps/sidebar/compendium-directory.ts";
 import { ErrorPF2e, htmlQuery, sluggify } from "@util";
 import MiniSearch from "minisearch";
+import * as R from "remeda";
 import type { TableResultSource } from "types/foundry/common/documents/table-result.d.ts";
 import { BrowserTabs, ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
@@ -222,16 +223,12 @@ export abstract class CompendiumBrowserTab {
     }
 
     /** Generates a localized and sorted CheckBoxOptions object from config data */
-    protected generateCheckboxOptions(configData: Record<string, string>, sort = true): CheckboxOptions {
-        // Localize labels for sorting
-        const localized = Object.entries(configData).reduce(
-            (result: Record<string, string>, [key, label]) => ({
-                ...result,
-                [key]: game.i18n.localize(label),
-            }),
-            {},
-        );
-        // Return localized and sorted CheckBoxOptions
+    protected generateCheckboxOptions(
+        configData: Record<string, string | { label: string }>,
+        sort = true,
+    ): CheckboxOptions {
+        // Localize labels for sorting. Return localized and sorted CheckBoxOptions
+        const localized = R.mapValues(configData, (v) => game.i18n.localize(R.isObjectType(v) ? v.label : v));
         return Object.entries(sort ? this.sortedConfig(localized) : localized).reduce(
             (result: CheckboxOptions, [key, label]) => ({
                 ...result,

@@ -9,7 +9,7 @@ export class Migration861AuraColorsToAppearance extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         const auraREs = source.system.rules.filter(
-            (r): r is AuraREWithColors => r.key === "Aura" && "colors" in r && R.isObject(r.colors),
+            (r): r is AuraREWithColors => r.key === "Aura" && "colors" in r && R.isPlainObject(r.colors),
         );
 
         for (const rule of auraREs) {

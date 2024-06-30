@@ -39,7 +39,7 @@ class WeaponDamagePF2e {
         const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.equals(d, baseDamage));
+            .filter((d) => !R.isDeepEqual(d, baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
@@ -423,7 +423,7 @@ class WeaponDamagePF2e {
         })();
         if (!(baseUncategorized || basePersistent || splashDamage)) return null;
 
-        const base = R.compact([baseUncategorized, basePersistent]);
+        const base = [baseUncategorized, basePersistent].filter(R.isTruthy);
 
         const adjustmentsRecord = actor.synthetics.modifierAdjustments;
         const alterationsRecord = actor.synthetics.damageAlterations;

@@ -1200,7 +1200,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const statements = ((): string => {
             const deathMessage =
                 instantDeath && localize(`InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`);
-            const concatenated = R.compact([hpStatement, shieldStatement, deathMessage])
+            const concatenated = [hpStatement, shieldStatement, deathMessage]
+                .filter(R.isTruthy)
                 .map((s) =>
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
@@ -1230,7 +1231,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
             };
             condition.system.traits = {
-                value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
+                value: R.unique(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
                     (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
                 ),
                 otherTags: [],
@@ -1246,7 +1247,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
             statements,
-            persistent: R.compact(persistentCreated.map((p) => p.system.persistent?.damage.formula)),
+            persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
             iwr: {
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",

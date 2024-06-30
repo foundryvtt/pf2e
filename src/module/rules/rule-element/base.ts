@@ -6,7 +6,7 @@ import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
-import { isObject, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { isBracketedValue } from "../helpers.ts";
@@ -234,9 +234,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             for (let i = 0; i < source.length; i++) {
                 source[i] = this.resolveInjectedProperties(source[i], { warn });
             }
-        } else if (R.isObject(source)) {
+        } else if (R.isPlainObject(source)) {
             for (const [key, value] of Object.entries(source)) {
-                if (typeof value === "string" || isObject(value)) {
+                if (typeof value === "string" || R.isPlainObject(value)) {
                     source[key] = this.resolveInjectedProperties(value, { warn });
                 }
             }
