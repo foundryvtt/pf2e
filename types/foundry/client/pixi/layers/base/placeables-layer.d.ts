@@ -391,7 +391,7 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> {
     preview?: TObject | null;
     clones?: TObject[];
     dragHandle?: unknown;
-    object: PIXI.Container | PIXI.Mesh;
+    object: TObject;
     origin: Point;
     destination: Point;
 }

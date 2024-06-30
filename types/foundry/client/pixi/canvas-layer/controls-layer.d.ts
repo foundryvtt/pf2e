@@ -9,7 +9,7 @@ declare global {
      * 2) Ruler measurement
      * 3) Map pings
      */
-    class ControlsLayer extends InteractionLayer {
+    class ControlsLayer<TRuler extends Ruler> extends InteractionLayer {
         constructor();
 
         /** A container of DoorControl instances */
@@ -37,15 +37,15 @@ declare global {
         protected _cursors: Record<string, object>;
 
         /** A mapping of user IDs to Ruler instances for quick access */
-        protected _rulers: Record<string, Ruler>;
+        protected _rulers: Record<string, TRuler>;
 
         static override get layerOptions(): PlaceablesLayerOptions;
 
         /** A convenience accessor to the Ruler for the active game user */
-        get ruler(): Ruler | null;
+        get ruler(): TRuler | null;
 
         /** Get the Ruler display for a specific User ID */
-        getRulerForUser(userId: string): Ruler | null;
+        getRulerForUser(userId: string): TRuler | null;
 
         protected override _draw(): Promise<void>;
 
