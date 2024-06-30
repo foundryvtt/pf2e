@@ -8,36 +8,38 @@ import { CompendiumMigrationStatus } from "../compendium-migration-status.ts";
 class CompendiumDirectoryPF2e extends CompendiumDirectory {
     static readonly STOP_WORDS = new Set(["of", "th", "the"]);
 
-    #searchEngine: MiniSearch<CompendiumIndexData>;
+    static #searchEngine: MiniSearch<CompendiumIndexData> | null = null;
 
-    constructor(options?: Partial<ApplicationOptions>) {
-        super(options);
+    get searchEngine(): MiniSearch<CompendiumIndexData> {
+        if (!CompendiumDirectoryPF2e.#searchEngine) {
+            const wordSegmenter =
+                "Segmenter" in Intl
+                    ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
+                    : // Firefox >:(
+                      {
+                          segment(term: string): { segment: string }[] {
+                              return [{ segment: term }];
+                          },
+                      };
+            CompendiumDirectoryPF2e.#searchEngine = new MiniSearch({
+                fields: ["name", "originalName"],
+                idField: "uuid",
+                processTerm: (term): string[] | null => {
+                    if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
+                        return null;
+                    }
+                    return Array.from(wordSegmenter.segment(term))
+                        .map((t) =>
+                            SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
+                        )
+                        .filter((t) => t.length > 1);
+                },
+                searchOptions: { combineWith: "AND", prefix: true },
+                storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
+            });
+        }
 
-        const wordSegmenter =
-            "Segmenter" in Intl
-                ? new Intl.Segmenter(game.i18n.lang, { granularity: "word" })
-                : // Firefox >:(
-                  {
-                      segment(term: string): { segment: string }[] {
-                          return [{ segment: term }];
-                      },
-                  };
-        this.#searchEngine = new MiniSearch({
-            fields: ["name", "originalName"],
-            idField: "uuid",
-            processTerm: (term): string[] | null => {
-                if (term.length <= 1 || CompendiumDirectoryPF2e.STOP_WORDS.has(term)) {
-                    return null;
-                }
-                return Array.from(wordSegmenter.segment(term))
-                    .map((t) =>
-                        SearchFilter.cleanQuery(t.segment.toLocaleLowerCase(game.i18n.lang)).replace(/['"]/g, ""),
-                    )
-                    .filter((t) => t.length > 1);
-            },
-            searchOptions: { combineWith: "AND", prefix: true },
-            storeFields: ["uuid", "img", "name", "type", "documentType", "packLabel"],
-        });
+        return CompendiumDirectoryPF2e.#searchEngine;
     }
 
     /** Include ability to search and drag document search results */
@@ -152,7 +154,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const html = this.element[0];
 
         // Match documents within each compendium by name
-        const docMatches = query.length > 0 ? this.#searchEngine.search(query) : [];
+        const docMatches = query.length > 0 ? this.searchEngine.search(query) : [];
         const activeFilters = this.activeFilters;
         const filteredMatches =
             this.activeFilters.length > 0
@@ -247,7 +249,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
     compileSearchIndex(): void {
         console.debug("PF2e System | compiling search index");
         const packs = game.packs.filter((p) => p.index.size > 0 && p.testUserPermission(game.user, "OBSERVER"));
-        this.#searchEngine.removeAll();
+        this.searchEngine.removeAll();
 
         for (const pack of packs) {
             const contents = pack.index.map((i) => ({
@@ -255,7 +257,7 @@ class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 documentType: pack.metadata.type,
                 packLabel: pack.metadata.label,
             }));
-            this.#searchEngine.addAll(contents);
+            this.searchEngine.addAll(contents);
         }
         console.debug("PF2e System | Finished compiling search index");
     }
