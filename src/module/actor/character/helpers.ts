@@ -48,7 +48,7 @@ class PCAttackTraitHelpers extends AttackTraitHelpers {
         const { actor } = item;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
-        const traitsAndTags = R.compact([item.system.traits.value, item.system.traits.otherTags].flat());
+        const traitsAndTags = [item.system.traits.value, item.system.traits.otherTags].flat().filter(R.isTruthy);
         const synthetics = actor.synthetics.modifierAdjustments;
 
         const pcSpecificModifiers = traitsAndTags.flatMap((trait) => {

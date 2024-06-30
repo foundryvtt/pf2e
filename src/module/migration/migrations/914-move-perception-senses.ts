@@ -3,8 +3,7 @@ import { SenseAcuity } from "@actor/creature/index.ts";
 import { SENSES_WITH_MANDATORY_ACUITIES, SENSES_WITH_UNLIMITED_RANGE, SENSE_TYPES } from "@actor/creature/values.ts";
 import { ActorSourcePF2e, CharacterSource } from "@actor/data/index.ts";
 import { NPCPerceptionSource } from "@actor/npc/data.ts";
-import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { CORE_SKILL_SLUGS, SAVE_TYPES } from "@actor/values.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { AncestrySource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { HeritageSource } from "@item/heritage/data.ts";
@@ -23,9 +22,9 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             if ("initiative" in attributes) {
                 attributes["-=initiative"] = null;
                 if (
-                    R.isObject(attributes.initiative) &&
+                    R.isPlainObject(attributes.initiative) &&
                     "statistic" in attributes.initiative &&
-                    setHasElement(SKILL_SLUGS, attributes.initiative.statistic)
+                    setHasElement(CORE_SKILL_SLUGS, attributes.initiative.statistic)
                 ) {
                     source.system.initiative.statistic = attributes.initiative.statistic;
                 }
@@ -37,14 +36,14 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             if ("perception" in attributes) attributes["-=perception"] = null;
 
             const traits: unknown = source.system.traits;
-            if (R.isObject(traits) && "senses" in traits) {
+            if (R.isPlainObject(traits) && "senses" in traits) {
                 traits["-=senses"] = null;
             }
             this.#createCustomChangesFeat(source);
         } else if (source.type === "npc") {
             const attributes: OldAttributesSource = source.system.attributes;
             if ("perception" in attributes) {
-                const mod = R.isObject(attributes.perception) ? Number(attributes.perception.value) || 0 : 0;
+                const mod = R.isPlainObject(attributes.perception) ? Number(attributes.perception.value) || 0 : 0;
                 source.system.perception.mod = mod;
                 attributes["-=perception"] = null;
             }
@@ -56,7 +55,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         }
 
         // Remove some stray cruft
-        if (R.isObject(source.system.traits) && "attitude" in source.system.traits) {
+        if (R.isPlainObject(source.system.traits) && "attitude" in source.system.traits) {
             const traits: object & { "-=attitude"?: null } = source.system.traits;
             traits["-=attitude"] = null;
         }
@@ -138,10 +137,10 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
 
         // Saves
         const saves: unknown = source.system.saves;
-        if (saves instanceof Object && R.isObject<Record<SaveType, unknown>>(saves)) {
+        if (R.isPlainObject(saves)) {
             for (const saveType of SAVE_TYPES) {
                 const save = saves[saveType];
-                if (R.isObject(save) && typeof save.rank === "number" && save.rank > 1) {
+                if (R.isPlainObject(save) && typeof save.rank === "number" && save.rank > 1) {
                     customChangesFeat.system = fu.mergeObject(
                         { subfeatures: { proficiencies: { [saveType]: { rank: Math.clamp(save.rank, 2, 4) } } } },
                         customChangesFeat.system,
@@ -157,7 +156,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             const section: Record<string, unknown> = proficiencies[key] ?? {};
             for (const category of categories) {
                 const proficiency = section[category];
-                if (R.isObject(proficiency) && typeof proficiency.rank === "number" && proficiency.rank > 0) {
+                if (R.isPlainObject(proficiency) && typeof proficiency.rank === "number" && proficiency.rank > 0) {
                     const rank = Math.clamp(proficiency.rank, 1, 4);
                     customChangesFeat.system = fu.mergeObject(
                         {
@@ -178,7 +177,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         // Perception
         const attributes: OldAttributesSource = source.system.attributes;
         if (
-            R.isObject(attributes.perception) &&
+            R.isPlainObject(attributes.perception) &&
             "rank" in attributes.perception &&
             typeof attributes.perception.rank === "number" &&
             attributes.perception.rank > 1
@@ -190,7 +189,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
         }
 
         const traits: unknown = source.system.traits;
-        if (R.isObject(traits)) {
+        if (R.isPlainObject(traits)) {
             // Traits
             if (Array.isArray(traits.value) && traits.value.length > 0) {
                 const rule = {
@@ -203,7 +202,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
             // Senses
             if (Array.isArray(traits.senses)) {
                 for (const sense of traits.senses) {
-                    if (R.isObject(sense) && typeof sense.type === "string") {
+                    if (R.isPlainObject(sense) && typeof sense.type === "string") {
                         const type = sluggify(sense.type);
                         if (["lowLightVision", "darkvision"].includes(sense.type)) {
                             const ancestry = source.items.find((i): i is AncestrySource => i.type === "ancestry");
@@ -241,10 +240,11 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
     }
 
     #convertNPCSenses(system: { perception: NPCPerceptionSource; traits: OldTraitsSource }): void {
-        if (R.isObject(system.traits.senses) && typeof system.traits.senses.value === "string") {
-            const senseStrings = R.compact(
-                system.traits.senses.value.split(",").map((s) => s.toLocaleLowerCase("en").trim()),
-            );
+        if (R.isPlainObject(system.traits.senses) && typeof system.traits.senses.value === "string") {
+            const senseStrings = system.traits.senses.value
+                .split(",")
+                .map((s) => s.toLocaleLowerCase("en").trim())
+                .filter(R.isTruthy);
             // Sort such that superstrings of shorter strings are matched
             const senseTypes = R.sortBy(Array.from(SENSE_TYPES), (t) => t !== "greater-darkvision");
             const acuities = ["imprecise", "precise", "vague"] as const;
@@ -254,7 +254,9 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                     system.perception.vision = false;
                     continue;
                 } else if (text.includes("blood scent")) {
-                    system.perception.details = R.compact([system.perception.details, "blood scent"]).join(", ");
+                    system.perception.details = [system.perception.details, "blood scent"]
+                        .filter(R.isTruthy)
+                        .join(", ");
                 }
 
                 const sluggified = sluggify(
@@ -282,7 +284,7 @@ export class Migration914MovePerceptionSenses extends MigrationBase {
                 if (sense) {
                     system.perception.senses.push(sense);
                 } else {
-                    system.perception.details = R.compact([system.perception.details, text]).join(", ");
+                    system.perception.details = [system.perception.details, text].filter(R.isTruthy).join(", ");
                 }
             }
         }

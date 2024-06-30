@@ -1,9 +1,9 @@
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
-import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
-import type { BackgroundPF2e } from "./document.ts";
-import { BackgroundSource } from "./data.ts";
 import { htmlQuery, htmlQueryAll } from "@util";
+import { ABCSheetData, ABCSheetPF2e } from "../abc/sheet.ts";
+import { BackgroundSource } from "./data.ts";
+import type { BackgroundPF2e } from "./document.ts";
 
 export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
     override async getData(options?: Partial<ItemSheetOptions>): Promise<BackgroundSheetData> {
@@ -12,7 +12,7 @@ export class BackgroundSheetPF2e extends ABCSheetPF2e<BackgroundPF2e> {
 
         return {
             ...data,
-            trainedSkills: createSheetOptions(CONFIG.PF2E.skillList, itemData.system.trainedSkills),
+            trainedSkills: createSheetOptions(CONFIG.PF2E.skills, itemData.system.trainedSkills),
             selectedBoosts: Object.fromEntries(
                 Object.entries(itemData.system.boosts).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             ),

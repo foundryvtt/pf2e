@@ -14,7 +14,7 @@ export class Migration898NoHBAgain extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         source.system.rules = source.system.rules
-            .filter((r) => R.isObject(r))
+            .filter((r) => R.isPlainObject(r))
             .map((r) => recursiveReplaceString(r, (s) => s.replace(/\bhb_/g, "")));
     }
 }

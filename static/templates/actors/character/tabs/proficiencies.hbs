@@ -42,12 +42,12 @@
         {{!-- Lore Skills --}}
         {{#each data.skills as |skill idx|}}
             {{#if skill.lore}}
-                <li class="item" data-item-id="{{skill.itemID}}" data-item-type="lore" data-statistic="{{skill.slug}}">
+                <li class="item" data-item-id="{{skill.itemId}}" data-item-type="lore" data-statistic="{{skill.slug}}">
                     <a class="d20" data-action="roll-check" data-tooltip="{{skill.breakdown}}">
                         {{> "systems/pf2e/templates/actors/character/icons/d20.hbs"}}
                     </a>
                     <a class="modifier" data-action="roll-check">{{numberFormat skill.value decimals=0 sign=true}}</a>
-                    <input class="name" data-item-id="{{skill.itemID}}" data-item-property="name" type="text" value="{{skill.label}}" />
+                    <input class="name" data-item-id="{{skill.itemId}}" data-item-property="name" type="text" value="{{skill.label}}" />
                     <select class="skill-proficiency pf-rank adjust-item-stat-select" data-item-property="system.proficient.value" data-tooltip="{{skill.breakdown}}" data-rank="{{skill.rank}}">
                         {{> "systems/pf2e/templates/actors/character/partials/proficiencylevels-dropdown.hbs" proflevel=skill.rank}}
                     </select>

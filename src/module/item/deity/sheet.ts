@@ -48,7 +48,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                 { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
             ],
             sanctifications,
-            skills: CONFIG.PF2E.skillList,
+            skills: R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
                 sheetData.data.font,
@@ -71,7 +71,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 
         tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 
-        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skillList, maxTags: 2 });
+        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;

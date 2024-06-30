@@ -24,7 +24,7 @@ function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | unde
               ];
     const source = {
         type: "spell",
-        name: R.compact([newLabel, rankLabel, spellLabel]).join(" "),
+        name: [newLabel, rankLabel, spellLabel].filter(R.isTruthy).join(" "),
         system: {
             level: { value: rank },
             location: { value: String(data.location) },

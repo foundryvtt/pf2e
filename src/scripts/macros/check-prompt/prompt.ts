@@ -84,7 +84,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
         const skillEl = html.querySelector<HTMLInputElement>("input#check-prompt-skills");
         const skills = {
-            ...R.omit(CONFIG.PF2E.skillList, ["lore"]),
+            ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
             perception: "PF2E.PerceptionLabel",
         };
         tagify(skillEl, { whitelist: skills });

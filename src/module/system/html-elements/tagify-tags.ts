@@ -33,10 +33,10 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
                 return;
             }
             // Otherwise extract tagify values
-            this._value = R.filter(
-                parsed.filter((s) => !s.readonly).map((s) => s.id ?? s.value),
-                R.isTruthy,
-            );
+            this._value = parsed
+                .filter((s) => !s.readonly)
+                .map((s) => s.id ?? s.value)
+                .filter(R.isTruthy);
         } catch (error) {
             if (error instanceof Error) {
                 console.error(

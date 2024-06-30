@@ -113,11 +113,13 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             const splashDamage = instance.componentTotal("splash");
             const splashWeakness = splashDamage ? weaknesses.find((w) => w.type === "splash-damage") ?? null : null;
             const precisionWeakness = precisionDamage > 0 ? weaknesses.find((r) => r.type === "precision") : null;
-            const highestWeakness = R.compact([...mainWeaknesses, precisionWeakness, splashWeakness]).reduce(
-                (highest: Weakness | null, w) =>
-                    w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
-                null,
-            );
+            const highestWeakness = [...mainWeaknesses, precisionWeakness, splashWeakness]
+                .filter(R.isTruthy)
+                .reduce(
+                    (highest: Weakness | null, w) =>
+                        w && !highest ? w : w && highest && w.value > highest.value ? w : highest,
+                    null,
+                );
 
             if (highestWeakness) {
                 instanceApplications.push({

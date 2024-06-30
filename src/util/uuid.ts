@@ -10,11 +10,13 @@ class UUIDUtils {
             const parsed = fu.parseUuid(u, options);
             return parsed.collection instanceof CompendiumCollection && parsed.embedded.length > 0;
         });
-        const packEmbeddedDocs = R.compact(await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u))));
+        const packEmbeddedDocs = (await Promise.all(packEmbeddedLinks.map((u) => fromUuid(u)))).filter(R.isTruthy);
 
-        const documentsAndIndexData = R.compact(
-            resolvedUUIDs.filter((u) => !packEmbeddedLinks.includes(u)).map((u) => fromUuidSync(u)),
-        );
+        const documentsAndIndexData = resolvedUUIDs
+            .filter((u) => !packEmbeddedLinks.includes(u))
+            .map((u) => fromUuidSync(u))
+            .filter(R.isTruthy);
+
         const worldDocsAndCacheHits = documentsAndIndexData.filter(
             (d): d is ClientDocument => d instanceof foundry.abstract.Document,
         );

@@ -101,7 +101,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 const emptyList = isFlexible && key !== "slot0";
                 group.prepared = emptyList
                     ? []
-                    : R.sortBy(R.compact(Object.values(group.prepared)), (s) => s.id === null);
+                    : R.sortBy(Object.values(group.prepared).filter(R.isTruthy), (s) => s.id === null);
                 group.prepared.length = emptyList ? 0 : group.max;
                 for (const index of Array.fromRange(group.prepared.length)) {
                     const slot = (group.prepared[index] ??= { id: null, expended: false });

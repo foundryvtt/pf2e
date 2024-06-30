@@ -7,7 +7,7 @@ export class Migration751ResetRollOptions extends MigrationBase {
     static override version = 0.751;
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        if (R.isObject(source.flags.pf2e) && "rollOptions" in source.flags.pf2e) {
+        if (R.isPlainObject(source.flags.pf2e) && "rollOptions" in source.flags.pf2e) {
             source.flags.pf2e["-=rollOptions"] = null;
         }
     }

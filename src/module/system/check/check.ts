@@ -127,10 +127,10 @@ class CheckPF2e {
 
             // Determine whether both fortune and misfortune apply to the check
             const fortuneMisfortune = new Set(
-                R.compact([
+                [
                     substitution?.effectType,
                     rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
-                ]),
+                ].filter(R.isTruthy),
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
@@ -189,9 +189,10 @@ class CheckPF2e {
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = R.compact(
-                roll.dice.map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null),
-            ).shift();
+            const naturalTotal = roll.dice
+                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+                .filter(R.isTruthy)
+                .shift();
 
             // Include tentative results in case an adjustment is predicated on it
             const temporaryRollOptions = new Set([
@@ -259,7 +260,9 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return R.compact([header, result ?? [], tags, notesList].flat())
+            return [header, result, tags, notesList]
+                .flat()
+                .filter(R.isTruthy)
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
         })();
@@ -417,11 +420,11 @@ class CheckPF2e {
                 ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: rollTags })
                 : null;
 
-        return R.compact([
+        return [
             traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
             document.createElement("hr"),
             modifiersAndExtras,
-        ]);
+        ].filter(R.isTruthy);
     }
 
     /** Reroll a rolled check given a chat message. */

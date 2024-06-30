@@ -1,8 +1,7 @@
 import type { NPCPF2e } from "@actor";
 import { NPCSkillData, NPCSource } from "@actor/npc/data.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
 import { LoreSource } from "@item/base/data/index.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
 export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
@@ -49,7 +48,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
             const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
-            if (setHasElement(SKILL_SLUGS, slug)) {
+            if (slug && slug in CONFIG.PF2E.skills) {
                 await this.actor.update({ [`system.skills.${slug}`]: { base: 0 } });
             }
         });
@@ -69,7 +68,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
         for (const button of htmlQueryAll(html, "a[data-action=add-special-skill]")) {
             button.addEventListener("click", (event): void => {
                 const skill = htmlClosest(event.target, "[data-skill]")?.dataset.skill;
-                if (!setHasElement(SKILL_SLUGS, skill)) return;
+                if (!objectHasKey(CONFIG.PF2E.skills, skill)) return;
 
                 const special = fu.duplicate(this.actor._source.system.skills[skill]?.special ?? []);
                 special.push({ label: "", base: 0 });
@@ -80,7 +79,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
         for (const button of htmlQueryAll(html, "a[data-action=remove-special-skill]")) {
             button.addEventListener("click", (event): void => {
                 const skill = htmlClosest(event.target, "[data-skill]")?.dataset.skill;
-                if (!setHasElement(SKILL_SLUGS, skill) || !(event.currentTarget instanceof HTMLElement)) return;
+                if (!objectHasKey(CONFIG.PF2E.skills, skill) || !(event.currentTarget instanceof HTMLElement)) return;
 
                 const index = Number(event.currentTarget.dataset.specialSkillIndex);
                 const special =

@@ -375,12 +375,12 @@ function getStrikeAttackDomains(
                   : null
             : null;
 
-        const attributeModifier = R.compact([
+        const attributeModifier = [
             defaultAttributeModifier,
             alternativeAttributeModifier,
             ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
-        ])
-            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability" && m.enabled)
+        ]
+            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m?.type === "ability" && m.enabled)
             .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
@@ -398,7 +398,7 @@ function getStrikeDamageDomains(
     const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
     const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
-    const domains = R.compact([
+    const domains = [
         `${weapon.id}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-strike-damage`,
@@ -409,7 +409,7 @@ function getStrikeDamageDomains(
         "attack-damage",
         "strike-damage",
         "damage",
-    ]);
+    ].filter(R.isTruthy);
 
     if (weapon.baseType) {
         domains.push(`${weapon.baseType}-base-type-damage`);
@@ -456,7 +456,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     // Conditions and Custom modifiers to attack rolls
     const meleeOrRanged = item.isMelee ? "melee" : "ranged";
-    const baseOptions = new Set(R.compact(["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value]));
+    const baseOptions = new Set(
+        ["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value].filter(R.isTruthy),
+    );
     const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
     const synthetics = actor.synthetics;
@@ -492,10 +494,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
 
-    const actionTraits: ActionTrait[] = R.compact([
-        "attack",
-        item.baseType === "alchemical-bomb" ? "manipulate" : null,
-    ]);
+    const actionTraits: ActionTrait[] = (
+        ["attack", item.baseType === "alchemical-bomb" ? "manipulate" : null] as const
+    ).filter(R.isTruthy);
     const strikeAdjustments = [
         actor.synthetics.strikeAdjustments,
         getPropertyRuneStrikeAdjustments(item.system.runes.property),
@@ -597,7 +598,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             );
             const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
 
-            const allModifiers = R.compact([map, params.modifiers, context.origin.modifiers].flat());
+            const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
             const checkContext: CheckCheckContext = {
                 type: "attack-roll",

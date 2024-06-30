@@ -6,7 +6,6 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
@@ -143,7 +142,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             const heroPoints =
                 actor.isOfType("character") && isReallyPC(actor) ? actor.system.resources.heroPoints : null;
             const activities = actor.isOfType("character")
-                ? R.compact(actor.system.exploration.map((id) => actor.items.get(id)))
+                ? actor.system.exploration.map((id) => actor.items.get(id)).filter(R.isTruthy)
                 : [];
 
             return {
@@ -212,7 +211,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         );
 
         function getBestSkill(slug: string): SkillData | null {
-            const bestMember = R.maxBy(members, (m) => m.skills[slug]?.mod ?? -Infinity);
+            const bestMember = R.firstBy(members, [(m) => m.skills[slug]?.mod ?? -Infinity, "desc"]);
             const statistic = bestMember?.skills[slug];
             return statistic ? R.pick(statistic, ["slug", "mod", "label", "rank"]) : null;
         }
@@ -234,16 +233,15 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 (l) => l.label,
             ),
             skills: R.sortBy(
-                Array.from(SKILL_SLUGS).map((slug): SkillData => {
+                Object.entries(CONFIG.PF2E.skills).map(([slug, { label }]): SkillData => {
                     const best = getBestSkill(slug);
-                    const label = game.i18n.localize(CONFIG.PF2E.skillList[slug]);
                     return best ?? { mod: 0, label, slug, rank: 0 };
                 }),
                 (s) => s.label,
             ),
             knowledge: {
-                regular: R.compact(baseKnowledgeSkills.map(getBestSkill)),
-                lore: R.sortBy(R.compact([...loreSkills].map(getBestSkill)), (s) => s.label),
+                regular: baseKnowledgeSkills.map(getBestSkill).filter(R.isTruthy),
+                lore: R.sortBy([...loreSkills].map(getBestSkill).filter(R.isTruthy), (s) => s.label),
             },
         };
     }
@@ -364,7 +362,7 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         // Mouseover summary skill tooltips to show all actor modifiers
         for (const skillTag of htmlQueryAll(html, ".summary .skills [data-slug]")) {
             const slug = skillTag.dataset.slug ?? "";
-            const statistics = R.compact(this.actor.members.map((m) => m.skills[slug]));
+            const statistics = this.actor.members.map((m) => m.skills[slug]).filter(R.isTruthy);
             const labels = R.sortBy(statistics, (s) => s.mod).map((statistic) => {
                 const rank = statistic.rank ?? (statistic.proficient ? 1 : 0);
                 const prof = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[rank]);

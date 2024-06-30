@@ -26,12 +26,12 @@ export class Migration897ClearLayOnHandsDamage extends MigrationBase {
         }
 
         for (const overlay of Object.values(source.system.overlays ?? {})) {
-            if (!R.isObject(overlay) || !R.isObject(overlay.system?.damage)) {
+            if (!R.isPlainObject(overlay) || !R.isPlainObject(overlay.system?.damage)) {
                 continue;
             }
 
             const damagePartials = Object.values(overlay.system?.damage ?? {});
-            for (const partial of damagePartials.filter((p): p is SpellDamageSource => R.isObject(p))) {
+            for (const partial of damagePartials.filter((p): p is SpellDamageSource => R.isPlainObject(p))) {
                 if (partial?.formula === "6") {
                     partial.kinds = ["healing"];
                 } else {

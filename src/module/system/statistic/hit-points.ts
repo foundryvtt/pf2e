@@ -56,10 +56,12 @@ class HitPointsStatistic<TActor extends HPStatActor = HPStatActor> extends BaseS
     }
 
     get breakdown(): string {
-        return R.compact([
+        return [
             this.#baseMax > 0 ? game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base: this.#baseMax }) : null,
             ...this.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
-        ]).join(", ");
+        ]
+            .filter(R.isTruthy)
+            .join(", ");
     }
 
     override getTraceData(): HitPointsTraceData {

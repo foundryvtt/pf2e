@@ -115,7 +115,7 @@ export function registerHandlebarsHelpers(): void {
         if (Array.isArray(data)) return data.includes(element);
         if (typeof data === "string") return data.includes(String(element));
         if (data instanceof Set) return data.has(element);
-        if (R.isObject(data) && (typeof element === "number" || typeof element === "string")) {
+        if (R.isObjectType(data) && (typeof element === "number" || typeof element === "string")) {
             return element in data;
         }
 
