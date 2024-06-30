@@ -10,7 +10,9 @@ import {
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import { AmbientLightPF2e, LightingLayerPF2e, MeasuredTemplatePF2e, TemplateLayerPF2e } from "@module/canvas/index.ts";
+import { NotePF2e } from "@module/canvas/note.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { JournalEntryPagePF2e } from "@module/journal-page/data.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -35,10 +37,14 @@ export const Init = {
             CONFIG.Item.dataModels.kit = KitSystemData;
             CONFIG.Item.dataModels.melee = MeleeSystemData;
 
+            CONFIG.JournalEntryPage.documentClass = JournalEntryPagePF2e;
+
             CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
             CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
             CONFIG.MeasuredTemplate.defaults.angle = 90;
             CONFIG.MeasuredTemplate.defaults.width = 1;
+
+            CONFIG.Note.objectClass = NotePF2e;
 
             setPerceptionModes();
 
