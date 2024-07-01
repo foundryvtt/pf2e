@@ -167,10 +167,20 @@ export class InlineRollLinks {
             return;
         }
 
-        const extraRollOptions = [
-            ...(pf2Traits?.split(",").map((o) => o.trim()) ?? []),
-            ...(pf2RollOptions?.split(",").map((o) => o.trim()) ?? []),
-        ];
+        const maybeTraits =
+            pf2Traits
+                ?.split(",")
+                .map((t) => t.trim())
+                .filter(R.isTruthy) ?? [];
+        const additionalTraits = maybeTraits.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits);
+
+        const extraRollOptions = R.unique(
+            [
+                maybeTraits,
+                additionalTraits.map((t) => `item:trait:${t}`),
+                pf2RollOptions?.split(",").map((o) => o.trim()) ?? [],
+            ].flat(),
+        );
         const eventRollParams = eventToRollParams(event, { type: "check" });
         const checkSlug = link.dataset.slug ? sluggify(link.dataset.slug) : null;
 
@@ -192,9 +202,9 @@ export class InlineRollLinks {
         const isSavingThrow = tupleHasValue(SAVE_TYPES, pf2Check);
 
         // Get actual traits for display in chat cards
-        const traits = isSavingThrow
+        const abilityTraits = isSavingThrow
             ? []
-            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+            : extraRollOptions.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits);
 
         // Pre-emptively grab statistics to visibly error if the statistic is missing from all of them
         const actorStatistics = actors.map((actor) => ({ actor, statistic: actor.getStatistic(pf2Check) }));
@@ -262,7 +272,7 @@ export class InlineRollLinks {
                 dc,
                 target: !isSavingThrow && dc?.statistic ? targetActor : null,
                 item,
-                traits,
+                traits: abilityTraits,
             };
 
             // Use a special header for checks against defenses
