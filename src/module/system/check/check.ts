@@ -88,7 +88,9 @@ class CheckPF2e {
         if (rollOptions.has("secret") && !game.pf2e.settings.metagame.secretChecks) {
             context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
         }
-        context.rollMode ??= "roll";
+        context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
+            ? context.rollMode
+            : game.settings.get("core", "rollMode");
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
@@ -125,10 +127,10 @@ class CheckPF2e {
 
             // Determine whether both fortune and misfortune apply to the check
             const fortuneMisfortune = new Set(
-                R.compact([
+                [
                     substitution?.effectType,
                     rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
-                ]),
+                ].filter(R.isTruthy),
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
@@ -179,16 +181,18 @@ class CheckPF2e {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate();
+        const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
+        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = R.compact(
-                roll.dice.map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null),
-            ).shift();
+            const naturalTotal = roll.dice
+                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+                .filter(R.isTruthy)
+                .shift();
 
             // Include tentative results in case an adjustment is predicated on it
             const temporaryRollOptions = new Set([
@@ -256,7 +260,9 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return R.compact([header, result ?? [], tags, notesList].flat())
+            return [header, result, tags, notesList]
+                .flat()
+                .filter(R.isTruthy)
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
         })();
@@ -340,7 +346,7 @@ class CheckPF2e {
         };
 
         const traits =
-            R.uniqBy(
+            R.uniqueBy(
                 context.traits
                     ?.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits))
                     .map((trait) => {
@@ -414,11 +420,11 @@ class CheckPF2e {
                 ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: rollTags })
                 : null;
 
-        return R.compact([
+        return [
             traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
             document.createElement("hr"),
             modifiersAndExtras,
-        ]);
+        ].filter(R.isTruthy);
     }
 
     /** Reroll a rolled check given a chat message. */

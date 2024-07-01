@@ -1,15 +1,15 @@
 {
     "_id": "iljqRzp23l8BdqVv",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/equipment/back/cape-layered-simple-brown.webp",
     "name": "Mantle of the Tikbalang",
     "system": {
         "baseItem": null,
         "bulk": {
-            "value": 0
+            "value": 1
         },
         "containerId": null,
         "description": {
-            "value": "<p>This long hide cloak is stitched with patches of the ebony hair of a tikbalang. While wearing this cloak, you take a –2 item penalty to saves against illusions but gain a +2 item bonus to Deception checks.</p>\n<p><strong>Activate—Illusory Thrash</strong> <span class=\"action-glyph\">2</span> (concentrate, illusion, manipulate, mental)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You wrap the mantle around your body, causing you to briefly appear much larger than you are. Make a melee Strike. This Strike deals an additional @Damage[4d6[mental]] damage.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include the hide of a tikbalang.</p>"
+            "value": "<p>This long hide cloak is stitched with patches of the ebony hair of a tikbalang. While wearing this cloak, you take a –2 item penalty to saves against illusions but gain a +2 item bonus to Deception checks.</p><hr /><p><strong>Activate—Illusory Thrash</strong> <span class=\"action-glyph\">2</span> (concentrate, illusion, manipulate, mental)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You wrap the mantle around your body, causing you to briefly appear much larger than you are. Make a melee Strike. This Strike deals an additional 4d6 mental damage.</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the hide of a tikbalang.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,40 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:illusion"
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "deception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.MantleOfTheTikbalang.IllusoryThrashLabel",
+                "option": "illusory-thrash",
+                "toggleable": true
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": 4,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "illusory-thrash"
+                ],
+                "selector": "melee-strike-damage"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

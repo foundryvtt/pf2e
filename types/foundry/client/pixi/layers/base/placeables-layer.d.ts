@@ -7,7 +7,8 @@ declare global {
      * @category - Canvas
      */
     abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
-        constructor();
+        /** Sort order for placeables belonging to this layer. */
+        static SORT_ORDER: number;
 
         objects: PIXI.Container<TObject> | null;
 
@@ -391,7 +392,7 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> {
     preview?: TObject | null;
     clones?: TObject[];
     dragHandle?: unknown;
-    object: PIXI.Container | PIXI.Mesh;
+    object: TObject;
     origin: Point;
     destination: Point;
 }

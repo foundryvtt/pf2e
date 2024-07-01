@@ -133,7 +133,9 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+        this.system.traits.value = R.unique([...baseTraits, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
 
         // Fill out integrated weapon data if applicable
         const integratedTrait = this.system.traits.value.find((t) => t.startsWith("integrated"));
@@ -190,10 +192,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this: ShieldPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<RawItemChatData> {
-        const properties = R.compact([
+        const properties = [
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ]);
+        ].filter(R.isTruthy);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),

@@ -1,6 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { htmlQueryAll, sortStringRecord } from "@util";
+import * as R from "remeda";
 import type { SelectableTagField } from "./index.ts";
 
 abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends DocumentSheet<
@@ -63,10 +64,11 @@ abstract class BaseTagSelector<TDocument extends ActorPF2e | ItemPF2e> extends D
      * @returns An object of all key and translated value pairs sorted by key
      */
     #getChoices(): Record<string, string> {
-        const choices = this.configTypes.reduce(
-            (types: Record<string, string>, key) => fu.mergeObject(types, CONFIG.PF2E[key]),
-            {},
-        );
+        const choices = this.configTypes.reduce((types: Record<string, string>, key) => {
+            const config: Record<string, string | { label: string }> = CONFIG.PF2E[key];
+            const configLabels = R.mapValues(config, (c) => (R.isObjectType(c) ? c.label : c));
+            return fu.mergeObject(types, configLabels);
+        }, {});
         return sortStringRecord(choices);
     }
 }

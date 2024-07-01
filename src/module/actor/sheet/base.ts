@@ -1137,7 +1137,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
     #onClickCreateItem(anchor: HTMLElement): void {
         const dataset = { ...anchor.dataset };
-        const itemType = R.compact([dataset.type ?? dataset.types?.split(",")].flat()).find((t) => t !== "shield");
+        const itemType = [dataset.type ?? dataset.types?.split(",")]
+            .flat()
+            .filter(R.isTruthy)
+            .find((t) => t !== "shield");
         if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
             throw ErrorPF2e(`Unrecognized item type: types`);
         }

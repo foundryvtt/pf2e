@@ -293,7 +293,9 @@ export class Migration923KineticistRestructure extends MigrationBase {
 
         const actorFeats = actorSource.items.filter((i): i is FeatSource => itemIsOfType(i, "feat"));
         const initialChoice = getChoice(kineticGate, "kineticGate") === "dual-gate" ? "dual-gate" : "single-gate";
-        const elements = R.compact([getChoice(kineticGate, "elementOne"), getChoice(kineticGate, "elementTwo")]);
+        const elements = [getChoice(kineticGate, "elementOne"), getChoice(kineticGate, "elementTwo")].filter(
+            R.isTruthy,
+        );
         const initialFeats = actorFeats.filter(
             (i) =>
                 i.flags.pf2e?.grantedBy?.id === kineticGate._id &&
@@ -308,8 +310,8 @@ export class Migration923KineticistRestructure extends MigrationBase {
                     feats: elements.length === 1 ? initialFeats : [initialFeats[idx]],
                 })),
             },
-            thresholds: R.compact(
-                thresholdSlugs.map((slug) => {
+            thresholds: thresholdSlugs
+                .map((slug) => {
                     const thresholdItem = actorFeats.find((i) => (i.system.slug ?? sluggify(i.name)) === slug);
                     if (!thresholdItem) return null;
                     const choice = getChoice(thresholdItem, sluggify(slug, { camel: "dromedary" }));
@@ -335,8 +337,8 @@ export class Migration923KineticistRestructure extends MigrationBase {
                                 tupleHasValue(i.system.traits.value ?? [], "impulse"),
                         ),
                     };
-                }),
-            ),
+                })
+                .filter(R.isTruthy),
         };
     }
 }

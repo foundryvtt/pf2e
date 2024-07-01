@@ -6,7 +6,12 @@ import {
     AlphaFilter,
     Application,
     BLEND_MODES,
+    BaseTexture,
+    BatchGeometry,
+    BatchRenderer,
+    BatchShaderGenerator,
     BlurFilter,
+    Bounds,
     CLEAR_MODES,
     Circle,
     Color,
@@ -24,13 +29,17 @@ import {
     FilterSystem,
     Geometry,
     Graphics,
+    IBaseTextureOptions,
+    IBatchableElement,
     IDestroyOptions,
+    IPointData,
     ITextStyle,
     Graphics as LegacyGraphics,
     MIPMAP_MODES,
     MSAA_QUALITY,
     Matrix,
     Mesh,
+    ObservablePoint,
     ParticleContainer,
     ParticleRenderer,
     Point,
@@ -45,23 +54,29 @@ import {
     Shader,
     Sprite,
     Spritesheet,
+    TYPES,
     Text,
     TextStyle,
     Texture,
+    TextureUvs,
     TilingSpriteRenderer,
     Transform,
     UniformGroup,
+    ViewableBuffer,
+    settings,
     utils,
 } from "pixi.js";
 import "./board.d.ts";
 import "./core/index.d.ts";
 import "./fog-manager.d.ts";
 import "./groups/index.d.ts";
+import "./helpers/index.d.ts";
 import "./layers/index.d.ts";
 import "./perception/index.d.ts";
 import "./placeable.d.ts";
 import "./placeables/index.d.ts";
 import "./sources/index.d.ts";
+import "./special-effect/index.d.ts";
 import "./webgl/index.d.ts";
 
 declare global {
@@ -72,7 +87,12 @@ declare global {
             Application,
             ALPHA_MODES,
             BLEND_MODES,
+            BaseTexture,
+            BatchGeometry,
+            BatchRenderer,
+            BatchShaderGenerator,
             BlurFilter,
+            Bounds,
             CLEAR_MODES,
             Circle,
             Color,
@@ -90,7 +110,10 @@ declare global {
             FORMATS,
             Geometry,
             Graphics,
+            IBaseTextureOptions,
+            IBatchableElement,
             IDestroyOptions,
+            IPointData,
             ITextStyle,
             LegacyGraphics,
             Matrix,
@@ -103,6 +126,7 @@ declare global {
             Polygon,
             Prepare,
             Program,
+            ObservablePoint,
             Rectangle,
             RenderTexture,
             Renderer,
@@ -111,13 +135,18 @@ declare global {
             Shader,
             Sprite,
             Spritesheet,
+            TYPES,
             Text,
             TextStyle,
             Texture,
+            TextureAlphaData,
+            TextureUvs,
             TilingSpriteRenderer,
             Transform,
             UniformGroup,
+            ViewableBuffer,
             particles,
+            settings,
             smooth,
             utils,
         };

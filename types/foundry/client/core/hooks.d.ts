@@ -1,4 +1,4 @@
-import ApplicationV2 from "../../client-esm/applications/api/application.js";
+import type ApplicationV2 from "../../client-esm/applications/api/application.d.ts";
 
 export {};
 declare global {

@@ -30,14 +30,14 @@ class FlatModifierForm extends RuleElementForm<FlatModifierSource, FlatModifierR
         const data = await super.getData();
 
         // Make "untyped" the first option and alphabetize the rest
-        const types = (() => {
-            const abpEnabled = ABP.isEnabled(null);
-            const entries = Array.from(MODIFIER_TYPES)
+        const abpEnabled = ABP.isEnabled(null);
+        const types = R.mapToObj(
+            Array.from(MODIFIER_TYPES)
                 .filter((t) => abpEnabled || t !== "potency")
-                .map((t): [ModifierType, string] => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)])
-                .sort((a, b) => (a[0] === "untyped" ? -1 : b[0] === "untyped" ? 1 : a[1].localeCompare(b[1])));
-            return R.fromPairs(entries);
-        })();
+                .sort((a, b) => (a[0] === "untyped" ? -1 : b[0] === "untyped" ? 1 : a[1].localeCompare(b[1]))),
+
+            (t) => [t, game.i18n.localize(`PF2E.ModifierType.${t}`)],
+        );
 
         return {
             ...data,

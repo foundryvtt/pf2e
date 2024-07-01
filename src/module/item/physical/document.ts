@@ -441,7 +441,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData._migration = otherData._migration;
         thisData.identification = otherData.identification;
 
-        return R.equals(thisData, otherData);
+        return R.isDeepEqual(thisData, otherData);
     }
 
     /** Combine this item with a target item if possible */

@@ -54,7 +54,9 @@ export class Migration882SpellDataReorganization extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } = source.system.traits ?? { value: [] };
         if (Array.isArray(traits.value)) {
-            traits.value = R.uniq(R.compact(traits.value).filter((t) => !this.#SCHOOL_TRAITS.has(t))).sort();
+            traits.value = R.unique(traits.value.filter((t) => !this.#SCHOOL_TRAITS.has(t)))
+                .filter(R.isTruthy)
+                .sort();
         }
 
         source.system.attributes.immunities = source.system.attributes.immunities?.filter(
@@ -81,9 +83,9 @@ export class Migration882SpellDataReorganization extends MigrationBase {
         // Remove school traits from any item
         const traits: { value?: (string | undefined)[] } = source.system?.traits ?? { value: [] };
         if (Array.isArray(traits.value)) {
-            traits.value = R.uniq(
-                R.compact(traits.value)
-                    .filter((t) => !this.#SCHOOL_TRAITS.has(t))
+            traits.value = R.unique(
+                traits.value
+                    .filter((t): t is string => !!t && !this.#SCHOOL_TRAITS.has(t))
                     .map((t) => (t === "metamagic" ? "spellshape" : t))
                     .sort(),
             );
@@ -163,14 +165,14 @@ export class Migration882SpellDataReorganization extends MigrationBase {
 
         // Flatten `damage` object
         const oldSpellDamage = fu.deepClone(system.damage);
-        if (isObject(oldSpellDamage) && R.isObject(oldSpellDamage?.value)) {
+        if (isObject(oldSpellDamage) && R.isPlainObject(oldSpellDamage?.value)) {
             system.damage = {};
             for (const [key, partial] of Object.entries(oldSpellDamage?.value)) {
                 if (topLevel && ["lay-on-hands", "touch-of-corruption"].includes(source.system?.slug ?? "")) {
                     break;
                 }
-                if (!R.isObject(partial)) continue;
-                const typeData = R.isObject(partial.type) ? partial.type : {};
+                if (!R.isPlainObject(partial)) continue;
+                const typeData = R.isPlainObject(partial.type) ? partial.type : {};
                 const damageType = this.#DAMAGE_TYPES.has(String(typeData.value))
                     ? typeData.value
                     : topLevel

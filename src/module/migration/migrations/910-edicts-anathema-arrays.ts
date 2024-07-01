@@ -9,11 +9,11 @@ export class Migration910EdictsAnathemaArrays extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
         const biography = source.system.details.biography;
-        biography.edicts = R.compact(
-            typeof biography.edicts === "string" ? [biography.edicts] : biography.edicts ?? [],
+        biography.edicts = (typeof biography.edicts === "string" ? [biography.edicts] : biography.edicts ?? []).filter(
+            R.isTruthy,
         );
-        biography.anathema = R.compact(
-            typeof biography.anathema === "string" ? [biography.anathema] : biography.anathema ?? [],
-        );
+        biography.anathema = (
+            typeof biography.anathema === "string" ? [biography.anathema] : biography.anathema ?? []
+        ).filter(R.isTruthy);
     }
 }

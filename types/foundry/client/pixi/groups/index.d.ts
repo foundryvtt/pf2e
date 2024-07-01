@@ -1,4 +1,4 @@
-import "./canvas-group.js";
+import "./canvas-group.d.ts";
 import "./effects.d.ts";
 import "./environment.d.ts";
 import "./interface.d.ts";

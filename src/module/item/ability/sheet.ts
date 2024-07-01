@@ -42,7 +42,6 @@ class AbilitySheetPF2e extends ItemSheetPF2e<AbilityItemPF2e> {
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTraits: CONFIG.PF2E.actionTraits,
             frequencies: CONFIG.PF2E.frequencies,
-            skills: CONFIG.PF2E.skillList,
             proficiencies: CONFIG.PF2E.proficiencyLevels,
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
         };
@@ -71,7 +70,6 @@ interface ActionSheetData extends ItemSheetDataPF2e<AbilityItemPF2e> {
     actionsNumber: ConfigPF2e["PF2E"]["actionsNumber"];
     actionTraits: ConfigPF2e["PF2E"]["actionTraits"];
     frequencies: ConfigPF2e["PF2E"]["frequencies"];
-    skills: ConfigPF2e["PF2E"]["skillList"];
     proficiencies: ConfigPF2e["PF2E"]["proficiencyLevels"];
     selfEffect: SelfEffectReference | null;
 }

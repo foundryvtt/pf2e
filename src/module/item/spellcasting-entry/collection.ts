@@ -331,14 +331,13 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
     }
 
     #getEphemeralData(): SpellCollectionData {
-        const groupedByRank = R.groupBy.strict(Array.from(this.values()), (s) => s.rank);
-        const groups = R.toPairs
-            .strict(groupedByRank)
-            .sort(([a], [b]) => a - b)
+        const groupedByRank = R.groupBy(Array.from(this.values()), (s) => s.rank);
+        const groups = R.entries(groupedByRank)
+            .sort(([a], [b]) => Number(a) - Number(b))
             .map(
                 ([rank, spells]): SpellcastingSlotGroup => ({
-                    id: rank,
-                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                    id: Number(rank) as SpellSlotGroupId,
+                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
                     maxRank: 10,
                     active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
                 }),

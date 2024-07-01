@@ -12,7 +12,7 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
             ...sheetData,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
-            trainedSkills: createSheetTags(CONFIG.PF2E.skillList, itemData.system.trainedSkills),
+            trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.system.trainedSkills),
             ancestryFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.ancestryFeatLevels),
             classFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.classFeatLevels),
             generalFeatLevels: createSheetTags(CONFIG.PF2E.levels, itemData.system.generalFeatLevels),

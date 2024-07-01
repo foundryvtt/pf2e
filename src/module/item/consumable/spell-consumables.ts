@@ -88,7 +88,7 @@ async function createConsumableFromSpell(
     const consumableSource = { ...consumable.toObject(), _id: null }; // Clear _id
 
     const traits = consumableSource.system.traits;
-    traits.value = R.uniq([...traits.value, ...spell.traits]);
+    traits.value = R.unique([...traits.value, ...spell.traits]);
     traits.rarity = spell.rarity;
     if (traits.value.includes("magical") && traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t))) {
         traits.value.splice(traits.value.indexOf("magical"), 1);

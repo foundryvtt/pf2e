@@ -5,7 +5,7 @@ import { setHitPointsRollOptions, strikeFromMeleeItem } from "@actor/helpers.ts"
 import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import type { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
@@ -250,7 +250,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
         this.prepareSkills();
 
         // Process strikes
-        const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s())), (w) => w.slug);
+        const syntheticWeapons = R.uniqueBy(synthetics.strikes.map((s) => s()).filter(R.isTruthy), (w) => w.slug);
         const generatedMelee = syntheticWeapons.flatMap((w) => w.toNPCAttacks({ keepId: true }));
         const meleeItems = R.sortBy(
             [this.itemTypes.melee, generatedMelee].flat(),
@@ -307,10 +307,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
     private prepareSkills() {
         const modifierAdjustments = this.synthetics.modifierAdjustments;
 
-        this.skills = R.mapToObj([...SKILL_SLUGS], (skillSlug) => {
+        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { attribute, label }]) => {
             const skill = this._source.system.skills[skillSlug];
-            const attribute = SKILL_EXPANDED[skillSlug].attribute;
-            const label = CONFIG.PF2E.skillList[skillSlug] ?? skillSlug;
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
 
             // Get predicated variants as modifiers that trigger when the predicate is met
@@ -386,7 +384,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const data = fu.mergeObject(baseData, {
                 ...statistic.getTraceData(),
                 mod: statistic.check.mod,
-                itemID: loreItem?.id ?? null,
+                itemId: loreItem?.id ?? null,
                 lore: !!statistic.lore,
                 visible: statistic.proficient,
             });

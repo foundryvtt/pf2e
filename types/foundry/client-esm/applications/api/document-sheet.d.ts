@@ -1,4 +1,4 @@
-import type ApplicationV2 from "./application.js";
+import type ApplicationV2 from "./application.d.ts";
 
 export default class DocumentSheetV2<
     TDocument extends foundry.abstract.Document = foundry.abstract.Document,

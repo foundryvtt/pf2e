@@ -65,7 +65,7 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
           ? { runes: RUNE_DATA.shield, weaponRunes: RUNE_DATA.weapon, secondaryFundamental: "" }
           : { runes: RUNE_DATA.weapon, weaponRunes: {}, secondaryFundamental: "striking" };
 
-    return R.compact(
+    return (
         item.isOfType("shield")
             ? [
                   data.runes.reinforcing[item.system.runes.reinforcing],
@@ -77,19 +77,17 @@ function getRuneValuationData(item: PhysicalItemPF2e): RuneData[] {
                   data.runes.potency[item.system.runes.potency],
                   data.runes[data.secondaryFundamental]?.[itemRunes[data.secondaryFundamental] ?? ""],
                   item.system.runes.property.map((p) => data.runes.property[p]),
-              ].flat(),
-    );
+              ].flat()
+    ).filter(R.isTruthy);
 }
 
 function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdjustment[] {
-    return R.uniq(
-        R.compact(
-            [
-                item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
-                item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
-            ].flat(2),
-        ),
-    );
+    return R.unique(
+        [
+            item.system.runes.property.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+            item.system.runes.effects.map((p) => WEAPON_PROPERTY_RUNES[p].attack?.dosAdjustments),
+        ].flat(2),
+    ).filter(R.isTruthy);
 }
 
 function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {

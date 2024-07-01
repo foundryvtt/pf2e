@@ -1,5 +1,5 @@
-import type { Edge } from "../edges/edge.js";
-import type { PointEffectLightSource } from "./point-effect-source-mixes.ts";
+import type { Edge } from "../edges/edge.d.ts";
+import type { PointEffectLightSource } from "./point-effect-source-mixes.d.ts";
 
 export default class PointDarknessSource<
     TObject extends Token | AmbientLight | null,

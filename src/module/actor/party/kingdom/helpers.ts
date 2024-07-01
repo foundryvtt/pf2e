@@ -7,7 +7,7 @@ import { KingdomAbility, KingdomCHG, KingdomCommodity } from "./types.ts";
 /** Resolves boosts using kingmaker rules. Free boosts cannot be the granted ability nor the flaw */
 function resolveKingdomBoosts(entry: KingdomCHG, choices: KingdomAbility[]): KingdomAbility[] {
     const notFreeBoosts = entry.boosts.filter((b): b is KingdomAbility => b !== "free");
-    return R.uniq([notFreeBoosts, choices].flat())
+    return R.unique([notFreeBoosts, choices].flat())
         .filter((b) => b !== entry.flaw)
         .slice(0, entry.boosts.length);
 }
@@ -32,16 +32,16 @@ async function importDocuments(actor: ActorPF2e, items: ItemPF2e[], skipDialog: 
     const createData = newDocuments.map((d) => d.toObject());
 
     const incomingDataByUUID = R.mapToObj(items, (d) => [d.uuid, d.toObject(true)]);
-    const updateData = R.compact(
-        actor.itemTypes.campaignFeature.map((d) => {
+    const updateData = actor.itemTypes.campaignFeature
+        .map((d) => {
             const incoming = d.sourceId && incomingDataByUUID[d.sourceId];
             if (!incoming) return null;
 
             const data = R.pick(incoming, ["name", "img", "system"]);
             const diff = fu.diffObject(d.toObject(true), data);
             return R.isEmpty(diff) ? null : { _id: d.id, ...diff };
-        }),
-    );
+        })
+        .filter(R.isTruthy);
 
     // Exit out early if there's nothing to add or update
     if (!updateData.length && !createData.length) {

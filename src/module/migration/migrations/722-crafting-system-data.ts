@@ -9,13 +9,13 @@ export class Migration722CraftingSystemData extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type !== "character") return;
 
-        if (!R.isObject(source.system.crafting)) {
+        if (!R.isPlainObject(source.system.crafting)) {
             const filledCrafting = { entries: {}, formulas: [] };
             source.system.crafting = filledCrafting;
         }
 
         const crafting: Record<string, unknown> = source.system.crafting ?? {};
-        if (!R.isObject(crafting.entries) || Array.isArray(crafting.entries)) {
+        if (!R.isPlainObject(crafting.entries) || Array.isArray(crafting.entries)) {
             crafting.entries = {};
         }
 

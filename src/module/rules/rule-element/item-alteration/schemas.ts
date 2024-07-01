@@ -182,7 +182,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         },
         {
             validate: (data) => {
-                const hasBasicStructure = R.isObject(data) && "mode" in data && "value" in data;
+                const hasBasicStructure = R.isPlainObject(data) && "mode" in data && "value" in data;
                 if (!hasBasicStructure) return false;
 
                 const validFaces: readonly number[] = DAMAGE_DICE_FACES;

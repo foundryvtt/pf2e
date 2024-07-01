@@ -1,11 +1,11 @@
-import { BackgroundSource, ClassSource, ItemSourcePF2e } from "@item/base/data/index.ts";
-import { MigrationBase } from "../base.ts";
-import { ClassSystemSource } from "@item/class/data.ts";
 import { SkillSlug } from "@actor/types.ts";
 import { BackgroundSystemSource } from "@item/background/data.ts";
+import { BackgroundSource, ClassSource, ItemSourcePF2e } from "@item/base/data/index.ts";
+import { ClassSystemSource } from "@item/class/data.ts";
 import { BattleFormSource } from "@module/rules/rule-element/battle-form/types.ts";
 import { objectHasKey } from "@util";
 import * as R from "remeda";
+import { MigrationBase } from "../base.ts";
 
 export class Migration927ClassBackgroundBattleFormSkillLongform extends MigrationBase {
     static override version = 0.927;
