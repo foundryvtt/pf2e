@@ -27,12 +27,21 @@
         "rules": [
             {
                 "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:reach"
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "weapon-traits",
                 "value": "reach"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "value": 5
             }
         ],
         "traits": {
