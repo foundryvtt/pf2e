@@ -1,0 +1,68 @@
+{
+    "_id": "v8DDA7RFIt7ayv3z",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Nemesis) Explosive Blast",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> twice per day</p><hr /><p><strong>Effect</strong> Nemesis causes a @Template[type:burst|distance:20] of explosive energy at a range of up to 200 feet. Choose from acid, cold, electricity, fire, or sonic. Explosive Blast gains that trait, and creatures caught in the area take @Damage[14d6[@item.flags.pf2e.rulesSelections.damage]] damage of that energy type (@Check[type:reflex|dc:33|basic:true] save).</p>"
+        },
+        "frequency": {
+            "max": 2,
+            "per": "day"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "damage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.damage}"
+            }
+        ],
+        "traits": {
+            "value": [
+                "occult"
+            ]
+        }
+    },
+    "type": "action"
+}
