@@ -21,7 +21,7 @@
             "die": "d4"
         },
         "description": {
-            "value": "<p>Your hands fit through the venomous mouths of this pair of handwraps made from amphisbaena skin. Your unarmed strikes gain the versatile P trait. Amphisbaena handwraps can have weapon runes etched onto them, similar to handwraps of mighty blows.</p>\n<p><strong>Activate—Twin Venom Strike</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<hr />\n<p><strong>Effect</strong> Make two unarmed Strikes. Both Strikes count toward your multiple attack penalty, but the penalty doesn't increase until after both attacks. Each Strike deals an additional @Damage[1d6[poison]] damage.</p>\n<hr />\n<p><strong>Craft Requirements</strong> The initial raw materials must include the skin and heads of an amphisbaena.</p>"
+            "value": "<p>Your hands fit through the venomous mouths of this pair of handwraps made from amphisbaena skin. Your unarmed strikes gain the versatile P trait. <em>Amphisbaena handwraps</em> can have weapon runes etched onto them, similar to @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows].</p><hr /><p><strong>Activate—Twin Venom Strike</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> Make two unarmed Strikes. Both Strikes count toward your multiple attack penalty, but the penalty doesn't increase until after both attacks. Each Strike deals an additional 1d6 poison damage.</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the skin and heads of an amphisbaena.</p>"
         },
         "group": "brawling",
         "hardness": 0,
@@ -51,7 +51,35 @@
         "reload": {
             "value": null
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:category:unarmed"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-p"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.AmphisbaenaHandwraps.TwinVenomStrikeLabel",
+                "option": "twin-venom-strike",
+                "toggleable": true
+            },
+            {
+                "damageType": "poison",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "item:category:unarmed",
+                    "twin-venom-strike"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
         "runes": {
             "potency": 0,
             "property": [],
@@ -65,8 +93,7 @@
             "rarity": "uncommon",
             "value": [
                 "invested",
-                "magical",
-                "unarmed"
+                "magical"
             ]
         },
         "usage": {

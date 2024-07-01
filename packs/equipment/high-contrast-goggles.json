@@ -1,6 +1,6 @@
 {
     "_id": "P8mILknZPnolGHQq",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/equipment/head/goggles-leather-grey.webp",
     "name": "High-contrast Goggles",
     "system": {
         "baseItem": null,
@@ -34,14 +34,31 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "high-contrast-goggles",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "high-contrast-goggles"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
             "value": []
         },
         "usage": {
-            "value": "worneyeglasses"
+            "value": "worneyepiece"
         }
     },
     "type": "equipment"
