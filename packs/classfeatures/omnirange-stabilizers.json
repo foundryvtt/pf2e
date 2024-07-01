@@ -27,12 +27,26 @@
         "rules": [
             {
                 "definition": [
-                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:volley"
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "range-increment",
-                "value": 50
+                "value": 50,
+                "priority": 110
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "volley-30",
+                "priority": 115
             }
         ],
         "traits": {
