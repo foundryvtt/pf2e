@@ -358,9 +358,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             }
 
             // Refresh subitems
-            const updatedSubitems = R.compact(
-                await Promise.all(this.subitems.map((i) => i.refreshFromCompendium({ ...options, update: false }))),
-            );
+            const updatedSubitems = (
+                await Promise.all(this.subitems.map((i) => i.refreshFromCompendium({ ...options, update: false })))
+            ).filter(R.isTruthy);
             if (updatedSubitems.length < this.subitems.size) {
                 ui.notifications.error(localize("SubitemFailure", { item: this.name, uuid: this.uuid }));
                 return null;
@@ -416,9 +416,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             actor: this.actor?.uuid,
             uuid: this.uuid,
             type: this.type as ItemType,
-            rollOptions: R.compact(
-                [this.actor?.getSelfRollOptions("origin"), this.getRollOptions("origin:item")].flat(),
-            ),
+            rollOptions: [this.actor?.getSelfRollOptions("origin"), this.getRollOptions("origin:item")]
+                .flat()
+                .filter(R.isTruthy),
         };
     }
 

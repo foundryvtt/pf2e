@@ -1,6 +1,7 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
 import { WeaponPF2e } from "@item";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
+import { BaseShieldType } from "@item/shield/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import type {
     BaseWeaponType,
@@ -53,6 +54,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     static override defineSchema(): StrikeSchema {
         const fields = foundry.data.fields;
+        const baseTypeChoices: Record<NonShieldWeaponType, string> = CONFIG.PF2E.baseWeaponTypes;
 
         return {
             ...super.defineSchema(),
@@ -73,7 +75,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 required: true,
                 nullable: true,
                 blank: false,
-                choices: CONFIG.PF2E.baseWeaponTypes,
+                choices: baseTypeChoices,
                 initial: null,
             }),
             traits: new fields.ArrayField(
@@ -329,13 +331,14 @@ interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFro
     get actor(): CharacterPF2e | NPCPF2e;
 }
 
+type NonShieldWeaponType = Exclude<BaseWeaponType, BaseShieldType>;
 type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
     category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
     group: StringField<WeaponGroup, WeaponGroup, true, true, true>;
     /** A weapon base type */
-    baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
+    baseType: StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
     traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     traitToggles: SchemaField<

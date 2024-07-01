@@ -167,9 +167,9 @@ export abstract class BaseGrid {
 
     /**
      * Snaps the given point to the grid.
-     * @param   point       The point that is to be snapped
-     * @param   behavior    The snapping behavior
-     * @returns             The snapped point
+     * @param   point    The point that is to be snapped
+     * @param   behavior The snapping behavior
+     * @returns The snapped point
      */
     abstract getSnappedPoint(point: Point, behavior: GridSnappingBehavior): Point;
 

@@ -2,13 +2,13 @@ import type { ActorPF2e, CharacterPF2e } from "@actor";
 import { ClassDCData } from "@actor/character/data.ts";
 import { FeatSlotCreationData } from "@actor/character/feats.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_SLUGS } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ABCItemPF2e, FeatPF2e } from "@item";
 import { ArmorCategory } from "@item/armor/index.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import { ClassAttackProficiencies, ClassDefenseProficiencies, ClassSource, ClassSystemData } from "./data.ts";
 import { ClassTrait } from "./types.ts";
@@ -38,10 +38,10 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         const system = this.system;
 
         return {
-            ancestry: R.uniq(system.ancestryFeatLevels.value).sort((a, b) => a - b),
-            class: R.uniq(system.classFeatLevels.value).sort((a, b) => a - b),
-            skill: R.uniq(system.skillFeatLevels.value).sort((a, b) => a - b),
-            general: R.uniq(system.generalFeatLevels.value).sort((a, b) => a - b),
+            ancestry: R.unique(system.ancestryFeatLevels.value).sort((a, b) => a - b),
+            class: R.unique(system.classFeatLevels.value).sort((a, b) => a - b),
+            skill: R.unique(system.skillFeatLevels.value).sort((a, b) => a - b),
+            general: R.unique(system.generalFeatLevels.value).sort((a, b) => a - b),
         };
     }
 
@@ -134,7 +134,7 @@ class ClassPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ABC
         }
 
         for (const trainedSkill of this.system.trainedSkills.value) {
-            if (SKILL_SLUGS.has(trainedSkill)) {
+            if (objectHasKey(skills, trainedSkill)) {
                 skills[trainedSkill].rank = Math.max(skills[trainedSkill].rank, 1) as ZeroToFour;
             }
         }

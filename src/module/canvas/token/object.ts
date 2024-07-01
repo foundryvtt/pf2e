@@ -2,7 +2,7 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { measureDistanceCuboid, type CanvasPF2e } from "../index.ts";
+import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -412,11 +412,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /**
-     * Measure the distance between this token and another object, in grid distance. We measure between the
+     * Measure the distance between this token and another object or point, in grid distance. We measure between the
      * centre of squares, and if either covers more than one square, we want the minimum distance between
      * any two of the squares.
      */
-    distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
+    distanceTo(target: TokenOrPoint, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.ready) return NaN;
 
         if (this === target) return 0;
@@ -430,16 +430,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         const selfElevation = this.document.elevation;
-        const targetElevation = target.document.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) {
-            return measureDistanceCuboid(this.bounds, target.bounds, { reach });
+        const targetElevation = target.document?.elevation ?? selfElevation;
+        const targetBounds = target.bounds ?? squareAtPoint(target);
+        if (selfElevation === targetElevation || !this.actor || !target.bounds || !target.actor) {
+            return measureDistanceCuboid(this.bounds, targetBounds, { reach });
         }
 
-        return measureDistanceCuboid(this.bounds, target.bounds, {
-            reach,
-            token: this,
-            target,
-        });
+        return measureDistanceCuboid(this.bounds, targetBounds, { reach, token: this, target });
     }
 
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
@@ -564,6 +561,14 @@ type ShowFloatyEffectParams =
 interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
     spin?: boolean;
 }
+
+type TokenOrPoint =
+    | TokenPF2e
+    | (Point & {
+          actor?: never;
+          document?: never;
+          bounds?: never;
+      });
 
 export { TokenPF2e };
 export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

@@ -648,7 +648,7 @@ declare global {
 
         protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void;
 
-        protected override _onClickLeft(event: PIXI.FederatedPointerEvent): void;
+        protected override _onClickLeft(event: TokenPointerEvent<this>): void;
 
         protected override _propagateLeftClick(event: PIXI.FederatedPointerEvent): boolean;
 
@@ -656,7 +656,7 @@ declare global {
 
         protected override _onClickRight2(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): void;
+        protected override _onDragLeftStart(event: TokenPointerEvent<this>): void;
 
         protected override _prepareDragLeftDropUpdates(event: PIXI.FederatedEvent): Record<string, unknown>[] | null;
 

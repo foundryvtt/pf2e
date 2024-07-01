@@ -13,7 +13,7 @@ export class Migration872MoveSchemaProperty extends MigrationBase {
         const migrations = (system._migration ??= { version: null, previous: null });
         if ("schema" in system) {
             system["-=schema"] = null;
-            if (R.isObject(system.schema) && typeof system.schema.version === "number") {
+            if (R.isPlainObject(system.schema) && typeof system.schema.version === "number") {
                 migrations.version = system.schema.version;
             }
         }

@@ -87,7 +87,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         const hoverIcon = this.active === "building" ? "wrench" : !this.active ? "plus" : null;
         const icon = createHTMLElement("a", {
             classes: ["create-button"],
-            children: R.compact([fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null]),
+            children: [fontAwesomeIcon("crown"), hoverIcon ? fontAwesomeIcon(hoverIcon) : null].filter(R.isTruthy),
             dataset: {
                 tooltip: game.i18n.localize(
                     `PF2E.Kingmaker.SIDEBAR.${this.active === true ? "OpenSheet" : "CreateKingdom"}`,
@@ -347,7 +347,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             );
         }
 
-        const settlements = R.compact(Object.values(this.settlements));
+        const settlements = Object.values(this.settlements).filter(R.isTruthy);
 
         // Initialize settlement data
         for (const settlement of settlements) {
@@ -377,7 +377,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
         resources.dice.number = Math.max(0, this.level + 4 + resources.dice.bonus - resources.dice.penalty);
 
         // Settlement consumption data
-        const settlements = R.compact(Object.values(this.settlements));
+        const settlements = Object.values(this.settlements).filter(R.isTruthy);
         consumption.settlement = R.sumBy(settlements, (s) => s.consumption.total);
 
         // Compute consumption using a statistic, though we just extract the modifier
@@ -386,7 +386,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
             slug: "consumption",
             label: "PF2E.Kingmaker.Consumption.Label",
             domains: ["consumption"],
-            modifiers: R.compact([
+            modifiers: [
                 consumption.settlement &&
                     new ModifierPF2e({
                         slug: "settlements",
@@ -405,7 +405,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
                         label: "PF2E.Kingmaker.WorkSites.food.Name",
                         modifier: -this.resources.workSites.food.value,
                     }),
-            ]),
+            ].filter(R.isTruthy),
         });
         consumption.value = Math.max(0, consumptionStatistic.mod);
         consumption.breakdown = consumptionStatistic.check.breakdown;
@@ -493,7 +493,7 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
 
     getRollOptions(): string[] {
         const prefix = "kingdom";
-        return R.compact([this.unrest.value ? `${prefix}:unrest:${this.unrest.value}` : null]);
+        return [this.unrest.value ? `${prefix}:unrest:${this.unrest.value}` : null].filter(R.isTruthy);
     }
 
     getRollData(): Record<string, unknown> {

@@ -218,7 +218,7 @@ class AttributeBuilder extends Application {
             if (level < 5 || build.manual || isApex) {
                 return false;
             }
-            const boosts = R.compact([
+            const boosts = [
                 build.boosts.ancestry.find((a) => a === attribute),
                 build.boosts.background.find((a) => a === attribute),
                 build.boosts.class === attribute ? attribute : null,
@@ -227,7 +227,7 @@ class AttributeBuilder extends Application {
                 level >= 15 ? build.boosts[15].find((a) => a === attribute) : null,
                 level >= 10 ? build.boosts[10].find((a) => a === attribute) : null,
                 level >= 5 ? build.boosts[5].find((a) => a === attribute) : null,
-            ]).length;
+            ].filter(R.isTruthy).length;
             const flaws = Number(build.flaws.ancestry.some((a) => a === attribute));
             const netBoosts = boosts - flaws;
 
@@ -341,7 +341,7 @@ class AttributeBuilder extends Application {
             const voluntary = ancestry.system.voluntary;
             if (voluntary?.boost !== undefined) {
                 // Convert from legacy. Flaws must each be unique
-                const flaws = R.uniq(voluntary.flaws);
+                const flaws = R.unique(voluntary.flaws);
                 ancestry.update({ system: { voluntary: { "-=boost": null, flaws } } });
             } else {
                 // Convert to legacy. We can only have up to 2 total flaws in legacy

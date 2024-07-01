@@ -5,7 +5,7 @@ import * as R from "remeda";
 
 function takeABreather(): void {
     let applyChanges = false;
-    const actors = R.uniq(R.compact(game.user.getActiveTokens().map((t) => t.actor)));
+    const actors = R.unique(game.user.getActiveTokens().map((t) => t.actor)).filter(R.isTruthy);
     const pcs = actors.filter((a): a is CharacterPF2e => a.isOfType("character"));
     if (!game.pf2e.settings.variants.stamina) {
         return;

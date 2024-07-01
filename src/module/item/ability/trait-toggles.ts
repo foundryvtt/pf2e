@@ -41,8 +41,8 @@ class AbilityTraitToggles {
     }
 
     getSheetData(): TraitToggleViewData[] {
-        return R.compact(
-            (["mindshift"] as const).map((t) => {
+        return (["mindshift"] as const)
+            .map((t) => {
                 const data = this[t];
                 return data
                     ? {
@@ -53,8 +53,8 @@ class AbilityTraitToggles {
                           tooltip: CONFIG.PF2E.actionTraits[t],
                       }
                     : null;
-            }),
-        );
+            })
+            .filter(R.isTruthy);
     }
 
     async update({ trait, selected }: { trait: "mindshift"; selected: boolean }): Promise<boolean> {

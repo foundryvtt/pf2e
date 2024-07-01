@@ -248,7 +248,7 @@ interface NPCSkillData extends NPCSkillSource, AttributeBasedTraceData {
     /** Is this skill a Lore skill? */
     lore?: boolean;
     /** If this is a lore skill, what item it came from */
-    itemID?: string;
+    itemId?: string;
     special: NPCSpecialSkill[];
 }
 

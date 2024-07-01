@@ -12,7 +12,7 @@ export class Migration893NoHBPrefixSettings extends MigrationBase {
             if (tags.length === 0) continue;
 
             const updatedTags = tags.flatMap((tag: { id: string }) => {
-                if (R.isObject(tag) && typeof tag.id === "string") {
+                if (R.isPlainObject(tag) && typeof tag.id === "string") {
                     tag.id = tag.id.replace(/^hb_/, "");
                     return tag;
                 } else {

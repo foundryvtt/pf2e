@@ -9,6 +9,7 @@ declare global {
         >,
         TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
         TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
+        TRuler extends Ruler = Ruler,
     > {
         /** A flag to indicate whether a new Scene is currently being drawn. */
         loading: boolean;
@@ -146,7 +147,7 @@ declare global {
         forceSnapVertices: boolean;
 
         // Layers
-        controls: ControlsLayer;
+        controls: ControlsLayer<TRuler>;
         drawings: DrawingsLayer;
         lighting: TAmbientLight["layer"];
         notes: NotesLayer;

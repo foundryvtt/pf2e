@@ -38,7 +38,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
     /** Get tokens controlled by this user or, failing that, a token of the assigned character. */
     getActiveTokens(): TokenDocumentPF2e[] {
         if (!canvas.ready || canvas.tokens.controlled.length === 0) {
-            return R.compact([game.user.character?.getActiveTokens(true, true).shift()]);
+            return [game.user.character?.getActiveTokens(true, true).shift()].filter(R.isTruthy);
         }
         return canvas.tokens.controlled.filter((t) => t.isOwner).map((t) => t.document);
     }
