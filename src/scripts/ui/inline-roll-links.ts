@@ -349,8 +349,16 @@ export class InlineRollLinks {
         }
 
         const actor = resolveActor(foundryDoc ?? resolveDocument(link));
-        if (actor || pf2Traits) {
+        const item = resolveItem(foundryDoc ?? resolveDocument(link));
+        if (actor || pf2Traits || item) {
             const origin: Record<string, unknown> = {};
+            if (item) {
+                for (const [key, value] of Object.entries(item.getOriginData())) {
+                    origin[key] = value;
+                }
+                origin.name = item.name;
+                origin.slug = item.slug;
+            }
             if (actor) {
                 origin.actor = actor.uuid;
             }
@@ -445,5 +453,12 @@ function resolveDocument(html: HTMLElement): ClientDocument | null {
 function resolveActor(foundryDoc: ClientDocument | null): ActorPF2e | null {
     if (foundryDoc instanceof ActorPF2e) return foundryDoc;
     if (foundryDoc instanceof ItemPF2e || foundryDoc instanceof ChatMessagePF2e) return foundryDoc.actor;
+    return null;
+}
+
+/** Retrieve a token via a passed document. Handles item owners and chat message actors. */
+function resolveItem(foundryDoc: ClientDocument | null): ItemPF2e | null {
+    if (foundryDoc instanceof ItemPF2e) return foundryDoc;
+    if (foundryDoc instanceof ChatMessagePF2e) return foundryDoc.item;
     return null;
 }
