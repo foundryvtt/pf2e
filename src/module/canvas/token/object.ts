@@ -472,8 +472,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _propagateLeftClick(event: FederatedPointerEvent): boolean {
-        const canMeasure = super._propagateLeftClick(event);
-        this.dragMeasureTarget ||= canMeasure;
+        const upstreamSez = super._propagateLeftClick(event);
+        if (!game.pf2e.settings.dragMeasurement) return upstreamSez;
+
+        this.dragMeasureTarget ||= upstreamSez || this._canControl(game.user);
         return this.dragMeasureTarget;
     }
 
@@ -518,6 +520,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
+        if (this.hover) this.dragMeasureTarget = true;
+
         return super._onControl(options);
     }
 
