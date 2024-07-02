@@ -1,7 +1,7 @@
 import type { PolygonVertex } from "../../../client-esm/canvas/edges/module.d.ts";
 import type { PointLightSource, PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
 import type { VisionSourceData } from "../../../client-esm/canvas/sources/point-vision-source.d.ts";
-import { PrimarySpriteMesh } from "./primary-canvas-objects/primary-sprite-mesh.ts";
+import type { PrimarySpriteMesh } from "./primary-canvas-objects/primary-sprite-mesh.d.ts";
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */

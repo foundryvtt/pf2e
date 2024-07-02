@@ -21,6 +21,7 @@ import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema } from "../data.ts";
 import {
     AllowedDropsData,
+    ChoiceSetConfig,
     ChoiceSetObject,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
@@ -238,22 +239,28 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
      * @returns The array of choices to present to the user
      */
     async inflateChoices(rollOptions: Set<string>, tempItems: ItemPF2e<ActorPF2e>[]): Promise<PickableThing[]> {
-        const choices: PickableThing<string | number | object>[] = Array.isArray(this.choices)
-            ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
-            : R.isObjectType(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
-              ? this.choices.ownedItems
-                  ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
-                  : this.choices.attacks || this.choices.unarmedAttacks
-                    ? this.#choicesFromAttacks(
-                          new Predicate(this.resolveInjectedProperties(this.choices.predicate)),
-                          rollOptions,
-                      )
-                    : "filter" in this.choices && Array.isArray(this.choices.filter)
-                      ? await this.queryCompendium(this.choices, rollOptions, tempItems)
-                      : []
-              : typeof this.choices === "string"
-                ? this.#choicesFromPath(this.choices, rollOptions)
+        const choices = await (async () => {
+            if (Array.isArray(this.choices)) {
+                return this.#choicesFromArray(this.choices, rollOptions);
+            }
+
+            if (typeof this.choices === "string" || (R.isObjectType(this.choices) && this.choices.config)) {
+                return this.#choicesFromPath(this.choices, rollOptions);
+            }
+
+            return R.isObjectType(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
+                ? this.choices.ownedItems
+                    ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
+                    : this.choices.attacks || this.choices.unarmedAttacks
+                      ? this.#choicesFromAttacks(
+                            new Predicate(this.resolveInjectedProperties(this.choices.predicate)),
+                            rollOptions,
+                        )
+                      : "filter" in this.choices && Array.isArray(this.choices.filter)
+                        ? await this.queryCompendium(this.choices, rollOptions, tempItems)
+                        : []
                 : [];
+        })();
 
         interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
@@ -302,20 +309,39 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         );
     }
 
-    #choicesFromPath(path: string, actorRollOptions: Set<string>): PickableThing<string>[] {
-        const choiceObject: unknown = fu.getProperty(CONFIG.PF2E, path) ?? fu.getProperty(this.actor, path) ?? {};
-        if (
-            Array.isArray(choiceObject) &&
-            choiceObject.every((c) => R.isObjectType<{ value: string }>(c) && typeof c.value === "string")
-        ) {
-            return choiceObject.filter((c) =>
-                this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
+    #choicesFromPath(choices: string | ChoiceSetConfig, actorRollOptions: Set<string>): PickableThing<string>[] {
+        const data =
+            typeof choices === "string"
+                ? fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {}
+                : fu.getProperty(CONFIG.PF2E, choices.config) ?? {};
+        const predicate = typeof choices === "string" ? null : choices.predicate;
+
+        // If this is an array, optionally run predicates on all the entries
+        if (Array.isArray(data)) {
+            if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
+                return [];
+            }
+            return data.filter((choice) =>
+                this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
+                    injectables: { choice },
+                }).test(actorRollOptions),
             );
-        } else if (R.isObjectType(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
-            return Object.entries(choiceObject).map(([value, label]) => ({
-                value,
-                label: String(label),
-            }));
+        }
+
+        // If this is an object with all string values or all string labels, optionally run the top level filter predicate
+        if (R.isObjectType(data)) {
+            const entries = Object.entries(data);
+            if (!entries.every(([_, c]) => typeof (R.isPlainObject(c) ? c.label : c) === "string")) {
+                return [];
+            }
+
+            return entries
+                .filter(([key, choice]) => {
+                    return this.resolveInjectedProperties(new Predicate(predicate ?? []), {
+                        injectables: { choice: { ...choice, value: key } },
+                    }).test(actorRollOptions);
+                })
+                .map(([value, data]) => ({ value, label: typeof data === "string" ? data : data.label }));
         }
 
         return [];

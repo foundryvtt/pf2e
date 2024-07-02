@@ -7,7 +7,9 @@ declare global {
      * @see {@link Scene}                     The Scene document type which contains MeasuredTemplate documents
      * @see {@link MeasuredTemplateConfig}    The MeasuredTemplate configuration application
      */
-    class MeasuredTemplateDocument<TParent extends Scene | null> extends CanvasBaseMeasuredTemplate<TParent> {
+    class MeasuredTemplateDocument<
+        TParent extends Scene | null = Scene | null,
+    > extends CanvasBaseMeasuredTemplate<TParent> {
         /* -------------------------------------------- */
         /*  Model Properties                            */
         /* -------------------------------------------- */
@@ -19,7 +21,8 @@ declare global {
         get rotation(): number;
     }
 
-    interface MeasuredTemplateDocument<TParent extends Scene | null> extends CanvasBaseMeasuredTemplate<TParent> {
+    interface MeasuredTemplateDocument<TParent extends Scene | null = Scene | null>
+        extends CanvasBaseMeasuredTemplate<TParent> {
         _sheet: MeasuredTemplateConfig<this> | null;
         _object: MeasuredTemplate<this> | null;
     }
