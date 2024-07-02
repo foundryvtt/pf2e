@@ -103,10 +103,6 @@ class ChatMessagePF2e extends ChatMessage {
             return item ?? null;
         }
 
-        if ("appliedDamage" in this.flags.pf2e) {
-            // TODO: Handle damage received items 
-        }
-
         // If this is a strike, return the strike's weapon or unarmed attack
         const strike = this._strike;
         if (strike?.item) return strike.item;
