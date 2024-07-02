@@ -29,15 +29,13 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "hamstringing-strike",
-                "predicate": [
-                    "hunted-prey"
-                ],
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "hamstringing-strike"
+                    "hamstringing-strike",
+                    "target:prey:{actor|signature}"
                 ],
                 "selector": "strike-attack-roll",
                 "value": -2
@@ -49,7 +47,8 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "hamstringing-strike"
+                    "hamstringing-strike",
+                    "target:prey:{actor|signature}"
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.Ranger.HamstringingStrike.Note",
