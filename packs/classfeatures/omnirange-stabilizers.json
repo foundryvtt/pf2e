@@ -1,6 +1,6 @@
 {
     "_id": "GoMoEtTu9uP7nxkg",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/features/classes/blunt-shot.webp",
     "name": "Omnirange Stabilizers",
     "system": {
         "actionType": {
@@ -24,7 +24,31 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:volley"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "range-increment",
+                "value": 50,
+                "priority": 110
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "volley-30",
+                "priority": 115
+            }
+        ],
         "traits": {
             "otherTags": [
                 "ranged",

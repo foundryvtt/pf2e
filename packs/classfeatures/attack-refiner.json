@@ -1,6 +1,6 @@
 {
     "_id": "ZcoOMwEY8FX7UzMo",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "systems/pf2e/icons/features/classes/implements-empowerment.webp",
     "name": "Attack Refiner",
     "system": {
         "actionType": {
@@ -24,7 +24,26 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "backswing"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "shove"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "weapon-innovation-modification"
