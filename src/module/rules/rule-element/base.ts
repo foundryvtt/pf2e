@@ -223,8 +223,9 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
     ): T;
     resolveInjectedProperties(
         source: string | number | object | null | undefined,
-        { injectables = {}, warn = true }: { injectables?: Record<string, unknown>; warn?: boolean } = {},
+        options: { injectables?: Record<string, unknown>; warn?: boolean } = {},
     ): string | number | object | null | undefined {
+        const { injectables = {}, warn = true } = options;
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
         }
@@ -232,12 +233,12 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {
             for (let i = 0; i < source.length; i++) {
-                source[i] = this.resolveInjectedProperties(source[i], { warn });
+                source[i] = this.resolveInjectedProperties(source[i], options);
             }
         } else if (R.isPlainObject(source)) {
             for (const [key, value] of Object.entries(source)) {
                 if (typeof value === "string" || R.isPlainObject(value)) {
-                    source[key] = this.resolveInjectedProperties(value, { warn });
+                    source[key] = this.resolveInjectedProperties(value, options);
                 }
             }
 
