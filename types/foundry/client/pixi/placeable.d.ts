@@ -92,6 +92,8 @@ declare global {
         /** An indicator for whether the object is currently a hover target */
         get hover(): boolean;
 
+        set hover(state: Maybe<boolean>);
+
         /** Is the HUD display active for this Placeable? */
         get hasActiveHUD(): boolean;
 
