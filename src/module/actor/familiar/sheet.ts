@@ -38,7 +38,6 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
         );
 
         // list of abilities that can be selected as spellcasting ability
-
         const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
         const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
 
@@ -69,6 +68,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
                         _id: item.id,
                         name: item.name,
                         glyph: getActionGlyph(item.actionCost) || null,
+                        frequency: item.system.frequency || null,
                         traits,
                         has: {
                             aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),

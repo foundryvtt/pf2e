@@ -6,6 +6,7 @@ import type { PhysicalItemPF2e } from "@item";
 import type { Coins } from "@item/physical/data.ts";
 import type { RollOptionToggle } from "@module/rules/synthetics.ts";
 import type { SheetOptions } from "@module/sheet/helpers.ts";
+import type { Frequency } from "@item/base/data/index.ts";
 
 interface InventoryItem<TItem extends PhysicalItemPF2e = PhysicalItemPF2e> {
     item: TItem;
@@ -68,6 +69,7 @@ interface AbilityViewData {
     name: string;
     traits: TraitViewData[];
     glyph: string | null;
+    frequency: Frequency | null;
     has: {
         aura: boolean;
         deathNote: boolean;
