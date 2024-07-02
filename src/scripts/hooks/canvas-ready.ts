@@ -12,10 +12,10 @@ export const CanvasReady = {
                 }
             }
 
-            // Work around PIXI event listener bug
+            // Work around `MouseInteractionManager` aborting its own event trigger when the ruler is active
             document.body.addEventListener("contextmenu", (event) => {
                 if (canvas.controls.ruler?.isMeasuring && event.buttons === 3) {
-                    canvas.controls.ruler.onRightClickWithLeftDown();
+                    canvas.controls.ruler.onDragLeftCancel(event);
                 }
             });
         });
@@ -51,6 +51,15 @@ export const CanvasReady = {
             for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
                 toggleClearTemplatesButton(message);
             }
+
+            // Clear drag-measurement targets
+            canvas.stage.addEventListener("pointerup", (event) => {
+                if (event.button === 0 && canvas.activeLayer?.name === "TokenLayer") {
+                    for (const token of canvas.tokens.controlled) {
+                        token.dragMeasureTarget = false;
+                    }
+                }
+            });
         });
     },
 };
