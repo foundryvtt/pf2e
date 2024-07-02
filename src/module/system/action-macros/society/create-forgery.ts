@@ -136,6 +136,7 @@ class CreateForgeryAction extends SingleCheckAction {
             difficultyClass: {
                 value: 20,
             },
+            img: "icons/skills/social/theft-pickpocket-bribery-brown.webp",
             modifiers: [
                 {
                     label: "PF2E.Actions.CreateForgery.UnspecificHandwriting",

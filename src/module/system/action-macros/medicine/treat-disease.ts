@@ -27,6 +27,7 @@ function treatDisease(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.TreatDisease.Description",
+    img: "systems/pf2e/icons/effects/treat-disease.webp",
     name: "PF2E.Actions.TreatDisease.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.TreatDisease.Notes.criticalSuccess" },

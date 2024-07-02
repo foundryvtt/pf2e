@@ -28,6 +28,7 @@ function pickALock(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 2,
     description: "PF2E.Actions.PickALock.Description",
+    img: "systems/pf2e/icons/features/classes/thief.webp",
     name: "PF2E.Actions.PickALock.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.PickALock.Notes.criticalSuccess" },

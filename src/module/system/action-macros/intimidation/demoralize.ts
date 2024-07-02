@@ -36,6 +36,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.Demoralize.Description",
     difficultyClass: "will",
+    img: "icons/skills/social/intimidation-impressing.webp",
     modifiers: [
         {
             label: "PF2E.Actions.Demoralize.Unintelligible",

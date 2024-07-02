@@ -31,6 +31,7 @@ function request(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
+    img: "icons/skills/social/diplomacy-peace-alliance.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },
