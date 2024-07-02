@@ -54,7 +54,8 @@ export const CanvasReady = {
 
             // Clear drag-measurement targets
             canvas.stage.addEventListener("pointerup", (event) => {
-                if (event.button === 0 && canvas.activeLayer?.name === "TokenLayer") {
+                const dragMeasurement = game.pf2e.settings.dragMeasurement;
+                if (dragMeasurement && event.button === 0 && canvas.activeLayer?.name === "TokenLayer") {
                     for (const token of canvas.tokens.controlled) {
                         token.dragMeasureTarget = false;
                     }
