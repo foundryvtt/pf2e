@@ -11,6 +11,13 @@ export const CanvasReady = {
                     game.pf2e.effectTracker.register(effect);
                 }
             }
+
+            // Work around PIXI event listener bug
+            document.body.addEventListener("contextmenu", (event) => {
+                if (canvas.controls.ruler?.isMeasuring && event.buttons === 3) {
+                    canvas.controls.ruler.onRightClickWithLeftDown();
+                }
+            });
         });
 
         Hooks.on("canvasReady", () => {
