@@ -297,6 +297,8 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         }
         value = this.resolveInjectedProperties(value, { warn });
 
+        if (Array.isArray(value)) return value;
+
         const resolvedFromBracket = this.isBracketedValue(value)
             ? this.#resolveBracketedValue(value, defaultValue)
             : value;
