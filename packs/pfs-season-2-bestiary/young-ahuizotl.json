@@ -154,7 +154,14 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "deception",
+                        "key": "RollOption",
+                        "option": "voice-imitation",
+                        "toggleable": true
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -227,104 +234,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "eh9xWB5PoFO8kJSe",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9ozasW08Wjcp4Tq0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "domain": "deception",
-                        "key": "RollOption",
-                        "option": "voice-imitation",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "action:lie",
-                            "voice-imitation"
-                        ],
-                        "selector": "deception",
-                        "type": "status",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 when using Voice Imitation",
-                        "options": "action:lie, voice-imitation"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zwdaQi3CeU5Ek28y",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Young Ahuizotl",
@@ -418,6 +327,27 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "deception": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "when using Voice Imitation",
+                        "predicate": [
+                            "action:lie",
+                            "voice-imitation"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 12
             }
         },
         "traits": {

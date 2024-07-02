@@ -5,7 +5,7 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -38,9 +38,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         return null;
     }
 
+    /** Returns attribute modifier value from the master, or 0 if no attribute */
     get masterAttributeModifier(): number {
-        this.system.master.ability ||= "cha";
-        return this.master?.system.abilities[this.system.master.ability].mod ?? 0;
+        const attribute = this.system.master.ability;
+        return attribute ? this.master?.system.abilities[attribute].mod ?? 0 : 0;
     }
 
     /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
@@ -169,7 +170,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
               })
             : null;
 
-        const statistic = new ArmorStatistic(this, { modifiers: R.compact([masterModifier]) });
+        const statistic = new ArmorStatistic(this, { modifiers: [masterModifier].filter(R.isTruthy) });
         this.armorClass = statistic.dc;
         system.attributes.ac = fu.mergeObject(statistic.getTraceData(), { attribute: statistic.attribute ?? "dex" });
 
@@ -222,16 +223,13 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = [...SKILL_SLUGS].reduce((builtSkills: Record<string, Statistic<this>>, skill) => {
+        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
                 modifiers.push(attributeModifier);
             }
 
-            const attribute = SKILL_EXPANDED[skill].attribute;
             const domains = [skill, `${attribute}-based`, "skill-check", "all"];
-
-            const label = CONFIG.PF2E.skillList[skill] ?? skill;
             const statistic = new Statistic(this, {
                 slug: skill,
                 label,
@@ -242,11 +240,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 check: { type: "skill-check" },
             });
 
-            builtSkills[skill] = statistic;
+            // Create trace data in system data
             this.system.skills[skill] = fu.mergeObject(statistic.getTraceData(), { attribute });
 
-            return builtSkills;
-        }, {});
+            return [skill, statistic];
+        });
     }
 
     /* -------------------------------------------- */
@@ -262,6 +260,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         const newId = changed.system?.master?.id ?? this.system.master.id;
         if (newId !== this.system.master.id) {
             operation.previousMaster = this.master?.uuid;
+        }
+
+        if (changed.system?.master) {
+            changed.system.master.ability ||= null;
         }
 
         return super._preUpdate(changed, operation, user);

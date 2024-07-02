@@ -200,102 +200,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "x4joWcox110MiNIF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "O5nW6X3ehwXdQ7sY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ForestsOrGrasslands",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:forest",
-                                    "terrain:grassland"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 in forests or grasslands",
-                        "options": "terrain:forest,terrain:grassland"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Ttvj9SwE5O6Glm2J",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Living Grove",
@@ -416,6 +320,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "nature": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in forests or grasslands",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:grassland"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 12
             }
         },
         "traits": {

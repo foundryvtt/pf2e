@@ -1,0 +1,75 @@
+{
+    "_id": "kL6L3eXJfnUaLpVx",
+    "img": "icons/commodities/metal/mail-plate-steel.webp",
+    "name": "Effect: Metallify",
+    "system": {
+        "description": {
+            "value": "<p>The ooze gains resistance 5 to physical damage (except adamantine), it has a -5-foot penalty to its Speed, and its pseudopod Strikes gain the versatile S or P weapon trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #158: Sixty Feet Under"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitVersatileS",
+                        "value": "versatile-s"
+                    },
+                    {
+                        "label": "PF2E.TraitVersatileP",
+                        "value": "versatile-p"
+                    }
+                ],
+                "flag": "versatileTrait",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.VersatileTrait"
+            },
+            {
+                "exceptions": [
+                    "adamantine"
+                ],
+                "key": "Resistance",
+                "type": "physical",
+                "value": 5
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "all-speeds",
+                "value": -5
+            },
+            {
+                "definition": [
+                    "item:slug:pseudopod"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "{item|flags.pf2e.rulesSelections.versatileTrait}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -8,7 +8,6 @@
     list-style-type: none;
     margin-bottom: var(--space-2);
     padding-left: 0;
-    width: calc(100% - 2px);
 
     .tag,
     .tag option {
@@ -285,7 +284,6 @@ tags.tagify.pf2e-tagify {
     border-radius: 3px;
     gap: var(--space-3);
     padding: var(--space-2);
-    width: calc(100% - 2px);
 
     &[disabled] {
         --tag-text-color: var(--color-disabled);
@@ -367,4 +365,12 @@ tags.tags.paizo-style {
 // Default from tagify module is hidden
 .tagify__tag__removeBtn {
     overflow: visible;
+}
+
+// Set core input width for tagify-tags element
+tagify-tags {
+    .tags,
+    .pf2e-tagify {
+        width: calc(100% - 2px);
+    }
 }

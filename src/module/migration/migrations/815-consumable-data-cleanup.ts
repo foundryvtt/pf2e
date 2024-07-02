@@ -49,7 +49,7 @@ export class Migration815ConsumableDataCleanup extends MigrationBase {
             if (!this.consumableKeys.has(key)) {
                 delete systemData[key];
                 systemData[`-=${key}`] = null;
-            } else if (R.isObject(value) && "_deprecated" in value) {
+            } else if (R.isPlainObject(value) && "_deprecated" in value) {
                 delete value["_deprecated"];
                 value[`-=_deprecated`] = null;
             }

@@ -17,7 +17,7 @@ export class Migration870MartialToProficiencies extends MigrationBase {
 
         const systemSource: MaybeWithOldMartialData = source.system;
         const oldData =
-            R.isObject(systemSource.martial) && !R.isEmpty(systemSource.martial) ? systemSource.martial : {};
+            R.isPlainObject(systemSource.martial) && !R.isEmpty(systemSource.martial) ? systemSource.martial : {};
 
         for (const [key, data] of Object.entries(oldData)) {
             if (!data.rank || (["simple", "unarmed", "unarmored"].includes(key) && data.rank === 1)) {

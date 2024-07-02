@@ -248,7 +248,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 } else if (objectHasKey(CONFIG.PF2E.languages, slug)) {
                     const options = this.#getLanguageOptions().granted.available;
                     if (options.some((o) => o.slug === slug)) {
-                        feat.update({ [`system.subfeatures.languages.granted`]: R.uniq([...currentGranted, slug]) });
+                        feat.update({ [`system.subfeatures.languages.granted`]: R.unique([...currentGranted, slug]) });
                     }
                 }
             } else if (anchor.dataset.action === "delete-language") {

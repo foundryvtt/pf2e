@@ -346,75 +346,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "iGSlBGv1Ww5NXSMn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "yLKSa3yNJDC5L85o",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Forests or Swamps",
-                        "predicate": [
-                            "terrain:forest",
-                            "terrain:swamp"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+26 in forests and swamps",
-                        "options": "terrain:forest,terrain:swamp"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Coiled Conifer",
@@ -508,7 +439,7 @@
             "publication": {
                 "license": "ORC",
                 "remaster": true,
-                "title": "Pathfinder #203: Shepard of Decay"
+                "title": "Pathfinder #203: Shepherd of Decay"
             }
         },
         "initiative": {
@@ -541,6 +472,24 @@
             "will": {
                 "saveDetail": "",
                 "value": 19
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27
+            },
+            "stealth": {
+                "base": 24,
+                "special": [
+                    {
+                        "base": 26,
+                        "label": "in forests and swamps",
+                        "predicate": [
+                            "terrain:forest",
+                            "terrain:swamp"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

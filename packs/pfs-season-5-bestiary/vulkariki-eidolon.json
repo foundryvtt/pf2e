@@ -59,88 +59,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "utwzH064UqOyc89a",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Balance",
-                        "predicate": [
-                            "action:balance"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 1
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TumbleThrough",
-                        "predicate": [
-                            "action:tumble-through"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+9 to Balance or Tumble Through",
-                        "options": "action:balance;action:tumble-through"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oXpLqtVzqJrmo30d",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "variants": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Vulkariki Eidolon",
@@ -237,6 +155,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 2
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to Balance or Tumble Through",
+                        "predicate": [
+                            "action:balance"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 5
             }
         },
         "traits": {

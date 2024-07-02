@@ -124,7 +124,7 @@ function processSanctification(item: AbilityItemPF2e | FeatPF2e | SpellPF2e): vo
     const isHoly = actorTraits.includes("holy");
     const isUnholy = actorTraits.includes("unholy");
     if ((isHoly || isUnholy) && !(isHoly && isUnholy)) {
-        itemTraits.value = R.uniq([...itemTraits.value, isHoly ? "holy" : "unholy"]).sort();
+        itemTraits.value = R.unique([...itemTraits.value, isHoly ? "holy" : "unholy"]).sort();
     }
 }
 

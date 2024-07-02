@@ -19,7 +19,7 @@ function createCounteractStatistic<TActor extends ActorPF2e>(ability: Spellcasti
         label: "PF2E.Item.Spell.Counteract.Label",
         attribute: ability.statistic.attribute,
         rank: ability.statistic.rank || 1,
-        check: { type: "check", modifiers: R.compact([baseModifier]) },
+        check: { type: "check", modifiers: [baseModifier].filter(R.isTruthy) },
     });
 }
 

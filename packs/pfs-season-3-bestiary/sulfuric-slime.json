@@ -124,54 +124,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Jw3i09wiHrXsCR60",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.WaterOrMud",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:underwater",
-                                    "terrain:water",
-                                    "terrain:aquatic",
-                                    "terrain:mud"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+5 in water or mud",
-                        "options": "terrain:water,terrain:mud"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Sulfuric Slime",
@@ -282,6 +234,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 2,
+                "special": [
+                    {
+                        "base": 5,
+                        "label": "in water or mud"
+                    }
+                ]
             }
         },
         "traits": {

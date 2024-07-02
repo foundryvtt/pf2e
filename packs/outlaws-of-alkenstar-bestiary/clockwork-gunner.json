@@ -409,52 +409,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "OziujoYziUyjbJuR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrapple",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:disarm",
-                                    "action:grapple"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+18 to Disarm, Grapple, or avoid being Disarmed",
-                        "options": "action:disarm,action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Clockwork Gunner",
@@ -561,6 +515,25 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 16,
+                "special": [
+                    {
+                        "base": 18,
+                        "label": "to Disarm, Grapple, or avoid being Disarmed",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -6,7 +6,7 @@
  * @todo Fill in
  */
 declare class PrimaryCanvasGroup extends CachedContainer {
-    tokens: Collection<TokenMesh>;
+    tokens: Collection<PrimarySpriteMesh>;
 
     /**
      * Render all tokens in their own render texture.

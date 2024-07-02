@@ -185,104 +185,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "0MG0h9aFc2pBo8d3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ImpersonateCloakSheetRay",
-                        "predicate": [
-                            "action:impersonate",
-                            {
-                                "or": [
-                                    "cloak",
-                                    "sheet",
-                                    "ray"
-                                ]
-                            }
-                        ],
-                        "selector": "deception",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 to Impersonate a cloak, sheet, or ray",
-                        "options": "action:impersonate, cloak, sheet, ray"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "eSxRz3iqa646mxTN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "F1u1DwZgZcAtnRMR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Cloaker",
@@ -376,6 +278,33 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "deception": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "to Impersonate a cloak, sheet, or ray",
+                        "predicate": [
+                            "action:impersonate",
+                            {
+                                "or": [
+                                    "cloak",
+                                    "sheet",
+                                    "ray"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 14
             }
         },
         "traits": {

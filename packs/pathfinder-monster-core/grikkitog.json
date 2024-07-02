@@ -268,100 +268,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "vbbrkFU0aanHBgbo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "VQu2kLUgSRrCTMRP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ImitateStone",
-                        "predicate": [
-                            "imitate-stone"
-                        ],
-                        "selector": "deception",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+31 to imitate stone",
-                        "options": "imitate-stone"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BYQJJlUoWR56obUd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Grikkitog",
@@ -469,6 +375,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28
+            },
+            "deception": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 31,
+                        "label": "to imitate stone",
+                        "predicate": [
+                            "imitate-stone"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 25
             }
         },
         "traits": {

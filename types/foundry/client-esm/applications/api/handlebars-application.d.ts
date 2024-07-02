@@ -1,4 +1,4 @@
-import DocumentSheetV2 from "./document-sheet.js";
+import type DocumentSheetV2 from "./document-sheet.d.ts";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
 declare function HandlebarsApplicationMixin<

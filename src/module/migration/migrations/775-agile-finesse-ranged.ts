@@ -16,7 +16,7 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            R.isObject(source.system.featType) &&
+            R.isPlainObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }
@@ -28,8 +28,8 @@ export class Migration775AgileFinesseRanged extends MigrationBase {
                     const damageDiceRE = this.#findDamageDiceRE(source);
                     // Skip NPCs with PFS's simplified sneak attack rule
                     if (
-                        R.isObject(damageDiceRE) &&
-                        R.isObject(damageDiceRE.predicate) &&
+                        R.isPlainObject(damageDiceRE) &&
+                        R.isPlainObject(damageDiceRE.predicate) &&
                         Array.isArray(damageDiceRE.predicate.all) &&
                         damageDiceRE.predicate.all.some((s) => s instanceof Object && "or" in s)
                     ) {

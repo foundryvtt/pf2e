@@ -126,7 +126,7 @@ class EffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ab
         const token = actor.getActiveTokens(false, true).shift();
         const label = badge.labels ? badge.labels?.at(roll.total - 1)?.trim() : null;
         roll.toMessage({
-            flavor: R.compact([reduceItemName(this.name), label ? `(${label})` : null]).join(" "),
+            flavor: [reduceItemName(this.name), label ? `(${label})` : null].filter(R.isTruthy).join(" "),
             speaker: ChatMessagePF2e.getSpeaker({ actor, token }),
         });
 

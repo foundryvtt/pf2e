@@ -39,17 +39,6 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
             "system.source",
         ];
 
-        const translatedSkills = Object.entries(CONFIG.PF2E.skillList).reduce(
-            (result: Record<string, string>, [key, value]) => {
-                return {
-                    ...result,
-                    [key]: game.i18n.localize(value).toLocaleLowerCase(game.i18n.lang),
-                };
-            },
-            {},
-        );
-        const skillList = Object.entries(translatedSkills);
-
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Item",
             this.browser.loadedPacks("feat"),
@@ -87,9 +76,10 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
                     );
                     const skills: Set<string> = new Set();
                     for (const prereq of prerequisitesArr) {
-                        for (const [key, value] of skillList) {
+                        for (const [key, value] of Object.entries(CONFIG.PF2E.skills)) {
                             // Check the string for the english translation key or a translated skill name
-                            if (prereq.includes(key) || prereq.includes(value)) {
+                            const translated = game.i18n.localize(value.label).toLocaleLowerCase(game.i18n.lang);
+                            if (prereq.includes(key) || prereq.includes(translated)) {
                                 // Alawys record the translation key to enable filtering
                                 skills.add(key);
                             }
@@ -124,7 +114,7 @@ export class CompendiumBrowserFeatTab extends CompendiumBrowserTab {
 
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(CONFIG.PF2E.featCategories);
-        this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skillList);
+        this.filterData.checkboxes.skills.options = this.generateCheckboxOptions(CONFIG.PF2E.skills);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
         this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
         this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.featTraits);

@@ -89,7 +89,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
             label: CONFIG.PF2E.magicTraditions[tradition],
             attribute: attribute,
             rank: trickRank,
-            modifiers: R.compact([levelProficiencyBonus, ...extractModifiers(actor.synthetics, domains)]),
+            modifiers: [levelProficiencyBonus, ...extractModifiers(actor.synthetics, domains)].filter(R.isTruthy),
             domains,
             check: {
                 type: "attack-roll",

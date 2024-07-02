@@ -441,97 +441,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "tu5Yen91s8VudaXe",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "VKapoNu6QDmIktVQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Feint",
-                        "predicate": [
-                            "action:feint"
-                        ],
-                        "selector": "deception",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+20 to Feint",
-                        "options": "action:feint"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "XLpPw47Zl9QMHWFu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Clockwork Buccaneer",
@@ -638,6 +547,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 18
+            },
+            "deception": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "to Feint",
+                        "predicate": [
+                            "action:feint"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 20
             }
         },
         "traits": {

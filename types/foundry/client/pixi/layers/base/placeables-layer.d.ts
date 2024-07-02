@@ -7,12 +7,13 @@ declare global {
      * @category - Canvas
      */
     abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
-        constructor();
+        /** Sort order for placeables belonging to this layer. */
+        static SORT_ORDER: number;
 
-        objects: PIXI.Container | null;
+        objects: PIXI.Container<TObject> | null;
 
         /** Preview Object Placement */
-        preview: PIXI.Container;
+        preview: PIXI.Container<TObject>;
 
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
@@ -391,7 +392,7 @@ interface PlaceableInteractionData<TObject extends PlaceableObject> {
     preview?: TObject | null;
     clones?: TObject[];
     dragHandle?: unknown;
-    object: PIXI.Container | PIXI.Mesh;
+    object: TObject;
     origin: Point;
     destination: Point;
 }

@@ -230,3 +230,4 @@ export { Migration928CharacterSkillsLongform } from "./928-character-skills-long
 export { Migration929RemoveSkillAbbreviations } from "./929-remove-skill-abbreviations.ts";
 export { Migration930ChoiceSetMedium } from "./930-choice-set-medium.ts";
 export { Migration931ExpandREPermissions } from "./931-expand-re-permissions.ts";
+export { Migration932NPCSystemSkills } from "./932-npc-system-skills.ts";

@@ -237,10 +237,10 @@ abstract class RollContext<
             const originMark = originUuid ? targetActor?.synthetics.tokenMarks.get(originUuid) : null;
             const targetMark = targetUuid ? originActor?.synthetics.tokenMarks.get(targetUuid) : null;
 
-            return R.compact([
+            return [
                 originMark ? `origin:mark:${originMark}` : null,
                 targetMark ? `target:mark:${targetMark}` : null,
-            ]);
+            ].filter(R.isTruthy);
         })();
 
         // Get ephemeral effects from the target that affect this actor while attacking

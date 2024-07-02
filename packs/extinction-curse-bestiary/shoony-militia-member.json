@@ -402,153 +402,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "jU8gscCDgYLL4jRa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TumbleThroughMediumOrLarger",
-                        "predicate": [
-                            "action:tumble-through",
-                            {
-                                "gte": [
-                                    "target:size",
-                                    2
-                                ]
-                            }
-                        ],
-                        "selector": "acrobatics",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 to Tumble Through spaces of Medium or larger creatures",
-                        "options": "action:tumble-through,target:size:2"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "7CF0Vd1d3onkYwyb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "4mrFkJSzXEvVJYhr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vcKcU4WxqYvPi3rx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cI6Dylmu4hHPLEEw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Shoony Militia Member",
@@ -642,6 +495,38 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to Tumble Through spaces of Medium or larger creatures",
+                        "predicate": [
+                            "action:tumble-through",
+                            {
+                                "gte": [
+                                    "target:size",
+                                    2
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 10
+            },
+            "crafting": {
+                "base": 4
+            },
+            "society": {
+                "base": 6
+            },
+            "survival": {
+                "base": 6
             }
         },
         "traits": {

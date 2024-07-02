@@ -224,6 +224,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         });
     }
 
+    override get uuid(): ItemUUID {
+        return this.parentItem ? `${this.parentItem.uuid}.${this.documentName}.${this.id}` : super.uuid;
+    }
+
     /** Whether other items can be attached (or affixed, applied, etc.) to this item */
     acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     acceptsSubitem(): boolean {
@@ -423,6 +427,33 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         }
     }
 
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: true },
+    ): foundry.abstract.Document;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: false },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined {
+        if (embeddedName === "Item") {
+            return this.subitems.get(id, options);
+        }
+
+        return super.getEmbeddedDocument(embeddedName, id, options);
+    }
+
     /** Can the provided item stack with this item? */
     isStackableWith(item: PhysicalItemPF2e): boolean {
         const preCheck =
@@ -441,7 +472,7 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         thisData._migration = otherData._migration;
         thisData.identification = otherData.identification;
 
-        return R.equals(thisData, otherData);
+        return R.isDeepEqual(thisData, otherData);
     }
 
     /** Combine this item with a target item if possible */

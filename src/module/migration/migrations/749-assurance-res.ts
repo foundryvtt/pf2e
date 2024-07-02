@@ -1,5 +1,5 @@
 import { SkillSlug } from "@actor/types.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
+import { CORE_SKILL_SLUGS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementSource } from "@module/rules/index.ts";
 import { ChoiceSetSource } from "@module/rules/rule-element/choice-set/data.ts";
@@ -49,7 +49,7 @@ export class Migration749AssuranceREs extends MigrationBase {
             rules.push(...this.#newRules("choice"));
         } else if (rules.length === 0) {
             const skill = /^assurance-([a-z]+)$/.exec(slug)?.at(1);
-            if (setHasElement(SKILL_SLUGS, skill)) {
+            if (setHasElement(CORE_SKILL_SLUGS, skill)) {
                 rules.push(...this.#newRules(skill));
             }
         }

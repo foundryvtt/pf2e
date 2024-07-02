@@ -1576,97 +1576,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "PwK5HKOlkcH0QWPM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "MJ2A0WcbMqwXH7fZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nQVh2gtZd534YNJW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Buried",
-                        "predicate": [
-                            "buried"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+21 while buried in a bog",
-                        "options": "buried"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Elder Child of Belcorra",
@@ -1800,6 +1709,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 20
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 19
+            },
+            "nature": {
+                "base": 19
+            },
+            "stealth": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 21,
+                        "label": "while buried in a bog",
+                        "predicate": [
+                            "buried"
+                        ]
+                    }
+                ]
             }
         },
         "spellcasting": {

@@ -168,7 +168,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
               )
             : [];
 
-        const suboptions = R.uniqBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
+        const suboptions = R.uniqueBy([...localSuboptions, ...foreignSuboptions], (s) => s.value)
             .filter((s) => !test || s.predicate.test(test))
             .map((suboption) => {
                 suboption.label = suboption.rule.resolveInjectedProperties(suboption.label);
@@ -177,12 +177,12 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         // Resolve family disagreement on selection
         if (suboptions.length > 0 && suboptions.filter((s) => s.selected).length > 1) {
-            const suboptionValues = R.uniq(suboptions.map((s) => s.value));
-            const rules = R.uniq(suboptions.map((s) => s.rule));
-            const consensusSelection = R.uniq(
-                R.compact(suboptions.map((s) => s.rule._source.selection ?? s.rule.selection)).filter((s) =>
-                    suboptionValues.includes(s),
-                ),
+            const suboptionValues = R.unique(suboptions.map((s) => s.value));
+            const rules = R.unique(suboptions.map((s) => s.rule));
+            const consensusSelection = R.unique(
+                suboptions
+                    .map((s) => s.rule._source.selection ?? s.rule.selection)
+                    .filter((s): s is string => !!s && suboptionValues.includes(s)),
             ).at(0);
             const selection = consensusSelection ?? suboptionValues[0];
             for (const rule of rules) {
@@ -335,7 +335,7 @@ class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
 
         if (this.mergeable && selection) {
             // Update the items containing rule elements in the merge family
-            const rulesByItem = R.groupBy(R.uniq(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
+            const rulesByItem = R.groupBy(R.unique(this.#resolveSuboptions().map((s) => s.rule)), (r) => r.item.id);
             for (const [itemId, rules] of Object.entries(rulesByItem)) {
                 const item = actor.items.get(itemId, { strict: true });
                 const ruleSources = item.toObject().system.rules;

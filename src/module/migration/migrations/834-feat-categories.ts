@@ -13,7 +13,7 @@ export class Migration834FeatCategories extends MigrationBase {
     #updateCategoryData(system: FeatSystemSource & { "-=featType"?: null }): void {
         const { traits } = system;
 
-        if ("featType" in system && R.isObject(system.featType)) {
+        if ("featType" in system && R.isPlainObject(system.featType)) {
             const category = system.featType.value;
             delete system.featType;
             if ("game" in globalThis) system["-=featType"] = null;
@@ -49,7 +49,7 @@ export class Migration834FeatCategories extends MigrationBase {
         const choiceSets = source.system.rules.filter((r): r is ChoiceSetRE => r.key === "ChoiceSet");
         for (const rule of choiceSets) {
             if (
-                R.isObject(rule.allowedDrops) &&
+                R.isPlainObject(rule.allowedDrops) &&
                 "predicate" in rule.allowedDrops &&
                 Array.isArray(rule.allowedDrops.predicate)
             ) {
@@ -58,7 +58,7 @@ export class Migration834FeatCategories extends MigrationBase {
                 );
             }
 
-            if (R.isObject(rule.choices) && "query" in rule.choices && typeof rule.choices.query === "string") {
+            if (R.isPlainObject(rule.choices) && "query" in rule.choices && typeof rule.choices.query === "string") {
                 rule.choices.query = rule.choices.query
                     .replace('"featType.value":"archetype"', '"category":"class"')
                     .replace("featType.value", "category");

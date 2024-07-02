@@ -11,9 +11,10 @@ import { HomebrewElements } from "./menu.ts";
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
     return (
-        R.isObject(value) &&
+        R.isPlainObject(value) &&
         Object.entries(value).every(
-            ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel)),
+            ([_hbKey, hbLabel]) =>
+                typeof hbLabel === "string" || (R.isPlainObject(hbLabel) && isLabelAndDescription(hbLabel)),
         )
     );
 }
@@ -44,7 +45,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.immunityTypes),
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
         ...Object.keys(CONFIG.PF2E.saves),
-        ...Object.keys(CONFIG.PF2E.skillList),
+        ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
         ...Object.keys(CONFIG.PF2E.environmentTypes),
         "damage",

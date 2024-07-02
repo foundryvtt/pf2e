@@ -184,72 +184,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "B8w3wOdXpcdjS73n",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1CvWXq8Ii6oimfQW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.UnderwaterVegetation",
-                        "predicate": [
-                            "terrain:underwater-vegetation"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 in underwater vegetation",
-                        "options": "terrain:underwater-vegetation"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Giant Seahorse",
@@ -340,6 +274,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "in underwater vegetation",
+                        "predicate": [
+                            "terrain:underwater-vegetation"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

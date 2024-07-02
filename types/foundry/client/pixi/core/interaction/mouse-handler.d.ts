@@ -71,7 +71,7 @@ declare class MouseInteractionManager {
     /**
      * A flag for whether we are right-click dragging
      */
-    protected _dragRight: boolean;
+    _dragRight: boolean;
 
     /** An optional ControlIcon instance for the object */
     controlIcon: ControlIcon | null;

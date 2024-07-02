@@ -137,73 +137,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "peCheBfP7ckBvRye",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "AZRJetWVYtgXplON",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Hide",
-                        "predicate": [
-                            "action:hide"
-                        ],
-                        "selector": "stealth",
-                        "type": "untyped",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 to hide",
-                        "options": "action:hide"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Giant Tsetse Fly",
@@ -304,6 +237,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to hide",
+                        "predicate": [
+                            "action:hide"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

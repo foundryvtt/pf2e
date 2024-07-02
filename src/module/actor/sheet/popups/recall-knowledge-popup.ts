@@ -25,7 +25,9 @@ export class RecallKnowledgePopup extends Application {
 
         return {
             standard: {
-                label: localizeList(identificationData.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skillList[s]))),
+                label: localizeList(
+                    identificationData.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skills[s].label)),
+                ),
                 attempts: this.#padAttempts(identificationData.standard.progression),
             },
             loreEasy: this.#padAttempts(identificationData.lore[0].progression),

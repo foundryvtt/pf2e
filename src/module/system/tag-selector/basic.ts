@@ -11,7 +11,12 @@ import { SelectableTagField, TagSelectorOptions } from "./index.ts";
 export type BasicConstructorOptions = Partial<BasicSelectorOptions> & { objectProperty: string };
 
 function isValuesList(obj: unknown): obj is ValuesList {
-    return R.isObject(obj) && Array.isArray(obj.value) && obj.value.every((v) => typeof v === "string");
+    return (
+        R.isObjectType(obj) &&
+        "value" in obj &&
+        Array.isArray(obj.value) &&
+        obj.value.every((v) => typeof v === "string")
+    );
 }
 
 class TagSelectorBasic<TDocument extends ActorPF2e | ItemPF2e> extends BaseTagSelector<TDocument> {

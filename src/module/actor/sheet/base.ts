@@ -502,12 +502,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "roll-check": (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
-                // Currently only used on NPC sheets for skill variants
-                const extraRollOptions = R.compact(anchor.dataset.options?.split(",").map((o) => o.trim()) ?? []);
-                const args: StatisticRollParameters = {
-                    ...eventToRollParams(event, { type: "check" }),
-                    extraRollOptions,
-                };
+                const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }
@@ -814,7 +809,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Avoid intercepting content-link drag targets
-        const isContentLink = event.target.classList.contains("content-link");
+        const isContentLink = event.target.dataset.link !== undefined && !!event.target.dataset.uuid;
         const isPersistent = "persistent" in event.target.dataset;
         if (event.target !== event.currentTarget && (isContentLink || isPersistent)) {
             return;
@@ -1142,7 +1137,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
     #onClickCreateItem(anchor: HTMLElement): void {
         const dataset = { ...anchor.dataset };
-        const itemType = R.compact([dataset.type ?? dataset.types?.split(",")].flat()).find((t) => t !== "shield");
+        const itemType = [dataset.type ?? dataset.types?.split(",")]
+            .flat()
+            .filter(R.isTruthy)
+            .find((t) => t !== "shield");
         if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
             throw ErrorPF2e(`Unrecognized item type: types`);
         }

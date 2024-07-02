@@ -34,8 +34,9 @@ class CheckRoll extends Roll {
     }
 
     override async render(this: Rolled<CheckRoll>, options: RollRenderOptions = {}): Promise<string> {
-        if (!this._evaluated) await this.evaluate();
         const { isPrivate, flavor, template } = options;
+        if (!this._evaluated) await this.evaluate({ allowInteractive: !isPrivate });
+
         const { type, identifier, action, damaging } = this.options;
         const canRollDamage = !!(damaging && identifier && (this.roller === game.user || game.user.isGM));
         const showBreakdown = this.options.showBreakdown;

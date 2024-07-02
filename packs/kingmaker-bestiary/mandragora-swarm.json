@@ -235,97 +235,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "iWX9xJurU9y34sZ8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DGvSLoUDiyqdqwn6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rs8cxUHAMnuhP7nv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 34
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Vegetation",
-                        "predicate": [
-                            "terrain:vegetation"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+38 in vegetation",
-                        "options": "terrain:vegetation"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Mandragora Swarm",
@@ -463,6 +372,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 28
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 32
+            },
+            "athletics": {
+                "base": 29
+            },
+            "stealth": {
+                "base": 34,
+                "special": [
+                    {
+                        "base": 38,
+                        "label": "in vegetation",
+                        "predicate": [
+                            "terrain:vegetation"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

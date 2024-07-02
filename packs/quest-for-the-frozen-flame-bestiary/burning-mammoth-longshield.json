@@ -727,98 +727,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "WYCt4NI2bE1JOW0J",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Shove",
-                        "predicate": [
-                            "action:shove",
-                            "self:shield:raised"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 to Shove with Shield Raised",
-                        "options": "action:shove,self:shield:raised"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "U82NSuMx1ySJzIsw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HzZ2btAlI9mu5YvS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Burning Mammoth Longshield",
@@ -902,6 +810,27 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "to Shove with Shield Raised",
+                        "predicate": [
+                            "action:shove",
+                            "self:shield:raised"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 6
+            },
+            "survival": {
+                "base": 6
             }
         },
         "traits": {

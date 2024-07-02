@@ -107,48 +107,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "iUzYuqnjkPvxjVq6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 1
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Sewers",
-                        "predicate": [
-                            "terrain:sewer"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+4 in sewers",
-                        "options": "terrain:sewer"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Sewer Ooze (BB)",
@@ -251,6 +209,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "stealth": {
+                "base": 1,
+                "special": [
+                    {
+                        "base": 4,
+                        "label": "in sewers"
+                    }
+                ]
             }
         },
         "traits": {

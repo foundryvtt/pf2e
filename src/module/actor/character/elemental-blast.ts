@@ -5,6 +5,7 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import {
@@ -42,7 +43,6 @@ import type {
     StringField,
 } from "types/foundry/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
-import { EffectTrait } from "@item/abstract-effect/types.ts";
 
 class ElementalBlast {
     actor: CharacterPF2e;
@@ -208,8 +208,8 @@ class ElementalBlast {
         })();
 
         return blasts.map((blast) => {
-            const damageTypes: BlastConfigDamageType[] = R.uniq(
-                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
+            const damageTypes: BlastConfigDamageType[] = R.unique(
+                [blast.damageTypes, this.infusion?.damageTypes].flat().filter(R.isTruthy),
             )
                 .map((dt) => ({
                     value: dt,
@@ -284,10 +284,10 @@ class ElementalBlast {
         const traits = ((): ActionTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
-            return R.uniq(
-                R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
-                ),
+            return R.unique(
+                [baseTraits, infusionTraits, config?.element, damageType]
+                    .flat()
+                    .filter((t): t is ActionTrait => !!t && t in CONFIG.PF2E.actionTraits),
             ).sort();
         })();
 
@@ -403,7 +403,7 @@ class ElementalBlast {
             outcome,
             checkContext: params.checkContext,
             options: new Set(
-                R.compact([
+                [
                     `action:${actionSlug}`,
                     `action:cost:${actionCost}`,
                     `self:action:slug:${actionSlug}`,
@@ -414,7 +414,7 @@ class ElementalBlast {
                     `item:damage:type:${params.damageType}`,
                     damageCategory ? `item:damage:category:${damageCategory}` : null,
                     ...item.traits,
-                ]),
+                ].filter(R.isTruthy),
             ),
         }).resolve();
         if (!context.origin) return null;
@@ -441,7 +441,9 @@ class ElementalBlast {
             }),
             test: context.options,
         });
-        const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
+        const extraModifiers = [...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)].filter(
+            R.isTruthy,
+        );
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         const formulaData: DamageFormulaData = {
             dice: damageSynthetics.dice,

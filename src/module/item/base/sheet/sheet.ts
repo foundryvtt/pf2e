@@ -189,7 +189,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             // If we find a match, delete it so that we don't use the same form for two different REs
             const FormClass = RULE_ELEMENT_FORMS[String(rule.key)] ?? RuleElementForm;
             const existing =
-                previousForms.find((f) => R.equals(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
+                previousForms.find((f) => R.isDeepEqual(f.rule, rule) && f.constructor.name === FormClass.name) ?? null;
             if (existing) {
                 previousForms.splice(previousForms.indexOf(existing), 1);
             }
@@ -494,24 +494,6 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
                 if (input.value === baseValue) {
                     input.value = input.dataset.value ?? "";
                 }
-            });
-        }
-
-        // Lore items
-        htmlQuery(html, ".add-skill-variant")?.addEventListener("click", (): void => {
-            if (!this.item.isOfType("lore")) return;
-            const variants = this.item.system.variants ?? {};
-            const index = Object.keys(variants).length;
-            this.item.update({
-                [`system.variants.${index}`]: { label: "+X in terrain", options: "" },
-            });
-        });
-
-        for (const button of htmlQueryAll(html, ".skill-variants .remove-skill-variant")) {
-            button.addEventListener("click", (event): void => {
-                if (!(event.currentTarget instanceof HTMLElement)) return;
-                const index = event.currentTarget.dataset.skillVariantIndex;
-                this.item.update({ [`system.variants.-=${index}`]: null });
             });
         }
 

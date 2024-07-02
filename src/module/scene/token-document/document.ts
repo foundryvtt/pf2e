@@ -91,10 +91,15 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         return super.getTrackedAttributeChoices(attributes);
     }
 
-    /** Make stamina and resolve editable despite not being present in template.json */
+    /** Make stamina, resolve, and shield HP editable despite not being present in template.json */
     override getBarAttribute(barName: string, options?: { alternative?: string }): TokenResourceData | null {
         const attribute = super.getBarAttribute(barName, options);
-        if (attribute && ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute)) {
+        if (!attribute) return null;
+        const isStaminaOrResolve =
+            ["attributes.hp.sp", "resources.resolve"].includes(attribute.attribute) &&
+            game.pf2e.settings.variants.stamina;
+        const isShieldHP = attribute.attribute === "attributes.shield.hp" && !!this.actor?.attributes.shield?.itemId;
+        if (isStaminaOrResolve || isShieldHP) {
             attribute.editable = true;
         }
 
@@ -384,7 +389,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes
-        const aurasChanged = () => !!this.scene?.isInFocus && !R.equals(preUpdateAuras, postUpdateAuras);
+        const aurasChanged = () => !!this.scene?.isInFocus && !R.isDeepEqual(preUpdateAuras, postUpdateAuras);
 
         if ("disposition" in tokenChanges || "width" in tokenChanges || "height" in tokenChanges || aurasChanged()) {
             this.scene?.checkAuras?.();

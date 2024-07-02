@@ -1,4 +1,4 @@
-export {};
+import type { TileSource } from "../../../common/documents/tile.d.ts";
 
 declare global {
     /**
@@ -8,6 +8,10 @@ declare global {
     class Tile<
         TDocument extends TileDocument<Scene | null> = TileDocument<Scene | null>,
     > extends PlaceableObject<TDocument> {
+        static override embeddedName: "Tile";
+
+        static override RENDER_FLAGS: Record<string, { propagate?: string[]; alias?: boolean }>;
+
         /* -------------------------------------------- */
         /*  Attributes                                  */
         /* -------------------------------------------- */
@@ -15,34 +19,14 @@ declare global {
         /** The Tile border frame */
         frame: TileBorderFrame;
 
-        /**
-         * The primary tile image texture
-         */
+        /** The primary tile image texture */
         texture: PIXI.Texture;
-
-        /** The Tile image sprite */
-        tile: PIXI.Sprite;
-
-        /** The occlusion image sprite */
-        occlusionTile: PIXI.Sprite;
 
         /** A Tile background which is displayed if no valid image texture is present */
         bg: PIXI.Graphics;
 
-        /** A cached mapping of non-transparent pixels */
-        protected _alphaMap: {
-            minX: number;
-            minY: number;
-            maxX: number;
-            maxY: number;
-            pixels: Uint8Array | undefined;
-            texture: PIXI.RenderTexture | undefined;
-        };
-
-        /** A flag which tracks whether the overhead tile is currently in an occluded state */
-        occluded: boolean;
-
-        static override embeddedName: "Tile";
+        /** A reference to the SpriteMesh which displays this Tile in the PrimaryCanvasGroup. */
+        mesh: PrimarySpriteMesh;
 
         /** Get the native aspect ratio of the base texture for the Tile sprite */
         get aspectRatio(): number;
@@ -50,36 +34,76 @@ declare global {
         override get bounds(): PIXI.Rectangle;
 
         /** The HTML source element for the primary Tile texture */
-        get sourceElement(): HTMLImageElement | HTMLVideoElement;
+        get sourceElement(): HTMLImageElement | HTMLVideoElement | undefined;
 
         /** Does this Tile depict an animated video texture? */
         get isVideo(): boolean;
 
-        /** Is this tile a roof */
-        get isRoof(): boolean;
+        /** Is this Tile currently visible on the Canvas? */
+        get isVisible(): boolean;
+
+        /** Is this tile occluded? */
+        get occluded(): boolean;
+
+        /** Is the tile video playing? */
+        get playing(): boolean;
 
         /** The effective volume at which this Tile should be playing, including the global ambient volume modifier */
         get volume(): number;
 
         /* -------------------------------------------- */
+        /*  Interactivity                               */
+        /* -------------------------------------------- */
+
+        protected override _overlapsSelection(rectangle: PIXI.Rectangle): boolean;
+
+        /* -------------------------------------------- */
         /*  Rendering                                   */
         /* -------------------------------------------- */
 
+        /**
+         * Create a preview tile with a background texture instead of an image
+         * @param data Initial data with which to create the preview Tile
+         */
+        static createPreview(data: DeepPartial<TileSource>): Tile;
+
         protected _draw(): Promise<void>;
 
-        override destroy(options: object): void;
+        override clear(options?: object): this;
 
-        /** @param [options.refreshPerception=false]  Also refresh the perception layer. */
-        override refresh(options?: { refreshPerception?: boolean }): this;
+        override _destroy(options: object): void;
 
-        /** Refresh the display of the Tile border */
-        protected _refreshBorder(b: PIXI.Rectangle): void;
+        protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
-        /** Refresh the display of the Tile resizing handle */
-        protected _refreshHandle(b: PIXI.Rectangle): void;
+        /** Refresh the position. */
+        protected _refreshPosition(): void;
+
+        /** Refresh the rotation. */
+        protected _refreshRotation(): void;
+
+        /** Refresh the size. */
+        protected _refreshSize(): void;
+
+        /**
+         * Refresh the displayed state of the Tile.
+         * Updated when the tile interaction state changes, when it is hidden, or when its elevation changes.
+         */
+        protected _refreshState(): void;
+
+        /** Refresh the appearance of the tile. */
+        protected _refreshMesh(): void;
+
+        /** Refresh the elevation. */
+        protected _refreshElevation(): void;
+
+        /** Refresh the border frame that encloses the Tile. */
+        protected _refreshFrame(): void;
+
+        /** Refresh changes to the video playback state. */
+        protected _refreshVideo(): void;
 
         /* -------------------------------------------- */
-        /*  Event Handlers                              */
+        /*  Document Event Handlers                     */
         /* -------------------------------------------- */
 
         override _onUpdate(
@@ -87,14 +111,6 @@ declare global {
             options: DatabaseUpdateOperation<TDocument["parent"]>,
             userId: string,
         ): void;
-
-        override _onDelete(options: DatabaseDeleteOperation<TDocument["parent"]>, userId: string): void;
-
-        /**
-         * Update wall states and refresh lighting and vision when a tile becomes a roof, or when an existing roof tile's
-         * state changes.
-         */
-        protected _refreshPerception(): void;
 
         /* -------------------------------------------- */
         /*  Interactivity                               */
@@ -153,9 +169,6 @@ declare global {
          * @param event The mouseup event
          */
         protected _onHandleDragDrop(event: PIXI.FederatedPointerEvent): void;
-
-        /** Get resized Tile dimensions */
-        protected _getResizedDimensions(event: PIXI.FederatedEvent, origin: Point, destination: Point): Rectangle;
 
         /** Handle cancellation of a drag event for one of the resizing handles */
         protected _onHandleDragCancel(): void;

@@ -44,7 +44,7 @@ class PerceptionStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statisti
             }
         }
 
-        return R.uniqBy(preparedSenses, (s) => s.type);
+        return R.uniqueBy(preparedSenses, (s) => s.type);
     }
 
     override getTraceData(this: Statistic<CreaturePF2e>): PerceptionTraceData<AttributeString>;

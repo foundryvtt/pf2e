@@ -222,10 +222,9 @@ export class StatusEffects {
         }
 
         const tokensAndActors = R.uniqueBy(
-            R.filter(
-                canvas.tokens.controlled.map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null)),
-                R.isTruthy,
-            ),
+            canvas.tokens.controlled
+                .map((t): [TokenPF2e, ActorPF2e] | null => (t.actor ? [t, t.actor] : null))
+                .filter(R.isTruthy),
             ([, a]) => a,
         );
         for (const [token, actor] of tokensAndActors) {

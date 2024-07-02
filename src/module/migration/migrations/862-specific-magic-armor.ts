@@ -38,10 +38,10 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
 
         const isMagical = !!(
             ("potencyRune" in source.system &&
-                R.isObject(source.system.potencyRune) &&
+                R.isPlainObject(source.system.potencyRune) &&
                 source.system.potencyRune.value) ||
             ("resiliencyRune" in source.system &&
-                R.isObject(source.system.resiliencyRune) &&
+                R.isPlainObject(source.system.resiliencyRune) &&
                 source.system.resiliencyRune.value)
         );
         const hasBaseAndSlug = !!(source.system.baseItem && source.system.slug);
@@ -53,13 +53,13 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
                 runes: {
                     potency:
                         "potencyRune" in source.system &&
-                        R.isObject(source.system.potencyRune) &&
+                        R.isPlainObject(source.system.potencyRune) &&
                         source.system.potencyRune.value
                             ? (Number(source.system.potencyRune?.value) as ZeroToFour) || 1
                             : 0,
                     resilient:
                         "resiliencyRune" in source.system &&
-                        R.isObject(source.system.resiliencyRune) &&
+                        R.isPlainObject(source.system.resiliencyRune) &&
                         source.system.resiliencyRune.value
                             ? (this.#resilientRuneValues.get(
                                   String(source.system.resiliencyRune?.value ?? ""),

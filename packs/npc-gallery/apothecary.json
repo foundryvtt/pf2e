@@ -667,102 +667,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "lO3CMWjs9XkP1KVX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CraftAlchemicalOrMedicine",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:craft:alchemical",
-                                    "action:craft:medicine"
-                                ]
-                            }
-                        ],
-                        "selector": "crafting",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+8 for alchemy and medication",
-                        "options": "action:craft:alchemical,action:craft:medicine"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jWOVrmOHwDN4aQuz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HLS0D6pgtCfXOSNJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Apothecary",
@@ -852,6 +756,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 8,
+                        "label": "for alchemy and medication",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:craft:alchemical",
+                                    "action:craft:medicine"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "medicine": {
+                "base": 10
+            },
+            "nature": {
+                "base": 8
             }
         },
         "traits": {

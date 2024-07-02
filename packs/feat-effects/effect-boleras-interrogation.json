@@ -1,0 +1,69 @@
+{
+    "_id": "bmVwaN0C4e9fE2Sz",
+    "img": "icons/sundries/gaming/chess-pawn-white-pink.webp",
+    "name": "Effect: Bolera's Interrogation",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bolera's Interrogation]</p>\n<p>On a failure, the creature takes a -2 penalty to Deception checks. On a critical failure, the penalty to Deception checks is -4. This effect lasts for 10 minutes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #157: Devil at the Dreaming Palace"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "boleras-interrogation"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "deception",
+                "slug": "boleras-interrogation",
+                "value": -2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "downgrade",
+                "predicate": [
+                    "boleras-interrogation:critical-failure"
+                ],
+                "selector": "deception",
+                "slug": "boleras-interrogation",
+                "value": -4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

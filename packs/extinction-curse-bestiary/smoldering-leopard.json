@@ -259,102 +259,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "1NJ1ppP9J1Xh5wdM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Q2f4p5YaVeShhWE3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OLaJWLiujGgz8HCl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DimLightOrDarkness",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "lighting:dim-light",
-                                    "lighting:darkness"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 in dim light or darker",
-                        "options": "lighting:dim-light,lighting:darkness"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Smoldering Leopard",
@@ -466,6 +370,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 11
+            },
+            "athletics": {
+                "base": 10
+            },
+            "stealth": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in dim light or darker",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "lighting:dim-light",
+                                    "lighting:darkness"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {
