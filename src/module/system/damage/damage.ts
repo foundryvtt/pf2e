@@ -10,6 +10,7 @@ import { DEGREE_OF_SUCCESS, DEGREE_OF_SUCCESS_STRINGS } from "@system/degree-of-
 import { createHTMLElement, objectHasKey } from "@util";
 import { DamageRoll, DamageRollData } from "./roll.ts";
 import { DamageDamageContext, DamageTemplate } from "./types.ts";
+import * as R from "remeda";
 
 /** Create a chat message containing a damage roll */
 export class DamagePF2e {
@@ -194,6 +195,11 @@ export class DamagePF2e {
 
         if (roll === null) return null;
 
+        const noteOptions = [
+            ...R.unique(roll.instances.map((r) => r.type)).map((t) => `damage:type:${t}`),
+            ...R.unique(roll.instances.map((r) => r.category)).map((c) => `damage:category:${c}`),
+        ];
+
         const syntheticNotes = context.self?.actor
             ? extractNotes(context.self?.actor.synthetics.rollNotes, context.domains ?? [])
             : [];
@@ -201,7 +207,7 @@ export class DamagePF2e {
         const notes = [...syntheticNotes, ...contextNotes].filter(
             (n) =>
                 (n.outcome.length === 0 || (outcome && n.outcome.includes(outcome))) &&
-                n.predicate.test(context.options),
+                n.predicate.test([...context.options, ...noteOptions]),
         );
         flavor += RollNotePF2e.notesToHTML(notes)?.outerHTML ?? "";
 
@@ -243,6 +249,9 @@ export class DamagePF2e {
             target: targetFlag,
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
+            contextualOptions: {
+                notes: noteOptions,
+            },
             mapIncreases: context.mapIncreases,
             notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
