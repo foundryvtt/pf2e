@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Change Shape (Beastkin)]{Change Shape}.</p>\n<p>In hybrid shape, you appear as a mix between your ancestry and your inherent animal. While in hybrid shape, you gain a jaws unarmed Strike resembling the features of your inherent animal (fangs for bats, beaks for eagles, mandibles for wasps, and so on). Your jaws deal 1d4 piercing damage, have the agile, finesse, and unarmed traits, and are in the brawling weapon group.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -22,6 +22,11 @@
         },
         "rules": [
             {
+                "choices": "flags.pf2e.beastkin.forms",
+                "key": "ChoiceSet",
+                "rollOption": "shape"
+            },
+            {
                 "baseType": "jaws",
                 "category": "unarmed",
                 "damage": {
@@ -35,12 +40,114 @@
                 "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
+                "predicate": [
+                    "shape:hybrid"
+                ],
                 "slug": "beastkin-jaws",
                 "traits": [
                     "agile",
                     "finesse",
                     "unarmed"
                 ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:melee",
+                    "feat:dire-form",
+                    "shape:hybrid"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "CreatureSize",
+                "predicate": [
+                    "feat:dire-form",
+                    "shape:hybrid"
+                ],
+                "reach": {
+                    "override": 10
+                },
+                "resizeEquipment": true,
+                "value": "large"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "feat:dire-form",
+                    "shape:hybrid"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "ignoreCheckPenalty": true,
+                        "ignoreSpeedReduction": true,
+                        "modifier": "15 + @actor.level"
+                    },
+                    "senses": {
+                        "low-light-vision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "tiny",
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 10
+                        },
+                        "athletics": {
+                            "modifier": -4,
+                            "ownIfHigher": false
+                        },
+                        "stealth": {
+                            "modifier": 10
+                        }
+                    },
+                    "speeds": {
+                        "land": 20
+                    },
+                    "traits": [
+                        "animal"
+                    ],
+                    "weaknesses": [
+                        {
+                            "type": "physical",
+                            "value": 5
+                        }
+                    ]
+                },
+                "predicate": [
+                    "shape:critter"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 1,
+                            "value": {
+                                "speeds": {
+                                    "fly": 20
+                                }
+                            }
+                        }
+                    ],
+                    "field": "actor|flags.pf2e.beastkin-flight"
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "shape:animal"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "{actor|flags.pf2e.beastkin-animal}"
             }
         ],
         "start": {

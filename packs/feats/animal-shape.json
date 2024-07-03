@@ -24,7 +24,129 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Snake)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Shark)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Frog)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Deer)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Cat)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Canine)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Bull)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Bear)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Ape)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Tyrannosaurus)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Triceratops)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Stegosaurus)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Deinonychus)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Brontosaurus)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Dinosaur Form (Ankylosaurus)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Spider)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Scorpion)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Mantis)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Centipede)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Beetle)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Insect Form (Ant)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Wasp)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Pterosaur)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Bird)"
+                    },
+                    {
+                        "value": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aerial Form (Bat)"
+                    }
+                ],
+                "flag": "beastkin-animal",
+                "key": "ChoiceSet"
+            },
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "Yes",
+                        "value": 1
+                    },
+                    {
+                        "label": "No",
+                        "value": 0
+                    }
+                ],
+                "flag": "beastkin-flight",
+                "key": "ChoiceSet",
+                "prompt": "I18N-ME Does your inherent animal have flight speed."
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.beastkin.forms",
+                "predicate": [
+                    "feat:critter-shape"
+                ],
+                "value": {
+                    "label": "Critter",
+                    "value": "critter"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.beastkin.forms",
+                "value": {
+                    "label": "Animal",
+                    "value": "animal"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
