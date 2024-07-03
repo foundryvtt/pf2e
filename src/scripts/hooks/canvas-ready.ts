@@ -11,13 +11,6 @@ export const CanvasReady = {
                     game.pf2e.effectTracker.register(effect);
                 }
             }
-
-            // Work around `MouseInteractionManager` aborting its own event trigger when the ruler is active
-            document.body.addEventListener("contextmenu", (event) => {
-                if (canvas.controls.ruler?.isMeasuring && event.buttons === 3) {
-                    canvas.controls.ruler.onDragLeftCancel(event);
-                }
-            });
         });
 
         Hooks.on("canvasReady", () => {
@@ -51,16 +44,6 @@ export const CanvasReady = {
             for (const message of game.messages.contents.slice((-1 * CONFIG.ChatMessage.batchSize) / 2)) {
                 toggleClearTemplatesButton(message);
             }
-
-            // Clear drag-measurement targets
-            canvas.stage.addEventListener("pointerup", (event) => {
-                const dragMeasurement = game.pf2e.settings.dragMeasurement;
-                if (dragMeasurement && event.button === 0 && canvas.activeLayer?.name === "TokenLayer") {
-                    for (const token of canvas.tokens.controlled) {
-                        token.dragMeasureTarget = false;
-                    }
-                }
-            });
         });
     },
 };

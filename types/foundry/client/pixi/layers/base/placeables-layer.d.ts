@@ -128,6 +128,9 @@ declare global {
 
         override deactivate(): this;
 
+        /** Clear the contents of the preview container, restoring visibility of original (non-preview) objects. */
+        clearPreviewContainer(): void;
+
         /**
          * Get a PlaceableObject contained in this layer by it's ID
          * @param objectId  The ID of the contained object to retrieve
