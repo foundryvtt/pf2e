@@ -28,7 +28,20 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+              "key": "AdjustDegreeOfSuccess",
+              "selector": "skill-check",
+              "adjustment": {
+                "failure": "to-success",
+                "criticalFailure": "to-success"
+              },
+              "predicate": [
+                "action:aid",
+                "proficiency:expert"
+              ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
