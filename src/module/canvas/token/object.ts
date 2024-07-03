@@ -530,9 +530,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._onRelease(options);
     }
 
+    /** Initiate token drag measurement unless using the ruler tool. */
     protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
-        canvas.controls.ruler.startDragMeasurement(event);
-        return super._onDragLeftStart(event);
+        event.interactionData.clones ??= [];
+        if (game.activeTool !== "ruler") {
+            canvas.controls.ruler.startDragMeasurement(event);
+            return super._onDragLeftStart(event);
+        }
     }
 
     protected override _onDragLeftMove(event: TokenPointerEvent<this>): void {

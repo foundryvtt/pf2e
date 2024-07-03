@@ -31,7 +31,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     startDragMeasurement(event: TokenPointerEvent<NonNullable<TToken>>): void {
-        if (!this.dragMeasurement) return;
+        if (!this.dragMeasurement || game.activeTool === "ruler") return;
         const { origin, object } = event.interactionData;
         object.document.locked = true;
         return this._startMeasurement(origin, { snap: !event.shiftKey, token: object });
@@ -53,11 +53,18 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return this._endMeasurement();
     }
 
+    /** Prevent inclusion of a token when using the ruler tool. */
+    protected override _startMeasurement(origin: Point, options: { snap?: boolean; token?: TToken | null } = {}): void {
+        if (game.activeTool === "ruler") options.token = null;
+        return super._startMeasurement(origin, options);
+    }
+
     /** Prevent behavior from keybind modifiers if token drag measurement is enabled. */
     override _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void {
         if (this.dragMeasurement) {
             event.ctrlKey = false;
             event.metaKey = false;
+            if (game.activeTool === "ruler") return this._endMeasurement();
         }
         return super._onMouseUp(event);
     }
