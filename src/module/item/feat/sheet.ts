@@ -212,7 +212,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const getInput = (name: string): HTMLTagifyTagsElement | null =>
             htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
-        tagify(getInput("system.prerequisites.value"), { maxTags: 6 });
+        tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" });
         tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
 
         // Disable the "add subfeature" anchor unless a corresponding option is selected
