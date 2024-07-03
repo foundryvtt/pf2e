@@ -16,10 +16,10 @@ import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
+import { processTwoHandTrait } from "./helpers.ts";
 import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
@@ -430,11 +430,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         traits.toggles.applyChanges();
 
         // Upgrade dice faces if a two-hand trait is present and applicable
-        const twoHandFaces = Number(traits.value.find((t) => t.startsWith("two-hand-d"))?.replace("two-hand-d", ""));
-        const diceFaces = Number(this.system.damage.die?.replace("d", ""));
-        if (this.handsHeld === 2 && tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces) && twoHandFaces > diceFaces) {
-            this.system.damage.die = `d${twoHandFaces}`;
-        }
+        processTwoHandTrait(this);
     }
 
     override async getChatData(
