@@ -365,6 +365,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: loreItem.system.mod.value,
+                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
                 lore: true,

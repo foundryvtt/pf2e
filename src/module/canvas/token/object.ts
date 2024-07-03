@@ -1,6 +1,7 @@
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
+import { FederatedPointerEvent } from "pixi.js";
 import * as R from "remeda";
 import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
@@ -12,6 +13,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
+
+    dragMeasureTarget = false;
 
     constructor(document: TDocument) {
         super(document);
@@ -468,6 +471,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.document.lockRotation = this.document._source.lockRotation;
     }
 
+    protected override _propagateLeftClick(event: FederatedPointerEvent): boolean {
+        const upstreamSez = super._propagateLeftClick(event);
+        if (!game.pf2e.settings.dragMeasurement) return upstreamSez;
+
+        this.dragMeasureTarget ||= upstreamSez || this._canControl(game.user);
+        return this.dragMeasureTarget;
+    }
+
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
     override render(renderer: PIXI.Renderer): void {
         super.render(renderer);
@@ -509,13 +520,21 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
+        if (this.hover) this.dragMeasureTarget = true;
+
         return super._onControl(options);
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
+        this.dragMeasureTarget = false;
         return super._onRelease(options);
+    }
+
+    protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<this>): void {
+        this.dragMeasureTarget = false;
+        return super._onDragLeftCancel(event);
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
