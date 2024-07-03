@@ -1,0 +1,131 @@
+{
+    "_id": "6siQhdXoJWb4ip6O",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "UCAA3CpGZeQIHHmo",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Unveil the Bazaar",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature begins its turn in area <strong>B2</strong></p><hr /><p><strong>Effect</strong> A convincing illusion of an Ilizmagorti city bazaar appears, complete with a cloudless blue sky above. The surrounding crowd is dense, and the smells and sights and sounds are quite realistic even as no one in the crowd actually bumps against the PCs as they mill about. The Trial of Tolerance then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QLzcGyEi8mdz6FR7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Reflective Violence",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature uses a hostile action against an illusory figure created by the Trial of Tolerance or fails at an attempt to disable the trap</p><hr /><p><strong>Effect</strong> The illusory figure effortlessly avoids the triggering action, then appears to attack the triggering creature using its most harrowing and violent option. Regardless of what this attack appears as, the triggering creature takes @Damage[(3d12+19)[mental]] damage (@Check[type:reflex|dc:38|basic:true] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trial of Tolerance",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            }
+        },
+        "details": {
+            "description": "<p>A convincing illusion of a bustling market scene fills the empty room, confronting the viewers with potentially frightening diversity and unexpected encounters.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43] (master) to scratch out well-hidden key runes etched into the room's floor, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 36) to counteract the trial</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure: Prey for Death"
+            },
+            "reset": "<p>Once the room is empty of creatures, the trial deactivates and then resets after 1 minute has passed.</p>",
+            "routine": "<p>(1 action; emotion, fear, illusion, mental) An unexpectedly aggressive or frightening looking figure, such as a Hellknight, demon, pirate, or cloaked assassin suddenly emerges from the crowd and quickly advances toward a randomly determined character in the room, then stands menacingly in their path until the end of the round before they appear to lose interest and drift back into the crowd. If the target has a type of fear or hatred toward a specific kind of creature, this unexpected figure epitomizes those fears and hatreds. The target must succeed at a @Check[type:will|dc:46|traits:emotion,fear,illusion,mental] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). If any creature in the room takes any hostile action against the intimidating figure, the Trial of Tolerance uses its Reflective Violence reaction. Once three rounds pass without the Trial of Tolerance using Reflective Violence, the hazard deactivates.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}
