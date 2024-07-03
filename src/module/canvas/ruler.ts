@@ -69,9 +69,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     onDragLeftCancel(event: TokenPointerEvent<NonNullable<TToken>>): void {
-        if (!this.dragMeasurement || !this.isMeasuring || event.buttons !== 3) {
-            return;
-        }
+        if (!this.dragMeasurement || !this.isMeasuring) return;
 
         this._removeWaypoint();
         // Prevent additional events from firing for dragged token
