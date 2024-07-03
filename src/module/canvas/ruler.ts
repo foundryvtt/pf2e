@@ -68,13 +68,13 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return super._onMoveKeyDown(context);
     }
 
-    onDragLeftCancel(event: TokenPointerEvent<NonNullable<TToken>>): void {
+    onDragLeftCancel(event?: TokenPointerEvent<NonNullable<TToken>>): void {
         if (!this.dragMeasurement || !this.isMeasuring) return;
 
         this._removeWaypoint();
         // Prevent additional events from firing for dragged token
         if (this.isMeasuring) {
-            event.preventDefault();
+            event?.preventDefault();
         } else {
             canvas.mouseInteractionManager.cancel();
         }
