@@ -315,7 +315,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },
                 }),
-                ignoredResistances: [],
             });
 
             const template: SimpleDamageTemplate = {

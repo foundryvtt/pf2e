@@ -947,7 +947,6 @@ async function augmentInlineDamageRoll(
             modifiers,
             dice,
             kinds: new Set(kinds),
-            ignoredResistances: [],
         };
 
         const isAttack = !!traits?.includes("attack");
