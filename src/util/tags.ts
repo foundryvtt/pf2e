@@ -43,7 +43,7 @@ function tagify(
         maxTags,
         enforceWhitelist = true,
         editTags = { clicks: 2, keepInvalid: true },
-        delimiters,
+        delimiters = ",",
     }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
     // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
