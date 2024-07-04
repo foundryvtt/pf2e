@@ -1,0 +1,66 @@
+{
+    "_id": "dZT1w2EciqaR2NRz",
+    "img": "icons/magic/symbols/runes-star-orange.webp",
+    "name": "Effect: Crownhold Consecration",
+    "system": {
+        "description": {
+            "value": "<p>Worshippers of Gorum get a +1 status bonus to attack rolls, skill checks, saving throws, and Perception checks.</p>\n<p>In addition, the underhanded nature of the PCs causes them to take a –1 status penalty to attack rolls, skill checks, saving throws, and Perception.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:deity:slug:gorum"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check",
+                    "saving-throw",
+                    "perception"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:type:character"
+                ],
+                "selector": [
+                    "attack",
+                    "skill-check",
+                    "saving-throw",
+                    "perception"
+                ],
+                "slug": "crownhold-consecration-not-gorum",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
