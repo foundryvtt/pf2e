@@ -175,15 +175,20 @@ class ThoughtsDetectionMode extends DetectionMode {
     protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
+        const token : TokenPF2e = target;
+        if (!token.actor) return false;
 
         // Not if the token is GM-hidden
-        if (target.document.hidden) return false;
+        if (token.document.hidden) return false;
 
         // Detection only works on creatures
-        if (!target.actor.isOfType("creature")) return false;
+        if (!token.actor.isOfType("creature")) return false;
 
         // Detection cails on mindless creatures
-        if (target.actor.system.traits.value.includes("mindless")) return false;
+        if (token.actor.system.traits.value.includes("mindless")) return false;
+
+        // Detection fails if target is immune to mental
+        if (token.actor.attributes.immunities.some((i) => i.type === "mental")) return false;
 
         return super._canDetect(visionSource, target);
     }
