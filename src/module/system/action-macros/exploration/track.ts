@@ -27,6 +27,7 @@ function track(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: "PF2E.Actions.Track.Description",
+    img: "icons/skills/movement/arrows-up-trio-red.webp",
     name: "PF2E.Actions.Track.Title",
     notes: [
         { outcome: ["success", "criticalSuccess"], text: "PF2E.Actions.Track.Notes.success" },

@@ -219,7 +219,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         type BaseWeaponData = Pick<WeaponSource, "_id" | "type" | "name" | "img"> & {
             system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
         };
+
+        const shieldTraits: string[] = this.system.traits.value;
+        const weaponTraits: WeaponTrait[] = shieldTraits.filter((t): t is WeaponTrait => t in CONFIG.PF2E.weaponTraits);
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
+        if (shieldThrowTrait) weaponTraits.push(`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait);
+
         const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
@@ -232,7 +237,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 material: R.omit(this.material, ["effects"]) as WeaponMaterialSource,
                 traits: {
                     rarity: this.rarity,
-                    value: shieldThrowTrait ? [`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait] : [],
+                    value: weaponTraits.sort(),
                     otherTags: [],
                 },
                 damage: { dice: 1, die: "d4", damageType: "bludgeoning", modifier: 0, persistent: null },

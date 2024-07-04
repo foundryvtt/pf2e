@@ -42,7 +42,7 @@ declare global {
         static override get layerOptions(): PlaceablesLayerOptions;
 
         /** A convenience accessor to the Ruler for the active game user */
-        get ruler(): TRuler | null;
+        get ruler(): TRuler;
 
         /** Get the Ruler display for a specific User ID */
         getRulerForUser(userId: string): TRuler | null;

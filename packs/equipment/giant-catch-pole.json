@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>A giant catch pole is made from thicker steel and heavier rope. It functions the same as a catch pole but can be used to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] creatures up to your normal size limit. However, the implement is so ungainly that you are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} while wielding it.</p>"
+            "value": "<p>This sturdy pole has a rope attached to one end in a loop with the other end extending to the handle. You can pull the handle side of the rope to tighten the loop. Using this loop, you can @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] without having a free hand. A creature grappled this way receives a –2 circumstance penalty to attack rolls when Striking with an unarmed attack. Due to limitations in the size of the loop, a catch pole can only be used on creatures sized Medium or smaller.</p>\n<p>A giant catch pole is made from thicker steel and heavier rope. It functions the same as a catch pole but can be used to Grapple creatures up to your normal size limit. However, the implement is so ungainly that you are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} while wielding it.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Catch Pole]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,13 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
