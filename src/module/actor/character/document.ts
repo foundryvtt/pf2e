@@ -1124,8 +1124,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
                 .map((s) => s.generateWeapon()),
             this.inventory.flatMap((i) =>
-                i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
-            ),
+                i.isEquipped ? (i.subitems as Collection<PhysicalItemPF2e>).filter((i) => i.isOfType("weapon")) : [],
+            ) as WeaponPF2e<this>[],
         ]
             .flat()
             .filter(R.isTruthy) as WeaponPF2e<this>[];
@@ -1479,7 +1479,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
             return penalty;
         };
-        const initialMAPs = calculateMAPs(weapon, { domains: attackDomains, options: initialRollOptions });
+        const initialMAPs = calculateMAPs(weapon as WeaponPF2e, {
+            domains: attackDomains,
+            options: initialRollOptions,
+        });
 
         const checkModifiers = [
             (statistic: StrikeData, otherModifiers: ModifierPF2e[]) =>
@@ -1537,7 +1540,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 if (!context.origin) return null;
 
                 const statistic = context.origin.statistic ?? action;
-                const maps = calculateMAPs(context.origin.item, { domains: context.domains, options: context.options });
+                const maps = calculateMAPs(context.origin.item as WeaponPF2e, {
+                    domains: context.domains,
+                    options: context.options,
+                });
                 const maPenalty = createMAPenalty(maps, mapIncreases);
                 const allModifiers = [maPenalty, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
                 const check = checkModifiers[mapIncreases](statistic, allModifiers);

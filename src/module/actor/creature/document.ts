@@ -4,7 +4,7 @@ import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
-import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
+import { ArmorPF2e, ConsumablePF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { EquippedData, ItemCarryType } from "@item/physical/data.ts";
@@ -251,7 +251,10 @@ abstract class CreaturePF2e<
             const spell = consumable.embeddedSpell;
             if (!spell?.id) continue;
             const ability = this.spellcasting
-                .filter((e): e is SpellcastingEntry<this> => !!e.statistic && e.canCast(spell, { origin: consumable }))
+                .filter(
+                    (e): e is SpellcastingEntry<this> =>
+                        !!e.statistic && e.canCast(spell, { origin: consumable as ConsumablePF2e }),
+                )
                 .reduce(
                     (best: SpellcastingEntry<this> | null, e) =>
                         best === null ? e : e.statistic.dc.value > best.statistic.dc.value ? e : best,
