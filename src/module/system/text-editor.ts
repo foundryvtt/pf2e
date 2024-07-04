@@ -315,7 +315,7 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= item?.system.traits.value.toString() ?? "";
+            params.traits ||= item?.system.traits.value?.toString() ?? "";
             params.itemUuid ||= item?.uuid ?? "";
 
             // If no button label is entered directly create default label
