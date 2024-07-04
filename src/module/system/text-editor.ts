@@ -4,7 +4,6 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData } from "@item/base/data/system.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -236,7 +235,7 @@ class TextEditorPF2e extends TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item);
             default:
                 return null;
         }
@@ -288,7 +287,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -316,7 +315,8 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= itemData?.traits?.value?.toString() ?? "";
+            params.traits ||= item?.system.traits.value?.toString() ?? "";
+            params.itemUuid ||= item?.uuid ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -334,6 +334,7 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            if (params.itemUuid !== "") html.setAttribute("data-item-uuid", params.itemUuid);
             return html;
         }
         return null;

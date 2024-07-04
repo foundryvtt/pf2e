@@ -348,9 +348,14 @@ export class InlineRollLinks {
             flags.pf2e.messageId = messageId;
         }
 
-        const actor = resolveActor(foundryDoc ?? resolveDocument(link));
-        if (actor || pf2Traits) {
+        const actor = resolveActor(foundryDoc);
+        const item = foundryDoc instanceof ItemPF2e ? foundryDoc : null;
+        if (item) {
+            const origin = item.getOriginData();
+            flags.pf2e.origin = origin;
+        } else if (actor || pf2Traits) {
             const origin: Record<string, unknown> = {};
+
             if (actor) {
                 origin.actor = actor.uuid;
             }
