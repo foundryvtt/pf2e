@@ -228,10 +228,10 @@ export class InlineRollLinks {
                     const defenseStat = targetActor?.getStatistic(pf2Defense);
                     return defenseStat
                         ? {
-                              statistic: defenseStat.dc,
-                              scope: "check",
-                              value: defenseStat.dc.value,
-                          }
+                            statistic: defenseStat.dc,
+                            scope: "check",
+                            value: defenseStat.dc.value,
+                        }
                         : null;
                 }
                 return null;
@@ -246,8 +246,8 @@ export class InlineRollLinks {
                     foundryDoc instanceof ItemPF2e
                         ? foundryDoc
                         : foundryDoc instanceof ChatMessagePF2e
-                          ? foundryDoc.item
-                          : null;
+                            ? foundryDoc.item
+                            : null;
 
                 return itemFromDoc?.isOfType("action", "feat", "campaignFeature") ||
                     (isSavingThrow && !itemFromDoc?.isOfType("weapon"))
@@ -275,8 +275,8 @@ export class InlineRollLinks {
                     pf2Check in CONFIG.PF2E.magicTraditions
                         ? "PF2E.ActionsCheck.spell"
                         : statistic.check.type === "attack-roll"
-                          ? "PF2E.ActionsCheck.x-attack-roll"
-                          : "PF2E.ActionsCheck.x";
+                            ? "PF2E.ActionsCheck.x-attack-roll"
+                            : "PF2E.ActionsCheck.x";
                 args.label = await renderTemplate("systems/pf2e/templates/chat/action/header.hbs", {
                     glyph: getActionGlyph(item.actionCost),
                     subtitle: game.i18n.format(subtitleLocKey, { type: statistic.label }),
@@ -354,6 +354,10 @@ export class InlineRollLinks {
             const origin: Record<string, unknown> = {};
             if (item) {
                 for (const [key, value] of Object.entries(item.getOriginData())) {
+                    if (key === "uuid") {
+                        origin["item"] = value;
+                        continue;
+                    }
                     origin[key] = value;
                 }
                 origin.name = item.name;
@@ -406,8 +410,8 @@ export class InlineRollLinks {
             foundryDoc instanceof JournalEntry
                 ? { pf2e: { journalEntry: foundryDoc.uuid } }
                 : message?.flags.pf2e.origin
-                  ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
-                  : {};
+                    ? { pf2e: { origin: fu.deepClone(message.flags.pf2e.origin) } }
+                    : {};
 
         return ChatMessagePF2e.create({ speaker, content, flags });
     }
