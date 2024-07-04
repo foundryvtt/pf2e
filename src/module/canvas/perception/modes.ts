@@ -183,7 +183,7 @@ class ThoughtsDetectionMode extends DetectionMode {
         if (!target.actor.isOfType("creature")) return false;
 
         // Detection cails on mindless creatures
-        if (target.actor.system?.traits?.value?.includes("mindless")) return false;
+        if (target.actor.system.traits.value.includes("mindless")) return false;
 
         return super._canDetect(visionSource, target);
     }
