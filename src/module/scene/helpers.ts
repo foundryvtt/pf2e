@@ -98,7 +98,7 @@ function computeSightAndDetectionForRBV(token: TokenDocumentPF2e | PrototypeToke
     }
 
     const thoughtsense = actor.perception.senses.get("thoughtsense");
-    if (thoughtsense) {
+    if (thoughtsense && thoughtsense.acuity !== "vague") {
         token.detectionModes.push({ id: "senseThoughts", enabled: true, range: thoughtsense.range });
     }
 }
