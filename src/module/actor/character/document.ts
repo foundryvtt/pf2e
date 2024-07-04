@@ -937,14 +937,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Add Lore skills to skill statistics
         for (const loreItem of this.itemTypes.lore) {
-            const longForm = sluggify(loreItem.name);
+            const rawLoreSlug = sluggify(loreItem.name);
+            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
             const rank = loreItem.system.proficient.value;
-            this.skills[longForm as SkillSlug] = new Statistic(this, {
-                slug: longForm,
+            this.skills[slug as SkillSlug] = new Statistic(this, {
+                slug,
                 label: loreItem.name,
                 rank,
                 attribute: "int",
-                domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
+                domains: [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
