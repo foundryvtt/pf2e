@@ -28,7 +28,33 @@
             "remaster": false,
             "title": "Pathfinder #194: Cult of the Cave Worm"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Immunity",
+                "predicate": [
+                    "self:effect:worm-form"
+                ],
+                "type": "immobilized"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:worm-form",
+                    {
+                        "or": [
+                            "action:shove",
+                            "action:trip"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "fortitude-dc",
+                    "reflex-dc"
+                ],
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
