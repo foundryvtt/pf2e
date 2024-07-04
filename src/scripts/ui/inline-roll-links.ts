@@ -350,19 +350,12 @@ export class InlineRollLinks {
 
         const actor = resolveActor(foundryDoc);
         const item = foundryDoc instanceof ItemPF2e ? foundryDoc : null;
-        if (actor || pf2Traits || item) {
+        if (item) {
+            const origin = item.getOriginData();
+            flags.pf2e.origin = origin;
+        } else if (actor || pf2Traits) {
             const origin: Record<string, unknown> = {};
-            if (item) {
-                for (const [key, value] of Object.entries(item.getOriginData())) {
-                    if (key === "uuid") {
-                        origin["item"] = value;
-                        continue;
-                    }
-                    origin[key] = value;
-                }
-                origin.name = item.name;
-                origin.slug = item.slug;
-            }
+
             if (actor) {
                 origin.actor = actor.uuid;
             }
