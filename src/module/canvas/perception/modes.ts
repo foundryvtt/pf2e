@@ -158,7 +158,6 @@ class ThoughtsDetectionMode extends DetectionMode {
             id: "senseThoughts",
             label: "PF2E.Actor.Creature.Sense.Type.Thoughtsense",
             type: DetectionMode.DETECTION_TYPES.OTHER,
-            walls: false,
             angle: false,
         });
     }
