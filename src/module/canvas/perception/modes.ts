@@ -175,7 +175,7 @@ class ThoughtsDetectionMode extends DetectionMode {
     protected override _canDetect(visionSource: PointVisionSourcePF2e, target: PlaceableObject): boolean {
         // Not if the target isn't a token
         if (!(target instanceof TokenPF2e)) return false;
-        const token : TokenPF2e = target;
+        const token: TokenPF2e = target;
         if (!token.actor) return false;
 
         // Not if the token is GM-hidden
