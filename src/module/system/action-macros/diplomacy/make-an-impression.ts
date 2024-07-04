@@ -30,6 +30,7 @@ function makeAnImpression(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     description: `${PREFIX}.Description`,
     difficultyClass: "will",
+    img: "icons/skills/social/diplomacy-peace-alliance.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },

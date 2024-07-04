@@ -30,6 +30,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "reflex",
+    img: "icons/skills/movement/figure-running-gray.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
