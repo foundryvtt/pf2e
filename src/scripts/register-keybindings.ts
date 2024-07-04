@@ -34,8 +34,22 @@ export function registerKeybindings(): void {
         },
     });
 
-    // Defer to the Perfect Vision module if enabled
-    if (!game.modules.get("gm-vision")?.active && !game.modules.get("perfect-vision")?.active) {
+    game.keybindings.register("pf2e", "placeWaypoint", {
+        name: "PF2E.Keybinding.PlaceWaypoint.Label",
+        hint: "PF2E.Keybinding.PlaceWaypoint.Hint",
+        editable: [{ key: "KeyX", modifiers: [] }],
+        onUp: (): boolean | null => {
+            if (canvas.controls.ruler?.isMeasuring && game.pf2e.settings.dragMeasurement) {
+                canvas.controls.ruler.saveWaypoint();
+                return true;
+            } else {
+                return false;
+            }
+        },
+    });
+
+    // Defer to the GM Vision module if enabled
+    if (!game.modules.get("gm-vision")?.active) {
         game.keybindings.register("pf2e", "gm-vision", {
             name: "PF2E.Keybinding.GMVision.Label",
             hint: "PF2E.Keybinding.GMVision.Hint",

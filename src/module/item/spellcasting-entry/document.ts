@@ -299,8 +299,16 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // For prepared spells, we deduct the slot. We use the given one or try to find a good match
         if (this.isPrepared && !this.isFlexible) {
             const slots = this.system.slots[slotKey].prepared;
-            const resolvedIndex = slotIndex ?? slots.findIndex((s) => s.id === spell.id && !s.expended);
-            if (!Number.isInteger(resolvedIndex)) {
+            const resolvedIndex = ((): number | null => {
+                if (typeof slotIndex === "number" && slotIndex >= 0 && slots[slotIndex]) {
+                    return slotIndex;
+                }
+                const unexpendedIndex = slots.findIndex((s) => s.id === spell.id && !s.expended);
+                if (unexpendedIndex > -1) return unexpendedIndex;
+                const expendedIndex = slots.findIndex((s) => s.id === spell.id);
+                return expendedIndex > -1 ? expendedIndex : null;
+            })();
+            if (resolvedIndex === null) {
                 throw ErrorPF2e("Slot not given for prepared spell, and no alternative slot was found");
             }
             if (slots[resolvedIndex].expended) {

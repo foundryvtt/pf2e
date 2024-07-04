@@ -9,7 +9,6 @@ import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
 import { itemIsOfType } from "@item/helpers.ts";
-import { NPCAttackTrait } from "@item/melee/types.ts";
 import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
@@ -1161,10 +1160,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 case "melee": {
                     const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
-                    const traits: { value: NPCAttackTrait[] } = {
-                        value: dataset.actionType === "melee" ? [] : ["range-increment-10"],
-                    };
-                    return { type: itemType, name, system: { traits } };
+                    return { type: itemType, name };
                 }
                 case "lore": {
                     const name =

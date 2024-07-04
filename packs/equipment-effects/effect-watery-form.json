@@ -1,0 +1,51 @@
+{
+    "_id": "lj1Oju2DvOTvByMa",
+    "img": "icons/equipment/neck/choker-rounded-gold-green.webp",
+    "name": "Effect: Watery Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Orm Choker]</p>\n<p>You gain a swim Speed of 45 feet, and you gain a +4 circumstance bonus to Stealth checks in water.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 1
+        },
+        "level": {
+            "value": 10
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": 45
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "terrain:water"
+                ],
+                "selector": "stealth",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

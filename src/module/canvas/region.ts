@@ -44,22 +44,15 @@ class RegionPF2e extends Region<RegionDocumentPF2e> {
         }
     }
 
-    /** Save the coordinates of the new drop location. */
-    protected override async _onDragLeftDrop(
-        event: PlaceablesLayerPointerEvent<this>,
-    ): Promise<void | RegionDocumentPF2e[]> {
-        const clone = event.interactionData.clones?.[0];
-        const shapes = clone?.document.shapes.map((shape) => {
-            if ("x" in shape) {
-                shape.updateSource({ x: shape.x, y: shape.y });
-            } else if ("points" in shape) {
-                shape.updateSource({ points: shape.points });
-            }
-
-            return shape.toObject();
+    /** Save the coordinates of the new drop location(s). */
+    protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<RegionDocumentPF2e[]> {
+        const clones = event.interactionData.clones ?? [];
+        const updates = clones.map((clone) => {
+            const shapes = clone.document.shapes.map((s) => s.toObject(false));
+            return { _id: clone.document.id, shapes };
         });
 
-        await this.document.update({ shapes });
+        return this.document.parent?.updateEmbeddedDocuments("Region", updates) ?? [];
     }
 }
 

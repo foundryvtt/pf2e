@@ -19,7 +19,6 @@ function measureDistanceCuboid(
         target?: TokenPF2e | null;
     } = {},
 ): number {
-    if (!canvas.grid) return NaN;
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
         return canvas.grid.measurePath([r0, r1]).distance;
     }
@@ -59,7 +58,8 @@ function measureDistanceCuboid(
         distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
         distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
-    if (token && target && token?.document?.elevation !== target?.document.elevation && token.actor && target.actor) {
+
+    if (token && target && token.document.elevation !== target.document.elevation && token.actor && target.actor) {
         const selfElevation = token.document.elevation;
         const targetElevation = target.document.elevation;
 
@@ -162,4 +162,14 @@ function measureDistanceOnGrid(
     return distance * gridDistance;
 }
 
-export { measureDistance, measureDistanceCuboid };
+/** Get a grid square at an arbitrary point. */
+function squareAtPoint(point: Point): PIXI.Rectangle {
+    const snapped =
+        canvas.grid.type === CONST.GRID_TYPES.SQUARE
+            ? canvas.grid.getTopLeftPoint(point)
+            : canvas.grid.getSnappedPoint(point, { mode: CONST.GRID_SNAPPING_MODES.CENTER });
+
+    return new PIXI.Rectangle(snapped.x, snapped.y, canvas.grid.sizeX, canvas.grid.sizeY);
+}
+
+export { measureDistance, measureDistanceCuboid, squareAtPoint };

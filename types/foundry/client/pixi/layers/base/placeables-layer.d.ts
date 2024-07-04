@@ -7,7 +7,8 @@ declare global {
      * @category - Canvas
      */
     abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
-        constructor();
+        /** Sort order for placeables belonging to this layer. */
+        static SORT_ORDER: number;
 
         objects: PIXI.Container<TObject> | null;
 
@@ -126,6 +127,9 @@ declare global {
         override activate(): this;
 
         override deactivate(): this;
+
+        /** Clear the contents of the preview container, restoring visibility of original (non-preview) objects. */
+        clearPreviewContainer(): void;
 
         /**
          * Get a PlaceableObject contained in this layer by it's ID

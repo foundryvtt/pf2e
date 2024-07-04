@@ -61,6 +61,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
+    img: "icons/skills/social/theft-pickpocket-bribery-brown.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },

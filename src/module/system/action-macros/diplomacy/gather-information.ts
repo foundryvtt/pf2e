@@ -28,6 +28,7 @@ function gatherInformation(options: SkillActionOptions): void {
 
 const action = new SingleCheckAction({
     description: `${PREFIX}.Description`,
+    img: "icons/skills/social/diplomacy-handshake-blue.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess", "success"], text: `${PREFIX}.Notes.success` },

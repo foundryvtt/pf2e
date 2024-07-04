@@ -93,6 +93,7 @@ class TripAction extends SingleCheckAction {
             cost: 1,
             description: "PF2E.Actions.Trip.Description",
             difficultyClass: "reflex",
+            img: "icons/skills/melee/unarmed-punch-fist-white.webp",
             name: "PF2E.Actions.Trip.Title",
             notes: [
                 { outcome: ["criticalSuccess"], text: "PF2E.Actions.Trip.Notes.criticalSuccess" },

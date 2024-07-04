@@ -91,8 +91,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                           ? CONFIG.Canvas.dispositionColors.HOSTILE
                           : CONFIG.Canvas.dispositionColors.NEUTRAL,
                 );
+                row.style.cssText = `--color-border-highlight: ${dispositionColor.toString()}`;
                 row.style.background = dispositionColor.toRGBA(0.1);
-                row.style.borderColor = dispositionColor.toString();
             }
 
             // Create section for list of users targeting a combatant's token

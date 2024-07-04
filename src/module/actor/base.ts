@@ -555,6 +555,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const linkToActorSize = linkable && (source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true);
             const autoscale =
                 linkable &&
+                // Don't autoscale if the scale is preset to something other than 1
+                (typeof source.prototypeToken?.texture?.scaleX !== "number" ||
+                    source.prototypeToken.texture.scaleX === 1) &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = fu.mergeObject(source, {
@@ -1295,6 +1298,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             flags: {
                 pf2e: {
                     appliedDamage,
+                    context: {
+                        type: "damage-taken",
+                        options: Array.from(rollOptions),
+                    },
+                    origin: item?.getOriginData(),
                 },
             },
             flavor,

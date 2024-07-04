@@ -2,7 +2,7 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { measureDistanceCuboid, type CanvasPF2e } from "../index.ts";
+import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -12,6 +12,14 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
+
+    get #isDragMeasuring(): boolean {
+        return (
+            game.pf2e.settings.dragMeasurement &&
+            canvas.controls.ruler.isMeasuring &&
+            canvas.controls.ruler.token === this
+        );
+    }
 
     constructor(document: TDocument) {
         super(document);
@@ -412,11 +420,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     /**
-     * Measure the distance between this token and another object, in grid distance. We measure between the
+     * Measure the distance between this token and another object or point, in grid distance. We measure between the
      * centre of squares, and if either covers more than one square, we want the minimum distance between
      * any two of the squares.
      */
-    distanceTo(target: TokenPF2e, { reach = null }: { reach?: number | null } = {}): number {
+    distanceTo(target: TokenOrPoint, { reach = null }: { reach?: number | null } = {}): number {
         if (!canvas.ready) return NaN;
 
         if (this === target) return 0;
@@ -430,16 +438,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
 
         const selfElevation = this.document.elevation;
-        const targetElevation = target.document.elevation;
-        if (selfElevation === targetElevation || !this.actor || !target.actor) {
-            return measureDistanceCuboid(this.bounds, target.bounds, { reach });
+        const targetElevation = target.document?.elevation ?? selfElevation;
+        const targetBounds = target.bounds ?? squareAtPoint(target);
+        if (selfElevation === targetElevation || !this.actor || !target.bounds || !target.actor) {
+            return measureDistanceCuboid(this.bounds, targetBounds, { reach });
         }
 
-        return measureDistanceCuboid(this.bounds, target.bounds, {
-            reach,
-            token: this,
-            target,
-        });
+        return measureDistanceCuboid(this.bounds, targetBounds, { reach, token: this, target });
     }
 
     override async animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void> {
@@ -503,6 +508,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
+    protected override _canDrag(user: UserPF2e, event?: TokenPointerEvent<this>): boolean {
+        return super._canDrag(user, event) || (this.controlled && game.pf2e.settings.dragMeasurement);
+    }
+
     /** Prevent players from controlling an NPC when it's lootable */
     protected override _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean {
         if (!this.observer && this.actor?.isOfType("npc") && this.actor.isLootableBy(user)) return false;
@@ -519,6 +528,42 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
         return super._onRelease(options);
+    }
+
+    /** Initiate token drag measurement unless using the ruler tool. */
+    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
+        event.interactionData.clones ??= [];
+        if (game.activeTool !== "ruler") {
+            canvas.controls.ruler.startDragMeasurement(event);
+            return super._onDragLeftStart(event);
+        }
+    }
+
+    protected override _onDragLeftMove(event: TokenPointerEvent<this>): void {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.onDragMeasureMove(event);
+        }
+        return super._onDragLeftMove(event);
+    }
+
+    protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<void | TDocument[]> {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.finishDragMeasurement();
+            this.layer.clearPreviewContainer();
+        } else {
+            super._onDragLeftDrop(event);
+        }
+    }
+
+    protected override _onDragLeftCancel(event: TokenPointerEvent<this>): void {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.onDragLeftCancel(event);
+            if (!this.#isDragMeasuring) {
+                super._onDragLeftCancel(event);
+            }
+        } else {
+            super._onDragLeftCancel(event);
+        }
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
@@ -564,6 +609,14 @@ type ShowFloatyEffectParams =
 interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
     spin?: boolean;
 }
+
+type TokenOrPoint =
+    | TokenPF2e
+    | (Point & {
+          actor?: never;
+          document?: never;
+          bounds?: never;
+      });
 
 export { TokenPF2e };
 export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

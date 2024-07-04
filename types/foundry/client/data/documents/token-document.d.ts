@@ -10,7 +10,7 @@ declare global {
         actors: Collection<Actor>;
 
         /** The Regions this Token is currently in. */
-        regions: Set<RegionDocument> | null;
+        regions: Set<RegionDocument<TParent>> | null;
 
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
@@ -27,6 +27,12 @@ declare global {
 
         /** A convenient reference for whether this TokenDocument is linked to the Actor it represents, or is a synthetic copy */
         get isLinked(): this["actorLink"];
+
+        /**
+         * Does this TokenDocument have the SECRET disposition and is the current user lacking the necessary permissions
+         * that would reveal this secret?
+         */
+        get isSecret(): boolean;
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
         get combatant(): Combatant<Combat, this> | null;
