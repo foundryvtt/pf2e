@@ -180,8 +180,7 @@ class ThoughtsDetectionMode extends DetectionMode {
         if (target.document.hidden) return false;
 
         // Detection only works on creatures
-        if (!target.actor.isOfType("character") && !target.actor.isOfType("npc") && !target.actor.isOfType("familiar"))
-            return false;
+        if (!target.actor.isOfType("creature")) return false;
 
         // Detection cails on mindless creatures
         if (target.actor.system?.traits?.value?.includes("mindless")) return false;
