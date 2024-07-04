@@ -349,7 +349,12 @@ export class InlineRollLinks {
         }
 
         const actor = resolveActor(foundryDoc);
-        const item = foundryDoc instanceof ItemPF2e ? foundryDoc : null;
+        const item =
+            foundryDoc instanceof ItemPF2e
+                ? foundryDoc
+                : foundryDoc instanceof ChatMessagePF2e
+                  ? foundryDoc.item
+                  : null;
         if (actor || pf2Traits || item) {
             const origin: Record<string, unknown> = {};
             if (item) {
