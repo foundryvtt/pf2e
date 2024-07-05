@@ -134,8 +134,8 @@ export const Ready = {
             // Now that all game data is available, Determine what actors we need to reprepare.
             // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
             const inTerrains: ActorPF2e[] = [];
-            const hasSceneTerrains = !!canvas.scene?.flags.pf2e.environmentTypes?.length;
-            for (const token of canvas.scene?.tokens ?? []) {
+            const hasSceneTerrains = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
+            for (const token of game.scenes.viewed?.tokens ?? []) {
                 if (!token.actor) continue;
                 if (hasSceneTerrains) {
                     inTerrains.push(token.actor);
@@ -144,14 +144,16 @@ export const Ready = {
                 }
             }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
-            const actorsToReprepare = [
-                ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                ...inTerrains.filter((a) => !a.isOfType("familiar", "party")),
-                ...game.actors.filter((a) => a.type === "familiar"),
-                ...parties,
-            ].filter(R.isTruthy);
-            resetActors(new Set(actorsToReprepare), { sheets: false, tokens: inTerrains.length > 0 });
+            const actorsToReprepare = new Set(
+                [
+                    ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
+                    ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                    ...inTerrains.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
+                    ...game.actors.filter((a) => a.type === "familiar"),
+                    ...parties,
+                ].filter(R.isTruthy),
+            );
+            resetActors(actorsToReprepare, { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
