@@ -112,6 +112,13 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         ...(source.items ?? []).map((i) => i?.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
     const tokenDefaults = fu.deepClone(game.settings.get("core", "defaultToken"));
+
+    // Clear any prototype token entries explicitly set to `undefined` by upstream
+    source.prototypeToken ??= {};
+    for (const [key, value] of R.entries.strict(source.prototypeToken ?? {})) {
+        if (value === undefined) delete source.prototypeToken[key];
+    }
+
     const actor = new ActorProxyPF2e(fu.mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
