@@ -119,21 +119,18 @@ export abstract class BaseGrid {
      * and the shifted grid space in the given direction.
      * In square grids with illegal diagonals the point is not shifted if the direction is diagonal.
      * In gridless grids the point coordinates are shifted by the grid size.
-     * @param  point        The point that is to be shifted
-     * @param  direction    The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
-     * @returns             The shifted point
+     * @param  point     The point that is to be shifted
+     * @param  direction The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
+     * @returns The shifted point
      */
-    abstract getShiftedPoint(
-        point: Point,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): Point;
+    abstract getShiftedPoint(point: Point, direction: MovementDirection): Point;
 
     /**
      * Returns the top-left point of the grid space corresponding to the given coordinates.
      * If given a point, the top-left point of the grid space that contains it is returned.
      * In gridless grids a point with the same coordinates as the given point is returned.
-     * @param    coords    The coordinates
-     * @returns            The top-left point
+     * @param coords The coordinates
+     * @returns The top-left point
      */
     abstract getTopLeftPoint(coords: GridCoordinates): Point;
 
@@ -141,8 +138,8 @@ export abstract class BaseGrid {
      * Returns the center point of the grid space corresponding to the given coordinates.
      * If given a point, the center point of the grid space that contains it is returned.
      * In gridless grids a point with the same coordinates as the given point is returned.
-     * @param   coords    The coordinates
-     * @returns           The center point
+     * @param coords The coordinates
+     * @returns The center point
      */
     abstract getCenterPoint(coords: GridCoordinates): Point;
 
@@ -203,8 +200,8 @@ export abstract class BaseGrid {
 
     /**
      * Returns the sequence of grid offsets of a shortest, direct path passing through the given waypoints.
-     * @param   waypoints    The waypoints the path must pass through
-     * @returns              The sequence of grid offsets of a shortest, direct path
+     * @param waypoints The waypoints the path must pass through
+     * @returns The sequence of grid offsets of a shortest, direct path
      */
     abstract getDirectPath(waypoints: GridMeasurePathWaypoint[]): GridOffset[];
 
