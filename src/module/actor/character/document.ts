@@ -44,6 +44,7 @@ import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
+import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
@@ -936,14 +937,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Add Lore skills to skill statistics
         for (const loreItem of this.itemTypes.lore) {
-            const longForm = sluggify(loreItem.name);
+            const rawLoreSlug = sluggify(loreItem.name);
+            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
             const rank = loreItem.system.proficient.value;
-            this.skills[longForm as SkillSlug] = new Statistic(this, {
-                slug: longForm,
+            this.skills[slug as SkillSlug] = new Statistic(this, {
+                slug,
                 label: loreItem.name,
                 rank,
                 attribute: "int",
-                domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
+                domains: [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
@@ -1173,6 +1175,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
+        // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
+        processTwoHandTrait(weapon);
         const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
@@ -1776,7 +1780,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: [],
                 });
                 proficiency.value = proficiencyBonus.value;
-                proficiency.breakdown = `${proficiencyBonus.label} ${signedInteger(proficiencyBonus.value)}`;
+                proficiency.breakdown = `${proficiencyBonus.label} ${proficiencyBonus.signedValue}`;
             }
         }
     }

@@ -12,13 +12,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     static override get canMeasure(): boolean {
-        const controlledToken = canvas.tokens.controlled[0];
-        return (
-            super.canMeasure ||
-            (this.#dragMeasurement &&
-                canvas.tokens.controlled.length === 1 &&
-                (controlledToken.hover || controlledToken.dragMeasureTarget))
-        );
+        return this.#dragMeasurement ? game.activeTool === "ruler" : super.canMeasure;
     }
 
     get isMeasuring(): boolean {
@@ -36,57 +30,60 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         }
     }
 
-    protected override _onClickLeft(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void {
-        if (this.dragMeasurement) event.ctrlKey = false;
-        return super._onClickLeft(event);
+    startDragMeasurement(event: TokenPointerEvent<NonNullable<TToken>>): void {
+        if (!this.dragMeasurement || game.activeTool === "ruler") return;
+        const { origin, object } = event.interactionData;
+        object.document.locked = true;
+        return this._startMeasurement(origin, { snap: !event.shiftKey, token: object });
     }
 
-    protected override _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void {
-        if (!this.dragMeasurement) return super._onMouseUp(event);
+    onDragMeasureMove(event: TokenPointerEvent<NonNullable<TToken>>): void {
+        if (!this.dragMeasurement) return;
+        return this._onMouseMove(event);
+    }
 
-        event.ctrlKey = false;
-
-        if (this.token) this.token.dragMeasureTarget = false;
-
-        if (!this.isMeasuring) {
-            return super._onMouseUp(event);
-        } else if (event.button === 2) {
-            // Right mouse up: handled by `onDragLeftCancel`
-            return;
-        } else if (this.waypoints.length >= 1) {
-            if (this.token) {
-                this.token.document.locked = this.token.document._source.locked;
-            }
-
-            if (game.activeTool !== "ruler" && canvas.tokens.controlled.length > 0) {
-                this.moveToken();
-            }
-            return this._endMeasurement();
+    async finishDragMeasurement(): Promise<boolean | void> {
+        if (!this.dragMeasurement) return;
+        if (this.token) {
+            this.token.document.locked = this.token.document._source.locked;
+            if (!this.isMeasuring) canvas.mouseInteractionManager.cancel();
+            return this.moveToken();
         }
 
-        event.ctrlKey = false;
-        return this._onClickLeft(event);
+        return this._endMeasurement();
     }
 
-    protected override _onDragStart(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void {
-        super._onDragStart(event);
-        if (this.token) this.token.dragMeasureTarget = false;
+    /** Prevent inclusion of a token when using the ruler tool. */
+    protected override _startMeasurement(origin: Point, options: { snap?: boolean; token?: TToken | null } = {}): void {
+        if (game.activeTool === "ruler") options.token = null;
+        return super._startMeasurement(origin, options);
     }
 
-    /**
-     * The `MouseInteractionManager` prevents drag cancellation when the ruler is active: use a workaround from a DOM
-     * listener.
-     */
-    onDragLeftCancel(event: MouseEvent): void {
-        if (!this.dragMeasurement || !this.isMeasuring || event.buttons !== 3) {
-            return;
+    /** Prevent behavior from keybind modifiers if token drag measurement is enabled. */
+    override _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void {
+        if (this.dragMeasurement) {
+            event.ctrlKey = false;
+            event.metaKey = false;
+            if (game.activeTool === "ruler") return this._endMeasurement();
         }
+        return super._onMouseUp(event);
+    }
 
-        if (this.waypoints.length > 1) {
-            canvas.mouseInteractionManager._dragRight = false;
-            return this._removeWaypoint();
+    /** Prevent behavior from movement keys (typically Space) if token drag measurement is enabled. */
+    override _onMoveKeyDown(context: KeyboardEventContext): void {
+        if (this.dragMeasurement) return;
+        return super._onMoveKeyDown(context);
+    }
+
+    onDragLeftCancel(event?: TokenPointerEvent<NonNullable<TToken>>): void {
+        if (!this.dragMeasurement || !this.isMeasuring) return;
+
+        this._removeWaypoint();
+        // Prevent additional events from firing for dragged token
+        if (this.isMeasuring) {
+            event?.preventDefault();
         } else {
-            return this._endMeasurement();
+            canvas.mouseInteractionManager.cancel();
         }
     }
 

@@ -311,7 +311,8 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             const skill = this._source.system.skills[skillSlug];
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
 
-            // Get predicated variants as modifiers that trigger when the predicate is met
+            // Get predicated variants as modifiers that trigger when the predicate is met.
+            // This is only necessary if there are predicates. Direct clicking is handled separately.
             const specialModifiers =
                 skill?.special
                     ?.filter((v) => v.predicate?.length)
@@ -351,12 +352,12 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
 
         // Lore skills
         for (const loreItem of this.itemTypes.lore) {
-            // normalize skill name to lower-case and dash-separated words
-            const longForm = sluggify(loreItem.name);
-            const domains = [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"];
+            const rawLoreSlug = sluggify(loreItem.name);
+            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
+            const domains = [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"];
 
             const statistic = new Statistic(this, {
-                slug: longForm,
+                slug: slug,
                 label: loreItem.name,
                 attribute: "int",
                 domains,
@@ -365,6 +366,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                         slug: "base",
                         label: "PF2E.ModifierTitle",
                         modifier: loreItem.system.mod.value,
+                        adjustments: extractModifierAdjustments(modifierAdjustments, domains, "base"),
                     }),
                 ],
                 lore: true,
@@ -372,7 +374,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
                 check: { type: "skill-check" },
             });
 
-            this.skills[longForm] = statistic;
+            this.skills[slug] = statistic;
         }
 
         // Create trace data in system data

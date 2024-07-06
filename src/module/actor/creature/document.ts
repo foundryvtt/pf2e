@@ -338,10 +338,6 @@ abstract class CreaturePF2e<
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
 
-        for (const rule of this.rules) {
-            rule.onApplyActiveEffects?.();
-        }
-
         for (const changeEntries of Object.values(this.system.autoChanges)) {
             changeEntries?.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
         }

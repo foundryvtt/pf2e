@@ -214,7 +214,7 @@ declare global {
         updateEmbeddedDocuments(
             embeddedName: "Region",
             updateData: EmbeddedDocumentUpdateData[],
-            operation?: DatabaseCreateOperation<this>,
+            operation?: Partial<DatabaseCreateOperation<this>>,
         ): Promise<CollectionValue<this["regions"]>[]>;
         updateEmbeddedDocuments(
             embeddedName: "Tile",

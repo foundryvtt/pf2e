@@ -3,8 +3,6 @@ import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts
 import Tagify, { TagifySettings } from "@yaireo/tagify";
 import { objectHasKey } from "./misc.ts";
 
-type WhitelistData = string[] | Record<string, string | { label: string }>;
-
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
     // in use, which can include what are normally NPC-only traits
@@ -40,7 +38,13 @@ function tagify(
 ): Tagify<TagRecord> | null;
 function tagify(
     element: HTMLInputElement | HTMLTagifyTagsElement | null,
-    { whitelist, maxTags, enforceWhitelist = true, editTags }: TagifyOptions = {},
+    {
+        whitelist,
+        maxTags,
+        enforceWhitelist = true,
+        editTags = { clicks: 2, keepInvalid: true },
+        delimiters = ",",
+    }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
     // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
     const isTagifyTagsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
@@ -66,6 +70,7 @@ function tagify(
             searchKeys: ["id", "value"],
         },
         editTags,
+        delimiters,
         whitelist: whitelistTransformed,
     });
 
@@ -87,6 +92,8 @@ function tagify(
  */
 type TagRecord = Record<"id" | "value", string>;
 
+type WhitelistData = string[] | Record<string, string | { label: string }>;
+
 interface TagifyOptions {
     /** The maximum number of tags that may be added to the input */
     maxTags?: number;
@@ -100,6 +107,11 @@ interface TagifyOptions {
      * @default {clicks: 2, keepInvalid: true}
      */
     editTags?: TagifySettings["editTags"];
+    /**
+     * RegEx string. Split tags by any of these delimiters. Example delimiters: ",|.| " (comma, dot, or whitespace)
+     * @default ','
+     */
+    delimiters?: TagifySettings["delimiters"];
 }
 
 export { tagify, traitSlugToObject };

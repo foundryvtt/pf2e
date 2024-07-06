@@ -1,7 +1,6 @@
 import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { FederatedPointerEvent } from "pixi.js";
 import * as R from "remeda";
 import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
@@ -14,7 +13,13 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
 
-    dragMeasureTarget = false;
+    get #isDragMeasuring(): boolean {
+        return (
+            game.pf2e.settings.dragMeasurement &&
+            canvas.controls.ruler.isMeasuring &&
+            canvas.controls.ruler.token === this
+        );
+    }
 
     constructor(document: TDocument) {
         super(document);
@@ -471,14 +476,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.document.lockRotation = this.document._source.lockRotation;
     }
 
-    protected override _propagateLeftClick(event: FederatedPointerEvent): boolean {
-        const upstreamSez = super._propagateLeftClick(event);
-        if (!game.pf2e.settings.dragMeasurement) return upstreamSez;
-
-        this.dragMeasureTarget ||= upstreamSez || this._canControl(game.user);
-        return this.dragMeasureTarget;
-    }
-
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
     override render(renderer: PIXI.Renderer): void {
         super.render(renderer);
@@ -511,6 +508,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return super._canView(user, event) || !!this.actor?.isLootableBy(user);
     }
 
+    protected override _canDrag(user: UserPF2e, event?: TokenPointerEvent<this>): boolean {
+        return super._canDrag(user, event) || (this.controlled && game.pf2e.settings.dragMeasurement);
+    }
+
     /** Prevent players from controlling an NPC when it's lootable */
     protected override _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean {
         if (!this.observer && this.actor?.isOfType("npc") && this.actor.isLootableBy(user)) return false;
@@ -520,21 +521,49 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Refresh vision and the `EffectsPanel` */
     protected override _onControl(options: { releaseOthers?: boolean; pan?: boolean } = {}): void {
         if (game.ready) game.pf2e.effectPanel.refresh();
-        if (this.hover) this.dragMeasureTarget = true;
-
         return super._onControl(options);
     }
 
     /** Refresh vision and the `EffectsPanel` */
     protected override _onRelease(options?: Record<string, unknown>): void {
         game.pf2e.effectPanel.refresh();
-        this.dragMeasureTarget = false;
         return super._onRelease(options);
     }
 
-    protected override _onDragLeftCancel(event: PlaceablesLayerPointerEvent<this>): void {
-        this.dragMeasureTarget = false;
-        return super._onDragLeftCancel(event);
+    /** Initiate token drag measurement unless using the ruler tool. */
+    protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
+        event.interactionData.clones ??= [];
+        if (game.activeTool !== "ruler") {
+            canvas.controls.ruler.startDragMeasurement(event);
+            return super._onDragLeftStart(event);
+        }
+    }
+
+    protected override _onDragLeftMove(event: TokenPointerEvent<this>): void {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.onDragMeasureMove(event);
+        }
+        return super._onDragLeftMove(event);
+    }
+
+    protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<void | TDocument[]> {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.finishDragMeasurement();
+            this.layer.clearPreviewContainer();
+        } else {
+            super._onDragLeftDrop(event);
+        }
+    }
+
+    protected override _onDragLeftCancel(event: TokenPointerEvent<this>): void {
+        if (this.#isDragMeasuring) {
+            canvas.controls.ruler.onDragLeftCancel(event);
+            if (!this.#isDragMeasuring) {
+                super._onDragLeftCancel(event);
+            }
+        } else {
+            super._onDragLeftCancel(event);
+        }
     }
 
     /** Handle system-specific status effects (upstream handles invisible and blinded) */

@@ -230,8 +230,6 @@ declare global {
         get sheet(): ActorSheet<Actor>;
 
         get uuid(): ActorUUID;
-
-        get folder(): Folder<Actor<null>> | null;
     }
 
     namespace Actor {

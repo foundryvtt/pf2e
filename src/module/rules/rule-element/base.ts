@@ -237,7 +237,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             }
         } else if (R.isPlainObject(source)) {
             for (const [key, value] of Object.entries(source)) {
-                if (typeof value === "string" || R.isPlainObject(value)) {
+                if (typeof value === "string" || R.isObjectType(value)) {
                     source[key] = this.resolveInjectedProperties(value, options);
                 }
             }
