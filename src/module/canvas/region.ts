@@ -5,12 +5,12 @@ import type { RegionSource } from "types/foundry/common/documents/region.d.ts";
 class RegionPF2e<TDocument extends RegionDocumentPF2e = RegionDocumentPF2e> extends Region<TDocument> {
     static override RENDER_FLAGS = { ...super.RENDER_FLAGS, refreshPosition: {} };
 
-    protected override _canDrag(user: User, event: PIXI.FederatedPointerEvent): boolean {
-        return this._canControl(user, event) && !this.document.locked;
-    }
-
     override getSnappedPosition(position?: Point): Point {
         return this.layer.getSnappedPoint(position ?? this.center);
+    }
+
+    protected override _canDrag(user: User, event: PIXI.FederatedPointerEvent): boolean {
+        return this._canControl(user, event) && !this.document.locked;
     }
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<this>): void {
