@@ -1,0 +1,111 @@
+{
+    "_id": "2jU0571hJwxYbif6",
+    "img": "icons/creatures/abilities/bear-roar-bite-brown.webp",
+    "name": "Effect: Animal Shape",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Shape]{Animal Shape}</p>\n<p><span>While in animal shape, you gain the effects of a 5th-rank casting of your chosen form spell, except you always transform into an animal matching your inherent animal and can use your humanoid form's AC if it's higher than what the animal form grants.</span></p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "ac": {
+                        "modifier": "18 + @actor.level",
+                        "ownIfHigher": true
+                    },
+                    "senses": {
+                        "echolocation": {
+                            "acuity": "precise",
+                            "range": 40
+                        },
+                        "low-light-vision": {}
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 20
+                        }
+                    },
+                    "speeds": {
+                        "fly": 30,
+                        "land": 20
+                    },
+                    "strikes": {
+                        "fangs": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                "modifier": 8
+                            },
+                            "modifier": 18,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "wing": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "bludgeoning",
+                                "dice": 2,
+                                "die": "d6",
+                                "modifier": 8
+                            },
+                            "img": "icons/commodities/biological/wing-lizard-brown.webp",
+                            "modifier": 18,
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "tempHP": 10,
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "beastkin-animal:bat"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "beastkin-animal:bat"
+                ],
+                "selector": "fly-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
