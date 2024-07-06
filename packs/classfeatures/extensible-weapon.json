@@ -1,6 +1,6 @@
 {
     "_id": "YQs4G9YK3VskY2F6",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/weapons/polearms/glaive-simple.webp",
     "name": "Extensible Weapon",
     "system": {
         "actionType": {
@@ -24,7 +24,26 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:reach"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "reach"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.reach.base",
+                "value": 5
+            }
+        ],
         "traits": {
             "otherTags": [
                 "melee",
