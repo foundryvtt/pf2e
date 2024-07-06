@@ -1,4 +1,4 @@
-.sheet.hazard {
+.sheet.hazard section.window-content {
     @import "../red-action-boxes";
 
     ul,
@@ -70,6 +70,33 @@
     }
 
     @import "header", "sidebar";
+
+    .toggles {
+        .section-body {
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        label {
+            align-items: center;
+            display: flex;
+            gap: var(--space-4);
+
+            input[type="checkbox"] {
+                flex: 0 0 1.25rem;
+                margin: 0;
+                width: 1.25rem;
+                height: 1.25rem;
+            }
+
+            select {
+                background: none;
+                margin-left: var(--space-4);
+            }
+        }
+    }
 
     .section-container {
         padding: var(--space-4) var(--space-6) 0;

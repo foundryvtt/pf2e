@@ -780,6 +780,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.prepareDataFromItems();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
     }
 
     /** Prepare data among owned items as well as actor-data preparation performed by items */
