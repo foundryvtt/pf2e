@@ -242,11 +242,23 @@ class PartyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     /*  Event Handlers                              */
     /* -------------------------------------------- */
 
+    protected override _preCreate(
+        data: this["_source"],
+        options: DatabaseCreateOperation<TParent>,
+        user: UserPF2e,
+    ): Promise<boolean | void> {
+        data.folder = null;
+        return super._preCreate(data, options, user);
+    }
+
     protected override async _preUpdate(
         changed: DeepPartial<PartySource>,
         options: PartyUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
+        // Prevent party actors from being dragged to folders
+        changed.folder = null;
+
         const members = this.members;
         const newMemberUUIDs = changed?.system?.details?.members?.map((m) => m?.uuid);
         if (newMemberUUIDs) {

@@ -525,7 +525,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<Actor | null> {
         context.types &&= R.unique(context.types);
         context.types ??= [...ACTOR_TYPES];
+
+        // Determine omitted types. Army is hidden in most games, and party is hidden in folders
         const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        if (data?.folder) {
+            omittedTypes.push("party");
+        }
+
         for (const type of omittedTypes) {
             context.types.findSplice((t) => t === type);
         }
