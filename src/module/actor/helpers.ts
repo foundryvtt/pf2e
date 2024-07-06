@@ -536,7 +536,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     strike.breakdown = strike.modifiers
         .filter((m) => m.enabled)
-        .map((m) => `${m.label} ${signedInteger(m.value)}`)
+        .map((m) => `${m.label} ${m.signedValue}`)
         .join(", ");
 
     // Multiple attack penalty
