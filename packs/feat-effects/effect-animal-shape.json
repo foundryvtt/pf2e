@@ -4,7 +4,7 @@
     "name": "Effect: Animal Shape",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Shape]{Animal Shape}</p>\n<p><span>While in animal shape, you gain the effects of a 5th-rank casting of your chosen form spell, except you always transform into an animal matching your inherent animal and can use your humanoid form's AC if it's higher than what the animal form grants.</span></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Animal Shape]</p>\n<p><span>While in animal shape, you gain the effects of a 5th-rank casting of your chosen form spell, except you always transform into an animal matching your inherent animal and can use your humanoid form's AC if it's higher than what the animal form grants.</span></p>"
         },
         "duration": {
             "expiry": null,
@@ -89,11 +89,183 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "beastkin-animal:bat"
+                    "beastkin-animal:bat",
+                    "beastkin-animal:wasp",
+                    "beastkin-animal:pterosaur",
+                    "beastkin-animal:bird"
                 ],
                 "selector": "fly-speed",
                 "type": "status",
                 "value": 10
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "ac": {
+                        "modifier": "18 + @actor.level",
+                        "ownIfHigher": true
+                    },
+                    "senses": {
+                        "low-light-vision": {}
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 20
+                    },
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 20
+                        }
+                    },
+                    "strikes": {
+                        "stinger": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "modifier": 8,
+                                "die": "d8"
+                            },
+                            "modifier": 18,
+                            "img": "icons/creatures/abilities/stinger-poison-green.webp",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 10,
+                    "size": "lg",
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "beastkin-animal:wasp"
+                ]
+            },
+            {
+                "category": "persistent",
+                "damageType": "poison",
+                "diceNumber": "ternary(gte(@item.level, 6), 2, 1)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "beastkin-animal:wasp"
+                ],
+                "selector": "stinger-damage"
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "ac": {
+                                    "modifier": "18 + @actor.level",
+                        "ownIfHigher": true
+                    },
+                    "senses": {
+                        "low-light-vision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 20
+                        }
+                    },
+                    "speeds": {
+                        "fly": 40,
+                        "land": 10
+                    },
+                    "strikes": {
+                        "beak": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "modifier": 8,
+                                "die": "d6"
+                            },
+                            "modifier": 18,
+                            "img": "icons/commodities/bones/beak-hooked-red.webp",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 10,
+                    "size": "lg",
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "beastkin-animal:pterosaur"
+                ]
+            },
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "ac": {
+                                    "modifier": "18 + @actor.level",
+                        "ownIfHigher": true
+                    },
+                    "senses": {
+                        "low-light-vision": {}
+                    },
+                    "speeds": {
+                        "fly": 50,
+                        "land": 10
+                    },
+                    "skills": {
+                        "acrobatics": {
+                            "modifier": 20
+                        }
+                    },
+                    "strikes": {
+                        "beak": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8",
+                                            "modifier": 8
+                            },
+                            "img": "icons/commodities/bones/beak-orange-green.webp",
+                            "modifier": 18,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "talon": {
+                            "ability": "dex",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "slashing",
+                                "dice": 1,
+                                "modifier": 8,
+                                "die": "d10"
+                            },
+                            "modifier": 18,
+                            "img": "icons/creatures/claws/claw-talons-glowing-orange.webp",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "tempHP": 10,
+                    "size": "lg",
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "predicate": [
+                    "beastkin-animal:bird"
+                ]
             }
         ],
         "start": {
