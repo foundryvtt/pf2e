@@ -33,11 +33,11 @@ const action = new SingleCheckAction({
     description: `${PREFIX}.Description`,
     img: "icons/skills/movement/feet-winged-boots-blue.webp",
     name: `${PREFIX}.Title`,
-    notes: [
-        { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },
-        { outcome: ["failure"], text: `${PREFIX}.Notes.failure` },
-        { outcome: ["criticalFailure"], text: `${PREFIX}.Notes.criticalFailure` },
-    ],
+    outcomes: {
+        success: `${PREFIX}.Outcome.success`,
+        failure: `${PREFIX}.Outcome.failure`,
+        criticalFailure: `${PREFIX}.Outcome.criticalFailure`,
+    },
     rollOptions: ["action:maneuver-in-flight"],
     sampleTasks: {
         trained: `${PREFIX}.SampleTasks.Trained`,

@@ -13,7 +13,7 @@ import {
     CheckMacroContext,
     CheckResultCallback,
 } from "@system/action-macros/types.ts";
-import { CheckDC } from "@system/degree-of-success.ts";
+import { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { getActionGlyph, isObject, tupleHasValue } from "@util";
 import { BaseAction, BaseActionData, BaseActionVariant, BaseActionVariantData } from "./base.ts";
 import { ActionUseOptions } from "./types.ts";
@@ -35,10 +35,21 @@ function isValidDifficultyClass(dc: unknown): dc is CheckDC | DCSlug {
     );
 }
 
+function toRollNotes(outcomes: Partial<Record<DegreeOfSuccessString, string>>, selector: string): RollNotePF2e[] {
+    return Object.entries(outcomes).map(([degreeOfSuccess, text]) => {
+        const outcome = [degreeOfSuccess as DegreeOfSuccessString];
+        if (degreeOfSuccess === "success" && !("criticalSuccess" in outcomes)) outcome.push("criticalSuccess");
+        if (degreeOfSuccess === "failure" && !("criticalFailure" in outcomes)) outcome.push("criticalFailure");
+        const title = `PF2E.Check.Result.Degree.Check.${degreeOfSuccess}`;
+        return new RollNotePF2e({ selector, outcome, text, title });
+    });
+}
+
 interface SingleCheckActionVariantData extends BaseActionVariantData {
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+    outcomes?: Partial<Record<DegreeOfSuccessString, string>>;
     rollOptions?: string[];
     statistic?: string | string[];
 }
@@ -47,6 +58,7 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
     difficultyClass?: CheckDC | DCSlug;
     modifiers?: RawModifier[];
     notes?: SingleCheckActionRollNoteData[];
+    outcomes?: Partial<Record<DegreeOfSuccessString, string>>;
     rollOptions?: string[];
     statistic: string | string[];
 }
@@ -79,6 +91,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
     readonly #difficultyClass?: CheckDC | DCSlug;
     readonly #modifiers?: RawModifier[];
     readonly #notes?: RollNoteSource[];
+    readonly #outcomes?: Partial<Record<DegreeOfSuccessString, string>>;
     readonly #rollOptions?: string[];
     readonly #statistic?: string | string[];
 
@@ -89,6 +102,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             this.#difficultyClass = data.difficultyClass;
             this.#modifiers = data?.modifiers;
             this.#notes = data.notes ? data.notes.map(toRollNoteSource) : undefined;
+            this.#outcomes = data.outcomes;
             this.#rollOptions = data.rollOptions;
             this.#statistic = data.statistic;
         }
@@ -106,12 +120,26 @@ class SingleCheckActionVariant extends BaseActionVariant {
         return this.#notes ?? this.#action.notes;
     }
 
+    get outcomes(): Partial<Record<DegreeOfSuccessString, string>> {
+        return this.#outcomes ?? this.#action.outcomes;
+    }
+
     get rollOptions(): string[] {
         return this.#rollOptions ?? this.#action.rollOptions;
     }
 
     get statistic(): string | string[] {
         return this.#statistic ?? this.#action.statistic;
+    }
+
+    override async descriptionSuffix(): Promise<string | undefined> {
+        const outcomes = this.outcomes;
+        if (Object.keys(outcomes).length) {
+            return await renderTemplate("/systems/pf2e/templates/actors/actions/single/chat-message-suffix.hbs", {
+                outcomes,
+            });
+        }
+        return super.descriptionSuffix();
     }
 
     preview(options: Partial<ActionVariantCheckPreviewOptions> = {}): ActionCheckPreview[] {
@@ -158,11 +186,15 @@ class SingleCheckActionVariant extends BaseActionVariant {
             checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
             difficultyClass,
             event: options.event,
-            extraNotes: (selector) =>
-                notes.map((note) => {
-                    note.selector ||= selector; // treat empty selectors as always applicable to this check
-                    return note;
-                }),
+            extraNotes: (selector) => {
+                return [
+                    ...toRollNotes(this.outcomes, selector),
+                    ...notes.map((note) => {
+                        note.selector ||= selector; // treat empty selectors as always applicable to this check
+                        return note;
+                    }),
+                ];
+            },
             target: () => {
                 if (options.target instanceof ActorPF2e) {
                     return { token: null, actor: options.target };
@@ -209,6 +241,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
     readonly difficultyClass?: CheckDC | DCSlug;
     readonly modifiers: RawModifier[];
     readonly notes: RollNoteSource[];
+    readonly outcomes: Partial<Record<DegreeOfSuccessString, string>>;
     readonly rollOptions: string[];
     readonly statistic: string | string[];
 
@@ -217,6 +250,7 @@ class SingleCheckAction extends BaseAction<SingleCheckActionVariantData, SingleC
         this.difficultyClass = data.difficultyClass;
         this.modifiers = data.modifiers ?? [];
         this.notes = (data.notes ?? []).map(toRollNoteSource);
+        this.outcomes = data.outcomes ?? {};
         this.rollOptions = data.rollOptions ?? [];
         this.statistic = data.statistic;
     }
