@@ -2,7 +2,8 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
+import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
+import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -596,7 +597,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 }
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
-    get layer(): TokenLayer<this>;
+    get layer(): TokenLayerPF2e<this>;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };

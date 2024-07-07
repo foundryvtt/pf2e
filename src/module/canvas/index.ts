@@ -9,6 +9,7 @@ import { AmbientLightPF2e } from "./ambient-light.ts";
 import { EffectsCanvasGroupPF2e } from "./group/effects.ts";
 import { LightingLayerPF2e } from "./layer/lighting.ts";
 import { TemplateLayerPF2e } from "./layer/template.ts";
+import { TokenLayerPF2e } from "./layer/token.ts";
 import { MeasuredTemplatePF2e } from "./measured-template.ts";
 import { RegionPF2e } from "./region.ts";
 import { RulerPF2e } from "./ruler.ts";
@@ -33,5 +34,6 @@ export {
     RegionPF2e,
     RulerPF2e,
     TemplateLayerPF2e,
+    TokenLayerPF2e,
     TokenPF2e,
 };
