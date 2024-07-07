@@ -28,13 +28,23 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends TokenLayer<TObject> {
         const first = stack.shift();
         if (first) stack.push(first);
 
+        // Update which token is hovered after rotating the stack
+        const hoverNewTop = () => {
+            const newTop = stack.at(-1);
+            for (const token of stack) {
+                token.hover = token === newTop;
+            }
+        };
+
         if (stack.every((t) => t.document.canUserModify(game.user, "update"))) {
             const updates: { _id: string; sort: number }[] = [];
             for (let sort = stack.length - 1; sort >= 0; sort--) {
                 const token = stack[sort];
                 updates.push({ _id: token.document.id, sort });
             }
-            scene.updateEmbeddedDocuments("Token", updates);
+            scene.updateEmbeddedDocuments("Token", updates).then(() => {
+                hoverNewTop();
+            });
         } else {
             // The user isn't able to update every token: perform the resorting locally
             for (let sort = stack.length - 1; sort >= 0; sort--) {
@@ -45,6 +55,7 @@ class TokenLayerPF2e<TObject extends TokenPF2e> extends TokenLayer<TObject> {
                     { broadcast: false, parent: scene, updates: [] },
                     game.user.id,
                 );
+                hoverNewTop();
             }
         }
 
