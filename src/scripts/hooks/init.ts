@@ -16,6 +16,7 @@ import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
+import * as R from "remeda";
 
 export const Init = {
     listen: (): void => {
@@ -52,7 +53,12 @@ export const Init = {
                 uiTop?.insertAdjacentElement("afterend", template);
             }
 
-            // configure the bundled TinyMCE editor with PF2-specific options
+            // Populate UUID redirects
+            for (const [from, to] of R.entries.strict(UUID_REDIRECTS)) {
+                CONFIG.compendium.uuidRedirects[from] = to;
+            }
+
+            // Configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
             CONFIG.TinyMCE.content_css.push("systems/pf2e/styles/pf2e.css");
             CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
