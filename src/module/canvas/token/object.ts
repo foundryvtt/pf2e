@@ -100,6 +100,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         return this.distanceTo(token) === 5;
     }
 
+    /** Publicly expose `Token#_canControl` for use in `TokenLayerPF2e`. */
+    canControl(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+        return this._canControl(user, event);
+    }
+
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
      * @param flankee                  The potentially flanked token
