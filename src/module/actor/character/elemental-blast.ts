@@ -449,7 +449,6 @@ class ElementalBlast {
             dice: damageSynthetics.dice,
             modifiers,
             base: [baseDamage],
-            ignoredResistances: [],
         };
 
         const damageContext: DamageDamageContext = {
