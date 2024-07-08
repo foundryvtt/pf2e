@@ -15,6 +15,7 @@ import {
     CLEAR_MODES,
     Circle,
     Color,
+    ColorSource,
     Container,
     DisplayObject,
     Ellipse,
@@ -70,11 +71,13 @@ import "./board.d.ts";
 import "./core/index.d.ts";
 import "./fog-manager.d.ts";
 import "./groups/index.d.ts";
+import "./helpers/index.d.ts";
 import "./layers/index.d.ts";
 import "./perception/index.d.ts";
 import "./placeable.d.ts";
 import "./placeables/index.d.ts";
 import "./sources/index.d.ts";
+import "./special-effect/index.d.ts";
 import "./webgl/index.d.ts";
 
 declare global {
@@ -94,6 +97,7 @@ declare global {
             CLEAR_MODES,
             Circle,
             Color,
+            ColorSource,
             Container,
             DisplayObject,
             Ellipse,

@@ -129,7 +129,6 @@ class DamageModifierDialog extends Application {
             base: this.formulaData.base,
             modifiers: [],
             dice: [],
-            ignoredResistances: [],
         });
         const baseRoll = new DamageRoll(baseResult.formula);
         const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");

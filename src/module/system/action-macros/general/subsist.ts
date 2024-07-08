@@ -61,6 +61,7 @@ class SubsistAction extends SingleCheckAction {
     constructor() {
         super({
             description: "PF2E.Actions.Subsist.Description",
+            img: "icons/environment/settlement/city-hall.webp",
             modifiers: [
                 {
                     label: "PF2E.Actions.Subsist.AfterExplorationPenalty",

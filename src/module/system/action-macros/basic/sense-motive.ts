@@ -30,6 +30,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.SenseMotive.Description",
     difficultyClass: "deception",
+    img: "icons/skills/movement/arrow-upward-yellow.webp",
     name: "PF2E.Actions.SenseMotive.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseMotive.Notes.criticalSuccess" },

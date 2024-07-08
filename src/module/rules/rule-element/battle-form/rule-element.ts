@@ -65,6 +65,11 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
                                 nullable: false,
                                 initial: true,
                             }),
+                            ownIfHigher: new fields.BooleanField({
+                                required: false,
+                                nullable: false,
+                                initial: false,
+                            }),
                         },
                         { required: false },
                     ),
@@ -284,6 +289,8 @@ class BattleFormRuleElement extends RuleElementPF2e<BattleFormRuleSchema> {
         const armorClass = actor.armorClass;
         const acOverride = Number(this.resolveValue(overrides.armorClass.modifier, armorClass.value)) || 0;
         if (!acOverride) return;
+
+        if (overrides.armorClass.ownIfHigher && armorClass.value > acOverride) return;
 
         this.#suppressModifiers(armorClass);
         const newModifier = (Number(this.resolveValue(overrides.armorClass.modifier)) || 0) - 10;

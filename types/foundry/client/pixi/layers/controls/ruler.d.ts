@@ -258,7 +258,7 @@ declare global {
          * @param event The drag start event
          * @internal
          */
-        protected _onDragStart(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
+        _onDragStart(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Handle left-click events on the Canvas during Ruler measurement.
@@ -266,7 +266,7 @@ declare global {
          * @param event The pointer-down event
          * @internal
          */
-        protected _onClickLeft(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
+        _onClickLeft(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Handle right-click events on the Canvas during Ruler measurement.
@@ -274,7 +274,7 @@ declare global {
          * @param event The pointer-down event
          * @internal
          */
-        protected _onClickRight(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
+        _onClickRight(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Continue a Ruler measurement workflow for left-mouse movements on the Canvas.
@@ -282,7 +282,7 @@ declare global {
          * @param event The mouse move event
          * @internal
          */
-        protected _onMouseMove(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
+        _onMouseMove(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Conclude a Ruler measurement workflow by releasing the left-mouse button.
@@ -290,13 +290,13 @@ declare global {
          * @param event The pointer-up event
          * @internal
          */
-        protected _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
+        _onMouseUp(event: PlaceablesLayerPointerEvent<NonNullable<TToken>>): void;
 
         /**
          * Move the Token along the measured path when the move key is pressed.
          * @internal
          */
-        protected _onMoveKeyDown(context: KeyboardEventContext): void;
+        _onMoveKeyDown(context: KeyboardEventContext): void;
     }
 
     interface RulerMeasurementSegment {

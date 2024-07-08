@@ -1,6 +1,6 @@
 {
     "_id": "82rxCGBb5qf9fwbp",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/equipment/chest/breastplate-banded-steel.webp",
     "name": "Incredible Resistance",
     "system": {
         "actionType": {
@@ -24,7 +24,35 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:dense-plating"
+                ],
+                "type": "slashing",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:layered-mesh"
+                ],
+                "type": "piercing",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:tensile-absorption"
+                ],
+                "type": "bludgeoning",
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "armor-innovation-modification"

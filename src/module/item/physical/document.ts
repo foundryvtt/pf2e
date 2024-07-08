@@ -224,6 +224,10 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         });
     }
 
+    override get uuid(): ItemUUID {
+        return this.parentItem ? `${this.parentItem.uuid}.${this.documentName}.${this.id}` : super.uuid;
+    }
+
     /** Whether other items can be attached (or affixed, applied, etc.) to this item */
     acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     acceptsSubitem(): boolean {
@@ -421,6 +425,33 @@ abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | n
         for (const subitem of this.subitems) {
             subitem.prepareActorData();
         }
+    }
+
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: true },
+    ): foundry.abstract.Document;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        { strict }: { strict: false },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined;
+    override getEmbeddedDocument(
+        embeddedName: string,
+        id: string,
+        options?: { strict?: boolean },
+    ): foundry.abstract.Document | undefined {
+        if (embeddedName === "Item") {
+            return this.subitems.get(id, options);
+        }
+
+        return super.getEmbeddedDocument(embeddedName, id, options);
     }
 
     /** Can the provided item stack with this item? */

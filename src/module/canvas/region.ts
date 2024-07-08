@@ -1,15 +1,16 @@
 import type { RegionDocumentPF2e } from "@scene/region-document/document.ts";
+import type { RegionSource } from "types/foundry/common/documents/region.d.ts";
 
 /** Add support for drag/drop repositioning of regions. */
-class RegionPF2e extends Region<RegionDocumentPF2e> {
+class RegionPF2e<TDocument extends RegionDocumentPF2e = RegionDocumentPF2e> extends Region<TDocument> {
     static override RENDER_FLAGS = { ...super.RENDER_FLAGS, refreshPosition: {} };
-
-    protected override _canDrag(user: User, event: PIXI.FederatedPointerEvent): boolean {
-        return this._canControl(user, event) && !this.document.locked;
-    }
 
     override getSnappedPosition(position?: Point): Point {
         return this.layer.getSnappedPoint(position ?? this.center);
+    }
+
+    protected override _canDrag(user: User, event: PIXI.FederatedPointerEvent): boolean {
+        return this._canControl(user, event) && !this.document.locked;
     }
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<this>): void {
@@ -34,7 +35,7 @@ class RegionPF2e extends Region<RegionDocumentPF2e> {
             clone.document.x = position.x;
             clone.document.y = position.y;
             clone._onUpdate(
-                { shapes: clone.document.shapes.map((s) => s.toObject(false)) },
+                { shapes: clone.document.shapes.map((s) => s.toObject(false)) } as DeepPartial<RegionSource>,
                 { broadcast: false, updates: [] },
                 game.user.id,
             );
@@ -44,22 +45,16 @@ class RegionPF2e extends Region<RegionDocumentPF2e> {
         }
     }
 
-    /** Save the coordinates of the new drop location. */
-    protected override async _onDragLeftDrop(
-        event: PlaceablesLayerPointerEvent<this>,
-    ): Promise<void | RegionDocumentPF2e[]> {
-        const clone = event.interactionData.clones?.[0];
-        const shapes = clone?.document.shapes.map((shape) => {
-            if ("x" in shape) {
-                shape.updateSource({ x: shape.x, y: shape.y });
-            } else if ("points" in shape) {
-                shape.updateSource({ points: shape.points });
-            }
-
-            return shape.toObject();
+    /** Save the coordinates of the new drop location(s). */
+    protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<TDocument[]>;
+    protected override async _onDragLeftDrop(event: PlaceablesLayerPointerEvent<this>): Promise<RegionDocument[]> {
+        const clones = event.interactionData.clones ?? [];
+        const updates = clones.map((clone) => {
+            const shapes = clone.document.shapes.map((s) => s.toObject(false));
+            return { _id: clone.document.id, shapes };
         });
 
-        await this.document.update({ shapes });
+        return this.document.parent?.updateEmbeddedDocuments("Region", updates) ?? [];
     }
 }
 

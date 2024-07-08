@@ -49,6 +49,23 @@ declare global {
             time: boolean;
         };
 
+        compendium: {
+            /**
+             * Configure a table of compendium UUID redirects. Must be configured before the game *ready* hook is fired.
+             *
+             * @example Re-map individual UUIDs
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes.Actor.Tf0JDPzHOrIxz6BH"] = "Compendium.system.villains.Actor.DKYLeIliXXzlAZ2G";
+             * ```
+             *
+             * @example Redirect UUIDs from one compendium to another.
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes"] = "Compendium.system.villains";
+             * ```
+             */
+            uuidRedirects: Record<string, string>;
+        };
+
         /** Configure the DatabaseBackend used to perform Document operations */
         DatabaseBackend: foundry.data.ClientDatabaseBackend;
 
@@ -340,7 +357,7 @@ declare global {
                 PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
             >;
             globalLightSourceClass: ConstructorOf<GlobalLightSource>;
-            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>>;
+            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>> & { get canMeasure(): boolean };
             visionSourceClass: ConstructorOf<PointVisionSource<TTokenDocument["object"]>>;
             soundSourceClass: ConstructorOf<PointSoundSource>;
             groups: {

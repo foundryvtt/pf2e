@@ -142,6 +142,7 @@ interface GamePF2e
                 buttons: boolean;
                 cards: boolean;
             };
+            dragMeasurement: boolean;
             /** Encumbrance automation */
             encumbrance: boolean;
             gmVision: boolean;
@@ -319,6 +320,7 @@ declare global {
         get(module: "pf2e", setting: "critFumbleButtons"): boolean;
         get(module: "pf2e", setting: "critRule"): "doubledamage" | "doubledice";
         get(module: "pf2e", setting: "deathIcon"): ImageFilePath;
+        get(module: "pf2e", setting: "dragMeasurement"): boolean;
         get(module: "pf2e", setting: "drawCritFumble"): boolean;
         get(module: "pf2e", setting: "gmVision"): boolean;
         get(module: "pf2e", setting: "identifyMagicNotMatchingTraditionModifier"): 0 | 2 | 5 | 10;
@@ -349,4 +351,5 @@ declare global {
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
     const ROLL_PARSER: string;
+    const UUID_REDIRECTS: Record<CompendiumUUID, CompendiumUUID>;
 }

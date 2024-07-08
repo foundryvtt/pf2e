@@ -525,7 +525,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<Actor | null> {
         context.types &&= R.unique(context.types);
         context.types ??= [...ACTOR_TYPES];
+
+        // Determine omitted types. Army is hidden in most games, and party is hidden in folders
         const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        if (data?.folder) {
+            omittedTypes.push("party");
+        }
+
         for (const type of omittedTypes) {
             context.types.findSplice((t) => t === type);
         }
@@ -555,6 +561,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const linkToActorSize = linkable && (source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true);
             const autoscale =
                 linkable &&
+                // Don't autoscale if the scale is preset to something other than 1
+                (typeof source.prototypeToken?.texture?.scaleX !== "number" ||
+                    source.prototypeToken.texture.scaleX === 1) &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = fu.mergeObject(source, {
@@ -777,6 +786,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.prepareDataFromItems();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
     }
 
     /** Prepare data among owned items as well as actor-data preparation performed by items */
@@ -1295,6 +1308,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             flags: {
                 pf2e: {
                     appliedDamage,
+                    context: {
+                        type: "damage-taken",
+                        options: Array.from(rollOptions),
+                    },
+                    origin: item?.getOriginData(),
                 },
             },
             flavor,

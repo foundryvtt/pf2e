@@ -1,10 +1,18 @@
 /**
  * A PlaceablesLayer designed for rendering the visual Scene for a specific vertical cross-section.
  * @category - Canvas
- * @todo fill in
  */
 
-declare class TilesLayer<TTile extends Tile> extends PlaceablesLayer<TTile> {
+declare class TilesLayer<TObject extends Tile> extends PlaceablesLayer<TObject> {
     static override documentName: "Tile";
-    override quadtree: CanvasQuadtree<TTile>;
+
+    static override get layerOptions(): PlaceablesLayerOptions;
+
+    override get hookName(): string;
+
+    override get hud(): TileHUD<TObject>;
+
+    get tiles(): TObject[];
+
+    override quadtree: CanvasQuadtree<TObject>;
 }

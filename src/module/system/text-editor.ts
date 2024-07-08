@@ -4,7 +4,6 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData } from "@item/base/data/system.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -24,6 +23,7 @@ import {
     objectHasKey,
     setHasElement,
     sluggify,
+    splitListString,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
@@ -158,11 +158,11 @@ class TextEditorPF2e extends TextEditor {
         const baseFormula = anchor.dataset.baseFormula;
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
-            const traits = anchor.dataset.traits?.split(",") ?? [];
+            const traits = splitListString(anchor.dataset.traits ?? "");
             const overrideTraits = "overrideTraits" in anchor.dataset;
             const immutable = "immutable" in anchor.dataset;
-            const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
-            const domains = anchor.dataset.domains?.split(",") ?? [];
+            const rollOptions = splitListString(anchor.dataset.rollOptions ?? "");
+            const domains = splitListString(anchor.dataset.domains ?? "");
             const extraRollOptions = R.unique([...traits, ...rollOptions]).filter(R.isTruthy);
 
             const args = await augmentInlineDamageRoll(baseFormula, {
@@ -236,7 +236,7 @@ class TextEditorPF2e extends TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item);
             default:
                 return null;
         }
@@ -288,7 +288,7 @@ class TextEditorPF2e extends TextEditor {
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -316,7 +316,8 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= itemData?.traits?.value?.toString() ?? "";
+            params.traits ||= item?.system.traits.value?.toString() ?? "";
+            params.itemUuid ||= item?.uuid ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -334,6 +335,7 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            if (params.itemUuid !== "") html.setAttribute("data-item-uuid", params.itemUuid);
             return html;
         }
         return null;
@@ -343,7 +345,7 @@ class TextEditorPF2e extends TextEditor {
         paramString: string,
         options: { first?: string } = {},
     ): Record<string, string | undefined> | null {
-        const parts = paramString.split("|");
+        const parts = splitListString(paramString, { delimiter: "|" });
         const result = parts.reduce(
             (result, part, idx) => {
                 if (idx === 0 && options.first && !part.includes(":")) {
@@ -391,7 +393,7 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // params
-        const params = options.split(/\s+/).reduce(
+        const params = splitListString(options, { delimiter: /\s+/ }).reduce(
             (result, option) => {
                 const [key, value] = option.split("=").map((s) => s.trim());
                 result[key] = value;
@@ -538,10 +540,8 @@ class TextEditorPF2e extends TextEditor {
 
         const basic = "basic" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
-        const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
-        const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()).filter(
-            R.isTruthy,
-        );
+        const rawTraits = splitListString(rawParams.traits ?? "");
+        const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value ?? []].flat());
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -554,26 +554,23 @@ class TextEditorPF2e extends TextEditor {
             traits,
             immutable: "immutable" in rawParams,
             // Set action slug, damaging effect for basic saves, and any parameterized options
-            extraRollOptions: [
-                ...(basic ? ["damaging-effect"] : []),
-                ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
-            ]
+            extraRollOptions: [...(basic ? ["damaging-effect"] : []), ...splitListString(rawParams.options ?? "")]
                 .filter(R.isTruthy)
                 .sort(),
             targetOwner: "targetOwner" in rawParams,
         };
 
-        const types = params.type.split(",");
-        let adjustments = params.adjustment?.split(",") ?? ["0"];
-
-        if (types.length !== adjustments.length && adjustments.length > 1) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
-            return null;
-        } else if (types.length > adjustments.length) {
-            adjustments = new Array(types.length).fill(adjustments[0]);
+        const types = splitListString(params.type, { unique: false });
+        const adjustments = splitListString(params.adjustment ?? "0", { unique: false });
+        for (let i = 0; i < types.length; i++) {
+            adjustments[i] ??= "0";
         }
 
-        if (adjustments.some((adj) => adj !== "" && isNaN(parseInt(adj)))) {
+        if (adjustments.length > types.length) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
+            return null;
+        }
+        if (adjustments.some((adj) => !Number.isInteger(Math.trunc(Number(adj))))) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
             return null;
         }
@@ -721,7 +718,7 @@ class TextEditorPF2e extends TextEditor {
 
         const item = args.rollData?.item ?? null;
         const actor = args.rollData?.actor ?? item?.actor ?? null;
-        const domains = rawParams.domains?.split(",") ?? [];
+        const domains = splitListString(rawParams.domains ?? "");
 
         // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
         if (domains.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
@@ -732,17 +729,12 @@ class TextEditorPF2e extends TextEditor {
         const immutable = "immutable" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
         const traits = ((): string[] => {
-            const fromParams = rawParams.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
+            const fromParams = splitListString(rawParams.traits ?? "");
             const fromItem = item?.system.traits?.value ?? [];
             return overrideTraits ? fromParams : R.unique([...fromParams, ...fromItem]);
         })();
 
-        const extraRollOptions =
-            rawParams.options
-                ?.split(",")
-                .map((t) => t.trim())
-                .filter(R.isTruthy) ?? [];
-
+        const extraRollOptions = splitListString(rawParams.options ?? "");
         const result = await augmentInlineDamageRoll(rawParams.formula, {
             skipDialog: true,
             immutable,
@@ -955,7 +947,6 @@ async function augmentInlineDamageRoll(
             modifiers,
             dice,
             kinds: new Set(kinds),
-            ignoredResistances: [],
         };
 
         const isAttack = !!traits?.includes("attack");
