@@ -22,8 +22,10 @@ export class NoteConfigPF2e extends NoteConfig {
 
     override _updateCustomIcon(): void {
         const selected = this.form["icon.selected"];
+        const pageId = this.form["pageId"];
         this.form["icon.custom"].disabled = selected.value.length;
-        this.form["flags.pf2e.code"].disabled = selected.value !== "code";
+        selected.querySelector("option[value='code']").disabled = !pageId.value;
+        this.form["flags.pf2e.code"].disabled = !pageId.value || selected.value !== "code";
     }
 
     /** @inheritdoc */
