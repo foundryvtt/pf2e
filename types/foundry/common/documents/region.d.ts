@@ -47,7 +47,7 @@ type RegionSchema = {
     visibility: fields.NumberField<RegionVisibilityValue, RegionVisibilityValue, true>;
     locked: fields.BooleanField;
     /** An object of optional key/value flags */
-    flags: fields.ObjectField<object>;
+    flags: fields.ObjectField<DocumentFlags>;
 };
 
 type RegionElevationSchema = {

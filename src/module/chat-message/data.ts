@@ -39,7 +39,12 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
     core: NonNullable<ChatMessageFlags["core"]>;
 };
 
-type ChatContextFlag = CheckContextChatFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
+type ChatContextFlag =
+    | CheckContextChatFlag
+    | DamageDamageContextFlag
+    | SpellCastContextFlag
+    | SelfEffectContextFlag
+    | DamageTakenContextFlag;
 
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
@@ -113,6 +118,13 @@ interface SelfEffectContextFlag {
     item: string;
     domains?: never;
     options?: never;
+    outcome?: never;
+}
+
+interface DamageTakenContextFlag {
+    type: "damage-taken";
+    domains?: never;
+    options?: string[];
     outcome?: never;
 }
 

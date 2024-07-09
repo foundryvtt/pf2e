@@ -8,7 +8,7 @@ export class Migration765ChoiceOwnedItemTypes extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         for (const rule of source.system.rules) {
-            if (rule.key === "ChoiceSet" && "choices" in rule && R.isObject(rule.choices)) {
+            if (rule.key === "ChoiceSet" && "choices" in rule && R.isPlainObject(rule.choices)) {
                 if (rule.choices.ownedItems && !rule.choices.types) {
                     rule.choices.types = ["weapon"];
                 }

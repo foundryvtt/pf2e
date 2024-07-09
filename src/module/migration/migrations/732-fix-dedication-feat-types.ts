@@ -10,7 +10,7 @@ export class Migration732FixDedicationFeatTypes extends MigrationBase {
     #hasWellFormedFeatType(system: FeatSystemSource): system is FeatSystemSource & { featType: { value: string } } {
         return (
             "featType" in system &&
-            R.isObject(system.featType) &&
+            R.isPlainObject(system.featType) &&
             "value" in system.featType &&
             typeof system.featType === "string"
         );

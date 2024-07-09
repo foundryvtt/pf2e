@@ -1,8 +1,7 @@
 import type { NPCPF2e } from "@actor";
-import { NPCSkillData } from "@actor/npc/data.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
+import { NPCSkillData, NPCSource } from "@actor/npc/data.ts";
 import { LoreSource } from "@item/base/data/index.ts";
-import { htmlClosest, htmlQuery, htmlQueryAll, setHasElement } from "@util";
+import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey } from "@util";
 
 /** Specialized form to setup skills for an NPC character. */
 export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
@@ -18,9 +17,11 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
             height: "auto",
             scrollY: [".scroll-container"],
             sheetConfig: false,
-            submitOnChange: false,
+            submitOnChange: true,
             submitOnClose: false,
-            width: "400",
+            closeOnSubmit: false,
+            resizable: true,
+            width: 500,
         };
     }
 
@@ -35,7 +36,8 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
         return {
             ...(await super.getData(options)),
             actor: this.actor,
-            trainedSkills: allSkills.filter((s) => s.visible).sort((a, b) => a.label.localeCompare(b.label)),
+            trainedSkills: allSkills.filter((s) => s.visible && !s.lore).sort((a, b) => a.label.localeCompare(b.label)),
+            loreSkills: allSkills.filter((s) => s.visible && s.lore).sort((a, b) => a.label.localeCompare(b.label)),
             untrainedSkills: allSkills.filter((s) => !s.visible).sort((a, b) => a.label.localeCompare(b.label)),
         };
     }
@@ -46,8 +48,8 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 
         htmlQuery(html, "button[data-action=add-skill]")?.addEventListener("click", async (event) => {
             const slug = htmlQuery(htmlClosest(event.currentTarget, ".skill-selector"), "select")?.value;
-            if (setHasElement(SKILL_SLUGS, slug)) {
-                await this.actor.createEmbeddedDocuments("Item", [{ name: slug.titleCase(), type: "lore" }]);
+            if (slug && slug in CONFIG.PF2E.skills) {
+                await this.actor.update({ [`system.skills.${slug}`]: { base: 0 } });
             }
         });
 
@@ -63,6 +65,34 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
             }
         });
 
+        for (const button of htmlQueryAll(html, "a[data-action=add-special-skill]")) {
+            button.addEventListener("click", (event): void => {
+                const skill = htmlClosest(event.target, "[data-skill]")?.dataset.skill;
+                if (!objectHasKey(CONFIG.PF2E.skills, skill)) return;
+
+                const special = fu.duplicate(this.actor._source.system.skills[skill]?.special ?? []);
+                special.push({ label: "", base: 0 });
+                this.actor.update({ [`system.skills.${skill}.special`]: special });
+            });
+        }
+
+        for (const button of htmlQueryAll(html, "a[data-action=remove-special-skill]")) {
+            button.addEventListener("click", (event): void => {
+                const skill = htmlClosest(event.target, "[data-skill]")?.dataset.skill;
+                if (!objectHasKey(CONFIG.PF2E.skills, skill) || !(event.currentTarget instanceof HTMLElement)) return;
+
+                const index = Number(event.currentTarget.dataset.specialSkillIndex);
+                const special =
+                    this.actor._source.system.skills[skill]?.special?.filter((_, idx) => index !== idx) ?? [];
+                if (special.length === 0) {
+                    this.actor.update({ [`system.skills.${skill}.-=special`]: null });
+                } else {
+                    this.actor.update({ [`system.skills.${skill}.special`]: special });
+                }
+            });
+        }
+
+        // Update for lore skills only
         for (const input of htmlQueryAll<HTMLInputElement>(html, "input[data-modifier]")) {
             input.addEventListener("change", async () => {
                 const modifier = Math.clamp(Math.trunc(Number(input.value) || 0), -999, 999);
@@ -78,6 +108,7 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
             });
         }
 
+        // Used to edit lore skills
         for (const anchor of htmlQueryAll(html, "a[data-action=edit-skill]")) {
             anchor.addEventListener("click", () => {
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
@@ -86,13 +117,53 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
             });
         }
 
+        // Used to delete a skill or lore
         for (const anchor of htmlQueryAll(html, "a[data-action=remove-skill]")) {
-            anchor.addEventListener("click", async () => {
+            anchor.addEventListener("click", () => {
+                const skill = htmlClosest(anchor, "[data-skill]")?.dataset.skill;
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
-                const item = this.actor.items.get(itemId, { strict: true });
-                await item.delete();
+                if (skill) {
+                    this.actor.update({ [`system.skills.-=${skill}`]: null });
+                } else if (itemId) {
+                    const item = this.actor.items.get(itemId, { strict: true });
+                    item.delete();
+                }
             });
         }
+    }
+
+    /** Prevent submissions when a non-form element (such as lore name) changes */
+    protected override async _onChangeInput(event: Event): Promise<void> {
+        if (event.target instanceof HTMLElement && event.target.hasAttribute("name")) {
+            return super._onChangeInput(event);
+        }
+    }
+
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const data: Partial<NPCSource> = fu.expandObject(formData);
+
+        // Convert special skill modifiers
+        try {
+            for (const skill of Object.values(data.system?.skills ?? {})) {
+                skill.special = Object.values(skill.special ?? {});
+                for (const special of skill.special) {
+                    special.predicate =
+                        special.predicate && typeof special.predicate === "string" ? JSON.parse(special.predicate) : [];
+                    if (special.predicate?.length === 0) {
+                        delete special.predicate;
+                    } else if (!Array.isArray(special.predicate)) {
+                        throw Error(game.i18n.localize("PF2E.Actor.NPC.SkillsEditor.Error.PredicateArray"));
+                    }
+                }
+            }
+        } catch (ex) {
+            if (ex instanceof Error) {
+                ui.notifications.error(ex.message);
+            }
+            throw ex;
+        }
+
+        return super._updateObject(event, fu.flattenObject(data));
     }
 
     /** Maintain focus since upstream only operates on named elements */
@@ -114,5 +185,6 @@ export class NPCSkillsEditor extends DocumentSheet<NPCPF2e> {
 interface EditorData extends DocumentSheetData<NPCPF2e> {
     actor: NPCPF2e;
     trainedSkills: NPCSkillData[];
+    loreSkills: NPCSkillData[];
     untrainedSkills: NPCSkillData[];
 }

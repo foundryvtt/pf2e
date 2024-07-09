@@ -351,102 +351,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "9azfJeLtfKbNAAY4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "SFX00siwzHxuio8s",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "isDFExlTeVfhuE1S",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ForestsOrSwamps",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:forest",
-                                    "terrain:swamp"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+24 in forests or swamps",
-                        "options": "terrain:forest, terrain:swamp"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Captured Dezullon",
@@ -544,6 +448,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 21
+            },
+            "athletics": {
+                "base": 19
+            },
+            "stealth": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in forests or swamps",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:forest",
+                                    "terrain:swamp"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

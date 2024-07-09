@@ -25,7 +25,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
-import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES, SKILL_EXPANDED, SKILL_SLUGS } from "@actor/values.ts";
+import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type {
     AncestryPF2e,
     BackgroundPF2e,
@@ -44,6 +44,7 @@ import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
+import { processTwoHandTrait } from "@item/weapon/helpers.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { PROFICIENCY_RANKS, ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import {
@@ -189,7 +190,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .sort((a, b) => b.mod - a.mod)
                     .shift();
                 return (
-                    R.compact([highestClass, highestSpell])
+                    [highestClass, highestSpell]
+                        .filter(R.isTruthy)
                         .sort((a, b) => b.mod - a.mod)
                         .shift() ?? null
                 );
@@ -406,9 +408,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj([...SKILL_SLUGS], (key) => {
+        system.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([key, { attribute }]) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
-            const attribute = SKILL_EXPANDED[key].attribute;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
 
@@ -442,7 +443,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         // Attack and defense proficiencies
         type PartialMartialProficiency = Record<string, Partial<MartialProficiency> | undefined>;
         const attacks: PartialMartialProficiency = (system.proficiencies.attacks ??= {});
-        for (const category of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
+        for (const category of Object.keys(CONFIG.PF2E.weaponCategories)) {
             attacks[category] = {
                 rank: attacks[category]?.rank ?? 0,
                 custom: !!attacks[category]?.custom,
@@ -491,10 +492,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const sourceLanguages = this._source.system.details.languages.value.filter((l) => l in CONFIG.PF2E.languages);
         build.languages.granted = build.languages.granted.filter((l) => l.slug in CONFIG.PF2E.languages);
         const grantedLanguages = build.languages.granted.map((g) => g.slug);
-        this.system.details.languages.value = R.uniq([...sourceLanguages, ...grantedLanguages]);
+        this.system.details.languages.value = R.unique([...sourceLanguages, ...grantedLanguages]);
 
         // When tallying the number of languages taken, make sure Common and its actual language aren't counted twice
-        const commonAndCommon = R.compact(["common", game.pf2e.settings.campaign.languages.commonLanguage]);
+        const commonAndCommon = (["common", game.pf2e.settings.campaign.languages.commonLanguage] as const).filter(
+            R.isTruthy,
+        );
         const hasCommonTwice =
             commonAndCommon.length === 2 &&
             commonAndCommon.every((l) => this.system.details.languages.value.includes(l));
@@ -738,7 +741,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of SKILL_SLUGS) {
+        for (const key of R.keys.strict(CONFIG.PF2E.skills)) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
@@ -880,20 +883,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     private prepareSkills() {
-        // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
         const { synthetics, system, wornArmor } = this;
 
-        this.skills = R.mapToObj([...SKILL_SLUGS], (skillSlug) => {
+        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
             const skill = system.skills[skillSlug];
-            const label = CONFIG.PF2E.skillList[skillSlug] ?? skillSlug;
 
-            const domains = [
-                skillSlug,
-                `${skill.attribute}-based`,
-                "skill-check",
-                `${skill.attribute}-skill-check`,
-                "all",
-            ];
+            const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
             const modifiers: ModifierPF2e[] = [];
 
             if (skill.armor && typeof wornArmor?.strength === "number" && wornArmor.checkPenalty < 0) {
@@ -930,7 +925,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 slug: skillSlug,
                 label,
                 rank: skill.rank,
-                attribute: skill.attribute,
+                attribute,
                 domains,
                 modifiers,
                 lore: false,
@@ -942,14 +937,15 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // Add Lore skills to skill statistics
         for (const loreItem of this.itemTypes.lore) {
-            const longForm = sluggify(loreItem.name);
+            const rawLoreSlug = sluggify(loreItem.name);
+            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
             const rank = loreItem.system.proficient.value;
-            this.skills[longForm as SkillSlug] = new Statistic(this, {
-                slug: longForm,
+            this.skills[slug as SkillSlug] = new Statistic(this, {
+                slug,
                 label: loreItem.name,
                 rank,
                 attribute: "int",
-                domains: [longForm, "skill-check", "lore-skill-check", "int-skill-check", "all"],
+                domains: [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"],
                 lore: true,
                 check: { type: "skill-check" },
             }) as CharacterSkill<this>;
@@ -965,7 +961,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 ...statistic.getTraceData(),
                 rank: statistic.rank,
                 armor: baseData.armor ?? false,
-                itemID: loreItem?.id ?? null,
+                itemId: loreItem?.id ?? null,
                 lore: !!statistic.lore,
             });
             return [key, data];
@@ -1114,23 +1110,26 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
-        const syntheticWeapons = R.uniqBy(R.compact(synthetics.strikes.map((s) => s(unarmedRunes))), (w) => w.slug);
+        const syntheticWeapons = R.uniqueBy(
+            synthetics.strikes.map((s) => s(unarmedRunes)).filter(R.isTruthy),
+            (w) => w.slug,
+        );
 
         // Exclude handwraps as a strike
-        const weapons = R.compact(
-            [
-                itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
-                syntheticWeapons,
-                basicUnarmed ?? [],
-                // Generate a shield attacks from the character's shields
-                this.itemTypes.shield
-                    .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
-                    .map((s) => s.generateWeapon()),
-                this.inventory.flatMap((i) =>
-                    i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
-                ),
-            ].flat(),
-        ) as WeaponPF2e<this>[];
+        const weapons = [
+            itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
+            syntheticWeapons,
+            basicUnarmed ?? [],
+            // Generate a shield attacks from the character's shields
+            this.itemTypes.shield
+                .filter((s) => !s.isStowed && !s.isBroken && !s.isDestroyed)
+                .map((s) => s.generateWeapon()),
+            this.inventory.flatMap((i) =>
+                i.isEquipped ? i.subitems.filter((i): i is WeaponPF2e<this> => i.isOfType("weapon")) : [],
+            ),
+        ]
+            .flat()
+            .filter(R.isTruthy) as WeaponPF2e<this>[];
 
         // Sort alphabetically, force basic unarmed attack to end, move all held items to the beginning, and then move
         // all readied strikes to beginning
@@ -1176,6 +1175,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         for (const adjustment of strikeAdjustments) {
             adjustment.adjustWeapon?.(weapon);
         }
+        // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
+        processTwoHandTrait(weapon);
         const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
@@ -1197,8 +1198,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         );
         const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
 
-        const syntheticRanks = R.compact(Object.values(proficiencies.attacks))
-            .filter((p) => !!p.definition?.test(weaponProficiencyOptions))
+        const syntheticRanks = Object.values(proficiencies.attacks)
+            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponProficiencyOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
@@ -1493,7 +1494,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         action.variants = ([0, 1, 2] as const).map((mapIncreases) => ({
             get label(): string {
                 const penalty = createMAPenalty(initialMAPs, mapIncreases);
-                adjustModifiers(R.filter([penalty], R.isTruthy), initialRollOptions);
+                adjustModifiers([penalty].filter(R.isTruthy), initialRollOptions);
 
                 return penalty
                     ? game.i18n.format("PF2E.MAPAbbreviationValueLabel", {
@@ -1539,10 +1540,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 const statistic = context.origin.statistic ?? action;
                 const maps = calculateMAPs(context.origin.item, { domains: context.domains, options: context.options });
                 const maPenalty = createMAPenalty(maps, mapIncreases);
-                const allModifiers = R.filter(
-                    [maPenalty, params.modifiers, context.origin.modifiers].flat(),
-                    R.isTruthy,
-                );
+                const allModifiers = [maPenalty, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
                 const check = checkModifiers[mapIncreases](statistic, allModifiers);
 
                 // Check whether target is out of maximum range; abort early if so
@@ -1768,7 +1766,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     "definition" in proficiency &&
                     "definition" in p &&
                     proficiency.sameAs === p.sameAs &&
-                    R.equals(p.definition ?? [], [...(proficiency.definition ?? [])])
+                    R.isDeepEqual(p.definition ?? [], proficiency.definition ?? [])
                         ? k
                         : [],
                 );
@@ -1782,7 +1780,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: [],
                 });
                 proficiency.value = proficiencyBonus.value;
-                proficiency.breakdown = `${proficiencyBonus.label} ${signedInteger(proficiencyBonus.value)}`;
+                proficiency.breakdown = `${proficiencyBonus.label} ${proficiencyBonus.signedValue}`;
             }
         }
     }

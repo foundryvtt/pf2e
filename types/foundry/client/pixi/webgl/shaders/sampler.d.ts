@@ -2,12 +2,6 @@ export {};
 
 declare global {
     /**
-     * A simple shader to emulate a PIXI.Sprite with a PIXI.SpriteMesh
-     * @todo Fill in
-     */
-    class BaseSamplerShader extends AbstractBaseShader {}
-
-    /**
      * A color adjustment shader.
      * @todo Fill in
      */
@@ -36,13 +30,6 @@ declare global {
      * @todo Fill in
      */
     class InverseOcclusionSamplerShader extends BaseSamplerShader {}
-
-    /**
-     * An occlusion shader to reveal certain area with elevation comparisons.
-     * This shader is also working as a batched plugin.
-     * @todo Fill in
-     */
-    class OcclusionSamplerShader extends BaseSamplerShader {}
 
     /**
      * This class defines an interface which all adaptive lighting shaders extend.

@@ -167,9 +167,9 @@
                             }
                         ],
                         "type": [
+                            "holy",
                             "mental",
-                            "physical",
-                            "unholy"
+                            "physical"
                         ],
                         "value": 5
                     }
@@ -211,73 +211,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "qsBmWCL2GK9QfAiP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CraftBone",
-                        "predicate": [
-                            "action:craft",
-                            "bone"
-                        ],
-                        "selector": "crafting",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 when using bone",
-                        "options": "action:craft,bone"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "mvwfEZHZLwY2HdjW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Ostovite",
@@ -365,6 +298,24 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "when using bone",
+                        "predicate": [
+                            "action:craft",
+                            "bone"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 7
             }
         },
         "traits": {

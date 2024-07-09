@@ -26,7 +26,7 @@ declare global {
         bg: PIXI.Graphics;
 
         /** A reference to the SpriteMesh which displays this Tile in the PrimaryCanvasGroup. */
-        mesh: SpriteMesh;
+        mesh: PrimarySpriteMesh;
 
         /** Get the native aspect ratio of the base texture for the Tile sprite */
         get aspectRatio(): number;

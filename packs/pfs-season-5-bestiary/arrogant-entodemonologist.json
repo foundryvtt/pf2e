@@ -1628,32 +1628,6 @@
             "type": "lore"
         },
         {
-            "_id": "LKb7tu3AJmZp9W89",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "Cu79oDJClJ9C9Reu",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Demon Lore",
@@ -1664,74 +1638,6 @@
                 },
                 "mod": {
                     "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Uq9fVOOj1180ESoY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.VsDemons",
-                        "predicate": [
-                            "target:trait:demon"
-                        ],
-                        "selector": "diplomacy",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+14 with demons",
-                        "options": "target:trait:demon"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "QVD4PuwAovxQEGg1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -1835,6 +1741,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 13
+            },
+            "diplomacy": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "with demons",
+                        "predicate": [
+                            "target:trait:demon"
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 12
             }
         },
         "traits": {

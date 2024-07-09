@@ -287,48 +287,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "qcCBWdNoDKQOL8YM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmMetal",
-                        "predicate": [
-                            "action:disarm",
-                            "target:metalItem"
-                        ],
-                        "selector": "athletics",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 to Disarm a metal item",
-                        "options": "action:disarm, target:metalItem"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Rust Monster",
@@ -424,6 +382,21 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Disarm a metal item",
+                        "predicate": [
+                            "action:disarm",
+                            "target:metalItem"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

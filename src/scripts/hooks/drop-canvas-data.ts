@@ -3,11 +3,8 @@ export const DropCanvasData = {
         Hooks.on("dropCanvasData", (_canvas, data) => {
             const dropTarget = [...canvas.tokens.placeables]
                 .sort((a, b) => b.document.sort - a.document.sort)
-                .find((token) => {
-                    const maximumX = token.x + (token.hitArea?.right ?? 0);
-                    const maximumY = token.y + (token.hitArea?.bottom ?? 0);
-                    return data.x >= token.x && data.y >= token.y && data.x <= maximumX && data.y <= maximumY;
-                });
+                .sort((a, b) => b.document.elevation - a.document.elevation)
+                .find((t) => t.bounds.contains(data.x, data.y));
 
             const actor = dropTarget?.actor;
             if (actor && (data.type === "Item" || data.type === "PersistentDamage")) {

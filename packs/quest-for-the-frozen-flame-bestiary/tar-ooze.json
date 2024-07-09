@@ -239,72 +239,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "dOVR7eNKvnKn594W",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZC1dr2Q9pHz0RHDX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TarPit",
-                        "predicate": [
-                            "terrain:tar-pit"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 in tar pits",
-                        "options": "terrain:tar-pit"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Tar Ooze",
@@ -418,6 +352,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "in tar pits",
+                        "predicate": [
+                            "terrain:tar-pit"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

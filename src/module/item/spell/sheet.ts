@@ -84,19 +84,19 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
                 {
                     value: ["damage"],
                     label: "PF2E.DamageLabel",
-                    selected: R.equals(currentKinds, ["damage"]),
+                    selected: R.isDeepEqual(currentKinds, ["damage"]),
                     disabled: false,
                 },
                 {
                     value: ["healing"],
                     label: "PF2E.TraitHealing",
-                    selected: R.equals(currentKinds, ["healing"]),
+                    selected: R.isDeepEqual(currentKinds, ["healing"]),
                     disabled: healingDisabled,
                 },
                 {
                     value: ["damage", "healing"],
                     label: "PF2E.Damage.Kind.Both.Label",
-                    selected: R.equals(currentKinds, ["damage", "healing"]),
+                    selected: R.isDeepEqual(currentKinds, ["damage", "healing"]),
                     disabled: healingDisabled,
                 },
             ];

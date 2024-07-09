@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>A superior catch pole has a pole made of dawnsilver, and the loop at the end is silk rope, making it sturdier and more agile. It functions the same as a catch pole but gives you a +1 item bonus to Athletics checks made to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] with it.</p>"
+            "value": "<p>This sturdy pole has a rope attached to one end in a loop with the other end extending to the handle. You can pull the handle side of the rope to tighten the loop. Using this loop, you can @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] without having a free hand. A creature grappled this way receives a –2 circumstance penalty to attack rolls when Striking with an unarmed attack. Due to limitations in the size of the loop, a catch pole can only be used on creatures sized Medium or smaller.</p>\n<p>A superior catch pole has a pole made of dawnsilver, and the loop at the end is silk rope, making it sturdier and more agile. It functions the same as a catch pole but gives you a +1 item bonus to Athletics checks made to Grapple with it.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Catch Pole]</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,24 @@
             "title": "Pathfinder Howl of the Wild"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "superior-catch-pole",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple",
+                    "superior-catch-pole"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

@@ -4,11 +4,9 @@ import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
 import { SkillSlug } from "@actor/types.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
-import { setHasElement } from "@util";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
@@ -53,7 +51,7 @@ class EncounterPF2e extends Combat {
             return inEncounter.length > 0 ? inEncounter : partyMembers;
         })();
 
-        const opposition = R.uniq(
+        const opposition = R.unique(
             this.combatants
                 .filter(
                     (c) =>
@@ -179,7 +177,7 @@ class EncounterPF2e extends Combat {
                       value: result.roll.total,
                       statistic:
                           result.roll.options.domains?.find(
-                              (s): s is SkillSlug | "perception" => setHasElement(SKILL_SLUGS, s) || s === "perception",
+                              (s): s is SkillSlug | "perception" => s in CONFIG.PF2E.skills || s === "perception",
                           ) ?? null,
                   }
                 : [],
@@ -233,13 +231,10 @@ class EncounterPF2e extends Combat {
      * `async` since this is usually called from CRUD hooks, which are called prior to encounter/combatant data resets
      */
     async resetActors(): Promise<void> {
-        const actors: ActorPF2e[] = R.uniq(
-            R.compact(
-                this.combatants.contents.flatMap((c) => [
-                    c.actor,
-                    c.actor?.isOfType("character") ? c.actor.familiar : null,
-                ]),
-            ),
+        const actors: ActorPF2e[] = R.unique(
+            this.combatants.contents
+                .flatMap((c) => [c.actor, c.actor?.isOfType("character") ? c.actor.familiar : null])
+                .filter(R.isTruthy),
         );
         resetActors(actors, { sheets: false, tokens: true });
     }

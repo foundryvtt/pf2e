@@ -301,7 +301,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                           ? this.item.level
                           : null,
                 effects: this.#processEffects(),
-                traits: R.uniq(this.traits.filter((t) => t !== "aura")).sort(),
+                traits: R.unique(this.traits.filter((t) => t !== "aura")).sort(),
                 appearance: this.#processAppearanceData(),
             };
 
@@ -321,7 +321,7 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
             const existing = this.actor.auras.get(this.slug);
             if (existing && this.mergeExisting) {
                 existing.radius = data.radius;
-                existing.traits = R.uniq([...existing.traits, ...data.traits]).sort();
+                existing.traits = R.unique([...existing.traits, ...data.traits]).sort();
                 existing.appearance = data.appearance;
                 for (const effect of data.effects) {
                     const existingIndex = existing.effects.findIndex((e) => e.uuid === effect.uuid);

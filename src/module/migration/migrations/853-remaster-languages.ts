@@ -18,7 +18,7 @@ export class Migration853RemasterLanguages extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: unknown = source.system.traits;
-        if (R.isObject(traits) && R.isObject(traits.languages) && Array.isArray(traits.languages.value)) {
+        if (R.isPlainObject(traits) && R.isPlainObject(traits.languages) && Array.isArray(traits.languages.value)) {
             traits.languages.value = traits.languages.value.map((l) => this.#OLD_TO_NEW_LANGUAGES.get(l) ?? l).sort();
         }
     }

@@ -17,6 +17,10 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
         const baseSchema = super.defineSchema();
         const PRIORITIES: Record<string, number | undefined> = AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES;
         baseSchema.priority.initial = (d) => (PRIORITIES[String(d.mode)] ?? 50) + 100;
+        const itemTypeChoices: Record<ItemType, string> = R.mapValues(
+            CONFIG.PF2E.Item.documentClasses,
+            (key) => `TYPES.Item.${key}`,
+        );
 
         return {
             ...baseSchema,
@@ -29,7 +33,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
             itemType: new fields.StringField({
                 required: false,
                 nullable: false,
-                choices: R.mapValues(CONFIG.PF2E.Item.documentClasses, (key) => `TYPES.Item.${key}`),
+                choices: itemTypeChoices,
                 initial: undefined,
             }),
             ...ItemAlteration.defineSchema(),
@@ -45,7 +49,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
     }
 
     /** Alteration properties that should be processed at the end of data preparation */
-    static #DELAYED_PROPERTIES = ["pd-recovery-dc"];
+    static #DELAYED_PROPERTIES = ["description", "pd-recovery-dc"];
 
     override async preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void> {
         if (this.ignored) return;
@@ -132,7 +136,7 @@ class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema
             const item =
                 this.actor.items.get(itemId) ??
                 this.actor.inventory.flatMap((i) => i.subitems.contents).find((i) => i.id === itemId);
-            return R.compact([item]);
+            return [item].filter(R.isTruthy);
         }
 
         if (this.itemType === "condition") {

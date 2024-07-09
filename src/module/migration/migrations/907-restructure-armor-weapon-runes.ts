@@ -37,14 +37,14 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
 
     #cleanupSpecificData(system: ArmorSystemSource | WeaponSystemSource): void {
         const specificData: unknown = system.specific;
-        if (R.isObject(specificData)) {
+        if (R.isPlainObject(specificData)) {
             if ("price" in specificData) {
                 specificData["-=price"] = null;
             }
             if (specificData.value === true) {
                 specificData["-=value"] = null;
                 specificData.runes = fu.deepClone(system.runes);
-                if (R.isObject(specificData.material) && "precious" in specificData.material) {
+                if (R.isPlainObject(specificData.material) && "precious" in specificData.material) {
                     specificData.material["-=precious"] = null;
                     specificData.material = fu.mergeObject(specificData.material, fu.deepClone(system.material));
                 } else {
@@ -57,9 +57,9 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
     }
 
     #getRuneValue(system: unknown, key: OldRunePropertyKey): unknown {
-        if (!R.isObject(system)) throw ErrorPF2e("Unexpected system data");
+        if (!R.isPlainObject(system)) throw ErrorPF2e("Unexpected system data");
         const runeObject = system[key];
-        return R.isObject(runeObject) ? runeObject.value : null;
+        return R.isPlainObject(runeObject) ? runeObject.value : null;
     }
 
     override async updateItem(source: MaybeWithRuneDeletions): Promise<void> {
@@ -69,14 +69,14 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
             } else if (source.type === "weapon") {
                 source.system.runes ??= { potency: 0, striking: 0, property: [] };
             }
-            if ("potencyRune" in source.system && R.isObject(source.system.potencyRune)) {
+            if ("potencyRune" in source.system && R.isPlainObject(source.system.potencyRune)) {
                 const potencyRune = Number(source.system.potencyRune.value) || 0;
                 source.system.runes.potency = tupleHasValue([1, 2, 3, 4], potencyRune) ? potencyRune : 0;
             }
         }
 
         if (source.type === "armor") {
-            if ("resiliencyRune" in source.system && R.isObject(source.system.resiliencyRune)) {
+            if ("resiliencyRune" in source.system && R.isPlainObject(source.system.resiliencyRune)) {
                 const resilientRune = String(source.system.resiliencyRune.value);
                 const numericValue = this.#RESILIENT_RUNE_CONVERSION.get(resilientRune) ?? 0;
                 source.system.runes.resilient = numericValue;
@@ -86,13 +86,13 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 const runeValue = this.#getRuneValue(source.system, runeKey);
                 if (setHasElement(ARMOR_PROPERTY_RUNE_TYPES, runeValue)) {
                     source.system.runes.property.push(runeValue);
-                    source.system.runes.property = R.uniq(R.compact(source.system.runes.property));
+                    source.system.runes.property = R.unique(source.system.runes.property).filter(R.isTruthy);
                     source.system.runes.property.length = Math.min(source.system.runes.property.length, 4);
                 }
             }
             this.#cleanupSpecificData(source.system);
         } else if (source.type === "weapon") {
-            if ("strikingRune" in source.system && R.isObject(source.system.strikingRune)) {
+            if ("strikingRune" in source.system && R.isPlainObject(source.system.strikingRune)) {
                 const strikingRune = String(source.system.strikingRune.value);
                 const numericValue = this.#STRIKING_RUNE_CONVERSION.get(strikingRune) ?? 0;
                 source.system.runes.striking = numericValue;
@@ -103,7 +103,7 @@ export class Migration907RestructureArmorWeaponRunes extends MigrationBase {
                 const runeValue = this.#getRuneValue(source.system, runeKey);
                 if (setHasElement(WEAPON_PROPERTY_RUNE_TYPES, runeValue)) {
                     source.system.runes.property.push(runeValue);
-                    source.system.runes.property = R.uniq(R.compact(source.system.runes.property));
+                    source.system.runes.property = R.unique(source.system.runes.property).filter(R.isTruthy);
                     source.system.runes.property.length = Math.min(source.system.runes.property.length, 4);
                 }
             }

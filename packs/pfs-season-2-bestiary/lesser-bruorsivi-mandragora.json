@@ -261,98 +261,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "AqKYhjrSLSrUkRUG",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "QyEJS8UWVbEoLt66",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NOtfy4lQnE25mKhh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Vegetation",
-                        "predicate": [
-                            "terrain:vegetation"
-                        ],
-                        "selector": "stealth",
-                        "type": "untyped",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 in vegetation",
-                        "options": "terrain:vegetation"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Lesser Bruorsivi Mandragora",
@@ -460,6 +368,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 6
+            },
+            "athletics": {
+                "base": 6
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "in vegetation",
+                        "predicate": [
+                            "terrain:vegetation"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

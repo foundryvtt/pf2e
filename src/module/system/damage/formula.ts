@@ -1,6 +1,6 @@
 import type { DamageDicePF2e } from "@actor/modifiers.ts";
 import { DEGREE_OF_SUCCESS, DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
-import { groupBy, signedInteger, tupleHasValue } from "@util";
+import { groupBy, tupleHasValue } from "@util";
 import * as R from "remeda";
 import { applyDamageDiceOverrides } from "./helpers.ts";
 import {
@@ -136,9 +136,7 @@ function createDamageFormula(
 
         const list = typeMap.get(damageType) ?? [];
         list.push({
-            label: BONUS_BASE_LABELS.includes(modifier.label)
-                ? null
-                : `${modifier.label} ${signedInteger(modifier.value)}`,
+            label: BONUS_BASE_LABELS.includes(modifier.label) ? null : `${modifier.label} ${modifier.signedValue}`,
             dice: null,
             modifier: modifier.value,
             damageType,
@@ -306,7 +304,7 @@ function combinePartialTerms(terms: DamagePartialTerm[]): DamagePartialTerm[] {
         dice: { ...terms[0].dice, number: R.sumBy(terms, (t) => t.dice.number) },
     }));
 
-    const combined = R.compact([...combinedDice, constantTerm]);
+    const combined = [...combinedDice, constantTerm].filter(R.isTruthy);
     return combined.length ? combined : [{ dice: null, modifier: 0 }];
 }
 

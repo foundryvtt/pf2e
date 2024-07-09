@@ -26,32 +26,38 @@
         },
         "rules": [
             {
-                "domain": "spell-healing",
-                "key": "RollOption",
-                "option": "divine-infusion",
-                "placement": "spellcasting",
-                "toggleable": true
-            },
-            {
-                "key": "Note",
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "divine-infusion",
+                    "spellshape:divine-infusion",
                     {
                         "or": [
                             "item:slug:harm",
                             "item:slug:heal"
                         ]
-                    },
-                    {
-                        "lt": [
-                            "item:cast:actions",
-                            3
-                        ]
                     }
                 ],
-                "selector": "spell-healing",
-                "text": "PF2E.SpecificRule.Cleric.DivineInfusion.Note",
-                "title": "{item|name}"
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.DivineInfusion"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "divine-infusion"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "traits": {

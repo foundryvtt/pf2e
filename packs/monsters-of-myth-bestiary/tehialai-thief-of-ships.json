@@ -777,56 +777,6 @@
             "type": "action"
         },
         {
-            "_id": "y7x7ub70cs92o53h",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nb0i716d3ogb13qm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "ksw4gozbz5l2xec0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Ocean Lore",
@@ -848,72 +798,6 @@
                 },
                 "rules": [],
                 "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "fy3rrcvdxlmci4ct",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1x8caokzp66dglxm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Navigate",
-                        "predicate": [
-                            "action:navigate"
-                        ],
-                        "selector": "survival",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+30 to navigate",
-                        "options": "action:navigate"
-                    }
-                }
             },
             "type": "lore"
         }
@@ -1015,6 +899,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 23
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 27
+            },
+            "athletics": {
+                "base": 28
+            },
+            "stealth": {
+                "base": 24
+            },
+            "survival": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 30,
+                        "label": "to navigate",
+                        "predicate": [
+                            "action:navigate"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

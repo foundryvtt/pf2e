@@ -49,6 +49,23 @@ declare global {
             time: boolean;
         };
 
+        compendium: {
+            /**
+             * Configure a table of compendium UUID redirects. Must be configured before the game *ready* hook is fired.
+             *
+             * @example Re-map individual UUIDs
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes.Actor.Tf0JDPzHOrIxz6BH"] = "Compendium.system.villains.Actor.DKYLeIliXXzlAZ2G";
+             * ```
+             *
+             * @example Redirect UUIDs from one compendium to another.
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes"] = "Compendium.system.villains";
+             * ```
+             */
+            uuidRedirects: Record<string, string>;
+        };
+
         /** Configure the DatabaseBackend used to perform Document operations */
         DatabaseBackend: foundry.data.ClientDatabaseBackend;
 
@@ -218,7 +235,6 @@ declare global {
         AmbientLight: {
             documentClass: ConstructorOf<TAmbientLightDocument>;
             objectClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the ActiveEffect embedded document type */
@@ -273,14 +289,12 @@ declare global {
             };
             documentClass: ConstructorOf<TMeasuredTemplateDocument>;
             objectClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the Region embedded document type and its representation on the game Canvas  */
         Region: {
             documentClass: ConstructorOf<TRegionDocument>;
             objectClass: ConstructorOf<TRegionDocument["object"]>;
-            layerClass: ConstructorOf<NonNullable<TRegionDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the RegionBehavior embedded document type */
@@ -295,14 +309,12 @@ declare global {
         Tile: {
             documentClass: ConstructorOf<TTileDocument>;
             objectClass: ConstructorOf<NonNullable<TTileDocument["object"]>>;
-            layerClass: ConstructorOf<TilesLayer<NonNullable<TTileDocument["object"]>>>;
         };
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
             documentClass: ConstructorOf<TTokenDocument>;
             objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TTokenDocument["object"]>["layer"]>;
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
@@ -310,7 +322,6 @@ declare global {
         Wall: {
             documentClass: ConstructorOf<TWallDocument>;
             objectClass: ConstructorOf<Wall<TWallDocument>>;
-            layerClass: ConstructorOf<NonNullable<TWallDocument["object"]>["layer"]>;
         };
 
         /* -------------------------------------------- */
@@ -346,7 +357,7 @@ declare global {
                 PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
             >;
             globalLightSourceClass: ConstructorOf<GlobalLightSource>;
-            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>>;
+            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>> & { get canMeasure(): boolean };
             visionSourceClass: ConstructorOf<PointVisionSource<TTokenDocument["object"]>>;
             soundSourceClass: ConstructorOf<PointSoundSource>;
             groups: {

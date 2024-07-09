@@ -123,7 +123,6 @@ class AfflictionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
                 base,
                 modifiers: [],
                 dice: [],
-                ignoredResistances: [],
             });
 
             const roll = new DamageRoll(formula);

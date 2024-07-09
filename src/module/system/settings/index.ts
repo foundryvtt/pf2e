@@ -303,6 +303,26 @@ export function registerSettings(): void {
         },
     });
 
+    // Called from i18nInit hook to get localized key name
+    Hooks.once("canvasReady", () => {
+        const placeWaypointKey = ((): string => {
+            const action = game.keybindings.bindings.get("pf2e.placeWaypoint")?.at(0);
+            return action ? KeybindingsConfig._humanizeBinding(action) : "";
+        })();
+        game.settings.register("pf2e", "dragMeasurement", {
+            name: game.i18n.localize("PF2E.SETTINGS.DragMeasurement.Name"),
+            hint: game.i18n.format("PF2E.SETTINGS.DragMeasurement.Hint", { key: placeWaypointKey }),
+            scope: "client",
+            config: true,
+            type: Boolean,
+            default: false,
+            onChange: (value) => {
+                game.pf2e.settings.dragMeasurement = !!value;
+            },
+        });
+        game.pf2e.settings.dragMeasurement = game.settings.get("pf2e", "dragMeasurement");
+    });
+
     game.settings.register("pf2e", "seenLastStopMessage", {
         name: "Seen Last Stop Before Remaster Message",
         scope: "world",

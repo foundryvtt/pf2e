@@ -25,6 +25,7 @@ import {
     DamageDamageContext,
     DamageDieSize,
     DamageFormulaData,
+    DamageIRBypassData,
     MaterialDamageEffect,
     WeaponBaseDamageData,
     WeaponDamageTemplate,
@@ -39,7 +40,7 @@ class WeaponDamagePF2e {
         const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.equals(d, baseDamage));
+            .filter((d) => !R.isDeepEqual(d, baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
@@ -248,9 +249,17 @@ class WeaponDamagePF2e {
         const propertyRunes = weapon.system.runes.property;
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
-        const ignoredResistances = propertyRunes.flatMap(
-            (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? [],
-        );
+
+        const irBypassData: DamageIRBypassData = {
+            immunity: { ignore: [], downgrade: [] },
+            resistance: {
+                ignore: R.filter(
+                    propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances),
+                    R.isDefined,
+                ),
+                redirect: [],
+            },
+        };
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:off-guard")) {
@@ -261,6 +270,14 @@ class WeaponDamagePF2e {
                 damageCategory: "precision",
             });
             modifiers.push(modifier);
+        }
+
+        // Concussive trait
+        if (weaponTraits.includes("concussive")) {
+            irBypassData.resistance.redirect.push(
+                { from: "piercing", to: "bludgeoning" },
+                { from: "bludgeoning", to: "piercing" },
+            );
         }
 
         // If there are any striking synthetics, possibly upgrade the weapon's base damage dice
@@ -423,7 +440,7 @@ class WeaponDamagePF2e {
         })();
         if (!(baseUncategorized || basePersistent || splashDamage)) return null;
 
-        const base = R.compact([baseUncategorized, basePersistent]);
+        const base = [baseUncategorized, basePersistent].filter(R.isTruthy);
 
         const adjustmentsRecord = actor.synthetics.modifierAdjustments;
         const alterationsRecord = actor.synthetics.damageAlterations;
@@ -478,7 +495,7 @@ class WeaponDamagePF2e {
             dice: damageDice,
             maxIncreases,
             modifiers: testedModifiers,
-            ignoredResistances,
+            bypass: irBypassData,
         };
 
         // If a weapon deals no base damage, remove all bonuses, penalties, and modifiers to it.

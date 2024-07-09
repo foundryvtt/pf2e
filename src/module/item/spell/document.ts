@@ -336,17 +336,19 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         const { attribute, isAttack } = this;
         const checkStatistic = spellcasting.statistic;
         const damageKinds = Array.from(this.damageKinds);
-        const domains = R.compact(
-            [
-                damageKinds,
-                damageKinds.map((k) => `spell-${k}`),
-                damageKinds.map((k) => `${this.id}-${k}`),
-                isAttack ? ["attack-damage", "attack-spell-damage"] : null,
-                checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
-            ].flat(),
-        );
+        const domains = [
+            damageKinds,
+            damageKinds.map((k) => `spell-${k}`),
+            damageKinds.map((k) => `${this.id}-${k}`),
+            isAttack ? ["attack-damage", "attack-spell-damage"] : null,
+            checkStatistic.base ? damageKinds.map((k) => `${checkStatistic.base?.slug}-${k}`) : null,
+        ]
+            .flat()
+            .filter(R.isTruthy);
 
-        const spellTraits = R.uniq(R.compact([...this.traits, spellcasting.tradition])).sort();
+        const spellTraits = R.unique([...this.traits, spellcasting.tradition])
+            .filter(R.isTruthy)
+            .sort();
         const actionAndTraitOptions = new Set(["action:cast-a-spell", "self:action:slug:cast-a-spell", ...spellTraits]);
         const contextData = await new DamageContext({
             origin: { actor: this.actor, item: this as SpellPF2e<ActorPF2e>, statistic: checkStatistic },
@@ -433,7 +435,6 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             base,
             modifiers,
             dice: damageDice,
-            ignoredResistances: [],
             kinds: this.damageKinds,
         };
 
@@ -652,7 +653,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
         // Ensure formulas are never empty string and default to 0
         for (const damage of Object.values(this.system.damage)) {
             // Temporary measure to skip some data preparation during migration 882
-            if (!R.isObject(damage) || typeof damage.formula !== "string") {
+            if (!R.isObjectType(damage) || typeof damage.formula !== "string") {
                 this.system.damage = {};
                 delete this.system.heightening;
                 delete this.system.overlays;
@@ -669,7 +670,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         if (this.system.heightening?.type === "fixed") {
             for (const heighten of Object.values(this.system.heightening.levels)) {
-                for (const partial of R.compact(Object.values(heighten.damage ?? {}))) {
+                for (const partial of Object.values(heighten.damage ?? {}).filter(R.isTruthy)) {
                     partial.formula = partial.formula?.trim() || "0";
                 }
             }
@@ -924,14 +925,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
         // Combine properties
         const area = this.area;
-        const properties = R.compact([
+        const properties = [
             heightened ? game.i18n.format("PF2E.SpellLevelBase", { level: ordinalString(baseRank) }) : null,
             heightened ? game.i18n.format("PF2E.SpellLevelHeightened", { heightened }) : null,
-        ]);
+        ].filter(R.isTruthy);
 
         const spellTraits = this.traitChatData(
             CONFIG.PF2E.spellTraits,
-            R.uniq(R.compact([...this.traits, spellcasting.tradition])),
+            R.unique([...this.traits, spellcasting.tradition]).filter(R.isTruthy),
         );
         const rarity =
             this.rarity === "common"
@@ -978,14 +979,14 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             throw ErrorPF2e("Spell points to location that is not a spellcasting type");
         }
 
-        context.extraRollOptions = R.uniq(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
+        context.extraRollOptions = R.unique(["action:cast-a-spell", ...(context.extraRollOptions ?? [])]);
 
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             ...context,
             action: "cast-a-spell",
             item: this,
-            traits: R.uniq(R.compact([...this.traits, tradition])),
+            traits: R.unique([...this.traits, tradition]).filter(R.isTruthy),
             attackNumber,
             dc: { slug: this.system.defense?.passive?.statistic ?? "ac" },
         });
@@ -1064,7 +1065,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }),
         ];
 
-        const traits = R.uniq(R.compact([...this.traits, spellcasting.tradition]));
+        const traits = R.unique([...this.traits, spellcasting.tradition]).filter(R.isTruthy);
         return statistic.check.roll({
             ...eventToRollParams(event, { type: "check" }),
             label: game.i18n.localize("PF2E.Check.Specific.Counteract"),
@@ -1147,10 +1148,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             changed.system.level.value = Math.clamp(Math.trunc(Number(level) || 1), 1, 10) as OneToTen;
         }
 
-        const systemChanges = R.compact([
+        const systemChanges = [
             changed.system,
             ...Object.values(changed.system.overlays ?? {}).map((o) => o?.system),
-        ]);
+        ].filter(R.isTruthy);
 
         for (const system of systemChanges) {
             // Normalize or remove spell area
@@ -1181,7 +1182,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
 
             // Normalize damage data
-            for (const partial of R.compact(Object.values(system.damage ?? {}))) {
+            for (const partial of Object.values(system.damage ?? {}).filter(R.isTruthy)) {
                 if (typeof partial.category === "string") partial.category ||= null;
 
                 // Ensure kinds are still valid after changing damage type/category
@@ -1191,7 +1192,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
 
             if (system.heightening && "levels" in system.heightening) {
-                for (const rank of R.compact(Object.values(system.heightening.levels ?? {}))) {
+                for (const rank of Object.values(system.heightening.levels ?? {}).filter(R.isTruthy)) {
                     for (const partial of Object.values(rank.damage ?? {})) {
                         if (typeof partial?.category === "string") partial.category ||= null;
                     }

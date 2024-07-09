@@ -5,11 +5,10 @@ import {
     SingleCheckActionVariant,
     SingleCheckActionVariantData,
 } from "@actor/actions/index.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
 import { TokenPF2e } from "@module/canvas/index.ts";
 import { ActionMacroHelpers } from "@system/action-macros/index.ts";
 import { CheckResultCallback } from "@system/action-macros/types.ts";
-import { setHasElement } from "@util/misc.ts";
+import { objectHasKey } from "@util/misc.ts";
 
 const PREFIX = "PF2E.Actions.RecallKnowledge";
 
@@ -37,7 +36,7 @@ class RecallKnowledgeActionVariant extends SingleCheckActionVariant {
                     : options.target instanceof TokenPF2e
                       ? options.target.actor
                       : ActionMacroHelpers.target()?.actor;
-            if (target instanceof NPCPF2e && setHasElement(SKILL_SLUGS, options.statistic)) {
+            if (target instanceof NPCPF2e && objectHasKey(CONFIG.PF2E.skills, options.statistic)) {
                 const identification = target.identificationDCs;
                 if (identification.skills.includes(options.statistic)) {
                     options.difficultyClass = {

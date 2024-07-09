@@ -20,7 +20,7 @@ export class Migration854BracketedAbilityScoresToModifiers extends MigrationBase
                 typeof r.value.field === "string" &&
                 /^actor\|system\.abilities\.[a-z]{3}\.value$/.test(r.value.field) &&
                 Array.isArray(r.value.brackets) &&
-                r.value.brackets.every((b) => R.isObject(b) && typeof b.value === "number"),
+                r.value.brackets.every((b) => R.isPlainObject(b) && typeof b.value === "number"),
         );
 
         for (const aeLike of aeLikes) {

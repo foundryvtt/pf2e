@@ -27,6 +27,7 @@ function seek(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     cost: 1,
     description: "PF2E.Actions.Seek.Description",
+    img: "icons/skills/movement/arrow-upward-yellow.webp",
     name: "PF2E.Actions.Seek.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.Seek.Notes.criticalSuccess" },

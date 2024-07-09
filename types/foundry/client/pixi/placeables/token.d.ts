@@ -1,6 +1,7 @@
 import type { PolygonVertex } from "../../../client-esm/canvas/edges/module.d.ts";
 import type { PointLightSource, PointVisionSource } from "../../../client-esm/canvas/sources/module.d.ts";
 import type { VisionSourceData } from "../../../client-esm/canvas/sources/point-vision-source.d.ts";
+import type { PrimarySpriteMesh } from "./primary-canvas-objects/primary-sprite-mesh.d.ts";
 
 declare global {
     /** A Token is an implementation of PlaceableObject that represents an Actor within a viewed Scene on the game canvas. */
@@ -80,12 +81,8 @@ declare global {
         /** Track the set of User documents which are currently targeting this Token */
         targeted: Set<User>;
 
-        /**
-         * A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup.
-         * todo: Replace with correct type
-         * @type {PrimarySpriteMesh}
-         */
-        mesh: TokenMesh;
+        /** A reference to the SpriteMesh which displays this Token in the PrimaryCanvasGroup. */
+        mesh: PrimarySpriteMesh | undefined;
 
         /** Renders the mesh of this Token with ERASE blending in the Token. */
         voidMesh: PIXI.DisplayObject;
@@ -534,6 +531,54 @@ declare global {
         override getSnappedPosition(position?: Point): Point;
 
         /**
+         * Test whether the Token is inside the Region.
+         * This function determines the state of {@link TokenDocument#regions} and {@link RegionDocument#tokens}.
+         *
+         * Implementations of this function are restricted in the following ways:
+         *   - If the bounds (given by {@link Token#getSize}) of the Token do not intersect the Region, then the Token is not
+         *     contained within the Region.
+         *   - If the Token is inside the Region a particular elevation, then the Token is inside the Region at any elevation
+         *     within the elevation range of the Region.
+         *
+         * If this function is overridden, then {@link Token#segmentizeRegionMovement} must be overridden too.
+         * @param region   The region.
+         * @param position The (x, y) and/or elevation to use instead of the current values.
+         * @returns Is the Token inside the Region?
+         */
+        testInsideRegion(
+            region: Region,
+            position: Point | (Point & { elevation: number }) | { elevation: number },
+        ): boolean;
+
+        /**
+         * Split the Token movement through the waypoints into its segments.
+         *
+         * Implementations of this function are restricted in the following ways:
+         *   - The segments must go through the waypoints.
+         *   - The *from* position matches the *to* position of the succeeding segment.
+         *   - The Token must be contained (w.r.t. {@link Token#testInsideRegion}) within the Region
+         *     at the *from* and *to* of MOVE segments.
+         *   - The Token must be contained (w.r.t. {@link Token#testInsideRegion}) within the Region
+         *     at the *to* position of ENTER segments.
+         *   - The Token must be contained (w.r.t. {@link Token#testInsideRegion}) within the Region
+         *     at the *from* position of EXIT segments.
+         *   - The Token must not be contained (w.r.t. {@link Token#testInsideRegion}) within the Region
+         *     at the *from* position of ENTER segments.
+         *   - The Token must not be contained (w.r.t. {@link Token#testInsideRegion}) within the Region
+         *     at the *to* position of EXIT segments.
+         * @param region    The region.
+         * @param waypoints The waypoints of movement.
+         * @param [options] Additional options
+         * @param [options.teleport=false] Is it teleportation?
+         * @returns The movement split into its segments.
+         */
+        segmentizeRegionMovement(
+            region: Region,
+            waypoints: RegionMovementWaypoint[],
+            options?: { teleport?: boolean },
+        ): RegionMovementSegment[];
+
+        /**
          * Set this Token as an active target for the current game User.
          * Note: If the context is set with groupSelection:true, you need to manually broadcast the activity for other users.
          * @param targeted                        Is the Token now targeted?
@@ -651,7 +696,7 @@ declare global {
 
         protected override _onHoverOut(event: PIXI.FederatedPointerEvent): boolean | void;
 
-        protected override _onClickLeft(event: PIXI.FederatedPointerEvent): void;
+        protected override _onClickLeft(event: TokenPointerEvent<this>): void;
 
         protected override _propagateLeftClick(event: PIXI.FederatedPointerEvent): boolean;
 
@@ -659,7 +704,7 @@ declare global {
 
         protected override _onClickRight2(event: PIXI.FederatedPointerEvent): void;
 
-        protected override _onDragLeftStart(event: PIXI.FederatedPointerEvent): void;
+        protected override _onDragLeftStart(event: TokenPointerEvent<this>): void;
 
         protected override _prepareDragLeftDropUpdates(event: PIXI.FederatedEvent): Record<string, unknown>[] | null;
 

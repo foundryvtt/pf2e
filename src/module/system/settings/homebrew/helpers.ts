@@ -1,19 +1,21 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
+import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
-import { isObject } from "@util";
+import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { CustomDamageData, HomebrewTraitKey } from "./data.ts";
+import { CustomDamageData, HOMEBREW_TRAIT_KEYS, HomebrewTag, HomebrewTraitKey, ModuleHomebrewData } from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
 function isHomebrewFlagCategory(value: unknown): value is Record<string, string | LabelAndDescription> {
     return (
-        R.isObject(value) &&
+        R.isPlainObject(value) &&
         Object.entries(value).every(
-            ([_hbKey, hbLabel]) => typeof hbLabel === "string" || (isObject(hbLabel) && isLabelAndDescription(hbLabel)),
+            ([_hbKey, hbLabel]) =>
+                typeof hbLabel === "string" || (R.isPlainObject(hbLabel) && isLabelAndDescription(hbLabel)),
         )
     );
 }
@@ -21,9 +23,9 @@ function isHomebrewFlagCategory(value: unknown): value is Record<string, string 
 function isHomebrewCustomDamage(value: object): value is Record<string, CustomDamageData> {
     return Object.values(value).every(
         (value) =>
-            isObject<CustomDamageData>(value) &&
+            R.isPlainObject(value) &&
             typeof value.label === "string" &&
-            (!value.category || ["physical", "energy"].includes(value.category)),
+            (!value.category || tupleHasValue(["physical", "energy"], value.category)),
     );
 }
 
@@ -36,6 +38,19 @@ interface LabelAndDescription {
     description: string;
 }
 
+function isSkillData(obj: unknown): obj is { additional: ModuleHomebrewData["additionalSkills"] } {
+    return (
+        R.isPlainObject(obj) &&
+        R.isPlainObject(obj.additional) &&
+        Object.values(obj.additional).every(
+            (d) =>
+                R.isPlainObject(d) &&
+                typeof d.label === "string" &&
+                setHasElement(ATTRIBUTE_ABBREVIATIONS, d.attribute),
+        )
+    );
+}
+
 function prepareReservedTerms(): ReservedTermsRecord {
     const universalReservedTerms = new Set([
         ...Object.keys(CONFIG.PF2E.classTraits),
@@ -44,7 +59,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         ...Object.keys(CONFIG.PF2E.immunityTypes),
         ...Object.keys(CONFIG.PF2E.resistanceTypes),
         ...Object.keys(CONFIG.PF2E.saves),
-        ...Object.keys(CONFIG.PF2E.skillList),
+        ...Object.keys(CONFIG.PF2E.skills),
         ...Object.keys(CONFIG.PF2E.weaknessTypes),
         ...Object.keys(CONFIG.PF2E.environmentTypes),
         "damage",
@@ -64,6 +79,7 @@ function prepareReservedTerms(): ReservedTermsRecord {
         featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...universalReservedTerms]),
         languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...universalReservedTerms]),
         spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...universalReservedTerms]),
+        skills: universalReservedTerms,
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),
         weaponGroups: new Set([...Object.keys(CONFIG.PF2E.weaponGroups), ...universalReservedTerms]),
         weaponTraits: new Set([...Object.keys(CONFIG.PF2E.weaponTraits), ...universalReservedTerms]),
@@ -71,7 +87,91 @@ function prepareReservedTerms(): ReservedTermsRecord {
     };
 }
 
-type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes", Set<string>>;
+type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes" | "skills", Set<string>>;
+
+/** Reads homebrew settings from all modules */
+function readModuleHomebrewSettings(): ModuleHomebrewData {
+    const results: ModuleHomebrewData = {
+        additionalSkills: {},
+        damageTypes: {},
+        traits: R.mapToObj(HOMEBREW_TRAIT_KEYS, (k) => [k, []]),
+        traitDescriptions: {},
+    };
+
+    const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
+
+    for (const [key, foundryModule] of activeModules) {
+        const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
+        if (!R.isPlainObject(homebrew)) continue;
+
+        for (const [recordKey, elements] of Object.entries(homebrew)) {
+            if (recordKey === "skills") {
+                if (!isSkillData(elements)) {
+                    console.warn(ErrorPF2e(`Homebrew record skills is malformed in module ${key}`).message);
+                    continue;
+                }
+
+                for (const [slug, data] of Object.entries(elements.additional)) {
+                    if (HomebrewElements.reservedTerms.skills.has(slug)) {
+                        console.warn(
+                            ErrorPF2e(`Homebrew skill "${slug}" from module ${foundryModule.title} is a reserved term.`)
+                                .message,
+                        );
+                    } else {
+                        results.additionalSkills[slug] = data;
+                    }
+                }
+            } else if (recordKey === "damageTypes") {
+                if (!R.isPlainObject(elements) || !isHomebrewCustomDamage(elements)) {
+                    console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
+                    continue;
+                }
+
+                for (const [slug, value] of Object.entries(elements)) {
+                    if (HomebrewElements.reservedTerms.damageTypes.has(slug)) {
+                        console.warn(
+                            ErrorPF2e(
+                                `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
+                            ).message,
+                        );
+                    } else {
+                        results.damageTypes[slug] = value;
+                    }
+                }
+            } else if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
+                if (!R.isPlainObject(elements) || !isHomebrewFlagCategory(elements)) {
+                    console.warn(ErrorPF2e(`Homebrew record ${recordKey} is malformed in module ${key}`).message);
+                    continue;
+                }
+
+                const elementEntries = Object.entries(elements);
+
+                // A registered tag can be a string label or an object containing a label and description
+                results.traits[recordKey].push(
+                    ...elementEntries.map(
+                        ([id, value]) =>
+                            ({
+                                id,
+                                value: typeof value === "string" ? value : value.label,
+                            }) as HomebrewTag,
+                    ),
+                );
+
+                // Register descriptions if present
+                for (const [key, value] of elementEntries) {
+                    if (typeof value === "object") {
+                        results.traitDescriptions[key] = value.description;
+                    }
+                }
+            } else {
+                console.warn(ErrorPF2e(`Invalid homebrew record "${recordKey}" in module ${key}`).message);
+                continue;
+            }
+        }
+    }
+
+    return results;
+}
 
 function prepareCleanup(listKey: HomebrewTraitKey, deletions: string[]): MigrationBase {
     const Migration = class extends MigrationBase {
@@ -219,5 +319,6 @@ export {
     isHomebrewFlagCategory,
     prepareCleanup,
     prepareReservedTerms,
+    readModuleHomebrewSettings,
     type ReservedTermsRecord,
 };

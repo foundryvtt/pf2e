@@ -1,6 +1,4 @@
 import { MystifiedTraits } from "@item/base/data/values.ts";
-import { KitSystemData } from "@item/kit/data.ts";
-import { MeleeSystemData } from "@item/melee/data.ts";
 import { HotbarPF2e } from "@module/apps/hotbar.ts";
 import {
     ActorDirectoryPF2e,
@@ -9,11 +7,7 @@ import {
     EncounterTrackerPF2e,
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
-import { AmbientLightPF2e, LightingLayerPF2e, MeasuredTemplatePF2e, TemplateLayerPF2e } from "@module/canvas/index.ts";
-import { NotePF2e } from "@module/canvas/note.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
-import { JournalEntryPagePF2e } from "@module/journal-page/data.ts";
-import { NoteDocumentPF2e } from "@module/note/document.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -22,6 +16,7 @@ import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
+import * as R from "remeda";
 
 export const Init = {
     listen: (): void => {
@@ -30,23 +25,6 @@ export const Init = {
 
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
-
-            // Assign canvas layer and placeable classes
-            CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
-            CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
-
-            CONFIG.Item.dataModels.kit = KitSystemData;
-            CONFIG.Item.dataModels.melee = MeleeSystemData;
-
-            CONFIG.JournalEntryPage.documentClass = JournalEntryPagePF2e;
-
-            CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
-            CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
-            CONFIG.MeasuredTemplate.defaults.angle = 90;
-            CONFIG.MeasuredTemplate.defaults.width = 1;
-
-            CONFIG.Note.documentClass = NoteDocumentPF2e;
-            CONFIG.Note.objectClass = NotePF2e;
 
             setPerceptionModes();
 
@@ -75,7 +53,12 @@ export const Init = {
                 uiTop?.insertAdjacentElement("afterend", template);
             }
 
-            // configure the bundled TinyMCE editor with PF2-specific options
+            // Populate UUID redirects
+            for (const [from, to] of R.entries.strict(UUID_REDIRECTS)) {
+                CONFIG.compendium.uuidRedirects[from] = to;
+            }
+
+            // Configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
             CONFIG.TinyMCE.content_css.push("systems/pf2e/styles/pf2e.css");
             CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({

@@ -275,15 +275,11 @@ declare global {
          */
         maximize(): Promise<boolean>;
 
-        /**
-         * Bring the application to the top of the rendering stack
-         */
+        /** Bring the application to the top of the rendering stack */
         bringToTop(): void;
 
-        /**
-         * Set the application position and store it's new location
-         */
-        setPosition({ left, top, width, height, scale }?: ApplicationPosition): ApplicationPosition | undefined;
+        /** Set the application position and store it's new location */
+        setPosition(options?: ApplicationPosition): ApplicationPosition | void;
 
         /**
          * Handle application minimization behavior - collapsing content and reducing the size of the header

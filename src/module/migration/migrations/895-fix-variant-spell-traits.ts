@@ -27,7 +27,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
 
     #fixHarmHeal(source: SpellSource): void {
         const damage = source.system.damage["0"];
-        if (R.isObject(damage)) {
+        if (R.isPlainObject(damage)) {
             damage.kinds = ["damage", "healing"];
         }
         if (source.system.slug === "heal") {
@@ -36,9 +36,10 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
             source.system.traits.value = ["manipulate", "void"];
         }
 
-        const variants = R.isObject(source.system.overlays)
+        const variants = R.isPlainObject(source.system.overlays)
             ? Object.values(source.system.overlays).filter(
-                  (o) => R.isObject(o) && R.isObject(o.system?.traits) && Array.isArray(o.system?.traits.value),
+                  (o) =>
+                      R.isPlainObject(o) && R.isPlainObject(o.system?.traits) && Array.isArray(o.system?.traits.value),
               )
             : [];
 
@@ -63,7 +64,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     }
 
     #removeOverlayTraits(source: SpellSource): void {
-        source.system.traits.value = R.uniq([
+        source.system.traits.value = R.unique([
             ...source.system.traits.value,
             "concentrate",
             "manipulate",
@@ -75,7 +76,7 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
     }
 
     #fixOtherVariants(source: SpellSource): void {
-        for (const partial of Object.values(source.system.damage).filter((p) => R.isObject(p))) {
+        for (const partial of Object.values(source.system.damage).filter((p) => R.isPlainObject(p))) {
             if (typeof partial.type === "string") {
                 partial.type = partial.type === ("healing" as DamageType) ? "untyped" : partial.type;
                 partial.type ||= "untyped";
@@ -86,13 +87,17 @@ export class Migration895FixVariantSpellTraits extends MigrationBase {
             const overlaySystem: { traits?: { value?: (string | undefined)[] }; "-=traits"?: null } =
                 overlay.system ?? {};
             if (overlaySystem.traits?.value && Array.isArray(overlaySystem.traits.value)) {
-                if (!R.compact(overlaySystem.traits.value).every((t) => ["concentrate", "manipulate"].includes(t))) {
+                if (
+                    !overlaySystem.traits.value
+                        .filter(R.isTruthy)
+                        .every((t) => ["concentrate", "manipulate"].includes(t))
+                ) {
                     continue;
                 }
-                overlaySystem.traits.value = R.uniq(
-                    [...overlaySystem.traits.value, ...source.system.traits.value].sort(),
-                );
-                if (R.equals(overlaySystem.traits.value, R.uniq(source.system.traits.value.sort()))) {
+                overlaySystem.traits.value = R.unique([...overlaySystem.traits.value, ...source.system.traits.value])
+                    .filter(R.isTruthy)
+                    .sort();
+                if (R.isDeepEqual(overlaySystem.traits.value, R.unique(source.system.traits.value.sort()))) {
                     overlaySystem["-=traits"] = null;
                 }
             }

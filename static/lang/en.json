@@ -570,8 +570,16 @@
                     }
                 },
                 "SimpleSheet": "Simple NPC Sheet",
+                "SpecialSkill": "+{mod} {label}",
                 "SkillsEditor": {
+                    "AddSpecial": "Add Special",
+                    "Error": {
+                        "PredicateArray": "Predicate must be an array"
+                    },
                     "LorePlaceholder": "Carpentry Lore",
+                    "Note": "Note",
+                    "Predicate": "Predicate",
+                    "Special": "Special",
                     "Title": "Skills Editor ({actor})"
                 }
             },
@@ -1141,10 +1149,11 @@
                 "ApplicationBreakdown": {
                     "ignored": "Resistance to {type} ignored!",
                     "immunity": "Immune to {type}: {adjustment}",
+                    "redirect": "Resistant to {type} (treated as {redirect}): {adjustment}",
+                    "reduction": "Reduced by {type}: {adjustment}",
                     "resistance": "Resistant to {type}: {adjustment}",
                     "unaffected": "Unaffected by {type}: {adjustment}",
-                    "weakness": "Weak to {type}: {adjustment}",
-                    "reduction": "Reduced by {type}: {adjustment}"
+                    "weakness": "Weak to {type}: {adjustment}"
                 },
                 "CompositeLabel": {
                     "Exceptions0DoubleVs0": "{type} {value}",
@@ -2436,6 +2445,7 @@
                         "collar": "Collar",
                         "crown": "Crown",
                         "epaulet": "Epaulet",
+                        "eyeglasses": "Eyeglasses",
                         "eyepiece": "Eyepiece",
                         "footwear": "Footwear",
                         "garment": "Garment",
@@ -2651,15 +2661,22 @@
         "ItemMystification": "Mystification",
         "ItemMystified": "Mystified",
         "ItemNamePlaceholder": "Name",
-        "ItemNewSkillVariant": "New Skill Variant",
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRemoveRuleElement": "Remove Rule Element",
         "ItemTitle": "Item",
         "ItemsLabel": "Items",
         "Keybinding": {
+            "CycleTokenStack": {
+                "Hint": "Cycle the Z indices of a mouse-hovered stack of tokens, pushing the top to the bottom.",
+                "Label": "Cycle Token Stack"
+            },
             "GMVision": {
                 "Hint": "Brighten dark scenes for easier viewing.",
                 "Label": "GM Vision"
+            },
+            "PlaceWaypoint": {
+                "Hint": "Place a waypoint while using drag measurement.",
+                "Label": "Place Waypoint (Drag Measurement)"
             },
             "TogglePartySheet": {
                 "Hint": "Open or close the sheet of the active or (if a player) assigned party.",
@@ -2683,6 +2700,11 @@
         "Level19": "Level 19",
         "Level2": "Level 2",
         "Level20": "Level 20",
+        "Level21": "Level 21",
+        "Level22": "Level 22",
+        "Level23": "Level 23",
+        "Level24": "Level 24",
+        "Level25": "Level 25",
         "Level3": "Level 3",
         "Level4": "Level 4",
         "Level5": "Level 5",
@@ -2710,7 +2732,6 @@
             "two": "{first} or {second}"
         },
         "Lore": "Lore",
-        "LoreProficiencyDisclaimer": "Informational only. Will not change the skill modifier.",
         "LoreSkillsHeader": "Lore Skills",
         "MAPAbbreviationLabel": "MAP {penalty}",
         "MAPAbbreviationValueLabel": "{value} (MAP {penalty})",
@@ -3117,6 +3138,17 @@
                     "Label": "Environment",
                     "SceneHint": "Specify one or more environment types for the entire scene."
                 }
+            },
+            "EnvironmentFeature": {
+                "Label": "Environment Feature",
+                "Terrain": {
+                    "Difficult": {
+                        "Difficult": "Difficult",
+                        "Greater": "Greater Difficult",
+                        "Label": "Difficult Terrain",
+                        "None": "None"
+                    }
+                }
             }
         },
         "RemoveCoinsByValueLabel": "Remove value, not specific type",
@@ -3279,6 +3311,10 @@
             "DeathIcon": {
                 "Hint": "Set the overlay icon used to mark dead actors.",
                 "Name": "Death Icon"
+            },
+            "DragMeasurement": {
+                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key.",
+                "Name": "Drag Measurement"
             },
             "EnabledDisabled": {
                 "Enabled": "Enabled",

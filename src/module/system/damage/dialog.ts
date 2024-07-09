@@ -82,7 +82,7 @@ class DamageModifierDialog extends Application {
         const icons = (() => {
             switch (object.category) {
                 case "splash":
-                    return R.compact([fontAwesomeIcon("fa-burst"), damageTypeIcon]);
+                    return [fontAwesomeIcon("fa-burst"), damageTypeIcon].filter(R.isTruthy);
                 case "persistent":
                     if (object.damageType !== "bleed") {
                         return [damageTypeIcon, fontAwesomeIcon("fa-hourglass", { style: "duotone" })];
@@ -129,7 +129,6 @@ class DamageModifierDialog extends Application {
             base: this.formulaData.base,
             modifiers: [],
             dice: [],
-            ignoredResistances: [],
         });
         const baseRoll = new DamageRoll(baseResult.formula);
         const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");

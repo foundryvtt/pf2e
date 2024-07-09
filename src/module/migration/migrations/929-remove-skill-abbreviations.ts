@@ -1,5 +1,5 @@
 import { SkillSlug } from "@actor/types.ts";
-import { SKILL_SLUGS } from "@actor/values.ts";
+import { CORE_SKILL_SLUGS } from "@actor/values.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SIZES } from "@module/data.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
@@ -16,7 +16,7 @@ export class Migration929RemoveSkillAbbreviations extends MigrationBase {
     static override version = 0.929;
 
     #SKILL_LOCALIZATION = ((): RegExp => {
-        const skillSlugs = [...SKILL_SLUGS, ...SKILL_ABBREVIATIONS].map(capitalize).join("|");
+        const skillSlugs = [...CORE_SKILL_SLUGS, ...SKILL_ABBREVIATIONS].map(capitalize).join("|");
         return new RegExp(String.raw`PF2E.Skill(${skillSlugs})\b`, "g");
     })();
 

@@ -16,10 +16,10 @@ import type { RangeData } from "@item/types.ts";
 import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
+import { processTwoHandTrait } from "./helpers.ts";
 import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
@@ -403,7 +403,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
+        traits.value = R.unique([...traits.value, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
@@ -428,11 +430,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         traits.toggles.applyChanges();
 
         // Upgrade dice faces if a two-hand trait is present and applicable
-        const twoHandFaces = Number(traits.value.find((t) => t.startsWith("two-hand-d"))?.replace("two-hand-d", ""));
-        const diceFaces = Number(this.system.damage.die?.replace("d", ""));
-        if (this.handsHeld === 2 && tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces) && twoHandFaces > diceFaces) {
-            this.system.damage.die = `d${twoHandFaces}`;
-        }
+        processTwoHandTrait(this);
     }
 
     override async getChatData(
@@ -442,11 +440,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         const rangeLabel = createActionRangeLabel(this.range);
-        const properties = R.compact([
-            CONFIG.PF2E.weaponCategories[this.category],
-            this.system.reload.label,
-            rangeLabel,
-        ]);
+        const properties = [CONFIG.PF2E.weaponCategories[this.category], this.system.reload.label, rangeLabel].filter(
+            R.isTruthy,
+        );
 
         return this.processChatData(htmlOptions, {
             ...chatData,

@@ -525,7 +525,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<Actor | null> {
         context.types &&= R.unique(context.types);
         context.types ??= [...ACTOR_TYPES];
+
+        // Determine omitted types. Army is hidden in most games, and party is hidden in folders
         const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        if (data?.folder) {
+            omittedTypes.push("party");
+        }
+
         for (const type of omittedTypes) {
             context.types.findSplice((t) => t === type);
         }
@@ -555,6 +561,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const linkToActorSize = linkable && (source.prototypeToken?.flags?.pf2e?.linkToActorSize ?? true);
             const autoscale =
                 linkable &&
+                // Don't autoscale if the scale is preset to something other than 1
+                (typeof source.prototypeToken?.texture?.scaleX !== "number" ||
+                    source.prototypeToken.texture.scaleX === 1) &&
                 (source.prototypeToken?.flags?.pf2e?.autoscale ??
                     (linkToActorSize && game.settings.get("pf2e", "tokens.autoscale")));
             const merged = fu.mergeObject(source, {
@@ -777,6 +786,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.prepareDataFromItems();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
     }
 
     /** Prepare data among owned items as well as actor-data preparation performed by items */
@@ -1200,7 +1213,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const statements = ((): string => {
             const deathMessage =
                 instantDeath && localize(`InstantDeath.${sluggify(instantDeath, { camel: "bactrian" })}`);
-            const concatenated = R.compact([hpStatement, shieldStatement, deathMessage])
+            const concatenated = [hpStatement, shieldStatement, deathMessage]
+                .filter(R.isTruthy)
                 .map((s) =>
                     game.i18n.format(s, {
                         actor: token.name.replace(/[<>]/g, ""),
@@ -1230,7 +1244,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 criticalHit: damage instanceof Roll ? damage.options.degreeOfSuccess === 3 : false,
             };
             condition.system.traits = {
-                value: R.uniq(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
+                value: R.unique(Array.from(rollOptions).map((o) => o.replace(/^origin:action:trait:/, ""))).filter(
                     (t): t is EffectTrait => t in CONFIG.PF2E.effectTraits,
                 ),
                 otherTags: [],
@@ -1246,7 +1260,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const content = await renderTemplate("systems/pf2e/templates/chat/damage/damage-taken.hbs", {
             breakdown,
             statements,
-            persistent: R.compact(persistentCreated.map((p) => p.system.persistent?.damage.formula)),
+            persistent: persistentCreated.map((p) => p.system.persistent?.damage.formula).filter(R.isTruthy),
             iwr: {
                 applications: result.applications,
                 visibility: this.hasPlayerOwner ? "all" : "gm",
@@ -1294,6 +1308,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             flags: {
                 pf2e: {
                     appliedDamage,
+                    context: {
+                        type: "damage-taken",
+                        options: Array.from(rollOptions),
+                    },
+                    origin: item?.getOriginData(),
                 },
             },
             flavor,

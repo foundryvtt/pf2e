@@ -258,73 +258,6 @@
                 }
             },
             "type": "melee"
-        },
-        {
-            "_id": "2QpzpJ0AUiZkfY5p",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NlIribk0z0Heb6os",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 1
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Impersonate",
-                        "predicate": [
-                            "action:impersonate"
-                        ],
-                        "selector": "deception",
-                        "type": "untyped",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 to Impersonate",
-                        "options": "action:impersonate"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Simulacrum",
@@ -408,6 +341,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "deception": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "to Impersonate",
+                        "predicate": [
+                            "action:impersonate"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

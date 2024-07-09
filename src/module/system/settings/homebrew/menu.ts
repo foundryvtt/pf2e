@@ -1,37 +1,15 @@
-import { LANGUAGES, LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
+import { LANGUAGES_BY_RARITY } from "@actor/creature/values.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
-import { WeaponTrait } from "@item/weapon/types.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
-import { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/config/iwr.ts";
-import { DamageType } from "@system/damage/types.ts";
-import {
-    BASE_DAMAGE_TYPES_TO_CATEGORIES,
-    DAMAGE_TYPES,
-    DAMAGE_TYPE_ICONS,
-    ENERGY_DAMAGE_TYPES,
-    PHYSICAL_DAMAGE_TYPES,
-} from "@system/damage/values.ts";
 import { LanguageSelector } from "@system/tag-selector/languages.ts";
-import {
-    ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
-    htmlClosest,
-    htmlQuery,
-    htmlQueryAll,
-    isObject,
-    localizer,
-    objectHasKey,
-    setHasElement,
-    sluggify,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, objectHasKey, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 import "@yaireo/tagify/src/tagify.scss";
 import * as R from "remeda";
-import Sortable from "sortablejs";
 import { PartialSettingsData, SettingsMenuPF2e, settingsToSheetData } from "../menu.ts";
+import { DamageTypeManager } from "./damage.ts";
 import {
     CustomDamageData,
     HOMEBREW_TRAIT_KEYS,
@@ -40,18 +18,12 @@ import {
     HomebrewTag,
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
-    LanguageNotCommon,
     LanguageSettings,
-    LanguageSettingsSheetData,
+    ModuleHomebrewData,
     TRAIT_PROPAGATIONS,
 } from "./data.ts";
-import {
-    ReservedTermsRecord,
-    isHomebrewCustomDamage,
-    isHomebrewFlagCategory,
-    prepareCleanup,
-    prepareReservedTerms,
-} from "./helpers.ts";
+import { ReservedTermsRecord, prepareCleanup, prepareReservedTerms, readModuleHomebrewSettings } from "./helpers.ts";
+import { LanguagesManager } from "./languages.ts";
 
 class HomebrewElements extends SettingsMenuPF2e {
     static override readonly namespace = "homebrew";
@@ -63,8 +35,14 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     static #reservedTerms: ReservedTermsRecord | null = null;
 
+    static #moduleData: ModuleHomebrewData | null = null;
+
     static get reservedTerms(): ReservedTermsRecord {
         return (this.#reservedTerms ??= prepareReservedTerms());
+    }
+
+    static get moduleData(): ModuleHomebrewData {
+        return (this.#moduleData ??= readModuleHomebrewSettings());
     }
 
     static override get SETTINGS(): string[] {
@@ -321,6 +299,18 @@ class HomebrewElements extends SettingsMenuPF2e {
         this.#refreshSettings();
         this.#registerModuleTags();
         new DamageTypeManager().updateSettings();
+
+        // Add additional skills if there any
+        const moduleData = HomebrewElements.moduleData;
+        if (Object.keys(moduleData.additionalSkills).length > 0) {
+            CONFIG.PF2E.skills = Object.freeze({
+                ...CONFIG.PF2E.skills,
+                ...R.mapValues(moduleData.additionalSkills, (data) => ({
+                    label: data.label,
+                    attribute: data.attribute,
+                })),
+            });
+        }
     }
 
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
@@ -350,43 +340,16 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
-        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
-
-        for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isObject(homebrew)) continue;
-
-            for (const recordKey of Object.keys(homebrew)) {
-                if (recordKey === "damageTypes") continue; // handled elsewhere
-
-                if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
-                    const elements = homebrew[recordKey];
-                    if (!isObject(elements) || !isHomebrewFlagCategory(elements)) {
-                        console.warn(ErrorPF2e(`Homebrew record ${recordKey} is malformed in module ${key}`).message);
-                        continue;
-                    }
-
-                    const elementEntries = Object.entries(elements);
-
-                    // A registered tag can be a string label or an object containing a label and description
-                    const tags = elementEntries.map(([id, value]) => ({
-                        id,
-                        value: typeof value === "string" ? value : value.label,
-                    })) as HomebrewTag[];
-                    this.#updateConfigRecords(tags, recordKey);
-
-                    // Register descriptions if present
-                    for (const [key, value] of elementEntries) {
-                        if (typeof value === "object") {
-                            const hbKey = key as keyof typeof CONFIG.PF2E.traitsDescriptions;
-                            CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
-                        }
-                    }
-                } else {
-                    console.warn(ErrorPF2e(`Invalid homebrew record "${recordKey}" in module ${key}`).message);
-                    continue;
-                }
+        const settings = HomebrewElements.moduleData;
+        for (const [recordKey, tags] of R.entries.strict(settings.traits)) {
+            if (tags.length > 0) {
+                this.#updateConfigRecords(tags, recordKey);
             }
+        }
+
+        for (const [trait, description] of Object.entries(settings.traitDescriptions)) {
+            const hbKey = trait as keyof typeof CONFIG.PF2E.traitsDescriptions;
+            CONFIG.PF2E.traitsDescriptions[hbKey] = description;
         }
     }
 
@@ -404,284 +367,6 @@ class HomebrewElements extends SettingsMenuPF2e {
                 record[element.id] = element.value;
             }
         }
-    }
-}
-
-/**
- * To update all custom damage types in the system, we need to ensure that all collections are added to and cleaned.
- * This reduces the scope of all damage related operations so that its easier to identify when something goes wrong.
- */
-class DamageTypeManager {
-    // All collections that homebrew damage must be updated in
-    collections = {
-        physical: PHYSICAL_DAMAGE_TYPES as unknown as string[],
-        energy: ENERGY_DAMAGE_TYPES as unknown as string[],
-        DAMAGE_TYPES,
-        BASE_DAMAGE_TYPES_TO_CATEGORIES,
-        DAMAGE_TYPE_ICONS,
-        damageTypesLocalization: CONFIG.PF2E.damageTypes,
-        damageRollFlavorsLocalization: CONFIG.PF2E.damageRollFlavors,
-        immunityTypes: immunityTypes as Record<string, string>,
-        weaknessTypes: weaknessTypes as Record<string, string>,
-        resistanceTypes: resistanceTypes as Record<string, string>,
-    };
-
-    addCustomDamage(data: CustomDamageData, options: { slug?: string } = {}): void {
-        const collections = this.collections;
-        const slug = (options.slug ?? sluggify(data.label)) as DamageType;
-        collections.DAMAGE_TYPES.add(slug);
-        if (tupleHasValue(["physical", "energy"], data.category)) {
-            collections[data.category].push(slug);
-        }
-        collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category ?? null;
-        collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
-        collections.damageTypesLocalization[slug] = data.label;
-
-        const versatileLabel = game.i18n.format("PF2E.TraitVersatileX", { x: data.label });
-        CONFIG.PF2E.weaponTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
-        CONFIG.PF2E.npcAttackTraits[`versatile-${slug}` as WeaponTrait] = versatileLabel;
-
-        const damageFlavor = game.i18n.localize(data.label).toLocaleLowerCase(game.i18n.lang);
-        collections.damageRollFlavorsLocalization[slug] = damageFlavor;
-        collections.immunityTypes[slug] = damageFlavor;
-        collections.weaknessTypes[slug] = damageFlavor;
-        collections.resistanceTypes[slug] = damageFlavor;
-    }
-
-    updateSettings() {
-        const reservedTerms = HomebrewElements.reservedTerms;
-
-        // Delete all existing homebrew damage types first
-        const typesToDelete: Set<string> = DAMAGE_TYPES.filter((t) => !reservedTerms.damageTypes.has(t));
-        for (const collection of Object.values(this.collections)) {
-            if (collection instanceof Set) {
-                const types = [...collection].filter((t) => typesToDelete.has(t));
-                for (const damageType of types) collection.delete(damageType);
-            } else {
-                const types = Object.keys(collection).filter((t): t is keyof typeof collection => typesToDelete.has(t));
-                for (const damageType of types) delete collection[damageType];
-            }
-        }
-
-        // Delete versatile damage traits
-        for (const type of typesToDelete) {
-            const weaponTraits: Record<string, string> = CONFIG.PF2E.weaponTraits;
-            const npcAttackTraits: Record<string, string> = CONFIG.PF2E.npcAttackTraits;
-            delete weaponTraits[`versatile-${type}`];
-            delete npcAttackTraits[`versatile-${type}`];
-        }
-
-        // Read module damage types
-        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
-        for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isObject(homebrew) || !homebrew.damageTypes) continue;
-
-            const elements = homebrew.damageTypes;
-            if (!isObject(elements) || !isHomebrewCustomDamage(elements)) {
-                console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
-                continue;
-            }
-
-            for (const [slug, data] of Object.entries(elements)) {
-                if (!reservedTerms.damageTypes.has(slug)) {
-                    this.addCustomDamage(data, { slug });
-                } else {
-                    console.warn(
-                        ErrorPF2e(
-                            `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
-                        ).message,
-                    );
-                    continue;
-                }
-            }
-        }
-
-        // Read setting damage types
-        const customTypes = game.settings
-            .get("pf2e", "homebrew.damageTypes")
-            .filter((t) => !reservedTerms.damageTypes.has(sluggify(t.label)));
-        for (const data of customTypes) {
-            this.addCustomDamage(data);
-        }
-    }
-}
-
-/** A helper class for managing languages and their rarities */
-class LanguagesManager {
-    /** The parent settings menu */
-    menu: HomebrewElements;
-
-    /** A separate list of module-provided languages */
-    moduleLanguages: LanguageNotCommon[];
-
-    constructor(menu: HomebrewElements) {
-        this.menu = menu;
-
-        const languagesFromSetting = game.settings.get("pf2e", "homebrew.languages").map((l) => l.id);
-        this.moduleLanguages = R.keys
-            .strict(CONFIG.PF2E.languages)
-            .filter(
-                (l): l is LanguageNotCommon =>
-                    l !== "common" && !LANGUAGES.includes(l) && !languagesFromSetting.includes(l),
-            );
-
-        this.data.reset();
-    }
-
-    get data(): LanguageSettings {
-        return this.menu.cache.languageRarities;
-    }
-
-    getSheetData(): LanguageSettingsSheetData {
-        const data = this.data.toObject(false);
-        const homebrewLanguages = this.menu.cache.languages;
-        return {
-            commonLanguage: data.commonLanguage,
-            ...R.mapToObj([...LANGUAGE_RARITIES, "unavailable"] as const, (r) => [
-                r,
-                data[r]
-                    .map((slug) => {
-                        const locKey =
-                            CONFIG.PF2E.languages[slug] ?? homebrewLanguages.find((l) => l.id === slug)?.value ?? slug;
-                        return { slug, label: game.i18n.localize(locKey) };
-                    })
-                    .sort((a, b) => a.label.localeCompare(b.label)),
-            ]),
-        };
-    }
-
-    /* -------------------------------------------- */
-    /*  Event Listeners and Handlers                */
-    /* -------------------------------------------- */
-
-    activateListeners(html: HTMLElement): void {
-        const commonLanguageSelect = htmlQuery<HTMLSelectElement>(html, "select[data-common-language");
-        commonLanguageSelect?.addEventListener("change", async (event) => {
-            event.stopPropagation();
-            const data = this.data;
-            const newCommon = commonLanguageSelect.value || null;
-            if (newCommon === null || setHasElement(data.common, newCommon)) {
-                data.updateSource({ commonLanguage: newCommon });
-            }
-        });
-
-        for (const list of htmlQueryAll(html, "ul[data-languages]")) {
-            new Sortable(list, {
-                ...SORTABLE_BASE_OPTIONS,
-                group: "languages",
-                sort: false,
-                swapThreshold: 1,
-                onEnd: (event) => this.#onDropLanguage(event),
-            });
-        }
-
-        const rarities: readonly string[] = LANGUAGE_RARITIES;
-        const localize = localizer("PF2E.SETTINGS.Homebrew.Languages.Rarities");
-        for (const raritySection of htmlQueryAll(html, ".form-group.language-rarity")) {
-            const rarity = Array.from(raritySection.classList).find((c) => rarities.includes(c)) ?? "unavailable";
-            if (rarity === "unavailable") continue;
-            const labelEl = raritySection.querySelector("label");
-            if (!labelEl) throw ErrorPF2e("");
-
-            labelEl.innerHTML = localize(sluggify(rarity, { camel: "bactrian" }));
-            game.pf2e.TextEditor.convertXMLNode(labelEl, "rarity", { classes: ["tag", "rarity", rarity] });
-        }
-    }
-
-    async #onDropLanguage(event: Sortable.SortableEvent): Promise<void> {
-        const droppedEl = event.item;
-        const dropTarget = htmlClosest(droppedEl, "ul[data-languages]");
-        const oldRarity = droppedEl.dataset.rarity;
-        const newRarity = dropTarget?.dataset.rarity;
-        if (!(oldRarity && newRarity)) throw ErrorPF2e("Unexpected update to language rarities");
-        if (oldRarity === newRarity) return;
-
-        const language = droppedEl.dataset.slug;
-        if (!objectHasKey(CONFIG.PF2E.languages, language) || language === "common") {
-            throw ErrorPF2e("Unexpected update to language rarities");
-        }
-
-        const data = this.data;
-        const source = data.toObject();
-        const commonLanguageSelect = htmlQuery<HTMLSelectElement>(this.menu.form, "select[data-common-language]");
-        if (!commonLanguageSelect) throw ErrorPF2e("Unexpected error updating menu");
-
-        const rarities = ["uncommon", "rare", "secret", "unavailable"] as const;
-
-        if (newRarity === "common") {
-            for (const rarity of rarities) {
-                source[rarity].findSplice((l) => l === language);
-            }
-            // Add `commonLanguageOption` without full re-render
-            const newOption = document.createElement("option");
-            newOption.value = language;
-            newOption.textContent = droppedEl.textContent;
-            commonLanguageSelect.append(newOption);
-        } else {
-            if (!tupleHasValue(rarities, newRarity)) {
-                throw ErrorPF2e("Unexpected update to language rarities");
-            }
-            for (const rarity of rarities) {
-                source[rarity].findSplice((l) => l === language);
-            }
-            source[newRarity].push(language);
-            source[newRarity].sort();
-            source.commonLanguage = source.commonLanguage === language ? null : source.commonLanguage;
-
-            // Remove `commonLanguage` option without full re-render
-            if (commonLanguageSelect.value === language) commonLanguageSelect.value = "";
-            const option = htmlQuery<HTMLOptionElement>(commonLanguageSelect, `option[value=${language}]`);
-            option?.remove();
-        }
-
-        droppedEl.dataset.rarity = newRarity;
-        data.updateSource(source);
-    }
-
-    /** Update the language rarities cache, adding and deleting from sets as necessary. */
-    onChangeHomebrewLanguages(languages: HomebrewTag<"languages">[]): void {
-        const data = this.data;
-        const source = data.toObject();
-        const languageSet = new Set(LANGUAGES);
-        const updatedLanguages = [...this.moduleLanguages, ...languages.map((l) => l.id)];
-
-        let render = false;
-
-        if (
-            source.commonLanguage &&
-            !languageSet.has(source.commonLanguage) &&
-            !updatedLanguages.includes(source.commonLanguage)
-        ) {
-            source.commonLanguage = null;
-            render = true;
-        }
-
-        for (const rarity of ["uncommon", "rare", "secret", "unavailable"] as const) {
-            for (const language of source[rarity]) {
-                if (!languageSet.has(language) && !updatedLanguages.includes(language)) {
-                    source[rarity].findSplice((l) => l === language);
-                    render = true;
-                }
-            }
-        }
-        data.updateSource(source);
-
-        for (const language of data.common) {
-            if (!languageSet.has(language) && !updatedLanguages.includes(language)) {
-                data.common.delete(language);
-                render = true;
-            }
-        }
-
-        for (const language of updatedLanguages) {
-            if (!LANGUAGE_RARITIES.some((r) => data[r].has(language))) {
-                data.common.add(language);
-                render = true;
-            }
-        }
-
-        if (render) this.menu.render();
     }
 }
 

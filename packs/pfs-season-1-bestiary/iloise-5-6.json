@@ -684,123 +684,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "5zffIgfqGIsF02zZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "mtMfjWhEa05ap54i",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zwUew0UCk6JFmRXH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 0
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Performance with a Tesla Coil",
-                        "predicate": [
-                            "performance:tesla-coil"
-                        ],
-                        "selector": "performance",
-                        "type": "untyped",
-                        "value": 12
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 with Tesla Coil",
-                        "options": "performance:tesla-coil"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DdDxE3AAkWe9Oc7K",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Iloise (5-6)",
@@ -898,6 +781,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 12
+            },
+            "crafting": {
+                "base": 13
+            },
+            "performance": {
+                "base": 0,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "with Tesla Coil",
+                        "predicate": [
+                            "performance:tesla-coil"
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 12
             }
         },
         "traits": {

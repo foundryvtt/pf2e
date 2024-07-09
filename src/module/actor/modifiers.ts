@@ -255,10 +255,10 @@ class ModifierPF2e implements RawModifier {
             options.push(`modifier:ability:${this.ability}`);
         }
 
-        const damageKinds = R.compact([
+        const damageKinds = [
             this.domains.some((d) => /\bdamage$/.test(d)) ? "damage" : null,
             this.domains.some((d) => /\bhealing$/.test(d)) ? "healing" : null,
-        ]);
+        ].filter(R.isTruthy);
 
         for (const damageKind of damageKinds) {
             options.push(damageKind);
@@ -502,7 +502,8 @@ class StatisticModifier {
         rollOptions = rollOptions instanceof Set ? rollOptions : new Set(rollOptions);
         this.slug = slug;
 
-        // De-duplication. Prefer higher valued
+        // De-duplication. Prefer higher valued, and deprioritize disabled ones
+        // This behavior is used by kingmaker to create "custom modifier types" as well special skill modifiers when rolling manually
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             const existing = result[modifier.slug];
             if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
@@ -631,7 +632,7 @@ class CheckModifier extends StatisticModifier {
         const baseModifiers = statistic.modifiers
             .filter((modifier: unknown) => {
                 if (modifier instanceof ModifierPF2e) return true;
-                if (R.isObject(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
+                if (R.isObjectType(modifier) && "slug" in modifier && typeof modifier.slug === "string") {
                     ui.notifications.error(`Unsupported modifier object (slug: ${modifier.slug}) passed`);
                 }
                 return false;
@@ -780,17 +781,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
-    adjustModifiers,
-    applyStackingRules,
     CheckModifier,
-    createAttributeModifier,
-    createProficiencyModifier,
     DamageDicePF2e,
-    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
+    adjustModifiers,
+    applyStackingRules,
+    createAttributeModifier,
+    createProficiencyModifier,
+    ensureProficiencyOption,
 };
 export type {
     DamageDiceOverride,

@@ -29,12 +29,12 @@ export class Migration888RemasterLanguagesHeritages extends MigrationBase {
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         if (source.type === "character" || source.type === "npc") {
             const traits: unknown = source.system.traits;
-            if (R.isObject(traits)) {
+            if (R.isPlainObject(traits)) {
                 if (Array.isArray(traits.value)) {
                     traits.value = traits.value.map((t) => this.#TRAITS_RENAMES[t] ?? t).sort();
                 }
                 const languages = traits.languages;
-                if (R.isObject(languages) && Array.isArray(languages.value)) {
+                if (R.isPlainObject(languages) && Array.isArray(languages.value)) {
                     languages.value = languages.value.map((l) => this.#LANGUAGE_RENAMES[l] ?? l).sort();
                 }
             }

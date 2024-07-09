@@ -15,7 +15,7 @@ export class Migration906LimitStackGroup extends MigrationBase {
             source.system["-=stackGroup"] = null;
         } else if (source.type === "consumable") {
             const category =
-                "consumableType" in source.system && R.isObject(source.system.consumableType)
+                "consumableType" in source.system && R.isPlainObject(source.system.consumableType)
                     ? String(source.system.consumableType.value)
                     : source.system.category;
             source.system.stackGroup =

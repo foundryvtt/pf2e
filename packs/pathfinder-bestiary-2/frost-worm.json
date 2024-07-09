@@ -225,77 +225,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "UHBwT9OkIzBLCG1V",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "0DWjvOoTNOT0cP4O",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Ice and Snow",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:icy",
-                                    "terrain:snow"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+24 in ice and snow",
-                        "options": "terrain:icy,terrain:snow"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Frost Worm",
@@ -397,6 +326,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 20
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in ice and snow",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:icy",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

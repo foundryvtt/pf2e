@@ -330,114 +330,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "z8uIV3qPaxm6Ytug",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "L6MzeZml4FbBbxng",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Rocky Environments",
-                        "predicate": [
-                            "terrain:rocky"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 in rocky environments",
-                        "options": "terrain:rocky"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "eyRq0cwWYvNnWvSm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Track a Bleeding Creature",
-                        "predicate": [
-                            "action:track",
-                            "target:condition:bleed"
-                        ],
-                        "selector": "survival",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 to Track a bleeding creature",
-                        "options": "action:track,target:condition:bleed"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Pagulin",
@@ -533,6 +425,36 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 17
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "in rocky environments",
+                        "predicate": [
+                            "terrain:rocky"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "to Track a bleeding creature",
+                        "predicate": [
+                            "action:track",
+                            "target:condition:bleed"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

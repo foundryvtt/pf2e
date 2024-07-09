@@ -129,7 +129,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Attacks and defenses
         // Prune untrained martial proficiencies
         for (const section of ["attacks", "defenses"] as const) {
-            for (const key of R.keys.strict(sheetData.data.proficiencies[section])) {
+            for (const key of Object.keys(sheetData.data.proficiencies[section])) {
                 const proficiency = sheetData.data.proficiencies[section][key];
                 if (proficiency?.rank === 0 && !proficiency.custom) {
                     delete sheetData.data.proficiencies[section][key];
@@ -256,7 +256,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Spellcasting
         const collectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]> = fu.mergeObject(
             { "known-spells": [], rituals: [], activations: [] },
-            R.groupBy.strict(await this.prepareSpellcasting(), (a) => {
+            R.groupBy(await this.prepareSpellcasting(), (a) => {
                 if (a.category === "items") return "activations";
                 if (a.category === "ritual") return "rituals";
                 return "known-spells";
@@ -1436,7 +1436,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async _onDrop(event: DragEvent): Promise<boolean | void> {
         const dropData = TextEditor.getDragEventData(event);
-        if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
+        if (R.isPlainObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {
                 // Prepare formula if dropped on a crafting entry.

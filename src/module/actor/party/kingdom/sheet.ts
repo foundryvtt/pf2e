@@ -134,10 +134,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const data = await super.getData(options);
         const kingdom = this.kingdom;
 
-        const settlementEntries = R.pipe(
-            Object.entries(this.kingdom.settlements),
-            R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
-            R.sortBy((entry) => entry[1].sort),
+        const settlementEntries = R.sortBy(
+            Object.entries(this.kingdom.settlements).filter((e): e is [string, KingdomSettlementData] => !!e[1]),
+            (e) => e[1].sort,
         );
 
         return {

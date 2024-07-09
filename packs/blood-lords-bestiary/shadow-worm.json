@@ -148,7 +148,12 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "type": "immobilized"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -427,77 +432,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "hDFxBjz6ZCsy9vD5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 41
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "avByQ87fokjFJrlH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 32
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DimLightOrDarkness",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "lighting:darkness",
-                                    "lighting:dim-light"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 5
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+37 in Dim Light or Darkness",
-                        "options": "lighting:dim-light,lighting:darkness"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Shadow Worm",
@@ -609,6 +543,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 30
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 41
+            },
+            "stealth": {
+                "base": 32,
+                "special": [
+                    {
+                        "base": 37,
+                        "label": "in Dim Light or Darkness",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "lighting:darkness",
+                                    "lighting:dim-light"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

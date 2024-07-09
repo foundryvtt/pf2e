@@ -13,7 +13,7 @@ export class Migration846SpellSchoolOptional extends MigrationBase {
         const system: SpellSystemSourceWithSchool = source.system;
         if (system.school) {
             const traits: { value: string[] } = system.traits;
-            traits.value = R.uniq(R.compact([...source.system.traits.value, system.school.value]));
+            traits.value = R.unique([...source.system.traits.value, system.school.value]).filter(R.isTruthy);
             system["-=school"] = null;
             delete system.school;
         }

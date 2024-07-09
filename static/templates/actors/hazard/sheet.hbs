@@ -4,6 +4,12 @@
         {{> "systems/pf2e/templates/actors/hazard/partials/sidebar.hbs"}}
         {{!-- BODY --}}
         <section class="content">
+            {{#if toggles.actions}}
+                <section class="toggles section-container">
+                    {{> "systems/pf2e/templates/actors/partials/toggles.hbs" toggles=toggles.actions}}
+                </section>
+            {{/if}}
+
             {{#if (or hasStealth editing)}}
                 <div class="section-container stealth">
                     <div class="section-header">

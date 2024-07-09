@@ -43,35 +43,23 @@ declare class MouseInteractionManager {
     callbacks: object;
     options: object;
 
-    /**
-     * The current interaction state
-     */
+    /** The current interaction state */
     state: number;
 
-    /**
-     * Bound handlers which can be added and removed
-     */
+    /** Bound handlers which can be added and removed */
     handlers: Record<string, Function>;
 
-    /**
-     * The drag handling time
-     */
+    /** The drag handling time */
     dragTime: number;
 
-    /**
-     * The time of the last left-click event
-     */
+    /** The time of the last left-click event */
     lcTime: number;
 
-    /**
-     * The time of the last right-click event
-     */
+    /** The time of the last right-click event */
     rcTime: number;
 
-    /**
-     * A flag for whether we are right-click dragging
-     */
-    protected _dragRight: boolean;
+    /** A flag for whether we are right-click dragging */
+    _dragRight: boolean;
 
     /** An optional ControlIcon instance for the object */
     controlIcon: ControlIcon | null;
@@ -215,4 +203,10 @@ declare class MouseInteractionManager {
      * @returns Has the event been processed?
      */
     handleEvent(event: PIXI.FederatedEvent): boolean;
+
+    /**
+     * A public method to cancel a current interaction workflow from this manager.
+     * @param [event] The event that initiates the cancellation
+     */
+    cancel(event?: PIXI.FederatedEvent): void;
 }

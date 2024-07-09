@@ -427,53 +427,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Uy3YAPSoQX8UsHK3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:disarm",
-                                    "action:grapple",
-                                    "avoid-disarm"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 to Disarm, Grappe, or avoid being Disarmed",
-                        "options": "action:disarm, action:grapple, avoid-disarm"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Clockwork Rifler",
@@ -580,6 +533,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "to Disarm, Grappe, or avoid being Disarmed",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple",
+                                    "avoid-disarm"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

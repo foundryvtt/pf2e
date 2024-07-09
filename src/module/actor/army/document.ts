@@ -115,7 +115,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         const acAdjustment = this.system.ac.value - expectedAC;
         this.armorClass = new ArmorStatistic(this, {
             attribute: null,
-            modifiers: R.compact([
+            modifiers: [
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
@@ -129,7 +129,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     }),
                 this.system.ac.potency &&
                     new ModifierPF2e({ slug: "potency", label: "Potency", modifier: this.system.ac.potency }),
-            ]),
+            ].filter(R.isTruthy),
         }).dc;
         this.system.ac.value = this.armorClass.value;
 
@@ -139,7 +139,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             slug: "scouting",
             label: "PF2E.Kingmaker.Army.Scouting",
             domains: ["scouting"],
-            modifiers: R.compact([
+            modifiers: [
                 new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseScouting }),
                 scoutAdjustment
                     ? new ModifierPF2e({
@@ -148,7 +148,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                           modifier: scoutAdjustment,
                       })
                     : null,
-            ]),
+            ].filter(R.isTruthy),
         });
         this.system.scouting = this.scouting.mod;
 
@@ -163,7 +163,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                 slug: saveType,
                 label: `PF2E.Kingmaker.Army.Save.${saveType}`,
                 domains: ["saving-throw", saveType],
-                modifiers: R.compact([
+                modifiers: [
                     new ModifierPF2e({ slug: "base", label: "PF2E.ModifierTitle", modifier: baseValue }),
                     adjustment
                         ? new ModifierPF2e({
@@ -172,14 +172,18 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                               modifier: adjustment,
                           })
                         : null,
-                ]),
+                ].filter(R.isTruthy),
             });
         }
 
         const tiebreakPriority = this.hasPlayerOwner ? 2 : 1;
         this.initiative = new ActorInitiative(this, { statistic: "scouting", tiebreakPriority });
-        this.strikes = R.flatMapToObj(["melee", "ranged"] as const, (t) =>
-            this.system.weapons[t] ? [[t, this.prepareArmyStrike(t)]] : [],
+        this.strikes = Object.fromEntries(
+            (["melee", "ranged"] as const)
+                .map((t): [string, ArmyStrike | null] | null =>
+                    this.system.weapons[t] ? [t, this.prepareArmyStrike(t)] : null,
+                )
+                .filter(R.isTruthy),
         );
 
         for (const tactic of this.itemTypes.campaignFeature.filter((i) => i.category === "army-tactic")) {
@@ -253,7 +257,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
             domains: attackDomains,
             rollOptions: [`item:${type}`],
             check: { type: "attack-roll" },
-            modifiers: R.compact([
+            modifiers: [
                 new ModifierPF2e({
                     slug: "base",
                     label: "PF2E.ModifierTitle",
@@ -268,7 +272,7 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     predicate: ["target:effect:concealed"],
                     hideIfDisabled: true,
                 }),
-            ]),
+            ].filter(R.isTruthy),
         });
 
         const dealDamage = async (
@@ -311,7 +315,6 @@ class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
                     test: context.options,
                     resolvables: { target: context.target?.actor ?? null },
                 }),
-                ignoredResistances: [],
             });
 
             const template: SimpleDamageTemplate = {

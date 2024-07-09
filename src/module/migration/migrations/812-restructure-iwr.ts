@@ -27,7 +27,12 @@ export class Migration812RestructureIWR extends MigrationBase {
             if (!("game" in globalThis)) delete traits.di;
             traits["-=di"] = null;
 
-            if (R.isObject(oldData) && "value" in oldData && Array.isArray(oldData.value) && oldData.value.length > 0) {
+            if (
+                R.isPlainObject(oldData) &&
+                "value" in oldData &&
+                Array.isArray(oldData.value) &&
+                oldData.value.length > 0
+            ) {
                 const immunities = oldData.value
                     .map((i: unknown) => this.#normalizeType(String(i)))
                     .filter((i): i is ImmunityType => setHasElement(IMMUNITY_TYPES, i))
@@ -144,7 +149,7 @@ export class Migration812RestructureIWR extends MigrationBase {
         return maybeWR
             .filter(
                 (r: unknown): r is { type: string; value: number; exceptions?: string } =>
-                    R.isObject(r) && typeof r.type === "string" && typeof r.value === "number",
+                    R.isPlainObject(r) && typeof r.type === "string" && typeof r.value === "number",
             )
             .map((wr) => {
                 wr.type = this.#normalizeType(wr.type);
