@@ -13,6 +13,7 @@ import { AmbientLightPF2e, LightingLayerPF2e, MeasuredTemplatePF2e, TemplateLaye
 import { NotePF2e } from "@module/canvas/note.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
 import { JournalEntryPagePF2e } from "@module/journal-page/data.ts";
+import { NoteDocumentPF2e } from "@module/note/document.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -44,6 +45,7 @@ export const Init = {
             CONFIG.MeasuredTemplate.defaults.angle = 90;
             CONFIG.MeasuredTemplate.defaults.width = 1;
 
+            CONFIG.Note.documentClass = NoteDocumentPF2e;
             CONFIG.Note.objectClass = NotePF2e;
 
             setPerceptionModes();

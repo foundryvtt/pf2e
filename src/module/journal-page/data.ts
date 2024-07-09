@@ -30,7 +30,6 @@ class JournalEntryPagePF2e extends JournalEntryPage {
      * @param {object} options  Options passed through to ControlIcon construction.
      */
     getControlIcon(options: object): PIXI.Container | void {
-        if (!this.system.code) return;
         const style = foundry.utils.mergeObject(
             CONFIG.PF2E.mapLocationMarker.default,
             CONFIG.PF2E.mapLocationMarker[this.parent.getFlag("pf2e", "mapMarkerStyle")] ?? {},
