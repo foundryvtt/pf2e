@@ -3,7 +3,7 @@ class NotePF2e extends Note {
         const { flags, texture, iconSize } = this.document;
         const systemIcon = this.page?.getControlIcon?.({ size: iconSize, tint: texture.tint });
         console.log(flags?.pf2e?.code, this.page?.system?.code);
-        if (flags?.pf2e?.code) systemIcon.text._text = flags.pf2e.code;
+        if (systemIcon && flags?.pf2e?.code) systemIcon.text._text = flags.pf2e.code;
         else return super._drawControlIcon();
         systemIcon.x -= iconSize / 2;
         systemIcon.y -= iconSize / 2;
