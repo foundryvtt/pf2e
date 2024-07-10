@@ -274,7 +274,7 @@ declare global {
         resolution?: number;
     }
 
-    type GridMeasurePathWaypoint = GridCoordinates | (GridCoordinates & { teleport: boolean });
+    type GridMeasurePathWaypoint = GridCoordinates & { teleport?: boolean };
 
     /** The measurements of a waypoint. */
     interface GridMeasurePathResultWaypoint {

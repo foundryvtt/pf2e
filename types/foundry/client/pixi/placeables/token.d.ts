@@ -514,7 +514,7 @@ declare global {
 
         /**
          * Get the width and height of the Token in pixels.
-         * @returns    The size in pixels
+         * @returns The size in pixels
          */
         getSize(): { width: number; height: number };
 
