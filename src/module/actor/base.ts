@@ -161,6 +161,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return ["condition", "effect"];
     }
 
+    /** Returns true if this actor allows synthetic tokens to be created */
+    get allowSynthetics(): boolean {
+        return this.type === "party" ? false : true;
+    }
+
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null {
         return this.flags.core?.sourceId ?? null;

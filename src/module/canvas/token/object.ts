@@ -14,20 +14,33 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
 
-    get #isDragMeasuring(): boolean {
-        return (
-            game.pf2e.settings.dragMeasurement &&
-            canvas.controls.ruler.isMeasuring &&
-            canvas.controls.ruler.token === this
-        );
-    }
-
     constructor(document: TDocument) {
         super(document);
 
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
+    }
+
+    get gridOffsets(): GridOffset[] {
+        if (canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) return [];
+        const size = this.getSize();
+        const offsets: GridOffset[] = [];
+        for (let x = 0; x < size.width; x += canvas.grid.sizeX) {
+            for (let y = 0; y < size.width; y += canvas.grid.sizeY) {
+                offsets.push(canvas.grid.getOffset({ x: this.x + x, y: this.y + y }));
+            }
+        }
+
+        return offsets;
+    }
+
+    get #isDragMeasuring(): boolean {
+        return (
+            game.pf2e.settings.dragMeasurement &&
+            canvas.controls.ruler.isMeasuring &&
+            canvas.controls.ruler.token === this
+        );
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */

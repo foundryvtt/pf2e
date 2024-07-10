@@ -103,7 +103,21 @@ async function extractEphemeralEffects({
                 .flatMap((s) => effectsFrom.synthetics.ephemeralEffects[s]?.[affects] ?? [])
                 .map((d) => d({ test: fullOptions, resolvables })),
         )
-    ).flatMap((e) => e ?? []);
+    )
+        .filter(R.isNonNull)
+        .map((effect) => {
+            effect.system.context = {
+                origin: {
+                    actor: effectsFrom.uuid,
+                    token: null,
+                    item: null,
+                    spellcasting: null,
+                },
+                target: { actor: effectsTo.uuid, token: null },
+                roll: null,
+            };
+            return effect;
+        });
 }
 
 interface ExtractEphemeralEffectsParams {

@@ -46,7 +46,7 @@ export function registerKeybindings(): void {
         hint: "PF2E.Keybinding.PlaceWaypoint.Hint",
         editable: [{ key: "KeyX", modifiers: [] }],
         onUp: (): boolean | null => {
-            if (canvas.controls.ruler?.isMeasuring && game.pf2e.settings.dragMeasurement) {
+            if (canvas.ready && canvas.controls.ruler.isMeasuring && game.pf2e.settings.dragMeasurement) {
                 canvas.controls.ruler.saveWaypoint();
                 return true;
             } else {

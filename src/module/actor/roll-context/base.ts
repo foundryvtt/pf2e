@@ -250,7 +250,7 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: [...this.rollOptions, ...itemOptions, ...markOptions].filter(R.isTruthy),
+            options: [...this.rollOptions, ...itemOptions, ...markOptions],
         });
 
         // Add an epehemeral effect from flanking
@@ -277,7 +277,7 @@ abstract class RollContext<
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
                 ...(which === "target" ? itemOptions : []),
-            ].filter(R.isTruthy),
+            ].filter(R.isNonNull),
             ephemeralEffects,
         );
     }

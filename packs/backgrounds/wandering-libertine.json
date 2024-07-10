@@ -1,0 +1,67 @@
+{
+    "_id": "5L2EYBOziW9Fqyav",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Wandering Libertine",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "cha",
+                    "dex"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Receiving attention has always come easily to you, be it because of your good looks, your charming personality, your way with words, or something else entirely, yet you've never really settled down. You spent much of your life up to this point on the road or at sea, traveling from town to town and never staying long enough in one place to ever have a proper home. The reasons for this itinerant lifestyle aren't important, but what is important is that it never took you long to find someone to hold after arriving in a new town. Whether your inevitable departure was heralded by false promises to return or tearful goodbyes, you've left in your wake a mix of pining admirers and jilted lovers. One of these days, you might actually settle down. One of these days, you might find someone you'll want to spend the rest of your life with. One of these days, you might find a place to call home. But today is not that day.</p>\n<p>Choose two attribute boosts. One must be to <strong>Dexterity</strong> or <strong>Charisma</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Deception skill and the Shelyn Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Charming Liar] skill feat.</p>\n<p>If you have the Flirt persona trait, you also become trained in the Sailing Lore skill.</p>"
+        },
+        "items": {
+            "xJmYF": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Charming Liar",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Charming Liar"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Curtain Call Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:persona-trait"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.campaign-effects.Item.Persona Trait"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Shelyn Lore"
+            ],
+            "value": [
+                "deception"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "persona-flirt"
+            ]
+        }
+    },
+    "type": "background"
+}
