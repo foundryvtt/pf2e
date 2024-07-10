@@ -263,6 +263,32 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
     }
 
+    /** Ensure that actors that don't allow synthetics are linked */
+    protected override _preCreate(
+        data: this["_source"],
+        options: DatabaseCreateOperation<TParent>,
+        user: User<Actor<null>>,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && data.actorLink === false) {
+            this.updateSource({ actorLink: true });
+        }
+
+        return super._preCreate(data, options, user);
+    }
+
+    /** Ensure that actors that don't allow synthetics stay linked */
+    protected override _preUpdate(
+        data: Record<string, unknown>,
+        options: TokenUpdateOperation<TParent>,
+        user: User<Actor<null>>,
+    ): Promise<boolean | void> {
+        if (this.actor?.allowSynthetics === false && (data.actorLink ?? this.actorLink) === false) {
+            data.actorLink = true;
+        }
+
+        return super._preUpdate(data, options, user);
+    }
+
     /** Synchronize the token image with the actor image if the token does not currently have an image */
     static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void {
         const actor = token.actor;
