@@ -112,7 +112,7 @@ class ChatMessagePF2e extends ChatMessage {
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
             const origin = this.flags.pf2e?.origin ?? null;
-            const item = origin?.uuid ? fromUuidSync(origin.uuid) : null;
+            const item = origin?.uuid && !origin.uuid.startsWith("Compendium.") ? fromUuidSync(origin.uuid) : null;
             return item instanceof ItemPF2e ? item : null;
         })();
         if (!item) return null;
