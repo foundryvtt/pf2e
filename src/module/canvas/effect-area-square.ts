@@ -1,11 +1,11 @@
-import { AuraAppearanceData } from "@actor/types.ts";
+import type { AuraAppearanceData } from "@actor/types.ts";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
 export class EffectAreaSquare extends PIXI.Rectangle {
     /** Whether this square is an active part of the aura or blocked (typically by a wall) */
     active: boolean;
 
-    constructor(x: number, y: number, width: number, height: number, active = true) {
+    constructor(x: number, y: number, width = canvas.grid.sizeX, height = canvas.grid.sizeY, active = true) {
         super(x, y, width, height);
         this.active = active;
     }
