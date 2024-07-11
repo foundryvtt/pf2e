@@ -13,8 +13,9 @@
 
                     <header>
                         {{localize "PF2E.Actor.Attacks"}}
-                        <button type="button" class="toggle-unready-strikes" data-tooltip="{{localize "PF2E.ToggleUnreadyStrikes"}}">
-                            <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
+                        <button type="button" data-action="toggle-hide-stowed" {{#if actor.flags.pf2e.hideStowed}} class="inactive"{{/if}}>
+                            <i class="fa-solid fa-backpack"></i>
+                            {{localize "PF2E.Actor.Character.ShowStowed"}}
                         </button>
                     </header>
 
@@ -29,7 +30,9 @@
 
                     <ol class="actions-list item-list directory-list strikes-list" data-strikes>
                         {{#each data.actions as |strike ai|}}
-                            {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
+                            {{#unless (and strike.item.isStowed @root.actor.flags.pf2e.hideStowed)}}
+                                {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
+                            {{/unless}}
                         {{/each}}
                     </ol>
 
