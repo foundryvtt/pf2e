@@ -261,18 +261,6 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         return $element;
     }
 
-    /** Include flattened update data so parent method can read nested update keys */
-    protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
-        // Create new reference in case other applications are using the same context object
-        context = fu.deepClone(context);
-
-        if (context.action === "update" && context.documentType === "Actor" && context.data) {
-            context.data = context.data.map((d) => ({ ...d, ...fu.flattenObject(d) }));
-        }
-
-        return super._render(force, context);
-    }
-
     protected override _contextMenu($html: JQuery<HTMLElement>): void {
         super._contextMenu($html);
         ContextMenu.create(this, $html, ".party .party-header", this._getPartyContextOptions());

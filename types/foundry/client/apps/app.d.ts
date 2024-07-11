@@ -376,7 +376,7 @@ declare global {
         /** A context-providing string which suggests what event triggered the render */
         renderContext?: string;
         /** The data change which motivated the render request */
-        renderData?: Record<string, unknown>;
+        renderData?: Record<string, unknown>[];
         // Undocumented
         action?: UserAction;
         // Undocumented: applicable only to `FormApplication`s
