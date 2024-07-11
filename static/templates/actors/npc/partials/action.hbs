@@ -25,25 +25,26 @@
             <a data-action="delete-item" data-tooltip="Delete"><i class="fa-solid fa-fw fa-trash"></i></a>
         {{/if}}
     </div>
-
+    {{#if (or action.frequency action.has.selfEffect)}}
         <div class="button-group">
-          {{#if action.has.selfEffect}}
-            <button type="button" class="use-action" data-action="use-action">
-                <span>{{localize "PF2E.Action.Use"}}</span>
-            </button>
-          {{/if}}
-          {{#if action.frequency}}
-            <div class="tracking">
-               <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
-                 <span>
-                   /
-                   {{action.frequency.max}}
-                   {{localize "PF2E.Frequency.per"}}
-                   {{localize (lookup @root.frequencies action.frequency.per)}}
-                 </span>
-             </div>
-          {{/if}}
+            {{#if action.has.selfEffect}}
+                <button type="button" class="use-action" data-action="use-action">
+                    <span>{{localize "PF2E.Action.Use"}}</span>
+                </button>
+            {{/if}}
+            {{#if action.frequency}}
+                <div class="frequency">
+                    <input type="number" value="{{action.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value" />
+                        <span>
+                        /
+                        {{action.frequency.max}}
+                        {{localize "PF2E.Frequency.per"}}
+                        {{localize (lookup @root.frequencies action.frequency.per)}}
+                        </span>
+                    </div>
+            {{/if}}
         </div>
+    {{/if}}
 
     <div class="item-summary" hidden></div>
 </li>
