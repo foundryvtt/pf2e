@@ -1,9 +1,13 @@
 import { resetActors } from "@actor/helpers.ts";
 import type { RegionEventType } from "types/foundry/client-esm/data/region-behaviors/base.d.ts";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
+import { RegionBehaviorPF2e } from "./document.ts";
 import { RegionEventPF2e } from "./types.ts";
 
-class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema> {
+class EnvironmentBehaviorType extends foundry.data.regionBehaviors.RegionBehaviorType<
+    EnvironmentTypeSchema,
+    RegionBehaviorPF2e | null
+> {
     override events = new Set<RegionEventType>(["tokenEnter", "tokenExit"]);
 
     static override defineSchema(): EnvironmentTypeSchema {
@@ -37,8 +41,8 @@ class EnvironmentBehaviorTypePF2e extends foundry.data.regionBehaviors.RegionBeh
     }
 }
 
-interface EnvironmentBehaviorTypePF2e
-    extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema>,
+interface EnvironmentBehaviorType
+    extends foundry.data.regionBehaviors.RegionBehaviorType<EnvironmentTypeSchema, RegionBehaviorPF2e | null>,
         ModelPropsFromSchema<EnvironmentTypeSchema> {}
 
 type EnvironmentTypeSchema = {
@@ -49,5 +53,5 @@ type EnvironmentTypeSchema = {
 type EnvironmentTypeData = ModelPropsFromSchema<EnvironmentTypeSchema>;
 type EnvironmentTypeSource = SourceFromSchema<EnvironmentTypeSchema>;
 
-export { EnvironmentBehaviorTypePF2e };
+export { EnvironmentBehaviorType };
 export type { EnvironmentTypeData, EnvironmentTypeSource };

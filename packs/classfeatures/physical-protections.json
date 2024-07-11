@@ -1,6 +1,6 @@
 {
     "_id": "8jELNQUBMAXUj3zR",
-    "img": "systems/pf2e/icons/default-icons/feat.svg",
+    "img": "icons/equipment/chest/breastplate-layered-steel.webp",
     "name": "Physical Protections",
     "system": {
         "actionType": {
@@ -24,7 +24,18 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}"
+                ],
+                "type": [
+                    "physical"
+                ],
+                "value": "floor(@actor.level / 2)"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "armor-innovation-modification"

@@ -72,10 +72,26 @@ declare global {
 
         /**
          * Add highlighting for a specific grid position to a named highlight graphic
-         * @param name    The name for the referenced highlight layer
+         * @param name      The name for the referenced highlight layer
          * @param options Options for the grid position that should be highlighted
+         * @param options.x                The x-coordinate of the highlighted position
+         * @param options.y                The y-coordinate of the highlighted position
+         * @param [options.color=0x33BBFF] The fill color of the highlight
+         * @param [options.border=null]    The border color of the highlight
+         * @param [options.alpha=0.25]     The opacity of the highlight
+         * @param [options.shape=null]     A predefined shape to highlight
          */
-        highlightPosition(name: string, options: Record<string, unknown>): void;
+        highlightPosition(
+            name: string,
+            options: {
+                x: number;
+                y: number;
+                color?: Maybe<number | Color>;
+                border?: PIXI.ColorSource | null;
+                alpha?: number;
+                shape?: PIXI.Polygon | null;
+            },
+        ): void;
 
         /**
          * Test if a specific row and column position is a neighboring location to another row and column coordinate

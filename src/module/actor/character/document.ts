@@ -1780,7 +1780,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     domains: [],
                 });
                 proficiency.value = proficiencyBonus.value;
-                proficiency.breakdown = `${proficiencyBonus.label} ${signedInteger(proficiencyBonus.value)}`;
+                proficiency.breakdown = `${proficiencyBonus.label} ${proficiencyBonus.signedValue}`;
             }
         }
     }

@@ -4,16 +4,7 @@ import { ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { LanguageSelector } from "@system/tag-selector/languages.ts";
-import {
-    ErrorPF2e,
-    htmlClosest,
-    htmlQuery,
-    htmlQueryAll,
-    localizer,
-    objectHasKey,
-    sluggify,
-    tupleHasValue,
-} from "@util";
+import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, localizer, objectHasKey, sluggify } from "@util";
 import Tagify from "@yaireo/tagify";
 import "@yaireo/tagify/src/tagify.scss";
 import * as R from "remeda";
@@ -28,9 +19,10 @@ import {
     HomebrewTraitKey,
     HomebrewTraitSettingsKey,
     LanguageSettings,
+    ModuleHomebrewData,
     TRAIT_PROPAGATIONS,
 } from "./data.ts";
-import { ReservedTermsRecord, isHomebrewFlagCategory, prepareCleanup, prepareReservedTerms } from "./helpers.ts";
+import { ReservedTermsRecord, prepareCleanup, prepareReservedTerms, readModuleHomebrewSettings } from "./helpers.ts";
 import { LanguagesManager } from "./languages.ts";
 
 class HomebrewElements extends SettingsMenuPF2e {
@@ -43,8 +35,14 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     static #reservedTerms: ReservedTermsRecord | null = null;
 
+    static #moduleData: ModuleHomebrewData | null = null;
+
     static get reservedTerms(): ReservedTermsRecord {
         return (this.#reservedTerms ??= prepareReservedTerms());
+    }
+
+    static get moduleData(): ModuleHomebrewData {
+        return (this.#moduleData ??= readModuleHomebrewSettings());
     }
 
     static override get SETTINGS(): string[] {
@@ -301,6 +299,18 @@ class HomebrewElements extends SettingsMenuPF2e {
         this.#refreshSettings();
         this.#registerModuleTags();
         new DamageTypeManager().updateSettings();
+
+        // Add additional skills if there any
+        const moduleData = HomebrewElements.moduleData;
+        if (Object.keys(moduleData.additionalSkills).length > 0) {
+            CONFIG.PF2E.skills = Object.freeze({
+                ...CONFIG.PF2E.skills,
+                ...R.mapValues(moduleData.additionalSkills, (data) => ({
+                    label: data.label,
+                    attribute: data.attribute,
+                })),
+            });
+        }
     }
 
     /** Assigns all homebrew data stored in the world's settings to their relevant locations */
@@ -330,43 +340,16 @@ class HomebrewElements extends SettingsMenuPF2e {
 
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
-        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
-
-        for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isPlainObject(homebrew)) continue;
-
-            for (const recordKey of Object.keys(homebrew)) {
-                if (recordKey === "damageTypes") continue; // handled elsewhere
-
-                if (tupleHasValue(HOMEBREW_TRAIT_KEYS, recordKey)) {
-                    const elements = homebrew[recordKey];
-                    if (!R.isPlainObject(elements) || !isHomebrewFlagCategory(elements)) {
-                        console.warn(ErrorPF2e(`Homebrew record ${recordKey} is malformed in module ${key}`).message);
-                        continue;
-                    }
-
-                    const elementEntries = Object.entries(elements);
-
-                    // A registered tag can be a string label or an object containing a label and description
-                    const tags = elementEntries.map(([id, value]) => ({
-                        id,
-                        value: typeof value === "string" ? value : value.label,
-                    })) as HomebrewTag[];
-                    this.#updateConfigRecords(tags, recordKey);
-
-                    // Register descriptions if present
-                    for (const [key, value] of elementEntries) {
-                        if (typeof value === "object") {
-                            const hbKey = key as keyof typeof CONFIG.PF2E.traitsDescriptions;
-                            CONFIG.PF2E.traitsDescriptions[hbKey] = value.description;
-                        }
-                    }
-                } else {
-                    console.warn(ErrorPF2e(`Invalid homebrew record "${recordKey}" in module ${key}`).message);
-                    continue;
-                }
+        const settings = HomebrewElements.moduleData;
+        for (const [recordKey, tags] of R.entries.strict(settings.traits)) {
+            if (tags.length > 0) {
+                this.#updateConfigRecords(tags, recordKey);
             }
+        }
+
+        for (const [trait, description] of Object.entries(settings.traitDescriptions)) {
+            const hbKey = trait as keyof typeof CONFIG.PF2E.traitsDescriptions;
+            CONFIG.PF2E.traitsDescriptions[hbKey] = description;
         }
     }
 

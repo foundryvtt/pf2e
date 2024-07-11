@@ -277,6 +277,24 @@ function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "
     return result;
 }
 
+/**
+ * Split and sanitize a list in string form. The empty string is always excluded from the resulting array.
+ * @param [options.delimiter] The delimiter by which to split (default of ",")
+ * @param [options.unique]    Whether to ensure the uniqueness of the resulting array's elements (default of true)
+ */
+function splitListString(str: string, { delimiter = ",", unique = true }: SplitListStringOptions = {}): string[] {
+    const list = str
+        .split(delimiter)
+        .map((el) => el.trim())
+        .filter((el) => el !== "");
+    return unique ? R.unique(list) : list;
+}
+
+interface SplitListStringOptions {
+    delimiter?: string | RegExp;
+    unique?: boolean;
+}
+
 /** Generate and return an HTML element for a FontAwesome icon */
 type FontAwesomeStyle = "solid" | "regular" | "duotone";
 
@@ -435,6 +453,7 @@ export {
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
+    splitListString,
     tupleHasValue,
     type SlugCamel,
 };

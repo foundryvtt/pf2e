@@ -1,5 +1,6 @@
 import type { Language } from "@actor/creature/index.ts";
 import { LANGUAGES_BY_RARITY, LANGUAGE_RARITIES } from "@actor/creature/values.ts";
+import { AttributeString } from "@actor/types.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
 import * as R from "remeda";
 import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -167,6 +168,13 @@ type LanguageSetField = SetField<
     true
 >;
 
+interface ModuleHomebrewData {
+    additionalSkills: Record<string, { label: string; attribute: AttributeString }>;
+    damageTypes: Record<string, CustomDamageData>;
+    traits: Record<HomebrewTraitKey, HomebrewTag[]>;
+    traitDescriptions: Record<string, string>;
+}
+
 type RawLanguageSettings<TModel extends LanguageSettings = LanguageSettings> = RawObject<TModel> & {
     common: LanguageNotCommon[];
     homebrew: LanguageNotCommon[];
@@ -182,4 +190,5 @@ export type {
     HomebrewTraitSettingsKey,
     LanguageNotCommon,
     LanguageSettingsSheetData,
+    ModuleHomebrewData,
 };

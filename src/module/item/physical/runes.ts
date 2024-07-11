@@ -379,7 +379,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
          * If `max` is numeric, the resistance ignored will be equal to the lower of the provided maximum and the
          * target's resistance.
          */
-        ignoredResistances?: { type: ResistanceType; max: number | null }[];
+        ignoredResistances?: { type: ResistanceType; max: number }[];
     };
     strikeAdjustments?: Pick<StrikeAdjustment, "adjustTraits" | "adjustWeapon">[];
 }
@@ -1370,7 +1370,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         traits: ["magical", "spirit"],
         damage: {
             dice: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
-            ignoredResistances: [{ type: "spirit", max: null }],
+            ignoredResistances: [{ type: "spirit", max: Infinity }],
         },
     },
     greaterBloodbane: {
@@ -1411,9 +1411,9 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                 },
             ],
             ignoredResistances: [
-                { type: "fire", max: null },
-                { type: "spirit", max: null },
-                { type: "vitality", max: null },
+                { type: "fire", max: Infinity },
+                { type: "spirit", max: Infinity },
+                { type: "vitality", max: Infinity },
             ],
         },
         level: 18,
@@ -1438,7 +1438,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterCorrosive.Note.success",
                 },
             ],
-            ignoredResistances: [{ type: "acid", max: null }],
+            ignoredResistances: [{ type: "acid", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
@@ -1482,7 +1482,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     critical: true,
                 },
             ],
-            ignoredResistances: [{ type: "void", max: null }],
+            ignoredResistances: [{ type: "void", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterDecaying.Name",
@@ -1575,7 +1575,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterFlaming.Note.success",
                 },
             ],
-            ignoredResistances: [{ type: "fire", max: null }],
+            ignoredResistances: [{ type: "fire", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFlaming.Name",
@@ -1599,7 +1599,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterFrost.Note.success",
                 },
             ],
-            ignoredResistances: [{ type: "cold", max: null }],
+            ignoredResistances: [{ type: "cold", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterFrost.Name",
@@ -1619,7 +1619,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     predicate: ["target:trait:giant"],
                 },
             ],
-            ignoredResistances: [{ type: "mental", max: null }],
+            ignoredResistances: [{ type: "mental", max: Infinity }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1694,7 +1694,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterShock.Note.success",
                 },
             ],
-            ignoredResistances: [{ type: "electricity", max: null }],
+            ignoredResistances: [{ type: "electricity", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterShock.Name",
@@ -1718,7 +1718,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
                     text: "PF2E.WeaponPropertyRune.greaterThundering.Note.success",
                 },
             ],
-            ignoredResistances: [{ type: "sonic", max: null }],
+            ignoredResistances: [{ type: "sonic", max: Infinity }],
         },
         level: 15,
         name: "PF2E.WeaponPropertyRune.greaterThundering.Name",

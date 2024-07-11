@@ -1,5 +1,6 @@
+import type { RegionPF2e } from "@module/canvas/region.ts";
 import type { ScenePF2e } from "@scene";
-import { SpecificRegionBehavior } from "@scene/region-behavior/types.ts";
+import type { SpecificRegionBehavior } from "@scene/region-behavior/types.ts";
 
 class RegionDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends RegionDocument<TParent> {
     /** Set an informal top-left coordinate pair from the coordinates minima of all embedded shapes. */
@@ -62,6 +63,8 @@ class RegionDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ex
 
 interface RegionDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends RegionDocument<TParent> {
     readonly behaviors: foundry.abstract.EmbeddedCollection<SpecificRegionBehavior<this>>;
+
+    _object: RegionPF2e<this>;
 }
 
 export { RegionDocumentPF2e };

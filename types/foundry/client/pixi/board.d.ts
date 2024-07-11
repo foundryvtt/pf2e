@@ -9,6 +9,7 @@ declare global {
         >,
         TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
         TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
+        TRegion extends Region<RegionDocument<TScene>> = Region<RegionDocument<TScene>>,
         TRuler extends Ruler = Ruler,
     > {
         /** A flag to indicate whether a new Scene is currently being drawn. */
@@ -151,6 +152,7 @@ declare global {
         drawings: DrawingsLayer;
         lighting: TAmbientLight["layer"];
         notes: NotesLayer;
+        regions: TRegion["layer"];
         sounds: SoundsLayer;
         templates: TMeasuredTemplate["layer"];
         tiles: Tile["layer"];
@@ -334,7 +336,7 @@ declare global {
          * @param origin  Point to display Ping at
          * @param options Additional options to configure how the ping is drawn.
          */
-        ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
+        ping(origin: Point, options?: PingOptions): Promise<boolean>;
 
         /**
          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
@@ -406,20 +408,6 @@ declare global {
     };
 }
 
-interface FoundryRenderer extends PIXI.Renderer {
-    plugins: {
-        accessibility: PIXI.AccessibilityManager;
-        extract: PIXI.Extract;
-        particle: PIXI.ParticleRenderer;
-        prepare: PIXI.Prepare;
-        tilingSprite: PIXI.TilingSpriteRenderer;
-    };
-}
-
-interface CanvasApplication extends PIXI.Application {
-    renderer: FoundryRenderer;
-}
-
 interface CanvasPerformanceSettings {
     mode: CanvasPerformanceMode;
     blur: {
@@ -446,4 +434,15 @@ interface CanvasSupportedComponents {
     readPixelsRED: boolean;
     /** Is the OffscreenCanvas supported? */
     offscreenCanvas: boolean;
+}
+
+interface PingOptions {
+    /** The duration of the animation in milliseconds. */
+    duration?: number;
+    /** The size of the ping graphic. */
+    size?: number;
+    /** The color of the ping graphic. */
+    color?: string;
+    /** The name for the ping animation to pass to {@link CanvasAnimation.animate} */
+    name?: string;
 }

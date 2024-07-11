@@ -71,7 +71,7 @@ declare global {
         get highlightLayer(): GridHighlight;
 
         /** The Token that is moved by the Ruler. */
-        get token(): TToken | null;
+        get token(): TToken;
 
         /* -------------------------------------------- */
         /*  Ruler Methods                               */
@@ -93,9 +93,9 @@ declare global {
 
         /**
          * Get the measurement origin.
-         * @param point                  The waypoint
-         * @param [options]              Additional options
-         * @param [options.snap=true]    Snap the waypoint?
+         * @param point     The waypoint
+         * @param [options] Additional options
+         * @param [options.snap=true] Snap the waypoint?
          */
         protected _getMeasurementOrigin(point: Point, options?: { snap?: boolean }): Point;
 
@@ -106,7 +106,7 @@ declare global {
          * @param [options.snap=true]    Snap the point?
          * @returns                      The snapped destination point
          */
-        protected _getMeasurementDestination(point: Point, options?: { snap?: boolean }): void;
+        protected _getMeasurementDestination(point: Point, options?: { snap?: boolean }): Point;
 
         /**
          * Translate the waypoints and destination point of the Ruler into an array of Ray segments.
