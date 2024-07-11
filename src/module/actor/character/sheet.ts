@@ -651,11 +651,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab[data-tab=actions]");
 
-        // Filter strikes
-        htmlQuery(actionsPanel, ".toggle-unready-strikes")?.addEventListener("click", () => {
-            this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.flags.pf2e.showUnreadyStrikes);
-        });
-
         for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
             // Auxiliary actions
             const auxActionButtons = htmlQueryAll<HTMLButtonElement>(
@@ -884,6 +879,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         // ACTIONS
+
+        handlers["toggle-hide-stowed"] = () => {
+            this.actor.update({ "flags.pf2e.hideStowed": !this.actor.flags.pf2e.hideStowed });
+        };
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
         handlers["toggle-weapon-trait"] = async (_, button) => {
