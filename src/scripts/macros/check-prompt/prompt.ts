@@ -125,6 +125,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         const html = this.element[0];
         const types: string[] = [];
         const traits: string[] = [];
+        const actions: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
         if (activeSkillSaveTab?.dataset.tab === "skills") {
@@ -136,6 +137,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             // get trait tags
             traits.push(...this.#htmlQueryTags(html, "input#check-prompt-traits"));
             // get action tags
+            actions.push(...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => a.toLowerCase().replace("action:", "").trim()));
             traits.push(
                 ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => this.#formatActionType(a)),
             );
@@ -153,7 +155,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            const content = actions.length !== 0 ?
+                actions.map((action) => this.#constructAction(action, dc, types[0])).join("") :
+                types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("")
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
@@ -211,6 +215,15 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             .concat(...extras)
             .filter((p) => p);
         return `<p>@Check[${parts.join("|")}]</p>`;
+    }
+
+    #constructAction(action: string, dc: number | null, statistic: string): string {
+        const parts = [
+            action,
+            statistic ? `statistic=${statistic}` : null,
+            Number.isInteger(dc) ? `dc=${dc}` : null,            
+        ]
+        return `<p>[[/act ${parts.join(" ")}]]</p>`;
     }
 }
 
