@@ -166,7 +166,7 @@ class WeaponDamagePF2e {
         if (weapon.isOfType("weapon")) {
             // Kickback trait
             if (weaponTraits.includes("kickback")) {
-                // For NPCs, subtract from the base damage and add back as an untype bonus
+                // For NPCs, subtract from the base damage and add back as an untyped bonus
                 modifiers.push(
                     new ModifierPF2e({
                         slug: "kickback",
@@ -268,6 +268,18 @@ class WeaponDamagePF2e {
                 slug: "backstabber",
                 modifier: potency > 2 ? 2 : 1,
                 damageCategory: "precision",
+            });
+            modifiers.push(modifier);
+        }
+
+        // Venomous trait
+        if (weaponTraits.some((t) => t === "venomous")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.venomous,
+                slug: "venomous",
+                modifier: potency > 2 ? 2 : 1,
+                damageCategory: "persistent",
+                damageType: "poison",
             });
             modifiers.push(modifier);
         }
