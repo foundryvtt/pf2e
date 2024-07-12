@@ -1,9 +1,9 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
-import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
-import type { TokenDocumentPF2e } from "./index.ts";
-import * as R from "remeda";
 import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
+import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
+import * as R from "remeda";
+import type { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
     #sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
@@ -73,6 +73,16 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         if (this.token.flags.pf2e.autoscale) {
             this.#disableScale(html);
+        }
+
+        // Disable un-linking for certain actor types we prefer not to become synthetics
+        if (this.actor?.allowSynthetics === false) {
+            const control = htmlQuery<HTMLInputElement>(html, "input[name=actorLink]");
+            if (control && control.checked) {
+                control.disabled = true;
+                const typeLocalization = game.i18n.localize(`TYPES.Actor.${this.actor.type}`);
+                control.dataset.tooltip = game.i18n.format("PF2E.Token.ActorLinkForced", { type: typeLocalization });
+            }
         }
 
         const linkToSizeButton = htmlQuery(html, "a[data-action=toggle-link-to-size]");

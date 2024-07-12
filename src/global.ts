@@ -351,4 +351,5 @@ declare global {
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
     const ROLL_PARSER: string;
+    const UUID_REDIRECTS: Record<CompendiumUUID, CompendiumUUID>;
 }

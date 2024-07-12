@@ -17,6 +17,7 @@ type OverrideACSchema = {
     modifier: ResolvableValueField<false, false, true>;
     ignoreCheckPenalty: BooleanField<boolean, boolean, false, false, true>;
     ignoreSpeedPenalty: BooleanField<boolean, boolean, false, false, true>;
+    ownIfHigher: BooleanField<boolean, boolean, false, false, true>;
 };
 
 type OverrideSenseSchema = {

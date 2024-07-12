@@ -466,9 +466,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             if (traitsPrepend) {
                 tags.DOM.scope.prepend(traitsPrepend.content);
             }
-        } else if (tagElement && traitsPrepend) {
+        } else if (traitsPrepend) {
             // If there are no traits, we still need to show elements like rarity
-            tagElement.append(traitsPrepend.content);
+            htmlQuery(html, "div.paizo-style.tags")?.append(traitsPrepend.content);
         }
 
         // Tagify other-tags input if present

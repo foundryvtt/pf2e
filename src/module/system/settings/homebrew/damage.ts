@@ -8,10 +8,8 @@ import {
     ENERGY_DAMAGE_TYPES,
     PHYSICAL_DAMAGE_TYPES,
 } from "@system/damage/values.ts";
-import { ErrorPF2e, sluggify, tupleHasValue } from "@util";
-import * as R from "remeda";
+import { sluggify, tupleHasValue } from "@util";
 import { CustomDamageData } from "./data.ts";
-import { isHomebrewCustomDamage } from "./helpers.ts";
 import { HomebrewElements } from "./menu.ts";
 
 /**
@@ -78,29 +76,10 @@ export class DamageTypeManager {
             delete npcAttackTraits[`versatile-${type}`];
         }
 
-        // Read module damage types
-        const activeModules = [...game.modules.entries()].filter(([_key, foundryModule]) => foundryModule.active);
-        for (const [key, foundryModule] of activeModules) {
-            const homebrew = foundryModule.flags[key]?.["pf2e-homebrew"];
-            if (!R.isPlainObject(homebrew) || !homebrew.damageTypes) continue;
-
-            const elements = homebrew.damageTypes;
-            if (!R.isPlainObject(elements) || !isHomebrewCustomDamage(elements)) {
-                console.warn(ErrorPF2e(`Homebrew record damageTypes is malformed in module ${key}`).message);
-                continue;
-            }
-
-            for (const [slug, data] of Object.entries(elements)) {
-                if (!reservedTerms.damageTypes.has(slug)) {
-                    this.addCustomDamage(data, { slug });
-                } else {
-                    console.warn(
-                        ErrorPF2e(
-                            `Homebrew damage type "${slug}" from module ${foundryModule.title} is a reserved term.`,
-                        ).message,
-                    );
-                    continue;
-                }
+        // Add module damage types
+        for (const [slug, data] of Object.entries(HomebrewElements.moduleData.damageTypes)) {
+            if (!reservedTerms.damageTypes.has(slug)) {
+                this.addCustomDamage(data, { slug });
             }
         }
 

@@ -161,6 +161,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return ["condition", "effect"];
     }
 
+    /** Returns true if this actor allows synthetic tokens to be created */
+    get allowSynthetics(): boolean {
+        return this.type === "party" ? false : true;
+    }
+
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null {
         return this.flags.core?.sourceId ?? null;
@@ -525,7 +530,13 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     ): Promise<Actor | null> {
         context.types &&= R.unique(context.types);
         context.types ??= [...ACTOR_TYPES];
+
+        // Determine omitted types. Army is hidden in most games, and party is hidden in folders
         const omittedTypes = game.settings.get("pf2e", "campaignType") !== "kingmaker" ? ["army"] : [];
+        if (data?.folder) {
+            omittedTypes.push("party");
+        }
+
         for (const type of omittedTypes) {
             context.types.findSplice((t) => t === type);
         }
@@ -780,6 +791,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
 
         this.prepareDataFromItems();
+
+        for (const rule of this.rules) {
+            rule.onApplyActiveEffects?.();
+        }
     }
 
     /** Prepare data among owned items as well as actor-data preparation performed by items */

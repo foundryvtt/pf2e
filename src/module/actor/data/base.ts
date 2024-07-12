@@ -29,6 +29,7 @@ type ActorFlagsPF2e = foundry.documents.ActorFlags & {
         rollOptions: RollOptionFlags;
         /** IDs of granted items that are tracked */
         trackedItems: Record<string, string>;
+        hideStowed?: boolean;
         [key: string]: unknown;
     };
 };

@@ -2,7 +2,8 @@ import { EffectPF2e } from "@item";
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
-import { measureDistanceCuboid, squareAtPoint, type CanvasPF2e } from "../index.ts";
+import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
+import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -13,20 +14,33 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
 
-    get #isDragMeasuring(): boolean {
-        return (
-            game.pf2e.settings.dragMeasurement &&
-            canvas.controls.ruler.isMeasuring &&
-            canvas.controls.ruler.token === this
-        );
-    }
-
     constructor(document: TDocument) {
         super(document);
 
         this.auras = new AuraRenderers(this);
         Object.defineProperty(this, "auras", { configurable: false, writable: false }); // It's ours, Kim!
         this.flankingHighlight = new FlankingHighlightRenderer(this);
+    }
+
+    get gridOffsets(): GridOffset[] {
+        if (canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) return [];
+        const size = this.getSize();
+        const offsets: GridOffset[] = [];
+        for (let x = 0; x < size.width; x += canvas.grid.sizeX) {
+            for (let y = 0; y < size.width; y += canvas.grid.sizeY) {
+                offsets.push(canvas.grid.getOffset({ x: this.x + x, y: this.y + y }));
+            }
+        }
+
+        return offsets;
+    }
+
+    get #isDragMeasuring(): boolean {
+        return (
+            game.pf2e.settings.dragMeasurement &&
+            canvas.controls.ruler.isMeasuring &&
+            canvas.controls.ruler.token === this
+        );
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -97,6 +111,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     isAdjacentTo(token: TokenPF2e): boolean {
         return this.distanceTo(token) === 5;
+    }
+
+    /** Publicly expose `Token#_canControl` for use in `TokenLayerPF2e`. */
+    canControl(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean {
+        return this._canControl(user, event);
     }
 
     /**
@@ -596,7 +615,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 }
 
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
-    get layer(): TokenLayer<this>;
+    get layer(): TokenLayerPF2e<this>;
 }
 
 type NumericFloatyEffect = { name: string; value?: number | null };

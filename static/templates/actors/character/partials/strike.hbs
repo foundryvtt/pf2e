@@ -18,16 +18,16 @@
                 </div>
             {{/unless}}
 
-            {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
+            {{#if action.ready}}
                 <!-- ATTACK/DAMAGE -->
                 {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
-            {{else if (and (not action.ready) (not action.handsAvailable))}}
+            {{else if (not action.handsAvailable)}}
                 <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
             {{/if}}
         </div>
     </div>
 
-    {{#if (and action.altUsages (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+    {{#if (and action.altUsages action.ready)}}
         {{#each action.altUsages as |usage|}}
             <div class="alt-usage" data-tooltip-direction="LEFT">
                 {{#if usage.item.isThrown}}
@@ -40,7 +40,7 @@
         {{/each}}
     {{/if}}
 
-    {{#if (and action.ammunition (or action.ready ../actor.flags.pf2e.showUnreadyStrikes))}}
+    {{#if (and action.ammunition action.ready)}}
         <div class="ammo auxiliary-actions">
             <select class="linked"
                 data-action="link-ammo"

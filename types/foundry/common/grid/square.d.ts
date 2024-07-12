@@ -18,15 +18,9 @@ export class SquareGrid extends BaseGrid {
 
     override testAdjacency(coords1: SquareGridCoordinates, coords2: SquareGridCoordinates): boolean;
 
-    override getShiftedOffset(
-        coords: SquareGridCoordinates,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): GridOffset;
+    override getShiftedOffset(coords: SquareGridCoordinates, direction: MovementDirection): GridOffset;
 
-    override getShiftedPoint(
-        point: Point,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): Point;
+    override getShiftedPoint(point: Point, direction: MovementDirection): Point;
 
     override getTopLeftPoint(coords: SquareGridCoordinates): Point;
 

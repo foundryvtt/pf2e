@@ -1,0 +1,67 @@
+{
+    "_id": "EdkfixYpKyX3KPCL",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Supportive Sponsor",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>You were responsible for caring for someone's needs, be it a sibling or other familial relation, a friend fallen on hard times, or someone who just needed a helping hand at a time when you were there to offer assistance. The satisfaction you get from protecting another, from helping them course-correct from a self-destructive habit, or from assisting them in their recovery from a disaster is more than enough for you, and the idea of being paid for such a service is unsettling and unsavory. When presented with a problem that's beyond your immediate ability to address or resolve, you'll spend days researching methods to provide what help the person needs, either educating yourself on how to provide the aid yourself or by arranging for others to step in to support the person in question.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Medicine skill and the Herbalism Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Battle Medicine] skill feat.</p>\n<p>If you have the Guardian persona trait, you also become trained in the Library Lore skill.</p>"
+        },
+        "items": {
+            "b3M6Z": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Battle Medicine",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Battle Medicine"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Curtain Call Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:persona-trait"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.campaign-effects.Item.Persona Trait"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Herbalism Lore"
+            ],
+            "value": [
+                "medicine"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "persona-guardian"
+            ]
+        }
+    },
+    "type": "background"
+}

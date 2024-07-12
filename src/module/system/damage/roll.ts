@@ -1,4 +1,3 @@
-import { ResistanceType } from "@actor/types.ts";
 import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
@@ -8,7 +7,7 @@ import type Peggy from "peggy";
 import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
-import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
+import { DamageCategory, DamageIRBypassData, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
 
 const terms = foundry.dice.terms;
@@ -645,8 +644,7 @@ interface DamageRollData extends RollDataPF2e, AbstractDamageRollData {
     increasedFrom?: number;
     /** Whether this roll is the splash damage from another roll */
     splashOnly?: boolean;
-    /** Resistance types to be ignored */
-    ignoredResistances?: { type: ResistanceType; max: number | null }[];
+    bypass?: DamageIRBypassData;
 }
 
 type DamageInstanceData = AbstractDamageRollData;
