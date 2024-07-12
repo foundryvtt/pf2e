@@ -34,7 +34,7 @@ export abstract class BaseGrid {
     constructor(config: GridConfiguration);
 
     /** The grid type (see {@link CONST.GRID_TYPES}). */
-    type: (typeof CONST.GRID_TYPES)[keyof typeof CONST.GRID_TYPES];
+    type: GridType;
 
     /** Is this a gridless grid? */
     get isGridless(): boolean;
@@ -105,14 +105,11 @@ export abstract class BaseGrid {
      * shifted by one grid space in the given direction.
      * In square grids with illegal diagonals the offset of the given coordinates is returned
      * if the direction is diagonal.
-     * @param      coords     The coordinates
-     * @param      direction  The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
-     * @returns               The offset
+     * @param coords The coordinates
+     * @param direction The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
+     * @returns The offset
      */
-    abstract getShiftedOffset(
-        coords: GridCoordinates,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): GridOffset;
+    abstract getShiftedOffset(coords: GridCoordinates, direction: MovementDirection): GridOffset;
 
     /**
      * Returns the point shifted by the difference between the grid space corresponding to the given coordinates
