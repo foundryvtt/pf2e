@@ -5362,6 +5362,9 @@
             "ancestralEchoing": {
                 "Name": "Ancestral Echoing"
             },
+            "animated": {
+                "Name": "Animated"
+            },
             "anchoring": {
                 "Name": "Anchoring",
                 "Note": {
@@ -5378,7 +5381,7 @@
                 "Name": "Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. An astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to astral weapons. Incorporeal creatures can touch, hold, and wield astral weapons (unlike most physical objects)."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "authorized": {
@@ -5414,7 +5417,7 @@
             "corrosive": {
                 "Name": "Corrosive",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes [[/r 3d6[acid] #Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes @Damage[3d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
                 }
             },
             "crushing": {
@@ -5426,9 +5429,6 @@
             "cunning": {
                 "Name": "Cunning"
             },
-            "dancing": {
-                "Name": "Dancing"
-            },
             "decaying": {
                 "Name": "Decaying"
             },
@@ -5437,12 +5437,6 @@
             },
             "demolishing": {
                 "Name": "Demolishing"
-            },
-            "disrupting": {
-                "Name": "Vitalizing",
-                "Note": {
-                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
-                }
             },
             "earthbinding": {
                 "Name": "Earthbinding"
@@ -5465,7 +5459,7 @@
             "flaming": {
                 "Name": "Flaming",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you deal an additional [[/r 1d10[persistent,fire]]]."
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[1d10[persistent,fire]] damage."
                 }
             },
             "flickering": {
@@ -5510,7 +5504,7 @@
                 "Name": "Greater Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. A greater astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to greater astral weapons. Incorporeal creatures can touch, hold, and wield greater astral weapons (unlike most physical objects). The spirit damage granted by a greater astral weapon ignores any spirit resistance the target has."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "greaterBloodbane": {
@@ -5519,14 +5513,14 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant",
                 "Note": {
-                    "criticalSuccess": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
-                    "success": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance."
+                    "criticalSuccess": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
+                    "success": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive",
                 "Note": {
-                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r 6d6[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes @Damage[6d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
                     "success": "The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
@@ -5560,7 +5554,7 @@
             "greaterFlaming": {
                 "Name": "Greater Flaming",
                 "Note": {
-                    "criticalSuccess": "Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[2d10[persistent,fire]] damage. Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
                     "success": "Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
@@ -5614,7 +5608,9 @@
                     "Bow": "The Athletics check to pull the missile free is DC 20.",
                     "Brawling": "The target takes a -4 circumstance penalty to its save.",
                     "Club": "You can knock the target up to 15 feet away.",
-                    "Dart": "The base persistent bleed damage increases to [[/r 2d6[bleed]]].",
+                    "Crossbow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile, as the bow critical specialization.",
+                    "Dart": "The base persistent bleed damage increases to @Damage[2d6[persistent,bleed]].",
+                    "Firearm": "The target takes a –4 circumstance penalty to its save.",
                     "Flail": "You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "You can also knock the target 5 feet away from you.",
                     "Knife": "The target takes a -5-foot status penalty to its Speed while it has the @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}.",
@@ -5632,7 +5628,7 @@
             "holy": {
                 "Name": "Holy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon<br /><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, vitality, healing effect."
+                    "criticalSuccess": "Holy Healing <span class=\"action-glyph\">R</span> (concentrate, healing, vitality)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at a Strike against an unholy creature with the weapon</p><hr /><p><strong>Effect</strong> You regain HP equal to double the unholy creature's level."
                 }
             },
             "hopeful": {
@@ -5683,6 +5679,10 @@
             "pacifying": {
                 "Name": "Pacifying"
             },
+            "quickstrike": {
+                "Name": "Quickstrike",
+                "Note": "While wielding a quickstrike weapon, you gain the @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{Quickened} condition, but you can use the additional action granted only to make a Strike with the etched weapon."
+            },
             "returning": {
                 "Name": "Returning",
                 "Note": "When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
@@ -5705,8 +5705,12 @@
                     "criticalSuccess": "On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
                 }
             },
-            "spellStoring": {
-                "Name": "Spell-Storing"
+            "shockwave": {
+                "Name": "Shockwave",
+                "Note": "Strikes with this weapon deal bludgeoning splash damage equal to the number of weapon damage dice. You're immune to this splash damage."
+            },
+            "spellReservoir": {
+                "Name": "Spell Reservoir"
             },
             "swarming": {
                 "Name": "Swarming"
@@ -5729,13 +5733,19 @@
             "unholy": {
                 "Name": "Unholy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon<br /><strong>Effect</strong> The target takes @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} equal to 1d8 per weapon damage die of the etched weapon."
+                    "criticalSuccess": "Unholy Bloodshed <span class='pf2-icon'>R</span> (concentrate)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at an attack roll against a holy creature with the weapon</p><hr /><p><strong>Effect</strong> The target takes persistent bleed damage equal to 1d8 per weapon damage die of the etched weapon."
+                }
+            },
+            "vitalizing": {
+                "Name": "Vitalizing",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "vorpal": {
                 "Name": "Vorpal",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> envision (death, incapacitation))<br /><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage.<br /><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                    "criticalSuccess": "Snicker-Snack <span class=\"action-glyph\">R</span> (concentrate, death, incapacitation)</p><p><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage</p><hr /><p><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
                 }
             },
             "wounding": {
