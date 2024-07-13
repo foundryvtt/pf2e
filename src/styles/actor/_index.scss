@@ -433,9 +433,17 @@
                 }
             }
 
-            a.inactive,
-            button.inactive {
-                color: var(--color-text-dark-6);
+            a,
+            button {
+                &.inactive {
+                    color: var(--color-text-dark-6);
+                }
+
+                input[type="checkbox"] {
+                    margin: 0;
+                    height: var(--font-size-10);
+                    width: var(--font-size-10);
+                }
             }
         }
 
