@@ -70,23 +70,34 @@
         }
 
         li.strike {
-            .item-name {
-                align-items: start;
+            display: grid;
+            grid-template:
+                "img content" min-content
+                "summary summary" min-content /
+                2.5rem 1fr;
 
-                .actions-title {
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .item-image {
-                    flex: 0 0 2rem;
-                    height: 2rem;
-                }
+            .item-image {
+                grid-area: "img";
+                width: 2rem;
+                height: 2rem;
+                margin-top: var(--space-4);
             }
 
-            // Elemental blasts
-            .action-name .item-controls {
-                margin-left: auto;
+            .item-name {
+                align-items: baseline;
+                display: flex;
+                width: 100%;
+                gap: var(--space-4);
+
+                h4 {
+                    margin: 0;
+                    flex: 0 0 auto;
+                }
+
+                // Elemental blasts
+                .item-controls {
+                    margin-left: auto;
+                }
             }
 
             .button-group {
@@ -117,7 +128,6 @@
 
             .alt-usage {
                 flex-basis: 100%;
-                margin-left: calc(3em - 2px);
                 position: relative;
 
                 .alt-usage-icon {
@@ -127,11 +137,6 @@
                     left: -1.5em;
                     top: 0.2em;
                 }
-            }
-
-            .ammo,
-            .auxiliary-actions {
-                margin-left: 2.5rem;
             }
 
             .ammo {
@@ -196,6 +201,10 @@
                         text-shadow: none;
                     }
                 }
+            }
+
+            .item-summary {
+                grid-area: summary;
             }
 
             &:not(.ready) {

@@ -1,80 +1,78 @@
 <li class="strike{{#if action.ready}} ready{{/if}}{{#unless action.visible}} hidden{{/unless}}" data-strike data-action-index="{{index}}">
-    <div class="item-name rollable">
-        <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
-            <img src="{{action.item.img}}" />
-            <i class="fa-solid fa-dice-d20"></i>
-        </div>
-        <div class="actions-title">
-            {{#unless omitName}}
-                <div class="action-name">
-                    <h4 class="name"><a data-action="toggle-summary">{{action.label}}</a></h4>
-                    {{#if action.item.isTemporary}}
-                        <i
-                            class="fa-solid fa-info-circle"
-                            data-tooltip="PF2E.TemporaryItemToolTip"
-                            data-tooltip-direction="RIGHT"
-                        ></i>
-                    {{/if}}
-                </div>
-            {{/unless}}
-
-            {{#if action.ready}}
-                <!-- ATTACK/DAMAGE -->
-                {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
-            {{else if (not action.handsAvailable)}}
-                <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
-            {{/if}}
-        </div>
+    <div class="item-image variant-strike framed{{#if action.ready}} ready{{/if}}" data-action="strike-attack" data-variant-index="0">
+        <img src="{{action.item.img}}" />
+        <i class="fa-solid fa-dice-d20"></i>
     </div>
-
-    {{#if (and action.altUsages action.ready)}}
-        {{#each action.altUsages as |usage|}}
-            <div class="alt-usage" data-tooltip-direction="LEFT">
-                {{#if usage.item.isThrown}}
-                    <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
-                {{else}}
-                    <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
+    <section>
+        {{#unless omitName}}
+            <div class="item-name">
+                <h4 class="name"><a data-action="toggle-summary">{{action.label}}</a></h4>
+                {{#if action.item.isTemporary}}
+                    <i
+                        class="fa-solid fa-info-circle"
+                        data-tooltip="PF2E.TemporaryItemToolTip"
+                        data-tooltip-direction="RIGHT"
+                    ></i>
                 {{/if}}
-                {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
             </div>
-        {{/each}}
-    {{/if}}
+        {{/unless}}
 
-    {{#if (and action.ammunition action.ready)}}
-        <div class="ammo auxiliary-actions">
-            <select class="linked"
-                data-action="link-ammo"
-                {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
-                {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
-            </select>
+        {{#if action.ready}}
+            <!-- ATTACK/DAMAGE -->
+            {{#if action.canStrike}}{{#> attackDamage action}}{{/attackDamage}}{{/if}}
+        {{else if (not action.handsAvailable)}}
+            <span class="hands-occupied">{{localize "PF2E.Actor.Character.HandsOccupied"}}</span>
+        {{/if}}
 
-            <span class="magazine" data-item-id="{{action.item.id}}">
-                {{#if (gt action.item.ammo.uses.max 1)}}
-                    <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
-                {{/if}}
-            </span>
-        </div>
-    {{/if}}
-
-    {{#if action.handsAvailable}}
-        <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
-            {{#each action.auxiliaryActions as |aux index|}}
-                <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
-                    <span>{{aux.label}}</span>
-                    <span class="action-glyph">{{aux.glyph}}</span>
-                    {{#if aux.options}}
-                    <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
-                        {{#each aux.options as |option|}}
-                            <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
-                                {{option.label}} {{#if option.selected}}✔️{{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
+        {{#if (and action.altUsages action.ready)}}
+            {{#each action.altUsages as |usage|}}
+                <div class="alt-usage" data-tooltip-direction="LEFT">
+                    {{#if usage.item.isThrown}}
+                        <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/thrown.svg" data-tooltip="{{localize "PF2E.Item.Weapon.ThrownUsage.Label"}}" />
+                    {{else}}
+                        <img class="alt-usage-icon" src="systems/pf2e/icons/mdi/sword.svg" data-tooltip="{{localize "PF2E.Item.Weapon.MeleeUsage.Label"}}" />
                     {{/if}}
-                </button>
+                    {{#> attackDamage usage isAltUsage=true}}{{/attackDamage}}
+                </div>
             {{/each}}
-        </div>
-    {{/if}}
+        {{/if}}
+
+        {{#if (and action.ammunition action.ready)}}
+            <div class="ammo auxiliary-actions">
+                <select class="linked"
+                    data-action="link-ammo"
+                    {{#if action.ammunition.selected}} data-compatible="{{action.ammunition.selected.compatible}}"{{/if}}>
+                    {{selectOptions action.ammunition.compatible selected=action.ammunition.selected.id valueAttr="id" blank="PF2E.NoAmmoLabel" localize=true}}
+                </select>
+
+                <span class="magazine" data-item-id="{{action.item.id}}">
+                    {{#if (gt action.item.ammo.uses.max 1)}}
+                        <span class="remaining"><i class="icon"></i> {{action.item.ammo.uses.value}}</span>
+                    {{/if}}
+                </span>
+            </div>
+        {{/if}}
+
+        {{#if action.handsAvailable}}
+            <div class="auxiliary-actions{{#if action.ready}} weapon-drawn{{/if}}">
+                {{#each action.auxiliaryActions as |aux index|}}
+                    <button class="use-action" type="button" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
+                        <span>{{aux.label}}</span>
+                        <span class="action-glyph">{{aux.glyph}}</span>
+                        {{#if aux.options}}
+                        <select class="modular" data-action="auxiliary-action" data-auxiliary-action-index="{{index}}">
+                            {{#each aux.options as |option|}}
+                                <option value="{{option.value}}"{{#if option.selected}} selected{{/if}}>
+                                    {{option.label}} {{#if option.selected}}✔️{{/if}}
+                                </option>
+                            {{/each}}
+                        </select>
+                        {{/if}}
+                    </button>
+                {{/each}}
+            </div>
+        {{/if}}
+    </section>
 
     <div class="item-summary" hidden="hidden">
         <div class="item-description">
