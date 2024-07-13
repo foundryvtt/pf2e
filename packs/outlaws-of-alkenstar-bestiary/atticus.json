@@ -368,7 +368,12 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            "find-concealed-objects"
+                            {
+                                "or": [
+                                    "target:condition:concealed",
+                                    "item:tag:object"
+                                ]
+                            }
                         ],
                         "selector": "perception",
                         "value": 2
