@@ -137,7 +137,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             // get trait tags
             traits.push(...this.#htmlQueryTags(html, "input#check-prompt-traits"));
             // get action tags
-            actions.push(...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => a.toLowerCase().replace("action:", "").trim()));
+            actions.push(
+                ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) =>
+                    a.toLowerCase().replace("action:", "").trim(),
+                ),
+            );
             traits.push(
                 ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) => this.#formatActionType(a)),
             );
@@ -150,14 +154,19 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             if (htmlQuery(html, "input#check-prompt-basic-save:checked")) extras.push("basic:true");
         }
 
-        if (types.length > 0) {
+        if (types.length > 0 || actions.length > 0) {
             const titleEl = htmlQuery<HTMLInputElement>(html, "input#check-prompt-title");
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content = actions.length !== 0 ?
-                actions.map((action) => this.#constructAction(action, dc, types[0])).join("") :
-                types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("")
+            const content =
+                actions.length === types.length
+                    ? R.zip(actions, types)
+                          .map((value) => this.#constructAction(value[0], dc, value[1]))
+                          .join("")
+                    : actions.length === 1 && types.length > 0
+                      ? types.map((type) => this.#constructAction(actions[0], dc, type)).join("")
+                      : types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
@@ -218,12 +227,8 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     }
 
     #constructAction(action: string, dc: number | null, statistic: string): string {
-        const parts = [
-            action,
-            statistic ? `statistic=${statistic}` : null,
-            Number.isInteger(dc) ? `dc=${dc}` : null,            
-        ]
-        return `<p>[[/act ${parts.join(" ")}]]</p>`;
+        const parts = [action, statistic ? `statistic=${statistic}` : null, Number.isInteger(dc) ? `dc=${dc}` : null];
+        return `[[/act ${parts.join(" ")}]]`;
     }
 }
 
