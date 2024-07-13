@@ -14,8 +14,8 @@
                     <header>
                         {{localize "PF2E.Actor.Attacks"}}
                         <button type="button" data-action="toggle-hide-stowed" {{#if actor.flags.pf2e.hideStowed}} class="inactive"{{/if}}>
-                            <i class="fa-solid fa-backpack"></i>
-                            {{localize "PF2E.Actor.Character.ShowStowed"}}
+                            <input type="checkbox" {{checked (not actor.flags.pf2e.hideStowed)}}/>
+                            {{localize "PF2E.CarryType.stowed"}}
                         </button>
                     </header>
 
