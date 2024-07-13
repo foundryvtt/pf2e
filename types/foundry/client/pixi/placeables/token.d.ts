@@ -55,7 +55,7 @@ declare global {
         };
 
         /** The shape of this token. */
-        shape: PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
+        shape: TokenShape;
 
         /** Defines the filter to use for detection. */
         detectionFilter: PIXI.Filter | null;
@@ -519,7 +519,7 @@ declare global {
         getSize(): { width: number; height: number };
 
         /** Get the shape of this Token. */
-        getShape(): PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
+        getShape(): TokenShape;
 
         /**
          * Get the center point for a given position or the current position.
@@ -716,6 +716,8 @@ declare global {
     interface Token<TDocument extends TokenDocument = TokenDocument> extends PlaceableObject<TDocument> {
         get layer(): TokenLayer<this>;
     }
+
+    type TokenShape = PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
 
     interface TokenResourceData {
         attribute: string;

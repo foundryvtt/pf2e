@@ -1,7 +1,6 @@
 import type { UserPF2e } from "@module/user/document.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentFeatureRegionBehavior } from "@scene/region-behavior/types.ts";
-import * as R from "remeda";
 import type { TokenPF2e } from "./token/object.ts";
 
 class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Ruler<TToken, UserPF2e> {
@@ -14,21 +13,39 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return game.pf2e.settings.dragMeasurement;
     }
 
+    /** The footprint of the drag-measured token */
+    #footprint: GridOffset[] = [];
+
+    /** Whether to widen the ruler highlighting to fill space occupied by a larger token */
+    #widenRuler = false;
+
+    /** A grid-snapping mode appropriate for the token's dimensions */
+    get #snapMode(): GridSnappingMode {
+        const token = this.token;
+        const M = CONST.GRID_SNAPPING_MODES;
+        if (!token || Math.max(token.document.width, 1) % 2 === 1) {
+            return M.CENTER;
+        }
+
+        const GT = CONST.GRID_TYPES;
+        switch (canvas.grid.type) {
+            case GT.HEXEVENR:
+                return M.LEFT_SIDE_MIDPOINT;
+            case GT.HEXODDR:
+                return M.TOP_SIDE_MIDPOINT;
+            case GT.SQUARE:
+                return M.VERTEX;
+            default:
+                return M.CENTER;
+        }
+    }
+
     get dragMeasurement(): boolean {
         return RulerPF2e.#dragMeasurement;
     }
 
     get isMeasuring(): boolean {
         return this.state === RulerPF2e.STATES.MEASURING;
-    }
-
-    /** Get a grid snapping mode appropriate for the token's dimensions */
-    get #snapMode(): GridSnappingMode {
-        const tokenWidth = this.token?.w;
-        const sizeX = canvas.grid.sizeX;
-        return !tokenWidth || tokenWidth < sizeX || (tokenWidth / sizeX) % 2 === 1
-            ? CONST.GRID_SNAPPING_MODES.CENTER
-            : CONST.GRID_SNAPPING_MODES.VERTEX;
     }
 
     /** Add a waypoint at the currently-drawn destination. */
@@ -48,6 +65,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return;
         }
         token.document.locked = true;
+        this.#footprint = token.footprint;
+        this.#widenRuler = token.document.width > 1 && token.document.height > 1;
+
         return this._startMeasurement(token.center, { snap: !event.shiftKey, token });
     }
 
@@ -116,39 +136,26 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     /** Widen the ruler when measuring with larger tokens. */
     protected override _highlightMeasurementSegment(segment: RulerMeasurementSegment): void {
         const token = this.token;
-        if (segment.teleport || !this.dragMeasurement || !token) {
+        if (segment.teleport || !this.dragMeasurement || !token || !this.#widenRuler) {
             return super._highlightMeasurementSegment(segment);
         }
 
-        const { sizeX, sizeY } = canvas.grid;
-        const tokenSize = token.getSize();
-        const width = Math.max(Math.ceil(tokenSize.width / sizeX) * sizeX, sizeX);
-        const height = Math.max(Math.ceil(tokenSize.height / sizeY) * sizeY, sizeY);
-        if (width <= sizeX && height <= sizeY) {
-            // Upstream can take care of single-grid-space tokens
-            return super._highlightMeasurementSegment(segment);
-        }
+        const center = canvas.grid.getOffset(token);
+        const origin = canvas.grid.getOffset(segment.ray.A);
+        const adjustment = { i: center.i - origin.i, j: center.j - origin.j };
 
-        // Adjust by one grid square if the ruler origin is on a vertex
-        const adjustment = this.#snapMode === CONST.GRID_SNAPPING_MODES.VERTEX ? -1 * canvas.grid.sizeX : 0;
-
-        const points = canvas.grid.getDirectPath([segment.ray.A, segment.ray.B]).flatMap((offset) => {
-            const topLeft = R.mapValues(canvas.grid.getTopLeftPoint(offset), (v) => v + adjustment);
-            const points: Point[] = [];
-            const seen: Point[] = [];
-            for (let x = 0; x < width; x += canvas.grid.sizeX) {
-                for (let y = 0; y < height; y += canvas.grid.sizeY) {
-                    const point = { x: topLeft.x + sizeX - x, y: topLeft.y + sizeY - y };
-                    if (!seen.some((p) => p.x === point.x && p.y === point.y)) {
-                        points.push(point);
-                    }
+        // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
+        const seen = new Set<number>();
+        for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
+            for (const stomp of this.#footprint) {
+                const newOffset = { i: stomp.i + offset.i + adjustment.i, j: stomp.j + offset.j + adjustment.j };
+                const packed = (newOffset.i << 16) + newOffset.j;
+                if (!seen.has(packed)) {
+                    seen.add(packed);
+                    const point = canvas.grid.getTopLeftPoint(newOffset);
+                    canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
                 }
             }
-            return points;
-        });
-
-        for (const point of points) {
-            canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
         }
     }
 
