@@ -3,7 +3,7 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
-import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
+import { getShapeFootprint, measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -22,17 +22,34 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.flankingHighlight = new FlankingHighlightRenderer(this);
     }
 
-    get gridOffsets(): GridOffset[] {
-        if (canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) return [];
-        const size = this.getSize();
-        const offsets: GridOffset[] = [];
-        for (let x = 0; x < size.width; x += canvas.grid.sizeX) {
-            for (let y = 0; y < size.width; y += canvas.grid.sizeY) {
-                offsets.push(canvas.grid.getOffset({ x: this.x + x, y: this.y + y }));
+    /** This token's shape at its canvas position */
+    get localShape(): TokenShape {
+        switch (this.shape.type) {
+            case PIXI.SHAPES.RECT:
+                return this.bounds;
+            case PIXI.SHAPES.POLY: {
+                const shape = this.shape.clone();
+                const bounds = this.bounds;
+                shape.points = shape.points.map((c, i) => (i % 2 === 0 ? c + bounds.x : c + bounds.y));
+                return shape;
+            }
+            case PIXI.SHAPES.CIRC: {
+                const shape = this.shape.clone();
+                const center = this.center;
+                shape.x = center.x;
+                shape.y = center.y;
+                return shape;
             }
         }
+    }
 
-        return offsets;
+    /** The grid offsets representing this token's shape */
+    get footprint(): GridOffset[] {
+        if (canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) return [];
+        if (this.document.width <= 1 && this.document.height <= 1) {
+            return [canvas.grid.getOffset(this.getSnappedPosition())];
+        }
+        return getShapeFootprint(this.localShape, canvas.grid.getOffset(this.center));
     }
 
     get #isDragMeasuring(): boolean {
