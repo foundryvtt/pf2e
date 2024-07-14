@@ -717,7 +717,7 @@ declare global {
         get layer(): TokenLayer<this>;
     }
 
-    type TokenShape = PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
+    type TokenShape = Extract<PlaceableShape, PIXI.Circle | PIXI.Polygon | PIXI.Rectangle>;
 
     interface TokenResourceData {
         attribute: string;

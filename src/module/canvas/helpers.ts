@@ -172,40 +172,4 @@ function squareAtPoint(point: Point): PIXI.Rectangle {
     return new PIXI.Rectangle(snapped.x, snapped.y, canvas.grid.sizeX, canvas.grid.sizeY);
 }
 
-/** Bit-pack a grid offset. */
-function _packOffset(offset: GridOffset): number {
-    return (offset.i << 16) + offset.j;
-}
-
-/** Get the non-local grid offsets represented by a shape. */
-function getShapeFootprint(shape: TokenShape, sample: GridOffset, seen = new Set<number>()): GridOffset[] {
-    const isFirstCall = seen.size === 0;
-    const packedSample = _packOffset(sample);
-    if (seen.has(packedSample)) return [];
-    const point = canvas.grid.getCenterPoint(sample);
-    if (!shape.contains(point.x, point.y)) return [];
-
-    const offsets: GridOffset[] = [];
-    offsets.push(sample);
-    seen.add(packedSample);
-
-    for (const offset of canvas.grid.getAdjacentOffsets(sample)) {
-        const packedOffset = _packOffset(offset);
-        if (seen.has(packedOffset)) continue;
-        offsets.push(...getShapeFootprint(shape, offset, seen));
-    }
-
-    if (isFirstCall) {
-        const sorted = offsets.sort((a, b) => a.j - b.j).sort((a, b) => a.i - b.i);
-        const topLeft = { ...sorted[0] };
-        for (const offset of sorted) {
-            offset.i -= topLeft.i;
-            offset.j -= topLeft.j;
-        }
-        return sorted;
-    }
-
-    return offsets;
-}
-
-export { getShapeFootprint, measureDistance, measureDistanceCuboid, squareAtPoint };
+export { measureDistance, measureDistanceCuboid, squareAtPoint };

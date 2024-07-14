@@ -3,7 +3,7 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
-import { getShapeFootprint, measureDistanceCuboid, squareAtPoint } from "../index.ts";
+import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -43,21 +43,35 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
     }
 
+    get isTiny(): boolean {
+        return this.document.height < 1 || this.document.width < 1;
+    }
+
     /** The grid offsets representing this token's shape */
     get footprint(): GridOffset[] {
-        if (canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) return [];
-        if (this.document.width <= 1 && this.document.height <= 1) {
-            return [canvas.grid.getOffset(this.getSnappedPosition())];
+        const shape = this.isTiny ? this.mechanicalBounds : this.localShape;
+        const seen = new Set<number>();
+        const offsets: GridOffset[] = [];
+        const [i0, j0, i1, j1] = canvas.grid.getOffsetRange(this.mechanicalBounds);
+        for (let i = i0; i < i1; i++) {
+            for (let j = j0; j < j1; j++) {
+                const offset = { i, j };
+                const packed = (offset.i << 16) + offset.j;
+                if (seen.has(packed)) continue;
+                seen.add(packed);
+                const point = canvas.grid.getCenterPoint(offset);
+                if (shape.contains(point.x, point.y)) {
+                    offsets.push(offset);
+                }
+            }
         }
-        return getShapeFootprint(this.localShape, canvas.grid.getOffset(this.center));
+        return offsets.sort((a, b) => a.j - b.j).sort((a, b) => a.i - b.i);
     }
 
     get #isDragMeasuring(): boolean {
-        return (
-            game.pf2e.settings.dragMeasurement &&
-            canvas.controls.ruler.isMeasuring &&
-            canvas.controls.ruler.token === this
-        );
+        const settingEnabled = game.pf2e.settings.dragMeasurement;
+        const ruler = canvas.controls.ruler;
+        return settingEnabled && ruler.dragMeasurement && ruler.isMeasuring && ruler.token === this;
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -110,11 +124,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle {
         const bounds = super.bounds;
-        if (this.document.width < 1) {
-            const position = canvas.grid.getTopLeftPoint({
-                x: bounds.x + bounds.width / 2,
-                y: bounds.y + bounds.height / 2,
-            });
+        if (this.isTiny) {
+            const position = canvas.grid.getTopLeftPoint(bounds);
             return new PIXI.Rectangle(
                 position.x,
                 position.y,
@@ -584,7 +595,12 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
 
     protected override async _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<void | TDocument[]> {
         if (this.#isDragMeasuring) {
-            canvas.controls.ruler.finishDragMeasurement();
+            // Pass along exact destination coordinates if this token is tiny
+            const destination =
+                this.isTiny && event.interactionData.clones
+                    ? R.pick(event.interactionData.clones[0], ["x", "y"])
+                    : null;
+            canvas.controls.ruler.finishDragMeasurement(destination);
             this.layer.clearPreviewContainer();
         } else {
             super._onDragLeftDrop(event);
