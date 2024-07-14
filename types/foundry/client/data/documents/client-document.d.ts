@@ -13,6 +13,7 @@ declare global {
 
     interface CanvasDocument extends ClientDocument {
         readonly parent: ClientBaseScene | null;
+        object: PlaceableObject<this> | null;
         hidden?: boolean;
     }
 }
