@@ -168,6 +168,7 @@ class MeasuredTemplatePF2e<
             };
         };
 
+        const pointSource = new foundry.canvas.sources.PointMovementSource({ object: this });
         const points: PointCollision[] = [];
         for (let a = -columnCount; a < columnCount; a++) {
             for (let b = -rowCount; b < rowCount; b++) {
@@ -203,6 +204,7 @@ class MeasuredTemplatePF2e<
                     canvas.ready &&
                     CONFIG.Canvas.polygonBackends.move.testCollision(origin, destination, {
                         type: "move",
+                        source: pointSource,
                         mode: "any",
                     });
 
