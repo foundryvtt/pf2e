@@ -4,7 +4,7 @@
     "name": "Effect: Pickled Demon Tongue - Armor (Major)",
     "system": {
         "description": {
-            "value": "<p>You gain resistance 10 to acid.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Pickled Demon Tongue (Major)]</p>\n<p>You gain resistance 10 to acid and attacks by demons.</p>"
         },
         "duration": {
             "expiry": null,
@@ -24,6 +24,16 @@
             {
                 "key": "Resistance",
                 "type": "acid",
+                "value": 10
+            },
+            {
+                "definition": [
+                    "origin:action:trait:attack",
+                    "origin:trait:demon"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AttacksDemons",
+                "type": "custom",
                 "value": 10
             }
         ],
