@@ -83,10 +83,10 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         const skillsAndLoresEl = html.querySelector<HTMLInputElement>("input#check-prompt-skills");
         const skillsAndLores = {
             ...R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
-            ...R.isEmpty(this.#lores || {}) ? {} : this.#lores,
+            ...(R.isEmpty(this.#lores || {}) ? {} : this.#lores),
             perception: "PF2E.PerceptionLabel",
-        }
-        tagify(skillsAndLoresEl, { whitelist: skillsAndLores })
+        };
+        tagify(skillsAndLoresEl, { whitelist: skillsAndLores });
 
         const saveEl = html.querySelector<HTMLInputElement>("input#check-prompt-saves");
         tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
@@ -160,14 +160,16 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content = actions.length > 0 && types.length === 0 ? actions.map((action) => this.#constructAction(action, dc, null)).join("") :
-                actions.length === types.length
-                    ? R.zip(actions, types)
-                          .map((value) => this.#constructAction(value[0], dc, value[1]))
-                          .join("")
-                    : actions.length === 1
-                      ? types.map((type) => this.#constructAction(actions[0], dc, type)).join("")
-                      : types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            const content =
+                actions.length > 0 && types.length === 0
+                    ? actions.map((action) => this.#constructAction(action, dc, null)).join("")
+                    : actions.length === types.length
+                      ? R.zip(actions, types)
+                            .map((value) => this.#constructAction(value[0], dc, value[1]))
+                            .join("")
+                      : actions.length === 1
+                        ? types.map((type) => this.#constructAction(actions[0], dc, type)).join("")
+                        : types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
