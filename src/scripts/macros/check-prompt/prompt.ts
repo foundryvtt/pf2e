@@ -97,6 +97,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             : { whitelist: this.#actions, enforceWhitelist: false };
         tagify(actionEl, actionOptions);
 
+        const variantsEl = html.querySelector<HTMLInputElement>("input#check-prompt-variants");
+        tagify(variantsEl)
+
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
         tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
 
@@ -127,6 +130,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         const types: string[] = [];
         const traits: string[] = [];
         const actions: string[] = [];
+        const variants: string[] = [];
         const extras: string[] = [];
         const activeSkillSaveTab = htmlQuery(html, "section.check-prompt-content section.tab.active");
         if (activeSkillSaveTab?.dataset.tab === "skills") {
@@ -134,6 +138,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             actions.push(
                 ...this.#htmlQueryTags(html, "input#check-prompt-actions").map((a) =>
                     a.toLowerCase().replace("action:", "").trim(),
+                ),
+            );
+            variants.push(
+                ...this.#htmlQueryTags(html, "input#check-prompt-variants").map((v) =>
+                    v.toLowerCase().trim(),
                 ),
             );
             // get skill tags
@@ -162,13 +171,13 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const dc = this.#getDC(html);
             const content =
                 actions.length > 0 && types.length === 0
-                    ? actions.map((action) => this.#constructAction(action, dc, null)).join("")
+                    ? actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("")
                     : actions.length === types.length
                       ? R.zip(actions, types)
-                            .map((value) => this.#constructAction(value[0], dc, value[1]))
+                            .map((value) => this.#constructAction(value[0], variants[0], dc, value[1]))
                             .join("")
                       : actions.length === 1
-                        ? types.map((type) => this.#constructAction(actions[0], dc, type)).join("")
+                        ? types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("")
                         : types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
@@ -229,8 +238,8 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         return `<p>@Check[${parts.join("|")}]</p>`;
     }
 
-    #constructAction(action: string, dc: number | null, statistic: string | null): string {
-        const parts = [action, statistic ? `statistic=${statistic}` : null, Number.isInteger(dc) ? `dc=${dc}` : null];
+    #constructAction(action: string, variant: string | null, dc: number | null, statistic: string | null): string {
+        const parts = [action, variant ? `variant=${variant}` : null, statistic ? `statistic=${statistic}` : null, Number.isInteger(dc) ? `dc=${dc}` : null];
         return `[[/act ${parts.join(" ")}]]`;
     }
 }
