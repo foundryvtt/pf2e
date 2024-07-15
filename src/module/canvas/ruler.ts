@@ -65,16 +65,16 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     startDragMeasurement(event: TokenPointerEvent<NonNullable<TToken>>): void {
         const token = event.interactionData.object;
+        this.#snap = !event.shiftKey;
         if (!this.dragMeasurement || !token || game.activeTool === "ruler") {
             return;
         }
-        const snap = !event.shiftKey;
         token.document.locked = true;
-        const center = canvas.grid.getOffset(canvas.grid.getCenterPoint(token.center));
-        this.#footprint = token.footprint.map((o) => ({ i: o.i - center.i, j: o.j - center.j }));
-        this.#snap = snap;
+        const originPoint = token.center;
+        const offset = canvas.grid.getOffset(originPoint);
+        this.#footprint = token.footprint.map((o) => ({ i: o.i - offset.i, j: o.j - offset.j }));
 
-        return this._startMeasurement(token.center, { snap, token });
+        return this._startMeasurement(originPoint, { snap: this.#snap, token });
     }
 
     /**
