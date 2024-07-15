@@ -24,7 +24,37 @@
             "remaster": false,
             "title": "Pathfinder #153: Life's Long Shadows"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:resonant-reflection"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfStone.Description"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:resonant-reflection"
+                ],
+                "property": "traits",
+                "value": "earth"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
