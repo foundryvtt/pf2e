@@ -19,6 +19,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
      * @param [slugs] A specific list of slugs to limit which auras are cleared
      */
     async reset(slugs?: string[]): Promise<void> {
+        const preUpdateSlugs = Array.from(this.keys());
         if (!slugs) {
             this.clear();
         } else {
@@ -29,11 +30,21 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         if (!this.token.actor) return;
 
-        const data = Array.from(this.token.document.auras.values()).filter((a) => slugs?.includes(a.slug) ?? true);
+        const documentAuras = Array.from(this.token.document.auras.values());
+        const data = documentAuras.filter((a) => slugs?.includes(a.slug) ?? true);
+        const removedAuras = preUpdateSlugs.filter((a) => !documentAuras.map((b) => b.slug).includes(a));
         for (const datum of data) {
             const renderer = new AuraRenderer({ ...datum, token: this.token });
             this.set(datum.slug, this.token.addChild(renderer));
         }
+
+        if (removedAuras.length) Hooks.callAll("pf2e.deletedAuras", this, removedAuras);
+
+        const createdAuras = Array.from(this.keys()).filter((a) => !preUpdateSlugs.includes(a));
+        if (createdAuras.length) Hooks.callAll("pf2e.createdAuras", this, createdAuras);
+
+        const updatedAuras = data.map((a) => a.slug).filter((a) => !createdAuras.includes(a));
+        if (updatedAuras.length) Hooks.callAll("pf2e.updatedAuras", this, updatedAuras);
 
         return this.draw();
     }
