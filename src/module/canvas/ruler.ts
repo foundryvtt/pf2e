@@ -101,6 +101,20 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return this._endMeasurement();
     }
 
+    /** Allow GMs to move tokens through walls when drag-measuring. */
+    protected override _canMove(token: TToken): boolean {
+        if (!game.user.isGM || !this.dragMeasurement) return super._canMove(token);
+        try {
+            return super._canMove(token);
+        } catch (error) {
+            if (error instanceof Error && error.message === "RULER.MovementCollision") {
+                return true;
+            } else {
+                throw error;
+            }
+        }
+    }
+
     /** Prevent inclusion of a token when using the ruler tool. */
     protected override _startMeasurement(origin: Point, options: { snap?: boolean; token?: TToken | null } = {}): void {
         if (game.activeTool === "ruler") options.token = null;
