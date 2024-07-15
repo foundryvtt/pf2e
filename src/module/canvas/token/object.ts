@@ -22,6 +22,10 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         this.flankingHighlight = new FlankingHighlightRenderer(this);
     }
 
+    get isTiny(): boolean {
+        return this.document.height < 1 || this.document.width < 1;
+    }
+
     /** This token's shape at its canvas position */
     get localShape(): TokenShape {
         switch (this.shape.type) {
@@ -41,10 +45,6 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 return shape;
             }
         }
-    }
-
-    get isTiny(): boolean {
-        return this.document.height < 1 || this.document.width < 1;
     }
 
     /** The grid offsets representing this token's shape */
