@@ -1,6 +1,7 @@
 import type { UserPF2e } from "@module/user/document.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentFeatureRegionBehavior } from "@scene/region-behavior/types.ts";
+import * as R from "remeda";
 import type { TokenPF2e } from "./token/object.ts";
 
 class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Ruler<TToken, UserPF2e> {
@@ -13,11 +14,13 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return game.pf2e.settings.dragMeasurement;
     }
 
-    /** The footprint of the drag-measured token */
+    /** Whether this measurement is being grid-snapped */
+    #snap = true;
+
+    /** The footprint of the drag-measured token relative to the origin center */
     #footprint: GridOffset[] = [];
 
-    /** Whether to widen the ruler highlighting to fill space occupied by a larger token */
-    #widenRuler = false;
+    #exactDestination: Point | null = null;
 
     /** A grid-snapping mode appropriate for the token's dimensions */
     get #snapMode(): GridSnappingMode {
@@ -29,6 +32,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
         const GT = CONST.GRID_TYPES;
         switch (canvas.grid.type) {
+            case GT.HEXEVENQ:
             case GT.HEXEVENR:
                 return M.LEFT_SIDE_MIDPOINT;
             case GT.HEXODDR:
@@ -41,7 +45,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     get dragMeasurement(): boolean {
-        return RulerPF2e.#dragMeasurement;
+        return RulerPF2e.#dragMeasurement && this.#snap;
     }
 
     get isMeasuring(): boolean {
@@ -64,19 +68,34 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         if (!this.dragMeasurement || !token || game.activeTool === "ruler") {
             return;
         }
+        const snap = !event.shiftKey;
         token.document.locked = true;
-        this.#footprint = token.footprint;
-        this.#widenRuler = token.document.width > 1 && token.document.height > 1;
+        const center = canvas.grid.getOffset(canvas.grid.getCenterPoint(token.center));
+        this.#footprint = token.footprint.map((o) => ({ i: o.i - center.i, j: o.j - center.j }));
+        this.#snap = snap;
 
-        return this._startMeasurement(token.center, { snap: !event.shiftKey, token });
+        return this._startMeasurement(token.center, { snap, token });
     }
 
-    async finishDragMeasurement(): Promise<boolean | void> {
+    /**
+     * @param [exactDestination] The coordinates of the dragged token preview, if any
+     */
+    async finishDragMeasurement(exactDestination: Point | null = null): Promise<boolean | void> {
         if (!this.dragMeasurement) return;
         if (this.token) {
             this.token.document.locked = this.token.document._source.locked;
             if (!this.isMeasuring) canvas.mouseInteractionManager.cancel();
-            return this.moveToken();
+            // Special consideration for tiny tokens: allow them to move within a square
+            this.#exactDestination = exactDestination;
+            if (exactDestination && this.token.document.width < 1) {
+                const lastSegment = this.segments.at(-1);
+                if (lastSegment) {
+                    lastSegment.ray = new Ray(R.pick(this.token, ["x", "y"]), exactDestination);
+                }
+            }
+            return this.moveToken().then(() => {
+                this.#exactDestination = null;
+            });
         }
 
         return this._endMeasurement();
@@ -90,9 +109,12 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     /** Calculate cost as an addend to distance due to difficult terrain. */
     protected override _getCostFunction(): GridMeasurePathCostFunction | undefined {
-        if (!this.dragMeasurement || !this.token?.actor?.isOfType("creature")) return;
+        const isCreature = !!this.token?.actor?.isOfType("creature");
+        if (!this.dragMeasurement || !isCreature || canvas.regions.placeables.length === 0) {
+            return;
+        }
 
-        return (_from: GridOffset, to: GridOffset): number => {
+        return (_from: GridOffset, to: GridOffset, distance: number): number => {
             const token = canvas.controls.ruler.token;
             if (!token) return 0;
 
@@ -113,9 +135,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
             return difficultBehaviors.length > 0
                 ? difficultBehaviors.some((b) => b.system.terrain.difficult === 2)
-                    ? 10
-                    : 5
-                : 0;
+                    ? distance + 10
+                    : distance + 5
+                : distance;
         };
     }
 
@@ -136,19 +158,15 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     /** Widen the ruler when measuring with larger tokens. */
     protected override _highlightMeasurementSegment(segment: RulerMeasurementSegment): void {
         const token = this.token;
-        if (segment.teleport || !this.dragMeasurement || !token || !this.#widenRuler) {
+        if (segment.teleport || !this.dragMeasurement || !token) {
             return super._highlightMeasurementSegment(segment);
         }
-
-        const center = canvas.grid.getOffset(token);
-        const origin = canvas.grid.getOffset(segment.ray.A);
-        const adjustment = { i: center.i - origin.i, j: center.j - origin.j };
 
         // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
         const seen = new Set<number>();
         for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
             for (const stomp of this.#footprint) {
-                const newOffset = { i: stomp.i + offset.i + adjustment.i, j: stomp.j + offset.j + adjustment.j };
+                const newOffset = { i: offset.i + stomp.i, j: offset.j + stomp.j };
                 const packed = (newOffset.i << 16) + newOffset.j;
                 if (!seen.has(packed)) {
                     seen.add(packed);
@@ -157,6 +175,19 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
                 }
             }
         }
+    }
+
+    protected override _animateSegment(
+        token: TToken,
+        segment: RulerMeasurementSegment,
+        destination: Point,
+    ): Promise<unknown> {
+        if (this.dragMeasurement && this.#exactDestination && token && token.w < canvas.grid.sizeX) {
+            const exactDestination = this.#exactDestination;
+            const adjustedDestination = exactDestination ? exactDestination : destination;
+            return super._animateSegment(token, segment, adjustedDestination);
+        }
+        return super._animateSegment(token, segment, destination);
     }
 
     /** If measuring with a token, only broadcast during an encounter. */
