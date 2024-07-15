@@ -117,7 +117,10 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     /** Prevent inclusion of a token when using the ruler tool. */
     protected override _startMeasurement(origin: Point, options: { snap?: boolean; token?: TToken | null } = {}): void {
-        if (game.activeTool === "ruler") options.token = null;
+        if (game.activeTool === "ruler" && this.dragMeasurement) {
+            options.token = null; // Setting to null prevents looking up a default
+        }
+
         return super._startMeasurement(origin, options);
     }
 
