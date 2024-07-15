@@ -2,8 +2,9 @@ import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import { ErrorPF2e, fontAwesomeIcon, isObject, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
+import * as R from "remeda";
 import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
@@ -96,7 +97,11 @@ class DamageRoll extends AbstractDamageRoll {
         const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
             const result = this.parser.parse(wrapped.replace(/@([a-z.0-9_-]+)/gi, "1"));
-            return isObject(result) && "class" in result && ["PoolTerm", "InstancePool"].includes(String(result.class));
+            return (
+                R.isPlainObject(result) &&
+                "class" in result &&
+                ["PoolTerm", "InstancePool"].includes(String(result.class))
+            );
         } catch {
             return false;
         }
@@ -106,14 +111,13 @@ class DamageRoll extends AbstractDamageRoll {
     static classifyDice(data: RollTermData): void {
         // Find all dice terms and resolve their class
         type PreProcessedDiceTerm = { class: string; faces?: string | number | object };
-        const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm =>
-            isObject<PreProcessedDiceTerm>(v) && v.class === "DiceTerm";
+        const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm => R.isPlainObject(v) && v.class === "DiceTerm";
         const deepFindDice = (value: object): PreProcessedDiceTerm[] => {
             const accumulated: PreProcessedDiceTerm[] = [];
             if (isDiceTerm(value)) {
                 accumulated.push(value);
-            } else if (value instanceof Object) {
-                const objects = Object.values(value).filter((v): v is object => v instanceof Object);
+            } else if (R.isPlainObject(value)) {
+                const objects = Object.values(value).filter((v): v is object => R.isPlainObject(v));
                 accumulated.push(...objects.flatMap((o) => deepFindDice(o)));
             }
 
