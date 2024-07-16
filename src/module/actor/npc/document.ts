@@ -6,7 +6,7 @@ import { ActorInitiative } from "@actor/initiative.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import type { SaveType } from "@actor/types.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import type { ItemPF2e, LorePF2e, MeleePF2e } from "@item";
+import type { ItemPF2e, MeleePF2e } from "@item";
 import type { ItemType } from "@item/base/data/index.ts";
 import { calculateDC } from "@module/dc.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -350,14 +350,17 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             return [skillSlug, statistic];
         });
 
-        // Lore skills
-        for (const loreItem of this.itemTypes.lore) {
+        // Assemble lore items, key'd by a normalized slug
+        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => {
             const rawLoreSlug = sluggify(loreItem.name);
-            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
-            const domains = [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"];
+            return [/\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`, loreItem];
+        });
 
+        // Add Lore skills to skill statistics
+        for (const [slug, loreItem] of Object.entries(loreItems)) {
+            const domains = [slug, "skill-check", "lore-skill-check", "int-skill-check", "all"];
             const statistic = new Statistic(this, {
-                slug: slug,
+                slug,
                 label: loreItem.name,
                 attribute: "int",
                 domains,
@@ -377,9 +380,7 @@ class NPCPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nul
             this.skills[slug] = statistic;
         }
 
-        // Create trace data in system data
-        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
-        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
+        // Create trace data in system data and omit unprepared skills
         this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
             const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
             const baseData = this.system.skills[key] ?? { base: loreItem?.system.mod.value ?? 0 };

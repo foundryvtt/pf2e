@@ -34,7 +34,6 @@ import type {
     DeityPF2e,
     FeatPF2e,
     HeritagePF2e,
-    LorePF2e,
     PhysicalItemPF2e,
 } from "@item";
 import { ItemPF2e, WeaponPF2e } from "@item";
@@ -935,10 +934,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             return [skillSlug, statistic];
         });
 
-        // Add Lore skills to skill statistics
-        for (const loreItem of this.itemTypes.lore) {
+        // Assemble lore items, key'd by a normalized slug
+        const loreItems = R.mapToObj(this.itemTypes.lore, (loreItem) => {
             const rawLoreSlug = sluggify(loreItem.name);
-            const slug = /\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`;
+            return [/\blore\b/.test(rawLoreSlug) ? rawLoreSlug : `${rawLoreSlug}-lore`, loreItem];
+        });
+
+        // Add Lore skills to skill statistics
+        for (const [slug, loreItem] of Object.entries(loreItems)) {
             const rank = loreItem.system.proficient.value;
             this.skills[slug as SkillSlug] = new Statistic(this, {
                 slug,
@@ -952,8 +955,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Create trace skill data in system data and omit unprepared skills
-        type GappyLoreItems = Partial<Record<string, LorePF2e<this>>>;
-        const loreItems: GappyLoreItems = R.mapToObj(this.itemTypes.lore, (l) => [sluggify(l.name), l]);
         this.system.skills = R.mapToObj(Object.entries(this.skills), ([key, statistic]) => {
             const loreItem = statistic.lore ? loreItems[statistic.slug] : null;
             const baseData = this.system.skills[key] ?? {};
