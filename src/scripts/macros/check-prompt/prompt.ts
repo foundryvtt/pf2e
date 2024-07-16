@@ -5,7 +5,7 @@ import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { htmlQuery, signedInteger, tagify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { getActions, loreSkillsFromActors } from "./helpers.ts";
+import { getActions, getVariants, loreSkillsFromActors } from "./helpers.ts";
 
 interface CheckPromptDialogOptions extends ApplicationOptions {
     actors: CharacterPF2e[];
@@ -30,6 +30,7 @@ interface TagifyValue {
 class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
+    #variants?: Record<string, string>;
 
     static override get defaultOptions(): ApplicationOptions {
         return {
@@ -49,6 +50,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
     override async getData(): Promise<CheckPromptDialogData> {
         this.#actions = await getActions();
+        this.#variants = {};
         this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party?.members ?? []);
 
         return {
@@ -98,7 +100,10 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         tagify(actionEl, actionOptions);
 
         const variantsEl = html.querySelector<HTMLInputElement>("input#check-prompt-variants");
-        tagify(variantsEl)
+        const variants = R.isEmpty(this.#variants || {})
+            ? {}
+            : { whitelist: this.#variants, enforceWhitelist: false };
+        tagify(variantsEl, variants);
 
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
         tagify(traitEl, { whitelist: CONFIG.PF2E.actionTraits, enforceWhitelist: false });
@@ -141,9 +146,7 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
                 ),
             );
             variants.push(
-                ...this.#htmlQueryTags(html, "input#check-prompt-variants").map((v) =>
-                    v.toLowerCase().trim(),
-                ),
+                ...this.#htmlQueryTags(html, "input#check-prompt-variants").map((v) => v.toLowerCase().trim()),
             );
             // get skill tags
             types.push(...this.#htmlQueryTags(html, "input#check-prompt-skills"));
@@ -239,7 +242,12 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     }
 
     #constructAction(action: string, variant: string | null, dc: number | null, statistic: string | null): string {
-        const parts = [action, variant ? `variant=${variant}` : null, statistic ? `statistic=${statistic}` : null, Number.isInteger(dc) ? `dc=${dc}` : null];
+        const parts = [
+            action,
+            variant ? `variant=${variant}` : null,
+            statistic ? `statistic=${statistic}` : null,
+            Number.isInteger(dc) ? `dc=${dc}` : null,
+        ];
         return `[[/act ${parts.join(" ")}]]`;
     }
 }

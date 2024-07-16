@@ -23,4 +23,10 @@ async function getActions(): Promise<Record<string, string>> {
     }
 }
 
-export { getActions, loreSkillsFromActors };
+function getVariants(slug: string): Record<string, string> {
+    const action = game.pf2e.actions.get(slug);
+    const variants = action?.variants.map((v) => [v.slug, v.name])
+    return variants ? Object.fromEntries(variants) : {}
+}
+
+export { getActions, getVariants, loreSkillsFromActors };
