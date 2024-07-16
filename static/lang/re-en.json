@@ -158,7 +158,7 @@
                 "SunNote": "The target is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round."
             },
             "DaemonForm": {
-                "CeustodaemonDamageNote": "Any successful jaws or claw Strike deals an additional @Damage[1d6[untyped]]{1d6 damage}, and you take the same amount of damage"
+                "CeustodaemonDamageNote": "Any successful jaws or claw Strike deals an additional @Damage[1d6[untyped]] damage, and you take the same amount of damage"
             },
             "ElementEmbodied": {
                 "AirPushNote": "Plus @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl]{Push} 10 feet",
@@ -194,11 +194,11 @@
             "AcidFlask": {
                 "Greater": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(2*3d6)[persistent,acid]] and @Damage[(3[splash])[acid]]{3 acid splash damage}.",
-                    "success": "<strong>Effect</strong> The bomb also deals @Damage[(3d6[persistent,acid]]{3d6 persistent acid} and @Damage[(3[splash])[acid]]{3 acid splash damage}."
+                    "success": "<strong>Effect</strong> The bomb also deals @Damage[3d6[persistent,acid]] and @Damage[(3[splash])[acid]]{3 acid splash damage}."
                 },
                 "Lesser": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(2*1d6)[persistent,acid]] and @Damage[(1[splash])[acid]]{1 acid splash damage}.",
-                    "success": "<strong>Effect</strong> The bomb also deals @Damage[1d6[persistent,acid]]{1d6 persistent acid} and @Damage[(1[splash])[acid]]{1 acid splash damage}."
+                    "success": "<strong>Effect</strong> The bomb also deals @Damage[1d6[persistent,acid]] and @Damage[(1[splash])[acid]]{1 acid splash damage}."
                 },
                 "Major": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(2*4d6)[persistent,acid]] and @Damage[(4[splash])[acid]]{4 acid splash damage}.",
@@ -985,7 +985,7 @@
             "PoltergeistTelekineticStorm": {
                 "MultiAttackLabel": "Telekinetic Storm - Multiple Targets",
                 "MultipleTargets": "Multiple Targets",
-                "SingleAttackEffect": "The attack deals @Damage[1d12[untyped]]{1d12 damage} on a failure.",
+                "SingleAttackEffect": "The attack deals @Damage[1d12[untyped]] damage on a failure.",
                 "SingleAttackLabel": "Telekinetic Storm - Single Target",
                 "SingleTarget": "Single Target"
             },
@@ -2902,7 +2902,7 @@
             },
             "Hobgoblin": {
                 "AgonizingRebuke": {
-                    "Note": "When you successfully Demoralize a foe, that foe takes @Damage[1d4[mental]]{1d4 mental damage} at the start of each of its turns as long as it remains Frightened and continues to engage in combat with you. If you have master proficiency in Intimidation, the damage increases to @Damage[2d4[mental]]{2d4}, and if you have legendary proficiency, the damage increases to @Damage[3d4[mental]]{3d4}."
+                    "Note": "When you successfully Demoralize a foe, that foe takes @Damage[(ternary(gte(@actor.system.skills.intimidation.rank,4),3,ternary(gte(@actor.system.skills.intimidation.rank,3),2,1))d4)[mental]]{1d4 mental damage} at the start of each of its turns as long as it remains Frightened and continues to engage in combat with you. If you have master proficiency in Intimidation, the damage increases to 2d4, and if you have legendary proficiency, the damage increases to 3d4."
                 },
                 "CantorianReinforcement": {
                     "Note": "When you succeed at a saving throw against a disease or poison, you reduce the stage by 2 (or 1 for a virulent disease or poison), and when you critically succeed, you reduce the stage by 3 (or 2 for a virulent disease or poison)."
@@ -3132,7 +3132,7 @@
                     "Note": "On a critical hit, a seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round. @UUID[Compendium.pf2e.feat-effects.Item.wQDHpOKY3GZqvS2v]{Effect: Seedpod}"
                 },
                 "ThornedSeedpod": {
-                    "Note": "When you critically succeed at a seedpod Strike, vines twist and stab your foe, dealing @Damage[1d4[persistent,piercing]]{1d4 persistent piercing damage}."
+                    "Note": "When you critically succeed at a seedpod Strike, vines twist and stab your foe, dealing @Damage[1d4[persistent,piercing]] damage."
                 }
             },
             "Lich": {
@@ -3348,7 +3348,7 @@
             },
             "Nagaji": {
                 "VenomSpit": {
-                    "CriticalNote": "The target takes @Damage[(1+@weapon.system.runes.striking)[persistent,poison]]{persistent poison damage} equal to the number of weapon damage dice",
+                    "CriticalNote": "The target takes @Damage[(@weapon.system.damage.dice)[persistent,poison]]{persistent poison damage} equal to the number of weapon damage dice",
                     "HoodedNote": "The target is also @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the start of your next turn.",
                     "StrikeLabel": "Venomous Spit"
                 }
