@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Moderate Curse</strong> Poisons are quick to debilitate you. When you roll a failure at a Fortitude save against a poison, you get a critical failure instead.</p>"
+            "value": "<p>Poisons are quick to debilitate you. When you roll a failure at a Fortitude save against a poison, you get a critical failure instead.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "fortitude"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

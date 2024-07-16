@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Moderate Curse</strong> Others subconsciously recognize your past betrayals.</p>\n<p>Whenever you attempt a Diplomacy check and roll a failure, you get a critical failure instead, and if you roll a critical success, you get a success instead.</p>"
+            "value": "<p>Others subconsciously recognize your past betrayals.</p>\n<p>Whenever you attempt a Diplomacy check and roll a failure, you get a critical failure instead, and if you roll a critical success, you get a success instead.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,16 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "diplomacy"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
