@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Minor Curse</strong> Norgorber allows thieves to get the better of you.</p>\n<p>Whenever you Earn Income, you earn money as if the task were 2 levels lower due to theft, loss, or bad fortune.</p>"
+            "value": "<p>Norgorber allows thieves to get the better of you.</p>\n<p>Whenever you @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], you earn money as if the task were 2 levels lower due to theft, loss, or bad fortune.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,17 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
