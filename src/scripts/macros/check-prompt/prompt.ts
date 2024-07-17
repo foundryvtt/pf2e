@@ -96,15 +96,11 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
 
         const actionEl = html.querySelector<HTMLInputElement>("input#check-prompt-actions");
-        const actionOptions = R.isEmpty(this.#macros || {})
-            ? {}
-            : { whitelist: this.#macros, maxTags: 1 };
+        const actionOptions = R.isEmpty(this.#macros || {}) ? {} : { whitelist: this.#macros, maxTags: 1 };
         tagify(actionEl, actionOptions);
 
         const variantsEl = html.querySelector<HTMLInputElement>("input#check-prompt-variants");
-        const variants = R.isEmpty(this.#variants || {})
-            ? {}
-            : { whitelist: this.#variants, maxTags: 1 };
+        const variants = R.isEmpty(this.#variants || {}) ? {} : { whitelist: this.#variants, maxTags: 1 };
         tagify(variantsEl, variants);
 
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
@@ -176,9 +172,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const dc = this.#getDC(html);
             let content: string = "";
             if (actions.length > 0 && types.length > 0) {
-                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("")
+                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("");
             } else if (actions.length > 0 && types.length === 0) {
-                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("")
+                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("");
             } else {
                 content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
             }
