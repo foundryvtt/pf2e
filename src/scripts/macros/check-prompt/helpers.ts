@@ -23,10 +23,15 @@ async function getActions(): Promise<Record<string, string>> {
     }
 }
 
-function getVariants(slug: string): Record<string, string> {
-    const action = game.pf2e.actions.get(slug);
-    const variants = action?.variants.map((v) => [v.slug, v.name])
+function getMacros(): Record<string, string> {
+    const actions = game.pf2e.actions.map((a) => [a.slug, a.name]);
+    return actions ? Object.fromEntries(actions) : {}
+}
+
+function getVariants(): Record<string, string> {
+    const actions = game.pf2e.actions;
+    const variants = actions.map((a) => a.variants.map((v) => [v.slug, v.name])).flat();
     return variants ? Object.fromEntries(variants) : {}
 }
 
-export { getActions, getVariants, loreSkillsFromActors };
+export { getActions, getMacros, getVariants, loreSkillsFromActors };

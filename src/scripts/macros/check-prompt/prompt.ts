@@ -5,7 +5,7 @@ import { adjustDC, calculateDC, calculateSimpleDC, DCAdjustment } from "@module/
 import { ActionDefaultOptions } from "@system/action-macros/types.ts";
 import { htmlQuery, signedInteger, tagify, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { getActions, getVariants, loreSkillsFromActors } from "./helpers.ts";
+import { getActions, getMacros, getVariants, loreSkillsFromActors } from "./helpers.ts";
 
 interface CheckPromptDialogOptions extends ApplicationOptions {
     actors: CharacterPF2e[];
@@ -30,6 +30,7 @@ interface TagifyValue {
 class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
     #actions?: Record<string, string>;
     #lores?: Record<string, string>;
+    #macros?: Record<string, string>;
     #variants?: Record<string, string>;
 
     static override get defaultOptions(): ApplicationOptions {
@@ -50,7 +51,8 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
 
     override async getData(): Promise<CheckPromptDialogData> {
         this.#actions = await getActions();
-        this.#variants = {};
+        this.#macros = getMacros();
+        this.#variants = getVariants();
         this.#lores = loreSkillsFromActors(this.options.actors ?? game.actors.party?.members ?? []);
 
         return {
@@ -94,15 +96,15 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         tagify(saveEl, { whitelist: CONFIG.PF2E.saves });
 
         const actionEl = html.querySelector<HTMLInputElement>("input#check-prompt-actions");
-        const actionOptions = R.isEmpty(this.#actions || {})
+        const actionOptions = R.isEmpty(this.#macros || {})
             ? {}
-            : { whitelist: this.#actions, enforceWhitelist: false };
+            : { whitelist: this.#macros, maxTags: 1 };
         tagify(actionEl, actionOptions);
 
         const variantsEl = html.querySelector<HTMLInputElement>("input#check-prompt-variants");
         const variants = R.isEmpty(this.#variants || {})
             ? {}
-            : { whitelist: this.#variants, enforceWhitelist: false };
+            : { whitelist: this.#variants, maxTags: 1 };
         tagify(variantsEl, variants);
 
         const traitEl = html.querySelector<HTMLInputElement>("input#check-prompt-traits");
@@ -172,16 +174,14 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const flavor = titleEl?.value ? `<h4 class="action"><strong>${titleEl.value}</strong></h4><hr>` : "";
 
             const dc = this.#getDC(html);
-            const content =
-                actions.length > 0 && types.length === 0
-                    ? actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("")
-                    : actions.length === types.length
-                      ? R.zip(actions, types)
-                            .map((value) => this.#constructAction(value[0], variants[0], dc, value[1]))
-                            .join("")
-                      : actions.length === 1
-                        ? types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("")
-                        : types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            let content: string = "";
+            if (actions.length > 0 && types.length > 0) {
+                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("")
+            } else if (actions.length > 0 && types.length === 0) {
+                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("")
+            } else {
+                content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
+            }
 
             ChatMessagePF2e.create({ author: game.user.id, flavor, content });
         }
