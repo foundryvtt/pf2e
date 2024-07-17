@@ -37,33 +37,51 @@
                 "value": true
             },
             {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "nor": [
+                            "item:slug:resonant-reflection-reflection-of-stone",
+                            "item:slug:resonant-reflection-reflection-of-storm",
+                            "item:slug:resonant-reflection-reflection-of-life",
+                            "item:slug:resonant-reflection-reflection-of-water"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+            },
+            {
                 "itemType": "action",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:resonant-reflection"
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-light"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Description"
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Title"
                     }
                 ]
             },
             {
-                "itemType": "action",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "item:slug:resonant-reflection"
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-light"
+                    }
                 ],
-                "property": "traits",
-                "value": "light"
-            },
-            {
-                "allowDuplicate": false,
-                "key": "GrantItem",
-                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+                "toggleable": true
             }
         ],
         "traits": {
