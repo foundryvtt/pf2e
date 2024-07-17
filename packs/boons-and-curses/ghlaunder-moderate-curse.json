@@ -1,10 +1,10 @@
 {
     "_id": "y736aBzm4RKwB7RQ",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Ghlaunder.webp",
     "name": "Ghlaunder - Moderate Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Moderate Curse:</strong> Ghlaunder leeches your energy from you as easily as blood. Any time you fail a Fortitude save, you become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] in addition to all other effects.</p>"
+            "value": "<p>Ghlaunder leeches your energy from you as easily as blood. Any time you fail a Fortitude save, you become @UUID[Compendium.pf2e.conditionitems.Item.Fatigued] in addition to all other effects.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure",
+                    "failure"
+                ],
+                "selector": "fortitude",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

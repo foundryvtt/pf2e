@@ -25,15 +25,9 @@ export class HexagonalGrid extends BaseGrid {
 
     override testAdjacency(coords1: HexagonalGridCoordinates, coords2: HexagonalGridCoordinates): boolean;
 
-    override getShiftedOffset(
-        coords: HexagonalGridCoordinates,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): GridOffset;
+    override getShiftedOffset(coords: HexagonalGridCoordinates, direction: MovementDirection): GridOffset;
 
-    override getShiftedPoint(
-        point: Point,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): Point;
+    override getShiftedPoint(point: Point, direction: MovementDirection): Point;
 
     /**
      * Returns the cube coordinates of the grid space corresponding to the given coordinates.
@@ -52,13 +46,10 @@ export class HexagonalGrid extends BaseGrid {
     /**
      * Returns the cube coordinates of the grid space corresponding to the given coordinates
      * shifted by one grid space in the given direction.
-     * @param  coords     The coordinates
-     * @param  direction  The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
+     * @param  coords    The coordinates
+     * @param  direction The direction (see {@link CONST.MOVEMENT_DIRECTIONS})
      */
-    getShiftedCube(
-        coords: HexagonalGridCoordinates,
-        direction: (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS],
-    ): HexagonalGridCube;
+    getShiftedCube(coords: HexagonalGridCoordinates, direction: MovementDirection): HexagonalGridCube;
 
     override getTopLeftPoint(coords: HexagonalGridCoordinates): Point;
 

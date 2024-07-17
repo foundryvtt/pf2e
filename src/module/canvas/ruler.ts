@@ -14,21 +14,42 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return game.pf2e.settings.dragMeasurement;
     }
 
+    /** Whether this measurement is being grid-snapped */
+    #snap = true;
+
+    /** The footprint of the drag-measured token relative to the origin center */
+    #footprint: GridOffset[] = [];
+
+    #exactDestination: Point | null = null;
+
+    /** A grid-snapping mode appropriate for the token's dimensions */
+    get #snapMode(): GridSnappingMode {
+        const token = this.token;
+        const M = CONST.GRID_SNAPPING_MODES;
+        if (!token || Math.max(token.document.width, 1) % 2 === 1) {
+            return M.CENTER;
+        }
+
+        const GT = CONST.GRID_TYPES;
+        switch (canvas.grid.type) {
+            case GT.HEXEVENQ:
+            case GT.HEXEVENR:
+                return M.LEFT_SIDE_MIDPOINT;
+            case GT.HEXODDR:
+                return M.TOP_SIDE_MIDPOINT;
+            case GT.SQUARE:
+                return M.VERTEX;
+            default:
+                return M.CENTER;
+        }
+    }
+
     get dragMeasurement(): boolean {
-        return RulerPF2e.#dragMeasurement;
+        return RulerPF2e.#dragMeasurement && this.#snap;
     }
 
     get isMeasuring(): boolean {
         return this.state === RulerPF2e.STATES.MEASURING;
-    }
-
-    /** Get a grid snapping mode appropriate for the token's dimensions */
-    get #snapMode(): GridSnappingMode {
-        const tokenWidth = this.token?.w;
-        const sizeX = canvas.grid.sizeX;
-        return !tokenWidth || tokenWidth < sizeX || (tokenWidth / sizeX) % 2 === 1
-            ? CONST.GRID_SNAPPING_MODES.CENTER
-            : CONST.GRID_SNAPPING_MODES.VERTEX;
     }
 
     /** Add a waypoint at the currently-drawn destination. */
@@ -44,35 +65,73 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     startDragMeasurement(event: TokenPointerEvent<NonNullable<TToken>>): void {
         const token = event.interactionData.object;
+        this.#snap = !event.shiftKey;
         if (!this.dragMeasurement || !token || game.activeTool === "ruler") {
             return;
         }
         token.document.locked = true;
-        return this._startMeasurement(token.center, { snap: !event.shiftKey, token });
+        const originPoint = token.center;
+        const offset = canvas.grid.getOffset(originPoint);
+        this.#footprint = token.footprint.map((o) => ({ i: o.i - offset.i, j: o.j - offset.j }));
+
+        return this._startMeasurement(originPoint, { snap: this.#snap, token });
     }
 
-    async finishDragMeasurement(): Promise<boolean | void> {
+    /**
+     * @param [exactDestination] The coordinates of the dragged token preview, if any
+     */
+    async finishDragMeasurement(exactDestination: Point | null = null): Promise<boolean | void> {
         if (!this.dragMeasurement) return;
         if (this.token) {
             this.token.document.locked = this.token.document._source.locked;
             if (!this.isMeasuring) canvas.mouseInteractionManager.cancel();
-            return this.moveToken();
+            // Special consideration for tiny tokens: allow them to move within a square
+            this.#exactDestination = exactDestination;
+            if (exactDestination && this.token.document.width < 1) {
+                const lastSegment = this.segments.at(-1);
+                if (lastSegment) {
+                    lastSegment.ray = new Ray(R.pick(this.token, ["x", "y"]), exactDestination);
+                }
+            }
+            return this.moveToken().then(() => {
+                this.#exactDestination = null;
+            });
         }
 
         return this._endMeasurement();
     }
 
+    /** Allow GMs to move tokens through walls when drag-measuring. */
+    protected override _canMove(token: TToken): boolean {
+        if (!game.user.isGM || !this.dragMeasurement) return super._canMove(token);
+        try {
+            return super._canMove(token);
+        } catch (error) {
+            if (error instanceof Error && error.message === "RULER.MovementCollision") {
+                return true;
+            } else {
+                throw error;
+            }
+        }
+    }
+
     /** Prevent inclusion of a token when using the ruler tool. */
     protected override _startMeasurement(origin: Point, options: { snap?: boolean; token?: TToken | null } = {}): void {
-        if (game.activeTool === "ruler") options.token = null;
+        if (game.activeTool === "ruler" && this.dragMeasurement) {
+            options.token = null; // Setting to null prevents looking up a default
+        }
+
         return super._startMeasurement(origin, options);
     }
 
     /** Calculate cost as an addend to distance due to difficult terrain. */
     protected override _getCostFunction(): GridMeasurePathCostFunction | undefined {
-        if (!this.dragMeasurement || !this.token?.actor?.isOfType("creature")) return;
+        const isCreature = !!this.token?.actor?.isOfType("creature");
+        if (!this.dragMeasurement || !isCreature || canvas.regions.placeables.length === 0) {
+            return;
+        }
 
-        return (_from: GridOffset, to: GridOffset): number => {
+        return (_from: GridOffset, to: GridOffset, distance: number): number => {
             const token = canvas.controls.ruler.token;
             if (!token) return 0;
 
@@ -93,9 +152,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
             return difficultBehaviors.length > 0
                 ? difficultBehaviors.some((b) => b.system.terrain.difficult === 2)
-                    ? 10
-                    : 5
-                : 0;
+                    ? distance + 10
+                    : distance + 5
+                : distance;
         };
     }
 
@@ -120,36 +179,32 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return super._highlightMeasurementSegment(segment);
         }
 
-        const { sizeX, sizeY } = canvas.grid;
-        const tokenSize = token.getSize();
-        const width = Math.max(Math.ceil(tokenSize.width / sizeX) * sizeX, sizeX);
-        const height = Math.max(Math.ceil(tokenSize.height / sizeY) * sizeY, sizeY);
-        if (width <= sizeX && height <= sizeY) {
-            // Upstream can take care of single-grid-space tokens
-            return super._highlightMeasurementSegment(segment);
-        }
-
-        // Adjust by one grid square if the ruler origin is on a vertex
-        const adjustment = this.#snapMode === CONST.GRID_SNAPPING_MODES.VERTEX ? -1 * canvas.grid.sizeX : 0;
-
-        const points = canvas.grid.getDirectPath([segment.ray.A, segment.ray.B]).flatMap((offset) => {
-            const topLeft = R.mapValues(canvas.grid.getTopLeftPoint(offset), (v) => v + adjustment);
-            const points: Point[] = [];
-            const seen: Point[] = [];
-            for (let x = 0; x < width; x += canvas.grid.sizeX) {
-                for (let y = 0; y < height; y += canvas.grid.sizeY) {
-                    const point = { x: topLeft.x + sizeX - x, y: topLeft.y + sizeY - y };
-                    if (!seen.some((p) => p.x === point.x && p.y === point.y)) {
-                        points.push(point);
-                    }
+        // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
+        const seen = new Set<number>();
+        for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
+            for (const stomp of this.#footprint) {
+                const newOffset = { i: offset.i + stomp.i, j: offset.j + stomp.j };
+                const packed = (newOffset.i << 16) + newOffset.j;
+                if (!seen.has(packed)) {
+                    seen.add(packed);
+                    const point = canvas.grid.getTopLeftPoint(newOffset);
+                    canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
                 }
             }
-            return points;
-        });
-
-        for (const point of points) {
-            canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
         }
+    }
+
+    protected override _animateSegment(
+        token: TToken,
+        segment: RulerMeasurementSegment,
+        destination: Point,
+    ): Promise<unknown> {
+        if (this.dragMeasurement && this.#exactDestination && token && token.w < canvas.grid.sizeX) {
+            const exactDestination = this.#exactDestination;
+            const adjustedDestination = exactDestination ? exactDestination : destination;
+            return super._animateSegment(token, segment, adjustedDestination);
+        }
+        return super._animateSegment(token, segment, destination);
     }
 
     /** If measuring with a token, only broadcast during an encounter. */

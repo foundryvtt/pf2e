@@ -56,7 +56,7 @@ declare global {
          */
         protected static _sortAlphabetical(a: WorldDocument, b: WorldDocument): number;
 
-        protected override _render(force?: boolean, context?: SidebarDirectoryRenderOptions): Promise<void>;
+        protected override _render(force?: boolean, context?: RenderOptions): Promise<void>;
 
         protected override _renderInner(data: object): Promise<JQuery>;
 

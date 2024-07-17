@@ -8,7 +8,7 @@ declare class MeasuredTemplate<
     TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
     /** The template shape used for testing point intersection */
-    shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
+    shape: PlaceableShape;
 
     /** The tiling texture used for this template, if any */
     texture: PIXI.Texture | undefined;

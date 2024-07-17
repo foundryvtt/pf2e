@@ -303,8 +303,8 @@ export function registerSettings(): void {
         },
     });
 
-    // Called from i18nInit hook to get localized key name
-    Hooks.once("canvasReady", () => {
+    // Called from hook to ensure keybindings are available
+    Hooks.once("canvasInit", () => {
         const placeWaypointKey = ((): string => {
             const action = game.keybindings.bindings.get("pf2e.placeWaypoint")?.at(0);
             return action ? KeybindingsConfig._humanizeBinding(action) : "";

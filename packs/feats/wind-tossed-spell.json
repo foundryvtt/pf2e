@@ -31,7 +31,46 @@
             "remaster": true,
             "title": "Pathfinder Rage of Elements"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:wind-tossed-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WindTossedSpell"
+                    }
+                ]
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:wind-tossed-spell"
+                ],
+                "property": "traits",
+                "value": "air"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "wind-tossed-spell"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

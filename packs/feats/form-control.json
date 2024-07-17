@@ -28,7 +28,37 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:form-control",
+                    "item:slug:untamed-form"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.FormControl"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "form-control"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
