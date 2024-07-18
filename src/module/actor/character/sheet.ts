@@ -119,13 +119,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (tab) tab.initial = "biography";
         }
 
-        sheetData.numberToRank = R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
-            n,
-            game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
-        ]);
-
-        sheetData.senses = condenseSenses(this.actor.perception.senses.contents);
-
         // Attacks and defenses
         // Prune untrained martial proficiencies
         for (const section of ["attacks", "defenses"] as const) {
@@ -136,7 +129,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 }
             }
         }
-        sheetData.martialProficiencies = {
+
+        const martialProficiencies = {
             attacks: sortLabeledRecord(
                 R.mapValues(sheetData.data.proficiencies.attacks as Record<string, MartialProficiency>, (data, key) => {
                     const groupMatch = /^weapon-group-([-\w]+)$/.exec(key);
@@ -179,21 +173,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ),
         };
 
-        // A(H)BCD
-        sheetData.ancestry = actor.ancestry;
-        sheetData.heritage = actor.heritage;
-        sheetData.background = actor.background;
-        sheetData.class = actor.class;
-        sheetData.deity = actor.deity;
-
-        // Update hero points label
-        sheetData.data.resources.heroPoints.hover = game.i18n.format(
-            actor.heroPoints.value === 1 ? "PF2E.HeroPointRatio.One" : "PF2E.HeroPointRatio.Many",
-            actor.heroPoints,
-        );
-
         // Indicate whether the PC has all attribute boosts allocated
-        sheetData.attributeBoostsAllocated = ((): boolean => {
+        const attributeBoostsAllocated = ((): boolean => {
             const { build } = sheetData.data;
             if (build.attributes.manual || !isReallyPC(actor)) {
                 return true;
@@ -221,38 +202,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             );
         })();
 
-        // Class DCs
-        const allClassDCs = Object.values(sheetData.data.proficiencies.classDCs);
-        const classDCs = allClassDCs
-            .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
-            .map(
-                (classDC): ClassDCSheetData => ({
-                    ...classDC,
-                    icon: this.getProficiencyIcon(classDC.rank),
-                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
-                }),
-            )
-            .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
-        const primaryClassDC = sheetData.data.attributes.classDC?.slug ?? null;
-
-        sheetData.classDCs = {
-            dcs: classDCs,
-            primary: primaryClassDC,
-            perDCDetails: classDCs.length > 1 || !primaryClassDC,
-        };
-
-        // Acquire all unselected apex attribute options
-        const abpEnabled = game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor);
-        sheetData.apexAttributeOptions = abpEnabled
-            ? []
-            : this.actor.inventory.contents.flatMap((e) =>
-                  e.system.apex?.selected === false &&
-                  e.isInvested &&
-                  e.system.apex.attribute !== actor.system.build.attributes.apex
-                      ? e.system.apex.attribute
-                      : [],
-              );
-
         // Spellcasting
         const collectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]> = fu.mergeObject(
             { "known-spells": [], rituals: [], activations: [] },
@@ -261,13 +210,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 if (a.category === "ritual") return "rituals";
                 return "known-spells";
             }),
-        );
-
-        sheetData.magicTraditions = CONFIG.PF2E.magicTraditions;
-        sheetData.preparationType = CONFIG.PF2E.preparationType;
-        sheetData.spellCollectionGroups = collectionGroups;
-        sheetData.hasNormalSpellcasting = sheetData.spellCollectionGroups["known-spells"].some(
-            (s) => s.usesSpellProficiency,
         );
 
         // ensure saves are displayed in the following order:
@@ -285,24 +227,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Is the character's key ability score overridden by an Active Effect?
         sheetData.data.details.keyability.singleOption = actor.class?.system.keyAbility.value.length === 1;
 
-        // Is the stamina variant rule enabled?
-        sheetData.hasStamina = game.pf2e.settings.variants.stamina;
-        sheetData.actions = this.#prepareAbilities();
-        sheetData.feats = [...actor.feats, actor.feats.bonus];
-
         const craftingFormulas = await actor.getCraftingFormulas();
         const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);
         const flags = actor.flags.pf2e;
         const hasQuickAlchemy = !!(
             actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
         );
-
-        sheetData.crafting = {
-            noCost: flags.freeCrafting,
-            hasQuickAlchemy,
-            knownFormulas: formulasByLevel,
-            entries: await this.#prepareCraftingEntries(craftingFormulas),
-        };
 
         this.#knownFormulas = Object.values(formulasByLevel)
             .flat()
@@ -311,50 +241,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 result[entry.uuid] = entry;
                 return result;
             }, {});
-
-        sheetData.abpEnabled = AutomaticBonusProgression.isEnabled(actor);
-
-        sheetData.languages = ((): LanguageSheetData[] => {
-            const languagesBuild = actor.system.build.languages;
-            const sourceLanguages = actor._source.system.details.languages.value
-                .filter((l) => l in CONFIG.PF2E.languages)
-                .sort();
-            const isOverMax = languagesBuild.value > languagesBuild.max;
-            const languageSlugs = actor.system.details.languages.value;
-            const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
-            const localizedLanguages: LanguageSheetData[] = languageSlugs.flatMap((language) => {
-                if (language === commonLanguage && languageSlugs.includes("common")) {
-                    return [];
-                }
-                const label =
-                    language === "common" && commonLanguage
-                        ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
-                              language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
-                          })
-                        : game.i18n.localize(CONFIG.PF2E.languages[language]);
-                return { slug: language, label, tooltip: null, overLimit: false };
-            });
-
-            // If applicable, mark languages at the end as being over-limit
-            const sortedLanguages = localizedLanguages.sort((a, b) => a.label.localeCompare(b.label));
-            const commonFirst = R.sortBy(sortedLanguages, (l) => l.slug !== "common");
-            for (const language of commonFirst.filter((l) => l.slug && sourceLanguages.includes(l.slug)).reverse()) {
-                if (!language.slug) continue;
-                language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
-                language.tooltip = language.overLimit
-                    ? game.i18n.localize("PF2E.Actor.Character.Language.OverLimit")
-                    : null;
-            }
-
-            const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
-            const unallocatedTooltip = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Tooltip");
-            const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
-                () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
-            );
-            commonFirst.push(...unallocatedLanguages);
-
-            return commonFirst;
-        })();
 
         // Sort skills by localized label
         sheetData.data.skills = Object.fromEntries(
@@ -365,9 +251,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             ),
         ) as Record<SkillSlug, CharacterSkillData>;
 
-        sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
-
-        // Enrich content
+        // Create biography and enrich content
         const rollData = actor.getRollData();
         const biography = (sheetData.biography = actor.system.details.biography);
         const enrichmentOptions = { rollData, secrets: actor.isOwner, async: true };
@@ -384,19 +268,79 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             sheetData.enrichedContent[key] = await content;
         }
 
-        // Elemental Blasts
-        try {
-            const action = new ElementalBlast(this.actor);
-            const blastData = (await Promise.all(action.configs.map((c) => this.#getBlastData(action, c)))).sort(
-                (a, b) => a.label.localeCompare(b.label, game.i18n.lang),
-            );
-            sheetData.elementalBlasts = blastData;
-        } catch (error) {
-            if (BUILD_MODE === "development") console.error(error);
-            sheetData.elementalBlasts = [];
-        }
+        const elementalBlasts = await (async () => {
+            try {
+                const action = new ElementalBlast(this.actor);
+                const blastData = (await Promise.all(action.configs.map((c) => this.#getBlastData(action, c)))).sort(
+                    (a, b) => a.label.localeCompare(b.label, game.i18n.lang),
+                );
+                return blastData;
+            } catch (error) {
+                if (BUILD_MODE === "development") console.error(error);
+                return [];
+            }
+        })();
 
-        // Speed
+        return {
+            ...sheetData,
+
+            numberToRank: R.mapToObj([0, 1, 2, 3, 4] as const, (n) => [
+                n,
+                game.i18n.localize(`PF2E.ProficiencyLevel${n}`),
+            ]),
+            magicTraditions: CONFIG.PF2E.magicTraditions,
+            preparationType: CONFIG.PF2E.preparationType,
+
+            // A(H)BCD
+            ancestry: actor.ancestry,
+            heritage: actor.heritage,
+            background: actor.background,
+            class: actor.class,
+            deity: actor.deity,
+
+            senses: condenseSenses(this.actor.perception.senses.contents),
+            languages: this.#prepareLanguages(),
+            speeds: this.#prepareSpeed(),
+
+            martialProficiencies,
+            attributeBoostsAllocated,
+
+            classDCs: this.#prepareClassDCs(),
+
+            // Acquire all unselected apex attribute options
+            apexAttributeOptions: game.pf2e.variantRules.AutomaticBonusProgression.isEnabled(actor)
+                ? []
+                : this.actor.inventory.contents.flatMap((e) =>
+                      e.system.apex?.selected === false &&
+                      e.isInvested &&
+                      e.system.apex.attribute !== actor.system.build.attributes.apex
+                          ? e.system.apex.attribute
+                          : [],
+                  ),
+
+            spellCollectionGroups: collectionGroups,
+            hasNormalSpellcasting: collectionGroups["known-spells"].some((s) => s.usesSpellProficiency),
+
+            abpEnabled: AutomaticBonusProgression.isEnabled(actor),
+            hasStamina: game.pf2e.settings.variants.stamina,
+
+            actions: this.#prepareAbilities(),
+            feats: [...actor.feats, actor.feats.bonus],
+
+            crafting: {
+                noCost: flags.freeCrafting,
+                hasQuickAlchemy,
+                knownFormulas: formulasByLevel,
+                entries: await this.#prepareCraftingEntries(craftingFormulas),
+            },
+
+            tabVisibility: fu.deepClone(actor.flags.pf2e.sheetTabs),
+
+            elementalBlasts,
+        };
+    }
+
+    #prepareSpeed() {
         const speedIcons = {
             land: "person-running",
             swim: "person-swimming",
@@ -404,7 +348,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             fly: "feather-pointed",
             burrow: "water-ladder",
         };
-        sheetData.speeds = R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
+
+        return R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
             const speed = this.actor.system.attributes.speed;
             const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
             return {
@@ -416,9 +361,71 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 breakdown: slug === "land" ? speed.breakdown : null,
             };
         });
+    }
 
-        // Return data for rendering
-        return sheetData;
+    #prepareLanguages(): LanguageSheetData[] {
+        const actor = this.actor;
+        const languagesBuild = actor.system.build.languages;
+        const sourceLanguages = actor._source.system.details.languages.value
+            .filter((l) => l in CONFIG.PF2E.languages)
+            .sort();
+        const isOverMax = languagesBuild.value > languagesBuild.max;
+        const languageSlugs = actor.system.details.languages.value;
+        const commonLanguage = game.pf2e.settings.campaign.languages.commonLanguage;
+        const localizedLanguages: LanguageSheetData[] = languageSlugs.flatMap((language) => {
+            if (language === commonLanguage && languageSlugs.includes("common")) {
+                return [];
+            }
+            const label =
+                language === "common" && commonLanguage
+                    ? game.i18n.format("PF2E.Actor.Creature.Language.CommonLanguage", {
+                          language: game.i18n.localize(CONFIG.PF2E.languages[commonLanguage]),
+                      })
+                    : game.i18n.localize(CONFIG.PF2E.languages[language]);
+            return { slug: language, label, tooltip: null, overLimit: false };
+        });
+
+        // If applicable, mark languages at the end as being over-limit
+        const sortedLanguages = localizedLanguages.sort((a, b) => a.label.localeCompare(b.label));
+        const commonFirst = R.sortBy(sortedLanguages, (l) => l.slug !== "common");
+        for (const language of commonFirst.filter((l) => l.slug && sourceLanguages.includes(l.slug)).reverse()) {
+            if (!language.slug) continue;
+            language.overLimit = isOverMax && sourceLanguages.indexOf(language.slug) + 1 > languagesBuild.max;
+            language.tooltip = language.overLimit
+                ? game.i18n.localize("PF2E.Actor.Character.Language.OverLimit")
+                : null;
+        }
+
+        const unallocatedLabel = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Label");
+        const unallocatedTooltip = game.i18n.localize("PF2E.Actor.Character.Language.Unallocated.Tooltip");
+        const unallocatedLanguages = Array.fromRange(Math.max(0, languagesBuild.max - languagesBuild.value)).map(
+            () => ({ slug: null, label: unallocatedLabel, tooltip: unallocatedTooltip, overLimit: false }),
+        );
+        commonFirst.push(...unallocatedLanguages);
+
+        return commonFirst;
+    }
+
+    #prepareClassDCs() {
+        const actor = this.actor;
+        const allClassDCs = Object.values(actor.system.proficiencies.classDCs);
+        const classDCs = allClassDCs
+            .filter((cdc) => cdc.rank > 0 || allClassDCs.length > 1)
+            .map(
+                (classDC): ClassDCSheetData => ({
+                    ...classDC,
+                    icon: this.getProficiencyIcon(classDC.rank),
+                    hover: CONFIG.PF2E.proficiencyLevels[classDC.rank],
+                }),
+            )
+            .sort((a, b) => (a.primary ? -1 : b.primary ? 1 : a.slug.localeCompare(b.slug)));
+        const primaryClassDC = actor.attributes.classDC?.slug ?? null;
+
+        return {
+            dcs: classDCs,
+            primary: primaryClassDC,
+            perDCDetails: classDCs.length > 1 || !primaryClassDC,
+        };
     }
 
     /** Organize and classify Items for Character sheets */
