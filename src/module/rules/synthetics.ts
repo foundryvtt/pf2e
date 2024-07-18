@@ -54,10 +54,12 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: ActiveEffectPF2e<TActor>[];
     tokenMarks: Map<TokenDocumentUUID, string>;
-    tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name" | "alpha">> & {
+    tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name">> & {
+        alpha?: number | null;
         texture?:
-            | { src: VideoFilePath; tint?: Color }
-            | { src: VideoFilePath; tint?: Color; scaleX: number; scaleY: number };
+            | { src: VideoFilePath; tint?: Color | null }
+            | { src: VideoFilePath; tint?: Color | null; scaleX: number; scaleY: number };
+        animation?: TokenAnimationOptions;
     };
     weaponPotency: Record<string, PotencySynthetic[]>;
 }

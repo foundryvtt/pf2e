@@ -630,7 +630,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Reset aura renders when token size changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        operation: DatabaseUpdateOperation<TDocument["parent"]>,
+        operation: TokenUpdateOperation<TDocument["parent"]>,
         userId: string,
     ): void {
         super._onUpdate(changed, operation, userId);
