@@ -1,0 +1,71 @@
+{
+    "_id": "7EbfPEq1Hd2s2wAh",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Deadly Aspect",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You have honed the unarmed attack your draconic heritage has granted you to a lethal degree. The unarmed attack you gained from Draconic Aspect gains the deadly d8 trait.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Draconic Aspect"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "draconic-aspect:claw",
+                                    "item:slug:claw"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "draconic-aspect:jaws",
+                                    "item:slug:jaws"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "draconic-aspect:tail",
+                                    "item:slug:tail"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "dragonblood"
+            ]
+        }
+    },
+    "type": "feat"
+}

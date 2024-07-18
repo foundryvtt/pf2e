@@ -11,26 +11,30 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You swim faster than most iruxi. Your swim Speed increases to 25 feet.</p>"
+            "value": "<p>You gain a swim Speed of 15 feet.</p><hr /><p><strong>Special</strong> If you have the wetlander lizardfolk heritage, your swim Speed instead increases to 25 feat.</p>"
         },
         "level": {
             "value": 5
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "wetlander lizardfolk"
-                }
-            ]
+            "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "BaseSpeed",
+                "selector": "swim",
+                "value": 15
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:wetlander-lizardfolk"
+                ],
                 "selector": "swim",
                 "value": 25
             }

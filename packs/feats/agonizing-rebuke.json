@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>When you terrorize your enemies, you also cause them painful mental distress. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a foe, that foe takes @Damage[1d4[mental]] damage at the start of each of its turns as long as it remains @UUID[Compendium.pf2e.conditionitems.Item.Frightened] and continues to engage in combat with you. If you have master proficiency in Intimidation, the damage increases to @Damage[2d4[mental]]{2d4}, and if you have legendary proficiency, the damage increases to @Damage[3d4[mental]]{3d4}.</p>"
+            "value": "<p>When you terrorize your enemies, you also cause them painful mental distress. When you successfully @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] an enemy, that enemy takes @Damage[ternary(gte(@actor.system.skills.intimidation.rank,4),4,ternary(gte(@actor.system.skills.intimidation.rank,3),2,1))d4[mental]] damage at the start of each of its turns. This effect ends if the creature loses the frightened condition, if it is more than 30 feet away from you, or if 1 minute passes, whichever comes first. If you have master proficiency in Intimidation, the damage increases to 2d4, and if you have legendary proficiency, the damage increases to 3d4.</p>"
         },
         "level": {
             "value": 5
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {

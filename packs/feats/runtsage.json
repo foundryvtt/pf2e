@@ -20,14 +20,34 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "GrantItem",
+                "preselectChoices": {
+                    "ancestry": "goblin"
+                },
                 "uuid": "Compendium.pf2e.feats-srd.Item.Adopted Ancestry"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:level:1",
+                        "item:category:ancestry",
+                        "item:trait:goblin"
+                    ],
+                    "itemType": "feat"
+                },
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.LevelOneAncestryFeat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.runtsage}"
             }
         ],
         "traits": {

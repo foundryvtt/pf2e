@@ -4,7 +4,7 @@
     "name": "Effect: Great Tengu Form",
     "system": {
         "description": {
-            "value": "<p>Once per day, as part of using Long-Nosed Form, you also gain the benefits of 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge]and @UUID[Compendium.pf2e.spells-srd.Item.Fly].</p>\n<p>This lasts for 5 minutes or until you shift out of your Long-Nosed Form, whichever happens first.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Great Tengu Form]</p>\n<p>Yu also gain the benefits of 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] and @UUID[Compendium.pf2e.spells-srd.Item.Fly] spells.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,17 +16,14 @@
             "value": 17
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Ancestry Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "item:melee"
-                ],
-                "selector": "strike-damage",
+                "selector": "melee-strike-damage",
                 "type": "status",
                 "value": 4
             },
@@ -36,15 +33,16 @@
                 "value": "huge"
             },
             {
-                "key": "FlatModifier",
-                "selector": "dex-based",
-                "type": "status",
-                "value": -1
-            },
-            {
                 "key": "BaseSpeed",
                 "selector": "fly",
                 "value": "max(20,(@actor.attributes.speed.total))"
+            },
+            {
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
             }
         ],
         "start": {

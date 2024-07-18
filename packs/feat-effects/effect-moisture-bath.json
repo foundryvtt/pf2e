@@ -1,0 +1,45 @@
+{
+    "_id": "UKNtAmCdczhWB4xI",
+    "img": "icons/magic/water/bubbles-air-water-blue.webp",
+    "name": "Effect: Moisture Bath",
+    "system": {
+        "description": {
+            "value": "<p><span style=\"font-family:Roboto, sans-serif\">you gain fire and cold resistance equal to half your level.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": [
+                    "fire",
+                    "cold"
+                ],
+                "value": "floor(@actor.level/2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p><strong>Trigger</strong> A creature you are aware of critically succeeds on a Strike against you and would deal damage to you.</p>\n<hr />\n<p>With pitiful posturing, you cause your foe to pull back a deadly attack. The attacking creature takes a circumstance penalty to the damage of the triggering Strike equal to your [[/r (@actor.level)+2]]{level + 2}. This penalty applies after doubling the damage for a critical hit. The attacker is then immune to your Cringe for 24 hours.</p>"
+            "value": "<p><strong>Trigger</strong> A creature you are aware of critically succeeds on a Strike against you and would deal damage to you.</p><hr /><p>With pitiful posturing, you cause your foe to pull back a deadly attack. The attacking creature takes a circumstance penalty to the damage of the triggering Strike equal to your level + 2. This penalty applies after doubling the damage for a critical hit. The attacker is then immune to your Cringe for 24 hours.</p>"
         },
         "level": {
             "value": 1
@@ -20,11 +20,29 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "cringe",
+                "toggleable": true
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "cringe"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Cringe"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

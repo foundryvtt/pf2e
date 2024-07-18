@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You've let your incisors grow long enough to serve as formidable weapons. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Unlike most creatures, you can file down your teeth and regrow them later on, enabling you to select this feat at any level, and to retrain into and out of this feat.</p>"
+            "value": "<p>Your jaws unarmed attack deals 1d6 piercing damage instead of 1d4, and gains the backstabber trait. You can file down your teeth and regrow them later on, enabling you to select this feat at any level, and to retrain into and out of this feat.</p>"
         },
         "level": {
             "value": 1
@@ -20,30 +20,26 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "baseType": "jaws",
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d6"
-                    }
+                "key": "DamageDice",
+                "override": {
+                    "dieSize": "d6"
                 },
-                "group": "brawling",
-                "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
-                "key": "Strike",
-                "label": "PF2E.Weapon.Base.jaws",
-                "range": null,
-                "traits": [
-                    "finesse",
-                    "unarmed"
-                ]
+                "selector": "fangs-damage"
+            },
+            {
+                "definition": [
+                    "item:fangs"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "backstabber"
             }
         ],
         "traits": {

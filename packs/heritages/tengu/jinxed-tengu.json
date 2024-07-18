@@ -10,12 +10,12 @@
             "uuid": "Compendium.pf2e.ancestries.Item.18xDKYPDBLEv2myX"
         },
         "description": {
-            "value": "<p>Your lineage has been exposed to curse after curse, and now, they slide off your feathers like rain. If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead.</p>\n<p>When you would gain the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition, attempt a @Check[type:flat|dc:17] check. On a success, reduce the value of the doomed condition you would gain by 1.</p>"
+            "value": "<p>Your lineage has been exposed to curse after curse, and now they slide off your feathers like rain. If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead. When you would gain the @UUID[Compendium.pf2e.conditionitems.Item.Doomed] condition, attempt a @Check[type:flat|dc:17]. On a success, reduce the value of the doomed condition you would gain by 1.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -26,19 +26,13 @@
                 "predicate": [
                     {
                         "or": [
-                            "curse",
-                            "misfortune"
+                            "item:trait:curse",
+                            "item:trait:misfortune"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
                 "type": "save"
-            },
-            {
-                "key": "Note",
-                "selector": "saving-throw",
-                "text": "If you succeed at a saving throw against a curse or misfortune effect, you get a critical success instead.",
-                "title": "{item|name}"
             }
         ],
         "traits": {
