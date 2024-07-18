@@ -118,7 +118,7 @@ export const SetGamePF2e = {
                 buttons: game.settings.get("pf2e", "critFumbleButtons"),
                 cards: game.settings.get("pf2e", "drawCritFumble"),
             },
-            dragMeasurement: false, // set in i18Init hook
+            dragMeasurement: "never", // set in canvasInit hook
             encumbrance: game.settings.get("pf2e", "automation.encumbrance"),
             gmVision: game.settings.get("pf2e", "gmVision"),
             iwr: game.settings.get("pf2e", "automation.iwr"),
