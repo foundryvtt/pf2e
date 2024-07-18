@@ -5,8 +5,8 @@
     </div>
     <section>
         {{#unless omitName}}
-            <div class="item-name">
-                <h4 class="name"><a data-action="toggle-summary">{{action.label}}</a></h4>
+            <h4 class="name">
+                <a data-action="toggle-summary">{{action.label}}</a>
                 {{#if action.item.isTemporary}}
                     <i
                         class="fa-solid fa-info-circle"
@@ -14,7 +14,7 @@
                         data-tooltip-direction="RIGHT"
                     ></i>
                 {{/if}}
-            </div>
+            </h4>
         {{/unless}}
 
         {{#if action.ready}}
