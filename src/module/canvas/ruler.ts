@@ -11,7 +11,8 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     /** Whether drag measurement is enabled */
     static get #dragMeasurement(): boolean {
-        return game.pf2e.settings.dragMeasurement;
+        const setting = game.pf2e.settings.dragMeasurement;
+        return setting === "always" || (setting === "encounters" && !!game.combat?.active);
     }
 
     /** Whether this measurement is being grid-snapped */
