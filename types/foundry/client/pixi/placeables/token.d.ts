@@ -739,13 +739,13 @@ declare global {
         /** A desired token movement speed in grid spaces per second */
         movementSpeed?: number;
         /** The desired texture transition type */
-        transition?: string;
+        transition?: TextureTransitionType;
         /** The easing function of the animation */
         easing?: Function | string;
         /** The name of the animation, or null if nameless. The default is {@link Token#animationName}. */
         name?: string | symbol | null;
         /** A callback function which fires after every frame */
-        ontick?: (frame: number, data: CanvasAnimationData) => void;
+        ontick?: string | ((frame: number, data: CanvasAnimationData) => void);
     }
 
     interface ReticuleOptions {
@@ -781,7 +781,7 @@ declare global {
         /** The alpha value */
         alpha: number;
         /** The rotation in degrees */
-        rotaion: number;
+        rotation: number;
         /** The texture data */
         texture: {
             /** The texture file path */
@@ -796,6 +796,16 @@ declare global {
             scaleY: number;
             /** The texture tint */
             tint: Color;
+        };
+        /** The ring data */
+        ring: {
+            /** The ring subject data */
+            subject: {
+                /** The ring subject texture */
+                texture: string;
+                /** The ring subject scale */
+                scale: number;
+            };
         };
     }
 

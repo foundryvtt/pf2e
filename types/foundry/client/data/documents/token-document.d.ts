@@ -215,6 +215,10 @@ declare global {
 
     interface TokenUpdateOperation<TParent extends Scene | null> extends DatabaseUpdateOperation<TParent> {
         embedded?: { embeddedName: string; hookData: { _id?: string }[] };
+        animate?: boolean;
+        pan?: boolean;
+        teleport?: boolean;
+        animation?: TokenAnimationOptions;
     }
 
     type TokenDocumentUUID = `Scene.${string}.Token.${string}`;
