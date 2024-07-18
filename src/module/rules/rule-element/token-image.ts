@@ -1,6 +1,6 @@
-import type { AlphaField, ColorField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Change the image representing an actor's token
@@ -32,6 +32,37 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
                 nullable: true,
                 initial: null,
             }),
+            animation: new fields.SchemaField(
+                {
+                    duration: new fields.NumberField({
+                        required: false,
+                        nullable: false,
+                        integer: true,
+                        positive: true,
+                        initial: undefined,
+                    }),
+                    transition: new fields.StringField({
+                        required: false,
+                        blank: false,
+                        nullable: false,
+                        choices: Object.values(TextureTransitionFilter.TYPES),
+                        initial: undefined,
+                    }),
+                    easing: new fields.StringField({
+                        required: false,
+                        blank: false,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                    name: new fields.StringField({
+                        required: false,
+                        blank: false,
+                        nullable: false,
+                        initial: undefined,
+                    }),
+                },
+                { required: false, nullable: true, initial: null },
+            ),
         };
     }
 
@@ -41,21 +72,16 @@ class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema> {
 
         if (!this.test()) return;
 
-        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: Color } = { src };
+        const texture: { src: VideoFilePath; scaleX?: number; scaleY?: number; tint?: Maybe<Color> } = { src };
         if (this.scale) {
             texture.scaleX = this.scale;
             texture.scaleY = this.scale;
         }
-
-        if (this.tint) {
-            texture.tint = this.tint;
-        }
-
-        if (this.alpha) {
-            this.actor.synthetics.tokenOverrides.alpha = this.alpha;
-        }
+        texture.tint = this.tint;
 
         this.actor.synthetics.tokenOverrides.texture = texture;
+        this.actor.synthetics.tokenOverrides.alpha = this.alpha;
+        this.actor.synthetics.tokenOverrides.animation = this.animation ?? {};
     }
 
     #srcIsValid(src: unknown): src is VideoFilePath {
@@ -71,13 +97,37 @@ interface TokenImageRuleElement
 
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
-    value: StringField<string, string, true, false, false>;
+    value: fields.StringField<string, string, true, false, false>;
     /** An optional scale adjustment */
-    scale: NumberField<number, number, false, true, true>;
+    scale: fields.NumberField<number, number, false, true, true>;
     /** An optional tint adjustment */
-    tint: ColorField;
+    tint: fields.ColorField;
     /** An optional alpha adjustment */
-    alpha: AlphaField<false, true, true>;
+    alpha: fields.AlphaField<false, true, true>;
+    /** Animation options for when the image is applied */
+    animation: fields.SchemaField<
+        {
+            duration: fields.NumberField<number, number, false, false, false>;
+            transition: fields.StringField<TextureTransitionType, TextureTransitionType, false, false, false>;
+            easing: fields.StringField<string, string, false, false, false>;
+            name: fields.StringField<string, string, false, false, false>;
+        },
+        {
+            duration: number | undefined;
+            transition: TextureTransitionType | undefined;
+            easing: string | undefined;
+            name: string | undefined;
+        },
+        {
+            duration: number | undefined;
+            transition: TextureTransitionType | undefined;
+            easing: string | undefined;
+            name: string | undefined;
+        },
+        false,
+        true,
+        true
+    >;
 };
 
 export { TokenImageRuleElement };
