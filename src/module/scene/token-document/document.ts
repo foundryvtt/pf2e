@@ -19,6 +19,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     declare auras: Map<string, TokenAura>;
 
+    /** The most recently used animation for later use when a token override is reverted. */
+    #lastAnimation: TokenAnimationOptions | null = null;
+
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
         if (this.actor?.isOfType("party")) {
@@ -412,7 +415,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
             const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
-            const animation = canvas.ready && tokenChanges.texture?.src ? tokenOverrides.animation ?? {} : {};
+            const animation = tokenChanges.texture?.src ? tokenOverrides.animation ?? this.#lastAnimation ?? {} : {};
+            this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
+                ? null
+                : tokenOverrides.animation ?? null;
             this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
         }
 

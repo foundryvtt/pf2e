@@ -16,6 +16,8 @@ declare global {
             HOLOGRAM: "hologram";
             HOLE: "hole";
             HOLE_SWIRL: "holeSwirl";
+            GLITCH: "glitch";
+            DOTS: "dots";
         };
 
         /**
