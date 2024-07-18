@@ -733,19 +733,11 @@ declare global {
         };
     }
 
-    interface TokenAnimationOptions {
-        /** The duration of the animation in milliseconds */
-        duration?: number;
+    interface TokenAnimationOptions extends Omit<CanvasAnimationOptions, "context"> {
         /** A desired token movement speed in grid spaces per second */
         movementSpeed?: number;
         /** The desired texture transition type */
         transition?: TextureTransitionType;
-        /** The easing function of the animation */
-        easing?: Function | string;
-        /** The name of the animation, or null if nameless. The default is {@link Token#animationName}. */
-        name?: string | symbol | null;
-        /** A callback function which fires after every frame */
-        ontick?: string | ((frame: number, data: CanvasAnimationData) => void);
     }
 
     interface ReticuleOptions {
