@@ -11,14 +11,15 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     /** Whether drag measurement is enabled */
     static get #dragMeasurement(): boolean {
-        return game.pf2e.settings.dragMeasurement;
+        const setting = game.pf2e.settings.dragMeasurement;
+        return setting === "always" || (setting === "encounters" && !!game.combat?.active);
     }
-
-    /** Whether this measurement is being grid-snapped */
-    #snap = true;
 
     /** The footprint of the drag-measured token relative to the origin center */
     #footprint: GridOffset[] = [];
+
+    /** Grid spaces highlighted for the current measurement */
+    #highlighted = new Set<number>();
 
     #exactDestination: Point | null = null;
 
@@ -45,7 +46,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     get dragMeasurement(): boolean {
-        return RulerPF2e.#dragMeasurement && this.#snap;
+        return RulerPF2e.#dragMeasurement;
     }
 
     get isMeasuring(): boolean {
@@ -65,16 +66,16 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
 
     startDragMeasurement(event: TokenPointerEvent<NonNullable<TToken>>): void {
         const token = event.interactionData.object;
-        this.#snap = !event.shiftKey;
         if (!this.dragMeasurement || !token || game.activeTool === "ruler") {
             return;
         }
+
         token.document.locked = true;
         const originPoint = token.center;
         const offset = canvas.grid.getOffset(originPoint);
         this.#footprint = token.footprint.map((o) => ({ i: o.i - offset.i, j: o.j - offset.j }));
 
-        return this._startMeasurement(originPoint, { snap: this.#snap, token });
+        return this._startMeasurement(originPoint, { snap: !event.shiftKey, token });
     }
 
     /**
@@ -179,17 +180,38 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return super._highlightMeasurementSegment(segment);
         }
 
+        this.#highlighted.clear();
+        if (canvas.grid.isHexagonal) {
+            this.#highlightHexSegment(segment);
+        } else {
+            this.#highlightSegment(segment);
+        }
+    }
+
+    #highlightSegment(segment: RulerMeasurementSegment): void {
         // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
-        const seen = new Set<number>();
         for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
             for (const stomp of this.#footprint) {
                 const newOffset = { i: offset.i + stomp.i, j: offset.j + stomp.j };
                 const packed = (newOffset.i << 16) + newOffset.j;
-                if (!seen.has(packed)) {
-                    seen.add(packed);
+                if (!this.#highlighted.has(packed)) {
+                    this.#highlighted.add(packed);
                     const point = canvas.grid.getTopLeftPoint(newOffset);
                     canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
                 }
+            }
+        }
+    }
+
+    /** "Fat ruler" highlighting not yet supported for hexagonal grids */
+    #highlightHexSegment(segment: RulerMeasurementSegment): void {
+        // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
+        for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
+            const packed = (offset.i << 16) + offset.j;
+            if (!this.#highlighted.has(packed)) {
+                this.#highlighted.add(packed);
+                const point = canvas.grid.getTopLeftPoint(offset);
+                canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
             }
         }
     }

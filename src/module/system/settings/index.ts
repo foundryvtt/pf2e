@@ -3,7 +3,7 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSheetPF2e, type ItemPF2e } from "@item";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
-import { isImageOrVideoPath } from "@util";
+import { isImageOrVideoPath, tupleHasValue } from "@util";
 import { AutomationSettings } from "./automation.ts";
 import { HomebrewElements } from "./homebrew/menu.ts";
 import { MetagameSettings } from "./metagame.ts";
@@ -312,12 +312,20 @@ export function registerSettings(): void {
         game.settings.register("pf2e", "dragMeasurement", {
             name: game.i18n.localize("PF2E.SETTINGS.DragMeasurement.Name"),
             hint: game.i18n.format("PF2E.SETTINGS.DragMeasurement.Hint", { key: placeWaypointKey }),
-            scope: "client",
+            scope: "world",
             config: true,
-            type: Boolean,
-            default: false,
+            type: String,
+            default: "never",
+            choices: {
+                always: "PF2E.SETTINGS.DragMeasurement.Always",
+                encounters: "PF2E.SETTINGS.DragMeasurement.Encounters",
+                never: "PF2E.SETTINGS.DragMeasurement.Never",
+            },
             onChange: (value) => {
-                game.pf2e.settings.dragMeasurement = !!value;
+                const options = ["always", "encounters", "never"] as const;
+                game.pf2e.settings.dragMeasurement = tupleHasValue(options, value)
+                    ? value
+                    : game.pf2e.settings.dragMeasurement;
             },
         });
         game.pf2e.settings.dragMeasurement = game.settings.get("pf2e", "dragMeasurement");

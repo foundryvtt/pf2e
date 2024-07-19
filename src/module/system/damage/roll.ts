@@ -116,8 +116,8 @@ class DamageRoll extends AbstractDamageRoll {
             const accumulated: PreProcessedDiceTerm[] = [];
             if (isDiceTerm(value)) {
                 accumulated.push(value);
-            } else if (R.isPlainObject(value)) {
-                const objects = Object.values(value).filter((v): v is object => R.isPlainObject(v));
+            } else if (R.isObjectType(value)) {
+                const objects = Object.values(value).filter((v): v is object => R.isObjectType(v));
                 accumulated.push(...objects.flatMap((o) => deepFindDice(o)));
             }
 
@@ -126,7 +126,7 @@ class DamageRoll extends AbstractDamageRoll {
         const diceTerms = deepFindDice(data);
 
         for (const term of diceTerms) {
-            if (typeof term.faces === "number" || term.faces instanceof Object) {
+            if (typeof term.faces === "number" || R.isPlainObject(term.faces)) {
                 term.class = "Die";
             } else if (typeof term.faces === "string") {
                 const termClassName = CONFIG.Dice.terms[term.faces]?.name;

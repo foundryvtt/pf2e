@@ -69,9 +69,8 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     get #isDragMeasuring(): boolean {
-        const settingEnabled = game.pf2e.settings.dragMeasurement;
         const ruler = canvas.controls.ruler;
-        return settingEnabled && ruler.dragMeasurement && ruler.isMeasuring && ruler.token === this;
+        return ruler.dragMeasurement && ruler.isMeasuring && ruler.token === this;
     }
 
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
@@ -556,7 +555,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     }
 
     protected override _canDrag(user: UserPF2e, event?: TokenPointerEvent<this>): boolean {
-        return super._canDrag(user, event) || (this.controlled && game.pf2e.settings.dragMeasurement);
+        if (super._canDrag(user, event)) return true;
+        const setting = game.pf2e.settings.dragMeasurement;
+        return this.controlled && (setting === "always" || (setting === "encounters" && !!game.combat?.active));
     }
 
     /** Prevent players from controlling an NPC when it's lootable */
@@ -630,7 +631,7 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Reset aura renders when token size changes. */
     override _onUpdate(
         changed: DeepPartial<TDocument["_source"]>,
-        operation: DatabaseUpdateOperation<TDocument["parent"]>,
+        operation: TokenUpdateOperation<TDocument["parent"]>,
         userId: string,
     ): void {
         super._onUpdate(changed, operation, userId);
