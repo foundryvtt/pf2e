@@ -253,10 +253,7 @@ class WeaponDamagePF2e {
         const irBypassData: DamageIRBypassData = {
             immunity: { ignore: [], downgrade: [] },
             resistance: {
-                ignore: R.filter(
-                    propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances),
-                    R.isDefined,
-                ),
+                ignore: propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []),
                 redirect: [],
             },
         };
