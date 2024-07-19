@@ -122,22 +122,19 @@ export const Init = {
 
             // Register custom enricher
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(/@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/, "g"),
+                pattern: /@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
             // Register damage enricher, which is more complicated and needs an extra level of nesting
             // Derived from https://stackoverflow.com/questions/17759004/how-to-match-string-within-parentheses-nested-in-java/17759264#17759264
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(/@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/, "g"),
+                pattern: /@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(
-                    /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/,
-                    "g",
-                ),
+                pattern: /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
