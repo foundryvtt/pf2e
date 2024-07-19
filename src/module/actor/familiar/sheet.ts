@@ -29,17 +29,8 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
     }
 
     override async getData(options?: ActorSheetOptions): Promise<FamiliarSheetData<TActor>> {
-        const sheetData = await super.getData(options);
+        const sheetData = (await super.getData(options)) as FamiliarSheetData<TActor>;
         const familiar = this.actor;
-
-        // Get all potential masters of the familiar (always include current master regardless of User permissions)
-        const masters = game.actors.filter(
-            (a): a is CharacterPF2e<null> => a.type === "character" && (a.isOwner || a.id === familiar.master?.id),
-        );
-
-        // list of abilities that can be selected as spellcasting ability
-        const size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
-        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
 
         // Update save labels
         if (sheetData.data.saves) {
@@ -49,40 +40,47 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
             }
         }
 
-        const skills = Object.values(sheetData.data.skills).sort((a, b) =>
+        sheetData.attributes = CONFIG.PF2E.abilities;
+
+        // list of abilities that can be selected as spellcasting ability
+        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities;
+        sheetData.familiarAbilities = {
+            value: familiarAbilities?.value ?? 0,
+            items: R.sortBy(
+                this.actor.itemTypes.action,
+                (a) => a.name,
+                (a) => a.sort,
+            ).map((item) => {
+                const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
+                return {
+                    _id: item.id,
+                    name: item.name,
+                    glyph: getActionGlyph(item.actionCost) || null,
+                    frequency: item.system.frequency || null,
+                    traits,
+                    has: {
+                        aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+                        deathNote: item.system.deathNote,
+                        selfEffect: !!item.system.selfEffect,
+                    },
+                };
+            }),
+        };
+
+        sheetData.master = this.actor.master;
+
+        // Get all potential masters of the familiar (always include current master regardless of User permissions)
+        sheetData.masters = game.actors.filter(
+            (a): a is CharacterPF2e<null> => a.type === "character" && (a.isOwner || a.id === familiar.master?.id),
+        );
+
+        sheetData.size = CONFIG.PF2E.actorSizes[familiar.system.traits.size.value] ?? null;
+
+        sheetData.skills = Object.values(sheetData.data.skills).sort((a, b) =>
             a.label.localeCompare(b.label, game.i18n.lang),
         );
 
-        return {
-            ...sheetData,
-            attributes: CONFIG.PF2E.abilities,
-            familiarAbilities: {
-                value: familiarAbilities?.value ?? 0,
-                items: R.sortBy(
-                    this.actor.itemTypes.action,
-                    (a) => a.name,
-                    (a) => a.sort,
-                ).map((item) => {
-                    const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
-                    return {
-                        _id: item.id,
-                        name: item.name,
-                        glyph: getActionGlyph(item.actionCost) || null,
-                        frequency: item.system.frequency || null,
-                        traits,
-                        has: {
-                            aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
-                            deathNote: item.system.deathNote,
-                            selfEffect: !!item.system.selfEffect,
-                        },
-                    };
-                }),
-            },
-            master: this.actor.master,
-            masters,
-            size,
-            skills,
-        };
+        return sheetData;
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {

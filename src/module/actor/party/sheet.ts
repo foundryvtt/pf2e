@@ -79,45 +79,44 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     }
 
     override async getData(options?: ActorSheetOptions): Promise<PartySheetData> {
-        const base = await super.getData(options);
+        const base = (await super.getData(options)) as PartySheetData;
         const members = this.actor.members;
-        const canDistributeCoins =
+
+        base.playerRestricted = !game.pf2e.settings.metagame.partyStats;
+        base.restricted = !(game.user.isGM || game.pf2e.settings.metagame.partyStats);
+        base.members = this.#prepareMembers();
+        base.overviewSummary = this.#prepareOverviewSummary();
+        base.inventorySummary = {
+            totalCoins:
+                R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
+                this.actor.inventory.coins.goldValue,
+            totalWealth:
+                R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
+                this.actor.inventory.totalWealth.goldValue,
+            totalBulk: members
+                .map((actor) => actor.inventory.bulk.value)
+                .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
+        };
+        base.canDistributeCoins =
             game.user.isGM && this.isEditable
                 ? { enabled: this.actor.inventory.coins.copperValue > 0 && members.some(isReallyPC) }
                 : null;
 
         const travelSpeed = this.actor.system.attributes.speed.total;
-
-        return {
-            ...base,
-            playerRestricted: !game.pf2e.settings.metagame.partyStats,
-            restricted: !(game.user.isGM || game.pf2e.settings.metagame.partyStats),
-            members: this.#prepareMembers(),
-            overviewSummary: this.#prepareOverviewSummary(),
-            inventorySummary: {
-                totalCoins:
-                    R.sumBy(members, (actor) => actor.inventory.coins.goldValue ?? 0) +
-                    this.actor.inventory.coins.goldValue,
-                totalWealth:
-                    R.sumBy(members, (actor) => actor.inventory.totalWealth.goldValue ?? 0) +
-                    this.actor.inventory.totalWealth.goldValue,
-                totalBulk: members
-                    .map((actor) => actor.inventory.bulk.value)
-                    .reduce((a, b) => a.plus(b), this.actor.inventory.bulk.value),
-            },
-            canDistributeCoins,
-            explorationSummary: {
-                speed: travelSpeed,
-                feetPerMinute: travelSpeed * 10,
-                milesPerHour: travelSpeed / 10,
-                milesPerDay: travelSpeed * 0.8,
-                activities:
-                    Object.entries(CONFIG.PF2E.hexplorationActivities).find(
-                        ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
-                    )?.[1] ?? 0,
-            },
-            orphaned: this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes)),
+        base.explorationSummary = {
+            speed: travelSpeed,
+            feetPerMinute: travelSpeed * 10,
+            milesPerHour: travelSpeed / 10,
+            milesPerDay: travelSpeed * 0.8,
+            activities:
+                Object.entries(CONFIG.PF2E.hexplorationActivities).find(
+                    ([max]) => Number(max) >= this.actor.system.attributes.speed.total,
+                )?.[1] ?? 0,
         };
+
+        base.orphaned = this.actor.items.filter((i) => !i.isOfType(...this.actor.allowedItemTypes));
+
+        return base;
     }
 
     #prepareMembers(): MemberBreakdown[] {

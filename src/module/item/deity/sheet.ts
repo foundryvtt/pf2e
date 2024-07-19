@@ -17,18 +17,15 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
     }
 
     override async getData(options?: Partial<ItemSheetOptions>): Promise<DeitySheetData> {
-        const sheetData = await super.getData(options);
+        const sheetData = (await super.getData(options)) as DeitySheetData;
 
-        const spellEntries = Object.entries(sheetData.data.spells);
-        const spells = (await UUIDUtils.fromUUIDs(Object.values(sheetData.data.spells)))
-            .filter((i): i is SpellPF2e => i instanceof SpellPF2e)
-            .map((spell) => {
-                const level = Number(spellEntries.find(([, uuid]) => uuid === spell.uuid)?.at(0));
-                return { uuid: spell.uuid, level, name: spell.name, img: spell.img };
-            })
-            .sort((spellA, spellB) => spellA.level - spellB.level);
+        sheetData.categories = [
+            { value: "deity", label: "TYPES.Item.deity" },
+            { value: "pantheon", label: "PF2E.Item.Deity.Category.Pantheon" },
+            { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
+        ];
 
-        const sanctifications = [
+        sheetData.sanctifications = [
             { value: "null", label: "PF2E.Item.Deity.Sanctification.None" },
             ...DEITY_SANCTIFICATIONS.map((value) => {
                 const modal = value.modal.capitalize();
@@ -40,21 +37,23 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             }),
         ];
 
-        return {
-            ...sheetData,
-            categories: [
-                { value: "deity", label: "TYPES.Item.deity" },
-                { value: "pantheon", label: "PF2E.Item.Deity.Category.Pantheon" },
-                { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
-            ],
-            sanctifications,
-            skills: R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
-            divineFonts: createSheetOptions(
-                { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
-                sheetData.data.font,
-            ),
-            spells,
-        };
+        sheetData.skills = R.mapValues(CONFIG.PF2E.skills, (s) => s.label);
+
+        sheetData.divineFonts = createSheetOptions(
+            { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
+            sheetData.data.font,
+        );
+
+        const spellEntries = Object.entries(sheetData.data.spells);
+        sheetData.spells = (await UUIDUtils.fromUUIDs(Object.values(sheetData.data.spells)))
+            .filter((i): i is SpellPF2e => i instanceof SpellPF2e)
+            .map((spell) => {
+                const level = Number(spellEntries.find(([, uuid]) => uuid === spell.uuid)?.at(0));
+                return { uuid: spell.uuid, level, name: spell.name, img: spell.img };
+            })
+            .sort((spellA, spellB) => spellA.level - spellB.level);
+
+        return sheetData;
     }
 
     /* -------------------------------------------- */
