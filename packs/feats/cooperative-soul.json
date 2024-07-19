@@ -30,22 +30,22 @@
         },
         "rules": [
             {
-              "key": "AdjustDegreeOfSuccess",
-              "selector": "skill-check",
-              "adjustment": {
-                "failure": "to-success",
-                "criticalFailure": "to-success"
-              },
-              "predicate": [
-                "action:aid",
-                { 
-                    "or": [
-                        "proficiency:expert",
-                        "proficiency:master",
-                        "proficiency:legendary"
-                    ]
-                }
-              ]
+                "adjustment": {
+                    "criticalFailure": "to-success",
+                    "failure": "to-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:aid",
+                    {
+                        "or": [
+                            "proficiency:expert",
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
             }
         ],
         "traits": {
