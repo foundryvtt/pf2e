@@ -107,8 +107,8 @@ const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Joi
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
 
-const wordBoundary = String.raw`(?:${wordCharacter})(?=${nonWordCharacter})|(?:${nonWordCharacter})(?=${wordCharacter})`;
-const nonWordBoundary = String.raw`(?:${wordCharacter})(?=${wordCharacter})`;
+const wordBoundary = String.raw`(?=^|$|${nonWordCharacter})`;
+const nonWordBoundary = String.raw`(?=^|$|${wordCharacter})`;
 const lowerCaseLetter = String.raw`\p{Lowercase_Letter}`;
 const upperCaseLetter = String.raw`\p{Uppercase_Letter}`;
 const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
@@ -426,10 +426,9 @@ const SORTABLE_BASE_OPTIONS: Sortable.Options = {
 };
 
 export {
-    ErrorPF2e,
-    SORTABLE_BASE_OPTIONS,
     applyNTimes,
     configFromLocalization,
+    ErrorPF2e,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
@@ -450,6 +449,7 @@ export {
     setHasElement,
     signedInteger,
     sluggify,
+    SORTABLE_BASE_OPTIONS,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
