@@ -1,0 +1,148 @@
+{
+    "_id": "dYDrrBn5sNgoo4Au",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Nemesis) Immunity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Nemesis inherits an immunity possessed by the inspiring villain, chosen from the following: acid, cold, electricity, fire, or sonic. The second is chosen from acid, bleed, cold, electricity, emotion, fire, force, @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed], poison, precision, sonic, spirit, or void.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "immunityOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Immunity",
+                "rollOption": "nemesis-immunity"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "predicate": [
+                            {
+                                "not": "nemesis-immunity:acid"
+                            }
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitBleed",
+                        "value": "bleed"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "nemesis-immunity:cold"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "nemesis-immunity:electricity"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitEmotion",
+                        "value": "emotion"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "not": "nemesis-immunity:fire"
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.ConditionTypeParalyzed",
+                        "value": "paralyzed"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.Damage.Precision",
+                        "value": "precision"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "predicate": [
+                            {
+                                "not": "nemesis-immunity:sonic"
+                            }
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "immunityTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Immunity"
+            },
+            {
+                "key": "Immunity",
+                "type": "{item|flags.pf2e.rulesSelections.immunityOne}"
+            },
+            {
+                "key": "Immunity",
+                "type": "{item|flags.pf2e.rulesSelections.immunityTwo}"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

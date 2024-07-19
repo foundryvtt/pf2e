@@ -1,0 +1,322 @@
+{
+    "_id": "a91e870yzNM7jD93",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "xZIeuln9ruLGNBUa",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 19
+                },
+                "damageRolls": {
+                    "NuOiaaH98N32dF7c": {
+                        "damage": "2d8+10",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "AE8neO6YMDxeUwpX",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tail",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "voqwUaOnJleuoFJW": {
+                        "damage": "2d8+9",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "b0lQ8Ceyfl07FDwF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Toxic Gulp",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The toxic gator uses Swallow Whole on a creature of Medium size or smaller, @Damage[(2d6+5)[bludgeoning],1d6[poison]]{2d6+5 damage plus 1d6 poison}, Rupture 15</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.SwallowWhole]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "swallow-whole",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "attack"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r6teXGTpnk5KmhOs",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wall Slam",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The toxic gator must have a creature @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]</p><hr /><p><strong>Effect</strong> The toxic gator flips its body, twisting its victim, then releases, flinging them into the nearest wall. It makes a jaws Strike with a +2 circumstance bonus to the attack roll against the grabbed creature. If it hits, it also does @Damage[(2d6+8)[bludgeoning]] damage and knocks the creature @UUID[Compendium.pf2e.conditionitems.Item.Prone]. If it fails, it releases the creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "wall-slam",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "wall-slam"
+                        ],
+                        "selector": "jaws-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "LUR4NckxcaPuc6Mc",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Toxic Sewer Gator",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -4
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 2
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 26
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 150,
+                "temp": 0,
+                "value": 150
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 8
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "swim",
+                        "value": 25
+                    }
+                ],
+                "value": 30
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 8
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-20: The Rakshasa's Court"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 16,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 17,
+                "special": []
+            },
+            "stealth": {
+                "base": 15,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

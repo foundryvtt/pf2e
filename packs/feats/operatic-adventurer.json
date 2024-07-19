@@ -1,0 +1,81 @@
+{
+    "_id": "d86XC1EmGQ7erkul",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Operatic Adventurer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your training has focused you for the opera, and it certainly shows. You become master in Performance, and at 15th level your skill in Performance increases to Legendary. You also become expert in Theater Lore or become master in Theater Lore if you were already expert. When you're on a stage, in an arena, or otherwise at the focus of a crowd there to see you perform, your eagerness to begin grants a +3 circumstance bonus to initiative rolls if you roll Acrobatics, Intimidation, or Performance for initiative.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Acrobat, Celebrity, Dandy, or Gladiator Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": {
+                    "brackets": [
+                        {
+                            "start": 1,
+                            "value": 3
+                        },
+                        {
+                            "start": 15,
+                            "value": 4
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "acrobatics",
+                            "intimidation",
+                            "performance"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "terrain:arena",
+                            "terrain:stage",
+                            "terrain:crowd"
+                        ]
+                    }
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 3
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

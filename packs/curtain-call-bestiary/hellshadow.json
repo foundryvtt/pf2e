@@ -1,0 +1,958 @@
+{
+    "_id": "58QVgNXmRsI7p8xq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Xf3pOZgEpdZKcnvV",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
+            "name": "Divine Innate Spells",
+            "sort": 100000,
+            "system": {
+                "autoHeightenLevel": {
+                    "value": null
+                },
+                "description": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": "innate"
+                },
+                "proficiency": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "showSlotlessLevels": {
+                    "value": false
+                },
+                "slots": {},
+                "slug": null,
+                "spelldc": {
+                    "dc": 33,
+                    "value": 25
+                },
+                "tradition": {
+                    "value": "divine"
+                },
+                "traits": {}
+            },
+            "type": "spellcastingEntry"
+        },
+        {
+            "_id": "7DlH2icDIauKDM2n",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.sX2o0HH4RjJDAZ8C"
+                }
+            },
+            "img": "icons/sundries/documents/document-sealed-signatures-red.webp",
+            "name": "Divine Decree",
+            "sort": 200000,
+            "system": {
+                "area": {
+                    "type": "emanation",
+                    "value": 40
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "7d10",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "spirit"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You utter a potent litany from your faith, a mandate that harms those who oppose your ideals. You deal 7d10 spirit damage to your enemies in the area; each enemy must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 2} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and is enfeebled 2 for 1 minute. If you're on your home plane and the creature is not, the creature is sent back to its home plane. A creature of 10th level or lower must also succeed at a Will save or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 minute; if it critically fails, it dies (this is a death effect).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the level of creatures that must attempt a second save on a critical failure increases by 2.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": "varies"
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d10"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 7
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "40 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "divine-decree",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "sanctified",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "fjpBpOdXddMIrRsS",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.A16eFTRh82xIjMu8"
+                }
+            },
+            "img": "icons/magic/fire/explosion-embers-orange.webp",
+            "name": "Divine Immolation",
+            "sort": 300000,
+            "system": {
+                "area": {
+                    "type": "burst",
+                    "value": 20
+                },
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "b9dAiWfV57lyCWpP": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "fire"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>Divine flames scour creatures within the area. Creatures take 6d6 fire damage and @Damage[(@item.level -3)d6[persistent,fire]] damage. The divine power within the flames scorches the spirit as well; a creature takes spirit damage instead of fire damage from divine immolation if that would be more detrimental to the creature (as determined by the GM).</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage and no persistent damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and persistent damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage and double persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6 and persistent damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "b9dAiWfV57lyCWpP": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "divine-immolation",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "fire",
+                        "manipulate",
+                        "sanctified",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "zcomGIg4BDh28tNe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.IqJ9URobmJ9L9UBG"
+                }
+            },
+            "img": "icons/magic/unholy/beam-impact-purple.webp",
+            "name": "Shadow Blast (Fire or Spirit only)",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You shape the shadow substance of the Netherworld into a blast. Choose acid, bludgeoning, cold, electricity, fire, force, piercing, slashing, sonic, or spirit damage; and choose a @Template[type:cone|distance:30], a @Template[type:burst|distance:15] within 120 feet, or a @Template[type:line|distance:50]. The blast deals 6d8 damage of the type you chose to each creature in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d8"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "heightenedLevel": 7,
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "overlays": {
+                    "UTMlHk0o5FXLlwwM": {
+                        "_id": "UTMlHk0o5FXLlwwM",
+                        "name": "Shadow Blast (Will)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "defense": {
+                                "save": {
+                                    "basic": false,
+                                    "statistic": "will"
+                                }
+                            }
+                        }
+                    },
+                    "zjyfdrWBaUVi4O7b": {
+                        "_id": "zjyfdrWBaUVi4O7b",
+                        "name": "Shadow Blast (Reflex)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "defense": {
+                                "save": {
+                                    "basic": false,
+                                    "statistic": "reflex"
+                                }
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "shadow-blast",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "shadow"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "sR6qPCPDAnH7bVpe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.3x6eUCm17n6ROzUa"
+                }
+            },
+            "img": "icons/magic/holy/prayer-hands-glowing-yellow-white.webp",
+            "name": "Crisis of Faith",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "6d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You assault the target's faith, riddling the creature with doubt and mental turmoil that deal 6d6 mental damage, or 6d8 mental damage if it can cast divine spells. The effects are determined by its Will save.</p>\n<p>To many deities, casting this spell on a follower of your own deity without significant cause is anathema.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage; if the target can cast divine spells, it's @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 1 round, and can't cast divine spells for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 (or by 2d8 if the target is a divine spellcaster).</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": {
+                    "heightenedLevel": 6,
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "overlays": {
+                    "Fs08rHTZAfROKKzu": {
+                        "_id": "Fs08rHTZAfROKKzu",
+                        "name": "Crisis of Faith (Vs. Divine)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "formula": "6d8"
+                                }
+                            },
+                            "heightening": {
+                                "damage": {
+                                    "0": "2d8"
+                                }
+                            }
+                        }
+                    },
+                    "noPVUX8Ocln52MKm": {
+                        "_id": "noPVUX8Ocln52MKm",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {}
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "crisis-of-faith",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "HUUr3n2fJ6UTM6WK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.qwZBXN6zBoB9BHXE"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/divine-lance.webp",
+            "name": "Divine Lance",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "spirit"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You unleash a beam of divine energy. Make a ranged spell attack against the target's AC. On a hit, the target takes 2d4 spirit damage (double damage on a critical hit).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "overlays": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "60 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "divine-lance",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "divine"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "sanctified",
+                        "spirit"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "BZ25CgttaqCIFkU0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.mAMEt4FFbdqoRnkN"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/chill-touch.webp",
+            "name": "Void Warp",
+            "sort": 700000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You call upon the Void to harm life force. The target takes 2d4 void damage with a basic Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "Xf3pOZgEpdZKcnvV"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "void-warp",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "divine",
+                        "occult"
+                    ],
+                    "value": [
+                        "cantrip",
+                        "concentrate",
+                        "manipulate",
+                        "void"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "aNlze0ca7em5uEFF",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Brimstone Tendrils",
+            "sort": 800000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "clinging-smoke"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "NJ6dq7GKtBbT3Dwb": {
+                        "damage": "3d8+6",
+                        "damageType": "fire"
+                    },
+                    "Rz9X1gyZBhSOqbCg": {
+                        "damage": "2d6",
+                        "damageType": "void"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "fire",
+                        "reach-15",
+                        "sanctified"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "XCDH0IIZL7LR1PoN",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Brimstone Cloak",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>10 feet. The hellshadow constantly exudes a cloud of smoke that scorches flesh but leaves other materials unharmed. Living creatures who start their turn in this aura take @Damage[2d6[fire]] damage (DC 30 basic Reflex). On a critical failure, the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 10,
+                        "traits": [
+                            "divine",
+                            "fire",
+                            "sanctified"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "divine",
+                        "fire",
+                        "sanctified"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wPZApPbh6NHgttGd",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "void-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "uKG2GCW6xq0NiXhF",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Clinging Smoke",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that takes damage from the hellshadow's brimstone tendrils Strike has coils of the creature's smoke solidify around their body, impeding movement. The creature must attempt a @Check[type:reflex|dc:33] save.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The smoke solidifies as it coils around their limbs, imposing a –5-foot status penalty to all Speeds until the end of the creature's next turn.</p>\n<p><strong>Failure</strong> As success, except –10 feet to speed and the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> As failure, except the creature is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until the end of their next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "divine"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Hellshadow",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 8
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 6
+            },
+            "int": {
+                "mod": 4
+            },
+            "str": {
+                "mod": -5
+            },
+            "wis": {
+                "mod": 5
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 175,
+                "temp": 0,
+                "value": 175
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "death-effects"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                },
+                {
+                    "exceptions": [],
+                    "type": "fire"
+                },
+                {
+                    "exceptions": [],
+                    "type": "paralyzed"
+                },
+                {
+                    "exceptions": [],
+                    "type": "poison"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                },
+                {
+                    "exceptions": [],
+                    "type": "unconscious"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [
+                        "non-magical"
+                    ],
+                    "exceptions": [
+                        "force",
+                        "ghost-touch",
+                        "vitality"
+                    ],
+                    "type": "all-damage",
+                    "value": 5
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 40
+                    }
+                ],
+                "value": 0
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "holy",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "diabolic"
+                ]
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a group of diabolists or worshippers of an archdevil come to an ignominious end, their souls can sometimes be caught between life and death, unable or unwilling to pass on to the afterlife due to the humiliation of their untimely deaths. When enough closely-associated worshippers whose souls aren't already claimed in existing contracts meet such a fate, the spiritual \"weight\" of this shame can cause them to merge into a conglomeration of infernally-infused spirits—a hellshadow.</p>\n<p>Hellshadows look like a bank of fire and smoke, yet the flames themselves are made of distorted bodies and faces. Although made of multiple souls, a hellshadow is a singular creature with one mind and typically one goal: to defeat as many enemies of their faith as they can in order to repay the shame of their humiliating deaths.</p><h2>Why Only Hell?</h2><p>The nature of diabolic worship and the strict rules involved are a big part of the psychology of humiliation that causes devil worshippers to become hellshadows. This same mix of conditions is rarer among other fiendish cults, who are more likely to become more common undead after such a death. Non-diabolic– themed hellshadows are all but unknown as a result.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #204: Stage Fright"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 25,
+                "special": []
+            },
+            "intimidation": {
+                "base": 27,
+                "special": []
+            },
+            "stealth": {
+                "base": 25,
+                "special": []
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "fiend",
+                "incorporeal",
+                "undead",
+                "unholy"
+            ]
+        }
+    },
+    "type": "npc"
+}

@@ -1,0 +1,96 @@
+{
+    "_id": "HwedYc7ovLW11wdu",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "cRPlvBPrPFteluR7",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Venting Steam",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature enters the area of the trap</p><hr /><p><strong>Effect</strong> All four vents rapidly heat and let out steam for 5 seconds, filling room with a painfully acrid smell. Each creature in the room must attempt a @Check[type:fortitude|dc:26] save, and the trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}, and, struck by a coughing fit, falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blowing Off Steam",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 25
+            },
+            "emitsSound": "encounter",
+            "hardness": 16,
+            "hp": {
+                "details": "",
+                "max": 64,
+                "temp": 0,
+                "value": 64
+            },
+            "stealth": {
+                "details": "<p>(trained); @Check[type:perception|dc:28] (expert) to find the precise location of the steam vents</p>",
+                "value": 18
+            }
+        },
+        "details": {
+            "description": "<p>Hidden vents emit scalding hot steam made from a particularly acrid solution, irritating the eyes and throat of anyone who inhales it.</p>",
+            "disable": "<p>@Check[type:thievery|dc:29] (trained) to block a vent, or @Check[type:crafting|dc:27] (trained) to disable the heating element within the vent that turns the liquid into steam</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-20: The Rakshasa's Court"
+            },
+            "reset": "<p>The steam vents cease to operate 1 minute after all creatures have left the area and go into a maintenance cycle for 1 hour. After this time, they can be triggered again.</p>",
+            "routine": "<p>(4 actions) Each of the four steam vents uses a single action each to emit superheated steam, which spreads for 60 feet along the wall from its location and extends out from the wall by 30 feet, dealing @Damage[(2d10+11)[untyped]] damage to each creature in their range (@Check[type:fortitude|dc:26] save). For each disabled vent, the trap loses 1 action each turn.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 17
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "will": {
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

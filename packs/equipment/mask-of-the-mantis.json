@@ -1,0 +1,92 @@
+{
+    "_id": "Ku14uJEbwXi0XqD9",
+    "img": "icons/equipment/head/helm-spangen.webp",
+    "name": "Mask of the Mantis",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>The traditional headwear for the Red Mantis assassin is the <em>mask of the mantis</em>. Most of these masks are constructed from hard leather helmets that serve to obscure the assassin's identity and give them the appearance of possessing a mantis's head. Some variants, however, consist only of the mask itself, and are meant to be worn over the face. Regardless of the shape and style, all masks of the mantis function the same.</p>\n<p>Members of the Vernai can use any <em>mask of the mantis</em> to enhance their frightening presence—something they often do simply to reveal their standing in the society without speaking a word, as detailed fully in the entry for Vernai's Ire activation below.</p>\n<p>While wearing a <em>mask of the mantis</em>, you gain a +1 item bonus to Perception checks.</p><hr /><p><strong>Activate—Enhance Vision</strong> <span class=\"action-glyph\">2</span> (concentrate, manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You cast either @UUID[Compendium.pf2e.spells-srd.Item.Darkvision] or @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen] on yourself.</p><hr /><p><strong>Activate—Vernai's Ire</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> You are a member of the Vernai</p>\n<p><strong>Effect</strong> You cause the <em>mask of the mantis's</em> eyes to shimmer with crimson light, granting yourself a far more harrowing visage. This light creates illumination equivalent to that of a candle. You can use this ability again to extinguish the frightening glow, but as long as Vernai's Ire remains active, you gain a +1 item bonus to Intimidation checks.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 5
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 150
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.MaskOfTheMantis.VernaisIreLabel",
+                "option": "vernais-ire",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "vernais-ire"
+                ],
+                "value": {
+                    "alpha": 0.2,
+                    "animation": {
+                        "intensity": 4,
+                        "speed": 1,
+                        "type": "torch"
+                    },
+                    "bright": 0,
+                    "color": "#a2022a",
+                    "dim": 10,
+                    "shadows": 0.2
+                }
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "vernais-ire"
+                ],
+                "selector": "intimidation",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "wornheadwear"
+        }
+    },
+    "type": "equipment"
+}

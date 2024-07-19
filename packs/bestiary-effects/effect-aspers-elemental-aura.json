@@ -1,0 +1,95 @@
+{
+    "_id": "1zvAMG6E9xTsY2Au",
+    "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+    "name": "Effect: Asper's Elemental Aura",
+    "system": {
+        "description": {
+            "value": "<p>Asper surrounds herself with the power of one of the elements under her control (air, fire, or water). If air, she gains resistance 10 to electricity damage and doubles her speed. If fire, she gains resistance 10 to fire damage. Any creature within 30 feet of her who receives fire damage receives an extra @Damage[2d10[persistent,fire]] damage. If water, she gains resistance 10 to cold damage and fast healing 20.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Society Scenario #5-20: The Rakshasa's Court"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "elemental-aura"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-aura:air"
+                ],
+                "type": "electricity",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-aura:fire"
+                ],
+                "type": "fire",
+                "value": 10
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "elemental-aura:water"
+                ],
+                "type": "cold",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "elemental-aura:air"
+                ],
+                "selector": "land-speed",
+                "value": 35
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "elemental-aura:water"
+                ],
+                "value": 20
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -1,0 +1,418 @@
+{
+    "_id": "3tYqfg9qhrtyTbvq",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "WZXSVtoj8JP38ioQ",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Pseudopod",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 28
+                },
+                "damageRolls": {
+                    "NlXv6iiBtdfdLm4p": {
+                        "damage": "3d12+14",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "reach-10"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "eIPLqe4b3bfAP3ye",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Acidic Slime",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 25
+                },
+                "damageRolls": {
+                    "80NwMVc2P2ahaxfN": {
+                        "category": "persistent",
+                        "damage": "3d6",
+                        "damageType": "acid"
+                    },
+                    "Vx5roV3HghUP9fnX": {
+                        "damage": "4d6",
+                        "damageType": "acid"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "range-60"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "toYNBsORZe7vD70H",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Fetid Aura",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>80 feet. A creature entering or beginning its turn in a furnerico's fetid aura must succeed at a @Check[type:fortitude|dc:31] or be @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}; the creature also becomes @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the end of their next turn. A creature that succeeds at its save is temporarily immune to all furnerico fetid auras for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Aura",
+                        "radius": 80,
+                        "traits": [
+                            "olfactory"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "olfactory"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aQ7s3gcgpSoP9IE1",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Hydrophobic",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A furnerico avoids water and won't willingly approach within five feet of a body of water. It won't initiate an attack against any creature that's soaking wet with water or that has the water trait. A furnerico takes a –2 circumstance penalty to its attack rolls against such creatures who attack it.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "target:trait:water"
+                        ],
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "8fNNL1iz07rAu9ya",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Susceptible to Water",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A furnerico cleansed of filth becomes sluggish. If ever immersed fully in pure, clean water, or if it ever fails a saving throw against a water effect, the furnerico becomes @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it starts its turn in an area of filth or contaminated water.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eUWzngf0NtNyx8AQ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Feast on Illness",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> The furnerico's last action was a successful pseudopod Strike against a creature with the @UUID[Compendium.pf2e.conditionitems.Item.Sickened] condition</p><hr /><p><strong>Effect</strong> The furnerico feeds off the sweet sickness of the creature, gaining 30 temporary hit points for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Feast on Illness",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Feast on Illness"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "rgiPl5x0xcvlkVGJ",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Sticky Slime",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>A creature that's critically hit by a furnerico's acidic slime becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until they @UUID[Compendium.pf2e.actionspf2e.Item.Escape] (DC 34) or 1 minute passes, after which the slime dissolves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "acidic-slime-damage",
+                        "text": "{item|system.description.value}",
+                        "title": "{item|name}",
+                        "visibility": "owner"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Furnerico",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -3
+            },
+            "con": {
+                "mod": 8
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 33
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 320,
+                "temp": 0,
+                "value": 320
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "acid"
+                },
+                {
+                    "exceptions": [],
+                    "type": "disease"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "bludgeoning",
+                    "value": 15
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 15
+                },
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "poison",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [
+                    {
+                        "type": "climb",
+                        "value": 30
+                    }
+                ],
+                "value": 15
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "slashing",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A mass of undulating tendrils and nerves, furnericos stalk sewer systems below large cities, reveling in the filth and rotting detritus created by those who dwell above the middens and sumps they call home. Fortunately for sanitation workers and other civil servants who ply their trade in sewer tunnels, furnericos are exceedingly rare and solitary. Their power is such that once one moves into a sewer system, it's often easier for urban planners to simply abandon that section to the monster and rebuild around it. A furnerico left to its domain like this is generally content to remain—as long as the filth keeps flowing.</p>\n<p>Furnericos are asexual, spawning a single offspring as they expire from natural causes. One that dies by violence does not perpetuate its kind, presenting a vexing question to sages: where do these creatures come from, and why haven't they gone extinct over the ages?</p><h2>Cultist Creations</h2><p>The answer to \"where are furnericos from?\" is known by only a few, for it lies with the faithful of the parasite god Ghlaunder. These cultists use obscure rites to create furnericos from the very filth the monsters wallow in. Ghlaunder worshippers often do so to create powerful guardians for their hidden temples; furnericos created in this manner instinctively treat worshippers of Ghlaunder as allies... a trait not shared by those born from a prior furnerico, and a lesson many Ghlaunder cultists only learn moments before their death after assuming otherwise from a furnerico found in the wild.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #204: Stage Fright"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 24,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28,
+                "special": []
+            },
+            "stealth": {
+                "base": 25,
+                "special": [
+                    {
+                        "base": 27,
+                        "label": "to Hide in sewage",
+                        "predicate": [
+                            "terrain:sewage"
+                        ]
+                    }
+                ]
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "aberration"
+            ]
+        }
+    },
+    "type": "npc"
+}
