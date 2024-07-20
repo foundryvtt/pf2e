@@ -181,8 +181,7 @@ class CheckPF2e {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
-        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
+        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate();
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
