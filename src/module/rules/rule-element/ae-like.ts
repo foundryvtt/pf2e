@@ -204,9 +204,14 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return Math.max(current ?? 0, change);
             }
             case "override": {
+                const isOverridable =
+                    R.isNullish(current) ||
+                    typeof current === typeof change ||
+                    // Allow numbers and booleans to override each other to allow for cases of overridable union types
+                    (["number", "boolean"].includes(typeof current) && ["number", "boolean"].includes(typeof change));
                 if (merge && R.isObjectType(current) && R.isObjectType(change)) {
                     return fu.mergeObject(current, change);
-                } else if (!R.isNullish(current) && typeof current !== typeof change) {
+                } else if (!isOverridable) {
                     return new DataModelValidationFailure({
                         invalidValue: change,
                         message: `${change} cannot override ${current}`,
