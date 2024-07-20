@@ -21,14 +21,12 @@ export class DamagePF2e {
         const outcome = context.outcome ?? null;
         context.createMessage ??= true;
 
+        // Change default roll mode to blind GM roll if the "secret" option is specified
+        if (context.options.has("secret")) context.secret = true;
+        if (context.secret) context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
         context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
             ? context.rollMode
             : game.settings.get("core", "rollMode");
-
-        // Change default roll mode to blind GM roll if the "secret" option is specified
-        if (context.options.has("secret")) {
-            context.secret = true;
-        }
 
         const subtitle = outcome
             ? context.sourceType === "attack"
@@ -159,11 +157,7 @@ export class DamagePF2e {
         // Create the damage roll and evaluate. If already created, evalute the one we've been given instead
         const roll = await (() => {
             const damage = data.damage;
-            const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
-
-            if (damage.roll) {
-                return damage.roll.evaluate({ allowInteractive });
-            }
+            if (damage.roll) return damage.roll.evaluate();
 
             const formula = fu.deepClone(damage.formula[outcome ?? "success"]);
             if (!formula) {
@@ -192,7 +186,7 @@ export class DamagePF2e {
                 showBreakdown,
             };
 
-            return new DamageRoll(formula, {}, options).evaluate({ allowInteractive });
+            return new DamageRoll(formula, {}, options).evaluate();
         })();
 
         if (roll === null) return null;
@@ -237,7 +231,6 @@ export class DamagePF2e {
             return null;
         })();
 
-        const rollMode = context.rollMode ?? "roll";
         const contextFlag: DamageDamageContextFlag = {
             type: context.type,
             sourceType: context.sourceType,
@@ -249,7 +242,7 @@ export class DamagePF2e {
             mapIncreases: context.mapIncreases,
             notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
-            rollMode,
+            rollMode: context.rollMode,
             traits: context.traits ?? [],
             skipDialog: context.skipDialog ?? !game.user.settings.showDamageDialogs,
             outcome,
@@ -294,7 +287,7 @@ export class DamagePF2e {
 
         if (context.createMessage) {
             messageData.rolls.push(...splashRolls);
-            await ChatMessagePF2e.create(messageData, { rollMode });
+            await ChatMessagePF2e.create(messageData, { rollMode: context.rollMode });
         }
 
         Hooks.callAll(`pf2e.damageRoll`, roll);
