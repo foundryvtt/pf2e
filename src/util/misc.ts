@@ -105,16 +105,14 @@ function signedInteger(value: number, { emptyStringZero = false, zeroIsNegative 
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
-const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
-
-const wordBoundary = String.raw`(?=^|$|${nonWordCharacter})`;
 const nonWordBoundary = String.raw`(?=^|$|${wordCharacter})`;
 const lowerCaseLetter = String.raw`\p{Lowercase_Letter}`;
 const upperCaseLetter = String.raw`\p{Uppercase_Letter}`;
-const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
 
+const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
+const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
 const nonWordCharacterHyphenOrSpaceRE = /[^-\p{White_Space}\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]/gu;
-const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBoundary})${lowerCaseLetter}`, "gu");
+const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|${nonWordCharacter}${lowerCaseLetter}`, "gu");
 
 /**
  * The system's sluggification algorithm for labels and other terms.
@@ -426,9 +424,10 @@ const SORTABLE_BASE_OPTIONS: Sortable.Options = {
 };
 
 export {
+    ErrorPF2e,
+    SORTABLE_BASE_OPTIONS,
     applyNTimes,
     configFromLocalization,
-    ErrorPF2e,
     fontAwesomeIcon,
     getActionGlyph,
     getActionIcon,
@@ -449,7 +448,6 @@ export {
     setHasElement,
     signedInteger,
     sluggify,
-    SORTABLE_BASE_OPTIONS,
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
