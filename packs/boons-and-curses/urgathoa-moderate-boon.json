@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> Urgathoa blesses you as one of her children. You gain void healing.</p>"
+            "value": "<p>Urgathoa blesses you as one of her children. You gain void healing.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,14 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.hp.negativeHealing",
+                "value": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
