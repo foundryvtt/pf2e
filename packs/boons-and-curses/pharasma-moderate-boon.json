@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> You gain a greater mastery over the energies of life and death.</p>\n<p>Your Strikes deal 1 vitality damage to undead.</p>\n<p>Your spells that deal vitality damage to undead gain a +1 status bonus to damage per spell rank, and your spells that heal the living gain a +1 status bonus to the Hit Points restored per spell rank.</p>"
+            "value": "<p>You gain a greater mastery over the energies of life and death.</p>\n<p>Your Strikes deal 1 vitality damage to undead.</p>\n<p>Your spells that deal vitality damage to undead gain a +1 status bonus to damage per spell rank, and your spells that heal the living gain a +1 status bonus to the Hit Points restored per spell rank.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,17 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "vitality",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mode:undead"
+                ],
+                "selector": "strike-damage",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
