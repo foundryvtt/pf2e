@@ -4,7 +4,7 @@
     "name": "Grandmother Spider - Major Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Major Curse:</strong> Grandmother Spider throws all of her might behind the underdog. Any time a creature with a level lower than yours rolls a success on a check against you, it critically succeeds instead; any time you roll a failure on a check against a creature with a level lower than yours, you critically fail instead.</p>"
+            "value": "<p>Grandmother Spider throws all of her might behind the underdog. Any time a creature with a level lower than yours rolls a success on a check against you, it critically succeeds instead; any time you roll a failure on a check against a creature with a level lower than yours, you critically fail instead.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,23 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "lt": [
+                            "origin:level",
+                            "self:level"
+                        ]
+                    }
+                ],
+                "selector": "check"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
