@@ -8,6 +8,7 @@ import {
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { RulerPF2e } from "@module/canvas/ruler.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -30,7 +31,7 @@ export const Init = {
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
-            // Decimals are 😠
+            // No use of decimals as tie breakers among initiative values
             CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
@@ -40,6 +41,9 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+
+            // Set after load in case of module conflicts
+            if (!RulerPF2e.hasModuleConflict) CONFIG.Canvas.rulerClass = RulerPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";

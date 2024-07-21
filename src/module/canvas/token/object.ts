@@ -3,7 +3,7 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import * as R from "remeda";
 import type { CanvasPF2e, TokenLayerPF2e } from "../index.ts";
-import { measureDistanceCuboid, squareAtPoint } from "../index.ts";
+import { RulerPF2e, measureDistanceCuboid, squareAtPoint } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
 
@@ -581,8 +581,9 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
     /** Initiate token drag measurement unless using the ruler tool. */
     protected override _onDragLeftStart(event: TokenPointerEvent<this>): void {
         event.interactionData.clones ??= [];
-        if (game.activeTool !== "ruler") {
-            canvas.controls.ruler.startDragMeasurement(event);
+        const hasModuleConflict = RulerPF2e.hasModuleConflict;
+        if (game.activeTool !== "ruler" || hasModuleConflict) {
+            if (!hasModuleConflict) canvas.controls.ruler.startDragMeasurement(event);
             return super._onDragLeftStart(event);
         }
     }
