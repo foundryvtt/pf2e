@@ -267,6 +267,7 @@ class DamageRoll extends AbstractDamageRoll {
             showButtons: !isPrivate,
             showTotalInstances,
             showTripleDamage: game.pf2e.settings.critFumble.buttons,
+            user: game.user,
         };
 
         return renderTemplate(template, chatData);
