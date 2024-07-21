@@ -1,6 +1,7 @@
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemSheetPF2e, type ItemPF2e } from "@item";
+import { RulerPF2e } from "@module/canvas/ruler.ts";
 import { StatusEffects } from "@module/canvas/status-effects.ts";
 import { MigrationRunner } from "@module/migration/runner/index.ts";
 import { isImageOrVideoPath, tupleHasValue } from "@util";
@@ -305,6 +306,8 @@ export function registerSettings(): void {
 
     // Called from hook to ensure keybindings are available
     Hooks.once("canvasInit", () => {
+        if (RulerPF2e.hasModuleConflict) return;
+
         const placeWaypointKey = ((): string => {
             const action = game.keybindings.bindings.get("pf2e.placeWaypoint")?.at(0);
             return action ? KeybindingsConfig._humanizeBinding(action) : "";

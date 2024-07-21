@@ -15,6 +15,10 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return setting === "always" || (setting === "encounters" && !!game.combat?.active);
     }
 
+    static get hasModuleConflict(): boolean {
+        return ["elevationruler", "pf2e-ruler"].some((id) => game.modules.get(id)?.active);
+    }
+
     /** The footprint of the drag-measured token relative to the origin center */
     #footprint: GridOffset[] = [];
 
