@@ -77,7 +77,7 @@
                 2.5rem 1fr;
 
             .item-image {
-                grid-area: "img";
+                grid-area: img;
                 width: 2rem;
                 height: 2rem;
                 margin-top: var(--space-2);
@@ -206,21 +206,20 @@
             }
 
             &:not(.ready) {
-                .item-name {
-                    color: var(--color-text-dark-4);
+                .item-image {
+                    cursor: default;
+                    filter: grayscale(1);
 
-                    .item-image {
-                        cursor: default;
-                        filter: grayscale(1);
-
-                        &:hover i {
-                            display: none;
-                        }
+                    &:hover i {
+                        display: none;
                     }
                 }
 
+                h4.name {
+                    color: var(--color-text-dark-4);
+                }
+
                 .hands-occupied {
-                    // color: var(--color-text-dark-secondary);
                     font: italic 500 var(--font-size-10) var(--sans-serif);
                     letter-spacing: 0.05em;
                     text-rendering: optimizeLegibility;
