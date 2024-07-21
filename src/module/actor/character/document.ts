@@ -1418,12 +1418,14 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                       glyph: DAMAGE_TYPE_ICONS[o],
                   }));
 
+        const hiddenCauseStowed = weapon.isStowed && this.flags.pf2e.hideStowed;
+        const hiddenCauseUnarmed = weapon.slug === "basic-unarmed" && !this.flags.pf2e.showBasicUnarmed;
         const action: CharacterStrike = fu.mergeObject(strikeStat, {
             label: weapon.name,
             quantity: weapon.quantity,
             ready,
             domains: attackDomains,
-            visible: weapon.slug !== "basic-unarmed" || this.flags.pf2e.showBasicUnarmed,
+            visible: !(hiddenCauseStowed || hiddenCauseUnarmed),
             glyph: "A",
             item: weapon,
             type: "strike" as const,
