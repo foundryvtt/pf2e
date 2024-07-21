@@ -134,6 +134,20 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return super._startMeasurement(origin, options);
     }
 
+    /** Immediately inform the user when a waypoint won't be reachable. */
+    protected override _addWaypoint(point: Point, options?: { snap?: boolean }): void {
+        if (!this.dragMeasurement || !this.isMeasuring || !this.token || game.user.isGM) {
+            return super._addWaypoint(point, options);
+        }
+        const origin = this.segments.at(-1)?.ray.A ?? this.origin ?? this.token.center;
+        const hasCollision = this.token.checkCollision(point, { origin, type: "move", mode: "any" });
+        if (hasCollision) {
+            ui.notifications.error("RULER.MovementCollision", { localize: true });
+        } else {
+            return super._addWaypoint(point, options);
+        }
+    }
+
     /** Calculate cost as an addend to distance due to difficult terrain. */
     protected override _getCostFunction(): GridMeasurePathCostFunction | undefined {
         const isCreature = !!this.token?.actor?.isOfType("creature");

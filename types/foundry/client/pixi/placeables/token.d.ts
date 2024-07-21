@@ -496,20 +496,23 @@ declare global {
          */
         checkCollision(
             destination: Point,
-            { type, mode }: { type?: WallRestrictionType; mode: "closest" },
+            { origin, type, mode }: { origin?: Point; type?: WallRestrictionType; mode: "closest" },
         ): PolygonVertex;
-        checkCollision(destination: Point, { type, mode }: { type?: WallRestrictionType; mode: "any" }): boolean;
         checkCollision(
             destination: Point,
-            { type, mode }: { type?: WallRestrictionType; mode: "all" },
+            { origin, type, mode }: { origin?: Point; type?: WallRestrictionType; mode: "any" },
+        ): boolean;
+        checkCollision(
+            destination: Point,
+            { origin, type, mode }: { origin?: Point; type?: WallRestrictionType; mode: "all" },
         ): PolygonVertex[];
         checkCollision(
             destination: Point,
-            { type, mode }?: { type?: WallRestrictionType; mode?: undefined },
+            { origin, type, mode }?: { origin?: Point; type?: WallRestrictionType; mode?: undefined },
         ): PolygonVertex[];
         checkCollision(
             destination: Point,
-            { type, mode }?: { type?: WallRestrictionType; mode?: WallMode },
+            { origin, type, mode }?: { origin?: Point; type?: WallRestrictionType; mode?: WallMode },
         ): boolean | PolygonVertex | PolygonVertex[];
 
         /**
