@@ -250,9 +250,11 @@ class ChatMessagePF2e extends ChatMessage {
         html.addEventListener("mouseleave", (event) => this.#onHoverOut(event));
 
         UserVisibilityPF2e.processMessageSender(this, html);
-        if (!actor && this.content) UserVisibilityPF2e.process(html, { document: this });
+        if ((!actor || this.isRoll) && this.content) {
+            UserVisibilityPF2e.process(html, { document: actor ?? this });
+        }
 
-        return $html;
+        return $(html);
     }
 
     /** Highlight the message's corresponding token on the canvas */
