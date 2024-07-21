@@ -180,7 +180,7 @@ export class DamagePF2e {
                 degreeOfSuccess,
                 critRule,
                 bypass: fu.deepClone(damage.bypass) ?? {
-                    immunity: { ignore: [], downgrade: [] },
+                    immunity: { ignore: [], downgrade: [], redirect: [] },
                     resistance: { ignore: [], redirect: [] },
                 },
                 showBreakdown,
