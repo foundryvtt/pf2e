@@ -1,10 +1,10 @@
 import type { ActorPF2e } from "@actor";
-import { NON_DAMAGE_WEAKNESSES, Resistance, Weakness } from "@actor/data/iwr.ts";
-import { ResistanceType } from "@actor/types.ts";
+import { Immunity, NON_DAMAGE_WEAKNESSES, Resistance, Weakness } from "@actor/data/iwr.ts";
+import type { ResistanceType } from "@actor/types.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import * as R from "remeda";
 import { DamageInstance, DamageRoll } from "./roll.ts";
-import { RedirectedResistance } from "./types.ts";
+import type { RedirectedImmunity, RedirectedResistance } from "./types.ts";
 
 /** Apply an actor's IWR applications to an evaluated damage roll's instances */
 function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<string>): IWRApplicationData {
@@ -29,7 +29,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     const persistent: Rolled<DamageInstance>[] = []; // Persistent damage instances filtered for immunities
     const ignoredResistances =
         roll.options.bypass?.resistance.ignore.map((ir) => new Resistance({ type: ir.type, value: ir.max })) ?? [];
-    const redirectedResistances = roll.options.bypass?.resistance.redirect ?? [];
+    const irRedirects = {
+        immunities: roll.options.bypass?.immunity.redirect ?? [],
+        resistances: roll.options.bypass?.resistance.redirect ?? [],
+    };
 
     const nonDamageWeaknesses = weaknesses.filter(
         (w) =>
@@ -55,12 +58,28 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // Step 1: Immunities
 
             // If the target is immune to the entire instance, we're done with it.
-            const immunity = immunities.find((i) => i.test(formalDescription));
+            const possibleImmunities = immunities.filter((i) => i.test(formalDescription));
+            const immunity = possibleImmunities.find(
+                (i) => !hasImmunityRedirection(i, immunities, irRedirects.immunities),
+            );
             if (immunity) {
                 return [{ category: "immunity", type: immunity.label, adjustment: -1 * instanceTotal }];
             }
 
             const instanceApplications: IWRApplication[] = [];
+
+            for (const immunity of possibleImmunities) {
+                const redirect = irRedirects.immunities.find((ir) =>
+                    hasImmunityRedirection(immunity, immunities, [ir]),
+                );
+                const redirectLabel = redirect ? new Immunity({ type: redirect.to }).typeLabel : "???";
+                instanceApplications.push({
+                    category: "immunity",
+                    type: immunity.typeLabel,
+                    adjustment: 0,
+                    redirect: redirectLabel,
+                });
+            }
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
@@ -198,9 +217,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 };
                 // An alternative resistance (or lack thereof) caused by such abilities as the Concussive weapon trait
                 const redirectedResistance = getResistanceRedirection({
+                    immunities,
                     resistances: workingResistanceData,
                     highest: highestResistance,
-                    candidates: redirectedResistances,
+                    redirections: irRedirects.resistances,
                 });
                 if (redirectedResistance) {
                     application.adjustment = -1 * Math.min(afterWeaknesses, redirectedResistance.to?.value ?? 0);
@@ -248,21 +268,36 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
     return { finalDamage, applications, persistent };
 }
 
+function hasImmunityRedirection(
+    testImmunity: Immunity,
+    immunities: Immunity[],
+    redirections: RedirectedImmunity[],
+): boolean {
+    return redirections.some((r) => r.from === testImmunity.type && !immunities.some((i) => i.type === r.to));
+}
+
 /**
  * Find a resistance "redirection" among a list of candidates: that is, one that matches the `highest` resistance type
  * and would result is less damage being resisted.
  */
 function getResistanceRedirection({
+    immunities,
     resistances,
     highest,
-    candidates,
+    redirections,
 }: {
+    immunities: Immunity[];
     resistances: WorkingResistanceData[];
     highest: WorkingResistanceData;
-    candidates: RedirectedResistance[];
+    redirections: RedirectedResistance[];
 }): { to: WorkingResistanceData | null; redirect: RedirectedResistance } | null {
-    return candidates
-        .filter((rr) => [highest.type, null].includes(rr.from) && rr.to !== highest.type)
+    return redirections
+        .filter(
+            (rr) =>
+                [highest.type, null].includes(rr.from) &&
+                rr.to !== highest.type &&
+                !immunities.some((i) => i.type === rr.to),
+        )
         .reduce((bestMatch: { to: WorkingResistanceData | null; redirect: RedirectedResistance } | null, redirect) => {
             if (bestMatch && !bestMatch.to) return bestMatch;
             const redirectTarget = resistances.find((r) => r.type === redirect.to) ?? null;
@@ -289,6 +324,7 @@ interface ImmunityApplication {
     category: "immunity";
     type: string;
     adjustment: number;
+    redirect?: string;
 }
 
 interface WeaknessApplication {

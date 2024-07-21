@@ -71,6 +71,7 @@ interface DamageIRBypassData {
     immunity: {
         ignore: ImmunityType[];
         downgrade: DowngradedImmunity[];
+        redirect: RedirectedImmunity[];
     };
     resistance: {
         ignore: IgnoredResistance[];
@@ -87,6 +88,12 @@ interface DowngradedImmunity {
 interface IgnoredResistance {
     type: ResistanceType;
     max: number;
+}
+
+/** A damage type to check against instead if the target would resist the actual damage type */
+interface RedirectedImmunity {
+    from: ImmunityType;
+    to: ImmunityType;
 }
 
 /** A damage type to check against instead if the target would resist the actual damage type */
@@ -163,6 +170,7 @@ export type {
     DamageType,
     DamageTypeRenderData,
     MaterialDamageEffect,
+    RedirectedImmunity,
     RedirectedResistance,
     SimpleDamageTemplate,
     SpellDamageTemplate,

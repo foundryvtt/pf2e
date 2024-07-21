@@ -251,7 +251,7 @@ class WeaponDamagePF2e {
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
 
         const irBypassData: DamageIRBypassData = {
-            immunity: { ignore: [], downgrade: [] },
+            immunity: { ignore: [], downgrade: [], redirect: [] },
             resistance: {
                 ignore: propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []),
                 redirect: [],
@@ -271,6 +271,10 @@ class WeaponDamagePF2e {
 
         // Concussive trait
         if (weaponTraits.includes("concussive")) {
+            irBypassData.immunity.redirect.push(
+                { from: "piercing", to: "bludgeoning" },
+                { from: "bludgeoning", to: "piercing" },
+            );
             irBypassData.resistance.redirect.push(
                 { from: "piercing", to: "bludgeoning" },
                 { from: "bludgeoning", to: "piercing" },
