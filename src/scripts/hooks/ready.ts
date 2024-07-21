@@ -9,7 +9,6 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { activateSocketListener } from "@scripts/socket.ts";
 import { storeInitialWorldVersions } from "@scripts/store-versions.ts";
 import { extendDragData } from "@scripts/system/dragstart-handler.ts";
-import * as R from "remeda";
 
 export const Ready = {
     listen: (): void => {
@@ -135,24 +134,26 @@ export const Ready = {
             // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
             const inTerrains: ActorPF2e[] = [];
             const hasSceneTerrains = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
-            for (const token of game.scenes.viewed?.tokens ?? []) {
+            for (const token of game.scenes.active?.tokens ?? []) {
                 if (!token.actor) continue;
                 if (hasSceneTerrains) {
                     inTerrains.push(token.actor);
-                } else if ((token.regions ?? []).some((r) => r.behaviors.some((b) => b.type === "environment"))) {
+                } else if (
+                    (token.regions ?? []).some((r) =>
+                        r.behaviors.some((b) => b.type === "environmentFeature" && b.system.terrain.difficult > 0),
+                    )
+                ) {
                     inTerrains.push(token.actor);
                 }
             }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
-            const actorsToReprepare = new Set(
-                [
-                    ...game.combats.contents.flatMap((e) => e.combatants.contents).map((c) => c.actor),
-                    ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                    ...inTerrains.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
-                    ...game.actors.filter((a) => a.type === "familiar"),
-                    ...parties,
-                ].filter(R.isTruthy),
-            );
+            const actorsToReprepare: Set<ActorPF2e> = new Set([
+                ...game.combats.contents.flatMap((e) => e.combatants.contents).flatMap((c) => c.actor ?? []),
+                ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
+                ...inTerrains.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
+                ...game.actors.filter((a) => a.type === "familiar"),
+                ...parties,
+            ]);
             resetActors(actorsToReprepare, { sheets: false, tokens: inTerrains.length > 0 });
             ui.actors.render();
 

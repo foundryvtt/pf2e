@@ -165,6 +165,43 @@ declare global {
         ): Promise<(ImageFilePath | VideoFilePath)[]>;
 
         /* -------------------------------------------- */
+        /*  Tokens                                      */
+        /* -------------------------------------------- */
+
+        /**
+         * Get this actor's dependent tokens.
+         * If the actor is a synthetic token actor, only the exact Token which it represents will be returned.
+         * @param [options]
+         * @param [options.scenes] A single Scene, or list of Scenes to filter by.
+         * @param [options.linked] Limit the results to tokens that are linked to the actor.
+         */
+        getDependentTokens(options?: {
+            scenes?: NonNullable<NonNullable<TParent>["parent"]> | NonNullable<NonNullable<TParent>["parent"]>[];
+            linked?: boolean;
+        }): NonNullable<TParent>[];
+
+        /**
+         * Register a token as a dependent of this actor.
+         * @param token  The token.
+         * @internal
+         */
+        _registerDependentToken(token: NonNullable<TParent>): void;
+
+        /**
+         * Remove a token from this actor's dependents.
+         * @param token The token.
+         * @internal
+         */
+        _unregisterDependentToken(token: NonNullable<TParent>): void;
+
+        /**
+         * Prune a whole scene from this actor's dependent tokens.
+         * @param scene  The scene.
+         * @internal
+         */
+        _unregisterDependentScene(scene: NonNullable<NonNullable<TParent>["parent"]>): void;
+
+        /* -------------------------------------------- */
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
