@@ -36,9 +36,7 @@
 
                     <ol class="actions-list item-list directory-list strikes-list" data-strikes>
                         {{#each data.actions as |strike ai|}}
-                            {{#unless (and strike.item.isStowed @root.actor.flags.pf2e.hideStowed)}}
-                                {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
-                            {{/unless}}
+                            {{> "systems/pf2e/templates/actors/character/partials/strike.hbs" action=strike index=ai}}
                         {{/each}}
                     </ol>
 
