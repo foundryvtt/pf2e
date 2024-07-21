@@ -89,9 +89,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
                     lastSegment.ray = new Ray(R.pick(this.token, ["x", "y"]), exactDestination);
                 }
             }
-            return this.moveToken().then(() => {
-                this.#exactDestination = null;
-            });
+            return this.moveToken();
         }
 
         return this._endMeasurement();
@@ -228,10 +226,10 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         segment: RulerMeasurementSegment,
         destination: Point,
     ): Promise<unknown> {
-        if (this.dragMeasurement && this.#exactDestination && token && token.w < canvas.grid.sizeX) {
+        if (this.dragMeasurement && this.#exactDestination && segment === this.segments.at(-1)) {
             const exactDestination = this.#exactDestination;
-            const adjustedDestination = exactDestination ? exactDestination : destination;
-            return super._animateSegment(token, segment, adjustedDestination);
+            this.#exactDestination = null;
+            return super._animateSegment(token, segment, exactDestination);
         }
         return super._animateSegment(token, segment, destination);
     }
