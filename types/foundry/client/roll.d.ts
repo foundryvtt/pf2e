@@ -107,6 +107,10 @@ declare global {
          * @param [options={}] Options which inform how the Roll is evaluated
          * @param [options.minimize=false] Minimize the result, obtaining the smallest possible value.
          * @param [options.maximize=false] Maximize the result, obtaining the largest possible value.
+         * @param [options.allowStrings=false] If true, string terms will not cause an error to be thrown during
+         *                                     evaluation.
+         * @param [options.allowInteractive=true] If false, force the use of non-interactive rolls and do not prompt the
+         *                                         user to make manual rolls.
          * @returns The evaluated Roll instance
          *
          * @example
@@ -115,19 +119,19 @@ declare global {
          * console.log(r.result); // 5 + 4 + 2
          * console.log(r.total);  // 11
          */
-        evaluate({ minimize, maximize, allowInteractive }?: EvaluateRollParams): Promise<Rolled<this>>;
+        evaluate(options?: EvaluateRollParams): Promise<Rolled<this>>;
 
         /**
          * Evaluate the roll asynchronously.
          * A temporary helper method used to migrate behavior from 0.7.x (sync by default) to 0.9.x (async by default).
          */
-        protected _evaluate({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Promise<Rolled<this>>;
+        protected _evaluate({ minimize, maximize }?: EvaluateRollParams): Promise<Rolled<this>>;
 
         /**
          * Evaluate the roll synchronously.
          * A temporary helper method used to migrate behavior from 0.7.x (sync by default) to 0.9.x (async by default).
          */
-        protected _evaluateSync({ minimize, maximize }?: Omit<EvaluateRollParams, "async">): Rolled<this>;
+        protected _evaluateSync({ minimize, maximize }?: EvaluateRollParams): Rolled<this>;
 
         /**
          * Safely evaluate the final total result for the Roll using its component terms.
@@ -454,8 +458,13 @@ declare global {
     };
 
     interface EvaluateRollParams {
+        /** Minimize the result, obtaining the smallest possible value. */
         minimize?: boolean;
+        /** Maximize the result, obtaining the largest possible value. */
         maximize?: boolean;
+        /** If true, string terms will not cause an error to be thrown during evaluation. */
+        allowStrings?: boolean;
+        /** If false, force the use of non-interactive rolls and do not prompt the user to make manual rolls. */
         allowInteractive?: boolean;
     }
 
