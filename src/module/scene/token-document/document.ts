@@ -4,7 +4,7 @@ import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
-import { RegionDocumentPF2e } from "@scene";
+import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
 import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
@@ -104,6 +104,24 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             x: bounds.x + bounds.width / 2,
             y: bounds.y + bounds.height / 2,
         };
+    }
+
+    /** The grade of difficult terrain at this token's position */
+    get difficultTerrain(): DifficultTerrainGrade {
+        const regions = Array.from(this.regions ?? []);
+        return regions
+            .map((r) =>
+                r.behaviors.filter(
+                    (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<TParent>> =>
+                        b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                ),
+            )
+            .flat()
+            .reduce(
+                (highest: DifficultTerrainGrade, b) =>
+                    b.system.terrain.difficult > highest ? b.system.terrain.difficult : highest,
+                0,
+            );
     }
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
