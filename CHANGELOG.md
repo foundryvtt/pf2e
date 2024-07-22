@@ -1,6 +1,27 @@
+## 6.1.1
+
+### System Improvements
+
+-   (nikolaj-a) Add traits and roll-options parameters to /act inline links
+-   (stwlam) Adjust drag measurement feature to play nice(r) with modules
+
+### Bugfixes
+
+-   (stwlam) Fix Concussive trait redirecting damage type to one in which the target is immune
+-   (stwlam) Fix tiny tokens not traversing waypoints during drag measurement
+-   (stwlam) Fix drawing of highlights from other users' drag measurements
+-   (stwlam) Restore processing of roll breakdown user visibility
+-   (Supe) Fix font color of unready strikes
+-   (Supe) Fix hiding strikes in character sheet
+
+### Data Updates
+
+-   (Ambrose) Correct typo in Spit Ambient Magic damage formula
+-   (nikolaj-a) Fix missing space character in Administer First Aid action description
+
 ## 6.1.0
 
-## System Improvements
+### System Improvements
 
 -   (Clemente) Allow editing Shield HP from token attribute bars
 -   (Dire Weasel) Allow DamageAlteration rule elements to have resolvable selectors
@@ -17,9 +38,10 @@
 -   (Supe) Allow no master attribute for non-familiar pets
 -   (Supe) Show error instead of silently failing when rolling inline checks for invalid actors
 
-## Bugfixes
+### Bugfixes
 
 -   (DocSchlock) Allow item alterations of hardness to use non-integer and negative values
+-   (Duncan) Add a minimum ability modifier to familiars
 -   (In3luki) Rerender all created messages when a Treat Wounds macro check is rerolled
 -   (nikolaj-a) Fix sending description to chat for actions with variants when no variant is specified
 -   (stwlam) Fix application of two-hand trait from strike adjustments to weapon damage dice
@@ -31,7 +53,7 @@
 -   (Supe) Fix grid snap when placing bursts and emanations
 -   (Supe) Fix retrieving subitems from chat messages
 
-## Data Updates
+### Data Updates
 
 -   (Abaddon) Fix Reverse Engineering prerequisite
 -   (Abaddon) Fix Widen the Gap prerequisites
@@ -76,7 +98,6 @@
 -   (Dire Weasel) Update Acid Arrow to use `@Damage` syntax
 -   (Dire Weasel) Update Raise Symbol to handle unified Emblazon Armament
 -   (Dire Weasel) Update Gorum's Minor Curse to alter armor and shield hardness
--   (Duncan) Add a minimum ability modifier to familiars
 -   (Farling) Add automation for Crystal Luminescence feat
 -   (kromko) Add public notes to Gallowdead
 -   (kromko) Fix Choker of Elocution (Greater) craft requirements
@@ -119,7 +140,7 @@
 -   (TMun) Add Quest 19 NPCs
 -   (Trent) Add choiceset rules to Intense Implement feat
 
-## Under the Hood
+### Under the Hood
 
 -   (In3luki) Add custom `tagify-tags` HTML element that handles `Tagify` form data
 -   (MrVauxs) Add item and origin to appliedDamage messages
