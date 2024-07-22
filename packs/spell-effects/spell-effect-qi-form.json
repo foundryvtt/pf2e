@@ -1,0 +1,96 @@
+{
+    "_id": "rQaltMIEi2bn1Z4k",
+    "img": "systems/pf2e/icons/spells/ki-form.webp",
+    "name": "Spell Effect: Qi Form",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Qi Form]</p>\n<p>In this form, you gain a fly Speed equal to your land Speed. Choose force, spirit, vitality, or void damage. All your Strikes deal 1d6 additional damage of the chosen type.</p>\n<p>You take a -2 status penalty to saves against emotion effects but gain a +2 status bonus to saves against all other mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "emotion"
+                ],
+                "selector": "saving-throw",
+                "slug": "ki-form-emotion-penalty",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "mental",
+                    {
+                        "not": "emotion"
+                    }
+                ],
+                "selector": "saving-throw",
+                "slug": "ki-form-mental-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    }
+                ],
+                "flag": "kiFormDamage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.kiFormDamage}",
+                "diceNumber": 1,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "selector": "strike-damage"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

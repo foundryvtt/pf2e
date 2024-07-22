@@ -1,11 +1,11 @@
 {
-    "_id": "yo6FOzzzcGoJ4tfZ",
-    "img": "icons/weapons/swords/greatsword-crossguard-embossed-gold.webp",
+    "_id": "OIs6WPuCRh2UJTOe",
+    "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/holy-avenger.webp",
     "name": "Chalice of Justice",
     "system": {
         "baseItem": "longsword",
         "bonus": {
-            "value": 0
+            "value": 2
         },
         "bonusDamage": {
             "value": 0
@@ -21,7 +21,7 @@
             "die": "d8"
         },
         "description": {
-            "value": "<p>This gleaming golden sword is a <em>+2 greater striking holy cold iron longsword</em> given only to the worthiest heroes of a holy faith. It's made of a sacred, secret alloy that makes the blade both cold iron and silver. If you're unholy, you're @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} while holding a <em>chalice of justice</em>. You can't recover from this condition while holding the weapon.</p>\n<p><strong>Activate—Sip of Justice</strong><span class=\"action-glyph\"><strong>1</strong></span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> The pommel of the weapon transmutes into the shape of a miniature chalice. You drink deep from the chalice and regain HP equal to the chalice's level. If you're holy, you regain double the HP, and for 1 minute, whenever you critically hit an unholy creature with the chalice of justice, the creature takes @Damage[2d6[persistent,spirit]] damage, and it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. The persistent spirit damage has the holy trait.</p><hr /><p><strong>Craft Requirements</strong> You're holy</p>"
+            "value": "<p>This gleaming golden sword is a <em>+2 greater striking holy cold iron longsword</em> given only to the worthiest heroes of a holy faith. It's made of a sacred, secret alloy that makes the blade both cold iron and silver. If you're unholy, you're @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} while holding a <em>chalice of justice</em>. You can't recover from this condition while holding the weapon.</p><hr /><p><strong>Activate—Sip of Justice</strong> <span class=\"action-glyph\"><strong>1</strong></span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> The pommel of the weapon transmutes into the shape of a miniature chalice. You drink deep from the chalice and regain HP equal to the chalice's level. If you're holy, you regain double the HP, and for 1 minute, whenever you critically hit an unholy creature with the <em>chalice of justice</em>, the creature takes @Damage[2d6[persistent,spirit]] damage, and it's @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round. The persistent spirit damage has the holy trait.</p><hr /><p><strong>Craft Requirements</strong> You're holy.</p>"
         },
         "group": "sword",
         "hardness": 0,
@@ -44,7 +44,7 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder Player Core"
+            "title": "Pathfinder Player Core 2"
         },
         "quantity": 1,
         "range": null,
@@ -60,6 +60,21 @@
                 "mode": "add",
                 "property": "materials",
                 "value": "silver"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:trait:unholy"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Drained"
             }
         ],
         "runes": {

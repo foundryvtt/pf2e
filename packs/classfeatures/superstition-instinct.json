@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>A deep distrust of magic drives you to forgo and counter the metaphysical nonsense of spellcasters. Whether you're a member of a superstitious family or culture that distrusts magic, a warrior in constant battle against wizards and witches, a survivor of a magical accident that instilled an intense aversion in your mind and body, or a scion of a bloodline known for its magic resistance, your rage is inimical to magic.</p>\n<p>This makes you an excellent mage hunter but slow to trust practitioners of magical arts. Your extremely restrictive anathema grants you powers beyond those of other instincts.</p>\n<h2>Anathema</h2>\n<p>Willingly accepting the effects of magic spells (including from scrolls, wands, and the like), even from your allies, is anathema to your instinct. You can still drink potions and invest and activate most magic items you find, though items that cast spells are subject to the same restrictions as all other spells. If an ally insists on using magic on you despite your unwillingness, and you have no reason to believe they will stop, continuing to travel with that ally of your own free will counts as willingly accepting their spells (as do similar circumstances) and thus is also anathema to your instinct.</p>\n<h2>Superstitious Resiliance (Instinct Ability)</h2>\n<p>While raging, you gain a +2 status bonus to all saves against magic. Increase your damage from Rage from 2 to 4 against creatures that can cast spells. Once every 10 minutes, when you Rage, you regain Hit Points equal to the temporary Hit Points you gain from that Rage action.</p>\n<h2>Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>Increase the damage from Rage from 4 to 8 against creatures that can cast spells. If you have greater raging specialization, instead increase the damage from Rage to 12 against creatures with spells and 8 against other creatures.</p>\n<h2>Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>Choose two associated magical traditions: arcane and occult, arcane and primal, divine and occult, or divine and primal. The resistance from your raging resistance class feature applies against all damage you take from spells cast with these two traditions of magic, regardless of the type of damage dealt by the spell.</p>"
+            "value": "<p>A deep distrust of magic drives you to forgo and counter the metaphysical nonsense of spellcasters. Whether you're a member of a superstitious family or culture that distrusts magic, a warrior in constant battle against wizards and witches, a survivor of a magical accident that instilled an intense aversion in your mind and body, or a scion of a bloodline known for its magic resistance, your rage is inimical to magic. This makes you an excellent mage hunter but slow to trust practitioners of magical arts.</p>\n<p><strong>Instinct Ability—Superstitious Resilience</strong> Your deep superstition means it's anathema for you to learn or @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell], or to wield or use an item that can be activated to Cast a Spell. If you violate this anathema, you lose the instinct's abilities and any feats that list the instinct as a prerequisite until you spend 1 day of downtime re-centering yourself, though you keep all your other barbarian abilities. While raging, you gain a +2 status bonus to all saves against magic. Increase your damage from Rage from 2 to 3, or 4 against creatures you have witnessed Casting a Spell within the last hour. When you Rage, you regain Hit Point equal to the temporary HP you gained from the Rage action; you then can't regain HP in this way again for 10 minutes. While raging, if you willingly accept the effects of a magic spell or effect, you are @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}. You cannot reduce your frightened condition below 1 as long as you are affected by the spell or effect.</p>\n<p><strong>Specialization Ability (7th)</strong> Increase the damage from Rage from 3 to 7, or 8 against creatures you have witnessed Casting a Spell within the last hour. If you have greater raging specialization, instead increase the damage from Rage to 13, or 16 against creatures you have witnessed Casting a Spell within the last hour.</p>\n<p><strong>Raging Resistance (9th)</strong> Choose two associated magical traditions: arcane and occult, arcane and primal, divine and occult, or divine and primal. The resistance from your raging resistance class feature applies against all damage you take from spells cast with these two traditions of magic, regardless of the type of damage dealt by the spell.</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -47,7 +47,25 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Barbarian.Superstition.TargetingCaster",
                 "option": "target:caster",
-                "toggleable": "totm"
+                "toggleable": true
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 3
             },
             {
                 "key": "AdjustModifier",
@@ -73,7 +91,6 @@
                 "mode": "upgrade",
                 "predicate": [
                     "self:effect:rage",
-                    "target:caster",
                     "class:barbarian",
                     {
                         "gte": [
@@ -86,7 +103,7 @@
                     "strike-damage"
                 ],
                 "slug": "rage",
-                "value": 8
+                "value": 7
             },
             {
                 "key": "AdjustModifier",
@@ -107,21 +124,6 @@
                 ],
                 "slug": "rage",
                 "value": 8
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "upgrade",
-                "predicate": [
-                    "self:effect:rage",
-                    "target:caster",
-                    "class:barbarian",
-                    "feature:greater-weapon-specialization"
-                ],
-                "selectors": [
-                    "strike-damage"
-                ],
-                "slug": "rage",
-                "value": 12
             },
             {
                 "key": "AdjustModifier",
@@ -138,7 +140,22 @@
                     "strike-damage"
                 ],
                 "slug": "rage",
-                "value": 8
+                "value": 13
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage",
+                    "target:caster",
+                    "class:barbarian",
+                    "feature:greater-weapon-specialization"
+                ],
+                "selectors": [
+                    "strike-damage"
+                ],
+                "slug": "rage",
+                "value": 16
             },
             {
                 "key": "AdjustModifier",

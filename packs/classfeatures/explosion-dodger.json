@@ -1,0 +1,61 @@
+{
+    "_id": "ZqNKqBJWagU1fg4A",
+    "img": "icons/magic/symbols/question-stone-yellow.webp",
+    "name": "Explosion Dodger",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "bonus",
+        "description": {
+            "value": "<p>Your experiments taught you to fling yourself out of the way of sudden explosions. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Reflex",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "reflex": {
+                    "rank": 3
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "alchemist"
+            ]
+        }
+    },
+    "type": "feat"
+}

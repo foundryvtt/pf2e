@@ -3,48 +3,33 @@
     "img": "icons/creatures/abilities/mouth-teeth-sharp.webp",
     "name": "Spell Effect: Glutton's Jaws",
     "system": {
+        "badge": {
+            "evaluate": true,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "(@item.level)d4"
+        },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Glutton's Jaws]</p>\n<p>Your mouth transforms into a shadowy maw bristling with pointed teeth. These jaws are an unarmed attack with the forceful trait dealing 1d8 piercing damage. If you hit with your jaws and deal damage, you gain temporary Hit Points.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Glutton's Jaws]</p>\n<p>You gain temporary Hit Points.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "baseType": "jaws",
-                "category": "unarmed",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 1,
-                        "die": "d8"
-                    }
-                },
-                "key": "Strike",
-                "label": "PF2E.BattleForm.Attack.Jaws",
-                "range": null,
-                "traits": [
-                    "forceful",
-                    "magical",
-                    "unarmed"
-                ]
-            },
-            {
-                "key": "Note",
-                "selector": "{item|id}-damage",
-                "text": "PF2E.SpecificRule.SpellEffectGluttonsJaw.Text",
-                "title": "{item|name}"
+                "key": "TempHP",
+                "value": "@item.badge.value"
             }
         ],
         "start": {
