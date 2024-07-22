@@ -186,7 +186,8 @@ export class DamagePF2e {
                 showBreakdown,
             };
 
-            return new DamageRoll(formula, {}, options).evaluate();
+            const allowInteractive = context.rollMode !== "blindroll";
+            return new DamageRoll(formula, {}, options).evaluate({ allowInteractive });
         })();
 
         if (roll === null) return null;

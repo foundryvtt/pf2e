@@ -82,7 +82,7 @@ export const Ready = {
                 const abandonedModules = new Set(["pf2e-rules-based-npc-vision", "foundryvtt-drag-ruler"]);
 
                 // Nag the GM for running unmaintained modules
-                const subV10Modules = game.modules.filter(
+                const subV11Modules = game.modules.filter(
                     (m) =>
                         m.active &&
                         (m.esmodules.size > 0 || m.scripts.size > 0) &&
@@ -90,10 +90,10 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "11.315")),
+                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
-                for (const badModule of subV10Modules) {
+                for (const badModule of subV11Modules) {
                     const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
                 }
