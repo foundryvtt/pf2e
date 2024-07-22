@@ -82,17 +82,21 @@ abstract class BaseActionVariant implements ActionVariant {
         return this.#traits ?? this.#action.traits;
     }
 
+    async descriptionSuffix(): Promise<string | undefined> {
+        return undefined;
+    }
+
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
         const description = this.description || this.#action.description;
         const name = this.name
             ? `${game.i18n.localize(this.#action.name)} - ${game.i18n.localize(this.name)}`
             : game.i18n.localize(this.#action.name);
         const sampleTasks = this.#action.sampleTasks ? labelSampleTasks(this.#action.sampleTasks) : undefined;
-        const traitLabels: Record<string, string | undefined> = CONFIG.PF2E.actionTraits;
+        const suffix = await this.descriptionSuffix();
         const traitDescriptions: Record<string, string | undefined> = CONFIG.PF2E.traitsDescriptions;
         const traits = this.traits.map((trait) => ({
             description: traitDescriptions[trait],
-            label: traitLabels[trait] ?? trait,
+            label: CONFIG.PF2E.actionTraits[trait] ?? trait,
             slug: trait,
         }));
         const content = await renderTemplate("/systems/pf2e/templates/actors/actions/base/chat-message-content.hbs", {
@@ -100,6 +104,7 @@ abstract class BaseActionVariant implements ActionVariant {
             glyph: this.glyph,
             name,
             sampleTasks,
+            suffix,
             traits,
         });
         return ChatMessagePF2e.create({

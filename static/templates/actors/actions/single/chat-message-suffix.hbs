@@ -1,0 +1,10 @@
+{{#if outcomes}}
+    <section class="action-outcomes">
+        {{#each outcomes as |outcome|}}
+            <div>
+                <strong>{{localize (concat "PF2E.Check.Result.Degree.Check." @key)}}</strong>
+                {{{localize outcome}}}
+            </div>
+        {{/each}}
+    </section>
+{{/if}}
