@@ -1,0 +1,54 @@
+{
+    "_id": "8vKTSlpWnGPnL1UB",
+    "img": "systems/pf2e/icons/spells/bane.webp",
+    "name": "Aura: Bane",
+    "system": {
+        "badge": {
+            "labels": [
+                "10 ft.",
+                "20 ft.",
+                "30 ft.",
+                "40 ft.",
+                "50 ft.",
+                "60 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p><span style=\"font-family:Roboto, sans-serif\">Granted by @UUID[Compendium.pf2e.spells-srd.Item.Bane]</span></p>\n<p><span style=\"font-family:Roboto, sans-serif\">You fill the minds of your enemies with doubt. Enemies in the area must succeed at a Will save or take a –1 status penalty to attack rolls as long as they are in the area. Once per round on subsequent turns, you can Sustain the spell to increase the emanation's radius by 10 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "Aura",
+                "radius": "@item.badge.value * 10"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
