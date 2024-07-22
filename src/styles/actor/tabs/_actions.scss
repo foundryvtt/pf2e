@@ -45,46 +45,12 @@ ol.actions-list {
                 display: none;
             }
 
-            .item-name {
-                align-items: center;
-                display: flex;
-                gap: var(--space-8);
-                grid-area: icon-name;
-                margin: 0;
-
-                h4 {
-                    margin: 0;
-                    max-width: fit-content;
-                }
-
-                .item-image {
-                    @include flex-center;
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    cursor: pointer;
-                    font-size: var(--font-size-18);
-                }
-
-                .actions-title {
-                    flex: 1;
-
-                    .action-name {
-                        align-items: baseline;
-                        display: flex;
-                        flex-direction: row;
-                        gap: 0.5em;
-
-                        > h4 {
-                            a:hover {
-                                color: var(--color-pf-primary);
-                            }
-
-                            .action-glyph {
-                                color: var(--text-dark);
-                            }
-                        }
-                    }
-                }
+            .item-image {
+                @include flex-center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                cursor: pointer;
+                font-size: var(--font-size-18);
             }
 
             button.use-action {
@@ -124,14 +90,9 @@ ol.actions-list {
                 }
             }
 
-            .item-controls {
-                font-size: var(--font-size-12);
-                grid-area: controls;
-                white-space: nowrap;
-            }
-
             .item-summary {
-                flex-basis: 100%;
+                @include frame-elegant;
+                padding: 0.5rem 1rem 1rem;
                 margin: var(--space-8) 0;
 
                 .title,
@@ -184,11 +145,6 @@ ol.actions-list {
                         }
                     }
                 }
-            }
-
-            .item-summary {
-                @include frame-elegant;
-                padding: 0.5rem 1rem 1rem;
 
                 dd {
                     margin: 0;
@@ -198,10 +154,6 @@ ol.actions-list {
                 .tag.tag_secondary {
                     background-color: rgba(0, 0, 0, 0.8);
                 }
-            }
-
-            &.hidden {
-                display: none;
             }
         }
 
@@ -214,6 +166,10 @@ ol.actions-list {
                 "icon    buttons tracking controls" auto
                 "summary summary summary   summary" auto
                 / min-content 1fr min-content 2rem;
+
+            &.hidden {
+                display: none;
+            }
 
             > .icon {
                 grid-area: icon;
@@ -235,6 +191,12 @@ ol.actions-list {
                 }
             }
 
+            .item-controls {
+                font-size: var(--font-size-12);
+                grid-area: controls;
+                white-space: nowrap;
+            }
+
             .button-group {
                 grid-area: buttons;
                 display: flex;
@@ -242,7 +204,7 @@ ol.actions-list {
                 gap: var(--space-1);
             }
 
-            .tracking {
+            .frequency {
                 grid-area: tracking;
             }
 

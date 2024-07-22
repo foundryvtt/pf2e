@@ -9,6 +9,7 @@ import { isCheckContextFlag } from "@module/chat-message/helpers.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
+import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
@@ -23,6 +24,7 @@ import {
     traitSlugToObject,
 } from "@util";
 import * as R from "remeda";
+import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
     DEGREE_OF_SUCCESS_STRINGS,
     DegreeAdjustmentsRecord,
@@ -86,7 +88,9 @@ class CheckPF2e {
         if (rollOptions.has("secret") && !game.pf2e.settings.metagame.secretChecks) {
             context.rollMode ??= game.user.isGM ? "gmroll" : "blindroll";
         }
-        context.rollMode ??= "roll";
+        context.rollMode = objectHasKey(CONFIG.Dice.rollModes, context.rollMode)
+            ? context.rollMode
+            : game.settings.get("core", "rollMode");
 
         if (rollOptions.size > 0 && !context.isReroll) {
             check.calculateTotal(rollOptions);
@@ -123,10 +127,10 @@ class CheckPF2e {
 
             // Determine whether both fortune and misfortune apply to the check
             const fortuneMisfortune = new Set(
-                R.compact([
+                [
                     substitution?.effectType,
                     rollTwice === "keep-higher" ? "fortune" : rollTwice === "keep-lower" ? "misfortune" : null,
-                ]),
+                ].filter(R.isTruthy),
             );
             for (const trait of fortuneMisfortune) {
                 rollOptions.add(trait);
@@ -177,16 +181,17 @@ class CheckPF2e {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ async: true });
+        const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate();
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
         // rare--and there are no rules for selecting among multiple adjustments.
         const dosAdjustments = ((): DegreeAdjustmentsRecord => {
             if (!context.dc) return {};
 
-            const naturalTotal = R.compact(
-                roll.dice.map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null),
-            ).shift();
+            const naturalTotal = roll.dice
+                .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
+                .filter(R.isTruthy)
+                .shift();
 
             // Include tentative results in case an adjustment is predicated on it
             const temporaryRollOptions = new Set([
@@ -194,6 +199,9 @@ class CheckPF2e {
                 `check:total:${roll.total}`,
                 `check:total:natural:${naturalTotal}`,
                 `check:total:delta:${roll.total - context.dc.value}`,
+                // @todo migrate me
+                // backward compatibility
+                `check:roll:total:natural:${naturalTotal}`,
             ]);
 
             return (
@@ -251,7 +259,9 @@ class CheckPF2e {
                       return createHTMLElement("h4", { classes: ["action"], children: [strong] });
                   })();
 
-            return R.compact([header, result ?? [], tags, notesList].flat())
+            return [header, result, tags, notesList]
+                .flat()
+                .filter(R.isTruthy)
                 .map((e) => (typeof e === "string" ? e : e.outerHTML))
                 .join("");
         })();
@@ -335,7 +345,7 @@ class CheckPF2e {
         };
 
         const traits =
-            R.uniqBy(
+            R.uniqueBy(
                 context.traits
                     ?.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits))
                     .map((trait) => {
@@ -409,11 +419,11 @@ class CheckPF2e {
                 ? createHTMLElement("div", { classes: ["tags", "modifiers"], children: rollTags })
                 : null;
 
-        return R.compact([
+        return [
             traitsAndProperties.childElementCount > 0 ? traitsAndProperties : null,
             document.createElement("hr"),
             modifiersAndExtras,
-        ]);
+        ].filter(R.isTruthy);
     }
 
     /** Reroll a rolled check given a chat message. */
@@ -442,7 +452,7 @@ class CheckPF2e {
                 const heroPointCount = rerollingActor.heroPoints.value;
                 if (heroPointCount) {
                     await rerollingActor.update({
-                        "system.resources.heroPoints.value": Math.clamped(
+                        "system.resources.heroPoints.value": Math.clamp(
                             heroPointCount - 1,
                             0,
                             rerollingActor.heroPoints.max,
@@ -483,7 +493,7 @@ class CheckPF2e {
         );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
-        const newRoll = await unevaluatedNewRoll.evaluate({ async: true });
+        const newRoll = await unevaluatedNewRoll.evaluate();
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded
@@ -574,7 +584,7 @@ class CheckPF2e {
         }
 
         await message.delete({ render: false });
-        await keptRoll.toMessage(
+        const keptMessage = (await keptRoll.toMessage(
             {
                 content: `<div class="${oldRollClass}">${renders.old}</div><div class="reroll-second ${newRollClass}">${renders.new}</div>`,
                 flavor: `${rerollIcon.outerHTML}${newFlavor}`,
@@ -585,7 +595,17 @@ class CheckPF2e {
                 },
             },
             { rollMode: context.rollMode },
-        );
+        )) as ChatMessagePF2e;
+
+        if (systemFlags.treatWoundsMacroFlag) {
+            treatWoundsMacroCallback({
+                actor,
+                bonus: systemFlags.treatWoundsMacroFlag.bonus,
+                message: keptMessage,
+                originalMessageId: message.id,
+                outcome: context.outcome,
+            });
+        }
     }
 
     /**
@@ -594,7 +614,7 @@ class CheckPF2e {
      * @param isOld This is the old roll render, so remove damage or other buttons
      */
     static async renderReroll(roll: Rolled<Roll>, { isOld }: { isOld: boolean }): Promise<string> {
-        const die = roll.dice.find((d): d is Die => d instanceof Die && d.faces === 20);
+        const die = roll.dice.find((d): d is Die => d instanceof foundry.dice.terms.Die && d.faces === 20);
         if (typeof die?.total !== "number") throw ErrorPF2e("Unexpected error inspecting d20 term");
 
         const html = await roll.render();

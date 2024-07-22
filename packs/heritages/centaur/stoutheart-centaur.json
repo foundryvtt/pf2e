@@ -1,0 +1,53 @@
+{
+    "_id": "raDHBXYpc2MvWWgh",
+    "folder": "MORwBv0P0zPrX27k",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Stoutheart Centaur",
+    "system": {
+        "ancestry": {
+            "name": "Centaur",
+            "slug": "centaur",
+            "uuid": "Compendium.pf2e.ancestries.Item.pJkQlFTvpQ5GjZ5e"
+        },
+        "description": {
+            "value": "<p>You're a hardy centaur, firm of stance and strong of heart. You gain 10 Hit Points from your ancestry instead of 8 and gain a +1 circumstance bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and to your Reflex DC to avoid being tripped.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.ancestryhp",
+                "priority": 51,
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:balance"
+                ],
+                "selector": "acrobatics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:trip"
+                ],
+                "selector": "reflex-dc",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

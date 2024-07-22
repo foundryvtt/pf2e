@@ -3,13 +3,12 @@ import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
 import type { ClassTrait } from "@item/class/types.ts";
 import { Price } from "@item/physical/data.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DENOMINATIONS } from "@item/physical/values.ts";
 import { Size } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { ErrorPF2e, isObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
-import { KitEntryData, KitSource, KitSystemData } from "./data.ts";
+import { KitSource, KitSystemData, type KitEntryData } from "./data.ts";
 
 class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     static override get validTraits(): Record<ClassTrait, string> {
@@ -21,10 +20,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
     }
 
     get price(): Price {
-        return {
-            value: new CoinsPF2e(this.system.price.value),
-            per: this.system.price.per ?? 1,
-        };
+        return this.system.price;
     }
 
     /** Expand a tree of kit entry data into a list of physical items */
@@ -72,11 +68,11 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         if (!changed.system) {
-            return await super._preUpdate(changed, options, user);
+            return await super._preUpdate(changed, operation, user);
         }
 
         // Clear 0 price denominations
@@ -89,7 +85,7 @@ class KitPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemP
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

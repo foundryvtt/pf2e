@@ -132,7 +132,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.</p>\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -432,7 +432,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><p><strong>Heightened (5th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -514,7 +514,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] condition), release what it's holding, drop @UUID[Compendium.pf2e.conditionitems.Item.Prone], or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><p><strong>Heightened (5th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -849,10 +849,48 @@
             "type": "melee"
         },
         {
+            "_id": "kdwxbAcVtG5jo3FI",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 Bonus on Perception to Detect lies",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:lie"
+                        ],
+                        "selector": "perception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "u71Wtb03wVLdrSUO",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Truespeech",
-            "sort": 1300000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -887,7 +925,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -940,7 +978,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Regeneration 15 (Deactivated by Chaotic)",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -975,135 +1013,10 @@
             "type": "action"
         },
         {
-            "_id": "otarJ40Euz6gak0Z",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vqhDFXm33LBnQKgR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "C0e1jORAz4OfKt0g",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Axis Lore",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "IZJreAXYvobn7BWJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "m9vAQiWkAGrLHUwz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "e4FQTHBRC1q4T52o",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2100000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1209,7 +1122,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+27 to detect lies)",
             "mod": 23,
             "senses": [
                 {
@@ -1235,6 +1148,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 22
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 22
+            },
+            "athletics": {
+                "base": 27
+            },
+            "deception": {
+                "base": 20
+            },
+            "diplomacy": {
+                "base": 20
+            },
+            "survival": {
+                "base": 22
             }
         },
         "spellcasting": {

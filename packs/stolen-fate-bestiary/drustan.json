@@ -495,7 +495,7 @@
                 "checkPenalty": -3,
                 "containerId": null,
                 "description": {
-                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor]{padded armor} and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
+                    "value": "<p>Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of @UUID[Compendium.pf2e.equipment-srd.Item.Padded Armor] and a pair of @UUID[Compendium.pf2e.equipment-srd.Item.Gauntlet]{gauntlets}.</p>"
                 },
                 "dexCap": 0,
                 "equipped": {
@@ -1154,179 +1154,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "8OxRG9QhvLnbqpAu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ForceOpenGrappleShoveOrTrip",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:force-open",
-                                    "action:grapple",
-                                    "action:shove",
-                                    "action:trip"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+29 to Force Open, Grapple, Shove, or Trip",
-                        "options": "action:force-open,action:grapple,action:shove,action:trip"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "CoUB292OdnVY4Fwd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zvR0n6V7YQsbtbYU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "EZgCXxp8TD3A4Z92",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "0ofd1cbTALm4gnru",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vc0mB85ATSImanSa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Drustan",
@@ -1417,6 +1244,42 @@
             "will": {
                 "saveDetail": "",
                 "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 29,
+                        "label": "to Force Open, Grapple, Shove, or Trip",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:force-open",
+                                    "action:grapple",
+                                    "action:shove",
+                                    "action:trip"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 25
+            },
+            "intimidation": {
+                "base": 27
+            },
+            "performance": {
+                "base": 25
+            },
+            "religion": {
+                "base": 23
+            },
+            "society": {
+                "base": 23
             }
         },
         "traits": {

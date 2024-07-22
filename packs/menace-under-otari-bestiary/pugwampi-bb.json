@@ -351,10 +351,48 @@
             "type": "melee"
         },
         {
+            "_id": "EJQ6j0rq9FWVsYiO",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "-2 Penalty on Perception to Hear things",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:auditory"
+                        ],
+                        "selector": "perception",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "IgVFPfZjnGqYSVAI",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Animal Talker",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -384,7 +422,7 @@
             "_id": "AGjtcz0cAWzBXlEx",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Unluck Aura",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -422,136 +460,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "wnowXAeOQ54e1MLQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zwvnylpbuYer7a7j",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "C7jAnQO46LFfU5N3",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "QXTkVgsyIevRwV0x",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "I0Yg0JKJrNLa6YYH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Pugwampi (BB)",
@@ -625,7 +533,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(-2 to hear things)",
             "mod": 6,
             "senses": [
                 {
@@ -651,6 +559,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 2
+            },
+            "deception": {
+                "base": 2
+            },
+            "nature": {
+                "base": 4
+            },
+            "stealth": {
+                "base": 5
+            },
+            "thievery": {
+                "base": 5
             }
         },
         "traits": {

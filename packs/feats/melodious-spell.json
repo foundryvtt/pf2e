@@ -24,7 +24,48 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:melodious-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.MelodiousSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "melodious-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:melodious-spell"
+                ],
+                "property": "traits",
+                "value": [
+                    "subtle"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

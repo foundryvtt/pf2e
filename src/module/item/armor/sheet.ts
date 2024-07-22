@@ -1,3 +1,4 @@
+import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
 import { ItemSheetOptions } from "@item/base/sheet/sheet.ts";
 import {
     CoinsPF2e,
@@ -34,6 +35,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 
         return {
             ...sheetData,
+            abpEnabled: ABP.isEnabled(this.actor),
             adjustedBulkHint,
             basePrice: new CoinsPF2e(armor._source.system.price.value),
             baseTypes: CONFIG.PF2E.baseArmorTypes,
@@ -55,7 +57,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
         const propertyRuneIndices = [0, 1, 2, 3] as const;
         const propertyRuneUpdates = propertyRuneIndices.flatMap((i) => formData[`system.runes.property.${i}`] ?? []);
         if (propertyRuneUpdates.length > 0) {
-            formData[`system.runes.property`] = R.compact(propertyRuneUpdates);
+            formData[`system.runes.property`] = propertyRuneUpdates.filter(R.isTruthy);
             for (const index of propertyRuneIndices) {
                 delete formData[`system.runes.property.${index}`];
             }
@@ -66,6 +68,7 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
 }
 
 interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
+    abpEnabled: boolean;
     basePrice: CoinsPF2e;
     baseTypes: Record<BaseArmorType, string>;
     categories: Record<ArmorCategory, string>;

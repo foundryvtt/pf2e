@@ -1,0 +1,66 @@
+{
+    "_id": "yxKnUBe6W3yuRiMl",
+    "img": "icons/sundries/books/book-symbol-leaf-green.webp",
+    "name": "Field Guide",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This book contains illustrations and information on edible and dangerous plants. Most field guides tend to be region specific, such as the Mindspin Mountains or Osirian desert. If you are attempting to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist] in the field guide's region with a skill you're untrained in, consulting the book gives you a +2 circumstance bonus to the skill check.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 10
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "field-guide",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:subsist",
+                    "field-guide",
+                    "proficiency:untrained"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "held-in-one-hand"
+        }
+    },
+    "type": "equipment"
+}

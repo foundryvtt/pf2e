@@ -4,30 +4,28 @@
     data-item-id="{{action.item.id}}"
     data-item-type="{{action.item.type}}"
 >
-    <div class="item-name rollable" data-tooltip-direction="UP">
-        <div class="item-image strike framed">
-            <img src="{{action.img}}" /> <i class="fa-solid fa-message"></i>
-        </div>
-        <div class="actions-title">
+    <div class="item-image strike framed">
+        <img src="{{action.img}}" /> <i class="fa-solid fa-message"></i>
+    </div>
+    <section>
         {{#unless omitName}}
-            <div class="action-name">
-                <h4 class="name"><a data-action="toggle-summary">{{localize action.label}}</a></h4>
+            <h4 class="name" data-tooltip-direction="UP">
+                <a data-action="toggle-summary">{{localize action.label}}</a>
                 <div class="item-controls">
                     {{#if (and @root.editable (eq @index 0))}}
                         <a data-action="edit-item" data-tooltip="PF2E.EditItemTitle"><i class="fa-solid fa-fw fa-edit"></i></a>
                     {{/if}}
                 </div>
-            </div>
+            </h4>
         {{/unless}}
+
         {{#> attackDamage action=action melee=true}}{{/attackDamage}}
+
+        <div class="alt-usage" data-tooltip-direction="UP">
+            <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
+            {{#> attackDamage action=action melee=false}}{{/attackDamage}}
         </div>
-    </div>
-
-    <div class="alt-usage" data-tooltip-direction="UP">
-        <i class="fa-regular fa-meteor fa-rotate-180 alt-usage-icon" data-tooltip="{{action.range.label}}"></i>
-        {{#> attackDamage action=action melee=false}}{{/attackDamage}}
-    </div>
-
+    </section>
     <div class="item-summary" hidden="hidden"></div>
 </li>
 

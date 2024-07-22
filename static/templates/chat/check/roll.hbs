@@ -5,7 +5,12 @@
         </div>
     {{~/if}}
     <div class="dice-result">
-        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{formula}}</div>
+        <div
+            class="dice-formula"
+            {{!-- Indicate to the GM that that breakdown is hidden --}}
+            {{#if (and (not showBreakdown) user.isGM)}}data-visibility="gm"{{/if}}
+            {{!-- Instead of removing the element for players, show a special "formula" --}}
+            >{{#if (or showBreakdown user.isGM)}}{{formula}}{{else}}1d20 + ??{{/if}}</div>
         {{{tooltip}}}
         <h4 class="dice-total">{{total}}</h4>
     </div>

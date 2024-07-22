@@ -198,72 +198,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "DFMBx7Ms3uYpXrtV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Y7v6VkboCmFBNWkx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HideInBody",
-                        "predicate": [
-                            "hiding-in-body"
-                        ],
-                        "selector": "stealth",
-                        "value": 8
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 if hiding inside a body",
-                        "options": "hiding-in-body"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Blood Ooze",
@@ -371,6 +305,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "if hiding inside a body",
+                        "predicate": [
+                            "hiding-in-body"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -194,7 +194,26 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "exceptions": [
+                            {
+                                "definition": [
+                                    {
+                                        "or": [
+                                            "damage:type:acid",
+                                            "spell:cause-rust"
+                                        ]
+                                    }
+                                ],
+                                "label": "PF2E.IWR.Custom.AcidAndSpellsThatCauseRust"
+                            }
+                        ],
+                        "key": "Resistance",
+                        "type": "spells",
+                        "value": 15
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -264,32 +283,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "lDG0TKpCybMYef7F",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 30
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Iron Warden",
@@ -341,14 +334,6 @@
                     ],
                     "type": "physical",
                     "value": 15
-                },
-                {
-                    "doubleVs": [],
-                    "exceptions": [
-                        "acid"
-                    ],
-                    "type": "spells",
-                    "value": 15
                 }
             ],
             "speed": {
@@ -398,6 +383,11 @@
             "will": {
                 "saveDetail": "",
                 "value": 22
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 30
             }
         },
         "traits": {

@@ -307,122 +307,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "oPzGHNbbJluo3fEf",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "dGa7fiQkgtKN8PDA",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CraftTrap",
-                        "predicate": [
-                            "craft-trap"
-                        ],
-                        "selector": "crafting",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 traps",
-                        "options": "craft-trap"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bSZqEA6IqprRCJDD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "YD7FyGRzoqyViw3C",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Chief Sootscale",
@@ -511,6 +395,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 9
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "crafting": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "traps",
+                        "predicate": [
+                            "craft-trap"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 8
             }
         },
         "traits": {

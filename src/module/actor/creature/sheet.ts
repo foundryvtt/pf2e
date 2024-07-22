@@ -37,6 +37,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                   .sort((a, b) => a.label.localeCompare(b.label, game.i18n.lang));
 
         sheetData.data.perception.senses = R.sortBy(sheetData.data.perception.senses, (a) => a.label ?? "");
+        const initiativeOptions = [{ value: "perception", label: "PF2E.PerceptionLabel" }];
+        initiativeOptions.push(...Object.values(this.actor.skills).map((s) => ({ value: s.slug, label: s.label })));
 
         return {
             ...sheetData,
@@ -45,6 +47,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             rarity: CONFIG.PF2E.rarityTraits,
             frequencies: CONFIG.PF2E.frequencies,
             pfsFactions: CONFIG.PF2E.pfsFactions,
+            initiativeOptions,
             dying: {
                 maxed: actor.attributes.dying.value >= actor.attributes.dying.max,
                 remainingDying: Math.max(actor.attributes.dying.max - actor.attributes.dying.value),
@@ -489,6 +492,7 @@ interface CreatureSheetData<TActor extends CreaturePF2e> extends ActorSheetDataP
     frequencies: typeof CONFIG.PF2E.frequencies;
     pfsFactions: typeof CONFIG.PF2E.pfsFactions;
     languages: { slug: Language | null; label: string }[];
+    initiativeOptions: FormSelectOption[];
     dying: {
         maxed: boolean;
         remainingDying: number;

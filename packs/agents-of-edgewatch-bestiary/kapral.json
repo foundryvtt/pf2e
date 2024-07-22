@@ -680,7 +680,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You cast your thoughts through a creature's mind, sifting for information. You access the target's memories and knowledge unless it fends you off with a Will save.</p>\n<hr /><strong>Success</strong> The target is unaffected.\n<p><strong>Failure</strong> Each round of the spell's duration, you can Sustain the Spell to ask a different question and attempt to uncover the answer. For each question, the target can attempt a Deception check against your spell DC; if the target succeeds, you don't learn the answer, and on a critical success, the target gives you a false answer that you believe is truthful Once you've asked the target a given question, asking it again, even with a separate casting of mind probe, produces the same result.</p>\n<p><strong>Critical Failure</strong> As failure, and the target takes a -4 circumstance penalty to Deception checks against your questions.</p>"
+                    "value": "<p>You cast your thoughts through a creature's mind, sifting for information. You access the target's memories and knowledge unless it fends you off with a Will save.</p>\n<hr /><p><strong>Success</strong> The target is unaffected.</p>\n<p><strong>Failure</strong> Each round of the spell's duration, you can Sustain the Spell to ask a different question and attempt to uncover the answer. For each question, the target can attempt a Deception check against your spell DC; if the target succeeds, you don't learn the answer, and on a critical success, the target gives you a false answer that you believe is truthful Once you've asked the target a given question, asking it again, even with a separate casting of mind probe, produces the same result.</p>\n<p><strong>Critical Failure</strong> As failure, and the target takes a -4 circumstance penalty to Deception checks against your questions.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1166,7 +1166,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2377,116 +2377,16 @@
             "type": "action"
         },
         {
-            "_id": "UslPAPnIoT92RkH0",
+            "_id": "9bgmrU7Aa4AWtibm",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
+            "name": "Legal Lore",
             "sort": 3400000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xCIcQ1PLVIcHkg1q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 3500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9bgmrU7Aa4AWtibm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 3600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NCk2xmGcgyPxzsnD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 3700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tsnnZCfzY96AyV4q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 3800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
                 },
                 "proficient": {
                     "value": 0
@@ -2590,6 +2490,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 28
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 27
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "society": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 27
             }
         },
         "traits": {

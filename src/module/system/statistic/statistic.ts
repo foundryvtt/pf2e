@@ -79,7 +79,7 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
                 : null;
 
         // Add the auto-generated modifiers, overriding any already existing copies
-        const baseModifiers = R.compact([attributeModifier, proficiencyModifier]);
+        const baseModifiers = [attributeModifier, proficiencyModifier].filter(R.isTruthy);
         const activeSlugs = new Set(baseModifiers.map((m) => m.slug));
         data.modifiers = data.modifiers.filter((m) => !activeSlugs.has(m.slug));
         data.modifiers.unshift(...baseModifiers);
@@ -124,15 +124,6 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
     /** Convenience getter to the statistic's total modifier */
     get mod(): number {
         return this.check.mod;
-    }
-
-    /** @deprecated */
-    get ability(): AttributeString | null {
-        fu.logCompatibilityWarning("`Statistic#ability` is deprecated. Use `Statistic#attribute` instead.", {
-            since: "5.5.0",
-            until: "6.0.0",
-        });
-        return this.attribute;
     }
 
     override createRollOptions(domains = this.domains, args: RollOptionConfig = {}): Set<string> {
@@ -291,7 +282,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         this.type = data.check?.type ?? "check";
         data.check = fu.mergeObject(data.check ?? {}, { type: this.type });
 
-        const checkDomains = new Set(R.compact(["check", data.check.domains].flat()));
+        const checkDomains = new Set(["check", data.check.domains].flat().filter(R.isTruthy));
         if (this.type === "attack-roll") {
             checkDomains.add("attack");
             checkDomains.add("attack-roll");
@@ -306,7 +297,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         }
 
         data.check.domains = Array.from(checkDomains);
-        this.domains = R.uniq(R.compact([data.domains, data.check.domains].flat()));
+        this.domains = R.unique([data.domains, data.check.domains].flat()).filter(R.isTruthy);
 
         this.label = this.#determineLabel(data);
 
@@ -356,6 +347,13 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
     #determineLabel(data: StatisticData): string {
         const parentLabel = this.parent.label;
         if (data.check?.label) return game.i18n.localize(data.check?.label);
+
+        // Check for specific check localization, and use if it exists
+        const checkKey = `PF2E.ActionsCheck.${this.parent.slug}`;
+        const checkLabel = game.i18n.localize(checkKey);
+        if (!["x", "x-attack-roll"].includes(this.parent.slug) && checkLabel !== checkKey) {
+            return checkLabel;
+        }
 
         if (this.domains.includes("spell-attack-roll")) {
             return game.i18n.format("PF2E.SpellAttackWithTradition", { tradition: parentLabel });
@@ -453,7 +451,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                         item: contextItem,
                     },
                     domains,
-                    against: args.dc?.slug ?? "ac",
+                    against: args.dc?.slug ?? null,
                     options: optionSet,
                 }).resolve();
             } else {
@@ -477,16 +475,18 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
-            this.type === "flat-check" ? [] : R.compact([args.modifiers, rollContext?.origin?.modifiers].flat());
+            this.type === "flat-check"
+                ? []
+                : [args.modifiers, rollContext?.origin?.modifiers].flat().filter(R.isTruthy);
 
         // Get roll options and roll notes
-        const extraRollOptions = R.compact([
+        const extraRollOptions = [
             ...(args.extraRollOptions ?? []),
             ...(rollContext?.options ?? []),
             `check:statistic:${this.parent.slug}`,
             `check:type:${this.type.replace(/-check$/, "")}`,
             args.slug ? `check:slug:${args.slug}` : null,
-        ]);
+        ].filter(R.isTruthy);
         if (this.parent.base) {
             extraRollOptions.push(`check:statistic:base:${this.parent.base.slug}`);
         }
@@ -529,7 +529,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 });
             }
         }
-        const mapIncreases = Math.clamped((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
+        const mapIncreases = Math.clamp((args.attackNumber ?? 1) - 1, 0, 2) as ZeroToTwo;
 
         // Include multiple attack penalty to extra modifiers if given
         if (mapIncreases !== 0) {
@@ -671,7 +671,7 @@ class StatisticDifficultyClass<TParent extends Statistic = Statistic> {
 
     constructor(parent: TParent, data: StatisticData, options: RollOptionConfig = {}) {
         this.parent = parent;
-        this.domains = R.uniq(R.compact([data.domains, data.dc?.domains].flat()));
+        this.domains = R.unique([data.domains, data.dc?.domains].flat()).filter(R.isTruthy);
         this.label = data.dc?.label;
         this.options = parent.createRollOptions(this.domains, options);
 

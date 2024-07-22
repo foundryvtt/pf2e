@@ -135,12 +135,15 @@
                                 <span
                                     class="adjustable{{#if skill.adjustedHigher}} adjusted-higher{{else if skill.adjustedLower}} adjusted-lower{{/if}}"
                                 >{{numberFormat skill.value sign=true}}</span>
+                                {{#if skill.note}}
+                                    ({{skill.note}})
+                                {{/if}}
                             </a>
-                            {{#if skill.variants}}
-                                {{#each skill.variants as |variant variantId|}}
-                                    <a class="roll" data-action="roll-check" data-options="{{variant.options}}">({{variant.label}})</a>
-                                {{/each}}
-                            {{/if}}
+                            {{#each skill.special as |special idx|}}
+                                <a class="roll" data-action="roll-check" data-variant="{{idx}}">
+                                    ({{localize "PF2E.Actor.NPC.SpecialSkill" mod=special.mod label=special.label}})
+                                </a>
+                            {{/each}}
                         </div>
                     {{/if}}
                 {{/each}}
@@ -154,8 +157,7 @@
             <h4>{{localize "PF2E.NPC.Attacks"}}</h4>
             {{#if options.editable}}
                 <div class="attacks-controls controls">
-                    <a data-action="create-item" data-type="melee" data-action-type="melee"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackMelee"}}</a>
-                    <a data-action="create-item" data-type="melee" data-action-type="ranged"><i class="fa-solid fa-plus"></i> {{localize "PF2E.NPCAttackRanged"}}</a>
+                    <a data-action="create-item" data-type="melee"><i class="fa-solid fa-plus"></i> {{localize "PF2E.TraitAttack"}}</a>
                 </div>
             {{/if}}
         </div>

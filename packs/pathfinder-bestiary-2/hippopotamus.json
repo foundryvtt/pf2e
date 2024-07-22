@@ -235,97 +235,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "OeOWkRncpuPQHREn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "iqXZDQJZ5iZnj2D0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 in Water",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9edBBeWg7ijfUZpv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Hippopotamus",
@@ -421,6 +330,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 11
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "in Water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 11
             }
         },
         "traits": {

@@ -42,7 +42,6 @@ const SENSES_WITH_MANDATORY_ACUITIES: { [K in SenseType]?: SenseAcuity } = {
     "greater-darkvision": "precise",
     "infrared-vision": "precise",
     "low-light-vision": "precise",
-    "motion-sense": "precise",
     "see-invisibility": "precise",
     truesight: "precise",
 };
@@ -121,9 +120,9 @@ const UNCOMMON_LANGUAGES = [
 ] as const;
 
 const RARE_LANGUAGES = [
-    "ancient-osiriani",
     "akitonian",
     "anadi",
+    "ancient-osiriani",
     "androffan",
     "anugobu",
     "arcadian",
@@ -147,6 +146,7 @@ const RARE_LANGUAGES = [
     "kaava",
     "kashrishi",
     "kovintal",
+    "lashunta",
     "mahwek",
     "migo",
     "minaten",
@@ -167,6 +167,7 @@ const RARE_LANGUAGES = [
     "shoony",
     "shory",
     "strix",
+    "surki",
     "talican",
     "tanuki",
     "tekritanin",

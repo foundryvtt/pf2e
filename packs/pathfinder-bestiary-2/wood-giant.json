@@ -991,157 +991,16 @@
             "type": "action"
         },
         {
-            "_id": "QGhpNuiXmIf7Ko48",
+            "_id": "nm9xf6FWIfjkblnF",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Forest Lore",
             "sort": 1900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "rWoPt2LbWtbB5BIi",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nm9xf6FWIfjkblnF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Forest Lore",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Tbf0Naxi3kGCYlMh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hX2hdrvbUdBKffJD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
-                        "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+15 in forests",
-                        "options": "terrain:forest"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cSxjHvsz0TRChuoS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
                 },
                 "proficient": {
                     "value": 0
@@ -1250,6 +1109,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 15
+            },
+            "nature": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 13
             }
         },
         "traits": {

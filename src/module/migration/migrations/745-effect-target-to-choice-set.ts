@@ -44,7 +44,7 @@ export class Migration745EffectTargetToChoiceSet extends MigrationBase {
                 all: ["item:equipped"],
                 any: ["item:base:club", "item:base:staff"],
             };
-        } else if (R.isObject(rule.predicate)) {
+        } else if (R.isPlainObject(rule.predicate)) {
             newRE.choices.predicate = fu.deepClone(rule.predicate);
         }
 

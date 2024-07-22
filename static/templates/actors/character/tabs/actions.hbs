@@ -13,9 +13,16 @@
 
                     <header>
                         {{localize "PF2E.Actor.Attacks"}}
-                        <button type="button" class="toggle-unready-strikes" data-tooltip="{{localize "PF2E.ToggleUnreadyStrikes"}}">
-                            <i class="fa-solid fa-tshirt"{{#if actor.flags.pf2e.showUnreadyStrikes}} style="color: rgba(0, 0, 0, 0.4);"{{/if}}></i>
-                        </button>
+                        {{#if inventory.hasStowedWeapons}}
+                            <button
+                                type="button"
+                                data-action="toggle-hide-stowed"
+                                {{#if actor.flags.pf2e.hideStowed}}class="inactive"{{/if}}
+                            >
+                                <input type="checkbox" {{checked (not actor.flags.pf2e.hideStowed)}} />
+                                {{localize "PF2E.CarryType.stowed"}}
+                            </button>
+                        {{/if}}
                     </header>
 
                     {{#if elementalBlasts}}

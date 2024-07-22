@@ -251,7 +251,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1591,106 +1591,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "udW4bTHQm8XXsL5S",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "04caoO4urQjF1fYP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "c8tZIrpGB1MkIqtP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HHZ38UW2WBuzoZ8P",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Nathatel (5-6)",
@@ -1790,6 +1690,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            },
+            "arcana": {
+                "base": 13
+            },
+            "religion": {
+                "base": 10
+            },
+            "society": {
+                "base": 13
             }
         },
         "traits": {

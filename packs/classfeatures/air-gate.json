@@ -184,7 +184,7 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.ste.rank",
+                "path": "system.skills.stealth.rank",
                 "predicate": [
                     "junction:air:skill"
                 ],
@@ -260,27 +260,27 @@
                 "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
             },
             {
-                "key": "Note",
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
                     {
-                        "not": "self:action:slug:elemental-blast"
-                    },
-                    {
                         "gte": [
-                            "action:cost",
+                            "item:action:cost",
                             2
                         ]
                     },
                     "junction:air:impulse",
-                    "self:action:trait:impulse",
-                    "self:action:trait:air"
+                    "item:trait:impulse",
+                    "item:trait:air"
                 ],
-                "selector": [
-                    "impulse-damage",
-                    "inline-damage"
-                ],
-                "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
-                "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Air",
+                        "title": "PF2E.SpecificRule.Kineticist.Impulse.ImpulseJunction.Title"
+                    }
+                ]
             },
             {
                 "key": "ActiveEffectLike",

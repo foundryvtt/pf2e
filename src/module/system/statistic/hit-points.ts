@@ -48,7 +48,7 @@ class HitPointsStatistic<TActor extends HPStatActor = HPStatActor> extends BaseS
                 "",
                 this.modifiers.map((m) => m.clone()),
             ).totalModifier;
-        this.value = Math.clamped(actor.system.attributes.hp.value, 0, this.max);
+        this.value = Math.clamp(actor.system.attributes.hp.value, 0, this.max);
         this.temp = actor.system.attributes.hp.temp;
         this.negativeHealing = actor.system.attributes.hp.negativeHealing;
         this.unrecoverable = actor.system.attributes.hp.unrecoverable;
@@ -56,10 +56,12 @@ class HitPointsStatistic<TActor extends HPStatActor = HPStatActor> extends BaseS
     }
 
     get breakdown(): string {
-        return R.compact([
+        return [
             this.#baseMax > 0 ? game.i18n.format("PF2E.MaxHitPointsBaseLabel", { base: this.#baseMax }) : null,
             ...this.modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
-        ]).join(", ");
+        ]
+            .filter(R.isTruthy)
+            .join(", ");
     }
 
     override getTraceData(): HitPointsTraceData {

@@ -1,12 +1,9 @@
 import { ActorPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
-import { PhysicalItemPF2e } from "@item/physical/document.ts";
-import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { ErrorPF2e } from "@util";
 import { LootSource, LootSystemData } from "./data.ts";
 
 class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
@@ -57,32 +54,6 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         );
     }
 
-    override async transferItemToActor(
-        targetActor: ActorPF2e,
-        item: ItemPF2e<ActorPF2e>,
-        quantity: number,
-        containerId?: string,
-        newStack = false,
-    ): Promise<PhysicalItemPF2e<ActorPF2e> | null> {
-        // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
-        if (!(this.isOwner && targetActor.isOwner)) {
-            return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-        }
-        if (this.isMerchant && item.isOfType("physical")) {
-            const itemValue = CoinsPF2e.fromPrice(item.price, quantity);
-            if (await targetActor.inventory.removeCoins(itemValue)) {
-                await item.actor.inventory.addCoins(itemValue);
-                return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-            } else if (this.isLoot) {
-                throw ErrorPF2e("Loot transfer failed");
-            } else {
-                return null;
-            }
-        }
-
-        return super.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-    }
-
     /** Hide this actor's token(s) when in loot (rather than merchant) mode, empty, and configured thus */
     async toggleTokenHiding(): Promise<void> {
         if (!this.hiddenWhenEmpty || !this.isOwner) return;
@@ -110,11 +81,7 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
     /*  Event Listeners and Handlers                */
     /* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: LootSource,
-        options: DocumentModificationContext<TParent>,
-        userId: string,
-    ): void {
+    protected override _onCreate(data: LootSource, options: DatabaseCreateOperation<TParent>, userId: string): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
@@ -123,13 +90,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         userId: string,
     ): void {
         if (game.user.id === userId && changed.system?.hiddenWhenEmpty !== undefined) {
             this.toggleTokenHiding();
         }
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
     }
 
     protected override _onCreateDescendantDocuments(
@@ -137,13 +104,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         collection: "effects" | "items",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         result: ActiveEffectPF2e<this>["_source"][] | ItemPF2e<this>["_source"][],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseCreateOperation<this>,
         userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
-        super._onCreateDescendantDocuments(parent, collection, documents, result, options, userId);
+        super._onCreateDescendantDocuments(parent, collection, documents, result, operation, userId);
     }
 
     protected override _onDeleteDescendantDocuments(
@@ -151,13 +118,13 @@ class LootPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | nu
         collection: "items" | "effects",
         documents: ActiveEffectPF2e<this>[] | ItemPF2e<this>[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void {
         if (game.user.id === userId) {
             this.toggleTokenHiding();
         }
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, operation, userId);
     }
 }
 

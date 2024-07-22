@@ -3,6 +3,7 @@ import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { isBracketedValue } from "@module/rules/helpers.ts";
 import { RuleElements, type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { ResolvableValueField, RuleElementSchema } from "@module/rules/rule-element/data.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";
 import { createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll, isObject, tagify } from "@util";
 import * as R from "remeda";
@@ -199,7 +200,7 @@ class RuleElementForm<
         this.element = html;
 
         // Tagify selectors lists
-        const selectorElement = htmlQuery<HTMLInputElement>(html, ".selector-list");
+        const selectorElement = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.selector-list");
         tagify(selectorElement);
 
         // Add event listener for priority. This exists because normal form submission won't work for text-area forms
@@ -332,7 +333,7 @@ class RuleElementForm<
 }
 
 /** Recursively clean and remove all fields that have a default value */
-function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, JSONValue | undefined>): void {
+function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<string, unknown>): void {
     const fields = foundry.data.fields;
 
     // Removes the field if it is the initial value.
@@ -341,8 +342,9 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
         if (data[key] === undefined) return true;
         const initialValue = typeof field.initial === "function" ? field.initial(data) : field.initial;
         const valueRaw = data[key];
-        const value = R.isObject(valueRaw) && R.isObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
-        const isInitial = R.equals(initialValue, value);
+        const value =
+            R.isPlainObject(valueRaw) && R.isPlainObject(initialValue) ? { ...initialValue, ...valueRaw } : valueRaw;
+        const isInitial = R.isDeepEqual(initialValue, value);
         if (isInitial) delete data[key];
         return !(key in data);
     };
@@ -358,7 +360,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
 
         if ("fields" in field) {
             const value = data[key];
-            if (R.isObject(value)) {
+            if (R.isPlainObject(value)) {
                 cleanDataUsingSchema(field.fields as Record<string, DataField>, value as Record<string, JSONValue>);
                 deleteIfInitial(key, field);
                 continue;
@@ -370,7 +372,7 @@ function cleanDataUsingSchema(schema: Record<string, DataField>, data: Record<st
             if (Array.isArray(value)) {
                 // Recursively clean schema fields inside an array
                 for (const data of value) {
-                    if (R.isObject(data)) {
+                    if (R.isPlainObject(data)) {
                         if (data.predicate) {
                             cleanPredicate(data);
                         }

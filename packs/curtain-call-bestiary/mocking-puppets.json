@@ -1,0 +1,181 @@
+{
+    "_id": "0w2my6fBuCH98gV9",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bp0tKBh4Ghvs05eb",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Jeering Laughter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature spends more than a minute in this room, or one of the geists in this room uses Terrifying Laugh</p><hr /><p><strong>Effect</strong> The puppets clatter to life, and the haunt fills the room with derisive laughter. All living creatures in the room must attempt a @Check[type:will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round by the overwhelming self-doubt the laughter instills. The mocking puppets roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6gccgfOTHSRwZq9f",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Makeshift Weapon",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 24
+                },
+                "damageRolls": {
+                    "GYhej0kxEsaKisOa": {
+                        "damage": "4d6+6",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>no multiple attack penalty</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "versatile-b",
+                        "versatile-p"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "7HliV6jytoZuVsZz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Puppet Attack",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A living creature ends their turn while in area <strong>C2</strong></p><hr /><p><strong>Effect</strong> The haunt makes a makeshift weapon Strike against the triggering creature.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Mocking Puppets",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 30
+            },
+            "emitsSound": "encounter",
+            "hardness": 17,
+            "hp": {
+                "details": "",
+                "max": 70,
+                "temp": 0,
+                "value": 70
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p> (expert)</p>",
+                "value": 32
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "vitality",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>The puppets and marionettes in this room suddenly turn to face intruders and come to clattering, unsettling life as the echoing sound of mocking laughter fills the air.</p>",
+            "disable": "<p>@Check[type:performance|dc:32] (master) to distract and entertain the haunted puppets and make them forget their anguish and despair, or @Check[type:religion|dc:35] (expert) to exorcise the haunt; four successes are required to disable it</p>",
+            "isComplex": true,
+            "level": {
+                "value": 10
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #204: Stage Fright"
+            },
+            "reset": "<p>The haunt deactivates if no living creatures are in area <strong>C2</strong>, then resets 1 minute later.</p>",
+            "routine": "<p>(1 action) The room's puppets and marionettes clatter to life and begin to swarm about the room, throwing rubble at living intruders, stabbing them in the ankles with sharp bits of broken metal, and slashing at them with lashes from long, thin marionette cords. At the same time, other puppets cackle, mock, and pantomime a chosen foe. The haunt uses its action to target one living creature in area <strong>C2</strong>; that creature must attempt a @Check[type:will|dc:29] save or become @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round by the mockery (or @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} on a critical failure); this effect has the emotion and mental traits. At the same time, because the puppets constantly swarm about, they can use the Puppet Attack free action (see below) to attack targets during their turns.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 16
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "haunt"
+            ]
+        }
+    },
+    "type": "hazard"
+}

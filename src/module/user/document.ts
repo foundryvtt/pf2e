@@ -38,7 +38,7 @@ class UserPF2e extends User<ActorPF2e<null>> {
     /** Get tokens controlled by this user or, failing that, a token of the assigned character. */
     getActiveTokens(): TokenDocumentPF2e[] {
         if (!canvas.ready || canvas.tokens.controlled.length === 0) {
-            return R.compact([game.user.character?.getActiveTokens(true, true).shift()]);
+            return [game.user.character?.getActiveTokens(true, true).shift()].filter(R.isTruthy);
         }
         return canvas.tokens.controlled.filter((t) => t.isOwner).map((t) => t.document);
     }
@@ -50,10 +50,10 @@ class UserPF2e extends User<ActorPF2e<null>> {
 
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
         if (game.user.id !== userId) return;
 
         const keys = Object.keys(fu.flattenObject(changed));

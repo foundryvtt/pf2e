@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Moderate Curse</strong> Cayden has afflicted you with cowardice. Whenever you roll a critical success on a saving throw against a fear effect, you get a success instead, and each time you roll a failure on a saving throw against a fear effect, you get a critical failure instead.</p>"
+            "value": "<p>Cayden has afflicted you with cowardice. Whenever you roll a critical success on a saving throw against a fear effect, you get a success instead, and each time you roll a failure on a saving throw against a fear effect, you get a critical failure instead.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,19 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "one-degree-worse",
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

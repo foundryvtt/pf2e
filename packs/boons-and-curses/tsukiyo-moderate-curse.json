@@ -1,10 +1,10 @@
 {
     "_id": "P9ujY9f0o779TeEn",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Tsukiyo.webp",
     "name": "Tsukiyo - Moderate Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Moderate Curse:</strong> If Tsukiyo is particularly offended by someone, they may find themselves lost in delusions of moonlight. When attempting to navigate or find something at night, if you roll a success or critical success on your Perception check, Survival check, or other check to do so, you get a failure instead.</p>"
+            "value": "<p>If Tsukiyo is particularly offended by someone, they may find themselves lost in delusions of moonlight. When attempting to navigate or find something at night, if you roll a success or critical success on your Perception check, Survival check, or other check to do so, you get a failure instead.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,44 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-failure",
+                    "success": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "environment:night",
+                    {
+                        "or": [
+                            "action:find-something",
+                            "action:navigate",
+                            "action:search"
+                        ]
+                    }
+                ],
+                "selector": "perception-check"
+            },
+            {
+                "adjustment": {
+                    "criticalSuccess": "to-failure",
+                    "success": "to-failure"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "environment:night",
+                    {
+                        "or": [
+                            "action:find-something",
+                            "action:navigate",
+                            "action:search"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

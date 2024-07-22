@@ -745,104 +745,10 @@
             "type": "action"
         },
         {
-            "_id": "n36q5w451dn3yyxo",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ctcrjw6hzakchqgm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+14 to Swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "gV16W7Rdg565a5tC",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "FNd1psir45fTdn9n",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Sailing Lore",
-            "sort": 1800000,
+            "sort": 1500000,
             "system": {
                 "description": {
                     "value": ""
@@ -863,58 +769,6 @@
                 "traits": {
                     "value": []
                 }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5marxniils39lx5w",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oub908vhs2dwys6z",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
             },
             "type": "lore"
         }
@@ -1032,6 +886,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 12
+            },
+            "athletics": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "to Swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 12
+            },
+            "survival": {
+                "base": 10
             }
         },
         "traits": {

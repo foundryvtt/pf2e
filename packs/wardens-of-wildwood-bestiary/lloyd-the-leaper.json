@@ -793,185 +793,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "2428r1enr23ibomr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1riylxnuzeibmk5q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:high-jump",
-                                    "action:long-jump"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+22 to High Jump or Long Jump",
-                        "options": "action:high-jump,action:long-jump"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "167rmlxpedoz4pt9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9t8wxdu3mseb6b6i",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "x6z17mhny5v75taf",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "m8qjmfup1m5xls6q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
         }
     ],
     "name": "Lloyd The Leaper",
@@ -1061,6 +882,40 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 16
+            },
+            "athletics": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 22,
+                        "label": "to High Jump or Long Jump",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:high-jump",
+                                    "action:long-jump"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 18
+            },
+            "intimidation": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 19
+            },
+            "thievery": {
+                "base": 16
             }
         },
         "traits": {

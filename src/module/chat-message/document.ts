@@ -1,9 +1,8 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
-import { ItemProxyPF2e, type ItemPF2e } from "@item";
+import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -15,20 +14,24 @@ import * as Listeners from "./listeners/index.ts";
 import { RollInspector } from "./roll-inspector.ts";
 
 class ChatMessagePF2e extends ChatMessage {
-    /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(data: DeepPartial<ChatMessageSourcePF2e> = {}, context: MessageConstructionContext = {}) {
-        const expandedFlags = fu.expandObject<DeepPartial<ChatMessageFlagsPF2e>>(data.flags ?? {});
-        data.flags = fu.mergeObject(expandedFlags, {
-            core: { canPopout: expandedFlags.core?.canPopout ?? true },
+    /** Set some flags/flag scopes early. */
+    protected override _initializeSource(data: object, options?: DataModelConstructionOptions<null>): this["_source"] {
+        const source = super._initializeSource(data, options);
+        source.flags = fu.mergeObject(source.flags, {
+            core: { canPopout: source.flags.core?.canPopout ?? true },
             pf2e: {},
         });
-        super(data, context);
+
+        return source;
     }
 
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean {
         const firstRoll = this.rolls.at(0);
-        if (!firstRoll || firstRoll.terms.some((t) => t instanceof FateDie || t instanceof Coin)) {
+        if (
+            !firstRoll ||
+            firstRoll.terms.some((t) => t instanceof foundry.dice.terms.FateDie || t instanceof foundry.dice.terms.Coin)
+        ) {
             return false;
         }
 
@@ -109,8 +112,8 @@ class ChatMessagePF2e extends ChatMessage {
             if (actor && embeddedSpell) return new ItemProxyPF2e(embeddedSpell, { parent: actor });
 
             const origin = this.flags.pf2e?.origin ?? null;
-            const match = /Item\.(\w+)/.exec(origin?.uuid ?? "") ?? [];
-            return actor?.items.get(match?.[1] ?? "") ?? null;
+            const item = origin?.uuid && !origin.uuid.startsWith("Compendium.") ? fromUuidSync(origin.uuid) : null;
+            return item instanceof ItemPF2e ? item : null;
         })();
         if (!item) return null;
 
@@ -194,11 +197,9 @@ class ChatMessagePF2e extends ChatMessage {
             });
         }
 
-        UserVisibilityPF2e.process(html, { message: this });
         await Listeners.DamageTaken.listen(this, html);
         CriticalHitAndFumbleCards.appendButtons(this, $html);
         Listeners.ChatCards.listen(this, html);
-        InlineRollLinks.listen(html, this);
         Listeners.DegreeOfSuccessHighlights.listen(this, html);
         if (canvas.ready || !game.settings.get("core", "noCanvas")) {
             Listeners.SetAsInitiative.listen(this, html);
@@ -249,9 +250,11 @@ class ChatMessagePF2e extends ChatMessage {
         html.addEventListener("mouseleave", (event) => this.#onHoverOut(event));
 
         UserVisibilityPF2e.processMessageSender(this, html);
-        if (!actor && this.content) UserVisibilityPF2e.process(html, { document: this });
+        if ((!actor || this.isRoll) && this.content) {
+            UserVisibilityPF2e.process(html, { document: actor ?? this });
+        }
 
-        return $html;
+        return $(html);
     }
 
     /** Highlight the message's corresponding token on the canvas */
@@ -268,8 +271,8 @@ class ChatMessagePF2e extends ChatMessage {
         if (canvas.ready) this.token?.object?.emitHoverOut(nativeEvent);
     }
 
-    protected override _onCreate(data: this["_source"], options: MessageModificationContextPF2e, userId: string): void {
-        super._onCreate(data, options, userId);
+    protected override _onCreate(data: this["_source"], operation: MessageCreateOperationPF2e, userId: string): void {
+        super._onCreate(data, operation, userId);
 
         // Handle critical hit and fumble card drawing
         if (this.isRoll && game.pf2e.settings.critFumble.cards) {
@@ -277,28 +280,27 @@ class ChatMessagePF2e extends ChatMessage {
         }
 
         // If this is a rest notification, re-render sheet for anyone currently viewing it
-        if (options.restForTheNight) this.actor?.render();
+        if (operation.restForTheNight) this.actor?.render();
     }
 }
 
 interface ChatMessagePF2e extends ChatMessage {
-    readonly _source: ChatMessageSourcePF2e;
+    author: UserPF2e | null;
     flags: ChatMessageFlagsPF2e;
-
-    get user(): UserPF2e;
+    readonly _source: ChatMessageSourcePF2e;
 }
 
 declare namespace ChatMessagePF2e {
     function createDocuments<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
         data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        context?: MessageModificationContextPF2e,
+        operation?: Partial<MessageCreateOperationPF2e>,
     ): Promise<TDocument[]>;
 
     function getSpeakerActor(speaker: foundry.documents.ChatSpeakerData): ActorPF2e | null;
 }
 
-interface MessageModificationContextPF2e extends ChatMessageModificationContext {
+interface MessageCreateOperationPF2e extends ChatMessageCreateOperation {
     /** Whether this is a Rest for the Night message */
     restForTheNight?: boolean;
 }

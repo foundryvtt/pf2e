@@ -1,0 +1,75 @@
+{
+    "_id": "N5jtL8lLKW0Yzd8e",
+    "img": "icons/equipment/back/mantle-collared-black.webp",
+    "name": "Stage Magician's Cloak",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>This black velvet cloak has a silvery blue iridescent lining. The cloak can be worn with either side facing out—switching from one side to the other requires two Interact actions. If these actions are both taken on the same turn, the act of removing and redonning the cloak doesn't cause it to lose its investiture. When worn with the black velvet lining facing out, the stage magician's cloak grants a +2 item bonus to Occultism checks. When worn with the silvery blue lining facing out, it grants a +2 item bonus to Arcana checks.</p><hr /><p><strong>Activate—Now You See Me...</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Distracting colorful smoke blasts outward from the cloak in a @Template[type:emanation|distance:10], causing all creatures in the area to become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] until the start of your next turn (@Check[type:will|dc:30] save). If you were previously @UUID[Compendium.pf2e.conditionitems.Item.Concealed], @UUID[Compendium.pf2e.conditionitems.Item.Hidden], or undetected, you lose those conditions. You become @UUID[Compendium.pf2e.conditionitems.Item.Quickened] for 1 round and may use the extra action to Interact, Strike, or Stride.</p><hr /><p><strong>Activate—...Now You Don't</strong> <span class=\"action-glyph\">2</span> (manipulate, teleportation)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> Harmless silver smoke issues from the cloak in a @Template[type:emanation|distance:10]. You cast a 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] on yourself and are transported, along with all items you're wearing and holding, from your current space to an unoccupied space within 30 feet that you can see. If this would bring another creature with you—even if you're carrying it in an extradimensional space—the transportation part of this effect fails.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 13
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 3000
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "alwaysActive": true,
+                "domain": "all",
+                "key": "RollOption",
+                "option": "stage-magicians-cloak",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Color.Black",
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Color.Blue",
+                        "value": "arcana"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "{item|flags.pf2e.rulesSelections.stageMagiciansCloak}",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "unique",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worncloak"
+        }
+    },
+    "type": "equipment"
+}

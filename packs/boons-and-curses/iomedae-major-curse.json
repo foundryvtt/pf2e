@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Major Curse</strong> All blades reject your wicked heart.</p>\n<p>Any weapon you wield automatically becomes broken after you Strike with it. This curse can't break artifacts or similarly powerful weapons.</p>"
+            "value": "<p>All blades reject your wicked heart.</p>\n<p>Any weapon you wield automatically becomes @UUID[Compendium.pf2e.conditionitems.Item.Broken] after you Strike with it. This curse can't break artifacts or similarly powerful weapons.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,19 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "not": "item:trait:unarmed"
+                    }
+                ],
+                "selector": "attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

@@ -47,14 +47,27 @@ class ItemChatData {
     htmlOptions: EnrichmentOptionsPF2e;
 
     /** A showdown markdown converter */
-    declare static mdConverter: showdown.Converter;
+    static #mdConverter: showdown.Converter | null = null;
 
     constructor({ item, data, htmlOptions = {} }: ItemChatDataConstructorOptions) {
         this.item = item;
         this.data = data;
         this.htmlOptions = htmlOptions;
-        // Workaround vite not resolving import in time
-        ItemChatData.mdConverter ??= new showdown.Converter();
+    }
+
+    /** Sanitized and convert stringy markdown into stringy HTML, with any initial HTML content stripped */
+    static markdownToHTML(markdown: string): string {
+        const converter = (ItemChatData.#mdConverter ??= new showdown.Converter());
+        const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(markdown).trim() }).innerText;
+        // Prevent markdown converter from treating Foundry content links as markdown links
+        const withSubbedBrackets = htmlStripped.replaceAll("[", "⟦").replaceAll("]", "⟧");
+        const stringyHTML = converter
+            .makeHtml(withSubbedBrackets)
+            .replace(/<\/?p[^>]*>/g, "")
+            .replaceAll("⟦", "[")
+            .replaceAll("⟧", "]");
+
+        return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
     }
 
     async process(): Promise<RawItemChatData> {
@@ -65,15 +78,11 @@ class ItemChatData {
         return fu.mergeObject(this.data, { description }, { inplace: false });
     }
 
-    #sanitizeMarkdown(text: string): string {
-        const htmlStripped = createHTMLElement("div", { innerHTML: game.i18n.localize(text).trim() }).innerText;
-        const stringyHTML = ItemChatData.mdConverter.makeHtml(htmlStripped).replace(/<\/?p[^>]*>/g, "");
-        return TextEditor.truncateHTML(createHTMLElement("div", { innerHTML: stringyHTML })).innerHTML.trim();
-    }
-
     async #prepareDescription(): Promise<Pick<ItemDescriptionData, "value" | "gm">> {
         const { data, item } = this;
-        const rollOptions = new Set(R.compact([item.actor?.getRollOptions(), item.getRollOptions("item")].flat()));
+        const rollOptions = new Set(
+            [item.actor?.getRollOptions(), item.getRollOptions("item")].flat().filter(R.isTruthy),
+        );
 
         const baseText = await (async (): Promise<string> => {
             const override = data.description?.override;
@@ -82,13 +91,21 @@ class ItemChatData {
                 .flatMap((line) => {
                     if (!line.predicate.test(rollOptions)) return [];
                     const hr = line.divider ? document.createElement("hr") : null;
-                    const title = line.title
-                        ? createHTMLElement("strong", { children: [game.i18n.localize(line.title)] })
-                        : null;
-                    const whitespace = title ? " " : null;
-                    const text = game.i18n.localize(line.text);
-                    const paragraph = createHTMLElement("p", { children: R.compact([title, whitespace, text]) });
-                    return R.compact([hr, paragraph].map((e) => e?.outerHTML));
+
+                    // Create paragraph element
+                    const paragraph = createHTMLElement("p");
+                    if (line.title) {
+                        paragraph.appendChild(
+                            createHTMLElement("strong", { children: [game.i18n.localize(line.title)] }),
+                        );
+                        paragraph.appendChild(new Text(" "));
+                    }
+                    const text = ItemChatData.markdownToHTML(line.text);
+                    if (text) {
+                        paragraph.insertAdjacentHTML("beforeend", text);
+                    }
+
+                    return [hr, paragraph].map((e) => e?.outerHTML).filter(R.isTruthy);
                 })
                 .join("\n");
         })();
@@ -105,7 +122,7 @@ class ItemChatData {
                             .filter((c) => c.predicate.test(rollOptions))
                             .map((line) => {
                                 line.title &&= game.i18n.localize(line.title).trim();
-                                line.text = this.#sanitizeMarkdown(line.text);
+                                line.text = ItemChatData.markdownToHTML(line.text);
                                 return line;
                             }),
                     };
@@ -114,13 +131,15 @@ class ItemChatData {
             );
         })();
 
-        const assembled = R.compact([baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]).join("\n");
+        const assembled = [baseText, addenda.length > 0 ? "\n<hr />\n" : null, ...addenda]
+            .filter(R.isTruthy)
+            .join("\n");
         const rollData = fu.mergeObject(this.item.getRollData(), this.htmlOptions.rollData);
 
         return {
-            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData, async: true }),
+            value: await TextEditor.enrichHTML(assembled, { ...this.htmlOptions, rollData }),
             gm: game.user.isGM
-                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData, async: true })
+                ? await TextEditor.enrichHTML(data.description.gm, { ...this.htmlOptions, rollData })
                 : "",
         };
     }

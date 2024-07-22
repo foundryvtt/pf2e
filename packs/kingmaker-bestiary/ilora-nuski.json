@@ -1315,187 +1315,16 @@
             "type": "action"
         },
         {
-            "_id": "x1vE1TT17GgQ7Mc7",
+            "_id": "UGAcwTdmLcqn2A5C",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "River Lore",
             "sort": 2000000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xj83ymsPlY7u87j1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.HighJumpOrLongJump",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:long-jump",
-                                    "action:high-jump"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 to Jump",
-                        "options": "action:high-jump,action:long-jump"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "j6wnMg9A9RVoKMNx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "UGAcwTdmLcqn2A5C",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "River Lore",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "wiR2JfCFpZp8ML17",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "pVOISUdvtDThnk0e",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "YE5Qw3eGCquDUcHw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
                 },
                 "proficient": {
                     "value": 0
@@ -1594,6 +1423,40 @@
             "will": {
                 "saveDetail": "",
                 "value": 22
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 23
+            },
+            "athletics": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "to Jump",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:long-jump",
+                                    "action:high-jump"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "nature": {
+                "base": 22
+            },
+            "society": {
+                "base": 20
+            },
+            "stealth": {
+                "base": 25
+            },
+            "survival": {
+                "base": 24
             }
         },
         "traits": {

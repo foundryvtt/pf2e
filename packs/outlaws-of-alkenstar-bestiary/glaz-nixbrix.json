@@ -395,126 +395,10 @@
             "type": "action"
         },
         {
-            "_id": "xryq6lr701eadhul",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ek6dktnf2xszoc6p",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Climb",
-                        "predicate": [
-                            "action:climb"
-                        ],
-                        "selector": "athletics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+15 to Climb",
-                        "options": "action:climb"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8j0iaune2aaicgjq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 9
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "f14gzz2tmkxqoi7s",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "tgunjr8k87x633mi",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
-            "sort": 1400000,
+            "sort": 1000000,
             "system": {
                 "description": {
                     "value": ""
@@ -643,6 +527,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 9
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "athletics": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "to Climb",
+                        "predicate": [
+                            "action:climb"
+                        ]
+                    }
+                ]
+            },
+            "crafting": {
+                "base": 9
+            },
+            "intimidation": {
+                "base": 10
             }
         },
         "traits": {

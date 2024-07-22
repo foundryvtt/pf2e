@@ -1,5 +1,3 @@
-import { SKILL_EXPANDED, SKILL_LONG_FORMS } from "@actor/values.ts";
-import { isObject, objectHasKey } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
@@ -49,38 +47,23 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
     static PHASES = ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"] as const;
 
-    /**
-     * Pattern to match system.skills.${longForm} paths for replacement
-     * Temporary solution until skill data is represented in long form
-     */
-    static #SKILL_LONG_FORM_PATH = ((): RegExp => {
-        const skillLongForms = Array.from(SKILL_LONG_FORMS).join("|");
-        return new RegExp(String.raw`^system\.skills\.(${skillLongForms})\b`);
-    })();
-
     static override validateJoint(data: SourceFromSchema<AELikeSchema>): void {
         super.validateJoint(data);
 
         if (data.merge) {
             if (data.mode !== "override") {
-                throw new foundry.data.validation.DataModelValidationError('  merge: `mode` must be "override"');
+                throw new foundry.data.validation.DataModelValidationError('mode must be "override" if merge is true');
             }
-            if (!isObject(data.value)) {
-                throw new foundry.data.validation.DataModelValidationError("  merge: `value` must an object");
+            if (!R.isPlainObject(data.value)) {
+                throw new foundry.data.validation.DataModelValidationError("value must be an object if merge is true");
             }
         }
-    }
-
-    #rewriteSkillLongFormPath(path: string): string {
-        return path.replace(AELikeRuleElement.#SKILL_LONG_FORM_PATH, (match, group) =>
-            objectHasKey(SKILL_EXPANDED, group) ? `system.skills.${SKILL_EXPANDED[group].shortForm}` : match,
-        );
     }
 
     #pathIsValid(path: string): boolean {
         const actor = this.item.actor;
         return (
-            path.length > 0 &&
+            !path.startsWith("data.") &&
             !/\bnull\b/.test(path) &&
             (path.startsWith("flags.") ||
                 [path, path.replace(/\.[-\w]+$/, ""), path.replace(/\.?[-\w]+\.[-\w]+$/, "")].some(
@@ -117,7 +100,7 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
     #applyAELike(rollOptions?: Set<string>): void {
         if (this.ignored) return;
         // Convert long-form skill slugs in paths to short forms
-        const path = this.#rewriteSkillLongFormPath(this.resolveInjectedProperties(this.path));
+        const path = this.resolveInjectedProperties(this.path);
         if (this.ignored) return;
         if (!this.#pathIsValid(path)) {
             return this.failValidation(`no data found at or near "${path}"`);
@@ -221,8 +204,19 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return Math.max(current ?? 0, change);
             }
             case "override": {
-                if (merge && isObject(current) && isObject(change)) {
+                const isOverridable =
+                    R.isNullish(current) ||
+                    typeof current === typeof change ||
+                    // Allow numbers and booleans to override each other to allow for cases of overridable union types
+                    (["number", "boolean"].includes(typeof current) && ["number", "boolean"].includes(typeof change));
+                if (merge && R.isObjectType(current) && R.isObjectType(change)) {
                     return fu.mergeObject(current, change);
+                } else if (!isOverridable) {
+                    return new DataModelValidationFailure({
+                        invalidValue: change,
+                        message: `${change} cannot override ${current}`,
+                        fallback: false,
+                    });
                 }
                 return change;
             }

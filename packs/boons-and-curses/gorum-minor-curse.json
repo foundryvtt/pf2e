@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Minor Curse</strong> Gorum rewards cowardice with frailty. Any armor you wear and shield you wield reduces its item bonus to AC by 2 (minimum 0) and its Hardness, Hit Points, and Break Threshold by half.</p>"
+            "value": "<p>Gorum rewards cowardice with frailty. Any armor you wear and shield you wield reduces its item bonus to AC by 2 (minimum 0) and its Hardness, Hit Points, and Break Threshold by half.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,68 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "ac-bonus",
+                "value": 2
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "subtract",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "ac-bonus",
+                "value": 2
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hardness",
+                "value": 0.5
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hardness",
+                "value": 0.5
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 0.5
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 0.5
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

@@ -581,157 +581,16 @@
             "type": "action"
         },
         {
-            "_id": "eyGe6AKPY7GMEpMq",
+            "_id": "Zlt4tx3zlotDVMMd",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Dinosaur Lore",
             "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Bi7Me2jFWdkLUHb7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Zlt4tx3zlotDVMMd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Dinosaur Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Qw6QyDlpbLVrovgf",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "U2pZ9Ib09IyARwgZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CommandAnAnimal",
-                        "predicate": [
-                            "action:command-an-animal"
-                        ],
-                        "selector": "nature",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 to Command an Animal",
-                        "options": "action:command-an-animal"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RHhLss64TUmRrjht",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
                 },
                 "proficient": {
                     "value": 0
@@ -833,6 +692,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 19
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 21
+            },
+            "athletics": {
+                "base": 22
+            },
+            "intimidation": {
+                "base": 18
+            },
+            "nature": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "to Command an Animal",
+                        "predicate": [
+                            "action:command-an-animal"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 19
             }
         },
         "traits": {

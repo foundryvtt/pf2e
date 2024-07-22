@@ -277,7 +277,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during true target's duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>"
+                    "value": "<p>You delve into the possible futures of the next few seconds to understand all the ways your foe might avoid harm, then cast out a vision of that future to those around you. Designate a creature. The first time each target makes an attack roll against that creature during <em>true target</em>'s duration, the attacker rolls twice and uses the better result. The attacker also ignores circumstance penalties to the attack roll and any flat check required due to the designated creature being @UUID[Compendium.pf2e.conditionitems.Item.Concealed] or @UUID[Compendium.pf2e.conditionitems.Item.Hidden].</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1176,7 +1176,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -2552,81 +2552,6 @@
                 "slug": null
             },
             "type": "lore"
-        },
-        {
-            "_id": "eIW4UWNfWOT8G6ak",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 3600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "6Z8JKnXct8Upcsor",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 3700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "eIvXSXy1GVzLKopl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 3800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Mage of Many Styles",
@@ -2716,6 +2641,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 21
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 23
+            },
+            "arcana": {
+                "base": 28
+            },
+            "occultism": {
+                "base": 26
             }
         },
         "traits": {

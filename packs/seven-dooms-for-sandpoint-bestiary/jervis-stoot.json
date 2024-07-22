@@ -306,9 +306,9 @@
             "type": "action"
         },
         {
-            "_id": "SnVDpGsWOlW2pKhA",
+            "_id": "RTuXiZNrznILlhxU",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
+            "name": "Sandpoint Lore",
             "sort": 900000,
             "system": {
                 "description": {
@@ -316,154 +316,6 @@
                 },
                 "mod": {
                     "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Woodworking",
-                        "predicate": [
-                            "action:craft:woodworking"
-                        ],
-                        "selector": "crafting",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {
-                    "value": []
-                },
-                "variants": {
-                    "0": {
-                        "label": "+23 woodcarving",
-                        "options": "action:craft:woodworking"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "x6cHb3V7zejR09r1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "wnbhA9cEo9Jt2LiB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xnGM9tnrrk6pTxuO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RTuXiZNrznILlhxU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Sandpoint Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "uyeXssXX8WuWrG0j",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
                 },
                 "proficient": {
                     "value": 0
@@ -619,6 +471,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 21
+            }
+        },
+        "skills": {
+            "crafting": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "woodcarving",
+                        "predicate": [
+                            "action:craft:woodworking"
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 23
+            },
+            "intimidation": {
+                "base": 23
+            },
+            "religion": {
+                "base": 21
+            },
+            "stealth": {
+                "base": 22
             }
         },
         "traits": {

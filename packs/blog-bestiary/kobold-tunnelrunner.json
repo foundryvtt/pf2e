@@ -262,132 +262,16 @@
             "type": "action"
         },
         {
-            "_id": "rbdWyrGGwK5cQRWo",
+            "_id": "PihM6WX0ymwQxab0",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Lore",
             "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "gjv68bB52B2WmA99",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "E2RCzyCZRbmyQ2Wa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 2
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Traps",
-                        "predicate": [
-                            "action:craft:trap"
-                        ],
-                        "selector": "crafting",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+4 traps",
-                        "options": "action:craft:trap"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "PihM6WX0ymwQxab0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Lore",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Tcswt3FXnYqqpDNr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
                 },
                 "proficient": {
                     "value": 0
@@ -488,6 +372,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "athletics": {
+                "base": 5
+            },
+            "crafting": {
+                "base": 2,
+                "special": [
+                    {
+                        "base": 4,
+                        "label": "traps",
+                        "predicate": [
+                            "action:craft:trap"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 5
             }
         },
         "traits": {

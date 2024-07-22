@@ -91,7 +91,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         return {
             ...options,
             classes: [...options.classes, "kingdom"],
-            width: 720,
+            width: 750,
             height: 620,
             template: "systems/pf2e/templates/actors/party/kingdom/sheet.hbs",
             scrollY: [...options.scrollY, ".tab.active", ".tab.active .content", ".sidebar"],
@@ -134,10 +134,9 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         const data = await super.getData(options);
         const kingdom = this.kingdom;
 
-        const settlementEntries = R.pipe(
-            Object.entries(this.kingdom.settlements),
-            R.filter((entry): entry is [string, KingdomSettlementData] => !!entry[1]),
-            R.sortBy((entry) => entry[1].sort),
+        const settlementEntries = R.sortBy(
+            Object.entries(this.kingdom.settlements).filter((e): e is [string, KingdomSettlementData] => !!e[1]),
+            (e) => e[1].sort,
         );
 
         return {
@@ -209,19 +208,35 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 }),
             ),
             eventText: await TextEditor.enrichHTML(kingdom.event.text, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             settlementTypes: KINGDOM_SETTLEMENT_TYPE_LABELS,
             abilityLabels: KINGDOM_ABILITY_LABELS,
             skillLabels: KINGDOM_SKILL_LABELS,
+            proficiencyOptions: Object.values(CONFIG.PF2E.proficiencyRanks).map((label, i) => ({
+                value: i.toString(),
+                label,
+            })),
         };
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: true,
+        });
+        return plugins;
     }
 
     async #prepareArmies(): Promise<ArmySheetData[]> {
         const data = this.kingdom.armies.map(async (a) => ({
             document: a,
-            link: await TextEditor.enrichHTML(a.link, { async: true }),
+            link: await TextEditor.enrichHTML(a.link),
             consumption: getAdjustedValue(a.system.consumption, a._source.system.consumption, {
                 better: "lower",
             }),
@@ -246,7 +261,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             ...settlement,
             id,
             description: await TextEditor.enrichHTML(settlement.description, {
-                async: true,
                 rollData: this.actor.getRollData(),
             }),
             editing: this.#editingSettlements[id] ?? false,
@@ -308,7 +322,10 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
             if (uuid) {
                 for (const clickable of htmlQueryAll(leader, "[data-action=open-sheet]")) {
-                    clickable.addEventListener("click", () => fromUuid(uuid).then((a) => a?.sheet.render(true)));
+                    clickable.addEventListener("click", async () => {
+                        const actor = await fromUuid(uuid);
+                        actor?.sheet.render(true);
+                    });
                 }
             }
 
@@ -520,11 +537,17 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
             // activateListeners() handles both rich text editing and expanding the item summary
             const newElement = createHTMLElement("div", { innerHTML: newHTML }).firstElementChild;
             if (newElement instanceof HTMLElement) {
-                newElement.classList.toggle("expanded", settlementElement.classList.contains("expanded"));
+                // Preserve item summary expanded state
+                const isExpanded = !htmlQuery(settlementElement, ".item-summary")?.hidden;
+                htmlQuery(newElement, ".item-summary")!.hidden = !isExpanded;
+
+                // Perform replacement and activate listeners
                 settlementElement.replaceWith(newElement);
                 super.activateListeners($(newElement));
                 this.#activateSettlementEvents(newElement);
-                if (this.#editingSettlements[id] && !newElement.classList.contains("expanded")) {
+
+                // If we're editing, ensure it opens
+                if (this.#editingSettlements[id]) {
                     this.itemRenderer.toggleSummary(newElement, { visible: true });
                 }
             }
@@ -536,7 +559,6 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
         });
         htmlQuery(settlementElement, "[data-action=finish-settlement]")?.addEventListener("click", async () => {
             this.#editingSettlements[id] = false;
-            await this.saveEditor(`settlements.${id}.description`);
             rerenderSettlement();
         });
         htmlQuery(settlementElement, "[data-action=delete-settlement]")?.addEventListener("click", async (event) => {
@@ -724,6 +746,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+    proficiencyOptions: FormSelectOption[];
 }
 
 interface ArmySheetData {

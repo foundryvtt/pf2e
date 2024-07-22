@@ -30,6 +30,7 @@ const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
+    img: "systems/pf2e/icons/features/classes/thief.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

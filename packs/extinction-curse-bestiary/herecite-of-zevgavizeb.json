@@ -1026,7 +1026,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>Your body sprouts a coat of brambly thorns that harm those that strike you and thrive on life magic. Adjacent creatures that hit you with a melee attack, as well as creatures that hit you with unarmed attacks, take 1 piercing damage each time they do. Anytime you cast a vitality spell, the damage from your thorns increases to 1d6 until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1, or 1d6 after you cast a vitality spell.</p>"
+                    "value": "<p>Your body sprouts a coat of brambly thorns that thrive on life magic. Adjacent creatures that hit you with a melee attack, as well as creatures that hit you with unarmed attacks, take @Damage[(@item.rank)[piercing]] damage each time they do. Anytime you cast a vitality spell, the thorns' damage increases to @Damage[(@item.rank)d6[piercing]] until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1, or 1d6 after you cast a vitality spell.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1039,9 +1039,9 @@
                     "value": "Fkch2WMm3nRHukfN"
                 },
                 "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
                 },
                 "range": {
                     "value": ""
@@ -1063,7 +1063,8 @@
                         "focus",
                         "manipulate",
                         "morph",
-                        "plant"
+                        "plant",
+                        "wood"
                     ]
                 }
             },
@@ -1509,85 +1510,10 @@
             "type": "action"
         },
         {
-            "_id": "4AFLHeG3wSuQ2giO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 2500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "iZRZWlngbbYp7FPB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oubEQ2b45AxAQp9c",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "tp9ORpYsDj2Yd3XE",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Zevgavizeb Lore",
-            "sort": 2800000,
+            "sort": 2500000,
             "system": {
                 "description": {
                     "value": ""
@@ -1707,6 +1633,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 22
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 20
+            },
+            "intimidation": {
+                "base": 23
+            },
+            "religion": {
+                "base": 22
             }
         },
         "spellcasting": {

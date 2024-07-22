@@ -10,7 +10,6 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
 
         return {
             ...sheetData,
-            skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,
             selectedKeyAbility: this.getLocalizedAbilities(itemData.system.keyAbility),
             trainedSkills: createSheetTags(CONFIG.PF2E.skills, itemData.system.trainedSkills),
@@ -24,7 +23,6 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
 }
 
 interface ClassSheetData extends ABCSheetData<ClassPF2e> {
-    skills: typeof CONFIG.PF2E.skills;
     proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
     selectedKeyAbility: Record<string, string>;
     trainedSkills: SheetOptions;

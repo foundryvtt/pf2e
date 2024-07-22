@@ -1,5 +1,6 @@
-import BaseActor from "../../../common/documents/actor.js";
-import BaseUser from "../../../common/documents/user.js";
+import type BaseActor from "../../../common/documents/actor.d.ts";
+import type { ChatMessageSource } from "../../../common/documents/chat-message.d.ts";
+import type BaseUser from "../../../common/documents/user.d.ts";
 import type { ClientBaseChatMessage } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -12,7 +13,15 @@ declare global {
     class ChatMessage extends ClientBaseChatMessage {
         constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: MessageConstructionContext);
 
-        _rollExpanded: boolean;
+        /** Is the display of dice rolls in this message collapsed (false) or expanded (true) */
+        protected _rollExpanded: boolean;
+
+        /** Is this ChatMessage currently displayed in the sidebar ChatLog? */
+        logged: boolean;
+
+        /* -------------------------------------------- */
+        /*  Properties                                  */
+        /* -------------------------------------------- */
 
         /**
          * Return the recommended String alias for this message.
@@ -39,7 +48,11 @@ declare global {
          */
         override get visible(): boolean;
 
-        override prepareData(): void;
+        /* -------------------------------------------- */
+        /*  Methods                                     */
+        /* -------------------------------------------- */
+
+        override prepareDerivedData(): void;
 
         /**
          * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
@@ -47,7 +60,7 @@ declare global {
          * @param rollMode The rollMode preference to apply to this message data
          * @returns The modified ChatMessage data with rollMode preferences applied
          */
-        static applyRollMode<TData extends DeepPartial<ChatMessage["_source"]>>(
+        static applyRollMode<TData extends DeepPartial<ChatMessageSource>>(
             chatData: TData,
             rollMode: RollMode | "roll",
         ): TData;
@@ -160,23 +173,23 @@ declare global {
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            options: DatabaseCreateOperation<null>,
             user: BaseUser<BaseActor<null>>,
         ): Promise<boolean | void>;
 
         protected override _onCreate(
             data: this["_source"],
-            options: DocumentModificationContext<null>,
+            options: DatabaseCreateOperation<null>,
             userId: string,
         ): void;
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<null>,
+            options: DatabaseUpdateOperation<null>,
             userId: string,
         ): void;
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+        protected override _onDelete(options: DatabaseDeleteOperation<null>, userId: string): void;
 
         /* -------------------------------------------- */
         /*  Importing and Exporting                     */
@@ -186,28 +199,24 @@ declare global {
         export(): string;
     }
 
-    interface ChatMessage extends ClientBaseChatMessage {
-        user: User;
-    }
-
     namespace ChatMessage {
         function create<TDocument extends ChatMessage>(
             this: ConstructorOf<TDocument>,
             data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[],
-            context?: ChatMessageModificationContext,
+            operation?: Partial<ChatMessageCreateOperation>,
         ): Promise<TDocument[]>;
-        function create<T extends ChatMessage>(
-            this: ConstructorOf<T>,
-            data: DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext,
-        ): Promise<T | undefined>;
-        function create<T extends ChatMessage>(
-            this: ConstructorOf<T>,
+        function create<TDocument extends ChatMessage>(
+            this: ConstructorOf<TDocument>,
+            data: DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
+            operation?: Partial<ChatMessageCreateOperation>,
+        ): Promise<TDocument | undefined>;
+        function create<TDocument extends ChatMessage>(
+            this: ConstructorOf<TDocument>,
             data:
-                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
-                | DeepPartial<Omit<T["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-            context?: ChatMessageModificationContext,
-        ): Promise<T[] | T | undefined>;
+                | DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>[]
+                | DeepPartial<Omit<TDocument["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
+            operation?: Partial<ChatMessageCreateOperation>,
+        ): Promise<TDocument[] | TDocument | undefined>;
     }
 
     interface MessageConstructionContext extends DocumentConstructionContext<null> {

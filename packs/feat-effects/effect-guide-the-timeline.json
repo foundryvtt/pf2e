@@ -1,0 +1,87 @@
+{
+    "_id": "bxxek5BP4zqP5GzM",
+    "img": "icons/magic/time/clock-spinning-gold-pink.webp",
+    "name": "Effect: Guide the Timeline",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Guide the Timeline]</p>\n<p>Choose an ally or a foe. If you choose an ally, the next time within the next round that ally makes an attack roll or skill check, they roll it twice and take the higher result. If you choose a foe, the next time within the next round that foe makes an attack roll or skill check, they must roll twice and take the lower result.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitFortune",
+                        "value": "fortune"
+                    },
+                    {
+                        "label": "PF2E.TraitMisfortune",
+                        "value": "misfortune"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "guide-the-timeline"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "guide-the-timeline:fortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": "attack-roll"
+            },
+            {
+                "keep": "higher",
+                "key": "RollTwice",
+                "predicate": [
+                    "guide-the-timeline:fortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "guide-the-timeline:misfortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": "attack-roll"
+            },
+            {
+                "keep": "lower",
+                "key": "RollTwice",
+                "predicate": [
+                    "guide-the-timeline:misfortune"
+                ],
+                "removeAfterRoll": true,
+                "selector": "skill-check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

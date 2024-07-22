@@ -24,7 +24,7 @@ function extractModifiers(
     domains: string[],
     options: DeferredValueParams = {},
 ): ModifierPF2e[] {
-    domains = R.uniq(domains);
+    domains = R.unique(domains);
     const modifiers = domains.flatMap((s) => synthetics.modifiers[s] ?? []).flatMap((d) => d(options) ?? []);
     for (const modifier of modifiers) {
         modifier.domains = [...domains];
@@ -42,7 +42,7 @@ function extractModifierAdjustments(
     selectors: string[],
     slug: string,
 ): ModifierAdjustment[] {
-    const adjustments = R.uniq(selectors.flatMap((s) => adjustmentsRecord[s] ?? []));
+    const adjustments = R.unique(selectors.flatMap((s) => adjustmentsRecord[s] ?? []));
     return adjustments.filter((a) => [slug, null].includes(a.slug));
 }
 
@@ -51,7 +51,7 @@ function extractDamageAlterations(
     selectors: string[],
     slug: string,
 ): DamageAlteration[] {
-    const alterations = R.uniq(selectors.flatMap((s) => alterationsRecord[s] ?? []));
+    const alterations = R.unique(selectors.flatMap((s) => alterationsRecord[s] ?? []));
     return alterations.filter((a) => [slug, null].includes(a.slug));
 }
 
@@ -103,7 +103,21 @@ async function extractEphemeralEffects({
                 .flatMap((s) => effectsFrom.synthetics.ephemeralEffects[s]?.[affects] ?? [])
                 .map((d) => d({ test: fullOptions, resolvables })),
         )
-    ).flatMap((e) => e ?? []);
+    )
+        .filter(R.isNonNull)
+        .map((effect) => {
+            effect.system.context = {
+                origin: {
+                    actor: effectsFrom.uuid,
+                    token: null,
+                    item: null,
+                    spellcasting: null,
+                },
+                target: { actor: effectsTo.uuid, token: null },
+                roll: null,
+            };
+            return effect;
+        });
 }
 
 interface ExtractEphemeralEffectsParams {
@@ -148,7 +162,9 @@ function extractDegreeOfSuccessAdjustments(
 
 function isBracketedValue(value: unknown): value is BracketedValue {
     return (
-        R.isObject(value) && Array.isArray(value.brackets) && (typeof value.field === "string" || !("fields" in value))
+        R.isPlainObject(value) &&
+        Array.isArray(value.brackets) &&
+        (typeof value.field === "string" || !("fields" in value))
     );
 }
 
@@ -183,7 +199,7 @@ async function processPreUpdateActorHooks(
         },
         { create: [], delete: [] },
     );
-    createDeletes.delete = R.uniq(createDeletes.delete).filter((id) => actor.items.has(id));
+    createDeletes.delete = R.unique(createDeletes.delete).filter((id) => actor.items.has(id));
 
     if (createDeletes.create.length > 0) {
         await actor.createEmbeddedDocuments("Item", createDeletes.create, { keepId: true, render: false });

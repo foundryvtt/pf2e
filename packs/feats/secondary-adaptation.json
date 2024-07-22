@@ -1,0 +1,53 @@
+{
+    "_id": "gyHAVCNjESPbc5ei",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Secondary Adaptation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've continued to adapt to the rigors of your environment by continuing your metamorphosis, even as an adult. Choose one surki heritage that you don't already have; you gain that heritage and its benefits.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        "item:ancestry:surki"
+                    ],
+                    "itemType": "heritage"
+                },
+                "flag": "heritage",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Surki.SecondaryAdaptation.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.heritage}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "surki"
+            ]
+        }
+    },
+    "type": "feat"
+}

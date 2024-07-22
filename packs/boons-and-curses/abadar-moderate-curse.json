@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Moderate Curse</strong> Abadar curses all your enterprises, leading to financial disaster as all your ventures always seem to fail. The result of your check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income] is always one degree of success worse than the one you rolled.</p>"
+            "value": "<p>Abadar curses all your enterprises, leading to financial disaster as all your ventures always seem to fail. The result of your check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income] is always one degree of success worse than the one you rolled.</p>"
         },
         "level": {
             "value": 0
@@ -24,12 +24,20 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "all": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "common",
-            "selected": {
-                "custom": "Single Use"
-            },
             "value": []
         }
     },

@@ -178,52 +178,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "t9kDrXljVBrVf0wO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "To Trip or Grapple",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:trip",
-                                    "action:grapple"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+15 to Trip or Grapple",
-                        "options": "action:trip,action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Whipping Willow",
@@ -343,6 +297,25 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "to Trip or Grapple",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "action:grapple"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

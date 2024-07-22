@@ -231,72 +231,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "3IrzjRB89Xfvuqf2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bo6bsp0fKrJ9ddNK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Buried",
-                        "predicate": [
-                            "buried"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 while buried in a bog",
-                        "options": "buried"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Child of Belcorra",
@@ -425,6 +359,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "stealth": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "while buried in a bog",
+                        "predicate": [
+                            "buried"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

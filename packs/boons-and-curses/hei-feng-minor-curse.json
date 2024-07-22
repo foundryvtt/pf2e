@@ -1,10 +1,10 @@
 {
     "_id": "CboMubDaWRkG94Ff",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Hei%20Feng.webp",
     "name": "Hei Feng - Minor Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Minor Curse:</strong> Hei Feng's belligerence hangs over you like a thunderhead. You take a -1 status penalty to checks with Charisma-based skills. If you consume even a drop of alcohol, this penalty becomes -3 until the next sunrise.</p>"
+            "value": "<p>Hei Feng's belligerence hangs over you like a thunderhead. You take a -1 status penalty to checks with Charisma-based skills. If you consume even a drop of alcohol, this penalty becomes -3 until the next sunrise.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,10 +22,28 @@
         },
         "rules": [
             {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.DivineIntercessions.HeiFeng.MinorCurse.ConsumedAlcohol",
+                "option": "consumed-alcohol",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "selector": "cha-based",
+                "slug": "hei-feng-minor-curse",
                 "type": "status",
                 "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "consumed-alcohol"
+                ],
+                "selector": "cha-based",
+                "slug": "hei-feng-minor-curse",
+                "value": -3
             }
         ],
         "start": {

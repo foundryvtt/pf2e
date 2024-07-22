@@ -1,0 +1,113 @@
+{
+    "_id": "s5vDDQbslEKjRFXX",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "3yuMRK1638TTgerf",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloody Glare",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature spills blood in the room</p><hr /><p><strong>Effect</strong> A ghastly figure of blood appears in the mirror's surface, forcing all creatures who can see it to attempt a @Check[type:fortitude|dc:18] save. The trap then rolls initiative.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature bleeds from their nose and mouth.</p>\n<p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Blood Shadow Mirror",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 18
+            },
+            "emitsSound": "encounter",
+            "hardness": 7,
+            "hp": {
+                "details": "",
+                "max": 30,
+                "temp": 0,
+                "value": 30
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "object-immunities"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained); DC 0 to notice the mirror without noting it is a trap</p>",
+                "value": 8
+            }
+        },
+        "details": {
+            "description": "<p>A dark shape moves in the surface of an ornate mirror, its eyes wide as blood seeps down its tormented face.</p>",
+            "disable": "<p>@Check[type:thievery|dc:16] (trained) to fully cover the mirror or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (2nd rank; counteract DC 18) to dispel the mirror.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 2
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-19: Demonic Afterparty"
+            },
+            "reset": "<p>1 minute if no fresh blood has been spilled.</p>",
+            "routine": "<p>(2 actions; arcane, mental) The bloody figure in the mirror transforms to reflect a creature within 30 feet. The reflection bleeds profusely from the eyes, nose, and mouth, and the reflected creature must attempt a @Check[type:will|dc:18|traits:arcane,mental] save.</p><hr><p><strong>Critical Success</strong> The creature is unaffected and temporarily immune for 1 minute.</p><p><strong>Success</strong> The creature bleeds from their mouth or nose.</p><p><strong>Failure</strong> The creature bleeds from their eyes, mouth, and nose, and takes @Damage[1d10[persistent,bleed]] damage.</p><p><strong>Critical Failure</strong> As failure, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 11
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 5
+            },
+            "will": {
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

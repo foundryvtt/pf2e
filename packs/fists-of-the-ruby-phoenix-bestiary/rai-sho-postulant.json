@@ -433,97 +433,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "JkPHRA42ymrJ1Rbu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 33
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "WHTIGqWhF69bEcs4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Snow",
-                        "predicate": [
-                            "terrain:snow"
-                        ],
-                        "selector": "stealth",
-                        "value": 6
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+34 in snow",
-                        "options": "terrain:snow"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "r6CyT9LF9yEuebR8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Rai Sho Postulant",
@@ -639,6 +548,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 29
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 33
+            },
+            "stealth": {
+                "base": 28,
+                "special": [
+                    {
+                        "base": 34,
+                        "label": "in snow",
+                        "predicate": [
+                            "terrain:snow"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 27
             }
         },
         "traits": {

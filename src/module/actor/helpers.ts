@@ -1,5 +1,5 @@
 import { ActorProxyPF2e, type ActorPF2e } from "@actor";
-import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
+import type { ItemPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
@@ -13,6 +13,8 @@ import {
     extractRollSubstitutions,
     extractRollTwice,
 } from "@module/rules/helpers.ts";
+import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
+import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
@@ -48,7 +50,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         game.actors.contents,
         game.scenes.contents.flatMap((s) => s.tokens.contents).flatMap((t) => t.actor ?? []),
     ].flat();
-    actors = R.uniq(Array.from(actors));
+    actors = R.unique(Array.from(actors));
     options.sheets ??= true;
 
     for (const actor of actors) {
@@ -63,7 +65,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
         !game.settings.get("pf2e", "automation.removeExpiredEffects");
 
     if (refreshScenes) {
-        const scenes = R.uniq(
+        const scenes = R.unique(
             Array.from(actors)
                 .flatMap((a) => a.getActiveTokens(false, true))
                 .flatMap((t) => t.scene),
@@ -77,7 +79,7 @@ async function resetActors(actors?: Iterable<ActorPF2e>, options: ResetActorsRen
     }
 
     if (options.tokens) {
-        for (const token of R.uniq(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
+        for (const token of R.unique(Array.from(actors).flatMap((a) => a.getActiveTokens(true, true)))) {
             token.simulateUpdate();
         }
     }
@@ -94,7 +96,7 @@ function userColorForActor(actor: ActorPF2e): HexColorString {
         game.users.find((u) => u.character === actor) ??
         game.users.players.find((u) => actor.testUserPermission(u, "OWNER")) ??
         actor.primaryUpdater;
-    return user?.color ?? "#43dfdf";
+    return user?.color.toString() ?? "#43dfdf";
 }
 
 async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<ActorSourcePF2e> {
@@ -110,6 +112,13 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
         ...(source.items ?? []).map((i) => i?.system?._migration?.version ?? MigrationRunnerBase.LATEST_SCHEMA_VERSION),
     );
     const tokenDefaults = fu.deepClone(game.settings.get("core", "defaultToken"));
+
+    // Clear any prototype token entries explicitly set to `undefined` by upstream
+    source.prototypeToken ??= {};
+    for (const [key, value] of R.entries.strict(source.prototypeToken ?? {})) {
+        if (value === undefined) delete source.prototypeToken[key];
+    }
+
     const actor = new ActorProxyPF2e(fu.mergeObject({ prototypeToken: tokenDefaults }, source));
     await MigrationRunner.ensureSchemaVersion(actor, MigrationList.constructFromVersion(lowestSchemaVersion));
 
@@ -252,6 +261,64 @@ function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean> {
     return Object.fromEntries(entries);
 }
 
+/** Create roll options pertaining to the terrain the actor is currently in */
+function createEnvironmentRollOptions(actor: ActorPF2e): Record<string, boolean> {
+    const toAdd = new Set<string>();
+    // Always add the scene terrain types
+    for (const terrain of canvas.scene?.flags.pf2e.environmentTypes ?? []) {
+        toAdd.add(terrain);
+    }
+    const token = actor.getActiveTokens(false, true).at(0);
+    const terrains = ((): Set<string> => {
+        // No token on the scene means no terrain roll options
+        if (!token) return new Set();
+        const toRemove = new Set<string>();
+        for (const region of token.regions ?? []) {
+            // An elevation value of null translates to Infinity
+            const bottom = region.elevation.bottom ?? -Infinity;
+            const top = region.elevation.top ?? Infinity;
+            if (token.elevation < bottom || token.elevation > top) continue;
+
+            const environmentBehaviors = region.behaviors.filter(
+                (b): b is EnvironmentRegionBehavior<RegionDocumentPF2e<ScenePF2e>> => b.type === "environment",
+            );
+            for (const behavior of environmentBehaviors) {
+                const system = behavior.system;
+                switch (system.mode) {
+                    case "add": {
+                        for (const terrain of system.environmentTypes) {
+                            toAdd.add(terrain);
+                        }
+                        break;
+                    }
+                    case "remove": {
+                        for (const terrain of system.environmentTypes) {
+                            toRemove.add(terrain);
+                        }
+                        break;
+                    }
+                    case "override": {
+                        // Only clear out the exisiting values in case there is another
+                        // behavior after the override
+                        toAdd.clear();
+                        toRemove.clear();
+                        for (const terrain of system.environmentTypes) {
+                            toAdd.add(terrain);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        for (const terrain of toRemove) {
+            toAdd.delete(terrain);
+        }
+        return toAdd;
+    })();
+
+    return Object.fromEntries(terrains.map((t) => [`terrain:${t}`, true]));
+}
+
 /** Whether flanking puts this actor off-guard */
 function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean {
     if (!target.isOfType("creature") || !target.attributes.flanking.flankable) {
@@ -315,17 +382,17 @@ function getStrikeAttackDomains(
                   : null
             : null;
 
-        const attributeModifier = R.compact([
+        const attributeModifier = [
             defaultAttributeModifier,
             alternativeAttributeModifier,
             ...extractModifiers(weapon.actor.synthetics, domains, { resolvables: { weapon }, test: rollOptions }),
-        ])
-            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m.type === "ability" && m.enabled)
+        ]
+            .filter((m): m is ModifierPF2e & { ability: AttributeString } => m?.type === "ability" && m.enabled)
             .reduce((best, candidate) => (candidate.modifier > best.modifier ? candidate : best));
         domains.push(`${attributeModifier.ability}-attack`, `${attributeModifier.ability}-based`);
     }
 
-    return R.uniq(domains);
+    return R.unique(domains);
 }
 
 function getStrikeDamageDomains(
@@ -338,7 +405,7 @@ function getStrikeDamageDomains(
     const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
     const baseType = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
     const unarmedOrWeapon = traits.has("unarmed") ? "unarmed" : "weapon";
-    const domains = R.compact([
+    const domains = [
         `${weapon.id}-damage`,
         `${slug}-damage`,
         `${meleeOrRanged}-strike-damage`,
@@ -349,7 +416,7 @@ function getStrikeDamageDomains(
         "attack-damage",
         "strike-damage",
         "damage",
-    ]);
+    ].filter(R.isTruthy);
 
     if (weapon.baseType) {
         domains.push(`${weapon.baseType}-base-type-damage`);
@@ -384,7 +451,7 @@ function getStrikeDamageDomains(
         }
     }
 
-    return R.uniq(domains);
+    return R.unique(domains);
 }
 
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */
@@ -396,7 +463,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     // Conditions and Custom modifiers to attack rolls
     const meleeOrRanged = item.isMelee ? "melee" : "ranged";
-    const baseOptions = new Set(R.compact(["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value]));
+    const baseOptions = new Set(
+        ["self:action:slug:strike", meleeOrRanged, ...item.system.traits.value].filter(R.isTruthy),
+    );
     const domains = getStrikeAttackDomains(item, actor.isOfType("npc") ? 1 : null, baseOptions);
 
     const synthetics = actor.synthetics;
@@ -432,10 +501,9 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     const attackSlug = item.slug ?? sluggify(item.name);
     const statistic = new StatisticModifier(attackSlug, modifiers, initialRollOptions);
 
-    const actionTraits: ActionTrait[] = R.compact([
-        "attack",
-        item.baseType === "alchemical-bomb" ? "manipulate" : null,
-    ]);
+    const actionTraits: ActionTrait[] = (
+        ["attack", item.baseType === "alchemical-bomb" ? "manipulate" : null] as const
+    ).filter(R.isTruthy);
     const strikeAdjustments = [
         actor.synthetics.strikeAdjustments,
         getPropertyRuneStrikeAdjustments(item.system.runes.property),
@@ -468,7 +536,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
 
     strike.breakdown = strike.modifiers
         .filter((m) => m.enabled)
-        .map((m) => `${m.label} ${signedInteger(m.value)}`)
+        .map((m) => `${m.label} ${m.signedValue}`)
         .join(", ");
 
     // Multiple attack penalty
@@ -537,7 +605,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
             );
             const dosAdjustments = extractDegreeOfSuccessAdjustments(context.origin.actor.synthetics, domains);
 
-            const allModifiers = R.compact([map, params.modifiers, context.origin.modifiers].flat());
+            const allModifiers = [map, params.modifiers, context.origin.modifiers].flat().filter(R.isTruthy);
             const check = new CheckModifier("strike", context.origin.statistic ?? strike, allModifiers);
             const checkContext: CheckCheckContext = {
                 type: "attack-roll",
@@ -682,17 +750,32 @@ function isReallyPC(actor: ActorPF2e): boolean {
     return actor.isOfType("character") && !(traits.has("minion") || traits.has("eidolon"));
 }
 
+/** Recursive generator function to iterate over all items and their sub items */
+function* iterateAllItems<T extends ActorPF2e>(document: T | PhysicalItemPF2e<T>): Generator<ItemPF2e<T>> {
+    const collection = document instanceof Actor ? document.items : document.subitems;
+    for (const item of collection ?? []) {
+        yield item;
+        if (item.isOfType("physical")) {
+            for (const subitem of iterateAllItems(item)) {
+                yield subitem;
+            }
+        }
+    }
+}
+
 export {
     auraAffectsActor,
     calculateMAPs,
     calculateRangePenalty,
     checkAreaEffects,
     createEncounterRollOptions,
+    createEnvironmentRollOptions,
     getRangeIncrement,
     getStrikeAttackDomains,
     getStrikeDamageDomains,
     isOffGuardFromFlanking,
     isReallyPC,
+    iterateAllItems,
     migrateActorSource,
     resetActors,
     setHitPointsRollOptions,

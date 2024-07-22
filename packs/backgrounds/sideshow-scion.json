@@ -1,0 +1,67 @@
+{
+    "_id": "CFyrlDzkSXgI1OAI",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Sideshow Scion",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "con",
+                    "int"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>Ah, the circus! What child didn't at some point fantasize about running away to join a troupe of clowns and daredevils and live a life on the road sharing living quarters with strange animals and even stranger coworkers? In your case, though, there was no need for fantasy, for you were born into the life. Your parents or extended family have a long tradition in the sideshow, be it as part of a traveling circus or as part of a more localized, year-round performance on a city boardwalk or marketplace. Even if you were the inverse of the youth who dreamed of running away, your childhood instead filled with visions of a sedentary aristocratic life or the rough upbringing of the working class, the sideshow skills and circus tricks you were exposed to seeped into your psyche. Now and then, a turn of phrase that spills from your lips or an unexpected little motion or act catches even your closest friends off guard. After all, what seems normal to you is anything but to someone who didn't grow up in a sideshow!</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Intelligence</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Acrobatics skill and the Games Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Acrobatic Performer] skill feat.</p>\n<p>If you have the Wildcard persona trait, you also become trained in the Circus Lore skill.</p>"
+        },
+        "items": {
+            "qoGNh": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Acrobatic Performer",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Acrobatic Performer"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Curtain Call Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:persona-trait"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.campaign-effects.Item.Persona Trait"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Games Lore"
+            ],
+            "value": [
+                "acrobatics"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "persona-wildcard"
+            ]
+        }
+    },
+    "type": "background"
+}

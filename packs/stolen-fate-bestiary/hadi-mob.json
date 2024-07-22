@@ -196,77 +196,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "CbFI95rvDS9B0NQx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:climb",
-                                    "action:swim"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+29 to Climb or Swim",
-                        "options": "action:climb,action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OHbN91zYcDZtLfRd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Hadi Mob",
@@ -372,6 +301,28 @@
             "will": {
                 "saveDetail": "",
                 "value": 23
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 29,
+                        "label": "to Climb or Swim",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 29
             }
         },
         "traits": {

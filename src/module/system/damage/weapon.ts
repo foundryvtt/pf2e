@@ -2,9 +2,10 @@ import { ActorPF2e } from "@actor";
 import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/modifiers.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
-import { NPCAttackDamage } from "@item/melee/data.ts";
+import type { NPCAttackDamage } from "@item/melee/data.ts";
 import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
-import { WeaponDamage } from "@item/weapon/data.ts";
+import type { WeaponDamage } from "@item/weapon/data.ts";
+import type { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
     extractDamageAlterations,
@@ -24,6 +25,7 @@ import {
     DamageDamageContext,
     DamageDieSize,
     DamageFormulaData,
+    DamageIRBypassData,
     MaterialDamageEffect,
     WeaponBaseDamageData,
     WeaponDamageTemplate,
@@ -38,7 +40,7 @@ class WeaponDamagePF2e {
         const baseDamage = attack.baseDamage;
         const secondaryInstances = Object.values(attack.system.damageRolls)
             .map(this.npcDamageToWeaponDamage)
-            .filter((d) => !R.equals(d, baseDamage));
+            .filter((d) => !R.isDeepEqual(d, baseDamage));
 
         // Collect damage dice and modifiers from secondary damage instances
         const damageDice: DamageDicePF2e[] = [];
@@ -88,6 +90,7 @@ class WeaponDamagePF2e {
         });
     }
 
+    /** Calculates the damage a weapon will deal when striking. Performs side effects, so make sure to pass a clone */
     static async calculate({
         weapon,
         actor,
@@ -221,38 +224,6 @@ class WeaponDamagePF2e {
         // Potency rune
         const potency = weaponPotency?.bonus ?? 0;
 
-        // Striking rune
-
-        const strikingSynthetic = domains
-            .flatMap((key) => actor.synthetics.striking[key] ?? [])
-            .filter((wp) => wp.predicate.test(options))
-            .reduce(
-                (highest: StrikingSynthetic | null, current) =>
-                    highest && highest.bonus > current.bonus ? highest : current,
-                null,
-            );
-        // Add damage dice if the "weapon" is an NPC attack or actual weapon with inferior etched striking rune
-        if (
-            strikingSynthetic &&
-            baseDamage.die &&
-            (weapon.isOfType("melee") || strikingSynthetic.bonus > weapon.system.runes.striking)
-        ) {
-            damageDice.push(
-                new DamageDicePF2e({
-                    selector: `${weapon.id}-damage`,
-                    slug: "striking",
-                    label: strikingSynthetic.label,
-                    diceNumber: strikingSynthetic.bonus,
-                }),
-            );
-
-            // Remove extra dice from weapon's etched striking rune
-            if (weapon.isOfType("weapon")) {
-                weapon.system.damage.dice -= weapon.system.runes.striking;
-                weapon.system.runes.striking = 0;
-            }
-        }
-
         // Critical specialization effects
         const critSpecEffect = ((): CritSpecEffect => {
             // If an alternate critical specialization effect is available, apply it only if there is also a
@@ -278,9 +249,14 @@ class WeaponDamagePF2e {
         const propertyRunes = weapon.system.runes.property;
         damageDice.push(...getPropertyRuneDice(propertyRunes, options));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
-        const ignoredResistances = propertyRunes.flatMap(
-            (r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? [],
-        );
+
+        const irBypassData: DamageIRBypassData = {
+            immunity: { ignore: [], downgrade: [], redirect: [] },
+            resistance: {
+                ignore: propertyRunes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.ignoredResistances ?? []),
+                redirect: [],
+            },
+        };
 
         // Backstabber trait
         if (weaponTraits.some((t) => t === "backstabber") && options.has("target:condition:off-guard")) {
@@ -293,21 +269,46 @@ class WeaponDamagePF2e {
             modifiers.push(modifier);
         }
 
+        // Concussive trait
+        if (weaponTraits.includes("concussive")) {
+            irBypassData.immunity.redirect.push(
+                { from: "piercing", to: "bludgeoning" },
+                { from: "bludgeoning", to: "piercing" },
+            );
+            irBypassData.resistance.redirect.push(
+                { from: "piercing", to: "bludgeoning" },
+                { from: "bludgeoning", to: "piercing" },
+            );
+        }
+
+        // If there are any striking synthetics, possibly upgrade the weapon's base damage dice
+        const strikingSynthetic = domains
+            .flatMap((key) => actor.synthetics.striking[key] ?? [])
+            .filter((wp) => wp.predicate.test(options))
+            .reduce(
+                (highest: StrikingSynthetic | null, current) =>
+                    highest && highest.bonus > current.bonus ? highest : current,
+                null,
+            );
+        if (strikingSynthetic && baseDamage.die && weapon.isOfType("weapon")) {
+            weapon.system.damage.dice = baseDamage.dice = Math.max(
+                weapon.system.damage.dice,
+                strikingSynthetic.bonus + 1,
+            );
+            weapon.system.runes.striking = Math.max(
+                weapon.system.runes.striking,
+                strikingSynthetic.bonus,
+            ) as ZeroToThree;
+        }
+
+        // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
+        const strikingDice = weapon.isOfType("weapon")
+            ? weapon.system.damage.dice - weapon._source.system.damage.dice
+            : strikingSynthetic?.bonus ?? 0;
+
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;
         const deadlyTraits = weaponTraits.filter((t) => t.startsWith("deadly-"));
-        // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
-        const strikingDice = ((): number => {
-            if (weapon.isOfType("weapon")) {
-                const weaponStrikingDice = weapon.system.damage.dice - weapon._source.system.damage.dice;
-                return strikingSynthetic && strikingSynthetic.bonus > weaponStrikingDice
-                    ? strikingSynthetic.bonus
-                    : weaponStrikingDice;
-            } else {
-                return strikingSynthetic?.bonus ?? 0;
-            }
-        })();
-
         for (const slug of deadlyTraits) {
             const diceNumber = ((): number => {
                 const baseNumber = Number(/-(\d)d\d{1,2}$/.exec(slug)?.at(1)) || 1;
@@ -375,6 +376,18 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Venomous trait
+        if (weaponTraits.some((t) => t === "venomous")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.venomous,
+                slug: "venomous",
+                modifier: strikingDice > 1 ? 2 : 1,
+                damageType: "poison",
+                damageCategory: "persistent",
+            });
+            modifiers.push(modifier);
+        }
+
         // Add roll notes to the context
         const runeNotes = propertyRunes.flatMap((r) => {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
@@ -428,7 +441,7 @@ class WeaponDamagePF2e {
         })();
         if (!(baseUncategorized || basePersistent || splashDamage)) return null;
 
-        const base = R.compact([baseUncategorized, basePersistent]);
+        const base = [baseUncategorized, basePersistent].filter(R.isTruthy);
 
         const adjustmentsRecord = actor.synthetics.modifierAdjustments;
         const alterationsRecord = actor.synthetics.damageAlterations;
@@ -483,7 +496,7 @@ class WeaponDamagePF2e {
             dice: damageDice,
             maxIncreases,
             modifiers: testedModifiers,
-            ignoredResistances,
+            bypass: irBypassData,
         };
 
         // If a weapon deals no base damage, remove all bonuses, penalties, and modifiers to it.

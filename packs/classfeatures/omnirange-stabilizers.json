@@ -1,0 +1,64 @@
+{
+    "_id": "GoMoEtTu9uP7nxkg",
+    "img": "systems/pf2e/icons/features/classes/blunt-shot.webp",
+    "name": "Omnirange Stabilizers",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Ranged only</strong></p><hr /><p>You've modified your innovation to be dangerous and effective at any range. If your innovation had the volley trait, remove the volley trait. Otherwise, increase your innovation's range increment by 50 feet or an amount equal to the weapon's base range increment, whichever is more</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:volley"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "priority": 110,
+                "property": "range-increment",
+                "value": 50
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "priority": 115,
+                "property": "weapon-traits",
+                "value": "volley-30"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "ranged",
+                "weapon-innovation-modification"
+            ],
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

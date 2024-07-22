@@ -29,9 +29,10 @@ import type {
 } from "@actor/data/base.ts";
 import { InitiativeTraceData } from "@actor/initiative.ts";
 import type { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
-import type { ActorAlliance, SaveType } from "@actor/types.ts";
+import type { ActorAlliance, SaveType, SkillSlug } from "@actor/types.ts";
 import type { MeleePF2e } from "@item";
 import type { PublicationData } from "@module/data.ts";
+import type { RawPredicate } from "@system/predication.ts";
 
 type NPCSource = BaseCreatureSource<"npc", NPCSystemSource> & {
     flags: DeepPartial<NPCFlags>;
@@ -49,6 +50,8 @@ interface NPCSystemSource extends CreatureSystemSource {
 
     /** Any special attributes for this NPC, such as AC or health. */
     attributes: NPCAttributesSource;
+
+    skills: Partial<Record<SkillSlug, NPCSkillSource>>;
 
     /** Modifier of the perception statistic */
     perception: NPCPerceptionSource;
@@ -69,6 +72,22 @@ interface NPCSystemSource extends CreatureSystemSource {
     };
 
     resources: CreatureResourcesSource;
+}
+
+interface NPCSkillSource {
+    base: number;
+    /** Any special restriction or clarification */
+    note?: string;
+    /** All saved special skill modifiers */
+    special?: NPCSpecialSkillSource[];
+}
+
+/** Source data for special skill modifiers (such as +9 to climb) */
+interface NPCSpecialSkillSource {
+    label: string;
+    base: number;
+    /** A predicate that will automatically enable this variant if satisfied */
+    predicate?: RawPredicate;
 }
 
 interface NPCAttributesSource extends Required<ActorAttributesSource> {
@@ -217,14 +236,20 @@ interface NPCHitPoints extends HitPointsStatistic {
     base?: number;
 }
 
-/** Skill data with a "base" value and whether the skill should be rendered (visible) */
-interface NPCSkillData extends AttributeBasedTraceData {
-    base: number;
-    itemId: string | null;
-    lore: boolean;
+/** System Data for skill special modifiers (such as +9 to climb) */
+interface NPCSpecialSkill extends NPCSpecialSkillSource {
     mod: number;
-    variants: { label: string; options: string }[];
+}
+
+/** Skill data with a "base" value and whether the skill should be rendered (visible) */
+interface NPCSkillData extends NPCSkillSource, AttributeBasedTraceData {
+    mod: number;
     visible: boolean;
+    /** Is this skill a Lore skill? */
+    lore?: boolean;
+    /** If this is a lore skill, what item it came from */
+    itemId?: string;
+    special: NPCSpecialSkill[];
 }
 
 interface NPCSpeeds extends CreatureSpeeds {
@@ -240,7 +265,9 @@ export type {
     NPCPerceptionSource,
     NPCSaveData,
     NPCSkillData,
+    NPCSkillSource,
     NPCSource,
+    NPCSpecialSkillSource,
     NPCStrike,
     NPCSystemData,
     NPCSystemSource,

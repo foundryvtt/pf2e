@@ -373,122 +373,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "gpmgex4kc1n89ueh",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "mij1k2qxzdjs4q2z",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Grapple",
-                        "predicate": [
-                            "action:grapple"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 to Grapple",
-                        "options": "action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hoajpcxdp16sbb84",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bqcwzx3uddt3derr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Little Man In The Woods",
@@ -595,6 +479,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "athletics": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "to Grapple",
+                        "predicate": [
+                            "action:grapple"
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 16
             }
         },
         "traits": {

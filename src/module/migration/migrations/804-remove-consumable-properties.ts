@@ -17,11 +17,11 @@ export class Migration804RemoveConsumableProperties extends MigrationBase {
             delete system.autoUse;
             system["-=autoUse"] = null;
         }
-        if (R.isObject(system.charges) && "_deprecated" in system.charges) {
+        if (R.isPlainObject(system.charges) && "_deprecated" in system.charges) {
             delete system.charges._deprecated;
             system.charges["-=deprecated"] = null;
         }
-        if (R.isObject(system.consume) && "_deprecated" in system.consume) {
+        if (R.isPlainObject(system.consume) && "_deprecated" in system.consume) {
             delete system.consume._deprecated;
             system.consume["-=deprecated"] = null;
         }

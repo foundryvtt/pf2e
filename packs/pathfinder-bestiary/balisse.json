@@ -1156,6 +1156,49 @@
             "type": "melee"
         },
         {
+            "_id": "2enVpUcmYKUI7uls",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Detect lies and illusions",
+            "sort": 1600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "item:trait:illusion",
+                                    "action:lie"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "AS5E8Dafjstrafqy",
             "flags": {
                 "core": {
@@ -1164,7 +1207,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1199,7 +1242,7 @@
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "+1 Status to All Saves vs. Magic",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1247,7 +1290,7 @@
             "_id": "E36GUJSTq2NvkRmA",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Confessor's Aura",
-            "sort": 1800000,
+            "sort": 1900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1292,7 +1335,7 @@
             "_id": "Z4NC0zq5T9vj6Gu8",
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Brand of the Impenitent",
-            "sort": 1900000,
+            "sort": 2000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1330,7 +1373,7 @@
             "_id": "NtYoVyYPS90gzKOB",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Flaming Armament",
-            "sort": 2000000,
+            "sort": 2100000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -1373,7 +1416,7 @@
             "_id": "prLWsWvW54YcYyNa",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Guiding Angel",
-            "sort": 2100000,
+            "sort": 2200000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -1400,81 +1443,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "LntKECVdBBt42D93",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1xOPRn1pobT7nuM8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "htO8qCazRIdQNIFY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Balisse",
@@ -1560,7 +1528,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+20 to detect lies and illusions)",
             "mod": 18,
             "senses": [
                 {
@@ -1586,6 +1554,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 18
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "diplomacy": {
+                "base": 17
+            },
+            "religion": {
+                "base": 18
             }
         },
         "spellcasting": {

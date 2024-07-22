@@ -643,6 +643,54 @@
             "type": "melee"
         },
         {
+            "_id": "G4RkhwmVzzHUmIqk",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "LQzprXf7vMvaVP2O"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Club",
+            "sort": 1000000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 7
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "1d6+4",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "thrown-10"
+                    ]
+                },
+                "weaponType": {
+                    "value": "ranged"
+                }
+            },
+            "type": "melee"
+        },
+        {
             "_id": "G5iBcxxzOecJApLi",
             "flags": {
                 "pf2e": {
@@ -651,7 +699,7 @@
             },
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Crossbow",
-            "sort": 1000000,
+            "sort": 1100000,
             "system": {
                 "attack": {
                     "value": ""
@@ -692,31 +740,18 @@
             "type": "melee"
         },
         {
-            "_id": "G4RkhwmVzzHUmIqk",
-            "flags": {
-                "pf2e": {
-                    "linkedWeapon": "LQzprXf7vMvaVP2O"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "Club",
-            "sort": 1100000,
+            "_id": "hHccWzh003xSa6dA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Bonus on Perception to Find concealed objects",
+            "sort": 1200000,
             "system": {
-                "attack": {
-                    "value": ""
+                "actionType": {
+                    "value": "passive"
                 },
-                "attackEffects": {
-                    "value": []
+                "actions": {
+                    "value": null
                 },
-                "bonus": {
-                    "value": 7
-                },
-                "damageRolls": {
-                    "0": {
-                        "damage": "1d6+4",
-                        "damageType": "bludgeoning"
-                    }
-                },
+                "category": "interaction",
                 "description": {
                     "value": ""
                 },
@@ -725,19 +760,27 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:concealed",
+                                    "item:tag:object"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "thrown-10"
-                    ]
-                },
-                "weaponType": {
-                    "value": "ranged"
+                    "value": []
                 }
             },
-            "type": "melee"
+            "type": "action"
         },
         {
             "_id": "dYLk3rxvErYoaP9G",
@@ -748,7 +791,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -775,60 +818,10 @@
             "type": "action"
         },
         {
-            "_id": "BOKe7xc5J0nzEUym",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jvcLWSD93JKvnJre",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "yYnHoV3tJvO6D3bB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Legal Lore",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""
@@ -931,6 +924,14 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7
+            },
+            "intimidation": {
+                "base": 5
             }
         },
         "traits": {

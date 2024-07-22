@@ -178,102 +178,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "05v5NeGXsf5a0OYF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "MW5w6xtAmdruf1sB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xqkprkuAXQV5nDla",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.BloodOrWater",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:blood",
-                                    "terrain:water"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 in blood or water",
-                        "options": "terrain:blood,terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Skinskitter",
@@ -367,6 +271,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "in blood or water",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:blood",
+                                    "terrain:water"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

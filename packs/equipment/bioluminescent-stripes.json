@@ -1,0 +1,98 @@
+{
+    "_id": "kLQdzIl2lfGIR3sy",
+    "img": "icons/creatures/fish/deepsea-creature-glowing-blue.webp",
+    "name": "Bioluminescent Stripes",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>A line of glands embedded in your skin secretes a chemical that glows when it interacts with the air. As a single action, you can activate your bioluminescent stripes to glow with a bright light in a 20-foot radius and dim light for the next 20 feet. While you are glowing, you can't be @UUID[Compendium.pf2e.conditionitems.Item.Undetected] and you take a –4 item penalty to Stealth checks to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] and @UUID[Compendium.pf2e.actionspf2e.Item.Sneak]. You can Dismiss the glow as a free action.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 10
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "bioluminescent-stripes",
+                "toggleable": true
+            },
+            {
+                "key": "TokenLight",
+                "predicate": [
+                    "bioluminescent-stripes"
+                ],
+                "value": {
+                    "animation": {
+                        "intensity": 2,
+                        "speed": 3,
+                        "type": "energy"
+                    },
+                    "bright": 20,
+                    "color": "#99ffee",
+                    "dim": 40
+                }
+            },
+            {
+                "key": "TokenEffectIcon",
+                "predicate": [
+                    "bioluminescent-stripes"
+                ],
+                "value": "icons/creatures/fish/deepsea-creature-glowing-blue.webp"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "bioluminescent-stripes",
+                    {
+                        "or": [
+                            "action:hide",
+                            "action:sneak"
+                        ]
+                    }
+                ],
+                "selector": "stealth",
+                "type": "item",
+                "value": -4
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "graft",
+                "invested",
+                "light",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

@@ -1,0 +1,112 @@
+{
+    "_id": "ja4phrX3anThH7hx",
+    "img": "systems/pf2e/icons/default-icons/weapon.svg",
+    "name": "Fulmination Fang",
+    "system": {
+        "baseItem": "gun-sword",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "piercing",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>The stock and barrel of this <em>+1 striking gun sword</em> are lined with scales from a storm snake. Their insulating properties grant their wielder some protection against electricity.</p><hr /><p><strong>Activate—Lightning Rod</strong> <span class=\"action-glyph\">R</span></p>\n<p><strong>Trigger</strong> You take electricity damage</p>\n<p><strong>Effect</strong> You gain resistance 5 to the triggering damage, and the <em>fulmination fang</em> crackles with the absorbed energy. You can Interact to change between the gun sword's current usage (melee to ranged, or ranged to melee). The next melee Strike you make with the <em>fulmination fang</em> within the next minute deals an additional 1d6 electricity damage. After a minute, the absorbed energy dissipates.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Lightning Rod]</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the scales of a storm snake.</p>"
+        },
+        "group": "firearm",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "meleeUsage": {
+            "damage": {
+                "die": "d4",
+                "type": "piercing"
+            },
+            "group": "knife"
+        },
+        "price": {
+            "value": {
+                "gp": 115
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "range": 50,
+        "reload": {
+            "value": "1"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.FulminationFang.LightningRodResistanceLabel",
+                "option": "lightning-rod-resistance",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "lightning-rod-resistance"
+                ],
+                "type": "electricity",
+                "value": 5
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "combination",
+                "concussive",
+                "kickback",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

@@ -8,7 +8,11 @@ export class Migration726JournalSetting extends MigrationBase {
     override async migrate(): Promise<void> {
         // If the sheet is already configured, leave it as is
         const sheetClasses = game.settings.get("core", "sheetClasses");
-        if (R.isObject(sheetClasses) && R.isObject(sheetClasses.JournalEntry) && sheetClasses.JournalEntry?.base) {
+        if (
+            R.isPlainObject(sheetClasses) &&
+            R.isPlainObject(sheetClasses.JournalEntry) &&
+            sheetClasses.JournalEntry?.base
+        ) {
             return;
         }
 

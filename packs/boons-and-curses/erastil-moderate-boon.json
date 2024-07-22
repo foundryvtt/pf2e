@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> You share Erastil's sharp eye, allowing you to use a longbow in any situation.</p>\n<p>When you attack with a longbow, you can ignore the longbow's volley trait, and longbows have double the normal range increment for you.</p>"
+            "value": "<p>You share Erastil's sharp eye, allowing you to use a longbow in any situation.</p>\n<p>When you attack with a longbow, you can ignore the longbow's volley trait, and longbows have double the normal range increment for you.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,26 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:base:longbow"
+                ],
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "volley-30"
+            },
+            {
+                "definition": [
+                    "item:base:longbow"
+                ],
+                "key": "AdjustStrike",
+                "mode": "multiply",
+                "property": "range-increment",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

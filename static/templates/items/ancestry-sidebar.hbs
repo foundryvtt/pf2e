@@ -7,11 +7,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.SizeLabel"}}</label>
         <select name="system.size">
-            {{#select data.size}}
-                {{#each sizes}}
-                    <option value="{{@key}}">{{localize this.label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions sizes selected=data.size labelAttr="label" localize=true}}
         </select>
     </div>
 
@@ -26,11 +22,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.Item.Ancestry.Vision.Label"}}</label>
         <select name="system.vision">
-            {{#select data.vision}}
-                <option value="normal">{{localize "PF2E.Item.Ancestry.Vision.Normal"}}</option>
-                <option value="low-light-vision">{{localize "PF2E.Actor.Creature.Sense.Type.LowLightVision"}}</option>
-                <option value="darkvision">{{localize "PF2E.Actor.Creature.Sense.Type.Darkvision"}}</option>
-            {{/select}}
+            {{selectOptions visionTypeOptions selected=data.vision localize=true}}
         </select>
     </div>
 </div>

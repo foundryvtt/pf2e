@@ -46,10 +46,6 @@
 
 {{~#*inline "damageTypeSelect"~}}
     <select class="damageType">
-        {{#select selected}}
-            {{#each @root.damageTypes}}
-                <option value="{{type}}">{{label}}</option>
-            {{/each}}
-        {{/select}}
+        {{selectOptions @root.damageTypes valueAttr="type" selected=selected}}
     </select>
 {{~/inline~}}

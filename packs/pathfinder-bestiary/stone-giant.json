@@ -464,122 +464,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "UzrcWjoBxdGuwjiR",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "h8vAxEEAn688e9Zl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "3PatfddYKC3u24BT",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "UdfdvJASTQ867hij",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "In Rocky Terrain",
-                        "predicate": [
-                            "terrain:rocky"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+18 in rocky terrain",
-                        "options": "terrain:rocky"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Stone Giant",
@@ -668,6 +552,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 14
+            },
+            "athletics": {
+                "base": 20
+            },
+            "intimidation": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 18,
+                        "label": "in rocky terrain",
+                        "predicate": [
+                            "terrain:rocky"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

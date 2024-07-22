@@ -43,35 +43,35 @@ declare class MouseInteractionManager {
     callbacks: object;
     options: object;
 
-    /**
-     * The current interaction state
-     */
+    /** The current interaction state */
     state: number;
 
-    /**
-     * Bound handlers which can be added and removed
-     */
+    /** Bound handlers which can be added and removed */
     handlers: Record<string, Function>;
 
-    /**
-     * The drag handling time
-     */
+    /** The drag handling time */
     dragTime: number;
 
-    /**
-     * The time of the last left-click event
-     */
+    /** The time of the last left-click event */
     lcTime: number;
 
-    /**
-     * The time of the last right-click event
-     */
+    /** The time of the last right-click event */
     rcTime: number;
 
+    /** A flag for whether we are right-click dragging */
+    _dragRight: boolean;
+
+    /** An optional ControlIcon instance for the object */
+    controlIcon: ControlIcon | null;
+
     /**
-     * A flag for whether we are right-click dragging
+     * The view id pertaining to the PIXI Application.
+     * If not provided, default to canvas.app.view.id
      */
-    protected _dragRight: boolean;
+    viewId: string;
+
+    /** The client position of the last left/right-click */
+    lastClick: PIXI.Point;
 
     constructor(
         object: PlaceableObject,
@@ -81,8 +81,47 @@ declare class MouseInteractionManager {
         options?: object,
     );
 
+    /**
+     * Enumerate the states of a mouse interaction workflow.
+     * 0: NONE - the object is inactive
+     * 1: HOVER - the mouse is hovered over the object
+     * 2: CLICKED - the object is clicked
+     * 3: GRABBED - the object is grabbed
+     * 4: DRAG - the object is being dragged
+     * 5: DROP - the object is being dropped
+     */
+    static INTERACTION_STATES: {
+        NONE: 0;
+        HOVER: 1;
+        CLICKED: 2;
+        GRABBED: 3;
+        DRAG: 4;
+        DROP: 5;
+    };
+
+    /** The maximum number of milliseconds between two clicks to be considered a double-click. */
+    static DOUBLE_CLICK_TIME_MS: number;
+
+    /** The maximum number of pixels between two clicks to be considered a double-click. */
+    static DOUBLE_CLICK_DISTANCE_PX: number;
+
+    /** The number of milliseconds of mouse click depression to consider it a long press. */
+    static LONG_PRESS_DURATION_MS: number;
+
+    /** Global timeout for the long-press event. */
+    static longPressTimeout: number | null;
+
+    /**
+     * Emulate a pointermove event. Needs to be called when an object with the static event mode
+     * or any of its parents is transformed or its visibility is changed.
+     */
+    static emulateMoveEvent(): void;
+
     /** Get the target */
     get target(): PlaceableObject;
+
+    /** Is this mouse manager in a dragging state? */
+    get isDragging(): boolean;
 
     /** Activate interactivity for the handled object */
     activate(): MouseInteractionManager;
@@ -109,6 +148,20 @@ declare class MouseInteractionManager {
         CLICKED: 2;
         DRAG: 3;
         DROP: 4;
+    };
+
+    /**
+     * A reference to the possible interaction states which can be observed
+     * -2: SKIPPED - the handler has been skipped by previous logic
+     * -1: DISALLOWED - the handler has dissallowed further process
+     *  1: REFUSED - the handler callback has been processed and is refusing further process
+     *  2: ACCEPTED - the handler callback has been processed and is accepting further process
+     */
+    get handlerOutcomes(): {
+        SKIPPED: -2;
+        DISALLOWED: -1;
+        REFUSED: 1;
+        ACCEPTED: 2;
     };
 
     /* -------------------------------------------- */
@@ -150,4 +203,10 @@ declare class MouseInteractionManager {
      * @returns Has the event been processed?
      */
     handleEvent(event: PIXI.FederatedEvent): boolean;
+
+    /**
+     * A public method to cancel a current interaction workflow from this manager.
+     * @param [event] The event that initiates the cancellation
+     */
+    cancel(event?: PIXI.FederatedEvent): void;
 }

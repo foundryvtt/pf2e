@@ -1,4 +1,14 @@
 import type * as TinyMCE from "tinymce";
+import type {
+    GlobalLightSource,
+    PointDarknessSource,
+    PointLightSource,
+    PointSoundSource,
+    PointVisionSource,
+} from "../client-esm/canvas/sources/module.ts";
+import type * as terms from "../client-esm/dice/terms/module.d.ts";
+import abstract = foundry.abstract;
+import data = foundry.data;
 
 declare global {
     interface Config<
@@ -16,6 +26,8 @@ declare global {
         TItem extends Item<TActor | null>,
         TMacro extends Macro,
         TMeasuredTemplateDocument extends MeasuredTemplateDocument<TScene | null>,
+        TRegionDocument extends RegionDocument<TScene | null>,
+        TRegionBehavior extends RegionBehavior<TRegionDocument | null>,
         TTileDocument extends TileDocument<TScene | null>,
         TTokenDocument extends TokenDocument<TScene | null>,
         TWallDocument extends WallDocument<TScene | null>,
@@ -37,8 +49,25 @@ declare global {
             time: boolean;
         };
 
+        compendium: {
+            /**
+             * Configure a table of compendium UUID redirects. Must be configured before the game *ready* hook is fired.
+             *
+             * @example Re-map individual UUIDs
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes.Actor.Tf0JDPzHOrIxz6BH"] = "Compendium.system.villains.Actor.DKYLeIliXXzlAZ2G";
+             * ```
+             *
+             * @example Redirect UUIDs from one compendium to another.
+             * ```js
+             * CONFIG.compendium.uuidRedirects["Compendium.system.heroes"] = "Compendium.system.villains";
+             * ```
+             */
+            uuidRedirects: Record<string, string>;
+        };
+
         /** Configure the DatabaseBackend used to perform Document operations */
-        DatabaseBackend: ClientDatabaseBackend;
+        DatabaseBackend: foundry.data.ClientDatabaseBackend;
 
         /** Configuration for the Actor document */
         Actor: {
@@ -107,6 +136,9 @@ declare global {
                 new (data: PreCreate<TItem["_source"]>, context?: DocumentConstructionContext<TItem["parent"]>): TItem;
             };
             collection: typeof Items;
+            dataModels: Record<string, ConstructorOf<abstract.TypeDataModel<Item, data.fields.DataSchema>>>;
+            typeIcons: Record<string, string>;
+            typeLabels: Record<string, string | undefined>;
             sheetClasses: Record<
                 string,
                 Record<
@@ -121,8 +153,6 @@ declare global {
                     }
                 >
             >;
-            typeIcons: Record<string, string>;
-            typeLabels: Record<string, string | undefined>;
         };
 
         /** Configuration for the Combat document */
@@ -205,7 +235,6 @@ declare global {
         AmbientLight: {
             documentClass: ConstructorOf<TAmbientLightDocument>;
             objectClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TAmbientLightDocument["object"]>["layer"]>;
         };
 
         /** Configuration for the ActiveEffect embedded document type */
@@ -231,6 +260,21 @@ declare global {
             ) => TCombatant;
         };
 
+        /**
+         * Configuration for the JournalEntryPage embedded document type.
+         */
+        JournalEntryPage: {
+            documentClass: typeof JournalEntryPage;
+            dataModels: Record<
+                string,
+                ConstructorOf<abstract.TypeDataModel<abstract.Document, data.fields.DataSchema>>
+            >;
+            typeLabels: {};
+            typeIcons: Record<string, string>;
+            defaultType: string;
+            sidebarIcon: string;
+        };
+
         /** Configuration for the MeasuredTemplate embedded document type and its representation on the game Canvas */
         MeasuredTemplate: {
             defaults: {
@@ -245,21 +289,32 @@ declare global {
             };
             documentClass: ConstructorOf<TMeasuredTemplateDocument>;
             objectClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TMeasuredTemplateDocument["object"]>["layer"]>;
+        };
+
+        /** Configuration for the Region embedded document type and its representation on the game Canvas  */
+        Region: {
+            documentClass: ConstructorOf<TRegionDocument>;
+            objectClass: ConstructorOf<TRegionDocument["object"]>;
+        };
+
+        /** Configuration for the RegionBehavior embedded document type */
+        RegionBehavior: {
+            documentClass: ConstructorOf<TRegionBehavior>;
+            dataModels: Record<string, ConstructorOf<foundry.data.regionBehaviors.RegionBehaviorType>>;
+            typeIcons: Record<string, string>;
+            typeLabels: Record<string, string>;
         };
 
         /** Configuration for the Tile embedded document type and its representation on the game Canvas */
         Tile: {
             documentClass: ConstructorOf<TTileDocument>;
             objectClass: ConstructorOf<NonNullable<TTileDocument["object"]>>;
-            layerClass: ConstructorOf<TilesLayer<NonNullable<TTileDocument["object"]>>>;
         };
 
         /** Configuration for the Token embedded document type and its representation on the game Canvas */
         Token: {
             documentClass: ConstructorOf<TTokenDocument>;
             objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
-            layerClass: ConstructorOf<NonNullable<TTokenDocument["object"]>["layer"]>;
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
         };
 
@@ -267,7 +322,6 @@ declare global {
         Wall: {
             documentClass: ConstructorOf<TWallDocument>;
             objectClass: ConstructorOf<Wall<TWallDocument>>;
-            layerClass: ConstructorOf<NonNullable<TWallDocument["object"]>["layer"]>;
         };
 
         /* -------------------------------------------- */
@@ -278,9 +332,10 @@ declare global {
         Canvas: {
             blurStrength: number;
             darknessColor: number;
-            darknessLightPenalty: number;
             daylightColor: number;
-            dragSpeedModifier: number;
+            brightestColor: number;
+            chatBubblesClass: ChatBubbles;
+            darknessLightPenalty: number;
             dispositionColors: {
                 HOSTILE: number;
                 NEUTRAL: number;
@@ -290,8 +345,21 @@ declare global {
                 CONTROLLED: number;
                 SECRET: number;
             };
+            doorControlsClass: DoorControl;
             exploredColor: number;
             unexploredColor: number;
+            darknessToDaylightAnimationMS: number;
+            daylightToDarknessAnimationMS: number;
+            darknessSourceClass: ConstructorOf<
+                PointDarknessSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
+            >;
+            lightSourceClass: ConstructorOf<
+                PointLightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>
+            >;
+            globalLightSourceClass: ConstructorOf<GlobalLightSource>;
+            rulerClass: ConstructorOf<Ruler<TTokenDocument["object"]>> & { get canMeasure(): boolean };
+            visionSourceClass: ConstructorOf<PointVisionSource<TTokenDocument["object"]>>;
+            soundSourceClass: ConstructorOf<PointSoundSource>;
             groups: {
                 hidden: {
                     groupClass: ConstructorOf<PIXI.Container>;
@@ -373,80 +441,182 @@ declare global {
                 sound: typeof ClockwiseSweepPolygon;
                 move: typeof ClockwiseSweepPolygon;
             };
-
-            normalLightColor: number;
+            dragSpeedModifier: number;
             maxZoom: number;
             objectBorderThickness: number;
             lightAnimations: {
+                flame: {
+                    label: "LIGHT.AnimationFlame";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTorch"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
                 torch: {
                     label: "LIGHT.AnimationTorch";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTorch"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTorch"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 pulse: {
                     label: "LIGHT.AnimationPulse";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animatePulse"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animatePulse"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 chroma: {
                     label: "LIGHT.AnimationChroma";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 wave: {
                     label: "LIGHT.AnimationWave";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 fog: {
                     label: "LIGHT.AnimationFog";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 sunburst: {
                     label: "LIGHT.AnimationSunburst";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 dome: {
                     label: "LIGHT.AnimationLightDome";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 emanation: {
                     label: "LIGHT.AnimationEmanation";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 hexa: {
                     label: "LIGHT.AnimationHexaDome";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
                 };
                 ghost: {
                     label: "LIGHT.AnimationGhostLight";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     illuminationShader: typeof PIXI.Shader;
                     colorationShader: typeof PIXI.Shader;
                 };
                 energy: {
                     label: "LIGHT.AnimationEnergyField";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
                     colorationShader: typeof PIXI.Shader;
+                };
+                vortex: {
+                    label: "LIGHT.AnimationVortex";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                witchwave: {
+                    label: "LIGHT.AnimationBewitchingWave";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                rainbowswirl: {
+                    label: "LIGHT.AnimationSwirlingRainbow";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                radialrainbow: {
+                    label: "LIGHT.AnimationRadialRainbow";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                fairy: {
+                    label: "LIGHT.AnimationFairyLight";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+                grid: {
+                    label: "LIGHT.AnimationForceGrid";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                starlight: {
+                    label: "LIGHT.AnimationStarLight";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    colorationShader: typeof PIXI.Shader;
+                };
+                smokepatch: {
+                    label: "LIGHT.AnimationSmokePatch";
+                    animation: PointLightSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    illuminationShader: typeof PIXI.Shader;
+                    colorationShader: typeof PIXI.Shader;
+                };
+            };
+
+            darknessAnimations: {
+                magicalGloom: {
+                    label: "LIGHT.AnimationMagicalGloom";
+                    animation: PointDarknessSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    darknessShader: typeof PIXI.Shader;
                 };
                 roiling: {
                     label: "LIGHT.AnimationRoilingMass";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                    illuminationShader: typeof PIXI.Shader;
+                    animation: PointDarknessSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    darknessShader: typeof PIXI.Shader;
                 };
                 hole: {
                     label: "LIGHT.AnimationBlackHole";
-                    animation: LightSource<TAmbientLightDocument["object"] | TTokenDocument["object"]>["animateTime"];
-                    illuminationShader: typeof PIXI.Shader;
+                    animation: PointDarknessSource<
+                        TAmbientLightDocument["object"] | TTokenDocument["object"]
+                    >["animateTime"];
+                    darknessShader: typeof PIXI.Shader;
                 };
             };
 
@@ -492,15 +662,15 @@ declare global {
 
         /** Configuration for dice rolling behaviors in the Foundry VTT client */
         Dice: {
-            types: (typeof Die | typeof DiceTerm)[];
+            types: (typeof terms.Die | typeof terms.DiceTerm)[];
             rollModes: Record<RollMode, string>;
             rolls: ConstructorOf<Roll>[];
-            termTypes: Record<string, ConstructorOf<RollTerm> & { fromData(data: object): RollTerm }>;
+            termTypes: Record<string, ConstructorOf<terms.RollTerm> & { fromData(data: object): terms.RollTerm }>;
             terms: {
-                c: typeof Coin;
-                d: typeof Die;
-                f: typeof FateDie;
-                [key: string]: ConstructorOf<DiceTerm>;
+                c: typeof terms.Coin;
+                d: typeof terms.Die;
+                f: typeof terms.FateDie;
+                [key: string]: ConstructorOf<terms.DiceTerm>;
             };
             randomUniform: Function;
         };
@@ -600,8 +770,8 @@ declare global {
 
     interface StatusEffect {
         id: string;
-        label: string;
-        icon: ImageFilePath | VideoFilePath;
+        name: string;
+        img: ImageFilePath | VideoFilePath;
     }
 
     interface FontFamilyDefinition {

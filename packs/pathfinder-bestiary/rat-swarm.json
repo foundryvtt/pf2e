@@ -98,102 +98,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "vpGljukLLu9gB854",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "CAOop96qtFJsPw1k",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ClimbOrSwim",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:climb",
-                                    "action:swim"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 to Climb or Swim",
-                        "options": "action:climb, action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "tPhCanzJQLumpJob",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Rat Swarm",
@@ -316,6 +220,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 4
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to Climb or Swim",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:climb",
+                                    "action:swim"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 6
             }
         },
         "traits": {

@@ -274,98 +274,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "yahb9GJ9lA0fmeSZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bUbnO4ud4W75Ndw9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "y01UCrOQFq1AG9Pb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Posing as a Mundane Wooden Statue",
-                        "predicate": [
-                            "posing-as-statue"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+19 when posing as a mundane wooden statue",
-                        "options": "posing-as-statue"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Carved Beast",
@@ -477,6 +385,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 17
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "nature": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 16,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "when posing as a mundane wooden statue",
+                        "predicate": [
+                            "posing-as-statue"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

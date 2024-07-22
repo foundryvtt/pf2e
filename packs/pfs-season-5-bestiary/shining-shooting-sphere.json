@@ -1,0 +1,107 @@
+{
+    "_id": "ON18h9sYItx5mcXB",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "n5friGjWftTPoOaw",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Orbital Spin",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature moves within 10 feet of the sphere, stepping on the floor sensor</p><hr /><p><strong>Effect</strong> The sphere rotates and the trap rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Shining Shooting Sphere",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 14,
+            "hp": {
+                "details": "",
+                "max": 50,
+                "temp": 0,
+                "value": 50
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(expert) to notice the floor sensor; DC 0 to notice the sphere</p>",
+                "value": 23
+            }
+        },
+        "details": {
+            "description": "<p>A gilded armillary sphere spins in place, shooting jeweled stars and planets at intruders.</p>",
+            "disable": "<p>@Check[type:thievery|dc:21] (expert) to disable the sphere from rotating or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (3nd rank; counteract DC 23) to remove the enchantment.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 5
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "Pathfinder Society Scenario #5-19: Demonic Afterparty"
+            },
+            "reset": "<p>The trap deactivates and resets if 1 minute passes without any creature moving within range of its sensor.</p>",
+            "routine": "<p>(1 action) A jeweled planet shoots from the sphere, targeting a random creature within 30 feet. The creature takes @Damage[(2d8+7)[bludgeoning]] damage (@Check[type:reflex|dc:22|basic:true] save).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 9
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

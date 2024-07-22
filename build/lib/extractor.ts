@@ -292,7 +292,7 @@ class PackExtractor {
             // Remove link labels when the label is the same as the document name
             const labeledLinkPattern = (() => {
                 const escapedDocName = docName.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
-                return new RegExp(String.raw`(@UUID\[[^\]]+\])\{${escapedDocName}\}`);
+                return new RegExp(String.raw`(@UUID\[[^\]]+\])\{${escapedDocName}\}`, "i");
             })();
             return partiallyConverted.replace(idPattern, docName).replace(labeledLinkPattern, "$1");
         }, docJSON);
@@ -594,6 +594,11 @@ class PackExtractor {
 
     #pruneRuleElement(source: RuleElementSource): void {
         switch (source.key) {
+            case "Aura":
+                if ("appearance" in source) {
+                    delete source.appearance;
+                }
+                break;
             case "RollOption":
                 if ("toggleable" in source && source.toggleable && "value" in source && !source.value) {
                     delete source.value;
@@ -632,8 +637,11 @@ class PackExtractor {
                     return this.#sortAbilities(docSource.name, itemsByType.action);
                 case "lore":
                     return R.sortBy(itemsByType.lore ?? [], (l) => l.name);
-                case "melee":
-                    return R.sortBy(itemsByType.melee ?? [], (m) => m.system.weaponType.value);
+                case "melee": {
+                    return R.sortBy(itemsByType.melee ?? [], (m) =>
+                        m.system.traits.value.some((t) => t.startsWith("range-")),
+                    );
+                }
                 case "spell":
                     return R.sortBy(itemsByType.spell ?? [], [(s) => s.system.level.value, "desc"], (s) => s.name);
                 case "spellcastingEntry":

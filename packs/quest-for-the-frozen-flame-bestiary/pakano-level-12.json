@@ -257,60 +257,10 @@
             "type": "action"
         },
         {
-            "_id": "lth4h2f0yjqlmdz0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zbh6iz8qea3fwbdm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "f4h3zcj33qtczkn3",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Mammoth Lord Lore",
-            "sort": 1000000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -328,52 +278,6 @@
                 },
                 "rules": [],
                 "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "sx3k76l6mas5gp2u",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.IceAndSnow",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "terrain:ice",
-                                    "terrain:snow"
-                                ]
-                            }
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+24 in ice and snow",
-                        "options": "terrain:ice,terrain:snow"
-                    }
-                }
             },
             "type": "lore"
         }
@@ -483,6 +387,31 @@
             "will": {
                 "saveDetail": "",
                 "value": 20
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 25
+            },
+            "intimidation": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 24,
+                        "label": "in ice and snow",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "terrain:ice",
+                                    "terrain:snow"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

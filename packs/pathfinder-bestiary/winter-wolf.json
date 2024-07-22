@@ -230,172 +230,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "t67FVkIHvJzdr9nt",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "apyHfVPRegugrWeE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "sNGMOppAbyzoEJvX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DMeKPwpAqdskiUlL",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OEhg2gie7GWSfArM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Snow",
-                        "predicate": [
-                            "terrain:snow"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 in snow",
-                        "options": "terrain:snow"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "FXhdUUhYqN3EPwU0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Winter Wolf",
@@ -500,6 +334,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 13
+            },
+            "athletics": {
+                "base": 13
+            },
+            "deception": {
+                "base": 11
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "in snow",
+                        "predicate": [
+                            "terrain:snow"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 12
             }
         },
         "traits": {

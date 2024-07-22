@@ -577,173 +577,16 @@
             "type": "action"
         },
         {
-            "_id": "GeZgDv2apCcth0oJ",
+            "_id": "wlmOlag2TUOgMUOB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Sailing Lore",
             "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "6r31Osvx8aSYtCts",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 to Swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "aLlhv0igdAS42Dw7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "wlmOlag2TUOgMUOB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Sailing Lore",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "E4oBlqhBaVqkShlq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Underwater",
-                        "predicate": [
-                            "terrain:underwater"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 underwater",
-                        "options": "terrain:underwater"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "o8eqqZ3ZacKCUiDM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -845,6 +688,38 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to Swim"
+                    }
+                ]
+            },
+            "nature": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "underwater",
+                        "predicate": [
+                            "terrain:underwater"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 7
             }
         },
         "traits": {

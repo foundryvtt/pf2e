@@ -139,6 +139,13 @@ export function diffObject<T extends Record<string, unknown> = Record<string, un
 ): T;
 
 /**
+ * Test if two objects contain the same enumerable keys and values.
+ * @param a  The first object.
+ * @param b  The second object.
+ */
+export function objectsEqual(a: object, b: object): boolean;
+
+/**
  * A helper function which tests whether an object has a property or nested property given a string key.
  * The string key supports the notation a.b.c which would return true if object[a][b][c] exists
  * @param object   The object to traverse

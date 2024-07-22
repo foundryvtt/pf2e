@@ -266,97 +266,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "6BlwUJFhWgKthqdf",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NPOvP9lYvdch5SLE",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vln9tGlYOAxkVD0U",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Lair",
-                        "predicate": [
-                            "terrain:lair"
-                        ],
-                        "selector": "stealth",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+11 in lair",
-                        "options": "lair"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Otyugh",
@@ -454,6 +363,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "in lair",
+                        "predicate": [
+                            "terrain:lair"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

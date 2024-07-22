@@ -13,11 +13,9 @@ import type { Predicate } from "@system/predication.ts";
 import type {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
-    DC_SLUGS,
+    CORE_SKILL_SLUGS,
     MOVEMENT_TYPES,
     SAVE_TYPES,
-    SKILL_ABBREVIATIONS,
-    SKILL_LONG_FORMS,
     UNAFFECTED_TYPES,
 } from "./values.ts";
 
@@ -47,14 +45,13 @@ interface ActorDimensions {
     height: number;
 }
 
-type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
-type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
+type SkillSlug = SetElement<typeof CORE_SKILL_SLUGS>;
 
 type ActorAlliance = "party" | "opposition" | null;
 
-type DCSlug = SetElement<typeof DC_SLUGS>;
-
 type SaveType = (typeof SAVE_TYPES)[number];
+
+type DCSlug = "ac" | "armor" | "perception" | SaveType | SkillSlug;
 
 type MovementType = (typeof MOVEMENT_TYPES)[number];
 
@@ -138,8 +135,7 @@ export type {
     MovementType,
     ResistanceType,
     SaveType,
-    SkillAbbreviation,
-    SkillLongForm,
+    SkillSlug,
     UnaffectedType,
     WeaknessType,
 };

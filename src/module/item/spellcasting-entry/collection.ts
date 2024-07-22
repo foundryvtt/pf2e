@@ -323,28 +323,27 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             return { value: signatureSpells.length, max: totalSlots };
         })();
 
-        return this.#shimSheetData({
+        return {
             groups,
             flexibleAvailable,
             prepList: prepList ? this.getSpellPrepList(spells) : null,
-        });
+        };
     }
 
     #getEphemeralData(): SpellCollectionData {
-        const groupedByRank = R.groupBy.strict(Array.from(this.values()), (s) => s.rank);
-        const groups = R.toPairs
-            .strict(groupedByRank)
-            .sort(([a], [b]) => a - b)
+        const groupedByRank = R.groupBy(Array.from(this.values()), (s) => s.rank);
+        const groups = R.entries(groupedByRank)
+            .sort(([a], [b]) => Number(a) - Number(b))
             .map(
                 ([rank, spells]): SpellcastingSlotGroup => ({
-                    id: rank,
-                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(rank) }),
+                    id: Number(rank) as SpellSlotGroupId,
+                    label: game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(Number(rank)) }),
                     maxRank: 10,
                     active: spells.map((spell) => ({ spell, expended: spell.parentItem?.uses.value === 0 })),
                 }),
             );
 
-        return this.#shimSheetData({ groups, prepList: null });
+        return { groups, prepList: null };
     }
 
     protected getSpellPrepList(spells: SpellPF2e<TActor>[]): Record<ZeroToTen, SpellPrepEntry[]> {
@@ -377,52 +376,6 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
             const type = game.i18n.format("PF2E.TraitFocus");
             ui.notifications.warn(localize("WrongSpellType", { type }));
         }
-    }
-
-    #shimSheetData(data: SpellCollectionData): SpellCollectionData {
-        for (const group of data.groups) {
-            const sinceUntil = { since: "5.12.0", until: "6.0.0" };
-            Object.defineProperties(group, {
-                level: {
-                    get(): number | undefined {
-                        fu.logCompatibilityWarning("`level` is deprecated: use `id` instead.", sinceUntil);
-                        return group.number;
-                    },
-                },
-                isCantrip: {
-                    get(): boolean {
-                        fu.logCompatibilityWarning("`isCantrip` is deprecated: check `id` instead.", sinceUntil);
-                        return group.id === "cantrips";
-                    },
-                },
-            });
-
-            for (const active of group.active) {
-                if (active) {
-                    Object.defineProperty(active, "castLevel", {
-                        get(): number | undefined {
-                            fu.logCompatibilityWarning(
-                                "`castLevel` is deprecated: use `castRank` instead.",
-                                sinceUntil,
-                            );
-                            return active.castRank;
-                        },
-                    });
-                }
-            }
-        }
-
-        Object.defineProperty(data, "levels", {
-            get(): SpellcastingSlotGroup[] {
-                fu.logCompatibilityWarning("`levels` is deprecated: use `groups` instead.", {
-                    since: "5.12.0",
-                    until: "6.0.0",
-                });
-                return data.groups;
-            },
-        });
-
-        return data;
     }
 }
 

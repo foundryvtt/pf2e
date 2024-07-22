@@ -105,16 +105,14 @@ function signedInteger(value: number, { emptyStringZero = false, zeroIsNegative 
 
 const wordCharacter = String.raw`[\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
 const nonWordCharacter = String.raw`[^\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]`;
-const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
-
-const wordBoundary = String.raw`(?:${wordCharacter})(?=${nonWordCharacter})|(?:${nonWordCharacter})(?=${wordCharacter})`;
-const nonWordBoundary = String.raw`(?:${wordCharacter})(?=${wordCharacter})`;
+const nonWordBoundary = String.raw`(?=^|$|${wordCharacter})`;
 const lowerCaseLetter = String.raw`\p{Lowercase_Letter}`;
 const upperCaseLetter = String.raw`\p{Uppercase_Letter}`;
-const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
 
+const nonWordCharacterRE = new RegExp(nonWordCharacter, "gu");
+const lowerCaseThenUpperCaseRE = new RegExp(`(${lowerCaseLetter})(${upperCaseLetter}${nonWordBoundary})`, "gu");
 const nonWordCharacterHyphenOrSpaceRE = /[^-\p{White_Space}\p{Alphabetic}\p{Mark}\p{Decimal_Number}\p{Join_Control}]/gu;
-const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|(?:${wordBoundary})${lowerCaseLetter}`, "gu");
+const upperOrWordBoundariedLowerRE = new RegExp(`${upperCaseLetter}|${nonWordCharacter}${lowerCaseLetter}`, "gu");
 
 /**
  * The system's sluggification algorithm for labels and other terms.
@@ -277,6 +275,24 @@ function localizeList(items: string[], { conjunction = "or" }: { conjunction?: "
     return result;
 }
 
+/**
+ * Split and sanitize a list in string form. The empty string is always excluded from the resulting array.
+ * @param [options.delimiter] The delimiter by which to split (default of ",")
+ * @param [options.unique]    Whether to ensure the uniqueness of the resulting array's elements (default of true)
+ */
+function splitListString(str: string, { delimiter = ",", unique = true }: SplitListStringOptions = {}): string[] {
+    const list = str
+        .split(delimiter)
+        .map((el) => el.trim())
+        .filter((el) => el !== "");
+    return unique ? R.unique(list) : list;
+}
+
+interface SplitListStringOptions {
+    delimiter?: string | RegExp;
+    unique?: boolean;
+}
+
 /** Generate and return an HTML element for a FontAwesome icon */
 type FontAwesomeStyle = "solid" | "regular" | "duotone";
 
@@ -324,7 +340,7 @@ function sortStringRecord(record: Record<string, string>): Record<string, string
 function sortObjByKey(value: unknown): unknown {
     return Array.isArray(value)
         ? value.map(sortObjByKey)
-        : R.isObject(value)
+        : R.isPlainObject(value)
           ? Object.keys(value)
                 .sort()
                 .reduce((o: Record<string, unknown>, key) => {
@@ -338,12 +354,12 @@ function sortObjByKey(value: unknown): unknown {
 /** Walk an object tree and replace any string values found according to a provided function */
 function recursiveReplaceString<T>(source: T, replace: (s: string) => string): T;
 function recursiveReplaceString(source: unknown, replace: (s: string) => string): unknown {
-    const clone = Array.isArray(source) || R.isObject(source) ? fu.deepClone(source) : source;
+    const clone = Array.isArray(source) || R.isPlainObject(source) ? fu.deepClone(source) : source;
     if (typeof clone === "string") {
         return replace(clone);
     } else if (Array.isArray(clone)) {
         return clone.map((e) => recursiveReplaceString(e, replace));
-    } else if (R.isObject(clone)) {
+    } else if (R.isPlainObject(clone)) {
         for (const [key, value] of Object.entries(clone)) {
             clone[key] = recursiveReplaceString(value, replace);
         }
@@ -435,6 +451,7 @@ export {
     sortLabeledRecord,
     sortObjByKey,
     sortStringRecord,
+    splitListString,
     tupleHasValue,
     type SlugCamel,
 };

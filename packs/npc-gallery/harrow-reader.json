@@ -249,132 +249,16 @@
             "type": "action"
         },
         {
-            "_id": "8Mtv5mA9IwxRd9Jq",
+            "_id": "egP992KxbiFYLiUr",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
+            "name": "Fortune-Telling Lore",
             "sort": 500000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "egP992KxbiFYLiUr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Fortune-Telling Lore",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ekiTrkXxvMpKKEZ7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "fTKnuO5HCLkBEtPH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.FortuneTelling",
-                        "predicate": [
-                            "action:perform:fortune-telling"
-                        ],
-                        "selector": "performance",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+11 when fortune-telling",
-                        "options": "action:perform:fortune-telling"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "KjbA2jCwudHuC8Xp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
                 },
                 "proficient": {
                     "value": 0
@@ -471,6 +355,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 10
+            }
+        },
+        "skills": {
+            "diplomacy": {
+                "base": 8
+            },
+            "occultism": {
+                "base": 7
+            },
+            "performance": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 11,
+                        "label": "when fortune-telling",
+                        "predicate": [
+                            "action:perform:fortune-telling"
+                        ]
+                    }
+                ]
+            },
+            "society": {
+                "base": 7
             }
         },
         "traits": {

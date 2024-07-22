@@ -6,10 +6,8 @@ import { EffectPF2e, PhysicalItemPF2e, type ItemPF2e } from "@item";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
-import { elementTraits } from "@scripts/config/traits.ts";
+import { effectTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import {
@@ -183,11 +181,8 @@ class ChatCards {
                     const element = htmlClosest(button, ".description");
                     if (element) {
                         element.innerHTML = await TextEditor.enrichHTML(description, {
-                            async: true,
                             rollData: item.getRollData(),
                         });
-                        UserVisibilityPF2e.process(element, { message });
-                        InlineRollLinks.listen(element, message);
                         element.scrollIntoView({ behavior: "smooth", block: "center" });
                     }
                     break;
@@ -253,7 +248,7 @@ class ChatCards {
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
                         roll?.options.identifier?.split(".") ?? [];
-                    if (objectHasKey(elementTraits, element) && objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
+                    if (objectHasKey(effectTraits, element) && objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
                         await new ElementalBlast(actor).damage({
                             element,
                             damageType,
@@ -289,7 +284,7 @@ class ChatCards {
                 if (isSpellConsumable(physicalItem.id) && physicalItem.isOfType("consumable")) {
                     craftSpellConsumable(physicalItem, quantity, actor);
                     ChatMessagePF2e.create({
-                        user: game.user.id,
+                        author: game.user.id,
                         content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),
@@ -311,7 +306,7 @@ class ChatCards {
                 }
 
                 ChatMessagePF2e.create({
-                    user: game.user.id,
+                    author: game.user.id,
                     content: game.i18n.format("PF2E.Actions.Craft.Information.LoseMaterials", {
                         actorName: actor.name,
                         cost: coinsToRemove.toString(),
@@ -328,7 +323,7 @@ class ChatCards {
                     ui.notifications.warn(game.i18n.localize("PF2E.Actions.Craft.Warning.InsufficientCoins"));
                 } else {
                     ChatMessagePF2e.create({
-                        user: game.user.id,
+                        author: game.user.id,
                         content: game.i18n.format("PF2E.Actions.Craft.Information.PayAndReceive", {
                             actorName: actor.name,
                             cost: coinsToRemove.toString(),

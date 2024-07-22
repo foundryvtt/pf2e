@@ -1,7 +1,7 @@
 import type { ActorPF2e, ActorType, CharacterPF2e, NPCPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
 import { WeaponPF2e } from "@item";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
+import { BaseShieldType } from "@item/shield/types.ts";
 import type { WeaponRuneSource, WeaponSource } from "@item/weapon/data.ts";
 import type {
     BaseWeaponType,
@@ -54,6 +54,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
 
     static override defineSchema(): StrikeSchema {
         const fields = foundry.data.fields;
+        const baseTypeChoices: Record<NonShieldWeaponType, string> = CONFIG.PF2E.baseWeaponTypes;
 
         return {
             ...super.defineSchema(),
@@ -74,7 +75,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 required: true,
                 nullable: true,
                 blank: false,
-                choices: CONFIG.PF2E.baseWeaponTypes,
+                choices: baseTypeChoices,
                 initial: null,
             }),
             traits: new fields.ArrayField(
@@ -143,7 +144,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             ability: new fields.StringField({
                 required: false,
                 blank: false,
-                choices: CONFIG.PF2E.abilities,
                 nullable: true,
                 initial: null,
             }),
@@ -234,13 +234,19 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         if (!this.test()) return null;
         const actor = this.actor;
 
+        const attribute = this.resolveInjectedProperties(this.ability) || null;
+        if (attribute !== null && !objectHasKey(CONFIG.PF2E.abilities, attribute)) {
+            this.failValidation(`Unrecognized attribute: ${attribute}`);
+            return null;
+        }
+
         const damageType = this.resolveInjectedProperties(this.damage.base.damageType);
         if (!objectHasKey(CONFIG.PF2E.damageTypes, damageType)) {
             this.failValidation(`Unrecognized damage type: ${damageType}`);
             return null;
         }
 
-        const dice = Math.clamped(Math.floor(Number(this.resolveValue(this.damage.base.dice))), 0, 12);
+        const dice = Math.clamp(Math.floor(Number(this.resolveValue(this.damage.base.dice))), 0, 12);
         if (Number.isNaN(dice)) {
             this.failValidation("dice does not resolve to a number");
             return null;
@@ -264,7 +270,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 category: this.category,
                 group: this.group,
                 baseItem: this.baseType,
-                attribute: this.ability,
+                attribute,
                 bonus: {
                     value: actorIsNPC ? this.attackModifier ?? 0 : 0,
                 },
@@ -296,6 +302,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         });
 
         const weapon = new WeaponPF2e(source, { parent: actor });
+        weapon.rule = this;
         weapon.name = weapon._source.name; // Remove renaming by runes
         const alterations = actor.rules.filter((r): r is ItemAlterationRuleElement => r.key === "ItemAlteration");
         for (const alteration of alterations) {
@@ -324,13 +331,14 @@ interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFro
     get actor(): CharacterPF2e | NPCPF2e;
 }
 
+type NonShieldWeaponType = Exclude<BaseWeaponType, BaseShieldType>;
 type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
     category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
     group: StringField<WeaponGroup, WeaponGroup, true, true, true>;
     /** A weapon base type */
-    baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
+    baseType: StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
     traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     traitToggles: SchemaField<
@@ -376,7 +384,7 @@ type StrikeSchema = RuleElementSchema & {
             modifier: NumberField<number, number, false, false, true>;
         }>;
     }>;
-    ability: StringField<AttributeString, AttributeString, false, true, true>;
+    ability: StringField<string, string, false, true, true>;
     /** A representative icon for the strike */
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     /** Whether to replace all other strike actions */

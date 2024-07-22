@@ -6,7 +6,7 @@ import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
 import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
-import { isObject, tupleHasValue } from "@util";
+import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
 import { isBracketedValue } from "../helpers.ts";
@@ -219,12 +219,13 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
      */
     resolveInjectedProperties<T extends string | number | object | null | undefined>(
         source: T,
-        options?: { warn?: boolean },
+        options?: { injectables?: Record<string, unknown>; warn?: boolean },
     ): T;
     resolveInjectedProperties(
         source: string | number | object | null | undefined,
-        { warn = true } = {},
+        options: { injectables?: Record<string, unknown>; warn?: boolean } = {},
     ): string | number | object | null | undefined {
+        const { injectables = {}, warn = true } = options;
         if (source === null || typeof source === "number" || (typeof source === "string" && !source.includes("{"))) {
             return source;
         }
@@ -232,19 +233,32 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         // Walk the object tree and resolve any string values found
         if (Array.isArray(source)) {
             for (let i = 0; i < source.length; i++) {
-                source[i] = this.resolveInjectedProperties(source[i], { warn });
+                source[i] = this.resolveInjectedProperties(source[i], options);
             }
-        } else if (R.isObject(source)) {
+        } else if (R.isPlainObject(source)) {
             for (const [key, value] of Object.entries(source)) {
-                if (typeof value === "string" || isObject(value)) {
-                    source[key] = this.resolveInjectedProperties(value, { warn });
+                if (typeof value === "string" || R.isObjectType(value)) {
+                    source[key] = this.resolveInjectedProperties(value, options);
                 }
             }
 
             return source;
         } else if (typeof source === "string") {
-            return source.replace(/{(actor|item|rule)\|(.*?)}/g, (_match, key: string, prop: string) => {
-                const data = key === "rule" ? this : key === "actor" || key === "item" ? this[key] : this.item;
+            const injectableKeys = [
+                "actor",
+                "item",
+                "rule",
+                ...Object.keys(injectables).filter((i) => /^[a-z][a-z]+$/g.test(i)),
+            ];
+            const pattern = new RegExp(String.raw`{(${injectableKeys.join("|")})\|(.*?)}`, "g");
+            const allInjectables: Record<string, object> = {
+                actor: this.actor,
+                item: this.item,
+                rule: this,
+                ...injectables,
+            };
+            return source.replace(pattern, (_match, key: string, prop: string) => {
+                const data = allInjectables[key];
                 const value = fu.getProperty(data, prop);
                 if (value === undefined) {
                     this.ignored = true;
@@ -283,13 +297,15 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
         }
         value = this.resolveInjectedProperties(value, { warn });
 
+        if (Array.isArray(value)) return value;
+
         const resolvedFromBracket = this.isBracketedValue(value)
             ? this.#resolveBracketedValue(value, defaultValue)
             : value;
         if (typeof resolvedFromBracket === "number") return resolvedFromBracket;
 
-        if (resolvedFromBracket instanceof Object) {
-            return defaultValue instanceof Object
+        if (R.isPlainObject(resolvedFromBracket)) {
+            return R.isPlainObject(defaultValue)
                 ? fu.mergeObject(defaultValue, resolvedFromBracket, { inplace: false })
                 : resolvedFromBracket;
         }
@@ -435,14 +451,14 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */
-    preCreate?({ ruleSource, itemSource, pendingItems, context }: RuleElementPF2e.PreCreateParams): Promise<void>;
+    preCreate?({ ruleSource, itemSource, pendingItems, operation }: RuleElementPF2e.PreCreateParams): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is created. The item is temporarilly constructed. A rule element can
      * alter itself before its parent item is stored on an actor; it can also alter the item source itself in the same
      * manner.
      */
-    preDelete?({ pendingItems, context }: RuleElementPF2e.PreDeleteParams): Promise<void>;
+    preDelete?({ pendingItems, operation }: RuleElementPF2e.PreDeleteParams): Promise<void>;
 
     /**
      * Runs before this rules element's parent item is updated */
@@ -497,8 +513,8 @@ namespace RuleElementPF2e {
         pendingItems: ItemSourcePF2e[];
         /** Items temporarily constructed from pending item source */
         tempItems: ItemPF2e<ActorPF2e>[];
-        /** The context object from the `ItemPF2e.createDocuments` call */
-        context: DocumentModificationContext<ActorPF2e | null>;
+        /** The `operation` object from the `ItemPF2e.createDocuments` call */
+        operation: Partial<DatabaseCreateOperation<ActorPF2e | null>>;
         /** Whether this preCreate run is from a pre-update reevaluation */
         reevaluation?: boolean;
     }
@@ -507,7 +523,7 @@ namespace RuleElementPF2e {
         /** All items pending deletion in a `ItemPF2e.deleteDocuments` call */
         pendingItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.deleteDocuments` call */
-        context: DocumentModificationContext<ActorPF2e | null>;
+        operation: Partial<DatabaseDeleteOperation<ActorPF2e | null>>;
     }
 
     export interface AfterRollParams {

@@ -3,6 +3,11 @@
         <li>
             {{#if application.ignored}}
                 {{localize "PF2E.Damage.IWR.ApplicationBreakdown.ignored" type=application.type}}
+            {{else if application.redirect}}
+                {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown.redirect." application.category)
+                    type=application.type
+                    redirect=application.redirect
+                    adjustment=(signedInteger application.adjustment zeroIsNegative=true)}}
             {{else}}
                 {{localize (concat "PF2E.Damage.IWR.ApplicationBreakdown." application.category)
                     type=application.type adjustment=(signedInteger application.adjustment zeroIsNegative=true)}}

@@ -189,98 +189,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "hPPwPleVdkhJu3oM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nXOjGLb1oJ4TPzlg",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "athletics",
-                        "type": "untyped",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 to swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "sk8zItJWY2CCfSwq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Adolescent Sea Serpent",
@@ -371,6 +279,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "to swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 10
             }
         },
         "traits": {

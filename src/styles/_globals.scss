@@ -143,8 +143,7 @@ table.pf2-table {
     border: 1px solid var(--color-border-dark-tertiary);
     box-sizing: border-box;
     color: var(--color-text-dark-primary);
-    line-height: 1.6em;
-    padding: var(--space-1) var(--space-4);
+    padding: 0 var(--space-4);
     white-space: nowrap;
     word-break: break-all;
 
@@ -154,9 +153,12 @@ table.pf2-table {
     }
 }
 
-a.content-link {
-    line-height: 1.6em;
+a.content-link,
+a.inline-roll {
+    padding: 0 var(--space-4);
+}
 
+a.content-link {
     // Automatically italicize spell content links
     &:has(i.fa-sparkles) {
         font-style: italic;
@@ -367,6 +369,49 @@ a[href]:hover {
 
 #tinymce {
     @include journal-styling;
+}
+
+#prosemirror-dropdown {
+    @include journal-styling;
+
+    .info:hover {
+        color: black;
+    }
+
+    .inline-header {
+        padding: inherit;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    .statblock {
+        margin-top: unset;
+    }
+
+    li[data-action="pf2e"] {
+        li {
+            height: 1.9rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .visibility-gm {
+            background: var(--visibility-gm-bg);
+            border-radius: 1px;
+            box-sizing: border-box;
+            line-height: 1em;
+            outline: 1px dotted rgba(75, 74, 68, 0.5);
+
+            &:hover {
+                background: var(--color-hover-bg);
+            }
+        }
+    }
+}
+
+.prosemirror menu {
+    gap: 3px;
 }
 
 // System theme Foundry tooltips

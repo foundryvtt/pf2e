@@ -101,11 +101,11 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
     /** Generate a list of strings for use in predication */
     override getRollOptions(prefix?: string, options?: { includeGranter?: boolean }): string[] {
         prefix ??= this.isFeature ? "feature" : this.isFeat ? "feat" : "action";
-        return R.compact([
+        return [
             ...super.getRollOptions(prefix, options).filter((o) => !o.endsWith("level:0")),
             `${prefix}:category:${this.category}`,
             this.isAction ? `action:${this.slug}` : null,
-        ]);
+        ].filter(R.isTruthy);
     }
 
     /* -------------------------------------------- */
@@ -114,7 +114,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
     protected override async _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseCreateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // In case this was copied from an actor, clear the location if there's no parent.
@@ -125,12 +125,12 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
             }
         }
 
-        return super._preCreate(data, options, user);
+        return super._preCreate(data, operation, user);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<CampaignFeatureSource>,
-        options: DocumentModificationContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // Ensure an empty-string `location` property is null
@@ -160,7 +160,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
             }
         }
 
-        await super._preUpdate(changed, options, user);
+        await super._preUpdate(changed, operation, user);
     }
 }
 

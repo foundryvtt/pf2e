@@ -1,11 +1,11 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
-import type { ActorPF2e, ActorUpdateContext } from "@actor/base.ts";
+import type { ActorPF2e, ActorUpdateOperation } from "@actor/base.ts";
 import { CreatureSaves, LabeledSpeed } from "@actor/creature/data.ts";
 import { ActorSizePF2e } from "@actor/data/size.ts";
 import { createEncounterRollOptions, setHitPointsRollOptions } from "@actor/helpers.ts";
 import { ModifierPF2e, applyStackingRules } from "@actor/modifiers.ts";
 import { SaveType } from "@actor/types.ts";
-import { SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
@@ -38,9 +38,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         return null;
     }
 
+    /** Returns attribute modifier value from the master, or 0 if no attribute */
     get masterAttributeModifier(): number {
-        this.system.master.ability ||= "cha";
-        return this.master?.system.abilities[this.system.master.ability].mod ?? 0;
+        const attribute = this.system.master.ability;
+        return attribute ? this.master?.system.abilities[attribute].mod ?? 0 : 0;
     }
 
     /** @deprecated for internal use but not rule elements referencing it until a migration is in place. */
@@ -141,6 +142,10 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
 
         const { level, master, masterAttributeModifier, system } = this;
         const { attributes, traits } = system;
+        const attributeModifier =
+            masterAttributeModifier > 2
+                ? new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped")
+                : new ModifierPF2e(`PF2E.Actor.Familiar.MinimumAttributeModifier`, 3, "untyped");
 
         // Ensure uniqueness of traits
         traits.value = [...this.traits].sort();
@@ -165,7 +170,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
               })
             : null;
 
-        const statistic = new ArmorStatistic(this, { modifiers: R.compact([masterModifier]) });
+        const statistic = new ArmorStatistic(this, { modifiers: [masterModifier].filter(R.isTruthy) });
         this.armorClass = statistic.dc;
         system.attributes.ac = fu.mergeObject(statistic.getTraceData(), { attribute: statistic.attribute ?? "dex" });
 
@@ -211,30 +216,22 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
             label: "PF2E.PerceptionLabel",
             attribute: "wis",
             domains: ["perception", "wis-based", "all"],
-            modifiers: [
-                new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"),
-                new ModifierPF2e(`PF2E.MasterAbility.${system.master.ability}`, masterAttributeModifier, "untyped"),
-            ],
+            modifiers: [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped"), attributeModifier],
             check: { type: "perception-check" },
             senses: system.perception.senses,
         });
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = SKILL_ABBREVIATIONS.reduce((builtSkills: Record<string, Statistic<this>>, shortForm) => {
-            const longForm = SKILL_DICTIONARY[shortForm];
+        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
-            if (["acr", "ste"].includes(shortForm)) {
-                const label = `PF2E.MasterAbility.${system.master.ability}`;
-                modifiers.push(new ModifierPF2e(label, masterAttributeModifier, "untyped"));
+            if (["acrobatics", "stealth"].includes(skill)) {
+                modifiers.push(attributeModifier);
             }
 
-            const attribute = SKILL_EXPANDED[longForm].attribute;
-            const domains = [longForm, `${attribute}-based`, "skill-check", "all"];
-
-            const label = CONFIG.PF2E.skills[shortForm] ?? longForm;
+            const domains = [skill, `${attribute}-based`, "skill-check", "all"];
             const statistic = new Statistic(this, {
-                slug: longForm,
+                slug: skill,
                 label,
                 attribute,
                 domains,
@@ -243,11 +240,11 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
                 check: { type: "skill-check" },
             });
 
-            builtSkills[longForm] = statistic;
-            this.system.skills[shortForm] = fu.mergeObject(statistic.getTraceData(), { attribute });
+            // Create trace data in system data
+            this.system.skills[skill] = fu.mergeObject(statistic.getTraceData(), { attribute });
 
-            return builtSkills;
-        }, {});
+            return [skill, statistic];
+        });
     }
 
     /* -------------------------------------------- */
@@ -257,26 +254,31 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     /** Detect if a familiar is being reassigned from a master */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: FamiliarUpdateContext<TParent>,
+        operation: FamiliarUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (changed.system?.master?.id) {
-            options.previousMaster = this.master?.uuid;
+        const newId = changed.system?.master?.id ?? this.system.master.id;
+        if (newId !== this.system.master.id) {
+            operation.previousMaster = this.master?.uuid;
         }
 
-        return super._preUpdate(changed, options, user);
+        if (changed.system?.master) {
+            changed.system.master.ability ||= null;
+        }
+
+        return super._preUpdate(changed, operation, user);
     }
 
     /** Remove familiar from former master if the master changed */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: FamiliarUpdateContext<TParent>,
+        operation: FamiliarUpdateOperation<TParent>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
-        if (options.previousMaster && options.previousMaster !== this.master?.uuid) {
-            const previousMaster = fromUuidSync<ActorPF2e>(options.previousMaster);
+        if (operation.previousMaster && operation.previousMaster !== this.master?.uuid) {
+            const previousMaster = fromUuidSync<ActorPF2e>(operation.previousMaster);
             if (previousMaster?.isOfType("character")) {
                 previousMaster.familiar = null;
             }
@@ -284,9 +286,9 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
     }
 
     /** Remove the master's reference to this familiar */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
         if (this.master) this.master.familiar = null;
-        super._onDelete(options, userId);
+        super._onDelete(operation, userId);
     }
 }
 
@@ -296,7 +298,7 @@ interface FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     system: FamiliarSystemData;
 }
 
-interface FamiliarUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
+interface FamiliarUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
     previousMaster?: ActorUUID;
 }
 

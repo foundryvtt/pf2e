@@ -16,7 +16,7 @@
             {{#if selectorIsArray}}Multiple{{else}}Single{{/if}}
         </button>
         {{#if selectorIsArray}}
-            <input type="text" class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" data-dtype="JSON" />
+            <tagify-tags class="pf2e-tagify selector-list" name="system.rules.{{index}}.selector" value="{{json rule.selector}}" />
         {{else}}
             <input type="text" name="system.rules.{{index}}.selector" value="{{rule.selector}}" />
         {{/if}}
@@ -27,7 +27,7 @@
 
 <div class="form-group">
     <label class="short">{{localize "PF2E.RuleEditor.Note.Outcome"}}</label>
-    <input class="pf2e-tagify outcomes" name="system.rules.{{index}}.outcome" value="{{json rule.outcome}}" data-dtype="JSON" />
+    <tagify-tags class="pf2e-tagify outcomes" name="system.rules.{{index}}.outcome" value="{{json rule.outcome}}" />
 </div>
 
 <div class="form-group">

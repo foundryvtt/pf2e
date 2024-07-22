@@ -1,5 +1,4 @@
-import type { EffectAreaShape } from "@item/spell/types.ts";
-import { TokenPF2e, type MeasuredTemplatePF2e } from "./index.ts";
+import type { TokenPF2e } from "./index.ts";
 
 /**
  * Measure the minimum distance between two rectangles
@@ -20,12 +19,11 @@ function measureDistanceCuboid(
         target?: TokenPF2e | null;
     } = {},
 ): number {
-    if (!canvas.grid) return NaN;
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return canvas.grid.measureDistance(r0, r1);
+        return canvas.grid.measurePath([r0, r1]).distance;
     }
 
-    const gridWidth = canvas.grid.grid.w;
+    const gridWidth = canvas.grid.sizeX;
 
     const distance = {
         dx: 0,
@@ -60,7 +58,8 @@ function measureDistanceCuboid(
         distance.dx = Math.max(r0Snapped.left - r1Snapped.right, r1Snapped.left - r0Snapped.right, 0) + gridWidth;
         distance.dy = Math.max(r0Snapped.top - r1Snapped.bottom, r1Snapped.top - r0Snapped.bottom, 0) + gridWidth;
     }
-    if (token && target && token?.document?.elevation !== target?.document.elevation && token.actor && target.actor) {
+
+    if (token && target && token.document.elevation !== target.document.elevation && token.actor && target.actor) {
         const selfElevation = token.document.elevation;
         const targetElevation = target.document.elevation;
 
@@ -120,7 +119,7 @@ function measureDistanceCuboid(
  */
 function measureDistance(p0: Point, p1: Point): number {
     if (canvas.grid.type !== CONST.GRID_TYPES.SQUARE) {
-        return canvas.grid.measureDistance(p0, p1);
+        return canvas.grid.measurePath([p0, p1]).distance;
     }
 
     return measureDistanceOnGrid(new Ray(p0, p1));
@@ -163,165 +162,14 @@ function measureDistanceOnGrid(
     return distance * gridDistance;
 }
 
-/** Highlight grid according to Pathfinder 2e effect-area shapes */
-function highlightGrid({
-    areaShape,
-    object,
-    colors,
-    document,
-    collisionType = "move",
-    preview = false,
-}: HighlightGridParams): void {
-    // Only highlight for objects that are non-previews (have IDs)
-    if (!object.id && !preview) return;
+/** Get a grid square at an arbitrary point. */
+function squareAtPoint(point: Point): PIXI.Rectangle {
+    const snapped =
+        canvas.grid.type === CONST.GRID_TYPES.SQUARE
+            ? canvas.grid.getTopLeftPoint(point)
+            : canvas.grid.getSnappedPoint(point, { mode: CONST.GRID_SNAPPING_MODES.CENTER });
 
-    const { grid, dimensions } = canvas;
-    if (!(grid && dimensions)) return;
-
-    // Set data defaults
-    const angle = document.angle ?? 0;
-    const direction = document.direction ?? 45;
-
-    // Clear existing highlight
-    const highlightLayer = grid.getHighlightLayer(object.highlightId)?.clear();
-    if (!highlightLayer) return;
-
-    const [cx, cy] = grid.getCenter(document.x, document.y);
-    const [col0, row0] = grid.grid.getGridPositionFromPixels(cx, cy);
-    const minAngle = (360 + ((direction - angle * 0.5) % 360)) % 360;
-    const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
-    const snappedOrigin = canvas.grid.getSnappedPosition(document.x, document.y, object.layer.gridPrecision);
-    const withinAngle = (min: number, max: number, value: number) => {
-        min = (360 + (min % 360)) % 360;
-        max = (360 + (max % 360)) % 360;
-        value = (360 + (value % 360)) % 360;
-
-        if (min < max) return value >= min && value <= max;
-        return value >= min || value <= max;
-    };
-
-    // Offset measurement for cones to ensure that cones only start measuring from cell borders
-    const coneOriginOffset = ((): Point => {
-        if (areaShape !== "cone") return { x: 0, y: 0 };
-
-        // Degrees anticlockwise from pointing right. In 45-degree increments from 0 to 360
-        const dir = (direction >= 0 ? 360 - direction : -direction) % 360;
-        // If we're not on a border for X, offset by 0.5 or -0.5 to the border of the cell in the direction we're looking on X axis
-        const xOffset =
-            snappedOrigin.x % dimensions.size !== 0
-                ? Math.sign((1 * Math.round(Math.cos(Math.toRadians(dir)) * 100)) / 100) / 2
-                : 0;
-        // Same for Y, but cos Y goes down on screens, we invert
-        const yOffset =
-            snappedOrigin.y % dimensions.size !== 0
-                ? -Math.sign((1 * Math.round(Math.sin(Math.toRadians(dir)) * 100)) / 100) / 2
-                : 0;
-        return { x: xOffset * dimensions.size, y: yOffset * dimensions.size };
-    })();
-
-    // Point we are measuring distances from
-    const padding = Math.clamped(document.width ?? 0, 1.5, 2);
-    const docDistance = document.distance ?? 0;
-    const padded = (docDistance * padding) / dimensions.distance;
-    const rowCount = Math.ceil(padded / (dimensions.size / grid.h));
-    const columnCount = Math.ceil(padded / (dimensions.size / grid.w));
-
-    // If this is an emanation, measure from the outer squares of the token's space
-    const offsetEmanationOrigin = (destination: Point): Point => {
-        if (!(areaShape === "emanation" && object instanceof TokenPF2e)) {
-            return { x: 0, y: 0 };
-        }
-
-        // No offset is needed for medium and smaller creatures
-        if (object.w <= dimensions.size) return { x: 0, y: 0 };
-
-        const offset = (object.w - dimensions.size) / 2;
-        const getCoordinate = (centerCoord: number, destCoord: number): number =>
-            destCoord === centerCoord ? 0 : destCoord > centerCoord ? offset : -offset;
-
-        return {
-            x: getCoordinate(object.center.x, destination.x),
-            y: getCoordinate(object.center.y, destination.y),
-        };
-    };
-
-    for (let a = -columnCount; a < columnCount; a++) {
-        for (let b = -rowCount; b < rowCount; b++) {
-            // Position of cell's top-left corner, in pixels
-            const [gx, gy] = canvas.grid.grid.getPixelsFromGridPosition(col0 + a, row0 + b);
-            // Position of cell's center in pixels
-            const destination = {
-                x: gx + dimensions.size * 0.5,
-                y: gy + dimensions.size * 0.5,
-            };
-            if (destination.x < 0 || destination.y < 0) continue;
-
-            // Determine point of origin
-            const emanationOriginOffset = offsetEmanationOrigin(destination);
-            const origin = {
-                x: snappedOrigin.x + coneOriginOffset.x + emanationOriginOffset.x,
-                y: snappedOrigin.y + coneOriginOffset.y + emanationOriginOffset.y,
-            };
-
-            if (areaShape === "cone") {
-                const ray = new Ray(origin, destination);
-                const rayAngle = (360 + ((ray.angle / (Math.PI / 180)) % 360)) % 360;
-                if (ray.distance > 0 && !withinAngle(minAngle, maxAngle, rayAngle)) {
-                    continue;
-                }
-            }
-
-            // Determine grid-square point to which we're measuring the distance
-            const distance = measureDistance(destination, origin);
-            if (distance > docDistance) continue;
-
-            const hasCollision =
-                canvas.ready &&
-                CONFIG.Canvas.polygonBackends[collisionType].testCollision(origin, destination, {
-                    type: collisionType,
-                    mode: "any",
-                });
-
-            if (hasCollision) {
-                grid.grid.highlightGridPosition(highlightLayer, {
-                    x: gx,
-                    y: gy,
-                    border: 0x000001,
-                    color: 0x000000,
-                });
-                highlightLayer
-                    .beginFill(0x000000, 0.5)
-                    .moveTo(gx, gy)
-                    .lineTo(gx + dimensions.size, gy + dimensions.size)
-                    .endFill();
-            } else {
-                grid.grid.highlightGridPosition(highlightLayer, {
-                    x: gx,
-                    y: gy,
-                    border: colors.border,
-                    color: colors.fill,
-                });
-            }
-        }
-    }
+    return new PIXI.Rectangle(snapped.x, snapped.y, canvas.grid.sizeX, canvas.grid.sizeY);
 }
 
-interface HighlightGridParams {
-    areaShape: EffectAreaShape | null;
-    object: MeasuredTemplatePF2e | TokenPF2e;
-    /** Border and fill colors in hexadecimal */
-    colors: { border: number; fill: number };
-    /** Shape data for the effect area: satisfied by MeasuredTemplateData */
-    document: Readonly<{
-        x: number;
-        y: number;
-        distance: number | null;
-        angle?: number;
-        direction?: number;
-        width: number | null;
-    }>;
-    collisionType?: WallRestrictionType;
-    preview?: boolean;
-}
-
-export { highlightGrid, measureDistanceCuboid };
+export { measureDistance, measureDistanceCuboid, squareAtPoint };

@@ -1,0 +1,99 @@
+{
+    "_id": "bYrcZ0Oj3c10FZzP",
+    "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+    "name": "Constricting Whip Tail",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You have a strong, prehensile tail. You gain a tail unarmed attack that deals 1d6 bludgeoning damage. This tail is in the brawling group. You gain a +1 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and to Athletics checks to Climb. You can also use your tail for the @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] action, even if your hands are otherwise occupied.</p>\n<p>You can use your tail unarmed attack to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] even if you don't have a free hand. You gain a +2 item bonus to Athletics checks to Grapple.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 7
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 320
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "slug": "tail",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:climb"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "slug": "whip-tail-balance-or-climb",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple"
+                ],
+                "selector": "athletics",
+                "slug": "whip-tail-grapple",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "graft",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

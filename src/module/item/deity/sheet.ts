@@ -1,11 +1,11 @@
-import type { SkillLongForm } from "@actor/types.ts";
+import type { SkillSlug } from "@actor/types.ts";
 import { ItemPF2e, SpellPF2e, type DeityPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions, createSheetOptions } from "@module/sheet/helpers.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, tagify } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { DeitySanctification } from "./data.ts";
 import { DEITY_SANCTIFICATIONS } from "./values.ts";
 
 export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
@@ -29,21 +29,26 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
             .sort((spellA, spellB) => spellA.level - spellB.level);
 
         const sanctifications = [
+            { value: "null", label: "PF2E.Item.Deity.Sanctification.None" },
             ...DEITY_SANCTIFICATIONS.map((value) => {
                 const modal = value.modal.capitalize();
                 const what = value.what.map((c) => c.capitalize()).join("");
                 return {
-                    value,
+                    value: JSON.stringify(value),
                     label: `PF2E.Item.Deity.Sanctification.${modal}.${what}`,
                 };
             }),
-            { value: null, label: "PF2E.Item.Deity.Sanctification.None" },
         ];
 
         return {
             ...sheetData,
+            categories: [
+                { value: "deity", label: "TYPES.Item.deity" },
+                { value: "pantheon", label: "PF2E.Item.Deity.Category.Pantheon" },
+                { value: "philosophy", label: "PF2E.Item.Deity.Category.Philosophy" },
+            ],
             sanctifications,
-            skills: CONFIG.PF2E.skillList,
+            skills: R.mapValues(CONFIG.PF2E.skills, (s) => s.label),
             divineFonts: createSheetOptions(
                 { harm: "PF2E.Item.Deity.DivineFont.Harm", heal: "PF2E.Item.Deity.DivineFont.Heal" },
                 sheetData.data.font,
@@ -61,11 +66,12 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
         const html = $html[0];
 
         // Create tagify selection inputs
-        const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
+        const getInput = (name: string): HTMLTagifyTagsElement | null =>
+            htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
 
         tagify(getInput("system.attribute"), { whitelist: CONFIG.PF2E.abilities, maxTags: 2 });
 
-        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skillList, maxTags: 2 });
+        tagify(getInput("system.skill"), { whitelist: CONFIG.PF2E.skills, maxTags: 2 });
 
         // Everything past this point requires a deity or pantheon
         if (this.item.category === "philosophy") return;
@@ -121,7 +127,7 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
                     return;
                 }
 
-                const newLevel = Math.clamped(Number(input.value) || 1, 1, 10);
+                const newLevel = Math.clamp(Number(input.value) || 1, 1, 10);
                 if (oldLevel !== newLevel) {
                     await this.item.update({
                         [`system.spells.-=${oldLevel}`]: null,
@@ -169,8 +175,9 @@ export class DeitySheetPF2e extends ItemSheetPF2e<DeityPF2e> {
 }
 
 interface DeitySheetData extends ItemSheetDataPF2e<DeityPF2e> {
-    sanctifications: { value: DeitySanctification | null; label: string }[];
-    skills: Record<SkillLongForm, string>;
+    categories: FormSelectOption[];
+    sanctifications: FormSelectOption[];
+    skills: Record<SkillSlug, string>;
     divineFonts: SheetOptions;
     spells: SpellBrief[];
 }

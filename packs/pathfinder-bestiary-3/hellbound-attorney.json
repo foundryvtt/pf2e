@@ -450,157 +450,16 @@
             "type": "action"
         },
         {
-            "_id": "eCZldL55ew2mg9Kg",
+            "_id": "hjpDAszGRHhxvxyq",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Legal Lore",
             "sort": 900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cyFTd2BRqcPnHyt2",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BXslGLJsOIB3mptW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.MakeAnImpression",
-                        "predicate": [
-                            "action:make-an-impression"
-                        ],
-                        "selector": "diplomacy",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 to Make an Impression",
-                        "options": "action:make-an-impression"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "GNqu4SsWRvxK9tst",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hjpDAszGRHhxvxyq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Legal Lore",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "YBa7F359XCCnSoG6",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
                 },
                 "proficient": {
                     "value": 0
@@ -719,6 +578,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 10
+            },
+            "deception": {
+                "base": 11
+            },
+            "diplomacy": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Make an Impression",
+                        "predicate": [
+                            "action:make-an-impression"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "society": {
+                "base": 12
             }
         },
         "traits": {

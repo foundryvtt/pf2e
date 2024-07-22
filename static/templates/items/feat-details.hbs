@@ -11,14 +11,7 @@
                     data-dtype="Number"
                     {{disabled mandatoryTakeOnce}}
                 >
-                    {{#select data.maxTakable}}
-                        <option value="1">{{localize "No"}}</option>
-                        <option value="2">{{localize "PF2E.Item.Feat.TakeMultiple.Two"}}</option>
-                        <option value="3">{{localize "PF2E.Item.Feat.TakeMultiple.Three"}}</option>
-                        <option value="4">{{localize "PF2E.Item.Feat.TakeMultiple.Four"}}</option>
-                        <option value="5">{{localize "PF2E.Item.Feat.TakeMultiple.Five"}}</option>
-                        <option value="Infinity">{{localize "PF2E.Item.Feat.TakeMultiple.NoLimit"}}</option>
-                    {{/select}}
+                    {{selectOptions maxTakableOptions selected=data.maxTakable localize=true}}
                 </select>
                 {{#if mandatoryTakeOnce}}<input type="hidden" name="system.maxTakable" value="1" data-dtype="Number" />{{/if}}
             </div>
@@ -42,13 +35,12 @@
     <div class="form-group stacked">
         <label for="{{fieldIdPrefix}}prerequisites">{{localize "PF2E.FeatPrereqLabel"}}</label>
         <div class="form-fields">
-            <input
+            <tagify-tags
                 class="pf2e-tagify"
                 type="text"
                 name="system.prerequisites.value"
                 id="{{fieldIdPrefix}}prerequisites"
                 value="{{json item.system.prerequisites.value}}"
-                data-dtype="JSON"
             />
         </div>
     </div>
@@ -61,12 +53,11 @@
         <div class="form-group stacked">
             <label for="{{fieldIdPrefix}}key-options">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Label"}}</label>
             <div class="form-fields">
-                <input class="pf2e-tagify"
+                <tagify-tags class="pf2e-tagify"
                     type="text"
                     name="system.subfeatures.keyOptions"
                     id="{{fieldIdPrefix}}key-options"
                     value="{{json item.system.subfeatures.keyOptions}}"
-                    data-dtype="JSON"
                 />
             </div>
             <p class="hint">{{localize "PF2E.Item.Feat.Subfeatures.KeyAbilityOptions.Hint"}}</p>
@@ -125,12 +116,7 @@
                                 id="{{@root.fieldIdPrefix}}{{option.slug}}"
                                 data-dtype="Number"
                             >
-                                {{#select option.rank}}
-                                    <option value="1">{{localize "PF2E.ProficiencyLevel1"}}</option>
-                                    <option value="2">{{localize "PF2E.ProficiencyLevel2"}}</option>
-                                    <option value="3">{{localize "PF2E.ProficiencyLevel3"}}</option>
-                                    <option value="4">{{localize "PF2E.ProficiencyLevel4"}}</option>
-                                {{/select}}
+                                {{selectOptions (omit @root.proficiencyRankOptions "0") selected=option.rank localize=true}}
                             </select>
 
                             {{#if (or option.attribute (eq option.attribute null))}}
@@ -219,11 +205,7 @@
                             id="{{@root.fieldIdPrefix}}{{option.slug}}"
                             {{disabled (not option.canSetAcuity)}}
                         >
-                            {{#select option.acuity}}
-                                <option value="precise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Precise"}}</option>
-                                <option value="imprecise">{{localize "PF2E.Actor.Creature.Sense.Acuity.Imprecise"}}</option>
-                                <option value="vague">{{localize "PF2E.Actor.Creature.Sense.Acuity.Vague"}}</option>
-                            {{/select}}
+                            {{selectOptions @root.acuityOptions selected=option.acuity localize=true}}
                         </select>
 
                         <input

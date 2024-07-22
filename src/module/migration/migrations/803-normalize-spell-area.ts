@@ -26,7 +26,7 @@ export class Migration803NormalizeSpellArea extends MigrationBase {
         }
 
         // Move old details text
-        if ("areasize" in source.system && R.isObject(source.system.areasize)) {
+        if ("areasize" in source.system && R.isPlainObject(source.system.areasize)) {
             if (this.#hasDetails(source.system.areasize.value) && area) {
                 area.details = source.system.areasize.value;
             }

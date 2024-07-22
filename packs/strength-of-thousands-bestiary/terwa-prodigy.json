@@ -177,7 +177,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1532,141 +1532,16 @@
             "type": "action"
         },
         {
-            "_id": "ffh1vw71vc0skf9s",
+            "_id": "bx1qq286x2ueas8u",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Astrology Lore",
             "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "cnkackh4whu89w2j",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "bx1qq286x2ueas8u",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Astrology Lore",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "6pgrzcidemeioo9c",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "r75drau89rjn7adg",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vofwy825obf0n801",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
                 },
                 "proficient": {
                     "value": 0
@@ -1771,6 +1646,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 15
+            },
+            "arcana": {
+                "base": 13
+            },
+            "medicine": {
+                "base": 13
+            },
+            "nature": {
+                "base": 15
+            },
+            "survival": {
+                "base": 15
             }
         },
         "traits": {

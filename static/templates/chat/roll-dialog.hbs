@@ -14,11 +14,7 @@
     <div class="form-group">
         <label>{{localize "PF2E.RollModeLabel"}}</label>
         <select name="rollMode">
-            {{#select rollMode}}
-                {{#each rollModes as |label mode|}}
-                    <option value="{{mode}}">{{localize label}}</option>
-                {{/each}}
-            {{/select}}
+            {{selectOptions rollModes selected=rollMode localize=true}}
         </select>
     </div>
 </form>

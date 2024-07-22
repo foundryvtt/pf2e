@@ -448,132 +448,16 @@
             "type": "action"
         },
         {
-            "_id": "csUw57vXCg7mjCzW",
+            "_id": "UCFuIxxWMMjN84Rx",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "name": "Kovlar Lore",
             "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "EwJM5XNHsNxMYpSu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Blacksmithing",
-                        "predicate": [
-                            "action:craft:blacksmithing"
-                        ],
-                        "selector": "crafting",
-                        "value": "2"
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+29 Blacksmithing",
-                        "options": "action:craft:blacksmithing"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zhQReUvMNfVZySmd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "UCFuIxxWMMjN84Rx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Kovlar Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "MSh5wXNtSw6X5SrX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
                 },
                 "proficient": {
                     "value": 0
@@ -676,6 +560,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 22
+            },
+            "crafting": {
+                "base": 27,
+                "special": [
+                    {
+                        "base": 29,
+                        "label": "Blacksmithing",
+                        "predicate": [
+                            "action:craft:blacksmithing"
+                        ]
+                    }
+                ]
+            },
+            "diplomacy": {
+                "base": 23
+            },
+            "society": {
+                "base": 21
             }
         },
         "traits": {

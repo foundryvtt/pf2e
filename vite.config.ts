@@ -8,7 +8,9 @@ import * as Vite from "vite";
 import checker from "vite-plugin-checker";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
-import packageJSON from "./package.json" assert { type: "json" };
+import packageJSON from "./package.json";
+import { sluggify } from "./src/util/misc.ts";
+import systemJSON from "./static/system.json";
 
 const CONDITION_SOURCES = ((): ConditionSource[] => {
     const output = execSync("npm run build:conditions", { encoding: "utf-8" });
@@ -16,14 +18,32 @@ const CONDITION_SOURCES = ((): ConditionSource[] => {
 })();
 const EN_JSON = JSON.parse(fs.readFileSync("./static/lang/en.json", { encoding: "utf-8" }));
 
+/** Get UUID redirects from JSON file, converting names to IDs. */
+function getUuidRedirects(): Record<CompendiumUUID, CompendiumUUID> {
+    const redirectJSON = JSON.parse(fs.readFileSync(path.resolve(__dirname, "build/uuid-redirects.json"), "utf-8"));
+    for (const [from, to] of Object.entries<string>(redirectJSON)) {
+        const [, , pack, documentType, name] = to.split(".", 5);
+        const packDir = systemJSON.packs.find((p) => p.type === documentType && p.name === pack)?.path;
+        if (!packDir) throw new Error(`Failure looking up pack JSON for ${to}`);
+        const docJSON = JSON.parse(
+            fs.readFileSync(path.resolve(__dirname, `${packDir}/${sluggify(name)}.json`), "utf-8"),
+        );
+        const id = docJSON._id;
+        if (!id) throw new Error(`No UUID redirect match found for ${documentType} ${name} in ${pack}`);
+        redirectJSON[from] = `Compendium.pf2e.${pack}.${documentType}.${id}`;
+    }
+
+    return redirectJSON;
+}
+
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
     const buildMode = mode === "production" ? "production" : "development";
     const outDir = "dist";
 
     const rollGrammar = fs.readFileSync("roll-grammar.peggy", { encoding: "utf-8" });
     const ROLL_PARSER = Peggy.generate(rollGrammar, { output: "source" }).replace(
-        "return {\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };",
-        "AbstractDamageRoll.parser = { SyntaxError: peg$SyntaxError, parse: peg$parse };",
+        'return {\n    StartRules: ["Expression"],\n    SyntaxError: peg$SyntaxError,\n    parse: peg$parse\n  };',
+        'AbstractDamageRoll.parser = { StartRules: ["Expression"], SyntaxError: peg$SyntaxError, parse: peg$parse };',
     );
 
     const plugins = [checker({ typescript: true }), tsconfigPaths()];
@@ -121,6 +141,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
             CONDITION_SOURCES: JSON.stringify(CONDITION_SOURCES),
             EN_JSON: JSON.stringify(EN_JSON),
             ROLL_PARSER: JSON.stringify(ROLL_PARSER),
+            UUID_REDIRECTS: JSON.stringify(getUuidRedirects()),
             fu: "foundry.utils",
         },
         esbuild: { keepNames: true },

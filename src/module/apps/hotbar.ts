@@ -1,8 +1,7 @@
-import { SKILL_ABBREVIATIONS } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { MacroPF2e } from "@module/macro.ts";
-import { createActionMacro, createSkillMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
-import { ErrorPF2e, htmlClosest, isObject, tupleHasValue } from "@util";
+import { createActionMacro, createToggleEffectMacro } from "@scripts/macros/hotbar.ts";
+import { ErrorPF2e, htmlClosest, isObject } from "@util";
 
 class HotbarPF2e extends Hotbar<MacroPF2e> {
     /** Handle macro creation from non-macros */
@@ -12,7 +11,7 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
         if (!slot) return;
 
         const data: HotbarDropData = TextEditor.getDragEventData(event);
-        if (!["Item", "RollOption", "Skill", "Action"].includes(data.type ?? "")) {
+        if (!["Item", "RollOption", "Action"].includes(data.type ?? "")) {
             return super._onDrop(event);
         }
         if (Hooks.call("hotbarDrop", this, data, slot) === false) return;
@@ -52,11 +51,6 @@ class HotbarPF2e extends Hotbar<MacroPF2e> {
                 }
                 if (!this.#hasRollOptionData(data)) return;
                 return HotbarPF2e.#createRollOptionToggleMacro({ ...data, item }, slot);
-            }
-            case "Skill": {
-                if (!(data.actorId && tupleHasValue(SKILL_ABBREVIATIONS, data.skill))) return;
-                const skillName = data.skillName ?? game.i18n.localize(CONFIG.PF2E.skills[data.skill]);
-                return createSkillMacro(data.skill, skillName, data.actorId, slot);
             }
             case "Action": {
                 if (typeof data.index !== "number" && !data.elementTrait) return;

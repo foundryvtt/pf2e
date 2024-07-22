@@ -1,7 +1,7 @@
 import type * as abstract from "../abstract/module.d.ts";
-import type * as documents from "./module.d.ts";
-import type * as fields from "../data/fields.d.ts";
 import type * as data from "../data/data.d.ts";
+import type * as fields from "../data/fields.d.ts";
+import type * as documents from "./module.d.ts";
 
 /**
  * The Document definition for an Actor.
@@ -47,13 +47,13 @@ export default class BaseActor<
 
     protected override _preCreate(
         data: this["_source"],
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseCreateOperation<TParent>,
         user: documents.BaseUser,
     ): Promise<boolean | void>;
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         user: documents.BaseUser,
     ): Promise<boolean | void>;
 }
@@ -67,6 +67,8 @@ export default interface BaseActor<TParent extends documents.BaseToken | null = 
     prototypeToken: foundry.data.PrototypeToken<this>;
 
     get documentName(): ActorMetadata["name"];
+
+    get folder(): Folder<Actor<null>> | null;
 }
 
 export interface ActorMetadata extends abstract.DocumentMetadata {

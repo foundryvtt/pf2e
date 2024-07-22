@@ -1,11 +1,11 @@
-import { AuraAppearanceData } from "@actor/types.ts";
+import type { AuraAppearanceData } from "@actor/types.ts";
 
 /** A square (`PIXI.Rectangle`) with additional information about an effect area it's part of */
 export class EffectAreaSquare extends PIXI.Rectangle {
     /** Whether this square is an active part of the aura or blocked (typically by a wall) */
     active: boolean;
 
-    constructor(x: number, y: number, width: number, height: number, active = true) {
+    constructor(x: number, y: number, width = canvas.grid.sizeX, height = canvas.grid.sizeY, active = true) {
         super(x, y, width, height);
         this.active = active;
     }
@@ -22,7 +22,7 @@ export class EffectAreaSquare extends PIXI.Rectangle {
         if (this.x < 0 || this.y < 0) return;
 
         if (this.active) {
-            canvas.grid.grid.highlightGridPosition(layer, {
+            canvas.interface.grid.highlightPosition(layer.name, {
                 x: this.x,
                 y: this.y,
                 border: border?.color,
@@ -30,7 +30,7 @@ export class EffectAreaSquare extends PIXI.Rectangle {
                 alpha: highlight.alpha,
             });
         } else {
-            canvas.grid.grid.highlightGridPosition(layer, {
+            canvas.interface.grid.highlightPosition(layer.name, {
                 x: this.x,
                 y: this.y,
                 border: 0x000000,

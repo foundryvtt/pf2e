@@ -24,7 +24,494 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.Inventor.Modification.Revolutionary.AllowedDrops",
+                    "predicate": [
+                        {
+                            "lte": [
+                                "item:level",
+                                15
+                            ]
+                        },
+                        "item:type:feature",
+                        "item:trait:inventor"
+                    ]
+                },
+                "choices": [
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:dense-plating"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Dense Plating"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:harmonic-oscillator"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Harmonic Oscillator"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:metallic-reactance"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Metallic Reactance"
+                    },
+                    {
+                        "predicate": [
+                            "armor-innovation:power-suit",
+                            {
+                                "not": "feature:muscular-exoskeleton"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Muscular Exoskeleton"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:otherworldly-protection"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Otherworldly Protection"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:phlogistonic-regulator"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Phlogistonic Regulator"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:speed-boosters"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Speed Boosters"
+                    },
+                    {
+                        "predicate": [
+                            "armor-innovation:subterfuge-suit",
+                            {
+                                "not": "feature:subtle-dampeners"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Subtle Dampeners"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:antimagic-plating"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Antimagic Plating"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "and": [
+                                    "feature:armor-innovation",
+                                    "armor-innovation:subterfuge-suit"
+                                ]
+                            },
+                            {
+                                "not": "feature:camouflage-pigmentation"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Camouflage Pigmentation"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "or": [
+                                    "feature:harmonic-oscillator",
+                                    "feature:metallic-reactance",
+                                    "feature:otherworldly-protection",
+                                    "feature:phlogistonic-regulator"
+                                ]
+                            },
+                            {
+                                "not": "feature:enhanced-resistance"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Enhanced Resistance"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "and": [
+                                    "armor-innovation:power-suit",
+                                    "feature:armor-innovation"
+                                ]
+                            },
+                            {
+                                "not": "feature:heavy-construction"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Heavy Construction"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:hyper-boosters"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Speed Boosters"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:layered-mesh"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Layered Mesh"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "not": "feature:tensile-absorption"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Tensile Absorption"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "or": [
+                                    "feature:harmonic-oscillator",
+                                    "feature:metallic-reactance",
+                                    "feature:phlogistonic-regulator"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Energy Barrier"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Automated Impediments"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "or": [
+                                    "feature:dense-plating",
+                                    "feature:layered-mesh",
+                                    "feature:tensile-absorption"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Incredible Resistance"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            "armor-innovation:subterfuge-suit"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Multisensory Mask"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            "armor-innovation:power-suit"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Perfect Fortification"
+                    },
+                    {
+                        "predicate": [
+                            "feature:armor-innovation",
+                            {
+                                "or": [
+                                    "feature:dense-plating",
+                                    "feature:layered-mesh",
+                                    "feature:tensile-absorption"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Physical Protections"
+                    },
+                    {
+                        "predicate": [
+                            {
+                                "or": [
+                                    "feature:weapon-innovation",
+                                    "feature:armor-innovation"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Rune Capacity"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:ranged",
+                            {
+                                "not": [
+                                    "feature:advanced-rangefinder",
+                                    "weapon-innovation:thrown"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Advanced Rangefinder"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:aerodynamic-construction"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Aerodynamic Construction"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:inconspicuous-appearance"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Inconspicuous Appearance"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:usage:hands:1",
+                            {
+                                "not": "weapon-innovation:trait:two-handed"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Integrated Gauntlet"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            {
+                                "not": "feature:manifold-alloy"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Manifold Alloy"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:ranged",
+                            {
+                                "not": [
+                                    "weapon-innovation:thrown",
+                                    "feature:rope-shot"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Rope Shot"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:thrown",
+                            "feature:tangle-line"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Tangle Line"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:ranged",
+                            {
+                                "nor": [
+                                    "feature:blunt-shot",
+                                    "weapon-innovation:thrown"
+                                ],
+                                "not": "feature:blunt-shot"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Blunt Shot"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:category:simple",
+                            {
+                                "not": "feature:complex-simplicity"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Complex Simplicity"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:usage:hands:1",
+                            "weapon-innovation:melee",
+                            {
+                                "nor": [
+                                    "feature:dynamic-weighting",
+                                    "weapon-innovation:trait:agile",
+                                    "weapon-innovation:trait:attached",
+                                    "weapon-innovation:trait:free-hand"
+                                ]
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Dynamic Weighting"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:entangling-form"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Entangling Form"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:hampering-spikes"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Hampering Spikes"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:hefty-composition"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Hefty Composition"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "feature:weapon-innovation",
+                            {
+                                "not": "feature:modular-head"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Modular Head"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:pacification-tools"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Pacification Tools"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:razor-prongs"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Razor Prongs"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee",
+                            {
+                                "not": "feature:segmented-frame"
+                            }
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Segmented Frame"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Attack Refiner"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Deadly Strike"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Enhanced Damage"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Extensible Weapon"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Impossible Alloy"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:melee"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Momentum Retainer"
+                    },
+                    {
+                        "predicate": [
+                            "feature:weapon-innovation",
+                            "weapon-innovation:ranged"
+                        ],
+                        "value": "Compendium.pf2e.classfeatures.Item.Omnirange Stabilizers"
+                    }
+                ],
+                "flag": "revolutionaryModification",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "class:inventor",
+                    {
+                        "or": [
+                            "feature:armor-innovation",
+                            "feature:weapon-innovation"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Inventor.Modification.Revolutionary.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.revolutionaryModification}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

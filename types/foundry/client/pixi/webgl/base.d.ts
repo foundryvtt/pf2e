@@ -105,7 +105,7 @@ declare global {
      */
     class AbstractBaseFilter extends BaseFilterMix {
         /** The default uniforms used by the filter */
-        static defaultUniforms: object;
+        static defaultUniforms: Record<string, unknown>;
 
         /** The fragment shader which renders this filter. */
         static fragmentShader: string;

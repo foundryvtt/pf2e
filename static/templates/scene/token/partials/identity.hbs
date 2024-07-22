@@ -15,12 +15,7 @@
         <div class="form-group">
             <label>{{localize "TOKEN.CharActor"}}</label>
             <select class="actor-template" name="actorId">
-                {{#select object.actorId}}
-                    <option value="">{{localize "None"}}</option>
-                    {{#each actors}}
-                        <option value="{{this._id}}">{{this.name}}</option>
-                    {{/each}}
-                {{/select}}
+                {{selectOptions actors selected=object.actorId valueAttr="_id" labelAttr="name" blank=(localize "None")}}
             </select>
         </div>
     {{/unless}}
@@ -62,7 +57,14 @@
         <div class="form-group slim">
             <label>{{localize "Elevation"}} <span class="units">({{gridUnits}})</span></label>
             <div class="form-fields">
-                {{numberInput object.elevation name="elevation" placeholder="units"}}
+                {{numberInput object.elevation name="elevation" placeholder=gridUnits}}
+            </div>
+        </div>
+
+        <div class="form-group slim">
+            <label>{{localize "Sort"}}</label>
+            <div class="form-fields">
+                {{numberInput object.sort name="sort" step=1}}
             </div>
         </div>
     {{/unless}}
@@ -73,8 +75,16 @@
             <label>{{localize "TOKEN.Lock"}}</label>
             <input type="checkbox" name="lockRotation" {{checked object.lockRotation}}/>
             <label>{{localize "Rotation"}}</label>
-            <input type="number" name="rotation" value="{{object.rotation}}"/>
+            {{numberInput object.rotation name="rotation" placeholder=(localize "Degrees")}}
         </div>
+    </div>
+
+    <div class="form-group slim">
+        <label>{{localize "TOKEN.OcclusionRadius"}} <span class="units">({{gridUnits}})</span></label>
+        <div class="form-fields">
+            {{numberInput object.occludable.radius name="occludable.radius" placeholder=gridUnits min="0" step="any"}}
+        </div>
+        <p class="notes">{{localize "TOKEN.OcclusionRadiusHint" name=object.name}}</p>
     </div>
 
     <div class="form-group">

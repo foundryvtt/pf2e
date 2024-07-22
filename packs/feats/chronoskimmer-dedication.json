@@ -26,10 +26,32 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "chronoskimmer-dedication",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeFailureLabel",
+                        "value": "destabilize-failure"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeSuccessLabel",
+                        "value": "destabilize-success"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Chronoskimmer.StabilizeLabel",
+                        "value": "stabilize"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.StabilizeLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:stabilize"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 10
             },
@@ -37,7 +59,10 @@
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeSuccessLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:destabilize-success"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 19
             },
@@ -45,7 +70,10 @@
                 "effectType": "fortune",
                 "key": "SubstituteRoll",
                 "label": "PF2E.SpecificRule.Chronoskimmer.DestabilizeFailureLabel",
-                "required": false,
+                "predicate": [
+                    "chronoskimmer-dedication:destabilize-failure"
+                ],
+                "required": true,
                 "selector": "initiative",
                 "value": 1
             }

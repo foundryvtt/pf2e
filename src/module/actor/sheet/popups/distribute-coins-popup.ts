@@ -108,8 +108,8 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e, DistributeC
             else message += ` and ${actor.name}.`;
         }
         ChatMessagePF2e.create({
-            user: game.user.id,
-            type: CONST.CHAT_MESSAGE_TYPES.OTHER,
+            author: game.user.id,
+            style: CONST.CHAT_MESSAGE_STYLES.OTHER,
             content: message,
         });
     }

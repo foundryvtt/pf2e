@@ -1,0 +1,52 @@
+{
+    "_id": "1ssTlwNcRRkatmPC",
+    "img": "icons/weapons/guns/gun-pistol-brass.webp",
+    "name": "Effect: Phenom Verve",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Phenom's Verve]</p>\n<p>You gain a +1 status bonus to your attack rolls with one-handed firearms and one-handed melee weapons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:usage:hands:1",
+                    {
+                        "or": [
+                            "item:group:firearm",
+                            "item:melee"
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

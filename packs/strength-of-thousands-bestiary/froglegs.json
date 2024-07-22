@@ -641,177 +641,10 @@
             "type": "action"
         },
         {
-            "_id": "7xinoeeuuegyy1vt",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "at267kbhsk7ful4e",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "qos8i94blgmts5st",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "zgpcb3yns1cla7gx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "e7fg4cuavlz79yda",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "d6up22q9t4pr323c",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.PickALock",
-                        "predicate": [
-                            "action:pick-a-lock"
-                        ],
-                        "selector": "thievery",
-                        "type": "untyped",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+20 to Pick a Lock",
-                        "options": "action:pick-a-lock"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
             "_id": "p030po30lvvwf8fy",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underworld Lore",
-            "sort": 1800000,
+            "sort": 1200000,
             "system": {
                 "description": {
                     "value": ""
@@ -932,6 +765,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 16
+            },
+            "athletics": {
+                "base": 15
+            },
+            "deception": {
+                "base": 16
+            },
+            "intimidation": {
+                "base": 16
+            },
+            "stealth": {
+                "base": 16
+            },
+            "thievery": {
+                "base": 18,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "to Pick a Lock",
+                        "predicate": [
+                            "action:pick-a-lock"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

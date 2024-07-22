@@ -52,6 +52,7 @@ function perform(options: { variant: PerformVariant } & SkillActionOptions): voi
 const action = new SingleCheckAction({
     cost: 1,
     description: `${PREFIX}.Description`,
+    img: "systems/pf2e/icons/conditions/dazzled.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["criticalSuccess"], text: `${PREFIX}.Notes.criticalSuccess` },

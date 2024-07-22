@@ -82,10 +82,10 @@ class FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema> {
         const postFlavor = `<div data-visibility="owner">${this.details ?? this.getReducedLabel()}</div>`;
         const flavor = `<div>${receivedMessage}</div>${postFlavor}`;
 
-        const roll = (await new DamageRoll(`{(${value})[healing]}`).evaluate({ async: true })).toJSON();
+        const roll = (await new DamageRoll(`{(${value})[healing]}`).evaluate()).toJSON();
         const rollMode = this.actor.hasPlayerOwner ? "publicroll" : "gmroll";
         const speaker = ChatMessagePF2e.getSpeaker({ actor: this.actor, token: this.token });
-        ChatMessagePF2e.create({ flavor, speaker, type: CONST.CHAT_MESSAGE_TYPES.ROLL, rolls: [roll] }, { rollMode });
+        ChatMessagePF2e.create({ flavor, speaker, rolls: [roll] }, { rollMode });
     }
 }
 

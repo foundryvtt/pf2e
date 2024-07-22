@@ -78,7 +78,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
             (i) => formData[`system.traits.integrated.runes.property.${i}`] ?? [],
         );
         if (propertyRuneUpdates.length > 0) {
-            formData[`system.traits.integrated.runes.property`] = R.compact(propertyRuneUpdates);
+            formData[`system.traits.integrated.runes.property`] = propertyRuneUpdates.filter(R.isTruthy);
             for (const index of propertyRuneIndices) {
                 delete formData[`system.traits.integrated.runes.property.${index}`];
             }

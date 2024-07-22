@@ -1,0 +1,66 @@
+{
+    "_id": "iwzKtzNV5t1op2xs",
+    "img": "icons/creatures/birds/duck-green.webp",
+    "name": "Spell Effect: Distracting Decoy",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Distracting Decoy]</p>\n<p><strong>Failure</strong> The creature is off-guard until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> As failure, but the creature also takes a –2 circumstance penalty to attacks while it's off-guard.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "distracting-decoy"
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "distracting-decoy:critical-failure"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

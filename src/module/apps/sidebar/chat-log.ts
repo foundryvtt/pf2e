@@ -9,6 +9,7 @@ import { CheckPF2e } from "@system/check/index.ts";
 import { looksLikeDamageRoll } from "@system/damage/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, objectHasKey } from "@util";
+import type { ChatMessageSource } from "types/foundry/common/documents/chat-message.d.ts";
 
 class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     /* -------------------------------------------- */
@@ -101,30 +102,37 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
     protected override async _processDiceCommand(
         command: string,
         matches: RegExpMatchArray[],
-        chatData: PreCreate<Omit<ChatMessagePF2e["_source"], "rolls"> & { rolls: (string | RollJSON)[] }>,
-        createOptions: ChatMessageModificationContext,
+        chatData: DeepPartial<Omit<ChatMessageSource, "rolls">> & { rolls: (string | RollJSON)[] },
+        createOptions: ChatMessageCreateOperation,
     ): Promise<void> {
         const actor = ChatMessage.getSpeakerActor(chatData.speaker ?? {}) || game.user.character;
         const rollData = actor?.getRollData() ?? {};
         const rolls: Rolled<Roll>[] = [];
+        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command)
+            ? command
+            : game.settings.get("core", "rollMode");
+
         for (const match of matches.filter((m) => !!m)) {
             const [formula, flavor] = match.slice(2, 4);
             if (flavor && !chatData.flavor) chatData.flavor = flavor;
-            const roll = ((): Roll => {
+            const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    return looksLikeDamageRoll(damageRoll) ? damageRoll : new Roll(formula, rollData);
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate() : null;
                 } catch {
-                    return new Roll(formula, rollData);
+                    return null;
                 }
             })();
-            rolls.push(await roll.evaluate({ async: true }));
+            if (roll) {
+                rolls.push(roll);
+            } else {
+                // Super up and return early if this isn't a damage roll
+                return super._processDiceCommand(command, matches, chatData, createOptions);
+            }
         }
-        chatData.type = CONST.CHAT_MESSAGE_TYPES.ROLL;
         chatData.rolls = rolls.map((r) => r.toJSON());
         chatData.sound = CONFIG.sounds.dice;
         chatData.content = rolls.reduce((t, r) => t + r.total, 0).toString();
-        createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command) ? command : "roll";
     }
 
     static #messageFromEvent(
@@ -311,7 +319,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         if (!token) {
             ui.notifications.error(
                 game.i18n.format("PF2E.Encounter.NoTokenInScene", {
-                    actor: message.actor?.name ?? message.user?.name ?? "",
+                    actor: message.actor?.name ?? message.author?.name ?? "",
                 }),
             );
             return;

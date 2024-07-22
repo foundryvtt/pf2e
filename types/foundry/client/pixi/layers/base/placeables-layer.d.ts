@@ -7,12 +7,13 @@ declare global {
      * @category - Canvas
      */
     abstract class PlaceablesLayer<TObject extends PlaceableObject = PlaceableObject> extends InteractionLayer {
-        constructor();
+        /** Sort order for placeables belonging to this layer. */
+        static SORT_ORDER: number;
 
-        objects: PIXI.Container | null;
+        objects: PIXI.Container<TObject> | null;
 
         /** Preview Object Placement */
-        preview: PIXI.Container;
+        preview: PIXI.Container<TObject>;
 
         /** Keep track of history so that CTRL+Z can undo changes */
         history: CanvasHistory<TObject>[];
@@ -46,9 +47,6 @@ declare global {
         /** Obtain a reference to the PlaceableObject class definition which represents the Document type in this layer. */
         static get placeableClass(): ConstructorOf<PlaceableObject>;
 
-        /** Return the precision relative to the Scene grid with which Placeable objects should be snapped */
-        get gridPrecision(): number;
-
         /** If objects on this PlaceableLayer have a HUD UI, provide a reference to its instance */
         get hud(): BasePlaceableHUD<TObject> | null;
 
@@ -74,6 +72,26 @@ declare global {
 
         /** Track whether "highlight all objects" is currently active */
         highlightObjects: boolean;
+
+        /**
+         * Get the maximum sort value of all placeables.
+         * @returns    The maximum sort value (-Infinity if there are no objects)
+         */
+        getMaxSort(): number;
+
+        /**
+         * Send the controlled objects of this layer to the back or bring them to the front.
+         * @param front         Bring to front instead of send to back?
+         * @returns            Returns true if the layer has sortable object, and false otherwise
+         */
+        protected _sendToBackOrBringToFront(front: boolean): boolean;
+
+        /**
+         * Snaps the given point to grid. The layer defines the snapping behavior.
+         * @param point The point that is to be snapped
+         * @returns The snapped point
+         */
+        getSnappedPoint(point: Point): Point;
 
         /* -------------------------------------------- */
         /*  Rendering                                   */
@@ -109,6 +127,9 @@ declare global {
         override activate(): this;
 
         override deactivate(): this;
+
+        /** Clear the contents of the preview container, restoring visibility of original (non-preview) objects. */
+        clearPreviewContainer(): void;
 
         /**
          * Get a PlaceableObject contained in this layer by it's ID
@@ -255,7 +276,7 @@ declare global {
         updateAll(
             transformation: (document: TObject) => Record<string, unknown>,
             condition?: Function | null,
-            options?: DocumentModificationContext<TObject["document"]["parent"]>,
+            options?: DatabaseCreateOperation<TObject["document"]["parent"]>,
         ): Promise<TObject["document"][]>;
 
         /**
@@ -372,9 +393,9 @@ declare global {
 interface PlaceableInteractionData<TObject extends PlaceableObject> {
     clearPreviewContainer: boolean;
     preview?: TObject | null;
-    layerDragState?: number;
     clones?: TObject[];
-    object: PIXI.Container | PIXI.Mesh;
+    dragHandle?: unknown;
+    object: TObject;
     origin: Point;
     destination: Point;
 }

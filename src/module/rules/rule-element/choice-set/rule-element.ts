@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
+import { iterateAllItems } from "@actor/helpers.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
@@ -20,6 +21,7 @@ import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema } from "../data.ts";
 import {
     AllowedDropsData,
+    ChoiceSetConfig,
     ChoiceSetObject,
     ChoiceSetOwnedItems,
     ChoiceSetPackQuery,
@@ -55,11 +57,11 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
         this.flag = this.#setDefaultFlag(this);
         this.selection =
-            typeof data.selection === "string" || typeof data.selection === "number" || R.isObject(data.selection)
+            typeof data.selection === "string" || typeof data.selection === "number" || R.isPlainObject(data.selection)
                 ? data.selection
                 : null;
 
-        if (R.isObject(this.choices) && !Array.isArray(this.choices) && !("filter" in this.choices)) {
+        if (R.isObjectType(this.choices) && !Array.isArray(this.choices) && !("filter" in this.choices)) {
             this.choices.predicate = new Predicate(this.choices.predicate ?? []);
             if (this.choices.unarmedAttacks) this.choices.predicate.push("item:category:unarmed");
         }
@@ -154,7 +156,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         ruleSource,
         tempItems,
     }: RuleElementPF2e.PreCreateParams<ChoiceSetSource>): Promise<void> {
-        if (this.selection === null && R.isObject(this.choices) && "query" in this.choices) {
+        if (this.selection === null && R.isObjectType(this.choices) && "query" in this.choices) {
             this.failValidation("As of FVTT version 11, choice set queries are no longer supported.");
             for (const ruleData of this.item.system.rules) {
                 ruleData.ignored = true;
@@ -166,8 +168,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const predicate = this.resolveInjectedProperties(this.predicate);
         if (!predicate.test(rollOptions)) return;
 
-        if (R.isObject(this.choices)) {
-            const { choices } = this;
+        if (R.isObjectType(this.choices)) {
+            const choices = this.choices;
             if ("ownedItems" in choices && choices.ownedItems && !choices.types?.length) {
                 console.warn(
                     "PF2E System | Failure during ChoiceSet preCreate: `types` is required if `ownedItems` is set",
@@ -237,22 +239,28 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
      * @returns The array of choices to present to the user
      */
     async inflateChoices(rollOptions: Set<string>, tempItems: ItemPF2e<ActorPF2e>[]): Promise<PickableThing[]> {
-        const choices: PickableThing<string | number | object>[] = Array.isArray(this.choices)
-            ? this.#choicesFromArray(this.choices, rollOptions) // Static choices from RE constructor data
-            : R.isObject(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
-              ? this.choices.ownedItems
-                  ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
-                  : this.choices.attacks || this.choices.unarmedAttacks
-                    ? this.#choicesFromAttacks(
-                          new Predicate(this.resolveInjectedProperties(this.choices.predicate)),
-                          rollOptions,
-                      )
-                    : "filter" in this.choices && Array.isArray(this.choices.filter)
-                      ? await this.queryCompendium(this.choices, rollOptions, tempItems)
-                      : []
-              : typeof this.choices === "string"
-                ? this.#choicesFromPath(this.choices, rollOptions)
+        const choices = await (async () => {
+            if (Array.isArray(this.choices)) {
+                return this.#choicesFromArray(this.choices, rollOptions);
+            }
+
+            if (typeof this.choices === "string" || (R.isObjectType(this.choices) && this.choices.config)) {
+                return this.#choicesFromPath(this.choices, rollOptions);
+            }
+
+            return R.isObjectType(this.choices) // ChoiceSetAttackQuery or ChoiceSetItemQuery
+                ? this.choices.ownedItems
+                    ? this.#choicesFromOwnedItems(this.choices, rollOptions, tempItems)
+                    : this.choices.attacks || this.choices.unarmedAttacks
+                      ? this.#choicesFromAttacks(
+                            new Predicate(this.resolveInjectedProperties(this.choices.predicate)),
+                            rollOptions,
+                        )
+                      : "filter" in this.choices && Array.isArray(this.choices.filter)
+                        ? await this.queryCompendium(this.choices, rollOptions, tempItems)
+                        : []
                 : [];
+        })();
 
         interface ItemChoice extends PickableThing<string> {
             value: ItemUUID;
@@ -261,17 +269,20 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         // If every choice is an item UUID, get the label and images from those items
         const choicesAreUUIDs = choices.every((c): c is ItemChoice => UUIDUtils.isItemUUID(c.value));
         if (choicesAreUUIDs) {
-            const itemChoices = await UUIDUtils.fromUUIDs(choices.map((c) => c.value));
-            for (let i = 0; i < choices.length; i++) {
-                const item = itemChoices[i];
+            const items = await UUIDUtils.fromUUIDs(choices.map((c) => c.value));
+            for (const choice of choices) {
+                const item = items.find((i) => i.uuid === choice.value);
                 if (item instanceof ItemPF2e) {
-                    choices[i].label ??= item.name;
-                    choices[i].img ??= item.img;
+                    choice.label ??= item.name;
+                    choice.img ??= item.img;
+                } else {
+                    choice.label = "???";
+                    choice.img = "broken.jpeg";
                 }
             }
         }
 
-        if (choicesAreUUIDs || (R.isObject(this.choices) && "query" in this.choices)) {
+        if (choicesAreUUIDs || (R.isObjectType(this.choices) && "query" in this.choices)) {
             this.containsItems = true;
         }
 
@@ -298,20 +309,39 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         );
     }
 
-    #choicesFromPath(path: string, actorRollOptions: Set<string>): PickableThing<string>[] {
-        const choiceObject: unknown = fu.getProperty(CONFIG.PF2E, path) ?? fu.getProperty(this.actor, path) ?? {};
-        if (
-            Array.isArray(choiceObject) &&
-            choiceObject.every((c) => R.isObject<{ value: string }>(c) && typeof c.value === "string")
-        ) {
-            return choiceObject.filter((c) =>
-                this.resolveInjectedProperties(new Predicate(c.predicate ?? [])).test(actorRollOptions),
+    #choicesFromPath(choices: string | ChoiceSetConfig, actorRollOptions: Set<string>): PickableThing<string>[] {
+        const data =
+            typeof choices === "string"
+                ? fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {}
+                : fu.getProperty(CONFIG.PF2E, choices.config) ?? {};
+        const predicate = typeof choices === "string" ? null : choices.predicate;
+
+        // If this is an array, optionally run predicates on all the entries
+        if (Array.isArray(data)) {
+            if (!data.every((c) => R.isPlainObject(c) && typeof c.value === "string")) {
+                return [];
+            }
+            return data.filter((choice) =>
+                this.resolveInjectedProperties(new Predicate(choice.predicate ?? predicate ?? []), {
+                    injectables: { choice },
+                }).test(actorRollOptions),
             );
-        } else if (R.isObject(choiceObject) && Object.values(choiceObject).every((c) => typeof c === "string")) {
-            return Object.entries(choiceObject).map(([value, label]) => ({
-                value,
-                label: String(label),
-            }));
+        }
+
+        // If this is an object with all string values or all string labels, optionally run the top level filter predicate
+        if (R.isObjectType(data)) {
+            const entries = Object.entries(data);
+            if (!entries.every(([_, c]) => typeof (R.isPlainObject(c) ? c.label : c) === "string")) {
+                return [];
+            }
+
+            return entries
+                .filter(([key, choice]) => {
+                    return this.resolveInjectedProperties(new Predicate(predicate ?? []), {
+                        injectables: { choice: { ...choice, value: key } },
+                    }).test(actorRollOptions);
+                })
+                .map(([value, data]) => ({ value, label: typeof data === "string" ? data : data.label }));
         }
 
         return [];
@@ -325,7 +355,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const { includeHandwraps, types } = options;
         const predicate = new Predicate(this.resolveInjectedProperties(options.predicate));
 
-        const choices = this.actor.items
+        const choices = [...iterateAllItems(this.actor)]
             .filter((i) => i.isOfType(...types) && predicate.test([...actorRollOptions, ...i.getRollOptions("item")]))
             .filter((i) => !i.isOfType("weapon") || i.category !== "unarmed")
             .map(
@@ -400,7 +430,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         const itemType = objectHasKey(CONFIG.PF2E.Item.documentClasses, choices.itemType) ? choices.itemType : "feat";
         const packs =
             typeof choices.pack === "string"
-                ? R.compact([game.packs.get(choices.pack)])
+                ? [game.packs.get(choices.pack)].filter(R.isTruthy)
                 : game.packs.filter(
                       (p): p is CompendiumCollection<ItemPF2e<null>> =>
                           p.metadata.type === "Item" && p.index.some((e) => e.type === itemType),
@@ -469,7 +499,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     /** If this rule element's parent item was granted with a pre-selected choice, the prompt is to be skipped */
     #getPreselection(inflatedChoices: PickableThing[]): PickableThing | null {
         if (this.selection === null) return null;
-        const choice = inflatedChoices.find((c) => R.equals(c.value, this.selection));
+        const choice = inflatedChoices.find((c) => R.isDeepEqual(this.selection, c.value));
         return choice ?? null;
     }
 

@@ -1,0 +1,68 @@
+{
+    "_id": "weKnwX64fD5fuPjy",
+    "img": "icons/consumables/potions/bottle-bulb-corked-purple.webp",
+    "name": "Effect: Pallesthetic Mutagen",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Pallesthetic Mutagen]</p>\n<p><strong>Benefit</strong> You gain precise echolocation out to 40 feet, imprecise tremorsense out to 60 feet, and a +2 item bonus to Perception checks using either of these senses.</p>\n<p><strong>Drawback</strong> You are blinded.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "range": 40,
+                "selector": "echolocation"
+            },
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 60,
+                "selector": "tremorsense"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "using-echolocation",
+                            "using-tremorsense"
+                        ]
+                    }
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Blinded"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

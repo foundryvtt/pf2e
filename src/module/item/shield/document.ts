@@ -133,7 +133,9 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const hasReinforcing = this.system.runes.reinforcing > 0;
         const magicTrait = hasReinforcing && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, magicTrait]).sort());
+        this.system.traits.value = R.unique([...baseTraits, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
 
         // Fill out integrated weapon data if applicable
         const integratedTrait = this.system.traits.value.find((t) => t.startsWith("integrated"));
@@ -190,10 +192,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         this: ShieldPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<RawItemChatData> {
-        const properties = R.compact([
+        const properties = [
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ]);
+        ].filter(R.isTruthy);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
@@ -217,7 +219,12 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         type BaseWeaponData = Pick<WeaponSource, "_id" | "type" | "name" | "img"> & {
             system: Partial<WeaponSystemSource> & { traits: WeaponTraitsSource };
         };
+
+        const shieldTraits: string[] = this.system.traits.value;
+        const weaponTraits: WeaponTrait[] = shieldTraits.filter((t): t is WeaponTrait => t in CONFIG.PF2E.weaponTraits);
         const shieldThrowTrait = this.system.traits.value.find((t) => t.startsWith("shield-throw-"));
+        if (shieldThrowTrait) weaponTraits.push(`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait);
+
         const baseData: BaseWeaponData = fu.deepClone({
             ...R.pick(this, ["_id", "name", "img"]),
             type: "weapon",
@@ -230,7 +237,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 material: R.omit(this.material, ["effects"]) as WeaponMaterialSource,
                 traits: {
                     rarity: this.rarity,
-                    value: shieldThrowTrait ? [`thrown-${shieldThrowTrait.slice(-2)}` as WeaponTrait] : [],
+                    value: weaponTraits.sort(),
                     otherTags: [],
                 },
                 damage: { dice: 1, die: "d4", damageType: "bludgeoning", modifier: 0, persistent: null },
@@ -269,10 +276,10 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
@@ -294,7 +301,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             changed.system.traits.integrated = null;
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

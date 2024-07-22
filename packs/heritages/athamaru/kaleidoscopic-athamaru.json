@@ -1,0 +1,46 @@
+{
+    "_id": "1w4npGmPzgdZw3Na",
+    "folder": "vFoprY1ySAh4Uldw",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Kaleidoscopic Athamaru",
+    "system": {
+        "ancestry": {
+            "name": "Athamaru",
+            "slug": "athamaru",
+            "uuid": "Compendium.pf2e.ancestries.Item.Cg1AMgp3zrGmimWd"
+        },
+        "description": {
+            "value": "<p>Your scales are a spectrum of color that shimmers in the light. In areas of bright light or dim light, you gain a +1 circumstance bonus to Performance checks. You also gain the @UUID[Compendium.pf2e.actionspf2e.Item.Dazzle Seeker] reaction.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Dazzle Seeker"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "light:bright",
+                            "light:dim"
+                        ]
+                    }
+                ],
+                "selector": "performance",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

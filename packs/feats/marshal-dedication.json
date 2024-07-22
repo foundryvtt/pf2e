@@ -52,30 +52,30 @@
                 "adjustName": false,
                 "choices": [
                     {
-                        "label": "PF2E.SkillDip",
+                        "label": "PF2E.Skill.Diplomacy",
                         "predicate": [
-                            "skill:dip:rank:0"
+                            "skill:diplomacy:rank:0"
                         ],
                         "value": "dip-trained"
                     },
                     {
-                        "label": "PF2E.SkillDip",
+                        "label": "PF2E.Skill.Diplomacy",
                         "predicate": [
-                            "skill:dip:rank:1"
+                            "skill:diplomacy:rank:1"
                         ],
                         "value": "dip-expert"
                     },
                     {
-                        "label": "PF2E.SkillItm",
+                        "label": "PF2E.Skill.Intimidation",
                         "predicate": [
-                            "skill:itm:rank:0"
+                            "skill:intimidation:rank:0"
                         ],
                         "value": "itm-trained"
                     },
                     {
-                        "label": "PF2E.SkillItm",
+                        "label": "PF2E.Skill.Intimidation",
                         "predicate": [
-                            "skill:itm:rank:1"
+                            "skill:intimidation:rank:1"
                         ],
                         "value": "itm-expert"
                     }
@@ -86,13 +86,13 @@
                         "or": [
                             {
                                 "lte": [
-                                    "skill:itm:rank",
+                                    "skill:intimidation:rank",
                                     1
                                 ]
                             },
                             {
                                 "lte": [
-                                    "skill:dip:rank",
+                                    "skill:diplomacy:rank",
                                     1
                                 ]
                             }
@@ -105,36 +105,36 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.dip.rank",
+                "path": "system.skills.diplomacy.rank",
                 "predicate": [
-                    "marshal-skill:dip-trained"
+                    "marshal-skill:diplomacy-trained"
                 ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.dip.rank",
+                "path": "system.skills.diplomacy.rank",
                 "predicate": [
-                    "marshal-skill:dip-expert"
+                    "marshal-skill:diplomacy-expert"
                 ],
                 "value": 2
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.itm.rank",
+                "path": "system.skills.intimidation.rank",
                 "predicate": [
-                    "marshal-skill:itm-trained"
+                    "marshal-skill:intimidation-trained"
                 ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.skills.itm.rank",
+                "path": "system.skills.intimidation.rank",
                 "predicate": [
-                    "marshal-skill:itm-expert"
+                    "marshal-skill:intimidation-expert"
                 ],
                 "value": 2
             }

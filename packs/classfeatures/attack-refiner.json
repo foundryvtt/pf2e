@@ -1,0 +1,58 @@
+{
+    "_id": "ZcoOMwEY8FX7UzMo",
+    "img": "systems/pf2e/icons/features/classes/implements-empowerment.webp",
+    "name": "Attack Refiner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your weapon makes minute recalibrations after every missed attack to ensure the next lands true. Your innovation gains the backswing and shove traits.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "backswing"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "shove"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-innovation-modification"
+            ],
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

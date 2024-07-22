@@ -332,151 +332,10 @@
             "type": "action"
         },
         {
-            "_id": "GVTYBRCxTAAc0yIY",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZT7gA6kgYDy32XEB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZjphahGgn8zg8ccp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "7RDjgYcmwKNdhNZc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Performance",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Dance",
-                        "predicate": [
-                            "action:perform:dance"
-                        ],
-                        "selector": "performance",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+15 when dancing",
-                        "options": "action:perform:dance"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Zp4xHIX4Y24IyIgr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "G7t10rKHu8TabnQz",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Theatre Lore",
-            "sort": 1200000,
+            "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
@@ -579,6 +438,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8
+            },
+            "athletics": {
+                "base": 8
+            },
+            "diplomacy": {
+                "base": 7
+            },
+            "performance": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 15,
+                        "label": "when dancing",
+                        "predicate": [
+                            "action:perform:dance"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 6
             }
         },
         "traits": {

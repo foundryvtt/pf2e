@@ -281,10 +281,48 @@
             "type": "melee"
         },
         {
+            "_id": "Ii2lTXB3bATG8qu5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Notice ailments",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "notice-ailments"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "qOhRxpDdOg4c6aNs",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Bedside Manner",
-            "sort": 600000,
+            "sort": 700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -331,7 +369,7 @@
             "_id": "9xXxlNwXM90sw8zk",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Doctor's Hand",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -374,81 +412,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "u0v8HqfCmrM2fmZB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "OO3hpCcchs2LeniV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "dtPGMeIbP2lwF7Pz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Physician",
@@ -532,6 +495,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "diplomacy": {
+                "base": 8
+            },
+            "medicine": {
+                "base": 12
+            },
+            "society": {
+                "base": 10
             }
         },
         "traits": {

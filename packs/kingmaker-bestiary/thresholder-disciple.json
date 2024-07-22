@@ -836,151 +836,10 @@
             "type": "action"
         },
         {
-            "_id": "ApUZIWcLlOpdyMEM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZCeswWiXb7vQybiJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "qesdwQLA0OfebLki",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Demoralize",
-                        "predicate": [
-                            "action:demoralize"
-                        ],
-                        "selector": "intimidation",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+28 to Demoralize",
-                        "options": "action:demoralize"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RyJUNRJiBg3Xxxlb",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "AqcqDJDyT5voMcZy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "8Ss1d21OHToUfFNl",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Yog-Sothoth Lore",
-            "sort": 2200000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -1090,6 +949,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 25
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 27
+            },
+            "athletics": {
+                "base": 28
+            },
+            "intimidation": {
+                "base": 26,
+                "special": [
+                    {
+                        "base": 28,
+                        "label": "to Demoralize",
+                        "predicate": [
+                            "action:demoralize"
+                        ]
+                    }
+                ]
+            },
+            "religion": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 25
             }
         },
         "traits": {

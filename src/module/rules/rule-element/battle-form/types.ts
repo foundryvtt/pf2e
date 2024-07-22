@@ -1,5 +1,5 @@
-import type { CreatureTrait, SenseAcuity, SenseType, SkillAbbreviation } from "@actor/creature/index.ts";
-import type { AttributeString, MovementType } from "@actor/types.ts";
+import type { CreatureTrait, SenseAcuity, SenseType } from "@actor/creature/index.ts";
+import type { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { BaseWeaponType, WeaponCategory, WeaponGroup, WeaponTrait } from "@item/weapon/types.ts";
 import type { Size } from "@module/data.ts";
@@ -48,7 +48,7 @@ interface BattleFormSkill {
 }
 
 type BattleFormSenses = { [K in SenseType]?: BattleFormSense };
-type BattleFormSkills = { [K in SkillAbbreviation]?: BattleFormSkill };
+type BattleFormSkills = { [K in SkillSlug]?: BattleFormSkill };
 type BattleFormSpeeds = { [K in MovementType]?: number };
 
 interface BattleFormStrike {

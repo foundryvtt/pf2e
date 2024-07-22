@@ -1,0 +1,108 @@
+{
+    "_id": "oYsyrS2hNqnAR4uy",
+    "img": "systems/pf2e/icons/default-icons/weapon.svg",
+    "name": "Constricting Meteor",
+    "system": {
+        "baseItem": "meteor-hammer",
+        "bonus": {
+            "value": 0
+        },
+        "bonusDamage": {
+            "value": 0
+        },
+        "bulk": {
+            "value": 2
+        },
+        "category": "martial",
+        "containerId": null,
+        "damage": {
+            "damageType": "bludgeoning",
+            "dice": 1,
+            "die": "d8"
+        },
+        "description": {
+            "value": "<p>The weights of this <em>+1 striking meteor hammer</em> are shaped like snake heads, and anaconda scales adorn the chain.</p><hr /><p><strong>Activate—Coiling Chain</strong> <span class=\"action-glyph\">1</span> (concentrate)</p>\n<p><strong>Requirements</strong> Your last action was a successful melee Strike or @UUID[Compendium.pf2e.actionspf2e.Item.Trip] with the <em>constricting meteor</em></p>\n<p><strong>Effect</strong> The chain of the meteor hammer wraps around the target and squeezes. Attempt an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] the creature with a +1 item bonus. In addition to being @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] on a success, the target takes @Damage[(1d10+7)[bludgeoning]] damage.</p><hr /><p><strong>Craft Requirements</strong> The initial raw materials must include the scales of a giant anaconda.</p>"
+        },
+        "group": "flail",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 8
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 450
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "range": null,
+        "reload": {
+            "value": null
+        },
+        "rules": [
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ConstrictingMeteor.CoilingChainLabel",
+                "option": "coiling-chain",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:grapple",
+                    "coiling-chain"
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "striking": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "striking": 1
+            }
+        },
+        "splashDamage": {
+            "value": 0
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "backswing",
+                "disarm",
+                "magical",
+                "reach",
+                "trip"
+            ]
+        },
+        "usage": {
+            "value": "held-in-two-hands"
+        }
+    },
+    "type": "weapon"
+}

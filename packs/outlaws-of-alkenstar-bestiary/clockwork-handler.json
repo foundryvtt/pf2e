@@ -520,61 +520,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "4gjfpv2h3f5yna53",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:grapple",
-                                    "action:disarm"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    },
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrappleAvoidDisarm",
-                        "predicate": [
-                            "action:disarm"
-                        ],
-                        "selector": "reflex",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+9 to Disarm, Grapple, or avoid being Disarmed",
-                        "options": "action:disarm,action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Clockwork Handler",
@@ -681,6 +626,25 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "to Disarm, Grapple, or avoid being Disarmed",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:grapple",
+                                    "action:disarm"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -109,7 +109,25 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "definition": [
+                            "origin:deity:slug:erastil"
+                        ],
+                        "key": "Weakness",
+                        "type": "custom",
+                        "value": 5
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "origin:deity:slug:erastil"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "circumstance",
+                        "value": -2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -186,7 +204,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rush"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -229,56 +263,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "fCqmiMQuoYOGjD84",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Cx8fpDZWifeQ4MGO",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Cursed Guardian",
@@ -372,6 +356,14 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 12
+            },
+            "survival": {
+                "base": 8
             }
         },
         "traits": {

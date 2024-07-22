@@ -24,7 +24,47 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:energy-ablation",
+                    {
+                        "or": [
+                            "item:trait:acid",
+                            "item:trait:cold",
+                            "item:trait:electricity",
+                            "item:trait:force",
+                            "item:trait:sonic",
+                            "item:trait:vitality",
+                            "item:trait:void"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.EnergyAblation"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "energy-ablation"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Energy Ablation",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Energy Ablation"

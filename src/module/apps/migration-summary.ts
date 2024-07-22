@@ -46,7 +46,6 @@ export class MigrationSummary extends Application<MigrationSummaryOptions> {
 
         const helpResourcesText = await TextEditor.enrichHTML(
             game.i18n.localize("PF2E.Migrations.Summary.HelpResources"),
-            { async: true },
         );
 
         return {

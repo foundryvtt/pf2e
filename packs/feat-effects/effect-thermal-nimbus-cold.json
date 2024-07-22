@@ -7,7 +7,7 @@
             "value": ""
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -34,6 +34,15 @@
                 ],
                 "type": "cold",
                 "value": "@actor.level + @item.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.kineticist.thermalNimbus",
+                "predicate": [
+                    "self:signature:{item|origin.signature}"
+                ],
+                "value": "cold"
             }
         ],
         "start": {

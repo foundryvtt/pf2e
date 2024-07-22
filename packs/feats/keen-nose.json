@@ -1,0 +1,53 @@
+{
+    "_id": "nkU7tWNTNaQKK1iU",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Keen Nose",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Accustomed to the foul air of underground tunnels, your sense of smell is sharpened, and noxious scents are less offensive. You gain scent as an imprecise sense with a range of 30 feet. You also gain a +1 circumstance bonus to Fortitude saves against olfactory effects that cause the sickened condition.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": 30,
+                "selector": "scent"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:olfactory",
+                    "inflicts:sickened"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "minotaur"
+            ]
+        }
+    },
+    "type": "feat"
+}

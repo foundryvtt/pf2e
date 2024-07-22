@@ -13,12 +13,13 @@ import type { PhysicalItemConstructionContext } from "@item/physical/document.ts
 import { IdentificationStatus, MystifiedData, RUNE_DATA, getPropertyRuneSlots } from "@item/physical/index.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import type { RangeData } from "@item/types.ts";
+import type { StrikeRuleElement } from "@module/rules/rule-element/strike.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { DAMAGE_DICE_FACES } from "@system/damage/values.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "./data.ts";
+import { processTwoHandTrait } from "./helpers.ts";
 import { WeaponTraitToggles } from "./trait-toggles.ts";
 import type {
     BaseWeaponType,
@@ -33,6 +34,9 @@ import { MANDATORY_RANGED_GROUPS, MELEE_ONLY_TRAITS, RANGED_ONLY_TRAITS, THROWN_
 
 class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     declare shield?: ShieldPF2e<TParent>;
+
+    /** The rule element that generated this weapon, if applicable */
+    declare rule?: StrikeRuleElement;
 
     static override get validTraits(): Record<NPCAttackTrait, string> {
         return CONFIG.PF2E.npcAttackTraits;
@@ -162,7 +166,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Does this weapon deal damage? */
     get dealsDamage(): boolean {
-        const { baseDamage } = this;
+        const baseDamage = this.baseDamage;
         return (
             baseDamage.dice > 0 ||
             baseDamage.modifier > 0 ||
@@ -399,7 +403,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         // Add traits from fundamental runes
         const hasRunes = runes.potency > 0 || runes.striking > 0 || runes.property.length > 0;
         const magicTrait = hasRunes && !traits.value.some((t) => setHasElement(MAGIC_TRADITIONS, t)) ? "magical" : null;
-        traits.value = R.uniq(R.compact([...traits.value, magicTrait]).sort());
+        traits.value = R.unique([...traits.value, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
 
         this.flags.pf2e.attackItemBonus = this.system.runes.potency || this.system.bonus.value || 0;
 
@@ -411,6 +417,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     /** Add the rule elements of this weapon's linked ammunition to its own list */
     override prepareSiblingData(): void {
         super.prepareSiblingData();
+
         // Set the default label to the ammunition item's name
         const ammoRules = this.ammo?.system.rules.map((r) => ({ label: this.ammo?.name, ...fu.deepClone(r) })) ?? [];
         this.system.rules.push(...ammoRules);
@@ -423,11 +430,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         traits.toggles.applyChanges();
 
         // Upgrade dice faces if a two-hand trait is present and applicable
-        const twoHandFaces = Number(traits.value.find((t) => t.startsWith("two-hand-d"))?.replace("two-hand-d", ""));
-        const diceFaces = Number(this.system.damage.die?.replace("d", ""));
-        if (this.handsHeld === 2 && tupleHasValue(DAMAGE_DICE_FACES, twoHandFaces) && twoHandFaces > diceFaces) {
-            this.system.damage.die = `d${twoHandFaces}`;
-        }
+        processTwoHandTrait(this);
     }
 
     override async getChatData(
@@ -437,11 +440,9 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const chatData = await super.getChatData();
         const rangeLabel = createActionRangeLabel(this.range);
-        const properties = R.compact([
-            CONFIG.PF2E.weaponCategories[this.category],
-            this.system.reload.label,
-            rangeLabel,
-        ]);
+        const properties = [CONFIG.PF2E.weaponCategories[this.category], this.system.reload.label, rangeLabel].filter(
+            R.isTruthy,
+        );
 
         return this.processChatData(htmlOptions, {
             ...chatData,
@@ -547,7 +548,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     /** Generate a melee item from this weapon for use by NPCs */
     toNPCAttacks(this: WeaponPF2e<NonNullable<TParent>>, { keepId = false } = {}): MeleePF2e<NonNullable<TParent>>[] {
-        const { actor } = this;
+        const actor = this.actor;
         if (!actor.isOfType("npc")) throw ErrorPF2e("Melee items can only be generated for NPCs");
 
         const baseDamage = ((): NPCAttackDamage => {
@@ -614,8 +615,8 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 .filter(
                     // Omitted traits include ...
                     (t) =>
-                        // Creature traits
-                        (["holy", "unholy"].includes(t) || !(t in CONFIG.PF2E.creatureTraits)) &&
+                        // Creature traits (unless coming from a Strike RE)
+                        (["holy", "unholy"].includes(t) || !!this.rule || !(t in CONFIG.PF2E.creatureTraits)) &&
                         // Thrown(-N) trait on melee attacks with thrown melee weapons
                         !(t.startsWith("thrown") && !this.isThrown) &&
                         // Finesse trait on thrown attacks with thrown melee weapons
@@ -649,7 +650,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
                 newTraits.push(reloadTrait);
             }
 
-            return R.uniq(newTraits).sort();
+            return R.unique(newTraits).sort();
         };
 
         const persistentDamage = ((): NPCAttackDamage | never[] => {
@@ -679,7 +680,6 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             type: "melee",
             system: {
                 slug: this.slug ?? sluggify(this._source.name),
-                weaponType: { value: this.isMelee ? "melee" : "ranged" },
                 bonus: {
                     // Unless there is a fixed attack modifier, give an attack bonus approximating a high-threat NPC
                     value: this.flags.pf2e.fixedAttack || Math.round(1.5 * this.actor.level + 7),
@@ -729,10 +729,10 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
 
     protected override _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         const traits = changed.system.traits ?? {};
         if ("value" in traits && Array.isArray(traits.value)) {
@@ -748,7 +748,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         if (changed.system.damage) {
             // Clamp `dice` to between 0 and 12
             if (changed.system.damage.dice !== undefined) {
-                changed.system.damage.dice = Math.clamped(Number(changed.system.damage.dice) || 0, 0, 12);
+                changed.system.damage.dice = Math.clamp(Number(changed.system.damage.dice) || 0, 0, 12);
             }
 
             // Null out empty `die`
@@ -757,12 +757,12 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             }
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 
     /** Remove links to this weapon from NPC attacks */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
 
         if (game.user.id === userId) {
             const updates =

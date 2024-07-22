@@ -1,10 +1,9 @@
 import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
-import { SAVE_TYPES, SKILL_DICTIONARY, SKILL_EXPANDED } from "@actor/values.ts";
+import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData } from "@item/base/data/system.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -24,10 +23,11 @@ import {
     objectHasKey,
     setHasElement,
     sluggify,
+    splitListString,
     tupleHasValue,
 } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
+import { ActionMacroHelpers } from "./action-macros/helpers.ts";
 import { DamagePF2e } from "./damage/damage.ts";
 import { DamageModifierDialog } from "./damage/dialog.ts";
 import { createDamageFormula } from "./damage/formula.ts";
@@ -42,7 +42,6 @@ import { DamageDamageContext, DamageFormulaData, SimpleDamageTemplate } from "./
 import { Statistic } from "./statistic/index.ts";
 
 const superEnrichHTML = TextEditor.enrichHTML;
-const superEnrichContentLinks = TextEditor._enrichContentLinks;
 const superCreateInlineRoll = TextEditor._createInlineRoll;
 const superOnClickInlineRoll = TextEditor._onClickInlineRoll;
 
@@ -71,25 +70,6 @@ class TextEditorPF2e extends TextEditor {
         }
 
         return Promise.resolve().then(async () => TextEditorPF2e.processUserVisibility(await enriched, options));
-    }
-
-    /**
-     * Upstream retrieves documents from UUID links sequentially, which has a noticable load time with text containing
-     * many links: retrieve every linked document at once beforehand with the faster `UUIDUtils.fromUUIDs` system helper
-     * so that subsequent calls to `fromUuid` finds all documents in caches.
-     */
-    static override _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean> {
-        if (options?.async) {
-            const documentTypes = [...CONST.DOCUMENT_LINK_TYPES, "Compendium", "UUID"];
-            const pattern = new RegExp(`@(${documentTypes.join("|")})\\[([^#\\]]+)(?:#([^\\]]+))?](?:{([^}]+)})?`, "g");
-            const uuids = text
-                .map((t) => Array.from((t.textContent ?? "").matchAll(pattern)))
-                .flat(2)
-                .filter((m) => UUIDUtils.isCompendiumUUID(m));
-            return UUIDUtils.fromUUIDs(uuids).then(() => superEnrichContentLinks.apply(this, [text, options]));
-        }
-
-        return superEnrichContentLinks.apply(this, [text, options]);
     }
 
     /** Replace core static method to conditionally handle parsing of inline damage rolls */
@@ -178,12 +158,12 @@ class TextEditorPF2e extends TextEditor {
         const baseFormula = anchor.dataset.baseFormula;
         if (baseFormula) {
             const item = rollData.item instanceof ItemPF2e ? rollData.item : null;
-            const traits = anchor.dataset.traits?.split(",") ?? [];
+            const traits = splitListString(anchor.dataset.traits ?? "");
             const overrideTraits = "overrideTraits" in anchor.dataset;
             const immutable = "immutable" in anchor.dataset;
-            const rollOptions = anchor.dataset.rollOptions?.split(",") ?? [];
-            const domains = anchor.dataset.domains?.split(",") ?? [];
-            const extraRollOptions = R.uniq(R.compact([...traits, ...rollOptions]));
+            const rollOptions = splitListString(anchor.dataset.rollOptions ?? "");
+            const domains = splitListString(anchor.dataset.domains ?? "");
+            const extraRollOptions = R.unique([...traits, ...rollOptions]).filter(R.isTruthy);
 
             const args = await augmentInlineDamageRoll(baseFormula, {
                 ...eventToRollParams(event, { type: "damage" }),
@@ -230,7 +210,7 @@ class TextEditorPF2e extends TextEditor {
 
     static processUserVisibility(content: string, options: EnrichmentOptionsPF2e): string {
         const html = createHTMLElement("div", { innerHTML: content });
-        const document = options.rollData?.actor ?? null;
+        const document = options.rollData?.actor ?? options.relativeTo;
         UserVisibilityPF2e.process(html, { document });
 
         return html.innerHTML;
@@ -256,7 +236,7 @@ class TextEditorPF2e extends TextEditor {
             case "Localize":
                 return this.#localize(paramString, options);
             case "Template":
-                return this.#createTemplate(paramString, inlineLabel, item?.system);
+                return this.#createTemplate(paramString, inlineLabel, item);
             default:
                 return null;
         }
@@ -303,12 +283,12 @@ class TextEditorPF2e extends TextEditor {
             return null;
         }
         const result = document.createElement("span");
-        result.innerHTML = await TextEditor.enrichHTML(content, { ...options, async: true });
+        result.innerHTML = await TextEditor.enrichHTML(content, options);
         return result;
     }
 
     /** Create inline template button from @template command */
-    static #createTemplate(paramString: string, label?: string, itemData?: ItemSystemData): HTMLSpanElement | null {
+    static #createTemplate(paramString: string, label?: string, item?: ItemPF2e | null): HTMLSpanElement | null {
         // Get parameters from data
         const params = this.#parseInlineParams(paramString, { first: "type" });
         if (!params) return null;
@@ -336,7 +316,8 @@ class TextEditorPF2e extends TextEditor {
             return null;
         } else {
             // If no traits are entered manually use the traits from rollOptions if available
-            params.traits ||= itemData?.traits?.value?.toString() ?? "";
+            params.traits ||= item?.system.traits.value?.toString() ?? "";
+            params.itemUuid ||= item?.uuid ?? "";
 
             // If no button label is entered directly create default label
             if (!label) {
@@ -354,6 +335,7 @@ class TextEditorPF2e extends TextEditor {
             html.setAttribute("data-pf2-distance", params.distance);
             if (params.traits !== "") html.setAttribute("data-pf2-traits", params.traits);
             if (params.type === "line") html.setAttribute("data-pf2-width", params.width ?? "5");
+            if (params.itemUuid !== "") html.setAttribute("data-item-uuid", params.itemUuid);
             return html;
         }
         return null;
@@ -363,7 +345,7 @@ class TextEditorPF2e extends TextEditor {
         paramString: string,
         options: { first?: string } = {},
     ): Record<string, string | undefined> | null {
-        const parts = paramString.split("|");
+        const parts = splitListString(paramString, { delimiter: "|" });
         const result = parts.reduce(
             (result, part, idx) => {
                 if (idx === 0 && options.first && !part.includes(":")) {
@@ -411,7 +393,7 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // params
-        const params = options.split(/\s+/).reduce(
+        const params = splitListString(options, { delimiter: /\s+/ }).reduce(
             (result, option) => {
                 const [key, value] = option.split("=").map((s) => s.trim());
                 result[key] = value;
@@ -445,6 +427,7 @@ class TextEditorPF2e extends TextEditor {
         // attributes
         const aliases: Record<string, string> = {
             ["difficulty-class"]: "dc",
+            ["roll-options"]: "options",
             stat: "skill",
             statistic: "skill",
         };
@@ -478,12 +461,6 @@ class TextEditorPF2e extends TextEditor {
             const statistic = (params["statistic"] || params["stat"] || params["skill"])?.trim();
 
             if ((dc && showDC) || statistic) {
-                const STATISTIC_LABELS: Record<string, string> = {
-                    perception: "PF2E.PerceptionLabel",
-                    ...CONFIG.PF2E.saves,
-                    ...CONFIG.PF2E.skillList,
-                    unarmed: "PF2E.TraitUnarmed",
-                };
                 element.appendChild(document.createTextNode(" "));
 
                 const details = document.createElement("span");
@@ -495,7 +472,7 @@ class TextEditorPF2e extends TextEditor {
                     span.innerText = game.i18n.format("PF2E.InlineAction.Check.DC", { dc });
                     details.appendChild(span);
                     const suffix = statistic
-                        ? ` ${game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic})`
+                        ? ` ${ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic})`
                         : ")";
                     details.appendChild(document.createTextNode(suffix));
                 } else if (dc && showDC) {
@@ -504,13 +481,13 @@ class TextEditorPF2e extends TextEditor {
                     const text = statistic
                         ? game.i18n.format("PF2E.InlineAction.Check.StatisticVsDefense", {
                               defense,
-                              statistic: game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic,
+                              statistic: ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic,
                           })
                         : game.i18n.format("PF2E.InlineAction.Check.VsDefense", { defense });
                     details.innerText = `(${text})`;
                 } else if (statistic) {
                     // (Statistic)
-                    const text = game.i18n.localize(STATISTIC_LABELS[statistic] ?? "") || statistic;
+                    const text = ActionMacroHelpers.getSimpleCheckLabel(statistic) || statistic;
                     details.innerText = `(${text})`;
                 }
                 element.appendChild(details);
@@ -518,7 +495,10 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // traits
-        const traits = variant?.traits ?? action.traits;
+        const additionalTraits = splitListString(params["traits"] ?? "").filter(
+            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+        );
+        const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
         // traits as tooltip
         element.dataset["tooltip"] = traits
@@ -564,8 +544,8 @@ class TextEditorPF2e extends TextEditor {
 
         const basic = "basic" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
-        const rawTraits = rawParams.traits?.split(",").map((t) => t.trim()) ?? [];
-        const traits = R.uniq(R.compact(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value].flat()));
+        const rawTraits = splitListString(rawParams.traits ?? "");
+        const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value ?? []].flat());
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -578,24 +558,23 @@ class TextEditorPF2e extends TextEditor {
             traits,
             immutable: "immutable" in rawParams,
             // Set action slug, damaging effect for basic saves, and any parameterized options
-            extraRollOptions: R.compact([
-                ...(basic ? ["damaging-effect"] : []),
-                ...(rawParams.options?.split(",").map((t) => t.trim()) ?? []),
-            ]).sort(),
+            extraRollOptions: [...(basic ? ["damaging-effect"] : []), ...splitListString(rawParams.options ?? "")]
+                .filter(R.isTruthy)
+                .sort(),
             targetOwner: "targetOwner" in rawParams,
         };
 
-        const types = params.type.split(",");
-        let adjustments = params.adjustment?.split(",") ?? ["0"];
-
-        if (types.length !== adjustments.length && adjustments.length > 1) {
-            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
-            return null;
-        } else if (types.length > adjustments.length) {
-            adjustments = new Array(types.length).fill(adjustments[0]);
+        const types = splitListString(params.type, { unique: false });
+        const adjustments = splitListString(params.adjustment ?? "0", { unique: false });
+        for (let i = 0; i < types.length; i++) {
+            adjustments[i] ??= "0";
         }
 
-        if (adjustments.some((adj) => adj !== "" && isNaN(parseInt(adj)))) {
+        if (adjustments.length > types.length) {
+            ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.AdjustmentLengthMismatch"));
+            return null;
+        }
+        if (adjustments.some((adj) => !Number.isInteger(Math.trunc(Number(adj))))) {
             ui.notifications.warn(game.i18n.localize("PF2E.InlineCheck.Errors.NonIntegerAdjustment"));
             return null;
         }
@@ -657,31 +636,15 @@ class TextEditorPF2e extends TextEditor {
                 return params.basic ? localize("BasicWithSave", { save: saveName }) : saveName;
             }
 
-            switch (params.type) {
-                case "flat":
-                    return game.i18n.localize("PF2E.FlatCheck");
-                case "perception":
-                    return game.i18n.localize("PF2E.PerceptionLabel");
-                default: {
-                    // Skill or Lore
-                    const shortForm = (() => {
-                        if (objectHasKey(SKILL_EXPANDED, params.type)) {
-                            return SKILL_EXPANDED[params.type].shortForm;
-                        } else if (objectHasKey(SKILL_DICTIONARY, params.type)) {
-                            return params.type;
-                        }
-                        return;
-                    })();
-                    return shortForm
-                        ? game.i18n.localize(CONFIG.PF2E.skills[shortForm])
-                        : params.type
-                              .split("-")
-                              .map((word) => {
-                                  return word.slice(0, 1).toUpperCase() + word.slice(1);
-                              })
-                              .join(" ");
-                }
-            }
+            return (
+                ActionMacroHelpers.getSimpleCheckLabel(params.type) ??
+                params.type
+                    .split("-")
+                    .map((word) => {
+                        return word.slice(0, 1).toUpperCase() + word.slice(1);
+                    })
+                    .join(" ")
+            );
         })();
 
         const createLabel = (content: string): HTMLSpanElement =>
@@ -706,6 +669,10 @@ class TextEditorPF2e extends TextEditor {
         if (params.defense && params.dc) {
             anchor.dataset.tooltip = localize("Invalid", { message: localize("Errors.DCAndDefense") });
             anchor.dataset.invalid = "";
+        }
+
+        if (item?.uuid) {
+            anchor.dataset.itemUuid = item.uuid;
         }
 
         if (!["flat", "fortitude", "reflex", "will"].includes(params.type) && params.defense) {
@@ -755,7 +722,7 @@ class TextEditorPF2e extends TextEditor {
 
         const item = args.rollData?.item ?? null;
         const actor = args.rollData?.actor ?? item?.actor ?? null;
-        const domains = rawParams.domains?.split(",") ?? [];
+        const domains = splitListString(rawParams.domains ?? "");
 
         // Verify all custom domains are valid. Don't allow any valid domains, and don't attempt to sanitize
         if (domains.some((d) => !/^[a-z][-a-z0-9]+-damage$/.test(d))) {
@@ -766,13 +733,12 @@ class TextEditorPF2e extends TextEditor {
         const immutable = "immutable" in rawParams;
         const overrideTraits = "overrideTraits" in rawParams;
         const traits = ((): string[] => {
-            const fromParams = rawParams.traits?.split(",").flatMap((t) => t.trim() || []) ?? [];
+            const fromParams = splitListString(rawParams.traits ?? "");
             const fromItem = item?.system.traits?.value ?? [];
-            return overrideTraits ? fromParams : R.uniq([...fromParams, ...fromItem]);
+            return overrideTraits ? fromParams : R.unique([...fromParams, ...fromItem]);
         })();
 
-        const extraRollOptions = R.compact(rawParams.options?.split(",").map((t) => t.trim()) ?? []);
-
+        const extraRollOptions = splitListString(rawParams.options ?? "");
         const result = await augmentInlineDamageRoll(rawParams.formula, {
             skipDialog: true,
             immutable,
@@ -805,7 +771,9 @@ class TextEditorPF2e extends TextEditor {
         const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {
-            classes: R.compact(["inline-roll", "roll", baseFormula && baseFormula !== formula ? "altered" : null]),
+            classes: ["inline-roll", "roll", baseFormula && baseFormula !== formula ? "altered" : null].filter(
+                R.isTruthy,
+            ),
             children: [damageDiceIcon(roll), labelEl],
             dataset: {
                 formula: roll._formula,
@@ -839,16 +807,16 @@ class TextEditorPF2e extends TextEditor {
         if (!item?.isOfType("action", "feat") || !item.actionCost) return [];
 
         const slug = item.slug ?? sluggify(item.name);
-        const traits = R.uniq([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
+        const traits = R.unique([item.system.traits.value, extra.filter((t) => t in CONFIG.PF2E.actionTraits)].flat());
         const actionCost = item.actionCost.value;
 
-        return R.compact([
+        return [
             `action:${slug}`,
             `action:cost:${actionCost}`,
             `self:action:slug:${slug}`,
             `self:action:cost:${actionCost}`,
             ...traits.map((t) => `self:action:trait:${t}`),
-        ]);
+        ].filter(R.isTruthy);
     }
 }
 
@@ -863,9 +831,13 @@ function getCheckDC({
     item?: ItemPF2e | null;
     actor?: ActorPF2e | null;
 }): string {
-    const { dc, type } = params;
+    // Retrieve the base value and identify immutability.
+    // resolve() is usually a dc that we don't want to re-apply modifiers to.
+    const dc = params.dc;
+    const resolvable = !!dc && dc.startsWith("resolve") && !!(item || actor);
+    const immutable = params.immutable || resolvable;
     const base = (() => {
-        if (dc?.startsWith("resolve") && (item || actor)) {
+        if (resolvable) {
             const resolve = dc.match(/resolve\((.+?)\)$/);
             const value = resolve && resolve?.length > 0 ? resolve[1] : "";
             const saferEval = (resolveString: string): number => {
@@ -881,37 +853,29 @@ function getCheckDC({
         return Number(dc) || null;
     })();
 
-    if (!base) return "0";
+    // Apply modifiers if this item is mutable
+    if (base && actor && !immutable) {
+        const idDomain = item ? `${item.id}-inline-dc` : null;
+        const slugDomain = `${sluggify(name)}-inline-dc`;
+        const domains = ["inline-dc", idDomain, slugDomain].filter(R.isTruthy);
+        const { synthetics } = actor;
+        const modifier = new ModifierPF2e({
+            slug: "base",
+            label: "PF2E.ModifierTitle",
+            modifier: base - 10,
+            adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, domains, "base"),
+        });
+        const stat = new Statistic(actor, {
+            slug: params.type,
+            label: name,
+            domains,
+            modifiers: [modifier],
+        });
 
-    const getStatisticValue = (selectors: string[]): string => {
-        if (actor && !params.immutable) {
-            const { synthetics } = actor;
-            const modifier = new ModifierPF2e({
-                slug: "base",
-                label: "PF2E.ModifierTitle",
-                modifier: base - 10,
-                adjustments: extractModifierAdjustments(synthetics.modifierAdjustments, selectors, "base"),
-            });
-            const stat = new Statistic(actor, {
-                slug: type,
-                label: name,
-                domains: selectors,
-                modifiers: [modifier],
-            });
-
-            return String(stat.dc.value);
-        }
-        return base.toString();
-    };
-
-    const idDomain = item ? `${item.id}-inline-dc` : null;
-    const slugDomain = `${sluggify(name)}-inline-dc`;
-    if (type === "flat") {
-        return params.immutable ? base.toString() : getStatisticValue(R.compact(["inline-dc", idDomain, slugDomain]));
-    } else {
-        const selectors = R.compact(["all", "inline-dc", idDomain, slugDomain]);
-        return getStatisticValue(selectors);
+        return String(stat.dc.value);
     }
+
+    return base?.toString() ?? "0";
 }
 
 /** Given a damage formula, augments it with modifiers and damage dice for inline rolls */
@@ -934,15 +898,15 @@ async function augmentInlineDamageRoll(
 
         const domains = immutable
             ? []
-            : R.compact(
-                  [
-                      kinds,
-                      kinds.map((k) => `inline-${k}`),
-                      item ? kinds.map((k) => `${item.id}-inline-${k}`) : null,
-                      item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
-                      options.domains,
-                  ].flat(),
-              );
+            : [
+                  kinds,
+                  kinds.map((k) => `inline-${k}`),
+                  item ? kinds.map((k) => `${item.id}-inline-${k}`) : null,
+                  item ? kinds.map((k) => `${sluggify(item.slug ?? item.name)}-inline-${k}`) : null,
+                  options.domains,
+              ]
+                  .flat()
+                  .filter(R.isTruthy);
 
         const rollOptions = new Set([
             ...(actor?.getRollOptions(domains) ?? []),
@@ -962,7 +926,9 @@ async function augmentInlineDamageRoll(
             firstBase.terms?.push({ dice: null, modifier: actor.isElite ? value : -value });
         }
         if (item?.isOfType("physical")) {
-            firstBase.materials = R.uniq(R.compact([item.material.effects, firstBase.materials].flat()).sort());
+            firstBase.materials = R.unique([item.material.effects, firstBase.materials].flat())
+                .filter(R.isTruthy)
+                .sort();
         }
 
         const { modifiers, dice } = (() => {
@@ -985,7 +951,6 @@ async function augmentInlineDamageRoll(
             modifiers,
             dice,
             kinds: new Set(kinds),
-            ignoredResistances: [],
         };
 
         const isAttack = !!traits?.includes("attack");

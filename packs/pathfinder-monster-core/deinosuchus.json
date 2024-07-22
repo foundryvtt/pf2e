@@ -247,74 +247,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "WBQvX7hirDPTbeyB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "kwfQBdNFEco6T8zy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Water",
-                        "predicate": [
-                            "terrain:water"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+20 in water",
-                        "options": "terrain:water"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Deinosuchus",
@@ -405,6 +337,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 20
+            },
+            "stealth": {
+                "base": 16,
+                "special": [
+                    {
+                        "base": 20,
+                        "label": "in water",
+                        "predicate": [
+                            "terrain:water"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

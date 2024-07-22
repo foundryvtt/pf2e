@@ -5,11 +5,7 @@
             <dt>{{localize "PF2E.BrowserSortyByLabel"}}:</dt>
             <dd>
                 <select class="order">
-                    {{#select filterData.order.by}}
-                        {{#each filterData.order.options as |label type|}}
-                            <option value="{{type}}">{{localize label}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions filterData.order.options selected=filterData.order.by localize=true}}
                 </select>
                 <a class="direction" data-type="alpha" data-direction="{{filterData.order.direction}}">
                     {{#if (eq filterData.order.direction "asc")}}
@@ -32,12 +28,7 @@
             <dl class="{{type}}">
                 <dt>{{localize selectData.label}}:</dt>
                 <dd><select name="{{type}}">
-                    {{#select selectData.selected}}
-                        <option value="">-</option>
-                        {{#each selectData.options as |option key|}}
-                            <option value="{{key}}">{{option}}</option>
-                        {{/each}}
-                    {{/select}}
+                    {{selectOptions selectData.options selected=selectData.selected blank="-"}}
                 </select></dd>
             </dl>
         {{/each}}

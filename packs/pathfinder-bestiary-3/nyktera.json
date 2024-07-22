@@ -477,10 +477,49 @@
             "type": "melee"
         },
         {
+            "_id": "mLCG2bUShBTiioe0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to  Seek creatures using hearing",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:seek",
+                            "item:trait:auditory"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": "seek-creatures-using-hearing",
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "5SZG9rr8f11whg0x",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Speak with Bats",
-            "sort": 700000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -510,7 +549,7 @@
             "_id": "j2EwWhmaQSWT0Ktw",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Wrath of Spurned Hospitality",
-            "sort": 800000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -535,81 +574,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "6HrmGl0bXFrpdHRn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "o1OTsEVGfBG77tDn",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "l0tiHFLqgAq6tBXS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Nyktera",
@@ -688,7 +652,7 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "",
+            "details": "(+8 to Seek creatures using hearing)",
             "mod": 6,
             "senses": [
                 {
@@ -714,6 +678,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "diplomacy": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 5
             }
         },
         "traits": {

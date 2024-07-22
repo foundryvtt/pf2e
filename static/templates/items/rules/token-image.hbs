@@ -1,15 +1,14 @@
 <div class="form-group">
     <label for="{{fieldIdPrefix}}value" class="short">{{localize fields.value.label}}</label>
-    {{{form.resolvableValue "value" fileInput=true}}}
-    {{{form.resolvableAddBracket "value"}}}
+    <div class="form-fields">
+        <file-picker id="{{fieldIdPrefix}}value" name="{{basePath}}.value" value="{{rule.value}}" type="imagevideo"></file-picker>
+    </div>
 </div>
-
-{{{form.resolvableBrackets "value"}}}
 
 <div class="form-group">
     <label for="{{fieldIdPrefix}}tint" class="short">{{localize fields.tint.label}}</label>
     <div class="form-fields">
-        {{colorPicker name=(concat "system.rules." index ".tint") id=(concat fieldIdPrefix "tint") value=object.tint}}
+        <color-picker name="{{concat "system.rules." index ".tint"}}" id="{{concat fieldIdPrefix "tint"}}" value="{{object.tint}}"></color-picker>
     </div>
 </div>
 

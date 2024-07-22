@@ -46,42 +46,50 @@ declare abstract class InteractionLayer extends CanvasLayer {
 
     /**
      * Handle left mouse-click events which originate from the Canvas stage.
-     * @see {@link Canvas._onClickLeft}
+     * @see {@link Canvas.#onClickLeft}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
     protected _onClickLeft(event: PIXI.FederatedPointerEvent): void;
 
     /**
      * Handle double left-click events which originate from the Canvas stage.
-     * @see {@link Canvas._onClickLeft2}
+     * @see {@link Canvas.#onClickLeft2}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
     protected _onClickLeft2(event: PIXI.FederatedPointerEvent): void;
 
     /**
+     * Does the User have permission to left-click drag on the Canvas?
+     * @param user      The User performing the action.
+     * @param event     The event object.
+     * @protected
+     */
+    protected _canDragLeftStart(user: User, event: PIXI.FederatedEvent): boolean;
+
+    /**
      * Start a left-click drag workflow originating from the Canvas stage.
-     * @see {@link Canvas._onDragLeftStart}
+     * @see {@link Canvas.#onDragLeftStart}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
-    protected _onDragLeftStart(event: PIXI.FederatedPointerEvent): Promise<object | void>;
+    protected _onDragLeftStart(event: PIXI.FederatedPointerEvent): object | void;
 
     /**
      * Continue a left-click drag workflow originating from the Canvas stage.
-     * @see {@link Canvas._onDragLeftMove}
+     * @see {@link Canvas.#onDragLeftMove}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
     protected _onDragLeftMove(event: PIXI.FederatedPointerEvent): void;
 
     /**
      * Conclude a left-click drag workflow originating from the Canvas stage.
-     * @see {@link Canvas._onDragLeftDrop}
+     * @see {@link Canvas.#onDragLeftDrop}
      * @param event The PIXI InteractionEvent which wraps a PointerEvent
      */
-    protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): Promise<void>;
+    protected _onDragLeftDrop(event: PIXI.FederatedPointerEvent): void;
 
     /**
      * Cancel a left-click drag workflow originating from the Canvas stage.
-     * @see {@link Canvas._onDragLeftDrop}
+     * @see {@link Canvas.#onDragLeftDrop}
      * @param event A right-click pointer event on the document.
      */
     protected _onDragLeftCancel(event: PIXI.FederatedPointerEvent): void;

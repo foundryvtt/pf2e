@@ -384,12 +384,6 @@
                 },
                 "rules": [
                     {
-                        "appearance": {
-                            "border": {},
-                            "highlight": {
-                                "color": "#4f28cc"
-                            }
-                        },
                         "effects": [
                             {
                                 "includesSelf": false,
@@ -617,100 +611,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "zvCnlj9cYMDoqKJv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "LWL5lN3X8kkNshKw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9GL1eVzD0UDsXASu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Undergrowth",
-                        "predicate": [
-                            "terrain:undergrowth"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+9 in undergrowth",
-                        "options": "terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Red-Hooded Thatchling",
@@ -846,6 +746,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 8
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "deception": {
+                "base": 8
+            },
+            "stealth": {
+                "base": 7,
+                "special": [
+                    {
+                        "base": 9,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

@@ -1,0 +1,67 @@
+{
+    "_id": "8Mej6lV95XkJgdHY",
+    "img": "systems/pf2e/icons/default-icons/background.svg",
+    "name": "Always Chosen Last",
+    "system": {
+        "boosts": {
+            "0": {
+                "value": [
+                    "int",
+                    "wis"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha",
+                    "con",
+                    "dex",
+                    "int",
+                    "str",
+                    "wis"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p>When you were young, for whatever reason, you were always the last pick when it came to choosing teammates for a game, selecting someone for an important job, or the final person in your social circle to achieve an important milestone. As a result, you've come to expect being overlooked, and that's helped to shape your worldview. Maybe you take advantage of this to get away with things that no one would suspect you of, or perhaps it has encouraged you to focus on your training and become even better at what you do. Nothing's worked, exactly, but that's just left you with more time to watch and learn how everyone else behaves, which has given you greater insights into the societies that always seem to forget about you. You've studied the rules of countless games and competitions so that you're always ready to capitalize on a technicality to make up for being regarded as a weak link. When you do succeed at a task, it's often to the surprise of observers, and it's happened enough by now that there are those who, perhaps as a result of also always being chosen last, have come to view you as an inspiration to look up to.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Society skill and the Games Lore skill. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Streetwise] skill feat.</p>\n<p>If you have the Underdog persona trait, you also become trained in the Scouting Lore skill.</p>"
+        },
+        "items": {
+            "QP1vr": {
+                "img": "icons/sundries/books/book-red-exclamation.webp",
+                "level": 1,
+                "name": "Streetwise",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Streetwise"
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Curtain Call Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "feature:persona-trait"
+                    }
+                ],
+                "uuid": "Compendium.pf2e.campaign-effects.Item.Persona Trait"
+            }
+        ],
+        "trainedSkills": {
+            "lore": [
+                "Games Lore"
+            ],
+            "value": [
+                "society"
+            ]
+        },
+        "traits": {
+            "rarity": "rare",
+            "value": [
+                "persona-underdog"
+            ]
+        }
+    },
+    "type": "background"
+}

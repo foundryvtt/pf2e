@@ -32,15 +32,6 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         return createCounteractStatistic(this as SpellcastingEntryPF2e<ActorPF2e>);
     }
 
-    /** @deprecated */
-    get ability(): AttributeString {
-        fu.logCompatibilityWarning(
-            "`SpellcastingEntryPF2e#ability` is deprecated. Use `SpellcastingEntryPF2e#attribute` instead.",
-            { since: "5.3.0", until: "6.0.0" },
-        );
-        return this.attribute;
-    }
-
     /** This entry's magic tradition, null if the spell's tradition should be used instead */
     get tradition(): MagicTradition | null {
         const defaultTradition = this.system.prepared.value === "items" ? null : "arcane";
@@ -110,7 +101,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 const emptyList = isFlexible && key !== "slot0";
                 group.prepared = emptyList
                     ? []
-                    : R.sortBy(R.compact(Object.values(group.prepared)), (s) => s.id === null);
+                    : R.sortBy(Object.values(group.prepared).filter(R.isTruthy), (s) => s.id === null);
                 group.prepared.length = emptyList ? 0 : group.max;
                 for (const index of Array.fromRange(group.prepared.length)) {
                     const slot = (group.prepared[index] ??= { id: null, expended: false });
@@ -308,8 +299,16 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
         // For prepared spells, we deduct the slot. We use the given one or try to find a good match
         if (this.isPrepared && !this.isFlexible) {
             const slots = this.system.slots[slotKey].prepared;
-            const resolvedIndex = slotIndex ?? slots.findIndex((s) => s.id === spell.id && !s.expended);
-            if (!Number.isInteger(resolvedIndex)) {
+            const resolvedIndex = ((): number | null => {
+                if (typeof slotIndex === "number" && slotIndex >= 0 && slots[slotIndex]) {
+                    return slotIndex;
+                }
+                const unexpendedIndex = slots.findIndex((s) => s.id === spell.id && !s.expended);
+                if (unexpendedIndex > -1) return unexpendedIndex;
+                const expendedIndex = slots.findIndex((s) => s.id === spell.id);
+                return expendedIndex > -1 ? expendedIndex : null;
+            })();
+            if (resolvedIndex === null) {
                 throw ErrorPF2e("Slot not given for prepared spell, and no alternative slot was found");
             }
             if (slots[resolvedIndex].expended) {
@@ -422,7 +421,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<TParent>,
+        options: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         // Clamp slot updates
@@ -437,7 +436,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
                 }
                 if ("value" in slotData) {
                     const max = "max" in slotData ? Number(slotData?.max) || 0 : this.system.slots[slotKey].max;
-                    slotData.value = Math.clamped(Number(slotData.value), 0, max);
+                    slotData.value = Math.clamp(Number(slotData.value), 0, max);
                 }
             }
         }

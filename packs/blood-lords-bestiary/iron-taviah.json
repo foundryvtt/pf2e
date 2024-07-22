@@ -90,7 +90,7 @@
                 }
             },
             "img": "systems/pf2e/icons/spells/curse-of-lost-time.webp",
-            "name": "Curse Of Lost Time",
+            "name": "Curse of Lost Time",
             "sort": 300000,
             "system": {
                 "area": null,
@@ -473,7 +473,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1628,7 +1628,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>When the characters meet Iron Taviah, the Graveclaw is at the height of its power. As a scattered coven, the Graveclaw grants Taviah the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members:@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse Of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk].</p>"
+                    "value": "<p>When the characters meet Iron Taviah, the Graveclaw is at the height of its power. As a scattered coven, the Graveclaw grants Taviah the ability to cast the following spells as 3rd-rank occult spells, once per day each, without requiring help from her fellow coven members:@UUID[Compendium.pf2e.spells-srd.Item.Acid Arrow], @UUID[Compendium.pf2e.spells-srd.Item.Curse of Lost Time], @UUID[Compendium.pf2e.spells-srd.Item.Earthbind], @UUID[Compendium.pf2e.spells-srd.Item.Harm], @UUID[Compendium.pf2e.spells-srd.Item.Mimic Undead], @UUID[Compendium.pf2e.spells-srd.Item.Summon Construct], and @UUID[Compendium.pf2e.spells-srd.Item.Water Walk].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1678,222 +1678,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "JN6VSlrHDIjEAsku",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "n5d5od1O6okOuv05",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 3000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Grapple",
-                        "predicate": [
-                            "action:grapple"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 to Grapple",
-                        "options": "action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DmRJLoY4xytDflxm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 3100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "dXxwHkc1pzvooWxM",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 3200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "xTupthOxbiOzfBti",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 3300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "XMX4srAAMquFJ4Vm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 3400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "oihNLlzOfpdKVU8V",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 3500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "HNkPTew8W7AhLi7s",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 3600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Iron Taviah",
@@ -1994,6 +1778,41 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 11
+            },
+            "athletics": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "to Grapple",
+                        "predicate": [
+                            "action:grapple"
+                        ]
+                    }
+                ]
+            },
+            "crafting": {
+                "base": 13
+            },
+            "deception": {
+                "base": 11
+            },
+            "intimidation": {
+                "base": 11
+            },
+            "occultism": {
+                "base": 14
+            },
+            "religion": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 14
             }
         },
         "spellcasting": {

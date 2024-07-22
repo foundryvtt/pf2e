@@ -57,7 +57,9 @@ class ArmorStatistic<TActor extends ActorPF2e = ActorPF2e> extends Statistic<TAc
               })
             : null;
 
-        return R.compact([itemBonus, createShoddyPenalty(actor, armor, this.dc.domains), this.#createShieldBonus()]);
+        return [itemBonus, createShoddyPenalty(actor, armor, this.dc.domains), this.#createShieldBonus()].filter(
+            R.isTruthy,
+        );
     }
 
     #createShieldBonus(): ModifierPF2e | null {

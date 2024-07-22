@@ -1,0 +1,56 @@
+{
+    "_id": "1UPzQIIa4i1dsg68",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Coral Symbiotes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've tended to your coral jewelry so well that you have formed a symbiotic relationship with it. The powerful filtration properties of this coral protect you from impurities. You gain a +1 status bonus to saving throws against poisons, and your flat check to remove persistent poison damage is DC 10 instead of DC 15, which is reduced to DC 5 if another creature uses a particularly appropriate action to help. You must submerge yourself in water once every 24 hours to hydrate your coral or you lose the bonuses granted by the symbiotes.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:damage:type:poison"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "athamaru"
+            ]
+        }
+    },
+    "type": "feat"
+}

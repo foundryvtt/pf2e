@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> Abadar blesses all your enterprises, leading to financial success as all your ventures always seems to work out.</p>\n<p>If you roll a critical failure at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], you get a failure instead.</p>\n<p>If you roll a success on a check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], you earn twice the usual amount of income.</p>"
+            "value": "<p>Abadar blesses all your enterprises, leading to financial success as all your ventures always seems to work out.</p>\n<p>If you roll a critical failure at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Earn Income], you get a failure instead.</p>\n<p>If you roll a success on a check to Earn Income, you earn twice the usual amount of income.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,31 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "action:earn-income"
+                ],
+                "selector": "skill-check",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

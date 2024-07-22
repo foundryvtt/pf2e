@@ -1,18 +1,19 @@
-export {};
+import type { PointVisionSource } from "../../../client-esm/canvas/sources/module.ts";
+import type * as fields from "../../../common/data/fields.d.ts";
 
 declare global {
     /**
      * A Detection Mode which can be associated with any kind of sense/vision/perception.
      * A token could have multiple detection modes.
      */
-    class DetectionMode {
+    class DetectionMode extends foundry.abstract.DataModel<null, DetectionModeSchema> {
         id: string;
         label: string;
         tokenConfig: boolean;
         walls: boolean;
         type: DetectionType;
 
-        constructor(params: DetectionModeConstructionParams, context?: DocumentConstructionContext<null>);
+        static override defineSchema(): DetectionModeSchema;
 
         /** Get the detection filter pertaining to this mode. */
         static getDetectionFilter(): PIXI.Filter | undefined;
@@ -47,7 +48,7 @@ declare global {
          * @returns Is the test target visible?
          */
         testVisibility(
-            visionSource: VisionSource<Token>,
+            visionSource: PointVisionSource<Token>,
             mode: TokenDetectionMode,
             config?: CanvasVisibilityTestConfig,
         ): boolean;
@@ -59,7 +60,7 @@ declare global {
          * @param target       The target object being tested
          * @returns Can the target object theoretically be detected by this vision source?
          */
-        protected _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+        protected _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
 
         /**
          * Evaluate a single test point to confirm whether it is visible.
@@ -70,7 +71,7 @@ declare global {
          * @param test         The test case being evaluated
          */
         protected _testPoint(
-            visionSource: VisionSource<Token>,
+            visionSource: PointVisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
             test: CanvasVisibilityTest,
@@ -87,7 +88,22 @@ declare global {
          * @returns Is the LOS requirement satisfied for this test?
          */
         protected _testLOS(
-            visionSource: VisionSource<Token>,
+            visionSource: PointVisionSource<Token>,
+            mode: TokenDetectionMode,
+            target: PlaceableObject,
+            test: CanvasVisibilityTest,
+        ): boolean;
+
+        /**
+         * Test whether the target is within the vision angle.
+         * @param {VisionSource} visionSource       The vision source being tested
+         * @param {TokenDetectionMode} mode         The detection mode configuration
+         * @param {PlaceableObject} target          The target object being tested
+         * @param {CanvasVisibilityTest} test       The test case being evaluated
+         * @returns                       Is the point within the vision angle?
+         */
+        protected _testAngle(
+            visionSource: PointVisionSource,
             mode: TokenDetectionMode,
             target: PlaceableObject,
             test: CanvasVisibilityTest,
@@ -102,7 +118,7 @@ declare global {
          * @returns Is the target within range?
          */
         protected _testRange(
-            visionSource: VisionSource<Token>,
+            visionSource: PointVisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
             test: CanvasVisibilityTest,
@@ -110,15 +126,26 @@ declare global {
     }
 
     /**
-     * A special detection mode which models standard human vision.
+     * This detection mode tests whether the target is visible due to being illuminated by a light source.
+     * By default tokens have light perception with an infinite range if light perception isn't explicitely
+     * configured.
+     */
+    class DetectionModeLightPerception extends DetectionMode {
+        protected override _testPoint(
+            visionSource: PointVisionSource<Token>,
+            mode: TokenDetectionMode,
+            target: PlaceableObject,
+            test: CanvasVisibilityTest,
+        ): boolean;
+    }
+
+    /**
+     * A special detection mode which models a form of darkvision (night vision).
      * This mode is the default case which is tested first when evaluating visibility of objects.
-     * It is also a special case, in that it is the only detection mode which considers the area of distant light sources.
      */
     class DetectionModeBasicSight extends DetectionMode {
-        static override BASIC_MODE_ID: "basicSight";
-
         protected override _testPoint(
-            visionSource: VisionSource<Token>,
+            visionSource: PointVisionSource<Token>,
             mode: TokenDetectionMode,
             target: PlaceableObject,
             test: CanvasVisibilityTest,
@@ -134,7 +161,7 @@ declare global {
     class DetectionModeInvisibility extends DetectionMode {
         static override getDetectionFilter(): PIXI.Filter;
 
-        protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+        protected override _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
     }
 
     /**
@@ -143,7 +170,7 @@ declare global {
     class DetectionModeTremor extends DetectionMode {
         static override getDetectionFilter(): OutlineOverlayFilter;
 
-        protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+        protected override _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
     }
 
     /**
@@ -153,7 +180,7 @@ declare global {
     class DetectionModeAll extends DetectionMode {
         static override getDetectionFilter(): PIXI.Filter;
 
-        protected override _canDetect(visionSource: VisionSource<Token>, target: PlaceableObject): boolean;
+        protected override _canDetect(visionSource: PointVisionSource<Token>, target: PlaceableObject): boolean;
     }
 
     interface TokenDetectionMode {
@@ -161,19 +188,20 @@ declare global {
         id: string;
         /** Whether or not this detection mode is presently enabled */
         enabled: boolean;
-        /** The maximum range in distance units at which this mode can detect targets */
-        range: number;
+        /** The maximum range in distance units at which this mode can detect targets.
+         *  If null, the detection range is unlimited.
+         */
+        range: number | null;
     }
 
     type DetectionType = (typeof DetectionMode.DETECTION_TYPES)[keyof typeof DetectionMode.DETECTION_TYPES];
 }
 
-interface DetectionModeConstructionParams {
-    id: string;
-    label: string;
-    // If this DM is available in Token Config UI
-    tokenConfig?: boolean;
-    // If this DM is constrained by walls
-    walls?: boolean;
-    type?: DetectionType;
-}
+type DetectionModeSchema = {
+    id: fields.StringField;
+    label: fields.StringField;
+    tokenConfig: fields.BooleanField;
+    walls: fields.BooleanField;
+    angle: fields.BooleanField;
+    type: fields.NumberField;
+};

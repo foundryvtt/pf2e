@@ -38,6 +38,13 @@
                 margin-right: 0.5em;
             }
         }
+
+        a[data-action] {
+            flex: 0 0 auto;
+            line-height: 1.75em;
+            height: 1.75em;
+            margin-left: auto;
+        }
     }
 
     .rules {
@@ -155,6 +162,20 @@
             flex: 0 0 auto;
         }
 
+        span.units {
+            line-height: unset;
+        }
+
+        // Condense for RE form
+        color-picker {
+            gap: 0;
+            input[type="color"] {
+                height: var(--form-field-height);
+                flex: 0 0 var(--form-field-height);
+                padding: 0 1px;
+            }
+        }
+
         .content-link {
             display: flex;
             flex: 0 0 auto;
@@ -221,6 +242,7 @@
 
             .attachment,
             input,
+            tagify-tags,
             .tags {
                 z-index: 0;
 
@@ -247,11 +269,13 @@
                 border-radius: 3px 0 0 3px;
             }
 
-            .file-picker {
+            file-picker {
+                flex: 1;
                 line-height: unset;
             }
 
             input,
+            tagify-tags,
             tags {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
@@ -523,7 +547,7 @@
 
                             &[type="color"] {
                                 flex: 2;
-                                height: 94%;
+                                height: 1.5rem;
 
                                 &:disabled {
                                     background: rgba(black, 0.05);

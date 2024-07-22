@@ -3,12 +3,10 @@ import type { CharacterSheetPF2e } from "@actor/character/sheet.ts";
 import { RollInitiativeOptionsPF2e } from "@actor/data/index.ts";
 import { isReallyPC, resetActors } from "@actor/helpers.ts";
 import { InitiativeRollResult } from "@actor/initiative.ts";
-import { SkillLongForm } from "@actor/types.ts";
-import { SKILL_LONG_FORMS } from "@actor/values.ts";
+import { SkillSlug } from "@actor/types.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
-import { setHasElement } from "@util";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
 
@@ -53,7 +51,7 @@ class EncounterPF2e extends Combat {
             return inEncounter.length > 0 ? inEncounter : partyMembers;
         })();
 
-        const opposition = R.uniq(
+        const opposition = R.unique(
             this.combatants
                 .filter(
                     (c) =>
@@ -115,7 +113,7 @@ class EncounterPF2e extends Combat {
     override async createEmbeddedDocuments(
         embeddedName: "Combatant",
         data: PreCreate<foundry.documents.CombatantSource>[],
-        context: DocumentModificationContext<this> = {},
+        operation: Partial<DatabaseCreateOperation<this>> = {},
     ): Promise<CombatantPF2e<this, TokenDocumentPF2e<ScenePF2e>>[]> {
         const createData = data.filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
@@ -145,7 +143,7 @@ class EncounterPF2e extends Combat {
             return true;
         });
 
-        return super.createEmbeddedDocuments(embeddedName, createData, context) as Promise<
+        return super.createEmbeddedDocuments(embeddedName, createData, operation) as Promise<
             CombatantPF2e<this, TokenDocumentPF2e<ScenePF2e>>[]
         >;
     }
@@ -179,8 +177,7 @@ class EncounterPF2e extends Combat {
                       value: result.roll.total,
                       statistic:
                           result.roll.options.domains?.find(
-                              (s): s is SkillLongForm | "perception" =>
-                                  setHasElement(SKILL_LONG_FORMS, s) || s === "perception",
+                              (s): s is SkillSlug | "perception" => s in CONFIG.PF2E.skills || s === "perception",
                           ) ?? null,
                   }
                 : [],
@@ -234,13 +231,10 @@ class EncounterPF2e extends Combat {
      * `async` since this is usually called from CRUD hooks, which are called prior to encounter/combatant data resets
      */
     async resetActors(): Promise<void> {
-        const actors: ActorPF2e[] = R.uniq(
-            R.compact(
-                this.combatants.contents.flatMap((c) => [
-                    c.actor,
-                    c.actor?.isOfType("character") ? c.actor.familiar : null,
-                ]),
-            ),
+        const actors: ActorPF2e[] = R.unique(
+            this.combatants.contents
+                .flatMap((c) => [c.actor, c.actor?.isOfType("character") ? c.actor.familiar : null])
+                .filter(R.isTruthy),
         );
         resetActors(actors, { sheets: false, tokens: true });
     }
@@ -252,10 +246,10 @@ class EncounterPF2e extends Combat {
     /** Enable the initiative button on PC sheets */
     protected override _onCreate(
         data: this["_source"],
-        options: DocumentModificationContext<null>,
+        operation: DatabaseCreateOperation<null>,
         userId: string,
     ): void {
-        super._onCreate(data, options, userId);
+        super._onCreate(data, operation, userId);
 
         const pcSheets = Object.values(ui.windows).filter(
             (sheet): sheet is CharacterSheetPF2e<CharacterPF2e> => sheet.constructor.name === "CharacterSheetPF2e",
@@ -268,10 +262,10 @@ class EncounterPF2e extends Combat {
     /** Call onTurnStart for each rule element on the new turn's actor */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentModificationContext<null>,
+        operation: DatabaseUpdateOperation<null>,
         userId: string,
     ): void {
-        super._onUpdate(changed, options, userId);
+        super._onUpdate(changed, operation, userId);
 
         game.pf2e.StatusEffects.onUpdateEncounter(this);
 
@@ -321,8 +315,8 @@ class EncounterPF2e extends Combat {
     }
 
     /** Disable the initiative link on PC sheets if this was the only encounter */
-    protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<null>, userId: string): void {
+        super._onDelete(operation, userId);
 
         if (this.started) {
             Hooks.callAll("pf2e.endTurn", this.combatant ?? null, this, userId);
@@ -375,7 +369,7 @@ interface EncounterMetrics {
 interface SetInitiativeData {
     id: string;
     value: number;
-    statistic?: SkillLongForm | "perception" | null;
+    statistic?: SkillSlug | "perception" | null;
     overridePriority?: number | null;
 }
 

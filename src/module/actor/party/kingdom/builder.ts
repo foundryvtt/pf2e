@@ -145,16 +145,18 @@ class KingdomBuilder extends FormApplication<Kingdom> {
                     }
                 })();
 
+                const savedEntry = this.kingdom.build[category];
                 const result = {
                     selected,
                     active: getActiveForCategory(category),
                     buildEntry,
-                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link, { async: true }) : null,
-                    stale: !R.equals(buildEntry, this.kingdom.build[category]),
+                    featLink: featItem ? await TextEditor.enrichHTML(featItem.link) : null,
+                    stale:
+                        !buildEntry || !savedEntry ? buildEntry !== savedEntry : !R.isDeepEqual(buildEntry, savedEntry),
                 };
                 return [category, result];
             }),
-            (items) => Promise.all(items).then((result) => R.fromPairs(result)),
+            (items) => Promise.all(items).then((result) => R.fromEntries(result)),
         );
 
         const { build } = this.kingdom;
@@ -171,6 +173,10 @@ class KingdomBuilder extends FormApplication<Kingdom> {
             skillLabels: KINGDOM_SKILL_LABELS,
             build: this.#prepareAbilityBuilder(),
             finished,
+            aspirationOptions: [
+                { value: "fame", label: "PF2E.Kingmaker.Kingdom.Aspiration.fame" },
+                { value: "infamy", label: "PF2E.Kingmaker.Kingdom.Aspiration.infamy" },
+            ],
         };
     }
 
@@ -370,6 +376,7 @@ interface KingdomBuilderSheetData {
     skillLabels: Record<string, string>;
     build: KingdomAbilityBuilderData;
     finished: boolean;
+    aspirationOptions: FormSelectOption[];
 }
 
 interface CategorySheetData {

@@ -56,7 +56,7 @@ declare global {
         get appliedEffects(): ActiveEffect<this>[];
 
         /** An array of ActiveEffect instances which are present on the Actor which have a limited duration. */
-        get temporaryEffects(): TemporaryEffect[];
+        get temporaryEffects(): ActiveEffect<this>[];
 
         /** Return a reference to the TokenDocument which owns this Actor as a synthetic override */
         get token(): TParent;
@@ -137,6 +137,23 @@ declare global {
         }): Promise<Combat | null>;
 
         /**
+         * Toggle a configured status effect for the Actor.
+         * @param   statusId                A status effect ID defined in CONFIG.statusEffects
+         * @param   [options={}]            Additional options which modify how the effect is created
+         * @param   [options.active]        Force the effect to be active or inactive regardless of its current state
+         * @param   [options.overlay=false] Display the toggled effect as an overlay
+         * @returns A promise which resolves to one of the following values:
+         *                                 - ActiveEffect if a new effect need to be created
+         *                                 - true if was already an existing effect
+         *                                 - false if an existing effect needed to be removed
+         *                                 - undefined if no changes need to be made
+         */
+        toggleStatusEffect(
+            statusId: string,
+            options?: { active?: boolean; overlay?: boolean },
+        ): Promise<ActiveEffect<this> | boolean | void>;
+
+        /**
          * Request wildcard token images from the server and return them.
          * @param actorId   The actor whose prototype token contains the wildcard image path.
          * @param [options]
@@ -148,12 +165,49 @@ declare global {
         ): Promise<(ImageFilePath | VideoFilePath)[]>;
 
         /* -------------------------------------------- */
+        /*  Tokens                                      */
+        /* -------------------------------------------- */
+
+        /**
+         * Get this actor's dependent tokens.
+         * If the actor is a synthetic token actor, only the exact Token which it represents will be returned.
+         * @param [options]
+         * @param [options.scenes] A single Scene, or list of Scenes to filter by.
+         * @param [options.linked] Limit the results to tokens that are linked to the actor.
+         */
+        getDependentTokens(options?: {
+            scenes?: NonNullable<NonNullable<TParent>["parent"]> | NonNullable<NonNullable<TParent>["parent"]>[];
+            linked?: boolean;
+        }): NonNullable<TParent>[];
+
+        /**
+         * Register a token as a dependent of this actor.
+         * @param token  The token.
+         * @internal
+         */
+        _registerDependentToken(token: NonNullable<TParent>): void;
+
+        /**
+         * Remove a token from this actor's dependents.
+         * @param token The token.
+         * @internal
+         */
+        _unregisterDependentToken(token: NonNullable<TParent>): void;
+
+        /**
+         * Prune a whole scene from this actor's dependent tokens.
+         * @param scene  The scene.
+         * @internal
+         */
+        _unregisterDependentScene(scene: NonNullable<NonNullable<TParent>["parent"]>): void;
+
+        /* -------------------------------------------- */
         /*  Event Handlers                              */
         /* -------------------------------------------- */
 
         protected override _preCreate(
             data: this["_source"],
-            options: DocumentModificationContext<TParent>,
+            options: DatabaseCreateOperation<TParent>,
             user: User,
         ): Promise<boolean | void>;
 
@@ -170,7 +224,7 @@ declare global {
 
         protected override _onUpdate(
             changed: DeepPartial<this["_source"]>,
-            options: DocumentUpdateContext<TParent>,
+            options: DatabaseUpdateOperation<TParent>,
             userId: string,
         ): void;
 
@@ -179,7 +233,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             result: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseCreateOperation<this>,
             userId: string,
         ): void;
 
@@ -188,7 +242,7 @@ declare global {
             collection: "effects" | "items",
             documents: ActiveEffect<this>[] | Item<this>[],
             changes: ActiveEffect<this>["_source"][] | Item<this>["_source"][],
-            options: DocumentModificationContext<this>,
+            options: DatabaseUpdateOperation<this>,
             userId: string,
         ): void;
 
@@ -202,7 +256,7 @@ declare global {
          */
         protected _updateDependentTokens(
             update?: Record<string, unknown>,
-            options?: DocumentModificationContext<TParent>,
+            options?: DatabaseUpdateOperation<TParent>,
         ): void;
     }
 
@@ -213,8 +267,6 @@ declare global {
         get sheet(): ActorSheet<Actor>;
 
         get uuid(): ActorUUID;
-
-        get folder(): Folder<Actor<null>> | null;
     }
 
     namespace Actor {

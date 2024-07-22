@@ -101,7 +101,9 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
                 : null;
         const hasTraditionTraits = baseTraits.some((t) => setHasElement(MAGIC_TRADITIONS, t));
         const magicTrait = investedTrait && !hasTraditionTraits ? "magical" : null;
-        this.system.traits.value = R.uniq(R.compact([...baseTraits, investedTrait, magicTrait]).sort());
+        this.system.traits.value = R.unique([...baseTraits, investedTrait, magicTrait] as const)
+            .filter(R.isTruthy)
+            .sort();
     }
 
     override prepareDerivedData(): void {
@@ -127,13 +129,13 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
         this: ArmorPF2e<ActorPF2e>,
         htmlOptions: EnrichmentOptions = {},
     ): Promise<RawItemChatData> {
-        const properties = R.compact([
+        const properties = [
             CONFIG.PF2E.armorCategories[this.category],
             `${signedInteger(this.acBonus)} ${game.i18n.localize("PF2E.ArmorArmorLabel")}`,
             `${this.system.dexCap || 0} ${game.i18n.localize("PF2E.ArmorDexLabel")}`,
             `${this.system.checkPenalty || 0} ${game.i18n.localize("PF2E.ArmorCheckLabel")}`,
             this.speedPenalty ? `${this.system.speedPenalty} ${game.i18n.localize("PF2E.ArmorSpeedLabel")}` : null,
-        ]);
+        ].filter(R.isTruthy);
 
         return this.processChatData(htmlOptions, {
             ...(await super.getChatData()),
@@ -154,10 +156,10 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
     /** Ensure correct shield/actual-armor usage */
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: DocumentUpdateContext<TParent>,
+        operation: DatabaseUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
-        if (!changed.system) return super._preUpdate(changed, options, user);
+        if (!changed.system) return super._preUpdate(changed, operation, user);
 
         if (changed.system.acBonus !== undefined) {
             const integerValue = Math.floor(Number(changed.system.acBonus)) || 0;
@@ -179,7 +181,7 @@ class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Phy
             changed.system.speedPenalty = Math.min(0, integerValue);
         }
 
-        return super._preUpdate(changed, options, user);
+        return super._preUpdate(changed, operation, user);
     }
 }
 

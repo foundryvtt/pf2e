@@ -151,7 +151,7 @@ class ActionMacroHelpers {
                 } = await options.checkContext({
                     actor,
                     buildContext: (args) => {
-                        const combinedOptions = R.compact([args.rollOptions, options.traits].flat());
+                        const combinedOptions = [args.rollOptions, options.traits].flat().filter(R.isTruthy);
                         combinedOptions.push(...(args.item?.getRollOptions("item") ?? []));
                         return { item: args.item, rollOptions: combinedOptions.sort(), target: args.target };
                     },
@@ -321,6 +321,26 @@ class ActionMacroHelpers {
             return actor.system.actions.flatMap((s) => (s.ready && s.item.traits.has(trait) ? s.item : []));
         } else {
             return actor.itemTypes.weapon.filter((w) => w.isEquipped && w.traits.has(trait));
+        }
+    }
+
+    /** Attempts to get the label for the given statistic using a slug */
+    static getSimpleCheckLabel(slug: string): string | null {
+        switch (slug) {
+            case "flat":
+                return game.i18n.localize("PF2E.FlatCheck");
+            case "perception":
+                return game.i18n.localize("PF2E.PerceptionLabel");
+            case "unarmed":
+                return game.i18n.localize("PF2E.TraitUnarmed");
+            case "lore":
+                return game.i18n.localize("PF2E.SkillLore");
+            default: {
+                const saves: Record<string, string> = CONFIG.PF2E.saves;
+                const skills: Record<string, { label: string }> = CONFIG.PF2E.skills;
+                const label = saves[slug] ?? skills[slug]?.label;
+                return label ? game.i18n.localize(label) : null;
+            }
         }
     }
 

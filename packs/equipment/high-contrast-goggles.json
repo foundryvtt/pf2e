@@ -1,0 +1,65 @@
+{
+    "_id": "P8mILknZPnolGHQq",
+    "img": "icons/equipment/head/goggles-leather-grey.webp",
+    "name": "High-contrast Goggles",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Made with a brightly colored leather strap, these goggles have a series of overlapping lenses in an array of colors spanning the spectrum of visible light. The effect of this is that every color is more vibrant and similar shades have higher contrast. This means that shapes of even similar colors tend to stand out more, allowing the wearer to see even camouflage easier. As an Interact action, you can set the lenses to make things stand out at your current location. Until you move, you gain a +1 item bonus to Perception checks when you @UUID[Compendium.pf2e.actionspf2e.Item.Seek].</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 4
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 80
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "high-contrast-goggles",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:seek",
+                    "high-contrast-goggles"
+                ],
+                "selector": "perception",
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        },
+        "usage": {
+            "value": "worneyepiece"
+        }
+    },
+    "type": "equipment"
+}

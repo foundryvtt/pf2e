@@ -139,10 +139,12 @@
                 },
                 "rules": [],
                 "slug": "emissary",
-                "trainedLore": "<City> Lore",
                 "trainedSkills": {
+                    "lore": [
+                        "<City> Lore"
+                    ],
                     "value": [
-                        "soc"
+                        "society"
                     ]
                 },
                 "traits": {
@@ -196,7 +198,7 @@
                         "key": "ActiveEffectLike",
                         "mode": "add",
                         "path": "system.build.languages.max",
-                        "value": "ternary(eq(@actor.system.skills.soc.rank, 4), 2, ternary(eq(@actor.system.skills.soc.rank, 3), 1, 0))"
+                        "value": "ternary(eq(@actor.system.skills.society.rank, 4), 2, ternary(eq(@actor.system.skills.society.rank, 3), 1, 0))"
                     },
                     {
                         "key": "ActiveEffectLike",
@@ -386,7 +388,7 @@
                                     "value": 2
                                 }
                             ],
-                            "field": "actor|system.skills.thi.rank"
+                            "field": "actor|system.skills.thievery.rank"
                         }
                     },
                     {
@@ -410,7 +412,7 @@
                                     "value": 2
                                 }
                             ],
-                            "field": "actor|system.skills.thi.rank"
+                            "field": "actor|system.skills.thievery.rank"
                         }
                     },
                     {
@@ -434,7 +436,7 @@
                                     "value": 2
                                 }
                             ],
-                            "field": "actor|system.skills.thi.rank"
+                            "field": "actor|system.skills.thievery.rank"
                         }
                     }
                 ],
@@ -1756,7 +1758,7 @@
                 "trainedSkills": {
                     "additional": 7,
                     "value": [
-                        "ste"
+                        "stealth"
                     ]
                 },
                 "traits": {
@@ -2114,13 +2116,13 @@
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.skills.dip.rank",
+                        "path": "system.skills.diplomacy.rank",
                         "value": 1
                     },
                     {
                         "key": "ActiveEffectLike",
                         "mode": "upgrade",
-                        "path": "system.skills.dec.rank",
+                        "path": "system.skills.deception.rank",
                         "value": 1
                     },
                     {
@@ -2425,52 +2427,52 @@
             }
         },
         "skills": {
-            "acr": {
+            "acrobatics": {
                 "rank": 1
             },
-            "arc": {
+            "arcana": {
                 "rank": 1
             },
-            "ath": {
+            "athletics": {
                 "rank": 2
             },
-            "cra": {
+            "crafting": {
                 "rank": 0
             },
-            "dec": {
+            "deception": {
                 "rank": 2
             },
-            "dip": {
+            "diplomacy": {
                 "rank": 1
             },
-            "itm": {
+            "intimidation": {
                 "rank": 1
             },
-            "med": {
+            "medicine": {
                 "rank": 0
             },
-            "nat": {
+            "nature": {
                 "rank": 0
             },
-            "occ": {
+            "occultism": {
                 "rank": 0
             },
-            "prf": {
+            "performance": {
                 "rank": 1
             },
-            "rel": {
+            "religion": {
                 "rank": 0
             },
-            "soc": {
+            "society": {
                 "rank": 1
             },
-            "ste": {
+            "stealth": {
                 "rank": 1
             },
-            "sur": {
+            "survival": {
                 "rank": 0
             },
-            "thi": {
+            "thievery": {
                 "rank": 2
             }
         }

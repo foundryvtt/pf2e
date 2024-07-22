@@ -611,147 +611,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "4p3Ps6KhFpb54SrA",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "e7V8qN9iKUjmXiOQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5ZrdWBfV65W7ndVc",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8rIQwHfEs5bpfOCa",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.VsSleeping",
-                        "predicate": [
-                            "target:sleeping"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+19 against sleeping creatures",
-                        "options": "target:sleeping"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BRjn8bdoO737QBNU",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Dreamscraper",
@@ -866,6 +725,32 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 17
+            },
+            "athletics": {
+                "base": 13
+            },
+            "deception": {
+                "base": 13
+            },
+            "stealth": {
+                "base": 17,
+                "special": [
+                    {
+                        "base": 19,
+                        "label": "against sleeping creatures",
+                        "predicate": [
+                            "target:sleeping"
+                        ]
+                    }
+                ]
+            },
+            "thievery": {
+                "base": 15
             }
         },
         "traits": {

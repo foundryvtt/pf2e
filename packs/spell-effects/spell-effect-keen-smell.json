@@ -1,0 +1,43 @@
+{
+    "_id": "VzokjUa8RMYo5Id6",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Spell Effect: Keen Smell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Keen Smell]</p>\n<p>For the spell's duration, you gain scent as an imprecise sense.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "acuity": "imprecise",
+                "key": "Sense",
+                "range": "ternary(gte(@item.level,3),60,30)",
+                "selector": "scent"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

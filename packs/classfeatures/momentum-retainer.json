@@ -1,0 +1,59 @@
+{
+    "_id": "g9UMdKV1TxNdhpDO",
+    "img": "icons/skills/targeting/target-glowing-yellow.webp",
+    "name": "Momentum Retainer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Melee only</strong></p><hr /><p>A special weighted device lets your weapon retain more of its momentum when you attack. Your innovation gains the forceful and versatile B traits.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "forceful"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "versatile-b"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "melee",
+                "weapon-innovation-modification"
+            ],
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

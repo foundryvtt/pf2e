@@ -1,11 +1,20 @@
 <section class="dice-roll damage-roll" data-tooltip-class="pf2e">
     {{#if flavor}}<div class="dice-flavor">{{flavor}}</div>{{/if}}
     <div class="dice-result">
-        <div class="dice-formula"{{#unless showBreakdown}} data-visibility="gm"{{/unless}}>{{{formula}}}</div>
+        <div
+            class="dice-formula"
+            {{!-- Indicate to the GM that that breakdown is hidden --}}
+            {{#if (and (not showBreakdown) user.isGM)}}data-visibility="gm"{{/if}}
+            {{!-- Instead of removing the element for players, show a special "formula" --}}
+            >{{#if (or showBreakdown user.isGM)}}{{{formula}}}{{else}}???{{/if}}</div>
         {{{tooltip}}}
         {{#unless (and allPersistent (not persistentEvaluated))}}
             <h4 class="dice-total">
-                <span class="total"{{#if (isNumber increasedFrom)}} data-tooltip="{{localize "PF2E.Damage.IncreasedFrom" original=increasedFrom}}" data-tooltip-direction="LEFT"{{/if}}>{{total}}
+                <span
+                    class="total"{{#if (isNumber increasedFrom)}}
+                    data-tooltip="{{localize "PF2E.Damage.IncreasedFrom" original=increasedFrom}}" data-tooltip-direction="LEFT"{{/if}}
+                >
+                    {{~total}}
                     {{~#if (isNumber increasedFrom) ~}}
                         <span class="increased-from">*</span>
                     {{~/if~}}

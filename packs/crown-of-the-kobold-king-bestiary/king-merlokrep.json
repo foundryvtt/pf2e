@@ -1878,182 +1878,16 @@
             "type": "action"
         },
         {
-            "_id": "vvDao8WwTpaJ3kRp",
+            "_id": "GDkM7LI45g2jVpRj",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
+            "name": "Mining Lore",
             "sort": 2900000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "XUvgTPwkwnEQNsxw",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 3000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ntyO0yhSejklldP5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 3100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "D78iSXWuTf1Y1pHy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 3200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CraftTrap",
-                        "predicate": [
-                            "action:craft:trap"
-                        ],
-                        "selector": "crafting",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+16 traps",
-                        "options": "action:craft:trap"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ARx8LiTvVk1Zp1hX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 3300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "GDkM7LI45g2jVpRj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Mining Lore",
-            "sort": 3400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5iSKpNsz2qU2zyBV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 3500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
                 },
                 "proficient": {
                     "value": 0
@@ -2155,6 +1989,35 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "arcana": {
+                "base": 16
+            },
+            "athletics": {
+                "base": 16
+            },
+            "crafting": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 16,
+                        "label": "traps",
+                        "predicate": [
+                            "action:craft:trap"
+                        ]
+                    }
+                ]
+            },
+            "intimidation": {
+                "base": 20
+            },
+            "stealth": {
+                "base": 18
             }
         },
         "traits": {

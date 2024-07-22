@@ -10,7 +10,7 @@ export class Migration705GunslingerCatchUp extends MigrationBase {
         return (
             source.type === "feat" &&
             "featType" in source.system &&
-            R.isObject(source.system.featType) &&
+            R.isPlainObject(source.system.featType) &&
             source.system.featType.value === "classfeature"
         );
     }

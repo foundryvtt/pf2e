@@ -1,0 +1,83 @@
+{
+    "_id": "oYFeq5nbGKx7VfuF",
+    "img": "icons/magic/death/skull-poison-green.webp",
+    "name": "Venom Glands",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>Your salivary glands are modified to be capable of spraying a deadly venom. You gain a poison spray unarmed ranged attack with a range increment of 10 feet that deals 1d4 poison damage. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 55
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "poison",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/magic/death/skull-poison-green.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.VenomGlands.Label",
+                "range": {
+                    "increment": 10
+                },
+                "slug": "poison-spray",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|id}-damage",
+                "text": "PF2E.SpecificRule.VenomGlands.Note",
+                "title": "{item|name}"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "graft",
+                "invested",
+                "magical",
+                "poison"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

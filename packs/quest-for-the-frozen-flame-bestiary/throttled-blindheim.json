@@ -149,103 +149,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "ExnpIomBx2KO9JbJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "L0IZRmIosB8Icqo0",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 6
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.JumpOrSwim",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:long-jump",
-                                    "action:high-jump",
-                                    "action:swim"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+7 to Jump or Swim",
-                        "options": "action:swim,action:long-jump,action:high-jump"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "YkY9GmcZIaBLFWBy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Throttled Blindheim",
@@ -349,6 +252,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 6,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "to Jump or Swim"
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 7
             }
         },
         "traits": {

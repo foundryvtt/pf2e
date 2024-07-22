@@ -202,47 +202,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "HWoliZSTLItugTKi",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Shove",
-                        "predicate": [
-                            "action:shove"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+13 to Shove",
-                        "options": "action:shove"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Gelatinous Cube",
@@ -354,6 +313,20 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 11,
+                "special": [
+                    {
+                        "base": 13,
+                        "label": "to Shove",
+                        "predicate": [
+                            "action:shove"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

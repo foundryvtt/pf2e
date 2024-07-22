@@ -14,7 +14,7 @@ import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
-import { createSheetTags, maintainFocusInRender, processTagifyInSubmitData } from "@module/sheet/helpers.ts";
+import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
@@ -55,10 +55,10 @@ import type {
 } from "./data-types.ts";
 import { createBulkPerLabel, onClickCreateSpell } from "./helpers.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
-import { MoveLootPopup } from "./loot/move-loot-popup.ts";
 import { AddCoinsPopup } from "./popups/add-coins-popup.ts";
 import { CastingItemCreateDialog } from "./popups/casting-item-create-dialog.ts";
 import { IdentifyItemPopup } from "./popups/identify-popup.ts";
+import { ItemTransferDialog } from "./popups/item-transfer-dialog.ts";
 import { IWREditor } from "./popups/iwr-editor.ts";
 import { RemoveCoinsPopup } from "./popups/remove-coins-popup.ts";
 
@@ -88,7 +88,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const baseWidth = this.options.width;
         if (typeof baseWidth === "number") {
             const calculatedWidth = (baseWidth * game.settings.get("core", "fontSize")) / 5;
-            this.position.width &&= Math.floor(Math.clamped(calculatedWidth, 0.75 * baseWidth, 1024));
+            this.position.width &&= Math.floor(Math.clamp(calculatedWidth, 0.75 * baseWidth, 1024));
         }
     }
 
@@ -170,6 +170,10 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             totalWealthGold,
             traits: createSheetTags(traitsMap, { value: Array.from(this.actor.traits) }),
             user: { isGM: game.user.isGM },
+            publicationLicenses: [
+                { label: "PF2E.Publication.License.OGL", value: "OGL" },
+                { label: "PF2E.Publication.License.ORC", value: "ORC" },
+            ],
         };
 
         await this.prepareItems?.(sheetData);
@@ -206,6 +210,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             bulk: actor.inventory.bulk,
             showValueAlways: actor.isOfType("npc", "loot", "party"),
             showUnitBulkPrice: false,
+            hasStowedWeapons:
+                actor.itemTypes.weapon.some((i) => i.isStowed) || actor.itemTypes.shield.some((i) => i.isStowed),
             hasStowingContainers: actor.itemTypes.backpack.some((c) => c.system.stowing && !c.isInContainer),
             invested: actor.inventory.invested,
         };
@@ -225,7 +231,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
         return {
             item,
-            canBeEquipped: !item.isInContainer,
+            canBeEquipped: !item.isStowed,
             hasCharges: item.isOfType("consumable") && item.system.uses.max > 0,
             heldItems,
             isContainer: item.isOfType("backpack"),
@@ -497,12 +503,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "roll-check": (event, anchor) => {
                 const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
                 const statistic = this.actor.getStatistic(statisticSlug);
-                // Currently only used on NPC sheets for skill variants
-                const extraRollOptions = R.compact(anchor.dataset.options?.split(",").map((o) => o.trim()) ?? []);
-                const args: StatisticRollParameters = {
-                    ...eventToRollParams(event, { type: "check" }),
-                    extraRollOptions,
-                };
+                const args: StatisticRollParameters = eventToRollParams(event, { type: "check" });
                 if (anchor.dataset.secret !== undefined) {
                     args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
                 }
@@ -809,7 +810,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         // Avoid intercepting content-link drag targets
-        const isContentLink = event.target.classList.contains("content-link");
+        const isContentLink = event.target.dataset.link !== undefined && !!event.target.dataset.uuid;
         const isPersistent = "persistent" in event.target.dataset;
         if (event.target !== event.currentTarget && (isContentLink || isPersistent)) {
             return;
@@ -934,14 +935,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         if (item.actor && item.isOfType("physical")) {
-            await this.moveItemBetweenActors(
-                event,
-                item.actor.id,
-                item.actor?.token?.id ?? null,
-                this.actor.id,
-                this.actor.token?.id ?? null,
-                item.id,
-            );
+            await this.moveItemBetweenActors(event, item, this.actor);
             return [item];
         }
 
@@ -1112,56 +1106,42 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
      * @param targetActorId ID of the actor where the item will be stored.
      * @param itemId           ID of the item to move between the two actors.
      */
-    async moveItemBetweenActors(
-        event: DragEvent,
-        sourceActorId: string,
-        sourceTokenId: string | null,
-        targetActorId: string,
-        targetTokenId: string | null,
-        itemId: string,
-    ): Promise<void> {
-        const sourceActor = canvas.scene?.tokens.get(sourceTokenId ?? "")?.actor ?? game.actors.get(sourceActorId);
-        const targetActor = canvas.scene?.tokens.get(targetTokenId ?? "")?.actor ?? game.actors.get(targetActorId);
-        const item = sourceActor?.items.get(itemId);
-
+    async moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, targetActor: ActorPF2e): Promise<void> {
+        const sourceActor = item.actor;
         if (!sourceActor || !targetActor) {
             throw ErrorPF2e("Unexpected missing actor(s)");
         }
-        if (!item?.isOfType("physical")) {
-            throw ErrorPF2e("Missing or invalid item");
-        }
 
         const containerId = htmlClosest(event.target, "[data-is-container]")?.dataset.containerId?.trim();
-        const sourceItemQuantity = item.quantity;
         const stackable = !!targetActor.inventory.findStackableItem(item._source);
-        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant && !sourceActor.isOwner;
-        const isAmmunition = item.isOfType("consumable") && item.isAmmo;
+        const isPurchase = sourceActor.isOfType("loot") && sourceActor.isMerchant;
 
         // If more than one item can be moved, show a popup to ask how many to move
-        if (sourceItemQuantity > 1) {
-            const defaultQuantity = isPurchase
-                ? isAmmunition
-                    ? Math.min(10, sourceItemQuantity)
-                    : 1
-                : sourceItemQuantity;
-            const popup = new MoveLootPopup(
-                sourceActor,
-                { quantity: { max: sourceItemQuantity, default: defaultQuantity }, lockStack: !stackable, isPurchase },
-                (quantity, newStack) => {
-                    sourceActor.transferItemToActor(targetActor, item, quantity, containerId, newStack);
-                },
-            );
+        const result = await new ItemTransferDialog(item, {
+            targetActor,
+            lockStack: !stackable,
+            isPurchase,
+        }).resolve();
 
-            popup.render(true);
-        } else {
-            sourceActor.transferItemToActor(targetActor, item, 1, containerId);
+        if (result !== null) {
+            sourceActor.transferItemToActor(
+                targetActor,
+                item as PhysicalItemPF2e<ActorPF2e>,
+                result.quantity,
+                containerId,
+                result.newStack,
+                result.isPurchase,
+            );
         }
     }
 
     /** Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset */
     #onClickCreateItem(anchor: HTMLElement): void {
         const dataset = { ...anchor.dataset };
-        const itemType = R.compact([dataset.type ?? dataset.types?.split(",")].flat()).find((t) => t !== "shield");
+        const itemType = [dataset.type ?? dataset.types?.split(",")]
+            .flat()
+            .filter(R.isTruthy)
+            .find((t) => t !== "shield");
         if (!objectHasKey(CONFIG.PF2E.Item.documentClasses, itemType)) {
             throw ErrorPF2e(`Unrecognized item type: types`);
         }
@@ -1182,8 +1162,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 }
                 case "melee": {
                     const name = game.i18n.localize(`PF2E.NewPlaceholders.${itemType.capitalize()}`);
-                    const meleeOrRanged = dataset.actionType === "melee" ? "melee" : "ranged";
-                    return { type: itemType, name, system: { weaponType: { value: meleeOrRanged } } };
+                    return { type: itemType, name };
                 }
                 case "lore": {
                     const name =
@@ -1298,21 +1277,8 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
     }
 
-    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected override async _onSubmit(
-        event: Event,
-        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
-    ): Promise<Record<string, unknown> | false> {
-        for (const input of htmlQueryAll<HTMLInputElement>(this.form, "tags ~ input")) {
-            if (input.value === "") input.value = "[]";
-        }
-
-        return super._onSubmit(event, { updateData, preventClose, preventRender });
-    }
-
     protected override _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown> {
         const data = super._getSubmitData(updateData);
-        processTagifyInSubmitData(this.form, data);
 
         // Use delta values for inputs that have `data-allow-delta` if input value starts with + or -
         for (const el of this.form.elements) {
@@ -1325,6 +1291,19 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         }
 
         return data;
+    }
+
+    protected override _configureProseMirrorPlugins(
+        name: string,
+        options: { remove?: boolean },
+    ): Record<string, ProseMirror.Plugin> {
+        const plugins = super._configureProseMirrorPlugins(name, options);
+        plugins.menu = foundry.prosemirror.ProseMirrorMenu.build(foundry.prosemirror.defaultSchema, {
+            destroyOnSave: options.remove,
+            onSave: () => this.saveEditor(name, options),
+            compact: true,
+        });
+        return plugins;
     }
 }
 

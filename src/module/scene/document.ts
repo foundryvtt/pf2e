@@ -1,6 +1,11 @@
 import { LightLevels, SceneFlagsPF2e } from "./data.ts";
 import { checkAuras } from "./helpers.ts";
-import type { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, TileDocumentPF2e } from "./index.ts";
+import type {
+    AmbientLightDocumentPF2e,
+    MeasuredTemplateDocumentPF2e,
+    RegionDocumentPF2e,
+    TileDocumentPF2e,
+} from "./index.ts";
 import { TokenDocumentPF2e } from "./index.ts";
 import type { SceneConfigPF2e } from "./sheet.ts";
 
@@ -27,7 +32,7 @@ class ScenePF2e extends Scene {
     }
 
     get lightLevel(): number {
-        return 1 - this.darkness;
+        return 1 - this.environment.darknessLevel;
     }
 
     get isBright(): boolean {
@@ -82,8 +87,8 @@ class ScenePF2e extends Scene {
         );
 
         if (this.rulesBasedVision) {
-            this.globalLight = true;
-            this.globalLightThreshold = 1 - (LightLevels.DARKNESS + 0.001);
+            this.environment.globalLight.enabled = true;
+            this.environment.globalLight.darkness.max = 1 - (LightLevels.DARKNESS + 0.001);
         }
     }
 
@@ -92,8 +97,8 @@ class ScenePF2e extends Scene {
     /* -------------------------------------------- */
 
     /** Redraw auras if the scene was activated while being viewed */
-    override _onUpdate(changed: DeepPartial<this["_source"]>, options: SceneUpdateContext, userId: string): void {
-        super._onUpdate(changed, options, userId);
+    override _onUpdate(changed: DeepPartial<this["_source"]>, operation: SceneUpdateOperation, userId: string): void {
+        super._onUpdate(changed, operation, userId);
 
         const flagChanges = changed.flags?.pf2e ?? {};
         if (this.isView && ["rulesBasedVision", "hearingRange"].some((k) => flagChanges[k] !== undefined)) {
@@ -113,10 +118,10 @@ class ScenePF2e extends Scene {
         collection: string,
         documents: foundry.abstract.Document[],
         ids: string[],
-        options: DocumentModificationContext<this>,
+        operation: DatabaseDeleteOperation<this>,
         userId: string,
     ): void {
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+        super._onDeleteDescendantDocuments(parent, collection, documents, ids, operation, userId);
 
         // Upstream will only refresh lighting if the delete token's source is emitting light: handle cases where
         // the token's prepared data light data was overridden from TokenLight REs.
@@ -138,12 +143,11 @@ interface ScenePF2e extends Scene {
     /** Check for auras containing newly-placed or moved tokens (added as a debounced method) */
     checkAuras(): void;
 
-    _sheet: SceneConfigPF2e<this> | null;
-
     readonly lights: foundry.abstract.EmbeddedCollection<AmbientLightDocumentPF2e<this>>;
+    readonly regions: foundry.abstract.EmbeddedCollection<RegionDocumentPF2e<this>>;
     readonly templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocumentPF2e<this>>;
-    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e<this>>;
     readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
+    readonly tokens: foundry.abstract.EmbeddedCollection<TokenDocumentPF2e<this>>;
 
     get sheet(): SceneConfigPF2e<this>;
 }

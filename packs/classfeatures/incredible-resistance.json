@@ -1,0 +1,67 @@
+{
+    "_id": "82rxCGBb5qf9fwbp",
+    "img": "icons/equipment/chest/breastplate-banded-steel.webp",
+    "name": "Incredible Resistance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You've improved upon your breakthrough modification's ability to resist damage. Choose one of the following breakthrough modifications your innovation has: dense plating, layered mesh, or tensile absorption. Increase the resistance you gain from that modification to be equal to your level, instead of half your level.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:dense-plating"
+                ],
+                "type": "slashing",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:layered-mesh"
+                ],
+                "type": "piercing",
+                "value": "@actor.level"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "armor:id:{actor|flags.pf2e.innovationId}",
+                    "feature:tensile-absorption"
+                ],
+                "type": "bludgeoning",
+                "value": "@actor.level"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "armor-innovation-modification"
+            ],
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

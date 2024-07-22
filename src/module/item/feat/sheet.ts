@@ -11,6 +11,7 @@ import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/s
 import type { FeatPF2e } from "@item/feat/document.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { OneToFour } from "@module/data.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
     ErrorPF2e,
     htmlClosest,
@@ -52,6 +53,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             itemType: game.i18n.localize(feat.isFeature ? "PF2E.LevelLabel" : "PF2E.Item.Feat.LevelLabel"),
             actionsNumber: CONFIG.PF2E.actionsNumber,
             actionTypes: CONFIG.PF2E.actionTypes,
+            acuityOptions: CONFIG.PF2E.senseAcuities,
             attributes: CONFIG.PF2E.abilities,
             canHaveKeyOptions: featCanHaveKeyOptions(feat),
             categories: CONFIG.PF2E.featCategories,
@@ -61,8 +63,19 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
             hasProficiencies: Object.keys(subfeatures.proficiencies).length > 0,
             hasSenses: Object.keys(subfeatures.senses).length > 0,
             mandatoryTakeOnce: hasLineageTrait || sheetData.data.onlyLevel1,
+            maxTakableOptions: [
+                { value: "1", label: "No" },
+                { value: "2", label: "PF2E.Item.Feat.TakeMultiple.Two" },
+                { value: "3", label: "PF2E.Item.Feat.TakeMultiple.Three" },
+                { value: "4", label: "PF2E.Item.Feat.TakeMultiple.Four" },
+                { value: "5", label: "PF2E.Item.Feat.TakeMultiple.Five" },
+                { value: "Infinity", label: "PF2E.Item.Feat.TakeMultiple.NoLimit" },
+            ],
             languages: this.#getLanguageOptions(),
             proficiencies: this.#getProficiencyOptions(),
+            proficiencyRankOptions: Object.fromEntries(
+                Object.values(CONFIG.PF2E.proficiencyRanks).map((label, i) => [`${i}`, label]),
+            ),
             selfEffect: createSelfEffectSheetData(sheetData.data.selfEffect),
             senses: this.#getSenseOptions(),
             showPrerequisites,
@@ -196,8 +209,10 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
         const feat = this.item;
         activateActionSheetListeners(feat, html);
 
-        const getInput = (name: string): HTMLInputElement | null => html.querySelector(`input[name="${name}"]`);
-        tagify(getInput("system.prerequisites.value"), { maxTags: 6 });
+        const getInput = (name: string): HTMLTagifyTagsElement | null =>
+            htmlQuery<HTMLTagifyTagsElement>(html, `tagify-tags[name="${name}"]`);
+
+        tagify(getInput("system.prerequisites.value"), { maxTags: 6, delimiters: ";" });
         tagify(getInput("system.subfeatures.keyOptions"), { whitelist: CONFIG.PF2E.abilities, maxTags: 3 });
 
         // Disable the "add subfeature" anchor unless a corresponding option is selected
@@ -233,7 +248,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
                 } else if (objectHasKey(CONFIG.PF2E.languages, slug)) {
                     const options = this.#getLanguageOptions().granted.available;
                     if (options.some((o) => o.slug === slug)) {
-                        feat.update({ [`system.subfeatures.languages.granted`]: R.uniq([...currentGranted, slug]) });
+                        feat.update({ [`system.subfeatures.languages.granted`]: R.unique([...currentGranted, slug]) });
                     }
                 }
             } else if (anchor.dataset.action === "delete-language") {
@@ -374,6 +389,7 @@ class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
+    acuityOptions: typeof CONFIG.PF2E.senseAcuities;
     attributes: typeof CONFIG.PF2E.abilities;
     canHaveKeyOptions: boolean;
     categories: typeof CONFIG.PF2E.featCategories;
@@ -384,7 +400,9 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     hasSenses: boolean;
     languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
+    maxTakableOptions: FormSelectOption[];
     proficiencies: ProficiencyOptions;
+    proficiencyRankOptions: Record<string, string>;
     selfEffect: SelfEffectReference | null;
     senses: SenseOption[];
     showPrerequisites: boolean;

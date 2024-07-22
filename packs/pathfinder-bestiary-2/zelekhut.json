@@ -837,60 +837,10 @@
             "type": "action"
         },
         {
-            "_id": "hZEu7Tqz6RebveO8",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "w7ARr5jbLTtNsXnS",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "LCzHgVdDCfLFTsdX",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Axis Lore",
-            "sort": 1900000,
+            "sort": 1700000,
             "system": {
                 "description": {
                     "value": ""
@@ -908,72 +858,6 @@
                 },
                 "rules": [],
                 "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "j7boczN8qbsJIOzp",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9E67q4C5Qrwk0OqK",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "When Tracking",
-                        "predicate": [
-                            "action:track"
-                        ],
-                        "selector": "survival",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+23 when Tracking",
-                        "options": "action:track"
-                    }
-                }
             },
             "type": "lore"
         }
@@ -1098,6 +982,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 18
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "athletics": {
+                "base": 21
+            },
+            "diplomacy": {
+                "base": 16
+            },
+            "survival": {
+                "base": 21,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "when Tracking",
+                        "predicate": [
+                            "action:track"
+                        ]
+                    }
+                ]
             }
         },
         "spellcasting": {

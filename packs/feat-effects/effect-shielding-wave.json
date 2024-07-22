@@ -1,0 +1,72 @@
+{
+    "_id": "xYCoyHRLdOXm8Ndr",
+    "img": "icons/magic/water/wave-water-explosion.webp",
+    "name": "Effect: Shielding Wave",
+    "system": {
+        "description": {
+            "value": "<p>You gain resistance to acid or fire damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Resistance"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Merfolk.ShieldingWave.Dry",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Merfolk.ShieldingWave.Wet",
+                        "value": 1
+                    }
+                ],
+                "flag": "value",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "floor(@actor.level/@item.flags.pf2e.rulesSelections.value)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

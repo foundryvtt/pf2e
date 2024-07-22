@@ -407,172 +407,10 @@
             "type": "action"
         },
         {
-            "_id": "xLUuOeUKIbtUPL9R",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 4
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+6 to Swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "VfwAONSjkFXlSItx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BYB00KLH1MLqJdAy",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 3
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "E4oBlqhBaVqkShlq",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Underwater",
-                        "predicate": [
-                            "terrain:underwater"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+7 underwater",
-                        "options": "terrain:underwater"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DSuSkqi0XgKoMy9D",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Monster Core"
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "3opCHH7my1xVzJSY",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Underwater Lore",
-            "sort": 1300000,
+            "sort": 800000,
             "system": {
                 "description": {
                     "value": ""
@@ -682,6 +520,38 @@
             "will": {
                 "saveDetail": "",
                 "value": 3
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 4,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to Swim"
+                    }
+                ]
+            },
+            "diplomacy": {
+                "base": 3
+            },
+            "nature": {
+                "base": 3
+            },
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "underwater",
+                        "predicate": [
+                            "terrain:underwater"
+                        ]
+                    }
+                ]
+            },
+            "survival": {
+                "base": 5
             }
         },
         "traits": {

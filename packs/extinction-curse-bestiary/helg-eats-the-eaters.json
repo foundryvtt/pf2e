@@ -334,7 +334,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><strong>Critical Success</strong> The target escapes and the spell ends.\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
+                    "value": "<p>You transport the target into an extradimensional maze of eldritch origin and trap it there. Once each turn, the target can spend 1 action to attempt a Survival check or Perception check against your spell DC to escape the maze. The possible outcomes are as follows. Teleportation magic doesn't help the creature escape unless the magic can transport across planes, such as plane shift. When the spell ends, either because the target escaped or the duration ran out, the target returns to the space it occupied when it was banished, or to the nearest space if the original is now filled.</p>\n<hr /><p><strong>Critical Success</strong> The target escapes and the spell ends.</p>\n<p><strong>Success</strong> The target is on the right path to the exit. If the target was already on the right path, it escapes the maze and the spell ends.</p>\n<p><strong>Failure</strong> The target makes no progress toward escape.</p>\n<p><strong>Critical Failure</strong> The target makes no progress toward escape, and if it was on the right path, it no longer is.</p>"
                 },
                 "duration": {
                     "sustained": true,
@@ -1380,7 +1380,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You create an immobile sphere of force to either trap or protect the target, blocking anything that would pass through the sphere. The sphere has AC 5, Hardness 10, and 40 Hit Points. It's immune to critical hits and precision damage. Disintegrate destroys the sphere instantly. If the target is unwilling, the effects of the sphere depend on the target's Reflex save.</p>\n<hr /><strong>Critical Success</strong> The target disrupts the sphere's integrity, causing it to collapse entirely.\n<p><strong>Success</strong> The sphere functions normally but has only 10 Hit Points instead of 40.</p>\n<p><strong>Failure</strong> The sphere has its normal effect.</p>"
+                    "value": "<p>You create an immobile sphere of force to either trap or protect the target, blocking anything that would pass through the sphere. The sphere has AC 5, Hardness 10, and 40 Hit Points. It's immune to critical hits and precision damage. Disintegrate destroys the sphere instantly. If the target is unwilling, the effects of the sphere depend on the target's Reflex save.</p>\n<hr /><p><strong>Critical Success</strong> The target disrupts the sphere's integrity, causing it to collapse entirely.</p>\n<p><strong>Success</strong> The sphere functions normally but has only 10 Hit Points instead of 40.</p>\n<p><strong>Failure</strong> The sphere has its normal effect.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1843,7 +1843,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3376,197 +3376,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "KnZpH9lLGq7oF6GH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 4900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Squeeze",
-                        "predicate": [
-                            "action:squeeze"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+30 to Squeeze",
-                        "options": "action:squeeze"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "gWBs57RqqvHfPYps",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 5000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 29
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "NxyLXWGXlak2P59Q",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 5100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 28
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "GXax0iin1ckkl0AX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 5200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DJJcXs5Z0elZFaGs",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 5300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 27
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "yxoVUCpysy1Fbrlx",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 5400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 24
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "4NFvMidM5lKPBNLZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 5500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Helg Eats-The-Eaters",
@@ -3667,6 +3476,38 @@
             "will": {
                 "saveDetail": "",
                 "value": 26
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 26,
+                "special": [
+                    {
+                        "base": 30,
+                        "label": "to Squeeze",
+                        "predicate": [
+                            "action:squeeze"
+                        ]
+                    }
+                ]
+            },
+            "arcana": {
+                "base": 29
+            },
+            "athletics": {
+                "base": 28
+            },
+            "deception": {
+                "base": 21
+            },
+            "occultism": {
+                "base": 27
+            },
+            "stealth": {
+                "base": 24
+            },
+            "survival": {
+                "base": 22
             }
         },
         "spellcasting": {

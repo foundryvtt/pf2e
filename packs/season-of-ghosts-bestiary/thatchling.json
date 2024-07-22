@@ -68,12 +68,6 @@
                 },
                 "rules": [
                     {
-                        "appearance": {
-                            "border": {},
-                            "highlight": {
-                                "color": "#4f28cc"
-                            }
-                        },
                         "effects": [
                             {
                                 "includesSelf": false,
@@ -238,74 +232,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "zvCnlj9cYMDoqKJv",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9GL1eVzD0UDsXASu",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Undergrowth",
-                        "predicate": [
-                            "terrain:undergrowth"
-                        ],
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+7 in undergrowth",
-                        "options": "terrain:undergrowth"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Thatchling",
@@ -441,6 +367,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 5
+            },
+            "stealth": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "in undergrowth",
+                        "predicate": [
+                            "terrain:undergrowth"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

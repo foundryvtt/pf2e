@@ -130,87 +130,6 @@
             "type": "spell"
         },
         {
-            "_id": "NS4Sroct6rpeddeR",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
-            "name": "Acid Arrow (At will)",
-            "sort": 300000,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {
-                    "0": {
-                        "category": null,
-                        "formula": "7d8",
-                        "kinds": [
-                            "damage"
-                        ],
-                        "materials": [],
-                        "type": "acid"
-                    }
-                },
-                "defense": null,
-                "description": {
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[1d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the @UUID[Compendium.pf2e.conditionitems.Item.Persistent Damage].</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "heightening": {
-                    "damage": {
-                        "0": "2d8"
-                    },
-                    "interval": 2,
-                    "type": "interval"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": {
-                    "value": "nQJ4bCNSLy7MFyXP"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "range": {
-                    "value": "120 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "acid-arrow",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "common",
-                    "traditions": [
-                        "arcane",
-                        "primal"
-                    ],
-                    "value": [
-                        "acid",
-                        "attack",
-                        "concentrate",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
             "_id": "mbr0k4VLD5DblIlR",
             "flags": {
                 "core": {
@@ -219,7 +138,7 @@
             },
             "img": "icons/magic/symbols/ring-circle-smoke-blue.webp",
             "name": "Dimension Door",
-            "sort": 400000,
+            "sort": 300000,
             "system": {
                 "area": null,
                 "cost": {
@@ -282,7 +201,7 @@
             },
             "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear (At will)",
-            "sort": 500000,
+            "sort": 400000,
             "system": {
                 "area": null,
                 "cost": {
@@ -340,6 +259,89 @@
                         "fear",
                         "manipulate",
                         "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "4MzJVcfYcPuvs7SR",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.f8hRqLJaxBVhF1u0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
+            "name": "Acid Arrow (At will)",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "3d8",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "acid"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d8"
+                    },
+                    "interval": 2,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 2
+                },
+                "location": {
+                    "heightenedLevel": 4,
+                    "value": "nQJ4bCNSLy7MFyXP"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "acid-arrow",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "acid",
+                        "attack",
+                        "concentrate",
+                        "manipulate"
                     ]
                 }
             },
@@ -467,7 +469,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy",
+            "name": "Telepathy 100 feet",
             "sort": 800000,
             "system": {
                 "actionType": {
@@ -541,7 +543,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The nyogoth has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p>\n<hr />\n<p><strong>Effect</strong> The nyogoth slavers and chews at the grabbed creature, dealing @Damage[(2d6+7)[slashing]] damage and @Damage[1d6[acid]] damage (@Check[type:fortitude|dc:29|basic:true] save).</p>"
+                    "value": "<p><strong>Requirements</strong> The nyogoth has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] a creature</p><hr /><p><strong>Effect</strong> The nyogoth slavers and chews at the grabbed creature, dealing @Damage[(2d6+7)[slashing],1d6[acid]]{2d6+7 slashing and 1d6 acid} damage (@Check[type:fortitude|dc:29|basic:true] save).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -629,131 +631,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "oxh0AN3d64PaBvfW",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "RNCaxNKe0fP3GZrH",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1KzZ99vspEesje49",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "So5AzMmLIqsvZO9N",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Occultism",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "vb3SSp042FiIfRBm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Nyogoth",
@@ -876,6 +753,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 21
+            },
+            "athletics": {
+                "base": 21
+            },
+            "intimidation": {
+                "base": 19
+            },
+            "occultism": {
+                "base": 16
+            },
+            "stealth": {
+                "base": 21
             }
         },
         "traits": {

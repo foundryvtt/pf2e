@@ -38,6 +38,48 @@
                 "key": "Resistance",
                 "type": "electricity",
                 "value": "@actor.level"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-storm"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfStorm.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfStorm.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-storm"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
             }
         ],
         "traits": {

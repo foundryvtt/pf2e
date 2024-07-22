@@ -11,10 +11,7 @@
 <div class="license">
     <label for="{{options.id}}-publication-license">{{localize "PF2E.Publication.License.Label"}}</label>
     <select name="{{path}}.license" id="{{options.id}}-publication-license">
-        {{#select data.license}}
-            <option value="OGL">{{localize "PF2E.Publication.License.OGL"}}</option>
-            <option value="ORC">{{localize "PF2E.Publication.License.ORC"}}</option>
-        {{/select}}
+        {{selectOptions publicationLicenses selected=data.license localize=true}}
     </select>
 </div>
 <div class="remaster">

@@ -181,8 +181,11 @@
                     .gm-notes {
                         background-color: var(--visibility-gm-bg);
                         border: 1px dotted rgba(75, 74, 68, 0.5);
-                        padding: 0 0.25em;
                         flex: 0 0 auto;
+
+                        .editor-content:not(.ProseMirror) {
+                            padding: 0 0.25em;
+                        }
 
                         &:not(.has-content) {
                             display: none;
@@ -194,13 +197,17 @@
                     }
 
                     .editor {
-                        display: flex;
-                        flex-direction: column;
-
+                        // Set style for both header buttons
+                        // We also override the core one so that it matches the GM one in case it changes later
+                        // These properties match core and shouldn't use the rem based properties
                         a.add-gm-notes,
                         a.editor-edit {
-                            font-size: 1.33em;
                             background: rgb(205, 205, 205);
+                            border: 1px solid var(--color-border-dark-1);
+                            border-radius: 4px;
+                            box-shadow: 0 0 1px var(--color-shadow-dark);
+                            font-size: 1.25em;
+                            padding: 1px 2px;
 
                             i {
                                 width: 1em;
@@ -209,11 +216,7 @@
                         }
 
                         a.add-gm-notes {
-                            border: 1px solid var(--color-border-dark-1);
-                            border-radius: 4px;
-                            box-shadow: 0 0 1px var(--color-shadow-dark);
                             display: none;
-                            padding: var(--space-1) var(--space-2);
                             position: absolute;
                             right: 2.25rem;
                             top: var(--space-5);
@@ -221,10 +224,6 @@
 
                         &:hover a.add-gm-notes {
                             display: block;
-                        }
-
-                        .tox {
-                            flex: 1;
                         }
                     }
                 }

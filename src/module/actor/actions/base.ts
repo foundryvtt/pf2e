@@ -187,7 +187,9 @@ abstract class BaseAction<TData extends BaseActionVariantData, TAction extends B
     }
 
     async toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined> {
-        return this.getDefaultVariant(options).toMessage(options);
+        return options?.variant
+            ? this.getDefaultVariant(options).toMessage(options)
+            : this.toActionVariant().toMessage(options);
     }
 
     async use(options?: Partial<ActionUseOptions>): Promise<unknown> {

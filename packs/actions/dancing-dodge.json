@@ -1,0 +1,45 @@
+{
+    "_id": "1ejGup6ouh9t9S96",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Dancing Dodge",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Trigger</strong> You're hit by a Strike during the first round of combat</p><hr /><p><strong>Effect</strong> You take advantage of the fact that your foe isn't ready to anticipate your dance-like moves in combat. Add a +3 circumstance bonus to your Armor Class against the triggering Strike to determine the Strike's actual result.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "domain": "ac",
+                "key": "RollOption",
+                "option": "dancing-dodge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "dancing-dodge"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 3
+            }
+        ],
+        "traits": {
+            "value": [
+                "move"
+            ]
+        }
+    },
+    "type": "action"
+}

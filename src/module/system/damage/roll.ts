@@ -1,14 +1,17 @@
-import { ResistanceType } from "@actor/types.ts";
 import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import { ErrorPF2e, fontAwesomeIcon, isObject, tupleHasValue } from "@util";
+import { ErrorPF2e, fontAwesomeIcon, tupleHasValue } from "@util";
 import type Peggy from "peggy";
+import * as R from "remeda";
+import type { DiceTerm, RollTerm } from "types/foundry/client-esm/dice/terms/module.d.ts";
 import { DamageCategorization, deepFindTerms, renderComponentDamage, simplifyTerm } from "./helpers.ts";
 import { ArithmeticExpression, Grouping, GroupingData, InstancePool, IntermediateDie } from "./terms.ts";
-import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
+import { DamageCategory, DamageIRBypassData, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 import { DAMAGE_TYPE_ICONS } from "./values.ts";
+
+const terms = foundry.dice.terms;
 
 abstract class AbstractDamageRoll extends Roll {
     declare static parser: Peggy.Parser;
@@ -31,10 +34,6 @@ abstract class AbstractDamageRoll extends Roll {
 
     /** The theoretically highest total of this roll */
     abstract get maximumValue(): number;
-
-    protected override _evaluateSync(): never {
-        throw ErrorPF2e("Damage rolls must be evaluated asynchronously");
-    }
 }
 
 class DamageRoll extends AbstractDamageRoll {
@@ -98,7 +97,11 @@ class DamageRoll extends AbstractDamageRoll {
         const wrapped = this.replaceFormulaData(formula.startsWith("{") ? formula : `{${formula}}`, {});
         try {
             const result = this.parser.parse(wrapped.replace(/@([a-z.0-9_-]+)/gi, "1"));
-            return isObject(result) && "class" in result && ["PoolTerm", "InstancePool"].includes(String(result.class));
+            return (
+                R.isPlainObject(result) &&
+                "class" in result &&
+                ["PoolTerm", "InstancePool"].includes(String(result.class))
+            );
         } catch {
             return false;
         }
@@ -108,14 +111,13 @@ class DamageRoll extends AbstractDamageRoll {
     static classifyDice(data: RollTermData): void {
         // Find all dice terms and resolve their class
         type PreProcessedDiceTerm = { class: string; faces?: string | number | object };
-        const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm =>
-            isObject<PreProcessedDiceTerm>(v) && v.class === "DiceTerm";
+        const isDiceTerm = (v: unknown): v is PreProcessedDiceTerm => R.isPlainObject(v) && v.class === "DiceTerm";
         const deepFindDice = (value: object): PreProcessedDiceTerm[] => {
             const accumulated: PreProcessedDiceTerm[] = [];
             if (isDiceTerm(value)) {
                 accumulated.push(value);
-            } else if (value instanceof Object) {
-                const objects = Object.values(value).filter((v): v is object => v instanceof Object);
+            } else if (R.isObjectType(value)) {
+                const objects = Object.values(value).filter((v): v is object => R.isObjectType(v));
                 accumulated.push(...objects.flatMap((o) => deepFindDice(o)));
             }
 
@@ -124,7 +126,7 @@ class DamageRoll extends AbstractDamageRoll {
         const diceTerms = deepFindDice(data);
 
         for (const term of diceTerms) {
-            if (typeof term.faces === "number" || term.faces instanceof Object) {
+            if (typeof term.faces === "number" || R.isPlainObject(term.faces)) {
                 term.class = "Die";
             } else if (typeof term.faces === "string") {
                 const termClassName = CONFIG.Dice.terms[term.faces]?.name;
@@ -241,7 +243,7 @@ class DamageRoll extends AbstractDamageRoll {
             return super.render({ flavor, template, isPrivate });
         }
 
-        if (!this._evaluated) await this.evaluate({ async: true });
+        if (!this._evaluated) await this.evaluate();
         const formula = isPrivate ? "???" : (await Promise.all(instances.map((i) => i.render()))).join(" + ");
         const total = this.total ?? NaN;
         const damageKinds = this.kinds;
@@ -265,6 +267,7 @@ class DamageRoll extends AbstractDamageRoll {
             showButtons: !isPrivate,
             showTotalInstances,
             showTripleDamage: game.pf2e.settings.critFumble.buttons,
+            user: game.user,
         };
 
         return renderTemplate(template, chatData);
@@ -374,7 +377,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         DamageRoll.classifyDice(syntaxTree);
 
-        return [RollTerm.fromData(syntaxTree)];
+        return [terms.RollTerm.fromData(syntaxTree)];
     }
 
     static override fromData<TRoll extends Roll>(this: ConstructorOf<TRoll>, data: RollJSON): TRoll;
@@ -390,9 +393,9 @@ class DamageInstance extends AbstractDamageRoll {
 
     /** Get the expected, minimum, or maximum value of a term */
     static getValue(term: RollTerm, type: "minimum" | "maximum" | "expected" = "expected"): number {
-        if (term instanceof NumericTerm) return term.number;
+        if (term instanceof terms.NumericTerm) return term.number;
 
-        if (term instanceof MathTerm) {
+        if (term instanceof terms.FunctionTerm) {
             try {
                 return Roll.safeEval(term.formula);
             } catch {
@@ -402,7 +405,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         switch (type) {
             case "minimum":
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number;
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -413,7 +416,7 @@ class DamageInstance extends AbstractDamageRoll {
                 }
                 break;
             case "maximum":
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number * term.faces;
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -424,7 +427,7 @@ class DamageInstance extends AbstractDamageRoll {
                 }
                 break;
             default: {
-                if (term instanceof Die) {
+                if (term instanceof terms.Die) {
                     return term.number * ((term.faces + 1) / 2);
                 } else if (
                     term instanceof ArithmeticExpression ||
@@ -528,7 +531,7 @@ class DamageInstance extends AbstractDamageRoll {
             this.terms
                 .reduce(
                     (dice: (DiceTerm | never[])[], term) => {
-                        if (term instanceof DiceTerm) {
+                        if (term instanceof terms.DiceTerm) {
                             dice.push(term);
                         } else if (
                             term instanceof Grouping ||
@@ -616,7 +619,6 @@ class DamageInstance extends AbstractDamageRoll {
 Promise.resolve().then(() => {
     // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
     // function constructor.
-    // biome-ignore lint/complexity/noBannedTypes:
     const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
     new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
 });
@@ -647,8 +649,7 @@ interface DamageRollData extends RollDataPF2e, AbstractDamageRollData {
     increasedFrom?: number;
     /** Whether this roll is the splash damage from another roll */
     splashOnly?: boolean;
-    /** Resistance types to be ignored */
-    ignoredResistances?: { type: ResistanceType; max: number | null }[];
+    bypass?: DamageIRBypassData;
 }
 
 type DamageInstanceData = AbstractDamageRollData;

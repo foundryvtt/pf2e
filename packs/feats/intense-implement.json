@@ -24,7 +24,32 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:tag:thaumaturge-implement",
+                        {
+                            "not": "item:tag:thaumaturge-implement-adept"
+                        }
+                    ],
+                    "types": [
+                        "feat"
+                    ]
+                },
+                "flag": "intenseImplement",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.UI.RuleElements.ChoiceSet.Prompt"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.intenseImplement}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "thaumaturge-implement-adept"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

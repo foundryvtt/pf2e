@@ -31,11 +31,20 @@
         "rules": [
             {
                 "key": "Note",
-                "predicate": [
-                    "action:earn-income"
+                "outcome": [
+                    "failure"
                 ],
-                "selector": "skill-check",
-                "text": "When you use Lore to Earn Income, if you roll a critical failure, you instead get a failure. If you're an expert in Lore, you gain twice as much income from a failed check to Earn Income, unless it was originally a critical failure.",
+                "predicate": [
+                    {
+                        "or": [
+                            "proficiency:expert",
+                            "proficiency:master",
+                            "proficiency:legendary"
+                        ]
+                    }
+                ],
+                "selector": "lore-skill-check",
+                "text": "PF2E.SpecificRule.Feat.ExperiencedProfessional.Note",
                 "title": "{item|name}"
             },
             {

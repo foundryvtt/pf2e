@@ -1,4 +1,5 @@
 import { ActorPF2e, CreaturePF2e, PartyPF2e } from "@actor";
+import { CREATURE_ACTOR_TYPES } from "@actor/values.ts";
 import { fontAwesomeIcon, htmlClosest, htmlQuery, htmlQueryAll } from "@util";
 import * as R from "remeda";
 
@@ -115,7 +116,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
                         width: 320,
                         left: window.innerWidth - 630,
                         top: button?.offsetTop ?? 0,
-                        types: ["creature"],
+                        types: [...CREATURE_ACTOR_TYPES],
                     },
                 );
 
@@ -258,18 +259,6 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
         }
 
         return $element;
-    }
-
-    /** Include flattened update data so parent method can read nested update keys */
-    protected override async _render(force?: boolean, context: SidebarDirectoryRenderOptions = {}): Promise<void> {
-        // Create new reference in case other applications are using the same context object
-        context = fu.deepClone(context);
-
-        if (context.action === "update" && context.documentType === "Actor" && context.data) {
-            context.data = context.data.map((d) => ({ ...d, ...fu.flattenObject(d) }));
-        }
-
-        return super._render(force, context);
     }
 
     protected override _contextMenu($html: JQuery<HTMLElement>): void {

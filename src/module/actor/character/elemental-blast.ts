@@ -5,6 +5,7 @@ import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
+import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
 import {
@@ -13,7 +14,7 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { ElementTrait, elementTraits } from "@scripts/config/traits.ts";
+import { effectTraits } from "@scripts/config/traits.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
@@ -71,9 +72,9 @@ class ElementalBlast {
         const { fields } = foundry.data;
 
         return new fields.SchemaField({
-            element: new fields.StringField<ElementTrait, ElementTrait, true, false, false>({
+            element: new fields.StringField<EffectTrait, EffectTrait, true, false, false>({
                 required: true,
-                choices: () => CONFIG.PF2E.elementTraits,
+                choices: () => CONFIG.PF2E.effectTraits,
                 initial: undefined,
             }),
             label: new fields.StringField({ required: true, blank: false, initial: undefined }),
@@ -207,8 +208,8 @@ class ElementalBlast {
         })();
 
         return blasts.map((blast) => {
-            const damageTypes: BlastConfigDamageType[] = R.uniq(
-                R.compact([blast.damageTypes, this.infusion?.damageTypes].flat()),
+            const damageTypes: BlastConfigDamageType[] = R.unique(
+                [blast.damageTypes, this.infusion?.damageTypes].flat().filter(R.isTruthy),
             )
                 .map((dt) => ({
                     value: dt,
@@ -259,7 +260,7 @@ class ElementalBlast {
     }
 
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
-    #getBlastConfig(element: ElementTrait, damageType: DamageType): ElementalBlastConfig {
+    #getBlastConfig(element: EffectTrait, damageType: DamageType): ElementalBlastConfig {
         const config = this.configs.find(
             (c) => c.element === element && c.damageTypes.some((t) => t.value === damageType),
         );
@@ -283,10 +284,10 @@ class ElementalBlast {
         const traits = ((): ActionTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
-            return R.uniq(
-                R.compact([baseTraits, infusionTraits, config?.element, damageType].flat()).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
-                ),
+            return R.unique(
+                [baseTraits, infusionTraits, config?.element, damageType]
+                    .flat()
+                    .filter((t): t is ActionTrait => !!t && t in CONFIG.PF2E.actionTraits),
             ).sort();
         })();
 
@@ -316,7 +317,7 @@ class ElementalBlast {
 
         const { element, damageType } = params;
         if (!element) throw ErrorPF2e("No element provided");
-        if (!objectHasKey(elementTraits, element)) {
+        if (!objectHasKey(effectTraits, element)) {
             throw ErrorPF2e(`Unrecognized element: ${element}`);
         }
         if (!damageType) throw ErrorPF2e("No damage type provided");
@@ -343,7 +344,7 @@ class ElementalBlast {
             subtitle: game.i18n.format("PF2E.ActionsCheck.x-attack-roll", { type: statistic.label }),
         });
         const meleeOrRanged = params.melee ? "melee" : "ranged";
-        const mapIncreases = Math.clamped(params.mapIncreases ?? 0, 0, 2) || 0;
+        const mapIncreases = Math.clamp(params.mapIncreases ?? 0, 0, 2) || 0;
         const actionSlug = "elemental-blast";
 
         return blastStatistic.roll({
@@ -385,7 +386,7 @@ class ElementalBlast {
 
         const outcome = params.outcome ?? "success";
         const meleeOrRanged = melee ? "melee" : "ranged";
-        const actionCost = Math.clamped(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
+        const actionCost = Math.clamp(Number(params.actionCost ?? this.actionCost), 1, 2) || 1;
         const actionSlug = "elemental-blast";
         const domains = ["damage", "attack-damage", "impulse-damage", `${actionSlug}-damage`];
         const targetToken = game.user.targets.first()?.document ?? null;
@@ -402,7 +403,7 @@ class ElementalBlast {
             outcome,
             checkContext: params.checkContext,
             options: new Set(
-                R.compact([
+                [
                     `action:${actionSlug}`,
                     `action:cost:${actionCost}`,
                     `self:action:slug:${actionSlug}`,
@@ -413,7 +414,7 @@ class ElementalBlast {
                     `item:damage:type:${params.damageType}`,
                     damageCategory ? `item:damage:category:${damageCategory}` : null,
                     ...item.traits,
-                ]),
+                ].filter(R.isTruthy),
             ),
         }).resolve();
         if (!context.origin) return null;
@@ -440,13 +441,14 @@ class ElementalBlast {
             }),
             test: context.options,
         });
-        const extraModifiers = R.compact([...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)]);
+        const extraModifiers = [...damageSynthetics.modifiers, this.#strengthModToDamage(item, domains)].filter(
+            R.isTruthy,
+        );
         const modifiers = new StatisticModifier("", extraModifiers).modifiers;
         const formulaData: DamageFormulaData = {
             dice: damageSynthetics.dice,
             modifiers,
             base: [baseDamage],
-            ignoredResistances: [],
         };
 
         const damageContext: DamageDamageContext = {
@@ -509,7 +511,7 @@ class ElementalBlast {
     }
 
     /** Set damage type according to the user's selection on the PC sheet */
-    async setDamageType({ element, damageType }: { element: ElementTrait; damageType: DamageType }): Promise<void> {
+    async setDamageType({ element, damageType }: { element: EffectTrait; damageType: DamageType }): Promise<void> {
         if (!this.configs.some((c) => c.element === element && c.damageTypes.some((dt) => dt.value === damageType))) {
             throw ErrorPF2e(`Damage type "${damageType}" not available for ${element}`);
         }
@@ -525,13 +527,13 @@ interface CreateModifiedItemParams {
 
 interface BlastAttackParams extends AttackRollParams {
     mapIncreases: number;
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
 }
 
 interface BlastDamageParams extends DamageRollParams {
-    element: ElementTrait;
+    element: EffectTrait;
     damageType: DamageType;
     melee: boolean;
     actionCost?: number;
@@ -539,7 +541,7 @@ interface BlastDamageParams extends DamageRollParams {
 }
 
 type BlastConfigSchema = {
-    element: StringField<ElementTrait, ElementTrait, true, false, false>;
+    element: StringField<EffectTrait, EffectTrait, true, false, false>;
     label: StringField<string, string, true, false, false>;
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     damageTypes: ArrayField<StringField<DamageType, DamageType, true, false, false>>;

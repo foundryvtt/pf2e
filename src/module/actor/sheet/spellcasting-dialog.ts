@@ -2,6 +2,7 @@ import type { CreaturePF2e } from "@actor";
 import type { AttributeString } from "@actor/types.ts";
 import { SpellcastingEntryPF2e } from "@item";
 import type { SpellcastingEntrySource, SpellcastingEntrySystemSource } from "@item/spellcasting-entry/data.ts";
+import { ordinalString } from "@util";
 import * as R from "remeda";
 
 /** Dialog to create or edit spellcasting entries. It works on a clone of spellcasting entry, but will not persist unless the changes are accepted */
@@ -46,11 +47,18 @@ class SpellcastingCreateAndEditDialog extends FormApplication<SpellcastingEntryP
             magicTraditions: CONFIG.PF2E.magicTraditions,
             spellcastingTypes: R.omit(
                 CONFIG.PF2E.preparationType,
-                R.compact(["ritual", actor.type === "character" ? "items" : null]),
+                (["ritual", actor.type === "character" ? "items" : null] as const).filter(R.isTruthy),
             ),
             attributes: CONFIG.PF2E.abilities,
             isAttributeConfigurable: this.#canSetAttribute(),
             selectedAttribute: selectedStatistic?.attribute ?? this.object.attribute,
+            autoHeightenLevels: Object.fromEntries(
+                R.range(1, 11).map((level) => [
+                    level.toString(),
+                    game.i18n.format("PF2E.Item.Spell.Rank.Ordinal", { rank: ordinalString(level) }),
+                ]),
+            ),
+            validItemTypes: { scroll: "PF2E.Actor.Creature.Spellcasting.ValidItemTypes.Scroll" },
         };
     }
 
@@ -157,6 +165,8 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
     attributes: typeof CONFIG.PF2E.abilities;
     isAttributeConfigurable: boolean;
     selectedAttribute: AttributeString;
+    autoHeightenLevels: Record<string, string>;
+    validItemTypes: Record<string, string>;
 }
 
 async function createSpellcastingDialog(

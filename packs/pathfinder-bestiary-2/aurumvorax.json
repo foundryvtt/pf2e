@@ -110,7 +110,7 @@
                 "category": "defensive",
                 "deathNote": true,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<hr />\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{wounded} value increases by 1. When it is @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{wounded 3}, it can no longer use this ability</p>"
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<hr />\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @UUID[Compendium.pf2e.conditionitems.Item.Wounded] value increases by 1. When it is @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{wounded 3}, it can no longer use this ability</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -307,72 +307,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "Sv1H3JJKwu64RfI1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Swim",
-                        "predicate": [
-                            "action:swim"
-                        ],
-                        "selector": "athletics",
-                        "value": -14
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+6 to swim",
-                        "options": "action:swim"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "q7SXK8Lwlo8EWOcz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Aurumvorax",
@@ -468,6 +402,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 20,
+                "special": [
+                    {
+                        "base": 6,
+                        "label": "to swim",
+                        "predicate": [
+                            "action:swim"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 18
             }
         },
         "traits": {

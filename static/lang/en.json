@@ -331,6 +331,7 @@
                     "kibwani": "Kibwani",
                     "kitsune": "Kitsune",
                     "kovintal": "Kovintal",
+                    "lashunta": "Lashunta",
                     "lirgeni": "Lirgeni",
                     "mahwek": "Mahwek",
                     "migo": "Mi-Go",
@@ -369,6 +370,7 @@
                     "skald": "Skald",
                     "sphinx": "Sphinx",
                     "strix": "Strix",
+                    "surki": "Surki",
                     "sussuran": "Sussuran",
                     "taldane": "Taldane",
                     "talican": "Talican",
@@ -410,6 +412,7 @@
                         "InfraredVision": "Infrared Vision",
                         "Lifesense": "Lifesense",
                         "LowLightVision": "Low-Light Vision",
+                        "Magicsense": "Magicsense",
                         "MotionSense": "Motion Sense",
                         "Scent": "Scent",
                         "SeeInvisibility": "See the Unseen",
@@ -460,6 +463,8 @@
             "Dead": "Dead",
             "Familiar": {
                 "Blurb": "Familiar of {master}",
+                "MinimumAttributeModifier": "Minimum Attribute Modifier",
+                "NoAttribute": "None (Pet)",
                 "Master": {
                     "ArmorClass": "Master Armor Class",
                     "Perception": "Master Perception"
@@ -562,8 +567,16 @@
                     }
                 },
                 "SimpleSheet": "Simple NPC Sheet",
+                "SpecialSkill": "+{mod} {label}",
                 "SkillsEditor": {
+                    "AddSpecial": "Add Special",
+                    "Error": {
+                        "PredicateArray": "Predicate must be an array"
+                    },
                     "LorePlaceholder": "Carpentry Lore",
+                    "Note": "Note",
+                    "Predicate": "Predicate",
+                    "Special": "Special",
                     "Title": "Skills Editor ({actor})"
                 }
             },
@@ -969,6 +982,7 @@
                 "CreateDialogText": "Create Roll Table with {count} result(s)?",
                 "CreateLabel": "Create Roll Table",
                 "SelectTableTitle": "Select Roll Table",
+                "TooManyResults": "The result list of size {size} is too large. Maximum size is {maxSize}",
                 "WeightLabel": "Weight"
             },
             "Settings": {
@@ -1132,10 +1146,14 @@
                 "ApplicationBreakdown": {
                     "ignored": "Resistance to {type} ignored!",
                     "immunity": "Immune to {type}: {adjustment}",
+                    "redirect": {
+                        "immunity": "Immune to {type} (treated as {redirect}): {adjustment}",
+                        "resistance": "Resistant to {type} (treated as {redirect}): {adjustment}"
+                    },
+                    "reduction": "Reduced by {type}: {adjustment}",
                     "resistance": "Resistant to {type}: {adjustment}",
                     "unaffected": "Unaffected by {type}: {adjustment}",
-                    "weakness": "Weak to {type}: {adjustment}",
-                    "reduction": "Reduced by {type}: {adjustment}"
+                    "weakness": "Weak to {type}: {adjustment}"
                 },
                 "CompositeLabel": {
                     "Exceptions0DoubleVs0": "{type} {value}",
@@ -1174,6 +1192,7 @@
                     "arrow-vulnerability": "arrow vulnerability",
                     "auditory": "auditory",
                     "axe-vulnerability": "axe vulnerability",
+                    "axes": "axes",
                     "blinded": "blinded",
                     "broken": "broken",
                     "clumsy": "clumsy",
@@ -1486,6 +1505,28 @@
             "RevealName": "Reveal Name",
             "XP": "XP"
         },
+        "Environment": {
+            "Type": {
+                "Aquatic": "Aquatic",
+                "Arctic": "Arctic",
+                "Desert": "Desert",
+                "Forest": "Forest",
+                "Mountain": "Mountain",
+                "Plains": "Plains",
+                "Swamp": "Swamp",
+                "Underground": "Underground",
+                "Urban": "Urban"
+            },
+            "Feature": {
+                "Crowd": "Crowd",
+                "Ice": "Ice",
+                "Lava": "Lava",
+                "Rubble": "Rubble",
+                "Sand": "Sand",
+                "Sewer": "Sewer",
+                "Snow": "Snow"
+            }
+        },
         "ErrorMessage": {
             "CantCreateEffectMacro": "An effect for a toggle macro must come from a compendium or world item.",
             "CantImportTooHighVersion": "Unable to import {sourceName}: its schema version ({sourceSchemaVersion}) is higher than this world's ({worldSchemaVersion}).",
@@ -1499,6 +1540,7 @@
             "NoUpdatePermission": "You lack permission to update this actor.",
             "NotEnoughAmmo": "You don't have enough ammo to make this strike.",
             "NotEnoughCoins": "Insufficient Coins",
+            "MissingStatisticSelected": "Missing statistic {statistic} on selected actors.",
             "RuleElementSyntax": "Syntax error in rule element definition: {message}",
             "SubV9Module": "{module} is unmaintained and may introduce stability issues to your game.",
             "WeaponNoDamage": "This weapon deals no damage.",
@@ -1652,6 +1694,7 @@
         "InvestedLabel": "Invested",
         "Item": {
             "ABC": {
+                "Add": "Add",
                 "Features": "Features",
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
@@ -2297,6 +2340,7 @@
                         "Label": "Detach Item",
                         "Prompt": "Are you sure you want to detach {attachable}?"
                     },
+                    "Label": "Attach",
                     "Outcome": {
                         "Failure": "You were unable to attach {attachable}.",
                         "Success": "{attachable} is now attached to {target}."
@@ -2401,6 +2445,7 @@
                         "collar": "Collar",
                         "crown": "Crown",
                         "epaulet": "Epaulet",
+                        "eyeglasses": "Eyeglasses",
                         "eyepiece": "Eyepiece",
                         "footwear": "Footwear",
                         "garment": "Garment",
@@ -2437,12 +2482,14 @@
                 "Hint": {
                     "Slug": "A stable, human-readable identifier: if set, it will remain in place even if the item is renamed.",
                     "SourceId": "The UUID of the original compendium item",
-                    "UUID": "A universally unique identifier for this item"
+                    "UUID": "A universally unique identifier for this item",
+                    "RollOptions": "An item roll option's prefix depends on its usage. <em>item:</em> is used most of the time, but <em>parent:</em> is used for the item containing the rule element."
                 },
                 "New": "New Rule Element",
                 "RegenerateSlug": "(Re)generate Slug",
                 "Remove": "Remove Rule Element",
-                "Tab": "Rules"
+                "Tab": "Rules",
+                "ViewRollOptions": "View Roll Options"
             },
             "Shield": {
                 "Base": {
@@ -2614,7 +2661,6 @@
         "ItemMystification": "Mystification",
         "ItemMystified": "Mystified",
         "ItemNamePlaceholder": "Name",
-        "ItemNewSkillVariant": "New Skill Variant",
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRemoveRuleElement": "Remove Rule Element",
         "ItemTitle": "Item",
@@ -2627,6 +2673,10 @@
             "GMVision": {
                 "Hint": "Brighten dark scenes for easier viewing.",
                 "Label": "GM Vision"
+            },
+            "PlaceWaypoint": {
+                "Hint": "Place a waypoint while using drag measurement.",
+                "Label": "Place Waypoint (Drag Measurement)"
             },
             "TogglePartySheet": {
                 "Hint": "Open or close the sheet of the active or (if a player) assigned party.",
@@ -2650,6 +2700,11 @@
         "Level19": "Level 19",
         "Level2": "Level 2",
         "Level20": "Level 20",
+        "Level21": "Level 21",
+        "Level22": "Level 22",
+        "Level23": "Level 23",
+        "Level24": "Level 24",
+        "Level25": "Level 25",
         "Level3": "Level 3",
         "Level4": "Level 4",
         "Level5": "Level 5",
@@ -2677,7 +2732,6 @@
             "two": "{first} or {second}"
         },
         "Lore": "Lore",
-        "LoreProficiencyDisclaimer": "Informational only. Will not change the skill modifier.",
         "LoreSkillsHeader": "Lore Skills",
         "MAPAbbreviationLabel": "MAP {penalty}",
         "MAPAbbreviationValueLabel": "{value} (MAP {penalty})",
@@ -2756,7 +2810,7 @@
                     "AtWillSpells": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>",
                     "AttackOfOpportunity": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
                     "Aura": "<p>A monster's aura automatically affects everything within a specified emanation around that monster. The monster doesn't need to spend actions on the aura; rather, the aura's effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.</p>\n<p>If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.</p>\n<p>The GM might determine that a monster's aura doesn't affect its own allies. For example, a creature might be immune to a monster's frightful presence if they have been around each other for a long time.</p>",
-                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.PM5jvValFkbFH3TV]{Mounts} or uses the @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal} action while riding the monster.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll 1d6[bludgeoning]]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>",
+                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.PM5jvValFkbFH3TV]{Mounts} or uses the @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal} action while riding the monster.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. If the save is a critical failure, the triggering creature also takes @Damage[1d6[bludgeoning]] damage in addition to the normal damage for the fall.</p>",
                     "CatchRock": "<p><strong>Requirements</strong> The monster must have a free hand but can @UUID[Compendium.pf2e.actionspf2e.Item.wQYmDStjdjn0I26t]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<hr />\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>",
                     "ChangeShape": "<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>",
                     "ConstantSpells": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>",
@@ -3059,6 +3113,44 @@
             "rollingDescription": "DC {dc} (Dying {dying})",
             "success": "Reduce your dying value by 1."
         },
+        "Region": {
+            "Environment": {
+                "Mode": {
+                    "Add": {
+                        "Label": "Add"
+                    },
+                    "Hint": "Set the mode for this terrain behavior. Either adds the selected types to the existing environment types, removes the selected types from the existing types or overrides the existing types with the selected types.",
+                    "Label": "Mode",
+                    "Override": {
+                        "Label": "Override"
+                    },
+                    "Remove": {
+                        "Label": "Remove"
+                    }
+                },
+                "Label": "Environment",
+                "RegionLegend": {
+                    "Header": "Scene Defaults",
+                    "SceneRegionsHeader": "Scene Regions"
+                },
+                "Type": {
+                    "Hint": "One or more environment types for this scene region.",
+                    "Label": "Environment",
+                    "SceneHint": "Specify one or more environment types for the entire scene."
+                }
+            },
+            "EnvironmentFeature": {
+                "Label": "Environment Feature",
+                "Terrain": {
+                    "Difficult": {
+                        "Difficult": "Difficult",
+                        "Greater": "Greater Difficult",
+                        "Label": "Difficult Terrain",
+                        "None": "None"
+                    }
+                }
+            }
+        },
         "RemoveCoinsByValueLabel": "Remove value, not specific type",
         "RemoveCoinsTitle": "Remove Coins",
         "RemoveCombatProficiency": {
@@ -3109,6 +3201,7 @@
                     "Label": "Label",
                     "None": "None",
                     "Override": "Override {value}",
+                    "OverrideLabel": "Override",
                     "Splash": "{damageType} Splash",
                     "TitleCritical": "Critical Damage Roll",
                     "Title": "Damage Roll"
@@ -3204,6 +3297,9 @@
                 "ShowUnknownSources": "Do not filter entries with unknown sources.",
                 "SourcesListHeader": "Specified Sources"
             },
+            "Core": {
+                "ManagedBySystem": "Managed and locked by the PF2e System"
+            },
             "CritRule": {
                 "Choices": {
                     "Doubledamage": "Double the damage",
@@ -3216,14 +3312,17 @@
                 "Hint": "Set the overlay icon used to mark dead actors.",
                 "Name": "Death Icon"
             },
+            "DragMeasurement": {
+                "Always": "Always",
+                "Encounters": "During Encounters",
+                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key and removed by right-clicking.",
+                "Name": "Drag Measurement",
+                "Never": "Never"
+            },
             "EnabledDisabled": {
                 "Enabled": "Enabled",
                 "Default": "World Default ({worldDefault})",
                 "Disabled": "Disabled"
-            },
-            "EnabledRulesUI": {
-                "Hint": "When enabled, players are able to see and utilize the rule elements panel on item sheets.",
-                "Name": "Player Rule Elements Access"
             },
             "Homebrew": {
                 "BaseWeapons": {
@@ -3284,6 +3383,10 @@
                     "Campaign": "Campaign",
                     "Damage": "Damage Types",
                     "Traits": "Traits and Categories"
+                },
+                "EnvironmentTypes": {
+                    "Hint": "Any custom environment type",
+                    "Name": "Environment Types"
                 },
                 "WeaponCategories": {
                     "Hint": "The top level of Pathfinder 2e weapon taxonomy (e.g., Simple, Martial)",
@@ -3348,6 +3451,10 @@
                     "Hint": "If enabled, then for any NPC token whose nameplate isn't visible to players, its name will also be hidden from them in the encounter tracker and chat messages.",
                     "Name": "Tokens Determine NPC Name Visibility"
                 }
+            },
+            "MinimumRulesUI": {
+                "Hint": "The minimum role required to see and utilize the rule elements panel on item sheets.",
+                "Name": "Minimum Rule Elements Access Role"
             },
             "NathMode": {
                 "Hint": "Use better default token icons",
@@ -3518,44 +3625,30 @@
         "SidebarAppearanceLabel": "Appearance",
         "Size": "Size",
         "SizeLabel": "Size",
-        "SkillAcr": "Acrobatics",
-        "SkillAcrobatics": "Acrobatics",
-        "SkillArc": "Arcana",
-        "SkillArcana": "Arcana",
-        "SkillAth": "Athletics",
-        "SkillAthletics": "Athletics",
+        "Skill": {
+            "Acrobatics": "Acrobatics",
+            "Arcana": "Arcana",
+            "Athletics": "Athletics",
+            "Crafting": "Crafting",
+            "Deception": "Deception",
+            "Diplomacy": "Diplomacy",
+            "Intimidation": "Intimidation",
+            "Medicine": "Medicine",
+            "Nature": "Nature",
+            "Occultism": "Occultism",
+            "Performance": "Performance",
+            "Religion": "Religion",
+            "Society": "Society",
+            "Stealth": "Stealth",
+            "Survival": "Survival",
+            "Thievery": "Thievery"
+        },
         "SkillCheckWithName": "Skill Check: {skillName}",
-        "SkillCra": "Crafting",
-        "SkillCrafting": "Crafting",
-        "SkillDec": "Deception",
-        "SkillDeception": "Deception",
-        "SkillDip": "Diplomacy",
-        "SkillDiplomacy": "Diplomacy",
         "SkillFeatLevels": "Skill Feat Levels",
         "SkillIncreaseLevels": "Skill Increase Levels",
-        "SkillIntimidation": "Intimidation",
-        "SkillItm": "Intimidation",
         "SkillLabel": "Skill",
         "SkillLore": "Lore",
-        "SkillMed": "Medicine",
-        "SkillMedicine": "Medicine",
-        "SkillNat": "Nature",
-        "SkillNature": "Nature",
-        "SkillOcc": "Occultism",
-        "SkillOccultism": "Occultism",
-        "SkillPerformance": "Performance",
         "SkillPotencyHeader": "Skill Potencies",
-        "SkillPrf": "Performance",
-        "SkillRel": "Religion",
-        "SkillReligion": "Religion",
-        "SkillSoc": "Society",
-        "SkillSociety": "Society",
-        "SkillSte": "Stealth",
-        "SkillStealth": "Stealth",
-        "SkillSur": "Survival",
-        "SkillSurvival": "Survival",
-        "SkillThi": "Thievery",
-        "SkillThievery": "Thievery",
         "SkillsLabel": "Skills",
         "Slug": "Slug",
         "SpecialSensesLabel": "Special Senses",
@@ -3677,10 +3770,10 @@
         "ToggleSignatureSpellTitle": "Toggle Signature Spell",
         "ToggleSlotlessSpellLevelsTitle": "Toggle visibility of spell ranks without slots",
         "ToggleSpellVisibilityTitle": "Spell Preparation",
-        "ToggleUnreadyStrikes": "Toggle unequipped weapons",
         "ToggleWithName": "Toggle: {property}",
         "TogglesLabel": "Toggles",
         "Token": {
+            "ActorLinkForced": "{type} actors cannot be unlinked.",
             "Appearance": "Appearance",
             "Flanking": "Flanking",
             "SecretDisposition": {
@@ -3782,6 +3875,7 @@
         "TraitArtifact": "Artifact",
         "TraitAstral": "Astral",
         "TraitAsura": "Asura",
+        "TraitAthamaru": "Athamaru",
         "TraitAttached": "Attached",
         "TraitAttachedToAThrownWeapon": "Attached to a Thrown Weapon",
         "TraitAttachedToCrossbowOrFirearm": "Attached to Crossbow or Firearm",
@@ -3796,6 +3890,7 @@
         "TraitAuditory": "Auditory",
         "TraitAura": "Aura",
         "TraitAutomaton": "Automaton",
+        "TraitAwakenedAnimal": "Awakened Animal",
         "TraitAzarketi": "Azarketi",
         "TraitAzata": "Azata",
         "TraitBackstabber": "Backstabber",
@@ -3924,6 +4019,7 @@
         "TraitDescriptionAuditory": "Auditory actions and effects rely on sound. An action with the auditory trait can be successfully performed only if the creature using the action can speak or otherwise produce the required sounds. A spell or effect with the auditory trait has its effect only if the target can hear it. This applies only to sound-based parts of the effect, as determined by the GM. This is different from a sonic effect, which still affects targets who can't hear it (such as deaf targets) as long as the effect itself makes sound.",
         "TraitDescriptionAura": "An aura is an emanation that continually ebbs out from you, affecting creatures within a certain radius. Aura can also refer to the magical signature of an item or a creature with a strong alignment.",
         "TraitDescriptionAutomaton": "A creature with this trait is a member of the automaton ancestry.",
+        "TraitDescriptionAwakenedAnimal": "Awakened animals were once normal creatures before they gained sapience.",
         "TraitDescriptionAzarketi": "Amphibious humanoids who live among the seas of the Inner Sea region, said to have descended from the people of Azlant. Sometimes known as gillmen or Low Azlanti. Azarketi are an offshoot of humans adapted to live in aquatic communities. They have gills, webbed digits, and small fins, and they can survive in or out of water.",
         "TraitDescriptionAzata": "This family of celestials is native to Elysium. They are typically holy and have darkvision and a weakness to cold iron and unholy.",
         "TraitDescriptionBackstabber": "When you hit an off-guard creature, this weapon deals 1 precision damage in addition to its normal damage. The precision damage increases to 2 if the weapon is a +3 weapon.",
@@ -4015,7 +4111,7 @@
         "TraitDescriptionEntrench": "You can position yourself in the armor or reposition its articulated pieces to better protect against some attacks. If you're trained in this armor, while wearing it you can spend a single action to gain a +1 circumstance bonus to AC against a certain type of attack until the start of your next turn. The entrench trait lists the type of attack this bonus applies against, typically entrench melee or entrench ranged.",
         "TraitDescriptionEnvironment": "A hazard with this trait is something dangerous that's part of the natural world, such as quicksand or harmful mold.",
         "TraitDescriptionEsoterica": "The esoterica trait is present in many thaumaturge feats and class features that incorporate the various talismans, supernatural trinkets, and other objects you carry with you. Abilities that have the esoterica trait require you to be in possession of your esoterica to use them. Normally, you're assumed to always have your esoterica with you, but in some rare circumstances, you might either not have them on hand or have your gear stripped from you.",
-        "TraitDescriptionEtherial": "Ethereal creatures are natives of the Ethereal Plane. They can survive the basic environmental effects of the Ethereal Plane.",
+        "TraitDescriptionEthereal": "Ethereal creatures are natives of the Ethereal Plane. They can survive the basic environmental effects of the Ethereal Plane.",
         "TraitDescriptionEvolution": "Feats with this trait affect your eidolon instead of you, typically by granting it additional physical capabilities.",
         "TraitDescriptionExpandable": "An item with the expandable trait increases to a specific size when activated. Unless otherwise noted, this space must be adjacent to you and on the ground, and the item needs to have enough open space to expand into or else the activation has no effect. When the effect ends, the expanded item disintegrates if it's a consumable or shrinks back to its normal size if it's not a consumable.",
         "TraitDescriptionExperiment": "An experimental cryptid has been purposefully altered through alchemy, engineering, magic, or ritual to contain some degree of construct components. Although powerful, the process is volatile and imperfect.",
@@ -4059,6 +4155,7 @@
         "TraitDescriptionGnome": "A creature with this trait is a member of the gnome ancestry. Gnomes are small people skilled at magic who seek out new experiences and usually have low-light vision. An ability with this trait can be used or selected only by gnomes. A weapon with this trait is created and used by gnomes.",
         "TraitDescriptionGoblin": "A creature with this trait is a small, frantic goblinoid. Goblins tend to have darkvision. An ability with this trait can be used or chosen only by goblins. A weapon with this trait is created and used by goblins.",
         "TraitDescriptionGoloma": "Insular humanoids that bear countless eyes.",
+        "TraitDescriptionGraft": "<p>An item that has the graft trait is a living tissue sample that has been implanted into a host. It's permanently a part of the subject's body and reduces the number of items that creature can invest per day by 1. Each graft has the invested trait to indicate this limitation—a graft is like an invested item that the host creature has no choice but to invest. If a creature gets a new graft when their limit on invested items has already been reduced to zero, the host body rejects the graft. Once fully implanted, a graft cannot take damage separately.</p><p>If a graft is ever severed from the host body, it can be reattached by any effect that can typically reattach limbs or organs, such as the regenerate spell. A grafter can remove a grant using the same process required to implant one, though this does not necessarily restore any organs replaced by the graft initially. Grafts typically require specialized storage conditions, such as alchemical tanks, to remain viable outside of a host. Grafts can usually be upgraded into their greater versions by having a grafter apply additional surgeries, mutagenic development, or similar medical procedures</p>",
         "TraitDescriptionGrapple": "You can use this weapon to Grapple with the Athletics skill even if you don't have a free hand. This uses the weapon's reach (if different from your own) and adds the weapon's item bonus to attack rolls as an item bonus to the Athletics check. If you critically fail a check to Grapple using the weapon, you can drop the weapon to take the effects of a failure instead of a critical failure.",
         "TraitDescriptionGremlin": "Cruel and mischievous fey, gremlins have acclimated to life in the Universe.",
         "TraitDescriptionGrimoire": "Spellbooks are useful tools for any magic user to write down incantations and runes of power, but where most spellbooks are nothing more than ink on parchment, grimoires have absorbed the magic of the spells within—magic that knowledgeable spellcasters can use to augment their spells.",
@@ -4121,6 +4218,7 @@
         "TraitDescriptionMindless": "A mindless creature has either programmed or rudimentary mental attributes. Most, if not all, of their mental attribute modifiers are –5. They are immune to all mental effects.",
         "TraitDescriptionMindshift": "An action with this trait can always be altered to use the raw power of your mind. When you take this action, you can choose to replace any damage it deals with mental damage, give it the mental trait, and replace any save it requires with a Will save. The action loses any traits matching damage types it no longer deals.",
         "TraitDescriptionMinion": "Minions are creatures that directly serve another creature. A creature with this trait can use only 2 actions per turn, doesn't have reactions, and can't act when it's not your turn. Your minion acts on your turn in combat, once per turn, when you spend an action to issue it commands. For an animal companion, you Command an Animal; for a minion that's a spell or magic item effect, like a summoned minion, you Sustain a Spell or Sustain an Activation; if not otherwise specified, you issue a verbal command as a single action with the auditory and concentrate traits. If given no commands, minions use no actions except to defend themselves or to escape obvious harm. If left unattended for long enough, typically 1 minute, mindless minions usually don't act, animals follow their instincts, and sapient minions act how they please. A minion can't control other creatures.",
+        "TraitDescriptionMinotaur": "Minotaurs are horned, bovine humanoids with a mastery of mazes and puzzles.",
         "TraitDescriptionMisfortune": "A misfortune effect detrimentally alters how you roll your dice. You can never have more than one misfortune effect alter a single roll. If multiple misfortune effects would apply, the GM decides which is worse and applies it. If a fortune effect and a misfortune effect would apply to the same roll, the two cancel each other out, and you roll normally.",
         "TraitDescriptionMissive": "A missive is a piece of magical stationery that must be crafted and composed before it can be activated. All missives have the missive and consumable traits. Missives are often constructed of paper, parchment, or vellum, but any other thin, portable material that can hold writing or embossing upon it can be crafted into missives. After being crafted, the missive is a blank sheet until a message is composed upon it, completing its magic.",
         "TraitDescriptionModification": "A feat with this trait alters the construction of your innovation. If you have the reconfigure class feature, you can retrain such a feat more easily.",
@@ -4154,6 +4252,14 @@
         "TraitDescriptionOverflow": "Powerful impulses temporarily overdraw the energy of your kinetic gate. When you use an impulse that has the overflow trait, your kinetic aura deactivates until you revitalize it (typically with Channel Elements). Extinguishing your element this severely is taxing, and consequently, you can use only one overflow impulse per round, even if you reactivate your kinetic gate.",
         "TraitDescriptionParry": "This weapon can be used defensively to block attacks. While wielding this weapon, if your proficiency with it is trained or better, you can spend a single action to position your weapon defensively, gaining a +1 circumstance bonus to AC until the start of your next turn.",
         "TraitDescriptionPeachwood": "Peachwood weapons have a particularly auburn tinge to them when under direct sunlight. Peachwood is treated as duskwood for any undead creatures' resistances or weaknesses related to duskwood (allowing a peachwood weapon to bypass a jiang-shi's resistance, for example). In addition, peachwood weapons bypass a small portion of the resistances of any undead creature. Strikes with a peachwood weapon treat an undead's resistances against physical damage as 2 lower for standard-grade peachwood, and 4 lower for high-grade.",
+        "TraitDescriptionPersonaFlirt": "The public perceives you as the most romantic of the group, and you may be thought of as a seducer or vapid pretender who gets by on their looks and brings nothing of value to the party.",
+        "TraitDescriptionPersonaGuardian": "The public perceives you as the healer and protector of the group, but some may also consider you too soft-hearted and meek to be a \"true hero.\"",
+        "TraitDescriptionPersonaLeader": "The public perceives you as the leader of the group, but some likewise consider you too brash or even pompous.",
+        "TraitDescriptionPersonaScholar": "The public considers you the problem-solver and brains of the group, though some also perceive you as arrogant or incapable of physical tasks.",
+        "TraitDescriptionPersonaScoundrel": "The public is convinced you are the \"bad boy/bad girl\" of the group who gets the distasteful but necessary things done, but who is at times thought of as a criminal or potential traitor to the party.",
+        "TraitDescriptionPersonaUnderdog": "The public perceives you as a \"fish out of water\"—someone who accidently got swept up by the group and still manages to triumph, but who is sometimes thought of as a weak link or loser.",
+        "TraitDescriptionPersonaWarrior": "The public believes you are the strong-arm of the group, the person who excels in a fight but is also at times considered cruel, uncouth, or even a bully.",
+        "TraitDescriptionPersonaWildcard": "The public perceives you as a source of whimsy, outlandish ideas, and comedy in the group, but that reputation is a double-edged sword, as some also consider you a liability or unreliable.",
         "TraitDescriptionPhantom": "A phantom is soul that has diverged from the River of Souls on the Ethereal Plane before being judged. They typically retain memories of their life before death but are not undead.",
         "TraitDescriptionPlant": "Vegetable creatures have the plant trait. They are distinct from normal plants. Magical effects with this trait manipulate or conjure plants or plant matter in some way. Those that manipulate plants have no effect in an area with no plants.",
         "TraitDescriptionPoison": "An effect with this trait delivers a poison or deals poison damage. An item with this trait is poisonous and might cause an affliction.",
@@ -4230,6 +4336,7 @@
         "TraitDescriptionSubjectiveGravity": "On planes with this trait, all bodies of mass can be centers of gravity with the same amount of force, but only if a non-mindless creature wills it.",
         "TraitDescriptionSubtle": "A spell with the subtle trait can be cast without incantations and doesn't have obvious manifestations.",
         "TraitDescriptionSuli": "Sulis are planar scions descended from jann.",
+        "TraitDescriptionSurki": "Surkis are a subterranean insectile ancestry that absorb ambient magic and evolve unique adaptations.",
         "TraitDescriptionSummon": "Spells with the summon trait can conjure creatures, typically ones with a particular trait. Such creatures can be found in Monster Core and similar books. Unless noted otherwise, the creature must be common, it gains the summoned trait, and it must appear in an unoccupied space in range large enough to contain it. The highest level of creature the spell can summon depends on the rank of the spell, as listed below. The spell can still summon a creature of a lower level if you so choose. These rules apply only to spells that have the summon trait; other spells that call or conjure items or beings but that don't have the trait, like summon instrument, work as explained in the spell.",
         "TraitDescriptionSummoned": "A creature called by a spell or effect gains the summoned trait. A summoned creature can't summon other creatures, create things of value, or cast spells that require a cost. It has the minion trait. If it tries to Cast a Spell of equal or higher rank than the spell that summoned it, it overpowers the summoning magic, causing its own spell to fail and the summon spell to end. Otherwise, the summoned creature uses the standard abilities for a creature of its kind. It generally attacks your enemies to the best of its ability. If you can communicate with it, you can attempt to command it, but the GM determines the degree to which it follows your commands. Immediately when you finish Casting the Spell, the summoned creature uses its 2 actions for that turn. A spawn or other creature generated from a summoned creature returns to its unaltered state (usually a corpse in the case of spawn) once the summoned creature is gone. If it's unclear what this state would be, the GM decides. Summoned creatures can be banished by various spells and effects. They are automatically banished if reduced to 0 Hit Points or if the spell that called them ends.",
         "TraitDescriptionSummoner": "This indicates abilities from the Summoner class.",
@@ -4267,6 +4374,7 @@
         "TraitDescriptionVampire": "Undead creatures who thirst for blood, vampires are notoriously versatile and hard to destroy.",
         "TraitDescriptionVanara": "An inquisitive ancestry with primate-like features and prehensile tails.",
         "TraitDescriptionVehicular": "A vehicular weapon is attached to a vehicle or worn by a mount and can typically only be wielded by the driver of the vehicle or the mount's primary rider. The driver or rider can control a vehicular weapon with the same hands they use to steer the vehicle or guide the mount. A vehicular weapon can be Disarmed by knocking the controls (typically reins for a mount or a steering device for a vehicle) out of the wielder's hands.",
+        "TraitDescriptionVenomous": "These weapons inject poison into every hit. When you hit a creature with this weapon, it deals an additional 1 persistent poison damage. This increases to 2 persistent poison damage if the weapon has a greater striking rune.",
         "TraitDescriptionVersatile": "A versatile weapon can be used to deal a different type of damage than that listed in the Damage entry. This trait indicates the alternate damage type. For instance, a piercing weapon that is versatile S can be used to deal piercing or slashing damage. You choose the damage type each time you make an attack.",
         "TraitDescriptionVirulent": "Afflictions with the virulent trait are harder to remove. You must succeed at two consecutive saves to reduce a virulent affliction's stage by 1. A critical success reduces a virulent affliction's stage by only 1 instead of by 2.",
         "TraitDescriptionVishkanya": "An ancestry with snake-like features and powerful venom.",
@@ -4391,6 +4499,7 @@
         "TraitGoblin": "Goblin",
         "TraitGolem": "Golem",
         "TraitGoloma": "Goloma",
+        "TraitGraft": "Graft",
         "TraitGrapple": "Grapple",
         "TraitGraveknight": "Graveknight",
         "TraitGremlin": "Gremlin",
@@ -4424,6 +4533,7 @@
         "TraitIfrit": "Ifrit",
         "TraitIkeshti": "Ikeshti",
         "TraitIllusion": "Illusion",
+        "TraitImplanted": "Implanted",
         "TraitImpulse": "Impulse",
         "TraitIncapacitation": "Incapacitation",
         "TraitIncarnate": "Incarnate",
@@ -4478,6 +4588,7 @@
         "TraitMindless": "Mindless",
         "TraitMindshift": "Mindshift",
         "TraitMinion": "Minion",
+        "TraitMinotaur": "Minotaur",
         "TraitMisfortune": "Misfortune",
         "TraitMisfortuneEffects": "Misfortune Effects",
         "TraitMissive": "Missive",
@@ -4514,6 +4625,14 @@
         "TraitOverflow": "Overflow",
         "TraitPaaridar": "Paaridar",
         "TraitParry": "Parry",
+        "TraitPersonaFlirt": "Persona: Flirt",
+        "TraitPersonaGuardian": "Persona: Guardian",
+        "TraitPersonaLeader": "Persona: Leader",
+        "TraitPersonaScholar": "Persona: Scholar",
+        "TraitPersonaScoundrel": "Persona: Scoundrel",
+        "TraitPersonaUnderdog": "Persona: Underdog",
+        "TraitPersonaWarrior": "Persona: Warrior",
+        "TraitPersonaWildcard": "Persona: Wildcard",
         "TraitPervasiveMagic": "Pervasive Magic",
         "TraitPetitioner": "Petitioner",
         "TraitPhantom": "Phantom",
@@ -4710,6 +4829,7 @@
         "TraitSummon": "Summon",
         "TraitSummoned": "Summoned",
         "TraitSummoner": "Summoner",
+        "TraitSurki": "Surki",
         "TraitSwarm": "Swarm",
         "TraitSwashbuckler": "Swashbuckler",
         "TraitSweep": "Sweep",
@@ -4769,6 +4889,7 @@
         "TraitVanara": "Vanara",
         "TraitVehicular": "Vehicular",
         "TraitVelstrac": "Velstrac",
+        "TraitVenomous": "Venomous",
         "TraitVersatile": "Versatile",
         "TraitVersatileAcid": "Versatile Acid",
         "TraitVersatileB": "Versatile B",
@@ -5262,7 +5383,7 @@
                 "Name": "Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. An astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to astral weapons. Incorporeal creatures can touch, hold, and wield astral weapons (unlike most physical objects)."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "authorized": {
@@ -5298,7 +5419,7 @@
             "corrosive": {
                 "Name": "Corrosive",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes [[/r 3d6[acid] #Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes @Damage[3d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
                 }
             },
             "crushing": {
@@ -5311,7 +5432,7 @@
                 "Name": "Cunning"
             },
             "dancing": {
-                "Name": "Dancing"
+                "Name": "Animated"
             },
             "decaying": {
                 "Name": "Decaying"
@@ -5321,12 +5442,6 @@
             },
             "demolishing": {
                 "Name": "Demolishing"
-            },
-            "disrupting": {
-                "Name": "Vitalizing",
-                "Note": {
-                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
-                }
             },
             "earthbinding": {
                 "Name": "Earthbinding"
@@ -5349,7 +5464,7 @@
             "flaming": {
                 "Name": "Flaming",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you deal an additional [[/r 1d10[persistent,fire]]]."
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[1d10[persistent,fire]] damage."
                 }
             },
             "flickering": {
@@ -5394,7 +5509,7 @@
                 "Name": "Greater Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. A greater astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to greater astral weapons. Incorporeal creatures can touch, hold, and wield greater astral weapons (unlike most physical objects). The spirit damage granted by a greater astral weapon ignores any spirit resistance the target has."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "greaterBloodbane": {
@@ -5403,14 +5518,14 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant",
                 "Note": {
-                    "criticalSuccess": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
-                    "success": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance."
+                    "criticalSuccess": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
+                    "success": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive",
                 "Note": {
-                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r 6d6[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes @Damage[6d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
                     "success": "The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
@@ -5444,7 +5559,7 @@
             "greaterFlaming": {
                 "Name": "Greater Flaming",
                 "Note": {
-                    "criticalSuccess": "Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[2d10[persistent,fire]] damage. Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
                     "success": "Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
@@ -5498,7 +5613,9 @@
                     "Bow": "The Athletics check to pull the missile free is DC 20.",
                     "Brawling": "The target takes a -4 circumstance penalty to its save.",
                     "Club": "You can knock the target up to 15 feet away.",
-                    "Dart": "The base persistent bleed damage increases to [[/r 2d6[bleed]]].",
+                    "Crossbow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile, as the bow critical specialization.",
+                    "Dart": "The base persistent bleed damage increases to @Damage[2d6[persistent,bleed]].",
+                    "Firearm": "The target takes a –4 circumstance penalty to its save.",
                     "Flail": "You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "You can also knock the target 5 feet away from you.",
                     "Knife": "The target takes a -5-foot status penalty to its Speed while it has the @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}.",
@@ -5516,7 +5633,7 @@
             "holy": {
                 "Name": "Holy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon<br /><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, vitality, healing effect."
+                    "criticalSuccess": "Holy Healing <span class=\"action-glyph\">R</span> (concentrate, healing, vitality)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at a Strike against an unholy creature with the weapon</p><hr /><p><strong>Effect</strong> You regain HP equal to double the unholy creature's level."
                 }
             },
             "hopeful": {
@@ -5567,6 +5684,10 @@
             "pacifying": {
                 "Name": "Pacifying"
             },
+            "quickstrike": {
+                "Name": "Quickstrike",
+                "Note": "While wielding a quickstrike weapon, you gain the @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{Quickened} condition, but you can use the additional action granted only to make a Strike with the etched weapon."
+            },
             "returning": {
                 "Name": "Returning",
                 "Note": "When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
@@ -5589,8 +5710,12 @@
                     "criticalSuccess": "On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
                 }
             },
+            "shockwave": {
+                "Name": "Shockwave",
+                "Note": "Strikes with this weapon deal bludgeoning splash damage equal to the number of weapon damage dice. You're immune to this splash damage."
+            },
             "spellStoring": {
-                "Name": "Spell-Storing"
+                "Name": "Spell Reservoir"
             },
             "swarming": {
                 "Name": "Swarming"
@@ -5613,13 +5738,19 @@
             "unholy": {
                 "Name": "Unholy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon<br /><strong>Effect</strong> The target takes @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} equal to 1d8 per weapon damage die of the etched weapon."
+                    "criticalSuccess": "Unholy Bloodshed <span class='pf2-icon'>R</span> (concentrate)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at an attack roll against a holy creature with the weapon</p><hr /><p><strong>Effect</strong> The target takes persistent bleed damage equal to 1d8 per weapon damage die of the etched weapon."
+                }
+            },
+            "disrupting": {
+                "Name": "Vitalizing",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "vorpal": {
                 "Name": "Vorpal",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> envision (death, incapacitation))<br /><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage.<br /><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                    "criticalSuccess": "Snicker-Snack <span class=\"action-glyph\">R</span> (concentrate, death, incapacitation)</p><p><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage</p><hr /><p><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
                 }
             },
             "wounding": {
@@ -5992,6 +6123,7 @@
             "DepositSubtitle": "Deposit item",
             "EditLootLabel": "Configure Loot?",
             "GMSupervisionError": "A GM must be online in order to interact with {loot}.",
+            "Give": "Give",
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
             "GiveSubtitle": "Give item",
             "HiddenWhenEmpty": {
@@ -6016,8 +6148,9 @@
             "PermissionError": "A GM must be online in order to loot or stow an item.",
             "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "PlantSubtitle": "Plant Item",
-            "PurchaseLoot": "Purchase Items",
-            "PurchaseLootMessage": "How many items do you wish to purchase?",
+            "Purchase": "Purchase",
+            "PurchaseLootPrompt": "Does {buyer} want to purchase this item?",
+            "PurchasePrice": "Purchase Price",
             "Quantity": "Quantity",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",
             "SellSubtitle": "Sell item",

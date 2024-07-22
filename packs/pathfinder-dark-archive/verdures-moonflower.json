@@ -295,78 +295,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "SlJZiCxXuBW155d5",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "Can't Jump or Swim",
-                        "options": ""
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "JzkjkxNi7EFlzsmZ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ThickVegetation",
-                        "predicate": [
-                            "terrain:vegetation"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+18 in Thick Vegetation",
-                        "options": "terrain:vegetation"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Verdure's Moonflower",
@@ -475,6 +403,24 @@
             "will": {
                 "saveDetail": "",
                 "value": 16
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 19,
+                "note": "Can't Jump or Swim"
+            },
+            "stealth": {
+                "base": 14,
+                "special": [
+                    {
+                        "base": 18,
+                        "label": "in Thick Vegetation",
+                        "predicate": [
+                            "terrain:vegetation"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

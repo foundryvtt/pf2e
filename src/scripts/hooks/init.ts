@@ -7,16 +7,8 @@ import {
     EncounterTrackerPF2e,
     ItemDirectoryPF2e,
 } from "@module/apps/sidebar/index.ts";
-import {
-    AmbientLightPF2e,
-    EffectsCanvasGroupPF2e,
-    LightingLayerPF2e,
-    MeasuredTemplatePF2e,
-    TemplateLayerPF2e,
-    TokenLayerPF2e,
-    TokenPF2e,
-} from "@module/canvas/index.ts";
 import { setPerceptionModes } from "@module/canvas/perception/modes.ts";
+import { RulerPF2e } from "@module/canvas/ruler.ts";
 import { PF2ECONFIG } from "@scripts/config/index.ts";
 import { registerHandlebarsHelpers } from "@scripts/handlebars.ts";
 import { registerFonts } from "@scripts/register-fonts.ts";
@@ -25,6 +17,7 @@ import { registerTemplates } from "@scripts/register-templates.ts";
 import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
+import * as R from "remeda";
 
 export const Init = {
     listen: (): void => {
@@ -34,28 +27,11 @@ export const Init = {
             CONFIG.PF2E = PF2ECONFIG;
             CONFIG.debug.ruleElement ??= false;
 
-            // Assign canvas layer and placeable classes
-            CONFIG.AmbientLight.layerClass = LightingLayerPF2e;
-            CONFIG.AmbientLight.objectClass = AmbientLightPF2e;
-
-            CONFIG.MeasuredTemplate.objectClass = MeasuredTemplatePF2e;
-            CONFIG.MeasuredTemplate.layerClass = TemplateLayerPF2e;
-            CONFIG.MeasuredTemplate.defaults.angle = 90;
-            CONFIG.MeasuredTemplate.defaults.width = 1;
-
-            CONFIG.Token.objectClass = TokenPF2e;
-            CONFIG.Token.layerClass = TokenLayerPF2e;
-
-            CONFIG.Canvas.groups.effects.groupClass = EffectsCanvasGroupPF2e;
-            CONFIG.Canvas.layers.lighting.layerClass = LightingLayerPF2e;
-            CONFIG.Canvas.layers.templates.layerClass = TemplateLayerPF2e;
-            CONFIG.Canvas.layers.tokens.layerClass = TokenLayerPF2e;
-
             setPerceptionModes();
 
             // Automatically advance world time by 6 seconds each round
             CONFIG.time.roundTime = 6;
-            // Decimals are 😠
+            // No use of decimals as tie breakers among initiative values
             CONFIG.Combat.initiative.decimals = 0;
 
             // Assign the PF2e Sidebar subclasses
@@ -65,6 +41,9 @@ export const Init = {
             CONFIG.ui.chat = ChatLogPF2e;
             CONFIG.ui.compendium = CompendiumDirectoryPF2e;
             CONFIG.ui.hotbar = HotbarPF2e;
+
+            // Set after load in case of module conflicts
+            if (!RulerPF2e.hasModuleConflict) CONFIG.Canvas.rulerClass = RulerPF2e;
 
             // The condition in Pathfinder 2e is "blinded" rather than "blind"
             CONFIG.specialStatusEffects.BLIND = "blinded";
@@ -78,7 +57,12 @@ export const Init = {
                 uiTop?.insertAdjacentElement("afterend", template);
             }
 
-            // configure the bundled TinyMCE editor with PF2-specific options
+            // Populate UUID redirects
+            for (const [from, to] of R.entries.strict(UUID_REDIRECTS)) {
+                CONFIG.compendium.uuidRedirects[from] = to;
+            }
+
+            // Configure the bundled TinyMCE editor with PF2-specific options
             CONFIG.TinyMCE.extended_valid_elements = "pf2-action[action|glyph]";
             CONFIG.TinyMCE.content_css.push("systems/pf2e/styles/pf2e.css");
             CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
@@ -142,22 +126,19 @@ export const Init = {
 
             // Register custom enricher
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(/@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/, "g"),
+                pattern: /@(Check|Localize|Template)\[([^\]]+)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
             // Register damage enricher, which is more complicated and needs an extra level of nesting
             // Derived from https://stackoverflow.com/questions/17759004/how-to-match-string-within-parentheses-nested-in-java/17759264#17759264
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(/@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/, "g"),
+                pattern: /@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
             CONFIG.TextEditor.enrichers.push({
-                pattern: new RegExp(
-                    /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/,
-                    "g",
-                ),
+                pattern: /\[\[\/(act) (?<slug>[-a-z]+)(\s+)?(?<options>[^\]]+)*]](?:{(?<label>[^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 

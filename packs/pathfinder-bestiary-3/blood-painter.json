@@ -204,122 +204,6 @@
                 "slug": null
             },
             "type": "lore"
-        },
-        {
-            "_id": "J2Z2UkuqJaLEJcGB",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "9xiLnsl12cVesxyN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Paint",
-                        "predicate": [
-                            "craft:painting"
-                        ],
-                        "selector": "crafting",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+21 for paintings",
-                        "options": "craft:painting"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "YQjCJ8rawjXTF2gN",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "d9sZwoJzYMqHfLIJ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Blood Painter",
@@ -413,6 +297,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 17
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 20
+            },
+            "crafting": {
+                "base": 17,
+                "special": [
+                    {
+                        "base": 21,
+                        "label": "for paintings",
+                        "predicate": [
+                            "craft:painting"
+                        ]
+                    }
+                ]
+            },
+            "medicine": {
+                "base": 19
+            },
+            "stealth": {
+                "base": 17
             }
         },
         "traits": {

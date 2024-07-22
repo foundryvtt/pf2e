@@ -3,7 +3,7 @@ import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { MODIFIER_TYPES, ModifierPF2e, RawModifier, StatisticModifier } from "@actor/modifiers.ts";
 import { ActorSpellcasting } from "@actor/spellcasting.ts";
-import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
+import { MovementType, SaveType, SkillSlug } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ArmorSource, ItemType } from "@item/base/data/index.ts";
 import { isContainerCycle } from "@item/container/helpers.ts";
@@ -20,8 +20,8 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/index.ts";
+import type { EnvironmentFeatureRegionBehavior, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
-import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -32,7 +32,7 @@ import { ErrorPF2e, localizer, setHasElement } from "@util";
 import * as R from "remeda";
 import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
-import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
+import { CreatureTrait, CreatureType, CreatureUpdateOperation, GetReachParameters } from "./types.ts";
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 abstract class CreaturePF2e<
@@ -146,9 +146,7 @@ abstract class CreaturePF2e<
         if (hitPoints.max > 0 && hitPoints.value === 0 && !this.hasCondition("dying", "unconscious")) {
             return true;
         }
-
-        const token = this.token ?? this.getActiveTokens(false, true).shift();
-        return !!token?.hasStatusEffect("dead");
+        return this.statuses.has("dead");
     }
 
     /** Whether the creature emits sound: overridable by AE-like */
@@ -197,7 +195,7 @@ abstract class CreaturePF2e<
     }
 
     /** Retrieve percpetion and spellcasting statistics */
-    override getStatistic(slug: SaveType | SkillLongForm | "perception"): Statistic<this>;
+    override getStatistic(slug: SaveType | SkillSlug | "perception"): Statistic<this>;
     override getStatistic(slug: string): Statistic<this> | null;
     override getStatistic(slug: string): Statistic | null {
         switch (slug) {
@@ -220,6 +218,16 @@ abstract class CreaturePF2e<
                 );
         }
 
+        if (slug in CONFIG.PF2E.magicTraditions) {
+            const bestSpellcasting =
+                this.spellcasting
+                    .filter((c) => c.tradition === slug)
+                    .flatMap((s) => s.statistic ?? [])
+                    .sort((a, b) => b.check.mod - a.check.mod)
+                    .shift() ?? null;
+            return bestSpellcasting ?? null;
+        }
+
         return (
             this.spellcasting.contents.flatMap((sc) => sc.statistic ?? []).find((s) => s.slug === slug) ??
             super.getStatistic(slug)
@@ -234,51 +242,6 @@ abstract class CreaturePF2e<
     override prepareData(): void {
         if (this.initialized) return;
         super.prepareData();
-
-        Object.defineProperties(this.system.attributes, {
-            initiative: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#attributes#initiative is deprecated. Use CreatureSystemData#initiative instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.initiative;
-                },
-                enumerable: false,
-            },
-            perception: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#attributes#perception is deprecated. Use CreatureSystemData#perception instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.perception;
-                },
-                enumerable: false,
-            },
-        });
-        Object.defineProperties(this.system.traits, {
-            languages: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#traits#languages is deprecated. Use CreatureSystemData#details#languages instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.details.languages;
-                },
-                enumerable: false,
-            },
-            senses: {
-                get: () => {
-                    fu.logCompatibilityWarning(
-                        "CreatureSystemData#traits#senses is deprecated. Use CreatureSystemData#perception#senses instead.",
-                        { since: "5.12.0", until: "6.0.0" },
-                    );
-                    return this.system.perception.senses;
-                },
-                enumerable: false,
-            },
-        });
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
         const spellConsumables = this.itemTypes.consumable.filter(
@@ -370,14 +333,30 @@ abstract class CreaturePF2e<
 
         // Set IWR guaranteed by traits
         setImmunitiesFromTraits(this);
+
+        // Set difficult terrain roll options
+        if (game.ready && game.scenes.active) {
+            const tokens = this.getActiveTokens(true, true);
+            const difficultTerrains = tokens
+                .map((t) =>
+                    Array.from(t.regions ?? []).map((r) =>
+                        r.behaviors.filter(
+                            (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
+                                b.type === "environmentFeature" && b.system.terrain.difficult > 0,
+                        ),
+                    ),
+                )
+                .flat(2);
+            if (difficultTerrains.length > 0) {
+                this.rollOptions.all["self:position:difficult-terrain"] = true;
+                const inGreater = difficultTerrains.some((t) => t.system.terrain.difficult === 2);
+                this.rollOptions.all[`self:position:difficult-terrain:${inGreater ? "greater" : "normal"}`] = true;
+            }
+        }
     }
 
     override prepareEmbeddedDocuments(): void {
         super.prepareEmbeddedDocuments();
-
-        for (const rule of this.rules) {
-            rule.onApplyActiveEffects?.();
-        }
 
         for (const changeEntries of Object.values(this.system.autoChanges)) {
             changeEntries?.sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
@@ -424,7 +403,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.toPairs.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }
@@ -471,8 +450,8 @@ abstract class CreaturePF2e<
 
         if (this.system.resources?.focus) {
             const { focus } = this.system.resources;
-            focus.max = Math.clamped(Math.floor(focus.max), 0, focus.cap) || 0;
-            focus.value = Math.clamped(Math.floor(focus.value), 0, focus.max) || 0;
+            focus.max = Math.clamp(Math.floor(focus.max), 0, focus.cap) || 0;
+            focus.value = Math.clamp(Math.floor(focus.value), 0, focus.max) || 0;
         }
 
         // Disallow creatures not in either alliance to flank
@@ -757,12 +736,12 @@ abstract class CreaturePF2e<
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     override deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<foundry.abstract.Document<this>[]> {
         if (embeddedName === "Item") {
             const items = ids.map((id) => this.items.get(id));
@@ -770,12 +749,12 @@ abstract class CreaturePF2e<
             ids.push(...linked.map((item) => item.id));
         }
 
-        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], context);
+        return super.deleteEmbeddedDocuments(embeddedName, [...new Set(ids)], operation);
     }
 
     protected override async _preUpdate(
         changed: DeepPartial<this["_source"]>,
-        options: CreatureUpdateContext<TParent>,
+        options: CreatureUpdateOperation<TParent>,
         user: UserPF2e,
     ): Promise<boolean | void> {
         const isFullReplace = !((options.diff ?? true) && (options.recursive ?? true));
@@ -789,40 +768,40 @@ abstract class CreaturePF2e<
         if (typeof changedHP?.value === "number") {
             changedHP.value = options.allowHPOverage
                 ? Math.max(0, changedHP.value)
-                : Math.clamped(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
+                : Math.clamp(changedHP.value, 0, Math.max(currentHP.max - currentHP.unrecoverable, 0));
         }
         if (changed.system.attributes?.hp?.temp !== undefined) {
             const inputValue = changed.system.attributes.hp.temp;
-            changed.system.attributes.hp.temp = Math.floor(Math.clamped(Number(inputValue) || 0, 0, 999));
+            changed.system.attributes.hp.temp = Math.floor(Math.clamp(Number(inputValue) || 0, 0, 999));
         }
 
         // Clamp focus points
         const focusUpdate = changed.system.resources?.focus;
         if (focusUpdate && this.system.resources) {
             if (typeof focusUpdate.max === "number") {
-                focusUpdate.max = Math.clamped(focusUpdate.max, 0, 3);
+                focusUpdate.max = Math.clamp(focusUpdate.max, 0, 3);
             }
 
             const updatedPoints = Number(focusUpdate.value ?? this.system.resources.focus?.value) || 0;
             const enforcedMax = (Number(focusUpdate.max) || this.system.resources.focus?.max) ?? 0;
-            focusUpdate.value = Math.clamped(updatedPoints, 0, enforcedMax);
+            focusUpdate.value = Math.clamp(updatedPoints, 0, enforcedMax);
         }
 
         // Preserve alignment traits if not exposed
         const traitChanges = changed.system.traits;
-        if (R.isObject(traitChanges) && Array.isArray(traitChanges.value)) {
+        if (R.isPlainObject(traitChanges) && Array.isArray(traitChanges.value)) {
             const sourceAlignmentTraits = this._source.system.traits?.value.filter(
                 (t) => ["good", "evil", "lawful", "chaotic"].includes(t) && !(t in CONFIG.PF2E.creatureTraits),
             );
-            traitChanges.value = R.uniq(R.compact([traitChanges.value, sourceAlignmentTraits].flat()).sort());
+            traitChanges.value = R.unique([traitChanges.value, sourceAlignmentTraits].flat()).filter(R.isTruthy).sort();
         }
 
         return super._preUpdate(changed, options, user);
     }
 
     /** Overriden to notify the party that an update is required */
-    protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void {
-        super._onDelete(options, userId);
+    protected override _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void {
+        super._onDelete(operation, userId);
 
         for (const party of this.parties) {
             const updater = party.primaryUpdater;
@@ -846,40 +825,43 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
 
     get hitPoints(): HitPointsSummary;
 
-    /** Expand DocumentModificationContext for creatures */
-    update(data: Record<string, unknown>, options?: CreatureUpdateContext<TParent>): Promise<this>;
+    /** Extend `DatabaseUpdateOperation` for creatures */
+    update(
+        data: Record<string, unknown>,
+        operation?: Partial<CreatureUpdateOperation<TParent>>,
+    ): Promise<this | undefined>;
 
     /** See implementation in class */
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     updateEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         updateData: EmbeddedDocumentUpdateData[],
-        options?: DocumentUpdateContext<this>,
+        operation?: Partial<DatabaseUpdateOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(
         embeddedName: "ActiveEffect" | "Item",
         ids: string[],
-        context?: DocumentModificationContext<this>,
+        operation?: Partial<DatabaseDeleteOperation<this>>,
     ): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 

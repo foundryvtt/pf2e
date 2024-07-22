@@ -234,72 +234,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "3M3jeDSr9Xukje5l",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "FIbJXOg1vkueDi2o",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.TarPit",
-                        "predicate": [
-                            "terrain:tar-pit"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+14 in tar pits",
-                        "options": "terrain:tar-pit"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Tar Zombie Snatcher",
@@ -421,6 +355,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 13
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 15
+            },
+            "stealth": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 14,
+                        "label": "in tar pits",
+                        "predicate": [
+                            "terrain:tar-pit"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

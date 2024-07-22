@@ -354,147 +354,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "csh0liz4xdk8xsxz",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "t1csyjtz5anowgkm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Disarm",
-                        "predicate": [
-                            "action:disarm"
-                        ],
-                        "selector": "athletics",
-                        "value": 3
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+21 to Disarm",
-                        "options": "action:disarm"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "nf7gid41z89puphr",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "2hsiga3i8s6yzh8o",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "x4vauq0s9diofye7",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 16
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Cadaverous Rake",
@@ -601,6 +460,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 18
+            },
+            "athletics": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 21,
+                        "label": "to Disarm"
+                    }
+                ]
+            },
+            "deception": {
+                "base": 16
+            },
+            "intimidation": {
+                "base": 18
+            },
+            "thievery": {
+                "base": 16
             }
         },
         "traits": {

@@ -32,6 +32,6 @@ declare global {
          * @param [scope.token] A Token which is the protagonist of the executed action
          * @returns A created ChatMessage from chat macros or returned value from script macros
          */
-        execute(scope?: { actor?: Actor; token?: Token }): unknown;
+        execute(scope?: { actor?: Actor; token?: Token; [k: string]: unknown }): unknown;
     }
 }

@@ -1,9 +1,9 @@
-import { TokenEffect } from "@actor/token-effect.ts";
 import { EffectPF2e } from "@item";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { isImageFilePath } from "@util";
-import type { StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
+import fields = foundry.data.fields;
 
 /**
  * Add an effect icon to an actor's token
@@ -27,7 +27,17 @@ class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema> 
             return this.failValidation("value: must resolve to an image file path");
         }
         this.actor.synthetics.tokenEffectIcons.push(
-            new TokenEffect(new EffectPF2e({ type: "effect", name: this.label, img: path })),
+            ActiveEffectPF2e.fromEffect(
+                new EffectPF2e(
+                    {
+                        type: "effect",
+                        name: this.label,
+                        img: path,
+                        system: { description: { value: this.item.description } },
+                    },
+                    { parent: this.actor },
+                ),
+            ),
         );
     }
 }
@@ -37,7 +47,7 @@ interface TokenEffectIconRuleElement
         ModelPropsFromRESchema<TokenEffectIconSchema> {}
 
 type TokenEffectIconSchema = RuleElementSchema & {
-    value: StringField<string, string, false, false, false>;
+    value: fields.StringField<string, string, false, false, false>;
 };
 
 export { TokenEffectIconRuleElement };

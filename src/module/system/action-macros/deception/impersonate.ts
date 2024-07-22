@@ -30,6 +30,7 @@ function impersonate(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     description: `${PREFIX}.Description`,
     difficultyClass: "perception",
+    img: "icons/skills/social/theft-pickpocket-bribery-brown.webp",
     name: `${PREFIX}.Title`,
     notes: [
         { outcome: ["success", "criticalSuccess"], text: `${PREFIX}.Notes.success` },

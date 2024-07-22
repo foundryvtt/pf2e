@@ -270,208 +270,16 @@
             "type": "action"
         },
         {
-            "_id": "m9JGQEzsW8GzsKPp",
+            "_id": "hGcK7acpYirlNAXQ",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
+            "name": "Jewelry Lore",
             "sort": 700000,
             "system": {
                 "description": {
                     "value": ""
                 },
                 "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "inTqnHZGNmB3Nv4k",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 13
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.CraftJewelry",
-                        "predicate": [
-                            "action:craft",
-                            "jewelry"
-                        ],
-                        "selector": "crafting",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+17 to Craft jewelry",
-                        "options": "action:craft,jewelry"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "DO2H9iAudCe6Wcdm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Deception",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "GaCIeT3bvFzjc1S9",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 12
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "hGcK7acpYirlNAXQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Jewelry Lore",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
                     "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Y3HZ0zJFW6UZA09R",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Society",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 11
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "5zd2FO3TGCeumQzj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "jNHDNChkVtJE7JwQ",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Thievery",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 14
                 },
                 "proficient": {
                     "value": 0
@@ -580,6 +388,39 @@
             "will": {
                 "saveDetail": "",
                 "value": 15
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 14
+            },
+            "crafting": {
+                "base": 13,
+                "special": [
+                    {
+                        "base": 17,
+                        "label": "to Craft jewelry",
+                        "predicate": [
+                            "action:craft",
+                            "jewelry"
+                        ]
+                    }
+                ]
+            },
+            "deception": {
+                "base": 14
+            },
+            "diplomacy": {
+                "base": 12
+            },
+            "society": {
+                "base": 11
+            },
+            "stealth": {
+                "base": 14
+            },
+            "thievery": {
+                "base": 14
             }
         },
         "traits": {

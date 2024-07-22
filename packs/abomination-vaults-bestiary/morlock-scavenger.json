@@ -451,97 +451,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "PgwibOEbLLtQOIhl",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "wyg04TlEIo9tJBCj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 5
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Climb",
-                        "predicate": [
-                            "action:climb"
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+7 Climbing",
-                        "options": "action:climb"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BpZ1yAze5cKkRyFV",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Morlock Scavenger",
@@ -634,6 +543,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 6
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 7
+            },
+            "athletics": {
+                "base": 5,
+                "special": [
+                    {
+                        "base": 7,
+                        "label": "Climbing",
+                        "predicate": [
+                            "action:climb"
+                        ]
+                    }
+                ]
+            },
+            "stealth": {
+                "base": 7
             }
         },
         "traits": {

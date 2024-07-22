@@ -1,0 +1,79 @@
+{
+    "_id": "KcK3d8zw0bCEoaEG",
+    "img": "systems/pf2e/icons/features/classes/deny-advantage.webp",
+    "name": "Deadly Strike",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Through precise calculation, you've found the perfect way for your weapon to deal damage on a well-placed strike. Your innovation gains the deadly d8 trait. If your innovation was already deadly, increase the die by up to two die sizes (d6 to d10, d8 to d12), to a maximum of deadly d12.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Guns & Gears"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "or": [
+                            "item:trait:deadly-d10",
+                            "item:trait:deadly-d8"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    "item:trait:deadly-d6"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "priority": 111,
+                "property": "weapon-traits",
+                "value": "deadly-d10"
+            },
+            {
+                "definition": [
+                    "item:id:{actor|flags.pf2e.trackedItems.weaponInnovation}",
+                    {
+                        "not": "item:trait:deadly"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "priority": 112,
+                "property": "weapon-traits",
+                "value": "deadly-d6"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "weapon-innovation-modification"
+            ],
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}

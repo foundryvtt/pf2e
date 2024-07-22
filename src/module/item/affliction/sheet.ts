@@ -35,6 +35,12 @@ class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
             onsetUnits: R.omit(CONFIG.PF2E.timeUnits, ["encounter", "unlimited"]),
             saves: CONFIG.PF2E.saves,
             stages: await this.prepareStages(),
+            stageOptions: Object.fromEntries(
+                Array.fromRange(this.item.maxStage).map((s) => [
+                    s.toString(),
+                    game.i18n.format("PF2E.Item.Affliction.Stage", { stage: s }),
+                ]),
+            ),
         };
     }
 
@@ -227,6 +233,7 @@ interface AfflictionSheetData extends ItemSheetDataPF2e<AfflictionPF2e> {
     onsetUnits: Omit<ConfigPF2e["PF2E"]["timeUnits"], "unlimited" | "encounter">;
     saves: ConfigPF2e["PF2E"]["saves"];
     stages: Record<string, AfflictionStageSheetData>;
+    stageOptions: Record<string, string>;
 }
 
 interface AfflictionStageSheetData extends AfflictionStageData {

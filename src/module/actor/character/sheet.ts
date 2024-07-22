@@ -1,4 +1,3 @@
-import { SkillAbbreviation } from "@actor/creature/data.ts";
 import { CreatureSheetData, Language } from "@actor/creature/index.ts";
 import type { Sense } from "@actor/creature/sense.ts";
 import { isReallyPC } from "@actor/helpers.ts";
@@ -6,7 +5,7 @@ import { MODIFIER_TYPES, createProficiencyModifier } from "@actor/modifiers.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, InventoryItem } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
-import { AttributeString, SaveType } from "@actor/types.ts";
+import { AttributeString, SaveType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type {
     AncestryPF2e,
@@ -130,7 +129,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Attacks and defenses
         // Prune untrained martial proficiencies
         for (const section of ["attacks", "defenses"] as const) {
-            for (const key of R.keys.strict(sheetData.data.proficiencies[section])) {
+            for (const key of Object.keys(sheetData.data.proficiencies[section])) {
                 const proficiency = sheetData.data.proficiencies[section][key];
                 if (proficiency?.rank === 0 && !proficiency.custom) {
                     delete sheetData.data.proficiencies[section][key];
@@ -257,7 +256,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Spellcasting
         const collectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]> = fu.mergeObject(
             { "known-spells": [], rituals: [], activations: [] },
-            R.groupBy.strict(await this.prepareSpellcasting(), (a) => {
+            R.groupBy(await this.prepareSpellcasting(), (a) => {
                 if (a.category === "items") return "activations";
                 if (a.category === "ritual") return "rituals";
                 return "known-spells";
@@ -364,7 +363,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                     .localize(skillA.label ?? "")
                     .localeCompare(game.i18n.localize(skillB.label ?? ""), game.i18n.lang),
             ),
-        ) as Record<SkillAbbreviation, CharacterSkillData>;
+        ) as Record<SkillSlug, CharacterSkillData>;
 
         sheetData.tabVisibility = fu.deepClone(actor.flags.pf2e.sheetTabs);
 
@@ -455,7 +454,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Prepares all ability-type items that create an action in the sheet */
     #prepareAbilities(): CharacterSheetData["actions"] {
-        const { actor } = this;
         const result: CharacterSheetData["actions"] = {
             encounter: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
@@ -466,13 +464,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             downtime: [],
         };
 
+        const actor = this.actor;
+        const elementalBlasts = actor.itemTypes.action.filter((i) => i.slug === "elemental-blast");
+
         for (const item of actor.items) {
             if (!item.isOfType("action") && !(item.isOfType("feat") && item.actionCost)) {
                 continue;
             }
 
             // KINETICIST HARD CODE: Show elemental blasts alongside strikes instead of among other actions
-            if (item.slug === "elemental-blast" && this.actor.flags.pf2e.kineticist) {
+            // If the user added additional blasts manually, show the duplicates normally
+            if (actor.flags.pf2e.kineticist && item === elementalBlasts[0]) {
                 continue;
             }
 
@@ -545,7 +547,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     protected override prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem {
         const data = super.prepareInventoryItem(item);
-        data.isInvestable = !item.isInContainer && item.isIdentified && item.isInvested !== null;
+        data.isInvestable = !item.isStowed && item.isIdentified && item.isInvested !== null;
 
         // If armor is equipped, and can be invested, hint at the user that it should be invested
         const invested = this.actor.inventory.invested;
@@ -651,11 +653,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         // ACTIONS
         const actionsPanel = htmlQuery(html, ".tab[data-tab=actions]");
-
-        // Filter strikes
-        htmlQuery(actionsPanel, ".toggle-unready-strikes")?.addEventListener("click", () => {
-            this.actor.setFlag("pf2e", "showUnreadyStrikes", !this.actor.flags.pf2e.showUnreadyStrikes);
-        });
 
         for (const strikeElem of htmlQueryAll(actionsPanel, "ol[data-strikes] > li")) {
             // Auxiliary actions
@@ -885,6 +882,10 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         };
 
         // ACTIONS
+
+        handlers["toggle-hide-stowed"] = () => {
+            this.actor.update({ "flags.pf2e.hideStowed": !this.actor.flags.pf2e.hideStowed });
+        };
 
         // Toggle certain weapon traits: currently Double Barrel or Versatile
         handlers["toggle-weapon-trait"] = async (_, button) => {
@@ -1244,7 +1245,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     #activateBlastListeners(panel: HTMLElement | null): void {
         const blastList = htmlQuery(panel, "ol[data-elemental-blasts]");
-        const { elementTraits, damageTypes } = CONFIG.PF2E;
+        const { effectTraits, damageTypes } = CONFIG.PF2E;
         const selectors = ["roll-attack", "roll-damage", "set-damage-type"]
             .map((s) => `button[data-action=${s}]`)
             .join(",");
@@ -1258,7 +1259,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const blast = new ElementalBlast(this.actor);
             const { element } = blastRow.dataset;
             const damageType = button.value || blastRow.dataset.damageType;
-            if (!objectHasKey(elementTraits, element)) {
+            if (!objectHasKey(effectTraits, element)) {
                 throw ErrorPF2e("Unexpected error retrieve element");
             }
             if (!objectHasKey(damageTypes, damageType)) {
@@ -1268,7 +1269,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
             switch (button.dataset.action) {
                 case "roll-attack": {
-                    const mapIncreases = Math.clamped(Number(button.dataset.mapIncreases) || 0, 0, 2);
+                    const mapIncreases = Math.clamp(Number(button.dataset.mapIncreases) || 0, 0, 2);
                     await blast.attack({ mapIncreases, element, damageType, melee, event });
                     break;
                 }
@@ -1339,11 +1340,11 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         const newValue = ((): number | undefined => {
             if (item.isOfType("spellcastingEntry")) {
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(selectedValue, 0, 4),
+                    "system.proficiency.value": () => Math.clamp(selectedValue, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
-                return Math.clamped(selectedValue, 0, 4);
+                return Math.clamp(selectedValue, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -1372,12 +1373,12 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (item.isOfType("spellcastingEntry")) {
                 const proficiencyRank = item.system.proficiency.value;
                 const dispatch: Record<string, () => number> = {
-                    "system.proficiency.value": () => Math.clamped(proficiencyRank + change, 0, 4),
+                    "system.proficiency.value": () => Math.clamp(proficiencyRank + change, 0, 4),
                 };
                 return dispatch[propertyKey]?.();
             } else if (item.isOfType("lore")) {
                 const currentRank = item.system.proficient.value;
-                return Math.clamped(currentRank + change, 0, 4);
+                return Math.clamp(currentRank + change, 0, 4);
             } else {
                 throw ErrorPF2e("Item not recognized");
             }
@@ -1437,7 +1438,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     override async _onDrop(event: DragEvent): Promise<boolean | void> {
         const dropData = TextEditor.getDragEventData(event);
-        if (R.isObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
+        if (R.isPlainObject(dropData.pf2e) && dropData.pf2e.type === "CraftingFormula") {
             const dropEntrySelector = typeof dropData.entrySelector === "string" ? dropData.entrySelector : null;
             if (!dropEntrySelector) {
                 // Prepare formula if dropped on a crafting entry.

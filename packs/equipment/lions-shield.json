@@ -1,6 +1,6 @@
 {
     "_id": "eMDt5vCQztp7cC6B",
-    "img": "systems/pf2e/icons/equipment/shields/specific-shields/lions-shield.webp",
+    "img": "icons/equipment/shield/kite-steel-boss-gold.webp",
     "name": "Lion's Shield",
     "system": {
         "acBonus": 2,
@@ -10,7 +10,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This steel shield (Hardness 6, HP 36, BT 18) is forged into the shape of a roaring lion's head. The lion's head functions as <em>+1 striking shield boss</em> that can't be removed from the shield.</p>\n<hr />\n<p><strong>Activate—Lion's Bite</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Your shield is raised</p>\n<hr />\n<p><strong>Effect</strong> You animate the lion's head, making a melee Strike with it. The shield's biting maw is a martial melee weapon that deals @Damage[2d6[piercing]] damage and has the deadly d6 trait; it can't be enhanced by runes.</p>\n<p>The shield remains animated for 1 minute, during which time you can Strike with it each time you Raise the Shield, as well as with a Strike action.</p>"
+            "value": "<p>This steel shield (Hardness 6, HP 36, BT 18) is forged into the shape of a roaring lion's head. The lion's head functions as <em>+1 striking shield boss</em> that can't be removed from the shield.</p><hr /><p><strong>Activate—Lion's Bite</strong> <span class=\"action-glyph\">F</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Requirements</strong> Your shield is raised</p>\n<p><strong>Effect</strong> You animate the lion's head, making a melee Strike with it. The shield's biting maw is a martial melee weapon that deals 2d6 piercing damage and has the deadly d6 trait; it can't be enhanced by runes.</p>\n<p>The shield remains animated for 1 minute, during which time you can Strike with it each time you Raise the Shield, as well as with a Strike action.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Lion's Bite]</p>"
         },
         "hardness": 6,
         "hp": {
@@ -37,48 +37,34 @@
         "quantity": 1,
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Potency Rune",
-                "selector": "{item|_id}-attack",
-                "type": "item",
-                "value": 1
-            },
-            {
                 "category": "martial",
                 "damage": {
                     "base": {
                         "damageType": "bludgeoning",
-                        "dice": 2,
+                        "dice": 1,
                         "die": "d6"
                     }
                 },
                 "group": "shield",
                 "key": "Strike",
-                "range": null
+                "label": "PF2E.SpecificRule.Equipment.LionsShield.LionsHeadLabel",
+                "range": null,
+                "slug": "lions-head"
             },
             {
-                "category": "martial",
-                "damage": {
-                    "base": {
-                        "damageType": "piercing",
-                        "dice": 2,
-                        "die": "d6"
-                    }
-                },
-                "group": "shield",
-                "key": "Strike",
-                "label": "Lion's Shield (Activation)",
-                "predicate": [
-                    "self:shield:raised"
-                ],
-                "range": null,
-                "traits": [
-                    "deadly-d6"
-                ]
+                "key": "WeaponPotency",
+                "label": "PF2E.PotencyRuneLabel",
+                "selector": "lions-head-attack",
+                "value": 1
+            },
+            {
+                "key": "Striking",
+                "selector": "lions-head-damage",
+                "value": 1
             }
         ],
         "runes": {
-            "reinforcing": 0
+            "reinforcing": null
         },
         "size": "med",
         "specific": {

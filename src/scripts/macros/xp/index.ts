@@ -54,7 +54,7 @@ function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<numbe
     // add +1 to all levels to account for -1 levels
     const difference = entityLevel + 1 - (partyLevel + 1);
     const range = Math.floor(values.size / 2);
-    const boundedDifference = Math.clamped(difference, 0 - range, range);
+    const boundedDifference = Math.clamp(difference, 0 - range, range);
     return values.get(boundedDifference) ?? 0;
 }
 

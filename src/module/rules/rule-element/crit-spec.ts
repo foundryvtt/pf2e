@@ -113,7 +113,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
 
         const resolveInteger = (value: RuleValue, fallback: number) => {
             const resolved = this.resolveValue(value, 0, { resolvables: { weapon } });
-            return Math.clamped(Math.trunc(Math.abs(Number(resolved))), 1, 10) || fallback;
+            return Math.clamp(Math.trunc(Math.abs(Number(resolved))), 1, 10) || fallback;
         };
 
         const damageDice = () =>
@@ -144,7 +144,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                 : null;
 
         if (this.alternate) {
-            return R.compact([note(), damageDice(), modifier()]);
+            return [note(), damageDice(), modifier()].filter(R.isTruthy);
         }
 
         switch (weapon.group) {
@@ -189,7 +189,7 @@ class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
                       ]
                     : [];
             default: {
-                return weapon.group ? R.compact([note()]) : [];
+                return weapon.group ? [note()].filter(R.isTruthy) : [];
             }
         }
     }

@@ -137,34 +137,35 @@ abstract class RollContext<
                 : [];
 
         const rollOptions = new Set(
-            R.compact(
-                [
-                    ...this.rollOptions,
-                    rollingActor?.getRollOptions(resolvedDomains),
-                    distanceRangeOptions,
-                    this.traits.map((t) => `self:action:trait:${t}`),
-                    itemOptions,
-                    // Backward compatibility for predication looking for an "attack" trait by its lonesome
-                    this.isAttack ? "attack" : null,
-                ].flat(),
-            ).sort(),
+            [
+                ...this.rollOptions,
+                rollingActor?.getRollOptions(resolvedDomains),
+                distanceRangeOptions,
+                selfRole === "origin" ? this.traits.map((t) => `self:action:trait:${t}`) : [],
+                itemOptions,
+                // Backward compatibility for predication looking for an "attack" trait by its lonesome
+                this.isAttack ? "attack" : null,
+            ]
+                .flat()
+                .filter(R.isTruthy)
+                .sort(),
         );
 
         const actionTraits = ((): ActionTrait[] => {
             const traits = this.traits;
             if (itemClone?.isOfType("weapon", "melee")) {
-                const strikeAdjustments = R.compact(
-                    [
-                        rollingActor?.synthetics.strikeAdjustments,
-                        getPropertyRuneStrikeAdjustments(itemClone.system.runes.property),
-                    ].flat(),
-                );
+                const strikeAdjustments = [
+                    rollingActor?.synthetics.strikeAdjustments,
+                    getPropertyRuneStrikeAdjustments(itemClone.system.runes.property),
+                ]
+                    .flat()
+                    .filter(R.isTruthy);
                 for (const adjustment of strikeAdjustments) {
                     adjustment.adjustTraits?.(itemClone, traits);
                 }
             }
 
-            return R.uniq(traits).sort();
+            return R.unique(traits).sort();
         })();
 
         const opposingActor = await this.#cloneActor(opposerRole, { other: rollingActor });
@@ -177,12 +178,13 @@ abstract class RollContext<
         }
 
         const originActor = originIsSelf ? rollingActor : opposingActor;
+        const originIsRoller = originActor === rollingActor;
         const origin: RollOrigin | null = originActor
             ? {
-                  actor: originIsSelf ? rollingActor : opposingActor,
-                  token: originToken ?? null,
-                  statistic: originIsSelf ? rollerStatistic : null,
-                  item: originIsSelf ? itemClone : null,
+                  actor: originActor,
+                  token: originToken,
+                  statistic: originIsRoller ? rollerStatistic : null,
+                  item: originIsRoller ? itemClone : null,
                   self: originIsSelf,
                   modifiers: [],
               }
@@ -193,8 +195,8 @@ abstract class RollContext<
             ? {
                   actor: targetActor,
                   token: targetToken,
-                  statistic: !originIsSelf && rollerStatistic && "check" in rollerStatistic ? rollerStatistic : null,
-                  item: originIsSelf ? null : itemClone,
+                  statistic: !originIsRoller && rollerStatistic && "check" in rollerStatistic ? rollerStatistic : null,
+                  item: originIsRoller ? null : itemClone,
                   distance,
                   self: !originIsSelf,
                   rangeIncrement,
@@ -235,10 +237,10 @@ abstract class RollContext<
             const originMark = originUuid ? targetActor?.synthetics.tokenMarks.get(originUuid) : null;
             const targetMark = targetUuid ? originActor?.synthetics.tokenMarks.get(targetUuid) : null;
 
-            return R.compact([
+            return [
                 originMark ? `origin:mark:${originMark}` : null,
                 targetMark ? `target:mark:${targetMark}` : null,
-            ]);
+            ].filter(R.isTruthy);
         })();
 
         // Get ephemeral effects from the target that affect this actor while attacking
@@ -248,7 +250,7 @@ abstract class RollContext<
             target: unresolved.target?.actor ?? null,
             item,
             domains: this.domains,
-            options: R.compact([...this.rollOptions, ...itemOptions, ...markOptions]),
+            options: [...this.rollOptions, ...itemOptions, ...markOptions],
         });
 
         // Add an epehemeral effect from flanking
@@ -260,10 +262,14 @@ abstract class RollContext<
         }
 
         const perspectivePrefix = which === "origin" ? (this.rollerRole === "origin" ? "self" : "target") : "origin";
-        const actionOptions = this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
+        // Don't consider this an action if the item in question is a passive action (or feat-action)
+        const actionOptions =
+            item?.isOfType("action", "feat") && !item.actionCost
+                ? []
+                : this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
 
         return uncloned.actor.getContextualClone(
-            R.compact([
+            [
                 ...Array.from(this.rollOptions),
                 opposingAlias,
                 ...otherActor.getSelfRollOptions(opposingAlias),
@@ -271,7 +277,7 @@ abstract class RollContext<
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
                 ...(which === "target" ? itemOptions : []),
-            ]),
+            ].filter(R.isNonNull),
             ephemeralEffects,
         );
     }

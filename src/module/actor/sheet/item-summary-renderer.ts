@@ -1,8 +1,6 @@
 import type { ActorPF2e } from "@actor/base.ts";
 import { AbstractEffectPF2e, ItemPF2e } from "@item";
 import type { RawItemChatData } from "@item/base/data/index.ts";
-import { InlineRollLinks } from "@scripts/ui/inline-roll-links.ts";
-import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, htmlSelectorFor } from "@util";
 
 /**
@@ -33,7 +31,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             if (!container || !(item instanceof ItemPF2e)) return null;
             const chatData = await item.getChatData({ secrets: item.isOwner }, { ...element.dataset });
             await this.renderItemSummary(container, item, chatData);
-            InlineRollLinks.listen(container, item);
             return container;
         })();
         if (!summaryElem) return;
@@ -43,11 +40,14 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         if (options.instant) {
             summaryElem.hidden = !showSummary;
         } else if (showSummary) {
-            await gsap.fromTo(
-                summaryElem,
-                { height: 0, opacity: 0, hidden: false },
-                { height: "auto", opacity: 1, duration },
-            );
+            // Only animate if not already showing
+            if (summaryElem.hidden) {
+                await gsap.fromTo(
+                    summaryElem,
+                    { height: 0, opacity: 0, hidden: false },
+                    { height: "auto", opacity: 1, duration },
+                );
+            }
         } else {
             await gsap.to(summaryElem, {
                 height: 0,
@@ -101,7 +101,7 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
             item.isOfType("action", "feat") && item.system.selfEffect
                 ? `@UUID[${item.system.selfEffect.uuid}]{${item.system.selfEffect.name}}`
                 : null;
-        const selfEffect = effectLinkText && (await TextEditor.enrichHTML(effectLinkText, { async: true }));
+        const selfEffect = effectLinkText && (await TextEditor.enrichHTML(effectLinkText));
 
         const summary = await renderTemplate("systems/pf2e/templates/actors/partials/item-summary.hbs", {
             item,
@@ -113,7 +113,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         });
 
         container.innerHTML = summary;
-        UserVisibilityPF2e.process(container, { document: item });
 
         if (item.isOfType("spell") && item.actor.isOfType("creature")) {
             for (const button of htmlQueryAll(container, "button")) {
@@ -145,9 +144,6 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         const elements = summaries.flatMap((s) => htmlClosest(s, selectors) ?? htmlClosest(s, "li") ?? []);
         const $result = await callback.apply(null);
         const result = $result[0];
-
-        // Listen to inline rolls before opening the item summaries (to avoid double listeners)
-        InlineRollLinks.listen(result, this.sheet.actor);
 
         // Re-open hidden item summaries
         if (elements.length > 0) {

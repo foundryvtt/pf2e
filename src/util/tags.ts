@@ -1,8 +1,7 @@
 import { TraitViewData } from "@actor/data/base.ts";
-import Tagify from "@yaireo/tagify";
-import { ErrorPF2e, objectHasKey } from "./misc.ts";
-
-type WhitelistData = string[] | Record<string, string | { label: string }>;
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import Tagify, { TagifySettings } from "@yaireo/tagify";
+import { objectHasKey } from "./misc.ts";
 
 function traitSlugToObject(trait: string, dictionary: Record<string, string | undefined>): TraitViewData {
     // Look up trait labels from `npcAttackTraits` instead of `weaponTraits` in case a battle form attack is
@@ -31,15 +30,29 @@ function transformWhitelist(whitelist: WhitelistData) {
 }
 
 /** Create a tagify select menu out of a JSON input element */
-function tagify(input: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
-function tagify(input: HTMLInputElement | null, options?: TagifyOptions): Tagify<TagRecord> | null;
+function tagify(element: HTMLInputElement, options?: TagifyOptions): Tagify<TagRecord>;
+function tagify(element: HTMLTagifyTagsElement, options?: TagifyOptions): Tagify<TagRecord>;
 function tagify(
-    input: HTMLInputElement | null,
-    { whitelist, maxTags, enforceWhitelist = true }: TagifyOptions = {},
+    element: HTMLInputElement | HTMLTagifyTagsElement | null,
+    options?: TagifyOptions,
+): Tagify<TagRecord> | null;
+function tagify(
+    element: HTMLInputElement | HTMLTagifyTagsElement | null,
+    {
+        whitelist,
+        maxTags,
+        enforceWhitelist = true,
+        editTags = { clicks: 2, keepInvalid: true },
+        delimiters = ",",
+    }: TagifyOptions = {},
 ): Tagify<TagRecord> | null {
-    if (input?.hasAttribute("name") && input.dataset.dtype !== "JSON") {
-        throw ErrorPF2e("Usable only on input elements with JSON data-dtype");
-    } else if (!input) {
+    // Avoid importing the HTMLTagifyTagsElement class for an instanceof check which breaks pack building
+    const isTagifyTagsElement = (element: HTMLElement | null): element is HTMLTagifyTagsElement => {
+        return element?.tagName.toLowerCase() === "tagify-tags";
+    };
+
+    const input = isTagifyTagsElement(element) ? element.input : element;
+    if (!input) {
         return null;
     }
 
@@ -56,6 +69,8 @@ function tagify(
             maxItems,
             searchKeys: ["id", "value"],
         },
+        editTags,
+        delimiters,
         whitelist: whitelistTransformed,
     });
 
@@ -77,6 +92,8 @@ function tagify(
  */
 type TagRecord = Record<"id" | "value", string>;
 
+type WhitelistData = string[] | Record<string, string | { label: string }>;
+
 interface TagifyOptions {
     /** The maximum number of tags that may be added to the input */
     maxTags?: number;
@@ -84,6 +101,17 @@ interface TagifyOptions {
     whitelist?: WhitelistData;
     /** Whether this whitelist is exhaustive */
     enforceWhitelist?: boolean;
+    /**
+     *  Number of clicks to enter edit mode: `1` for single click, `2` for a double-click.
+     * `false` or `null` will disallow editing.
+     * @default {clicks: 2, keepInvalid: true}
+     */
+    editTags?: TagifySettings["editTags"];
+    /**
+     * RegEx string. Split tags by any of these delimiters. Example delimiters: ",|.| " (comma, dot, or whitespace)
+     * @default ','
+     */
+    delimiters?: TagifySettings["delimiters"];
 }
 
 export { tagify, traitSlugToObject };

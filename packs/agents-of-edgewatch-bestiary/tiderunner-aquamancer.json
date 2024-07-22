@@ -780,7 +780,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 minute.</p>\n<hr /><strong>Heightened (6th)</strong> You can target up to 10 creatures."
+                    "value": "<p>You dilate the flow of time around the target, slowing its actions.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} for 1 minute.</p>\n<hr /><p><strong>Heightened (6th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -925,7 +925,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus [[/r floor(@item.level/2)d6[persistent,acid]]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus @Damage[(floor(@item.rank/2))d6[persistent,acid]] damage. On a critical hit, double the initial damage, but not the persistent damage.</p><hr /><p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1368,7 +1368,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><p><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.</p>\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1933,85 +1933,10 @@
             "type": "lore"
         },
         {
-            "_id": "o8r6UIfIysbkoWFD",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 2700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 26
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "f9CJhejmDEzHnUCP",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 2800000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "V4VdsBPFRT9LL5X1",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Medicine",
-            "sort": 2900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "f8FrD7VC9NmfhQ3W",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Warfare Lore",
-            "sort": 3000000,
+            "sort": 2700000,
             "system": {
                 "description": {
                     "value": ""
@@ -2126,6 +2051,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 25
+            }
+        },
+        "skills": {
+            "arcana": {
+                "base": 26
+            },
+            "diplomacy": {
+                "base": 19
+            },
+            "medicine": {
+                "base": 23
             }
         },
         "traits": {

@@ -6,13 +6,13 @@ import {
     htmlQuery,
     htmlQueryAll,
     setHasElement,
-    signedInteger,
     sluggify,
     sortStringRecord,
     tupleHasValue,
 } from "@util";
 import * as R from "remeda";
 import { createDamageFormula } from "./formula.ts";
+import { getDamageDiceOverrideLabel, getDamageDiceValueLabel } from "./helpers.ts";
 import { DamageRoll } from "./roll.ts";
 import { DamageCategoryUnique, DamageDamageContext, DamageDieSize, DamageFormulaData, DamageType } from "./types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_TYPE_ICONS } from "./values.ts";
@@ -82,7 +82,7 @@ class DamageModifierDialog extends Application {
         const icons = (() => {
             switch (object.category) {
                 case "splash":
-                    return R.compact([fontAwesomeIcon("fa-burst"), damageTypeIcon]);
+                    return [fontAwesomeIcon("fa-burst"), damageTypeIcon].filter(R.isTruthy);
                 case "persistent":
                     if (object.damageType !== "bleed") {
                         return [damageTypeIcon, fontAwesomeIcon("fa-hourglass", { style: "duotone" })];
@@ -129,7 +129,6 @@ class DamageModifierDialog extends Application {
             base: this.formulaData.base,
             modifiers: [],
             dice: [],
-            ignoredResistances: [],
         });
         const baseRoll = new DamageRoll(baseResult.formula);
         const baseFormulaTemplate = (await Promise.all(baseRoll.instances.map((i) => i.render()))).join(" + ");
@@ -167,12 +166,7 @@ class DamageModifierDialog extends Application {
                 damageType: d.damageType,
                 typeLabel: this.#getTypeLabel(d.damageType, d.category),
                 hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
-                diceLabel:
-                    d.diceNumber && d.dieSize
-                        ? `${d.diceNumber}${d.dieSize}`
-                        : d.diceNumber
-                          ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", { dice: signedInteger(d.diceNumber) })
-                          : "",
+                diceLabel: getDamageDiceValueLabel(d),
                 enabled: d.enabled,
                 ignored: d.ignored,
                 critical: d.critical,
@@ -189,25 +183,14 @@ class DamageModifierDialog extends Application {
                     damageType: d.override.damageType ?? d.damageType,
                     hideIfDisabled: !this.#originallyEnabled.dice.has(d) && d.hideIfDisabled,
                     typeLabel: this.#getTypeLabel(d.override.damageType ?? d.damageType, d.category),
-                    diceLabel: R.compact([
-                        d.override.upgrade ? game.i18n.localize("PF2E.Roll.Dialog.Damage.DieSizeUpgrade") : null,
-                        d.override.diceNumber || d.override.dieSize
-                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Override", {
-                                  value:
-                                      d.override.diceNumber && d.override.dieSize
-                                          ? `${d.override.diceNumber}${d.override.dieSize}`
-                                          : d.override.diceNumber
-                                            ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
-                                                  dice: d.override.diceNumber,
-                                              })
-                                            : d.override.dieSize ?? "",
-                              })
-                            : null,
-                    ]).join(" + "),
+                    diceLabel: getDamageDiceOverrideLabel(d),
                     enabled: d.enabled,
                     ignored: d.ignored,
                     critical: d.critical,
-                    icon: this.#getModifierIcon(d),
+                    icon: this.#getModifierIcon({
+                        damageType: d.override.damageType ?? d.damageType,
+                        category: d.category,
+                    }),
                 })),
             ),
             isCritical: this.isCritical,

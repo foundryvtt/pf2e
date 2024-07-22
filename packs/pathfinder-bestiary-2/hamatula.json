@@ -796,7 +796,7 @@
                 }
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Telepathy",
+            "name": "Telepathy 100 feet",
             "sort": 1200000,
             "system": {
                 "actionType": {
@@ -1005,14 +1005,31 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The hamatula makes a barb Strike, then Strides up to half its Speed without triggering reactions. If the Strike hits, the hamatula impales the target with one of its barbs and snaps the barb free as it moves away from the target. This deals an additional @Damage[2d8[piercing]] damage to the target and pins it to an adjacent surface, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] (Escape DC 29).</p>"
+                    "value": "<p>The hamatula makes a barb Strike, then Strides up to half its Speed without triggering reactions. If the Strike hits, the hamatula impales the target with one of its barbs and snaps the barb free as it moves away from the target. This deals an additional 2d8 piercing damage to the target and pins it to an adjacent surface, rendering it @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] (@UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 29).</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "impaling-barb",
+                        "toggleable": true
+                    },
+                    {
+                        "damageType": "piercing",
+                        "diceNumber": 2,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "impaling-barb"
+                        ],
+                        "selector": "barb-damage"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -1050,156 +1067,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "odzxgvMebv49TH5M",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 1900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ZtJ6kfJ5JBKgrcLs",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Arcana",
-            "sort": 2000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 18
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "BRGK2ITt0AprZfw4",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 2100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 21
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "1Am8divKRxlb5dGI",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Religion",
-            "sort": 2200000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 20
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "ifS0Tv6Fq27cRyhF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 2300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "Q7TjtWtNjAlXqhFF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Survival",
-            "sort": 2400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Hamatula",
@@ -1323,6 +1190,26 @@
             "will": {
                 "saveDetail": "",
                 "value": 20
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 23
+            },
+            "arcana": {
+                "base": 18
+            },
+            "intimidation": {
+                "base": 21
+            },
+            "religion": {
+                "base": 20
+            },
+            "stealth": {
+                "base": 23
+            },
+            "survival": {
+                "base": 22
             }
         },
         "spellcasting": {

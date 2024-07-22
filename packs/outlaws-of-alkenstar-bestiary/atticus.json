@@ -344,10 +344,91 @@
             "type": "melee"
         },
         {
+            "_id": "U8KVYc8wfJknonai",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Find concealed objects",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:concealed",
+                                    "item:tag:object"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "6ae1VZm4cjTt4y4Y",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 Bonus on Perception to Sense motive",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:sense-motive"
+                        ],
+                        "selector": "perception",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "p8urnRdiID4k2uZg",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Firearms Critical Specialization",
-            "sort": 600000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -390,7 +471,7 @@
             "_id": "OnX3jouMfG6t2c3O",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lawbringer",
-            "sort": 700000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -437,7 +518,7 @@
             "_id": "iQ4L0kIRVMXHUjJV",
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Reloading Strike",
-            "sort": 800000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -464,85 +545,10 @@
             "type": "action"
         },
         {
-            "_id": "5Psp3smNrZOpI4tk",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 900000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 17
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "z7Ar9VIXkSbrij5r",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Crafting",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "7cK0qfbu2oCqk3pX",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidation",
-            "sort": 1100000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 15
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
-        },
-        {
             "_id": "XRdppgd0VL5tzrT7",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Legal Lore",
-            "sort": 1200000,
+            "sort": 1100000,
             "system": {
                 "description": {
                     "value": ""
@@ -647,6 +653,17 @@
             "will": {
                 "saveDetail": "",
                 "value": 12
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 17
+            },
+            "crafting": {
+                "base": 15
+            },
+            "intimidation": {
+                "base": 15
             }
         },
         "traits": {

@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> You share some of the bravery Cayden espoused during his ascension.</p>\n<p>When you roll a success on a saving throw against a fear effect, you get a critical success instead. If you have the fighter @UUID[Compendium.pf2e.classfeatures.Item.Bravery] class feature, when you roll a critical failure on a save against a fear effect, you get a failure instead.</p>"
+            "value": "<p>You share some of the bravery Cayden espoused during his ascension.</p>\n<p>When you roll a success on a saving throw against a fear effect, you get a critical success instead. If you have the fighter @UUID[Compendium.pf2e.classfeatures.Item.Bravery] class feature, when you roll a critical failure on a save against a fear effect, you get a failure instead.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,29 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "feature:bravery",
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

@@ -1,6 +1,7 @@
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { TokenDocumentPF2e } from "@scene";
 import { htmlQueryAll, objectHasKey } from "@util";
+import { InlineRollLinks } from "./inline-roll-links.ts";
 
 class UserVisibilityPF2e {
     /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
@@ -71,6 +72,9 @@ class UserVisibilityPF2e {
                 element.remove();
             }
         }
+
+        InlineRollLinks.injectRepostElements(html, document);
+        InlineRollLinks.flavorDamageRolls(html, document);
     }
 
     static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void {
@@ -86,7 +90,7 @@ class UserVisibilityPF2e {
                 if (game.user.isGM) {
                     sender.dataset.visibility = "gm";
                 } else {
-                    sender.innerText = message.user?.name ?? "Gamemaster";
+                    sender.innerText = message.author?.name ?? "Gamemaster";
                 }
             }
         }

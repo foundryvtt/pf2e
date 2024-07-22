@@ -1,9 +1,13 @@
 import { ActorPF2e } from "@actor";
 import { SIZE_LINKABLE_ACTOR_TYPES } from "@actor/values.ts";
+import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
 import { ErrorPF2e, fontAwesomeIcon, htmlQuery } from "@util";
+import * as R from "remeda";
 import type { TokenDocumentPF2e } from "./index.ts";
 
 class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<TDocument> {
+    #sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
+
     static override get defaultOptions(): DocumentSheetOptions {
         return {
             ...super.defaultOptions,
@@ -25,9 +29,27 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
         }[actorSize];
     }
 
+    get rulesBasedVision(): boolean {
+        const isCreature = !!this.actor?.isOfType("creature");
+        return isCreature && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
+    }
+
     override async getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>> {
+        const data = await super.getData(options);
+
+        // If RBV is enabled, override will-be-disabled inputs with prepared values for transparency.
+        // If this is a prototype token, also compute sight and detection modes to reflect what will occur when placed
+        if (this.rulesBasedVision) {
+            if (this.isPrototype) {
+                computeSightAndDetectionForRBV(this.token);
+            }
+            fu.mergeObject(data, {
+                object: fu.expandObject(R.mapToObj(this.#sightInputNames, (n) => [n, fu.getProperty(this.token, n)])),
+            });
+        }
+
         return {
-            ...(await super.getData(options)),
+            ...data,
             sizeLinkable: !!this.actor && SIZE_LINKABLE_ACTOR_TYPES.has(this.actor.type),
             linkToSizeTitle: this.token.flags.pf2e.linkToActorSize ? "Unlink" : "Link",
             autoscaleTitle: this.token.flags.pf2e.autoscale ? "Unlink" : "Link",
@@ -51,6 +73,16 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
 
         if (this.token.flags.pf2e.autoscale) {
             this.#disableScale(html);
+        }
+
+        // Disable un-linking for certain actor types we prefer not to become synthetics
+        if (this.actor?.allowSynthetics === false) {
+            const control = htmlQuery<HTMLInputElement>(html, "input[name=actorLink]");
+            if (control && control.checked) {
+                control.disabled = true;
+                const typeLocalization = game.i18n.localize(`TYPES.Actor.${this.actor.type}`);
+                control.dataset.tooltip = game.i18n.format("PF2E.Token.ActorLinkForced", { type: typeLocalization });
+            }
         }
 
         const linkToSizeButton = htmlQuery(html, "a[data-action=toggle-link-to-size]");
@@ -99,15 +131,11 @@ class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends TokenConfig<T
     }
 
     #disableVisionInputs(html: HTMLElement): void {
-        const isCreature = !!this.actor?.isOfType("creature");
-        const rulesBasedVision =
-            isCreature && (this.token.rulesBasedVision || (this.isPrototype && game.pf2e.settings.rbv));
-        if (!rulesBasedVision) return;
+        if (!this.rulesBasedVision) return;
 
-        const sightInputNames = ["angle", "brightness", "range", "saturation", "visionMode"].map((n) => `sight.${n}`);
         const sightInputs = Array.from(
             html.querySelectorAll<HTMLInputElement | HTMLSelectElement>(
-                sightInputNames.map((n) => `[name="${n}"]`).join(", "),
+                this.#sightInputNames.map((n) => `[name="${n}"]`).join(", "),
             ),
         );
 

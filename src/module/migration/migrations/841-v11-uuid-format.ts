@@ -48,7 +48,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         }
 
         if (source.type === "character") {
-            if (R.isObject(source.system.crafting) && Array.isArray(source.system.crafting.formulas)) {
+            if (R.isPlainObject(source.system.crafting) && Array.isArray(source.system.crafting.formulas)) {
                 for (const formula of source.system.crafting.formulas) {
                     formula.uuid = this.#replaceUUID(formula.uuid, "Item");
                 }
@@ -79,11 +79,11 @@ export class Migration841V11UUIDFormat extends MigrationBase {
         });
 
         if (itemIsOfType(source, "ancestry", "background", "class", "kit")) {
-            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> }> =
+            const items: Record<string, { uuid: string; items?: Record<string, { uuid: string }> | null }> =
                 source.system.items;
             for (const entry of Object.values(items)) {
                 entry.uuid = this.#replaceUUID(entry.uuid, "Item");
-                if (R.isObject(entry.items)) {
+                if (R.isPlainObject(entry.items)) {
                     for (const subentry of Object.values(entry.items)) {
                         subentry.uuid = this.#replaceUUID(subentry.uuid, "Item");
                     }

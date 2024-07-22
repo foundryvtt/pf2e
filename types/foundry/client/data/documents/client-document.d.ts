@@ -1,3 +1,4 @@
+import type ApplicationV2 from "../../../client-esm/applications/api/application.d.ts";
 import type { ClientBaseScene } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -7,12 +8,12 @@ declare global {
 
         get hasPlayerOwner(): boolean;
         get isOwner(): boolean;
-        get sheet(): FormApplication;
-        get uuid(): DocumentUUID;
+        get sheet(): DocumentSheet<this> | ApplicationV2;
     }
 
     interface CanvasDocument extends ClientDocument {
         readonly parent: ClientBaseScene | null;
+        object: PlaceableObject<this> | null;
         hidden?: boolean;
     }
 }

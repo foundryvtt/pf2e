@@ -1,5 +1,6 @@
 import type { NPCPF2e } from "@actor";
 import { CreatureSheetPF2e, type CreatureSheetData } from "@actor/creature/sheet.ts";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { NPCSkillsEditor } from "@actor/npc/skills-editor.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { RecallKnowledgePopup } from "@actor/sheet/popups/recall-knowledge-popup.ts";
@@ -8,6 +9,9 @@ import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/valu
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
+import { eventToRollParams } from "@scripts/sheet-util.ts";
+import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
+import type { StatisticRollParameters } from "@system/statistic/index.ts";
 import {
     getActionGlyph,
     htmlClosest,
@@ -60,11 +64,9 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.enrichedContent.publicNotes = await TextEditor.enrichHTML(sheetData.data.details.publicNotes, {
             rollData,
             secrets: this.actor.isOwner,
-            async: true,
         });
         sheetData.enrichedContent.privateNotes = await TextEditor.enrichHTML(sheetData.data.details.privateNotes, {
             rollData,
-            async: true,
         });
 
         sheetData.traitTagifyData = createTagifyTraits(this.actor.system.traits.value, {
@@ -102,12 +104,39 @@ abstract class AbstractNPCSheet extends CreatureSheetPF2e<NPCPF2e> {
         const html = $html[0];
 
         // Tagify the traits selection
-        const traitsEl = htmlQuery<HTMLInputElement>(html, 'input[name="system.traits.value"]');
+        const traitsEl = htmlQuery<HTMLTagifyTagsElement>(html, 'tagify-tags[name="system.traits.value"]');
         tagify(traitsEl, { whitelist: CONFIG.PF2E.creatureTraits });
     }
 
     protected override activateClickListener(html: HTMLElement): SheetClickActionHandlers {
         const handlers = super.activateClickListener(html);
+
+        const baseRollCheck = handlers["roll-check"]!;
+        handlers["roll-check"] = (event, anchor) => {
+            const variantIdx = "variant" in anchor.dataset ? Number(anchor.dataset.variant) : null;
+            if (variantIdx === null) return baseRollCheck(event, anchor);
+
+            const statisticSlug = htmlClosest(anchor, "[data-statistic]")?.dataset.statistic ?? "";
+            const skill = this.actor.system.skills[statisticSlug];
+            const variant = skill?.special?.at(variantIdx);
+            if (!variant) return baseRollCheck(event, anchor);
+
+            const statistic = this.actor.getStatistic(statisticSlug);
+            const args: StatisticRollParameters = {
+                ...eventToRollParams(event, { type: "check" }),
+                modifiers: [
+                    new ModifierPF2e({
+                        slug: "variant",
+                        label: variant.label,
+                        modifier: variant.base - skill.base,
+                    }),
+                ],
+            };
+            if (anchor.dataset.secret !== undefined) {
+                args.rollMode = game.user.isGM ? "gmroll" : "blindroll";
+            }
+            return statistic?.roll(args);
+        };
 
         handlers["edit-skills"] = () => {
             new NPCSkillsEditor(this.actor).render(true);
@@ -172,7 +201,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             const data = this.actor.identificationDCs;
             const skills =
                 data.skills.length > 0
-                    ? localizeList(data.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skillList[s])))
+                    ? localizeList(data.skills.map((s) => game.i18n.localize(CONFIG.PF2E.skills[s].label)))
                     : null;
             return {
                 standard: skills
@@ -304,7 +333,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                         traitSlugToObject(t, CONFIG.PF2E.npcAttackTraits),
                     );
                     const rollData = item.getRollData();
-                    const description = await TextEditor.enrichHTML(item.description, { rollData, async: true });
+                    const description = await TextEditor.enrichHTML(item.description, { rollData });
                     const damageFormula = item.dealsDamage ? String(await attack.damage?.({ getFormula: true })) : null;
                     const effects = ((): string => {
                         const list = attack.additionalEffects.map((e) => game.i18n.localize(e.label));
@@ -344,13 +373,14 @@ class NPCSheetPF2e extends AbstractNPCSheet {
             const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
             const glyph = getActionGlyph(item.actionCost);
             const actionGroup = glyph ? "active" : "passive";
+            const frequency = item.system?.frequency || null;
             const has = {
                 aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
                 deathNote: item.system.deathNote,
                 selfEffect: !!item.system.selfEffect,
             };
 
-            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, has });
+            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, frequency, has });
         }
 
         sheetData.attacks = attacks;

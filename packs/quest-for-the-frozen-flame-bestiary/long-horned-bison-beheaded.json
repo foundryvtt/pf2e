@@ -152,72 +152,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "2aaf0iz1gy44wkbj",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Acrobatics",
-            "sort": 500000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 8
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.ManeuverInFlight",
-                        "predicate": [
-                            "action:maneuver-in-flight"
-                        ],
-                        "selector": "acrobatics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+10 to Maneuver in Flight",
-                        "options": "action:maneuver-in-flight"
-                    }
-                }
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "o0c3xz8kphjfj26r",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 7
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null
-            },
-            "type": "lore"
         }
     ],
     "name": "Long-horned Bison Beheaded",
@@ -338,6 +272,23 @@
             "will": {
                 "saveDetail": "",
                 "value": 5
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 8,
+                "special": [
+                    {
+                        "base": 10,
+                        "label": "to Maneuver in Flight",
+                        "predicate": [
+                            "action:maneuver-in-flight"
+                        ]
+                    }
+                ]
+            },
+            "athletics": {
+                "base": 7
             }
         },
         "traits": {

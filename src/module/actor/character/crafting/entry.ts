@@ -174,7 +174,7 @@ class CraftingEntry implements CraftingEntryData {
                 : value === "increase"
                   ? currentQuantity + adjustment
                   : currentQuantity - adjustment;
-        data.quantity = Math.ceil(Math.clamped(newQuantity, adjustment, adjustment * 50) / adjustment) * adjustment;
+        data.quantity = Math.ceil(Math.clamp(newQuantity, adjustment, adjustment * 50) / adjustment) * adjustment;
 
         return this.#updateRuleElement();
     }

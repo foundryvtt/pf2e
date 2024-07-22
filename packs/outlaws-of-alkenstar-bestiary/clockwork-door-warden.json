@@ -425,52 +425,6 @@
                 }
             },
             "type": "action"
-        },
-        {
-            "_id": "59PiSLTxba9KUQRm",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1000000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 10
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.DisarmGrapple",
-                        "predicate": [
-                            {
-                                "or": [
-                                    "action:disarm",
-                                    "action:grapple"
-                                ]
-                            }
-                        ],
-                        "selector": "athletics",
-                        "value": 2
-                    }
-                ],
-                "slug": null,
-                "variants": {
-                    "0": {
-                        "label": "+12 to Disarm or Grapple",
-                        "options": "action:disarm,action:grapple"
-                    }
-                }
-            },
-            "type": "lore"
         }
     ],
     "name": "Clockwork Door Warden",
@@ -577,6 +531,25 @@
             "will": {
                 "saveDetail": "",
                 "value": 14
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10,
+                "special": [
+                    {
+                        "base": 12,
+                        "label": "to Disarm or Grapple",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:disarm",
+                                    "action:grapple"
+                                ]
+                            }
+                        ]
+                    }
+                ]
             }
         },
         "traits": {

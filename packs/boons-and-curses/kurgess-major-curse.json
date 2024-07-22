@@ -1,10 +1,10 @@
 {
     "_id": "QuNXNPHvh4DBmyZH",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Kurgess.webp",
     "name": "Kurgess - Major Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Major Curse:</strong> The wrath of Kurgess withers you almost to nothing. You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}.</p>"
+            "value": "<p>The wrath of Kurgess withers you almost to nothing. You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} and @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 4}.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,32 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Drained"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 4
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

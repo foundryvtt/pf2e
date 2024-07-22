@@ -1,0 +1,88 @@
+{
+    "_id": "ACdeqHG0cnSHoaOB",
+    "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+    "name": "Whip Tail",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>You have a strong, prehensile tail. You gain a tail unarmed attack that deals 1d6 bludgeoning damage. This tail is in the brawling group. You gain a +1 item bonus to Acrobatics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Balance] and to Athletics checks to Climb. You can also use your tail for the @UUID[Compendium.pf2e.actionspf2e.Item.Grab an Edge] action, even if your hands are otherwise occupied.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 3
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 45
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
+                "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
+                "slug": "tail",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:balance",
+                            "action:climb"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "athletics",
+                    "acrobatics"
+                ],
+                "type": "item",
+                "value": 1
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "graft",
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "implanted"
+        }
+    },
+    "type": "equipment"
+}

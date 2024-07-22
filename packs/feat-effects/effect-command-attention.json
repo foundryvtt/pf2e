@@ -1,0 +1,47 @@
+{
+    "_id": "iMY1ClfWdn50s0PM",
+    "img": "icons/skills/social/wave-halt-stop.webp",
+    "name": "Effect: Command Attention",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Command Attention]</p>\n<p>When creatures within 30 feet of you attempt saving throws against other visual effects, they use the outcome for one degree of success better than the result they rolled.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "all": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "item:trait:visual"
+                ],
+                "selector": "saving-throw"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

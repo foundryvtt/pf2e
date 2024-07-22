@@ -565,62 +565,10 @@
             "type": "action"
         },
         {
-            "_id": "wFLbEgSqYtWXX7ah",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Athletics",
-            "sort": 1300000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 23
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8olEKY1crDvr6lpd",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy",
-            "sort": 1400000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 22
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
             "_id": "2LqNyl4yrY4R0XPU",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Forest Lore (applies to the arboreal archive's territory)",
-            "sort": 1500000,
+            "sort": 1300000,
             "system": {
                 "description": {
                     "value": ""
@@ -639,74 +587,6 @@
                 "rules": [],
                 "slug": null,
                 "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "8nhEgguSsgIANgpC",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Nature",
-            "sort": 1600000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 25
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [],
-                "slug": null,
-                "traits": {}
-            },
-            "type": "lore"
-        },
-        {
-            "_id": "6kF88w6XCeKwvBaF",
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Stealth",
-            "sort": 1700000,
-            "system": {
-                "description": {
-                    "value": ""
-                },
-                "mod": {
-                    "value": 19
-                },
-                "proficient": {
-                    "value": 0
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": ""
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "PF2E.SkillVariant.Forests",
-                        "predicate": [
-                            "terrain:forest"
-                        ],
-                        "selector": "stealth",
-                        "value": 4
-                    }
-                ],
-                "slug": null,
-                "traits": {},
-                "variants": {
-                    "0": {
-                        "label": "+23 in forests",
-                        "options": "terrain:forest"
-                    }
-                }
             },
             "type": "lore"
         }
@@ -828,6 +708,29 @@
             "will": {
                 "saveDetail": "",
                 "value": 27
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 23
+            },
+            "diplomacy": {
+                "base": 22
+            },
+            "nature": {
+                "base": 25
+            },
+            "stealth": {
+                "base": 19,
+                "special": [
+                    {
+                        "base": 23,
+                        "label": "in forests",
+                        "predicate": [
+                            "terrain:forest"
+                        ]
+                    }
+                ]
             }
         },
         "traits": {
