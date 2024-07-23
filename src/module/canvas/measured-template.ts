@@ -39,7 +39,7 @@ class MeasuredTemplatePF2e<
             case "cone":
                 return M.CENTER | M.CORNER | M.SIDE_MIDPOINT;
             case "line":
-                return M.EDGE_MIDPOINT;
+                return M.SIDE_MIDPOINT | M.CORNER;
             default:
                 return M.CENTER | M.CORNER;
         }
