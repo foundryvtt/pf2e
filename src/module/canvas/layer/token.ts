@@ -3,18 +3,14 @@ import type { TokenPF2e } from "../index.ts";
 class TokenLayerPF2e<TObject extends TokenPF2e> extends TokenLayer<TObject> {
     /** Prevent redirection of event to `Ruler` when ctrl key is pressed. */
     protected override _onClickLeft(event: PlaceablesLayerPointerEvent<TObject>): void {
-        if (
-            game.pf2e.settings.dragMeasurement &&
-            game.activeTool !== "ruler" &&
-            game.keyboard.isModifierActive(KeyboardManager.MODIFIER_KEYS.CONTROL)
-        ) {
-            return;
-        }
-
         // @todo fixme
-        // Following a z-cycle (see below), token click listerns sometimes aren't available until mouse movement.
+        // Following a z-cycle (see below), token click listeners sometimes aren't available until mouse movement.
         const localPosition = event.getLocalPosition(this);
-        if (this.hover?.canControl(game.user, event) && this.hover.bounds.contains(localPosition.x, localPosition.y)) {
+        if (
+            !canvas.controls.ruler?.active &&
+            this.hover?.canControl(game.user, event) &&
+            this.hover.bounds.contains(localPosition.x, localPosition.y)
+        ) {
             this.hover.control();
             return;
         }
