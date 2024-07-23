@@ -168,16 +168,16 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         };
     }
 
-    protected override _getMeasurementOrigin(point: Point, { snap = true } = {}): Point {
-        if (!this.dragMeasurement || !this.token || !snap) {
-            return super._getMeasurementOrigin(point, { snap });
+    protected override _getMeasurementOrigin(point: Point, options?: { snap?: boolean }): Point {
+        if (!this.dragMeasurement || !this.token || options?.snap === false) {
+            return super._getMeasurementOrigin(point, options);
         }
         return canvas.grid.getSnappedPoint(point, { mode: this.#snapMode });
     }
 
-    protected override _getMeasurementDestination(point: Point, { snap = true }: { snap?: boolean } = {}): Point {
-        if (!this.dragMeasurement || !this.token || !snap) {
-            return super._getMeasurementDestination(point, { snap });
+    protected override _getMeasurementDestination(point: Point, options?: { snap?: boolean }): Point {
+        if (!this.dragMeasurement || !this.token || options?.snap === false) {
+            return super._getMeasurementDestination(point, options);
         }
         return canvas.grid.getSnappedPoint(point, { mode: this.#snapMode });
     }
