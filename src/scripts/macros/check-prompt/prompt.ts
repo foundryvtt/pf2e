@@ -172,9 +172,9 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
             const dc = this.#getDC(html);
             let content: string = "";
             if (actions.length > 0 && types.length > 0) {
-                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type)).join("");
+                content = types.map((type) => this.#constructAction(actions[0], variants[0], dc, type, traits)).join("");
             } else if (actions.length > 0 && types.length === 0) {
-                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null)).join("");
+                content = actions.map((action) => this.#constructAction(action, variants[0], dc, null, traits)).join("");
             } else {
                 content = types.map((type) => this.#constructCheck(type, dc, traits, extras)).join("");
             }
@@ -237,12 +237,13 @@ class CheckPromptDialog extends Application<CheckPromptDialogOptions> {
         return `<p>@Check[${parts.join("|")}]</p>`;
     }
 
-    #constructAction(action: string, variant: string | null, dc: number | null, statistic: string | null): string {
+    #constructAction(action: string, variant: string | null, dc: number | null, statistic: string | null, traits: string[]): string {
         const parts = [
             action,
             variant ? `variant=${variant}` : null,
             statistic ? `statistic=${statistic}` : null,
             Number.isInteger(dc) ? `dc=${dc}` : null,
+            traits.length ? `traits=${traits.join(",")}` : null,
         ];
         return `[[/act ${parts.join(" ")}]]`;
     }
