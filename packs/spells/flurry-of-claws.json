@@ -8,41 +8,110 @@
             "value": ""
         },
         "counteraction": false,
-        "damage": {},
+        "damage": {
+            "JC32rvRkPjO4AK13": {
+                "applyMod": false,
+                "category": null,
+                "formula": "1d8",
+                "kinds": [
+                    "damage"
+                ],
+                "materials": [],
+                "type": "slashing"
+            }
+        },
         "defense": null,
         "description": {
-            "value": "<p>Vicious claws grow from your fingers. They are finesse unarmed attacks that deal 1d4 slashing damage and 1d6 extra damage of a type determined by the dragon in your bloodline.</p>\n<p>Your scales from blood magic glow with faint energy, giving you resistance 5 to the same damage type.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Flurry of Claws]</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The extra damage increases to 2d6, and the resistance increases to 10.</p>\n<p><strong>Heightened (9th)</strong> The extra damage increases to 3d6, and the resistance increases to 15.</p>"
+            "value": "<p>Vicious dragon claws appear and slash at two nearby foes. Make a spell attack roll against each creature. This counts as two attacks for your multiple attack penalty, but the penalty doesn't increase until you've made both attacks. On a hit, the creatures takes 1d8 slashing plus 1d4 additional damage of a type determined by the magical tradition related to the dragon that influenced your bloodline: <strong>arcane</strong> force, <strong>divine</strong> spirit, <strong>occult</strong> mental, or <strong>primal</strong> fire.</p><hr /><p><strong>Heightened (+1)</strong> The initial damage increases by 1d8 and the additional damage increases by 1d4.</p>"
         },
         "duration": {
             "sustained": false,
-            "value": "1 minute"
+            "value": ""
+        },
+        "heightening": {
+            "damage": {
+                "JC32rvRkPjO4AK13": "1d8"
+            },
+            "interval": 1,
+            "type": "interval"
         },
         "level": {
             "value": 1
         },
+        "overlays": {},
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
         "range": {
-            "value": ""
+            "value": "30 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "force",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "feature:bloodline:draconic:arcane",
+                    "item:slug:flurry-of-claws"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "feature:bloodline:draconic:divine",
+                    "item:slug:flurry-of-claws"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "mental",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "feature:bloodline:draconic:occult",
+                    "item:slug:flurry-of-claws"
+                ],
+                "selector": "spell-damage"
+            },
+            {
+                "damageType": "fire",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "predicate": [
+                    "feature:bloodline:draconic:primal",
+                    "item:slug:flurry-of-claws"
+                ],
+                "selector": "spell-damage"
+            }
+        ],
         "target": {
-            "value": ""
+            "value": "2 creatures no more than 10 feet from each other"
         },
         "time": {
-            "value": "1"
+            "value": "2"
         },
         "traits": {
             "rarity": "uncommon",
             "traditions": [],
             "value": [
+                "attack",
                 "concentrate",
                 "focus",
-                "morph",
+                "manipulate",
                 "sorcerer"
             ]
         }

@@ -4,36 +4,32 @@
     "name": "Mega Bomb",
     "system": {
         "actionType": {
-            "value": "action"
+            "value": "passive"
         },
         "actions": {
-            "value": 1
+            "value": null
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You are holding an infused alchemical bomb you crafted, with a level at least 3 lower than your advanced alchemy level</p>\n<hr />\n<p>You add an incredibly powerful additive to a held bomb to create a mega bomb, greatly increasing its area and power.</p>\n<p>You use an @UUID[Compendium.pf2e.actionspf2e.Item.Interact] action to throw the mega bomb, rather than Strike, and you don't make an attack roll.</p>\n<p>The mega bomb affects creatures in a 30-foot-radius burst, centered within 60 feet of you. The bomb deals damage as if each creature were the primary target, with a basic Reflex save. On a failed save, a creature also takes any extra effects that affect a primary target (such as off-guard from bottled lightning). While all targets in the area take splash damage as primary targets, there is no further splash beyond that area.</p>\n<p>If your next action after creating a mega bomb isn't an Interact action to throw it, the mega bomb denatures and loses all effects.</p>"
+            "value": "<p>You can add a highly explosive additive to an alchemical bomb to turn it into a mega bomb. Throwing this bomb takes a 2-action activity instead of a Strike. This isn't a Strike, and you don't make an attack roll. The mega bomb explodes in a @Template[type:burst|distance:30] within 60 feet. It deals damage as if each creature were the primary target, with a @Check[type:reflex|dc:resolve(@actor.system.proficiencies.classDCs.alchemist.value)|basic:true] save. On a failed save, a creature also takes any extra effects that affect a primary target (such as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from bottled lightning). Though all targets in the area take splash damage as primary targets, there is no further splash beyond that area.</p>"
         },
         "level": {
             "value": 20
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "Expanded Splash"
-                }
-            ]
+            "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [],
         "traits": {
             "rarity": "common",
             "value": [
-                "additive3",
-                "alchemist"
+                "alchemist",
+                "manipulate"
             ]
         }
     },

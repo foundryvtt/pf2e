@@ -4,7 +4,7 @@
     "name": "Spell Effect: Embrace the Pit",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Embrace the Pit]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Embrace the Pit]</p>\n<p>You gain resistance to fire, poison and physical damage (except silver).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,17 +16,16 @@
             "value": 3
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "Resistance",
                 "type": [
                     "fire",
-                    "poison",
-                    "unholy"
+                    "poison"
                 ],
                 "value": "5 + 5*floor((@item.level -3)/2)"
             },
@@ -37,11 +36,6 @@
                 "key": "Resistance",
                 "type": "physical",
                 "value": "1 + 2*floor((@item.level -3)/2)"
-            },
-            {
-                "key": "Weakness",
-                "type": "holy",
-                "value": "5 + 5*floor((@item.level -3)/2)"
             }
         ],
         "start": {
