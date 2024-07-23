@@ -181,7 +181,7 @@ class CheckPF2e {
         };
 
         const totalModifierPart = signedInteger(check.totalModifier, { emptyStringZero: true });
-        const allowInteractive = context.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
+        const allowInteractive = context.rollMode !== "blindroll";
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
         // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
@@ -494,7 +494,8 @@ class CheckPF2e {
         );
 
         // Evaluate the new roll and call a second hook allowing the roll to be altered
-        const newRoll = await unevaluatedNewRoll.evaluate();
+        const allowInteractive = context.rollMode !== "blindroll";
+        const newRoll = await unevaluatedNewRoll.evaluate({ allowInteractive });
         Hooks.callAll("pf2e.reroll", Roll.fromJSON(JSON.stringify(oldRoll.toJSON())), newRoll, heroPoint, keep);
 
         // Keep the new roll by default; Old roll is discarded

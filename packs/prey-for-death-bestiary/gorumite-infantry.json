@@ -1,0 +1,321 @@
+{
+    "_id": "VUnzeDyz7gkJbS15",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "Lx5Q366mof1O0MPp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Form Up",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "form-up",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "9X9mEo92lODvZP6d",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Thresholds</strong> 170 (12 squares), 85 (8 squares)</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "cLFteTTZ1b4O3AoI",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Fire Crossbows!",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The gorumite infantry draw or reload their crossbows, then launch a ranged attack in the form of a volley.</p>\n<p>This volley is a @Template[type:burst|distance:10] within 120 feet that deals @Damage[6d8[piercing]] damage (@Check[type:reflex|dc:31|basic:true] save). When the gorumite infantry is reduced to 8 or fewer squares, this area decreases to a @Template[type:burst|distance:5].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BCsGqHil1Dziu3FX",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Raise Swords!",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The Gorumite infantry engages in a frenzied attack against each enemy within 10 feet, with a @Check[type:reflex|dc:31|basic:true] save. The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(1d12+4)[slashing]] damage.</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(2d12+10)[slashing]] damage and @Damage[1d6[persistent,bleed]] damage.</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(3d12+10)[slashing]] damage and @Damage[2d6[persistent,bleed]] damage.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round",
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "self:deity:slug:gorum"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "aKXQLekTbiAqj1Id",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Movement",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the gorumite infantry Strides, they first @UUID[Compendium.pf2e.bestiary-ability-glossary-srd.Item.Form Up] as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed.</p>\n<p>This works just like a Gargantuan creature moving; for instance, if any square of the guards enters difficult terrain, the extra movement cost applies to all the guards.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ZLBT0fOwy0DdDtEO",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Gorum Lore",
+            "sort": 600000,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 20
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        }
+    ],
+    "name": "Gorumite Infantry",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "troop defenses",
+                "max": 255,
+                "temp": 0,
+                "value": 255
+            },
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 20
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 20
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 15
+                }
+            ]
+        },
+        "details": {
+            "blurb": "Variant city guard",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "skald"
+                ]
+            },
+            "level": {
+                "value": 14
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>Most towns and cities on Golarion have a garrison of professional guards whose duties include patrolling the streets, assisting citizenry in need, and acting as a quick military response in times of crisis. Guards usually operate in pairs or small groups, but when a serious emergency threatens, guards muster at the nearest keep, watch station, or other rallying point and then move out in search of their quarry.Alternatively, guard troops might be stationed at important locations in the city, such as the front gates, the main prison, or the entrance to the ruler's castle.</p>\n<p>Individual guards may not be particularly well trained or experienced, but in large numbers they can defeat bandits, wild creatures that have slipped past the city gates, or the occasional drunken ogre. A group of city guards is usually accompanied and commanded by a single captain, who does most of the talking and gives individual guards their orders. The members of this city guard squadron have trained together to perform simple tactics but not advanced maneuvers.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure: Prey for Death"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 22
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 24
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28
+            },
+            "intimidation": {
+                "base": 22
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "human",
+                "humanoid",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

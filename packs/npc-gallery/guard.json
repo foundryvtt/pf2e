@@ -740,6 +740,49 @@
             "type": "melee"
         },
         {
+            "_id": "hHccWzh003xSa6dA",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+1 Bonus on Perception to Find concealed objects",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "interaction",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "target:condition:concealed",
+                                    "item:tag:object"
+                                ]
+                            }
+                        ],
+                        "selector": "perception",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "dYLk3rxvErYoaP9G",
             "flags": {
                 "core": {
@@ -748,7 +791,7 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 1200000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -778,7 +821,7 @@
             "_id": "yYnHoV3tJvO6D3bB",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Legal Lore",
-            "sort": 1500000,
+            "sort": 1400000,
             "system": {
                 "description": {
                     "value": ""

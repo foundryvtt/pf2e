@@ -1,10 +1,10 @@
 {
     "_id": "wZWklm7jLry2rTOk",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Shizuru.webp",
     "name": "Shizuru - Major Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Major Curse:</strong> Those who incite Shizuru's personal wrath earn the hatred of all of her subjects. All imperial dragons and animals you encounter are automatically hostile to you, and you gain weakness 15 to draconic breath weapons.</p>"
+            "value": "<p>Those who incite Shizuru's personal wrath earn the hatred of all of her subjects. All imperial dragons and animals you encounter are automatically hostile to you, and you gain weakness 15 to draconic breath weapons.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:breath-weapon",
+                    "origin:trait:dragon"
+                ],
+                "key": "Weakness",
+                "label": "PF2E.IWR.Custom.DraconicBreathWeapons",
+                "type": "custom",
+                "value": 15
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

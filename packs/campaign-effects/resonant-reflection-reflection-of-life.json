@@ -30,6 +30,48 @@
                 "mode": "add",
                 "path": "system.attributes.hp.recoveryMultiplier",
                 "value": 1
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-life"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-life"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
             }
         ],
         "traits": {

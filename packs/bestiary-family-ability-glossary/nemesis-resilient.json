@@ -1,0 +1,55 @@
+{
+    "_id": "nq282ijl9aKm2JST",
+    "img": "systems/pf2e/icons/default-icons/action.svg",
+    "name": "(Nemesis) Resilient",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": ""
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    }
+                ],
+                "flag": "resilient",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SavingThrow"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "{item|flags.pf2e.rulesSelections.resilient}",
+                "type": "save"
+            }
+        ],
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "action"
+}

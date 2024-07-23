@@ -1,10 +1,10 @@
 {
     "_id": "yBoHo1dcZpKygfJE",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Brigh.webp",
     "name": "Brigh - Minor Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Minor Curse:</strong> Your hands shake when attempting delicate work. All your failures to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] or @UUID[Compendium.pf2e.actionspf2e.Item.Repair] items are instead critical failures.</p>"
+            "value": "<p>Your hands shake when attempting delicate work. All your failures to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] or @UUID[Compendium.pf2e.actionspf2e.Item.Repair] items are instead critical failures.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,23 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "failure": "one-degree-worse"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:craft",
+                            "action:repair"
+                        ]
+                    }
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> Once per Crimson Shroud.</p>\n<p><strong>Trigger</strong> You are targeted with a Strike by someone you can detect while your Crimson Shroud is active.</p>\n<hr />\n<p>You fade partially from reality. The attacker must attempt a @Check[type:flat|dc:11]; on a failure, the attack passes harmlessly through the image of your body that remains behind. An instant later you return to reality, and your Crimson Shroud ends.</p>"
+            "value": "<p><strong>Frequency</strong> once per @UUID[Compendium.pf2e.feats-srd.Item.Crimson Shroud]</p>\n<p><strong>Trigger</strong> You are targeted with a Strike by someone you can detect.</p>\n<p><strong>Requirements</strong> Your Crimson Shroud is active.</p><hr /><p>You partially fade from reality. The attacker must attempt a @Check[type:flat|dc:11]; on a failure, the attack passes harmlessly through the image of your body that remains behind. An instant later you return to reality, and your Crimson Shroud ends.</p>"
         },
         "level": {
             "value": 10
@@ -28,7 +28,23 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Legends"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            10
+                        ]
+                    }
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
         "traits": {
             "rarity": "rare",
             "selected": {

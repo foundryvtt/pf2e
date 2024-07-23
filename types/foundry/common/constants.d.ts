@@ -908,6 +908,7 @@ declare global {
     type MacroScope = (typeof MACRO_SCOPES)[number];
     type MacroType = (typeof MACRO_TYPES)[keyof typeof MACRO_TYPES];
     type MeasuredTemplateType = (typeof MEASURED_TEMPLATE_TYPES)[keyof typeof MEASURED_TEMPLATE_TYPES];
+    type MovementDirection = (typeof CONST.MOVEMENT_DIRECTIONS)[keyof typeof CONST.MOVEMENT_DIRECTIONS];
     type PackageAvailabilityCode = (typeof PACKAGE_AVAILABILITY_CODES)[keyof typeof PACKAGE_AVAILABILITY_CODES];
     type PackageType = (typeof PACKAGE_TYPES)[number];
     type PlaylistMode = (typeof PLAYLIST_MODES)[keyof typeof PLAYLIST_MODES];

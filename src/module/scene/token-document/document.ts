@@ -19,6 +19,9 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
     declare auras: Map<string, TokenAura>;
 
+    /** The most recently used animation for later use when a token override is reverted. */
+    #lastAnimation: TokenAnimationOptions | null = null;
+
     /** Returns if the token is in combat, though some actors have different conditions */
     override get inCombat(): boolean {
         if (this.actor?.isOfType("party")) {
@@ -26,6 +29,81 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         return super.inCombat;
+    }
+
+    /** This should be in Foundry core, but ... */
+    get scene(): this["parent"] {
+        return this.parent;
+    }
+
+    /** Is this token emitting light with a negative value */
+    get emitsDarkness(): boolean {
+        return this.light.bright < 0;
+    }
+
+    get rulesBasedVision(): boolean {
+        return !!(this.sight.enabled && this.actor?.isOfType("creature") && this.scene?.rulesBasedVision);
+    }
+
+    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
+    get hasLowLightVision(): boolean {
+        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasLowLightVision);
+    }
+
+    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
+    get hasDarkvision(): boolean {
+        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasDarkvision);
+    }
+
+    /** Is this token's dimensions linked to its actor's size category? */
+    get linkToActorSize(): boolean {
+        return this.flags.pf2e.linkToActorSize;
+    }
+
+    /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
+    get autoscale(): boolean {
+        return this.flags.pf2e.autoscale;
+    }
+
+    get playersCanSeeName(): boolean {
+        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
+        const nameDisplayMode = this.displayName;
+        return anyoneCanSee.includes(nameDisplayMode) || this.actor?.alliance === "party";
+    }
+
+    /** The pixel-coordinate definition of this token's space */
+    get bounds(): PIXI.Rectangle {
+        const gridSize = this.scene?.grid.size ?? 100;
+        // Use source values since coordinates are changed in real time over the course of movement animation
+        return new PIXI.Rectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
+    }
+
+    /** Bounds used for mechanics, such as flanking and drawing auras */
+    get mechanicalBounds(): PIXI.Rectangle {
+        const bounds = this.bounds;
+        if (this.width < 1) {
+            const position = canvas.grid.getTopLeftPoint({
+                x: bounds.x + bounds.width / 2,
+                y: bounds.y + bounds.height / 2,
+            });
+            return new PIXI.Rectangle(
+                position.x,
+                position.y,
+                Math.max(canvas.grid.size, bounds.width),
+                Math.max(canvas.grid.size, bounds.height),
+            );
+        }
+
+        return bounds;
+    }
+
+    /** The pixel-coordinate pair constituting this token's center */
+    get center(): Point {
+        const bounds = this.bounds;
+        return {
+            x: bounds.x + bounds.width / 2,
+            y: bounds.y + bounds.height / 2,
+        };
     }
 
     /** Check actor for effects found in `CONFIG.specialStatusEffects` */
@@ -104,81 +182,6 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         }
 
         return attribute;
-    }
-
-    /** This should be in Foundry core, but ... */
-    get scene(): this["parent"] {
-        return this.parent;
-    }
-
-    /** Is this token emitting light with a negative value */
-    get emitsDarkness(): boolean {
-        return this.light.bright < 0;
-    }
-
-    get rulesBasedVision(): boolean {
-        return !!(this.sight.enabled && this.actor?.isOfType("creature") && this.scene?.rulesBasedVision);
-    }
-
-    /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
-    get hasLowLightVision(): boolean {
-        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasLowLightVision);
-    }
-
-    /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
-    get hasDarkvision(): boolean {
-        return !!(this.rulesBasedVision && this.actor?.isOfType("creature") && this.actor.hasDarkvision);
-    }
-
-    /** Is this token's dimensions linked to its actor's size category? */
-    get linkToActorSize(): boolean {
-        return this.flags.pf2e.linkToActorSize;
-    }
-
-    /** Is this token's scale locked at 1 or (for small creatures) 0.8? */
-    get autoscale(): boolean {
-        return this.flags.pf2e.autoscale;
-    }
-
-    get playersCanSeeName(): boolean {
-        const anyoneCanSee: TokenDisplayMode[] = [CONST.TOKEN_DISPLAY_MODES.ALWAYS, CONST.TOKEN_DISPLAY_MODES.HOVER];
-        const nameDisplayMode = this.displayName;
-        return anyoneCanSee.includes(nameDisplayMode) || this.actor?.alliance === "party";
-    }
-
-    /** The pixel-coordinate definition of this token's space */
-    get bounds(): PIXI.Rectangle {
-        const gridSize = this.scene?.grid.size ?? 100;
-        // Use source values since coordinates are changed in real time over the course of movement animation
-        return new PIXI.Rectangle(this._source.x, this._source.y, this.width * gridSize, this.height * gridSize);
-    }
-
-    /** Bounds used for mechanics, such as flanking and drawing auras */
-    get mechanicalBounds(): PIXI.Rectangle {
-        const bounds = this.bounds;
-        if (this.width < 1) {
-            const position = canvas.grid.getTopLeftPoint({
-                x: bounds.x + bounds.width / 2,
-                y: bounds.y + bounds.height / 2,
-            });
-            return new PIXI.Rectangle(
-                position.x,
-                position.y,
-                Math.max(canvas.grid.size, bounds.width),
-                Math.max(canvas.grid.size, bounds.height),
-            );
-        }
-
-        return bounds;
-    }
-
-    /** The pixel-coordinate pair constituting this token's center */
-    get center(): Point {
-        const bounds = this.bounds;
-        return {
-            x: bounds.x + bounds.width / 2,
-            y: bounds.y + bounds.height / 2,
-        };
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
@@ -411,7 +414,12 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const tokenChanges = fu.diffObject<DeepPartial<this["_source"]>>(preUpdate, postUpdate);
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
-            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [] }, game.user.id);
+            const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
+            const animation = tokenChanges.texture?.src ? tokenOverrides.animation ?? this.#lastAnimation ?? {} : {};
+            this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
+                ? null
+                : tokenOverrides.animation ?? null;
+            this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
         }
 
         // Assess the full diff using `diffObject`: additions, removals, and changes

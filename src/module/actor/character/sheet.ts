@@ -454,7 +454,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
     /** Prepares all ability-type items that create an action in the sheet */
     #prepareAbilities(): CharacterSheetData["actions"] {
-        const { actor } = this;
         const result: CharacterSheetData["actions"] = {
             encounter: {
                 action: { label: game.i18n.localize("PF2E.ActionsActionsHeader"), actions: [] },
@@ -465,13 +464,17 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             downtime: [],
         };
 
+        const actor = this.actor;
+        const elementalBlasts = actor.itemTypes.action.filter((i) => i.slug === "elemental-blast");
+
         for (const item of actor.items) {
             if (!item.isOfType("action") && !(item.isOfType("feat") && item.actionCost)) {
                 continue;
             }
 
             // KINETICIST HARD CODE: Show elemental blasts alongside strikes instead of among other actions
-            if (item.slug === "elemental-blast" && this.actor.flags.pf2e.kineticist) {
+            // If the user added additional blasts manually, show the duplicates normally
+            if (actor.flags.pf2e.kineticist && item === elementalBlasts[0]) {
                 continue;
             }
 

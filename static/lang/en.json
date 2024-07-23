@@ -249,7 +249,6 @@
                 "Rest": {
                     "Label": "Rest for the Night"
                 },
-                "ShowStowed": "Show Stowed",
                 "Spellcasting": {
                     "Tab": {
                         "Activations": "Activations",
@@ -1148,7 +1147,10 @@
                 "ApplicationBreakdown": {
                     "ignored": "Resistance to {type} ignored!",
                     "immunity": "Immune to {type}: {adjustment}",
-                    "redirect": "Resistant to {type} (treated as {redirect}): {adjustment}",
+                    "redirect": {
+                        "immunity": "Immune to {type} (treated as {redirect}): {adjustment}",
+                        "resistance": "Resistant to {type} (treated as {redirect}): {adjustment}"
+                    },
                     "reduction": "Reduced by {type}: {adjustment}",
                     "resistance": "Resistant to {type}: {adjustment}",
                     "unaffected": "Unaffected by {type}: {adjustment}",
@@ -2809,7 +2811,7 @@
                     "AtWillSpells": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>",
                     "AttackOfOpportunity": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<hr />\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>",
                     "Aura": "<p>A monster's aura automatically affects everything within a specified emanation around that monster. The monster doesn't need to spend actions on the aura; rather, the aura's effects are applied at specific times, such as when a creature ends its turn in the aura or when creatures enter the aura.</p>\n<p>If an aura does nothing but deal damage, its entry lists only the radius, damage, and saving throw. Such auras deal this damage to a creature when the creature enters the aura and when a creature starts its turn in the aura. A creature can take damage from the aura only once per round.</p>\n<p>The GM might determine that a monster's aura doesn't affect its own allies. For example, a creature might be immune to a monster's frightful presence if they have been around each other for a long time.</p>",
-                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.PM5jvValFkbFH3TV]{Mounts} or uses the @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal} action while riding the monster.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. If the save is a critical failure, the triggering creature also takes [[/roll 1d6[bludgeoning]]]{1d6 bludgeoning damage} in addition to the normal damage for the fall.</p>",
+                    "Buck": "<hr />\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @UUID[Compendium.pf2e.actionspf2e.Item.PM5jvValFkbFH3TV]{Mounts} or uses the @UUID[Compendium.pf2e.actionspf2e.Item.q9nbyIF0PEBqMtYe]{Command an Animal} action while riding the monster.</p>\n<hr />\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. If the save is a critical failure, the triggering creature also takes @Damage[1d6[bludgeoning]] damage in addition to the normal damage for the fall.</p>",
                     "CatchRock": "<p><strong>Requirements</strong> The monster must have a free hand but can @UUID[Compendium.pf2e.actionspf2e.Item.wQYmDStjdjn0I26t]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<hr />\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>",
                     "ChangeShape": "<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>",
                     "ConstantSpells": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>",
@@ -3312,8 +3314,11 @@
                 "Name": "Death Icon"
             },
             "DragMeasurement": {
-                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key.",
-                "Name": "Drag Measurement"
+                "Always": "Always",
+                "Encounters": "During Encounters",
+                "Hint": "Measure distance traveled when dragging a token without the need for holding down another key. Waypoints are placed by pressing the \"{key}\" key and removed by right-clicking.",
+                "Name": "Drag Measurement",
+                "Never": "Never"
             },
             "EnabledDisabled": {
                 "Enabled": "Enabled",
@@ -5379,7 +5384,7 @@
                 "Name": "Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. An astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to astral weapons. Incorporeal creatures can touch, hold, and wield astral weapons (unlike most physical objects)."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "authorized": {
@@ -5415,7 +5420,7 @@
             "corrosive": {
                 "Name": "Corrosive",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes [[/r 3d6[acid] #Corrosive Rune]]{3d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
+                    "criticalSuccess": "On a critical hit, the target's armor (if any) takes @Damage[3d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead."
                 }
             },
             "crushing": {
@@ -5428,7 +5433,7 @@
                 "Name": "Cunning"
             },
             "dancing": {
-                "Name": "Dancing"
+                "Name": "Animated"
             },
             "decaying": {
                 "Name": "Decaying"
@@ -5438,12 +5443,6 @@
             },
             "demolishing": {
                 "Name": "Demolishing"
-            },
-            "disrupting": {
-                "Name": "Vitalizing",
-                "Note": {
-                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
-                }
             },
             "earthbinding": {
                 "Name": "Earthbinding"
@@ -5466,7 +5465,7 @@
             "flaming": {
                 "Name": "Flaming",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you deal an additional [[/r 1d10[persistent,fire]]]."
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[1d10[persistent,fire]] damage."
                 }
             },
             "flickering": {
@@ -5511,7 +5510,7 @@
                 "Name": "Greater Astral",
                 "Note": {
                     "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
-                    "Note": "The weapon can harm creatures without physical form. A greater astral weapon is particularly effective against incorporeal creatures, which almost always have a specific vulnerability to greater astral weapons. Incorporeal creatures can touch, hold, and wield greater astral weapons (unlike most physical objects). The spirit damage granted by a greater astral weapon ignores any spirit resistance the target has."
+                    "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
             "greaterBloodbane": {
@@ -5520,14 +5519,14 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant",
                 "Note": {
-                    "criticalSuccess": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
-                    "success": "Damage dealt by this weapon ignores the target's fire, good, or vitality resistance."
+                    "criticalSuccess": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
+                    "success": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality."
                 }
             },
             "greaterCorrosive": {
                 "Name": "Greater Corrosive",
                 "Note": {
-                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes [[/r 6d6[acid]]]{6d6 acid} damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
+                    "criticalSuccess": "The acid damage dealt by this weapon ignores the target's acid resistance. On a critical hit, the target's armor (if any) takes @Damage[6d6[acid]] damage (before applying Hardness); if the target has a shield raised, the shield takes this damage instead.",
                     "success": "The acid damage dealt by this weapon ignores the target's acid resistance."
                 }
             },
@@ -5561,7 +5560,7 @@
             "greaterFlaming": {
                 "Name": "Greater Flaming",
                 "Note": {
-                    "criticalSuccess": "Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
+                    "criticalSuccess": "On a critical hit, you deal an additional @Damage[2d10[persistent,fire]] damage. Fire damage dealt by this weapon (including the persistent fire damage) ignores the target's fire resistance.",
                     "success": "Fire damage dealt by this weapon ignores the target's fire resistance."
                 }
             },
@@ -5615,7 +5614,9 @@
                     "Bow": "The Athletics check to pull the missile free is DC 20.",
                     "Brawling": "The target takes a -4 circumstance penalty to its save.",
                     "Club": "You can knock the target up to 15 feet away.",
-                    "Dart": "The base persistent bleed damage increases to [[/r 2d6[bleed]]].",
+                    "Crossbow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile, as the bow critical specialization.",
+                    "Dart": "The base persistent bleed damage increases to @Damage[2d6[persistent,bleed]].",
+                    "Firearm": "The target takes a –4 circumstance penalty to its save.",
                     "Flail": "You move the target 5 feet. You can't move it away from you, but you can move it in another direction of your choice.",
                     "Hammer": "You can also knock the target 5 feet away from you.",
                     "Knife": "The target takes a -5-foot status penalty to its Speed while it has the @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage}.",
@@ -5633,7 +5634,7 @@
             "holy": {
                 "Name": "Holy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against an evil creature with the weapon<br /><strong>Effect</strong> You regain HP equal to double the evil creature's level. This is a good, vitality, healing effect."
+                    "criticalSuccess": "Holy Healing <span class=\"action-glyph\">R</span> (concentrate, healing, vitality)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at a Strike against an unholy creature with the weapon</p><hr /><p><strong>Effect</strong> You regain HP equal to double the unholy creature's level."
                 }
             },
             "hopeful": {
@@ -5684,6 +5685,10 @@
             "pacifying": {
                 "Name": "Pacifying"
             },
+            "quickstrike": {
+                "Name": "Quickstrike",
+                "Note": "While wielding a quickstrike weapon, you gain the @UUID[Compendium.pf2e.conditionitems.Item.nlCjDvLMf2EkV2dl]{Quickened} condition, but you can use the additional action granted only to make a Strike with the etched weapon."
+            },
             "returning": {
                 "Name": "Returning",
                 "Note": "When you make a thrown Strike with this weapon, it flies back to your hand after the Strike is complete. If your hands are full when the weapon returns, it falls to the ground in your space."
@@ -5706,8 +5711,12 @@
                     "criticalSuccess": "On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
                 }
             },
+            "shockwave": {
+                "Name": "Shockwave",
+                "Note": "Strikes with this weapon deal bludgeoning splash damage equal to the number of weapon damage dice. You're immune to this splash damage."
+            },
             "spellStoring": {
-                "Name": "Spell-Storing"
+                "Name": "Spell Reservoir"
             },
             "swarming": {
                 "Name": "Swarming"
@@ -5730,13 +5739,19 @@
             "unholy": {
                 "Name": "Unholy",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> command; once per day)<br /><strong>Trigger</strong> You critically succeed at an attack roll against a good creature with the weapon<br /><strong>Effect</strong> The target takes @UUID[Compendium.pf2e.conditionitems.Item.lDVqvLKA6eF3Df60]{Persistent Bleed Damage} equal to 1d8 per weapon damage die of the etched weapon."
+                    "criticalSuccess": "Unholy Bloodshed <span class='pf2-icon'>R</span> (concentrate)</p><p><strong>Frequency</strong> once per day</p><p><strong>Trigger</strong> You critically succeed at an attack roll against a holy creature with the weapon</p><hr /><p><strong>Effect</strong> The target takes persistent bleed damage equal to 1d8 per weapon damage die of the etched weapon."
+                }
+            },
+            "disrupting": {
+                "Name": "Vitalizing",
+                "Note": {
+                    "criticalSuccess": "On a critical hit, the undead is also @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn."
                 }
             },
             "vorpal": {
                 "Name": "Vorpal",
                 "Note": {
-                    "criticalSuccess": "(<span class=\"pf2-icon\">R</span> envision (death, incapacitation))<br /><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage.<br /><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                    "criticalSuccess": "Snicker-Snack <span class=\"action-glyph\">R</span> (concentrate, death, incapacitation)</p><p><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage</p><hr /><p><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
                 }
             },
             "wounding": {

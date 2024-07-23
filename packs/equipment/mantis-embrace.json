@@ -1,0 +1,92 @@
+{
+    "_id": "wJTx2kNgMQJWGvyx",
+    "img": "icons/equipment/hand/glove-tooled-leather-red-purple.webp",
+    "name": "Mantis Embrace",
+    "system": {
+        "baseItem": null,
+        "bulk": {
+            "value": 0.1
+        },
+        "containerId": null,
+        "description": {
+            "value": "<p>These stylized red gloves are constructed from plates of leather that have been treated to resemble insect chitin. The gloves grant the wearer a +2 item bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] or @UUID[Compendium.pf2e.actionspf2e.Item.Shove].</p>\n<p><strong>Activate—Crushing Embrace</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Requirements</strong> You are grappling a creature</p><hr /><p><strong>Effect</strong> You Strike the creature you are grappling with a melee weapon or unarmed attack. This Strike deals an additional 3d6 precision damage and gains the death trait. The body of a creature that is slain by Crushing Embrace is so gruesomely damaged that the creature's body cannot be affected by any effect that requires an intact body to function, such as the @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse] spell.</p>"
+        },
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 700
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:grapple",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": "athletics",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.MantisEmbrace.CrushingEmbraceLabel",
+                "option": "crushing-embrace",
+                "toggleable": true
+            },
+            {
+                "category": "precision",
+                "diceNumber": 5,
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    "crushing-embrace"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "crushing-embrace"
+                ],
+                "property": "traits",
+                "value": "death"
+            }
+        ],
+        "size": "med",
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        },
+        "usage": {
+            "value": "worngloves"
+        }
+    },
+    "type": "equipment"
+}

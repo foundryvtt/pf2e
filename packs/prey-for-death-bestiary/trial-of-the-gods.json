@@ -1,0 +1,112 @@
+{
+    "_id": "lZpEkL8yhJy10zG0",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "6LiQpVI3BRugIaiV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Wrath of the Gods",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] or @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick the Lock} on the eastern door, or ends a turn in this room while not performing the candle-lighting ritual</p><hr /><p><strong>Effect</strong> A glowing red eye manifests in the ceiling mounted orb to stare angrily at the triggering creature, who must succeed at a @Check[type:will|dc:46] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The Trial of the Gods then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "death",
+                        "emotion",
+                        "fear",
+                        "illusion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Trial of the Gods",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 40
+            },
+            "emitsSound": "encounter",
+            "hardness": 28,
+            "hp": {
+                "details": "",
+                "max": 110,
+                "temp": 0,
+                "value": 110
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 33
+            }
+        },
+        "details": {
+            "description": "<p>What appears to be an eye opens within the glowing orb near the ceiling.</p>",
+            "disable": "<p>@Check[type:thievery|dc:43] (master) to deactivate the glowing orb and prevent it from observing the room, @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank; counteract DC 36) to counteract the trial, @Check[type:religion|dc:45] (master) to perform a complex 5-round candle-lighting ritual, or placing General Ordulf's religious symbol on an empty hook on any wall as an Interact action</p>",
+            "isComplex": true,
+            "level": {
+                "value": 17
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure: Prey for Death"
+            },
+            "reset": "<p>Once the room is empty of creatures, the trial deactivates and then resets after 1 minute has passed.</p>",
+            "routine": "<p>(1 action; death, emotion, fear, mental) The red eye glances at a randomly determined creature in area <strong>B3</strong> that it can see and is not engaged in a candle-lighting ritual, then casts a 9th-rank @UUID[Compendium.pf2e.spells-srd.Item.Vision of Death] on that target, causing them to experience the sight of Achaekek rising up from the ground to smite the transgressor for failing to honor the gods.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 32
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "will": {
+                "saveDetail": "",
+                "value": null
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

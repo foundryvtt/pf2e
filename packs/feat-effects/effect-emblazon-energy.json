@@ -117,11 +117,12 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "emblazon-energy:item:shield",
-                    "item:damage:type:{item|flags.pf2e.rulesSelections.damage}"
+                    "item:damage:type:{item|flags.pf2e.rulesSelections.damage}",
+                    "self:shield:equipped"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
-                "value": "@actor.heldShield.acBonus"
+                "value": "@actor.system.attributes.shield.ac"
             },
             {
                 "damageType": "{item|flags.pf2e.rulesSelections.damage}",

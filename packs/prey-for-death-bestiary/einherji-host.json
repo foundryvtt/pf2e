@@ -1,0 +1,493 @@
+{
+    "_id": "3M9iQI58v6znvwuh",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "BSZzk15eFFpWqZyI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.OvqohW9YuahnFaiX"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Form Up",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.FormUp]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "form-up",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "oRnMQXqEJldjuEN8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kquBnQ0kObZztnBc"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+4 to Will Vs. Fear",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:fear",
+                            {
+                                "not": "self:effect:song-of-freedom"
+                            }
+                        ],
+                        "selector": "will",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": "4-to-will-vs-fear",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "1VkDrAMFDHLF2q2M",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.RJbI07QSiYp0SF9A"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Troop Defenses",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Thresholds</strong> 180 (12 squares), 90 (8 squares)</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.TroopDefenses]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 3"
+                },
+                "rules": [],
+                "slug": "troop-defenses",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KvVWYvKRMGz2t86i",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dagger Volley",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The einherji host launches a ranged attack in the form of a volley of thrown daggers. This volley fills a @Template[type:cone|distance:30]; all creatures in the area take @Damage[(5d4+15)[piercing]] damage (@Check[type:reflex|dc:36|basic:true] save). When the troop is reduced to 8 or fewer squares, this area decreases to a @Template[type:cone|distance:15].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Bhvcbklfc21fOw32",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Jotun Slayer",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>An einherji host has a +4 circumstance bonus to Strike as One damage rolls made against giants and creatures that are Huge or larger.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "target:size",
+                                    4
+                                ]
+                            }
+                        ],
+                        "selector": "strike-as-one-damage",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "a8CJCBitCQW29ThH",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Pay For Every Inch",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The einherji host Forms Up, Raises Shields, and prepares to counterattack. Until the start of the troop's next turn, each time an enemy takes an action to move through a space adjacent to the troop, they take @Damage[(4d8+18)[slashing]] damage (@Check[type:reflex|dc:36|basic:true] save).</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "AFmo4HuwTF2yuZN2",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Raise Shields",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The troop raises their shields, increasing their Armor Class by 2 until the start of the troop's next turn.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:effect:raise-a-shield"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    }
+                ],
+                "selfEffect": {
+                    "name": "Effect: Raise a Shield",
+                    "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+                },
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ADEPdJ7v1fwEjqWz",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Song of Freedom",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The troop sings of freedom, bolstering their conviction and morale. Until the start of the troop's next turn, their Will saves increase to +29 against all mental effects, not just against fear effects.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Song of Freedom",
+                    "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Song of Freedom"
+                },
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "concentrate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "vmM05v5KSua0QmAu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Strike as One",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> The einherji host makes melee attacks against each enemy within 5 feet (@Check[type:reflex|dc:36|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d8+7)[slashing]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d8+14)[slashing]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d8+14)[slashing]] damage</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "886l2wL20Ghh4jQT",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Troop Movement",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Whenever the einherji host Strides, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares they may have as the result of having taken Hit Point damage), then move up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the troop enters difficult terrain, the extra movement cost applies to the whole troop.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Einherji Host",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 4
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 7
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "37 with shields raised",
+                "value": 35
+            },
+            "allSaves": {
+                "value": "+4 to will vs. fear"
+            },
+            "hp": {
+                "details": "Thresholds 180 (12 squares), 90 (8 squares)",
+                "max": 270,
+                "temp": 0,
+                "value": 270
+            },
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [],
+                    "type": "piercing",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "details": "troop movement",
+                "otherSpeeds": [],
+                "value": 40
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "area-damage",
+                    "value": 18
+                },
+                {
+                    "exceptions": [],
+                    "type": "splash-damage",
+                    "value": 9
+                }
+            ]
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": [
+                    "common",
+                    "hallit",
+                    "jotun"
+                ]
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Adventure: Prey for Death"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 22,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 29
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 23
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 25
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 28
+            },
+            "intimidation": {
+                "base": 24
+            }
+        },
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "aesir",
+                "monitor",
+                "troop"
+            ]
+        }
+    },
+    "type": "npc"
+}

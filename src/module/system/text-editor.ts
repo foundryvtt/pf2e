@@ -427,6 +427,7 @@ class TextEditorPF2e extends TextEditor {
         // attributes
         const aliases: Record<string, string> = {
             ["difficulty-class"]: "dc",
+            ["roll-options"]: "options",
             stat: "skill",
             statistic: "skill",
         };
@@ -494,7 +495,10 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // traits
-        const traits = variant?.traits ?? action.traits;
+        const additionalTraits = splitListString(params["traits"] ?? "").filter(
+            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+        );
+        const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
         // traits as tooltip
         element.dataset["tooltip"] = traits
