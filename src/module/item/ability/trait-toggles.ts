@@ -1,5 +1,6 @@
 import type { AbilityItemPF2e, FeatPF2e } from "@item";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
+import { CheckAlteration } from "@module/system/text-editor.ts";
 import * as R from "remeda";
 
 /** A helper class to handle toggleable ability traits */
@@ -36,6 +37,19 @@ class AbilityTraitToggles {
                       slug: "mindshift",
                       value: "mental",
                   }),
+              ]
+            : [];
+    }
+
+    getCheckAlterations(): CheckAlteration[] {
+        return this.mindshift?.selected
+            ? [
+                  {
+                      mode: "override",
+                      property: "type",
+                      slug: "mindshift",
+                      value: "will",
+                  },
               ]
             : [];
     }
