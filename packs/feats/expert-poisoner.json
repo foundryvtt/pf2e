@@ -1,0 +1,54 @@
+{
+    "_id": "VruIzuysxw4tY6rk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Expert Poisoner",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] level for poison increases to your level -3.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Poisoner Dedication"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Advanced Player's Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.poisoner.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:poisoner"
+                ],
+                "value": "@actor.level - 3"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
