@@ -50,7 +50,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     get dragMeasurement(): boolean {
-        return RulerPF2e.#dragMeasurement;
+        return RulerPF2e.#dragMeasurement && (game.activeTool === "ruler" || canvas.tokens.controlled.length <= 1);
     }
 
     get isMeasuring(): boolean {
