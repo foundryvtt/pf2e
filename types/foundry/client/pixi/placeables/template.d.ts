@@ -127,7 +127,7 @@ declare class MeasuredTemplate<
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-    override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
+    override rotate(angle: number, snap: number): Promise<this>;
 
     /* -------------------------------------------- */
     /*  Document Event Handlers                     */

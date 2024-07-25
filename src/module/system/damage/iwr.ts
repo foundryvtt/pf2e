@@ -291,6 +291,7 @@ function getResistanceRedirection({
     highest: WorkingResistanceData;
     redirections: RedirectedResistance[];
 }): { to: WorkingResistanceData | null; redirect: RedirectedResistance } | null {
+    const isImmuneToHighest = immunities.some((i) => i.type === highest.type);
     return redirections
         .filter(
             (rr) =>
@@ -301,7 +302,8 @@ function getResistanceRedirection({
         .reduce((bestMatch: { to: WorkingResistanceData | null; redirect: RedirectedResistance } | null, redirect) => {
             if (bestMatch && !bestMatch.to) return bestMatch;
             const redirectTarget = resistances.find((r) => r.type === redirect.to) ?? null;
-            const mostReduction = Math.min(highest.value, bestMatch?.to?.value ?? Infinity);
+            const highestValue = isImmuneToHighest ? Infinity : highest.value;
+            const mostReduction = Math.min(highestValue, bestMatch?.to?.value ?? Infinity);
             return !redirectTarget || redirectTarget.value < mostReduction
                 ? { to: redirectTarget, redirect }
                 : bestMatch;

@@ -82,7 +82,7 @@ export const Ready = {
                 const abandonedModules = new Set(["pf2e-rules-based-npc-vision", "foundryvtt-drag-ruler"]);
 
                 // Nag the GM for running unmaintained modules
-                const subV10Modules = game.modules.filter(
+                const subV11Modules = game.modules.filter(
                     (m) =>
                         m.active &&
                         (m.esmodules.size > 0 || m.scripts.size > 0) &&
@@ -90,10 +90,10 @@ export const Ready = {
                         // without it will also not be listed in the package manager. Skip warning those without it in
                         // case they were made for private use.
                         !!m.compatibility.verified &&
-                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "11.315")),
+                        (abandonedModules.has(m.id) || !fu.isNewerVersion(m.compatibility.verified, "10.312")),
                 );
 
-                for (const badModule of subV10Modules) {
+                for (const badModule of subV11Modules) {
                     const message = game.i18n.format("PF2E.ErrorMessage.SubV9Module", { module: badModule.title });
                     ui.notifications.warn(message);
                 }
@@ -132,29 +132,25 @@ export const Ready = {
 
             // Now that all game data is available, Determine what actors we need to reprepare.
             // Add actors currently in an encounter, then in a party, then all familiars, then parties, then in terrains
-            const inTerrains: ActorPF2e[] = [];
-            const hasSceneTerrains = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
+            const inEnvironments: ActorPF2e[] = [];
+            const hasSceneEnvironments = !!game.scenes.viewed?.flags.pf2e.environmentTypes?.length;
             for (const token of game.scenes.active?.tokens ?? []) {
-                if (!token.actor) continue;
-                if (hasSceneTerrains) {
-                    inTerrains.push(token.actor);
-                } else if (
-                    (token.regions ?? []).some((r) =>
-                        r.behaviors.some((b) => b.type === "environmentFeature" && b.system.terrain.difficult > 0),
-                    )
-                ) {
-                    inTerrains.push(token.actor);
+                const inEnvironmentRegion = !!token.regions?.some((r) =>
+                    r.behaviors.some((b) => ["environment", "environmentFeature"].includes(b.type)),
+                );
+                if (token.actor && (hasSceneEnvironments || inEnvironmentRegion)) {
+                    inEnvironments.push(token.actor);
                 }
             }
             const parties = game.actors.filter((a): a is PartyPF2e<null> => a.isOfType("party"));
             const actorsToReprepare: Set<ActorPF2e> = new Set([
                 ...game.combats.contents.flatMap((e) => e.combatants.contents).flatMap((c) => c.actor ?? []),
                 ...parties.flatMap((p) => p.members).filter((a) => !a.isOfType("familiar")),
-                ...inTerrains.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
+                ...inEnvironments.filter((a) => !a.isOfType("familiar", "hazard", "loot", "party")),
                 ...game.actors.filter((a) => a.type === "familiar"),
                 ...parties,
             ]);
-            resetActors(actorsToReprepare, { sheets: false, tokens: inTerrains.length > 0 });
+            resetActors(actorsToReprepare, { sheets: false, tokens: inEnvironments.length > 0 });
             ui.actors.render();
 
             // Show the GM the Remaster changes journal entry if they haven't seen it already.
