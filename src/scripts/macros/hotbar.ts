@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AttackPopout } from "@actor/character/attack-popouts.ts";
+import { AttackPopout } from "@actor/character/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
