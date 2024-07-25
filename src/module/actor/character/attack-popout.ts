@@ -1,9 +1,9 @@
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery } from "@util";
 import type { CharacterStrike } from "./data.ts";
 import type { CharacterPF2e } from "./document.ts";
 import type { ElementalBlastConfig } from "./elemental-blast.ts";
 import { CharacterSheetPF2e, type CharacterSheetData } from "./sheet.ts";
-import { EffectTrait } from "@item/abstract-effect/types.ts";
 
 class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TActor> {
     type: "strike" | "blast" = "strike";
@@ -25,11 +25,13 @@ class AttackPopout<TActor extends CharacterPF2e> extends CharacterSheetPF2e<TAct
     }
 
     static override get defaultOptions(): ActorSheetOptions {
+        const options = super.defaultOptions;
         return {
-            ...super.defaultOptions,
+            ...options,
+            classes: [...options.classes, "attack-popout"],
             submitOnChange: false,
             submitOnClose: false,
-            width: 480,
+            width: 520,
             height: "auto",
             resizable: false,
         };
