@@ -272,7 +272,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 slug,
                 description: { value: "" },
                 category: this.category,
-                group: group,
+                group,
                 baseItem: this.baseType,
                 attribute,
                 bonus: {
