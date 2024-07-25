@@ -1,3 +1,25 @@
+## 6.1.2
+
+### System Improvements
+
+-   (stwlam) Integrate new `allowInteractive` core feature into check and damage rolls
+
+### Bugfixes
+
+-   (stwlam) Loosen line template snapping
+-   (stwlam) Fix waypoint placement when not drag measuring
+-   (stwlam) Fix several visual quirks in attack popout
+-   (stwlam) Handle Concussive trait against targets having both immunity and resistance to same damage type
+-   (stwlam) Restore reinforcing rune select option labels on shield sheet
+-   (stwlam) Loosen line snapping restrictions for now
+-   (Supe) Prevent damage alterations from disabling override dice
+
+### Data Updates
+
+-   (Dire Weasel) Add effect for Funereal Dirge
+-   (Dire Weasel) Add effect link to Elite Duergar Taskmaster's Take Them Down!
+-   (DocSchlock) Add Formula roll to Lucky Number Spell Effect
+
 ## 6.1.1
 
 ### System Improvements
