@@ -311,9 +311,9 @@ export type {
     HitPointsStatistic,
     InitiativeData,
     PrototypeTokenPF2e,
+    Rollable,
     RollFunction,
     RollOptionFlags,
-    Rollable,
     StrikeData,
     TraitViewData,
 };
