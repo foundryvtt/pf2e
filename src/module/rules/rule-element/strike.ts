@@ -251,7 +251,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
 
         const group = this.resolveInjectedProperties(this.group);
-        if (!objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
+        if (group !== null && !objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
             this.failValidation(`Unrecognized weapon group: ${group}`);
             return null;
         }
