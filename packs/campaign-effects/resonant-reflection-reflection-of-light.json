@@ -35,6 +35,48 @@
                 "mode": "override",
                 "path": "flags.pf2e.colorDarkvision",
                 "value": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-light"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-light"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "traits": {

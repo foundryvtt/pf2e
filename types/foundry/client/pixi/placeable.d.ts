@@ -398,6 +398,8 @@ declare global {
         extends RenderFlagsContainer<TDocument> {
         hitArea: PIXI.Rectangle;
     }
+
+    type PlaceableShape = PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
 }
 
 export class RenderFlagsContainer<TDocument extends CanvasDocument> extends PIXI.Container {

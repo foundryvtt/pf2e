@@ -1,0 +1,52 @@
+{
+    "_id": "ATeiWcHcjoTvIbkk",
+    "img": "icons/magic/sonic/bell-alarm-red-purple.webp",
+    "name": "Effect: Song of Freedom",
+    "system": {
+        "description": {
+            "value": "<p>The troop's Will saves increase to +29 against all mental effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:mental",
+                            "item:trait:fear"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "saving-throw"
+                ],
+                "value": 4
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

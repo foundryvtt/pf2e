@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Major Curse</strong> You are useful only as a beacon of destruction.</p>\n<p>You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Confused], rampaging against anything and everything in your sight, and you deal an additional 18 damage with your unarmed and weapon Strikes.</p>"
+            "value": "<p>You are useful only as a beacon of destruction.</p>\n<p>You are permanently @UUID[Compendium.pf2e.conditionitems.Item.Confused], rampaging against anything and everything in your sight, and you deal an additional 18 damage with your unarmed and weapon Strikes.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,18 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Confused"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "strike-damage",
+                "value": 18
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

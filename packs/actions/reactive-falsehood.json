@@ -1,0 +1,49 @@
+{
+    "_id": "CLX9WEYXdntl2wrt",
+    "img": "systems/pf2e/icons/actions/Reaction.webp",
+    "name": "Reactive Falsehood",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> You fail to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] to a creature in public</p><hr /><p><strong>Effect</strong> As your target sees through your lie, you spin your falsehood in a way that utilizes the crowd's reaction to bolster believability. Re-roll your Deception check to Lie with a +2 status bonus and use this check's result as the actual result to Lie.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT1H"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #204: Stage Fright"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "reactive-falsehood",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "reactive-falsehood"
+                ],
+                "selector": "deception",
+                "type": "status",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "value": [
+                "fortune"
+            ]
+        }
+    },
+    "type": "action"
+}

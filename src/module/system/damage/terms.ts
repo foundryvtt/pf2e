@@ -409,7 +409,10 @@ class IntermediateDie extends terms.RollTerm<IntermediateDieData> {
     static override SERIALIZE_ATTRIBUTES = ["number", "faces", "die"];
 
     get expression(): string {
-        return this.die?.expression ?? `${this.number}d${this.faces}`;
+        if (this.die) return this.die.expression;
+        const number = typeof this.number === "number" ? this.number : this.number.expression;
+        const faces = typeof this.faces === "number" ? this.faces : this.faces.expression;
+        return `${number}d${faces}`;
     }
 
     override get total(): number | undefined {

@@ -427,6 +427,7 @@ class TextEditorPF2e extends TextEditor {
         // attributes
         const aliases: Record<string, string> = {
             ["difficulty-class"]: "dc",
+            ["roll-options"]: "options",
             stat: "skill",
             statistic: "skill",
         };
@@ -494,7 +495,10 @@ class TextEditorPF2e extends TextEditor {
         }
 
         // traits
-        const traits = variant?.traits ?? action.traits;
+        const additionalTraits = splitListString(params["traits"] ?? "").filter(
+            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+        );
+        const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
         // traits as tooltip
         element.dataset["tooltip"] = traits
@@ -849,11 +853,11 @@ function getCheckDC({
         return Number(dc) || null;
     })();
 
-    // Apply modifiers if this item is mutable
+    // Apply modifiers if this item is mutable. The "all" domain catches elite/weak adjustments
     if (base && actor && !immutable) {
         const idDomain = item ? `${item.id}-inline-dc` : null;
         const slugDomain = `${sluggify(name)}-inline-dc`;
-        const domains = ["inline-dc", idDomain, slugDomain].filter(R.isTruthy);
+        const domains = ["all", "inline-dc", idDomain, slugDomain].filter(R.isTruthy);
         const { synthetics } = actor;
         const modifier = new ModifierPF2e({
             slug: "base",

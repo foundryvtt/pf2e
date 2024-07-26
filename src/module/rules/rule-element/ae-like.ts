@@ -1,4 +1,3 @@
-import { isObject } from "@util";
 import * as R from "remeda";
 import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
@@ -53,10 +52,10 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
 
         if (data.merge) {
             if (data.mode !== "override") {
-                throw new foundry.data.validation.DataModelValidationError('  merge: `mode` must be "override"');
+                throw new foundry.data.validation.DataModelValidationError('mode must be "override" if merge is true');
             }
-            if (!isObject(data.value)) {
-                throw new foundry.data.validation.DataModelValidationError("  merge: `value` must an object");
+            if (!R.isPlainObject(data.value)) {
+                throw new foundry.data.validation.DataModelValidationError("value must be an object if merge is true");
             }
         }
     }
@@ -205,8 +204,19 @@ class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TS
                 return Math.max(current ?? 0, change);
             }
             case "override": {
-                if (merge && isObject(current) && isObject(change)) {
+                const isOverridable =
+                    R.isNullish(current) ||
+                    typeof current === typeof change ||
+                    // Allow numbers and booleans to override each other to allow for cases of overridable union types
+                    (["number", "boolean"].includes(typeof current) && ["number", "boolean"].includes(typeof change));
+                if (merge && R.isObjectType(current) && R.isObjectType(change)) {
                     return fu.mergeObject(current, change);
+                } else if (!isOverridable) {
+                    return new DataModelValidationFailure({
+                        invalidValue: change,
+                        message: `${change} cannot override ${current}`,
+                        fallback: false,
+                    });
                 }
                 return change;
             }

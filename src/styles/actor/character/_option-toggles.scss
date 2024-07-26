@@ -1,0 +1,37 @@
+ul.option-toggles {
+    @include frame-elegant;
+    display: flex;
+    flex-flow: column wrap;
+    font-family: var(--body-serif);
+    gap: var(--space-1);
+    list-style: none;
+    margin-bottom: var(--space-8);
+    padding: var(--space-8) 1rem;
+
+    > li {
+        align-items: center;
+        display: flex;
+        height: 1.5rem;
+        width: 100%;
+
+        label {
+            align-items: center;
+            display: flex;
+            gap: var(--space-4);
+
+            input[type="checkbox"] {
+                height: 1.125rem;
+                margin: 0;
+                padding: 0;
+            }
+
+            .unchecked-disabled {
+                color: var(--color-text-dark-inactive);
+            }
+
+            select {
+                margin-left: 0.25em;
+            }
+        }
+    }
+}

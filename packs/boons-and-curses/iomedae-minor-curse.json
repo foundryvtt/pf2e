@@ -11,7 +11,7 @@
         },
         "category": "curse",
         "description": {
-            "value": "<p><strong>Minor Curse</strong> Your blade and armor have dulled like lead. Your weapons, armor, and shields have half their usual Hit Points and Break Threshold.</p>"
+            "value": "<p>Your blade and armor have dulled like lead. Your weapons, armor, and shields have half their usual Hit Points and Break Threshold.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,38 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 0.5
+            },
+            {
+                "itemType": "armor",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 0.5
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    "item:equipped"
+                ],
+                "property": "hp-max",
+                "value": 0.5
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

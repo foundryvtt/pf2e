@@ -1,10 +1,10 @@
 {
     "_id": "LfiMah3iJnnjPi29",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Shizuru.webp",
     "name": "Shizuru - Minor Curse",
     "system": {
         "description": {
-            "value": "<p><strong>Minor Curse:</strong> Your equipment turns on you for a disgraceful act. The next time you make an attack, your weapon or armor gains the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition.</p>"
+            "value": "<p>Your equipment turns on you for a disgraceful act. The next time you make an attack, your weapon or armor gains the @UUID[Compendium.pf2e.conditionitems.Item.Broken] condition.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,7 +20,14 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "selector": "attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

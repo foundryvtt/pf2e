@@ -30,32 +30,38 @@
         },
         "rules": [
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "martyr",
-                "placement": "spellcasting",
-                "toggleable": true
-            },
-            {
-                "key": "Note",
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "martyr",
+                    "spellshape:martyr",
                     {
                         "or": [
                             "item:slug:harm",
                             "item:slug:heal"
                         ]
-                    },
-                    {
-                        "lt": [
-                            "item:cast:actions",
-                            3
-                        ]
                     }
                 ],
-                "selector": "spell-healing",
-                "text": "PF2E.SpecificRule.Cleric.Martyr.Note",
-                "title": "{item|name}"
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.Martyr"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "martyr"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "traits": {

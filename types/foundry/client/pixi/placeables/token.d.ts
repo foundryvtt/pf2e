@@ -55,7 +55,7 @@ declare global {
         };
 
         /** The shape of this token. */
-        shape: PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
+        shape: TokenShape;
 
         /** Defines the filter to use for detection. */
         detectionFilter: PIXI.Filter | null;
@@ -519,7 +519,7 @@ declare global {
         getSize(): { width: number; height: number };
 
         /** Get the shape of this Token. */
-        getShape(): PIXI.Rectangle | PIXI.Polygon | PIXI.Circle;
+        getShape(): TokenShape;
 
         /**
          * Get the center point for a given position or the current position.
@@ -717,6 +717,8 @@ declare global {
         get layer(): TokenLayer<this>;
     }
 
+    type TokenShape = Extract<PlaceableShape, PIXI.Circle | PIXI.Polygon | PIXI.Rectangle>;
+
     interface TokenResourceData {
         attribute: string;
         type: "bar";
@@ -731,19 +733,11 @@ declare global {
         };
     }
 
-    interface TokenAnimationOptions {
-        /** The duration of the animation in milliseconds */
-        duration?: number;
+    interface TokenAnimationOptions extends Omit<CanvasAnimationOptions, "context"> {
         /** A desired token movement speed in grid spaces per second */
         movementSpeed?: number;
         /** The desired texture transition type */
-        transition?: string;
-        /** The easing function of the animation */
-        easing?: Function | string;
-        /** The name of the animation, or null if nameless. The default is {@link Token#animationName}. */
-        name?: string | symbol | null;
-        /** A callback function which fires after every frame */
-        ontick?: (frame: number, data: CanvasAnimationData) => void;
+        transition?: TextureTransitionType;
     }
 
     interface ReticuleOptions {
@@ -779,7 +773,7 @@ declare global {
         /** The alpha value */
         alpha: number;
         /** The rotation in degrees */
-        rotaion: number;
+        rotation: number;
         /** The texture data */
         texture: {
             /** The texture file path */
@@ -794,6 +788,16 @@ declare global {
             scaleY: number;
             /** The texture tint */
             tint: Color;
+        };
+        /** The ring data */
+        ring: {
+            /** The ring subject data */
+            subject: {
+                /** The ring subject texture */
+                texture: string;
+                /** The ring subject scale */
+                scale: number;
+            };
         };
     }
 

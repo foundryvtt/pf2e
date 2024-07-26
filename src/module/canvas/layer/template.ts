@@ -48,7 +48,7 @@ export class TemplateLayerPF2e<
         destination.y = y;
         const ray = new Ray(origin, destination);
         const ratio = dimensions.size / dimensions.distance;
-        const { document } = template;
+        const document = template.document;
 
         // Update the shape data
         if (["cone", "circle"].includes(document.t)) {
@@ -65,7 +65,7 @@ export class TemplateLayerPF2e<
         template.refresh();
     }
 
-    protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void {
+    protected override _onMouseWheel(event: WheelEvent): Promise<TObject> | void {
         // Abort if there's no hovered template
         const template = this.hover;
         if (!template || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {

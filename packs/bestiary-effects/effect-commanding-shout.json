@@ -1,0 +1,53 @@
+{
+    "_id": "F1JHRa75KBAjHOs1",
+    "img": "icons/magic/sonic/scream-wail-shout-teal.webp",
+    "name": "Effect: Commanding Shout",
+    "system": {
+        "description": {
+            "value": "<p>The Gorumite infantry's save DCs for their Fire Crossbows! and Raise Swords! actions increase to DC 33 and they gain a +2 status bonus to their saving throws.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Adventure: Prey for Death"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "raise-swords-inline-dc",
+                    "fire-crossbows-inline-dc"
+                ],
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

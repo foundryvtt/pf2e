@@ -111,7 +111,6 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         createOptions.rollMode = objectHasKey(CONFIG.Dice.rollModes, command)
             ? command
             : game.settings.get("core", "rollMode");
-        const allowInteractive = createOptions.rollMode !== CONST.DICE_ROLL_MODES.BLIND;
 
         for (const match of matches.filter((m) => !!m)) {
             const [formula, flavor] = match.slice(2, 4);
@@ -119,7 +118,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const roll = await ((): Promise<Rolled<DamageRoll>> | null => {
                 try {
                     const damageRoll = new DamageRoll(formula, rollData);
-                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate({ allowInteractive }) : null;
+                    return looksLikeDamageRoll(damageRoll) ? damageRoll.evaluate() : null;
                 } catch {
                     return null;
                 }

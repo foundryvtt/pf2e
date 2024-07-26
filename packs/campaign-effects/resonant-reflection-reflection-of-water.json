@@ -29,6 +29,48 @@
                 "key": "BaseSpeed",
                 "selector": "swim",
                 "value": 10
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-water"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-water"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
             }
         ],
         "traits": {

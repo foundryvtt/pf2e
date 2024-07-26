@@ -1,0 +1,80 @@
+{
+    "_id": "8HGz3rQCHNgdAqFC",
+    "img": "icons/magic/water/pseudopod-swirl-blue.webp",
+    "name": "Effect: Current Spell",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Current Spell] if you cast a spell with the air trait.</p>\n<p>You gain a +1 circumstance bonus to AC or a +2 circumstance bonus against ranged attacks. You also gain a +1 circumstance bonus to all saves against effects with the selected trait.</p>\n<p>This effect has the selected trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": "water"
+                    },
+                    {
+                        "label": "PF2E.TraitAir",
+                        "value": "air"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "FlatModifier",
+                "selector": "ac",
+                "slug": "effect-current-spell",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "{item|flags.pf2e.rulesSelections.element}"
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "ranged"
+                ],
+                "relabel": "Effect: Current Spell against ranged attacks",
+                "selector": "ac",
+                "slug": "effect-current-spell",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

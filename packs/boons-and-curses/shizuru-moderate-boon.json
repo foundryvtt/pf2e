@@ -1,10 +1,10 @@
 {
     "_id": "10F2EKASFp9bjsjF",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "systems/pf2e/icons/deity/Shizuru.webp",
     "name": "Shizuru - Moderate Boon",
     "system": {
         "description": {
-            "value": "<p><strong>Moderate Boon:</strong> Shizuru's light flows through your blade. Your weapons and unarmed attacks deal an additional 1d6 fire damage or 1d6 spirit damage; you choose each time you make an attack.</p>"
+            "value": "<p>Shizuru's light flows through your blade. Your weapons and unarmed attacks deal an additional 1d6 fire damage or 1d6 spirit damage; you choose each time you make an attack.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,11 +22,28 @@
         },
         "rules": [
             {
+                "alwaysActive": true,
+                "domain": "damage",
+                "key": "RollOption",
+                "option": "shizuru-moderate-boon",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSpirit",
+                        "value": "spirit"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.shizuruModerateBoon}",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "damage",
-                "type": "fire"
+                "selector": "strike-damage"
             }
         ],
         "start": {

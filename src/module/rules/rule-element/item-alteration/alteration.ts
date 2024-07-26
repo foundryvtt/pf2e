@@ -236,7 +236,7 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     const system = data.item.system;
                     const value = data.alteration.value;
                     const newValue = AELikeRuleElement.getNewValue(this.mode, system.hardness, value);
-                    system.hardness = Math.max(newValue, 0);
+                    system.hardness = Math.max(Math.trunc(newValue), 0);
                     this.#adjustCreatureShieldData(data.item);
                 }
                 return;

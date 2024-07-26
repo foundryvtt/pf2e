@@ -1,0 +1,111 @@
+{
+    "_id": "Q9AB2JQKdcv8TOl8",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "fQDfzc21PxxU8mgD",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Become Cruel",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A PC approaches within 20 feet of the trap</p><hr /><p><strong>Effect</strong> The rag-wrapped figure cries out in pain. The triggering PC must attempt a @Check[type:will|dc:26] save or become @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure). The trap then rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "emotion",
+                        "fear",
+                        "mental",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Cruel Welcome",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 27
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 66,
+                "temp": 0,
+                "value": 66
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 21
+            }
+        },
+        "details": {
+            "description": "<p>A loved one, tied to a post with thick ropes, suddenly lurches to life and begins to shriek in anguish as soon as one of the PCs comes within 20 feet.</p>",
+            "disable": "<p>@Check[type:thievery|dc:31] (expert) to remove the small runes carved on the pole that focus the magic, or @Check[type:occultism|dc:28] (trained) to recognize the occult illusions woven into the trap and disable the underlying magic</p>",
+            "isComplex": true,
+            "level": {
+                "value": 8
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #204: Stage Fright"
+            },
+            "reset": "<p>A cruel welcome trap resets at midnight.</p>",
+            "routine": "<p>(1 action; illusion, mental, occult, visual) The cruel welcome's head lifts, and it gazes at the closest PC within 20 feet; if there are no PCs in range, the trap does nothing, its turn ends, and it deactivates until midnight. The target must attempt a @Check[type:will|dc:26|traits:illusion,mental,occult,visual] save.</p><hr><p><strong>Critical Success</strong> The PC is unaffected. For the next 24 hours, the PC gains a +4 circumstance bonus to all saving throws against cruel welcome traps.</p><p><strong>Success</strong> The PC recognizes the face of the tormented figure on the pole as that of a loved one, and the anguish of the sight results in @Damage[4d10[mental]] damage. For the next 24 hours, the PC gains a +4 circumstance bonus to all saving throws against cruel welcome traps.</p><p><strong>Failure</strong> As success, but @Damage[(4d10+22)[mental]] damage.</p><p><strong>Critical Failure</strong> As failure, but @Damage[(8d10+44)[mental]] damage, and the PC becomes @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} for 24 hours.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 13
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "rare",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

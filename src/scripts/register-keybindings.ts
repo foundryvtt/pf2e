@@ -1,4 +1,5 @@
 import type { PartyPF2e } from "@actor";
+import { RulerPF2e } from "@module/canvas/ruler.ts";
 
 export function registerKeybindings(): void {
     game.keybindings.register("pf2e", "cycle-token-stack", {
@@ -41,19 +42,21 @@ export function registerKeybindings(): void {
         },
     });
 
-    game.keybindings.register("pf2e", "placeWaypoint", {
-        name: "PF2E.Keybinding.PlaceWaypoint.Label",
-        hint: "PF2E.Keybinding.PlaceWaypoint.Hint",
-        editable: [{ key: "KeyX", modifiers: [] }],
-        onUp: (): boolean | null => {
-            if (canvas.ready && canvas.controls.ruler.isMeasuring && game.pf2e.settings.dragMeasurement) {
-                canvas.controls.ruler.saveWaypoint();
-                return true;
-            } else {
-                return false;
-            }
-        },
-    });
+    if (!RulerPF2e.hasModuleConflict) {
+        game.keybindings.register("pf2e", "placeWaypoint", {
+            name: "PF2E.Keybinding.PlaceWaypoint.Label",
+            hint: "PF2E.Keybinding.PlaceWaypoint.Hint",
+            editable: [{ key: "KeyX", modifiers: [] }],
+            onUp: (): boolean | null => {
+                if (canvas.ready && canvas.controls.ruler.isMeasuring && game.pf2e.settings.dragMeasurement) {
+                    canvas.controls.ruler.saveWaypoint();
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+        });
+    }
 
     // Defer to the GM Vision module if enabled
     if (!game.modules.get("gm-vision")?.active) {

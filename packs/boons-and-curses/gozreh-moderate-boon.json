@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Moderate Boon</strong> You gain the touch of the sea. You can breathe underwater and gain a @UUID[Compendium.pf2e.actionspf2e.Item.Swim] Speed equal to your land Speed.</p>"
+            "value": "<p>You gain the touch of the sea. You can breathe underwater and gain a swim Speed equal to your land Speed.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,13 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "swim",
+                "value": "@actor.attributes.speed.total"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []
