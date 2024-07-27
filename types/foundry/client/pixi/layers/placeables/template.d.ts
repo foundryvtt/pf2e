@@ -27,7 +27,7 @@ declare global {
 
         protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void;
 
-        protected override _onMouseWheel(event: WheelEvent): Promise<TObject["document"] | undefined> | void;
+        protected override _onMouseWheel(event: WheelEvent): Promise<TObject> | void;
     }
 
     /**

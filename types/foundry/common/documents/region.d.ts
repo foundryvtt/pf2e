@@ -43,7 +43,7 @@ type RegionSchema = {
     shapes: fields.ArrayField<fields.TypedSchemaField<typeof BaseShapeData.TYPES>>;
     elevation: fields.SchemaField<RegionElevationSchema>;
     /** A collection of embedded RegionBehavior objects */
-    behaviours: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
+    behaviors: fields.EmbeddedCollectionField<BaseRegionBehavior<BaseRegion>>;
     visibility: fields.NumberField<RegionVisibilityValue, RegionVisibilityValue, true>;
     locked: fields.BooleanField;
     /** An object of optional key/value flags */

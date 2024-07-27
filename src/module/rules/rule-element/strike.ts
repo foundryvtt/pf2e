@@ -7,7 +7,6 @@ import type {
     BaseWeaponType,
     OtherWeaponTag,
     WeaponCategory,
-    WeaponGroup,
     WeaponRangeIncrement,
     WeaponTrait,
 } from "@item/weapon/types.ts";
@@ -68,7 +67,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 required: true,
                 nullable: true,
                 blank: false,
-                choices: CONFIG.PF2E.weaponGroups,
                 initial: null,
             }),
             baseType: new fields.StringField({
@@ -252,6 +250,12 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             return null;
         }
 
+        const group = this.resolveInjectedProperties(this.group);
+        if (group !== null && !objectHasKey(CONFIG.PF2E.weaponGroups, group)) {
+            this.failValidation(`Unrecognized weapon group: ${group}`);
+            return null;
+        }
+
         const actorIsNPC = actor.isOfType("npc");
         const source: PreCreate<WeaponSource> = fu.deepClone({
             _id: this.fist ? "xxxxxxFISTxxxxxx" : this.item.id,
@@ -268,7 +272,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 slug,
                 description: { value: "" },
                 category: this.category,
-                group: this.group,
+                group,
                 baseItem: this.baseType,
                 attribute,
                 bonus: {
@@ -336,7 +340,7 @@ type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
     category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
-    group: StringField<WeaponGroup, WeaponGroup, true, true, true>;
+    group: StringField<string, string, true, true, true>;
     /** A weapon base type */
     baseType: StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */

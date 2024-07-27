@@ -80,8 +80,11 @@ class DamageAlteration {
         const rule = this.#rule;
         if (rule.ignored) return damage;
 
-        if ("value" in damage && ["dice-faces", "dice-number"].includes(this.property)) {
-            // `damage` is a `ModifierPF2e`
+        // If this is a modifier or purely an override dice, skip
+        const isModifier = "value" in damage && ["dice-faces", "dice-number"].includes(this.property);
+        const isOverrideDice =
+            !("value" in damage) && !damage.damageType && !damage.diceNumber && !damage.dieSize && damage.override;
+        if (isModifier || isOverrideDice) {
             return damage;
         }
 

@@ -1,31 +1,34 @@
 {
-    "_id": "8ersuvNJXX00XaIQ",
-    "img": "icons/sundries/gaming/playing-cards-grey.webp",
-    "name": "Effect: Euryale (Curse) Card",
+    "_id": "8ecPVgMeWDxc4jI4",
+    "img": "icons/skills/trades/music-notes-sound-blue.webp",
+    "name": "Effect: Funereal Dirge",
     "system": {
         "description": {
-            "value": "<p>Granted by Euryale (curse) from the @UUID[Compendium.pf2e.equipment-srd.Item.Deck of Many Things]</p>"
+            "value": "<p>The creature takes a –2 status penalty to saving throws against drain life.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
         },
         "level": {
-            "value": 0
+            "value": 1
         },
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Gamemastery Guide"
+            "title": "Pathfinder Bestiary 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Euryale Curse",
+                "predicate": [
+                    "item:slug:drain-life"
+                ],
                 "selector": "saving-throw",
-                "value": -1
+                "type": "status",
+                "value": -2
             }
         ],
         "start": {
@@ -36,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

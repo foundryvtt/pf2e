@@ -20,7 +20,7 @@ import { RollNotePF2e } from "@module/notes.ts";
 import { extractModifiers } from "@module/rules/helpers.ts";
 import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import type { EnvironmentFeatureRegionBehavior, RegionDocumentPF2e, ScenePF2e, TokenDocumentPF2e } from "@scene";
+import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
@@ -337,20 +337,11 @@ abstract class CreaturePF2e<
         // Set difficult terrain roll options
         if (game.ready && game.scenes.active) {
             const tokens = this.getActiveTokens(true, true);
-            const difficultTerrains = tokens
-                .map((t) =>
-                    Array.from(t.regions ?? []).map((r) =>
-                        r.behaviors.filter(
-                            (b): b is EnvironmentFeatureRegionBehavior<RegionDocumentPF2e<ScenePF2e>> =>
-                                b.type === "environmentFeature" && b.system.terrain.difficult > 0,
-                        ),
-                    ),
-                )
-                .flat(2);
-            if (difficultTerrains.length > 0) {
+            const highestGrade = Math.max(...tokens.map((t) => t.difficultTerrain));
+            if (highestGrade > 0) {
                 this.rollOptions.all["self:position:difficult-terrain"] = true;
-                const inGreater = difficultTerrains.some((t) => t.system.terrain.difficult === 2);
-                this.rollOptions.all[`self:position:difficult-terrain:${inGreater ? "greater" : "normal"}`] = true;
+                const gradeOption = highestGrade === 2 ? "greater" : "normal";
+                this.rollOptions.all[`self:position:difficult-terrain:${gradeOption}`] = true;
             }
         }
     }
