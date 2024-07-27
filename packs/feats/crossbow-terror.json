@@ -31,14 +31,19 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Crossbow Terror",
                 "predicate": [
-                    "crossbow-terror",
-                    "ranged"
+                    "action:demoralize",
+                    "crossbow-terror"
                 ],
-                "selector": "crossbow-weapon-group-attack",
+                "selector": "intimidation",
                 "type": "circumstance",
                 "value": 2
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "crossbow-terror",
+                "toggleable": true
             }
         ],
         "traits": {

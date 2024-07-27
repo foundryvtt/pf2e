@@ -1,0 +1,169 @@
+{
+    "_id": "sCxi8lOH8tWQjLh0",
+    "img": "systems/pf2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp",
+    "name": "Effect: Blessed Armament",
+    "system": {
+        "description": {
+            "value": "<p>A spirit of battle dwells within your armaments. Select one weapon or @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows] when you make your daily preparations. In your hands, the item gains the effect of a property rune.</p><hr /><p>From <em>@UUID[Compendium.pf2e.classfeatures.Item.Blessed Armament]</em></p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Vitalizing], @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch], @UUID[Compendium.pf2e.equipment-srd.Item.Fearsome], @UUID[Compendium.pf2e.equipment-srd.Item.Returning], or @UUID[Compendium.pf2e.equipment-srd.Item.Shifting]</p><hr /><p>From <em>@UUID[Compendium.pf2e.feats-srd.Item.Radiant Armament]</em>:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Astral], @UUID[Compendium.pf2e.equipment-srd.Item.Brilliant], @UUID[Compendium.pf2e.equipment-srd.Item.Holy], or @UUID[Compendium.pf2e.equipment-srd.Item.Unholy]</p><hr /><p>From <em>@UUID[Compendium.pf2e.feats-srd.Item.Armament Paragon]</em>:</p>\n<p>@UUID[Compendium.pf2e.equipment-srd.Item.Animated], @UUID[Compendium.pf2e.equipment-srd.Item.Vitalizing (Greater)], or @UUID[Compendium.pf2e.equipment-srd.Item.Keen]</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponPropertyRune.astral.Name",
+                        "predicate": [
+                            "feat:radiant-armament"
+                        ],
+                        "value": "astral"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterAstral.Name",
+                        "predicate": [
+                            "feat:armament-paragon",
+                            "feat:radiant-armament"
+                        ],
+                        "value": "greater-astral"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.brilliant.Name",
+                        "predicate": [
+                            "feat:radiant-armament"
+                        ],
+                        "value": "brilliant"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterBrilliant.Name",
+                        "predicate": [
+                            "feat:armament-paragon",
+                            "feat:radiant-armament"
+                        ],
+                        "value": "greater-brilliant"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.fearsome.Name",
+                        "value": "fearsome"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterFearsome.Name",
+                        "predicate": [
+                            "feat:armament-paragon"
+                        ],
+                        "value": "greater-fearsome"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.ghostTouch.Name",
+                        "value": "ghost-touch"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.grievous.Name",
+                        "predicate": [
+                            "feat:armament-paragon"
+                        ],
+                        "value": "grievous"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.holy.Name",
+                        "predicate": [
+                            "feat:radiant-armament",
+                            "sanctification:holy"
+                        ],
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.keen.Name",
+                        "predicate": [
+                            "feat:armament-paragon"
+                        ],
+                        "value": "keen"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.returning.Name",
+                        "value": "returning"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.shifting.Name",
+                        "value": "shifting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.unholy.Name",
+                        "predicate": [
+                            "feat:radiant-armament",
+                            "sanctification:unholy"
+                        ],
+                        "value": "unholy"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.disrupting.Name",
+                        "value": "disrupting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
+                        "predicate": [
+                            "feat:armament-paragon"
+                        ],
+                        "value": "greater-disrupting"
+                    }
+                ],
+                "flag": "rune",
+                "key": "ChoiceSet"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{item|flags.pf2e.rulesSelections.rune}"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

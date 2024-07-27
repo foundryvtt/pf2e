@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p>You modify an arrow or bolt to bring death to your target in a single potent hit. Make a bow Strike. On a hit, you deal an additional 10d10 precision damage. On a critical hit, the target must also succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)|traits:death,incapacitation] saving throw against your class DC or spell DC, whichever is higher, or be immediately slain; this save has the death and incapacitation traits.</p>"
+            "value": "<p><strong>Frequency</strong> once per day</p><hr /><p>You modify an arrow or bolt to bring death to your target in a single potent hit. Make a bow or crossbow Strike. On a hit, you deal an additional 10d10 precision damage. On a critical hit, the target must also succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)|traits:death,incapacitation] saving throw against the higher of your class DC or spell DC or be immediately slain; this save has the death and incapacitation traits.</p>"
         },
         "frequency": {
             "max": 1,
@@ -28,15 +28,15 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "arrow-of-death",
+                "option": "fatal-shot",
                 "toggleable": true
             },
             {
@@ -45,8 +45,13 @@
                 "dieSize": "d10",
                 "key": "DamageDice",
                 "predicate": [
-                    "arrow-of-death",
-                    "item:group:bow"
+                    "fatal-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             },
@@ -56,8 +61,13 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "arrow-of-death",
-                    "item:group:bow"
+                    "fatal-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.EldritchArcher.ArrowOfDeath.Note",

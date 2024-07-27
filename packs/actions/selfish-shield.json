@@ -11,12 +11,12 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages you</p>\n<hr />\n<p>Your self-interest keeps you safe. You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type.</p>\n<p>In addition, your Strikes against the triggering creature deal 1 extra damage until the end of your next turn. You choose whether this extra damage is spirit or void each time you use this reaction. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>"
+            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> Your self-interest keeps you safe. You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type. In addition, your Strikes against the triggering creature deal 1 extra spirit damage until the end of your next turn. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -24,43 +24,17 @@
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Champion.TargetReaction",
                 "option": "selfish-shield",
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
-                        "value": "spirit"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
-                        "value": "void"
-                    }
-                ],
                 "toggleable": true
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.selfishShield}",
+                "damageType": "spirit",
                 "key": "FlatModifier",
                 "predicate": [
                     "selfish-shield"
                 ],
                 "selector": "strike-damage",
                 "slug": "selfish-shield-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 1
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 2
-                        },
-                        {
-                            "start": 16,
-                            "value": 3
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,16),3,ternary(gte(@actor.level,9),2,1))"
             }
         ],
         "selfEffect": {
@@ -70,7 +44,8 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "champion"
+                "champion",
+                "divine"
             ]
         }
     },

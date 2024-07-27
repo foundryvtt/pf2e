@@ -1,0 +1,110 @@
+{
+    "_id": "zrSOBBQZoeewqkUk",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blood Rising",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> A creature targets you with a spell of the same tradition as your bloodline.</p><hr /><p>The magic in your blood surges in response to your foe's spell. You generate a blood magic effect you know, even if you are already under the effects of blood magic. The target must be either you or the creature that triggered Blood Rising. If the blood magic effect grants you a bonus to AC or the appropriate saving throw, that bonus applies against the triggering spell. If the effect has a duration, it instead lasts until the beginning of your next turn.</p><hr /><p><strong>Special</strong> This feat has the trait corresponding to the tradition of your bloodline.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "feature:bloodline-aberrant"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Aberrant",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-aberrant"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aberrant Blood Magic]"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-angelic"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Angelic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-angelic"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-draconic"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-draconic"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-imperial"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Imperial",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-imperial"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Imperial Blood Magic]"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-psychopomp"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Psychopomp",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                    },
+                    {
+                        "predicate": [
+                            "feature:bloodline-psychopomp"
+                        ],
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Psychopomp Blood Magic (Self)]"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sorcerer"
+            ]
+        }
+    },
+    "type": "feat"
+}

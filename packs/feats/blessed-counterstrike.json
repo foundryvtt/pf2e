@@ -1,0 +1,55 @@
+{
+    "_id": "nSDXAFQKjMROlc2l",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blessed Counterstrike",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> An enemy triggered your champion's reaction since the end of your last turn.</p><hr /><p>You call upon divine power and make a weapon or unarmed Strike against the enemy who triggered your champion's reaction. The Strike deals one extra weapon damage die. If this Strike hits, until the start of your next turn, the target gains weakness equal to half your level to all Strikes made by you and your allies.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "champion's reaction that grants an ally resistance to an enemy's damage (including the grandeur, justice, liberation, and redemption causes)"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "blessed-counterstrike",
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "key": "DamageDice",
+                "predicate": [
+                    "blessed-counterstrike"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion",
+                "flourish"
+            ]
+        }
+    },
+    "type": "feat"
+}

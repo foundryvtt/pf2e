@@ -30,7 +30,7 @@
             }
         },
         "description": {
-            "value": "<p>You spew energy from your mouth, dealing 5d6 damage with a basic Reflex save. The damage type depends on the magical tradition related to the dragon that influenced your bloodline: <strong>arcane</strong> force, <strong>divine</strong> spirit, <strong>occult</strong> mental, or <strong>primal</strong> fire.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+            "value": "<p>You spew energy from your mouth, dealing 5d6 damage with a basic Reflex save. The damage type depends on the magical tradition related to the dragon that influenced your bloodline.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
         },
         "duration": {
             "sustained": false,
@@ -60,53 +60,13 @@
                 "key": "DamageAlteration",
                 "mode": "override",
                 "predicate": [
-                    "feature:bloodline:draconic:arcane",
                     "item:slug:dragon-breath"
                 ],
                 "property": "damage-type",
                 "selectors": [
                     "spell-damage"
                 ],
-                "value": "force"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "feature:bloodline:draconic:divine",
-                    "item:slug:dragon-breath"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "spirit"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "feature:bloodline:draconic:occult",
-                    "item:slug:dragon-breath"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "mental"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "feature:bloodline:draconic:primal",
-                    "item:slug:dragon-breath"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "fire"
+                "value": "{actor|flags.pf2e.dragonBloodline.damageType}"
             }
         ],
         "target": {

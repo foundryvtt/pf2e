@@ -11,62 +11,36 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> An enemy within 15 feet damages you</p>\n<hr />\n<p>Bloodshed begets bloodshed as you drag your enemy toward oblivion.</p>\n<p>You increase the amount of damage you take by [[/r (ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6]], and you deal 1d6 damage to the triggering enemy, choosing @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[spirit]] or @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[void]] damage to deal to the enemy each time you use this reaction. In addition, until the end of your next turn, your Strikes against the triggering creature deal 2 extra damage of the type you chose.</p>\n<p>The damage you take and deal when you use this reaction increases to 2d6 at 5th level, 3d6 at 9th level, 4d6 at 12th level, 5d6 at 16th level, and 6d6 at 19th level.</p>\n<p>The extra damage on your Strikes increases to 4 at 9th level and 6 at 16th level.</p>"
+            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> Bloodshed begets bloodshed as you drag your enemy toward oblivion. You increase the amount of damage you take by @Damage[ (ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6], and you deal @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[spirit]] damage to the triggering enemy. The damage you take and deal when you use this reaction increases to 2d6 at 5th level, 3d6 at 9th level, 4d6 at 12th level, 5d6 at 16th level, and 6d6 at 19th level. In addition, until the end of your next turn, your Strikes against the triggering creature deal 2 extra spirit damage. This extra damage increases to 4 at 9th level and 6 at 16th level.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "domain": "damage",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Champion.TargetReaction",
                 "option": "destructive-vengeance",
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Champion.EvilDamage",
-                        "value": "spirit"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Champion.NegativeDamage",
-                        "value": "void"
-                    }
-                ],
                 "toggleable": true
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.destructiveVengeance}",
+                "damageType": "spirit",
                 "key": "FlatModifier",
                 "predicate": [
                     "destructive-vengeance"
                 ],
                 "selector": "strike-damage",
                 "slug": "destructive-vengeance-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 2
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 4
-                        },
-                        {
-                            "start": 16,
-                            "value": 6
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,16),6,ternary(gte(@actor.level,9),4,2))"
             }
         ],
         "traits": {
             "rarity": "common",
             "value": [
-                "champion"
+                "champion",
+                "divine"
             ]
         }
     },

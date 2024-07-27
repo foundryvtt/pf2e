@@ -7,6 +7,8 @@
             "value": "<p>Your health and vitality have been depleted as you've lost blood, life force, or some other essence. Drained always includes a value. You take a status penalty equal to your drained value on Constitution-based checks, such as Fortitude saves. You also lose a number of Hit Points equal to your level (minimum 1) times the drained value, and your maximum Hit Points are reduced by the same amount. For example, if you become drained 3 and you're a 3rd-level character, you lose 9 Hit Points and reduce your maximum Hit Points by 9. Losing these Hit Points doesn't count as taking damage.</p>\n<p>Each time you get a full night's rest, your drained value decreases by 1. This increases your maximum Hit Points, but you don't immediately recover the lost Hit Points.</p>"
         },
         "duration": {
+            "expiry": null,
+            "unit": "unlimited",
             "value": 0
         },
         "group": "abilities",
@@ -43,6 +45,9 @@
                 "value": "max(1,@actor.level) * @item.badge.value"
             }
         ],
+        "traits": {
+            "value": []
+        },
         "value": {
             "isValued": true,
             "value": 1

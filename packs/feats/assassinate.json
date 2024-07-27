@@ -28,7 +28,34 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "marked-for-death"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "attack-roll",
+                "key": "RollOption",
+                "option": "assassinate",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "assassinate",
+                    "marked-for-death"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "If you hit, your mark takes an additional @Damage[(6d6[precision])[@item.system.damage.damageType]] damage with a @Check[type:fortitude|dc:resolve(@actor.system.attributes.classOrSpellDC.value)|basic:true] save.",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

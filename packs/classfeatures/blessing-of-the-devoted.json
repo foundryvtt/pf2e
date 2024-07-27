@@ -1,0 +1,65 @@
+{
+    "_id": "ERwuazupczhUSZ73",
+    "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
+    "name": "Blessing of the Devoted",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your deity blesses your service with a boon. This might come in the form of a spirit that visits you and inhabits your items or body, a mysterious divine tattoo upon your body, or the like. Choose one of the following blessings, or any other to which you have access.</p>\n<p><strong>Blessed Armament</strong>: Select one weapon or handwraps of mighty blows. You gain that armament's critical specialization effect, and you grant the armament a property rune of your choice from the following list: @UUID[Compendium.pf2e.equipment-srd.Item.Fearsome], @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch], @UUID[Compendium.pf2e.equipment-srd.Item.Returning], @UUID[Compendium.pf2e.equipment-srd.Item.Shifting], or @UUID[Compendium.pf2e.equipment-srd.Item.Vitalizing]. During your daily preparations, you can change the spirit to inhabit a different armament, grant a different rune, or both.</p>\n<p><strong>Blessed Shield:</strong> In your hands, a shield gains the minor @UUID[Compendium.pf2e.equipment-srd.Item.Reinforcing Rune (Minor)]{Reinforcing} rune. As you go up in level, the shield gains the reinforcing rune of your level (lesser at 7th level, moderate at 10th level, greater at 13th level, major at 16th level, and supreme at 19th level). If your shield already has the appropriate reinforcing rune for your level, or if it's a @UUID[Compendium.pf2e.equipment-srd.Item.Sturdy Shield (Minor)]{Sturdy Shield} of the same level as the appropriate reinforcing rune, the shield's Hardness instead increases by 1.</p>\n<p><strong>Blessed Swiftness:</strong> You gain a +5-foot status bonus to Speed. If you're mounted, your mount gains the bonus instead. In addition, when the movement of one of your allies triggers an enemy's reaction while the ally is in your champion's aura, the ally gains a +2 status bonus to all defenses against that reaction.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "allowedDrops": {
+                    "label": "PF2E.SpecificRule.DivineAlly.AllowedDrops",
+                    "predicate": [
+                        "item:type:feature",
+                        "item:trait:champion"
+                    ]
+                },
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Armament"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Shield"
+                    },
+                    {
+                        "value": "Compendium.pf2e.classfeatures.Item.Blessed Swiftness"
+                    }
+                ],
+                "flag": "blessing",
+                "key": "ChoiceSet"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.blessing}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

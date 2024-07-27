@@ -1,0 +1,52 @@
+{
+    "_id": "T7GGNvfqowFrRcKW",
+    "img": "icons/magic/symbols/runes-star-pentagon-blue.webp",
+    "name": "Effect: Aura of Determination",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Determination]</p>\n<p>You and all allies in your champion's aura gain a +1 status bonus to saving throws against mental, morph, and polymorph effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:mental",
+                            "item:trait:morph",
+                            "item:trait:polymorph"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

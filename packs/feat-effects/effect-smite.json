@@ -1,0 +1,114 @@
+{
+    "_id": "AlnxieIRjqNqsdVu",
+    "img": "icons/sundries/flags/banner-sword-blue.webp",
+    "name": "Effect: Smite",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Smite].</p>\n<p>Designate one enemy you can see. Until the start of your next turn, your Strikes against that enemy gain a +3 status bonus to damage, increasing to +4 if you have master proficiency with the weapon or unarmed attack you're using for the Strike. If you're holy or unholy and the target has the opposite trait, the bonus is +4 (or +6 if you're a master).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "smite"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:smite"
+                ],
+                "selector": "strike-damage",
+                "slug": "smite",
+                "type": "status",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:trait:holy",
+                                    "target:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:trait:unholy",
+                                    "target:trait:holy"
+                                ]
+                            },
+                            {
+                                "gte": [
+                                    "item:proficiency:rank",
+                                    3
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
+                        ]
+                    },
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:trait:holy",
+                                    "target:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:trait:unholy",
+                                    "target:trait:holy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "smite",
+                "value": 6
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>With a single whisper carried on the wind, you enchant your ammunition to make a foe more vulnerable to your attacks.</p>\n<p>Make a bow Strike. On a hit, the target takes an additional 2d6 mental damage. On a critical hit, the target also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The mental damage increases to 3d6 if your bow has a <em>greater striking</em> rune, or to 4d6 if your bow has a <em>major striking</em> rune.</p>"
+            "value": "<p>With a single whisper carried on the wind, you enchant your ammunition to make a foe more vulnerable to your attacks.</p>\n<p>Make a bow or crossbow Strike. On a hit, the target takes an additional 2d6 mental damage. On a critical hit, the target also becomes @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}. The mental damage increases to 3d6 if your weapon has a <em>greater striking rune</em>, or to 4d6 if your weapon has a <em>major striking rune</em>.</p>"
         },
         "level": {
             "value": 8
@@ -24,15 +24,15 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "enchanting-arrow",
+                "option": "enchanting-shot",
                 "toggleable": true
             },
             {
@@ -41,8 +41,13 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "enchanting-arrow",
-                    "item:group:bow"
+                    "enchanting-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             },
@@ -52,8 +57,13 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "enchanting-arrow",
-                    "item:group:bow"
+                    "enchanting-shot",
+                    {
+                        "or": [
+                            "item:group:bow",
+                            "item:group:crossbow"
+                        ]
+                    }
                 ],
                 "selector": "strike-attack-roll",
                 "text": "PF2E.SpecificRule.EldritchArcher.EnchantingArrow.Note",

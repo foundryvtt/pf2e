@@ -50,49 +50,12 @@
         "requirements": "",
         "rules": [
             {
-                "damageType": "force",
-                "diceNumber": 1,
+                "damageType": "{actor|flags.pf2e.dragonBloodline.damageType}",
+                "diceNumber": "@item.level",
                 "dieSize": "d4",
                 "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
-                    "feature:bloodline:draconic:arcane",
-                    "item:slug:flurry-of-claws"
-                ],
-                "selector": "spell-damage"
-            },
-            {
-                "damageType": "spirit",
-                "diceNumber": 1,
-                "dieSize": "d4",
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "predicate": [
-                    "feature:bloodline:draconic:divine",
-                    "item:slug:flurry-of-claws"
-                ],
-                "selector": "spell-damage"
-            },
-            {
-                "damageType": "mental",
-                "diceNumber": 1,
-                "dieSize": "d4",
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "predicate": [
-                    "feature:bloodline:draconic:occult",
-                    "item:slug:flurry-of-claws"
-                ],
-                "selector": "spell-damage"
-            },
-            {
-                "damageType": "fire",
-                "diceNumber": 1,
-                "dieSize": "d4",
-                "hideIfDisabled": true,
-                "key": "DamageDice",
-                "predicate": [
-                    "feature:bloodline:draconic:primal",
                     "item:slug:flurry-of-claws"
                 ],
                 "selector": "spell-damage"

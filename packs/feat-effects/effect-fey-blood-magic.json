@@ -4,7 +4,7 @@
     "name": "Effect: Fey Blood Magic",
     "system": {
         "description": {
-            "value": "<p>Colorful fey glamours dance around you or one target, causing them to be concealed for 1 round. Such obvious concealment can't be used to Hide.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Fey]</p>\n<p>Either you gain a +2 status bonus to Performance checks for 1 round.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,11 +16,18 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "performance",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

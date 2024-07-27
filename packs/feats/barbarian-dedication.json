@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You become trained in Athletics; if you were already trained in Athletics, you instead become trained in a skill of your choice. You become trained in barbarian class DC. You can use the @UUID[Compendium.pf2e.actionspf2e.Item.Rage] action. Choose an @UUID[Compendium.pf2e.classfeatures.Item.Instinct] as you would if you were a barbarian. You have that instinct for all purposes and become bound by its anathema, but you don't gain any of the other abilities it grants.</p>\n<hr />\n<p><strong>Special</strong> You cannot select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.uYCTmos3yZtbD9qs]{Barbarian} archetype.</p>"
+            "value": "<p>You become trained in Athletics; if you were already trained in Athletics, you instead become trained in a skill of your choice. You become trained in barbarian class DC.</p>\n<p>You can use the Rage action. While raging, you take a –1 penalty to AC.</p>\n<p>Choose an instinct as you would if you were a barbarian. You have that instinct for all purposes, but you don't gain any of the other abilities it grants. If that instinct has anathema, you're bound by them.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.uYCTmos3yZtbD9qs]{Barbarian}</p>"
         },
         "level": {
             "value": 2
@@ -27,9 +27,9 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -45,6 +45,14 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Rage"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "ac",
+                "value": -1
             }
         ],
         "subfeatures": {

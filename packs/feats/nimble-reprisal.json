@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can use Retributive Strike with a ranged weapon. In addition, if the foe that triggered your reaction is within 5 feet of your reach but not in your reach, as part of your reaction you can Step to put the foe in your reach before making a melee Retributive Strike.</p>"
+            "value": "<p>You can use @UUID[Compendium.pf2e.actionspf2e.Item.Retributive Strike] at greater distance. You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura.</p>\n<p>You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike.</p>"
         },
         "level": {
             "value": 1
@@ -19,7 +19,7 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "paladin cause"
+                    "value": "justice cause"
                 }
             ]
         },
@@ -30,22 +30,16 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "option": "ranged-reprisal",
-                "toggleable": true
-            },
-            {
                 "itemType": "action",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "item:slug:retributive-strike",
-                    "ranged-reprisal"
+                    "item:slug:retributive-strike"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Champion.RangedReprisal.Description"
+                        "text": "PF2E.SpecificRule.Champion.RangedReprisal"
                     }
                 ]
             }

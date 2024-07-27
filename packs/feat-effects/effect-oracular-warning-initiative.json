@@ -1,0 +1,44 @@
+{
+    "_id": "ETZHTCjlOUHHSE0Z",
+    "img": "icons/creatures/eyes/humanoid-single-yellow.webp",
+    "name": "Effect: Oracular Warning (Initiative)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Oracular Warning]</p>\n<p>Each ally gains a +2 status bonus to their initiative roll. <span style=\"font-family:Roboto, sans-serif\">If you are cursebound 2 when you use Oracular Warning, the bonus increases to +3, and if you are cursebound 3, the bonus increases to +4.</span></p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "removeAfterRoll": true,
+                "selector": "initiative",
+                "type": "status",
+                "value": "min(1+@item.origin.conditions.cursebound.value,4)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

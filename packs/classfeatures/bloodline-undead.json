@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire, or perhaps you died and returned a bit different.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Void Warp], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Harm], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.False Vitality], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Bind Undead], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Toxic Cloud], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Execute], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Desiccate], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Wails of the Damned]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Undeath's Blessing], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Drain Life], greater: @UUID[Compendium.pf2e.spells-srd.Item.Grasping Grave]</p>\n<p><strong>Blood Magic</strong> Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's rank for 1 round, or a target takes 1 void damage per spell rank (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
+            "value": "<p>The touch of undeath runs through your blood. Your family tree might contain powerful undead, like a vampire.</p>\n<p><strong>Tradition</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Intimidation, Religion</p>\n<p><strong>Sorcerous Gifts</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Void Warp], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Harm], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Bind Undead], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Invoke Spirits], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Vampiric Exsanguination], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Execute], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Canticle of Everlasting Grief], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Wails of the Damned]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Undeath's Blessing], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Drain Life], greater: @UUID[Compendium.pf2e.spells-srd.Item.Grasping Grave]</p>\n<p><strong>Blood Magic—Stolen Life</strong> You can channel the necromantic energy in your blood. Either you gain temporary Hit Points equal to the spell's rank that last until the start of your next turn, or a target takes 1 void damage per spell rank (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -60,13 +60,13 @@
                                     {
                                         "or": [
                                             "item:slug:harm",
-                                            "item:slug:false-vitality",
+                                            "item:slug:see-the-unseen",
                                             "item:slug:bind-undead",
                                             "item:slug:talking-corpse",
-                                            "item:slug:toxic-cloud",
+                                            "item:slug:invoke-spirits",
                                             "item:slug:vampiric-exsanguination",
                                             "item:slug:execute",
-                                            "item:slug:desiccate",
+                                            "item:slug:canticle-of-everlasting-grief",
                                             "item:slug:wails-of-the-damned"
                                         ]
                                     }
@@ -85,6 +85,11 @@
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Undead Blood Magic]"
                     }
                 ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:divine"
             }
         ],
         "traits": {

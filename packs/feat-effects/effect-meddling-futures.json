@@ -1,0 +1,155 @@
+{
+    "_id": "06oOr07YORG2km9C",
+    "img": "icons/environment/wilderness/arch-stone.webp",
+    "name": "Effect: Meddling Futures",
+    "system": {
+        "badge": {
+            "evaluate": true,
+            "labels": [
+                "Warrior",
+                "Adept",
+                "Sage",
+                "Wanderer"
+            ],
+            "loop": false,
+            "reevaluate": null,
+            "type": "formula",
+            "value": "1d4"
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Meddling Futures]</p>\n<p>Roll 1d4 to see what type of spirit is drawn to you. You gain the listed benefit for the action. If you attempt to use a different action, you must succeed at a @Check[type:flat|dc:6] or the action is lost.</p><hr /><p><strong>1 Warrior</strong> You must attempt a Strike. You gain a +1 status bonus to your attack roll and a +2 status bonus to damage, or a +6 status bonus to damage if you are at least cursebound 3.</p>\n<p><strong>2 Adept</strong> You must attempt a Perception check or a skill action. You gain a +1 status bonus to the check, or a +2 status bonus if you are cursebound 3.</p>\n<p><strong>3 Sage</strong> You must attempt to Cast a Spell. You gain a status bonus to the spell's damage or healing equal to the spell's rank, or equal to the spell's rank + 3 if you are at least cursebound 3.</p>\n<p><strong>4 Wanderer</strong> You must attempt a Stride action, or a Fly, Climb, or Burrow action if you have the relevant speed. You gain a +10-foot status bonus to your Speed for the action, or a +20-foot status bonus if you are at least cursebound 3.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:badge:value:1"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),6,2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:badge:value:2"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "perception",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),2,1)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:badge:value:3"
+                ],
+                "selector": [
+                    "spell-damage",
+                    "spell-healing"
+                ],
+                "type": "status",
+                "value": "@spell.level + ternary(gte(@actor.conditions.cursebound.value,3),3,0)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "parent:badge:value:4"
+                ],
+                "selector": "speed",
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),20,10)"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "not": "parent:badge:value:2"
+                                    },
+                                    {
+                                        "or": [
+                                            "check:type:perception",
+                                            "check:type:skill"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    {
+                                        "not": "parent:badge:value:1"
+                                    },
+                                    "action:strike"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "strike-attack-roll",
+                    "perception",
+                    "skill-check"
+                ],
+                "text": "PF2E.SpecificRule.Oracle.MeddlingFutures.Note",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "parent:badge:value:3"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oracle.MeddlingFutures.Note"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

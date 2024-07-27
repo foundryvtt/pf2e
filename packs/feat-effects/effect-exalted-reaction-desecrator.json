@@ -1,0 +1,46 @@
+{
+    "_id": "Ef63SlxSKlZmHosM",
+    "img": "icons/skills/melee/swords-parry-block-yellow.webp",
+    "name": "Effect: Exalted Reaction (Desecrator)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Desecration]</p>\n<p><span style=\"font-family:Roboto, sans-serif\">Each enemy in your champion's aura takes a –1 status penalty to attack rolls against you.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:signature:{item|origin.signature}"
+                ],
+                "selector": "attack-roll",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

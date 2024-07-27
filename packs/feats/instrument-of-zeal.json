@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Divine energy fills your weapon. Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, your attack adds an extra damage die, and the target is slowed 1 on its next turn.</p>"
+            "value": "<p>Divine energy fills your weapon. Whenever you critically hit an enemy with Blessed Counterstrike or Retributive Strike, your attack deals an extra weapon damage die, and the target is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} on its next turn</p>"
         },
         "level": {
             "value": 16
@@ -19,17 +19,14 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "divine ally (blade)"
-                },
-                {
-                    "value": "tenets of good"
+                    "value": "Blessed Counterstrike feat or Retributive Strike\rreaction, champion's reaction that grants an ally resistance\rto an enemy's damage (including the grandeur, justice,\rliberation, and redemption causes)"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -39,7 +36,7 @@
                 "predicate": [
                     {
                         "or": [
-                            "blade-justice",
+                            "blessed-counterstrike",
                             "retributive-strike"
                         ]
                     }
@@ -48,6 +45,9 @@
             },
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
                 "predicate": [
                     {
                         "or": [
@@ -56,8 +56,8 @@
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "text": "Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, the target is slowed 1 on its next turn.",
+                "selector": "strike-attack-roll",
+                "text": "{item|description}",
                 "title": "{item|name}"
             }
         ],

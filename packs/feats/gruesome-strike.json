@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> Your Strikes currently deal extra damage from your champion's reaction.</p>\n<hr />\n<p>Make a Strike against the creature that triggered your champion's reaction. If you hit, the target takes double the extra damage from your reaction and must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p>Regardless of the result, the creature is temporarily immune to your Gruesome Strike for 24 hours.</p>"
+            "value": "<p><strong>Requirements</strong> Your Strikes currently deal extra damage from your champion's reaction.</p><hr /><p>Make a Strike against the creature that triggered your champion's reaction. If you hit, double the extra damage the target takes from your reaction, and the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Regardless of the result, the creature is temporarily immune to your Gruesome Strike for 24 hours.</p>"
         },
         "level": {
             "value": 12
@@ -19,10 +19,7 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "tenets of evil"
-                },
-                {
-                    "value": "champion's reaction that grants extra damage with your Strikes"
+                    "value": "champion's reaction that grants extra damage with your Strikes (including the desecration, iniquity, and obedience causes)"
                 }
             ]
         },
@@ -39,126 +36,38 @@
                 "toggleable": true
             },
             {
-                "damageType": "void",
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
-                    "gruesome-strike",
-                    {
-                        "or": [
-                            "iron-command:negative",
-                            "selfish-shield:negative"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "gruesome-ic-neg",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 1
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 2
-                        },
-                        {
-                            "start": 16,
-                            "value": 3
-                        }
-                    ]
-                }
-            },
-            {
-                "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "gruesome-strike",
-                    {
-                        "or": [
-                            "iron-command:evil",
-                            "selfish-shield:evil"
-                        ]
-                    }
-                ],
-                "selector": "strike-damage",
-                "slug": "gruesome-ic-evil",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 1
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 2
-                        },
-                        {
-                            "start": 16,
-                            "value": 3
-                        }
-                    ]
-                }
-            },
-            {
-                "damageType": "void",
-                "key": "FlatModifier",
-                "predicate": [
-                    "destructive-vengeance:negative",
                     "gruesome-strike"
                 ],
                 "selector": "strike-damage",
-                "slug": "gruesome-ds-neg",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 2
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 4
-                        },
-                        {
-                            "start": 16,
-                            "value": 6
-                        }
-                    ]
-                }
+                "slug": "selfish-shield-damage",
+                "value": 2
             },
             {
-                "damageType": "spirit",
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
-                    "destructive-vengeance:evil",
                     "gruesome-strike"
                 ],
                 "selector": "strike-damage",
-                "slug": "gruesome-ds-evil",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 2
-                        },
-                        {
-                            "end": 15,
-                            "start": 9,
-                            "value": 4
-                        },
-                        {
-                            "start": 16,
-                            "value": 6
-                        }
-                    ]
-                }
+                "slug": "destructive-vengeance-damage",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "gruesome-strike"
+                ],
+                "selector": "strike-damage",
+                "slug": "iron-command-damage",
+                "value": 2
             }
         ],
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "common",
             "value": [
                 "champion"
             ]
