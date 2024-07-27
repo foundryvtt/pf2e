@@ -1605,6 +1605,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     createMessage: params.createMessage ?? true,
                 };
 
+                // consumeAmmo will add/wrap the callback to do the actual consumption of ammo at the end
                 if (params.consumeAmmo && !this.consumeAmmo(context.origin.item, params)) {
                     return null;
                 }
@@ -1733,8 +1734,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             return false;
         } else {
             const existingCallback = params.callback;
-            params.callback = async (roll: Rolled<Roll>) => {
-                existingCallback?.(roll);
+            params.callback = async (...args) => {
+                await existingCallback?.(...args);
                 await weapon.consumeAmmo();
             };
             return true;
