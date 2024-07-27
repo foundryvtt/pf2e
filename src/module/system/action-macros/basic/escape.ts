@@ -14,7 +14,7 @@ import { CheckContextError } from "../helpers.ts";
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
 
 const toHighestModifier = (highest: StrikeData | null, current: StrikeData): StrikeData | null => {
-    return current.totalModifier > (highest?.totalModifier ?? 0) ? current : highest;
+    return current.totalModifier > (highest?.totalModifier ?? Number.MIN_SAFE_INTEGER) ? current : highest;
 };
 
 function unarmedStrikeWithHighestModifier<ItemType extends ItemPF2e<ActorPF2e>>(
