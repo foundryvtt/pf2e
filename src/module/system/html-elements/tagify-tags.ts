@@ -4,7 +4,10 @@ import * as R from "remeda";
  * A HTML Element that handles `Tagify` data and always has a `value` of `string[]`.
  * `Tagify` must be bound to the child input element that can be accessed at `HTMLTagifyTagsElement#input`
  */
-class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormInputElement<string[], string> {
+class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormInputElement<
+    TagifySelection[] | string[],
+    string
+> {
     static override tagName = "tagify-tags";
 
     /** The input elmement that the `Tagify` instance is bound to */
@@ -17,26 +20,30 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
     }
 
     protected override _buildElements(): HTMLElement[] {
-        this.input = document.createElement("input") as HTMLInputElement;
+        this.input = document.createElement("input");
         this.input.type = "text";
         this._applyInputAttributes(this.input);
 
         return [this.input];
     }
 
+    /** Overwritten so that submit data receives a string array */
+    protected override _getValue(): string[] {
+        const value = super._getValue();
+        // The initial value might already be a string array
+        if (value.every((s): s is string => typeof s === "string")) {
+            return value;
+        }
+        // Otherwise extract tagify values
+        return value
+            .filter((s) => !s.readonly)
+            .map((s) => s.id ?? s.value)
+            .filter(R.isTruthy);
+    }
+
     protected override _setValue(value: string): void {
         try {
-            const parsed = JSON.parse(value) as TagifySelection[] | string[];
-            // The initial value might already be a string array
-            if (parsed.every((s): s is string => typeof s === "string")) {
-                this._value = parsed;
-                return;
-            }
-            // Otherwise extract tagify values
-            this._value = parsed
-                .filter((s) => !s.readonly)
-                .map((s) => s.id ?? s.value)
-                .filter(R.isTruthy);
+            this._value = JSON.parse(value);
         } catch (error) {
             if (error instanceof Error) {
                 console.error(
