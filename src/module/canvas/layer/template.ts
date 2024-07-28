@@ -52,7 +52,7 @@ export class TemplateLayerPF2e<
 
         // Update the shape data
         if (["cone", "circle"].includes(document.t)) {
-            const snapAngle = Math.PI / (canvas.scene.hasHexGrid ? 6 : 4);
+            const snapAngle = Math.PI / (canvas.grid.isHexagonal ? 6 : 4);
             document.direction = Math.toDegrees(Math.floor((ray.angle + Math.PI * 0.125) / snapAngle) * snapAngle);
         } else {
             document.direction = Math.toDegrees(ray.angle);
@@ -76,7 +76,7 @@ export class TemplateLayerPF2e<
         const shapeType = template.document.t;
         const distance = template.document.distance ?? 5;
         const increment = event.shiftKey || distance <= 30 ? 15 : 5;
-        const coneMultiplier = shapeType === "cone" ? (canvas.scene.hasHexGrid ? 2 : 3) : 1;
+        const coneMultiplier = shapeType === "cone" ? (canvas.grid.isHexagonal ? 2 : 3) : 1;
         const snap = increment * coneMultiplier;
         const delta = snap * Math.sign(event.deltaY);
 
