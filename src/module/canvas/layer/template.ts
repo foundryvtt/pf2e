@@ -41,9 +41,11 @@ export class TemplateLayerPF2e<
         const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
-        const { x, y } = canvas.grid.getSnappedPoint(destination, {
-            mode: template.snappingMode,
-        });
+        const { x, y } = canvas.grid.isSquare
+            ? canvas.grid.getSnappedPoint(destination, {
+                  mode: template.snappingMode,
+              })
+            : super.getSnappedPoint(destination);
         destination.x = x;
         destination.y = y;
         const ray = new Ray(origin, destination);
@@ -130,9 +132,11 @@ export class TemplateLayerPF2e<
                 const { document, position } = preview;
                 this.#deactivatePreviewListeners(initialLayer, event);
                 document.updateSource(
-                    canvas.grid.getSnappedPoint(position, {
-                        mode: preview.snappingMode,
-                    }),
+                    canvas.grid.isSquare
+                        ? canvas.grid.getSnappedPoint(position, {
+                              mode: preview.snappingMode,
+                          })
+                        : super.getSnappedPoint(position),
                 );
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);
             },
