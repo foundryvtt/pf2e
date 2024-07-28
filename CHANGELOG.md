@@ -1,3 +1,27 @@
+## 6.1.3
+
+### System Improvements
+
+-   (Tikael) Allow weapon group to be resolved in Strike REs
+
+### Bugfixes
+
+-   (stwlam) Fix the (hopefully) remaining edge cases of Concussive trait
+-   (Supe) Fix display of readonly traits in actor and item sheets
+-   (Supe) Fix inline dc adjustments for elite/weak creatures
+-   (Trent) Fix Escape not picking unarmed attacks with negative modifiers
+
+### Data Updates
+
+-   (Ambrose) Update Exploration Activities source and text to Player Core/GM Core
+-   (Dire Weasel) Remove invalid alignment traits from NPC strikes
+-   (rectulo) Fix lore skill in Art Tutor background
+-   (reyzor1991) Add DamageAlteration to Divine Castigation
+-   (reyzor1991) Add missing inline checks to several NPC abilities
+-   (Tikael) Remove unmaintained GMG journal entry compendium
+-   (websterguy) Fix domain on Artokus's Fire RollOption
+-   (websterguy) Fix inline roll in Note text on Glutton's Jaw effect
+
 ## 6.1.2
 
 ### System Improvements
