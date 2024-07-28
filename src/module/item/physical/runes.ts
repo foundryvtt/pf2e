@@ -1,6 +1,12 @@
 import { AutomaticBonusProgression as ABP } from "@actor/character/automatic-bonus-progression.ts";
-import { CreatureTrait } from "@actor/creature/index.ts";
-import { DamageDicePF2e, DamageDiceParameters, ModifierAdjustment } from "@actor/modifiers.ts";
+import type { CreatureTrait } from "@actor/creature/index.ts";
+import {
+    DamageDicePF2e,
+    DamageDiceParameters,
+    ModifierAdjustment,
+    ModifierObjectParams,
+    ModifierPF2e,
+} from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
@@ -12,6 +18,7 @@ import { RollNoteSource } from "@module/notes.ts";
 import { StrikeAdjustment } from "@module/rules/synthetics.ts";
 import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
+import { sluggify } from "@util";
 import * as R from "remeda";
 
 function getPropertyRuneSlots(item: WeaponPF2e | ArmorPF2e): ZeroToFour {
@@ -90,23 +97,37 @@ function getPropertyRuneDegreeAdjustments(item: WeaponPF2e): DegreeOfSuccessAdju
     ).filter(R.isTruthy);
 }
 
-function getPropertyRuneDice(runes: WeaponPropertyRuneType[], options: Set<string>): DamageDicePF2e[] {
+function getPropertyRuneDamage(
+    weapon: WeaponPF2e | MeleePF2e,
+    runes: WeaponPropertyRuneType[],
+    options: Set<string>,
+): (DamageDicePF2e | ModifierPF2e)[] {
     return runes.flatMap((rune) => {
         const runeData = WEAPON_PROPERTY_RUNES[rune];
-        return fu.deepClone(runeData.damage?.dice ?? []).map((data) => {
-            const dice = new DamageDicePF2e({
-                selector: "strike-damage",
-                slug: rune,
-                label: RUNE_DATA.weapon.property[rune]?.name,
-                diceNumber: data.diceNumber ?? 1,
-                dieSize: data.dieSize ?? "d6",
-                damageType: data.damageType,
-                category: data.category ?? null,
-                predicate: data.predicate,
-                critical: data.critical ?? null,
-            });
-            dice.test(options);
-            return dice;
+        return fu.deepClone(runeData.damage?.additional ?? []).map((data) => {
+            const slug = sluggify(rune);
+            if ("modifier" in data) {
+                const resolvables = weapon.getRollData();
+                const value =
+                    typeof data.modifier === "string"
+                        ? Number(Roll.replaceFormulaData(data.modifier, resolvables)) || 0
+                        : data.modifier;
+                return new ModifierPF2e({ ...data, slug, modifier: value });
+            } else {
+                const dice = new DamageDicePF2e({
+                    selector: "strike-damage",
+                    slug,
+                    label: RUNE_DATA.weapon.property[rune]?.name,
+                    diceNumber: data.diceNumber ?? 1,
+                    dieSize: data.dieSize ?? "d6",
+                    damageType: data.damageType,
+                    category: data.category ?? null,
+                    predicate: data.predicate,
+                    critical: data.critical ?? null,
+                });
+                dice.test(options);
+                return dice;
+            }
         });
     });
 }
@@ -119,8 +140,11 @@ function getPropertyRuneModifierAdjustments(runes: WeaponPropertyRuneType[]): Mo
     return runes.flatMap((r) => RUNE_DATA.weapon.property[r].damage?.adjustments ?? []);
 }
 
-type RuneDiceProperty = "slug" | "damageType" | "category" | "diceNumber" | "dieSize" | "predicate" | "critical";
-type RuneDiceData = Partial<Pick<DamageDiceParameters, RuneDiceProperty>>;
+type RuneDiceProperty = "slug" | "damageType" | "category" | "predicate" | "critical";
+type RuneAdditionalDamageDice = Partial<Pick<DamageDiceParameters, RuneDiceProperty>> &
+    Required<Pick<DamageDiceParameters, "diceNumber" | "dieSize">>;
+type RuneAdditionalDamageModifier = Omit<ModifierObjectParams, "modifier"> & { modifier: string | number };
+type RuneAdditionalDamage = RuneAdditionalDamageDice | RuneAdditionalDamageModifier;
 type RuneTrait = SpellTrait | CreatureTrait | "saggorak";
 
 /* -------------------------------------------- */
@@ -371,7 +395,7 @@ interface WeaponPropertyRuneData<TSlug extends WeaponPropertyRuneType> extends P
         notes?: RuneNoteData[];
     };
     damage?: {
-        dice?: RuneDiceData[];
+        additional?: RuneAdditionalDamage[];
         notes?: RuneNoteData[];
         adjustments?: ModifierAdjustment[];
         /**
@@ -887,7 +911,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     ashen: {
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "fire",
                     category: "persistent",
@@ -917,7 +941,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "astral",
         traits: ["magical", "spirit"],
         damage: {
-            dice: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
         },
     },
     authorized: {
@@ -963,7 +987,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     brilliant: {
         damage: {
-            dice: [
+            additional: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
                     damageType: "spirit",
@@ -1019,7 +1043,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     corrosive: {
         damage: {
-            dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1070,7 +1094,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     decaying: {
         damage: {
-            dice: [
+            additional: [
                 {
                     slug: "decaying",
                     damageType: "void",
@@ -1096,7 +1120,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     deathdrinking: {
         damage: {
-            dice: [
+            additional: [
                 {
                     slug: "deathdrinking-negative",
                     damageType: "void",
@@ -1124,7 +1148,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     demolishing: {
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "force",
                     category: "persistent",
@@ -1143,7 +1167,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     disrupting: {
         damage: {
-            dice: [
+            additional: [
                 {
                     category: "persistent",
                     damageType: "vitality",
@@ -1219,7 +1243,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     flaming: {
         damage: {
-            dice: [
+            additional: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d6" },
                 {
                     damageType: "fire",
@@ -1264,7 +1288,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     frost: {
         damage: {
-            dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1290,7 +1314,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     giantKilling: {
         damage: {
-            dice: [
+            additional: [
                 {
                     slug: "giantKilling",
                     damageType: "mental",
@@ -1339,7 +1363,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterAshen: {
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "fire",
                     category: "persistent",
@@ -1369,7 +1393,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "greaterAstral",
         traits: ["magical", "spirit"],
         damage: {
-            dice: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "spirit", diceNumber: 1, dieSize: "d6" }],
             ignoredResistances: [{ type: "spirit", max: Infinity }],
         },
     },
@@ -1383,7 +1407,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterBrilliant: {
         damage: {
-            dice: [
+            additional: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d4" },
                 {
                     damageType: "spirit",
@@ -1425,7 +1449,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterCorrosive: {
         damage: {
-            dice: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "acid", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1466,7 +1490,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterDecaying: {
         damage: {
-            dice: [
+            additional: [
                 {
                     slug: "decaying",
                     damageType: "void",
@@ -1493,7 +1517,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterDisrupting: {
         damage: {
-            dice: [
+            additional: [
                 {
                     category: "persistent",
                     damageType: "vitality",
@@ -1553,7 +1577,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterFlaming: {
         damage: {
-            dice: [
+            additional: [
                 { damageType: "fire", diceNumber: 1, dieSize: "d6" },
                 {
                     damageType: "fire",
@@ -1586,7 +1610,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterFrost: {
         damage: {
-            dice: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "cold", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1610,7 +1634,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterGiantKilling: {
         damage: {
-            dice: [
+            additional: [
                 {
                     slug: "greaterGiantKilling",
                     damageType: "mental",
@@ -1646,7 +1670,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterImpactful: {
         damage: {
-            dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1681,7 +1705,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterShock: {
         damage: {
-            dice: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1705,7 +1729,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     greaterThundering: {
         damage: {
-            dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -1729,7 +1753,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     grievous: {
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "bleed",
                     diceNumber: 1,
@@ -1837,7 +1861,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "holy",
         traits: ["holy", "magical"],
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "spirit",
                     diceNumber: 1,
@@ -1896,7 +1920,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     impactful: {
         damage: {
-            dice: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "force", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -2004,7 +2028,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     nightmare: {
         damage: {
-            dice: [{ damageType: "mental", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "mental", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -2060,7 +2084,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     serrating: {
         damage: {
-            dice: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }],
+            additional: [{ damageType: "slashing", diceNumber: 1, dieSize: "d4" }],
         },
         level: 10,
         name: "PF2E.WeaponPropertyRune.serrating.Name",
@@ -2079,7 +2103,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     shock: {
         damage: {
-            dice: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "electricity", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -2093,6 +2117,33 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         price: 500,
         rarity: "common",
         slug: "shock",
+        traits: ["electricity", "magical"],
+    },
+    shockwave: {
+        damage: {
+            additional: [
+                {
+                    damageCategory: "splash",
+                    damageType: "bludgeoning",
+                    label: "PF2E.WeaponPropertyRune.shockwave.Name",
+                    modifier: "@item.baseDamage.dice",
+                    predicate: ["item:melee", "item:damage:type:bludgeoning"],
+                },
+            ],
+            notes: [
+                {
+                    outcome: ["success", "criticalSuccess"],
+                    predicate: ["item:melee", "item:damage:type:bludgeoning"],
+                    title: "PF2E.WeaponPropertyRune.shockwave.Name",
+                    text: "PF2E.WeaponPropertyRune.shockwave.Note",
+                },
+            ],
+        },
+        level: 13,
+        name: "PF2E.WeaponPropertyRune.shockwave.Name",
+        price: 3000,
+        rarity: "common",
+        slug: "shockwave",
         traits: ["electricity", "magical"],
     },
     speed: {
@@ -2121,7 +2172,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     thundering: {
         damage: {
-            dice: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "sonic", diceNumber: 1, dieSize: "d6" }],
             notes: [
                 {
                     outcome: ["criticalSuccess"],
@@ -2170,7 +2221,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         slug: "unholy",
         traits: ["unholy", "magical"],
         damage: {
-            dice: [
+            additional: [
                 {
                     damageType: "spirit",
                     diceNumber: 1,
@@ -2203,7 +2254,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     wounding: {
         damage: {
-            dice: [{ damageType: "bleed", diceNumber: 1, dieSize: "d6" }],
+            additional: [{ damageType: "bleed", diceNumber: 1, dieSize: "d6" }],
         },
         level: 7,
         name: "PF2E.WeaponPropertyRune.wounding.Name",
@@ -2222,8 +2273,8 @@ const RUNE_DATA = {
 
 export {
     RUNE_DATA,
+    getPropertyRuneDamage,
     getPropertyRuneDegreeAdjustments,
-    getPropertyRuneDice,
     getPropertyRuneModifierAdjustments,
     getPropertyRuneSlots,
     getPropertyRuneStrikeAdjustments,

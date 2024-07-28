@@ -3,7 +3,7 @@ import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/mo
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import { MeleePF2e, WeaponPF2e } from "@item";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
-import { RUNE_DATA, getPropertyRuneDice, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
+import { RUNE_DATA, getPropertyRuneDamage, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { ZeroToThree } from "@module/data.ts";
 import { RollNotePF2e } from "@module/notes.ts";
@@ -247,7 +247,9 @@ class WeaponDamagePF2e {
 
         // Property Runes
         const propertyRunes = weapon.system.runes.property;
-        damageDice.push(...getPropertyRuneDice(propertyRunes, options));
+        const runeDamage = getPropertyRuneDamage(weapon, propertyRunes, options);
+        damageDice.push(...runeDamage.filter((d): d is DamageDicePF2e => "diceNumber" in d));
+        modifiers.push(...runeDamage.filter((d): d is ModifierPF2e => "modifier" in d));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
 
         const irBypassData: DamageIRBypassData = {

@@ -110,6 +110,7 @@ const WEAPON_PROPERTY_RUNE_TYPES = new Set([
     "serrating",
     "shifting",
     "shock",
+    "shockwave",
     "speed",
     "spellStoring",
     "swarming",

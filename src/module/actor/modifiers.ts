@@ -793,6 +793,7 @@ export {
     createProficiencyModifier,
     ensureProficiencyOption,
 };
+
 export type {
     DamageDiceOverride,
     DamageDiceParameters,
@@ -801,6 +802,7 @@ export type {
     DeferredValue,
     DeferredValueParams,
     ModifierAdjustment,
+    ModifierObjectParams,
     ModifierType,
     RawDamageDice,
     RawModifier,

@@ -583,14 +583,15 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             };
         })();
         const fromPropertyRunes = this.system.runes.property
-            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.dice ?? [])
-            .map(
-                (d): NPCAttackDamage => ({
-                    damage: `${d.diceNumber}${d.dieSize}`,
-                    damageType: d.damageType ?? baseDamage.damageType,
-                    category: d.category ?? null,
-                }),
-            );
+            .flatMap((r) => RUNE_DATA.weapon.property[r].damage?.additional ?? [])
+            .map((additional): NPCAttackDamage => {
+                const [category = null, damage] =
+                    "diceNumber" in additional
+                        ? [additional.category, `${additional.diceNumber}${additional.dieSize}`]
+                        : [additional.damageCategory, additional.modifier.toString()];
+                const damageType = additional.damageType ?? baseDamage.damageType;
+                return { damage, damageType, category };
+            });
 
         const reachTraitToNPCReach = {
             tiny: null,
