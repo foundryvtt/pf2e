@@ -3,6 +3,7 @@ import type { ItemPF2e } from "@item";
 import type { EffectAreaShape } from "@item/spell/types.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { MeasuredTemplateDocumentPF2e, ScenePF2e } from "@scene";
+import * as R from "remeda";
 import { measureDistance } from "./helpers.ts";
 import { TokenPF2e, type TemplateLayerPF2e } from "./index.ts";
 
@@ -29,7 +30,7 @@ class MeasuredTemplatePF2e<
      * Returns the snapping for this template's highlight.
      * Note that circle templates created via the canvas controls are neither bursts nor emanations, and thus can go in either position.
      */
-    get snappingMode(): number {
+    getSnappingMode(direction = this.document.direction): number {
         const M = CONST.GRID_SNAPPING_MODES;
         switch (this.areaShape) {
             case "burst":
@@ -38,8 +39,19 @@ class MeasuredTemplatePF2e<
                 return M.CENTER;
             case "cone":
                 return M.CENTER | M.CORNER | M.SIDE_MIDPOINT;
-            case "line":
-                return M.SIDE_MIDPOINT | M.CORNER;
+            case "line": {
+                switch (Math.round(direction / 5) * 5) {
+                    case 90:
+                    case 270:
+                        return M.TOP_SIDE_MIDPOINT | M.BOTTOM_SIDE_MIDPOINT;
+                    case 0:
+                    case 180:
+                        return M.LEFT_SIDE_MIDPOINT | M.RIGHT_SIDE_MIDPOINT;
+                    default:
+                        return M.VERTEX;
+                }
+            }
+
             default:
                 return M.CENTER | M.CORNER;
         }
@@ -114,7 +126,7 @@ class MeasuredTemplatePF2e<
         const maxAngle = (360 + ((direction + angle * 0.5) % 360)) % 360;
         const snappedOrigin = canvas.grid.getSnappedPoint(
             { x: document.x, y: document.y },
-            { mode: this.snappingMode },
+            { mode: this.getSnappingMode() },
         );
         const withinAngle = (min: number, max: number, value: number) => {
             min = (360 + (min % 360)) % 360;
@@ -215,6 +227,19 @@ class MeasuredTemplatePF2e<
         }
 
         return points;
+    }
+
+    override async rotate(angle: number, snap: number): Promise<this> {
+        if ((game.paused && !game.user.isGM) || !canvas.grid.isSquare) {
+            return super.rotate(angle, snap);
+        }
+
+        const direction = this._updateRotation({ angle, snap });
+        const position = snap
+            ? canvas.grid.getSnappedPoint(this, { mode: this.getSnappingMode(direction) })
+            : R.pick(this, ["x", "y"]);
+        await this.document.update({ direction, ...position });
+        return this;
     }
 }
 

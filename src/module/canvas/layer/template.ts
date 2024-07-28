@@ -21,7 +21,7 @@ export class TemplateLayerPF2e<
         }
 
         return canvas.grid.getSnappedPoint(point, {
-            mode: template.snappingMode,
+            mode: template.getSnappingMode(),
             resolution: 1,
         });
     }
@@ -42,7 +42,7 @@ export class TemplateLayerPF2e<
 
         // Snap the destination to the grid
         const { x, y } = canvas.grid.getSnappedPoint(destination, {
-            mode: template.snappingMode,
+            mode: template.getSnappingMode(),
         });
         destination.x = x;
         destination.y = y;
@@ -66,6 +66,8 @@ export class TemplateLayerPF2e<
     }
 
     protected override _onMouseWheel(event: WheelEvent): Promise<TObject> | void {
+        if (event.ctrlKey || event.metaKey) event.stopPropagation();
+
         // Abort if there's no hovered template
         const template = this.hover;
         if (!template || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
@@ -131,7 +133,7 @@ export class TemplateLayerPF2e<
                 this.#deactivatePreviewListeners(initialLayer, event);
                 document.updateSource(
                     canvas.grid.getSnappedPoint(position, {
-                        mode: preview.snappingMode,
+                        mode: preview.getSnappingMode(),
                     }),
                 );
                 canvas.scene?.createEmbeddedDocuments("MeasuredTemplate", [document.toObject()]);

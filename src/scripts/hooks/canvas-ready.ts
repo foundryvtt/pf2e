@@ -12,6 +12,20 @@ export const CanvasReady = {
                 }
             }
 
+            // Prevent zooming in the template layer if ctrl/meta is held down
+            document.body.addEventListener(
+                "wheel",
+                (event): void => {
+                    const isTemplateLayer = canvas.activeLayer?.name === "TemplateLayer";
+                    const isCtrlKey = event.ctrlKey || event.metaKey;
+                    if (isTemplateLayer && isCtrlKey && !canvas.templates.hover) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                },
+                { passive: false },
+            );
+
             // Work around `MouseInteractionManager` preventing right-click propagation to ruler
             document.body.addEventListener("contextmenu", (event) => {
                 const ruler = canvas.controls.ruler;
