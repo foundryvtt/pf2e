@@ -33,15 +33,13 @@ class MeasuredTemplatePF2e<
         const M = CONST.GRID_SNAPPING_MODES;
         switch (this.areaShape) {
             case "burst":
-                return M.CORNER;
-            case "emanation":
-                return M.CENTER;
+                return M.VERTEX;
             case "cone":
-                return M.CENTER | M.CORNER | M.SIDE_MIDPOINT;
+                return M.CENTER | M.VERTEX | M.EDGE_MIDPOINT;
             case "line":
-                return M.SIDE_MIDPOINT | M.CORNER;
+                return M.EDGE_MIDPOINT | M.VERTEX;
             default:
-                return M.CENTER | M.CORNER;
+                return M.CENTER | M.VERTEX;
         }
     }
 
