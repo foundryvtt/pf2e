@@ -4,6 +4,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { AbilityItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import { ConditionPF2e } from "@item";
+import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import { Predicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 
@@ -19,8 +20,8 @@ class AttackTraitHelpers {
         return trait.replace(/-d?\d{1,3}$/, "");
     }
 
-    static createAttackModifiers({ item }: CreateAttackModifiersParams): ModifierPF2e[] {
-        const { actor } = item;
+    static createAttackModifiers({ item, domains }: CreateAttackModifiersParams): ModifierPF2e[] {
+        const actor = item.actor;
         if (!actor) throw ErrorPF2e("The weapon must be embedded");
 
         return item.system.traits.value.flatMap((trait) => {
@@ -40,6 +41,11 @@ class AttackTraitHelpers {
                         predicate: new Predicate(
                             { lte: ["target:distance", penaltyRange] },
                             { not: "self:ignore-volley-penalty" },
+                        ),
+                        adjustments: extractModifierAdjustments(
+                            actor.synthetics.modifierAdjustments,
+                            domains,
+                            unannotatedTrait,
                         ),
                     });
                 }
@@ -70,6 +76,7 @@ class AttackTraitHelpers {
 
 interface CreateAttackModifiersParams {
     item: AbilityItemPF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>;
+    domains: string[];
 }
 
 /** Set immunities for creatures with traits call for them */
