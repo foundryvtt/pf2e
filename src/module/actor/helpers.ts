@@ -479,7 +479,7 @@ function strikeFromMeleeItem(item: MeleePF2e<ActorPF2e>): NPCStrike {
     ];
 
     modifiers.push(...extractModifiers(synthetics, domains));
-    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item }));
+    modifiers.push(...AttackTraitHelpers.createAttackModifiers({ item, domains }));
 
     const attackEffects: Record<string, string | undefined> = CONFIG.PF2E.attackEffects;
     const additionalEffects = item.attackEffects.map((tag) => {

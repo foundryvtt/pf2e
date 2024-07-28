@@ -278,7 +278,7 @@ class ElementalBlast {
         config,
         damageType,
     }: CreateModifiedItemParams): AbilityItemPF2e<CharacterPF2e> | null {
-        const { item } = this;
+        const item = this.item;
         if (!item) return null;
 
         const traits = ((): ActionTrait[] => {
@@ -299,10 +299,12 @@ class ElementalBlast {
     }
 
     #createAttackStatistic(statistic: Statistic, item: AbilityItemPF2e<ActorPF2e>): Statistic {
+        const newDomain = "elemental-blast-attack-roll";
+        const domains = [...statistic.check.domains, newDomain];
         return statistic.extend({
             check: {
-                domains: ["elemental-blast-attack-roll"],
-                modifiers: AttackTraitHelpers.createAttackModifiers({ item }),
+                domains: [newDomain],
+                modifiers: AttackTraitHelpers.createAttackModifiers({ item, domains }),
             },
         });
     }
