@@ -44,10 +44,8 @@ class MeasuredTemplatePF2e<
     }
 
     override highlightGrid(): void {
-        // Only square grids use overriden code. The future might add collision detection to hex but not gridless
-        if (!canvas.grid.isSquare) {
-            return super.highlightGrid();
-        }
+        // Only square grids use this override
+        if (!canvas.grid.isSquare) return super.highlightGrid();
 
         const grid = canvas.interface.grid;
         const highlightLayer = grid.getHighlightLayer(this.highlightId);
