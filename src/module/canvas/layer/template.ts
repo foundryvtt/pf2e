@@ -31,7 +31,7 @@ export class TemplateLayerPF2e<
     /* -------------------------------------------- */
 
     protected override _onDragLeftMove(event: PlaceablesLayerPointerEvent<TObject>): void {
-        if (!canvas.ready || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+        if (!canvas.ready || !canvas.scene || !canvas.grid.isSquare) {
             return super._onDragLeftMove(event);
         }
 
@@ -54,7 +54,7 @@ export class TemplateLayerPF2e<
 
         // Update the shape data
         if (["cone", "circle"].includes(document.t)) {
-            const snapAngle = Math.PI / (canvas.grid.isHexagonal ? 6 : 4);
+            const snapAngle = Math.PI / 4;
             document.direction = Math.toDegrees(Math.floor((ray.angle + Math.PI * 0.125) / snapAngle) * snapAngle);
         } else {
             document.direction = Math.toDegrees(ray.angle);
@@ -70,7 +70,7 @@ export class TemplateLayerPF2e<
     protected override _onMouseWheel(event: WheelEvent): Promise<TObject> | void {
         // Abort if there's no hovered template
         const template = this.hover;
-        if (!template || !canvas.scene || canvas.grid.type === CONST.GRID_TYPES.GRIDLESS) {
+        if (!template || !canvas.scene || !canvas.grid.isSquare) {
             return super._onMouseWheel(event);
         }
 
@@ -117,10 +117,7 @@ export class TemplateLayerPF2e<
                     preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
                     preview.renderFlags.set({ refresh: true });
                 } else if (event.shiftKey) {
-                    const snap =
-                        canvas.grid.type >= CONST.GRID_TYPES.HEXODDR && canvas.grid.type <= CONST.GRID_TYPES.HEXEVENQ
-                            ? 60
-                            : 45;
+                    const snap = canvas.grid.isHexagonal ? 60 : 45;
                     preview.document.updateSource({ direction: direction + snap * Math.sign(event.deltaY) });
                     preview.renderFlags.set({ refresh: true });
                 }
