@@ -156,6 +156,7 @@ class SingleCheckActionVariant extends BaseActionVariant {
             actionGlyph: getActionGlyph(this.cost ?? null) as ActionGlyph,
             callback: (result) => results.push(result),
             checkContext: (opts) => this.checkContext(opts, { modifiers, rollOptions, slug }),
+            createMessage: options.message?.create,
             difficultyClass,
             event: options.event,
             extraNotes: (selector) =>
