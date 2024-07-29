@@ -131,14 +131,12 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     }
 
     isAmmoFor(weapon: WeaponPF2e): boolean {
-        if (!this.isAmmo) return false;
         if (!weapon.isOfType("weapon")) {
             console.warn("Cannot load a consumable into a non-weapon");
             return false;
         }
 
-        const { max } = this.uses;
-        return weapon.system.traits.value.includes("repeating") ? max > 1 : max <= 1;
+        return this.isAmmo;
     }
 
     /** Use a consumable item, sending the result to chat */
