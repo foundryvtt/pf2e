@@ -217,10 +217,9 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
                 );
             // An alternative resistance (or lack thereof) caused by such abilities as the Concussive weapon trait
             const redirectedResistance = getResistanceRedirection({
-                instance,
                 immunities,
                 resistances: workingResistanceData,
-                highest: applicableImmunities[0] ?? highestResistance,
+                highest: applicableImmunities.at(0) ?? highestResistance,
                 redirects: irRedirects.resistances,
             });
 
@@ -301,40 +300,39 @@ function hasImmunityRedirection(
  * and would result is less damage being resisted.
  */
 function getResistanceRedirection({
-    instance,
     immunities,
     resistances,
     highest,
     redirects,
 }: {
-    instance: DamageInstance;
     immunities: Immunity[];
     resistances: WorkingResistanceData[];
     /** The immunity or highest resistance to be applied: a redirect must improve the result to be selected. */
     highest: Immunity | WorkingResistanceData | null;
     redirects: ResistanceRedirect[];
 }): { resistance: WorkingResistanceData | null; redirect: ResistanceRedirect } | null {
+    if (!highest) return null;
     const applicableRedirects = redirects.filter((redirect) => {
         const toDefinition = [
             `damage:type:${redirect.to}`,
             `damage:category:${DamageCategorization.fromDamageType(redirect.to)}`,
         ];
         return (
-            // The redirection is from the instance's damage type
-            instance.type === redirect.from &&
+            // ... and the highest IR type
+            redirect.from === highest.type &&
             // It does not redirect to the highest resistance ...
-            redirect.to !== highest?.type &&
+            redirect.to !== highest.type &&
             // ... or to an immunity
             !immunities.some((i) => i.test(toDefinition))
         );
     });
-    const highestValue = highest instanceof Immunity ? Infinity : highest?.value ?? 0;
+    const highestValue = highest instanceof Immunity ? Infinity : highest.value;
     return applicableRedirects.reduce(
         (bestMatch: { redirect: ResistanceRedirect; resistance: WorkingResistanceData | null } | null, redirect) => {
             if (bestMatch && !bestMatch.resistance) return bestMatch;
             const mostReduction = Math.min(highestValue, bestMatch?.resistance?.value ?? Infinity);
             const redirectTarget = resistances.find((r) => r.type === redirect.to && !r.ignored) ?? null;
-            const redirectValue = redirectTarget?.value ?? 0;
+            const redirectValue = redirectTarget ? redirectTarget.value : highestValue;
             return redirectValue < mostReduction ? { redirect, resistance: redirectTarget } : bestMatch;
         },
         null,
