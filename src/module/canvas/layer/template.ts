@@ -41,11 +41,9 @@ export class TemplateLayerPF2e<
         const dimensions = canvas.dimensions;
 
         // Snap the destination to the grid
-        const { x, y } = canvas.grid.isSquare
-            ? canvas.grid.getSnappedPoint(destination, {
-                  mode: template.snappingMode,
-              })
-            : super.getSnappedPoint(destination);
+        const { x, y } = canvas.grid.getSnappedPoint(destination, {
+            mode: template.snappingMode,
+        });
         destination.x = x;
         destination.y = y;
         const ray = new Ray(origin, destination);
