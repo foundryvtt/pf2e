@@ -30,10 +30,12 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
     /** Overwritten so that submit data receives a string array */
     protected override _getValue(): string[] {
         const value = super._getValue();
+
         // The initial value might already be a string array
         if (value.every((s): s is string => typeof s === "string")) {
             return value;
         }
+
         // Otherwise extract tagify values
         return value
             .filter((s) => !s.readonly)
@@ -43,7 +45,7 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
 
     protected override _setValue(value: string): void {
         try {
-            this._value = JSON.parse(value);
+            this._value = JSON.parse(value) || [];
         } catch (error) {
             if (error instanceof Error) {
                 console.error(
