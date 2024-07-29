@@ -30,28 +30,39 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-hatchet.rank",
-                "value": "@actor.system.proficiencies.attacks.unarmed.rank"
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:hatchet",
+                            "item:base:rapier",
+                            "item:base:scimitar",
+                            "item:base:whip"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.PirateWeapons",
+                "sameAs": "simple",
+                "slug": "pirate-weapons"
             },
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-rapier.rank",
-                "value": "@actor.system.proficiencies.attacks.unarmed.rank"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-scimitar.rank",
-                "value": "@actor.system.proficiencies.attacks.unarmed.rank"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-whip.rank",
-                "value": "@actor.system.proficiencies.attacks.unarmed.rank"
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:hatchet",
+                            "item:base:rapier",
+                            "item:base:scimitar",
+                            "item:base:whip"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

@@ -30,32 +30,47 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-battle-axe.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-hatchet.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-longsword.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-shortsword.rank",
-                "value": 1
-            },
-            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.feats-srd.Item.Shield Block"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:hatchet",
+                            "item:base:longsword",
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes",
+                            "item:base:shortsword"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.VikingWeapons",
+                "sameAs": "simple",
+                "slug": "viking-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:battle-axe",
+                            "item:base:hatchet",
+                            "item:base:longsword",
+                            "item:base:shield-boss",
+                            "item:base:shield-spikes",
+                            "item:base:shortsword"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

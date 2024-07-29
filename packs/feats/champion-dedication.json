@@ -33,16 +33,35 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.skills.religion.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "add",
-                "path": "flags.pf2e.championDedicationCount",
-                "value": 1
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            "defense:heavy:rank:0",
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    }
+                ],
+                "flag": "armor",
+                "key": "ChoiceSet"
             },
             {
                 "adjustName": false,
@@ -61,18 +80,79 @@
                 "prompt": "PF2E.SpecificRule.Prompt.ClassDCAbilityScore"
             },
             {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.religion.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.championDedicationCount",
+                "value": 1
+            },
+            {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.classfeatures.Item.Deity (Champion)"
             },
             {
                 "key": "GrantItem",
-                "uuid": "Compendium.pf2e.classfeatures.Item.Champion's Code"
+                "uuid": "Compendium.pf2e.classfeatures.Item.Cause"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "override",
                 "path": "system.proficiencies.classDCs.champion.attribute",
                 "value": "{item|flags.pf2e.rulesSelections.attribute}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.medium.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "defense:heavy:rank:0",
+                    {
+                        "nor": [
+                            "defense:light:rank:0",
+                            "defense:medium:rank:0"
+                        ]
+                    }
+                ],
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "@item.flags.pf2e.rulesSelections.armor"
             }
         ],
         "subfeatures": {

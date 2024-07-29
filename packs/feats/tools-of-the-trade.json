@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You're well-versed in weapons that allow you to bring bounties back in one piece, or at least alive. You have familiarity with the bola, sap, and whip; for the purposes of proficiency, you treat these weapons as simple weapons. You deal an additional 1d4 precision damage with these weapons when using them to make nonlethal Strikes against your prey while they're off-guard to you.</p>\n<p>In addition, you take no penalty when making a nonlethal attack with a weapon without the nonlethal trait.</p>"
+            "value": "<p>You're well-versed in weapons that allow you to bring bounties back in one piece, or at least alive. You have familiarity with the @UUID[Compendium.pf2e.equipment-srd.Item.Bola], @UUID[Compendium.pf2e.equipment-srd.Item.Sap], and @UUID[Compendium.pf2e.equipment-srd.Item.Whip]; for the purposes of proficiency, you treat these weapons as simple weapons. You deal an additional 1d4 precision damage with these weapons when using them to make nonlethal Strikes against your prey while they're off-guard to you.</p>\n<p>In addition, you take no penalty when making a nonlethal attack with a weapon without the nonlethal trait.</p>"
         },
         "level": {
             "value": 4
@@ -31,7 +31,6 @@
         "rules": [
             {
                 "definition": [
-                    "item:category:martial",
                     {
                         "or": [
                             "item:base:bola",
@@ -41,8 +40,26 @@
                     }
                 ],
                 "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.BountyHunterWeapons",
                 "sameAs": "simple",
                 "slug": "tools-of-the-trade"
+            },
+            {
+                "category": "precision",
+                "diceNumber": "1",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:condition:off-guard",
+                    {
+                        "or": [
+                            "item:base:bola",
+                            "item:base:sap",
+                            "item:base:whip"
+                        ]
+                    }
+                ],
+                "selector": "strike-damage"
             }
         ],
         "traits": {

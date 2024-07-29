@@ -32,12 +32,7 @@
             {
                 "definition": [
                     "item:melee",
-                    {
-                        "or": [
-                            "item:category:simple",
-                            "item:category:martial"
-                        ]
-                    },
+                    "item:category:martial",
                     {
                         "or": [
                             "item:usage:hands:2",
@@ -49,9 +44,28 @@
                     }
                 ],
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
-                "sameAs": "unarmed",
-                "slug": "simple-martial-two-hand-weapons"
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTwoHandedMeleeWeapons",
+                "sameAs": "simple",
+                "slug": "martial-two-hand-weapons"
+            },
+            {
+                "definition": [
+                    "item:melee",
+                    "item:category:advanced",
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:trait:two-hand-d6",
+                            "item:trait:two-hand-d8",
+                            "item:trait:two-hand-d10",
+                            "item:trait:two-hand-d12"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTwoHandedMeleeWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-two-hand-weapons"
             },
             {
                 "key": "CriticalSpecialization",
