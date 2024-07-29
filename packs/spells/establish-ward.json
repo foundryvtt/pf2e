@@ -25,7 +25,7 @@
         },
         "defense": null,
         "description": {
-            "value": "<p>You bind a part of your essence to your surroundings, creating a warded area that grants you power within it, but drains you outside of it. While within the area, you can make nature's wrath Strikes by commanding plants, wind, rocks, and other natural features to attack enemies. These are melee Strikes that use your spell attack modifier, can target any creature within the ward, and deal 3d8 bludgeoning, piercing, or slashing damage.</p>\n<p>Upon @UUID[Compendium.pf2e.actionspf2e.Item.Cast a Spell]{Casting the Spell}, you can immediately make a single nature's wrath Strike. You are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] while inside the ward, and can use the additional action only to make nature's wrath Strikes. You are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while outside the area.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The area increases by 5 feet, and the Strikes deal an additional [[/r 1d8]] damage.</p>"
+            "value": "<p>You bind a part of your essence to your surroundings, creating a warded area that grants you power within it, but drains you outside of it. While within the area, you can make nature's wrath Strikes by commanding plants, wind, rocks, and other natural features to attack enemies. These are melee Strikes that use your spell attack modifier, can target any creature within the ward, and deal 3d8 bludgeoning, piercing, or slashing damage.</p>\n<p>Upon Casting the Spell, you can immediately make a single nature's wrath Strike. You are @UUID[Compendium.pf2e.conditionitems.Item.Quickened] while inside the ward, and can use the additional action only to make nature's wrath Strikes. You are @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} while outside the area.</p><hr /><p><strong>Heightened (+2)</strong> The area increases by 5 feet, and the Strikes deal an additional 1d8 damage.</p>"
         },
         "duration": {
             "sustained": false,
@@ -40,6 +40,59 @@
         },
         "level": {
             "value": 5
+        },
+        "overlays": {
+            "LnV6q1fbaObkI3Mt": {
+                "name": "Establish Ward (Slashing)",
+                "overlayType": "override",
+                "sort": 3,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": null,
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "slashing"
+                        }
+                    },
+                    "defense": null
+                }
+            },
+            "PqqCsQ9RXSxeMSX0": {
+                "name": "Establish Ward (Bludgeoning)",
+                "overlayType": "override",
+                "sort": 1,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": null,
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "bludgeoning"
+                        }
+                    },
+                    "defense": null
+                }
+            },
+            "S9bvJZUVLzYL5MWX": {
+                "name": "Establish Ward (Piercing)",
+                "overlayType": "override",
+                "sort": 2,
+                "system": {
+                    "damage": {
+                        "0": {
+                            "category": null,
+                            "kinds": [
+                                "damage"
+                            ],
+                            "type": "piercing"
+                        }
+                    },
+                    "defense": null
+                }
+            }
         },
         "publication": {
             "license": "OGL",
