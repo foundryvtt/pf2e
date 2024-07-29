@@ -734,6 +734,10 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             spellOptions.add(`${prefix}:frequency:limited`);
         }
 
+        if (spellcasting?.isSpontaneous && this.system.location.signature) {
+            spellOptions.add(`${prefix}:signature`);
+        }
+
         for (const damage of Object.values(this.system.damage)) {
             if (damage.type) {
                 spellOptions.add(`${prefix}:damage:${damage.type}`);
