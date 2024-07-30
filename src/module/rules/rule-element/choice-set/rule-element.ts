@@ -337,7 +337,9 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
 
             return entries
                 .filter(([key, choice]) => {
-                    return this.resolveInjectedProperties(new Predicate(predicate ?? []), {
+                    if (!predicate) return true;
+
+                    return this.resolveInjectedProperties(new Predicate(fu.deepClone(predicate)), {
                         injectables: { choice: { ...choice, value: key } },
                     }).test(actorRollOptions);
                 })
