@@ -28,7 +28,23 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "nanite-surge",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "nanite-surge"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "selfEffect": {
             "name": "Effect: Nanite Surge",
             "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Nanite Surge"
