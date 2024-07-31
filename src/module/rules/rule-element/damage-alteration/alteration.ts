@@ -102,7 +102,18 @@ class DamageAlteration {
         }
 
         if (this.property === "dice-faces" && "dieSize" in damage && tupleHasValue(DAMAGE_DICE_FACES, value)) {
-            damage.dieSize = `d${value}`;
+            const stringValue = `d${value}` as const;
+            // Ensure that weapon damage isn't being upgraded multiple times
+            if (
+                this.#rule.slug === "base" &&
+                this.#rule.mode === "upgrade" &&
+                damage.dieSize !== stringValue &&
+                options.item.isOfType("weapon")
+            ) {
+                if (options.item.flags.pf2e.damageFacesUpgraded) return damage;
+                options.item.flags.pf2e.damageFacesUpgraded = true;
+            }
+            damage.dieSize = stringValue;
         }
 
         if (this.property === "dice-number" && "diceNumber" in damage && typeof value === "number") {

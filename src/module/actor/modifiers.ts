@@ -1,5 +1,5 @@
 import type { ActorPF2e, CharacterPF2e, NPCPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
+import type { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
 import { ZeroToFour } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
@@ -7,7 +7,7 @@ import { extractModifierAdjustments } from "@module/rules/helpers.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import { DamageAlteration } from "@module/rules/rule-element/damage-alteration/alteration.ts";
 import { DamageCategorization } from "@system/damage/helpers.ts";
-import { DamageCategoryUnique, DamageDieSize, DamageType } from "@system/damage/types.ts";
+import type { DamageCategoryUnique, DamageDiceFaces, DamageDieSize, DamageType } from "@system/damage/types.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
 import * as R from "remeda";
@@ -725,6 +725,11 @@ class DamageDicePF2e {
         this.hideIfDisabled = params.hideIfDisabled ?? false;
     }
 
+    /** The `dieSize` as a number (or null) */
+    get faces(): DamageDiceFaces | null {
+        return (Number(this.dieSize?.replace("d", "")) || null) as DamageDiceFaces | null;
+    }
+
     /** Test the `predicate` against a set of roll options */
     test(options: Set<string>): void {
         this.enabled = this.predicate.test(options);
@@ -781,17 +786,17 @@ class DamageDicePF2e {
 interface RawDamageDice extends Required<DamageDiceParameters> {}
 
 export {
+    adjustModifiers,
+    applyStackingRules,
     CheckModifier,
+    createAttributeModifier,
+    createProficiencyModifier,
     DamageDicePF2e,
+    ensureProficiencyOption,
     MODIFIER_TYPES,
     ModifierPF2e,
     PROFICIENCY_RANK_OPTION,
     StatisticModifier,
-    adjustModifiers,
-    applyStackingRules,
-    createAttributeModifier,
-    createProficiencyModifier,
-    ensureProficiencyOption,
 };
 
 export type {
