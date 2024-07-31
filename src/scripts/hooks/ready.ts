@@ -79,7 +79,7 @@ export const Ready = {
                 }
 
                 // These modules claim compatibility with V11 but are abandoned
-                const abandonedModules = new Set(["pf2e-rules-based-npc-vision", "foundryvtt-drag-ruler"]);
+                const abandonedModules = new Set(["pf2e-rules-based-npc-vision"]);
 
                 // Nag the GM for running unmaintained modules
                 const subV11Modules = game.modules.filter(
