@@ -97,7 +97,7 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     get dealsDamage(): boolean {
-        const { baseDamage } = this;
+        const baseDamage = this.baseDamage;
         return (
             baseDamage.dice > 0 ||
             baseDamage.modifier > 0 ||
