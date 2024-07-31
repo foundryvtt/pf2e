@@ -178,14 +178,14 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
      * Extend this statistic into a new cloned statistic with additional data.
      * Combines all domains and modifier lists.
      */
-    extend(
+    clone(
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
             modifiers?: ModifierPF2e[];
         },
     ): this;
-    extend(
+    clone(
         data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
             dc?: Partial<StatisticDifficultyClassData>;
             check?: Partial<StatisticCheckData>;
@@ -211,6 +211,29 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         }
 
         const extended = new Statistic(this.actor, result, this.config);
+        extended.base = this;
+        return extended;
+    }
+
+    /**
+     * Extend this statistic into a new cloned statistic with additional data.
+     * Combines all domains and modifier lists, and sets the new statistic to be the base of the other
+     */
+    extend(
+        data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
+            dc?: Partial<StatisticDifficultyClassData>;
+            check?: Partial<StatisticCheckData>;
+            modifiers?: ModifierPF2e[];
+        },
+    ): this;
+    extend(
+        data: Omit<DeepPartial<StatisticData>, "check" | "dc" | "modifiers"> & {
+            dc?: Partial<StatisticDifficultyClassData>;
+            check?: Partial<StatisticCheckData>;
+            modifiers?: ModifierPF2e[];
+        },
+    ): Statistic<TActor> {
+        const extended = this.clone(data);
         extended.base = this;
         return extended;
     }
