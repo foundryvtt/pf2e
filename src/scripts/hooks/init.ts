@@ -18,6 +18,7 @@ import { SetGamePF2e } from "@scripts/set-game-pf2e.ts";
 import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 import * as R from "remeda";
+import { Action } from "@actor/actions/index.ts";
 
 export const Init = {
     listen: (): void => {
@@ -167,6 +168,13 @@ export const Init = {
             }
 
             game.pf2e.StatusEffects.initialize();
+
+            if (game.modules.get("starfinder-field-test-for-pf2e")?.active) {
+                const actions: Action[] = [
+                    // SF2E-specific actions
+                ];
+                actions.forEach((action) => game.pf2e.actions.set(action.slug, action));
+            }
         });
     },
 };
