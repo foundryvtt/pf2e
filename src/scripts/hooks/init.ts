@@ -23,6 +23,7 @@ import { drive } from "@system/action-macros/piloting/drive.ts";
 import { hack } from "@system/action-macros/computers/hack.ts";
 import { navigate } from "@system/action-macros/piloting/navigate.ts";
 import { plotCourse } from "@system/action-macros/piloting/plot-course.ts";
+import { program } from "@system/action-macros/computers/program.ts";
 
 export const Init = {
     listen: (): void => {
@@ -174,7 +175,7 @@ export const Init = {
             game.pf2e.StatusEffects.initialize();
 
             if (game.modules.get("starfinder-field-test-for-pf2e")?.active) {
-                [accessInfosphere, drive, hack, navigate, plotCourse].forEach((action) =>
+                [accessInfosphere, drive, hack, navigate, plotCourse, program].forEach((action) =>
                     game.pf2e.actions.set(action.slug, action),
                 );
             }
