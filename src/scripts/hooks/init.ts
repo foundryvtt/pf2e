@@ -19,6 +19,7 @@ import { registerSettings } from "@system/settings/index.ts";
 import { htmlQueryAll } from "@util";
 import * as R from "remeda";
 import { accessInfosphere } from "@system/action-macros/computers/access-infosphere.ts";
+import { drive } from "@system/action-macros/piloting/drive.ts";
 
 export const Init = {
     listen: (): void => {
@@ -170,7 +171,7 @@ export const Init = {
             game.pf2e.StatusEffects.initialize();
 
             if (game.modules.get("starfinder-field-test-for-pf2e")?.active) {
-                [accessInfosphere].forEach((action) => game.pf2e.actions.set(action.slug, action));
+                [accessInfosphere, drive].forEach((action) => game.pf2e.actions.set(action.slug, action));
             }
         });
     },
