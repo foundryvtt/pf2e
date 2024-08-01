@@ -194,7 +194,11 @@ class SingleCheckActionVariant extends BaseActionVariant {
         if (args.actor) {
             const statistic = args.actor.getStatistic(args.slug);
             if (statistic) {
-                const modifier = new StatisticModifier(args.slug, statistic.modifiers, args.rollOptions);
+                const modifiers = [
+                    ...statistic.modifiers,
+                    ...this.modifiers.map((modifier) => new ModifierPF2e(modifier)),
+                ];
+                const modifier = new StatisticModifier(args.slug, modifiers, args.rollOptions);
                 return { label: statistic.label, modifier: modifier.totalModifier, slug: args.slug };
             }
         } else {
