@@ -1,0 +1,57 @@
+{
+    "_id": "GAuA1XLLO4vkF3OJ",
+    "img": "icons/skills/trades/music-singing-voice-blue.webp",
+    "name": "Effect: Sea Chantey",
+    "system": {
+        "description": {
+            "value": "<p>(auditory) All fiends within 60 feet gain a +1 status bonus to attack rolls, damage rolls, and saves against fear effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Effect: Sea Chantey",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "Effect: Sea Chantey",
+                "predicate": [
+                    "fear"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
