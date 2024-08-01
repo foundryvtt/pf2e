@@ -20,7 +20,81 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0"
+                    ]
+                },
+                "flag": "untrainedSkillOne",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillUntrained"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        "skill:{choice|value}:rank:0",
+                        {
+                            "not": {
+                                "eq": [
+                                    "{choice|value}",
+                                    "{item|flags.pf2e.rulesSelections.untrainedSkillOne}"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "flag": "untrainedSkillTwo",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillUntrained"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                1
+                            ]
+                        },
+                        {
+                            "lt": [
+                                "skill:{choice|value}:rank",
+                                4
+                            ]
+                        }
+                    ]
+                },
+                "flag": "trainedSkill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.SkillTrained"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.untrainedSkillOne}.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.untrainedSkillTwo}.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.trainedSkill}.rank",
+                "value": 1
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
