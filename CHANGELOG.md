@@ -1,3 +1,45 @@
+## 6.2.0
+
+### Highlights
+
+-   (Ambrose, Dire Weasel, DocSchlock, Mecha Maya, redeux, Rigo, SpartanCPA, Tikael, TMun) Add Content from Player Core 2
+
+### System Improvements
+
+-   (nikolaj-a) Include action-specific modifiers for action check previews
+-   (stwlam) Add optional `testDomains` field to AE-likes
+-   (stwlam) Add support for damage alterations of base weapon damage
+-   (stwlam) Automate Shockwave rune
+-   (Supe) Remove repeating limitation for ammo with multiple uses
+
+### Bugfixes
+
+-   (FolkvangrForgent) Remove system handling of hex-grid snapping
+-   (stwlam) Acquire modifier adjustments for Volley penalty
+-   (stwlam) Apply item alterations to basic unarmed attack
+-   (stwlam) Fix emanation snapping for large and gargantuan tokens
+-   (stwlam) Correct snapped destination when drag-measuring from unsnapped origin
+-   (stwlam) Resolve injected properties in AdjustDegreeOfSuccess predicates
+-   (Supe) Fix saving edits on deity sheets
+-   (Supe) Fix resolving nested predicates in config choice sets
+
+### Data Updates
+
+-   (Abaddon) Add spell variants for establish ward
+-   (Abaddon) Add starshot arrow activation
+-   (alephtwo) Fix Performance bonus for Dancing Scarf
+-   (Ambrose) Fix formula for amped Redistribute Potential
+-   (Ambrose) Update Retraining description to remaster
+-   (arthurtrumpet) Add effects for new Howl of the Wild Animal Forms.
+-   (Dire Weasel) Add automation for Gruhastha - Moderate Boon
+-   (Dire Weasel) Brush up Goblin Zombie
+-   (Dire Weasel) Fix some predicates for Revolutionary Innovation
+-   (HeliumAnt) Fixed icon paths in kingdom builder when not served from the root
+-   (Rigo) Add effects for Insight Coffee
+-   (Rigo) Add note text for Goading Feint
+-   (SpartanCPA) Add Content from The Great Toy Heist
+-   (TMun) Add NPCs and Effects for PFS 6-00
+
 ## 6.1.3
 
 ### System Improvements
