@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Light], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Heal], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Weapon], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Holy Light], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Flame Strike], 6th:@UUID[Compendium.pf2e.spells-srd.Item.Blade Barrier], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Aura], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Foresight]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings], greater: @UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</p>\n<p><strong>Blood Magic</strong> An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]</p>"
+            "value": "<p>One of your forebears hailed from a celestial realm, or your ancestors' devotion led to their lineage being blessed.</p>\n<p><strong>Spell List</strong> divine</p>\n<p><strong>Bloodline Skills</strong> Diplomacy, Religion</p>\n<p><strong>Granted Spells</strong> cantrip @UUID[Compendium.pf2e.spells-srd.Item.Light], 1st: @UUID[Compendium.pf2e.spells-srd.Item.Heal], 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Spiritual Armament], 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Holy Light], 4th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Wrath], 5th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Immolation], 6th: @UUID[Compendium.pf2e.spells-srd.Item.Blessed Boundary], 7th: @UUID[Compendium.pf2e.spells-srd.Item.Divine Decree], 8th: @UUID[Compendium.pf2e.spells-srd.Item.Moment of Renewal], 9th: @UUID[Compendium.pf2e.spells-srd.Item.Foresight]</p>\n<p><strong>Bloodline Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Halo], advanced: @UUID[Compendium.pf2e.spells-srd.Item.Angelic Wings], greater: @UUID[Compendium.pf2e.spells-srd.Item.Celestial Brand]</p>\n<p><strong>Blood Magic—Divine Aura</strong> You project a warming aura that protects you or one target, granting a +1 status bonus to saving throws for 1 round</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -60,13 +60,13 @@
                                     {
                                         "or": [
                                             "item:slug:heal",
-                                            "item:slug:spiritual-weapon",
+                                            "item:slug:spiritual-armament",
                                             "item:slug:holy-light",
                                             "item:slug:divine-wrath",
-                                            "item:slug:flame-strike",
-                                            "item:slug:blade-barrier",
+                                            "item:slug:divine-immolation",
+                                            "item:slug:blessed-boundary",
                                             "item:slug:divine-decree",
-                                            "item:slug:divine-aura",
+                                            "item:slug:moment-of-renewal",
                                             "item:slug:foresight"
                                         ]
                                     }
@@ -85,6 +85,11 @@
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]"
                     }
                 ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:divine"
             }
         ],
         "traits": {

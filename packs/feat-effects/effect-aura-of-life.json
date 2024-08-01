@@ -4,10 +4,10 @@
     "name": "Effect: Aura of Life",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Life]</p>\n<p>You gain resistance 5 to void energy and a +1 status bonus to saves against necromancy effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Life]</p>\n<p>You gain resistance 5 to void damage and a +1 status bonus to saves against void effects.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,15 +16,15 @@
             "value": 14
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "necromancy"
+                    "item:trait:void"
                 ],
                 "selector": "saving-throw",
                 "type": "status",

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You become trained in all simple and martial weapons in the bow and crossbow weapon groups. Whenever you gain a class feature that grants you expert or greater proficiency in certain weapons, you also gain that proficiency rank in all simple and martial weapons in the bow and crossbow weapon groups. If you are at least an expert in the bow you are using, you gain access to the critical specialization effect with that bow or crossbow.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.o71hqcfzhCKXcSml]{Archer} archetype.</p>"
+            "value": "<p>You have familiarity with all weapons in the bow and crossbow weapon groups. For the purposes of proficiency, treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>If you are at least an expert in the bow or crossbow you are using, you get the critical specialization effect of that weapon when you get a critical hit with it.</p>"
         },
         "level": {
             "value": 2
@@ -20,47 +20,40 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "definition": [
+                    "item:category:martial",
                     {
                         "or": [
                             "item:group:bow",
                             "item:group:crossbow"
-                        ]
-                    },
-                    {
-                        "or": [
-                            "item:category:simple",
-                            "item:category:martial"
                         ]
                     }
                 ],
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialBows",
-                "sameAs": "unarmed",
-                "slug": "simple-martial-bows"
+                "label": "PF2e.SpecificRule.MartialProficiency.MartialBowsAndCrossbows",
+                "sameAs": "simple",
+                "slug": "martial-bows-and-crossbows"
             },
             {
-                "key": "CriticalSpecialization",
-                "predicate": [
+                "definition": [
+                    "item:category:advanced",
                     {
                         "or": [
                             "item:group:bow",
                             "item:group:crossbow"
                         ]
-                    },
-                    {
-                        "gte": [
-                            "item:proficiency:rank",
-                            2
-                        ]
                     }
-                ]
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2e.SpecificRule.MartialProficiency.AdvancedBowsAndCrossbows",
+                "sameAs": "simple",
+                "slug": "advanced-bows-and-crossbows"
             }
         ],
         "traits": {

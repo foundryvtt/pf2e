@@ -1,0 +1,49 @@
+{
+    "_id": "2QLKvmCimT9ai0Bi",
+    "folder": "TuBpBzbE1ZRVisOU",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Thickskin Tripkee",
+    "system": {
+        "ancestry": {
+            "name": "Tripkee",
+            "slug": "grippli",
+            "uuid": "Compendium.pf2e.ancestries.Item.hXM5jXezIki1cMI2"
+        },
+        "description": {
+            "value": "<p>Your thick leathery skin resembles that of a toad. You gain 8 Hit Points from your ancestry instead of 6. You gain a +1 circumstance bonus to saves against diseases and poisons.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.attributes.ancestryhp",
+                "priority": 51,
+                "value": 20
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "heritage"
+}

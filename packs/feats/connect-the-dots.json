@@ -1,17 +1,17 @@
 {
     "_id": "gwIgB6bMh0sruyX7",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Connect The Dots",
+    "name": "Connect the Dots",
     "system": {
         "actionType": {
-            "value": "passive"
+            "value": "action"
         },
         "actions": {
-            "value": null
+            "value": 2
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You must be pursuing at least two leads.</p>\n<hr />\n<p>Ephemeral connections between people, places, and concepts are invisible to most, but seeing them is your stock and trade.</p>\n<p>You spend 10 minutes considering two different leads you're pursuing. You then attempt a check to investigate how connected the two are.</p>\n<p>Unless the GM determines otherwise, this is a Crafting check if they're both items or a Society check for other combinations of leads. If any subjects are creatures, this check usually uses the highest DC among their Deception and Will DCs. If no subjects are creatures, but at least one is an item, the DC is usually a hard DC for the level of the highest-level item. If neither case applies, the DC is usually a hard expert or hard master DC (22 or 32).</p>\n<p>Once you try to Connect the Dots between two particular leads, you can never try to Connect the Dots between those same leads again unless the GM allows it after you've learned a substantial amount of new information.</p>\n<hr />\n<p><strong>Critical Success</strong> The GM tells you how connected the two leads are to one another: highly connected, somewhat connected, tangentially connected, or not connected. The GM also tells you one specific way in which they're connected, if they are.</p>\n<p><strong>Success</strong> As critical success, but the GM doesn't tell you a specific connection.</p>\n<p><strong>Failure</strong> Your results are inconclusive.</p>\n<p><strong>Critical Failure</strong> You misconstrue the information. As success, but the GM provides an incorrect degree of connection.</p>"
+            "value": "<p>Ephemeral connections between people, places, and concepts are @UUID[Compendium.pf2e.conditionitems.Item.Invisible] to most, but seeing them is your stock and trade. Choose an ally and a non-allied creature. You must be able to see both of them. You briefly study the way they both move and attempt a Perception check against the higher of the non-allied creature's @Check[perception|defense:deception]{Deception DC} or @Check[perception|defense:will]{Will DC}. Both targets are then temporarily immune to Connect the Dots for 10 minutes.</p><hr /><p><strong>Critical Success</strong> You spot a way for your ally to take advantage of the other target's flaws and let them know about it. Your ally gains your @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] investigation bonus as a circumstance bonus to all its Strikes or skill checks against the creature until the start of your next turn.</p>\n<p><strong>Success</strong> As critical success, but your ally gains the bonus only for their next Strike or skill check against the creature.</p>\n<p><strong>Failure</strong> You fail to make a connection.</p>\n<p><strong>Critical Failure</strong> You misconstrue a vital piece of information, which temporarily disconcerts you. You are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of your next turn.</p>"
         },
         "level": {
             "value": 6
@@ -20,17 +20,18 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [],
         "traits": {
-            "rarity": "uncommon",
+            "rarity": "common",
             "value": [
+                "auditory",
                 "concentrate",
                 "investigator",
-                "secret"
+                "linguistic"
             ]
         }
     },

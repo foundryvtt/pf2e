@@ -589,6 +589,38 @@
             "White": "White",
             "Yellow": "Yellow"
         },
+        "Dragon": {
+			"Adamantine": "Adamantine Dragon",
+			"Arcane": "Arcane Dragon",
+            "Black": "Black Dragon",
+			"Blue": "Blue Dragon",
+			"Brass": "Brass Dragon",
+			"Bronze": "Bronze Dragon",
+			"Conspirator": "Conspirator Dragon",
+			"Copper": "Copper Dragon",
+			"Diabolic": "Diabolic Dragon",
+			"Divine": "Divine Dragon",
+			"Empyreal": "Empyreal Dragon",
+			"Fortune": "Fortune Dragon",
+			"Green": "Green Dragon",
+			"Gold": "Gold Dragon",
+			"Horned": "Horned Dragon",
+			"Mirage": "Mirage Dragon",
+			"Occult": "Occult Dragon",
+			"Omen": "Omen Dragon",
+			"Primal": "Primal Dragon",
+			"Red": "Red Dragon",
+            "Silver": "Silver Dragon",
+			"White": "White Dragon"
+		},
+		"FeatDescription": {
+			"Frequency": {
+				"OncePerTurn": "once per turn"
+			},
+			"Requirements": {
+				"Label": "Requirements"
+			}
+		},
         "IWR": {
             "Custom": {
                 "AcidAndSpellsThatCauseRust": "acid and spells that cause rust",
@@ -602,9 +634,11 @@
                 "AllStrikeDamageFromUndeadCreatures": "all damage from Strikes made by undead creatures",
                 "AttacksDemons": "attacks by demons",
                 "AttacksWaterCreatures": "attacks by water creatures",
+                "BludgeoningPiercingSlashing": "bludgeoning, piercing and slashing damage",
                 "ColdIronBludgeoning": "cold iron bludgeoning",
                 "CrystalHazards": "crystal hazards",
                 "DraconicBreathWeapons": "draconic breath weapons",
+                "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
                 "ImpulseFireFrom": "impulse fire from {origin}",
                 "IngestedPoisons": "ingested poisons",
                 "MagicalBludgeoning": "magical bludgeoning",
@@ -618,6 +652,7 @@
                 "PhysicalRangedAttacks": "physical ranged attacks",
                 "RangedWeaponAttacks": "ranged weapon attacks",
                 "Spirits": "spirits",
+                "UnholyBludgeoningPiercingSlashing": "unholy bludgeoning, piercing and slashing damage",
                 "VoidZonKuthonFollowers": "void from followers of Zon-Kuthon"
             }
         },
@@ -1813,7 +1848,14 @@
                 "AlchemicalCrossbow": {
                     "Prompt": "Choose a bomb to add to the crossbow."
                 },
+				"ExpandedSplash": {
+					"Note": "The splash damage affects all creatures within 10 feet of the target instead of 5 feet."
+				},
                 "ResearchField": {
+					"Bomber": {
+						"FieldBenefit": "When throwing an alchemical bomb with the splash trait, you can choose to deal splash damage to only your primary target instead of the usual splash area.",
+						"GreaterFieldDiscovery": "You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have Expanded Splash."
+					},
                     "Prompt": "Select a research field."
                 }
             },
@@ -2010,7 +2052,7 @@
                     "ToggleLabel": "Spirit Rage"
                 },
                 "Superstition": {
-                    "TargetingCaster": "Target is a caster"
+                    "TargetingCaster": "Witnessed target casting a spell"
                 }
             },
             "Bard": {
@@ -2091,21 +2133,47 @@
                     "Label": "Divine Smite"
                 },
                 "EvilDamage": "Spirit Damage",
+                "ExaltedReaction": {
+					"Desecration": "Each enemy in your champion's aura takes a –1 status penalty to attack rolls against you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.Ef63SlxSKlZmHosM]{Effect: Exalted Reaction (Desecrator)}",
+					"Grandeur": "In addition to the enemy affected by Flash of Grandeur, each other enemy in your champion's aura is affected by the revealing light spell for 1 round.",
+					"Iniquity": "Each enemy in your champion's aura other than the triggering creature takes half the damage you deal to the triggering enemy.",
+					"Justice": "Each ally in your champion's aura with the target in their melee reach can spend a reaction to Strike the target with a –5 penalty.",
+					"Liberation": "In addition to the ally affected by Liberating Step, you and all other allies in your champion's aura can Step as a free action. You and your allies gain the benefit even if the ally who benefited from Liberating Step can't move",
+					"Obedience": "Each enemy in your champion's aura other than the triggering creature must also either drop @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} or take mental damage (each enemy chooses). These creatures take only minimum damage (typically @Damage[ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,11),3)[mental]]), and the effects they take can't be adjusted by anything that changes your Iron Command. For instance, the Iron Repercussions feat couldn't turn the damage into persistent mental damage for creatures other than the triggering creature.",
+					"Redemption": "If the enemy refuses, you can choose to grant the resistance to yourself and all allies in your champion's aura, including the triggering ally. If you do, the resistance is reduced by 2 for all @UUID[Compendium.pf2e.feat-effects.Item.GFLiTESBmoyQ3sLx]{Effect: Exalted Reaction (Redemption)}"
+				},
                 "IronRepercussions": {
                     "Description": "Disobeying your Iron Command has lasting consequences. If an enemy refuses to kneel to you, you can deal @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[persistent,mental]] instead of normal mental damage. You must decide whether the mental damage will be persistent before your enemy chooses whether to kneel or not. The amount of damage is unchanged."
                 },
+                "Mercy": {
+					"Body": {
+						"Label": "Mercy of the Body"
+					},
+					"Grace": {
+						"Label": "Mercy of Grace"
+					},
+					"Mind": {
+						"Label": "Mercy of the Mind"
+					}
+				},
                 "NegativeDamage": "Void Damage",
                 "OngoingSelfishness": {
                     "Description": "After you use Selfish Shield, you gain resistance to all further damage from the triggering enemy until the end of the turn on which you used the reaction. This resistance is equal to half your Selfish Shield resistance. @UUID[Compendium.pf2e.feat-effects.Item.seOQfjfjrDyK6rCo]{Effect: Ongoing Selfishness}"
                 },
                 "RangedReprisal": {
-                    "Description": "You can use Retributive Strike with a ranged weapon. In addition, if the foe that triggered your reaction is within 5 feet of your reach but not in your reach, as part of your reaction you can Step to put the foe in your reach before making a melee Retributive Strike."
+                    "Description": "You can use a ranged weapon to make a ranged Strike instead of a melee Strike for Retributive Strike. The enemy needs to be in range, but not in reach, and it must still be in your champion's aura. You can also make melee Strikes against enemies a bit farther away. If the enemy that triggered your reaction is outside your reach but is within 5 feet of your reach, as part of your reaction you can Step to put the enemy in your reach before making a melee Retributive Strike."
                 },
+                "RelentlessReaction": {
+					"Grandeur": "The enemy also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage, and it can't recover from this persistent damage while affected by the revealing light from your Flash of Grandeur.",
+					"Iniquity": "An enemy damaged by the initial reaction's damage also takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage.",
+					"Liberation": "You punish those who ensnare your allies. If the triggering enemy was using any effects to make your ally grabbed, restrained, immobilized, or paralyzed when you used Liberating Step, that enemy takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage",
+					"ObedienceRedemption": "If the enemy refuses, it takes @Damage[(@actor.abilities.cha.mod)[persistent,spirit]] damage"
+				},
                 "RetributiveStrike": "Retributive Strike",
                 "TargetReaction": "Target triggered your champion reaction",
                 "UnimpededStep": {
-                    "Description": "With a burst of divine liberation, your ally's movement from your Liberating Step is unaffected by difficult terrain, greater difficult terrain, narrow surfaces, and uneven ground."
-                },
+					"Description": "Your ally's movement from your Liberating Step is unaffected by difficult terrain, greater difficult terrain, narrow surfaces, and uneven ground. If you have the exalted reaction benefit, this applies to everyone who Steps."
+				},
                 "WeightOfGuilt": {
                     "Description": "Guilt clouds the minds of those who ignore your Glimpse of Redemption. Instead of making the triggering creature enfeebled 2, you can make it @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} for the same duration."
                 }
@@ -2627,6 +2695,7 @@
                 "Braggart": "If the foe was temporarily immune to your @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize}, their temporary immunity ends.",
                 "Fencer": "The foe is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until your next turn.",
                 "Name": "Exemplary Finisher",
+                "Rascal": "The foe takes a -10 circumstance penalty to its speed until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.fgz7lwg1xHsVW4dX]{Effect: Exemplary Finisher (Rascal)}",
                 "Wit": "The foe takes a -2 circumstance penalty to attack rolls against you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.cu10OjQUdY0a9gpj]{Effect: Exemplary Finisher (Wit)}"
             },
             "ExorcistDedication": {
@@ -2642,6 +2711,12 @@
                 "Prompt": "Treat Cards as darts or daggers?"
             },
             "Feat": {
+                "BespellStrikes": {
+					"Requirements": "Your most recent action was to cast a non-cantrip spell",
+					"Oracle": "You siphon spell energy into one weapon you're wielding, or into one of your unarmed attacks, such as a fist. Until the end of your turn, the weapon or unarmed attack deals an extra 1d6 force damage and gains the divine trait if it didn't have it already. If the spell dealt a different type of damage, the Strike deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage).",
+					"Sorcerer": "You siphon spell energy into one weapon you're wielding or into one of your unarmed attacks, such as a fist. Until the end of your turn, the weapon or unarmed attack deals an extra 1d6 force damage and gains the trait of your bloodline's magical tradition if it didn't have it already. If the spell dealt a different type of damage, the Strike deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage).",
+					"Wizard": "You siphon spell energy into one weapon you're wielding, or into one of your unarmed attacks, such as a fist. Until the end of your turn, the weapon or unarmed attack deals an extra 1d6 force damage and gains the arcane trait if it didn't have it already. If the spell dealt a different type of damage, the Strike deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage)."
+				},
                 "CharmingLiar": {
                     "Note": "When you get a critical success using the Lie action, the target's attitude toward you improves by one step, as though you'd succeeded at using Diplomacy to Make an Impression."
                 },
@@ -3030,6 +3105,14 @@
                 }
             },
             "Investigator": {
+				"CertainStratagem": {
+					"Note": "You deal half of your @Damage[(floor((@actor.level+3)/4)[precision])[@item.system.damage.damageType]]{Strategic Strike damage} to the target"
+				},
+				"DeviseAStratagem": {
+					"Attack": "Attack Stratagem",
+					"Defensive": "Defensive Stratagem",
+					"Skill": "Skill Stratagem"
+				},
                 "Methodology": {
                     "Prompt": "Select a methodology."
                 },
@@ -3239,6 +3322,7 @@
                     "sword": "Advanced Swords"
                 },
                 "AdvancedAthamaruWeapons": "Advanced Athamaru Weapons",
+				"AdvancedBowsAndCrossbows": "Advanced Bows and Crossbows",
                 "AdvancedHalflingWeapons": "Advanced Halfling Weapons",
                 "AdvancedHobgoblinWeapons": "Advanced Hobgoblin Weapons",
                 "AdvancedKoboldWeapons": "Advanced Kobold Weapons",
@@ -3246,12 +3330,15 @@
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
                 "AdvancedSurkiWeapons": "Advanced Surki Weapons",
                 "AdvancedTenguWeapons": "Advanced Tengu Weapons",
+				"AdvancedTwoHandedMeleeWeapons": "Advanced Two-Handed Melee Weapons",
                 "AdvancedVanaraWeapons": "Advanced Vanara Weapons",
                 "AdvancedVishkanyaWeapons": "Advanced Vishkanya Weapons",
                 "BayonetsAndReinforcedStocks": "Bayonets and Reinforced Stocks",
+				"BountyHunterWeapons": "Bounty Hunter Tools of the Trade",
                 "MartialAthamaruWeapons": "Martial Athamaru Weapons",
                 "MartialAzarketiWeapons": "Martial Azarketi Weapons",
                 "MartialBombsFirearms": "Martial Bombs & Firearms",
+				"MartialBowsAndCrossbows": "Martial Bows and Crossbows",
                 "MartialCatfolkWeapons": "Martial Catfolk Weapons",
                 "MartialCentaurWeapons": "Martial Centaur Weapons",
                 "MartialConrasuWeapons": "Martial Conrasu Weapons",
@@ -3289,14 +3376,18 @@
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialSurkiWeapons": "Martial Surki Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
+				"MartialTwoHandedMeleeWeapons": "Martial Two-Handed Melee Weapons",
                 "MartialVanaraWeapons": "Martial Vanara Weapons",
                 "MartialVishkanyaWeapons": "Martial Vishkanya Weapons",
                 "MinotaurWeapons": "Minotaur Weapons",
                 "MonasticArchery": "Monastic Archery",
+				"PerformativeWeapons": "Gladiator Performative Weapons",
+				"PirateWeapons": "Pirate Weapons",
                 "SimpleBombsFirearms": "Simple Bombs & Firearms",
                 "SimpleFirearmsCrossbows": "Simple Firearms & Crossbows",
                 "SimpleMartialBows": "Simple & Martial Bows",
-                "SimpleMartialTwoHandedMeleeWeapons": "Simple & Martial Two-Handed Melee Weapons"
+                "SimpleMartialTwoHandedMeleeWeapons": "Simple & Martial Two-Handed Melee Weapons",
+				"VikingWeapons": "Viking Weapons"
             },
             "MechanicalSymbiosis": {
                 "FailureNote": "You become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}",
@@ -3397,12 +3488,30 @@
                 }
             },
             "Oracle": {
+                "ConduitOfVoidAndVitality": {
+					"HarmDescription": "You cast a 3-action harm spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,void]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[void]|shortLabel:true] additional damage.",
+					"HealDescription": "You cast a 3-action heal spell, expending the slot as normal. If the spell restores Hit Points to one or more creatures, then one creature healed by this spell regains @Damage[(@actor.conditions.cursebound.value)d8[healing,vitality]|shortLabel:true] additional Hit Points; if the spell damages one or more creatures, then one creature harmed by this spell takes @Damage[(@actor.conditions.cursebound.value)d8[vitality]|shortLabel:true] additional damage."
+				},
+				"Cursebound": {
+					"IncreaseNote": "When you use a cursebound ability, you become cursebound 1, or if you already were cursebound, you increase the value of your cursebound condition by 1.",
+					"MaximumNote": "You can't use a cursebound ability if you are already at your maximum cursebound value."
+				},
+				"DiverseMystery": {
+					"Toggle": "Used Diverse Mystery cursebound spell"
+				},
+                "MeddlingFutures": {
+					"Note": "If you attempt to use a different action, you must succeed at a @Check[type:flat|dc:6] or the action is lost."
+				},
                 "Mystery": {
                     "Prompt": "Select a mystery."
                 },
                 "MysteryConduit": {
                     "Note": "When you cast a spell of 5th rank or lower that has no duration, instead of spending a spell slot, you can advance the effects of your oracular curse in the same manner as when you cast a revelation spell. A spell cast in this way gains the cursebound trait."
                 },
+                "NudgeTheScales": {
+					"Death": "Death",
+					"Life": "Life"
+				},
                 "CurseSeverity": {
                     "NoneToMinor": "Your curse progresses to its minor stage the first time you finish casting a revelation spell after your daily preparations.",
                     "MinorToModerate": "If you cast a revelation spell while your minor curse is in effect, you progress to the moderate curse effect immediately after you finish Casting the Spell.",
@@ -3570,7 +3679,7 @@
                     "HomingBeacon": "Choose one creature hit by the spell (if the spell has a spell attack roll) or that fails its save against the spell (if the spell requires a save). A psychic beacon emits from the creature's location, making it easier to notice the creature as the mind and attention of onlookers is subtly drawn to it. For 1 minute, if the target would be @UUID[Compendium.pf2e.conditionitems.Item.zJxUflt9np0q4yML]{Invisible}, it's instead merely @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed}, and if it would be concealed, it's no longer concealed.",
                     "Ignition": {
                         "Base": "You project pure heat that causes a target to combust. The initial damage changes to 1d10 fire damage plus 1 fire splash damage. When using amped ignition as a melee attack, increase the damage dice of the initial damage from d10s to d12s. You are not harmed by splash damage from amped ignition.",
-                        "Heightened": "Instead of using ignition’s normal heightened entry, the initial damage increases by 1d10 (1d12 for melee) and the splash damage increases by 1. The persistent fire damage on a critical hit increases by 1d4."
+                        "Heightened": "Instead of using ignition's normal heightened entry, the initial damage increases by 1d10 (1d12 for melee) and the splash damage increases by 1. The persistent fire damage on a critical hit increases by 1d4."
                     },
                     "ImaginaryWeapon": {
                         "Base": "You form multiple force weapons to lash out at multiple foes. You make two imaginary weapon Strikes, each against a different target. Your multiple attack penalty doesn't increase until you've made both Strikes.",
@@ -3615,7 +3724,7 @@
                         "Heightened": "Both types of damage increase by 1d6 instead of just one. Add a third non-overlapping @Template[type:burst|distance:5] to the area."
                     },
                     "TesseractTunnel": "Physical movement is no longer necessary to connect two points in space. When you cast tesseract tunnel, you simply create a tunnel that ends in a square within a range equal to your Speed; you can choose to immediately teleport to the space at the far end of the tunnel. Furthermore, the tunnel can be traversed in both directions, instead of only from entrance to exit. Finally, the spell's duration changes to 1 minute. You can Dismiss the spell.",
-                    "ThermalStasis": "The spell’s duration becomes 1 minute.",
+                    "ThermalStasis": "The spell's duration becomes 1 minute.",
                     "Toggle": "Amp Psi Cantrips",
                     "VectorScreen": "Your screen persists for longer, and you can detonate it in an explosive counterattack. The duration of the spell increases to 1 minute. You can Dismiss the spell. If there are any projectiles trapped in the screen, you can cast telekinetic projectile to fire them at one creature as part of Dismissing the spell. Measure the range for the telekinetic projectile from where the vector screen was, instead of from you.",
                     "WarpSpace": "Choose a square within 30 feet to which you have line of effect and line of sight. Determine your spell's line of effect and line of sight from there, as well as whether creatures have cover against the spell. The spell can exceed its normal range as measured from you, as long as it's within its normal range from the square you chose.",
@@ -3874,18 +3983,18 @@
                 "Bloodline": {
                     "Prompt": "Select a bloodline.",
                     "BloodMagicDescription": {
-                        "Aberrant": "Aberrant whispers shield one target's mind or your own, granting a +2 status bonus to Will saving throws for 1 round.",
+                        "Aberrant": "Either one target takes a –1 status penalty to Will saving throws for 1 round or you gain a +2 status bonus to Will saving throws for 1 round.",
                         "AncestralBloodMagic": "Casting an ancestral spell",
-                        "Angelic": "An angelic aura protects you or one target, granting a +1 status bonus to saving throws for 1 round.",
-                        "Demonic": "The corruption of sin weakens a target's defenses or makes you more imposing. Either a target takes a -1 status penalty to AC for 1 round, or you gain a +1 status bonus to Intimidation checks for 1 round.",
-                        "Diabolic": "Hellfire scorches a target or fills your tongue with lies. Either a target takes @Damage[@item.level[fire]] (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +1 status bonus to Deception checks for 1 round.",
-                        "Draconic": "Draconic scales grow briefly on you or one target, granting a +1 status bonus to AC for 1 round.",
-                        "Elemental": "Elemental energy surrounds you or a target. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes @Damage[@item.level[@actor.flags.pf2e.sorcerer.elementalBloodline.damageType]]. The damage is bludgeoning or fire, according to your elemental type (see below). If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
-                        "Fey": "Colorful fey glamours dance around you or one target, causing them to be @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} for 1 round. Such obvious concealment can't be used to Hide.",
+                        "Angelic": "You or one target is granted a +1 status bonus to saving throws for 1 round",
+                        "Demonic": "Either a target takes a -1 status penalty to AC for 1 round, or you gain a +2 status bonus to Intimidation checks for 1 round.",
+                        "Diabolic": "Either a target takes @Damage[@item.level[fire]] (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +2 status bonus to Deception checks for 1 round",
+                        "Draconic": "You or one target is granted a +1 status bonus to AC for 1 round.",
+                        "Elemental": "Either you gain a +2 status bonus to Intimidation checks for 1 round, or a target takes @Damage[@item.level[@actor.flags.pf2e.elementalBloodline.damageType]] damage. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
+                        "Fey": "Either you gain a +2 status bonus to Performance checks for 1 round, or you can become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} for 1 round. Such obvious concealment can't be used to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}",
                         "Genie": "Your spellcasting warps reality and distracts your foes. Either you gain a +1 status bonus to Deception checks for 1 round, or a target takes a -1 status penalty to Perception for 1 round.",
-                        "Hag": "Spiteful curses punish your foes. You deal @Damage[@item.level[mental]] damage (@Check[type:will|basic:true|dc:resolve(@actor.system.attributes.spellDC.value)] save) to the first creature that deals damage to you before the end of your next turn.",
+                        "Hag": "You deal @Damage[(4*@item.level)[mental]] damage (@Check[type:will|basic:true|dc:resolve(@actor.system.attributes.spellDC.value)] save) to the first creature that deals damage to you before the end of your next turn; if  no creature damages you in that time, you consume that spite to gain temporary Hit Points at the beginning of your next turn equal to the spell's rank. These temporary Hit Points last until the beginning of your following turn.",
                         "Harrow": "You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}.",
-                        "Imperial": "A surge of ancestral memories grants you or one target a +1 status bonus to skill checks for 1 round.",
+                        "Imperial": "Until the start of your next turn, you gain your choice of either a +1 status bonus to AC or to saving throws.",
                         "Title": "Blood Magic",
                         "Nymph": "Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.",
                         "Phoenix": "The primal fire of life and death flows through you or one target. Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's rank for 1 round, or to have a target of the spell take @Damage[@item.level[fire]] damage (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
@@ -3895,7 +4004,7 @@
                             "PerceptionPenalty": "-1 penalty to Perception",
                             "StealthBonus": "+1 bonus to Stealth"
                         },
-                        "Undead": "Necromantic energy flows through you or one target. Either you gain temporary Hit Points equal to the spell's rank for 1 round, or a target takes @Damage[@item.level[void]] damage (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
+                        "Undead": "Either you gain temporary Hit Points equal to the spell's rank until the start of your next turn, or a target takes @Damage[@item.level[void]] damage (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
                         "Wyrmblessed": "Draconic might carries in your voice. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes a -1 status penalty to Will saves for 1 round."
                     }
                 }
@@ -4251,11 +4360,18 @@
                     "Mobile": "Mobile",
                     "Perfect": "Perfect",
                     "PreciseNote": "On a failure, you apply your @Damage[((@actor.flags.pf2e.swashbuckler.preciseStrike)d6[precision])[@item.system.damage.damageType]]{full precise strike damage} instead of half.",
-                    "Stunning": "Stunning",
+                    "Retreating": "Retreating",
+					"RetreatingNote": "You Step as a free action.",
+					"Revitalizing": "Revitalizing",
+					"Stumbling": "Stumbling",
+					"Stunning": "Stunning",
                     "Targeting": "Targeting",
+                    "TwirlingThrow": "Twirling Throw",
+					"TwirlingThrowNote": "The weapon returns to your hand after the attack",
                     "Unbalancing": "Unbalancing"
                 },
                 "Panache": "You gain @UUID[Compendium.pf2e.feat-effects.Item.uBJsxCzNhje8m8jj]{Panache}.",
+                "PanacheFailure": "You gain panache until the end of your next turn @UUID[Compendium.pf2e.feat-effects.Item.uBJsxCzNhje8m8jj]{Effect: Panache}",
                 "Style": {
                     "Prompt": "Select a style."
                 }

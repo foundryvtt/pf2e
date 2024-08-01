@@ -1,0 +1,54 @@
+{
+    "_id": "fctFBBqWwwwdbgdx",
+    "img": "icons/magic/symbols/question-stone-yellow.webp",
+    "name": "Furious Footfalls",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>The urge to fight drives you ever forward. You gain a +5-foot status bonus to your Speed. This bonus increases to +10 feet while you're raging.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "label": "Furious Footfalls",
+                "selector": "land-speed",
+                "slug": "furious-footfalls",
+                "type": "status",
+                "value": 5
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selector": "land-speed",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "barbarian"
+            ]
+        }
+    },
+    "type": "feat"
+}

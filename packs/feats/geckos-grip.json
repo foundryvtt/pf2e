@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You stick to walls with a preternatural grip. You gain a climb Speed of 15 feet.</p>"
+            "value": "<p>You cling to walls with a preternatural grip. You gain the Combat Climber feat as a bonus feat, and if you roll a success on an Athletics check to climb, you get a critical success instead.</p><hr /><p><strong>Special</strong> If you have the cliffscale lizardfolk heritage, you instead gain a climb Speed of 15 feet.</p>"
         },
         "level": {
             "value": 5
@@ -24,15 +24,28 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "BaseSpeed",
+                "predicate": [
+                    "heritage:cliffscale-lizardfolk"
+                ],
                 "selector": "climb",
                 "value": 15
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb"
+                ],
+                "selector": "athletics"
             }
         ],
         "traits": {

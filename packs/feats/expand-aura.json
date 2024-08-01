@@ -11,24 +11,43 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You focus your divine power to extend your influence. Select one aura you have from a champion feat or feature, such as @UUID[Compendium.pf2e.feats-srd.Item.Aura of Courage] or @UUID[Compendium.pf2e.feats-srd.Item.Aura of Life]. The radius of the aura is doubled until the start of your next turn.</p>"
+            "value": "<p>You focus your divine power to extend your influence and protection. Expand the radius of your champion's aura to 30 feet until the start of your next turn. At 10th level, the expansion lasts for 1 minute, and at 16th level, it lasts until you Dismiss it.</p>"
         },
         "level": {
-            "value": 16
+            "value": 6
         },
         "prerequisites": {
             "value": [
                 {
-                    "value": "You have at least one aura from a champion feat or feature."
+                    "value": "champion's aura"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "expand-aura",
+                "predicate": [
+                    "champions-aura"
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.champion.aura",
+                "predicate": [
+                    "expand-aura"
+                ],
+                "priority": 51,
+                "value": 30
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

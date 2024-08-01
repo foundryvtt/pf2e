@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You radiate an aura of pure belief that imbues your attacks and those of nearby allies with holy power. Your Strikes deal and extra 1 spirit damage against unholy creatures. Also, each willing ally within 15 feet gains this benefit on their first Strike that hits an unholy creature each round.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith]</p>"
+            "value": "<p>You radiate an aura of belief that imbues your attacks and those of nearby allies with divine power. Each willing ally in your champion's aura adds the holy trait to their Strikes if you're holy or adds the unholy trait to their Strikes if you're unholy.</p>"
         },
         "level": {
             "value": 12
@@ -19,35 +19,54 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "tenets of good"
+                    "value": "holy or unholy"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "target:trait:unholy"
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            "sanctification:holy"
+                        ],
+                        "value": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith (Holy)"
+                    },
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "predicate": [
+                            "sanctification:unholy"
+                        ],
+                        "value": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith (Unholy)"
+                    }
                 ],
-                "selector": "strike-damage",
-                "value": 1
+                "flag": "effect",
+                "key": "ChoiceSet"
             },
             {
                 "effects": [
                     {
                         "affects": "allies",
                         "includesSelf": false,
-                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura of Faith"
+                        "uuid": "{item|flags.pf2e.rulesSelections.effect}"
                     }
                 ],
                 "key": "Aura",
-                "radius": 15
+                "predicate": [
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
             }
         ],
         "traits": {

@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You favor weapons that you can use with quick, darting slashes like a cat's claws. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Hatchet], @UUID[Compendium.pf2e.equipment-srd.Item.Kama], @UUID[Compendium.pf2e.equipment-srd.Item.Kukri], @UUID[Compendium.pf2e.equipment-srd.Item.Scimitar], and @UUID[Compendium.pf2e.equipment-srd.Item.Sickle].</p>\n<p>In addition, you gain access to kama, kukris, and all uncommon catfolk weapons. For you, martial catfolk weapons are simple weapons and advanced catfolk weapons are martial weapons.</p>"
+            "value": "<p>You gain access to all uncommon weapons with the catfolk trait. You have familiarity with weapons with the catfolk trait plus the kama, kukri, scimitar, and sickle—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
         },
         "level": {
             "value": 1
@@ -20,41 +20,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-hatchet.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-kama.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-kukri.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-scimitar.rank",
-                "value": 1
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.attacks.weapon-base-sickle.rank",
-                "value": 1
-            },
             {
                 "definition": [
                     "item:trait:catfolk",
@@ -67,16 +37,40 @@
             },
             {
                 "definition": [
-                    "item:trait:catfolk",
-                    "item:category:martial",
                     {
-                        "not": "item:category:advanced"
-                    }
+                        "or": [
+                            "item:trait:catfolk",
+                            "item:base:kama",
+                            "item:base:kukri",
+                            "item:base:scimitar"
+                        ]
+                    },
+                    "item:category:martial"
                 ],
                 "key": "MartialProficiency",
                 "label": "PF2E.SpecificRule.MartialProficiency.MartialCatfolkWeapons",
                 "sameAs": "simple",
                 "slug": "martial-catfolk-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:trait:catfolk",
+                            "item:base:kama",
+                            "item:base:kukri",
+                            "item:base:scimitar",
+                            "item:base:sickle"
+                        ]
+                    }
+                ]
             }
         ],
         "traits": {

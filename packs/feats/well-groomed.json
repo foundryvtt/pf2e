@@ -11,25 +11,24 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You are fastidious about keeping yourself clean, whether licking your fur or carefully using traditional catfolk hygiene products, to salubrious effect.</p>\n<p>You gain a +1 circumstance bonus to saving throws against diseases. If you roll a success on a saving throw against a disease, you get a critical success instead.</p>"
+            "value": "<p>You are fastidious about keeping clean. You gain a +2 circumstance bonus to saving throws against diseases. If you roll a success on a saving throw against a disease, you get a critical success instead. If you have a different ability that would improve the save in this way (such as the @UUID[Compendium.pf2e.classfeatures.Item.Battle Hardened] fighter class feature), if you roll a critical failure on the save you get a failure instead.</p>"
         },
         "level": {
-            "value": 9
+            "value": 5
         },
         "prerequisites": {
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "vs. disease (Well-Groomed)",
                 "predicate": [
-                    "disease"
+                    "item:trait:disease"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -41,22 +40,9 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "disease"
+                    "item:trait:disease"
                 ],
-                "selector": "saving-throw",
-                "type": "save"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "predicate": [
-                    "disease"
-                ],
-                "selector": "saving-throw",
-                "text": "When you roll a success on a saving throw against an disease, you get a critical success instead.",
-                "title": "{item|name}"
+                "selector": "saving-throw"
             }
         ],
         "traits": {

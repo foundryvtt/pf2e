@@ -1,0 +1,89 @@
+{
+    "_id": "4USRFNH06dwOlgL5",
+    "img": "icons/environment/settlement/tent-flag.webp",
+    "name": "Effect: Enjoy the Show",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Enjoy the Show]</p>\n<p>The target takes a circumstance penalty to attack rolls against creatures other than you, or a +1 circumstance bonus to attack rolls targeting you.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": -1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": 1
+                    }
+                ],
+                "flag": "modifier",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "enjoy-the-show"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "lte": [
+                                            "enjoy-the-show",
+                                            -1
+                                        ]
+                                    },
+                                    {
+                                        "not": "target:signature:{item|origin.signature}"
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "enjoy-the-show:1",
+                                    "target:signature:{item|origin.signature}"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "attack-roll",
+                "slug": "enjoy-the-show-penalty",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.modifier"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

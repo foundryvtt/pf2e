@@ -49,8 +49,59 @@
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:wizard",
+                            "feat:wizard-dedication",
+                            "feature:bloodline:tradition:arcane"
+                        ]
+                    }
+                ],
                 "property": "traits",
                 "value": "arcane"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:oracle",
+                            "feat:oracle-dedication",
+                            "feature:bloodline:tradition:divine"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "divine"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:occult"
+                ],
+                "property": "traits",
+                "value": "occult"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "feature:bloodline:tradition:primal"
+                ],
+                "property": "traits",
+                "value": "primal"
             }
         ],
         "start": {

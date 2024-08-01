@@ -11,28 +11,39 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You were hatched from an unfertilized egg during hard times for your people, and you are a biological copy of your mother.</p>\n<p>You gain a +1 circumstance bonus to saving throws against diseases. Each of your successful saving throws against a disease reduces its stage by 2, or by 1 for a virulent disease. Each critical success against an ongoing disease reduces its stage by 3, or by 2 for a virulent disease.</p>\n<p>You take damage only every 2 hours from thirst and every 2 days from starvation, rather than every hour and every day.</p>"
+            "value": "<p>You were hatched from an unfertilized egg during hard times for your people, and are a biological copy of your mother. You gain a +1 circumstance bonus to saving throws against diseases. If you roll a success on a saving throw against a disease, you get a critical success instead. If you have a different ability that would improve the save in this way (such as the @UUID[Compendium.pf2e.classfeatures.Item.Battle Hardened] fighter class feature), if you roll a critical failure on the save you get a failure instead.</p>\n<p>You take damage only every 2 hours from thirst and every 2 days from starvation, rather than every hour and every day.</p><hr /><p><strong>Special</strong> You can select this feat only at 1st level.</p>"
         },
         "level": {
             "value": 1
         },
+        "onlyLevel1": true,
         "prerequisites": {
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Lost Omens: Character Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "Note",
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "disease"
+                    "item:trait:disease"
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:disease"
                 ],
                 "selector": "saving-throw",
-                "text": "PF2E.SpecificRule.Lizardfolk.ParthenogenicHatchling.Note",
-                "title": "{item|name}"
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "traits": {

@@ -1,0 +1,72 @@
+{
+    "_id": "83zzG4XBiL5I3NZv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Revitalizing Finisher",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your swagger instills confidence in you and your allies. Make a Strike. On a hit, you and all allies within 30 feet gain temporary Hit Points equal to half your level.</p>\n<p><strong>Failure</strong> You gain temporary Hit Points equal to half your level.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Revitalizing Finisher]</p>"
+        },
+        "level": {
+            "value": 14
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Revitalizing",
+                        "value": "revitalizing"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher:revitalizing"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

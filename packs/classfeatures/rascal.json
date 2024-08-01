@@ -1,0 +1,75 @@
+{
+    "_id": "XKhg55V7WmpLrvqL",
+    "img": "icons/sundries/gaming/playing-cards.webp",
+    "name": "Rascal",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You aren't afraid to use underhanded tactics to get the edge over your opponents. You are trained in Thievery and gain the @UUID[Compendium.pf2e.feats-srd.Item.Dirty Trick] general feat. When you use Dirty Trick, the action gains the bravado trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.thievery.rank",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "class:swashbuckler"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Dirty Trick"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher",
+                    "feature:exemplary-finisher"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.ExemplaryFinisher.Rascal",
+                "title": "PF2E.SpecificRule.ExemplaryFinisher.Name"
+            },
+            {
+                "key": "RollOption",
+                "option": "item:trait:bravado",
+                "predicate": [
+                    "action:dirty-trick"
+                ],
+                "selector": "thievery"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "swashbuckler-style"
+            ],
+            "rarity": "common",
+            "value": [
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

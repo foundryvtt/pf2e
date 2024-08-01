@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You learn a special discovery depending on your field.</p>\n<p>When using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy] to make bombs during your daily preparations, you can use a batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents]{reagents} to create any three bombs instead of just two of the same bomb.</p>"
+            "value": "<p>You have calculated all the angles to maximize a bomb's splash. When you throw an alchemical bomb with the splash trait, you can cause the bomb to deal splash damage equal to your Intelligence modifier (minimum 1) instead of the normal amount.</p>"
         },
         "level": {
             "value": 5
@@ -20,19 +20,23 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.crafting.entries.alchemist.fieldDiscovery",
-                "phase": "beforeDerived",
-                "value": [
-                    "item:base:alchemical-bomb"
-                ]
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "not": "feat:expanded-splash"
+                    }
+                ],
+                "relabel": "{item|name}",
+                "selector": "alchemical-bomb-damage",
+                "slug": "splash",
+                "value": "@actor.abilities.int.mod"
             }
         ],
         "traits": {

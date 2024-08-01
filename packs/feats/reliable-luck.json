@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have gone well past nine lives to survive danger with surprising regularity. You can use @UUID[Compendium.pf2e.feats-srd.Item.Cat's Luck] once per hour, rather than once per day.</p>"
+            "value": "<p>You survive danger with surprising regularity. You can use @UUID[Compendium.pf2e.feats-srd.Item.Cat's Luck] once per hour, rather than once per day.</p>"
         },
         "level": {
             "value": 17
@@ -24,11 +24,22 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:cats-luck"
+                ],
+                "property": "frequency-per",
+                "value": "PT1H"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

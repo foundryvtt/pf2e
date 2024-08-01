@@ -21,27 +21,22 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "PF2E.SkillVariant.SenseMotive",
                 "predicate": [
-                    "action:sense-motive"
+                    {
+                        "or": [
+                            "action:sense-motive",
+                            "action:lie"
+                        ]
+                    }
                 ],
                 "selector": "perception",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:lie"
-                ],
-                "selector": "perception-dc",
                 "type": "circumstance",
                 "value": 1
             }

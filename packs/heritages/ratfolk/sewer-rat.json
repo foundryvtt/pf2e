@@ -10,27 +10,42 @@
             "uuid": "Compendium.pf2e.ancestries.Item.P6PcVnCkh4XMdefw"
         },
         "description": {
-            "value": "<p>You come from a long line of ysoki from a community based in the sewers beneath a large settlement. You are immune to the disease filth fever. Each of your successful saving throws against a disease or poison reduces its stage by 2, or by 1 for a virulent disease or poison. Each critical success against an ongoing disease or poison reduces its stage by 3, or by 2 for a virulent disease or poison.</p>"
+            "value": "<p>You come from a long line of ratfolk with a community based in the sewers beneath a large settlement. You are immune to the disease putrid plague. You gain a +1 circumstance bonus to saving throws against diseases and poisons. If you roll a success on a saving throw against a disease or poison, you get a critical success instead. If you have a different ability that would improve the save in this way (such as the @UUID[Compendium.pf2e.classfeatures.Item.Battle Hardened] fighter class feature), if you roll a critical failure on the save you get a failure instead.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
-                "key": "Note",
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     {
                         "or": [
-                            "disease",
-                            "poison"
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
                         ]
                     }
                 ],
                 "selector": "saving-throw",
-                "text": "Your succesful saving throws against a disease or poison reduce its stage by 2 (or 1 for a virulent disease or poison). Each critical success reduces its stage by 3 (or 2 for a virulent disease or poison).",
-                "title": "{item|name}"
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "traits": {

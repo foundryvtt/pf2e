@@ -1,0 +1,80 @@
+{
+    "_id": "nYh4xRfdPYqc550p",
+    "img": "icons/magic/death/skull-humanoid-crown-white-blue.webp",
+    "name": "Effect: Cursebound",
+    "system": {
+        "badge": {
+            "max": 4,
+            "type": "counter",
+            "value": 1
+        },
+        "description": {
+            "value": "<p>Your oracular curse is constricting around you as you receive divine punishment after drawing too deeply on your mystery's powers. Cursebound is a condition that affects only creatures with an oracular curse, and cursebound always includes a value. Your specific oracular curse imposes unique negative effects depending on your cursebound value. You can remove the cursebound condition only by Refocusing.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "self:condition:cursebound"
+            },
+            {
+                "key": "RollOption",
+                "option": "self:condition:cursebound:{item|badge.value}"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "conditions.cursebound.value",
+                "value": "@item.badge.value"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "not": "feature:major-curse"
+                    }
+                ],
+                "property": "badge-max",
+                "value": 2
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    {
+                        "not": "feature:extreme-curse"
+                    }
+                ],
+                "property": "badge-max",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

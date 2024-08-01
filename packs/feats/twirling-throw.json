@@ -1,0 +1,84 @@
+{
+    "_id": "WGGLlrhV8cKFn1v0",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Twirling Throw",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 1
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your thrown weapons seem to defy physics as they soar through the air and spin back to you after a strike. Make a thrown weapon attack, ignoring the penalty for making ranged attacks within the second and third range increment. The weapon returns to your hand after the attack unless you critically failed on the attack roll.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Flying Blade"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:panache"
+                    }
+                ],
+                "disabledValue": false,
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Swashbuckler.Finisher.Label",
+                "mergeable": true,
+                "option": "finisher",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Swashbuckler.Finisher.TwirlingThrow",
+                        "value": "twirling-throw"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "domain": "ranged-attack-roll",
+                "key": "RollOption",
+                "option": "ignore-range-penalty:3",
+                "predicate": [
+                    "finisher:twirling-throw"
+                ]
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure",
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "finisher:twirling-throw"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.Swashbuckler.Finisher.TwirlingThrowNote",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "finisher",
+                "swashbuckler"
+            ]
+        }
+    },
+    "type": "feat"
+}

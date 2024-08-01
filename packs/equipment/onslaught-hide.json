@@ -1,0 +1,91 @@
+{
+    "_id": "C4XKMcHZoGzrAZBl",
+    "img": "systems/pf2e/icons/equipment/armor/specific-magic-armor/rhino-hide.webp",
+    "name": "Onslaught Hide",
+    "system": {
+        "acBonus": 3,
+        "baseItem": "hide-armor",
+        "bulk": {
+            "value": 2
+        },
+        "category": "medium",
+        "checkPenalty": -1,
+        "containerId": null,
+        "description": {
+            "value": "<p>This <em>+1 resilient hide armor</em> is decorated with the horns of many slain beasts. It has an armor check penalty of –1 instead of –2. When you use the @UUID[Compendium.pf2e.feats-srd.Item.Sudden Charge] class feat while wearing this armor, your Strike deals an additional @Damage[1d8[untyped]] damage.</p>"
+        },
+        "dexCap": 2,
+        "group": "leather",
+        "hardness": 0,
+        "hp": {
+            "max": 0,
+            "value": 0
+        },
+        "level": {
+            "value": 9
+        },
+        "material": {
+            "grade": null,
+            "type": null
+        },
+        "price": {
+            "value": {
+                "gp": 700
+            }
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "quantity": 1,
+        "rules": [
+            {
+                "domain": "damage",
+                "key": "RollOption",
+                "label": "Sudden Charge",
+                "option": "action:sudden-charge",
+                "predicate": [
+                    "sudden-charge"
+                ],
+                "toggleable": true
+            },
+            {
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "action:sudden-charge"
+                ],
+                "selector": "strike-damage"
+            }
+        ],
+        "runes": {
+            "potency": 1,
+            "property": [],
+            "resilient": 1
+        },
+        "size": "med",
+        "specific": {
+            "material": {
+                "grade": null,
+                "type": null
+            },
+            "runes": {
+                "potency": 1,
+                "property": [],
+                "resilient": 1
+            }
+        },
+        "speedPenalty": 0,
+        "strength": 2,
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "invested",
+                "magical"
+            ]
+        }
+    },
+    "type": "armor"
+}

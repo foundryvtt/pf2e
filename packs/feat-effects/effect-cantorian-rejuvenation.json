@@ -1,0 +1,41 @@
+{
+    "_id": "9ZrfvQxxcdzlND3y",
+    "img": "icons/magic/life/heart-glowing-red.webp",
+    "name": "Effect: Cantorian Rejuvenation",
+    "system": {
+        "description": {
+            "value": "<p><span style=\"font-family:Roboto, sans-serif\">You gain 10 temporary Hit Points. At 15th level, you instead gain 15 temporary HP.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "ternary(gte(@actor.level,15),15,10)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

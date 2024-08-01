@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> Your most recent action was to Feint, Request, or Demoralize, and you failed but didn't critically fail.</p>\n<hr />\n<p>After your attempt to influence someone goes poorly, you add another bit of information or ask a pointed question, possibly salvaging your previous attempt.</p>\n<p>Reroll the failed check and use the new result. If the target of the failed check is the subject of a lead you're pursuing, double your bonus from @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] on the rerolled check. That creature is temporarily immune to Just One More Thing for 1 day.</p>\n<p>You can also use this action if you failed, but didn't critically fail, at a check to Lie, Gather Information, Make an Impression, or Coerce. In this case, rather than spending 1 action, adding Just One More Thing takes you half the amount of time you initially spent on the check, to a minimum of 1 more round.</p>"
+            "value": "<p><strong>Requirements</strong> Your most recent action was to @UUID[Compendium.pf2e.actionspf2e.Item.Feint], @UUID[Compendium.pf2e.actionspf2e.Item.Request], or @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize], and you failed but didn't critically fail.</p><hr /><p>After your attempt to influence someone goes poorly, you add another bit of information or ask a pointed question, possibly salvaging your previous attempt. Reroll the failed check and use the new result. If the target of the failed check is involved with one of your active investigations, double your investigation bonus from Pursue a Lead on the rerolled check. That creature is temporarily immune to Just One More Thing for 1 day.</p>\n<p>You can also use this action if you failed, but didn't critically fail, at a check to Lie, Gather Information, @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression], or @UUID[Compendium.pf2e.actionspf2e.Item.Coerce]. In this case, rather than spending 1 action, adding Just One More Thing takes you half the amount of time you initially spent on the check, to a minimum of 1 more round.</p>"
         },
         "level": {
             "value": 10
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -32,16 +32,22 @@
                 "toggleable": true
             },
             {
-                "key": "FlatModifier",
+                "key": "AdjustModifier",
+                "mode": "multiply",
                 "predicate": [
-                    "just-one-more-thing"
+                    "just-one-more-thing",
+                    {
+                        "or": [
+                            "action:feint",
+                            "action:demoralize",
+                            "action:request"
+                        ]
+                    }
                 ],
-                "selector": [
-                    "perception",
-                    "skill-check"
-                ],
-                "type": "circumstance",
-                "value": 4
+                "priority": 41,
+                "selector": "skill-check",
+                "slug": "pursue-a-lead",
+                "value": 2
             }
         ],
         "traits": {

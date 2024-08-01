@@ -1,0 +1,66 @@
+{
+    "_id": "soHLtpMM9h3AE7PD",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Voluminous Vials",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your number of versatile vials per day increases to 5.</p><hr /><p><strong>Special</strong> At 12th level or higher, you can select this feat a second time to increase your number of versatile vials per day to 6. At 18th level or higher, you can select this feat a third time to increase your number of versatile vials per day to 7.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Alchemist Dedication"
+                },
+                {
+                    "value": "expert in Crafting"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.alchemist.maxItemLevel",
+                "phase": "beforeDerived",
+                "predicate": [
+                    "crafting:entry:alchemist"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 9,
+                            "start": 6,
+                            "value": 3
+                        },
+                        {
+                            "start": 10,
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

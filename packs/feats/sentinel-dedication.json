@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You have trained carefully to maximize the protective qualities of your armor.</p>\n<p>You become trained in light armor and medium armor. If you already were trained in light armor and medium armor, you gain training in heavy armor as well.</p>\n<p>Whenever you gain a class feature that grants you expert or greater proficiency in any type of armor (but not unarmored defense), you also gain that proficiency in the armor types granted to you by this feat. If you are at least 13th level and you have a class feature that grants you expert proficiency in unarmored defense, you also become an expert in the armor types granted to you by this feat.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.TnD2hTWTyjGKlw9b]{Sentinel} archetype.</p>"
+            "value": "<p>You have trained carefully to maximize the protective qualities of your armor. You become trained in light armor and medium armor. If you already were trained in light armor and medium armor, you gain training in heavy armor as well. Whenever you gain a class feature that grants you expert or greater proficiency in any type of armor (but not unarmored defense), you also gain that proficiency in the armor types granted to you by this feat. If you have a class feature that grants you expert proficiency in unarmored defense and you're 13th level or higher, you also become an expert in the armor types granted to you by this feat.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.TnD2hTWTyjGKlw9b]{Sentinel}</p>"
         },
         "level": {
             "value": 2
@@ -20,29 +20,11 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.heavy.rank",
-                "priority": 41,
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 12,
-                            "value": "min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank)*max(@actor.system.proficiencies.defenses.light.rank, @actor.system.proficiencies.defenses.medium.rank)"
-                        },
-                        {
-                            "start": 13,
-                            "value": "min(1,@actor.system.proficiencies.defenses.light.rank)*min(1,@actor.system.proficiencies.defenses.medium.rank)*max(@actor.system.proficiencies.defenses.light.rank,@actor.system.proficiencies.defenses.medium.rank,min(2,@actor.system.proficiencies.defenses.unarmored.rank))"
-                        }
-                    ]
-                }
-            },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",

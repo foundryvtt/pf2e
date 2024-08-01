@@ -1,0 +1,61 @@
+{
+    "_id": "uTBiXs4zWkmRG7qF",
+    "img": "systems/pf2e/icons/features/classes/evasion.webp",
+    "name": "Savvy Reflexes",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>With an eye for incoming danger, you masterfully keep yourself out of harm's way. Your proficiency rank for Reflex saves increases to master. When you roll a success on a Reflex save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 15
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "reflex",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Reflex",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "reflex": {
+                    "rank": 3
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -605,6 +605,7 @@ const featTraits = {
     artifact: "PF2E.TraitArtifact",
     auditory: "PF2E.TraitAuditory",
     aura: "PF2E.TraitAura",
+    bravado: "PF2e.TraitBravado",
     circus: "PF2E.TraitCircus",
     class: "TYPES.Item.class",
     composite: "PF2E.TraitComposite",

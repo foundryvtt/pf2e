@@ -1,0 +1,54 @@
+{
+    "_id": "HiIvez0TqESbleB5",
+    "img": "icons/equipment/head/helm-barbute-horned-gold-red.webp",
+    "name": "Obedience",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Society is ordered with good reason, and people should conduct themselves as appropriate for their proper place.</p>\n<p><strong>Edicts</strong> enforce proper hierarchies, topple illegitimate hierarchies, lead when you're the most suited to the task</p>\n<p><strong>Anathema</strong> let one who is lesser than you wield power over you or lead you</p><hr /><p><strong>Champion's Reaction</strong> @UUID[Compendium.pf2e.actionspf2e.Item.Iron Command]</p>\n<p><strong>Relentless Reaction (9th Level)</strong> If the enemy refuses, it takes persistent spirit damage equal to your Charisma modifier.</p>\n<p><strong>Exalted Reaction (11th Level)</strong> Each enemy in your champion's aura other than the triggering creature must also either drop @UUID[Compendium.pf2e.conditionitems.Item.Prone] or take mental damage (each enemy chooses). These creatures take only minimum damage (typically 3 damage at 11th level, 4 at 12th, 5 at 16th, and 6 at 19th), and the effects they take can't be adjusted by anything that changes your Iron Command. For instance, the Iron Repercussions feat couldn't turn the damage into persistent mental damage for creatures other than the triggering creature</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "or": [
+                            "class:champion",
+                            "feat:champions-reaction"
+                        ]
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Iron Command"
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "champion-cause"
+            ],
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -11,32 +11,33 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your faith makes you resistant to disease, protecting you as you offer succor to the ill. You gain a +1 status bonus to saves against diseases. In addition, if you roll a success on a save against a disease, you get a critical success instead.</p>"
+            "value": "<p>Your faith makes you resistant to disease, protecting you as you offer succor to the ill. You gain a +2 status bonus to saves against diseases and poisons and to flat checks to recover from persistent poison damage. Allies in your champion's aura get this benefit, but their bonus is +1.</p>\n<p>In addition, if you roll a success on a save against a disease or poison, you get a critical success instead. (Your allies don't share this benefit.) If you have the sacred body class feature, when you roll a critical failure on a save against a disease or poison, you get a failure instead.</p>"
         },
         "level": {
-            "value": 4
+            "value": 2
         },
         "prerequisites": {
-            "value": [
-                {
-                    "value": "tenets of good"
-                }
-            ]
+            "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "disease"
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "status",
-                "value": 1
+                "value": 2
             },
             {
                 "adjustment": {
@@ -44,9 +45,49 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "disease"
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
                 ],
                 "selector": "saving-throw"
+            },
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "feature:sacred-body",
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Divine Health"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "feature:champions-aura",
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
             }
         ],
         "traits": {

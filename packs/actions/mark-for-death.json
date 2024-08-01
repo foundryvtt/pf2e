@@ -11,12 +11,12 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Requirements</strong> You can see and hear the creature you intend to mark</p>\n<hr />\n<p><strong>Effect</strong> You designate a single creature as your mark. This lasts until the mark dies or you use Mark for Death again. You gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your mark and on Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against your mark.</p>\n<p>Your agile and finesse weapons and unarmed attacks gain the backstabber and deadly d6 weapon traits when you're attacking your mark.</p>\n<p>If the weapon or unarmed attack already has the deadly trait, increase the size of the deadly damage die by one step instead of giving it deadly d6.</p>"
+            "value": "<p><strong>Requirements</strong> The creature you intend to mark is observed by you</p><hr /><p><strong>Effect</strong> You designate a single creature as your mark. Using Mark for Death while @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] doesn't make you @UUID[Compendium.pf2e.conditionitems.Item.Observed]. Mark for Death lasts until the mark dies or you use Mark for Death again. You gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your mark, as well as to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against your mark. Your mark takes a –2 circumstance penalty to all Perception checks to Seek you. In addition, when attacking your mark, you have the sneak attack class feature, except it deals 1d4 precision damage and you don't increase the number of dice as you gain levels. At 6th level, the damage increases to 1d6. If you already have the sneak attack class feature, you instead deal an additional 1 precision damage with your sneak attacks made against your mark, increasing to 2 precision damage at 6th level.</p>"
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -144,7 +144,9 @@
         ],
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "concentrate"
+            ]
         }
     },
     "type": "action"

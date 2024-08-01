@@ -1,0 +1,55 @@
+{
+    "_id": "yBvGqA6Edp6ImaR3",
+    "img": "icons/magic/light/projectile-smoke-pink.webp",
+    "name": "Sorcerous Potency",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Because of the magical power inherent in your blood, your spells that hurt or cure are stronger than those of other spellcasters. When you Cast a Spell from your spell slots that either deals damage or restores Hit Points, you gain a status bonus to that spell's damage or healing equal to the spell's rank. This applies only to the initial damage or healing the spell deals when cast. An individual creature takes this damage or benefits from this healing only once per spell, even if the spell would damage or heal that creature multiple times.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "sorcerous-potency",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "phase": "afterDerived",
+                "predicate": [
+                    "item:spell-slot",
+                    "sorcerous-potency"
+                ],
+                "selector": [
+                    "spell-damage",
+                    "spell-healing"
+                ],
+                "type": "status",
+                "value": "@spell.level"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

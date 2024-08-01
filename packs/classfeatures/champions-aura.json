@@ -1,0 +1,56 @@
+{
+    "_id": "0x76o5OxgEmvqIDp",
+    "img": "icons/magic/control/buff-flight-wings-runes-blue-white.webp",
+    "name": "Champion's Aura",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're surrounded by an aura in a 15-foot emanation. It has the aura and divine traits. Any follower of your deity within the aura immediately knows you're a champion of your deity. This aura is used as the range for your champion's reaction and for various other effects. You can suppress or resume the aura as a single action, which has the concentrate trait, and it ends if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "champions-aura",
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.champion.aura",
+                "value": 15
+            },
+            {
+                "key": "Aura",
+                "predicate": [
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

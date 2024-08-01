@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -33,43 +33,7 @@
                     "check:substitution:devise-a-stratagem"
                 ],
                 "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "end": 12,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        },
-                        {
-                            "end": 16,
-                            "start": 13,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "start": 17,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        }
-                    ]
-                }
+                "value": "floor((@actor.level+3)/4)"
             }
         ],
         "traits": {

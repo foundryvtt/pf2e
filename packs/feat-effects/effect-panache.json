@@ -4,10 +4,10 @@
     "name": "Effect: Panache",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Panache]</p>\n<p>While you have panache, you gain a +5-foot status bonus to your Speeds and gain a +1 circumstance bonus to checks to Tumble Through or to take any actions that give you panache due to your style.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Panache]</p>\n<p><span style=\"font-family:Roboto, sans-serif\">You gain panache by performing actions that have the bravado trait.</span></p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,32 +16,11 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "panache"
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "grants-panache"
-                ],
-                "selector": "skill-check",
-                "type": "circumstance",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "selector": "speed",
-                "type": "status",
-                "value": 5
-            }
-        ],
+        "rules": [],
         "start": {
             "initiative": null,
             "value": 0

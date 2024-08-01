@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -30,7 +30,17 @@
                 "diceNumber": 1,
                 "key": "DamageDice",
                 "predicate": [
-                    "melee"
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             },
@@ -40,7 +50,17 @@
                 "diceNumber": 2,
                 "key": "DamageDice",
                 "predicate": [
-                    "melee"
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             }

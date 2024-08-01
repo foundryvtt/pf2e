@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You specialize in weapons that require two hands. You become trained in all simple and martial melee weapons that require two hands to wield or have the two-hand trait.</p>\n<p>Whenever you gain a class feature that grants you expert or greater proficiency in weapons, you also gain that proficiency rank in these weapons. If you are at least an expert in such a weapon, you gain access to the critical specialization effect with that weapon.</p>\n<p><strong>Special</strong> You can't select another dedication feat until you have gained two other feats from the @UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.RoF5NOFBefXAPftS]{Mauler} archetype.</p>"
+            "value": "<p>You specialize in melee weapons that require two hands. You have familiarity with all melee weapons that require two hands to wield or have the two-hand trait. For the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>If you are at least an expert in such a weapon, you gain access to the critical specialization effect with that weapon.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.RoF5NOFBefXAPftS]{Mauler}</p>"
         },
         "level": {
             "value": 2
@@ -24,20 +24,15 @@
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "definition": [
                     "item:melee",
-                    {
-                        "or": [
-                            "item:category:simple",
-                            "item:category:martial"
-                        ]
-                    },
+                    "item:category:martial",
                     {
                         "or": [
                             "item:usage:hands:2",
@@ -49,9 +44,28 @@
                     }
                 ],
                 "key": "MartialProficiency",
-                "label": "PF2E.SpecificRule.MartialProficiency.SimpleMartialTwoHandedMeleeWeapons",
-                "sameAs": "unarmed",
-                "slug": "simple-martial-two-hand-weapons"
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialTwoHandedMeleeWeapons",
+                "sameAs": "simple",
+                "slug": "martial-two-hand-weapons"
+            },
+            {
+                "definition": [
+                    "item:melee",
+                    "item:category:advanced",
+                    {
+                        "or": [
+                            "item:usage:hands:2",
+                            "item:trait:two-hand-d6",
+                            "item:trait:two-hand-d8",
+                            "item:trait:two-hand-d10",
+                            "item:trait:two-hand-d12"
+                        ]
+                    }
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTwoHandedMeleeWeapons",
+                "sameAs": "martial",
+                "slug": "advanced-two-hand-weapons"
             },
             {
                 "key": "CriticalSpecialization",

@@ -1,0 +1,104 @@
+{
+    "_id": "3XK573A7GH1rrLgO",
+    "img": "icons/skills/melee/strike-sword-dagger-runes-yellow.webp",
+    "name": "Relentless Reaction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your champion's reaction improves, typically to punish the attacker with spiritual backlash. It gains the relentless reaction benefit listed in your cause below your champion's reaction.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:flash-of-grandeur"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.RelentlessReaction.Grandeur"
+                    }
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "destructive-vengeance"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Champion.RelentlessReaction.Iniquity",
+                "title": "{item|name}"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "spirit",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "retributive-strike"
+                ],
+                "selector": "strike-damage",
+                "value": "@actor.abilities.cha.mod"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:liberating-step"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.RelentlessReaction.Liberation"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:glimpse-of-redemption",
+                            "item:slug:iron-command"
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.RelentlessReaction.ObedienceRedemption"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

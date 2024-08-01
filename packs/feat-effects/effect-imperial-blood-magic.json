@@ -16,14 +16,28 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "PF2E.ArmorClassLabel",
+                        "value": "ac"
+                    },
+                    {
+                        "label": "PF2E.SavesHeader",
+                        "value": "saving-throw"
+                    }
+                ],
+                "flag": "defense",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "skill-check",
+                "selector": "{item|flags.pf2e.rulesSelections.defense}",
                 "type": "status",
                 "value": 1
             }

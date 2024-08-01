@@ -1,0 +1,128 @@
+{
+    "_id": "ipaniua1HJ4qGzcr",
+    "img": "icons/magic/defensive/shield-barrier-flaming-pentagon-teal.webp",
+    "name": "Effect: Energy Ward",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Energy Ward]</p>\n<p>You gain resistance to one type of energy (<span style=\"font-family:Roboto, sans-serif\">acid, cold, electricity, fire, force, sonic, vitality, or void)</span> equal to 4 + the rank of the spell.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitForce",
+                        "value": "force"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitVitality",
+                        "value": "vitality"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "energy",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "value": 10
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.HeroPointDeck.AuraOfProtection.SpellRankPrompt"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.energy}",
+                "value": "4+@item.flags.pf2e.rulesSelections.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

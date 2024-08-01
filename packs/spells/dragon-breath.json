@@ -3,7 +3,10 @@
     "img": "systems/pf2e/icons/spells/dragon-breath.webp",
     "name": "Dragon Breath",
     "system": {
-        "area": null,
+        "area": {
+            "type": "cone",
+            "value": 30
+        },
         "cost": {
             "value": ""
         },
@@ -20,9 +23,14 @@
                 "type": "untyped"
             }
         },
-        "defense": null,
+        "defense": {
+            "save": {
+                "basic": true,
+                "statistic": "reflex"
+            }
+        },
         "description": {
-            "value": "<p>You spew energy from your mouth, dealing [[/r 5d6]] damage. The area, damage type, and save depend on the dragon type in your bloodline.</p>\n<h2>Dragon Breath</h2>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Dragon Type</th>\n<th>Area and damage type</th>\n<th>Saving Throw</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Black, Brine, or Copper</td>\n<td>60-foot line of acid</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Blue or Bronze</td>\n<td>60-foot line of electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Brass</td>\n<td>60-foot line of fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Cloud</td>\n<td>30-foot cone of electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Crystal or Forest</td>\n<td>30-foot cone of piercing</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Green</td>\n<td>30-foot cone of poison</td>\n<td>Fortitude</td>\n</tr>\n<tr>\n<td>Gold, Magma, or Red</td>\n<td>30-foot cone of fire</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Sea</td>\n<td>10-foot burst within 30 feet of bludgeoning</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Silver or White</td>\n<td>30-foot cone of cold</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Sky</td>\n<td>10-foot burst within 30 feet of electricity</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Sovereign</td>\n<td>30-foot cone of mental</td>\n<td>Will</td>\n</tr>\n<tr>\n<td>Umbral</td>\n<td>30-foot cone of negative</td>\n<td>Reflex</td>\n</tr>\n<tr>\n<td>Underworld</td>\n<td>10-foot burst within 30 feet of fire</td>\n<td>Reflex</td>\n</tr>\n</tbody>\n</table>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by [[/r 2d6]].</p>"
+            "value": "<p>You spew energy from your mouth, dealing 5d6 damage with a basic Reflex save. The damage type depends on the magical tradition related to the dragon that influenced your bloodline.</p><hr /><p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
         },
         "duration": {
             "sustained": false,
@@ -47,7 +55,20 @@
             "value": ""
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:dragon-breath"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "{actor|flags.pf2e.dragonBloodline.damageType}"
+            }
+        ],
         "target": {
             "value": ""
         },

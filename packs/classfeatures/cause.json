@@ -1,0 +1,76 @@
+{
+    "_id": "D4k8wuq1ncHFCBZz",
+    "img": "icons/sundries/flags/banner-symbol-sun-gold-red.webp",
+    "name": "Cause",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You devote yourself to a specific cause in your deity's name. Some are limited to sanctification, as noted in parentheses. Your cause adds to your edicts and anathema and grants you a special reaction called your champion's reaction, which appears after the divider, along with its upgrades if you gain the relentless reaction and exalted reaction class features at higher levels.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Desecration] (Unholy):</strong> You selfishly corrupt and destroy.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Grandeur] (Holy):</strong> You exemplify the glory and splendor of the celestial realms.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Iniquity] (Unholy):</strong> You destroy, take advantage, and act with dishonor.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Justice]:</strong> You follow laws and mete out just punishment.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Liberation]:</strong> You oppose tyranny and fight for freedom.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Obedience]:</strong> You enforce hierarchies and order.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Redemption] (Holy):</strong> You try to redeem those who commit wicked deeds.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:type:feature",
+                        "item:tag:champion-cause",
+                        {
+                            "or": [
+                                {
+                                    "and": [
+                                        "item:tag:holy",
+                                        "sanctification:holy"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "item:tag:unholy",
+                                        "sanctification:unholy"
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:tag:holy",
+                                        "item:tag:unholy"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "flag": "cause",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.DeityAndCause.Prompt"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.cause}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

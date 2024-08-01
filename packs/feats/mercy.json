@@ -4,37 +4,70 @@
     "name": "Mercy",
     "system": {
         "actionType": {
-            "value": "action"
+            "value": "passive"
         },
         "actions": {
-            "value": 1
+            "value": null
         },
         "category": "class",
         "description": {
-            "value": "<p>Your touch relieves fear and restores movement.</p>\n<p>If the next action you use is to cast @UUID[Compendium.pf2e.spells-srd.Item.Lay on Hands], you can attempt to counteract a fear effect or an effect imposing the @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] condition on the target, in addition to the other benefits of lay on hands.</p>"
+            "value": "<p>Your touch soothes the body or mind. You can cast lay on hands targeting a living creature using 2 actions instead of 1. If you do, you can attempt to counteract one condition of your choice affecting the target. When you select this feat, choose one of the following options, which determines the conditions you can choose:</p><ul><li><p><strong>Mercy of the Body</strong> @UUID[Compendium.pf2e.conditionitems.Item.Blinded], @UUID[Compendium.pf2e.conditionitems.Item.Dazzled], @UUID[Compendium.pf2e.conditionitems.Item.Deafened], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Sickened];</p></li><li><p><strong>Mercy of Grace</strong> @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Grabbed], @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed];</p></li><li><p><strong>Mercy of the Mind</strong> @UUID[Compendium.pf2e.conditionitems.Item.Fleeing], @UUID[Compendium.pf2e.conditionitems.Item.Frightened], @UUID[Compendium.pf2e.conditionitems.Item.Stupefied].</p></li></ul><hr /><p><strong>Special</strong> You can select this feat up to three times. Each time, choose a different type of mercy and add its options to those you can choose when you cast a 2-action lay on hands.</p>"
         },
         "level": {
             "value": 4
         },
+        "maxTakable": 3,
         "prerequisites": {
             "value": [
                 {
-                    "value": "devotion spell (lay on hands)"
+                    "value": "lay on hands"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Champion.Mercy.Body.Label",
+                        "predicate": [
+                            {
+                                "not": "mercy:body"
+                            }
+                        ],
+                        "value": "body"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.Mercy.Grace.Label",
+                        "predicate": [
+                            {
+                                "not": "mercy:grace"
+                            }
+                        ],
+                        "value": "grace"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Champion.Mercy.Mind.Label",
+                        "predicate": [
+                            {
+                                "not": "mercy:mind"
+                            }
+                        ],
+                        "value": "mind"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "mercy"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
-                "champion",
-                "concentrate",
-                "spellshape"
+                "champion"
             ]
         }
     },

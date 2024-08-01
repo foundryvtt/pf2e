@@ -1,0 +1,116 @@
+{
+    "_id": "uptzvOLrZ3fctrl2",
+    "img": "icons/skills/melee/swords-parry-block-yellow.webp",
+    "name": "Exalted Reaction",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your champion's reaction exalts nearby allies, allowing them to benefit as well. When you use your champion's reaction, you also get the effect listed for its exalted reaction.</p>"
+        },
+        "level": {
+            "value": 11
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:selfish-shield"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Desecration"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:flash-of-grandeur"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Grandeur"
+                    }
+                ]
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "destructive-vengeance"
+                ],
+                "selector": "strike-damage",
+                "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Iniquity",
+                "title": "{item|name}"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:retributive-strike"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Justice"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:liberating-step"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Liberation"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:iron:command"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Champion.ExaltedReaction.Obedience"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "champion"
+            ]
+        }
+    },
+    "type": "feat"
+}

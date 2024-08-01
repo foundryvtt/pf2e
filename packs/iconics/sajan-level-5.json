@@ -78,204 +78,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
-        },
-        {
-            "_id": "txvixnbf5ik8ht3s",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "naturalAmbition": {
-                            "id": "876on97cr80erz04"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Natural Ambition",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "choices": {
-                            "filter": [
-                                "item:level:1",
-                                "item:category:class",
-                                "item:trait:{actor|system.details.class.trait}",
-                                {
-                                    "or": [
-                                        "feature:dragon-instinct",
-                                        {
-                                            "not": "item:draconic-arrogance"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "nor": [
-                                        "item:animal-companion",
-                                        "item:animal-companion-druid",
-                                        "item:bardic-lore",
-                                        "item:fire-lung",
-                                        "item:lingering-composition",
-                                        "item:leshy-familiar",
-                                        "item:martial-performance",
-                                        "item:shore-step",
-                                        "item:steadying-stone",
-                                        "item:storm-born",
-                                        "item:versatile-performance",
-                                        "item:untamed-form"
-                                    ]
-                                }
-                            ],
-                            "itemType": "feat"
-                        },
-                        "flag": "naturalAmbition",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
-                        "selection": "Compendium.pf2e.feats-srd.Item.Tiger Stance"
-                    },
-                    {
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
-                    }
-                ],
-                "slug": "natural-ambition",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "876on97cr80erz04",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.VCjAlOvjNvFJOsG5"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "txvixnbf5ik8ht3s"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Tiger Stance",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes @Damage[1d4[bleed]].</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "selfEffect": {
-                    "name": "Stance: Tiger Stance",
-                    "uuid": "Compendium.pf2e.feat-effects.Item.Stance: Tiger Stance"
-                },
-                "slug": "tiger-stance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk",
-                        "stance"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "PmbIz2kjx58BXFZ3",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.yA9tsWT9uzL2REnw"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Ki Rush",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You can use ki to move with extraordinary speed and make yourself harder to hit. You gain the @UUID[Compendium.pf2e.spells-srd.Item.Ki Rush] ki spell and a focus pool of 1 Focus Point.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "ki-rush",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "10ljcayenbhp5nmy",
@@ -821,7 +627,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 5,
+                "quantity": 2,
                 "rules": [],
                 "size": "med",
                 "slug": "silver-pieces",
@@ -1148,303 +954,10 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
-        },
-        {
-            "_id": "7jPsDcMBaL5Ua9bv",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/ki-rush.webp",
-            "name": "Ki Rush",
-            "sort": 0,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": null,
-                "description": {
-                    "value": "<p>Accelerated by your ki, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "ilIgpzbt2yQUyheA"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "range": {
-                    "value": ""
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "ki-rush",
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "concentrate",
-                        "focus",
-                        "monk"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "xm7kk8mrqpknxl7n",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.KcbSxOPYC5CUqbZQ"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "cleverImproviser": {
-                            "id": "4nzsfmx5by8pss9f"
-                        }
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Clever Improviser",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You've learned how to handle situations when you're out of your depth. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Untrained Improvisation] general feat. In addition, you can attempt skill actions that normally require you to be trained, even if you are untrained.</p>"
-                },
-                "level": {
-                    "taken": 5,
-                    "value": 5
-                },
-                "location": "ancestry-5",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Untrained Improvisation"
-                    }
-                ],
-                "slug": "clever-improviser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "human"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "4nzsfmx5by8pss9f",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.9jGaBxLUtevZYcZO"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "xm7kk8mrqpknxl7n"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Untrained Improvisation",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to half your level instead of +0. If you're 7th level or higher, the bonus increases to your full level instead. This doesn't allow you to use the skill's trained actions.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "selector": "skill-check",
-                        "type": "proficiency",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "value": "floor(@actor.level / 2)"
-                                },
-                                {
-                                    "start": 7,
-                                    "value": "@actor.level"
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "untrained-improvisation",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "7tA66wP37Ysc8GIl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.wB1ONG2uO7RnD1iC"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Flying Kick",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 2
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You launch yourself at a foe. Make a @UUID[Compendium.pf2e.actionspf2e.Item.Leap] or attempt a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>\n<p>At the end of the jump, if you're adjacent to a foe, you can immediately Strike that foe with an unarmed attack, even if the foe is in midair. You fall to the ground after the Strike. If the distance you fall is no more than the height of your jump, you land upright and take no damage.</p>"
-                },
-                "level": {
-                    "taken": 4,
-                    "value": 4
-                },
-                "location": "class-4",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "flying-kick",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "DTuFKrM46TAKmvqL",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.8bMmGBO6gsMfWZk3"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Stunning Fist",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
-                },
-                "level": {
-                    "taken": 2,
-                    "value": 2
-                },
-                "location": "class-2",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "Flurry of Blows"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "domain": "damage",
-                        "key": "RollOption",
-                        "option": "stunning-fist",
-                        "toggleable": true
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "stunning-fist"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "PF2E.SpecificRule.Monk.StunningFist.Note",
-                        "title": "{item|name}"
-                    }
-                ],
-                "slug": "stunning-fist",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "xZiICASHLtNA4eiX",
@@ -1545,81 +1058,6 @@
                 }
             },
             "type": "feat"
-        },
-        {
-            "_id": "iGouEO4PrBXF6Xcb",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.equipment-srd.Item.TZUskLT7yvP7N2co"
-                }
-            },
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
-            "name": "Elixir of Life (Lesser)",
-            "sort": 0,
-            "system": {
-                "baseItem": null,
-                "bulk": {
-                    "value": 0.1
-                },
-                "category": "elixir",
-                "containerId": "10ljcayenbhp5nmy",
-                "damage": {
-                    "formula": "3d6+6",
-                    "kind": "healing",
-                    "type": "untyped"
-                },
-                "description": {
-                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r (3d6+6)[healing]]]{3d6+6 Hit Points} and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life (Lesser)]</p>"
-                },
-                "equipped": {
-                    "carryType": "worn",
-                    "handsHeld": 0
-                },
-                "hardness": 0,
-                "hp": {
-                    "max": 0,
-                    "value": 0
-                },
-                "level": {
-                    "value": 5
-                },
-                "material": {
-                    "grade": null,
-                    "type": null
-                },
-                "price": {
-                    "value": {
-                        "gp": 30
-                    }
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder GM Core"
-                },
-                "quantity": 2,
-                "rules": [],
-                "size": "med",
-                "slug": "elixir-of-life-lesser",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemical",
-                        "consumable",
-                        "elixir",
-                        "healing"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "max": 1,
-                    "value": 1
-                }
-            },
-            "type": "consumable"
         },
         {
             "_id": "xpWHMQLItEwWHjS1",
@@ -1741,7 +1179,7 @@
                     "remaster": false,
                     "title": "Pathfinder Core Rulebook"
                 },
-                "quantity": 17,
+                "quantity": 30,
                 "rules": [],
                 "size": "med",
                 "slug": "gold-pieces",
@@ -2475,650 +1913,6 @@
             "type": "weapon"
         },
         {
-            "_id": "1nG9xYYyqDyIQHEe",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Weapon Proficiency (Martial)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "general",
-                "description": {
-                    "value": "<p>You become trained in all simple weapons. If you were already trained in all simple weapons, you become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in additional weapons as appropriate, following the above progression.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.martial.rank",
-                        "value": "min(1,@actor.system.proficiencies.attacks.simple.rank)"
-                    }
-                ],
-                "slug": "weapon-proficiency",
-                "subfeatures": {
-                    "proficiencies": {
-                        "simple": {
-                            "rank": 1
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "ne1w7Gf79qwMeuus",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.YPxpk9JbMnKjbNLc"
-                }
-            },
-            "img": "systems/pf2e/icons/classes/monk.webp",
-            "name": "Monk",
-            "sort": 0,
-            "system": {
-                "ancestryFeatLevels": {
-                    "value": [
-                        1,
-                        5,
-                        9,
-                        13,
-                        17
-                    ]
-                },
-                "attacks": {
-                    "advanced": 0,
-                    "martial": 0,
-                    "other": {
-                        "name": "",
-                        "rank": 0
-                    },
-                    "simple": 1,
-                    "unarmed": 1
-                },
-                "classFeatLevels": {
-                    "value": [
-                        1,
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "defenses": {
-                    "heavy": 0,
-                    "light": 0,
-                    "medium": 0,
-                    "unarmored": 2
-                },
-                "description": {
-                    "value": "<p><em>The strength of your fist flows from your mind and spirit. You seek perfection-honing your body into a flawless instrument and your mind into an orderly bastion of wisdom. You're a fierce combatant renowned for martial arts skills and combat stances that grant you unique fighting moves. While the challenge of mastering many fighting styles drives you to great heights, you also enjoy meditating on philosophical questions and discovering new ways to obtain peace and enlightenment.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.hGKd722Kn4ZxIOJs]{Monk}</em></p>"
-                },
-                "generalFeatLevels": {
-                    "value": [
-                        3,
-                        7,
-                        11,
-                        15,
-                        19
-                    ]
-                },
-                "hp": 10,
-                "items": {
-                    "1fw9s": {
-                        "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
-                        "level": 3,
-                        "name": "Mystic Strikes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Mystic Strikes"
-                    },
-                    "2yqet": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
-                        "level": 7,
-                        "name": "Weapon Specialization",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
-                    },
-                    "3ohvk": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 11,
-                        "name": "Second Path to Perfection",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Path to Perfection"
-                    },
-                    "4ru9g": {
-                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
-                        "level": 15,
-                        "name": "Greater Weapon Specialization (Level 15)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
-                    },
-                    "8tl8t": {
-                        "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
-                        "level": 3,
-                        "name": "Incredible Movement",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Incredible Movement"
-                    },
-                    "ai4sq": {
-                        "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
-                        "level": 5,
-                        "name": "Expert Strikes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Strikes"
-                    },
-                    "bgd0f": {
-                        "img": "icons/creatures/eyes/human-single-blue.webp",
-                        "level": 5,
-                        "name": "Alertness",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
-                    },
-                    "c8q3r": {
-                        "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
-                        "level": 1,
-                        "name": "Flurry of Blows",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Flurry of Blows"
-                    },
-                    "dzcvw": {
-                        "img": "systems/pf2e/icons/features/classes/graceful-legend.webp",
-                        "level": 17,
-                        "name": "Graceful Legend",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Legend"
-                    },
-                    "iqbky": {
-                        "img": "icons/skills/melee/unarmed-punch-fist.webp",
-                        "level": 1,
-                        "name": "Powerful Fist",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
-                    },
-                    "k3mxz": {
-                        "img": "systems/pf2e/icons/features/classes/graceful-mastery.webp",
-                        "level": 13,
-                        "name": "Graceful Mastery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Mastery"
-                    },
-                    "t4zic": {
-                        "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
-                        "level": 9,
-                        "name": "Monk Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Monk Expertise"
-                    },
-                    "udbeu": {
-                        "img": "systems/pf2e/icons/features/classes/metal-strikes.webp",
-                        "level": 9,
-                        "name": "Metal Strikes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Metal Strikes"
-                    },
-                    "xcxpa": {
-                        "img": "systems/pf2e/icons/features/classes/adamantine-strikes.webp",
-                        "level": 17,
-                        "name": "Adamantine Strikes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Adamantine Strikes"
-                    },
-                    "z0s0v": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 7,
-                        "name": "Path to Perfection",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Path to Perfection"
-                    },
-                    "zeyz5": {
-                        "img": "systems/pf2e/icons/features/classes/perfected-form.webp",
-                        "level": 19,
-                        "name": "Perfected Form",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perfected Form"
-                    },
-                    "zgtbz": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 15,
-                        "name": "Third Path to Perfection",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Third Path to Perfection"
-                    },
-                    "zl9gg": {
-                        "img": "icons/magic/fire/flame-burning-fist-strike.webp",
-                        "level": 13,
-                        "name": "Master Strikes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Strikes"
-                    }
-                },
-                "keyAbility": {
-                    "value": [
-                        "dex",
-                        "str"
-                    ]
-                },
-                "perception": 1,
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "savingThrows": {
-                    "fortitude": 2,
-                    "reflex": 2,
-                    "will": 2
-                },
-                "skillFeatLevels": {
-                    "value": [
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "skillIncreaseLevels": {
-                    "value": [
-                        3,
-                        5,
-                        7,
-                        9,
-                        11,
-                        13,
-                        15,
-                        17,
-                        19
-                    ]
-                },
-                "slug": "monk",
-                "spellcasting": 0,
-                "trainedSkills": {
-                    "additional": 4,
-                    "value": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "class"
-        },
-        {
-            "_id": "Zpn9iQNCqivUKLBl",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.NLHHHiAcdnZ5ohc2"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
-            "name": "Flurry of Blows",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You can attack rapidly with fists, feet, elbows, knees, and other unarmed attacks. You gain the Flurry of Blows action.</p>\n<hr />\n<p>Make two unarmed @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes}. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As it has the flourish trait, you can use Flurry of Blows only once per turn.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "flurry-of-blows",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "flourish",
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "JXHXyIwrI321C6ED",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.SB8UJ8rZmvbcBweJ"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
-            "name": "Powerful Fist",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You know how to wield your fists as deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. Most people take a -2 circumstance penalty when making a lethal attack with nonlethal unarmed attacks, because they find it hard to use their fists with deadly force. You don't take this penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "fist": true,
-                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
-                        "key": "Strike"
-                    },
-                    {
-                        "itemId": "xxxxxxFISTxxxxxx",
-                        "key": "ItemAlteration",
-                        "mode": "upgrade",
-                        "property": "damage-dice-faces"
-                    }
-                ],
-                "slug": "powerful-fist",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "a8x0VnrQXHji61it",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Cq6NjvcKZOMySBVj"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
-            "name": "Incredible Movement",
-            "sort": 600,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You move like the wind. You gain a +10-foot status bonus to your Speed whenever you're not wearing armor. The bonus increases by 5 feet for every 4 levels you have beyond 3rd.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "predicate": [
-                            {
-                                "not": "self:armored"
-                            }
-                        ],
-                        "selector": "land-speed",
-                        "slug": "incredible-movement",
-                        "type": "status",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 6,
-                                    "start": 3,
-                                    "value": 10
-                                },
-                                {
-                                    "end": 10,
-                                    "start": 7,
-                                    "value": 15
-                                },
-                                {
-                                    "end": 14,
-                                    "start": 11,
-                                    "value": 20
-                                },
-                                {
-                                    "end": 18,
-                                    "start": 15,
-                                    "value": 25
-                                },
-                                {
-                                    "start": 19,
-                                    "value": 30
-                                }
-                            ]
-                        }
-                    }
-                ],
-                "slug": "incredible-movement",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "N8yus35qvXFJ7KXo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
-                }
-            },
-            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
-            "name": "Mystic Strikes",
-            "sort": 900,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
-                },
-                "level": {
-                    "value": 3
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "definition": [
-                            "item:category:unarmed"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "property": "weapon-traits",
-                        "value": "magical"
-                    },
-                    {
-                        "definition": [
-                            "item:trait:monk"
-                        ],
-                        "key": "AdjustStrike",
-                        "mode": "add",
-                        "predicate": [
-                            "feat:monastic-weaponry"
-                        ],
-                        "property": "weapon-traits",
-                        "value": "magical"
-                    }
-                ],
-                "slug": "mystic-strikes",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "yuBb165x395x7l45",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.D8CSi8c9XiRpVc5M"
-                }
-            },
-            "img": "icons/creatures/eyes/human-single-blue.webp",
-            "name": "Alertness",
-            "sort": 2000,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Experience has made you increasingly aware of threats around you, and you react more quickly to danger. Your proficiency rank for Perception increases to expert.</p>"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "alertness",
-                "subfeatures": {
-                    "proficiencies": {
-                        "perception": {
-                            "rank": 2
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "05poxXZNjI7hg6at",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
-                }
-            },
-            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
-            "name": "Expert Strikes",
-            "sort": 2500,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert.</p>"
-                },
-                "level": {
-                    "value": 5
-                },
-                "location": "ne1w7Gf79qwMeuus",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "expert-strikes",
-                "subfeatures": {
-                    "proficiencies": {
-                        "simple": {
-                            "rank": 2
-                        },
-                        "unarmed": {
-                            "rank": 2
-                        }
-                    }
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "monk"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "LBXAJlwl0h8gevbT",
             "flags": {
                 "core": {
@@ -3253,6 +2047,1311 @@
                 "traits": {
                     "rarity": "common",
                     "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "Ks9agTfXGNMPAmvW",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.YPxpk9JbMnKjbNLc"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/monk.webp",
+            "name": "Monk",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 0,
+                    "medium": 0,
+                    "unarmored": 2
+                },
+                "description": {
+                    "value": "<p><em>The strength of your fist flows from your mind and spirit. You seek perfection-honing your body into a flawless instrument and your mind into an orderly bastion of wisdom. You're a fierce combatant renowned for martial arts skills and combat stances that grant you unique fighting moves. While the challenge of mastering many fighting styles drives you to great heights, you also enjoy meditating on philosophical questions and discovering new ways to obtain peace and enlightenment.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.hGKd722Kn4ZxIOJs]{Monk}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 10,
+                "items": {
+                    "1fw9s": {
+                        "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+                        "level": 3,
+                        "name": "Mystic Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Mystic Strikes"
+                    },
+                    "2yqet": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 7,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "3ohvk": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 11,
+                        "name": "Second Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Path to Perfection"
+                    },
+                    "4ru9g": {
+                        "img": "icons/skills/melee/hand-grip-sword-orange.webp",
+                        "level": 15,
+                        "name": "Greater Weapon Specialization (Level 15)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Weapon Specialization"
+                    },
+                    "8tl8t": {
+                        "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+                        "level": 3,
+                        "name": "Incredible Movement",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Incredible Movement"
+                    },
+                    "ai4sq": {
+                        "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
+                        "level": 5,
+                        "name": "Expert Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Strikes"
+                    },
+                    "c8q3r": {
+                        "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
+                        "level": 1,
+                        "name": "Flurry of Blows",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Flurry of Blows"
+                    },
+                    "dZCTM": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 5,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
+                    },
+                    "dzcvw": {
+                        "img": "systems/pf2e/icons/features/classes/graceful-legend.webp",
+                        "level": 17,
+                        "name": "Graceful Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Legend"
+                    },
+                    "iqbky": {
+                        "img": "icons/skills/melee/unarmed-punch-fist.webp",
+                        "level": 1,
+                        "name": "Powerful Fist",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Fist"
+                    },
+                    "k3mxz": {
+                        "img": "systems/pf2e/icons/features/classes/graceful-mastery.webp",
+                        "level": 13,
+                        "name": "Graceful Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Graceful Mastery"
+                    },
+                    "t4zic": {
+                        "img": "icons/magic/unholy/silhouette-robe-evil-power.webp",
+                        "level": 9,
+                        "name": "Monk Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Monk Expertise"
+                    },
+                    "udbeu": {
+                        "img": "systems/pf2e/icons/features/classes/metal-strikes.webp",
+                        "level": 9,
+                        "name": "Metal Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Metal Strikes"
+                    },
+                    "xcxpa": {
+                        "img": "systems/pf2e/icons/features/classes/adamantine-strikes.webp",
+                        "level": 17,
+                        "name": "Adamantine Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Adamantine Strikes"
+                    },
+                    "z0s0v": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 7,
+                        "name": "Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Path to Perfection"
+                    },
+                    "zeyz5": {
+                        "img": "systems/pf2e/icons/features/classes/perfected-form.webp",
+                        "level": 19,
+                        "name": "Perfected Form",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perfected Form"
+                    },
+                    "zgtbz": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 15,
+                        "name": "Third Path to Perfection",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Third Path to Perfection"
+                    },
+                    "zl9gg": {
+                        "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+                        "level": 13,
+                        "name": "Master Strikes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Strikes"
+                    }
+                },
+                "keyAbility": {
+                    "selected": "dex",
+                    "value": [
+                        "dex",
+                        "str"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "monk",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 4,
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "c55XWvo1nUmuvgxu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.NLHHHiAcdnZ5ohc2"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/flurry-of-blows.webp",
+            "name": "Flurry of Blows",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Make two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to the Strikes normally. As a flourish ability, you can use Flurry of Blows only once per turn.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "flurry-of-blows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "flourish",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "qMNy4ocgA9XePZ6t",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.SB8UJ8rZmvbcBweJ"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+            "name": "Powerful Fist",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your fists are deadly weapons. The damage die for your fist increases to 1d6 instead of 1d4. You don't take the normal –2 circumstance penalty when making a lethal attack with your fist or any other unarmed attacks.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "fist": true,
+                        "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                        "key": "Strike"
+                    },
+                    {
+                        "itemId": "xxxxxxFISTxxxxxx",
+                        "key": "ItemAlteration",
+                        "mode": "upgrade",
+                        "property": "damage-dice-faces"
+                    }
+                ],
+                "slug": "powerful-fist",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "R444mgC27v0NGm3h",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.D2AE8RfMlZ3D1FuV"
+                }
+            },
+            "img": "icons/magic/fire/flame-burning-embers-yellow.webp",
+            "name": "Mystic Strikes",
+            "sort": 600,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Focusing your will into your physical attacks imbues them with mystical energy. Your unarmed attacks become magical, allowing them to get past resistances to non-magical attacks. However, you still need an item such as @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows]{Handwraps of Mighty Blows (+1)} to gain an item bonus to attack rolls or increase your attacks' weapon damage dice.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:category:unarmed"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "property": "weapon-traits",
+                        "value": "magical"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:monk"
+                        ],
+                        "key": "AdjustStrike",
+                        "mode": "add",
+                        "predicate": [
+                            "feat:monastic-weaponry"
+                        ],
+                        "property": "weapon-traits",
+                        "value": "magical"
+                    }
+                ],
+                "slug": "mystic-strikes",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "3wFIGs4h0yOWdZ8D",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.Cq6NjvcKZOMySBVj"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/incredible-movement.webp",
+            "name": "Incredible Movement",
+            "sort": 900,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You move like the wind. You gain a +10-foot status bonus to your Speed whenever you're not wearing armor. The bonus increases by 5 feet for every 4 levels you have beyond 3rd.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "not": "self:armored"
+                            }
+                        ],
+                        "selector": "land-speed",
+                        "slug": "incredible-movement",
+                        "type": "status",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 6,
+                                    "start": 3,
+                                    "value": 10
+                                },
+                                {
+                                    "end": 10,
+                                    "start": 7,
+                                    "value": 15
+                                },
+                                {
+                                    "end": 14,
+                                    "start": 11,
+                                    "value": 20
+                                },
+                                {
+                                    "end": 18,
+                                    "start": 15,
+                                    "value": 25
+                                },
+                                {
+                                    "start": 19,
+                                    "value": 30
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "slug": "incredible-movement",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "bpB8wllNAhKQRoB0",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.VgZIutWjFl8oZQFi"
+                }
+            },
+            "img": "icons/skills/melee/hand-grip-staff-yellow-brown.webp",
+            "name": "Expert Strikes",
+            "sort": 2000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You've practiced martial arts and have now surpassed your former skill. Your proficiency ranks for unarmed attacks and simple weapons increase to expert. When you get a critical hit with an unarmed attack in the brawling group, you get its critical specialization effect.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            "item:category:unarmed",
+                            "item:group:brawling"
+                        ]
+                    }
+                ],
+                "slug": "expert-strikes",
+                "subfeatures": {
+                    "proficiencies": {
+                        "simple": {
+                            "rank": 2
+                        },
+                        "unarmed": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "UW1zUAKM9SJ8jSuQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.JCqACxgrm5ixX0Jy"
+                }
+            },
+            "img": "icons/creatures/eyes/human-single-blue.webp",
+            "name": "Perception Expertise",
+            "sort": 2500,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You remain alert to threats around you. Your proficiency rank for Perception increases to expert.</p>"
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": "Ks9agTfXGNMPAmvW",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "perception-expertise",
+                "subfeatures": {
+                    "proficiencies": {
+                        "perception": {
+                            "rank": 2
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "iDofdffIJNnS51Sn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.ps0nmhclT6aIXgd8"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/ki-rush.webp",
+            "name": "Qi Rush",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {},
+                "defense": null,
+                "description": {
+                    "value": "<p>Accelerated by your qi, you move with such speed you become a blur. Move two times: two Strides, two Steps, or one Stride and one Step (in either order).</p>\n<p>You gain the @UUID[Compendium.pf2e.conditionitems.Item.Concealed] condition during this movement and until the start of your next turn.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "ilIgpzbt2yQUyheA"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "range": {
+                    "value": ""
+                },
+                "requirements": "",
+                "ritual": null,
+                "rules": [],
+                "slug": "qi-rush",
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1"
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "traditions": [],
+                    "value": [
+                        "concentrate",
+                        "focus",
+                        "monk"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "0EuwrINKDz8IZFm7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "tigerStance": {
+                            "id": "07VbvnValiBOclG4",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 192000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Tiger Stance"
+                    },
+                    {
+                        "flag": "tigerStance",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "07VbvnValiBOclG4",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.VCjAlOvjNvFJOsG5"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "0EuwrINKDz8IZFm7",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Tiger Stance",
+            "sort": 233800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are unarmored</p>\n<hr />\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes @Damage[1d4[bleed]].</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Stance: Tiger Stance",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Stance: Tiger Stance"
+                },
+                "slug": "tiger-stance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk",
+                        "stance"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "uBgao8kL2igaSajV",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.KcbSxOPYC5CUqbZQ"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "untrainedImprovisation": {
+                            "id": "TgTFC2zatPBNPg0U",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Clever Improviser",
+            "sort": 155200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You've learned how to handle situations when you're out of your depth. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Untrained Improvisation] general feat. In addition, you can attempt skill actions that normally require you to be trained, even if you are untrained.</p>"
+                },
+                "level": {
+                    "taken": 5,
+                    "value": 5
+                },
+                "location": "ancestry-5",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "untrainedImprovisation",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Untrained Improvisation"
+                    }
+                ],
+                "slug": "clever-improviser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "TgTFC2zatPBNPg0U",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.9jGaBxLUtevZYcZO"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "uBgao8kL2igaSajV",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Untrained Improvisation",
+            "sort": 73300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You've learned how to handle situations when you're out of your depth. Your proficiency bonus to untrained skill checks is equal to your level –2. This improves to your level –1 at 5th level and your full level at 7th level. This doesn't allow you to use the skill's trained actions.</p>"
+                },
+                "level": {
+                    "value": 3
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "skill-check",
+                        "type": "proficiency",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 4,
+                                    "value": "@actor.level -2"
+                                },
+                                {
+                                    "end": 6,
+                                    "start": 5,
+                                    "value": "@actor.level -1"
+                                },
+                                {
+                                    "start": 7,
+                                    "value": "@actor.level"
+                                }
+                            ],
+                            "field": "actor|level"
+                        }
+                    }
+                ],
+                "slug": "untrained-improvisation",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "6n6kAHsXxeX9v00z",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.yA9tsWT9uzL2REnw"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Qi Spells",
+            "sort": 451700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You have cultivated your qi to produce magical effects. You gain @UUID[Compendium.pf2e.spells-srd.Item.Inner Upheaval], @UUID[Compendium.pf2e.spells-srd.Item.Qi Rush], or another 1st-rank monk qi spell you have access to.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "qi-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "lGhkd5XTPvzJmTZ1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.8bMmGBO6gsMfWZk3"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Stunning Blows",
+            "sort": 65400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>The focused power of your flurry threatens to overwhelm your opponent. When you target the same creature with two Strikes from your @UUID[Compendium.pf2e.actionspf2e.Item.Flurry of Blows], you can try to stun the creature. If either Strike hits and deals damage, the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1} (or @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 3} on a critical failure). This is an incapacitation effect.</p>"
+                },
+                "level": {
+                    "taken": 2,
+                    "value": 2
+                },
+                "location": "class-2",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "Flurry of Blows"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "stunning-blows",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "stunning-blows"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "PF2E.SpecificRule.Monk.StunningFist.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "stunning-blows",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "db7ZutYPdB2b6G93",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.wB1ONG2uO7RnD1iC"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Flying Kick",
+            "sort": 437600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You launch yourself at a foe. Make a @UUID[Compendium.pf2e.actionspf2e.Item.Leap] or attempt a @UUID[Compendium.pf2e.actionspf2e.Item.High Jump] or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump].</p>\n<p>At the end of the jump, if you're adjacent to a foe, you can immediately Strike that foe with an unarmed attack, even if the foe is in midair. You fall to the ground after the Strike. If the distance you fall is no more than the height of your jump, you land upright and take no damage.</p>"
+                },
+                "level": {
+                    "taken": 4,
+                    "value": 4
+                },
+                "location": "class-4",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "flying-kick",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "monk"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "b2Dl4sGYNWmR8eER",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.x9wxQ61HNkAVbDHr"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Weapon Proficiency (Martial)",
+            "sort": 444200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "general",
+                "description": {
+                    "value": "<p>You become trained in all martial weapons. If you were already trained in all martial weapons, you become trained in one advanced weapon of your choice. If you are at least 11th level, you also become an expert in these weapons.</p>\n<hr />\n<p><strong>Special</strong> You can select this feat more than once. Each time you do, you become trained in an advanced weapon.</p>"
+                },
+                "level": {
+                    "taken": 5,
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.martial.rank",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    11
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    }
+                ],
+                "slug": "weapon-proficiency",
+                "subfeatures": {
+                    "proficiencies": {
+                        "martial": {
+                            "rank": 1
+                        }
+                    }
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "CeSgaMw7zTEt0FXj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.0CNSvLpeSM4aIfPJ"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/talismans/feather-step-stone.webp",
+            "name": "Feather Step Stone",
+            "sort": 1600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "talisman",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">F</span> (concentrate)</p>\n<p><strong>Trigger</strong> You Stride or Step</p>\n<p><strong>Requirements</strong> You are trained in Acrobatics</p>\n<hr />\n<p>This stone, usually shaped as a cabochon, is a small chunk of amber with a bit of feather or a flying insect caught within it. When you activate the stone, you ignore the effects of any difficult terrain and greater difficult terrain you move through until the end of your turn.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 3
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 8
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "feather-step-stone",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "magical",
+                        "talisman"
+                    ]
+                },
+                "usage": {
+                    "value": "affixed-to-armor"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "ynaYxkdVOjISwQOw",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.GyO89RBVjAKFxsFm"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/mistform-elixir.webp",
+            "name": "Mistform Elixir (Lesser)",
+            "sort": 131600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "elixir",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A faint mist emanates from your skin, making you @UUID[Compendium.pf2e.conditionitems.Item.Concealed] for 3 rounds.</p>\n<p>As usual being concealed when your position is still obvious, you can't use this concealment to @UUID[Compendium.pf2e.actionspf2e.Item.Hide] or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak].</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 4
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 18
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "mistform-elixir-lesser",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir",
+                        "illusion",
+                        "visual"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"

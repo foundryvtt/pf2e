@@ -4,10 +4,10 @@
     "name": "Effect: Hag Blood Magic",
     "system": {
         "description": {
-            "value": "<p>Spiteful curses punish your foes. The first creature that deals damage to you before the end of your next turn takes 2 mental damage per spell rank and must attempt a basic Will save.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Bloodline: Hag]</p>\n<p>You gain temporary Hit Points equal to the spell's rank.</p>"
         },
         "duration": {
-            "expiry": "turn-end",
+            "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
             "value": 1
@@ -16,11 +16,16 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "TempHP",
+                "value": "@item.level"
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0

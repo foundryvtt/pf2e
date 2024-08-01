@@ -32,8 +32,32 @@
                 "slug": "devise-a-stratagem"
             },
             {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "devise-a-stratagem",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Attack",
+                        "value": "attack"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Skill",
+                        "value": "skill"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Defensive",
+                        "predicate": [
+                            "feat:defensive-stratagem"
+                        ],
+                        "value": "defensive"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
                 "key": "SubstituteRoll",
                 "predicate": [
+                    "devise-a-stratagem:attack",
                     "target:mark:devise-a-stratagem"
                 ],
                 "removeAfterRoll": "if-enabled",
@@ -45,6 +69,7 @@
             {
                 "key": "SubstituteRoll",
                 "predicate": [
+                    "devise-a-stratagem:attack",
                     "feat:athletic-strategist",
                     {
                         "or": [
@@ -66,6 +91,52 @@
                 "selector": "athletics",
                 "slug": "devise-a-strategem",
                 "value": "@item.badge.value"
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Skill",
+                "predicate": [
+                    "devise-a-stratagem:skill"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": [
+                    "perception",
+                    "cha-skill-check",
+                    "int-skill-check",
+                    "wis-skill-check"
+                ],
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "devise-a-stratagem:skill"
+                ],
+                "selectors": [
+                    "perception",
+                    "cha-skill-check",
+                    "int-skill-check",
+                    "wis-skill-check"
+                ],
+                "slug": "pursue-a-lead",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Investigator.DeviseAStratagem.Defensive",
+                "predicate": [
+                    "devise-a-stratagem:defensive"
+                ],
+                "selector": [
+                    "ac",
+                    "fortitude",
+                    "reflex",
+                    "will"
+                ],
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "start": {

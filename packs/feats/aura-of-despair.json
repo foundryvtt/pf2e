@@ -1,7 +1,7 @@
 {
     "_id": "wjnfdh6WzN7HbmeE",
     "img": "icons/sundries/books/book-red-exclamation.webp",
-    "name": "Aura Of Despair",
+    "name": "Aura of Despair",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your presence as an avatar of evil makes your foes more susceptible to terror and makes it almost impossible for them to shake off fear when you are near.</p>\n<p>Enemies within 15 feet of you take a -1 circumstance penalty to saving throws against fear. In addition, an enemy that ends its turn within 15 feet of you can't reduce the value of its @UUID[Compendium.pf2e.conditionitems.Item.Frightened] condition below 1.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Despair]</p>"
+            "value": "<p>Your presence as an avatar of evil makes your foes more susceptible to terror and makes it almost impossible for them to shake off fear when you are near. Enemies in your champion's aura take a –1 circumstance penalty to saving throws against fear. In addition, an enemy that ends its turn in your champion's aura can't reduce the value of its frightened condition below 1.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Aura of Despair]</p>"
         },
         "level": {
             "value": 4
@@ -19,14 +19,17 @@
         "prerequisites": {
             "value": [
                 {
-                    "value": "tenets of evil"
+                    "value": "champion's aura"
+                },
+                {
+                    "value": "unholy"
                 }
             ]
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -37,8 +40,14 @@
                     }
                 ],
                 "key": "Aura",
-                "radius": 15,
-                "slug": "aura-of-despair"
+                "predicate": [
+                    "champions-aura",
+                    {
+                        "not": "self:condition:unconscious"
+                    }
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
             }
         ],
         "traits": {

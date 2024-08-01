@@ -1,0 +1,61 @@
+{
+    "_id": "uuHRYE8Oljk1ORxJ",
+    "img": "systems/pf2e/icons/features/feats/wolf-stance.webp",
+    "name": "Dogged Will",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>In your pursuit of truth and knowledge, you won't be dissuaded. Your proficiency rank for Will saves increases to master. When you roll a success on a Will save, you get a critical success instead.</p>"
+        },
+        "level": {
+            "value": 11
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "success"
+                ],
+                "selector": "will",
+                "text": "PF2E.SpecificRule.SaveSuccessToCriticalSuccess.Will",
+                "title": "{item|name}"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "will",
+                "type": "save"
+            }
+        ],
+        "subfeatures": {
+            "proficiencies": {
+                "will": {
+                    "rank": 3
+                }
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "investigator"
+            ]
+        }
+    },
+    "type": "feat"
+}

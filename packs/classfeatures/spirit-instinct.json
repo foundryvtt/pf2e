@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Whether you are emotionally sensitive to the spirits around you; worship ancestors or apparitions; or are haunted by the specter of an ancestor, relative, friend, or foe, your rage takes the form of a spiritual possession.</p>\n<h2>Anathema</h2>\n<p>Disrespecting corpses or spirits is anathema to your instinct; defending yourself against undead creatures is not.</p>\n<h2>Spirit Rage (Instinct Ability)</h2>\n<p>When raging, you can increase the additional damage from Rage from 2 to 3 and change its damage type to vitality or void, instead of the damage type for your weapon or unarmed attack (choose each time you Rage). If you choose to deal vitality or void damage, your weapon or unarmed attack gains the effects of the ghost touch property rune, which makes it more effective against incorporeal creatures, and your Rage action gains the divine and necromancy traits, plus vitality or void, as appropriate.</p>\n<h2>Specialization Ability<span style=\"float: right;\">Level 7</span></h2>\n<p>When using spirit rage, increase the damage from Rage from 3 to 7. If you have greater weapon specialization, instead increase the damage when using spirit rage to 13.</p>\n<h2>Raging Resistance<span style=\"float: right;\">Level 9</span></h2>\n<p>You resist void damage, as well as damage dealt by the attacks and abilities of undead creatures, regardless of the damage type.</p>"
+            "value": "<p>Whether you are emotionally sensitive to the spirits around you; worship ancestors or apparitions; or are haunted by the specter of an ancestor, relative, friend, or foe, your rage takes the form of a spiritual possession.</p>\n<p><strong>Instinct Ability—Spirit Rage</strong> While raging, you can increase the additional damage from Rage from 2 to 3 and change its damage type to spirit, instead of the damage type for your weapon or unarmed attack (choose each time you Rage). If you choose to deal spirit damage, your weapon or unarmed attack gains the effects of the @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] property rune, which makes it more effective against incorporeal creatures, and your @UUID[Compendium.pf2e.actionspf2e.Item.Rage]{Rage }action gains the divine and spirit traits.</p>\n<p><strong>Specialization Ability (7th)</strong> When using spirit rage, increase the damage from Rage from 3 to 7. If you have greater weapon specialization, instead increase the damage when using spirit rage to 13.</p>\n<p><strong>Raging Resistance (9th)</strong> You resist void damage, as well as damage dealt by the attacks and abilities of undead creatures, regardless of the damage type.</p>"
         },
         "level": {
             "value": 1
@@ -20,9 +20,9 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
@@ -38,17 +38,8 @@
                         ]
                     }
                 ],
-                "suboptions": [
-                    {
-                        "label": "PF2E.SpecificRule.Barbarian.Spirit.PositiveDamage",
-                        "value": "vitality"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Barbarian.Spirit.NegativeDamage",
-                        "value": "void"
-                    }
-                ],
-                "toggleable": true
+                "toggleable": true,
+                "value": true
             },
             {
                 "key": "Resistance",
@@ -73,7 +64,7 @@
                 "value": "@actor.abilities.con.mod+3"
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.spiritRage}",
+                "damageType": "spirit",
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [

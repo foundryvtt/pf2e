@@ -100,88 +100,6 @@
             "type": "background"
         },
         {
-            "_id": "00yp96mdoy4uk8mk",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.1Eceqc6zbMj2x0q9"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Seasoned",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to Craft food and drink, including potions. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "yhiep9lv46sz68kt",
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Alcohol Lore, Cooking Lore, or Crafting"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "FlatModifier",
-                        "label": "Seasoned (craft food, drink & potions)",
-                        "predicate": [
-                            "action:craft",
-                            {
-                                "or": [
-                                    "food",
-                                    "drink",
-                                    "potion"
-                                ]
-                            }
-                        ],
-                        "selector": "crafting",
-                        "type": "circumstance",
-                        "value": {
-                            "brackets": [
-                                {
-                                    "end": 4,
-                                    "start": 3,
-                                    "value": 2
-                                },
-                                {
-                                    "end": 2,
-                                    "start": 1,
-                                    "value": 1
-                                }
-                            ],
-                            "field": "actor|system.skills.crafting.rank"
-                        }
-                    }
-                ],
-                "slug": "seasoned",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "Di09hZTg9XKk5g0l",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Cooking Lore",
@@ -202,61 +120,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
-        },
-        {
-            "_id": "OxmKgrl4GX8ZPdbp",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmFv3ClkAVRowHLI"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Tengu Weapon Familiarity",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>You've trained with a blade and other tengu weapons ever since you hatched. You gain access to @UUID[Compendium.pf2e.equipment-srd.Item.Khakkhara]{Khakkharas}.</p>\n<p>Additionally, choose two weapons from the sword group. You can choose from among all common martial swords, plus the @UUID[Compendium.pf2e.equipment-srd.Item.Katana], @UUID[Compendium.pf2e.equipment-srd.Item.Temple Sword], and @UUID[Compendium.pf2e.equipment-srd.Item.Wakizashi]. For the purpose of determining your proficiency, that weapon is a simple weapon, and if the weapon isn't common, you gain access to it. If you are trained in all martial weapons, you add common advanced swords to the swords you can choose from.</p>\n<p>You also gain access to all uncommon tengu weapons. For the purpose of determining your proficiency, martial tengu weapons are simple weapons, and advanced tengu weapons are martial weapons.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-khakkhara.rank",
-                        "value": 1
-                    }
-                ],
-                "slug": "tengu-weapon-familiarity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "tengu"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "RFs7YHi21Xa5mONx",
@@ -288,8 +155,8 @@
                 "rules": [],
                 "slots": {
                     "slot1": {
-                        "max": 2,
-                        "value": 2
+                        "max": 3,
+                        "value": 3
                     }
                 },
                 "slug": null,
@@ -300,7 +167,8 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -709,7 +577,8 @@
                 },
                 "tradition": {
                     "value": "divine"
-                }
+                },
+                "traits": {}
             },
             "type": "spellcastingEntry"
         },
@@ -765,7 +634,7 @@
                     "value": 1
                 },
                 "location": {
-                    "value": "facIZNDbA0QjjG27"
+                    "value": "RFs7YHi21Xa5mONx"
                 },
                 "publication": {
                     "license": "ORC",
@@ -794,73 +663,6 @@
                         "cantrip",
                         "concentrate",
                         "electricity",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "spell"
-        },
-        {
-            "_id": "ScYNQsyyN0W8PMCz",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.myC2EIrsjmB8xosi"
-                }
-            },
-            "img": "systems/pf2e/icons/spells/punishing-gust.webp",
-            "name": "Pushing Gust",
-            "sort": 0,
-            "system": {
-                "area": null,
-                "cost": {
-                    "value": ""
-                },
-                "counteraction": false,
-                "damage": {},
-                "defense": {
-                    "save": {
-                        "basic": false,
-                        "statistic": "fortitude"
-                    }
-                },
-                "description": {
-                    "value": "<p>Giving the air a push, you buffet the target with a powerful gust of wind; it must attempt a Fortitude save.</p>\n<hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is pushed 5 feet away from you.</p>\n<p><strong>Failure</strong> The target is pushed 10 feet away from you.</p>\n<p><strong>Critical Failure</strong> The target is pushed 10 feet away from you and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
-                },
-                "duration": {
-                    "sustained": false,
-                    "value": ""
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "facIZNDbA0QjjG27"
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "range": {
-                    "value": "500 feet"
-                },
-                "requirements": "",
-                "rules": [],
-                "slug": "pushing-gust",
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traits": {
-                    "rarity": "uncommon",
-                    "traditions": [],
-                    "value": [
-                        "air",
-                        "cleric",
-                        "concentrate",
-                        "focus",
                         "manipulate"
                     ]
                 }
@@ -1565,6 +1367,7 @@
                     "rarity": "uncommon",
                     "value": [
                         "shove",
+                        "tengu",
                         "two-hand-d10",
                         "versatile-p"
                     ]
@@ -2439,666 +2242,6 @@
             "type": "equipment"
         },
         {
-            "_id": "G7mP9QzNEcGgTR0B",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.pWHx4SXcft9O2udP"
-                }
-            },
-            "img": "systems/pf2e/icons/classes/oracle.webp",
-            "name": "Oracle",
-            "sort": 2000000,
-            "system": {
-                "ancestryFeatLevels": {
-                    "value": [
-                        1,
-                        5,
-                        9,
-                        13,
-                        17
-                    ]
-                },
-                "attacks": {
-                    "advanced": 0,
-                    "martial": 0,
-                    "other": {
-                        "name": "",
-                        "rank": 0
-                    },
-                    "simple": 1,
-                    "unarmed": 1
-                },
-                "classFeatLevels": {
-                    "value": [
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "defenses": {
-                    "heavy": 0,
-                    "light": 1,
-                    "medium": 0,
-                    "unarmored": 1
-                },
-                "description": {
-                    "value": "<p><em>Your conduit to divine power eschews the traditional channels of prayer and servitude-you instead glean divine truths that extend beyond any single deity. You understand the great mysteries of the universe embodied in overarching concepts that transcend good and evil or chaos and law, whether because you perceive the common ground across multiple deities or circumvent their power entirely.</em></p>\n<p><em>You explore one of these mysteries and draw upon its power to cast miraculous spells, but that power comes with a terrible price: a curse that grows stronger the more you draw upon it. Your abilities are a double-edged sword, which you might uphold as an instrument of the divine or view as a curse from the gods.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.bqaqOx3naiwTozBX]{Oracle}</em></p>"
-                },
-                "generalFeatLevels": {
-                    "value": [
-                        3,
-                        7,
-                        11,
-                        15,
-                        19
-                    ]
-                },
-                "hp": 8,
-                "items": {
-                    "2lr3d": {
-                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
-                        "level": 7,
-                        "name": "Resolve",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Resolve"
-                    },
-                    "4qdk7": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 1,
-                        "name": "Mystery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Mystery"
-                    },
-                    "5449e": {
-                        "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
-                        "level": 1,
-                        "name": "Spell Repertoire (Oracle)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Spell Repertoire (Oracle)"
-                    },
-                    "66mj3": {
-                        "img": "systems/pf2e/icons/features/classes/signature-spells-sorcerer.webp",
-                        "level": 3,
-                        "name": "Signature Spells",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Signature Spells"
-                    },
-                    "68tsw": {
-                        "img": "icons/sundries/books/book-open-purple.webp",
-                        "level": 19,
-                        "name": "Legendary Spellcaster",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
-                    },
-                    "6ygi2": {
-                        "img": "icons/sundries/lights/candle-lit-angelic.webp",
-                        "level": 19,
-                        "name": "Oracular Clarity",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Clarity"
-                    },
-                    "7gbv8": {
-                        "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
-                        "level": 1,
-                        "name": "Oracular Curse",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Curse"
-                    },
-                    "7lbdz": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
-                        "level": 13,
-                        "name": "Weapon Specialization",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
-                    },
-                    "9dhwz": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
-                        "level": 11,
-                        "name": "Weapon Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise"
-                    },
-                    "am0mt": {
-                        "img": "systems/pf2e/icons/features/classes/revelation-spells.webp",
-                        "level": 1,
-                        "name": "Revelation Spells",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Revelation Spells"
-                    },
-                    "d7d3y": {
-                        "img": "icons/equipment/back/mantle-collared-green.webp",
-                        "level": 13,
-                        "name": "Light Armor Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
-                    },
-                    "dmnaw": {
-                        "img": "systems/pf2e/icons/features/classes/major-curse.webp",
-                        "level": 11,
-                        "name": "Major Curse",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Major Curse"
-                    },
-                    "dvsdr": {
-                        "img": "icons/creatures/eyes/human-single-blue.webp",
-                        "level": 11,
-                        "name": "Alertness",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
-                    },
-                    "hi0gi": {
-                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
-                        "level": 13,
-                        "name": "Lightning Reflexes",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflex Expertise"
-                    },
-                    "jtk8p": {
-                        "img": "icons/equipment/neck/necklace-carved-bone-skull.webp",
-                        "level": 17,
-                        "name": "Extreme Curse",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Extreme Curse"
-                    },
-                    "k3rbd": {
-                        "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
-                        "level": 9,
-                        "name": "Magical Fortitude",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Magical Fortitude"
-                    },
-                    "n1uo5": {
-                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
-                        "level": 7,
-                        "name": "Expert Spellcaster",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
-                    },
-                    "oiyzz": {
-                        "img": "icons/weapons/axes/axe-double-gold.webp",
-                        "level": 1,
-                        "name": "Divine Spellcasting (Oracle)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Divine Spellcasting (Oracle)"
-                    },
-                    "rlujn": {
-                        "img": "systems/pf2e/icons/features/classes/greater-resolve.webp",
-                        "level": 17,
-                        "name": "Greater Resolve",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Resolve"
-                    },
-                    "wpam7": {
-                        "img": "icons/skills/trades/academics-book-study-purple.webp",
-                        "level": 15,
-                        "name": "Master Spellcaster",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
-                    }
-                },
-                "keyAbility": {
-                    "value": [
-                        "cha"
-                    ]
-                },
-                "perception": 1,
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "savingThrows": {
-                    "fortitude": 1,
-                    "reflex": 1,
-                    "will": 2
-                },
-                "skillFeatLevels": {
-                    "value": [
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "skillIncreaseLevels": {
-                    "value": [
-                        3,
-                        5,
-                        7,
-                        9,
-                        11,
-                        13,
-                        15,
-                        17,
-                        19
-                    ]
-                },
-                "slug": "oracle",
-                "spellcasting": 1,
-                "trainedSkills": {
-                    "additional": 3,
-                    "value": [
-                        "religion"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "class"
-        },
-        {
-            "_id": "vwcxXOX0SX0qyEe1",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.PRJYLksQEwT39bTl"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "tempest": {
-                            "id": "e1jj3pA5VOhghouE",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Mystery",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Choose the divine mystery that fuels your mystical power.</p>\n<p>Your mystery might represent a pantheistic devotion to all the deities with power over the subject of your mystery, veneration of a particular ideal, or a conduit to raw divine energy. Whatever its origin and nature, your mystery determines the revelation spells you can cast and the oracular curse that overtakes your body when you do. You learn skills related to that mystery, gain access to a cantrip, and gain a special benefit drawn from the combined divine knowledge and experience of your mystery.</p>\n<hr />\n<ul>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Ancestors]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Battle]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Bones]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Cosmos]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Flames]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Life]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Lore]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Tempest]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Time]</li>\n<li>@UUID[Compendium.pf2e.classfeatures.Item.Ash]</li>\n</ul>\n<h3>Reading a Mystery Entry</h3>\n<p>A mystery entry contains the following information, followed by a description of that mystery's curse.</p>\n<p><strong>Mystery Benefit</strong> The mystery benefit is a special ability (or abilities) you gain from your mystery.</p>\n<p><strong>Trained Skill</strong> You become trained in the listed skill. A few mysteries make you trained in more than one skill.</p>\n<p><strong>Granted Cantrip</strong> You automatically add this cantrip to your spell repertoire, in addition to those you gain through divine spellcasting.</p>\n<p><strong>Revelation Spells</strong> You automatically gain your mystery's initial revelation spell at 1st level and can gain more by selecting the @UUID[Compendium.pf2e.feats-srd.Item.Advanced Revelation], @UUID[Compendium.pf2e.feats-srd.Item.Greater Revelation], and @UUID[Compendium.pf2e.feats-srd.Item.Diverse Mystery] oracle feats.</p>\n<p><strong>Related Domains</strong> These are the cleric domains associated with your mystery. You select one initial domain spell from one of these domains at 1st level, which you can cast as a revelation spell with the cursebound trait.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "G7mP9QzNEcGgTR0B",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "1st-level Oracle class feature",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:oracle",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Ancestors"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Ash"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Battle"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Bones"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Cosmos"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Flames"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Life"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Lore"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Tempest"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Time"
-                            }
-                        ],
-                        "flag": "mystery",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Oracle.Mystery.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Tempest"
-                    },
-                    {
-                        "allowDuplicate": false,
-                        "flag": "tempest",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.mystery}"
-                    }
-                ],
-                "slug": "mystery",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "YlKqUOvJUnCsn1YE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.7AVspOB6ITNzGFZi"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "castASpell": {
-                            "id": "4dzq8pjEAKOPe9bF",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/weapons/axes/axe-double-gold.webp",
-            "name": "Divine Spellcasting (Oracle)",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your mystery provides you with divine magical power. You can cast spells using the Cast a Spell activity, and you can supply material, somatic, and verbal components when casting spells. your unconventional access to this divine power means you can usually replace material components with somatic components, so you don't need to use a material component pouch when casting spells.</p>\n<p>At 1st level, you can cast up to two 1st-rank spells per day. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots. As you increase in level as an oracle, your number of spells per day increases, as does the highest rank of spell you can cast.</p>\n<p>Some of your spells require you to attempt a spell attack roll to see how effective they are, or your enemies to roll against your spell DC (typically by attempting a saving throw). Since your key ability is Charisma, your spell attack rolls and spell DCs use your Charisma modifier.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "G7mP9QzNEcGgTR0B",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "flag": "castASpell",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell"
-                    }
-                ],
-                "slug": "divine-spellcasting-oracle",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "CTPKR3uH66gqu5mS",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.ibX2EhKkyUtbOHLj"
-                }
-            },
-            "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
-            "name": "Oracular Curse",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Drawing on multiple disparate sources of power inevitably places an incredible stress on your body, manifesting as a supernatural curse. The more revelation spells you cast, the worse the effects of your curse, but these increasingly conflicting energies can also provide you with divine benefits.</p>\n<p>The specific effects of your curse are tied to your mystery, but all curses follow the same progression. A curse continually gives you a mild but constant reminder that you carry otherworldly power. As you cast revelation spells, your curse intensifies, first to a minor effect and then to a moderate effect.</p>\n<p>Your curse progresses to its minor stage the first time you finish casting a revelation spell after your daily preparations. Once your minor curse has manifested, it remains in effect until you rest for 8 hours and again make your daily preparations. If you cast a revelation spell while your minor curse is in effect, you progress to the moderate curse effect immediately after you finish Casting the Spell. The minor effect continues to affect you, though some moderate curse effects might alter the specifics of your minor curse. At higher levels, you can cast more revelation spells, progressing your curse to its major stage and then an extreme stage; these stronger curses are cumulative with the effects of the lower stages and can alter them. When you Refocus while under the effects of your moderate or stronger curse, you reduce your curse's severity to minor in addition to regaining a Focus Point.</p>\n<p>Drawing upon your mystery's power while your curse is at its worst causes an irreconcilable conflict between you and the sources of your power. Immediately after casting a revelation spell while under the moderate effect of your curse, you are overwhelmed. While overwhelmed, you can't Cast or Sustain any revelation spells-you effectively lose access to those spells. You can still Refocus to reduce the effects of your curse and regain a Focus Point, but doing so doesn't allow you to cast further revelation spells. These effects last until you rest for 8 hours and make your daily preparations, at which point your curse returns to its basic state. At higher levels, you can grow to withstand your curse's major and even extreme effects, enabling you to cast more revelation spells without becoming overwhelmed.</p>\n<p>Your curse has the curse, divine, and necromancy traits. You can't mitigate, reduce, or remove the effects of your oracular curse by any means other than Refocusing and resting for 8 hours. For example, if your curse makes creatures concealed from you, you can't negate that concealed condition through a magic item or spell, such as true strike (though you would still benefit from the other effects of that item or spell). Likewise, remove curse and similar spells don't affect your curse at all.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "G7mP9QzNEcGgTR0B",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "oracular-curse",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "4ghhWpreBhVJ441e",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.NXUOtO9NytHQurlg"
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/revelation-spells.webp",
-            "name": "Revelation Spells",
-            "sort": 300,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>The powers of your mystery manifest in the form of revelation spells, which are a type of focus spell. Casting a revelation spell costs 1 Focus Point and increases the effects of your @UUID[Compendium.pf2e.classfeatures.Item.Oracular Curse]. You start with a focus pool of 2 Focus Points. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to reconcile the conflicting or unconventional nature of your divine mystery.</p>\n<p>Focus spells are automatically heightened to half your level rounded up. Focus spells don't require spell slots, and you can't cast them using spell slots (see @UUID[Compendium.pf2e.classfeatures.Item.Divine Spellcasting (Oracle)]). Taking feats can give you more focus spells and increase the size of your focus pool, though your focus pool can never hold more than 3 Focus Points.</p>\n<p>Revelation spells have the cursebound trait, unlike other focus spells. This trait means they increase the severity of your oracular curse (see below) when cast. You can't cast a cursebound spell if you don't have an oracular curse.You learn two revelation spells at 1st level. The first is an initial revelation spell determined by your mystery. The second is an initial domain spell you select from one of the domains associated with your mystery, which you cast as a revelation spell, causing it to gain the cursebound trait.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "G7mP9QzNEcGgTR0B",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "revelation-spells",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Ej7USByjbQA37DgP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.cFe6vFb3gSDyNeS9"
-                }
-            },
-            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
-            "name": "Spell Repertoire (Oracle)",
-            "sort": 400,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank spells of your choice and five cantrips of your choice. You choose these from the common spells from the divine spell list, or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot, you add a spell of the same rank to your spell repertoire. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might choose a higher-rank version of a spell you already have so that you can cast a heightened version of that spell.</p>\n<p>Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p>\n<h3 class=\"title\"><strong>Swapping Spells in your Repertoire</strong></h3>\n<p>As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "G7mP9QzNEcGgTR0B",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [],
-                "slug": "spell-repertoire-oracle",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "e1jj3pA5VOhghouE",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.W9cF7wZztLDb1WGY"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "vwcxXOX0SX0qyEe1",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/magic/water/pseudopod-swirl-blue.webp",
-            "name": "Tempest",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>An oracle wields divine power, but not from a single divine being. This power could come from a potent concept or ideal, the attention of multiple divine entities whose areas of concern all touch on that subject, or a direct and dangerous conduit to raw divine power. This is the oracle's mystery, a source of divine magic not beholden to any deity.</p>\n<p>Your mystery might represent a pantheistic devotion to all the deities with power over the subject of your mystery, veneration of a particular ideal, or a conduit to raw divine energy. Whatever its origin and nature, your mystery determines the revelation spells you can cast and the oracular curse that overtakes your body when you do. You learn skills related to that mystery, gain access to a cantrip, and gain a special benefit drawn from the combined divine knowledge and experience of your mystery.</p>\n<p>The fury of the wind and waves pounds in your heart, whether your power flows from natural storms, a conduit to the elemental Planes of Air and Water, or through reverence of deities such as Gozreh, the tengu god of storms Hei Feng, the demon lord Dagon, or the elemental lords of air and water.</p>\n<p><strong>Mystery Benefit</strong></p>\n<p>You can see perfectly through wind and water, and you send electric charges through both air and water. You never take penalties to Perception from wind, rain, fog, or other precipitation, or from looking through water or being underwater, and such conditions don't cause anything to be concealed from you.</p>\n<p>When you deal physical damage with a non-cantrip air or water spell, you deal an additional 1 electricity damage per spell rank.</p>\n<p><strong>Trained Skill</strong> Nature</p>\n<p><strong>Granted Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]</p>\n<p><strong>Revelation Spells</strong></p>\n<ul>\n<li>Initial @UUID[Compendium.pf2e.spells-srd.Item.Tempest Touch];</li>\n<li>Advanced @UUID[Compendium.pf2e.spells-srd.Item.Thunderburst];</li>\n<li>Greater @UUID[Compendium.pf2e.spells-srd.Item.Tempest Form]</li>\n</ul>\n<p><strong>Related Domains</strong> Air, Water</p>\n<h3>Curse of the Perpetual Storm</h3>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Curse of the Perpetual Storm]</p>\n<p>You are the center of your own tiny tempest, ever surrounded by wind and rain that worsens the more you tap into your elemental powers. Even when you are calm and at rest, your hair and clothing are blown about by gentle winds, you are slightly damp, and your touch often comes with a static shock.</p>\n<h4>Minor Curse</h4>\n<p>An aura of a whirling storm whips up in a 5-foot emanation around you and in your space. The aura puts out small non-magical fires 1 round after they're lit or brought into your aura.</p>\n<p>Electrical energy builds up within your storm, turning you into a lightning rod; you gain weakness 2 to electricity, and electricity spells or effects that have additional effects for a creature wearing or holding metal treat you as though you were wearing metal.</p>\n<h4>Moderate Curse</h4>\n<p>Your minor curse's aura expands to a 10-foot emanation and carries rain on the winds. The whirling winds impose a -2 circumstance penalty on ranged attack rolls using physical ammunition that target you or originate from you.</p>\n<p>Your weakness to electricity increases to 5 or half your level, whichever is greater, but torrential rain grants you an equal amount of fire resistance.</p>\n<h4>Major Curse (11th)</h4>\n<p>Your minor curse's aura expands to a 15-foot emanation and grows stronger. High winds blowing outward in the aura impede creatures' progress. The aura is difficult terrain for Large and smaller creatures on the ground, and for Huge or smaller flying creatures. You aren't affected by this difficult terrain.</p>\n<p>The electricity arcing through you becomes dangerous. Any creature that touches you or damages you with an unarmed melee attack or non-reach melee weapon takes @Damage[1d6[electricity]] damage. As normal, this doesn't affect creatures you touch.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Advanced Player's Guide"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.skills.nature.rank",
-                        "value": 1
-                    },
-                    {
-                        "damageType": "electricity",
-                        "key": "FlatModifier",
-                        "predicate": [
-                            "class:oracle",
-                            {
-                                "not": "item:trait:cantrip"
-                            },
-                            "damaging-effect",
-                            "item:damage:category:physical",
-                            {
-                                "or": [
-                                    "air",
-                                    "water"
-                                ]
-                            }
-                        ],
-                        "selector": "spell-damage",
-                        "value": "@spell.level"
-                    }
-                ],
-                "slug": "tempest",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "oracle"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "4dzq8pjEAKOPe9bF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "YlKqUOvJUnCsn1YE",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Cast a Spell",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p>You cast a spell you have prepared or in your repertoire. Casting a Spell is a special activity that takes a variable number of actions depending on the spell, as listed in each spell's stat block. As soon as the spellcasting actions are complete, the spell effect occurs.</p>\n<p>Some spells are cast as a reaction or free action. In those cases, you Cast the Spell as a reaction or free action (as appropriate) instead of as an activity. Such cases will be noted in the spell's stat block-for example, \"[reaction] verbal.\"</p>\n<p><strong>Long Casting</strong> Times Some spells take minutes or hours to cast. The Cast a Spell activity for these spells includes a mix of the listed spell components, but it's not necessary to break down which one you're providing at a given time. You can't use other actions or reactions while casting such a spell, though at the GM's discretion, you might be able to speak a few sentences. As with other activities that take a long time, these spells have the exploration trait, and you can't cast them in an encounter. If combat breaks out while you're casting one, your spell is disrupted.</p>\n<p><strong>Spell Components</strong> Each spell lists the spell components required to cast it after the action icons or text, such as \"[three-actions] material, somatic, verbal.\" The spell components, described in detail below, add traits and requirements to the Cast a Spell activity. If you can't provide the components, you fail to Cast the Spell.</p>\n<ul>\n<li>Material (manipulate)</li>\n<li>Somatic (manipulate)</li>\n<li>Verbal (concentrate)</li>\n<li>Focus (manipulate)</li>\n</ul>\n<p><strong>Disrupted and Lost Spells</strong> Some abilities and spells can disrupt a spell, causing it to have no effect and be lost. When you lose a spell, you've already expended the spell slot, spent the spell's costs and actions, and used the Cast a Spell activity. If a spell is disrupted during a @UUID[Compendium.pf2e.actionspf2e.Item.Sustain]{Sustain a Spell} action, the spell immediately ends.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "cast-a-spell",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
             "_id": "74wMUXPFonGoFpc4",
             "flags": {
                 "core": {
@@ -3381,6 +2524,1027 @@
                 }
             },
             "type": "consumable"
+        },
+        {
+            "_id": "mg3AigJNRTx32n51",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.pWHx4SXcft9O2udP"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/oracle.webp",
+            "name": "Oracle",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>Your conduit to divine power eschews the traditional channels of prayer and servitude—you instead glean sacred truths and great mysteries embodied in overarching concepts, whether because you perceive the common ground across multiple deities or circumvent their power entirely.</em></p>\n<p><em>You explore one of these mysteries and draw upon its power to cast miraculous spells, but that power comes with a terrible price: a curse that grows stronger the more you draw upon it, which you might uphold as an instrument of the divine or view as punishment from the gods.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.bqaqOx3naiwTozBX]{Oracle}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "4FyXX": {
+                        "img": "systems/pf2e/icons/features/classes/resolve.webp",
+                        "level": 7,
+                        "name": "Mysterious Resolve",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Mysterious Resolve"
+                    },
+                    "4KtTI": {
+                        "img": "icons/weapons/axes/axe-double-gold.webp",
+                        "level": 1,
+                        "name": "Oracle Spellcasting",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracle Spellcasting"
+                    },
+                    "4qdk7": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Mystery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Mystery"
+                    },
+                    "5449e": {
+                        "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+                        "level": 1,
+                        "name": "Spell Repertoire (Oracle)",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Spell Repertoire (Oracle)"
+                    },
+                    "66mj3": {
+                        "img": "systems/pf2e/icons/features/classes/signature-spells-sorcerer.webp",
+                        "level": 3,
+                        "name": "Signature Spells",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Signature Spells"
+                    },
+                    "68tsw": {
+                        "img": "icons/sundries/books/book-open-purple.webp",
+                        "level": 19,
+                        "name": "Legendary Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Legendary Spellcaster"
+                    },
+                    "6ygi2": {
+                        "img": "icons/sundries/lights/candle-lit-angelic.webp",
+                        "level": 19,
+                        "name": "Oracular Clarity",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Clarity"
+                    },
+                    "7gbv8": {
+                        "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
+                        "level": 1,
+                        "name": "Oracular Curse",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Curse"
+                    },
+                    "7lbdz": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "9dhwz": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
+                        "level": 11,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise"
+                    },
+                    "K3vUt": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 13,
+                        "name": "Premonition Reflexes",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Premonition Reflexes"
+                    },
+                    "OsZv7": {
+                        "img": "systems/pf2e/icons/features/classes/greater-resolve.webp",
+                        "level": 17,
+                        "name": "Greater Mysterious Resolve",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Mysterious Resolve"
+                    },
+                    "am0mt": {
+                        "img": "systems/pf2e/icons/features/classes/revelation-spells.webp",
+                        "level": 1,
+                        "name": "Revelation Spells",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Revelation Spells"
+                    },
+                    "d7d3y": {
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
+                    },
+                    "dmnaw": {
+                        "img": "systems/pf2e/icons/features/classes/major-curse.webp",
+                        "level": 11,
+                        "name": "Major Curse",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Major Curse"
+                    },
+                    "jtk8p": {
+                        "img": "icons/equipment/neck/necklace-carved-bone-skull.webp",
+                        "level": 17,
+                        "name": "Extreme Curse",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Extreme Curse"
+                    },
+                    "k3rbd": {
+                        "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
+                        "level": 9,
+                        "name": "Magical Fortitude",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Magical Fortitude"
+                    },
+                    "n1uo5": {
+                        "img": "icons/sundries/books/book-backed-silver-gold.webp",
+                        "level": 7,
+                        "name": "Expert Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Expert Spellcaster"
+                    },
+                    "nHlek": {
+                        "img": "icons/sundries/scrolls/scroll-yellow-teal.webp",
+                        "level": 11,
+                        "name": "Divine Access",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Divine Access"
+                    },
+                    "wpam7": {
+                        "img": "icons/skills/trades/academics-book-study-purple.webp",
+                        "level": 15,
+                        "name": "Master Spellcaster",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Master Spellcaster"
+                    },
+                    "xuvG4": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 11,
+                        "name": "Oracular Senses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Oracular Senses"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "cha"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 1,
+                    "reflex": 1,
+                    "will": 2
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "oracle",
+                "spellcasting": 1,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": [
+                        "religion"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "5N0sPZNwewgYu5uz",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PRJYLksQEwT39bTl"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "tempest": {
+                            "id": "VUIRoJTNGDrlBrAU",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Mystery",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>An oracle wields divine power, but not from a single divine being. This power could come from a potent concept or ideal, the attention of multiple divine entities whose areas of concern all touch on that subject, or a direct and dangerous conduit to raw divine power. This is the oracle's mystery, a source of divine magic not beholden to any deity.</p>\n<p>Choose the mystery that empowers your magic. Your mystery grants you additional spells, and special focus spells called revelation spells. Your mystery also gives you a unique cursebound ability that lets you draw upon the divine, as well as dictating the effects of the oracular curse that falls upon you when you touch too much of this power.</p><hr /><ul><li>@UUID[Compendium.pf2e.classfeatures.Item.Ancestors] Voices of past generations teach and haunt you.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Battle] You embody the virtues upheld by heroes of legend.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Bones] Death always seems near, and the dead speak to you.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Cosmos] You draw power from the stars and the spaces between.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Flames] You dance with fire and do your best to remain unscorched by it.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Life] The teeming energies of life flow through you out into the world.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Lore] You gain access to unparalleled, overwhelming knowledge.</li><li>@UUID[Compendium.pf2e.classfeatures.Item.Tempest] Wind, waves, and storms rage at your beck and call.</li></ul><h3>Reading a Mystery Entry</h3><p>A mystery entry contains the following information, followed by a description of that mystery's curse.</p>\n<p><strong>Granted Spells</strong> You automatically add the spells listed here to your spell repertoire, as described in Spell Repertoire on page 130. At 1st level, you gain a cantrip and a 1st-rank spell. You learn the other spells on the list as soon as you gain the ability to cast oracle spells of that rank.</p>\n<p><strong>Revelation Spells</strong> You automatically gain your mystery's initial revelation spell at 1st level and can gain more by selecting the Advanced Revelation, Greater Revelation, and Diverse Mystery oracle feats. These spells start on page 259.</p>\n<p><strong>Related Domains</strong> These are the cleric domains associated with your mystery. You gain domain spells, which you can cast as revelation spells, by taking the Domain Acumen and Domain Fluency feats. At 11th level, the divine access class feature also gives you additional slotted spells based on your domains. The domains and their domain spells appear on page 372 of Player Core. Domains marked with an asterisk (*) are found in Pathfinder Lost Omens Divine Mysteries.</p>\n<p><strong>Mystery Skill</strong> You become trained in the listed skill. A few mysteries make you trained in more than one skill.</p>\n<p><strong>Oracle Feat</strong> You gain this 1st-level oracle feat. This is a cursebound feat, so using it aggravates your oracular curse.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "mg3AigJNRTx32n51",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:oracle-mystery"
+                            ]
+                        },
+                        "flag": "mystery",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Oracle.Mystery.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Tempest"
+                    },
+                    {
+                        "flag": "tempest",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.mystery}"
+                    }
+                ],
+                "slug": "mystery",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "VUIRoJTNGDrlBrAU",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.W9cF7wZztLDb1WGY"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "5N0sPZNwewgYu5uz",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "foretellHarm": {
+                            "id": "Z8SzuX9kns4iBooX",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/water/pseudopod-swirl-blue.webp",
+            "name": "Tempest",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The fury of the wind and waves pounds in your heart, whether your power flows from natural storms, a conduit to the elemental Planes of Air and Water, or through reverence of deities such as Gozreh, the tengu god of storms Hei Feng, the pirate queen Besmara, or the elemental lords of air and water.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Electric Arc]{Electric Arc;} 1st: @UUID[Compendium.pf2e.spells-srd.Item.Thunderstrike]; 4th: @UUID[Compendium.pf2e.spells-srd.Item.Hydraulic Torrent]; 6th: @UUID[Compendium.pf2e.spells-srd.Item.Chain Lightning]</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Tempest Touch]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Thunderburst]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Tempest Form]</p>\n<p><strong>Related Domains</strong> air, cold, lightning, water</p>\n<p><strong>Mystery Skill</strong> Nature</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Foretell Harm]</p><h2><strong>Curse of Inclement Headwinds</strong></h2><section class=\"traits\"><p>CURSE</p>\n<p>DIVINE</p>\n<p>ORACLE</p></section><p>The weather seems to always oppose you in ways large and small. Even when you are calm and at rest, your hair and clothing are inconveniently blown about by gentle winds, you are slightly damp from the faintest drizzle, and your touch often comes with a static shock. When you have the cursebound condition, you are opposed by the elements, with the following effects.</p>\n<p><strong>Cursebound 1</strong> Lightning is drawn to you. You gain electricity weakness 2 and electricity spells or effects that have additional effects for a creature wearing or holding metal treat you as though you were wearing metal. Any immunity or resistance you have to such spells and effects is suppressed.</p>\n<p><strong>Cursebound 2</strong> Blowing winds impose a -2 circumstance penalty to ranged attack rolls you make.</p>\n<p><strong>Cursebound 3</strong> Your weakness to electricity is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> The raging winds push you back, imposing a -10-foot status penalty to all your Speeds.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.nature.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "foretellHarm",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:oracle"
+                        ],
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Foretell Harm"
+                    },
+                    {
+                        "key": "Weakness",
+                        "predicate": [
+                            "self:condition:cursebound"
+                        ],
+                        "type": "electricity",
+                        "value": "ternary(gte(@actor.conditions.cursebound.value,3),5+@actor.level,2)"
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:condition:cursebound",
+                                    2
+                                ]
+                            }
+                        ],
+                        "selector": "ranged-attack-roll",
+                        "type": "circumstance",
+                        "value": -2
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:condition:cursebound:4"
+                        ],
+                        "selector": "speed",
+                        "value": -10
+                    }
+                ],
+                "slug": "tempest",
+                "traits": {
+                    "otherTags": [
+                        "oracle-mystery"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "Z8SzuX9kns4iBooX",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.CuVvDrBaVP9nYJlt"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "VUIRoJTNGDrlBrAU",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Foretell Harm",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirements</strong> Your previous action was to Cast a non-cantrip Spell that dealt damage.</p><hr /><p>Your magic echoes ominously as you glimpse injury in the target's future. At the beginning of your target's next turn, it takes damage equal to twice the triggering spell's rank as a seemingly random and minor misfortune finds it. The damage and type of misfortune is of a type matching the spell; for instance, if you dealt fire damage, a flame might spontaneous ignite on them or they might burn a hand on their torch. The target is then temporarily immune to Foretell Harm for 24 hours.</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "foretell-harm",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "cursebound",
+                        "divine",
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "rnuOFRiZse3ywwur",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.7AVspOB6ITNzGFZi"
+                }
+            },
+            "img": "icons/weapons/axes/axe-double-gold.webp",
+            "name": "Oracle Spellcasting",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You have an unfiltered connection to the great powers of the universe and the planes beyond, and you can let this power spill forth in the form of divine magic. You are a spellcaster, and you can cast spells of the divine tradition using the Cast a Spell activity. As an oracle, when you cast spells, your incantations may spill from your lips rapidly as you speak in tongues or intone in a voice not quite your own, and your gestures might be wild and unrestrained as religious ecstasy briefly touches your mind.</p>\n<p>Each day, you can cast up to two 1st-rank spells. You must know spells to cast them, and you learn them via the spell repertoire class feature. The number of spells you can cast each day is called your spell slots.</p>\n<p>As you increase in level as an oracle, your number of spells per day increases, as does the highest rank of spells you can cast, as shown on the Oracle Spells per Day table (shown below).</p>\n<p>Some of your spells require you to attempt a spell attack to see how effective they are, or have your enemies roll against your spell DC (typically by attempting a saving throw). Since your key attribute is Charisma, your spell attack modifiers and spell DCs use your Charisma modifier.</p><h3>Heightening Spells</h3><p>When you get spell slots of 2nd rank and higher, you can fill those slots with stronger versions of lower-rank spells. This increases the spell's rank, heightening it to match the spell slot. You must have a spell in your spell repertoire at the rank you want to cast in order to heighten it to that rank. Many spells have specific improvements when they are heightened to certain ranks. The signature spells class feature lets you heighten certain spells freely.</p><h3>Cantrips</h3><p>Some of your spells are cantrips. A cantrip is a special type of spell that doesn't use spell slots. You can cast a cantrip at will, any number of times per day. A cantrip is automatically heightened to half your level rounded up—this is usually equal to the highest rank of oracle spell slot you have. For example, as a 1st-level oracle, your cantrips are 1st-rank spells, and as a 5th-level oracle, your cantrips are 3rd-rank spells.</p><table class=\"pf2e\"><thead><tr><th>Your Level</th><th>Cantrips</th><th>1st</th><th>2nd</th><th>3rd</th><th>4th</th><th>5th</th><th>6th</th><th>7th</th><th>8th</th><th>9th</th><th>10th</th></tr></thead><tbody><tr><td>1</td><td>5</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>2</td><td>5</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>3</td><td>5</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>4</td><td>5</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>5</td><td>5</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>6</td><td>5</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>7</td><td>5</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>8</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>9</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>10</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>11</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>12</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td><td>-</td></tr><tr><td>13</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td><td>-</td></tr><tr><td>14</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td><td>-</td></tr><tr><td>15</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td><td>-</td></tr><tr><td>16</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td><td>-</td></tr><tr><td>17</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>3</td><td>-</td></tr><tr><td>18</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>-</td></tr><tr><td>19</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>1*</td></tr><tr><td>20</td><td>5</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td><td>1*</td></tr><tr><td colspan=\"12\">* The oracular clarity class feature gives you a 10th-rank spell slot that works a bit differently from other spell slots.</td></tr></tbody></table>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "mg3AigJNRTx32n51",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "oracle-spellcasting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "mYxxb2gsBvJJcnG8",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.cFe6vFb3gSDyNeS9"
+                }
+            },
+            "img": "icons/sundries/books/book-symbol-spiral-silver-blue.webp",
+            "name": "Spell Repertoire (Oracle)",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.</p>\n<p>You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.</p>\n<p>Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.</p><h3>Swapping Spells in Your Repertoire</h3><p>As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "mg3AigJNRTx32n51",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "spell-repertoire-oracle",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "kjuakgFIzEBHKWZx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.ibX2EhKkyUtbOHLj"
+                }
+            },
+            "img": "icons/sundries/scrolls/scroll-runed-brown.webp",
+            "name": "Oracular Curse",
+            "sort": 300,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As an oracle, you can tap into the pure and unmitigated divine power of creation to supplement your spellcasting via cursebound abilities. These abilities grant you special benefits, but the backlash of letting this power into your mortal body manifests as an oracular curse. The more cursebound abilities you use, the more your curse worsens, but you might gain divine benefits even as it tightens its grip on your soul.</p>\n<p>Your oracular curse is expressed using the cursebound condition, a unique condition that affects only oracles. Immediately after the first time you use a cursebound ability, you become cursebound 1, and if you use a cursebound ability while you are already cursebound, you increase the value of your cursebound condition by 1 after the ability resolves. At lower levels, you can tolerate only a modest amount of divine power, and your cursebound condition can't increase beyond cursebound 2; as you grow in levels, you can open yourself to even more power and your cursebound condition can progress to 3 and finally 4. Once saturated in divine power, your soul can't absorb any more, and so you can't use a cursebound ability if you are already at your maximum cursebound condition.</p>\n<p>Your oracular curse lists the specific effects of being cursebound, which are cumulative as your curse progresses. You remain cursebound until you Refocus, which reduces your cursebound condition by 1 in addition to restoring a Focus Point. As your curse is a direct result of divine power, you cannot mitigate, reduce, or remove the effects of your curse or any ability with the cursebound trait by any means other than Refocusing. For example, if a cursebound effect makes creatures @UUID[Compendium.pf2e.conditionitems.Item.Concealed] from you, you can't negate that concealed condition through a magic item or spell, such as @UUID[Compendium.pf2e.spells-srd.Item.Sure Strike] (though you would still benefit from the other effects of that item or spell). Likewise, @UUID[Compendium.pf2e.spells-srd.Item.Cleanse Affliction] and similar abilities don't affect your curse at all.</p>\n<p>At 1st level, you gain a cursebound oracle feat determined by your @UUID[Compendium.pf2e.classfeatures.Item.Mystery], and you can learn additional cursebound abilities through oracle feats.</p><hr /><h3>The Cursebound Condition</h3><p>Your oracular curse is constricting around you as you receive divine punishment after drawing too deeply on your mystery's powers. Cursebound is a condition that affects only creatures with an oracular curse, and cursebound always includes a value. Your specific oracular curse imposes unique negative effects depending on your cursebound value. You can remove the cursebound condition only by Refocusing.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "mg3AigJNRTx32n51",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "itemType": "feat",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:trait:cursebound"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            {
+                                                "not": "self:condition:cursebound"
+                                            },
+                                            "self:condition:cursebound:1",
+                                            {
+                                                "and": [
+                                                    "self:condition:cursebound:2",
+                                                    "feature:major-curse"
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "self:condition:cursebound:3",
+                                                    "feature:extreme-curse"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "text": "PF2E.SpecificRule.Oracle.Cursebound.IncreaseNote"
+                            },
+                            {
+                                "predicate": [
+                                    {
+                                        "or": [
+                                            {
+                                                "and": [
+                                                    "self:condition:cursebound:2",
+                                                    {
+                                                        "not": "feature:major-curse"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "self:condition:cursebound:3",
+                                                    {
+                                                        "not": "feature:extreme-curse"
+                                                    }
+                                                ]
+                                            },
+                                            "self:condition:cursebound:4"
+                                        ]
+                                    }
+                                ],
+                                "text": "PF2E.SpecificRule.Oracle.Cursebound.MaximumNote"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "oracular-curse",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "XUBaboAf7KhiVvw2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.NXUOtO9NytHQurlg"
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/revelation-spells.webp",
+            "name": "Revelation Spells",
+            "sort": 400,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>The powers of your mystery manifest in the form of revelation spells. Revelation spells are a type of focus spell. It costs 1 Focus Point to cast a focus spell. You refill your focus pool during your daily preparations, and you can regain 1 Focus Point by spending 10 minutes using the Refocus activity to search for omens in a way befitting your mystery, like gazing into a fire, throwing bones and seeing how they fall, or meditating to hear the voices of those who came before you.</p>\n<p>Focus spells are automatically heightened to half your level rounded up, much like cantrips. Focus spells don't require spell slots, and you can't cast them using spell slots. Certain feats give you more focus spells.</p>\n<p>The maximum Focus Points your focus pool can hold is equal to the number of focus spells you have, but it can never be more than 3 points.</p>\n<p>You learn a revelation spell at 1st level and start with a focus pool of 1 Focus Point. This spell is an initial revelation spell determined by your mystery. You can learn additional revelation spells through oracle feats.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "mg3AigJNRTx32n51",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "revelation-spells",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "oracle"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "0xOoRFMnGB96fZuI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.1Eceqc6zbMj2x0q9"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Seasoned",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You've mastered the preparation of many types of food and drink. You gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Craft] food and drink, including elixirs if you have @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] and potions if you have @UUID[Compendium.pf2e.feats-srd.Item.Magical Crafting]. If you are a master in one of the prerequisite skills, this bonus increases to +2.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "yhiep9lv46sz68kt",
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Alcohol Lore, Cooking Lore, or Crafting"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "action:craft",
+                            {
+                                "or": [
+                                    "item:tag:food",
+                                    "item:tag:drink",
+                                    {
+                                        "and": [
+                                            "feat:magical-crafting",
+                                            "item:trait:potion"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "feat:alchemical-crafting",
+                                            "item:trait:elixir"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "crafting",
+                        "type": "circumstance",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 4,
+                                    "start": 3,
+                                    "value": 2
+                                },
+                                {
+                                    "end": 2,
+                                    "start": 1,
+                                    "value": 1
+                                }
+                            ],
+                            "field": "actor|system.skills.crafting.rank"
+                        }
+                    }
+                ],
+                "slug": "seasoned",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "5cZAiMiqOAshMhEo",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.AmFv3ClkAVRowHLI"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Tengu Weapon Familiarity",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You gain access to all uncommon weapons with the tengu trait plus the katana, khakkara, temple sword, and wakizashi. You have familiarity with these weapons—for the purpose of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>During your daily preparations, you can practice with a weapon from the sword group that's in your possession. You gain familiarity with that weapon as well. This lasts until you practice with a different sword in the same way.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Sword Practice]</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.tenguFamiliarSword",
+                        "predicate": [
+                            {
+                                "not": "self:effect:weapon-practice"
+                            }
+                        ],
+                        "value": "none"
+                    },
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:category:advanced",
+                                    "item:trait:tengu",
+                                    "item:id:{actor|flags.pf2e.tenguFamiliarSword}"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedTenguWeapons",
+                        "sameAs": "martial",
+                        "slug": "advanced-tengu-weapons"
+                    },
+                    {
+                        "definition": [
+                            "item:category:martial",
+                            {
+                                "or": [
+                                    "item:trait:tengu",
+                                    "item:base:katana",
+                                    "item:base:khakkara",
+                                    "item:base:temple-sword",
+                                    "item:base:wakazashi",
+                                    "item:id:{actor|flags.pf2e.tenguFamiliarSword}"
+                                ]
+                            }
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialTenguWeapons",
+                        "sameAs": "simple",
+                        "slug": "martial-tengu-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            {
+                                "or": [
+                                    "item:trait:tengu",
+                                    "item:base:katana",
+                                    "item:base:khakkara",
+                                    "item:base:temple-sword",
+                                    "item:base:wakazashi",
+                                    "item:id:{actor|flags.pf2e.tenguFamiliarSword}"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "slug": "tengu-weapon-familiarity",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "tengu"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "UZb4yN8oUCYPsHmK",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Item.zDJS8E66UI0himqV"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
+            "name": "Thunderstrike",
+            "sort": 0,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "6aFqAhfOSz7ukuwr": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d12",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "electricity"
+                    },
+                    "K00cW8XZuHvutOhE": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "1d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "sonic"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "reflex"
+                    }
+                },
+                "description": {
+                    "value": "<p>You call down a tendril of lightning that cracks with thunder, dealing 1d12 electricity damage and 1d4 sonic damage to the target with a basic Reflex save. A target wearing metal armor or made of metal takes a –1 circumstance bonus to its save, and if damaged by the spell is @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} for 1 round.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12 electricity and 1d4 sonic.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "6aFqAhfOSz7ukuwr": "1d12",
+                        "K00cW8XZuHvutOhE": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "RFs7YHi21Xa5mONx"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "thunderstrike",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "primal"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "electricity",
+                        "manipulate",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "spell"
         }
     ],
     "name": "Korakai (Level 1)",
