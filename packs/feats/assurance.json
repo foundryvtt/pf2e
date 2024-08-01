@@ -32,7 +32,15 @@
         "rules": [
             {
                 "choices": {
-                    "config": "skills"
+                    "config": "skills",
+                    "predicate": [
+                        {
+                            "gte": [
+                                "skill:{choice|value}:rank",
+                                1
+                            ]
+                        }
+                    ]
                 },
                 "flag": "assurance",
                 "key": "ChoiceSet",
