@@ -1059,7 +1059,8 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
         },
@@ -1084,135 +1085,10 @@
                     "title": ""
                 },
                 "rules": [],
-                "slug": null
+                "slug": null,
+                "traits": {}
             },
             "type": "lore"
-        },
-        {
-            "_id": "MLzmVbxTSkClXOA6",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.OYjzfTeWU7RJBT7v"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Goblin Weapon Familiarity",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestry",
-                "description": {
-                    "value": "<p>Others might look upon them with disdain, but you know that the weapons of your people are as effective as they are sharp. You are trained with the @UUID[Compendium.pf2e.equipment-srd.Item.Dogslicer] and @UUID[Compendium.pf2e.equipment-srd.Item.Horsechopper].</p>\n<p>In addition, you gain access to all uncommon goblin weapons. For the purpose of determining your proficiency, martial goblin weapons are simple weapons and advanced goblin weapons are martial weapons.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "ancestry-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-dogslicer.rank",
-                        "value": 1
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-horsechopper.rank",
-                        "value": 1
-                    },
-                    {
-                        "definition": [
-                            "item:trait:goblin",
-                            "item:category:advanced"
-                        ],
-                        "key": "MartialProficiency",
-                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGoblinWeapons",
-                        "sameAs": "martial",
-                        "slug": "advanced-goblin-weapons"
-                    },
-                    {
-                        "definition": [
-                            "item:trait:goblin",
-                            "item:category:martial",
-                            {
-                                "not": "item:category:advanced"
-                            }
-                        ],
-                        "key": "MartialProficiency",
-                        "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
-                        "sameAs": "simple",
-                        "slug": "martial-goblin-weapons"
-                    }
-                ],
-                "slug": "goblin-weapon-familiarity",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "goblin"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "fg0UkvrLviMnAR0x",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.xbg1scOIT7RI9Fij"
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Quick Bomber",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "class",
-                "description": {
-                    "value": "<p>You keep your bombs in easy-to-reach pouches from which you draw without thinking. You @UUID[Compendium.pf2e.actionspf2e.Item.Interact] to draw a bomb, then Strike with it.</p>"
-                },
-                "level": {
-                    "taken": 1,
-                    "value": 1
-                },
-                "location": "class-1",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "quick-bomber",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
         },
         {
             "_id": "5Wrr5wZzxWzszNtZ",
@@ -1653,875 +1529,10 @@
             "type": "equipment"
         },
         {
-            "_id": "cWbeRrXdLlUWKRid",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classes.Item.XwfcJuskrhI9GIjX"
-                }
-            },
-            "img": "systems/pf2e/icons/classes/alchemist.webp",
-            "name": "Alchemist",
-            "sort": 1200000,
-            "system": {
-                "ancestryFeatLevels": {
-                    "value": [
-                        1,
-                        5,
-                        9,
-                        13,
-                        17
-                    ]
-                },
-                "attacks": {
-                    "advanced": 0,
-                    "martial": 0,
-                    "other": {
-                        "name": "Alchemical Bombs",
-                        "rank": 1
-                    },
-                    "simple": 1,
-                    "unarmed": 1
-                },
-                "classFeatLevels": {
-                    "value": [
-                        1,
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "defenses": {
-                    "heavy": 0,
-                    "light": 1,
-                    "medium": 1,
-                    "unarmored": 1
-                },
-                "description": {
-                    "value": "<p><em>There's no sight more beautiful to you than a strange brew bubbling in a beaker, and you consume your ingenious elixirs with abandon. You're fascinated by uncovering the secrets of science and the natural world, and you're constantly experimenting in your lab or on the go with inventive concoctions for every eventuality. You are fearless in the face of risk, hurling explosive or toxic creations at your foes. Your unique path toward greatness is lined with alchemical brews that push your mind and body to their limits.</em></p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.Om4e4tsgNWrComie]{Alchemist}</p>"
-                },
-                "generalFeatLevels": {
-                    "value": [
-                        3,
-                        7,
-                        11,
-                        15,
-                        19
-                    ]
-                },
-                "hp": 8,
-                "items": {
-                    "0btpz": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 7,
-                        "name": "(Choice) Perpetual Infusions",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perpetual Infusions"
-                    },
-                    "0q0he": {
-                        "img": "icons/equipment/back/mantle-collared-green.webp",
-                        "level": 13,
-                        "name": "Alchemist Armor Expertise (Level 13)",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemist Armor Expertise (Level 13)"
-                    },
-                    "17vbv": {
-                        "img": "icons/consumables/potions/potion-flash-open-blue.webp",
-                        "level": 15,
-                        "name": "Alchemical Alacrity",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Alacrity"
-                    },
-                    "4bdrn": {
-                        "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
-                        "level": 1,
-                        "name": "Alchemy",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemy"
-                    },
-                    "7rg3w": {
-                        "img": "icons/equipment/chest/breastplate-rivited-red.webp",
-                        "level": 19,
-                        "name": "Alchemist Armor Mastery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemist Armor Mastery (Level 19)"
-                    },
-                    "b3ohx": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 1,
-                        "name": "Research Field",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Research Field"
-                    },
-                    "bdpgv": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 11,
-                        "name": "Perpetual Potency",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perpetual Potency"
-                    },
-                    "bm730": {
-                        "img": "icons/creatures/eyes/human-single-blue.webp",
-                        "level": 9,
-                        "name": "Alertness",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alertness"
-                    },
-                    "enfdl": {
-                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
-                        "level": 13,
-                        "name": "Weapon Specialization",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
-                    },
-                    "f4a0p": {
-                        "img": "systems/pf2e/icons/features/classes/double-brew.webp",
-                        "level": 9,
-                        "name": "Double Brew",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Double Brew"
-                    },
-                    "j5xnl": {
-                        "img": "systems/pf2e/icons/features/classes/alchemical-weapon-expertise.webp",
-                        "level": 7,
-                        "name": "Alchemical Weapon Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Weapon Expertise"
-                    },
-                    "k4a5r": {
-                        "img": "systems/pf2e/icons/features/classes/juggerenaut.webp",
-                        "level": 11,
-                        "name": "Juggernaut",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Juggernaut"
-                    },
-                    "l170j": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 13,
-                        "name": "(Choice) Greater Field Discovery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery"
-                    },
-                    "nmzo2": {
-                        "img": "icons/magic/fire/explosion-embers-evade-silhouette.webp",
-                        "level": 15,
-                        "name": "Evasion",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Evasion"
-                    },
-                    "plldb": {
-                        "img": "systems/pf2e/icons/features/classes/alchemical-expertise.webp",
-                        "level": 9,
-                        "name": "Alchemical Expertise",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Expertise"
-                    },
-                    "t9bmz": {
-                        "img": "systems/pf2e/icons/features/classes/formula-book.webp",
-                        "level": 1,
-                        "name": "Formula Book",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Formula Book"
-                    },
-                    "u9it3": {
-                        "img": "systems/pf2e/icons/features/classes/iron-will.webp",
-                        "level": 7,
-                        "name": "Iron Will",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Iron Will"
-                    },
-                    "xtjxi": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 17,
-                        "name": "Perpetual Perfection",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Perpetual Perfection"
-                    },
-                    "xzcdr": {
-                        "img": "icons/magic/symbols/question-stone-yellow.webp",
-                        "level": 5,
-                        "name": "Field Discovery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Field Discovery"
-                    },
-                    "yc9ak": {
-                        "img": "icons/commodities/materials/bowl-powder-teal.webp",
-                        "level": 5,
-                        "name": "Powerful Alchemy",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Alchemy"
-                    },
-                    "yy1uz": {
-                        "img": "icons/tools/cooking/mortar-stone-yellow.webp",
-                        "level": 17,
-                        "name": "Alchemical Mastery",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Mastery"
-                    }
-                },
-                "keyAbility": {
-                    "value": [
-                        "int"
-                    ]
-                },
-                "perception": 1,
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
-                        "value": 1
-                    }
-                ],
-                "savingThrows": {
-                    "fortitude": 2,
-                    "reflex": 2,
-                    "will": 1
-                },
-                "skillFeatLevels": {
-                    "value": [
-                        2,
-                        4,
-                        6,
-                        8,
-                        10,
-                        12,
-                        14,
-                        16,
-                        18,
-                        20
-                    ]
-                },
-                "skillIncreaseLevels": {
-                    "value": [
-                        3,
-                        5,
-                        7,
-                        9,
-                        11,
-                        13,
-                        15,
-                        17,
-                        19
-                    ]
-                },
-                "slug": "alchemist",
-                "spellcasting": 0,
-                "trainedSkills": {
-                    "additional": 3,
-                    "value": [
-                        "crafting"
-                    ]
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "class"
-        },
-        {
-            "_id": "P1WyQF917HaeiDBU",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.cU2ofQLj7pg6wTSi"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "bomber": {
-                            "id": "9kflIhFi69ElaIpC",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/magic/symbols/question-stone-yellow.webp",
-            "name": "Research Field",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>Your inquiries into the alchemical nature of the universe have led you to focus on a particular field of research. You might have a degree from a scientific institute, correspond with other researchers in your field, or work as a genius loner. Choose a field of research.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of infused reagents to create your signature items using advanced alchemy, you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "cWbeRrXdLlUWKRid",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "adjustName": false,
-                        "allowedDrops": {
-                            "label": "level 1 Alchemist class feature",
-                            "predicate": [
-                                "item:level:1",
-                                "item:trait:alchemist",
-                                "item:type:feature"
-                            ]
-                        },
-                        "choices": [
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Bomber"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Chirurgeon"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Mutagenist"
-                            },
-                            {
-                                "value": "Compendium.pf2e.classfeatures.Item.Toxicologist"
-                            }
-                        ],
-                        "flag": "researchField",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Alchemist.ResearchField.Prompt",
-                        "selection": "Compendium.pf2e.classfeatures.Item.Bomber"
-                    },
-                    {
-                        "flag": "bomber",
-                        "key": "GrantItem",
-                        "uuid": "{item|flags.pf2e.rulesSelections.researchField}"
-                    }
-                ],
-                "slug": "research-field",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "yHduLhG2DsQNM380",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.w3aS3tsvH2Ub6XMn"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "advancedAlchemy": {
-                            "id": "AX3pcav4e5PxoVla",
-                            "onDelete": "detach"
-                        },
-                        "alchemicalCrafting": {
-                            "id": "6NEW5DA1FKs1gg3h",
-                            "onDelete": "detach"
-                        },
-                        "infusedReagents": {
-                            "id": "rCh8EIRBciOc1C5H",
-                            "onDelete": "detach"
-                        },
-                        "quickAlchemy": {
-                            "id": "8JsMAEjWlxYGZSOF",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
-            "name": "Alchemy",
-            "sort": 100,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You understand the complex interactions of natural and unnatural substances and can concoct alchemical items to meet your needs. You can do this using normal reagents and the Craft activity, or you can use special infused reagents that allow you to craft temporary items quickly and at no cost. Over time, you can create more and more alchemical items for free, and since each of them becomes more and more powerful, you advance in power dramatically, leaving behind those who don't understand your strange science.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] feat, even if you don't meet that feat's prerequisites, and you gain the four common 1st-level alchemical formulas granted by that feat. You can use this feat to create alchemical items as long as you have the items' formulas in your formula book.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "cWbeRrXdLlUWKRid",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "alchemicalCrafting",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
-                    },
-                    {
-                        "flag": "infusedReagents",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Infused Reagents"
-                    },
-                    {
-                        "flag": "advancedAlchemy",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Advanced Alchemy"
-                    },
-                    {
-                        "flag": "quickAlchemy",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.classfeatures.Item.Quick Alchemy"
-                    }
-                ],
-                "slug": "alchemy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "FGJpkU7s57ur64fY",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.XPPG7nN9pxt0sjMg"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "formulaBookBlank": {
-                            "id": "1jXFT6Qhk8eUh8r2",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/features/classes/formula-book.webp",
-            "name": "Formula Book",
-            "sort": 200,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>An alchemist keeps meticulous formulas for every item they can create. You start with a standard @UUID[Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)] worth 10 sp or less for free. The formula book contains the formulas for two common 1st-level alchemical items of your choice, in addition to those you gained from @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] and your research field.</p>\n<p>Each time you gain a level, you can add the formulas for two common alchemical items to your formula book. These new formulas can be for any level of item you can create. You learn these formulas automatically, but it's also possible to find or buy additional formulas in settlements or from other alchemists, or to invent them with the @UUID[Compendium.pf2e.feats-srd.Item.Inventor] feat.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "cWbeRrXdLlUWKRid",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "formulaBookBlank",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)"
-                    }
-                ],
-                "slug": "formula-book",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "9kflIhFi69ElaIpC",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.7JbiaZ8bxODM5mzS"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "P1WyQF917HaeiDBU",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/weapons/thrown/bomb-fuse-blue.webp",
-            "name": "Bomber",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You specialize in explosions and other violent alchemical reactions. You start with the formulas for two common 1st-level alchemical bombs, in addition to your other formulas.</p>\n<p>Your research field adds a number of formulas to your formula book; these are your signature items. When using a batch of @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents] to create your signature items using @UUID[Compendium.pf2e.classfeatures.Item.Advanced Alchemy], you create three items instead of two. Each time you gain a level, you can swap one of your signature items with another formula in your formula book. This new signature item must be on your research field's list of possible signature items.</p>\n<p>When throwing an alchemical bomb with the splash trait, you can deal splash damage to only your primary target instead of the usual splash area.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)]{Field Discovery}<span style=\"float:right\">Level 5</span></h2>\n<p>When using Advanced Alchemy to make bombs during your daily preparations, you can use a batch of reagents to create any three bombs instead of just two of the same bomb.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Infusions (Bomber)]{Perpetual Infusions}<span style=\"float:right\">Level 7</span></h2>\n<p>You have learned how to create perpetual alchemical infusions that can provide a near-infinite supply of certain simple items. You gain the ability to create two 1st-level alchemical items using @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] without spending a batch of infused reagents. The items you can select depend on your research field and must be in your formula book.</p>\n<p>Each time you gain a level, you can swap any number of your perpetual infusions with other eligible infusions.</p>\n<p>Choose two 1st-level bombs.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Potency (Bomber)]{Perpetual Potency}<span style=\"float:right\">Level 11</span></h2>\n<p>Your perpetual infusions improve, allowing you to use Quick Alchemy to create more powerful items with no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The moderate versions of the bombs you chose for perpetual infusions.</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)]{Greater Field Discovery}<span style=\"float:right\">Level 13</span></h2>\n<p>You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have @UUID[Compendium.pf2e.feats-srd.Item.Expanded Splash].</p>\n<h2 class=\"title\">@UUID[Compendium.pf2e.classfeatures.Item.Perpetual Perfection (Bomber)]{Perpetual Perfection}<span style=\"float:right\">Level 17</span></h2>\n<p>You have perfected your perpetual infusions, allowing you to use Quick Alchemy to create even more powerful items at no cost. The items you can select depend on your research field and must be in your formula book.</p>\n<p>The greater versions of the bombs you chose for perpetual infusions.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "alchemical",
-                            "bomb",
-                            "splash"
-                        ],
-                        "selector": "strike-damage",
-                        "text": "You can deal splash damage to only your primary target instead of the usual splash area.",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "override",
-                        "path": "flags.pf2e.alchemist",
-                        "value": {
-                            "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)",
-                            "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)",
-                            "perpetualInfusions": "Compendium.pf2e.classfeatures.Item.Perpetual Infusions (Bomber)",
-                            "perpetualPerfection": "Compendium.pf2e.classfeatures.Item.Perpetual Perfection (Bomber)",
-                            "perpetualPotency": "Compendium.pf2e.classfeatures.Item.Perpetual Potency (Bomber)"
-                        }
-                    }
-                ],
-                "slug": "bomber",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "6NEW5DA1FKs1gg3h",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.is3Oz9wt11lNq62K"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "yHduLhG2DsQNM380",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Alchemical Crafting",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>You can use the Craft activity to create alchemical items. When you select this feat, you immediately add the formulas for four common 1st-level alchemical items to your formula book.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in Crafting"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "alchemical-crafting",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "rCh8EIRBciOc1C5H",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.wySB9VHOW1v3TX1L"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "yHduLhG2DsQNM380",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/commodities/treasure/broach-pink-orbs.webp",
-            "name": "Infused Reagents",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>You infuse reagents with your own alchemical essence, allowing you to create alchemical items at no cost. Each day during your daily preparations, you gain a number of batches of infused reagents equal to your level + your Intelligence modifier. You can use these reagents for either advanced alchemy or Quick Alchemy, described below. Together, these infused reagents have light Bulk.</p>\n<p>As soon as you make your next daily preparations, your infused reagents from the previous day's preparations are instantly destroyed, and nonpermanent effects of your previous day's infused items immediately end. While infused reagents are physical objects, they can't be duplicated, preserved, or created in any way other than your daily preparations. Any such artificial reagents lack the infusion and are useless for advanced alchemy or Quick Alchemy.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.resources.crafting.infusedReagents.max",
-                        "predicate": [
-                            "class:alchemist"
-                        ],
-                        "value": "@actor.level + @actor.abilities.int.mod"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.resources.crafting.infusedReagents.max",
-                        "predicate": [
-                            {
-                                "not": "class:alchemist"
-                            }
-                        ],
-                        "value": "@actor.level"
-                    }
-                ],
-                "slug": "infused-reagents",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "AX3pcav4e5PxoVla",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.Pe0zmIqyTBc2Td0I"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "yHduLhG2DsQNM380",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/skills/toxins/poison-skull-herbs-bottle-pink.webp",
-            "name": "Advanced Alchemy",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>During your daily preparations, after producing new @UUID[Compendium.pf2e.classfeatures.Item.Infused Reagents], you can spend batches of those infused reagents to create infused alchemical items.</p>\n<p>You don't need to attempt a Crafting check to do this, and you ignore both the number of days typically required to create the items and any alchemical reagent requirements.</p>\n<p>Your advanced alchemy level is equal to your level. For each batch of infused reagents you spend, choose an alchemical item of your advanced alchemy level or lower that's in your formula book, and make a batch of two of that item.</p>\n<p>These items have the infused trait and remain potent for 24 hours or until your next daily preparations, whichever comes first.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "craftableItems": [
-                            "item:trait:alchemical"
-                        ],
-                        "isAlchemical": true,
-                        "isDailyPrep": true,
-                        "key": "CraftingEntry",
-                        "label": "PF2E.TraitAlchemist",
-                        "maxItemLevel": "@actor.level",
-                        "predicate": [
-                            "class:alchemist"
-                        ],
-                        "selector": "alchemist"
-                    }
-                ],
-                "slug": "advanced-alchemy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "8uzC5nTcykjuhmMi",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.yzNJgwzV9XqEhKc6"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "8JsMAEjWlxYGZSOF",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Quick Alchemy",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "category": "interaction",
-                "description": {
-                    "value": "<p><strong>Cost</strong> 1 batch of infused reagents</p>\n<p><strong>Requirements</strong> You have the formula for the alchemical item you're creating, and you're either holding or wearing the @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Toolkit].</p>\n<hr />\n<p>You swiftly mix up a short-lived alchemical item to use at a moment's notice. You create a single alchemical consumable item of your advanced alchemy level or lower that's in your formula book without having to spend the normal monetary cost in alchemical reagents or needing to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn.</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [],
-                "slug": "quick-alchemy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist",
-                        "manipulate"
-                    ]
-                }
-            },
-            "type": "action"
-        },
-        {
-            "_id": "8JsMAEjWlxYGZSOF",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.classfeatures.Item.sPtl05wwTpqFI0lL"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "yHduLhG2DsQNM380",
-                        "onDelete": "cascade"
-                    },
-                    "itemGrants": {
-                        "quickAlchemy": {
-                            "id": "8uzC5nTcykjuhmMi",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "icons/tools/laboratory/vials-blue-pink.webp",
-            "name": "Quick Alchemy",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "classfeature",
-                "description": {
-                    "value": "<p>If you need a specific alchemical item on the fly, you can use your infused reagents to quickly create it with the @UUID[Compendium.pf2e.actionspf2e.Item.Quick Alchemy] action.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Core Rulebook"
-                },
-                "rules": [
-                    {
-                        "flag": "quickAlchemy",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
-                    }
-                ],
-                "slug": "quick-alchemy",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "alchemist"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "1jXFT6Qhk8eUh8r2",
             "flags": {
                 "core": {
                     "sourceId": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "FGJpkU7s57ur64fY",
-                        "onDelete": "detach"
-                    }
                 }
             },
             "img": "icons/sundries/books/book-tooled-brass-brown.webp",
@@ -2662,6 +1673,1046 @@
                 "vision": "darkvision"
             },
             "type": "ancestry"
+        },
+        {
+            "_id": "X65EKcptUIlMiknE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.XwfcJuskrhI9GIjX"
+                }
+            },
+            "img": "systems/pf2e/icons/classes/alchemist.webp",
+            "name": "Alchemist",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "Alchemical Bombs",
+                        "rank": 1
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 1,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>There's no sight more beautiful to you than a strange brew bubbling in a beaker, and you consume your ingenious elixirs with abandon. You're fascinated by uncovering the secrets of science and the natural world, and you're constantly experimenting in your lab or on the go with inventive concoctions for every eventuality. You are fearless in the face of risk, hurling explosive or toxic creations at your foes. Your unique path toward greatness is lined with alchemical brews that push your mind and body to their limits.</em></p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.Om4e4tsgNWrComie]{Alchemist}</p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "4bdrn": {
+                        "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
+                        "level": 1,
+                        "name": "Alchemy",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemy"
+                    },
+                    "CJ528": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 11,
+                        "name": "Chemical Hardiness",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Chemical Hardiness"
+                    },
+                    "JK2gV": {
+                        "img": "icons/consumables/potions/potion-round-stopped-yellow-green.webp",
+                        "level": 15,
+                        "name": "Alchemical Weapon Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Weapon Mastery"
+                    },
+                    "NY2Su": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 9,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
+                    },
+                    "Q1cDZ": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 15,
+                        "name": "Explosion Dodger",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Explosion Dodger"
+                    },
+                    "SWNkG": {
+                        "img": "icons/equipment/chest/breastplate-collared-steel.webp",
+                        "level": 19,
+                        "name": "Medium Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Mastery"
+                    },
+                    "aay1e": {
+                        "img": "systems/pf2e/icons/features/classes/walls-of-will.webp",
+                        "level": 7,
+                        "name": "Will Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Will Expertise"
+                    },
+                    "b3ohx": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 1,
+                        "name": "Research Field",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Research Field"
+                    },
+                    "cNnDR": {
+                        "img": "icons/equipment/chest/breastplate-quilted-brown.webp",
+                        "level": 13,
+                        "name": "Medium Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Medium Armor Expertise"
+                    },
+                    "enfdl": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "f4a0p": {
+                        "img": "systems/pf2e/icons/features/classes/double-brew.webp",
+                        "level": 9,
+                        "name": "Double Brew",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Double Brew"
+                    },
+                    "j5xnl": {
+                        "img": "systems/pf2e/icons/features/classes/alchemical-weapon-expertise.webp",
+                        "level": 7,
+                        "name": "Alchemical Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Weapon Expertise"
+                    },
+                    "l170j": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 13,
+                        "name": "(Choice) Greater Field Discovery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery"
+                    },
+                    "plldb": {
+                        "img": "systems/pf2e/icons/features/classes/alchemical-expertise.webp",
+                        "level": 9,
+                        "name": "Alchemical Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Expertise"
+                    },
+                    "rpCw8": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 17,
+                        "name": "Abundant Vials",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Abundant Vials"
+                    },
+                    "vOE57": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 11,
+                        "name": "Advanced Vials",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Advanced Vials"
+                    },
+                    "xzcdr": {
+                        "img": "icons/magic/symbols/question-stone-yellow.webp",
+                        "level": 5,
+                        "name": "Field Discovery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Field Discovery"
+                    },
+                    "yc9ak": {
+                        "img": "icons/commodities/materials/bowl-powder-teal.webp",
+                        "level": 5,
+                        "name": "Powerful Alchemy",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Powerful Alchemy"
+                    },
+                    "yy1uz": {
+                        "img": "icons/tools/cooking/mortar-stone-yellow.webp",
+                        "level": 17,
+                        "name": "Alchemical Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Alchemical Mastery"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "int"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
+                        "value": 1
+                    }
+                ],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "alchemist",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "value": [
+                        "crafting"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "yIZISVZfXE0Ew18W",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.w3aS3tsvH2Ub6XMn"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "advancedAlchemy": {
+                            "id": "kHTM5kfw1jppwRYG",
+                            "onDelete": "detach"
+                        },
+                        "alchemicalCrafting": {
+                            "id": "DKzvU3qQvaujuwZ3",
+                            "onDelete": "detach"
+                        },
+                        "formulaBook": {
+                            "id": "JisuQUS61YJHJlDJ",
+                            "onDelete": "detach"
+                        },
+                        "quickAlchemy": {
+                            "id": "UvUO8mdtjbKrG7gN",
+                            "onDelete": "detach"
+                        },
+                        "versatileVials": {
+                            "id": "dYYIlZY70pMCoSDF",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/tools/laboratory/mortar-liquid-pink.webp",
+            "name": "Alchemy",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You understand the reactions between all manner of reagents and can concoct alchemical items to meet your needs. You can do this using normal reagents and the Craft activity, or you can use specially prepared chemicals that allow you to craft temporary items quickly and at no cost. Over time, you can create more and more alchemical items for free, and since each of them becomes more and more powerful, you advance in power dramatically, leaving behind those who don't understand your strange science.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] feat, and you can automatically identify alchemical items that you have the formula for.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "X65EKcptUIlMiknE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "flag": "alchemicalCrafting",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Alchemical Crafting"
+                    },
+                    {
+                        "flag": "formulaBook",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Formula Book"
+                    },
+                    {
+                        "flag": "advancedAlchemy",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Advanced Alchemy"
+                    },
+                    {
+                        "flag": "versatileVials",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Versatile Vials"
+                    },
+                    {
+                        "flag": "quickAlchemy",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Quick Alchemy"
+                    },
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "action:identify-alchemy"
+                        ],
+                        "selector": "crafting",
+                        "text": "If have the formula for the item you're identifying, you automatically identify it.",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "alchemy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "4W1AXiSER9akqY7J",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.cU2ofQLj7pg6wTSi"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "bomber": {
+                            "id": "ADsMSbQHLxnrYFUn",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Research Field",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Your inquiries into the alchemical nature of the universe have led you to focus on a particular field of research. At 1st level, you choose your research field. This choice gives you more formulas, a special benefit, other abilities for your versatile vials, and other benefits as you level up.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "X65EKcptUIlMiknE",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:alchemist-research-field"
+                            ]
+                        },
+                        "flag": "researchField",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Alchemist.ResearchField.Prompt",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Bomber"
+                    },
+                    {
+                        "flag": "bomber",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.researchField}"
+                    }
+                ],
+                "slug": "research-field",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "DKzvU3qQvaujuwZ3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.is3Oz9wt11lNq62K"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "yIZISVZfXE0Ew18W",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Alchemical Crafting",
+            "sort": 335100000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>You can use the Craft activity to create alchemical items. When you select this feat, you immediately add the formulas for four common 1st-level alchemical items to your formula book.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in Crafting"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [],
+                "slug": "alchemical-crafting",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "JisuQUS61YJHJlDJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.XPPG7nN9pxt0sjMg"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "yIZISVZfXE0Ew18W",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "formulaBookBlank": {
+                            "id": "NnGrrc6qqc1HFyde",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/features/classes/formula-book.webp",
+            "name": "Formula Book",
+            "sort": 34200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>An alchemist keeps meticulous formulas for every item they can create. You start with a standard @UUID[Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)]{Formula Book} for free. The formula book contains the formulas for two common 1st-level alchemical items of your choice, in addition to any formulas you gained from @UUID[Compendium.pf2e.feats-srd.Item.Alchemical Crafting] and your research field.</p>\n<p>Each time you gain a level, you can add the formulas for two common alchemical items to your formula book. These new formulas can be for any level of item you can create. You learn these formulas automatically, but it's also possible to find or buy additional formulas in settlements or from other alchemists, or to select the @UUID[Compendium.pf2e.feats-srd.Item.Inventor] skill feat so you can invent them.</p>\n<p>As normal, having the base formula is sufficient when Crafting upgraded types of the item—you don't need to learn higher-level formulas. For instance, if you have the 1st-level formula for a minor elixir of life, you can create a minor, lesser, moderate, greater, major, or true elixir of life as long as you meet the level and other prerequisites. Items with type entries that have widely varied functions require separate formulas, but most alchemical items have a structure similar to elixir of life.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "flag": "formulaBookBlank",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.equipment-srd.Item.Formula Book (Blank)"
+                    }
+                ],
+                "slug": "formula-book",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "NnGrrc6qqc1HFyde",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.qCEOZ6109Yo34tRx"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "JisuQUS61YJHJlDJ",
+                        "onDelete": "detach"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-tooled-brass-brown.webp",
+            "name": "Formula Book (Blank)",
+            "sort": 414000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from Pathfinder Player Core; characters of the alchemist class typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "formula-book-blank",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "kHTM5kfw1jppwRYG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.Pe0zmIqyTBc2Td0I"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "yIZISVZfXE0Ew18W",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/skills/toxins/poison-skull-herbs-bottle-pink.webp",
+            "name": "Advanced Alchemy",
+            "sort": 25300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>During your daily preparations, you spend some time to create alchemical items that can be used over the course of the day.</p>\n<p>You don't need to attempt a Crafting check to do this, you can use an alchemist's toolkit instead of an alchemist's lab, and you ignore both the number of days typically required to create the items and any alchemical raw materials requirements.</p>\n<p>You can Craft a number of alchemical items up to 4 + your Intelligence modifier. Each item must be in your formula book, have an item level equal to or lower than your level, and have the consumable trait.</p>\n<p>These items have the infused trait and remain potent for 24 hours or until your next daily preparations, whichever comes first.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "craftableItems": [
+                            "item:trait:alchemical"
+                        ],
+                        "isAlchemical": true,
+                        "isDailyPrep": true,
+                        "key": "CraftingEntry",
+                        "label": "PF2E.TraitAlchemist",
+                        "maxItemLevel": "@actor.level",
+                        "predicate": [
+                            "class:alchemist"
+                        ],
+                        "selector": "alchemist"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.resources.crafting.infusedReagents.max",
+                        "predicate": [
+                            "class:alchemist"
+                        ],
+                        "value": "@actor.level + @actor.abilities.int.mod"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.resources.crafting.infusedReagents.max",
+                        "predicate": [
+                            {
+                                "not": "class:alchemist"
+                            }
+                        ],
+                        "value": "@actor.level"
+                    }
+                ],
+                "slug": "advanced-alchemy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "dYYIlZY70pMCoSDF",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PBQh0amk1FlomV0r"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "yIZISVZfXE0Ew18W",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/symbols/question-stone-yellow.webp",
+            "name": "Versatile Vials",
+            "sort": 24500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You know how to prepare fast-acting chemicals into versatile vials, special items that can be used as bombs and be turned into other alchemical items by introducing special reagents. During your daily preparations, you can create a number of versatile vials up to 2 + your Intelligence modifier, which is also your maximum number of vials. If you're below your maximum number, you can gather reagents from the environment around you. For every 10 minutes you spend in exploration mode, you regain 2 vials; this doesn't prevent you from participating in other exploration activities.</p>\n<p>Versatile vials are infused items, and are destroyed if not used by the next time you make your daily preparations. A vial you create is always the highest type you could Craft. See the sidebar for statistics on using a versatile vial as a bomb. You can also use vials for @UUID[Compendium.pf2e.classfeatures.Item.Quick Alchemy] and your research field can add to the ways you can use a vial.</p>\n<p>You can store all your versatile vials within your @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Toolkit], with no increase to its Bulk. Though versatile vials are physical objects, they can't be duplicated or preserved in any way.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "versatile-vials",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "UvUO8mdtjbKrG7gN",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.sPtl05wwTpqFI0lL"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "yIZISVZfXE0Ew18W",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "quickAlchemy": {
+                            "id": "zhLvEWpg6PC3mPKe",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/tools/laboratory/vials-blue-pink.webp",
+            "name": "Quick Alchemy",
+            "sort": 53900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Quick Alchemy] action to make the items you need on the fly.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "flag": "quickAlchemy",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Quick Alchemy"
+                    }
+                ],
+                "slug": "quick-alchemy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "zhLvEWpg6PC3mPKe",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.yzNJgwzV9XqEhKc6"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "UvUO8mdtjbKrG7gN",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Quick Alchemy",
+            "sort": 40100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You're either holding or wearing an @UUID[Compendium.pf2e.equipment-srd.Item.Alchemist's Toolkit]. and you have a free hand.</p><hr /><p>You can either use up a versatile vial to make another alchemical consumable at a moment's notice or create an especially short-lived versatile vial. Any effect created by an item made with Quick Alchemy that would have a duration longer than 10 minutes lasts for 10 minutes instead.</p><ul><li><strong>Create Consumable</strong> You expend one of your versatile vials to create a single alchemical consumable item of your level or lower that's in your formula book. You don't have to spend the normal monetary cost in alchemical raw materials or need to attempt a Crafting check. This item has the infused trait, but it remains potent only until the start of your next turn. (As normal, you need only one formula for an item to create any level of that item.)</li><li><p><strong>Quick Vial</strong> You create a versatile vial that can be used only as a bomb or for the versatile vial option from your research field (it can't be used to create a consumable, for example). This item has the infused trait, but it remains potent only until the end of your current turn.</p>\n</li></ul>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "quick-alchemy",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "ADsMSbQHLxnrYFUn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.7JbiaZ8bxODM5mzS"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "4W1AXiSER9akqY7J",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/weapons/thrown/bomb-fuse-blue.webp",
+            "name": "Bomber",
+            "sort": 6900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>You specialize in explosions and other violent reactions.</p>\n<p><strong>Formulas</strong> Two common 1st-level alchemical bombs.</p>\n<p><strong>Field Benefit</strong> When throwing an alchemical bomb with the splash trait, you can choose to deal splash damage to only your primary target instead of the usual splash area.</p>\n<p><strong>Field Vials</strong> When you @UUID[Compendium.pf2e.actionspf2e.Item.Strike] with a versatile vial, you can choose to have it deal cold, electricity, or fire damage instead of acid damage.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)]{Field Discovery} (5th)</strong> You have calculated all the angles to maximize a bomb's splash. When you throw an alchemical bomb with the splash trait, you can cause the bomb to deal splash damage equal to your Intelligence modifier (minimum 1) instead of the normal amount.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Advanced Vials (Bomber)]{Advanced Vials} (11th)</strong> You can mix special ingredients into your vials, such as magical dust or flakes of precious minerals. When you create a versatile vial, you can choose to have it treated as one special material of your choice, chosen from adamantine, cold iron, and dawnsilver. If you're wearing or wielding an item of a different precious material when you make the vial, you can choose that material instead.</p>\n<p><strong>@UUID[Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)]{Greater Field Discovery} (13th)</strong> You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have Expanded Splash.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [
+                    {
+                        "key": "Note",
+                        "predicate": [
+                            "alchemical",
+                            "bomb",
+                            "splash"
+                        ],
+                        "selector": "strike-damage",
+                        "text": "You can choose to deal splash damage to only your primary target instead of the usual splash area.",
+                        "title": "{item|name}"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.alchemist",
+                        "value": {
+                            "advancedVials": "Compendium.pf2e.classfeatures.Item.Advanced Vials (Bomber)",
+                            "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)",
+                            "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)"
+                        }
+                    }
+                ],
+                "slug": "bomber",
+                "traits": {
+                    "otherTags": [
+                        "alchemist-research-field"
+                    ],
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "DSkd3JNaOEPP8mGO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.OYjzfTeWU7RJBT7v"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Goblin Weapon Familiarity",
+            "sort": 181600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>Others might look upon them with disdain, but you know that the weapons of your people are as effective as they are sharp. You gain access to all uncommon weapons with the goblin trait. You have familiarity with weapons with the goblin trait—for the purposes of proficiency, you treat any of these that are martial weapons as simple weapons and any that are advanced weapons as martial weapons.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, you get its critical specialization effect.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "definition": [
+                            "item:trait:goblin",
+                            "item:category:martial"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.MartialGoblinWeapons",
+                        "sameAs": "simple",
+                        "slug": "martial-goblin-weapons"
+                    },
+                    {
+                        "definition": [
+                            "item:trait:goblin",
+                            "item:category:advanced"
+                        ],
+                        "key": "MartialProficiency",
+                        "label": "PF2E.SpecificRule.MartialProficiency.AdvancedGoblinWeapons",
+                        "sameAs": "martial",
+                        "slug": "advanced-goblin-weapons"
+                    },
+                    {
+                        "key": "CriticalSpecialization",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    5
+                                ]
+                            },
+                            "item:trait:goblin"
+                        ]
+                    }
+                ],
+                "slug": "goblin-weapon-familiarity",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "goblin"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "AWdsEwKHlrJchNgs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.xbg1scOIT7RI9Fij"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Quick Bomber",
+            "sort": 447700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You keep your bombs and bomb-related reagents in easy-toreach pouches from which you draw without thinking. You Interact to draw a bomb, draw a versatile vial, or use @UUID[Compendium.pf2e.actionspf2e.Item.Quick Alchemy] to create a bomb, then @UUID[Compendium.pf2e.actionspf2e.Item.Strike] with the bomb. If you have the ability to create more than one bomb at a time with Quick Alchemy (such as from the double brew class feature), you can Strike with only one of the bombs you create with this action.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core 2"
+                },
+                "rules": [],
+                "slug": "quick-bomber",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "alchemist"
+                    ]
+                }
+            },
+            "type": "feat"
         }
     ],
     "name": "Fumbus (Level 1)",

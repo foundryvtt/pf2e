@@ -26,10 +26,16 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "expanded-splash",
+                "toggleable": true
+            },
+            {
                 "damageCategory": "splash",
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:splash"
+                    "item:trait:splash",
+                    "expanded-splash"
                 ],
                 "selector": "alchemical-bomb-damage",
                 "type": "status",
@@ -38,10 +44,11 @@
             {
                 "key": "Note",
                 "predicate": [
-                    "item:trait:splash"
+                    "item:trait:splash",
+                    "expanded-splash"
                 ],
                 "selector": "alchemical-bomb-damage",
-                "text": "You can have the bomb deal splash damage to every creature within 10 feet of the target.",
+                "text": "PF2E.SpecificRule.Alchemist.ExpandedSplash.Note",
                 "title": "{item|name}"
             }
         ],

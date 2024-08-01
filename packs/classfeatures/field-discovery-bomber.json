@@ -26,15 +26,17 @@
         },
         "rules": [
             {
-                "key": "Note",
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "predicate": [
-                    "alchemical",
-                    "bomb",
-                    "splash"
+                    {
+                        "not": "feat:expanded-splash"
+                    }
                 ],
-                "selector": "strike-damage",
-                "text": "When you throw an alchemical bomb with the splash trait, you can cause the bomb to deal splash damage equal to your Intelligence modifier (minimum 1) instead of the normal amount.",
-                "title": "Bomber (Field Discovery)"
+                "relabel": "{item|name}",
+                "selector": "alchemical-bomb-damage",
+                "slug": "splash",
+                "value": "@actor.abilities.int.mod"
             }
         ],
         "traits": {

@@ -1,16 +1,16 @@
 {
-    "_id": "fgz7lwg1xHsVW4dX",
-    "img": "icons/sundries/gaming/playing-cards.webp",
-    "name": "Effect: Exemplary Finisher (Rascal)",
+    "_id": "tMsVpICbBU3kL1lp",
+    "img": "icons/skills/wounds/bone-broken-knee-beam.webp",
+    "name": "Effect: Surgical Shock (Failure)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Exemplary Finisher]</p>\n<p>The foe takes a -10 circumstance penalty to its speed until the start of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Surgical Shock]</p>\n<p>You gain a +1 circumstance bonus to the next attack action you attempt against the target.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": "turn-end",
             "sustained": false,
             "unit": "rounds",
-            "value": 1
+            "value": 0
         },
         "level": {
             "value": 1
@@ -22,10 +22,18 @@
         },
         "rules": [
             {
+                "key": "TokenMark",
+                "slug": "surgical-shock"
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "speed",
+                "predicate": [
+                    "target:mark:surgical-shock"
+                ],
+                "removeAfterRoll": true,
+                "selector": "attack",
                 "type": "circumstance",
-                "value": -10
+                "value": 1
             }
         ],
         "start": {

@@ -4,7 +4,7 @@
     "name": "Spell Effect: Inner Upheaval",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Inner Upheaval]{Ki Strike}</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage of the chosen type.</p>\n<hr />\n<p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Inner Upheaval]</p>\n<p>You gain a +1 status bonus to your attack rolls with the Strikes, and the Strikes deal 1d6 extra damage of the chosen type.</p><hr /><p><strong>Heightened (+4)</strong> The extra damage increases by 1d6.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -78,6 +78,13 @@
                         "value": "force"
                     },
                     {
+                        "label": "PF2E.TraitSlashing",
+                        "predicate": [
+                            "feat:elemental-fist"
+                        ],
+                        "value": "slashing"
+                    },
+                    {
                         "label": "PF2E.TraitSonic",
                         "predicate": [
                             "entwined-energy-ki:sonic"
@@ -97,9 +104,29 @@
                         "value": "void"
                     }
                 ],
-                "flag": "kiStrike",
+                "flag": "damage",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "rollOption": "inner-upheaval"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": "wood"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "predicate": [
+                    "inner-upheaval:bludgeoning"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Element",
+                "rollOption": "inner-upheaval:bludgeoning"
             },
             {
                 "key": "FlatModifier",
@@ -108,45 +135,18 @@
                 "value": 1
             },
             {
-                "damageType": "{item|flags.pf2e.rulesSelections.kiStrike}",
+                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
+                "diceNumber": "ceil(@item.level/4)",
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 4,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        },
-                        {
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 3
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
-            },
-            {
-                "domain": "damage",
-                "key": "RollOption",
-                "option": "ki-strike:{item|flags.pf2e.rulesSelections.kiStrike}"
+                "selector": "strike-damage"
             },
             {
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "ki-strike:electricity"
+                    "inner-upheaval:electricity",
+                    "feat:elemental-fist"
                 ],
                 "property": "weapon-traits",
                 "value": "air"
@@ -155,7 +155,7 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "ki-strike:bludgeoning"
+                    "inner-upheaval:bludgeoning:earth"
                 ],
                 "property": "weapon-traits",
                 "value": "earth"
@@ -164,10 +164,39 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    "ki-strike:cold"
+                    "inner-upheaval:fire",
+                    "feat:elemental-fist"
+                ],
+                "property": "weapon-traits",
+                "value": "fire"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "inner-upheaval:slashing"
+                ],
+                "property": "weapon-traits",
+                "value": "metal"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "inner-upheaval:cold",
+                    "feat:elemental-fist"
                 ],
                 "property": "weapon-traits",
                 "value": "water"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "inner-upheaval:bludgeoning:wood"
+                ],
+                "property": "weapon-traits",
+                "value": "wood"
             }
         ],
         "start": {

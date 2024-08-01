@@ -1,0 +1,3150 @@
+{
+    "_id": "g1v25LWz7qO705Nx",
+    "img": "systems/pf2e/icons/iconics/YoonFull.webp",
+    "items": [
+        {
+            "_id": "GLbRpGniarZwqoUM",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/human.svg",
+            "name": "Human",
+            "sort": 0,
+            "system": {
+                "additionalLanguages": {
+                    "count": 1,
+                    "custom": "",
+                    "value": []
+                },
+                "boosts": {
+                    "0": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "con",
+                        "value": [
+                            "str",
+                            "dex",
+                            "con",
+                            "int",
+                            "wis",
+                            "cha"
+                        ]
+                    },
+                    "2": {
+                        "value": []
+                    }
+                },
+                "description": {
+                    "value": "<p><em>As unpredictable and varied as any of Golarion's peoples, humans have exceptional drive and the capacity to endure and expand. Though many civilizations thrived before humanity rose to prominence, humans have built some of the greatest and the most terrible societies throughout the course of history, and today they are the most populous people in the realms around the Inner Sea.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.7pU8yM7yPMw92SY3]{Human}</em></p>"
+                },
+                "flaws": {
+                    "0": {
+                        "value": []
+                    }
+                },
+                "hp": 8,
+                "items": {},
+                "languages": {
+                    "custom": "",
+                    "value": [
+                        "common"
+                    ]
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "reach": 5,
+                "rules": [],
+                "size": "med",
+                "slug": "human",
+                "speed": 25,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human",
+                        "humanoid"
+                    ]
+                },
+                "vision": "normal"
+            },
+            "type": "ancestry"
+        },
+        {
+            "_id": "a0T9Xw8PfwOFimSv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.zVf0Hlp5xG0Q7kmc"
+                }
+            },
+            "folder": "O7DVLyyF05fGfpdo",
+            "img": "icons/tools/navigation/map-chart-tan.webp",
+            "name": "Skilled Human (Thievery)",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Human",
+                    "slug": "human",
+                    "uuid": "Compendium.pf2e.ancestries.Item.IiG7DgeLWYrSNXuX"
+                },
+                "description": {
+                    "value": "<p>Your ingenuity allows you to train in a wide variety of skills. You become trained in one skill of your choice. At 5th level, you become an expert in the chosen skill.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Acrobatics",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Crafting",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.Skill.Medicine",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Performance",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.Skill.Society",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.Skill.Stealth",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.Skill.Survival",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.Skill.Thievery",
+                                "value": "thievery"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "thievery"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                        "value": "ternary(gte(@actor.level,5),2,1)"
+                    }
+                ],
+                "slug": "skilled-human",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "Ch0i6tqXedjVhJo2",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.8UXahQfkP9GZ1TNW"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "assurance": {
+                            "id": "jErvlr76BR5YchPx",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Nomad",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "con",
+                        "value": [
+                            "con",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "dex",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>Traveling far and wide, you picked up basic tactics for surviving on the road and in unknown lands, getting by with few supplies and even fewer comforts. As an adventurer, you travel still, often into even more dangerous places.</p>\n<p>Choose two attribute boosts. One must be to <strong>Constitution</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in the Survival skill and a Lore skill related to one terrain you traveled in (such as Desert Lore or Swamp Lore). You gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat with Survival.</p>"
+                },
+                "items": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "survival"
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    }
+                ],
+                "slug": "nomad",
+                "trainedSkills": {
+                    "lore": [
+                        "<Terrain> Lore"
+                    ],
+                    "value": [
+                        "survival"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "jErvlr76BR5YchPx",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "Ch0i6tqXedjVhJo2",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Survival)",
+            "sort": 240200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Acrobatics",
+                                "value": "acrobatics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Athletics",
+                                "value": "athletics"
+                            },
+                            {
+                                "label": "PF2E.Skill.Crafting",
+                                "value": "crafting"
+                            },
+                            {
+                                "label": "PF2E.Skill.Deception",
+                                "value": "deception"
+                            },
+                            {
+                                "label": "PF2E.Skill.Diplomacy",
+                                "value": "diplomacy"
+                            },
+                            {
+                                "label": "PF2E.Skill.Intimidation",
+                                "value": "intimidation"
+                            },
+                            {
+                                "label": "PF2E.Skill.Medicine",
+                                "value": "medicine"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Performance",
+                                "value": "performance"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "value": "religion"
+                            },
+                            {
+                                "label": "PF2E.Skill.Society",
+                                "value": "society"
+                            },
+                            {
+                                "label": "PF2E.Skill.Stealth",
+                                "value": "stealth"
+                            },
+                            {
+                                "label": "PF2E.Skill.Survival",
+                                "value": "survival"
+                            },
+                            {
+                                "label": "PF2E.Skill.Thievery",
+                                "value": "thievery"
+                            },
+                            {
+                                "label": "PF2E.SkillLore",
+                                "value": "lore"
+                            }
+                        ],
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "survival"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "vpzUpiomXkVfWxwv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classes.Item.RggQN3bX5SEcsffR"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/class.svg",
+            "name": "Kineticist",
+            "sort": 0,
+            "system": {
+                "ancestryFeatLevels": {
+                    "value": [
+                        1,
+                        5,
+                        9,
+                        13,
+                        17
+                    ]
+                },
+                "attacks": {
+                    "advanced": 0,
+                    "martial": 0,
+                    "other": {
+                        "name": "",
+                        "rank": 0
+                    },
+                    "simple": 1,
+                    "unarmed": 1
+                },
+                "classFeatLevels": {
+                    "value": [
+                        1,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "defenses": {
+                    "heavy": 0,
+                    "light": 1,
+                    "medium": 0,
+                    "unarmored": 1
+                },
+                "description": {
+                    "value": "<p><em>The power of the elements flows from within you. Roaring fire pure water, fleeting air, steadfast earth, twisting wood, slicing metal. A kinetic gate inextricably tied to your body channels power directly from the elemental planes, causing elements to leap to your hand, whirl around your body, and blast foes at your whim. As your connection to the planes grows, you attain true mastery over your chosen elements.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.kzxu2dI7tFxv6Ix6.JournalEntryPage.lNWQPwgT4vhYCOT7]{Kineticist}</em></p>"
+                },
+                "generalFeatLevels": {
+                    "value": [
+                        3,
+                        7,
+                        11,
+                        15,
+                        19
+                    ]
+                },
+                "hp": 8,
+                "items": {
+                    "5itvx": {
+                        "img": "systems/pf2e/icons/features/classes/magical-fortitude.webp",
+                        "level": 7,
+                        "name": "Kinetic Durability",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Durability"
+                    },
+                    "6NQBE": {
+                        "img": "icons/equipment/chest/breastplate-rivited-red.webp",
+                        "level": 19,
+                        "name": "Light Armor Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Mastery"
+                    },
+                    "6TeTE": {
+                        "img": "icons/magic/fire/flame-burning-fist-strike.webp",
+                        "level": 15,
+                        "name": "Kinetic Mastery",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Mastery"
+                    },
+                    "8b7hf": {
+                        "img": "icons/magic/fire/explosion-flame-blue.webp",
+                        "level": 11,
+                        "name": "Reflow Elements",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Reflow Elements"
+                    },
+                    "J86Sn": {
+                        "img": "systems/pf2e/icons/features/classes/divine-ally.webp",
+                        "level": 19,
+                        "name": "Kinetic Legend",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Legend"
+                    },
+                    "JGvbL": {
+                        "img": "icons/magic/unholy/orb-swirling-teal.webp",
+                        "level": 1,
+                        "name": "Kinetic Aura",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Aura"
+                    },
+                    "NXHnk": {
+                        "img": "systems/pf2e/icons/spells/abundant-step.webp",
+                        "level": 1,
+                        "name": "Kinetic Gate",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Gate"
+                    },
+                    "SZ1aE": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 9,
+                        "name": "Second Gate's Threshold",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Second Gate's Threshold"
+                    },
+                    "UtsnS": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 17,
+                        "name": "Fourth Gate's Threshold",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Fourth Gate's Threshold"
+                    },
+                    "ZLDh8": {
+                        "img": "icons/magic/symbols/symbol-lightning-bolt.webp",
+                        "level": 11,
+                        "name": "Kinetic Quickness",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Quickness"
+                    },
+                    "aVZTQ": {
+                        "img": "systems/pf2e/icons/spells/awaken-portal.webp",
+                        "level": 1,
+                        "name": "Impulses",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Impulses"
+                    },
+                    "bKOQI": {
+                        "img": "systems/pf2e/icons/spells/empower-ley-line.webp",
+                        "level": 17,
+                        "name": "Double Reflow",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Double Reflow"
+                    },
+                    "dg9M3": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-expertise.webp",
+                        "level": 11,
+                        "name": "Weapon Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Expertise"
+                    },
+                    "fqMT6": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 5,
+                        "name": "Gate's Threshold",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Gate's Threshold"
+                    },
+                    "hfJPw": {
+                        "img": "icons/equipment/back/mantle-collared-green.webp",
+                        "level": 13,
+                        "name": "Light Armor Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Light Armor Expertise"
+                    },
+                    "lS1AZ": {
+                        "img": "systems/pf2e/icons/features/classes/walls-of-will.webp",
+                        "level": 3,
+                        "name": "Will Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Will Expertise"
+                    },
+                    "pRGkq": {
+                        "img": "icons/creatures/eyes/human-single-blue.webp",
+                        "level": 9,
+                        "name": "Perception Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Perception Expertise"
+                    },
+                    "rCZNC": {
+                        "img": "icons/skills/targeting/target-glowing-yellow.webp",
+                        "level": 19,
+                        "name": "Final Gate",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Final Gate"
+                    },
+                    "rOa1O": {
+                        "img": "icons/magic/symbols/elements-air-earth-fire-water.webp",
+                        "level": 13,
+                        "name": "Third Gate's Threshold",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Third Gate's Threshold"
+                    },
+                    "tD16x": {
+                        "img": "systems/pf2e/icons/spells/disapperance.webp",
+                        "level": 3,
+                        "name": "Extract Element",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Extract Element"
+                    },
+                    "udfhZ": {
+                        "img": "systems/pf2e/icons/spells/air-walk.webp",
+                        "level": 7,
+                        "name": "Kinetic Expertise",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Kinetic Expertise"
+                    },
+                    "wbVdT": {
+                        "img": "systems/pf2e/icons/features/classes/weapon-specialization.webp",
+                        "level": 13,
+                        "name": "Weapon Specialization",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Weapon Specialization"
+                    },
+                    "xozcj": {
+                        "img": "icons/magic/life/cross-explosion-burst-green.webp",
+                        "level": 15,
+                        "name": "Greater Kinetic Durability",
+                        "uuid": "Compendium.pf2e.classfeatures.Item.Greater Kinetic Durability"
+                    }
+                },
+                "keyAbility": {
+                    "value": [
+                        "con"
+                    ]
+                },
+                "perception": 1,
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "savingThrows": {
+                    "fortitude": 2,
+                    "reflex": 2,
+                    "will": 1
+                },
+                "skillFeatLevels": {
+                    "value": [
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12,
+                        14,
+                        16,
+                        18,
+                        20
+                    ]
+                },
+                "skillIncreaseLevels": {
+                    "value": [
+                        3,
+                        5,
+                        7,
+                        9,
+                        11,
+                        13,
+                        15,
+                        17,
+                        19
+                    ]
+                },
+                "slug": "kineticist",
+                "spellcasting": 0,
+                "trainedSkills": {
+                    "additional": 3,
+                    "custom": "",
+                    "value": [
+                        "nature"
+                    ]
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "class"
+        },
+        {
+            "_id": "JmdOC2FJ8VLPIROT",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.f0BF2210l9k66cso"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "channelElements": {
+                            "id": "pZRuRtjy3f0gDxa3",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/unholy/orb-swirling-teal.webp",
+            "name": "Kinetic Aura",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>Through your kinetic gate, elements flow from an elemental plane to orbit your person. The form and appearance of this kinetic aura are unique to you. Examples include a chaotic wind orbiting the body, fragments of floating gravel, colorful wicks of flame stars of raw metal always changing shape, floatin snowflakes or splinters dancing in the air. If you can channel more than one element, pieces of all your kinetic elements appear in the aura.</p>\n<p>You have the @UUID[Compendium.pf2e.actionspf2e.Item.Channel Elements] action, which lets you activate your kinetic aura.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "vpzUpiomXkVfWxwv",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [
+                    {
+                        "allowDuplicate": false,
+                        "flag": "channelElements",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Channel Elements"
+                    },
+                    {
+                        "itemType": "feat",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:trait:overflow"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.Kineticist.Overflow.Description",
+                                "title": "PF2E.SpecificRule.Kineticist.Overflow.Title"
+                            }
+                        ]
+                    }
+                ],
+                "slug": "kinetic-aura",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "kineticist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "FvQJGP0mcmU6hLwJ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.IDBB44egwiQ4qZNh"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "fireGate": {
+                            "id": "BYpt2G3dz6PkLbDp",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/spells/abundant-step.webp",
+            "name": "Kinetic Gate",
+            "sort": 100,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>As a kineticist, you've awakened or opened a kinetic gate, a supernatural conduit within your body that can channel elemental forces straight from the elemental planes. You can choose either a single gate (one element) or dual gate (two elements) at 1st level.</p>\n<p>When selecting an element for your kinetic gate, you can pick from six elements - air, earth, fire metal, water, and wood. Elements you can channel are referred to as your kinetic elements. Your kinetic elements function even in environments where they normally wouldn't. For example, you could use fire actions underwater even though that's normally not possible, and you could create air in a vacuum.</p>\n<p>Your kinetic gate gives you impulse feats, magical actions that let you shape and control your elements in awesome ways. You can select more impulse feats using your kineticist class feats, as described under Impulses. At higher levels, the gate's threshold class feature gives you more impulse feats and lets you choose whether to improve with one element or access new kinetic elements.</p>\n<h3><strong>Single Gate</strong></h3>\n<p>Your kinetic gate links to a single elemental plane, starting you with a single element but giving you greater power with it. Choose one element to be your kinetic element, and select two 1st-level impulse feats that have that element's trait.</p>\n<p>In addition, you gain an impulse junction, a benefit that occurs when you use an impulse of the chosen element that takes 2 actions or more. This happens before the other effects of the impulse, unless noted otherwise. You can gain only one impulse junction per round; they are described in full below.</p>\n<p><strong>Air</strong> Before or after the other effects of the impulse, you can either Stride up to half your Speed or Step. If you have a fly Speed, you can Fly up to half your fly Speed instead.</p>\n<p><strong>Earth</strong> Fragments of stone float around you, granting you a +1 circumstance bonus to AC until the start of your next turn.</p>\n<p><strong>Fire</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</p>\n<p><strong>Metal</strong> Choose acid, electricity, or piercing. Until the start of your next turn, each time a creature touches you or damages you with an unarmed melee attack or nonreach melee weapon, it takes damage of the chosen type equal to half your level (minimum 1 damage).</p>\n<p><strong>Water</strong> After the impulse's other effects, you can move one creature targeted by the impulse or in its area 5 feet in any direction, or 10 feet if it's in a body of water. This can't move the creature into the air. You can choose only a creature that's willing to be moved, that failed its save against the impulse, or that you succeeded at an impulse attack roll against.</p>\n<p><strong>Wood</strong> You gain temporary Hit Points equal to your level that last until the start of your next turn.</p>\n<h3><strong>Dual Gate</strong></h3>\n<p>Your kinetic gate is a harmonious conduit between two planes, allowing you to combine their elements to give you a versatile set of abilities. Select two elements to be your kinetic elements. Then, select two 1st-level impulse feats, one with the trait of the first element and one with the trait of the other.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "vpzUpiomXkVfWxwv",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.elements",
+                        "priority": 19,
+                        "value": []
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate",
+                        "priority": 49,
+                        "value": {
+                            "five": null,
+                            "four": null,
+                            "one": null,
+                            "six": null,
+                            "three": null,
+                            "two": null
+                        }
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": [
+                            {
+                                "label": "PF2E.SpecificRule.Kineticist.KineticGate.DualGate.Label",
+                                "value": "dual-gate"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Kineticist.KineticGate.SingleGate",
+                                "value": "single-gate"
+                            }
+                        ],
+                        "flag": "kineticGate",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Gate",
+                        "rollOption": "kinetic-gate:initial",
+                        "selection": "single-gate"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:kineticist-kinetic-gate"
+                            ]
+                        },
+                        "flag": "elementOne",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                        "rollOption": "kinetic-gate:first-element:fire-gate",
+                        "selection": "Compendium.pf2e.classfeatures.Item.Fire Gate"
+                    },
+                    {
+                        "flag": "fireGate",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.elementOne}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:tag:kineticist-kinetic-gate"
+                            ]
+                        },
+                        "flag": "elementTwo",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "kinetic-gate:initial:dual-gate"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Element",
+                        "rollOption": "kinetic-gate:second-element"
+                    },
+                    {
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.elementTwo}"
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "junction:{item|flags.pf2e.rulesSelections.elementOne}:impulse",
+                        "predicate": [
+                            "kinetic-gate:initial:single-gate"
+                        ]
+                    }
+                ],
+                "slug": "kinetic-gate",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "kineticist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "p7s3mQcvM2b7wVSE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.xhCYkt3acfFd0hr2"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "baseKinesis": {
+                            "id": "KyrJHddtmPBXdDnt",
+                            "onDelete": "detach"
+                        },
+                        "elementalBlast": {
+                            "id": "oHFamNSkHOxBbf9l",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/spells/awaken-portal.webp",
+            "name": "Impulses",
+            "sort": 200,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<p>An impulse is a special type of magical action available to kineticists, allowing them to wield or shape their element into diverse and powerful forms. To wield an element, you must have your kinetic aura active and have a free hand, as described in the impulse trait. You automatically gain the Elemental Blast and Base Kinesis impulses, and your kinetic gate selection gives you additional impulse feats. You can select more impulse feats with kineticist class feats, and at higher levels, you'll automatically get more with the gate's threshold class feature. You can select an impulse feat only if it matches one of your kinetic elements.</p>\n<p>Impulses are magical, and though they aren't spells, some things that affect spells also affect impulses. Abilities that restrict you from casting spells (such as being polymorphed into a battle form) or protect against spells (such as a spell that protects against other spells or a creature's bonus to saves against spells) also apply to impulses.</p>\n<h3><strong>Impulse Levels</strong></h3>\n<p>Any impulse you use is the same level you are. For instance, if you're 5th level, your Elemental Blast would be 5th level (and its counteract rank would be 3rd rank), even though you gained the action at 1st level.</p>\n<p>Similar to spells, many impulses get more powerful as you increase in level. In these cases, the impulse ends with one or more \"Level\" entries. This either lists the levels at which the impulse gets an upgrade or has an entry with a plus sign that describes a benefit that increases on a regular basis. For instance, a 1st-level impulse with a \"Level (+4)\" entry would get stronger at 5th, 9th, 13th, and 17th levels.</p>\n<h3><strong>Impulse Attacks and DCs</strong></h3>\n<p>An impulse that requires a saving throw uses your kineticist class DC. Some of your impulses require you to attempt an <strong>impulse attack roll</strong> to see how effective they are. Your impulse attack roll uses the same proficiency and attribute modifier as your kineticist class DC. Like a spell attack modifier, your impulse attack modifier uses the following formula: d20 roll + attribute modifier + proficiency bonus + other bonuses + penalties. This means your impulse attack roll is typically 10 lower than your class DC. The @UUID[Compendium.pf2e.conditionitems.Item.Drained] condition can reduce your impulse attack rolls and class DCs. You can acquire a <em>gate attenuator</em> to gain a bonus to your impulse attack modifier.</p>\n<h3><strong>Elemental Blast</strong></h3>\n<p>The @UUID[Compendium.pf2e.actionspf2e.Item.Elemental Blast] impulse is a simple expression of your power, allowing you to attack with the pure matter of your kinetic element. Though each element has its own strengths and weaknesses, the basic principles to using them are the same. You can customize the appearance of your Elemental Blast and can even choose a different form each time you use the impulse.</p>\n<h3><strong>Base Kinesis</strong></h3>\n<p>The @UUID[Compendium.pf2e.actionspf2e.Item.Base Kinesis] impulse lets you perform simple alterations to an element.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": "vpzUpiomXkVfWxwv",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [
+                    {
+                        "extends": "kineticist",
+                        "key": "SpecialStatistic",
+                        "label": "PF2E.TraitImpulse",
+                        "slug": "impulse",
+                        "type": "attack-roll"
+                    },
+                    {
+                        "flag": "elementalBlast",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Elemental Blast"
+                    },
+                    {
+                        "flag": "baseKinesis",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:kineticist"
+                        ],
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Base Kinesis"
+                    }
+                ],
+                "slug": "impulses",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "kineticist"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "pZRuRtjy3f0gDxa3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.g8QrV39TmZfkbXgE"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "JmdOC2FJ8VLPIROT",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/magic/water/vortex-water-whirlpool.webp",
+            "name": "Channel Elements",
+            "sort": 28700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Requirements</strong> Your kinetic gate isn't active.</p>\n<hr />\n<p>You tap into your kinetic gate to make elements flow around you. Your kinetic aura activates, and as a part of this action, you can use a 1-action Elemental Blast or a 1-action stance impulse. Your kinetic aura is a 10-foot emanation where pieces of your kinetic element (or all your kinetic elements, if you can channel more than one) flow around you. The kinetic aura can't damage anything or affect the environment around you unless another ability allows it to. Channel Elements has the traits of all your kinetic elements.</p>\n<p>Your kinetic aura automatically deactivates if you're knocked out, you use an impulse with the overflow trait, or you Dismiss the aura. Though you can't use new impulses while your kinetic aura is deactivated, ones you already used remain, and you can still Sustain any that can be sustained. Stance impulses are linked to your kinetic aura and end when the aura deactivates.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "selfEffect": {
+                    "name": "Effect: Kinetic Aura",
+                    "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Kinetic Aura"
+                },
+                "slug": "channel-elements",
+                "traits": {
+                    "value": [
+                        "aura",
+                        "kineticist",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "BYpt2G3dz6PkLbDp",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.classfeatures.Item.PfeDtJBJdUun0THS"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "FvQJGP0mcmU6hLwJ",
+                        "onDelete": "cascade"
+                    },
+                    "itemGrants": {
+                        "burningJet": {
+                            "id": "fVFRVtRzRCOKHH62",
+                            "onDelete": "detach"
+                        },
+                        "flyingFlame": {
+                            "id": "52wtCHEBHSmZ6s3f",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/magic/fire/beam-jet-stream-spiral-yellow.webp",
+            "name": "Fire Gate",
+            "sort": 25600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "classfeature",
+                "description": {
+                    "value": "<table class=\"pf2e\">\n<tbody>\n<tr>\n<th style=\"text-align:left\">Fire Gate Junction</th>\n</tr>\n</tbody>\n<tbody>\n<tr>\n<td style=\"text-align:left\"><strong>Critical Blast</strong> The target takes 1d6 persistent fire damage. You gain an item bonus to this persistent damage equal to your item bonus to impulse attack rolls, such as from a <em>gate attenuator</em>.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Elemental Resistance</strong> cold, fire</td>\n</tr>\n<tr></tr>\n<tr>\n<td style=\"text-align:left\"><strong>Impulse Junction</strong> Increase the damage die size of fire damage dealt by the impulse by one step.</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Aura Junction</strong> Enemies in your kinetic aura gain weakness to fire from your fire impulses. The weakness is equal to half your level (minimum weakness 1).</td>\n</tr>\n<tr>\n<td style=\"text-align:left\"><strong>Skill Junction</strong> Intimidation, @UUID[Compendium.pf2e.feats-srd.Item.Intimidating Glare]</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                {
+                                    "lte": [
+                                        "item:level",
+                                        "parent:granter:level"
+                                    ]
+                                },
+                                "item:trait:impulse",
+                                "item:trait:fire",
+                                {
+                                    "not": "item:trait:composite"
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "impulseOne",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "class:kineticist"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Burning Jet"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "burningJet",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "class:kineticist"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.impulseOne}"
+                    },
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:trait:impulse",
+                                "item:trait:fire"
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "impulseTwo",
+                        "key": "ChoiceSet",
+                        "predicate": [
+                            "kinetic-gate:initial:single-gate",
+                            "kinetic-gate:first-element:fire-gate"
+                        ],
+                        "prompt": "PF2E.SpecificRule.Kineticist.KineticGate.Prompt.Impulse",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Flying Flame"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "flyingFlame",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "kinetic-gate:initial:single-gate",
+                            "kinetic-gate:first-element:fire-gate"
+                        ],
+                        "uuid": "{item|flags.pf2e.rulesSelections.impulseTwo}"
+                    },
+                    {
+                        "key": "RollOption",
+                        "option": "kinetic-gate:fire",
+                        "priority": 10
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "add",
+                        "path": "flags.pf2e.kineticist.elements",
+                        "value": {
+                            "label": "PF2E.TraitFire",
+                            "value": "fire"
+                        }
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "junction:fire:impulse",
+                        "predicate": [
+                            "kinetic-gate:initial:single-gate",
+                            "kinetic-gate:first-element:fire-gate"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.one",
+                        "predicate": [
+                            "kinetic-gate:first-element:fire-gate"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.two",
+                        "predicate": [
+                            "kinetic-gate:second-element:fire-gate"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.three",
+                        "predicate": [
+                            "parent:granter:gates-threshold"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.four",
+                        "predicate": [
+                            "parent:granter:second-gates-threshold"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.five",
+                        "predicate": [
+                            "parent:granter:third-gates-threshold"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.gate.six",
+                        "predicate": [
+                            "parent:granter:fourth-gates-threshold"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "allowDuplicate": false,
+                        "flag": "intimidatingGlare",
+                        "key": "GrantItem",
+                        "predicate": [
+                            "junction:fire:skill"
+                        ],
+                        "reevaluateOnUpdate": true,
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Intimidating Glare"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.intimidation.rank",
+                        "predicate": [
+                            "junction:fire:skill"
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "junction:fire:skill",
+                            "self:effect:kinetic-aura"
+                        ],
+                        "selector": "intimidation",
+                        "type": "status",
+                        "value": "ternary(gte(@actor.level,17), 3, ternary(gte(@actor.level,10), 2, 1))"
+                    },
+                    {
+                        "key": "Resistance",
+                        "predicate": [
+                            "junction:fire:resistance",
+                            "self:effect:kinetic-aura"
+                        ],
+                        "type": [
+                            "cold",
+                            "fire"
+                        ],
+                        "value": "@actor.level"
+                    },
+                    {
+                        "key": "Immunity",
+                        "predicate": [
+                            "junction:fire:resistance",
+                            {
+                                "gte": [
+                                    "self:level",
+                                    17
+                                ]
+                            },
+                            "self:effect:kinetic-aura"
+                        ],
+                        "type": [
+                            "cold",
+                            "fire"
+                        ]
+                    },
+                    {
+                        "category": "persistent",
+                        "critical": true,
+                        "damageType": "fire",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                        "predicate": [
+                            "junction:fire:critical",
+                            "item:trait:fire"
+                        ],
+                        "selector": "elemental-blast-damage"
+                    },
+                    {
+                        "critical": true,
+                        "damageCategory": "persistent",
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.Kineticist.Impulse.CriticalBlast.Label",
+                        "predicate": [
+                            "junction:fire:critical",
+                            "item:trait:fire"
+                        ],
+                        "selector": "elemental-blast-damage",
+                        "value": "@blast.flags.pf2e.attackItemBonus"
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "DamageDice",
+                        "label": "PF2E.SpecificRule.Kineticist.KineticGate.Junction.ImpulseJunction",
+                        "override": {
+                            "upgrade": true
+                        },
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "action:cost",
+                                    2
+                                ]
+                            },
+                            "impulse",
+                            "junction:fire:impulse"
+                        ],
+                        "selector": [
+                            "impulse-damage",
+                            "inline-damage"
+                        ]
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "flags.pf2e.kineticist.elementalBlast.fire",
+                        "predicate": [
+                            "self:effect:kinetic-aura",
+                            {
+                                "not": "battle-form"
+                            }
+                        ],
+                        "priority": 19,
+                        "value": {
+                            "damageTypes": [
+                                "fire"
+                            ],
+                            "dieFaces": 6,
+                            "element": "fire",
+                            "img": "systems/pf2e/icons/actions/elemental-blast/fire.webp",
+                            "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.Label.Fire",
+                            "range": 60
+                        }
+                    },
+                    {
+                        "effects": [
+                            {
+                                "affects": "enemies",
+                                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Aura Junction (Fire)"
+                            }
+                        ],
+                        "key": "Aura",
+                        "level": "@actor.level",
+                        "predicate": [
+                            "self:effect:kinetic-aura",
+                            "junction:fire:aura"
+                        ],
+                        "priority": 99,
+                        "radius": "@actor.flags.pf2e.kineticist.auraRadius",
+                        "slug": "kinetic-aura",
+                        "traits": [
+                            "kineticist",
+                            "primal"
+                        ]
+                    }
+                ],
+                "slug": "fire-gate",
+                "traits": {
+                    "otherTags": [
+                        "kineticist-kinetic-gate"
+                    ],
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "fVFRVtRzRCOKHH62",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.vS3GSv6ndGmh8FXz"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "BYpt2G3dz6PkLbDp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Burning Jet",
+            "sort": 431800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>A condensed burst of flame shoots behind you, propelling you forward with its sheer force. Stride up to 40 feet in a straight line. Movement from this impulse ignores difficult terrain and doesn't trigger reactions.</p>\n<hr />\n<p><strong>Level (6th)</strong> The maximum distance of the Stride is 60 feet. You can choose to @UUID[Compendium.pf2e.actionspf2e.Item.Leap] up to 40 feet in any direction instead of Striding. If you're in the air at the end of this Leap, you fall normally.</p>\n<p><strong>Level (10th)</strong> As 6th level, but you hover briefly after leaping into the air. If you Leap, you don't fall until the end of your next turn. If you use Burning Jet again on a subsequent turn, you remain airborne.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "burning-jet",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "impulse",
+                        "kineticist",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "52wtCHEBHSmZ6s3f",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.1SbwsBbuCkkpgeYN"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "BYpt2G3dz6PkLbDp",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Flying Flame",
+            "sort": 10700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>A Tiny shape of flame appears, taking a form of your choice—such as a bird, an arrow, or a simple sphere. It Flies from you up to 30 feet in a path you choose. Each creature it passes through takes @Damage[(floor((@actor.level -1)/2)+1)d6[fire]] damage with a @Check[type:reflex|dc:resolve(@actor.system.proficiencies.classDCs.kineticist.dc)|basic:true] save against your class DC. A creature attempts only one save, even if the flame passes through it multiple times.</p>\n<hr />\n<p><strong>Level (+2)</strong> The damage increases by 1d6.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "flying-flame",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "impulse",
+                        "kineticist",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "oHFamNSkHOxBbf9l",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.6lbr0Jnv0zMB5uGb"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "p7s3mQcvM2b7wVSE",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Elemental Blast",
+            "sort": 4600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><span class=\"action-glyph\">1</span> or <span class=\"action-glyph\">2</span></p>\n<hr />\n<p>With a wave of your hand, you collect elemental matter from your aura and swing or hurl it. Choose one of your kinetic elements and a damage type listed for that element, then make a melee or ranged impulse attack against the AC of one creature. Add your Strength modifier to the damage roll for a melee Elemental Blast. If you make a 2-action Elemental Blast, you gain a status bonus to the damage roll equal to your Constitution modifier. The element determines the damage die, damage type, and range (for a ranged blast). A damage type other than a physical damage type adds its trait to the blast.</p>\n<ul>\n<li><strong>Air</strong> 1d6 electricity or slashing, 60 feet</li>\n<li><strong>Earth</strong> 1d8 bludgeoning or piercing, 30 feet</li>\n<li><strong>Fire</strong> 1d6 fire, range 60 feet</li>\n<li><strong>Metal</strong> 1d8 piercing or slashing, 30 feet</li>\n<li><strong>Water</strong> 1d8 bludgeoning or cold, 30 feet</li>\n<li><strong>Wood</strong> 1d8 bludgeoning or vitality, 30 feet</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Level (+4)</strong> The damage increases by one die.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "domain": "elemental-blast",
+                        "key": "RollOption",
+                        "option": "action-cost",
+                        "predicate": [
+                            "self:effect:kinetic-aura"
+                        ],
+                        "priority": 49,
+                        "suboptions": [
+                            {
+                                "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.OneAction",
+                                "value": "1"
+                            },
+                            {
+                                "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActions",
+                                "value": "2"
+                            }
+                        ],
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "label": "PF2E.SpecificRule.Kineticist.Impulse.ElementalBlast.TwoActionBonus",
+                        "predicate": [
+                            "self:action:slug:elemental-blast",
+                            "self:action:cost:2"
+                        ],
+                        "selector": "elemental-blast-damage",
+                        "slug": "two-action-elemental-blast",
+                        "type": "status",
+                        "value": "@actor.abilities.con.mod"
+                    },
+                    {
+                        "ability": "str",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "self:action:slug:elemental-blast",
+                            "melee"
+                        ],
+                        "selector": "elemental-blast-damage",
+                        "slug": "melee-elemental-blast",
+                        "type": "ability"
+                    },
+                    {
+                        "key": "DamageDice",
+                        "override": {
+                            "diceNumber": "max(1 + floor((@actor.level - 1) / 4), 1)"
+                        },
+                        "predicate": [
+                            "class:kineticist"
+                        ],
+                        "selector": "elemental-blast-damage"
+                    }
+                ],
+                "slug": "elemental-blast",
+                "traits": {
+                    "value": [
+                        "attack",
+                        "impulse",
+                        "kineticist",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "KyrJHddtmPBXdDnt",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.actionspf2e.Item.nTBrvt2b9wngyr0i"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "p7s3mQcvM2b7wVSE",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Base Kinesis",
+            "sort": 33000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>It's trivial for you to create some of your element or alter a portion of it that already exists. Choose one of your kinetic elements to affect. This impulse has a range of 30 feet, and the Bulk of the target must be negligible or light. The GM decides what Bulk the element is. You can't affect an element that's magical, secured in place (like a stone mortared in a wall), or attended by a creature unwilling to let you.</p>\n<p>Choose one of the following options, though the GM might allow you to make similar small alterations. Base Kinesis can't deal damage or cause conditions unless otherwise noted.</p>\n<ul>\n<li><strong>Generate</strong> You bring an ordinary, non-magical piece of the chosen element from its elemental plane. The element can be used for any of its normal uses. For example, air can be breathed by an air-breathing creature, and fire casts light and can ignite flammable substances.</li>\n<li><strong>Move</strong> Move an existing piece of the element up to 20 feet in any direction. If you bring it into your space, you can catch it in an open hand. You can Sustain the impulse to keep moving the element.</li>\n<li><strong>Suppress</strong> You destroy an existing piece of element, such as snuffing out a flame or evaporating water from a cup. This affects only natural forms of the element, not durable, crafted goods like a stone statue, metal lock, or wooden door.<hr /><strong>Level (+4)</strong> The range increases by 15 feet, and the maximum Bulk increases by 1 (allowing Bulk 1 at 5th level).</li>\n</ul>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "base-kinesis",
+                "traits": {
+                    "value": [
+                        "impulse",
+                        "kineticist",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "wWJnbKflHkxqyVFm",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.XqtJVBwnxBsSo9Py"
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Scorching Column",
+            "sort": 253200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>With an upward gesture, you shape a vertical column of extreme heat. The cylinder is @Template[type:cylinder|distance:5]{10 feet in diameter} and 30 feet high, and the bottom must be within 60 feet of you. Each creature in the area takes @Damage[(floor((@actor.level -1)/3)+1)d6[fire]|traits:area-damage] damage with a @Check[type:reflex|dc:resolve(@actor.system.proficiencies.classDCs.kineticist.dc)|basic:true] save against your class DC.</p>\n<p>The flame remains briefly, making all squares in the column hazardous terrain until the end of your next turn, and you can Sustain the impulse up to 1 minute. A creature takes @Damage[(2*floor((@actor.level -1)/3)+1)[fire]] damage each time it moves into one of these squares.</p>\n<hr />\n<p><strong>Level (+3)</strong> The initial damage increases by 1d6, and the hazardous terrain damage increases by 2.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "class-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "scorching-column",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "impulse",
+                        "kineticist",
+                        "overflow",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "HeDwhSmfYFXNGYii",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.PodajLVxqYSAqVox"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "eternalTorch": {
+                            "id": "3BA8BSKHSrPvBPaI",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Natural Ambition",
+            "sort": 192000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "ancestry",
+                "description": {
+                    "value": "<p>You were raised to be ambitious and always reach for the stars, leading you to progress quickly in your chosen field. You gain a 1st-level class feat for your class. You must meet the prerequisites, but you can select the feat later in the character creation process in order to determine which prerequisites you meet.</p>"
+                },
+                "level": {
+                    "taken": 1,
+                    "value": 1
+                },
+                "location": "ancestry-1",
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "adjustName": false,
+                        "choices": {
+                            "filter": [
+                                "item:level:1",
+                                "item:category:class",
+                                "item:trait:{actor|system.details.class.trait}",
+                                {
+                                    "or": [
+                                        "feature:dragon-instinct",
+                                        {
+                                            "not": "item:draconic-arrogance"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "nor": [
+                                        "item:animal-companion",
+                                        "item:animal-companion-druid",
+                                        "item:bardic-lore",
+                                        "item:fire-lung",
+                                        "item:lingering-composition",
+                                        "item:leshy-familiar",
+                                        "item:martial-performance",
+                                        "item:shore-step",
+                                        "item:steadying-stone",
+                                        "item:storm-born",
+                                        "item:versatile-performance",
+                                        "item:untamed-form"
+                                    ]
+                                }
+                            ],
+                            "itemType": "feat"
+                        },
+                        "flag": "naturalAmbition",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.LevelOneClassFeat",
+                        "selection": "Compendium.pf2e.feats-srd.Item.Eternal Torch"
+                    },
+                    {
+                        "flag": "eternalTorch",
+                        "key": "GrantItem",
+                        "uuid": "{item|flags.pf2e.rulesSelections.naturalAmbition}"
+                    }
+                ],
+                "slug": "natural-ambition",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "human"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "3BA8BSKHSrPvBPaI",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.MRT8BGiIiVYfVcXh"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "HeDwhSmfYFXNGYii",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Eternal Torch",
+            "sort": 166000000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "class",
+                "description": {
+                    "value": "<p>You open a connection to your kinetic gate, large enough for a torch flame to flow. You create a magical, torch-like flame within 120 feet in any color you choose. It's as bright and hot as a torch. You can have it orbit a target willing creature or emit from a target object that's unattended or attended by a willing creature. If you create a flame on a weapon, you still need to use it as an improvised weapon to attack with the flame, just as with a torch.</p>\n<p>The flame has an unlimited duration. You can have a maximum number of Eternal Torches equal to your Constitution modifier, and you can Dismiss each torch individually.</p>\n<hr />\n<p><strong>Level (8th)</strong> All your torches—even ones you already created—shed bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "prerequisites": {
+                    "value": []
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": true,
+                    "title": "Pathfinder Rage of Elements"
+                },
+                "rules": [],
+                "slug": "eternal-torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fire",
+                        "impulse",
+                        "kineticist",
+                        "light",
+                        "manipulate",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "sTQFm8vRnQ8Pm4Qr",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Mountain Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "PdF1raKZa36wn6Q7",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3lgwjrFEsQVKzhh7"
+                }
+            },
+            "img": "icons/containers/bags/pack-leather-white-tan.webp",
+            "name": "Backpack",
+            "sort": 30300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "capacity": 4,
+                    "heldOrStowed": 0.1,
+                    "ignored": 2,
+                    "value": 0
+                },
+                "collapsed": false,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A backpack holds up to 4 Bulk of items and the first 2 Bulk of these items don't count against your Bulk limits. If you're carrying or stowing the pack rather than wearing it on your back, its Bulk is light instead of negligible</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "inSlot": false,
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "backpack",
+                "stowing": true,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "wornbackpack"
+                }
+            },
+            "type": "backpack"
+        },
+        {
+            "_id": "2pVcXFqxo9Gcm3Jn",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.rQWaJhI5Bko5x14Z"
+                }
+            },
+            "img": "icons/weapons/daggers/dagger-straight-blue.webp",
+            "name": "Dagger",
+            "sort": 424000000,
+            "system": {
+                "baseItem": "dagger",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "simple",
+                "containerId": null,
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4"
+                },
+                "description": {
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": "-"
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "striking": 0
+                },
+                "size": "med",
+                "slug": "dagger",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
+                },
+                "usage": {
+                    "canBeAmmo": false,
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "uTgNVxPlmIxTBd10",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zBYEU9E7034ENCmh"
+                }
+            },
+            "img": "icons/equipment/chest/breastplate-banded-leather-brown.webp",
+            "name": "Padded Armor",
+            "sort": 482900000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "padded-armor",
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "light",
+                "checkPenalty": 0,
+                "containerId": null,
+                "description": {
+                    "value": "<p>This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear your heavy armor without the padded undercoat.</p>"
+                },
+                "dexCap": 3,
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "inSlot": true,
+                    "invested": null
+                },
+                "group": null,
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 0,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "padded-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "comfort"
+                    ]
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "QpF3DDjUvoPtUrWu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fagzYdmfYyMQ6J77"
+                }
+            },
+            "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+            "name": "Bedroll",
+            "sort": 331800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>A rolled up bed.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "bedroll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "A1vH5qo5iROA8Wnj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.xShIDyydOMkGvGNb"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/chalk.webp",
+            "name": "Chalk",
+            "sort": 467700000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": "PdF1raKZa36wn6Q7",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "per": 10,
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 10,
+                "rules": [],
+                "size": "med",
+                "slug": "chalk",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "d5lhpIwGr24fCJlS",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.ZPFDfWPmWLPUJeW1"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/held-items/doll.webp",
+            "name": "Doll (Gom-Gom)",
+            "sort": 282900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>Dolls are found throughout Golarion in a wide variety of forms. Among the most common are miniature painted figurines, plush animals crafted from fur and stuffed with cotton, porcelain dolls with fine clothing and silky hair, fabric hand puppets, and elaborate marionettes.</p>\n<hr />\n<p>This price is for an average doll of any type.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens: The Grand Bazaar"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "doll",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "01m02Gi6mqNMWCGG",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.UlIxxLm71UdRgCFE"
+                }
+            },
+            "img": "icons/commodities/stone/geode-raw-tan.webp",
+            "name": "Flint and Steel",
+            "sort": 243600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>Flint and steel are useful in creating a fire if you have the time to catch a spark, though using them is typically too time-consuming to be practical during an encounter. Even in ideal conditions, using flint and steel to light a flame requires using at least 3 actions, and often significantly longer.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "flint-and-steel",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "O6NIPaNyZyTxpt9v",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.2RuepCemJhrpKKao"
+                }
+            },
+            "img": "icons/consumables/potions/bottle-round-corked-orante-red.webp",
+            "name": "Healing Potion (Minor)",
+            "sort": 19500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "potion",
+                "containerId": null,
+                "damage": {
+                    "formula": "1d8",
+                    "kind": "healing",
+                    "type": "vitality"
+                },
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">A</span> (manipulate)</p>\n<hr />\n<p>A <em>healing potion</em> is a vial of a ruby-red liquid that imparts a tingling sensation as the drinker's wounds heal rapidly. When you drink a <em>healing potion</em>, you regain [[/r 1d8[healing]]]{1d8 Hit Points}.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "healing-potion-minor",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "healing",
+                        "magical",
+                        "potion",
+                        "vitality"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "rrqO8jAhEY7sUarj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.3cWko20JPnjeoofV"
+                }
+            },
+            "img": "icons/sundries/misc/ladder-improvised.webp",
+            "name": "Marvelous Miniature (Ladder)",
+            "sort": 29300000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "category": "other",
+                "containerId": null,
+                "damage": null,
+                "description": {
+                    "value": "<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (manipulate)</p>\n<hr />\n<p>Every <em>marvelous miniature</em> is an exceptionally small replica of a real creature or object. The miniature is made from wood, pewter, or other simple materials, and features a rune etched into the underside of the replica's base. <em>Marvelous miniatures</em> sometimes come packaged together; for example, the camping set features the boat, campfire, and horse miniatures. Activating a <em>marvelous miniature</em> causes it to transform into another creature or object, which then can be used as normal for that object. Each miniature can be activated only once, with most of them permanently becoming the item in their description.</p>\n<hr />\n<p>When activated, this miniature transforms permanently into a 20-foot-long wooden ladder.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 1
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "marvelous-miniature-ladder",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "consumable",
+                        "expandable",
+                        "magical"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 1,
+                    "value": 1
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "nEaI920LKK8PAbkO",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.L9ZV076913otGtiB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/rations.webp",
+            "name": "Rations",
+            "sort": 163900000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "other",
+                "containerId": "PdF1raKZa36wn6Q7",
+                "damage": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 4
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 2,
+                "rules": [],
+                "size": "med",
+                "slug": "rations",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "max": 7,
+                    "value": 7
+                }
+            },
+            "type": "consumable"
+        },
+        {
+            "_id": "QYuBa2cQH4QZvi35",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.fyYnQf1NAx9fWFaS"
+                }
+            },
+            "img": "icons/sundries/survival/rope-wrapped-brown.webp",
+            "name": "Rope",
+            "sort": 334800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>50 feet of rope.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "rope",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "Yrin4Pte6o69jnWq",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.81aHsD27HFGnq1Nt"
+                }
+            },
+            "img": "icons/sundries/survival/soap.webp",
+            "name": "Soap",
+            "sort": 64500000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>Bar of soap.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "soap",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "8akZ9wqpCGHmBjfj",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.zvLyCVD8g2PdHJAc"
+                }
+            },
+            "img": "icons/tools/hand/lockpicks-steel-grey.webp",
+            "name": "Thieves' Toolkit",
+            "sort": 488000000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": null,
+                "description": {
+                    "value": "<p>You need a thieves' toolkit to @UUID[Compendium.pf2e.actionspf2e.Item.Pick a Lock]{Pick Locks} or @UUID[Compendium.pf2e.actionspf2e.Item.Disable a Device]{Disable Devices} (of some types) using the Thievery skill.</p>\n<p>If your thieves' toolkit is broken, you can repair it by replacing the lock picks with @UUID[Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)]{Replacement Picks} appropriate to your toolkit; this doesn't require using the Repair action. If you wear your thieves' toolkit, you can draw and replace it as part of the action that uses it.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 3
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "thieves-toolkit",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "other"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "JpT1d897cZ0vRTYE",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.8Jdw4yAzWYylGePS"
+                }
+            },
+            "img": "icons/sundries/lights/torch-brown.webp",
+            "name": "Torch",
+            "sort": 66600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>A torch sheds bright light in a 20-foot radius (and dim light to the next 20 feet) for 1 hour. It can be used as an improvised weapon that deals 1d4 bludgeoning damage plus 1 fire damage.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 5,
+                "rules": [
+                    {
+                        "key": "TokenLight",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": {
+                            "alpha": 0.45,
+                            "animation": {
+                                "intensity": 1,
+                                "speed": 2,
+                                "type": "flame"
+                            },
+                            "attenuation": 0.4,
+                            "bright": 20,
+                            "color": "#ffae3d",
+                            "dim": 40,
+                            "shadows": 0.2
+                        }
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "lit-torch"
+                            }
+                        ]
+                    },
+                    {
+                        "category": "simple",
+                        "damage": {
+                            "base": {
+                                "damageType": "bludgeoning",
+                                "dice": 1,
+                                "die": "d4"
+                            }
+                        },
+                        "img": "icons/sundries/lights/torch-brown-lit.webp",
+                        "key": "Strike",
+                        "otherTags": [
+                            "improvised"
+                        ],
+                        "predicate": [
+                            "lit-torch"
+                        ]
+                    },
+                    {
+                        "damageType": "fire",
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "value": 1
+                    },
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "label": "PF2E.SpecificRule.LitTorch",
+                        "option": "lit-torch",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "TokenEffectIcon",
+                        "predicate": [
+                            "lit-torch"
+                        ],
+                        "value": "icons/sundries/lights/torch-brown-lit.webp"
+                    }
+                ],
+                "size": "med",
+                "slug": "torch",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "1ZBXvVjVtgi5Arm3",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.VnPh324pKwd2ZB66"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/waterskin.webp",
+            "name": "Waterskin",
+            "sort": 252600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 0.1
+                },
+                "containerId": "PdF1raKZa36wn6Q7",
+                "description": {
+                    "value": "<p>When it's full, a waterskin contains roughly 1 day's worth of water for a Small or Medium creature.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "cp": 5
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "waterskin",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "equipment"
+        },
+        {
+            "_id": "tqAlHan5sfEWEj8b",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
+            "name": "Gold Pieces",
+            "sort": 88800000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 3,
+                "rules": [],
+                "size": "med",
+                "slug": "gold-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        },
+        {
+            "_id": "LkqZ4YDyNXjdFlQ1",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Item.5Ew82vBF9YfaiY9f"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/silver-pieces.webp",
+            "name": "Silver Pieces",
+            "sort": 42600000,
+            "system": {
+                "baseItem": null,
+                "bulk": {
+                    "value": 1
+                },
+                "containerId": null,
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "carryType": "worn"
+                },
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "sp": 1
+                    }
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Core Rulebook"
+                },
+                "quantity": 1,
+                "rules": [],
+                "size": "med",
+                "slug": "silver-pieces",
+                "stackGroup": "coins",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "treasure"
+        }
+    ],
+    "name": "Yoon (Level 1)",
+    "prototypeToken": {
+        "name": "Yoon",
+        "texture": {
+            "src": "systems/pf2e/icons/iconics/Yoon.webp"
+        }
+    },
+    "system": {
+        "abilities": null,
+        "attributes": {
+            "hp": {
+                "temp": 0,
+                "value": 20
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "build": {
+            "attributes": {
+                "boosts": {
+                    "1": [
+                        "dex",
+                        "con",
+                        "cha",
+                        "int"
+                    ]
+                }
+            }
+        },
+        "details": {
+            "age": {
+                "value": ""
+            },
+            "biography": {
+                "allies": "",
+                "anathema": [],
+                "appearance": "",
+                "attitude": "",
+                "backstory": "",
+                "beliefs": "",
+                "birthPlace": "",
+                "campaignNotes": "",
+                "catchphrases": "",
+                "dislikes": "",
+                "edicts": [],
+                "enemies": "",
+                "likes": "",
+                "organizations": ""
+            },
+            "ethnicity": {
+                "value": ""
+            },
+            "gender": {
+                "value": "F/She/Her"
+            },
+            "height": {
+                "value": ""
+            },
+            "keyability": {
+                "value": "str"
+            },
+            "languages": {
+                "details": "",
+                "value": [
+                    "pyric",
+                    "tien"
+                ]
+            },
+            "level": {
+                "value": 1
+            },
+            "nationality": {
+                "value": ""
+            },
+            "weight": {
+                "value": ""
+            },
+            "xp": {
+                "max": 1000,
+                "min": 0,
+                "pct": 0,
+                "value": 0
+            }
+        },
+        "exploration": [],
+        "initiative": {
+            "statistic": "perception"
+        },
+        "pfs": {
+            "characterNumber": null,
+            "currentFaction": "EA",
+            "levelBump": false,
+            "playerNumber": null,
+            "reputation": {
+                "EA": null,
+                "GA": null,
+                "HH": null,
+                "RO": null,
+                "VS": null,
+                "VW": null
+            },
+            "school": null
+        },
+        "resources": {
+            "heroPoints": {
+                "max": 3,
+                "value": 1
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 1
+            },
+            "intimidation": {
+                "rank": 1
+            },
+            "stealth": {
+                "rank": 1
+            }
+        }
+    },
+    "type": "character"
+}

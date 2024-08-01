@@ -30,7 +30,17 @@
                 "diceNumber": 1,
                 "key": "DamageDice",
                 "predicate": [
-                    "melee"
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             },
@@ -40,7 +50,17 @@
                 "diceNumber": 2,
                 "key": "DamageDice",
                 "predicate": [
-                    "melee"
+                    {
+                        "or": [
+                            "item:melee",
+                            {
+                                "and": [
+                                    "item:trait:thrown",
+                                    "feat:raging-thrower"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "strike-damage"
             }

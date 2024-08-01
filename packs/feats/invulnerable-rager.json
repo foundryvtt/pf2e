@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Even the heaviest armors serve only to enhance your unbridled fury. You are trained in heavy armor. Whenever you gain a barbarian class feature that grants you expert or greater proficiency in medium armor, you also gain that proficiency in heavy armor. If you have the Quick-Tempered action, you can use it while wearing heavy armor.</p>"
+            "value": "<p>Even the heaviest armors serve only to enhance your unbridled fury. You are trained in heavy armor. Whenever you gain a barbarian class feature that grants you expert or greater proficiency in medium armor, you also gain that proficiency in heavy armor. If you have the @UUID[Compendium.pf2e.actionspf2e.Item.Quick-Tempered] action, you can use it while wearing heavy armor.</p>"
         },
         "level": {
             "value": 8
@@ -29,8 +29,11 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    "class:barbarian"
+                ],
                 "priority": 41,
-                "value": "@actor.system.proficiencies.defenses.medium.rank"
+                "value": "ternary(gte(@actor.level,19),3,ternary(gte(@actor.level,13),2,1))"
             }
         ],
         "subfeatures": {

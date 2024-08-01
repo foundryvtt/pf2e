@@ -1,15 +1,15 @@
 {
-    "_id": "fgz7lwg1xHsVW4dX",
-    "img": "icons/sundries/gaming/playing-cards.webp",
-    "name": "Effect: Exemplary Finisher (Rascal)",
+    "_id": "eS9I5kaig0i1j3z0",
+    "img": "icons/consumables/potions/potion-tube-corked-red.webp",
+    "name": "Effect: Field Discovery (Chirurgeon)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Exemplary Finisher]</p>\n<p>The foe takes a -10 circumstance penalty to its speed until the start of your next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Chirurgeon]</p>\n<p>The creature gains a number of temporary Hit Points equal to your Intelligence modifier.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
+            "unit": "minutes",
             "value": 1
         },
         "level": {
@@ -22,10 +22,8 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "selector": "speed",
-                "type": "circumstance",
-                "value": -10
+                "key": "TempHP",
+                "value": "@item.origin.abilities.int.mod"
             }
         ],
         "start": {

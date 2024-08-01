@@ -20,15 +20,23 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "Resistance",
                 "type": "all-damage",
                 "value": "@actor.abilities.con.mod+3"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "type": "all-damage",
+                "value": "@actor.abilities.con.mod+8"
             }
         ],
         "traits": {
