@@ -1,7 +1,7 @@
 {
     "_id": "L5D0NwFXdLiVSnk5",
     "img": "systems/pf2e/icons/features/classes/improved-evasion.webp",
-    "name": "Improved Evasion",
+    "name": "Assured Evasion",
     "system": {
         "actionType": {
             "value": "passive"
@@ -20,11 +20,20 @@
             "value": []
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "selector": "reflex",
+                "type": "save"
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "reflex": {
@@ -34,7 +43,9 @@
         },
         "traits": {
             "rarity": "common",
-            "value": []
+            "value": [
+                "swashbuckler"
+            ]
         }
     },
     "type": "feat"
