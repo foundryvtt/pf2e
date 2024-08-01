@@ -1,0 +1,228 @@
+{
+    "_id": "1Gax900IAwhLCi4q",
+    "img": "icons/creatures/mammals/wolf-howl-moon-gray.webp",
+    "name": "Spell Effect: Animal Form (Crab)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Animal Form]</p>\n<p>You call upon primal energy to transform yourself into a Medium animal battle form. When you first cast this spell, choose a form.</p>\n<p>You can decide the specific type of animal (such as lion or snow leopard for cat), but this has no effect on the form's Size or statistics. While in this form, you gain the animal trait. You can Dismiss the spell.</p>\n<p>You gain the following statistics and abilities regardless of which battle form you choose:</p><ul><li>AC = 16 + your level. Ignore your armor's check penalty and Speed reduction.</li><li>5 temporary Hit Points.</li><li>Low-light vision and imprecise scent 30 feet.</li><li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can Strike with. You're trained with them. Your attack modifier is +9, and your damage bonus is +1. These attacks are Strength based (for the purpose of the @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] condition, for example). If your unarmed attack bonus is higher, you can use it instead.</li><li>Athletics modifier of +9, unless your own modifier is higher.</li></ul><p>You also gain specific abilities based on the type of animal you choose:</p><ul><li><p><strong>Crab</strong></p><ul><li>Speed 25 feet, swim Speed 15 feet;</span></li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> big claw, <strong>Damage</strong> 2d8 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">1</span> little claw (agile), <strong>Damage</strong> 2d4 piercing.</li><li>can breathe in water and in air.</span></li></ul></li></ul><hr /><p><strong>Heightened (3rd)</strong> You instead gain 10 temporary HP, AC = 17 + your level, attack modifier +14, damage bonus +5, and Athletics +14.</p>\n<p><strong>Heightened (4th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 15 temporary HP, AC = 18 + your level, attack modifier +16, damage bonus +9, and Athletics +16.</p>\n<p><strong>Heightened (5th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 20 temporary HP, AC = 18 + your level, attack modifier +18, damage bonus +7 and double the number of damage dice, and Athletics +20.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "med",
+                    "speeds": {
+                        "land": 25,
+                        "swim": 15
+                    },
+                    "strikes": {
+                        "big-claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d8"
+                            },
+                            "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
+                            "traits": [
+                                "unarmed"
+                            ]
+                        },
+                        "little-claw": {
+                            "ability": "str",
+                            "baseType": "claw",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 2,
+                                "die": "d4"
+                            },
+                            "img": "systems/pf2e/icons/unarmed-attacks/pincer.webp",
+                            "traits": [
+                                "unarmed",
+                                "agile"
+                            ]
+                        }
+                    },
+                    "traits": [
+                        "animal"
+                    ]
+                },
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 2,
+                            "start": 2,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "16 + @actor.level"
+                                },
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 9
+                                    }
+                                },
+                                "strikes": {
+                                    "big-claw": {
+                                        "damage": {
+                                            "modifier": 1
+                                        },
+                                        "modifier": 9
+                                    },
+                                    "little-claw": {
+                                        "damage": {
+                                            "modifier": 1
+                                        },
+                                        "modifier": 9
+                                    }
+                                },
+                                "tempHP": 5
+                            }
+                        },
+                        {
+                            "end": 3,
+                            "start": 3,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "17 + @actor.level"
+                                },
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 14
+                                    }
+                                },
+                                "strikes": {
+                                    "big-claw": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 14
+                                    },
+                                    "little-claw": {
+                                        "damage": {
+                                            "modifier": 5
+                                        },
+                                        "modifier": 14
+                                    }
+                                },
+                                "tempHP": 10
+                            }
+                        },
+                        {
+                            "end": 4,
+                            "start": 4,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "lg",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 16
+                                    }
+                                },
+                                "strikes": {
+                                    "big-claw": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach"
+                                        ]
+                                    },
+                                    "little-claw": {
+                                        "damage": {
+                                            "modifier": 9
+                                        },
+                                        "modifier": 16,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 15
+                            }
+                        },
+                        {
+                            "start": 5,
+                            "value": {
+                                "armorClass": {
+                                    "modifier": "18 + @actor.level"
+                                },
+                                "size": "huge",
+                                "skills": {
+                                    "athletics": {
+                                        "modifier": 20
+                                    }
+                                },
+                                "strikes": {
+                                    "big-claw": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 7
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    },
+                                    "little-claw": {
+                                        "damage": {
+                                            "dice": 4,
+                                            "modifier": 7
+                                        },
+                                        "modifier": 18,
+                                        "traits": [
+                                            "unarmed",
+                                            "reach-15"
+                                        ]
+                                    }
+                                },
+                                "tempHP": 20
+                            }
+                        }
+                    ],
+                    "field": "item|system.level.value"
+                }
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
