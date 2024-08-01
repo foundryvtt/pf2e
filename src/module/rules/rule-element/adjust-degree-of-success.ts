@@ -65,7 +65,7 @@ class AdjustDegreeOfSuccessRuleElement extends RuleElementPF2e<AdjustDegreeRuleS
         const synthetics = (this.actor.synthetics.degreeOfSuccessAdjustments[selector] ??= []);
         synthetics.push({
             adjustments: record,
-            predicate: this.predicate,
+            predicate: this.resolveInjectedProperties(this.predicate),
         });
     }
 }
