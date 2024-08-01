@@ -144,6 +144,7 @@ const tokenHUDConditions = {
 
 const conditionTypes: Record<ConditionSlug, string> = {
     ...tokenHUDConditions,
+    cursebound: "PF2E.ConditionTypeCursebound",
     friendly: "PF2E.ConditionTypeFriendly",
     helpful: "PF2E.ConditionTypeHelpful",
     hostile: "PF2E.ConditionTypeHostile",
