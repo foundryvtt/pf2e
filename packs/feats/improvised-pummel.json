@@ -28,7 +28,104 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "improvised-pummel-use-handwraps",
+                "toggleable": true,
+                "label": "PF2E.SpecificRule.WeaponImproviser.ImprovisedPummel.UseHandwrapsOfMightyBlows",
+                "value": true,
+                "disabledIf": [
+                    { "not": "handwraps-of-mighty-blows" }
+                ],
+                "disabledValue": false
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "attack",
+                "predicate": [
+                    "item:tag:improvised",
+                    { "not": "handwraps-of-mighty-blows" }
+                ],
+                "value": "ternary(gte(@actor.level,12),2,1)"
+            },
+            {
+                "key": "WeaponPotency",
+                "selector": "attack",
+                "predicate": [
+                    "item:tag:improvised", 
+                    "handwraps-of-mighty-blows"
+                ],
+                "value": "max(@actor.flags.pf2e.handwrapsOfMightyBlows.potency,ternary(gte(@actor.level,12),2,1))"
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "max(ternary(gte(@actor.level,16),3,2))"
+                },
+                "selector": "strike-damage",
+                "predicate": [
+                    "item:tag:improvised",
+                    { "not": "improvised-pummel-use-handwraps" }
+                ]
+            },
+            {
+                "key": "DamageDice",
+                "override": {
+                    "diceNumber": "1+@actor.flags.pf2e.handwrapsOfMightyBlows.striking"
+                },
+                "selector": "strike-damage",
+                "predicate": [
+                    "item:tag:improvised", 
+                    "improvised-pummel-use-handwraps"
+                ]
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{actor|flags.pf2e.handwrapsOfMightyBlows.property0.value}",
+                "definition": ["item:tag:improvised"],
+                "predicate": [
+                    "improvised-pummel-use-handwraps",
+                    "handwraps-rune-property0"
+                ]
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{actor|flags.pf2e.handwrapsOfMightyBlows.property1.value}",
+                "definition": ["item:tag:improvised"],
+                "predicate": [
+                    "improvised-pummel-use-handwraps",
+                    "handwraps-rune-property1"
+                ]
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{actor|flags.pf2e.handwrapsOfMightyBlows.property2.value}",
+                "definition": ["item:tag:improvised"],
+                "predicate": [
+                    "improvised-pummel-use-handwraps",
+                    "handwraps-rune-property2"
+                ]
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{actor|flags.pf2e.handwrapsOfMightyBlows.property3.value}",
+                "definition": ["item:tag:improvised"],
+                "predicate": [
+                    "improvised-pummel-use-handwraps",
+                    "handwraps-rune-property3"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

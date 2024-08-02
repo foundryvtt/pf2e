@@ -51,7 +51,78 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.potency",
+                "value": "@item.system.runes.potency"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.striking",
+                "value": "@item.system.runes.striking"
+            },
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "handwraps-of-mighty-blows"
+            },
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "handwraps-rune-property0",
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 0] }]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.property0",
+                "value": { "value": "{item|system.runes.property.0}" },
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 0] }]
+            },
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "handwraps-rune-property1",
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 1] }]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.property1",
+                "value": { "value": "{item|system.runes.property.1}" },
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 1] }]
+            },
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "handwraps-rune-property2",
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 2] }]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.property2",
+                "value": { "value": "{item|system.runes.property.2}" },
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 2] }]
+            },
+            {
+                "key": "RollOption",
+                "domain": "all",
+                "option": "handwraps-rune-property3",
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 3] }]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.property3",
+                "value": { "value": "{item|system.runes.property.3}" },
+                "predicate": [{ "gt": ["{item|system.runes.property.length}", 3] }]
+            }
+        ],
+
         "runes": {
             "potency": 1,
             "property": [],
