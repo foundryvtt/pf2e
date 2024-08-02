@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> Your Strikes currently deal extra damage from your champion's reaction.</p><hr /><p>Make a Strike against the creature that triggered your champion's reaction. If you hit, double the extra damage the target takes from your reaction, and the target must succeed at a Fortitude save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Regardless of the result, the creature is temporarily immune to your Gruesome Strike for 24 hours.</p>"
+            "value": "<p><strong>Requirements</strong> Your Strikes currently deal extra damage from your champion's reaction.</p><hr /><p>Make a Strike against the creature that triggered your champion's reaction. If you hit, double the extra damage the target takes from your reaction, and the target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}. Regardless of the result, the creature is temporarily immune to your Gruesome Strike for 24 hours.</p>"
         },
         "level": {
             "value": 12
@@ -30,20 +30,22 @@
         },
         "rules": [
             {
-                "domain": "damage",
                 "key": "RollOption",
                 "option": "gruesome-strike",
                 "toggleable": true
             },
             {
-                "key": "AdjustModifier",
-                "mode": "multiply",
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
                 "predicate": [
                     "gruesome-strike"
                 ],
-                "selector": "strike-damage",
-                "slug": "selfish-shield-damage",
-                "value": 2
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Champion.GruesomeStrike.Note",
+                "title": "{item|name}"
             },
             {
                 "key": "AdjustModifier",
@@ -52,17 +54,7 @@
                     "gruesome-strike"
                 ],
                 "selector": "strike-damage",
-                "slug": "destructive-vengeance-damage",
-                "value": 2
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "multiply",
-                "predicate": [
-                    "gruesome-strike"
-                ],
-                "selector": "strike-damage",
-                "slug": "iron-command-damage",
+                "slug": "champions-extra-damage",
                 "value": 2
             }
         ],
