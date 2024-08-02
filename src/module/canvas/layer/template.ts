@@ -74,7 +74,7 @@ export class TemplateLayerPF2e<
         const shapeType = template.document.t;
         const distance = template.document.distance ?? 5;
         const increment = event.shiftKey || distance <= 30 ? 15 : 5;
-        const coneMultiplier = shapeType === "cone" ? (canvas.grid.isHexagonal ? 2 : 3) : 1;
+        const coneMultiplier = shapeType === "cone" ? 3 : 1;
         const snap = increment * coneMultiplier;
         const delta = snap * Math.sign(event.deltaY);
 
