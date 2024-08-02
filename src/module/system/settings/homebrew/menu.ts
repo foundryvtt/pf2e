@@ -86,8 +86,8 @@ class HomebrewElements extends SettingsMenuPF2e {
             (result, key) => {
                 result[key] = {
                     prefix: "homebrew.",
-                    name: CONFIG.PF2E.SETTINGS.homebrew[key].name,
-                    hint: CONFIG.PF2E.SETTINGS.homebrew[key].hint,
+                    name: `PF2E.SETTINGS.Homebrew.${key.capitalize()}.Name`,
+                    hint: `PF2E.SETTINGS.Homebrew.${key.capitalize()}.Hint`,
                     default: [],
                     type: Object,
                 };
