@@ -24,7 +24,133 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Dragon.Adamantine",
+                        "value": [
+                            {
+                                "damageType": "bludgeoning",
+                                "distance": 15,
+                                "dragon": "adamantine",
+                                "save": "reflex",
+                                "shape": "cone",
+                                "speed": "burrow",
+                                "tradition": "primal"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Conspirator",
+                        "value": [
+                            {
+                                "damageType": "poison",
+                                "distance": 15,
+                                "dragon": "conspirator",
+                                "save": "fortitude",
+                                "shape": "cone",
+                                "speed": "climb",
+                                "tradition": "occult"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Diabolic",
+                        "value": [
+                            {
+                                "damageType": "fire",
+                                "distance": 15,
+                                "dragon": "diabolic",
+                                "save": "reflex",
+                                "shape": "cone",
+                                "tradition": "divine"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Empyreal",
+                        "value": [
+                            {
+                                "damageType": "spirit",
+                                "distance": 15,
+                                "dragon": "empyreal",
+                                "save": "reflex",
+                                "shape": "cone",
+                                "tradition": "divine"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Fortune",
+                        "value": [
+                            {
+                                "damageType": "force",
+                                "distance": 15,
+                                "dragon": "empyreal",
+                                "save": "reflex",
+                                "shape": "cone",
+                                "tradition": "arcane"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Horned",
+                        "value": [
+                            {
+                                "damageType": "poison",
+                                "distance": 15,
+                                "dragon": "horned",
+                                "save": "fortitude",
+                                "shape": "cone",
+                                "speed": "swim",
+                                "tradition": "primal"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Mirage",
+                        "value": [
+                            {
+                                "damageType": "mental",
+                                "distance": 15,
+                                "dragon": "mirage",
+                                "save": "will",
+                                "shape": "cone",
+                                "speed": "climb",
+                                "tradition": "arcane"
+                            }
+                        ]
+                    },
+                    {
+                        "label": "PF2E.Dragon.Omen",
+                        "value": [
+                            {
+                                "damageType": "mental",
+                                "distance": 15,
+                                "dragon": "omen",
+                                "save": "will",
+                                "shape": "cone",
+                                "tradition": "occult"
+                            }
+                        ]
+                    }
+                ],
+                "flag": "draconicExemplar",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "draconic-exemplar:delayed"
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.rulesSelections.draconicExemplar.tradition}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
