@@ -30,6 +30,18 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.potency",
+                "value": 0
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.handwrapsOfMightyBlows.striking",
+                "value": 0
+            },
+            {
                 "key": "RollOption",
                 "domain": "all",
                 "option": "improvised-pummel-use-handwraps",
@@ -44,19 +56,7 @@
             {
                 "key": "WeaponPotency",
                 "selector": "attack",
-                "predicate": [
-                    "item:tag:improvised",
-                    { "not": "handwraps-of-mighty-blows" }
-                ],
-                "value": "ternary(gte(@actor.level,12),2,1)"
-            },
-            {
-                "key": "WeaponPotency",
-                "selector": "attack",
-                "predicate": [
-                    "item:tag:improvised", 
-                    "handwraps-of-mighty-blows"
-                ],
+                "predicate": ["item:tag:improvised"],
                 "value": "max(@actor.flags.pf2e.handwrapsOfMightyBlows.potency,ternary(gte(@actor.level,12),2,1))"
             },
             {
