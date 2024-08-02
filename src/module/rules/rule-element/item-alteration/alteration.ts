@@ -18,6 +18,7 @@ import { ITEM_ALTERATION_VALIDATORS } from "./schemas.ts";
 class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlterationSchema> {
     static VALID_PROPERTIES = [
         "ac-bonus",
+        "area-size",
         "badge-max",
         "badge-value",
         "bulk",
@@ -99,6 +100,18 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                     itemIsOfType(item, "armor") && this.mode === "override" ? item.system.runes.potency : 0;
                 item.system.acBonus = Math.max(newValue, 0) + itemBonus;
                 this.#adjustCreatureShieldData(item);
+                return;
+            }
+            case "area-size": {
+                const validator = ITEM_ALTERATION_VALIDATORS[this.property];
+                if (!validator.isValid(data) || !data.item.system.area) return;
+                const newValue = AELikeRuleElement.getNewValue(
+                    this.mode,
+                    data.item.system.area.value,
+                    data.alteration.value,
+                );
+                const nearestFive = Math.floor(newValue / 5) * 5;
+                data.item.system.area.value = Math.max(nearestFive, 5);
                 return;
             }
             case "badge-max": {
