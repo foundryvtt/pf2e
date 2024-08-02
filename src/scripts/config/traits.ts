@@ -369,6 +369,7 @@ const spellTraits = {
     sleep: "PF2E.TraitSleep",
     spellshape: "PF2E.TraitSpellshape",
     stance: "PF2E.TraitStance",
+    structure: "PF2E.TraitStructure",
     subtle: "PF2E.TraitSubtle",
     summon: "PF2E.TraitSummon",
     summoned: "PF2E.TraitSummoned",
