@@ -6,7 +6,14 @@ import { MigrationBase } from "@module/migration/base.ts";
 import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { ErrorPF2e, setHasElement, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { CustomDamageData, HOMEBREW_TRAIT_KEYS, HomebrewTag, HomebrewTraitKey, ModuleHomebrewData } from "./data.ts";
+import {
+    CustomDamageData,
+    HOMEBREW_TRAIT_KEYS,
+    HomebrewTag,
+    HomebrewTraitKey,
+    ModuleHomebrewData,
+    TRAIT_PROPAGATIONS,
+} from "./data.ts";
 import { HomebrewElements } from "./menu.ts";
 
 /** User-defined type guard for checking that an object is a well-formed flag category of module-provided homebrew elements */
@@ -75,9 +82,14 @@ function prepareReservedTerms(): ReservedTermsRecord {
         baseWeapons: new Set([...Object.keys(CONFIG.PF2E.baseWeaponTypes), ...universalReservedTerms]),
         creatureTraits: new Set([...Object.keys(CONFIG.PF2E.creatureTraits), ...universalReservedTerms]),
         damageTypes: universalReservedTerms,
-        equipmentTraits: new Set([...Object.keys(CONFIG.PF2E.equipmentTraits), ...universalReservedTerms]),
+        equipmentTraits: new Set([
+            ...Object.keys(CONFIG.PF2E.equipmentTraits),
+            ...TRAIT_PROPAGATIONS.equipmentTraits.flatMap((t) => Object.keys(CONFIG.PF2E[t])),
+            ...universalReservedTerms,
+        ]),
         featTraits: new Set([...Object.keys(CONFIG.PF2E.actionTraits), ...universalReservedTerms]),
         languages: new Set([...Object.keys(CONFIG.PF2E.languages), ...universalReservedTerms]),
+        shieldTraits: new Set([...Object.keys(CONFIG.PF2E.shieldTraits), ...universalReservedTerms]),
         spellTraits: new Set([...Object.keys(CONFIG.PF2E.spellTraits), ...universalReservedTerms]),
         skills: universalReservedTerms,
         weaponCategories: new Set([...Object.keys(CONFIG.PF2E.weaponCategories), ...universalReservedTerms]),

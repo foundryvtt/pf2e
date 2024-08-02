@@ -15,6 +15,7 @@ const HOMEBREW_TRAIT_KEYS = [
     "weaponGroups",
     "baseWeapons",
     "weaponTraits",
+    "shieldTraits",
     "equipmentTraits",
     "environmentTypes",
 ] as const;

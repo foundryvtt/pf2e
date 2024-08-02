@@ -860,48 +860,6 @@ export const PF2ECONFIG = {
                 hint: "PF2E.SETTINGS.Automation.LootableNPCs.Hint",
             },
         },
-        homebrew: {
-            creatureTraits: {
-                name: "PF2E.SETTINGS.Homebrew.CreatureTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.CreatureTraits.Hint",
-            },
-            featTraits: {
-                name: "PF2E.SETTINGS.Homebrew.FeatTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.FeatTraits.Hint",
-            },
-            languages: {
-                name: "PF2E.Actor.Creature.Language.Plural",
-                hint: "PF2E.SETTINGS.Homebrew.Languages.Hint",
-            },
-            spellTraits: {
-                name: "PF2E.SETTINGS.Homebrew.SpellTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.SpellTraits.Hint",
-            },
-            weaponCategories: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponCategories.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponCategories.Hint",
-            },
-            weaponGroups: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponGroups.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponGroups.Hint",
-            },
-            baseWeapons: {
-                name: "PF2E.SETTINGS.Homebrew.BaseWeapons.Name",
-                hint: "PF2E.SETTINGS.Homebrew.BaseWeapons.Hint",
-            },
-            weaponTraits: {
-                name: "PF2E.SETTINGS.Homebrew.WeaponTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.WeaponTraits.Hint",
-            },
-            equipmentTraits: {
-                name: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Name",
-                hint: "PF2E.SETTINGS.Homebrew.EquipmentTraits.Hint",
-            },
-            environmentTypes: {
-                name: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Name",
-                hint: "PF2E.SETTINGS.Homebrew.EnvironmentTypes.Hint",
-            },
-        },
         worldClock: {
             name: "PF2E.SETTINGS.WorldClock.Name",
             label: "PF2E.SETTINGS.WorldClock.Label",
