@@ -84,7 +84,8 @@
     <div class="form-group">
         <label for="{{fieldIdPrefix}}runes-reinforcing">{{localize "PF2E.Item.Shield.Rune.Reinforcing.Label"}}</label>
         <select name="system.runes.reinforcing" id="{{fieldIdPrefix}}runes-reinforcing" data-dtype="Number">
-            {{selectOptions (omit reinforcing 0) selected=data.runes.reinforcing blank="" localize=true}}
+            <option value="0"></option>
+            {{selectOptions (omit reinforcing 0) selected=data.runes.reinforcing localize=true}}
         </select>
     </div>
 
@@ -92,14 +93,16 @@
         <div class="form-group">
             <label for="{{fieldIdPrefix}}integrated-potency">{{localize "PF2E.PotencyRuneLabel"}}</label>
             <select name="system.traits.integrated.runes.potency" id="{{fieldIdPrefix}}integrated-potency" data-dtype="Number">
-                {{selectOptions (omit weaponRunes.potency 0) selected=data.traits.integrated.runes.potency labelAttr="name" blank="" localize=true}}
+                <option value="0"></option>
+                {{selectOptions (omit weaponRunes.potency 0) selected=data.traits.integrated.runes.potency labelAttr="name" localize=true}}
             </select>
         </div>
 
         <div class="form-group">
             <label for="{{fieldIdPrefix}}integrated-runes-potency">{{localize "PF2E.StrikingRuneLabel"}}</label>
             <select name="system.traits.integrated.runes.striking" id="{{fieldIdPrefix}}integrated-runes-potency" data-dtype="Number">
-                {{selectOptions (omit weaponRunes.striking 0) selected=data.traits.integrated.runes.striking labelAttr="name" blank="" localize=true}}
+                <option value="0"></option>
+                {{selectOptions (omit weaponRunes.striking 0) selected=data.traits.integrated.runes.striking labelAttr="name" localize=true}}
             </select>
         </div>
 
