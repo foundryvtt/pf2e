@@ -11,31 +11,14 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> You put an impertinent foe who dared harm you in their proper place. You command your enemy to kneel before you in obedience. If they dare to refuse, they must pay the price in pain and anguish. The enemy must choose one of the following options.</p><ul><li><strong>Kneel</strong> The enemy drops @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action.</li><li><p><strong>Refuse</strong> You deal @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[mental]] damage to the enemy. This damage increases to 2d6 at 5th level, 3d6 at 9th level, 4d6 at 12th level, 5d6 at 16th level, and 6d6 at 19th level.</p></li></ul><p>Regardless of which option the enemy chose, your Strikes against it deal 1 extra spirit damage until the end of your next turn. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>"
+            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> You put an impertinent foe who dared harm you in their proper place. You command your enemy to kneel before you in obedience. If they dare to refuse, they must pay the price in pain and anguish. The enemy must choose one of the following options.</p><ul><li><strong>Kneel</strong> The enemy drops @UUID[Compendium.pf2e.conditionitems.Item.Prone] as a free action.</li><li><p><strong>Refuse</strong> You deal @Damage[(ternary(gte(@actor.level,19),6,ternary(gte(@actor.level,16),5,ternary(gte(@actor.level,12),4,ternary(gte(@actor.level,9),3,ternary(gte(@actor.level,5),2,1))))))d6[mental]] damage to the enemy. This damage increases to 2d6 at 5th level, 3d6 at 9th level, 4d6 at 12th level, 5d6 at 16th level, and 6d6 at 19th level.</p></li></ul><p>Regardless of which option the enemy chose, your Strikes against it deal 1 extra spirit damage until the end of your next turn. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Extra Damage]</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [
-            {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Champion.TargetReaction",
-                "option": "iron-command",
-                "toggleable": true
-            },
-            {
-                "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "iron-command"
-                ],
-                "selector": "strike-damage",
-                "slug": "iron-command-damage",
-                "value": "ternary(gte(@actor.level,16),3,ternary(gte(@actor.level,9),2,1))"
-            }
-        ],
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": [

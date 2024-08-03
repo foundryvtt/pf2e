@@ -11,36 +11,14 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> Your self-interest keeps you safe. You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type. In addition, your Strikes against the triggering creature deal 1 extra spirit damage until the end of your next turn. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>"
+            "value": "<p><strong>Trigger</strong> An enemy in your champion's aura damages you</p><hr /><p><strong>Effect</strong> Your self-interest keeps you safe. You gain resistance against the triggering damage equal to 2 + half your level, regardless of damage type.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Selfish Shield]</p>\n<p>In addition, your Strikes against the triggering creature deal 1 extra spirit damage until the end of your next turn. This extra damage increases to 2 at 9th level and 3 at 16th level.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Champion's Extra Damage]</p>"
         },
         "publication": {
             "license": "ORC",
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [
-            {
-                "domain": "damage",
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Champion.TargetReaction",
-                "option": "selfish-shield",
-                "toggleable": true
-            },
-            {
-                "damageType": "spirit",
-                "key": "FlatModifier",
-                "predicate": [
-                    "selfish-shield"
-                ],
-                "selector": "strike-damage",
-                "slug": "selfish-shield-damage",
-                "value": "ternary(gte(@actor.level,16),3,ternary(gte(@actor.level,9),2,1))"
-            }
-        ],
-        "selfEffect": {
-            "name": "Effect: Selfish Shield",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Selfish Shield"
-        },
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": [

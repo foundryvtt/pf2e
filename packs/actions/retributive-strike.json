@@ -21,8 +21,18 @@
         "rules": [
             {
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Champion.TargetReaction",
                 "option": "retributive-strike",
+                "predicate": [
+                    {
+                        "or": [
+                            "feature:relentless-reaction",
+                            "feat:shining-oath",
+                            "feat:fiendsbane-oath",
+                            "feat:dragonslayer-oath",
+                            "feat:esoteric-oath"
+                        ]
+                    }
+                ],
                 "toggleable": true
             }
         ],

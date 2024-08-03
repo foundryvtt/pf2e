@@ -1,0 +1,61 @@
+{
+    "_id": "2a6fuugiPpICe3Li",
+    "img": "icons/weapons/swords/sword-runed-glowing.webp",
+    "name": "Effect: Champion's Extra Damage",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Destructive Vengeance], @UUID[Compendium.pf2e.actionspf2e.Item.Iron Command], and @UUID[Compendium.pf2e.actionspf2e.Item.Selfish Shield]</p>\n<p>Your strikes against the triggering creature deal extra spirit damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "champions-extra-damage"
+            },
+            {
+                "damageType": "spirit",
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:champions-extra-damage"
+                ],
+                "selector": "strike-damage",
+                "slug": "champions-extra-damage",
+                "value": "ternary(gte(@actor.level,16),3,ternary(gte(@actor.level,9),2,1))"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "feature:iniquity"
+                ],
+                "selector": "strike-damage",
+                "slug": "champions-extra-damage",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
