@@ -28,7 +28,62 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:breath-of-the-dragon-dragonblood"
+                ],
+                "priority": 151,
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:cone",
+                            "breath-of-the-dragon:fortitude"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Cone.Fortitude"
+                    },
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:cone",
+                            "breath-of-the-dragon:reflex"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Cone.Reflex"
+                    },
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:cone",
+                            "breath-of-the-dragon:will"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Cone.Will"
+                    },
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:line",
+                            "breath-of-the-dragon:fortitude"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Line.Fortitude"
+                    },
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:line",
+                            "breath-of-the-dragon:reflex"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Line.Reflex"
+                    },
+                    {
+                        "predicate": [
+                            "breath-of-the-dragon:line",
+                            "breath-of-the-dragon:will"
+                        ],
+                        "text": "PF2E.SpecificRule.Dragonblood.FormidableBreath.Line.Will"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
