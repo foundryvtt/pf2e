@@ -3,6 +3,7 @@ import { DamageDicePF2e, ModifierPF2e, createAttributeModifier } from "@actor/mo
 import { ATTRIBUTE_ABBREVIATIONS } from "@actor/values.ts";
 import type { ItemPF2e, MeleePF2e, WeaponPF2e } from "@item";
 import type { NPCAttackDamage } from "@item/melee/data.ts";
+import { getMaterialDamage, MATERIAL_DATA } from "@item/physical/materials.ts";
 import { RUNE_DATA, getPropertyRuneDamage, getPropertyRuneModifierAdjustments } from "@item/physical/runes.ts";
 import type { WeaponDamage } from "@item/weapon/data.ts";
 import type { ZeroToThree } from "@module/data.ts";
@@ -250,6 +251,7 @@ class WeaponDamagePF2e {
         // Property Runes
         const propertyRunes = weapon.system.runes.property;
         const runeDamage = getPropertyRuneDamage(weapon, propertyRunes, options);
+        damageDice.push(...getMaterialDamage(weapon.system.material.type, weapon.system.material.grade, options));
         damageDice.push(...runeDamage.filter((d): d is DamageDicePF2e => "diceNumber" in d));
         modifiers.push(...runeDamage.filter((d): d is ModifierPF2e => "modifier" in d));
         const propertyRuneAdjustments = getPropertyRuneModifierAdjustments(propertyRunes);
@@ -397,7 +399,19 @@ class WeaponDamagePF2e {
             const data = RUNE_DATA.weapon.property[r].damage?.notes ?? [];
             return data.map((d) => new RollNotePF2e({ selector: "strike-damage", ...d }));
         });
-        context.notes = [runeNotes, critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e)].flat();
+
+        const materialNotes =
+            weapon.system.material.type && weapon.system.material.grade
+                ? MATERIAL_DATA.weapon[weapon.system.material.type]?.[weapon.system.material.grade]?.damage?.notes?.map(
+                      (d) => new RollNotePF2e({ selector: "strike-damage", ...d }),
+                  ) || []
+                : [];
+
+        context.notes = [
+            runeNotes,
+            materialNotes,
+            critSpecEffect.filter((e): e is RollNotePF2e => e instanceof RollNotePF2e),
+        ].flat();
 
         // Accumulate damage-affecting precious materials
         const material = objectHasKey(CONFIG.PF2E.materialDamageEffects, weapon.system.material.type)

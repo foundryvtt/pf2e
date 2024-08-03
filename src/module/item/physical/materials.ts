@@ -1,6 +1,20 @@
 import type { Rarity } from "@module/data.ts";
 import type { PhysicalItemPF2e } from "./document.ts";
 import type { PreciousMaterialGrade, PreciousMaterialType } from "./types.ts";
+import { DamageDiceParameters, DamageDicePF2e } from "@actor/modifiers.js";
+import { RollNoteSource } from "@module/notes.js";
+import { sluggify } from "@util";
+import { preciousMaterials } from "@scripts/config/traits.js";
+
+type MaterialDiceProperty = "slug" | "damageType" | "category" | "predicate" | "critical";
+
+type MaterialAdditionalDamage = Partial<Pick<DamageDiceParameters, MaterialDiceProperty>> &
+    Required<Pick<DamageDiceParameters, "diceNumber" | "dieSize">>;
+
+interface MaterialNoteData extends Pick<RollNoteSource, "outcome" | "predicate" | "title" | "text"> {
+    title: string;
+    text: string;
+}
 
 interface MaterialGradeData {
     level: number;
@@ -8,6 +22,10 @@ interface MaterialGradeData {
     hardness?: number;
     maxHP?: number;
     rarity: Rarity;
+    damage?: {
+        additional?: MaterialAdditionalDamage[];
+        notes?: MaterialNoteData[];
+    };
 }
 
 // https://2e.aonprd.com/Equipment.aspx?Category=11&Subcategory=12
@@ -36,6 +54,34 @@ function getMaterialValuationData(item: PhysicalItemPF2e): MaterialGradeData | n
     return valuationData[material.type]?.[material.grade] ?? null;
 }
 
+function getMaterialDamage(
+    materialType: PreciousMaterialType | null,
+    materialGrade: PreciousMaterialGrade | null,
+    options: Set<string>,
+): DamageDicePF2e[] {
+    if (!materialType || !materialGrade) return [];
+    const materialData = WEAPON_MATERIAL_VALUATION_DATA[materialType]?.[materialGrade];
+    if (!materialData) return [];
+
+    return fu.deepClone(materialData.damage?.additional ?? []).map((data) => {
+        const slug = sluggify(materialType + "-" + materialGrade);
+
+        const dice = new DamageDicePF2e({
+            selector: "strike-damage",
+            slug,
+            label: preciousMaterials[materialType],
+            diceNumber: data.diceNumber ?? 1,
+            dieSize: data.dieSize ?? "d6",
+            damageType: data.damageType,
+            category: data.category ?? null,
+            predicate: data.predicate,
+            critical: data.critical ?? null,
+        });
+        dice.test(options);
+        return dice;
+    });
+}
+
 const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
     "": {
         low: null,
@@ -48,11 +94,43 @@ const WEAPON_MATERIAL_VALUATION_DATA: MaterialValuationData = {
             level: 12,
             price: 2000,
             rarity: "rare",
+            damage: {
+                additional: [
+                    {
+                        damageType: "poison",
+                        diceNumber: 1,
+                        dieSize: "d4",
+                    },
+                ],
+                notes: [
+                    {
+                        outcome: ["criticalSuccess"],
+                        title: "PF2E.WeaponMaterial.standardGradeAbysium.Name",
+                        text: "PF2E.WeaponMaterial.standardGradeAbysium.Note.criticalSuccess",
+                    },
+                ],
+            },
         },
         high: {
             level: 18,
             price: 24000,
             rarity: "rare",
+            damage: {
+                additional: [
+                    {
+                        damageType: "poison",
+                        diceNumber: 1,
+                        dieSize: "d4",
+                    },
+                ],
+                notes: [
+                    {
+                        outcome: ["criticalSuccess"],
+                        title: "PF2E.WeaponMaterial.highGradeAbysium.Name",
+                        text: "PF2E.WeaponMaterial.highGradeAbysium.Note.criticalSuccess",
+                    },
+                ],
+            },
         },
     },
     adamantine: {
@@ -1169,6 +1247,6 @@ const MATERIAL_DATA = {
     weapon: WEAPON_MATERIAL_VALUATION_DATA,
 };
 
-export { MATERIAL_DATA, OBJECT_MATERIAL_VALUATION_DATA, getMaterialValuationData };
+export { MATERIAL_DATA, OBJECT_MATERIAL_VALUATION_DATA, getMaterialValuationData, getMaterialDamage };
 
 export type { MaterialGradeData, MaterialValuationData };
