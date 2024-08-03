@@ -331,10 +331,14 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     }
 
     protected override async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        const currentArea = this.item._source.system.area;
         // Set defaults for area properties or otherwise null out
-        if (formData["system.area.value"]) {
-            formData["system.area.type"] ||= "burst";
-        } else {
+        const areaSize = "system.area.value" in formData ? formData["system.area.value"] : currentArea?.value;
+        const areaType = formData["system.area.type"];
+        if (!currentArea && (areaSize || areaType)) {
+            formData["system.area.value"] = areaSize || 5;
+            formData["system.area.type"] = areaType || "burst";
+        } else if (areaSize === null || areaType === "") {
             delete formData["system.area.value"];
             delete formData["system.area.type"];
             formData["system.area"] = null;
