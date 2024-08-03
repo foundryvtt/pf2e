@@ -92,7 +92,6 @@ interface BackgroundFilters extends BaseFilterData {
         source: CheckboxData;
     };
     multiselects: {
-        traits: MultiselectData;
         boosts: MultiselectData;
         skills: MultiselectData;
         lores: MultiselectData;
@@ -133,6 +132,22 @@ interface ClassFilters extends BaseFilterData {
     multiselects: {
         traits: MultiselectData;
         keyAttribute: MultiselectData;
+    };
+}
+
+interface DeityFilters extends BaseFilterData {
+    checkboxes: {
+        category: CheckboxData;
+        font: CheckboxData;
+        sanctification: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        attribute: MultiselectData;
+        primaryDomain: MultiselectData;
+        alternateDomain: MultiselectData;
+        skill: MultiselectData;
+        weapon: MultiselectData;
     };
 }
 
