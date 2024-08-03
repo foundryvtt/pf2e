@@ -130,8 +130,8 @@ export class InlineRollLinks {
     }
 
     static async #onClickInlineCheck(event: MouseEvent, link: HTMLAnchorElement | HTMLSpanElement): Promise<void> {
-        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Defense, pf2Adjustment, pf2Roller, pf2RollOptions } =
-            link.dataset;
+        const { pf2Check, pf2Dc, pf2Traits, pf2Label, pf2Adjustment, pf2Roller, pf2RollOptions } = link.dataset;
+        const against = link.dataset.against || link.dataset.pf2Defense; // pf2Defense is only checked for backwards compat
         const overrideTraits = "overrideTraits" in link.dataset;
         const targetOwner = "targetOwner" in link.dataset;
 
@@ -220,31 +220,11 @@ export class InlineRollLinks {
                 continue;
             }
 
-            const targetActor = pf2Defense ? (targetOwner ? parent : game.user.targets.first()?.actor) : null;
+            // Determine if this actor is the origin/target. Currently we only guess based on if its a save
+            const alias = isSavingThrow ? "target" : "origin";
+            const opposingAlias = alias === "target" ? "origin" : "target";
 
-            const dcValue = (() => {
-                const adjustment = Number(pf2Adjustment) || 0;
-                if (pf2Dc === "@self.level") {
-                    return calculateDC(actor.level) + adjustment;
-                }
-                return Number(pf2Dc ?? "NaN") + adjustment;
-            })();
-
-            const dc = ((): CheckDC | null => {
-                if (Number.isInteger(dcValue)) {
-                    return { label: pf2Label, value: dcValue };
-                } else if (pf2Defense) {
-                    const defenseStat = targetActor?.getStatistic(pf2Defense);
-                    return defenseStat
-                        ? {
-                              statistic: defenseStat.dc,
-                              scope: "check",
-                              value: defenseStat.dc.value,
-                          }
-                        : null;
-                }
-                return null;
-            })();
+            const targetActor = against ? (targetOwner ? parent : game.user.targets.first()?.actor) : null;
 
             // Retrieve the item if:
             // (2) The item is an action or,
@@ -264,12 +244,37 @@ export class InlineRollLinks {
                     : null;
             })();
 
+            const dc = ((): CheckDC | null => {
+                const dcValue = pf2Dc === "@self.level" ? calculateDC(actor.level) : Number(pf2Dc ?? "NaN");
+
+                if (Number.isInteger(dcValue)) {
+                    const adjustment = Number(pf2Adjustment) || 0;
+                    return { label: pf2Label, value: dcValue + adjustment };
+                } else if (against) {
+                    const checkedActor = isSavingThrow ? parent : targetActor;
+                    const defenseStat = checkedActor?.getStatistic(against)?.clone({
+                        rollOptions: [
+                            item?.isOfType("action", "feat") ? `${opposingAlias}:action:slug:${item.slug}` : null,
+                        ].filter(R.isTruthy),
+                    });
+                    if (defenseStat) {
+                        return {
+                            statistic: defenseStat.dc,
+                            scope: "check",
+                            value: defenseStat.dc.value,
+                        };
+                    }
+                }
+
+                return null;
+            })();
+
             const args: StatisticRollParameters = {
                 ...eventRollParams,
                 extraRollOptions,
-                origin: isSavingThrow && parent instanceof ActorPF2e ? parent : null,
+                origin: opposingAlias === "origin" ? parent : null,
                 dc,
-                target: !isSavingThrow && dc?.statistic ? targetActor : null,
+                target: opposingAlias === "target" && dc?.statistic ? targetActor : null,
                 item,
                 traits: abilityTraits,
             };
