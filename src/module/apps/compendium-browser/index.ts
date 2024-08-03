@@ -30,6 +30,7 @@ import {
     BrowserFilter,
     CheckboxData,
     ClassFilters,
+    DeityFilters,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
@@ -50,6 +51,7 @@ class CompendiumBrowser extends Application {
         "bestiary",
         "campaignFeature",
         "class",
+        "deity",
         "equipment",
         "feat",
         "hazard",
@@ -73,6 +75,7 @@ class CompendiumBrowser extends Application {
             background: new browserTabs.Backgrounds(this),
             bestiary: new browserTabs.Bestiary(this),
             campaignFeature: new browserTabs.CampaignFeatures(this),
+            deity: new browserTabs.Deities(this),
             class: new browserTabs.Classes(this),
             equipment: new browserTabs.Equipment(this),
             feat: new browserTabs.Feats(this),
@@ -140,6 +143,7 @@ class CompendiumBrowser extends Application {
             bestiary: {},
             campaignFeature: {},
             class: {},
+            deity: {},
             hazard: {},
             heritage: {},
             equipment: {},
@@ -155,6 +159,7 @@ class CompendiumBrowser extends Application {
             "pf2e.ancestries": true,
             "pf2e.backgrounds": true,
             "pf2e.classes": true,
+            "pf2e.deities": true,
             "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
             "pf2e.ancestryfeatures": true,
@@ -171,6 +176,7 @@ class CompendiumBrowser extends Application {
             "background",
             "campaignFeature",
             "class",
+            "deity",
             "feat",
             "kit",
             "hazard",
@@ -189,6 +195,7 @@ class CompendiumBrowser extends Application {
             ["background", "background"],
             ["campaignFeature", "campaignFeature"],
             ["class", "class"],
+            ["deity", "deity"],
             ["feat", "feat"],
             ["kit", "equipment"],
             ["hazard", "hazard"],
@@ -234,6 +241,7 @@ class CompendiumBrowser extends Application {
     openTab(name: "background", filter?: BackgroundFilters): Promise<void>;
     openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
     openTab(name: "class", filter?: ClassFilters): Promise<void>;
+    openTab(name: "deity", filter?: DeityFilters): Promise<void>;
     openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
@@ -623,6 +631,7 @@ class CompendiumBrowser extends Application {
                 // Multiselects using tagify
                 const multiselects = currentTab.filterData.multiselects;
                 if (!multiselects) continue;
+                console.log(objectHasKey(multiselects, filterName), multiselects, filterName);
                 if (objectHasKey(multiselects, filterName)) {
                     const multiselect = container.querySelector<HTMLInputElement>(
                         `input[name=${filterName}][data-tagify-select]`,
