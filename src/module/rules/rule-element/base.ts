@@ -5,10 +5,11 @@ import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { reduceItemName } from "@item/helpers.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckCheckContext, CheckRoll } from "@system/check/index.ts";
-import { LaxSchemaField, PredicateField, SlugField } from "@system/schema-data-fields.ts";
+import { PredicateField, SlugField } from "@system/schema-data-fields.ts";
 import { tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { DataModelValidationOptions } from "types/foundry/common/abstract/data.d.ts";
+import { SchemaField } from "types/foundry/common/data/fields.js";
 import { isBracketedValue } from "../helpers.ts";
 import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 
@@ -20,8 +21,6 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
  */
 abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
     .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
-    protected declare static _schema: LaxSchemaField<RuleElementSchema> | undefined;
-
     declare label: string;
 
     sourceIndex: number | null = null;
@@ -112,17 +111,6 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             requiresInvestment: new fields.BooleanField({ required: false, nullable: true, initial: undefined }),
             spinoff: new SlugField({ required: false, nullable: false, initial: undefined }),
         };
-    }
-
-    /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
-    static override get schema(): LaxSchemaField<RuleElementSchema> {
-        if (this._schema && Object.hasOwn(this, "_schema")) return this._schema;
-
-        const schema = new LaxSchemaField(Object.freeze(this.defineSchema()));
-        schema.name = this.name;
-        Object.defineProperty(this, "_schema", { value: schema, writable: false });
-
-        return schema;
     }
 
     get item(): this["parent"] {
@@ -408,8 +396,6 @@ interface RuleElementPF2e<TSchema extends RuleElementSchema>
         ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;
 
-    get schema(): LaxSchemaField<TSchema>;
-
     /**
      * Run between Actor#applyActiveEffects and Actor#prepareDerivedData. Generally limited to ActiveEffect-Like
      * elements
@@ -533,6 +519,10 @@ namespace RuleElementPF2e {
         domains: string[];
         rollOptions: Set<string>;
     }
+}
+
+declare namespace RuleElementPF2e {
+    const schema: SchemaField<RuleElementSchema>;
 }
 
 interface ResolveValueParams {
