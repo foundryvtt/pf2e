@@ -130,7 +130,6 @@ interface ClassFilters extends BaseFilterData {
         rarity: CheckboxData;
     };
     multiselects: {
-        traits: MultiselectData;
         keyAttribute: MultiselectData;
     };
 }
