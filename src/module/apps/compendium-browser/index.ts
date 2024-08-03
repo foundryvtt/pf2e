@@ -627,11 +627,10 @@ class CompendiumBrowser extends Application {
                 });
             }
 
-            if (filterType === "multiselects" && !currentTab.isOfType("background", "class", "deity")) {
+            if (filterType === "multiselects") {
                 // Multiselects using tagify
                 const multiselects = currentTab.filterData.multiselects;
                 if (!multiselects) continue;
-                console.log(objectHasKey(multiselects, filterName), multiselects, filterName);
                 if (objectHasKey(multiselects, filterName)) {
                     const multiselect = container.querySelector<HTMLInputElement>(
                         `input[name=${filterName}][data-tagify-select]`,
