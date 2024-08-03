@@ -3,7 +3,28 @@
     <h3>{{localize "PF2E.CompendiumBrowser.TabAction"}}</h3>
     <dl>
         {{#each settings.action as |conf pack|}}
-            <label><dt><input type="checkbox" name="action-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="action-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabAncestry"}}</h3>
+    <dl>
+        {{#each settings.ancestry as |conf pack|}}
+            <label><dt><input type="checkbox" name="ancestry-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabBackground"}}</h3>
+    <dl>
+        {{#each settings.background as |conf pack|}}
+            <label><dt><input type="checkbox" name="background-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
@@ -12,7 +33,28 @@
     <h3>{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</h3>
     <dl>
         {{#each settings.bestiary as |conf pack|}}
-            <label><dt><input type="checkbox" name="bestiary-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="bestiary-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabClass"}}</h3>
+    <dl>
+        {{#each settings.class as |conf pack|}}
+            <label><dt><input type="checkbox" name="class-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabDeity"}}</h3>
+    <dl>
+        {{#each settings.deity as |conf pack|}}
+            <label><dt><input type="checkbox" name="deity-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
@@ -21,7 +63,8 @@
     <h3>{{localize "TYPES.Item.equipment"}}</h3>
     <dl>
         {{#each settings.equipment as |conf pack|}}
-            <label><dt><input type="checkbox" name="equipment-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="equipment-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
@@ -30,7 +73,8 @@
     <h3>{{localize "PF2E.CompendiumBrowser.TabFeat"}}</h3>
     <dl>
         {{#each settings.feat as |conf pack|}}
-            <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
@@ -39,7 +83,18 @@
     <h3>{{localize "PF2E.Actor.Hazard.Plural"}}</h3>
     <dl>
         {{#each settings.hazard as |conf pack|}}
-            <label><dt><input type="checkbox" name="hazard-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="hazard-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
+        {{/each}}
+    </dl>
+</div>
+
+<div class="setting-section">
+    <h3>{{localize "PF2E.CompendiumBrowser.TabHeritage"}}</h3>
+    <dl>
+        {{#each settings.heritage as |conf pack|}}
+            <label><dt><input type="checkbox" name="heritage-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
@@ -48,7 +103,8 @@
     <h3>{{localize "PF2E.Item.Spell.Plural"}}</h3>
     <dl>
         {{#each settings.spell as |conf pack|}}
-            <label><dt><input type="checkbox" name="spell-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
+            <label><dt><input type="checkbox" name="spell-{{pack}}" {{checked conf.load}} /></dt><dd>{{conf.name}}
+                    ({{conf.package}})</dd></label>
         {{/each}}
     </dl>
 </div>
