@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Minor Boon</strong> Lamashtu's touch mutates a part of your body.</p>\n<p>You gain either an unarmed Strike that deals 1d6 damage or one that deals 1d4 damage and has the finesse and agile traits.</p>\n<p>Whether the attack deals bludgeoning, slashing, or piercing damage depends on the mutation.</p>\n<p>If the unarmed Strike replaces a limb, you can still use the mutated limb for its original functions. Lamashtu chooses the form and function of your mutation.</p>"
+            "value": "<p>Lamashtu's touch mutates a part of your body.</p>\n<p>You gain either an unarmed Strike that deals 1d6 damage or one that deals 1d4 damage and has the finesse and agile traits.</p>\n<p>Whether the attack deals bludgeoning, slashing, or piercing damage depends on the mutation.</p>\n<p>If the unarmed Strike replaces a limb, you can still use the mutated limb for its original functions. Lamashtu chooses the form and function of your mutation.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,89 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DivineIntercessions.Lamashtu.MinorBoon.DSixLabel",
+                        "value": "six"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DivineIntercessions.Lamashtu.MinorBoon.DFourLabel",
+                        "value": "four"
+                    }
+                ],
+                "flag": "dieSize",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DieSize",
+                "rollOption": "lamashtu-minor-boon:die-size"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "img": "icons/creatures/tentacles/tentacles-octopus-black-pink.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.DivineIntercessions.Lamashtu.MinorBoon.LamashtusMutation",
+                "predicate": [
+                    "lamashtu-minor-boon:die-size:six"
+                ],
+                "range": null,
+                "slug": "lamashtus-mutation-six",
+                "traits": [
+                    "unarmed"
+                ]
+            },
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "img": "icons/creatures/tentacles/tentacles-octopus-black-pink.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.DivineIntercessions.Lamashtu.MinorBoon.LamashtusMutation",
+                "predicate": [
+                    "lamashtu-minor-boon:die-size:four"
+                ],
+                "range": null,
+                "slug": "lamashtus-mutation-four",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "unarmed"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

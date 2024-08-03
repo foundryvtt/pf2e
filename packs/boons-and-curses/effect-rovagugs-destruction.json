@@ -1,0 +1,54 @@
+{
+    "_id": "epHQeILdRs3NuxMZ",
+    "img": "systems/pf2e/icons/deity/Rovagug.webp",
+    "name": "Effect: Rovagug's Destruction",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Rovagug - Minor Boon]</p>\n<p>Your weapon or unarmed attack gains the deadly d12 trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "attacks": true
+                },
+                "flag": "strike",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponOrUnarmed"
+            },
+            {
+                "definition": [
+                    "item:{item|flags.pf2e.rulesSelections.strike}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d12"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
