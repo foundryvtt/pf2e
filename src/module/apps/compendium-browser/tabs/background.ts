@@ -127,8 +127,6 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
 
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
-            return false;
         if (!this.filterTraits(entry.boosts, multiselects.boosts.selected, multiselects.boosts.conjunction))
             return false;
         if (!this.filterTraits(entry.skills, multiselects.skills.selected, multiselects.skills.conjunction))
@@ -156,12 +154,6 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 },
             },
             multiselects: {
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
                 boosts: {
                     conjunction: "and",
                     label: "PF2E.BrowserFilterBoosts",
