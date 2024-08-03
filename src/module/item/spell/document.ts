@@ -752,12 +752,17 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
             }
         }
 
-        const isAreaEffect = !!this.system.area?.value;
-        if (isAreaEffect) spellOptions.add("area-effect");
+        const area = this.system.area;
+        if (area) {
+            spellOptions.add(`${prefix}:area`);
+            spellOptions.add(`${prefix}:area:type:${area.type}`);
+            spellOptions.add(`${prefix}:area:size:${area.value}`);
+            spellOptions.add("area-effect");
+        }
 
         if (this.damageKinds.has("damage")) {
             spellOptions.add("damaging-effect");
-            if (isAreaEffect) spellOptions.add("area-damage");
+            if (area) spellOptions.add("area-damage");
         }
 
         const defense = this.system.defense;
