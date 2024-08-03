@@ -176,9 +176,13 @@ abstract class IWR<TType extends IWRType> {
                 if (objectHasKey(CONFIG.PF2E.materialDamageEffects, iwrType)) {
                     switch (iwrType) {
                         case "adamantine":
-                            return [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }];
+                            return this instanceof Resistance
+                                ? [{ or: ["damage:material:adamantine", "damage:material:keep-stone"] }]
+                                : ["damage:material:adamantine"];
                         case "cold-iron":
-                            return [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }];
+                            return this instanceof Weakness
+                                ? [{ or: ["damage:material:cold-iron", "damage:material:sovereign-steel"] }]
+                                : ["damage:material:cold-iron"];
                         case "duskwood":
                             return [
                                 {
@@ -189,7 +193,9 @@ abstract class IWR<TType extends IWRType> {
                                 },
                             ];
                         case "silver":
-                            return [{ or: ["damage:material:silver", "damage:material:dawnsilver"] }];
+                            return this instanceof Weakness
+                                ? [{ or: ["damage:material:silver", "damage:material:dawnsilver"] }]
+                                : ["damage:material:silver"];
                         default:
                             return [`damage:material:${iwrType}`];
                     }
