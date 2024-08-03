@@ -24,7 +24,76 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "draconic-resistance:{actor|flags.pf2e.dragonblood.damageType}"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "flag": "resistance",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:slashing",
+                            "draconic-resistance:piercing"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "nor": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:piercing",
+                            "draconic-resistance:slashing"
+                        ]
+                    }
+                ],
+                "type": "{actor|flags.pf2e.dragonblood.damageType}",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "draconic-resistance:bludgeoning",
+                            "draconic-resistance:piercing",
+                            "draconic-resistance:slashing"
+                        ]
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.resistance}",
+                "value": "max(1,floor(@actor.level/2))"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
