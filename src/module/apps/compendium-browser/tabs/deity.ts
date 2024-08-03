@@ -124,19 +124,19 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 },
                 category: {
                     isExpanded: false,
-                    label: "Category", //fon't forget to localize
+                    label: "PF2E.BrowserFilterCategory",
                     options: {},
                     selected: [],
                 },
                 font: {
                     isExpanded: false,
-                    label: "Divine Font", //fon't forget to localize
+                    label: "PF2E.BrowserFilterDivineFont",
                     options: {},
                     selected: [],
                 },
                 sanctification: {
                     isExpanded: false,
-                    label: "Sanctification", //fon't forget to localize
+                    label: "PF2E.BrowserFilterSanctification",
                     options: {},
                     selected: [],
                 },
@@ -145,31 +145,31 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             multiselects: {
                 attribute: {
                     conjunction: "and",
-                    label: "Attribute", //Don't forget to localize
+                    label: "PF2E.BrowserFilterDivineAttribute",
                     options: [],
                     selected: [],
                 },
                 primaryDomain: {
                     conjunction: "and",
-                    label: "Primary Domain", //Don't forget to localize
+                    label: "PF2E.BrowserFilterPrimaryDomain",
                     options: [],
                     selected: [],
                 },
                 alternateDomain: {
                     conjunction: "and",
-                    label: "Alternate Domain", //Don't forget to localize
+                    label: "PF2E.BrowserFilterAlternateDomain",
                     options: [],
                     selected: [],
                 },
                 skill: {
                     conjunction: "and",
-                    label: "Skill", //Don't forget to localize
+                    label: "PF2E.BrowserFilterDivineSkill",
                     options: [],
                     selected: [],
                 },
                 weapon: {
                     conjunction: "and",
-                    label: "Weapon", //Don't forget to localize
+                    label: "PF2E.BrowserFilterFavoredWeapon",
                     options: [],
                     selected: [],
                 },
