@@ -54,7 +54,6 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                     originalName: backgroundData.originalName,
                     img: backgroundData.img,
                     uuid: backgroundData.uuid,
-                    traits: backgroundData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: backgroundData.system.traits.rarity,
                     source: sourceSlug,
                     boosts: backgroundData.system.boosts[0].value,
