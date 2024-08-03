@@ -49,7 +49,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             "system.attribute",
             "system.domains",
             "system.skill",
-            "system.weapon",
+            "system.weapons",
         ];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
@@ -82,33 +82,105 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                     primaryDomain: deityData.system.domains.primary,
                     alternateDomain: deityData.system.domains.alternate,
                     skill: deityData.system.skill,
-                    weapon: deityData.system.weapon,
+                    weapon: deityData.system.weapons,
                 });
             }
 
             this.indexData = deities;
 
-            this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
-            this.filterData.checkboxes.category.options = this.generateSourceCheckboxOptions(
-                new Set(["Deity", "Pantheon", "Philosophy"]),
+            // Create a dynamic list of primary domains
+            const primaryDomainsOptions = Object.fromEntries(
+                deities
+                    .map((t) => {
+                        return t.primaryDomain.flatMap((domain: string) => {
+                            const domainString = `PF2E.Item.Deity.Domain.${domain.titleCase()}.Label`;
+                            return [domain, domainString];
+                        });
+                    })
+                    .filter(([_value, label]) => label != undefined),
             );
-            this.filterData.checkboxes.font.options = this.generateCheckboxOptions({ harm: "Harm", heal: "Heal" });
+
+            // Create a dynamic list of alternate domains
+            const alternateDomainOptions = Object.fromEntries(
+                deities
+                    .map((t) => {
+                        return t.alternateDomain.flatMap((domain: string) => {
+                            const domainString = `PF2E.Item.Deity.Domain.${domain.titleCase()}.Label`;
+                            return [domain, domainString];
+                        });
+                    })
+                    .filter(([_value, label]) => label != undefined),
+            );
+
+            // Create a dynamic list of favored weapons
+            const favoredWeaponOptions = Object.fromEntries(
+                deities
+                    .map((t) => {
+                        return t.weapon.flatMap((weapon: string) => {
+                            const weaponString = `PF2E.Weapon.Base.${weapon}`;
+                            return [weapon, weaponString];
+                        });
+                    })
+                    .filter(([_value, label]) => label != undefined),
+            );
+
+            this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+            this.filterData.checkboxes.category.options = this.generateCheckboxOptions({
+                deity: "PF2E.Deity",
+                pantheon: "PF2E.Item.Deity.Category.Pantheon",
+                philosophy: "PF2E.Item.Deity.Category.Philosophy",
+            });
+            this.filterData.multiselects.font.options = this.generateMultiselectOptions({
+                harm: "PF2E.Item.Deity.DivineFont.Harm",
+                heal: "PF2E.Item.Deity.DivineFont.Heal",
+            });
+            this.filterData.multiselects.attribute.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
+            this.filterData.multiselects.skill.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
+            this.filterData.multiselects.primaryDomain.options = this.generateMultiselectOptions(primaryDomainsOptions);
+            this.filterData.multiselects.alternateDomain.options =
+                this.generateMultiselectOptions(alternateDomainOptions);
+            this.filterData.multiselects.sanctification.options = this.generateMultiselectOptions({
+                holy: "PF2E.BrowserFilterSanctification.Holy",
+                unholy: "PF2E.BrowserFilterSanctification.Unholy",
+            });
+            this.filterData.multiselects.weapon.options = this.generateMultiselectOptions(favoredWeaponOptions);
+
             console.debug("PF2e System | Compendium Browser | Finished loading deities");
         }
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes } = this.filterData;
+        const { checkboxes, multiselects } = this.filterData;
 
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
-        if (checkboxes.font.selected.length) {
-            if (!checkboxes.font.selected.includes(entry.font)) return false;
-        }
         if (checkboxes.category.selected.length) {
             if (!checkboxes.category.selected.includes(entry.category)) return false;
         }
+
+        if (!this.filterTraits(entry.attribute, multiselects.attribute.selected, multiselects.attribute.conjunction))
+            return false;
+        if (
+            !this.filterTraits(
+                entry.primaryDomain,
+                multiselects.primaryDomain.selected,
+                multiselects.primaryDomain.conjunction,
+            )
+        )
+            return false;
+        if (
+            !this.filterTraits(
+                entry.alternateDomain,
+                multiselects.alternateDomain.selected,
+                multiselects.alternateDomain.conjunction,
+            )
+        )
+            return false;
+        if (!this.filterTraits(entry.skill, multiselects.skill.selected, multiselects.skill.conjunction)) return false;
+        if (!this.filterTraits(entry.weapon, multiselects.weapon.selected, multiselects.weapon.conjunction))
+            return false;
+        if (!this.filterTraits(entry.font, multiselects.font.selected, multiselects.font.conjunction)) return false;
 
         return true;
     }
@@ -125,18 +197,6 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 category: {
                     isExpanded: false,
                     label: "PF2E.BrowserFilterCategory",
-                    options: {},
-                    selected: [],
-                },
-                font: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterDivineFont",
-                    options: {},
-                    selected: [],
-                },
-                sanctification: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSanctification",
                     options: {},
                     selected: [],
                 },
@@ -158,6 +218,18 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 alternateDomain: {
                     conjunction: "and",
                     label: "PF2E.BrowserFilterAlternateDomain",
+                    options: [],
+                    selected: [],
+                },
+                font: {
+                    conjunction: "and",
+                    label: "PF2E.BrowserFilterDivineFont",
+                    options: [],
+                    selected: [],
+                },
+                sanctification: {
+                    conjunction: "and",
+                    label: "PF2E.BrowserFilterSanctification.Label",
                     options: [],
                     selected: [],
                 },
