@@ -137,14 +137,14 @@ interface ClassFilters extends BaseFilterData {
 interface DeityFilters extends BaseFilterData {
     checkboxes: {
         category: CheckboxData;
-        font: CheckboxData;
-        sanctification: CheckboxData;
         source: CheckboxData;
     };
     multiselects: {
         attribute: MultiselectData;
         primaryDomain: MultiselectData;
         alternateDomain: MultiselectData;
+        font: MultiselectData;
+        sanctification: MultiselectData;
         skill: MultiselectData;
         weapon: MultiselectData;
     };
