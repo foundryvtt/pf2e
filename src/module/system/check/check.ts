@@ -184,40 +184,41 @@ class CheckPF2e {
         const allowInteractive = context.rollMode !== "blindroll";
         const roll = await new CheckRoll(`${dice}${totalModifierPart}`, {}, options).evaluate({ allowInteractive });
 
-        // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
-        // rare--and there are no rules for selecting among multiple adjustments.
-        const dosAdjustments = ((): DegreeAdjustmentsRecord => {
-            if (!context.dc) return {};
-
+        const rollOptionsWithTotal = ((): Set<string> => {
             const naturalTotal = roll.dice
                 .map((d) => d.results.find((r) => r.active && !r.discarded)?.result ?? null)
                 .filter(R.isTruthy)
                 .shift();
 
-            // Include tentative results in case an adjustment is predicated on it
             const temporaryRollOptions = new Set([
                 ...rollOptions,
                 `check:total:${roll.total}`,
                 `check:total:natural:${naturalTotal}`,
-                `check:total:delta:${roll.total - context.dc.value}`,
                 // @todo migrate me
                 // backward compatibility
                 `check:roll:total:natural:${naturalTotal}`,
             ]);
+            if (context.dc) {
+                temporaryRollOptions.add(`check:total:delta:${roll.total - context.dc.value}`);
+            }
 
-            return (
-                context.dosAdjustments
-                    ?.filter((a) => a.predicate?.test(temporaryRollOptions) ?? true)
-                    .reduce((record, data) => {
-                        for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
-                            if (data.adjustments[outcome]) {
-                                record[outcome] = fu.deepClone(data.adjustments[outcome]);
-                            }
-                        }
-                        return record;
-                    }, {} as DegreeAdjustmentsRecord) ?? {}
-            );
+            return temporaryRollOptions;
         })();
+
+        // Combine all degree of success adjustments into a single record. Some may be overridden, but that should be
+        // rare--and there are no rules for selecting among multiple adjustments.
+        const dosAdjustments =
+            context.dosAdjustments
+                ?.filter((a) => a.predicate?.test(rollOptionsWithTotal) ?? true)
+                .reduce((record, data) => {
+                    for (const outcome of ["all", ...DEGREE_OF_SUCCESS_STRINGS] as const) {
+                        if (data.adjustments[outcome]) {
+                            record[outcome] = fu.deepClone(data.adjustments[outcome]);
+                        }
+                    }
+                    return record;
+                }, {} as DegreeAdjustmentsRecord) ?? {};
+
         const degree = context.dc ? new DegreeOfSuccess(roll, context.dc, dosAdjustments) : null;
 
         if (degree) {
@@ -230,7 +231,11 @@ class CheckPF2e {
             context.notes
                 ?.map((n) => (n instanceof RollNotePF2e ? n : new RollNotePF2e(n)))
                 .filter((note) => {
-                    if (!note.predicate.test([...rollOptions, ...(note.rule?.item.getRollOptions("parent") ?? [])])) {
+                    const temporaryRollOptions = [
+                        ...rollOptionsWithTotal,
+                        ...(note.rule?.item.getRollOptions("parent") ?? []),
+                    ];
+                    if (!note.predicate.test(temporaryRollOptions)) {
                         return false;
                     }
                     if (!context.dc || note.outcome.length === 0) {
@@ -282,7 +287,7 @@ class CheckPF2e {
             target: context.target?.actor
                 ? { actor: context.target.actor.uuid, token: context.target.token?.uuid }
                 : null,
-            options: Array.from(rollOptions).sort(),
+            options: Array.from(rollOptionsWithTotal).sort(),
             notes: notes.map((n) => n.toObject()),
             rollMode: context.rollMode,
             rollTwice: context.rollTwice ?? false,
