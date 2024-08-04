@@ -11,7 +11,7 @@
         },
         "category": "offensive",
         "description": {
-            "value": "<p><strong>Requirements</strong> The creature you intend to mark is observed by you</p><hr /><p><strong>Effect</strong> You designate a single creature as your mark. Using Mark for Death while @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] doesn't make you @UUID[Compendium.pf2e.conditionitems.Item.Observed]. Mark for Death lasts until the mark dies or you use Mark for Death again. You gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your mark, as well as to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against your mark. Your mark takes a –2 circumstance penalty to all Perception checks to Seek you. In addition, when attacking your mark, you have the sneak attack class feature, except it deals 1d4 precision damage and you don't increase the number of dice as you gain levels. At 6th level, the damage increases to 1d6. If you already have the sneak attack class feature, you instead deal an additional 1 precision damage with your sneak attacks made against your mark, increasing to 2 precision damage at 6th level.</p>"
+            "value": "<p><strong>Requirements</strong> The creature you intend to mark is observed by you</p><hr /><p><strong>Effect</strong> You designate a single creature as your mark. Using Mark for Death while @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected] doesn't make you @UUID[Compendium.pf2e.conditionitems.Item.Observed]. Mark for Death lasts until the mark dies or you use Mark for Death again. You gain a +2 circumstance bonus to Perception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Seek] your mark, as well as to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] against your mark. Your mark takes a –2 circumstance penalty to all Perception checks to Seek you.</p>\n<p>In addition, when attacking your mark, you have the @UUID[Compendium.pf2e.classfeatures.Item.Sneak Attack] class feature, except it deals 1d4 precision damage and you don't increase the number of dice as you gain levels. At 6th level, the damage increases to 1d6. If you already have the sneak attack class feature, you instead deal an additional 1 precision damage with your sneak attacks made against your mark, increasing to 2 precision damage at 6th level.</p>"
         },
         "publication": {
             "license": "ORC",
@@ -42,104 +42,84 @@
                     "perception",
                     "deception"
                 ],
+                "slug": "mark-for-death-skill",
                 "type": "circumstance",
                 "value": 2
             },
             {
-                "definition": [
-                    "item:trait:deadly-d10",
+                "category": "precision",
+                "diceNumber": "1",
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "feature:sneak-attack"
+                    },
+                    "target:condition:off-guard",
                     {
                         "or": [
                             "item:trait:agile",
-                            "item:trait:finesse"
+                            "item:trait:finesse",
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "marked-for-death"
-                ],
-                "property": "weapon-traits",
-                "value": "deadly-d12"
+                "selector": "strike-damage",
+                "slug": "sneak-attack"
             },
             {
-                "definition": [
-                    "item:trait:deadly-d8",
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
-                    }
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
+                "key": "DamageAlteration",
+                "mode": "upgrade",
                 "predicate": [
-                    "marked-for-death"
-                ],
-                "property": "weapon-traits",
-                "value": "deadly-d10"
-            },
-            {
-                "definition": [
-                    "item:trait:deadly-d6",
+                    "dice:slug:sneak-attack",
                     {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
-                    }
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "marked-for-death"
-                ],
-                "property": "weapon-traits",
-                "value": "deadly-d8"
-            },
-            {
-                "definition": [
-                    {
-                        "or": [
-                            "item:trait:agile",
-                            "item:trait:finesse"
-                        ]
+                        "not": "feature:sneak-attack"
                     },
                     {
-                        "nor": [
-                            "item:trait:deadly-d6",
-                            "item:trait:deadly-d8",
-                            "item:trait:deadly-d10",
-                            "item:trait:deadly-d12"
+                        "gte": [
+                            "self:level",
+                            6
                         ]
                     }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "marked-for-death"
+                "property": "dice-faces",
+                "selectors": [
+                    "strike-damage"
                 ],
-                "property": "weapon-traits",
-                "value": "deadly-d6"
+                "value": 6
             },
             {
-                "definition": [
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "predicate": [
+                    "marked-for-death",
+                    "feature:sneak-attack",
+                    "target:condition:off-guard",
                     {
                         "or": [
+                            "item:trait:agile",
                             "item:trait:finesse",
-                            "item:trait:agile"
+                            {
+                                "and": [
+                                    "item:ranged",
+                                    {
+                                        "not": "item:thrown-melee"
+                                    }
+                                ]
+                            }
                         ]
                     }
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "marked-for-death"
-                ],
-                "property": "weapon-traits",
-                "value": "backstabber"
+                "selector": "strike-damage",
+                "slug": "mark-for-death-damage",
+                "value": "ternary(gte(@actor.level,6),2,1)"
             }
         ],
         "traits": {
