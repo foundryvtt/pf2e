@@ -186,10 +186,7 @@ class CompendiumBrowser extends Application {
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<
-            ItemType | "hazard" | "npc" | "ancestry" | "background" | "heritage",
-            Exclude<TabName, "settings">
-        >([
+        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
             ["action", "action"],
             ["ancestry", "ancestry"],
             ["background", "background"],
