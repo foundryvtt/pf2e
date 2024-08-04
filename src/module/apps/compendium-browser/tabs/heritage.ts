@@ -9,12 +9,14 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
     filterData: HeritageFilters;
     templatePath = "systems/pf2e/templates/compendium-browser/partials/heritage.hbs";
 
+    /* MiniSearch */
     override searchFields = ["name", "originalName"];
     override storeFields = ["img", "name", "type", "uuid", "traits", "source", "rarity", "ancestry"];
 
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
+        // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
     }
 
@@ -36,14 +38,16 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
                     heritageData.filters = {};
                 }
 
+                // Prepare source
                 const pubSource = heritageData.system.publication?.title ?? heritageData.system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
+                // Only store essential data
                 heritages.push({
                     type: heritageData.type,
                     name: heritageData.name,
-                    originalName: heritageData.originalName,
+                    originalName: heritageData.originalName, // Added by Babele
                     img: heritageData.img,
                     uuid: heritageData.uuid,
                     rarity: heritageData.system.traits.rarity,
@@ -65,8 +69,10 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
                 }),
             );
 
+            // Set indexData
             this.indexData = heritages;
 
+            // Filters
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.ancestry.options = this.generateMultiselectOptions(ancestryOptions);
@@ -78,13 +84,15 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
-
+        // Ancestry
         if (!this.filterTraits(entry.ancestry, multiselects.ancestry.selected, multiselects.ancestry.conjunction))
             return false;
 

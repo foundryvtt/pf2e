@@ -9,6 +9,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
     filterData: DeityFilters;
     templatePath = "systems/pf2e/templates/compendium-browser/partials/deity.hbs";
 
+    /* MiniSearch */
     override searchFields = ["name", "originalName"];
     override storeFields = [
         "type",
@@ -30,6 +31,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
+        // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
     }
 
@@ -63,14 +65,16 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                     deityData.filters = {};
                 }
 
+                // Prepare source
                 const pubSource = deityData.system.publication?.title ?? deityData.system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
+                //Only store essential data
                 deities.push({
                     type: deityData.type,
                     name: deityData.name,
-                    originalName: deityData.originalName,
+                    originalName: deityData.originalName, // Added by Babele
                     img: deityData.img,
                     uuid: deityData.uuid,
                     rarity: deityData.system.traits?.rarity,
@@ -86,6 +90,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 });
             }
 
+            // Set indexData
             this.indexData = deities;
 
             // Create a dynamic list of primary domains
@@ -145,6 +150,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 }),
             );
 
+            // Filters
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.category.options = this.generateCheckboxOptions({
                 deity: "PF2E.Deity",
@@ -175,15 +181,18 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        // Category
         if (checkboxes.category.selected.length) {
             if (!checkboxes.category.selected.includes(entry.category)) return false;
         }
-
+        // Divine Attribute
         if (!this.filterTraits(entry.attribute, multiselects.attribute.selected, multiselects.attribute.conjunction))
             return false;
+        // Primary Domain
         if (
             !this.filterTraits(
                 entry.primaryDomain,
@@ -192,6 +201,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             )
         )
             return false;
+        // Alternate Domain
         if (
             !this.filterTraits(
                 entry.alternateDomain,
@@ -200,10 +210,14 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             )
         )
             return false;
+        // Divine Skill
         if (!this.filterTraits(entry.skill, multiselects.skill.selected, multiselects.skill.conjunction)) return false;
+        // Favored Weapon
         if (!this.filterTraits(entry.weapon, multiselects.weapon.selected, multiselects.weapon.conjunction))
             return false;
+        // Divine Font
         if (!this.filterTraits(entry.font, multiselects.font.selected, multiselects.font.conjunction)) return false;
+        // Sanctification
         if (
             !this.filterTraits(
                 entry.sanctification,

@@ -15,6 +15,7 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
+        // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
     }
 
@@ -30,6 +31,7 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
             "system.publication",
             "system.source",
         ];
+        // Create an object for Class Hitpoints
         const classHitpoints = {
             6: "6",
             8: "8",
@@ -48,14 +50,16 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
                     classData.filters = {};
                 }
 
+                // Prepare source
                 const pubSource = classData.system.publication?.title ?? classData.system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
+                // Only store essential data
                 classes.push({
                     type: classData.type,
                     name: classData.name,
-                    originalName: classData.originalName,
+                    originalName: classData.originalName, // Added by Babele
                     img: classData.img,
                     uuid: classData.uuid,
                     rarity: classData.system.traits.rarity,
@@ -65,8 +69,10 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
                 });
             }
 
+            // Set indexData
             this.indexData = classes;
 
+            // Filters
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.hitpoints.options = this.generateCheckboxOptions(classHitpoints);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
@@ -79,12 +85,15 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        // Hitpoints
         if (checkboxes.hitpoints.selected.length) {
             if (!checkboxes.hitpoints.selected.includes(entry.hitpoints)) return false;
         }
+        // Key Attribute
         if (
             !this.filterTraits(
                 entry.keyAttribute,
@@ -93,7 +102,7 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
             )
         )
             return false;
-
+        // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
