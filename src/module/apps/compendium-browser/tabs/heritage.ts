@@ -46,7 +46,6 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
                     originalName: heritageData.originalName,
                     img: heritageData.img,
                     uuid: heritageData.uuid,
-                    traits: heritageData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: heritageData.system.traits.rarity,
                     source: sourceSlug,
                     ancestry: heritageData.system.ancestry?.slug ?? "versatile",
@@ -71,7 +70,6 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.ancestry.options = this.generateMultiselectOptions(ancestryOptions);
-            this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.ancestryTraits);
 
             console.debug("PF2e System | Compendium Browser | Finished loading heritages");
         }
@@ -88,8 +86,6 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
         }
 
         if (!this.filterTraits(entry.ancestry, multiselects.ancestry.selected, multiselects.ancestry.conjunction))
-            return false;
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
 
         return true;
@@ -116,12 +112,6 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
                 ancestry: {
                     conjunction: "or",
                     label: "PF2E.BrowserFilterAncestries",
-                    options: [],
-                    selected: [],
-                },
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],
                 },

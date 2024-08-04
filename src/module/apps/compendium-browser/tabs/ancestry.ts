@@ -63,7 +63,6 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
                     hitpoints: ancestryData.system.hp.toString(),
                     img: ancestryData.img,
                     uuid: ancestryData.uuid,
-                    traits: ancestryData.system.traits.value.map((t: string) => t.replace(/^hb_/, "")),
                     rarity: ancestryData.system.traits.rarity,
                     source: sourceSlug,
                 });
@@ -75,7 +74,6 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
             this.filterData.checkboxes.hitpoints.options = this.generateCheckboxOptions(ancestryHitpoints);
-            this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.ancestryTraits);
             console.debug("PF2e System | Compendium Browser | Finished loading ancestries");
         }
     }
@@ -94,8 +92,6 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
         }
 
         if (!this.filterTraits(entry.boosts, multiselects.boosts.selected, multiselects.boosts.conjunction))
-            return false;
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
             return false;
 
         return true;
@@ -128,12 +124,6 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
                 boosts: {
                     conjunction: "and",
                     label: "PF2E.BrowserFilterBoosts",
-                    options: [],
-                    selected: [],
-                },
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
                     options: [],
                     selected: [],
                 },

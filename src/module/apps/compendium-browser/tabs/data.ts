@@ -83,7 +83,7 @@ interface AncestryFilters extends BaseFilterData {
         source: CheckboxData;
         hitpoints: CheckboxData;
     };
-    multiselects: { traits: MultiselectData; boosts: MultiselectData };
+    multiselects: { boosts: MultiselectData };
 }
 
 interface BackgroundFilters extends BaseFilterData {
@@ -200,7 +200,6 @@ interface HeritageFilters extends BaseFilterData {
     };
     multiselects: {
         ancestry: MultiselectData<string>;
-        traits: MultiselectData<string>;
     };
 }
 
