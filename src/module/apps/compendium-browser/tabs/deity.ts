@@ -137,6 +137,14 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                     .filter(([_value, label]) => label != undefined),
             );
 
+            // Create key: label pairs for skills
+            const skillList = Object.fromEntries(
+                Object.keys(CONFIG.PF2E.skills).map((t) => {
+                    const skills = CONFIG.PF2E.skills as { [key: string]: { label: string; attribute: string } };
+                    return [t, skills[t].label];
+                }),
+            );
+
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.category.options = this.generateCheckboxOptions({
                 deity: "PF2E.Deity",
@@ -149,7 +157,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 none: "PF2E.Item.Deity.DivineFont.None",
             });
             this.filterData.multiselects.attribute.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
-            this.filterData.multiselects.skill.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
+            this.filterData.multiselects.skill.options = this.generateMultiselectOptions(skillList);
             this.filterData.multiselects.primaryDomain.options = this.generateMultiselectOptions(primaryDomainsOptions);
             this.filterData.multiselects.alternateDomain.options =
                 this.generateMultiselectOptions(alternateDomainOptions);
