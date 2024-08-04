@@ -43,7 +43,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         this.battleForm ??= false;
         this.options ??= [];
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
-            ? true
+            ? this.graspingAppendage ?? true
             : this.category === "unarmed" || this.traits.includes("unarmed")
               ? !!this.graspingAppendage
               : false;
