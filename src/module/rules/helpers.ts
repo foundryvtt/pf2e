@@ -116,6 +116,9 @@ async function extractEphemeralEffects({
                 target: { actor: effectsTo.uuid, token: null },
                 roll: null,
             };
+            if (effect.type === "effect") {
+                effect.system.duration = { value: -1, unit: "unlimited", expiry: null, sustained: false };
+            }
             return effect;
         });
 }
