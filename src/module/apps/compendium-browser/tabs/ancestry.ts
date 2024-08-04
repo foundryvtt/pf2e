@@ -16,6 +16,7 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
+        // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
     }
 
@@ -45,14 +46,16 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
                     ancestryData.filters = {};
                 }
 
+                // Prepare source
                 const pubSource = ancestryData.system.publication?.title ?? ancestryData.system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
+                // Only store essential data
                 ancestries.push({
                     type: ancestryData.type,
                     name: ancestryData.name,
-                    originalName: ancestryData.originalName,
+                    originalName: ancestryData.originalName, // Added by Babele
                     boosts: Object.keys(ancestryData.system.boosts)
                         .flatMap((t: string) => {
                             return ancestryData.system.boosts[t].value.length == 1
@@ -68,12 +71,15 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
                 });
             }
 
+            // Set indexData
             this.indexData = ancestries;
 
+            // Filters
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
             this.filterData.checkboxes.hitpoints.options = this.generateCheckboxOptions(ancestryHitpoints);
+
             console.debug("PF2e System | Compendium Browser | Finished loading ancestries");
         }
     }
@@ -81,16 +87,19 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
+        // Hitpoints
         if (checkboxes.hitpoints.selected.length) {
             if (!checkboxes.hitpoints.selected.includes(entry.hitpoints)) return false;
         }
-
+        // Boosts
         if (!this.filterTraits(entry.boosts, multiselects.boosts.selected, multiselects.boosts.conjunction))
             return false;
 

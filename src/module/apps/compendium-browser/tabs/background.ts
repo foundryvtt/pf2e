@@ -15,6 +15,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
     constructor(browser: CompendiumBrowser) {
         super(browser);
 
+        // Set the filterData object of this tab
         this.filterData = this.prepareFilterData();
     }
 
@@ -44,14 +45,16 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                     backgroundData.filters = {};
                 }
 
+                // Prepare source
                 const pubSource = backgroundData.system.publication?.title ?? backgroundData.system.source?.value ?? "";
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
+                // Only store essential data
                 backgrounds.push({
                     type: backgroundData.type,
                     name: backgroundData.name,
-                    originalName: backgroundData.originalName,
+                    originalName: backgroundData.originalName, //Added by Babele
                     img: backgroundData.img,
                     uuid: backgroundData.uuid,
                     rarity: backgroundData.system.traits.rarity,
@@ -93,8 +96,17 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                     .filter(([_value, label]) => label != undefined),
             );
 
+            const skillList = Object.fromEntries(
+                Object.keys(CONFIG.PF2E.skills).map((t) => {
+                    const skills = CONFIG.PF2E.skills as { [key: string]: { label: string; attribute: string } };
+                    return [t, skills[t].label];
+                }),
+            );
+
+            // Set indexData
             this.indexData = backgrounds;
 
+            // Filters
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
@@ -109,18 +121,23 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
         const { checkboxes, multiselects } = this.filterData;
 
+        // Source
         if (checkboxes.source.selected.length) {
             if (!checkboxes.source.selected.includes(entry.source)) return false;
         }
+        // Rarity
         if (checkboxes.rarity.selected.length) {
             if (!checkboxes.rarity.selected.includes(entry.rarity)) return false;
         }
-
+        // Boosts
         if (!this.filterTraits(entry.boosts, multiselects.boosts.selected, multiselects.boosts.conjunction))
             return false;
+        // Skills
         if (!this.filterTraits(entry.skills, multiselects.skills.selected, multiselects.skills.conjunction))
             return false;
+        // Lores
         if (!this.filterTraits(entry.lores, multiselects.lores.selected, multiselects.lores.conjunction)) return false;
+        // Feats
         if (!this.filterTraits(entry.feats, multiselects.feats.selected, multiselects.feats.conjunction)) return false;
 
         return true;
