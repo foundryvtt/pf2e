@@ -74,12 +74,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 backgrounds
                     .map((t) => {
                         return t.feats.flatMap((feat: string) => {
-                            const featString = feat
-                                .split("-")
-                                .map((word: string) => {
-                                    return word.charAt(0).toUpperCase() + word.slice(1);
-                                })
-                                .join(" ");
+                            const featString = feat.replaceAll("-", " ").titleCase();
                             return [feat, featString];
                         });
                     })
@@ -91,12 +86,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 backgrounds
                     .map((t) => {
                         return t.lores.flatMap((lore: string) => {
-                            const loreString = lore
-                                .split("-")
-                                .map((word: string) => {
-                                    return word.charAt(0).toUpperCase() + word.slice(1);
-                                })
-                                .join(" ");
+                            const loreString = lore.replaceAll("-", " ").titleCase();
                             return [lore, loreString];
                         });
                     })
