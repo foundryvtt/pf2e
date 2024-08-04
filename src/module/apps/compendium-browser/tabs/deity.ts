@@ -1,4 +1,4 @@
-import { sluggify } from "@util";
+import { objectHasKey, sluggify } from "@util";
 import { ContentTabName } from "../data.ts";
 import { CompendiumBrowser } from "../index.ts";
 import { CompendiumBrowserTab } from "./base.ts";
@@ -76,7 +76,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                     rarity: deityData.system.traits?.rarity,
                     source: sourceSlug,
                     category: deityData.system.category,
-                    font: deityData.system.font,
+                    font: deityData.system.font.length > 0 ? deityData.system.font : "none",
                     sanctification: deityData.system.sanctification?.what ?? "none",
                     attribute: deityData.system.attribute,
                     primaryDomain: deityData.system.domains.primary,
@@ -93,7 +93,12 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 deities
                     .map((t) => {
                         return t.primaryDomain.flatMap((domain: string) => {
-                            const domainString = `PF2E.Item.Deity.Domain.${domain.titleCase()}.Label`;
+                            const domains = CONFIG.PF2E.deityDomains as {
+                                [key: string]: { label: string; description: string };
+                            };
+                            const domainString = objectHasKey(domains[domain], "label")
+                                ? domains[domain].label
+                                : domain.titleCase();
                             return [domain, domainString];
                         });
                     })
@@ -105,7 +110,12 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 deities
                     .map((t) => {
                         return t.alternateDomain.flatMap((domain: string) => {
-                            const domainString = `PF2E.Item.Deity.Domain.${domain.titleCase()}.Label`;
+                            const domains = CONFIG.PF2E.deityDomains as {
+                                [key: string]: { label: string; description: string };
+                            };
+                            const domainString = objectHasKey(domains[domain], "label")
+                                ? domains[domain].label
+                                : domain.titleCase();
                             return [domain, domainString];
                         });
                     })
@@ -117,7 +127,10 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 deities
                     .map((t) => {
                         return t.weapon.flatMap((weapon: string) => {
-                            const weaponString = `PF2E.Weapon.Base.${weapon}`;
+                            const weapons = CONFIG.PF2E.baseWeaponTypes as {
+                                [key: string]: string;
+                            };
+                            const weaponString = weapons[weapon] ?? weapon.titleCase();
                             return [weapon, weaponString];
                         });
                     })
@@ -133,6 +146,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             this.filterData.multiselects.font.options = this.generateMultiselectOptions({
                 harm: "PF2E.Item.Deity.DivineFont.Harm",
                 heal: "PF2E.Item.Deity.DivineFont.Heal",
+                none: "PF2E.Item.Deity.DivineFont.None",
             });
             this.filterData.multiselects.attribute.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
             this.filterData.multiselects.skill.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
@@ -142,6 +156,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             this.filterData.multiselects.sanctification.options = this.generateMultiselectOptions({
                 holy: "PF2E.BrowserFilterSanctification.Holy",
                 unholy: "PF2E.BrowserFilterSanctification.Unholy",
+                none: "PF2E.Item.Deity.Sanctification.None",
             });
             this.filterData.multiselects.weapon.options = this.generateMultiselectOptions(favoredWeaponOptions);
 
@@ -181,6 +196,14 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
         if (!this.filterTraits(entry.weapon, multiselects.weapon.selected, multiselects.weapon.conjunction))
             return false;
         if (!this.filterTraits(entry.font, multiselects.font.selected, multiselects.font.conjunction)) return false;
+        if (
+            !this.filterTraits(
+                entry.sanctification,
+                multiselects.sanctification.selected,
+                multiselects.sanctification.conjunction,
+            )
+        )
+            return false;
 
         return true;
     }
