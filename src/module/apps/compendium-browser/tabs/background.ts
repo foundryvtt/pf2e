@@ -93,6 +93,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                     .filter(([_value, label]) => label != undefined),
             );
 
+<<<<<<< HEAD
             const skillList = Object.fromEntries(
                 Object.keys(CONFIG.PF2E.skills).map((t) => {
                     const skills = CONFIG.PF2E.skills as { [key: string]: { label: string; attribute: string } };
@@ -100,12 +101,18 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 }),
             );
 
+=======
+>>>>>>> d93425cd76b74162bc385dfbc2c8458fd8127354
             this.indexData = backgrounds;
 
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
+<<<<<<< HEAD
             this.filterData.multiselects.skills.options = this.generateMultiselectOptions(skillList);
+=======
+            this.filterData.multiselects.skills.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
+>>>>>>> d93425cd76b74162bc385dfbc2c8458fd8127354
             this.filterData.multiselects.lores.options = this.generateMultiselectOptions(loreOptions);
             this.filterData.multiselects.feats.options = this.generateMultiselectOptions(featOptions);
 
