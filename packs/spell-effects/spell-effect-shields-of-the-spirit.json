@@ -1,0 +1,70 @@
+{
+    "_id": "mlvDokpnQBhvQrSk",
+    "img": "icons/magic/defensive/shield-barrier-blue.webp",
+    "name": "Spell Effect: Shields of the Spirit",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shields of the Spirit]</p>\n<p>While one of your allies is in your champion's aura, the shields grant them a +1 status bonus to AC.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "predicate": [
+                            {
+                                "not": "target:effect:shields-of-the-spirit-security"
+                            }
+                        ],
+                        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Shields of the Spirit"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "champions-aura",
+                    "self:signature:{item|origin.signature}"
+                ],
+                "radius": "@actor.flags.pf2e.champion.aura",
+                "slug": "champions-aura"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:signature:{item|origin.signature}"
+                    }
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
