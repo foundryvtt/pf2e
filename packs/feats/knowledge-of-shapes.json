@@ -28,7 +28,58 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:widen-spell",
+                            "feat:reach-spell"
+                        ]
+                    },
+                    "spellshape:knowledge-of-shapes"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.KnowledgeOfShapes"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "knowledge-of-shapes"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:widen-spell",
+                            "feat:reach-spell"
+                        ]
+                    },
+                    "spellshape:knowledge-of-shapes"
+                ],
+                "property": "traits",
+                "value": "cursebound"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

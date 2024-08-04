@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Your spellcasting is rife with strange lights, mild fumes, and other captivating effects that befuddle your foes. If the next action you use is to Cast a Spell, any creature that attempts to use a reaction triggered by your Cast a Spell activity takes a –2 circumstance penalty to attack rolls and skill checks rolled as part of the reaction.</p>\n<p>In addition, if the spell includes a spell attack or requires a saving throw, creatures you hit or that fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you until the start of your next turn.</p>"
+            "value": "<p>Your spellcasting is rife with strange lights, mild fumes, and other captivating effects that befuddle your foes. If the next action you use is to Cast a Spell, any creature that attempts to use a reaction triggered by your Cast a Spell activity takes a –2 circumstance penalty to attack rolls and skill checks rolled as part of the reaction.</p>\n<p>In addition, if the spell includes a spell attack or requires a saving throw, creatures you hit or that fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] with you until the start of your next turn.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Portentous Spell]</p>"
         },
         "level": {
             "value": 16
@@ -24,7 +24,36 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:portentous-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.PortentousSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "portentous-spell"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
