@@ -26,17 +26,11 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "option": "mystery-conduit",
-                "placement": "spellcasting",
-                "toggleable": true
-            },
-            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "mystery-conduit",
+                    "spellshape:mystery-conduit",
                     "item:duration:0",
                     {
                         "lte": [
@@ -48,7 +42,6 @@
                         "not": "cantrip"
                     }
                 ],
-                "priority": 119,
                 "property": "traits",
                 "value": "cursebound"
             },
@@ -57,7 +50,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "mystery-conduit",
+                    "spellshape:mystery-conduit",
                     "item:duration:0",
                     {
                         "lte": [
@@ -72,9 +65,23 @@
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.Oracle.MysteryConduit.Note"
+                        "text": "PF2E.SpecificRule.Spellshape.MysteryConduit"
                     }
                 ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "mystery-conduit"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "traits": {
