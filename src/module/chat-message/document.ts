@@ -176,7 +176,7 @@ class ChatMessagePF2e extends ChatMessage {
     /* -------------------------------------------- */
 
     override async getHTML(): Promise<JQuery> {
-        const { actor } = this;
+        const actor = this.actor;
 
         // Enrich flavor, which is skipped by upstream
         if (this.isContentVisible) {
@@ -251,7 +251,7 @@ class ChatMessagePF2e extends ChatMessage {
 
         UserVisibilityPF2e.processMessageSender(this, html);
         if ((!actor || this.isRoll) && this.content) {
-            UserVisibilityPF2e.process(html, { document: actor ?? this });
+            UserVisibilityPF2e.process(html, { document: actor ?? this, message: this });
         }
 
         return $(html);
