@@ -302,10 +302,10 @@ class HomebrewElements extends SettingsMenuPF2e {
 
         // Add additional skills if there any
         const moduleData = HomebrewElements.moduleData;
-        if (Object.keys(moduleData.additionalSkills).length > 0) {
+        if (Object.keys(moduleData.skills).length > 0) {
             CONFIG.PF2E.skills = Object.freeze({
                 ...CONFIG.PF2E.skills,
-                ...R.mapValues(moduleData.additionalSkills, (data) => ({
+                ...R.mapValues(moduleData.skills, (data) => ({
                     label: data.label,
                     attribute: data.attribute,
                 })),

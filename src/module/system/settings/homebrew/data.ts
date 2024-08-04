@@ -170,7 +170,7 @@ type LanguageSetField = SetField<
 >;
 
 interface ModuleHomebrewData {
-    additionalSkills: Record<string, { label: string; attribute: AttributeString }>;
+    skills: Record<string, { label: string; attribute: AttributeString }>;
     damageTypes: Record<string, CustomDamageData>;
     traits: Record<HomebrewTraitKey, HomebrewTag[]>;
     traitDescriptions: Record<string, string>;

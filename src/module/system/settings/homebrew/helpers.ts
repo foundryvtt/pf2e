@@ -45,7 +45,7 @@ interface LabelAndDescription {
     description: string;
 }
 
-function isSkillData(obj: unknown): obj is { additional: ModuleHomebrewData["additionalSkills"] } {
+function isSkillData(obj: unknown): obj is { additional: ModuleHomebrewData["skills"] } {
     return (
         R.isPlainObject(obj) &&
         R.isPlainObject(obj.additional) &&
@@ -104,7 +104,7 @@ type ReservedTermsRecord = Record<HomebrewTraitKey | "damageTypes" | "skills", S
 /** Reads homebrew settings from all modules */
 function readModuleHomebrewSettings(): ModuleHomebrewData {
     const results: ModuleHomebrewData = {
-        additionalSkills: {},
+        skills: {},
         damageTypes: {},
         traits: R.mapToObj(HOMEBREW_TRAIT_KEYS, (k) => [k, []]),
         traitDescriptions: {},
@@ -130,7 +130,7 @@ function readModuleHomebrewSettings(): ModuleHomebrewData {
                                 .message,
                         );
                     } else {
-                        results.additionalSkills[slug] = data;
+                        results.skills[slug] = data;
                     }
                 }
             } else if (recordKey === "damageTypes") {
