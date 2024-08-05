@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Minor Boon</strong> Erastil shares in his bounty as long as you work for it. Whenever you roll a critical failure at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist] in the wild, you get a failure instead.</p>"
+            "value": "<p>Erastil shares in his bounty as long as you work for it.</p>\n<p>Whenever you roll a critical failure at a check to @UUID[Compendium.pf2e.actionspf2e.Item.Subsist] in the wild, you get a failure instead.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,19 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustment": {
+                    "criticalFailure": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:subsist",
+                    "terrain:wilderness"
+                ],
+                "selector": "skill-check"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

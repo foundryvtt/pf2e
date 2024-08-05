@@ -1,10 +1,10 @@
 {
-    "_id": "bvBzvLDKM5sAJm9s",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
-    "name": "Achaekek - Minor Boon",
+    "_id": "qeI9fX7X2IzSZLoL",
+    "img": "systems/pf2e/icons/deity/Abadar.webp",
+    "name": "Effect: Abadar's Warning",
     "system": {
         "description": {
-            "value": "<p>Once, when you would fail a Stealth check, you critically succeed instead.</p>\n<p>Achaekek typically grants this boon for an extremely consequential Stealth check that could lead to an assassination, such as one that could get you into position to kill an important target, but rarely on a Stealth check to help you escape.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Abadar - Minor Boon]</p>\n<p>Once, when someone rolls a success on a Deception check to @UUID[Compendium.pf2e.actionspf2e.Item.Lie] maliciously to you and you alone, they get a critical failure instead.</p>"
         },
         "duration": {
             "expiry": null,
@@ -16,17 +16,20 @@
             "value": 0
         },
         "publication": {
-            "license": "ORC",
-            "remaster": true,
-            "title": "Pathfinder Adventure: Prey for Death"
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Gods & Magic"
         },
         "rules": [
             {
                 "key": "Note",
                 "outcome": [
-                    "failure"
+                    "success"
                 ],
-                "selector": "stealth",
+                "predicate": [
+                    "action:lie"
+                ],
+                "selector": "deception",
                 "text": "{item|system.description.value}",
                 "title": "{item|name}",
                 "visibility": "gm"
@@ -37,10 +40,9 @@
             "value": 0
         },
         "tokenIcon": {
-            "show": false
+            "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
