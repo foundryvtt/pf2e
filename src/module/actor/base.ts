@@ -1182,9 +1182,8 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 ((damageResult.totalApplied >= 0 && !token.combatant?.isDefeated) ||
                     (damageResult.totalApplied < 0 && !!token.combatant?.isDefeated))
             ) {
-                token.combatant?.toggleDefeated({ overlayIcon: !finePowder }).then(() => {
-                    if (finePowder) this.createEmbeddedDocuments("Item", [createDisintegrateEffect()]);
-                });
+                await token.combatant?.toggleDefeated({ overlayIcon: !finePowder });
+                if (finePowder) await this.createEmbeddedDocuments("Item", [createDisintegrateEffect()]);
             }
         }
 
