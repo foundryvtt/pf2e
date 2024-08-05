@@ -101,7 +101,7 @@ class WeaponDamagePF2e {
     }: WeaponDamageCalculateParams): Promise<WeaponDamageTemplate | null> {
         const unprocessedBaseDamage = weapon.baseDamage;
         const { domains, options } = context;
-        if (unprocessedBaseDamage.die === null && unprocessedBaseDamage.modifier > 0) {
+        if (unprocessedBaseDamage.die === null && unprocessedBaseDamage.modifier !== 0) {
             unprocessedBaseDamage.dice = 0;
         } else if (!weapon.dealsDamage) {
             return null;
@@ -414,7 +414,7 @@ class WeaponDamagePF2e {
 
         const baseUncategorized = ((): WeaponBaseDamageData | null => {
             const diceNumber = baseDamage.die ? baseDamage.dice : 0;
-            return diceNumber > 0 || baseDamage.modifier > 0
+            return diceNumber > 0 || baseDamage.modifier !== 0
                 ? {
                       diceNumber,
                       dieSize: baseDamage.die,
@@ -554,7 +554,7 @@ class WeaponDamagePF2e {
                   })
                 : null;
         const modifier =
-            unprocessed.modifier > 0
+            unprocessed.modifier !== 0
                 ? new ModifierPF2e({
                       slug: "base",
                       label: "Base",
