@@ -10,6 +10,7 @@ import {
     getPropertyRuneSlots,
 } from "@item/physical/index.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { sortStringRecord } from "@util";
 import * as R from "remeda";
 import type { ArmorCategory, ArmorGroup, ArmorPF2e, BaseArmorType, SpecificArmorData } from "./index.ts";
 
@@ -38,9 +39,9 @@ class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
             abpEnabled: ABP.isEnabled(this.actor),
             adjustedBulkHint,
             basePrice: new CoinsPF2e(armor._source.system.price.value),
-            baseTypes: CONFIG.PF2E.baseArmorTypes,
+            baseTypes: sortStringRecord(CONFIG.PF2E.baseArmorTypes),
             categories: CONFIG.PF2E.armorCategories,
-            groups: CONFIG.PF2E.armorGroups,
+            groups: sortStringRecord(CONFIG.PF2E.armorGroups),
             otherTags: createSheetTags(CONFIG.PF2E.otherArmorTags, sheetData.data.traits.otherTags),
             preciousMaterials: this.getMaterialSheetData(armor, MATERIAL_DATA.armor),
             propertyRuneSlots,

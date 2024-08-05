@@ -3,16 +3,17 @@
         <a class="item" data-tab="languages">{{localize "PF2E.Actor.Creature.Language.Plural"}}</a>
         <a class="item" data-tab="campaign">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Campaign"}}</a>
         <a class="item" data-tab="traits">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Traits"}}</a>
+        <a class="item" data-tab="taxonomies">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Taxonomies"}}</a>
         <a class="item" data-tab="damage">{{localize "PF2E.SETTINGS.Homebrew.Tabs.Damage"}}</a>
     </nav>
 
     <section class="tab" data-tab="languages"></div>
         <div class="form-group setting">
-            <label for="{{options.id}}-languages">{{localize traitSettings.languages.name}}</label>
+            <label for="{{options.id}}-languages">{{localize settings.languages.name}}</label>
             <div class="form-fields">
                 <input type="text" name="languages" class="homebrew pf2e-tagify" data-dtype="JSON" value="{{json traitSettings.languages.value}}">
             </div>
-            <p class="hint">{{localize traitSettings.languages.hint}}</p>
+            <p class="hint">{{localize settings.languages.hint}}</p>
         </div>
 
         <div class="form-group common-language">
@@ -71,16 +72,18 @@
     </section>
 
     <section class="tab" data-tab="campaign">
-        {{#each campaignSettings as |setting|}}
-            {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
+        {{#each settings as |setting|}}
+            {{#if (eq setting.tab "campaign")}}
+                {{> systems/pf2e/templates/system/settings/basic-setting.hbs setting=setting}}
+            {{/if}}
         {{/each}}
     </section>
 
     <section class="tab" data-tab="traits"></div>
         <p class="hint">{{localize "PF2E.SETTINGS.Homebrew.Instructions"}}</p>
 
-        {{#each traitSettings as |setting|}}
-            {{#unless (eq setting.key "languages")~}}
+        {{#each settings as |setting|}}
+            {{#if (eq setting.tab "traits")~}}
                 <div class="form-group setting">
                     <label for="{{options.id}}-{{setting.key}}">{{localize setting.name}}</label>
                     <div class="form-fields">
@@ -95,9 +98,33 @@
                     </div>
                     <p class="hint">{{localize setting.hint}}</p>
                 </div>
-            {{~/unless}}
+            {{~/if}}
         {{/each}}
     </section>
+
+    <section class="tab" data-tab="taxonomies"></div>
+    <p class="hint">{{localize "PF2E.SETTINGS.Homebrew.Instructions"}}</p>
+
+    {{#each settings as |setting|}}
+        {{#if (eq setting.tab "taxonomies")~}}
+            <div class="form-group setting">
+                <label for="{{options.id}}-{{setting.key}}">{{localize setting.name}}</label>
+                <div class="form-fields">
+                    <input
+                        type="text"
+                        name="{{setting.key}}"
+                        id="{{options.id}}-{{setting.key}}"
+                        class="homebrew pf2e-tagify"
+                        data-dtype="JSON"
+                        value="{{json setting.value}}"
+                    />
+                </div>
+                <p class="hint">{{localize setting.hint}}</p>
+            </div>
+        {{~/if}}
+    {{/each}}
+</section>
+
 
     <section class="tab" data-tab="damage">
         {{#if customDamageTypes}}

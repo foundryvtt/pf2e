@@ -137,6 +137,7 @@ interface SettingsMenuPF2e extends FormApplication {
 
 interface PartialSettingsData extends Omit<SettingRegistration, "scope" | "config"> {
     prefix?: string;
+    tab?: string;
 }
 
 interface SettingsTemplateData extends PartialSettingsData {
