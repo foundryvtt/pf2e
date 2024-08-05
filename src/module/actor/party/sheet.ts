@@ -6,13 +6,14 @@ import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e } from "@actor/sheet/data-types.ts";
 import { condenseSenses } from "@actor/sheet/helpers.ts";
 import { DistributeCoinsPopup } from "@actor/sheet/popups/distribute-coins-popup.ts";
+import { LootNPCsPopup } from "@actor/sheet/popups/loot-npcs-popup.js";
 import { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Bulk } from "@item/physical/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
-import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
+import { createSheetTags, SheetOptions } from "@module/sheet/helpers.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
@@ -413,6 +414,14 @@ class PartySheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 
         htmlQuery(html, "[data-action=prompt]")?.addEventListener("click", () => {
             game.pf2e.gm.checkPrompt({ actors: this.actor.members });
+        });
+
+        htmlQuery(html, "button[data-action=loot-npcs]")?.addEventListener("click", () => {
+            if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
+                new LootNPCsPopup(this.actor).render(true);
+            } else {
+                ui.notifications.warn("No tokens selected.");
+            }
         });
     }
 
