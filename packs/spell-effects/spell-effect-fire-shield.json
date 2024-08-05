@@ -22,8 +22,36 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.OscillatingWave.ConservationOfEnergyLabel",
+                        "predicate": [
+                            "conservation-of-energy:cold"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Psychic.OscillatingWave.ConservationOfEnergyLabel",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "conservation-of-energy:fire",
+                                    {
+                                        "not": "feature:the-oscillating-wave"
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": "cold"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet"
+            },
+            {
                 "key": "Resistance",
-                "type": "cold",
+                "type": "{item|flags.pf2e.rulesSelections.damageType}",
                 "value": "5 + 5*floor((@item.level -4)/2)"
             },
             {
