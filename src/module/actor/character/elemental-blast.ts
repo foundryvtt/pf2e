@@ -33,7 +33,7 @@ import { DAMAGE_TYPE_ICONS } from "@system/damage/values.ts";
 import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import { ErrorPF2e, isObject, objectHasKey, signedInteger } from "@util";
+import { ErrorPF2e, objectHasKey, signedInteger } from "@util";
 import * as R from "remeda";
 import type {
     ArrayField,
@@ -159,17 +159,17 @@ class ElementalBlast {
     #prepareBlastConfigs(): ElementalBlastConfig[] {
         const { item, statistic, actionCost, infusion } = this;
         if (!item || !statistic) return [];
-        const { kineticist } = this.actor.flags.pf2e;
-        if (!isObject(kineticist) || !("elementalBlast" in kineticist) || !isObject(kineticist.elementalBlast)) {
+        const kineticist = this.actor.flags.pf2e.kineticist;
+        if (!R.isPlainObject(kineticist) || !R.isPlainObject(kineticist.elementalBlast)) {
             return [];
         }
         const schema = ElementalBlast.#blastConfigSchema;
         const damageTypeSelections = ((): Record<string, unknown> => {
             const flag = item.flags.pf2e.damageSelections;
-            return isObject<Record<string, unknown>>(flag) ? flag : {};
+            return R.isPlainObject(flag) ? flag : {};
         })();
         const blasts = Object.values(kineticist.elementalBlast)
-            .filter((b: unknown) => isObject(b) && "element" in b)
+            .filter((b: unknown) => R.isPlainObject(b) && "element" in b)
             .map((b) => schema.clean(b));
 
         const validationFailures = blasts.flatMap((b) => schema.validate(b) ?? []);
@@ -252,11 +252,9 @@ class ElementalBlast {
         const schema = ElementalBlast.#blastInfusionSchema;
         const flag = this.actor.flags.pf2e.kineticist;
         const infusionData =
-            isObject<{ elementalBlast: unknown }>(flag) && isObject<{ infusion: unknown }>(flag.elementalBlast)
-                ? flag.elementalBlast.infusion
-                : null;
+            R.isPlainObject(flag) && R.isPlainObject(flag.elementalBlast) ? flag.elementalBlast.infusion : null;
 
-        return isObject(infusionData) ? schema.clean(infusionData) : null;
+        return R.isPlainObject(infusionData) ? schema.clean(infusionData) : null;
     }
 
     /** Get a elemental-blast configuration, throwing an error if none is found according to the arguments passed. */
