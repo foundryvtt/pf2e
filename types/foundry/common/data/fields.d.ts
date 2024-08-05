@@ -684,7 +684,10 @@ type ArrayFieldOptions<
     TRequired extends boolean,
     TNullable extends boolean,
     THasInitial extends boolean,
-> = DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>;
+> = DataFieldOptions<TSourceProp, TRequired, TNullable, THasInitial> & {
+    min?: number;
+    max?: number;
+};
 
 /** A subclass of `DataField` which deals with array-typed data. */
 export class ArrayField<

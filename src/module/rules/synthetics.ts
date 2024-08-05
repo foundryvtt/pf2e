@@ -119,7 +119,7 @@ interface RollOptionToggle {
 
 interface RollTwiceSynthetic {
     keep: "higher" | "lower";
-    predicate?: Predicate;
+    predicate: Predicate;
 }
 
 interface SenseSynthetic {
