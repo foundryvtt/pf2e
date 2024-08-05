@@ -136,10 +136,10 @@
                     "item:tag:blood-magic-spell",
                     {
                         "or": [
-                            "blood-magic:aberrant",
+                            "blood-magic:imperial",
                             {
                                 "and": [
-                                    "second-blood-magic:aberrant",
+                                    "second-blood-magic:imperial",
                                     "feat:blood-sovereignty"
                                 ]
                             }
@@ -190,7 +190,12 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "feature:bloodline:tradition:arcane"
+                "option": "feature:bloodline:tradition:arcane",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ]
             }
         ],
         "traits": {
