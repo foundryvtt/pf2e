@@ -114,10 +114,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
     ): this is T extends "physical"
-        ? PhysicalItemPF2e<TParent>
-        : T extends ItemType
-          ? ItemInstances<TParent>[T]
-          : never;
+    ? PhysicalItemPF2e<TParent>
+    : T extends ItemType
+    ? ItemInstances<TParent>[T]
+    : never;
     isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
@@ -507,7 +507,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Include the item type along with data from upstream */
-    override toDragData(): { type: string; itemType: string; [key: string]: unknown } {
+    override toDragData(): { type: string; itemType: string;[key: string]: unknown } {
         return { ...super.toDragData(), itemType: this.type };
     }
 
@@ -864,33 +864,33 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
-    _embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions) : string {
+    _embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
         // prerequisites (PrerequisiteTagData[])
-        let prereq:Array<{value:string}>|null = foundry.utils.getProperty(this, "system.prerequisites.value");
+        const prereq: { value: string }[] | null = foundry.utils.getProperty(this, "system.prerequisites.value");
         let result = "";
         if (prereq && prereq?.length > 0) {
-            const list = prereq.map(item => item.value).join(",");
+            const list = prereq.map((item) => item.value).join(",");
             result += `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>`;
             // Allow option to NOT display the HR after the prerequisites (e.g. some entries in Archetypes journal)
-            if (_config.hr!==false) result += "<hr>";
+            if (_config.hr !== false) result += "<hr>";
         }
         // description
         result += this.description;
         return result;
     }
 
-    async _buildEmbedHTML(config: DocumentHTMLEmbedConfig, options: EnrichmentOptions) {
+    async _buildEmbedHTML(config: DocumentHTMLEmbedConfig, options: EnrichmentOptions): Promise<HTMLCollection> {
         // As per foundry.js: JournalEntryPage#_embedTextPage
         options = { ...options, relativeTo: this };
         const {
-          secrets = options.secrets,
-          documents = options.documents,
-          links = options.links,
-          rolls = options.rolls,
-          embeds = options.embeds
+            secrets = options.secrets,
+            documents = options.documents,
+            links = options.links,
+            rolls = options.rolls,
+            embeds = options.embeds,
         } = config;
         foundry.utils.mergeObject(options, { secrets, documents, links, rolls, embeds });
-    
+
         // Get correct HTML
         const container = document.createElement("div");
         container.innerHTML = await TextEditor.enrichHTML(this._embedHTMLString(config, options), options);
