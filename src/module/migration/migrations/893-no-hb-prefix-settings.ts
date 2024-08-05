@@ -1,4 +1,4 @@
-import { HOMEBREW_TRAIT_KEYS } from "@system/settings/homebrew/data.ts";
+import { HOMEBREW_ELEMENT_KEYS } from "@system/settings/homebrew/data.ts";
 import * as R from "remeda";
 import { MigrationBase } from "../base.ts";
 
@@ -7,7 +7,7 @@ export class Migration893NoHBPrefixSettings extends MigrationBase {
     static override version = 0.893;
 
     override async migrate(): Promise<void> {
-        for (const key of HOMEBREW_TRAIT_KEYS) {
+        for (const key of HOMEBREW_ELEMENT_KEYS) {
             const tags = game.settings.get("pf2e", `homebrew.${key}`);
             if (tags.length === 0) continue;
 

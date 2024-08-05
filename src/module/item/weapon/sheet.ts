@@ -93,7 +93,7 @@ export class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
             abpEnabled,
             adjustedDiceHint,
             baseTypes: sortStringRecord(CONFIG.PF2E.baseWeaponTypes),
-            categories: sortStringRecord(CONFIG.PF2E.weaponCategories),
+            categories: CONFIG.PF2E.weaponCategories,
             conditionTypes: sortStringRecord(CONFIG.PF2E.conditionTypes),
             damageDice: CONFIG.PF2E.damageDice,
             damageDie: CONFIG.PF2E.damageDie,
