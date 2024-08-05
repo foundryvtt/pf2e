@@ -114,10 +114,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     isOfType<T extends "physical" | ItemType>(
         ...types: T[]
     ): this is T extends "physical"
-    ? PhysicalItemPF2e<TParent>
-    : T extends ItemType
-    ? ItemInstances<TParent>[T]
-    : never;
+        ? PhysicalItemPF2e<TParent>
+        : T extends ItemType
+          ? ItemInstances<TParent>[T]
+          : never;
     isOfType(...types: string[]): boolean {
         return types.some((t) => (t === "physical" ? setHasElement(PHYSICAL_ITEM_TYPES, this.type) : this.type === t));
     }
@@ -507,7 +507,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** Include the item type along with data from upstream */
-    override toDragData(): { type: string; itemType: string;[key: string]: unknown } {
+    override toDragData(): { type: string; itemType: string; [key: string]: unknown } {
         return { ...super.toDragData(), itemType: this.type };
     }
 
