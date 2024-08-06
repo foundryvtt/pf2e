@@ -405,7 +405,7 @@ interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
     entries: Record<string, Partial<CraftingEntryData>>;
     repairValue: 5;
-}   
+}
 
 interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
