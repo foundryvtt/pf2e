@@ -4,7 +4,7 @@
     "name": "Gruhastha - Major Boon",
     "system": {
         "description": {
-            "value": "<p><strong>Major Boon:</strong> You are a divine inspiration to others around you. When attempting any checks to Recall Knowledge, you can roll twice and use the better result; this is a fortune effect. Additionally, allies within 60 feet gain a +2 status bonus to Will saves.</p>"
+            "value": "<p>You are a divine inspiration to others around you.</p>\n<p>When attempting any checks to @UUID[Compendium.pf2e.actionspf2e.Item.Recall Knowledge], you can roll twice and use the better result; this is a fortune effect. Additionally, allies within 60 feet gain a +2 status bonus to Will saves.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,15 +22,24 @@
         },
         "rules": [
             {
-                "adjustment": {
-                    "success": "one-degree-better"
-                },
-                "key": "AdjustDegreeOfSuccess",
+                "keep": "higher",
+                "key": "RollTwice",
                 "predicate": [
                     "action:recall-knowledge"
                 ],
-                "selector": "all",
-                "type": "skill"
+                "selector": "skill-check"
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "includesSelf": false,
+                        "uuid": "Compendium.pf2e.boons-and-curses.Item.Effect: Gruhastha's Inspiration"
+                    }
+                ],
+                "key": "Aura",
+                "radius": 60,
+                "slug": "gruhastha-major-boon"
             }
         ],
         "start": {
