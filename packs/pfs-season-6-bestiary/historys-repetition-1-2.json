@@ -4,7 +4,7 @@
     "items": [
         {
             "_id": "i3dX2qvkDrcD0haK",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Crushing Hand",
             "sort": 0,
             "system": {
@@ -16,14 +16,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Three or more creatures enter the submerged passage</p>\n<p><strong>Effect</strong> The hand reenacts its final battle against the invading demon. It makes a crushing power Strike against all creatures in the passage.</p>"
+                    "value": "<p><strong>Trigger</strong> Three or more creatures enter the submerged passage</p><hr /><p><strong>Effect</strong> The hand reenacts its final battle against the invading demon. It makes a crushing power Strike against all creatures in the passage.</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -90,7 +96,7 @@
         },
         "details": {
             "description": "<p>Pebbles form into a hand the size of an ox, which reaches to crush anyone in the water.</p>",
-            "disable": "<p>@Check[type:thievery|dc:18|showdc:gm]{Thievery (trained)} to pick apart the pebbles, or @Check[type:warfare-lore|dc:15|showdc:gm]{Warfare Lore} to recognize and recreate the battle</p>",
+            "disable": "<p>@Check[type:thievery|dc:18] (trained) to pick apart the pebbles, or @Check[type:warfare-lore|dc:15] to recognize and recreate the battle</p>",
             "isComplex": false,
             "level": {
                 "value": 2

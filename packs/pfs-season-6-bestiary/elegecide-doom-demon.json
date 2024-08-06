@@ -717,7 +717,7 @@
         },
         {
             "_id": "prtTIT0LyapARhoz",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Hope Vulnerability",
             "sort": 1200000,
             "system": {
@@ -736,7 +736,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "affects": "origin",
+                        "key": "EphemeralEffect",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "action:trip",
+                                    "action:shove",
+                                    "action:demoralize"
+                                ]
+                            }
+                        ],
+                        "selectors": [
+                            "attack-roll",
+                            "skill-check"
+                        ],
+                        "uuid": "Compendium.pf2e.campaign-effects.Item.Effect: Hope Vulnerability"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -746,7 +765,7 @@
         },
         {
             "_id": "y53eOVRvnut1jdIQ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Doom Aura",
             "sort": 1300000,
             "system": {
@@ -756,9 +775,9 @@
                 "actions": {
                     "value": null
                 },
-                "category": "offensive",
+                "category": "defensive",
                 "description": {
-                    "value": "<p>The elegecide constantly emits telepathic warnings about future dangers and harm. When a non-demon creature ends its turn in the aura, it must attempt a @Check[type:will|dc:16|showdc:gm]{Will save}. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (frightened 2 on a critical failure).</p>"
+                    "value": "<p>30 feet</p>\n<p>The elegecide constantly emits telepathic warnings about future dangers and harm. When a non-demon creature ends its turn in the aura, it must attempt a @Check[type:will|dc:16] save. If it fails, it becomes @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1} (@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2} on a critical failure).</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -792,7 +811,7 @@
         },
         {
             "_id": "6nmHe20KIytqxeJS",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Dorsal Lash",
             "sort": 1400000,
             "system": {
@@ -804,7 +823,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The elegecide lashes out with its trailing dorsal fins, looping them around a target within 15 feet. It sends a burst of telepathic information about all the possible ways the target can be injured in the next minute. The target takes @Damage[1d4[mental]] damage and must attempt a @Check[type:reflex|dc:16|showdc:gm]{Reflex save}.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the elegecide.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the elegecide.</p><hr />"
+                    "value": "<p>The elegecide lashes out with its trailing dorsal fins, looping them around a target within 15 feet. It sends a burst of telepathic information about all the possible ways the target can be injured in the next minute. The target takes @Damage[1d4[mental]] damage and must attempt a @Check[type:reflex|dc:16|traits:damaging-effect] save.</p><hr /><p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Grabbed] by the elegecide.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the elegecide.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -883,7 +902,7 @@
         "details": {
             "blurb": "",
             "languages": {
-                "details": "",
+                "details": "telepathy 100 feet",
                 "value": [
                     "chthonian"
                 ]
