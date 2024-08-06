@@ -40,6 +40,25 @@
                 "selector": "crafting",
                 "type": "item",
                 "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.repairValue",
+                "value": 5
+            },
+            {
+                "key": "Note",
+                "text": "When you Repair an item, increase the Hit Points restored to 10 + 10 per proficiency rank on a success or 15 + 15 per proficiency rank on a critical success.",
+                "title": "<b>Crafter's Eyepiece:</b>",
+                "selector": "crafting-check",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:repair"
+                ]
             }
         ],
         "size": "med",
