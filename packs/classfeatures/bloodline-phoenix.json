@@ -29,12 +29,22 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.nature.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,7 +52,9 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    },
                     {
                         "or": [
                             "item:tag:ancestral-spell",
@@ -75,11 +87,100 @@
                         ]
                     }
                 ],
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Phoenix",
+                        "value": "phoenix"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Phoenix",
+                        "value": "phoenix"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:phoenix",
+                            {
+                                "and": [
+                                    "second-blood-magic:phoenix",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "property": "description",
                 "value": [
                     {
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Phoenix",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Phoenix"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Phoenix Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:phoenix",
+                            {
+                                "and": [
+                                    "second-blood-magic:phoenix",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Phoenix",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Phoenix"
                     },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Phoenix Blood Magic]"
@@ -89,7 +190,12 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "feature:bloodline:tradition:primal"
+                "option": "feature:bloodline:tradition:primal",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ]
             }
         ],
         "traits": {

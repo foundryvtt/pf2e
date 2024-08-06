@@ -29,12 +29,22 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.diplomacy.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.religion.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -42,7 +52,9 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    },
                     {
                         "or": [
                             "item:tag:ancestral-spell",
@@ -75,11 +87,100 @@
                         ]
                     }
                 ],
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Angelic",
+                        "value": "angelic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Angelic",
+                        "value": "angelic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:angelic",
+                            {
+                                "and": [
+                                    "second-blood-magic:angelic",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "property": "description",
                 "value": [
                     {
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Angelic",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Angelic"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:blood-rising",
+                    "class:sorcerer",
+                    {
+                        "or": [
+                            "blood-magic:angelic",
+                            {
+                                "and": [
+                                    "second-blood-magic:angelic",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Angelic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Angelic"
                     },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Angelic Blood Magic]"
@@ -89,7 +190,12 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "feature:bloodline:tradition:divine"
+                "option": "feature:bloodline:tradition:divine",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ]
             }
         ],
         "traits": {

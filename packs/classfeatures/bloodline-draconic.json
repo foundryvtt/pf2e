@@ -326,12 +326,22 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.intimidation.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.{item|flags.pf2e.rulesSelections.dragonBloodline.skill}.rank",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    }
+                ],
                 "value": 1
             },
             {
@@ -340,16 +350,13 @@
                 "option": "feature:bloodline:draconic:{item|flags.pf2e.rulesSelections.dragonBloodline.slug}"
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "option": "feature:bloodline:tradition:{item|flags.pf2e.rulesSelections.dragonBloodline.tradition}"
-            },
-            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "class:sorcerer",
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
+                    },
                     {
                         "or": [
                             "item:tag:ancestral-spell",
@@ -588,14 +595,113 @@
                         ]
                     }
                 ],
+                "property": "other-tags",
+                "value": "blood-magic-spell"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic",
+                        "value": "draconic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic",
+                        "value": "draconic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:draconic",
+                            {
+                                "and": [
+                                    "second-blood-magic:draconic",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "property": "description",
                 "value": [
                     {
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
-                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title"
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic"
                     },
                     {
                         "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:draconic",
+                            {
+                                "and": [
+                                    "second-blood-magic:draconic",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
+                        "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Draconic Blood Magic]"
+                    }
+                ]
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "feature:bloodline:tradition:{item|flags.pf2e.rulesSelections.dragonBloodline.tradition}",
+                "predicate": [
+                    {
+                        "not": "parent:tag:crossblooded-evolution"
                     }
                 ]
             }

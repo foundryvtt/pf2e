@@ -24,7 +24,26 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "second-blood-magic",
+                    "item:tag:blood-magic-spell"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.BloodSovereignty.Description"
+                    },
+                    {
+                        "text": "@UUID[Compendium.pf2e.feat-effects.Item.Effect: Blood Sovereignty]"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

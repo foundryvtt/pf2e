@@ -24,7 +24,97 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
+                "mergeable": true,
+                "option": "blood-magic",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "terraforming-trickery"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Sorcerer.SecondBloodMagic",
+                "mergeable": true,
+                "option": "second-blood-magic",
+                "placement": "spellcasting",
+                "predicate": [
+                    {
+                        "or": [
+                            "feat:blood-ascendancy",
+                            "feat:blood-sovereignty"
+                        ]
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "terraforming-trickery"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:tag:blood-magic-spell",
+                    {
+                        "or": [
+                            "blood-magic:terraforming-trickery",
+                            {
+                                "and": [
+                                    "second-blood-magic:terraforming-trickery",
+                                    "feat:blood-sovereignty"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.TerraformingTrickery"
+                    }
+                ]
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "class:sorcerer",
+                    "item:slug:blood-rising",
+                    {
+                        "or": [
+                            "blood-magic:terraforming-trickery",
+                            {
+                                "and": [
+                                    "second-blood-magic:terraforming-trickery",
+                                    "feat:blood-ascendancy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.TerraformingTrickery"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

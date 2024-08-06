@@ -24,7 +24,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        "item:tag:sorcerer-bloodline"
+                    ]
+                },
+                "flag": "bloodline",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.Bloodline.Prompt"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "crossblooded-evolution"
+                    }
+                ],
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.bloodline}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

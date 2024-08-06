@@ -4062,6 +4062,25 @@
             "Sorcerer": {
                 "Bloodline": {
                     "Prompt": "Select a bloodline.",
+                    "BloodMagicLabel": {
+                        "Aberrant": "Eerie-Veil",
+                        "Angelic": "Divine Aura",
+                        "Demonic": "Corruption of Sin",
+                        "Diabolic": "Tongue of Flame",
+                        "Draconic": "Scaly Hide",
+                        "Elemental": "Elemental Fury",
+                        "Fey": "Cloak of Ribbons",
+                        "Genie": "Genie Bloodline",
+                        "Hag": "Retributive Spite",
+                        "Harrow": "Harrow Bloodline",
+                        "Imperial": "Imperious Defense",
+                        "Nymph": "Nymph Bloodline",
+                        "Phoenix": "Phoenix Bloodline",
+                        "Psychopomp": "Psychopomp Bloodline",
+                        "Shadow": "Shadow Bloodline",
+                        "Undead": "Stolen Life",
+                        "Wyrmblessed": "Wyrmblessed Bloodline"
+                    },
                     "BloodMagicDescription": {
                         "Aberrant": "Either one target takes a –1 status penalty to Will saving throws for 1 round or you gain a +2 status bonus to Will saving throws for 1 round.",
                         "AncestralBloodMagic": "Casting an ancestral spell",
@@ -4070,24 +4089,32 @@
                         "Diabolic": "Either a target takes @Damage[@item.level[fire]] (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances), or you gain a +2 status bonus to Deception checks for 1 round",
                         "Draconic": "You or one target is granted a +1 status bonus to AC for 1 round.",
                         "Elemental": "Either you gain a +2 status bonus to Intimidation checks for 1 round, or a target takes @Damage[@item.level[@actor.flags.pf2e.elementalBloodline.damageType]] damage. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
+                        "ExplosionOfPower": "Each creature within a @Template[type:emanation|distance:5] takes @Damage[(@item.level)d6|options:explosion-of-power] damage (@Check[type:reflex|basic:true|dc:resolve(@actor.system.attributes.spellDC.value)] save).",
                         "Fey": "Either you gain a +2 status bonus to Performance checks for 1 round, or you can become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} for 1 round. Such obvious concealment can't be used to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}",
                         "Genie": "Your spellcasting warps reality and distracts your foes. Either you gain a +1 status bonus to Deception checks for 1 round, or a target takes a -1 status penalty to Perception for 1 round.",
                         "Hag": "You deal @Damage[(4*@item.level)[mental]] damage (@Check[type:will|basic:true|dc:resolve(@actor.system.attributes.spellDC.value)] save) to the first creature that deals damage to you before the end of your next turn; if no creature damages you in that time, you consume that spite to gain temporary Hit Points at the beginning of your next turn equal to the spell's rank. These temporary Hit Points last until the beginning of your following turn.",
                         "Harrow": "You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}.",
                         "Imperial": "Until the start of your next turn, you gain your choice of either a +1 status bonus to AC or to saving throws.",
-                        "Title": "Blood Magic",
                         "Nymph": "Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.",
                         "Phoenix": "The primal fire of life and death flows through you or one target. Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's rank for 1 round, or to have a target of the spell take @Damage[@item.level[fire]] damage (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
+                        "PropellingSorcery": "You channel your magic outward into a rush of movement. Either you Step as a free action or move the target 5 feet in a direction of your choice.",
                         "Psychopomp": "The border between life and death becomes blurred to you. Either you gain a +2 status bonus to Fortitude saving throws for 1 round, or a target takes @Damage[@item.level[void]] if it's alive or @Damage[@item.level[vitality]] if it's undead. If the spell already deals that type of damage, combine it with the spell's initial damage before determining weaknesses and resistances.",
+                        "ReflectHarm": "The first time you take damage from a spell before the beginning of your next turn, attempt spell attack roll against the creature who cast the triggering spell. On a hit, the creature takes the same amount and type of damage that you just took. If you critically hit, the creature takes twice the damage.",
                         "Shadow": {
                             "Text": "Shadows grow deeper around you or one target, either granting a +1 status bonus to Stealth or imposing a -1 status penalty to Perception for 1 round.",
                             "PerceptionPenalty": "-1 penalty to Perception",
                             "StealthBonus": "+1 bonus to Stealth"
                         },
+                        "TerraformingTrickery": "Either each space adjacent to you becomes difficult terrain, or each space adjacent to you is no longer difficult terrain. This doesn't have any effect on greater difficult terrain and doesn't remove the damaging effects of hazardous terrain.",
+                        "Title": "Blood Magic",
                         "Undead": "Either you gain temporary Hit Points equal to the spell's rank until the start of your next turn, or a target takes @Damage[@item.level[void]] damage (if the spell already deals initial void damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
                         "Wyrmblessed": "Draconic might carries in your voice. Either you gain a +1 status bonus to Intimidation checks for 1 round, or a target takes a -1 status penalty to Will saves for 1 round."
                     }
-                }
+                },
+                "BloodSovereignty": {
+                    "Description": "You lose Hit Points equal to twice the spell's rank, and you benefit from two different blood magic effects you know as a result. The two effects can have different targets."
+                },
+                "SecondBloodMagic": "Second Blood Magic"
             },
             "SoulWarden": {
                 "SafeguardSoul": {
