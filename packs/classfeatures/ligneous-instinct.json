@@ -26,6 +26,11 @@
         },
         "rules": [
             {
+                "disabledIf": [
+                    {
+                        "not": "self:effect:rage"
+                    }
+                ],
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.Barbarian.Ligneous.ToggleLabel",
@@ -107,6 +112,14 @@
                 "selector": "strike-damage",
                 "slug": "rage",
                 "value": 18
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "wooden-rage"
+                ],
+                "selector": "land-speed",
+                "value": -10
             }
         ],
         "traits": {
