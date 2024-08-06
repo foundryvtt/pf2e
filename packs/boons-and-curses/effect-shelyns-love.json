@@ -1,10 +1,10 @@
 {
-    "_id": "to4pGXcJqF1VpqBt",
-    "img": "systems/pf2e/icons/deity/Kurgess.webp",
-    "name": "Kurgess - Major Boon",
+    "_id": "qACkkLk3F5WeACHO",
+    "img": "systems/pf2e/icons/deity/Shelyn.webp",
+    "name": "Effect: Shelyn's Love",
     "system": {
         "description": {
-            "value": "<p>You possess a true champion's might.</p>\n<p>When you roll a critical failure on an Athletics check, you get a failure instead, and when you roll a success, you instead get a critical success.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Shelyn - Major Boon]</p>\n<p>You and your allies gain a +3 status bonus to saving throws and skill checks as long as you can see each other.</p>"
         },
         "duration": {
             "expiry": null,
@@ -22,12 +22,13 @@
         },
         "rules": [
             {
-                "adjustment": {
-                    "criticalFailure": "one-degree-better",
-                    "success": "one-degree-better"
-                },
-                "key": "AdjustDegreeOfSuccess",
-                "selector": "athletics"
+                "key": "FlatModifier",
+                "selector": [
+                    "saving-throw",
+                    "skill-check"
+                ],
+                "type": "status",
+                "value": 3
             }
         ],
         "start": {
@@ -35,10 +36,9 @@
             "value": 0
         },
         "tokenIcon": {
-            "show": false
+            "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

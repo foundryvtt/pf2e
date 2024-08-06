@@ -1,10 +1,10 @@
 {
-    "_id": "GKyH7IQHrmmCnuop",
-    "img": "systems/pf2e/icons/deity/Shizuru.webp",
-    "name": "Shizuru - Major Boon",
+    "_id": "epegxXDsuc5cG32F",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Gruhastha's Inspiration",
     "system": {
         "description": {
-            "value": "<p>Shizuru bestows upon you a golden suit of armor made from sunlight, or transforms your favorite armor to gain that aspect.</p>\n<p>Once per hour while you are wearing the armor, if an attack would reduce your Hit Points to 0, the attack is instead completely negated.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Gruhastha - Major Boon]</p>\n<p>Allies within 60 feet gain a +2 status bonus to Will saves.</p>"
         },
         "duration": {
             "expiry": null,
@@ -20,16 +20,22 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
         },
         "tokenIcon": {
-            "show": false
+            "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
