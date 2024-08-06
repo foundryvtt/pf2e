@@ -24,7 +24,152 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Wasp",
+                        "value": "wasp"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Bird",
+                        "value": "bird"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Pterosaur",
+                        "value": "pterosaur"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Bat",
+                        "value": "bat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Ant",
+                        "value": "ant"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Beetle",
+                        "value": "beetle"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Centipede",
+                        "value": "centipede"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Mantis",
+                        "value": "mantis"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Scorpion",
+                        "value": "scorpion"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Spider",
+                        "value": "spider"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Ankylosaurus",
+                        "value": "ankylosaurus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Brontosaurus",
+                        "value": "brontosaurus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Deinonychus",
+                        "value": "deinonychus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Stegosaurus",
+                        "value": "stegosaurus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Triceratops",
+                        "value": "triceratops"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Tyrannosaurus",
+                        "value": "tyrannosaurus"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Ape",
+                        "value": "ape"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Bear",
+                        "value": "bear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Bull",
+                        "value": "bull"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Canine",
+                        "value": "canine"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Cat",
+                        "value": "cat"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Deer",
+                        "value": "deer"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Frog",
+                        "value": "frog"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Shark",
+                        "value": "shark"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Beastkin.AnimalShape.Form.Snake",
+                        "value": "snake"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "beastkin-animal"
+            },
+            {
+                "actorFlag": true,
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.YesLabel",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.UI.RuleElements.ChoiceSet.NoLabel",
+                        "value": 0
+                    }
+                ],
+                "flag": "beastkin-flight",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Beastkin.AnimalShape.Prompt"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.beastkin.forms",
+                "predicate": [
+                    "feat:critter-shape"
+                ],
+                "value": {
+                    "label": "Critter",
+                    "value": "critter"
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.beastkin.forms",
+                "value": {
+                    "label": "PF2E.TraitAnimal",
+                    "value": "animal"
+                }
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
