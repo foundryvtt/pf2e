@@ -40,6 +40,25 @@
                 "selector": "crafting",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.crafting.repairValue",
+                "value": 5
+            },
+            {
+                "key": "Note",
+                "text": "PF2E.SpecificRule.CraftersEyepiece.Note",
+                "title": "{item|name}",
+                "selector": "crafting-check",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "action:repair"
+                ]
             }
         ],
         "size": "med",
