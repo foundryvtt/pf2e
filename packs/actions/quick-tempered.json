@@ -23,9 +23,15 @@
                 "key": "Note",
                 "predicate": [
                     {
-                        "nor": [
-                            "armor:category:heavy",
+                        "not": 
                             "condition:encumbered"
+                    },
+                    {
+                        "or": [
+                            "self:feat:invulnerable-rager",
+                            {
+                                "not": "armor:category:heavy"
+                            }
                         ]
                     }
                 ],
