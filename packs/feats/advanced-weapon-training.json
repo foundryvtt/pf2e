@@ -24,7 +24,23 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": "weaponGroups",
+                "flag": "advancedWeaponTraining",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
+            },
+            {
+                "definition": [
+                    "item:group:{item|flags.pf2e.rulesSelections}",
+                    "item:category:advanced"
+                ],
+                "key": "MartialProficiency",
+                "sameAs": "martial",
+                "slug": "advanced-weapon-training"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
