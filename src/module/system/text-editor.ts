@@ -679,8 +679,11 @@ class TextEditorPF2e extends TextEditor {
         const isSavingThrow = ["fortitude", "reflex", "will"].includes(params.type);
         if ((params.type && params.dc) || (isSavingThrow && params.against)) {
             // Let the inline roll function handle level base DCs
+            // Don't save the result if we are matching a statistic
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
-            anchor.dataset.pf2Dc = checkDC;
+            if (!params.against) {
+                anchor.dataset.pf2Dc = checkDC;
+            }
 
             // When using fixed DCs/adjustments, parse and add them to render the real DC
             if (checkDC !== "@self.level") {
