@@ -43,24 +43,10 @@
                 "predicate": [
                     "ill-omen:failure"
                 ],
-                "selector": "attack-roll"
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "predicate": [
-                    "ill-omen:failure"
-                ],
-                "selector": "skill-check"
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "predicate": [
-                    "ill-omen:critical-failure"
-                ],
-                "removeAfterRoll": false,
-                "selector": "attack-roll"
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ]
             },
             {
                 "keep": "lower",
@@ -69,7 +55,10 @@
                     "ill-omen:critical-failure"
                 ],
                 "removeAfterRoll": false,
-                "selector": "skill-check"
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ]
             }
         ],
         "start": {

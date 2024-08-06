@@ -7,7 +7,7 @@
             "value": "<p>An affected creature can choose to roll twice when it attempts an attack, saving throw, or skill check and take the lower result. After this the effect ends.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -33,23 +33,11 @@
                 "predicate": [
                     "wrath-of-fate"
                 ],
-                "selector": "attack-roll"
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "predicate": [
-                    "wrath-of-fate"
-                ],
-                "selector": "saving-throw"
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "predicate": [
-                    "wrath-of-fate"
-                ],
-                "selector": "skill-check"
+                "selector": [
+                    "attack-roll",
+                    "saving-throw",
+                    "skill-check"
+                ]
             }
         ],
         "start": {

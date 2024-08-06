@@ -7,7 +7,7 @@
             "value": "<p><strong>Effect</strong> Mistress Dusklight spews a hatefully uttered curse at one creature within 30 feet that she can see. If the target fails a @Check[type:will|dc:32] save, whenever it attempts an attack roll or saving throw, it must roll twice and use the lower result. The target is then temporarily immune for 24 hours. The curse persists until it is removed or the target succeeds a later saving throw against it. The victim can attempt a new @Check[type:will|dc:32] save once per hour to end the curse.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -25,13 +25,10 @@
                 "keep": "lower",
                 "key": "RollTwice",
                 "removeAfterRoll": false,
-                "selector": "attack"
-            },
-            {
-                "keep": "lower",
-                "key": "RollTwice",
-                "removeAfterRoll": false,
-                "selector": "saving-throw"
+                "selector": [
+                    "attack",
+                    "saving-throw"
+                ]
             }
         ],
         "start": {
