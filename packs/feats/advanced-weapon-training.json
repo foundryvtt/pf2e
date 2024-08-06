@@ -26,14 +26,16 @@
         },
         "rules": [
             {
-                "choices": "weaponGroups",
-                "flag": "advancedWeaponTraining",
+                "choices": {
+                    "config": "weaponGroups"
+                },
+                "flag": "group",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.WeaponGroup"
             },
             {
                 "definition": [
-                    "item:group:{item|flags.pf2e.rulesSelections}",
+                    "item:group:{item|flags.pf2e.rulesSelections.group}",
                     "item:category:advanced"
                 ],
                 "key": "MartialProficiency",
