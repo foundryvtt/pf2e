@@ -121,7 +121,7 @@
             "system": {
                 "area": {
                     "type": "burst",
-                    "value": 65
+                    "value": 60
                 },
                 "cost": {
                     "value": ""
@@ -275,7 +275,7 @@
             "system": {
                 "area": {
                     "type": "burst",
-                    "value": 25
+                    "value": 20
                 },
                 "cost": {
                     "value": ""
@@ -409,7 +409,7 @@
                         "system": {
                             "area": {
                                 "type": "cone",
-                                "value": 40
+                                "value": 30
                             }
                         }
                     }
@@ -697,7 +697,69 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:area:type:burst",
+                            "item:duration:0",
+                            {
+                                "gte": [
+                                    "item:area:size",
+                                    10
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
