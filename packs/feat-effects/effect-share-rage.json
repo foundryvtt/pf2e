@@ -45,10 +45,24 @@
                 "value": 0.5
             },
             {
-                "key": "FlatModifier",
-                "label": "PF2E.TraitRage",
-                "selector": "ac",
-                "value": -1
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.rageTempHP",
+                "phase": "beforeDerived",
+                "predicate": [
+                    {
+                        "nor": [
+                            "self:type:familiar",
+                            "self:type:hazard",
+                            "self:type:vehicle"
+                        ]
+                    }
+                ],
+                "value": "@actor.level + @actor.abilities.con.mod"
+            },
+            {
+                "key": "TempHP",
+                "value": "@actor.flags.pf2e.rageTempHP"
             }
         ],
         "start": {
