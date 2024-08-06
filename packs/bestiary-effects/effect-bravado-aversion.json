@@ -1,0 +1,60 @@
+{
+    "_id": "B7SJSaYOT1Uq4WLo",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Bravado Aversion",
+    "system": {
+        "description": {
+            "value": "<p>A gargarthezul can't stand to be shown up. The first time each round a creature successfully Demoralizes, Shoves, or Trips a gargarthezul, it takes @Damage[1d6[mental]] damage.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    {
+                        "or": [
+                            "action:trip",
+                            "action:demoralize",
+                            "action:shove"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "intimidation",
+                    "athletics"
+                ],
+                "text": "{item|description}",
+                "title": "{item|name}",
+                "visibility": "owner"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

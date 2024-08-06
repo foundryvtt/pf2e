@@ -7,7 +7,7 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.classfeatures.Item.Offensive Boost]</p>\n<p>Your improvements make any Strikes that rely on your innovation deal an additional 1d6 damage, with a type determined by the boost you choose. If your innovation is armor, the boost applies to your melee Strikes with one weapon you choose during daily preparations; if your innovation is a construct, the boost applies to your construct companion's Strikes.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -39,6 +39,7 @@
                 "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "self:trait:minion"
@@ -49,9 +50,38 @@
                 "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
                 "diceNumber": 1,
                 "dieSize": "d6",
+                "hideIfDisabled": true,
                 "key": "DamageDice",
                 "predicate": [
                     "feature:armor-innovation"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Inventor.PersistentBoost.Label",
+                "predicate": [
+                    "parent:origin:item:tag:persistent-boost",
+                    "self:trait:minion"
+                ],
+                "selector": "strike-damage"
+            },
+            {
+                "category": "persistent",
+                "damageType": "{item|origin.flags.pf2e.inventor.offensiveBoost}",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "hideIfDisabled": true,
+                "key": "DamageDice",
+                "label": "PF2E.SpecificRule.Inventor.PersistentBoost.Label",
+                "predicate": [
+                    "feature:armor-innovation",
+                    "feat:persistent-boost"
                 ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }

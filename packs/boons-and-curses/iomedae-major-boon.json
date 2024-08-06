@@ -11,7 +11,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p><strong>Major Boon</strong> Iomedae imbues your blade with great power.</p>\n<p>Longswords you wield gain the @UUID[Compendium.pf2e.equipment-srd.Item.Holy] and @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking} runes while you hold them. These property runes count toward the number of runes you can have on your weapon, and if this would cause your weapon to exceed its limit, choose which ones to keep each day when you prepare.</p>\n<p>You gain a +2 status bonus to attack rolls with longswords.</p>"
+            "value": "<p>Iomedae imbues your blade with great power.</p>\n<p>Longswords you wield gain the @UUID[Compendium.pf2e.equipment-srd.Item.Holy] and @UUID[Compendium.pf2e.equipment-srd.Item.Striking (Major)]{Major Striking} runes while you hold them. These property runes count toward the number of runes you can have on your weapon, and if this would cause your weapon to exceed its limit, choose which ones to keep each day when you prepare.</p>\n<p>You gain a +2 status bonus to attack rolls with longswords.</p>"
         },
         "level": {
             "value": 0
@@ -24,7 +24,34 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Gods & Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "definition": [
+                    "item:base:longsword"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "holy"
+            },
+            {
+                "key": "Striking",
+                "predicate": [
+                    "item:base:longsword"
+                ],
+                "selector": "strike-damage",
+                "value": 3
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:base:longsword"
+                ],
+                "selector": "strike-attack-roll",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": []

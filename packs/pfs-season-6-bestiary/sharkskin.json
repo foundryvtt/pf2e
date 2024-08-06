@@ -719,7 +719,7 @@
         },
         {
             "_id": "wbv36i5KSpXeVboX",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Pirate Training",
             "sort": 1200000,
             "system": {
@@ -748,7 +748,7 @@
         },
         {
             "_id": "3ayqAtUeKoqZ9epD",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deny Advantage",
             "sort": 1300000,
             "system": {
@@ -760,7 +760,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Sharkskin isn’t off-guard to creatures of 7th level or lower that are hidden, undetected, flanking, or using surprise attack.</p>"
+                    "value": "<p>Sharkskin isn't off-guard to creatures of 7th level or lower that are hidden, undetected, flanking, or using surprise attack.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -784,7 +784,7 @@
         },
         {
             "_id": "PnmSVgJt14wOTuzJ",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Triangular Teeth",
             "sort": 1400000,
             "system": {
@@ -796,7 +796,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Sharkskin would be hit by an attack against xir AC</p>\n<p><strong>Effect</strong> Xe gains a +1 circumstance bonus to xir AC against the attack, or a +2 circumstance bonus if the attack is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, xe gains a +2 status bonus to damage with the next Strike xe makes against the attacker before the end of xir next turn.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day</p>\n<p><strong>Trigger</strong> Sharkskin would be hit by an attack against xir AC</p><hr /><p><strong>Effect</strong> Xe gains a +1 circumstance bonus to xir AC against the attack, or a +2 circumstance bonus if the attack is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, xe gains a +2 status bonus to damage with the next Strike xe makes against the attacker before the end of xir next turn.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -807,7 +807,49 @@
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "RollOption",
+                        "option": "triangular-teeth",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "RollOption",
+                        "label": "In Water",
+                        "option": "terrain:water",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "triangular-teeth"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 1
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "triangular-teeth",
+                            {
+                                "or": [
+                                    "terrain:water",
+                                    {
+                                        "or": [
+                                            "origin:trait:amphibious",
+                                            "origin:trait:aquatic",
+                                            "origin:trait:water"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": [
@@ -872,7 +914,7 @@
         },
         {
             "_id": "aVWVuvj8FJ9uCrI1",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Surprise Attack",
             "sort": 1600000,
             "system": {
@@ -884,7 +926,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>On the first round of combat, creatures that haven’t acted yet are off-guard to Sharkskin.</p>"
+                    "value": "<p>On the first round of combat, creatures that haven't acted yet are off-guard to Sharkskin.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -927,7 +969,7 @@
         },
         {
             "_id": "5kuNDj7RIaE2aITA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Twin Feint",
             "sort": 1700000,
             "system": {
@@ -956,7 +998,7 @@
         },
         {
             "_id": "H3idZRPOZSXBOGiL",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "You're Next",
             "sort": 1800000,
             "system": {
@@ -968,7 +1010,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Sharkskin reduces an enemy to 0 hit points</p>\n<p><strong>Effect</strong> Sharkskin attempts an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single creature xe can see with a +2 circumstance bonus.</p>"
+                    "value": "<p><strong>Trigger</strong> Sharkskin reduces an enemy to 0 hit points</p><hr /><p><strong>Effect</strong> Sharkskin attempts an Intimidation check to @UUID[Compendium.pf2e.actionspf2e.Item.Demoralize] a single creature xe can see with a +2 circumstance bonus.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1041,6 +1083,7 @@
                 "details": "",
                 "value": 25
             },
+            "adjustment": null,
             "allSaves": {
                 "value": ""
             },
@@ -1056,9 +1099,9 @@
             }
         },
         "details": {
-            "blurb": "",
+            "blurb": "Pangender human nephilim pirate",
             "languages": {
-                "details": "special communication types",
+                "details": "Special Communication Types",
                 "value": [
                     "common"
                 ]

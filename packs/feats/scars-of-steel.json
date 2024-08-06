@@ -28,7 +28,21 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "scars-of-steel",
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "all-damage",
+                "value": "floor(@actor.level/2)+@actor.abilities.con.mod",
+                "predicate": [
+                    "scars-of-steel"
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -5,8 +5,8 @@
         {
             "_id": "x2pEyTVRkuS82fPD",
             "folder": "j23Pmmp2h7n8197M",
-            "img": "systems/pf2e/icons/default-icons/consumable.svg",
-            "name": "Recently killed fish",
+            "img": "icons/consumables/meat/fish-tail-cut-red-gray.webp",
+            "name": "Recently Killed Fish",
             "sort": 100000,
             "system": {
                 "baseItem": null,
@@ -137,7 +137,7 @@
         },
         {
             "_id": "qWNxjCGkNzFWuJsx",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Consume Flesh",
             "sort": 400000,
             "system": {
@@ -168,7 +168,7 @@
         },
         {
             "_id": "VevwO6BlBLu9jVZA",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grave Tidings",
             "sort": 500000,
             "system": {
@@ -180,7 +180,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p><strong>Requirement</strong> A grabbed, paralyzed, restrained, or unconscious creature is within Averill’s reach</p>\n<p><strong>Effect</strong> Averill whispers into the creature’s ears, compelling them to join him. The creature is unable to attack Averill Quint for the duration, unless Averill uses a hostile action against them, and any undead Pathfinder can treat the creature as an ally for purposes of flanking. The creature must attempt a @Check[type:will|dc:21|showdc:gm]{Will save}.</p><hr /><p><strong>Critical Success</strong> The creature is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The curse lasts 1 round.</p>\n<p><strong>Critical Failure</strong> The curse lasts 2 rounds.</p><hr />"
+                    "value": "<p><strong>Requirement</strong> A grabbed, paralyzed, restrained, or unconscious creature is within Averill's reach</p><hr /><p><strong>Effect</strong> Averill whispers into the creature's ears, compelling them to join him. The creature is unable to attack Averill Quint for the duration, unless Averill uses a hostile action against them, and any undead Pathfinder can treat the creature as an ally for purposes of flanking. The creature must attempt a @Check[type:will|dc:21] save}</p><hr /><p><strong>Critical Success</strong> The creature is temporarily immune for 1 minute.</p>\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The curse lasts 1 round.</p>\n<p><strong>Critical Failure</strong> The curse lasts 2 rounds.</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -254,7 +254,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Check[type:fortitude|dc:18]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
+                    "value": "<p>10 feet @Check[type:fortitude|dc:18]</p><hr /><p>@Localize[PF2E.NPC.Abilities.Glossary.Stench]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -264,7 +264,7 @@
                 "rules": [
                     {
                         "key": "Aura",
-                        "radius": 0,
+                        "radius": 10,
                         "slug": "stench",
                         "traits": [
                             "olfactory"
@@ -283,7 +283,7 @@
         },
         {
             "_id": "Q5Qd599tQTMtgOYk",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Swift Stroke",
             "sort": 800000,
             "system": {
@@ -295,7 +295,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>Averill swims up to half his Speed. This movement doesn’t trigger reactions.</p>"
+                    "value": "<p>Averill swims up to half his Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -356,7 +356,7 @@
         },
         {
             "_id": "9PyQKrYhwwi2TOSM",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Averill's Orders",
             "sort": 1000000,
             "system": {
@@ -368,7 +368,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Averill orders an ally to attack or to get in position. The ally can immediately Strike or move up to half its swim Speed.</p>"
+                    "value": "<p><strong>Frequency</strong> once per round;</p><hr /><p><strong>Effect</strong> Averill orders an ally to attack or to get in position. The ally can immediately Strike or move up to half its swim Speed. If it moves, the movement does not trigger reactions.</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -389,6 +389,41 @@
                         "linguistic",
                         "mental"
                     ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QL9DkWStprJ1W3Tv",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
                 }
             },
             "type": "action"
@@ -428,7 +463,7 @@
                 "value": ""
             },
             "hp": {
-                "details": "",
+                "details": "void healing",
                 "max": 57,
                 "temp": 0,
                 "value": 57
@@ -526,7 +561,7 @@
                 "special": [
                     {
                         "base": 15,
-                        "label": "Swim",
+                        "label": "to Swim",
                         "predicate": [
                             "action:swim"
                         ]

@@ -22,8 +22,14 @@
         },
         "rules": [
             {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.fireShield.resistance",
+                "value": "cold"
+            },
+            {
                 "key": "Resistance",
-                "type": "cold",
+                "type": "{actor|flags.pf2e.fireShield.resistance}",
                 "value": "5 + 5*floor((@item.level -4)/2)"
             },
             {
@@ -47,6 +53,7 @@
                                 "broken": false,
                                 "brokenThreshold": 0,
                                 "destroyed": false,
+                                "hardness": 10,
                                 "hp": {
                                     "max": 40,
                                     "value": 40
@@ -61,6 +68,7 @@
                                 "broken": false,
                                 "brokenThreshold": 0,
                                 "destroyed": false,
+                                "hardness": 10,
                                 "hp": {
                                     "max": 50,
                                     "value": 50
@@ -75,6 +83,7 @@
                                 "broken": false,
                                 "brokenThreshold": 0,
                                 "destroyed": false,
+                                "hardness": 10,
                                 "hp": {
                                     "max": 60,
                                     "value": 60
@@ -88,6 +97,7 @@
                                 "broken": false,
                                 "brokenThreshold": 0,
                                 "destroyed": false,
+                                "hardness": 10,
                                 "hp": {
                                     "max": 70,
                                     "value": 70
@@ -107,12 +117,12 @@
             },
             {
                 "key": "ActiveEffectLike",
-                "mode": "override",
+                "mode": "multiply",
                 "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    "water-trait"
+                    "item:trait:water"
                 ],
-                "value": 5
+                "value": 0.5
             },
             {
                 "domain": "all",
@@ -126,17 +136,6 @@
                         ]
                     }
                 ]
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "system.attributes.shield.hardness",
-                "predicate": [
-                    {
-                        "not": "water-trait"
-                    }
-                ],
-                "value": 10
             }
         ],
         "start": {

@@ -4,7 +4,7 @@
     "items": [
         {
             "_id": "xNPtZjddWwWKvvuU",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Thar She Blows",
             "sort": 0,
             "system": {
@@ -16,14 +16,20 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> Abendego’s Squall matches speed with the <em>Snapdragon</em></p>\n<p><strong>Effect</strong> The orca leaps across the <em>Snapdragon</em> and tears its main mast from the deck in the process. This deals @Damage[30] damage to the <em>Snapdragon</em>. All creatures on deck take @Damage[2d8[bludgeoning]] damage from the shrapnel and must attempt a @Check[type:reflex|dc:20|showdc:gm|basic:true]{basic Reflex save}. Abendego’s Squall rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> Abendego's Squall matches speed with the <em>Snapdragon</em></p><hr /><p><strong>Effect</strong> The orca leaps across the <em>Snapdragon</em> and tears its main mast from the deck in the process. This deals @Damage[30] damage to the <em>Snapdragon</em>. All creatures on deck take @Damage[2d8[bludgeoning]] damage from the shrapnel and must attempt a @Check[type:reflex|dc:20|showdc:gm|basic:true] save. Abendego's Squall rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "ORC",
                     "remaster": true,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "Immunity",
+                        "mode": "remove",
+                        "type": "object-immunities"
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []
@@ -32,7 +38,7 @@
             "type": "action"
         },
         {
-            "_id": "v7Cvnlo9U16HIjob",
+            "_id": "bzUZcdwAeexUFMar",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Flipper",
             "sort": 0,
@@ -44,7 +50,7 @@
                     "value": 15
                 },
                 "damageRolls": {
-                    "VW0IBkHHbcCtr5wP": {
+                    "9Mpwi2EZsz16zwks": {
                         "damage": "2d8+7",
                         "damageType": "bludgeoning"
                     }
@@ -53,15 +59,15 @@
                     "value": ""
                 },
                 "publication": {
-                    "license": "ORC",
-                    "remaster": true,
+                    "license": "OGL",
+                    "remaster": false,
                     "title": ""
                 },
                 "rules": [],
                 "slug": null,
                 "traits": {
                     "value": [
-                        "reach-15"
+                        "reach-10"
                     ]
                 }
             },
@@ -91,8 +97,8 @@
             }
         },
         "details": {
-            "description": "<p>A massive orca known as Abendego’s Squall leaps from the water. Its mouth opens to snap against any part of the ship that it can reach.</p>",
-            "disable": "<p>@Check[type:medicine|dc:20|showdc:gm]{Medicine (trained)} to remove the harpoon, @Check[type:nature|dc:21|showdc:gm]{Nature (trained)} to calm the orca, or @Check[type:intimidation|dc:23|showdc:gm]{Intimidation (trained)} to scare the orca away; two total successes are required to subdue the orca</p>",
+            "description": "<p>A massive orca known as Abendego's Squall leaps from the water. Its mouth opens to snap against any part of the ship that it can reach.</p>",
+            "disable": "<p>@Check[type:medicine|dc:23] (trained) to remove the harpoon, @Check[type:nature|dc:21] (trained) to calm the orca, or @Check[type:intimidation|dc:23] (trained) to scare the orca away; two total successes are required to subdue the orca</p>",
             "isComplex": true,
             "level": {
                 "value": 5
@@ -102,8 +108,8 @@
                 "remaster": true,
                 "title": "Pathfinder Society Scenario #6-00: Salt of the Ocean"
             },
-            "reset": "<p>The orca returns to hunt down the <em>Snapdragon</em> after 8 hours.</p>",
-            "routine": "<p><span class=\"action-glyph\">d</span> Abendego’s Squall thrashes against the hull of the <em>Snapdragon</em>. With each action, it makes a flipper Strike against a PC adjacent to the railing. Whenever it makes a flipper Strike, it also deals its Strike damage to the ship whether or not the Strike was successful.</p><p><strong>Speed</strong> 30 feet</p>"
+            "reset": "",
+            "routine": "<p><span class=\"action-glyph\">d</span> Abendego's Squall thrashes against the hull of the Snapdragon. With each action, it makes a flipper Strike against a PC adjacent to the railing. Whenever it makes a flipper Strike, it also deals its Strike damage to the ship whether or not the Strike was successful.</p><hr><p><strong>Speed</strong> 30 feet</p>"
         },
         "saves": {
             "fortitude": {

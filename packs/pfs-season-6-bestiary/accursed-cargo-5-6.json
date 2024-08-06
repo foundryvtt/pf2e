@@ -4,7 +4,7 @@
     "items": [
         {
             "_id": "oOZRTXZ4Zz5OG2YF",
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Planar Depressurization",
             "sort": 0,
             "system": {
@@ -16,7 +16,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature touches the sigil on the crate</p>\n<p><strong>Effect</strong> The incomplete demonic pact causes the crate to explode. Bits of wood and energy from the Outer Rifts deal @Damage[(2d8+9)[bludgeoning],(2d8+9)[spirit]]{2d8+9 bludgeoning and 2d8+9 spirit damage} to all creatures within 10 feet of it (@Check[type:reflex|dc:24|basic:true]{basic Reflex}).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature touches the sigil on the crate</p><hr /><p><strong>Effect</strong> The incomplete <em>demonic pact</em> causes the crate to explode. Bits of wood and energy from the Outer Rifts deal @Damage[(2d8+9)[bludgeoning],(2d8+9)[spirit]] damage to all creatures within 10 feet of it (@Check[type:reflex|dc:24|basic:true]).</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -26,7 +26,9 @@
                 "rules": [],
                 "slug": null,
                 "traits": {
-                    "value": []
+                    "value": [
+                        "divine"
+                    ]
                 }
             },
             "type": "action"
@@ -60,13 +62,13 @@
                 }
             ],
             "stealth": {
-                "details": "<p>Stealth DC 21 (trained) or <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em></p>",
+                "details": "<p>or <em>@UUID[Compendium.pf2e.spells-srd.Item.Detect Magic]</em></p>",
                 "value": 11
             }
         },
         "details": {
             "description": "<p>A wooden crate bearing a chthonic sigil glows with a power contained within it.</p>",
-            "disable": "<p>@Check[type:thievery|dc:25|showdc:gm]{Thievery (trained)} to open the crate with gradual release of its magical energy, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd rank; counteract DC 21) to dispel the rune</p>",
+            "disable": "<p>@Check[type:thievery|dc:25] (trained) to open the crate with gradual release of its magical energy, or <em>@UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic]</em> (2nd rank; counteract DC 21) to dispel the rune</p>",
             "isComplex": false,
             "level": {
                 "value": 6

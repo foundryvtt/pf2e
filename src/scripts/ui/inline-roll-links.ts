@@ -259,6 +259,9 @@ export class InlineRollLinks {
                     });
                     if (defenseStat) {
                         return {
+                            label:
+                                defenseStat.dc.label ??
+                                game.i18n.format("PF2E.InlineCheck.DCWithName", { name: defenseStat.label }),
                             statistic: defenseStat.dc,
                             scope: "check",
                             value: defenseStat.dc.value,
