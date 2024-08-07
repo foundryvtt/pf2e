@@ -39,10 +39,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         switch (canvas.grid.type) {
             case GT.HEXEVENQ:
             case GT.HEXEVENR:
-                return M.LEFT_SIDE_MIDPOINT;
             case GT.HEXODDQ:
             case GT.HEXODDR:
-                return M.TOP_SIDE_MIDPOINT;
+                return M.BOTTOM_RIGHT_VERTEX;
             case GT.SQUARE:
                 return M.VERTEX;
             default:
