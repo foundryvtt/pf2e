@@ -42,7 +42,6 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const backgroundData of index) {
                 if (backgroundData.type === "background") {
-                    backgroundData.filters = {};
                     if (!this.hasAllIndexFields(backgroundData, indexFields)) {
                         console.warn(
                             `Background '${backgroundData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,

@@ -62,7 +62,12 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const deityData of index) {
                 if (deityData.type === "deity") {
-                    if (!this.hasAllIndexFields(deityData, indexFields)) {
+                    if (
+                        !this.hasAllIndexFields(
+                            deityData,
+                            indexFields.filter((t) => ["system.font", "system.sanctification"].includes(t)), // Not all deities have font or sanctification but the index is still necessary
+                        )
+                    ) {
                         console.warn(
                             `Deity '${deityData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
                         );
