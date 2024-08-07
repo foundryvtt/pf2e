@@ -47,26 +47,31 @@ export class CompendiumBrowserClassTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const classData of index) {
                 if (classData.type === "class") {
-                    classData.filters = {};
+                    if (!this.hasAllIndexFields(classData, indexFields)) {
+                        console.warn(
+                            `Class '${classData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
+                    // Prepare source
+                    const pubSource = classData.system.publication?.title ?? classData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
+                    // Only store essential data
+                    classes.push({
+                        type: classData.type,
+                        name: classData.name,
+                        originalName: classData.originalName, // Added by Babele
+                        img: classData.img,
+                        uuid: classData.uuid,
+                        rarity: classData.system.traits.rarity,
+                        source: sourceSlug,
+                        hitpoints: classData.system.hp.toString(),
+                        keyAttribute: classData.system.keyAbility.value,
+                    });
                 }
-
-                // Prepare source
-                const pubSource = classData.system.publication?.title ?? classData.system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
-
-                // Only store essential data
-                classes.push({
-                    type: classData.type,
-                    name: classData.name,
-                    originalName: classData.originalName, // Added by Babele
-                    img: classData.img,
-                    uuid: classData.uuid,
-                    rarity: classData.system.traits.rarity,
-                    source: sourceSlug,
-                    hitpoints: classData.system.hp.toString(),
-                    keyAttribute: classData.system.keyAbility.value,
-                });
             }
 
             // Set indexData

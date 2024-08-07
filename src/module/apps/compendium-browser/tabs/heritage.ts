@@ -35,25 +35,30 @@ export class CompendiumBrowserHeritageTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const heritageData of index) {
                 if (heritageData.type === "heritage") {
-                    heritageData.filters = {};
+                    if (!this.hasAllIndexFields(heritageData, indexFields)) {
+                        console.warn(
+                            `Heritage '${heritageData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
+                    // Prepare source
+                    const pubSource = heritageData.system.publication?.title ?? heritageData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
+                    // Only store essential data
+                    heritages.push({
+                        type: heritageData.type,
+                        name: heritageData.name,
+                        originalName: heritageData.originalName, // Added by Babele
+                        img: heritageData.img,
+                        uuid: heritageData.uuid,
+                        rarity: heritageData.system.traits.rarity,
+                        source: sourceSlug,
+                        ancestry: heritageData.system.ancestry?.slug ?? "versatile",
+                    });
                 }
-
-                // Prepare source
-                const pubSource = heritageData.system.publication?.title ?? heritageData.system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
-
-                // Only store essential data
-                heritages.push({
-                    type: heritageData.type,
-                    name: heritageData.name,
-                    originalName: heritageData.originalName, // Added by Babele
-                    img: heritageData.img,
-                    uuid: heritageData.uuid,
-                    rarity: heritageData.system.traits.rarity,
-                    source: sourceSlug,
-                    ancestry: heritageData.system.ancestry?.slug ?? "versatile",
-                });
             }
 
             // Create a dynamic list of ancestries to use in a filter from the indexed data

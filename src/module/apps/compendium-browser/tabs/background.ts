@@ -43,33 +43,40 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
             for (const backgroundData of index) {
                 if (backgroundData.type === "background") {
                     backgroundData.filters = {};
+                    if (!this.hasAllIndexFields(backgroundData, indexFields)) {
+                        console.warn(
+                            `Background '${backgroundData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
+                    // Prepare source
+                    const pubSource =
+                        backgroundData.system.publication?.title ?? backgroundData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
+                    // Only store essential data
+                    backgrounds.push({
+                        type: backgroundData.type,
+                        name: backgroundData.name,
+                        originalName: backgroundData.originalName, // Added by Babele
+                        img: backgroundData.img,
+                        uuid: backgroundData.uuid,
+                        rarity: backgroundData.system.traits.rarity,
+                        source: sourceSlug,
+                        boosts: backgroundData.system.boosts[0].value,
+                        skills: backgroundData.system.trainedSkills.value,
+                        lores: backgroundData.system.trainedSkills.lore
+                            .map((t: string) => {
+                                return sluggify(t);
+                            })
+                            .filter((lore: string) => lore !== undefined),
+                        feats: Object.keys(backgroundData.system.items).map((key) => {
+                            return sluggify(backgroundData.system.items[key].name);
+                        }),
+                    });
                 }
-
-                // Prepare source
-                const pubSource = backgroundData.system.publication?.title ?? backgroundData.system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
-
-                // Only store essential data
-                backgrounds.push({
-                    type: backgroundData.type,
-                    name: backgroundData.name,
-                    originalName: backgroundData.originalName, // Added by Babele
-                    img: backgroundData.img,
-                    uuid: backgroundData.uuid,
-                    rarity: backgroundData.system.traits.rarity,
-                    source: sourceSlug,
-                    boosts: backgroundData.system.boosts[0].value,
-                    skills: backgroundData.system.trainedSkills.value,
-                    lores: backgroundData.system.trainedSkills.lore
-                        .map((t: string) => {
-                            return sluggify(t);
-                        })
-                        .filter((lore: string) => lore !== undefined),
-                    feats: Object.keys(backgroundData.system.items).map((key) => {
-                        return sluggify(backgroundData.system.items[key].name);
-                    }),
-                });
             }
 
             // Creates a list of filter options for skill feats

@@ -62,32 +62,37 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const deityData of index) {
                 if (deityData.type === "deity") {
-                    deityData.filters = {};
+                    if (!this.hasAllIndexFields(deityData, indexFields)) {
+                        console.warn(
+                            `Deity '${deityData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
+                    // Prepare source
+                    const pubSource = deityData.system.publication?.title ?? deityData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
+                    // Only store essential data
+                    deities.push({
+                        type: deityData.type,
+                        name: deityData.name,
+                        originalName: deityData.originalName, // Added by Babele
+                        img: deityData.img,
+                        uuid: deityData.uuid,
+                        rarity: deityData.system.traits?.rarity,
+                        source: sourceSlug,
+                        category: deityData.system.category,
+                        font: deityData.system.font.length > 0 ? deityData.system.font : "none",
+                        sanctification: deityData.system.sanctification?.what ?? "none",
+                        attribute: deityData.system.attribute,
+                        primaryDomain: deityData.system.domains.primary,
+                        alternateDomain: deityData.system.domains.alternate,
+                        skill: deityData.system.skill,
+                        weapon: deityData.system.weapons,
+                    });
                 }
-
-                // Prepare source
-                const pubSource = deityData.system.publication?.title ?? deityData.system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
-
-                // Only store essential data
-                deities.push({
-                    type: deityData.type,
-                    name: deityData.name,
-                    originalName: deityData.originalName, // Added by Babele
-                    img: deityData.img,
-                    uuid: deityData.uuid,
-                    rarity: deityData.system.traits?.rarity,
-                    source: sourceSlug,
-                    category: deityData.system.category,
-                    font: deityData.system.font.length > 0 ? deityData.system.font : "none",
-                    sanctification: deityData.system.sanctification?.what ?? "none",
-                    attribute: deityData.system.attribute,
-                    primaryDomain: deityData.system.domains.primary,
-                    alternateDomain: deityData.system.domains.alternate,
-                    skill: deityData.system.skill,
-                    weapon: deityData.system.weapons,
-                });
             }
 
             // Set indexData
