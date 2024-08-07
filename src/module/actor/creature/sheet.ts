@@ -5,7 +5,7 @@ import { ItemPF2e, type SpellPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ITEM_CARRY_TYPES } from "@item/base/data/values.ts";
 import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasting-entry/helpers.ts";
-import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
+import { SpellcastingEntryPF2e, SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
 import { eventToRollParams } from "@scripts/sheet-util.ts";
@@ -343,7 +343,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const dropSlotType = dropItemEl?.dataset.itemType;
         const dropContainerType = dropContainerEl?.dataset.containerType;
 
-        const item = this.actor.items.get(itemData._id!);
+        const item = this.actor.items.get(itemData._id!) as ItemPF2e;
         if (!item) return [];
 
         // if they are dragging onto another spell, it's just sorting the spells
@@ -358,7 +358,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             if (dropSlotType === "spell-slot-group") {
                 const spell = await collection.addSpell(item, { groupId });
                 this.#openSpellPreparation(collection.id);
-                return [spell ?? []].flat();
+                return [(spell as SpellPF2e) ?? []].flat();
             } else if (groupId && Number.isInteger(slotId)) {
                 await collection.prepareSpell(item, groupId, slotId);
                 return [item];
@@ -380,11 +380,11 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
                     if (sourceLocation === entryId && testSibling(item, target)) {
                         const siblings = collection.filter((s) => testSibling(item, s));
                         await item.sortRelative({ target, siblings });
-                        return [target];
+                        return [target as SpellPF2e];
                     } else {
                         const spell = await collection.addSpell(item, { groupId: target.rank });
                         this.#openSpellPreparation(collection.id);
-                        return [spell ?? []].flat();
+                        return [(spell as SpellPF2e) ?? []].flat();
                     }
                 }
             } else if (dropContainerType === "spellcastingEntry") {
@@ -412,7 +412,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             ) {
                 const siblings = this.actor.itemTypes.spellcastingEntry;
                 await source.sortRelative({ target, siblings });
-                return [source];
+                return [source as SpellcastingEntryPF2e];
             }
         }
 
@@ -431,8 +431,8 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
             const collection = this.actor.spellcasting.collections.get(collectionId, { strict: true });
             this.#openSpellPreparation(collection.id, event);
             const groupId = coerceToSpellGroupId(htmlClosest(event.target, "[data-group-id]")?.dataset.groupId);
-
-            return [(await collection.addSpell(item, { groupId })) ?? []].flat();
+            const spell = (await collection.addSpell(item, { groupId })) as SpellPF2e | null;
+            return [spell ?? []].flat();
         }
 
         return super._handleDroppedItem(event, item, data);
