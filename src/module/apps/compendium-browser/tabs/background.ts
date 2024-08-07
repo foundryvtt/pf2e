@@ -54,7 +54,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                 backgrounds.push({
                     type: backgroundData.type,
                     name: backgroundData.name,
-                    originalName: backgroundData.originalName, //Added by Babele
+                    originalName: backgroundData.originalName, // Added by Babele
                     img: backgroundData.img,
                     uuid: backgroundData.uuid,
                     rarity: backgroundData.system.traits.rarity,
@@ -65,7 +65,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                         .map((t: string) => {
                             return sluggify(t);
                         })
-                        .filter((lore: string) => lore != undefined),
+                        .filter((lore: string) => lore !== undefined),
                     feats: Object.keys(backgroundData.system.items).map((key) => {
                         return sluggify(backgroundData.system.items[key].name);
                     }),
@@ -81,7 +81,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                             return [feat, featString];
                         });
                     })
-                    .filter(([_value, label]) => label != undefined),
+                    .filter(([_value, label]) => label !== undefined),
             );
 
             // Create a list of filter options for lore skills
@@ -93,7 +93,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
                             return [lore, loreString];
                         });
                     })
-                    .filter(([_value, label]) => label != undefined),
+                    .filter(([_value, label]) => label !== undefined),
             );
 
             const skillList = Object.fromEntries(

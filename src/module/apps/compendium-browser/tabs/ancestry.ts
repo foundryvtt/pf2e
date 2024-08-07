@@ -58,7 +58,7 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
                     originalName: ancestryData.originalName, // Added by Babele
                     boosts: Object.keys(ancestryData.system.boosts)
                         .flatMap((t: string) => {
-                            return ancestryData.system.boosts[t].value.length == 1
+                            return ancestryData.system.boosts[t].value.length === 1
                                 ? ancestryData.system.boosts[t].value
                                 : null;
                         })

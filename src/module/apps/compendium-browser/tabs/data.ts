@@ -83,7 +83,7 @@ interface AncestryFilters extends BaseFilterData {
         source: CheckboxData;
         hitpoints: CheckboxData;
     };
-    multiselects: { boosts: MultiselectData };
+    multiselects: { boosts: MultiselectData; traits?: MultiselectData };
 }
 
 interface BackgroundFilters extends BaseFilterData {
@@ -96,6 +96,7 @@ interface BackgroundFilters extends BaseFilterData {
         skills: MultiselectData;
         lores: MultiselectData;
         feats: MultiselectData;
+        traits?: MultiselectData;
     };
 }
 
@@ -131,6 +132,7 @@ interface ClassFilters extends BaseFilterData {
     };
     multiselects: {
         keyAttribute: MultiselectData;
+        traits?: MultiselectData;
     };
 }
 
@@ -147,6 +149,7 @@ interface DeityFilters extends BaseFilterData {
         sanctification: MultiselectData;
         skill: MultiselectData;
         weapon: MultiselectData;
+        traits?: MultiselectData;
     };
 }
 
@@ -200,6 +203,7 @@ interface HeritageFilters extends BaseFilterData {
     };
     multiselects: {
         ancestry: MultiselectData<string>;
+        traits?: MultiselectData;
     };
 }
 
