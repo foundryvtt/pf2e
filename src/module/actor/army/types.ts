@@ -1,6 +1,6 @@
 import { DamageRollFunction, RollFunction } from "@actor/data/base.ts";
-import { ALIGNMENTS } from "./values.ts";
 import { AttackRollParams } from "@system/rolls.ts";
+import { ALIGNMENTS, ARMY_TYPES } from "./values.ts";
 
 type Alignment = SetElement<typeof ALIGNMENTS>;
 
@@ -17,4 +17,6 @@ interface ArmyStrike {
     critical: DamageRollFunction;
 }
 
-export type { Alignment, ArmyStrike };
+type ArmyType = (typeof ARMY_TYPES)[number];
+
+export type { Alignment, ArmyStrike, ArmyType };
