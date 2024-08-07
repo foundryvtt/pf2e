@@ -24,7 +24,48 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Sorcerer.TapIntoBlood.Requirements",
+                        "title": "PF2E.FeatDescription.Requirements.Label"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "feature:bloodline:tradition:arcane"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.TapIntoBlood.Arcane"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "feature:bloodline:tradition:divine"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.TapIntoBlood.Divine"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "feature:bloodline:tradition:occult"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.TapIntoBlood.Occult"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "feature:bloodline:tradition:primal"
+                        ],
+                        "text": "PF2E.SpecificRule.Sorcerer.TapIntoBlood.Primal"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
