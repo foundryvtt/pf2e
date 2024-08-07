@@ -3,8 +3,17 @@
     "img": "systems/pf2e/icons/spells/ki-form.webp",
     "name": "Spell Effect: Qi Form",
     "system": {
+        "badge": {
+            "labels": [
+                "5 ft.",
+                "30 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 1
+        },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Qi Form]</p>\n<p>In this form, you gain a fly Speed equal to your land Speed. Choose force, spirit, vitality, or void damage. All your Strikes deal 1d6 additional damage of the chosen type.</p>\n<p>You take a -2 status penalty to saves against emotion effects but gain a +2 status bonus to saves against all other mental effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Qi Form]</p>\n<p>You gain a fly Speed equal to your land Speed. Choose force, spirit, vitality, or void damage. All your Strikes deal 1d6 additional damage of the chosen type.</p>\n<p>Your entire body is also surrounded by a glowing corona of the same color as your inner qi; this is a light effect. Your corona is an aura in a 5-foot emanation that deals @Damage[2d6[untyped]] damage of the chosen type to creatures who start their turn within the emanation. You can Sustain to flare your corona out to become a 30-foot emanation or return the corona to a 5-foot emanation.</p>\n<p>Your weapons and unarmed attacks lose the nonlethal trait. You take a -2 status penalty to saves against emotion effects but gain a +2 status bonus to saves against all other mental effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +22,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 9
         },
         "publication": {
             "license": "ORC",
@@ -78,6 +87,29 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "selector": "strike-damage"
+            },
+            {
+                "key": "Aura",
+                "radius": "ternary(gte(@item.badge.value,2),30,5)",
+                "slug": "qi-form-aura",
+                "traits": [
+                    "light"
+                ]
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "{item|id}-inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.kiFormDamage}"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "remove",
+                "property": "weapon-traits",
+                "value": "nonlethal"
             }
         ],
         "start": {
