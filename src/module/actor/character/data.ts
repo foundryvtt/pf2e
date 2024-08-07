@@ -404,6 +404,7 @@ interface VersatileWeaponOption {
 interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
     entries: Record<string, Partial<CraftingEntryData>>;
+    repairValue: 5;
 }
 
 interface CharacterResources extends CreatureResources {
