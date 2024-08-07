@@ -1,0 +1,52 @@
+{
+    "_id": "iy6ZAMWyOLEKnOrl",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Grandmother Spider's Underdog",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.boons-and-curses.Item.Grandmother Spider - Major Curse]</p>\n<p>Any time a creature with a level lower than yours rolls a success on a check against you, it critically succeeds instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Gods & Magic"
+        },
+        "rules": [
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "lt": [
+                            "self:level",
+                            "target:level"
+                        ]
+                    }
+                ],
+                "selector": "check"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
