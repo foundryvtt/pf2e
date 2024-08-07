@@ -895,7 +895,71 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:area:type:burst",
+                            "item:duration:0",
+                            {
+                                "gte": [
+                                    "item:area:size",
+                                    10
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 110,
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 100,
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

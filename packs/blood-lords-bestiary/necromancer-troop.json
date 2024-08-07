@@ -153,7 +153,7 @@
             "system": {
                 "area": {
                     "type": "burst",
-                    "value": 65
+                    "value": 60
                 },
                 "cost": {
                     "value": ""
@@ -257,7 +257,7 @@
             "system": {
                 "area": {
                     "type": "burst",
-                    "value": 65
+                    "value": 60
                 },
                 "cost": {
                     "value": ""
@@ -361,7 +361,7 @@
             "system": {
                 "area": {
                     "type": "line",
-                    "value": 40
+                    "value": 30
                 },
                 "cost": {
                     "value": ""
@@ -437,7 +437,7 @@
             "system": {
                 "area": {
                     "type": "burst",
-                    "value": 15
+                    "value": 10
                 },
                 "cost": {
                     "value": ""
@@ -526,7 +526,7 @@
             "system": {
                 "area": {
                     "type": "cone",
-                    "value": 20
+                    "value": 15
                 },
                 "cost": {
                     "value": ""
@@ -868,7 +868,7 @@
             "system": {
                 "area": {
                     "type": "line",
-                    "value": 40
+                    "value": 30
                 },
                 "cost": {
                     "value": ""
@@ -1188,7 +1188,71 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:area:type:burst",
+                            "item:duration:0",
+                            {
+                                "gte": [
+                                    "item:area:size",
+                                    10
+                                ]
+                            }
+                        ],
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "lte": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 110,
+                        "property": "area-size",
+                        "value": 5
+                    },
+                    {
+                        "itemType": "spell",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:duration:0",
+                            {
+                                "or": [
+                                    "item:area:type:cone",
+                                    "item:area:type:line"
+                                ]
+                            },
+                            {
+                                "gt": [
+                                    "item:area:size",
+                                    15
+                                ]
+                            }
+                        ],
+                        "priority": 100,
+                        "property": "area-size",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
