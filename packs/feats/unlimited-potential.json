@@ -28,7 +28,46 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellshape:unlimited-potential",
+                    "item:duration:0",
+                    {
+                        "lte": [
+                            "item:rank",
+                            5
+                        ]
+                    },
+                    {
+                        "not": "cantrip"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.UnlimitedPotential"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "unlimited-potential"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

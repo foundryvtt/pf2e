@@ -35,16 +35,15 @@
                 "mode": "add",
                 "predicate": [
                     "spellshape:ley-line-conduit",
-                    "item:type:spell",
                     "item:duration:0",
                     {
-                        "or": [
-                            "item:rank:1",
-                            "item:rank:2",
-                            "item:rank:3",
-                            "item:rank:4",
-                            "item:rank:5"
+                        "lte": [
+                            "item:rank",
+                            5
                         ]
+                    },
+                    {
+                        "not": "cantrip"
                     }
                 ],
                 "property": "description",

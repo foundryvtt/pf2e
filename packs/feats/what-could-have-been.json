@@ -28,7 +28,37 @@
             "remaster": false,
             "title": "Pathfinder Dark Archive"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:summon",
+                    "spellshape:what-could-have-been"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.WhatCouldHaveBeen"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "what-could-have-been"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
