@@ -58,6 +58,7 @@ class CompendiumBrowser extends Application {
         "heritage",
         "spell",
     ] as const;
+
     navigationTab: Tabs;
     tabs: BrowserTabs;
 
@@ -634,6 +635,7 @@ class CompendiumBrowser extends Application {
                     );
                     if (!multiselect) continue;
                     const data = multiselects[filterName];
+                    if (!data) continue;
 
                     const tagify = new Tagify(multiselect, {
                         enforceWhitelist: true,

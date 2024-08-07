@@ -70,7 +70,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 const sourceSlug = sluggify(pubSource);
                 if (pubSource) publications.add(pubSource);
 
-                //Only store essential data
+                // Only store essential data
                 deities.push({
                     type: deityData.type,
                     name: deityData.name,
@@ -107,7 +107,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                             return [domain, domainString];
                         });
                     })
-                    .filter(([_value, label]) => label != undefined),
+                    .filter(([_value, label]) => label !== undefined),
             );
 
             // Create a dynamic list of alternate domains
@@ -124,7 +124,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                             return [domain, domainString];
                         });
                     })
-                    .filter(([_value, label]) => label != undefined),
+                    .filter(([_value, label]) => label !== undefined),
             );
 
             // Create a dynamic list of favored weapons
@@ -139,7 +139,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                             return [weapon, weaponString];
                         });
                     })
-                    .filter(([_value, label]) => label != undefined),
+                    .filter(([_value, label]) => label !== undefined),
             );
 
             // Create key: label pairs for skills
