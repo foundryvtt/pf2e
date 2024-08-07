@@ -40,6 +40,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             case GT.HEXEVENQ:
             case GT.HEXEVENR:
                 return M.LEFT_SIDE_MIDPOINT;
+            case GT.HEXODDQ:
             case GT.HEXODDR:
                 return M.TOP_SIDE_MIDPOINT;
             case GT.SQUARE:
