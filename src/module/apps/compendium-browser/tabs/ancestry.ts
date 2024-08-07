@@ -43,32 +43,37 @@ export class CompendiumBrowserAncestryTab extends CompendiumBrowserTab {
             console.debug(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${index.size} entries found`);
             for (const ancestryData of index) {
                 if (ancestryData.type === "ancestry") {
-                    ancestryData.filters = {};
+                    if (!this.hasAllIndexFields(ancestryData, indexFields)) {
+                        console.warn(
+                            `Ancestry '${ancestryData.name}' does not have all required data fields. Consider unselecting pack '${pack.metadata.label}' in the compendium browser settings.`,
+                        );
+                        continue;
+                    }
+
+                    // Prepare source
+                    const pubSource = ancestryData.system.publication?.title ?? ancestryData.system.source?.value ?? "";
+                    const sourceSlug = sluggify(pubSource);
+                    if (pubSource) publications.add(pubSource);
+
+                    // Only store essential data
+                    ancestries.push({
+                        type: ancestryData.type,
+                        name: ancestryData.name,
+                        originalName: ancestryData.originalName, // Added by Babele
+                        boosts: Object.keys(ancestryData.system.boosts)
+                            .flatMap((t: string) => {
+                                return ancestryData.system.boosts[t].value.length === 1
+                                    ? ancestryData.system.boosts[t].value
+                                    : null;
+                            })
+                            .filter(String),
+                        hitpoints: ancestryData.system.hp.toString(),
+                        img: ancestryData.img,
+                        uuid: ancestryData.uuid,
+                        rarity: ancestryData.system.traits.rarity,
+                        source: sourceSlug,
+                    });
                 }
-
-                // Prepare source
-                const pubSource = ancestryData.system.publication?.title ?? ancestryData.system.source?.value ?? "";
-                const sourceSlug = sluggify(pubSource);
-                if (pubSource) publications.add(pubSource);
-
-                // Only store essential data
-                ancestries.push({
-                    type: ancestryData.type,
-                    name: ancestryData.name,
-                    originalName: ancestryData.originalName, // Added by Babele
-                    boosts: Object.keys(ancestryData.system.boosts)
-                        .flatMap((t: string) => {
-                            return ancestryData.system.boosts[t].value.length === 1
-                                ? ancestryData.system.boosts[t].value
-                                : null;
-                        })
-                        .filter(String),
-                    hitpoints: ancestryData.system.hp.toString(),
-                    img: ancestryData.img,
-                    uuid: ancestryData.uuid,
-                    rarity: ancestryData.system.traits.rarity,
-                    source: sourceSlug,
-                });
             }
 
             // Set indexData
