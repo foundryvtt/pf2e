@@ -1,4 +1,4 @@
-import { LaxSchemaField } from "@system/schema-data-fields.ts";
+import type { SchemaField } from "types/foundry/common/data/fields.js";
 import { RuleElementPF2e } from "./rule-element/base.ts";
 
 import { ActorTraitsRuleElement } from "./rule-element/actor-traits.ts";
@@ -139,9 +139,9 @@ class RuleElements {
     }
 }
 
-type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (new (
-    data: RuleElementSource,
-    options: RuleElementOptions,
-) => RuleElementPF2e);
+type RuleElementConstructor = {
+    new (data: RuleElementSource, options: RuleElementOptions): RuleElementPF2e;
+    schema: SchemaField<RuleElementSchema>;
+};
 
 export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
