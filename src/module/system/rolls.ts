@@ -24,7 +24,7 @@ interface RollParameters {
     /** Optional DC data for the roll */
     dc?: CheckDC | null;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Rolled<Roll>) => void;
+    callback?: (roll: Rolled<Roll>) => void | Promise<void>;
     /** Additional modifiers */
     modifiers?: ModifierPF2e[];
     /** Whether to create a message from the roll */
