@@ -1,0 +1,69 @@
+{
+    "_id": "d03gBFLK4XJlDNNh",
+    "img": "icons/magic/nature/moon-crescent.webp",
+    "name": "Curse of the Sky's Call",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Your body is drawn toward the heavens, making you lighter and less substantial than you should be. Your eyes glow with starry light, and your hair and clothing float and drift around you. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] with a value equal to your cursebound value, and you take a status penalty to saves and DCs against all forms of forced movement equal to your cursebound value</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": "@actor.conditions.cursebound.value"
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "forced-movement",
+                    "self:condition:cursebound"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "-@actor.conditions.cursebound.value"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}
