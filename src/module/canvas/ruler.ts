@@ -3,6 +3,7 @@ import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentFeatureRegionBehavior } from "@scene/region-behavior/types.ts";
 import * as R from "remeda";
 import type { TokenPF2e } from "./token/object.ts";
+import { HexagonalGrid } from "types/foundry/common/grid/hexagonal.js";
 
 class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Ruler<TToken, UserPF2e> {
     static override get canMeasure(): boolean {
@@ -20,10 +21,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
     }
 
     /** The footprint of the drag-measured token relative to the origin center */
-    #footprint: GridOffset[] = [];
-
-    /** Grid spaces highlighted for the current measurement */
-    #highlighted = new Set<number>();
+    #footprint: Point[] = [];
 
     #exactDestination: Point | null = null;
 
@@ -109,14 +107,13 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return this._endMeasurement();
     }
 
-    /** Acquire the token's footprint for drag measurement. */
+    /** Acquire the token's footprint for drag measurement and store it as offsets from the token's center. */
     override measure(
         destination: Point,
         options?: { snap?: boolean; force?: boolean },
     ): void | RulerMeasurementSegment[] {
         if (this.dragMeasurement && this.token && this.origin) {
-            const offset = canvas.grid.getOffset(this.origin);
-            this.#footprint = this.token.footprint.map((o) => ({ i: o.i - offset.i, j: o.j - offset.j }));
+            this.#footprint = this.token.footprint.map((o) => ({ x: o.x - this.origin!.x, y: o.y - this.origin!.y }));
         }
         return super.measure(destination, options);
     }
@@ -199,38 +196,46 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return super._highlightMeasurementSegment(segment);
         }
 
-        this.#highlighted.clear();
-        if (canvas.grid.isHexagonal) {
-            this.#highlightHexSegment(segment);
-        } else {
-            this.#highlightSegment(segment);
-        }
-    }
+        // There is no point of highlighting a segment on a gridless grid
+        if (!canvas.grid.isGridless) {
+            // This is used to store the offset from the token's center to the center of the grid we want to work from.
+            // On a square grid this is not needed, if a point is in the center of four squares then the offest of that point represents the square in the top-left.
+            // However, on a hexagonal grid this is not the same if the point is in the center of three hexes. Depending on the circumstances it can think the point is in any of the three hexes due to floating point math.
+            // So what we are going to do is ensure we are always using the square/hex that is to the top-left of the center point if the token's center is inbetween squares/hexes.
+            let centerOffset = { x: 0, y: 0 };
 
-    #highlightSegment(segment: RulerMeasurementSegment): void {
-        // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
-        for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
-            for (const stomp of this.#footprint) {
-                const newOffset = { i: offset.i + stomp.i, j: offset.j + stomp.j };
-                const packed = (newOffset.i << 16) + newOffset.j;
-                if (!this.#highlighted.has(packed)) {
-                    this.#highlighted.add(packed);
-                    const point = canvas.grid.getTopLeftPoint(newOffset);
-                    canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
+            // Check to see if the token's width is even, this mess the center point is going to be touching multiple square/hexes
+            if (Math.max(token.document.width, 1) % 2 !== 1) {
+                // Check to see if the grid is square, if so we want to offset the center by half the grid
+                if (canvas.grid.isSquare) {
+                    centerOffset = { x: canvas.grid.size / 2, y: canvas.grid.size / 2 };
+                }
+
+                // Check to see if the grid is hexagonal
+                if (canvas.grid.isHexagonal) {
+                    if ((canvas.grid as HexagonalGrid).columns) {
+                        // If the hexagonal grid is in a column layout we want to offset x by a fourth of the grid's sizeX and then offset y by half of the grid's sizeY
+                        centerOffset = { x: canvas.grid.sizeX / 4, y: canvas.grid.sizeY / 2 };
+                    } else {
+                        // If the hexagonal grid is in a row layout we want to offset x by half of the grid's sizeX and then offset y by a fourth of the grid's sizeY
+                        centerOffset = { x: canvas.grid.sizeX / 2, y: canvas.grid.sizeY / 4 };
+                    }
                 }
             }
-        }
-    }
 
-    /** "Fat ruler" highlighting not yet supported for hexagonal grids */
-    #highlightHexSegment(segment: RulerMeasurementSegment): void {
-        // Keep track of grid spaces set to be highlighed in order to skip repeated highlighting
-        for (const offset of canvas.grid.getDirectPath([segment.ray.A, segment.ray.B])) {
-            const packed = (offset.i << 16) + offset.j;
-            if (!this.#highlighted.has(packed)) {
-                this.#highlighted.add(packed);
-                const point = canvas.grid.getTopLeftPoint(offset);
-                canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
+            // We are going to get the direct path from the start of the segment offset by centerOffset to the end of the segment offset by centerOffset
+            for (const offset of canvas.grid.getDirectPath([{ x: segment.ray.A.x - centerOffset.x, y: segment.ray.A.y - centerOffset.y }, { x: segment.ray.B.x - centerOffset.x, y: segment.ray.B.y - centerOffset.y }])) {
+                for (const stomp of this.#footprint) {
+                    // Get the center point of  the offset we are currently at
+                    const offsetCenter = canvas.grid.getCenterPoint(offset);
+                    // Reverse the offset we originally did plus, this will put us back at the true center of the token
+                    // We then add the offset from the current grid we are working with on the token's footprint, which is an offset from the token's center
+                    const newPoint = { x: offsetCenter.x + centerOffset.x + stomp.x, y: offsetCenter.y + centerOffset.y + stomp.y };
+                    // Now we get the top-left point of the grid we end up at
+                    const point = canvas.grid.getTopLeftPoint(newPoint);
+                    // We then highlight that grid space, this already has a way of checking to make sure we don't double highlight a grid space
+                    canvas.interface.grid.highlightPosition(this.name, { ...point, color: this.color });
+                }
             }
         }
     }
