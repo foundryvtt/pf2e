@@ -1,0 +1,132 @@
+{
+    "_id": "RI2UHuUZd3TC1OE8",
+    "img": "icons/magic/fire/flame-burning-skull-orange.webp",
+    "name": "Curse of Engulfing Flames",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>Fires flare noticeably (though not dangerously) in your presence, you occasionally smoke slightly, and your body is almost painfully hot to the touch. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you catch fire, taking persistent fire damage equal to your cursebound value. The flames shed light like a torch, and if you enter an environment where they could not burn (such as underwater), you simply seethe with flameless heat. The flames subside when you begin Refocusing to assuage your curse or if you fall @UUID[Compendium.pf2e.conditionitems.Item.Unconscious], but they resume if your Refocus activity is interrupted or when you return to consciousness.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "fire",
+                            "formula": "1"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound:1"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "fire",
+                            "formula": "2"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound:2"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "fire",
+                            "formula": "3"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound:3"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            },
+            {
+                "allowDuplicate": false,
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "persistent-damage",
+                        "value": {
+                            "damageType": "fire",
+                            "formula": "4"
+                        }
+                    }
+                ],
+                "inMemoryOnly": true,
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "predicate": [
+                    "self:condition:cursebound:4"
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.conditionitems.Item.Persistent Damage"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "fire",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

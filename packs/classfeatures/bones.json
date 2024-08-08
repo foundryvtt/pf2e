@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Your mystery imparts an understanding of death and undeath in all their macabre complexity. You might have had a brush with death yourself—maybe even dying and returning to life—or carry the touch of undeath in your blood. If you commune with deities, you might speak with guardians of death like Pharasma and the psychopomp ushers (the most powerful among creatures that guide souls through the afterlife); a bringer of death like the Mantis God Achaekek or the Horseman of the Apocalypse Charon; or a herald of undeath such as Urgathoa.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Void Warp]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.False Vitality]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Ghostly Weapon]</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Soul Siphon]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Armor of Bones]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Claim Undead]</p>\n<p><strong>Related Domains</strong> death, decay, undeath, vigil</p>\n<p><strong>Mystery Skill</strong> Medicine</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Nudge the Scales]</p><h2><strong>Curse of the Mortal Warrior</strong></h2><section class=\"traits\"><p>CURSE</p>\n<p>DIVINE</p>\n<p>ORACLE</p>\n<p>VOID</p>\n<p>VITALITY</p></section><p>Your body is slowly decaying even though you are alive, and using your powers furthers this unnatural living death, making you susceptible to both void and vitality damage. You carry a touch of the grave about you, manifesting as bloodless pallor, a faint smell of earth, or deathly cold skin.</p>\n<p><strong>@UUID[Compendium.pf2e.conditionitems.Item.Cursebound]{Cursebound 1}</strong> You gain weakness 2 to vitality and void damage. You can be hurt by both vitality and void damage even if one or the other normally has no effect on you. Any immunity or resistance you have to vitality or void is suppressed.</p>\n<p><strong>Cursebound 2</strong> You take a –1 status penalty to Fortitude saves.</p>\n<p><strong>Cursebound 3</strong> Your weakness to vitality and void damage is equal to 5 + your level.</p>\n<p><strong>Cursebound 4</strong> Your status penalty to Fortitude saving throws increases to –2.</p>"
+            "value": "<p>Your mystery imparts an understanding of death and undeath in all their macabre complexity. You might have had a brush with death yourself—maybe even dying and returning to life—or carry the touch of undeath in your blood. If you commune with deities, you might speak with guardians of death like Pharasma and the psychopomp ushers (the most powerful among creatures that guide souls through the afterlife); a bringer of death like the Mantis God Achaekek or the Horseman of the Apocalypse Charon; or a herald of undeath such as Urgathoa.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Void Warp]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Grim Tendrils]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.False Vitality]; 3rd: @UUID[Compendium.pf2e.spells-srd.Item.Ghostly Weapon]</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Soul Siphon]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Armor of Bones]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Claim Undead]</p>\n<p><strong>Related Domains</strong> death, decay, undeath, vigil</p>\n<p><strong>Mystery Skill</strong> Medicine</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Nudge the Scales]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Curse of the Living Death]</p>"
         },
         "level": {
             "value": 1
@@ -39,29 +39,8 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Nudge the Scales"
             },
             {
-                "key": "Weakness",
-                "predicate": [
-                    "self:condition:cursebound"
-                ],
-                "type": [
-                    "vitality",
-                    "void"
-                ],
-                "value": "ternary(gte(@actor.conditions.cursebound.value,3),5+@actor.level,2)"
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    {
-                        "gte": [
-                            "self:condition:cursebound",
-                            2
-                        ]
-                    }
-                ],
-                "selector": "fortitude",
-                "type": "status",
-                "value": "ternary(gte(@actor.conditions.cursebound.value,4),-2,-1)"
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.classfeatures.Item.Curse of the Living Death"
             }
         ],
         "traits": {

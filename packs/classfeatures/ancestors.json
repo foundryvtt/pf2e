@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>The voices of generations past speak to you, and you hear their words. You might resent the constant interruption, or you might revere the spirits of those who came before. Perhaps you hail from a culture with strong ancestral traditions, such as the Shoanti Skoan-Quah (Skull Clan), a traditional dwarven community that worships Torag's family pantheon, or a group that reveres Erastil or Pharasma. You might commune with powerful psychopomps who shepherd souls to the afterlife, with the River of Souls itself, or with those spirits who have become trapped outside of the great cycle of spiritual rebirth. You learn from their whispers and the fragments of their memories, but opening your mind to their knowledge and experience also allows them to meddle in your worldly affairs.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Guidance]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Ghostly Carrier]; 5th: @UUID[Compendium.pf2e.adventure-specific-actions.Item.Dream Research]{Dreaming Potential}</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Touch]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Defense]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Form]</p>\n<p><strong>Related Domains</strong> death, duty, family, soul</p>\n<p><strong>Mystery Skill</strong> Society</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Whispers of Weakness]</p><h2><strong>Curse of Ancestral Meddling</strong></h2><section class=\"traits\"><p>curse</p>\n<p>Divine</p>\n<p>Oracle</p>\n<p>Spirit</p></section><p>The ancestral spirits you commune with haunt you and meddle with your belongings and actions, either out of a wellintentioned (but ultimately detrimental) attempt to assist you, as punishment for your audacity in circumventing the traditional means of achieving divine power, for their own amusement, or a mixture of the above. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are @UUID[Compendium.pf2e.conditionitems.Item.Clumsy] with a value equal to your cursebound value as the spirits of your ancestors temporarily possess you and vie for control in your mind, hindering your movements.</p>"
+            "value": "<p>The voices of generations past speak to you, and you hear their words. You might resent the constant interruption, or you might revere the spirits of those who came before. Perhaps you hail from a culture with strong ancestral traditions, such as the Shoanti Skoan-Quah (Skull Clan), a traditional dwarven community that worships Torag's family pantheon, or a group that reveres Erastil or Pharasma. You might commune with powerful psychopomps who shepherd souls to the afterlife, with the River of Souls itself, or with those spirits who have become trapped outside of the great cycle of spiritual rebirth. You learn from their whispers and the fragments of their memories, but opening your mind to their knowledge and experience also allows them to meddle in your worldly affairs.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Guidance]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Ill Omen]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Ghostly Carrier]; 5th: @UUID[Compendium.pf2e.adventure-specific-actions.Item.Dream Research]{Dreaming Potential}</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Touch]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Defense]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Ancestral Form]</p>\n<p><strong>Related Domains</strong> death, duty, family, soul</p>\n<p><strong>Mystery Skill</strong> Society</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Whispers of Weakness]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Curse of Ancestral Meddling]</p>"
         },
         "level": {
             "value": 1
@@ -39,24 +39,8 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Whispers of Weakness"
             },
             {
-                "allowDuplicate": false,
-                "alterations": [
-                    {
-                        "mode": "override",
-                        "property": "badge-value",
-                        "value": "@actor.conditions.cursebound.value"
-                    }
-                ],
-                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    "self:condition:cursebound"
-                ],
-                "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy"
+                "uuid": "Compendium.pf2e.classfeatures.Item.Curse of Ancestral Meddling"
             }
         ],
         "traits": {

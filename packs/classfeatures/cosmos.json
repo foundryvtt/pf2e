@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Celestial bodies great and small exert influence on you, giving you sublime cosmic power. Perhaps you see the glittering stars as a divine blessing, or perhaps you feel drawn to the infinitely dark spaces between. You might uphold deities like Desna, Sarenrae, or the deific lovers Shizuru and Tsukiyo who represent the sun and the moon—or you might draw power from dark entities from beyond the stars, like certain Outer Gods, or destructive gods of the night like Zon-Kuthon or the rat goddess Lao Shu Po.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Light]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Dizzying Colors]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Darkness]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Moon Frenzy]</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Spray of Stars]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Interstellar Void]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Moonlight Bridge]</p>\n<p><strong>Related Domains</strong> darkness, moon, nothingness, star</p>\n<p><strong>Mystery Skill</strong> Nature</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Oracular Warning]</p><h2><strong>Curse of the Sky's Call</strong></h2><section class=\"traits\"><p>CURSE</p>\n<p>DIVINE</p>\n<p>ORACLE</p></section><p>Your body is drawn toward the heavens, making you lighter and less substantial than you should be. Your eyes glow with starry light, and your hair and clothing float and drift around you. When you have the @UUID[Compendium.pf2e.conditionitems.Item.Cursebound] condition, you are @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled] with a value equal to your cursebound value, and you take a status penalty to saves and DCs against all forms of forced movement equal to your cursebound value</p>"
+            "value": "<p>Celestial bodies great and small exert influence on you, giving you sublime cosmic power. Perhaps you see the glittering stars as a divine blessing, or perhaps you feel drawn to the infinitely dark spaces between. You might uphold deities like Desna, Sarenrae, or the deific lovers Shizuru and Tsukiyo who represent the sun and the moon—or you might draw power from dark entities from beyond the stars, like certain Outer Gods, or destructive gods of the night like Zon-Kuthon or the rat goddess Lao Shu Po.</p>\n<p><strong>Granted Spells</strong> cantrip: @UUID[Compendium.pf2e.spells-srd.Item.Light]; 1st: @UUID[Compendium.pf2e.spells-srd.Item.Dizzying Colors]; 2nd: @UUID[Compendium.pf2e.spells-srd.Item.Darkness]; 5th: @UUID[Compendium.pf2e.spells-srd.Item.Moon Frenzy]</p>\n<p><strong>Revelation Spells</strong> initial: @UUID[Compendium.pf2e.spells-srd.Item.Spray of Stars]; advanced: @UUID[Compendium.pf2e.spells-srd.Item.Interstellar Void]; greater: @UUID[Compendium.pf2e.spells-srd.Item.Moonlight Bridge]</p>\n<p><strong>Related Domains</strong> darkness, moon, nothingness, star</p>\n<p><strong>Mystery Skill</strong> Nature</p>\n<p><strong>Oracle Feat</strong> @UUID[Compendium.pf2e.feats-srd.Item.Oracular Warning]</p>\n<p>@UUID[Compendium.pf2e.classfeatures.Item.Curse of the Sky's Call]</p>"
         },
         "level": {
             "value": 1
@@ -39,34 +39,8 @@
                 "uuid": "Compendium.pf2e.feats-srd.Item.Oracular Warning"
             },
             {
-                "allowDuplicate": false,
-                "alterations": [
-                    {
-                        "mode": "override",
-                        "property": "badge-value",
-                        "value": "@actor.conditions.cursebound.value"
-                    }
-                ],
-                "inMemoryOnly": true,
                 "key": "GrantItem",
-                "onDeleteActions": {
-                    "grantee": "restrict"
-                },
-                "predicate": [
-                    "self:condition:cursebound"
-                ],
-                "reevaluateOnUpdate": true,
-                "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled"
-            },
-            {
-                "key": "FlatModifier",
-                "predicate": [
-                    "forced-movement",
-                    "self:condition:cursebound"
-                ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": "-@actor.conditions.cursebound.value"
+                "uuid": "Compendium.pf2e.classfeatures.Item.Curse of the Sky's Call"
             }
         ],
         "traits": {
