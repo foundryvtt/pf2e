@@ -86,7 +86,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>As the garrison's numbers dwindle, gold defenders melt away into worthless slag. Every time that the garrison is reduced to a threshold, it leaves behind a @Template[type:burst|distance:10]{10-foot radius} cloud of fumes and a 10-foot radius puddle of molten metal. Creatures that breathe fumes are exposed to gold defender poison. Creatures that move through the puddle take @Damage[10d6[fire]] damage. The fumes dissipate after 1 round and the puddle completely evaporates after 1 minute.</p>"
+                    "value": "<p>As the garrison's numbers dwindle, gold defenders melt away into worthless slag. Every time that the garrison is reduced to a threshold, it leaves behind a @Template[burst|distance:10]{10-foot radius} cloud of fumes and a 10-foot radius puddle of molten metal. Creatures that breathe fumes are exposed to gold defender poison. Creatures that move through the puddle take @Damage[10d6[fire]] damage. The fumes dissipate after 1 round and the puddle completely evaporates after 1 minute.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -151,7 +151,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Any @UUID[Compendium.pf2e.conditionitems.Item.Drained] value from this poison is reduced by 1 every hour</p>\n<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:33]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round).</p>"
+                    "value": "<p>Any @UUID[Compendium.pf2e.conditionitems.Item.Drained] value from this poison is reduced by 1 every hour</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:33]</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> @Damage[2d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[4d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round).</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -183,7 +183,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span> actions</p>\n<strong>Frequency</strong> once per round\n<hr />\n<p><strong>Effect</strong> The garrison makes a melee attack against each enemy within 5 feet (@Check[type:reflex|dc:30|basic:true] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d8+2)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d8+12)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d8+15)[bludgeoning]] damage</p>"
+                    "value": "<p><span class=\"action-glyph\">1</span> to <span class=\"action-glyph\">3</span> actions</p>\n<strong>Frequency</strong> once per round\n<hr />\n<p><strong>Effect</strong> The garrison makes a melee attack against each enemy within 5 feet (@Check[reflex|dc:30|basic] save). The damage depends on the number of actions.</p>\n<p><span class=\"action-glyph\">1</span> @Damage[(2d8+2)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">2</span> @Damage[(3d8+12)[bludgeoning]] damage</p>\n<p><span class=\"action-glyph\">3</span> @Damage[(4d8+15)[bludgeoning]] damage</p>"
                 },
                 "frequency": {
                     "max": 1,
@@ -218,7 +218,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The gold defender garrison is not in darkness</p>\n<hr />\n<p><strong>Effect</strong> The gold defender garrison reshapes its skin into a reflective surface that magnifies ambient light into a precise beam that burns all creatures in a @Template[type:cone|distance:30], dealing @Damage[14d6[fire]] damage (@Check[type:reflex|dc:31|name:Light Reflection in Dim Light|traits:fire,damaging-effect] save if the gold defender is in dim light, @Check[type:reflex|dc:33|name:Light Reflection in Bright Light|traits:fire,damaging-effect] save if it's in bright light). The size of the cone reduces to a @Template[type:cone|distance:15] when the garrison is reduced to 8 or fewer squares. It can't use Light Reflection again for [[/br {1d4} #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and catches fire, taking @Damage[1d6[persistent,fire]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent fire damage is @Damage[5d6[persistent,fire]].</p>"
+                    "value": "<p><strong>Requirements</strong> The gold defender garrison is not in darkness</p>\n<hr />\n<p><strong>Effect</strong> The gold defender garrison reshapes its skin into a reflective surface that magnifies ambient light into a precise beam that burns all creatures in a @Template[cone|distance:30], dealing @Damage[14d6[fire]] damage (@Check[reflex|dc:31|name:Light Reflection in Dim Light|traits:fire,damaging-effect] save if the gold defender is in dim light, @Check[reflex|dc:33|name:Light Reflection in Bright Light|traits:fire,damaging-effect] save if it's in bright light). The size of the cone reduces to a @Template[cone|distance:15] when the garrison is reduced to 8 or fewer squares. It can't use Light Reflection again for [[/br {1d4} #rounds]]{1d4 rounds}.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes no damage.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and catches fire, taking @Damage[1d6[persistent,fire]] damage.</p>\n<p><strong>Critical Failure</strong> As failure, but the persistent fire damage is @Damage[5d6[persistent,fire]].</p>"
                 },
                 "publication": {
                     "license": "OGL",
