@@ -28,7 +28,42 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "duos-aim",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "duos-aim"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "duos-aim"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "kickback",
+                "suppress": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "duos-aim",
+                    "target:condition:concealed"
+                ],
+                "selector": "ranged-strike-attack-roll",
+                "text": "PF2E.SpecificRule.DuosAim.Note",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

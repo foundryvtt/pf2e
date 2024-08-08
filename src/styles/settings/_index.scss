@@ -1,19 +1,25 @@
 @import "homebrew", "variant-rules", "world-clock";
 
 // Settings sidebar
-#game-details > .system-links {
-    gap: 0.5rem;
-    margin-bottom: 0.35rem;
-    white-space: nowrap;
+#game-details {
+    .system-links {
+        gap: 0.5rem;
+        margin-bottom: 0.35rem;
+        white-space: nowrap;
 
-    > a[href] {
-        flex: 0;
-        font-size: var(--font-size-12);
-        text-transform: uppercase;
+        > a[href] {
+            flex: 0;
+            font-size: var(--font-size-12);
+            text-transform: uppercase;
 
-        &:hover {
-            text-shadow: 0 0 8px var(--color-text-hyperlink);
+            &:hover {
+                text-shadow: 0 0 8px var(--color-text-hyperlink);
+            }
         }
+    }
+
+    .system-info {
+        white-space: nowrap;
     }
 }
 
