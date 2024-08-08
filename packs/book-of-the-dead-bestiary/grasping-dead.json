@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> At least two creatures enter the area</p>\n<hr />\n<p><strong>Effect</strong> The earth shifts wildly as the hands of the dead spring forth from the ground. The area becomes difficult terrain. Creatures within the area are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] unless they succeed at a @Check[type:reflex|dc:26] save. The haunt then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> At least two creatures enter the area</p>\n<hr />\n<p><strong>Effect</strong> The earth shifts wildly as the hands of the dead spring forth from the ground. The area becomes difficult terrain. Creatures within the area are knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone] unless they succeed at a @Check[reflex|dc:26] save. The haunt then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -54,7 +54,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>Hands of the buried dead rise from the ground, grabbing and tearing at creatures in the area to drag them underground.</p>",
-            "disable": "<p>@Check[type:religion|dc:22] (trained) to ritually pray for the dead or @Check[type:occultism|dc:24] (trained) to exorcise the spirits' anger; two total successes are required to disable the haunt</p>",
+            "disable": "<p>@Check[religion|dc:22] (trained) to ritually pray for the dead or @Check[occultism|dc:24] (trained) to exorcise the spirits' anger; two total successes are required to disable the haunt</p>",
             "isComplex": true,
             "level": {
                 "value": 5
@@ -65,7 +65,7 @@
                 "title": "Pathfinder Book of the Dead"
             },
             "reset": "<p>The haunt deactivates 1 minute after all living creatures leave the area. After 1 hour, the haunt reactivates.</p>",
-            "routine": "<p>(1 action) The grasping hands batter all creatures in the area, dealing @Damage[(2d6+7)[bludgeoning]] damage (@Check[type:reflex|dc:26|basic:true] save). On a critical failure, a creature is dragged partially into the earth, becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 26). If already immobilized, it's fully submerged and must hold its breath to avoid suffocation.</p>"
+            "routine": "<p>(1 action) The grasping hands batter all creatures in the area, dealing @Damage[(2d6+7)[bludgeoning]] damage (@Check[reflex|dc:26|basic] save). On a critical failure, a creature is dragged partially into the earth, becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] until it @UUID[Compendium.pf2e.actionspf2e.Item.Escape]{Escapes} (DC 26). If already immobilized, it's fully submerged and must hold its breath to avoid suffocation.</p>"
         },
         "saves": {
             "fortitude": {

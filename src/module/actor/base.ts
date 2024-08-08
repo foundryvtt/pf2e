@@ -967,7 +967,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         outcome = null,
         final = false,
     }: ApplyDamageParams): Promise<this> {
-        const hitPoints = this.hitPoints;
+        const { hitPoints, heldShield } = this;
         if (!hitPoints) return this;
 
         if (final) {
@@ -986,8 +986,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         // Extract Target-specific healing adjustments (unless final)
         // Currently only healing modifiers are implemented
         const domain = result.finalDamage < 0 ? "healing-received" : "damage-received";
+        const isDamage = domain === "damage-received";
+        const isHealing = !isDamage;
         const { modifiers, damageDice } = (() => {
-            if (final || domain !== "healing-received") {
+            if (final || isDamage) {
                 return { modifiers: [], damageDice: [] };
             }
 
@@ -1030,9 +1032,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Apply stacking rules just in case even though the context of previously applied modifiers has been lost
         const modifierAdjustment = applyStackingRules(modifiers ?? []);
-
+        // Damage should never go negative, nor healing positive
+        const clamp = isDamage ? Math.max : Math.min;
         // Compute result after adjustments (but before hardness) and add to breakdown
-        const finalDamage = result.finalDamage - (diceAdjustment + modifierAdjustment);
+        const finalDamage = clamp(0, result.finalDamage - (diceAdjustment + modifierAdjustment));
+
         breakdown.push(
             ...damageDice.map((dice) => `${dice.label} ${dice.diceNumber}${dice.dieSize}`),
             ...modifiers.filter((m) => m.enabled).map((m) => `${m.label} ${signedInteger(m.modifier)}`),
@@ -1051,7 +1055,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Calculate damage to hit points and shield
         const localize = localizer("PF2E.Actor.ApplyDamage");
-        const actorShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
+        const actorShield = isDamage && this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldBlock =
             actorShield && shieldBlockRequest
                 ? ((): boolean => {
@@ -1082,7 +1086,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
         const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
-        const { heldShield } = this;
         // The blocking shield may not be the held shield, such as in when the Shield spell is in play
         const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
         const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : actorShield?.hp.value ?? 0;
@@ -1179,7 +1182,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             if (
                 updated?.isDead &&
                 deadAtZero &&
-                ((damageResult.totalApplied >= 0 && !token.combatant?.isDefeated) ||
+                ((isDamage && !token.combatant?.isDefeated) ||
                     (damageResult.totalApplied < 0 && !!token.combatant?.isDefeated))
             ) {
                 await token.combatant?.toggleDefeated({ overlayIcon: !finePowder });
@@ -1189,23 +1192,23 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         // Send chat message
         const hpStatement = ((): string => {
+            if (isHealing) {
+                return hitPoints.value === hitPoints.max ? localize("AtFullHealth") : localize("HealedForN");
+            }
             // This would be a nested ternary, except prettier thoroughly mangles it
-            if (hitPoints.max === 0 || finalDamage - damageAbsorbedByActor === 0) {
+            if (isDamage && (hitPoints.max === 0 || finalDamage - damageAbsorbedByActor === 0)) {
                 return localize("TakesNoDamage");
             }
-            if (finalDamage > 0) {
-                return damageAbsorbedByShield > 0
-                    ? damageResult.totalApplied > 0
-                        ? localize("DamagedForNShield")
-                        : localize("ShieldAbsorbsAll")
-                    : localize("DamagedForN");
-            }
-            return damageResult.totalApplied < 0 ? localize("HealedForN") : localize("AtFullHealth");
+            return damageAbsorbedByShield > 0
+                ? damageResult.totalApplied > 0
+                    ? localize("DamagedForNShield")
+                    : localize("ShieldAbsorbsAll")
+                : localize("DamagedForN");
         })();
 
         const updatedShield = this.isOfType("character", "npc") ? this.attributes.shield : null;
         const shieldStatement =
-            updatedShield && shieldDamage > 0
+            isDamage && updatedShield && shieldDamage > 0
                 ? updatedShield.broken
                     ? localize("ShieldDamagedForNBroken")
                     : updatedShield.destroyed

@@ -1642,7 +1642,7 @@
                 "damage": {},
                 "defense": null,
                 "description": {
-                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret @Check[type:flat|dc:6|traits:secret]. On a failure, the result is always \"nothing.\" This makes it impossible to tell whether a \"nothing\" result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
+                    "value": "<p>You gain a vague glimpse of the future. During the casting of this spell, ask about the results of a particular course of action. The spell can predict results up to 30 minutes into the future and reveals the GM's best guess among the following outcomes:</p>\n<ul>\n<li><strong>Weal</strong> The results will be good.</li>\n<li><strong>Woe</strong> The results will be bad.</li>\n<li><strong>Weal</strong> and Woe The results will be a mix of good and bad.</li>\n<li><strong>Nothing</strong> There won't be particularly good or bad results.</li>\n</ul>\n<p>The GM rolls a secret @Check[flat|dc:6|traits:secret]. On a failure, the result is always \"nothing.\" This makes it impossible to tell whether a \"nothing\" result is accurate. If anyone asks about the same topic as the first casting of augury during an additional casting, the GM uses the secret roll result from the first casting. If circumstances change, though, it's possible to get a different result.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -3031,7 +3031,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>90 feet. @Check[type:will|dc:38]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>90 feet. @Check[will|dc:38]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3077,7 +3077,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[9d12[electricity],2d12[sonic]]{9d12 electricity damage and 2d12 sonic damage} in a @Template[type:burst|distance:30] within 60 feet (@Check[type:reflex|dc:40|basic:true] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>@Damage[9d12[spirit],2d12[sonic]]{9d12 spirit damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation|overrideTraits:true] save) against fiends.</p>\n<p>@Damage[9d12[vitality],2d12[sonic]]{9d12 vitality damage and 2d12 sonic damage} (@Check[type:reflex|dc:40|basic:true|traits:divine,vitality,evocation|overrideTraits:true] save) against undead.</p>"
+                    "value": "<p>The dragon shoots a ball of electricity that deals @Damage[9d12[electricity],2d12[sonic]]{9d12 electricity damage and 2d12 sonic damage} in a @Template[burst|distance:30] within 60 feet (@Check[reflex|dc:40|basic] save).</p>\n<p>They can't use Breath Weapon again for [[/br 1d4 #Recharge Breath Weapon]]{1d4 rounds}.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>@Damage[9d12[spirit],2d12[sonic]]{9d12 spirit damage and 2d12 sonic damage} (@Check[reflex|dc:40|basic|traits:divine,good,evocation|overrideTraits:true] save) against fiends.</p>\n<p>@Damage[9d12[vitality],2d12[sonic]]{9d12 vitality damage and 2d12 sonic damage} (@Check[reflex|dc:40|basic|traits:divine,vitality,evocation|overrideTraits:true] save) against undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3174,7 +3174,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(3d10+11)[bludgeoning]], @Check[type:fortitude|dc:40|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
+                    "value": "<p>@Damage[(3d10+11)[bludgeoning]], @Check[fortitude|dc:40|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.GreaterConstrict]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -3234,7 +3234,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals @Damage[5d12[electricity]] damage in a @Template[type:emanation|distance:60]. Each creature in the area must attempt a @Check[type:fortitude|dc:40|traits:damaging-effect] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Half damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> Full damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> Double damage, and the creature is stunned for 2 rounds and can't fly for 1 minute.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>@Damage[5d12[spirit]] damage (@Check[type:reflex|dc:40|basic:true|traits:divine,good,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against fiends.</p>\n<p>@Damage[5d12[vitality]] damage (@Check[type:reflex|dc:40|basic:true|traits:divine,vitality,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against undead.</p>"
+                    "value": "<p>The dragon rapidly coils, then unleashes crackling lightning that deals @Damage[5d12[electricity]] damage in a @Template[emanation|distance:60]. Each creature in the area must attempt a @Check[fortitude|dc:40|traits:damaging-effect] save; regardless of the outcome, the creature then becomes temporarily immune for 10 minutes.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> Half damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> Full damage, and the creature is @UUID[Compendium.pf2e.conditionitems.Item.Stunned] for 1 round and can't fly for 4 rounds.</p>\n<p><strong>Critical Failure</strong> Double damage, and the creature is stunned for 2 rounds and can't fly for 1 minute.</p>\n<hr />\n<p>See divine lightning.</p>\n<p>@Damage[5d12[spirit]] damage (@Check[reflex|dc:40|basic|traits:divine,good,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against fiends.</p>\n<p>@Damage[5d12[vitality]] damage (@Check[reflex|dc:40|basic|traits:divine,vitality,evocation,incapacitation,damaging-effect|overrideTraits:true] save) against undead.</p>"
                 },
                 "publication": {
                     "license": "OGL",

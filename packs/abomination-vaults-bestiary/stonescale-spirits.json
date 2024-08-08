@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters a square either fully or partially filled with rubble in the middle of the room</p>\n<hr />\n<p><strong>Effect</strong> Six ghostly kobolds surge out of the rubble with eerie yowls. Each creature in area <strong>A7</strong> must attempt a @Check[type:will|dc:18] save with the following results. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, is temporarily immune to Confusing Confrontation for 24 hours, and realizes that a display of intimidating dominance might quell the ghostly kobolds' assault.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 2 rounds and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters a square either fully or partially filled with rubble in the middle of the room</p>\n<hr />\n<p><strong>Effect</strong> Six ghostly kobolds surge out of the rubble with eerie yowls. Each creature in area <strong>A7</strong> must attempt a @Check[will|dc:18] save with the following results. The haunt then rolls initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected, is temporarily immune to Confusing Confrontation for 24 hours, and realizes that a display of intimidating dominance might quell the ghostly kobolds' assault.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 1 round and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Confused] for 2 rounds and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 3}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -61,7 +61,7 @@
         "creatureType": "",
         "details": {
             "description": "<p>A half-dozen ghostly kobolds rise from the rubble in a howling vortex.</p>",
-            "disable": "<p>@Check[type:intimidation|dc:18|name:Frighten the Spirits] (trained) to frighten the spirits with a threatening display, or @Check[type:religion|dc:21|name:Excorcise the Spirits] (trained) to exorcise the spirits</p>",
+            "disable": "<p>@Check[intimidation|dc:18|name:Frighten the Spirits] (trained) to frighten the spirits with a threatening display, or @Check[religion|dc:21|name:Excorcise the Spirits] (trained) to exorcise the spirits</p>",
             "isComplex": true,
             "level": {
                 "value": 2
@@ -72,7 +72,7 @@
                 "title": "Pathfinder #163: Ruins of Gauntlight"
             },
             "reset": "<p>The haunt deactivates if there are no frightened creatures in area <strong>A7</strong> at the start of its turn. The ghostly kobolds return to the rubble pile.</p>\n<p>The haunt can't activate again for 1 hour.</p>",
-            "routine": "<p>(1 action) The spirits swoop together toward one creature in area <strong>A7</strong> who's @UUID[Compendium.pf2e.conditionitems.Item.Frightened], instilling feelings of betrayal and confusion. The target takes @Damage[(1d10+4)[mental]] damage (@Check[type:will|dc:18|basic:true] save).</p>"
+            "routine": "<p>(1 action) The spirits swoop together toward one creature in area <strong>A7</strong> who's @UUID[Compendium.pf2e.conditionitems.Item.Frightened], instilling feelings of betrayal and confusion. The target takes @Damage[(1d10+4)[mental]] damage (@Check[will|dc:18|basic] save).</p>"
         },
         "saves": {
             "fortitude": {

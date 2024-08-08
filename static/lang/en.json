@@ -2589,15 +2589,15 @@
                 "CriticalSpecialization": {
                     "axe": "Choose one creature adjacent to the initial target and within reach. If its AC is lower than your attack roll result for the critical hit, you deal damage to that creature equal to the result of the weapon damage die you rolled (including extra dice for its <em>striking rune</em>, if any). This amount isn't doubled, and no bonuses or other additional dice apply to this damage.",
                     "bomb": "Increase the radius of the bomb's splash damage (if any) to 10 feet.",
-                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[type:athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort (such as by being large enough that the missile would not be an impediment.)",
-                    "brawling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
+                    "bow": "If the target of the critical hit is adjacent to a surface, it gets stuck to that surface by the missile. The target is @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} and must spend an Interact action to attempt a @Check[athletics|dc:10|name:Pull the Missile Free|showDC:all] check to pull the missile free; it can't move from its space until it succeeds. The creature doesn't become stuck if it is incorporeal, is liquid, or could otherwise escape without effort (such as by being large enough that the missile would not be an impediment.)",
+                    "brawling": "The target must succeed at a @Check[fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Brawling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn.",
                     "club": "You knock the target up to 10 feet in a straight line away from you, in a direction of your choice. This is forced movement.",
-                    "firearm": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
-                    "flail": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[type:reflex|dc:resolve(@actor.attributes.classDC.value)|name:Flail Critical Specialization] save against your class DC.",
-                    "hammer": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Hammer Critical Specialization] save against your class DC.",
+                    "firearm": "The target must succeed at a @Check[fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Firearm Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "flail": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[reflex|dc:resolve(@actor.attributes.classDC.value)|name:Flail Critical Specialization] save against your class DC.",
+                    "hammer": "The target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} unless they succeed at a @Check[fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Hammer Critical Specialization] save against your class DC.",
                     "polearm": "The target is moved 5 feet in a direction of your choice. This is forced movement.",
                     "shield": "You knock the target back from you 5 feet. This is forced movement.",
-                    "sling": "The target must succeed at a @Check[type:fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
+                    "sling": "The target must succeed at a @Check[fortitude|dc:resolve(@actor.attributes.classDC.value)|name:Sling Critical Specialization] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 1}.",
                     "spear": "Weapons of this type pierce the target, weakening its attacks. The target is @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} until the start of your next turn.",
                     "sword": "The target is made off-balance by your attack, becoming @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until the start of your next turn."
                 },
@@ -2846,7 +2846,7 @@
                     "ShieldBlock": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<hr />\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>",
                     "SneakAttack": "<p>When the monster Strikes a creature that has the @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>",
                     "Stench": "<p>A creature entering the aura or starting its turn in the area must succeed at a Fortitude save or become @UUID[Compendium.pf2e.conditionitems.Item.fesd1n5eVhpCSS18]{Sickened 1} (plus @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} as long as it's sickened on a critical failure). A creature that succeeds at its save or recovers from being sickened is temporarily immune to all stench auras for 1 minute.</p>",
-                    "SwallowWhole": "<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed or restrained in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an @Check[type:athletics|defense:reflex] check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>",
+                    "SwallowWhole": "<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed or restrained in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an @Check[athletics|defense:reflex] check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>",
                     "SwarmMind": "<p>This monster doesn't have a single mind (typically because it's a swarm of smaller creatures), and is immune to mental effects that target only a specific number of creatures. It is still subject to mental effects that affect all creatures in an area.</p>",
                     "Telepathy": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>",
                     "Thoughtsense": "<p>Thoughtsense allows a monster to sense all non-mindless creatures at the listed range.</p>",
@@ -4025,7 +4025,7 @@
         "TraitDescriptionArtifact": "Items with this trait are artifacts. These magic items can't be crafted by normal means, and they can't be damaged by normal means. Artifacts are always rare or unique.",
         "TraitDescriptionAstral": "Astral creatures are native to the Astral Plane. They can survive the basic environmental effects of the Astral Plane.",
         "TraitDescriptionAthamaru": "Athamarus are fishlike aquatic humanoids.",
-        "TraitDescriptionAttached": "An attached weapon must be combined with another piece of gear to be used. The trait lists what type of item the weapon must be attached to. You must be wielding or wearing the item the weapon is attached to in order to attack with it. For example, shield spikes are attached to a shield, allowing you to attack with the spikes instead of a shield bash, but only if you're wielding the shield. An attached weapon is usually bolted onto or built into the item it's attached to, and typically an item can have only one weapon attached to it. An attached weapon can be affixed to an item with 10 minutes of work and a successful @Check[type:crafting|dc:10] check; this includes the time needed to remove the weapon from a previous item, if necessary. If an item is destroyed, its attached weapon can usually be salvaged.",
+        "TraitDescriptionAttached": "An attached weapon must be combined with another piece of gear to be used. The trait lists what type of item the weapon must be attached to. You must be wielding or wearing the item the weapon is attached to in order to attack with it. For example, shield spikes are attached to a shield, allowing you to attack with the spikes instead of a shield bash, but only if you're wielding the shield. An attached weapon is usually bolted onto or built into the item it's attached to, and typically an item can have only one weapon attached to it. An attached weapon can be affixed to an item with 10 minutes of work and a successful @Check[crafting|dc:10] check; this includes the time needed to remove the weapon from a previous item, if necessary. If an item is destroyed, its attached weapon can usually be salvaged.",
         "TraitDescriptionAttack": "An ability with this trait involves an attack. For each attack you make beyond the first on your turn, you take a multiple attack penalty.",
         "TraitDescriptionAuditory": "Auditory actions and effects rely on sound. An action with the auditory trait can be successfully performed only if the creature using the action can speak or otherwise produce the required sounds. A spell or effect with the auditory trait has its effect only if the target can hear it. This applies only to sound-based parts of the effect, as determined by the GM. This is different from a sonic effect, which still affects targets who can't hear it (such as deaf targets) as long as the effect itself makes sound.",
         "TraitDescriptionAura": "An aura is an emanation that continually ebbs out from you, affecting creatures within a certain radius. Aura can also refer to the magical signature of an item or a creature with a strong alignment.",
@@ -4063,7 +4063,7 @@
         "TraitDescriptionClimbing": "The hand wielding the weapon is available to Climb.",
         "TraitDescriptionClockwork": "Clockworks are intricate, complex constructs that can be programmed to perform specific functions.",
         "TraitDescriptionCoatl": "A family of supernatural feathered serpents who serve as guardians and messengers in the Universe for various holy divinities.",
-        "TraitDescriptionCobbled": "This firearm is cobbled together and likely to misfire. No matter how well you upkeep it, on a failed attack roll, the attack misses and you must roll a @Check[type:flat|dc:5]. If you fail this check, the weapon misfires.",
+        "TraitDescriptionCobbled": "This firearm is cobbled together and likely to misfire. No matter how well you upkeep it, on a failed attack roll, the attack misses and you must roll a @Check[flat|dc:5]. If you fail this check, the weapon misfires.",
         "TraitDescriptionCoda": "<p>Instruments with the coda trait work mostly like staves and have the staff trait. There are two differences: Coda instruments are in the form of musical instruments, and they can be prepared only by bards. Because they're not physically staves, you can't attack with a coda instrument, nor can you etch it with weapon runes.</p><p>The process of preparing a coda instrument involves playing significant portions of songs related to the spells within the instrument—either old standards or ones of your own creation. This leaves magical reverberations within the instrument that allow you to complete the songs by playing their coda later in the day.</p>",
         "TraitDescriptionCold": "Effects with this trait deal cold damage. Creatures with this trait have a connection to magical cold.",
         "TraitDescriptionCombination": "This is a trait for weapons that combine the functionality of melee weapons and firearms in unique or unusual ways. A combination weapon has both a firearm form or usage and a melee weapon form or usage.",
@@ -4344,7 +4344,7 @@
         "TraitDescriptionStance": "A stance is a general combat strategy that you enter by using an action with the stance trait, and that you remain in for some time. A stance lasts until you get knocked out, until its requirements (if any) are violated, until the encounter ends, or until you enter a new stance, whichever comes first. After you use an action with the stance trait, you can't use another one for 1 round. You can enter or be in a stance only in encounter mode.",
         "TraitDescriptionSteam": "Items with this trait are powered by engines that boil water to produce steam and move their components.",
         "TraitDescriptionStrix": "Winged humanoids, most of whom live in and around Cheliax.",
-        "TraitDescriptionStructure": "An item with the structure trait creates a magical building or other structure when activated. The item must be activated on a plot of land free of other structures. The structure adapts to the natural terrain, adopting the structural requirements for being built there. The structure adjusts around small features such as ponds or spires of rock, but it can't be created on water or other nonsolid surfaces. If activated on snow, sand dunes, or other soft surfaces with a solid surface underneath, the structure's foundation (if any) reaches the solid ground. If an item with this trait is activated on a solid but unstable surface, such as a swamp or an area plagued by tremors, roll a @Check[type:flat|dc:3] each day; on a failure, the structure begins to sink or collapse. The structure doesn't harm creatures within the area when it appears, and it can't be created within a crowd or in a densely populated area. Any creature inadvertently caught inside the structure when the item is activated ends up unharmed inside the complete structure and always has a clear path of escape. A creature inside the structure when the activation ends isn't harmed, and it lands harmlessly on the ground if it was on an upper level of the structure.",
+        "TraitDescriptionStructure": "An item with the structure trait creates a magical building or other structure when activated. The item must be activated on a plot of land free of other structures. The structure adapts to the natural terrain, adopting the structural requirements for being built there. The structure adjusts around small features such as ponds or spires of rock, but it can't be created on water or other nonsolid surfaces. If activated on snow, sand dunes, or other soft surfaces with a solid surface underneath, the structure's foundation (if any) reaches the solid ground. If an item with this trait is activated on a solid but unstable surface, such as a swamp or an area plagued by tremors, roll a @Check[flat|dc:3] each day; on a failure, the structure begins to sink or collapse. The structure doesn't harm creatures within the area when it appears, and it can't be created within a crowd or in a densely populated area. Any creature inadvertently caught inside the structure when the item is activated ends up unharmed inside the complete structure and always has a clear path of escape. A creature inside the structure when the activation ends isn't harmed, and it lands harmlessly on the ground if it was on an upper level of the structure.",
         "TraitDescriptionSubjectiveGravity": "On planes with this trait, all bodies of mass can be centers of gravity with the same amount of force, but only if a non-mindless creature wills it.",
         "TraitDescriptionSubtle": "A spell with the subtle trait can be cast without incantations and doesn't have obvious manifestations.",
         "TraitDescriptionSuli": "Sulis are planar scions descended from jann.",
@@ -5385,19 +5385,19 @@
             "anchoring": {
                 "Name": "Anchoring",
                 "Note": {
-                    "criticalSuccess": "If you critically hit a target with an anchoring weapon, the weapon casts <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> on the target (@Check[type:will|dc:27|name:Anchoring Rune], counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
+                    "criticalSuccess": "If you critically hit a target with an anchoring weapon, the weapon casts <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> on the target (@Check[will|dc:27|name:Anchoring Rune], counteract modifier [[/r 1d20+17 # Anchoring Rune Counteract Check]]{+17})."
                 }
             },
             "ashen": {
                 "Name": "Ashen",
                 "Note": {
-                    "success": "This ash clouds the senses, causing the creature to become confused for 1 round unless it succeeds at a @Check[type:will|dc:25] save."
+                    "success": "This ash clouds the senses, causing the creature to become confused for 1 round unless it succeeds at a @Check[will|dc:25] save."
                 }
             },
             "astral": {
                 "Name": "Astral",
                 "Note": {
-                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
+                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:26] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
                     "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
@@ -5419,7 +5419,7 @@
             "brilliant": {
                 "Name": "Brilliant",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target must succeed at a @Check[type:fortitude|dc:29|name:Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round."
+                    "criticalSuccess": "On a critical hit, the target must succeed at a @Check[fortitude|dc:29|name:Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round."
                 }
             },
             "called": {
@@ -5494,7 +5494,7 @@
             "frost": {
                 "Name": "Frost",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:24|name:Frost Rune] save."
+                    "criticalSuccess": "On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[fortitude|dc:24|name:Frost Rune] save."
                 }
             },
             "ghostTouch": {
@@ -5510,20 +5510,20 @@
             "greaterAnchoring": {
                 "Name": "Greater Anchoring",
                 "Note": {
-                    "criticalSuccess": "When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> on the target (@Check[type:will|dc:38|name:Greater Anchoring Rune], counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
+                    "criticalSuccess": "When you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> on the target (@Check[will|dc:38|name:Greater Anchoring Rune], counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28}), except that if the target critically succeeds at its Will save, instead of having no effect, the <em>dimensional anchor</em> lasts for 1 round.",
                     "success": "When you hit a target with the weapon but don't critically hit, the target is affected by 4th-rank <em>@UUID[Compendium.pf2e.spells-srd.Item.ksLCg62cLOojw3gN]{Dimensional Anchor}</em> for 1 round without a save (counteract modifier [[/r 1d20+28 #Greater Anchoring Rune Counteract Check]]{+28})."
                 }
             },
             "greaterAshen": {
                 "Name": "Greater Ashen",
                 "Note": {
-                    "success": "This ash clouds the senses, causing the creature to become confused for 1 round unless it succeeds at a @Check[type:will|dc:35] save. On a critical failure, the effect lasts for 1 minute."
+                    "success": "This ash clouds the senses, causing the creature to become confused for 1 round unless it succeeds at a @Check[will|dc:35] save. On a critical failure, the effect lasts for 1 minute."
                 }
             },
             "greaterAstral": {
                 "Name": "Greater Astral",
                 "Note": {
-                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[type:will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
+                    "criticalSuccess": "On a critical hit against a creature possessing another creature, the possessing creature must succeed at a @Check[will|dc:36] save or be expelled and unable to possess a creature for [[/br 1d4 #rounds]]{1d4 rounds}.",
                     "Note": "This rune has the same effects as a @UUID[Compendium.pf2e.equipment-srd.Item.JQdwHECogcTzdd8R]{Ghost Touch} rune, plus Strikes with it deal an extra @Damage[1d6[spirit]] damage. If used to attack a creature that's possessing another creature, this weapon deals no damage to the possessed creature."
                 }
             },
@@ -5533,7 +5533,7 @@
             "greaterBrilliant": {
                 "Name": "Greater Brilliant",
                 "Note": {
-                    "criticalSuccess": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality. On a critical hit, the target must succeed at a @Check[type:fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
+                    "criticalSuccess": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality. On a critical hit, the target must succeed at a @Check[fortitude|dc:41|name:Greater Brilliant Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
                     "success": "Damage dealt by this weapon ignores the target's resistances to fire, spirit, and vitality."
                 }
             },
@@ -5581,7 +5581,7 @@
             "greaterFrost": {
                 "Name": "Greater Frost",
                 "Note": {
-                    "criticalSuccess": "Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[type:fortitude|dc:34|name:Greater Frost Rune] save.",
+                    "criticalSuccess": "Cold damage dealt by this weapon ignores the target's cold resistance. On a critical hit, the target is also @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} until the end of your next turn unless it succeeds at a @Check[fortitude|dc:34|name:Greater Frost Rune] save.",
                     "success": "Cold damage dealt by this weapon ignores the target's cold resistance."
                 }
             },
@@ -5589,7 +5589,7 @@
                 "Name": "Greater Giant-Killing",
                 "Note": {
                     "success": "Mental damage dealt by this weapon ignores the target's mental resistance.",
-                    "criticalSuccess": "On a critical hit with this weapon, the giant must attempt a @Check[type:fortitude|dc:34] with the following effects.<br /><strong>Critical Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn and takes @Damage[1d10[mental]].<br /><strong>Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} for the next minute and takes @Damage[2d10[mental]].<br/><strong>Critical Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 4} for the next minute and takes @Damage[4d10[mental]]."
+                    "criticalSuccess": "On a critical hit with this weapon, the giant must attempt a @Check[fortitude|dc:34] with the following effects.<br /><strong>Critical Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 1} until the end of your next turn.<br /><strong>Success</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn and takes @Damage[1d10[mental]].<br /><strong>Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} for the next minute and takes @Damage[2d10[mental]].<br/><strong>Critical Failure</strong> The giant is @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 4} for the next minute and takes @Damage[4d10[mental]]."
                 }
             },
             "greaterHauling": {
@@ -5598,7 +5598,7 @@
             "greaterImpactful": {
                 "Name": "Greater Impactful",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you can choose to force the target to succeed at a @Check[type:fortitude|dc:37|name:Greater Impactful Rune] save or be pushed 10 feet away from you."
+                    "criticalSuccess": "On a critical hit, you can choose to force the target to succeed at a @Check[fortitude|dc:37|name:Greater Impactful Rune] save or be pushed 10 feet away from you."
                 }
             },
             "greaterRooting": {
@@ -5617,7 +5617,7 @@
             "greaterThundering": {
                 "Name": "Greater Thundering",
                 "Note": {
-                    "criticalSuccess": "Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a @Check[type:fortitude|dc:34|name:Greater Thundering Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} permanently.",
+                    "criticalSuccess": "Sonic damage dealt by this weapon ignores the target's sonic resistance. On a critical hit, the target has to succeed at a @Check[fortitude|dc:34|name:Greater Thundering Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} permanently.",
                     "success": "Sonic damage dealt by this weapon ignores the target's sonic resistance."
                 }
             },
@@ -5666,7 +5666,7 @@
             "impactful": {
                 "Name": "Impactful",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, you can choose to force the target to succeed at a @Check[type:fortitude|dc:27|name:Impactful Rune] save or be pushed 5 feet away from you."
+                    "criticalSuccess": "On a critical hit, you can choose to force the target to succeed at a @Check[fortitude|dc:27|name:Impactful Rune] save or be pushed 5 feet away from you."
                 }
             },
             "impossible": {
@@ -5738,7 +5738,7 @@
             "thundering": {
                 "Name": "Thundering",
                 "Note": {
-                    "criticalSuccess": "On a critical hit, the target has to succeed at a @Check[type:fortitude|dc:24|name:Thundering Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure)."
+                    "criticalSuccess": "On a critical hit, the target has to succeed at a @Check[fortitude|dc:24|name:Thundering Rune] save or be @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 minute (or 1 hour on a critical failure)."
                 }
             },
             "trueRooting": {
@@ -5765,7 +5765,7 @@
             "vorpal": {
                 "Name": "Vorpal",
                 "Note": {
-                    "criticalSuccess": "Snicker-Snack <span class=\"action-glyph\">R</span> (concentrate, death, incapacitation)</p><p><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage</p><hr /><p><strong>Effect</strong> The target must succeed at a @Check[type:fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
+                    "criticalSuccess": "Snicker-Snack <span class=\"action-glyph\">R</span> (concentrate, death, incapacitation)</p><p><strong>Trigger</strong> You roll a natural 20 on a Strike with the weapon against a creature that has a head, critically succeed, and deal slashing damage</p><hr /><p><strong>Effect</strong> The target must succeed at a @Check[fortitude|dc:37|traits:death,incapacitation|name:Vorpal Rune] save or be decapitated. This kills any creature except ones that don't require a head to live. For creatures with multiple heads, this usually kills the creature only if you sever its last head."
                 }
             },
             "wounding": {
@@ -5885,12 +5885,12 @@
             },
             "concealed": {
                 "name": "Concealed",
-                "rules": "<p>While you are concealed from a creature, such as in a thick fog, you are difficult for that creature to see. You can still be observed, but you're tougher to target. A creature that you're concealed from must succeed at a @Check[type:flat|dc:5] when targeting you with an attack, spell, or other effect.</p>\n<p>Area effects aren't subject to this flat check. If the check fails, the attack, spell, or effect doesn't affect you.</p>",
+                "rules": "<p>While you are concealed from a creature, such as in a thick fog, you are difficult for that creature to see. You can still be observed, but you're tougher to target. A creature that you're concealed from must succeed at a @Check[flat|dc:5] when targeting you with an attack, spell, or other effect.</p>\n<p>Area effects aren't subject to this flat check. If the check fails, the attack, spell, or effect doesn't affect you.</p>",
                 "summary": "Fog or similar obscuration makes you difficult to see and target."
             },
             "confused": {
                 "name": "Confused",
-                "rules": "<p>You don't have your wits about you, and you attack wildly. You are off-guard, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[type:flat|dc:11] to recover from your confusion and end the condition.</p>",
+                "rules": "<p>You don't have your wits about you, and you attack wildly. You are off-guard, you don't treat anyone as your ally (though they might still treat you as theirs), and you can't Delay, Ready, or use reactions.<p></p>You use all your actions to Strike or cast offensive cantrips, though the GM can have you use other actions to facilitate attack, such as draw a weapon, move so that a target is in reach, and so forth. Your targets are determined randomly by the GM. If you have no other viable targets, you target yourself, automatically hitting but not scoring a critical hit. If it's impossible for you to attack or cast spells, you babble incoherently, wasting your actions.</p>\n<p>Each time you take damage from an attack or spell, you can attempt a @Check[flat|dc:11] to recover from your confusion and end the condition.</p>",
                 "summary": "You attack indiscriminately."
             },
             "controlled": {
@@ -5905,7 +5905,7 @@
             },
             "deafened": {
                 "name": "Deafened",
-                "rules": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a @Check[type:flat|dc:5] or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>",
+                "rules": "<p>You can't hear. You automatically critically fail Perception checks that require you to be able to hear. You take a -2 status penalty to Perception checks for initiative and checks that involve sound but also rely on other senses. If you perform an action with the auditory trait, you must succeed at a @Check[flat|dc:5] or the action is lost; attempt the check after spending the action but before any effects are applied. You are immune to auditory effects.</p>",
                 "summary": "You're unable to hear."
             },
             "doomed": {
@@ -5965,7 +5965,7 @@
             },
             "grabbed": {
                 "name": "Grabbed",
-                "rules": "<p>You're held in place by another creature, giving you the off-guard and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[type:flat|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
+                "rules": "<p>You're held in place by another creature, giving you the off-guard and immobilized conditions. If you attempt a manipulate action while grabbed, you must succeed at a @Check[flat|dc:5] or it is lost; roll the check after spending the action, but before any effects are applied.</p>",
                 "summary": "A creature, object, or magic holds you in place."
             },
             "group": {
@@ -5981,7 +5981,7 @@
             },
             "hidden": {
                 "name": "Hidden",
-                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is off-guard to you, and it must succeed at a @Check[type:flat|dc:11] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
+                "rules": "<p>While you're hidden from a creature, that creature knows the space you're in but can't tell precisely where you are. You typically become hidden by using Stealth to Hide. When Seeking a creature using only imprecise senses, it remains hidden, rather than observed. A creature you're hidden from is off-guard to you, and it must succeed at a @Check[flat|dc:11] when targeting you with an attack, spell, or other effect or it fails affect you. Area effects aren't subject to this flat check.</p>\n<p>A creature might be able to use the Seek action to try to observe you.</p>",
                 "summary": "A creature you're hidden from knows your location but can't see you."
             },
             "hostile": {
@@ -6016,7 +6016,7 @@
             },
             "persistent-damage": {
                 "name": "Persistent Damage",
-                "rules": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as \"X persistent [type] damage,\" where \"X\" is the amount of damage dealt and \"[type]\" is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a @Check[type:flat|dc:15] to see if you recover from the persistent damage. If you succeed, the condition ends.</p>",
+                "rules": "<p>Persistent damage comes from effects like acid, being on fire, or many other situations. It appears as \"X persistent [type] damage,\" where \"X\" is the amount of damage dealt and \"[type]\" is the damage type. Instead of taking persistent damage immediately, you take it at the end of each of your turns as long as you have the condition, rolling any damage dice anew each time. After you take persistent damage, roll a @Check[flat|dc:15] to see if you recover from the persistent damage. If you succeed, the condition ends.</p>",
                 "summary": "You keep taking damage every round."
             },
             "petrified": {
@@ -6066,7 +6066,7 @@
             },
             "undetected": {
                 "name": "Undetected",
-                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is off-guard to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[type:flat|dc:11]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
+                "rules": "<p>When you are undetected by a creature, that creature cannot see you at all, has no idea what space you occupy, and can't target you, though you still can be affected by abilities that target an area. When you're undetected by a creature, that creature is off-guard to you.</p>\n<p>A creature you're undetected by can guess which square you're in to try targeting you. It must pick a square and attempt an attack. This works like targeting a hidden creature (requiring a @Check[flat|dc:11]), but the flat check and attack roll are rolled in secret by the GM, who doesn't reveal whether the attack missed due to failing the flat check, failing the attack roll, or choosing the wrong square.</p>\n<p>A creature can use the Seek action to try to find you.</p>",
                 "summary": "A creature you're undetected by doesn't know where you are."
             },
             "unfriendly": {

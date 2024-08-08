@@ -154,7 +154,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p><strong>Area</strong> 4 40-foot bursts</p>\n<hr />\n<p>You reach into the skies and call down an array of falling stars that explode upon colliding with the ground. Choose for the falling stars to be airbursts (sonic), asteroids (fire), comets (cold), or plasma (electricity). The spell gains the trait of the falling star type you chose. The four stars' central 10-foot bursts can't overlap. Each falling star deals 6d10 bludgeoning damage to each creature in the @Template[type:burst|distance:10] at the center of its area of effect before exploding, dealing 14d6 energy damage of the type you chose to each creature in its @Template[type:burst|distance:40]. A creature in any of the areas attempts one basic Reflex save against the spell no matter how many overlapping explosions it's caught in and can take each type of damage only once.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d10, and the energy damage increases by 2d6.</p>"
+                    "value": "<p><strong>Area</strong> 4 40-foot bursts</p>\n<hr />\n<p>You reach into the skies and call down an array of falling stars that explode upon colliding with the ground. Choose for the falling stars to be airbursts (sonic), asteroids (fire), comets (cold), or plasma (electricity). The spell gains the trait of the falling star type you chose. The four stars' central 10-foot bursts can't overlap. Each falling star deals 6d10 bludgeoning damage to each creature in the @Template[burst|distance:10] at the center of its area of effect before exploding, dealing 14d6 energy damage of the type you chose to each creature in its @Template[burst|distance:40]. A creature in any of the areas attempts one basic Reflex save against the spell no matter how many overlapping explosions it's caught in and can take each type of damage only once.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The bludgeoning damage increases by 1d10, and the energy damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1500,7 +1500,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>20 feet @Check[type:will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
+                    "value": "<p>20 feet @Check[will|dc:42]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.FrightfulPresence]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1587,7 +1587,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>@Damage[(2d10+17)[bludgeoning]], @Check[type:fortitude|dc:43|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                    "value": "<p>@Damage[(2d10+17)[bludgeoning]], @Check[fortitude|dc:43|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1686,7 +1686,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Saving Throw</strong> @Check[type:fortitude|dc:43]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> @Check[fortitude|dc:43]</p>\n<p><strong>Maximum Duration</strong> 10 rounds</p>\n<p><strong>Stage 1</strong> @Damage[6d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1} (1 round)</p>\n<p><strong>Stage 2</strong> @Damage[7d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 2} (1 round)</p>\n<p><strong>Stage 3</strong> @Damage[8d6[poison]] damage and @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 3} (1 round)</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -1718,7 +1718,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The nessari reshapes a large number of orts within a 600-foot emanation into more powerful devils to swell Hell's legions. The nessari must have available the number of orts listed on the table below.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Devil Level</th>\n<th>Number of Orts</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>4 or below</td>\n<td>4</td>\n</tr>\n<tr>\n<td>5-6</td>\n<td>8</td>\n</tr>\n<tr>\n<td>7-8</td>\n<td>16</td>\n</tr>\n<tr>\n<td>9-10</td>\n<td>32</td>\n</tr>\n<tr>\n<td>11-12</td>\n<td>64</td>\n</tr>\n<tr>\n<td>13-14</td>\n<td>128</td>\n</tr>\n<tr>\n<td>15-16</td>\n<td>256</td>\n</tr>\n<tr>\n<td>17-18</td>\n<td>512</td>\n</tr>\n<tr>\n<td>19-20</td>\n<td>1.024</td>\n</tr>\n</tbody>\n</table>\n<p>The nessari can shape 100 orts per day, to a maximum of 1,100 orts in 11 days. Devils created in this way are in thrall to the nessari and follow its orders, with the exception of created nessaris or other devils of similar power, which are always independent. As a result, few nessaris choose to create peers. At the end of the Shape Devils activity, the nessari attempts an incredibly hard @Check[type:religion] check of the desired devil's level, with results as follows.</p>\n<hr />\n<p><strong>Critical Success</strong> The nessari shapes two devils from the massed orts instead of one.</p>\n<p><strong>Success</strong> The nessari shapes a devil of the desired type and level.</p>\n<p><strong>Failure</strong> The devil shaped from the orts is 2 levels lower than the intended devil.</p>\n<p><strong>Critical Failure</strong> The nessari fails to shape any devils and draws the ire of an archdevil for its waste of resources.</p>"
+                    "value": "<p>The nessari reshapes a large number of orts within a 600-foot emanation into more powerful devils to swell Hell's legions. The nessari must have available the number of orts listed on the table below.</p>\n<table class=\"pf2e\">\n<thead>\n<tr>\n<th>Devil Level</th>\n<th>Number of Orts</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>4 or below</td>\n<td>4</td>\n</tr>\n<tr>\n<td>5-6</td>\n<td>8</td>\n</tr>\n<tr>\n<td>7-8</td>\n<td>16</td>\n</tr>\n<tr>\n<td>9-10</td>\n<td>32</td>\n</tr>\n<tr>\n<td>11-12</td>\n<td>64</td>\n</tr>\n<tr>\n<td>13-14</td>\n<td>128</td>\n</tr>\n<tr>\n<td>15-16</td>\n<td>256</td>\n</tr>\n<tr>\n<td>17-18</td>\n<td>512</td>\n</tr>\n<tr>\n<td>19-20</td>\n<td>1.024</td>\n</tr>\n</tbody>\n</table>\n<p>The nessari can shape 100 orts per day, to a maximum of 1,100 orts in 11 days. Devils created in this way are in thrall to the nessari and follow its orders, with the exception of created nessaris or other devils of similar power, which are always independent. As a result, few nessaris choose to create peers. At the end of the Shape Devils activity, the nessari attempts an incredibly hard @Check[religion] check of the desired devil's level, with results as follows.</p>\n<hr />\n<p><strong>Critical Success</strong> The nessari shapes two devils from the massed orts instead of one.</p>\n<p><strong>Success</strong> The nessari shapes a devil of the desired type and level.</p>\n<p><strong>Failure</strong> The devil shaped from the orts is 2 levels lower than the intended devil.</p>\n<p><strong>Critical Failure</strong> The nessari fails to shape any devils and draws the ire of an archdevil for its waste of resources.</p>"
                 },
                 "publication": {
                     "license": "ORC",
