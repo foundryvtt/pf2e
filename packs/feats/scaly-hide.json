@@ -24,7 +24,74 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DexterityModifierCap",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "value": 3
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "flags.pf2e.scalyHideBonus",
+                "priority": 19,
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "selector": "ac",
+                "type": "item",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.BracersOfArmor",
+                "selector": "ac",
+                "slug": "bands-of-force",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.ExplorersClothing",
+                "selector": "ac",
+                "slug": "explorers-clothing",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "self:armored"
+                    }
+                ],
+                "relabel": "PF2E.SpecificRule.ScalyHide.MageArmor",
+                "selector": "ac",
+                "slug": "mystic-armor",
+                "value": "@actor.flags.pf2e.scalyHideBonus"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
