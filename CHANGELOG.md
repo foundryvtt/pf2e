@@ -1,3 +1,112 @@
+## 6.2.1
+
+### System Improvements
+
+-   (nikolaj-a) Support suppressing action chat message creation
+-   (stwlam) Add support for homebrew armor groups and base types
+-   (stwlam) Add support for spell area size alterations
+-   (Supe) Add support for homebrew shield traits
+-   (Supe) Replace inline roll "defense" param with "against", allow to be used with saving throws
+
+### Bugfixes
+
+-   (7H3LaughingMan) Fix ruler snapping on hexagonal columns (odd) grids
+-   (stwlam) Fix negative base modifiers getting dropped from NPC attacks
+-   (stwlam) Fix hiding of damage-button cues when roll results are hidden
+-   (stwlam) Limit applicability some material equivalences (dawnsilver, sovereign steel, etc.) for IWR
+-   (stwlam) Prevent healing from becoming damage (and vice versa) via large damage- or healing-received bonuses/penalties
+-   (stwlam) Fix issue prevent Weight of Experience from automatically selecting skill for Assurance bonus feat
+-   (Supe) Fix damage dialog toggles sometimes not reflecting correct state
+
+### Data Updates
+
+-   (Abaddon) Add shepherd of decay as source for some items
+-   (Abaddon) Add Spawn of Dahak variant
+-   (Ambrose) Add description alterations for Overwhelming Breath
+-   (Ambrose) Add Dragonblood trait to Dragon's Flight feat.
+-   (Ambrose) Add effect for Unstable check failure
+-   (Ambrose) Add Effect to Albatross Curse spell
+-   (Ambrose) Add Howl of the Wild options to the Untamed Form feat.
+-   (Ambrose) Add inline healing roll to Rejuvenating Flames spell
+-   (Ambrose) Add missing text and proficiency scaling for Herbalist dedication
+-   (Ambrose) Automate Dark Archive, Oracle, Scaly Hide, and Sorcerer spellshape feats
+-   (Ambrose) Brush up text on Haphazard Repair and Searing restoration
+-   (Ambrose) Change specific barding items to armor
+-   (Ambrose) Correct Advanced Herbalism from Class Feature to Class Feat
+-   (Ambrose) Correct typo on Kingmaker actor (Lickweed)
+-   (Ambrose) Fix description of Elbow Breaker
+-   (Ambrose) Hide Discordant Voice damage dice if disabled
+-   (Ambrose) Refresh spells on several actors
+-   (Ambrose) Remove Sustained status for Angelic Halo effect and aura
+-   (Ambrose) Update Barding Saddle to armor
+-   (Ambrose) Update Fling Magic to use damage syntax for rolls
+-   (AngelofWoe) Update Kobold Ancestry for PC2
+-   (Cerapter) Change Strategic Strike's `DamageDice` RE to use `diceNumber` instead of `value`
+-   (Chas) Fix bonus type of Robust Health
+-   (Chris Barrett) Fix Force Open table footnote
+-   (Dire Weasel) Add automation for Troop Spellcasting
+-   (Dire Weasel) Add EphemeralEffect to Grandmother Spider - Major Curse
+-   (Dire Weasel) Brush up divine intercessions
+-   (Dire Weasel) Fix Ghoul Stalker's token name
+-   (Dire Weasel) Fix link to Soothe in Life Oracle class feature description
+-   (Dire Weasel) Fix selector for Hone Claws effect
+-   (Dire Weasel) Update Weapon Storm's description to include area
+-   (DocSchlock) Correct text on Stylish Tricks
+-   (DocSchlock) Fix Max Take count to 3 for Voluminous Vials Feat
+-   (Drental) Add emanation templates to society actors
+-   (intrand) Fix action cost of Tap Into Blood
+-   (kromko) Add missing Spirit Sense spell effect link
+-   (kromko) Fix Astral Projection, Clone and Ward Domain degree of success formatting
+-   (kromko) Restore missing Seal Fate spell effect link
+-   (Michaël) Add automation to Duo's Aim
+-   (Michaël) Add toggle to Mighty Rage class feature
+-   (Michaël) Choker-Arm Mutagen fix to account for size changes
+-   (Phoenix) Update Herbalist Dedication batch size to match PC2
+-   (rectulo) Add Witch trait to Whisper of Wings
+-   (Rigo) Add action cost to Breath of the Dragon dragonblood feat
+-   (Rigo) Add Barbarian Ligneous Instinct's speed decrease
+-   (Rigo) Add DC to Oracle feats according to PFS clarification
+-   (Rigo) Add description alterations for Tap Into Blood
+-   (Rigo) Add description override to You're Next depending on the class
+-   (Rigo) Add effects for Leaden Steps, Revel in Retribution, Shields of the Spirit, Security (feat)
+-   (Rigo) Add Oracular curses as class features, automate effectsof Cursebound condition
+-   (Rigo) Add Structure trait to Resplendent Mansion
+-   (Rigo) Allow Champion's Aura to be granted to archetype champions
+-   (Rigo) Allow Dirty Trick to be taken beyond level 1
+-   (Rigo) Automate dragonblood's Draconic Exemplar feats, Persistent Boost
+-   (Rigo) Automate Player Core 2 Sorcerer Blood Magic Feats
+-   (Rigo) Automate Widen Spell
+-   (Rigo) Correct Harpy Hungry Winds action cost
+-   (Rigo) Correct Long Hammer's rarity to common
+-   (Rigo) Fix Bestial Mutagen description and Oracle spellcasting table
+-   (Rigo) Fix Certain Stratagem damage roll
+-   (Rigo) Fix Hammer Gun damage type
+-   (Rigo) Fix ranged attack penalty on Tempest curse
+-   (Rigo) Fix typo and update links on Champion Armament feats
+-   (Rigo) Grant Draconic Exemplar to Kobolds using legacy feats
+-   (Rigo) Grant proficiency to advanced deity weapon with Deific Weapon
+-   (Rigo) Increase area of Amped Redistribute Potential
+-   (Rigo) Link damage and conditions on Age of Ashes NPC poison
+-   (Rigo) Rearrange Deity to be granted before Cause on Champion
+-   (Rigo) Remove AC penalty and add Temporary Hit Points to Share Rage
+-   (Rigo) Remove Invisible condition link from Connect the Dots
+-   (Rigo) Remove Invulnerable Juggernaut feat
+-   (Rigo) Rename Sulfur Bomb effect
+-   (Rigo) Restrict weapon proficiency granted by Tengu Weapon Familiarity
+-   (Rigo) Trim down Weight of Experience Choice Set
+-   (Rigo) Update sources content reprinted in Player Core 2, remove several legacy class feats
+-   (SpartanCPA) Add journal entry pages for Howl of the Wild Ancestries
+-   (SpartanCPA) Add Note on Initiative to Quick Tempered
+-   (Tikael) Automate Advanced Weapon Training
+-   (Tikael) Brush up Fire Shield effect
+-   (Tikael) Brush up Hunter's Bow
+-   (Tikael) Change inline checks to new style
+-   (Tikael) Fix fly speed of Soaring Armor
+-   (Tikael) Lower the color intensity of the Light spell effect
+-   (Tikael) Move more inlines to new style
+-   (Tikael) Set several checks in class feats to use the proper class DC
+-   (stwlam) Remove Champion's Code class features and feats/spells depending on them
+
 ## 6.2.0
 
 ### Highlights
