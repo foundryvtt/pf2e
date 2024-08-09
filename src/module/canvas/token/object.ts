@@ -47,11 +47,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
         }
     }
 
-    /** The grid offsets representing this token's shape */
-    get footprint(): GridOffset[] {
+    /** The center points of the grid spaces that a token occupies on the grid */
+    get footprint(): Point[] {
         const shape = this.isTiny ? this.mechanicalBounds : this.localShape;
         const seen = new Set<number>();
-        const offsets: GridOffset[] = [];
+        const points: Point[] = [];
         const [i0, j0, i1, j1] = canvas.grid.getOffsetRange(this.mechanicalBounds);
         for (let i = i0; i < i1; i++) {
             for (let j = j0; j < j1; j++) {
@@ -61,11 +61,11 @@ class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends
                 seen.add(packed);
                 const point = canvas.grid.getCenterPoint(offset);
                 if (shape.contains(point.x, point.y)) {
-                    offsets.push(offset);
+                    points.push(point);
                 }
             }
         }
-        return offsets.sort((a, b) => a.j - b.j).sort((a, b) => a.i - b.i);
+        return points.sort((a, b) => a.x - b.x).sort((a, b) => a.y - b.y);
     }
 
     get #isDragMeasuring(): boolean {
