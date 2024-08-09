@@ -35,19 +35,7 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             return M.CENTER;
         }
 
-        const GT = CONST.GRID_TYPES;
-        switch (canvas.grid.type) {
-            case GT.HEXEVENQ:
-            case GT.HEXEVENR:
-                return M.LEFT_SIDE_MIDPOINT;
-            case GT.HEXODDQ:
-            case GT.HEXODDR:
-                return M.TOP_SIDE_MIDPOINT;
-            case GT.SQUARE:
-                return M.VERTEX;
-            default:
-                return M.CENTER;
-        }
+        return M.BOTTOM_RIGHT_VERTEX;
     }
 
     get dragMeasurement(): boolean {
