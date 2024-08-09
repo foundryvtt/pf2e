@@ -224,13 +224,19 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
             }
 
             // We are going to get the direct path from the start of the segment offset by centerOffset to the end of the segment offset by centerOffset
-            for (const offset of canvas.grid.getDirectPath([{ x: segment.ray.A.x - centerOffset.x, y: segment.ray.A.y - centerOffset.y }, { x: segment.ray.B.x - centerOffset.x, y: segment.ray.B.y - centerOffset.y }])) {
+            for (const offset of canvas.grid.getDirectPath([
+                { x: segment.ray.A.x - centerOffset.x, y: segment.ray.A.y - centerOffset.y },
+                { x: segment.ray.B.x - centerOffset.x, y: segment.ray.B.y - centerOffset.y },
+            ])) {
                 for (const stomp of this.#footprint) {
                     // Get the center point of  the offset we are currently at
                     const offsetCenter = canvas.grid.getCenterPoint(offset);
                     // Reverse the offset we originally did plus, this will put us back at the true center of the token
                     // We then add the offset from the current grid we are working with on the token's footprint, which is an offset from the token's center
-                    const newPoint = { x: offsetCenter.x + centerOffset.x + stomp.x, y: offsetCenter.y + centerOffset.y + stomp.y };
+                    const newPoint = {
+                        x: offsetCenter.x + centerOffset.x + stomp.x,
+                        y: offsetCenter.y + centerOffset.y + stomp.y,
+                    };
                     // Now we get the top-left point of the grid we end up at
                     const point = canvas.grid.getTopLeftPoint(newPoint);
                     // We then highlight that grid space, this already has a way of checking to make sure we don't double highlight a grid space
