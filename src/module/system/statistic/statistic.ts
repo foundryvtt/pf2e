@@ -418,7 +418,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const self = this.actor;
         const domains = this.domains;
         const selfToken = args.token ?? self.getActiveTokens(true, true).shift() ?? null;
-        const selfIsTarget = this.type === "saving-throw";
+        const selfIsTarget = self === args.target || (!args.target && this.type === "saving-throw");
         const item = args.item ?? null;
         const originToken = selfIsTarget ? args.origin?.getActiveTokens(true, true).shift() : selfToken;
         const targetToken = selfIsTarget
@@ -428,6 +428,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
               null;
 
         const selfIsTargeting =
+            !selfIsTarget &&
             !!targetToken &&
             ((this.domains.includes("spell-attack-roll") && item?.isOfType("spell")) ||
                 (!["flat-check", "saving-throw"].includes(this.type) &&
