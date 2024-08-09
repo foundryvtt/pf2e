@@ -68,17 +68,18 @@ async function repair(options: RepairActionOptions): Promise<void> {
         callback: async (result) => {
             // react to check result by posting a chat message with appropriate follow-up options
             const { actor } = result;
-            if (item && result.message instanceof ChatMessagePF2e && actor.isOfType("creature")) {
+            if (item && result.message instanceof ChatMessagePF2e && actor.isOfType("character")) {
                 const messageSource = result.message.toObject();
                 const flavor = await (async () => {
                     const proficiencyRank = actor.skills.crafting.rank ?? 0;
+                    const repairValue = actor.system.crafting.repairValue;
                     if ("criticalSuccess" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
-                        const restored = String(10 + proficiencyRank * 10);
+                        const restored = String(repairValue + 5 + proficiencyRank * (repairValue + 5));
                         return renderRepairResult(item, "restore", label, restored);
                     } else if ("success" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
-                        const restored = String(5 + proficiencyRank * 5);
+                        const restored = String(repairValue + proficiencyRank * repairValue);
                         return renderRepairResult(item, "restore", label, restored);
                     } else if ("criticalFailure" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RollItemDamage";
