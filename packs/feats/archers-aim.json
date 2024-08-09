@@ -30,14 +30,19 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "archers-aim",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
                     "archers-aim",
                     "ranged"
                 ],
                 "selector": [
-                    "bow-weapon-group-attack",
-                    "crossbow-weapon-group-attack"
+                    "bow-group-attack-roll",
+                    "crossbow-group-attack-roll"
                 ],
                 "type": "circumstance",
                 "value": 2
@@ -49,8 +54,8 @@
                     "target:condition:concealed"
                 ],
                 "selector": [
-                    "bow-weapon-group-attack",
-                    "crossbow-weapon-group-attack"
+                    "bow-group-attack-roll",
+                    "crossbow-group-attack-roll"
                 ],
                 "text": "PF2E.AttackEffects.IgnoreConcealed",
                 "title": "{item|name}"
@@ -62,8 +67,8 @@
                     "target:condition:hidden"
                 ],
                 "selector": [
-                    "bow-weapon-group-attack",
-                    "crossbow-weapon-group-attack"
+                    "bow-group-attack-roll",
+                    "crossbow-group-attack-roll"
                 ],
                 "text": "PF2E.AttackEffects.ReduceHiddenCheck",
                 "title": "{item|name}"
