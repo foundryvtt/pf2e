@@ -43,3 +43,11 @@
 {{else}}
     {{localize "PF2E.Actor.Party.BlankSlate"}}
 {{/if}}
+
+{{#if user.isGM}}
+    <div class="gm-sidebar">
+        <div class="loot-distribution">
+            <button type="button" data-action="loot-npcs"><i class="fa-solid fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+        </div>
+    </div>
+{{/if}}
