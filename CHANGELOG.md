@@ -69,7 +69,7 @@
 -   (Rigo) Add description alterations for Tap Into Blood
 -   (Rigo) Add description override to You're Next depending on the class
 -   (Rigo) Add effects for Leaden Steps, Revel in Retribution, Shields of the Spirit, Security (feat)
--   (Rigo) Add Oracular curses as class features, automate effectsof Cursebound condition
+-   (Rigo) Add Oracular curses as class features, automate effects of Cursebound condition
 -   (Rigo) Add Structure trait to Resplendent Mansion
 -   (Rigo) Allow Champion's Aura to be granted to archetype champions
 -   (Rigo) Allow Dirty Trick to be taken beyond level 1
@@ -97,6 +97,7 @@
 -   (Rigo) Update sources content reprinted in Player Core 2, remove several legacy class feats
 -   (SpartanCPA) Add journal entry pages for Howl of the Wild Ancestries
 -   (SpartanCPA) Add Note on Initiative to Quick Tempered
+-   (stwlam) Remove Champion's Code class features and feats/spells depending on them
 -   (Tikael) Automate Advanced Weapon Training
 -   (Tikael) Brush up Fire Shield effect
 -   (Tikael) Brush up Hunter's Bow
@@ -105,7 +106,6 @@
 -   (Tikael) Lower the color intensity of the Light spell effect
 -   (Tikael) Move more inlines to new style
 -   (Tikael) Set several checks in class feats to use the proper class DC
--   (stwlam) Remove Champion's Code class features and feats/spells depending on them
 
 ## 6.2.0
 
