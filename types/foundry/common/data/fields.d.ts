@@ -1441,16 +1441,18 @@ export class JavaScriptField<
 
 // System utility types
 
-export type SourcePropFromDataField<T> =
+export type SourcePropFromDataField<T> = ResolveContract<
     T extends DataField<infer TSourceProp, infer _TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>
-        : never;
+        : never
+>;
 
 export type SourceFromDocument<T extends abstract.Document> = SourcePropFromDataField<T["schema"]>;
-export type ModelPropFromDataField<T> =
+export type ModelPropFromDataField<T> = ResolveContract<
     T extends DataField<infer _TSourceProp, infer TModelProp, infer TRequired, infer TNullable, infer THasInitial>
         ? MaybeSchemaProp<TModelProp, TRequired, TNullable, THasInitial>
-        : never;
+        : never
+>;
 
 export type MaybeSchemaProp<
     TProp,

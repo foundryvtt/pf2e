@@ -22,6 +22,13 @@ declare global {
         updateDocuments(updates?: object[], operation?: Partial<DatabaseUpdateOperation<T["parent"]>>): Promise<T[]>;
     };
 
+    /** Resolve deferred resolution of a complex type */
+    type ResolveContract<T> = T extends (...args: infer A) => infer R
+        ? (...args: ResolveContract<A>) => ResolveContract<R>
+        : T extends infer O
+          ? { [K in keyof O]: O[K] }
+          : never;
+
     type ParentOf<TDataModel> = TDataModel extends DataModel<infer P extends DataModel | null> ? P : never;
 
     type SchemaOf<TDataModel> = TDataModel extends DataModel<infer _P, infer S extends DataSchema> ? S : never;
