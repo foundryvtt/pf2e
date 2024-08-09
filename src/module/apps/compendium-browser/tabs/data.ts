@@ -77,6 +77,29 @@ interface ActionFilters extends BaseFilterData {
     };
 }
 
+interface AncestryFilters extends BaseFilterData {
+    checkboxes: {
+        rarity: CheckboxData;
+        source: CheckboxData;
+        hitpoints: CheckboxData;
+    };
+    multiselects: { boosts: MultiselectData; traits?: MultiselectData };
+}
+
+interface BackgroundFilters extends BaseFilterData {
+    checkboxes: {
+        rarity: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        boosts: MultiselectData;
+        skills: MultiselectData;
+        lores: MultiselectData;
+        feats: MultiselectData;
+        traits?: MultiselectData;
+    };
+}
+
 interface BestiaryFilters extends BaseFilterData {
     checkboxes: {
         rarity: CheckboxData;
@@ -98,6 +121,35 @@ interface CampaignFeatureFilters extends BaseFilterData {
     };
     sliders: {
         level: SliderData;
+    };
+}
+
+interface ClassFilters extends BaseFilterData {
+    checkboxes: {
+        source: CheckboxData;
+        hitpoints: CheckboxData;
+        rarity: CheckboxData;
+    };
+    multiselects: {
+        keyAttribute: MultiselectData;
+        traits?: MultiselectData;
+    };
+}
+
+interface DeityFilters extends BaseFilterData {
+    checkboxes: {
+        category: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        attribute: MultiselectData;
+        primaryDomain: MultiselectData;
+        alternateDomain: MultiselectData;
+        font: MultiselectData;
+        sanctification: MultiselectData;
+        skill: MultiselectData;
+        weapon: MultiselectData;
+        traits?: MultiselectData;
     };
 }
 
@@ -144,6 +196,17 @@ interface HazardFilters extends BaseFilterData {
     };
 }
 
+interface HeritageFilters extends BaseFilterData {
+    checkboxes: {
+        rarity: CheckboxData;
+        source: CheckboxData;
+    };
+    multiselects: {
+        ancestry: MultiselectData<string>;
+        traits?: MultiselectData;
+    };
+}
+
 interface SpellFilters extends BaseFilterData {
     checkboxes: {
         category: CheckboxData;
@@ -162,11 +225,16 @@ interface SpellFilters extends BaseFilterData {
 
 type BrowserFilter =
     | ActionFilters
+    | AncestryFilters
+    | BackgroundFilters
     | BestiaryFilters
+    | ClassFilters
     | CampaignFeatureFilters
+    | DeityFilters
     | EquipmentFilters
     | FeatFilters
     | HazardFilters
+    | HeritageFilters
     | SpellFilters;
 
 type CompendiumBrowserIndexData = Omit<CompendiumIndexData, "_id"> & Partial<SearchResult>;
@@ -179,16 +247,21 @@ interface RenderResultListOptions {
 
 export type {
     ActionFilters,
+    AncestryFilters,
+    BackgroundFilters,
     BaseFilterData,
     BestiaryFilters,
     BrowserFilter,
     CampaignFeatureFilters,
+    ClassFilters,
     CheckboxData,
     CheckboxOptions,
     CompendiumBrowserIndexData,
+    DeityFilters,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
+    HeritageFilters,
     MultiselectData,
     RangesInputData,
     RenderResultListOptions,
