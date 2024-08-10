@@ -198,7 +198,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         }
 
         const slug = this.slug ?? sluggify(this.label);
-        actor.synthetics.strikes.push((unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes }));
+        actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */

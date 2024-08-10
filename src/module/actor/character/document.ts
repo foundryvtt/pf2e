@@ -1119,11 +1119,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
-        const syntheticWeapons = R.uniqueBy(
-            synthetics.strikes.map((s) => s(unarmedRunes)).filter(R.isTruthy),
-            (w) => w.slug,
-        );
-
+        const syntheticWeapons = Object.values(synthetics.strikes)
+            .map((s) => s(unarmedRunes))
+            .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [
             itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),

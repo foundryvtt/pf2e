@@ -681,7 +681,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             senses: [],
             statistics: new Map(),
             strikeAdjustments: [],
-            strikes: [],
+            strikes: {},
             striking: {},
             tokenMarks: new Map(),
             toggles: {},
