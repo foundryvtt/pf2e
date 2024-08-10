@@ -29,16 +29,10 @@
                 "key": "RollOption",
                 "label": "PF2E.TraitUnstable",
                 "mergeable": true,
-                "option": "unstable",
+                "option": "unstable-state",
                 "predicate": [
                     {
                         "not": "feature:construct-innovation"
-                    }
-                ],
-                "suboptions": [
-                    {
-                        "label": "{item|name}",
-                        "value": "megavolt"
                     }
                 ],
                 "toggleable": true
@@ -48,7 +42,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "unstable:megavolt",
+                    "unstable-state",
                     "item:megavolt"
                 ],
                 "property": "traits",
