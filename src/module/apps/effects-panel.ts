@@ -11,7 +11,7 @@ export class EffectsPanel extends Application {
         return canvas.tokens.controlled.at(0)?.document ?? null;
     }
 
-    private get actor(): ActorPF2e | null {
+    get actor(): ActorPF2e | null {
         return this.token?.actor ?? game.user?.character ?? null;
     }
 

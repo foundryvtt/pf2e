@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
-import { ItemPF2e, ItemSheetPF2e } from "@item";
+import { ConditionPF2e, EffectPF2e, ItemPF2e, ItemSheetPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
@@ -122,11 +122,13 @@ class TextEditorPF2e extends TextEditor {
             return superOnClickInlineRoll.apply(this, [event]);
         }
 
-        // Get the speaker and roll data from the clicked sheet or chat message
+        // Get the speaker and roll data from the clicked sheet, chat message or effect panel
         const sheetElem = htmlClosest(anchor, ".sheet");
         const messageElem = htmlClosest(anchor, "li.chat-message");
+        const effectElem = htmlClosest(anchor, ".effect-item");
         const app = ui.windows[Number(sheetElem?.dataset.appid)];
         const message = game.messages.get(messageElem?.dataset.messageId ?? "");
+        const effect = game.pf2e.effectPanel.actor?.items.get(effectElem?.dataset.itemId ?? "");
 
         const [actor, rollData] = ((): [ActorPF2e | null, Record<string, unknown>] => {
             if (message?.actor) {
@@ -138,6 +140,9 @@ class TextEditorPF2e extends TextEditor {
             }
             if (app instanceof ItemSheetPF2e) {
                 return [app.actor, app.item.getRollData()];
+            }
+            if (effect instanceof EffectPF2e || effect instanceof ConditionPF2e) {
+                return [effect.actor, effect.getRollData()];
             }
 
             // Retrieve item/actor from anywhere via UUID
