@@ -33,16 +33,10 @@
                 "key": "RollOption",
                 "label": "PF2E.TraitUnstable",
                 "mergeable": true,
-                "option": "unstable",
+                "option": "unstable-state",
                 "predicate": [
                     {
                         "not": "feature:construct-innovation"
-                    }
-                ],
-                "suboptions": [
-                    {
-                        "label": "{item|name}",
-                        "value": "negate-damage"
                     }
                 ],
                 "toggleable": true
@@ -52,7 +46,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    "unstable:negate-damage",
+                    "unstable-state",
                     "item:negate-damage"
                 ],
                 "property": "traits",
