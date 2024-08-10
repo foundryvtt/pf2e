@@ -763,6 +763,74 @@ function* iterateAllItems<T extends ActorPF2e>(document: T | PhysicalItemPF2e<T>
     }
 }
 
+/**
+ * Transfer a list of items between actors, adjusting stack quantities where appropriate
+ * @param source {ActorPF2e} the source actor
+ * @param dest {ActorPF2e} the destination actor
+ * @param [itemFilterFn] an optional filter function called for each inventory item; items that return
+ * <code>false</code> will not be transferred
+ */
+async function transferItemsBetweenActors(
+    source: ActorPF2e,
+    dest: ActorPF2e,
+    itemFilterFn?: (item: PhysicalItemPF2e) => boolean,
+): Promise<void> {
+    const newItems: PhysicalItemPF2e[] = [];
+    const itemUpdates = new Map<string, number>();
+    const itemsToDelete: string[] = [];
+
+    for (const item of source.inventory) {
+        if (itemFilterFn && !itemFilterFn(item)) continue;
+
+        const stackableItem = dest.inventory.findStackableItem(item);
+        if (stackableItem) {
+            const currentQty = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
+            itemUpdates.set(stackableItem.id, currentQty + item.quantity);
+            itemsToDelete.push(item.id);
+
+            continue;
+        }
+
+        newItems.push(item);
+        itemsToDelete.push(item.id);
+    }
+
+    if (newItems.length > 0) {
+        const stacked = newItems.reduce((result: PhysicalItemPF2e[], item) => {
+            const stackableItem = result.find((i) => i.isStackableWith(item));
+            if (stackableItem) {
+                stackableItem.updateSource({
+                    system: {
+                        quantity: stackableItem.quantity + item.quantity,
+                    },
+                });
+            } else {
+                result.push(item);
+            }
+
+            return result;
+        }, []);
+        const sources = stacked.map((i) => i.toObject());
+
+        await dest.createEmbeddedDocuments("Item", sources, {
+            render: itemUpdates.size === 0,
+        });
+    }
+
+    if (itemUpdates.size > 0) {
+        const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({
+            _id: id,
+            system: { quantity },
+        }));
+
+        await dest.updateEmbeddedDocuments("Item", updates);
+    }
+
+    if (itemsToDelete.length > 0) {
+        await source.deleteEmbeddedDocuments("Item", itemsToDelete);
+    }
+}
+
 export {
     auraAffectsActor,
     calculateMAPs,
@@ -780,6 +848,7 @@ export {
     resetActors,
     setHitPointsRollOptions,
     strikeFromMeleeItem,
+    transferItemsBetweenActors,
     userColorForActor,
 };
 

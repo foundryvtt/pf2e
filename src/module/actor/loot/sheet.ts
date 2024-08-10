@@ -1,4 +1,5 @@
 import type { LootPF2e } from "@actor";
+import { transferItemsBetweenActors } from "@actor/helpers.js";
 import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { htmlClosest, htmlQuery } from "@util";
@@ -61,7 +62,8 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
                     ui.notifications.warn("No tokens selected.");
                 }
             } else if (button?.dataset.action === "to-party-stash") {
-                this.transferToPartyStash();
+                if (!game.actors.party) return;
+                transferItemsBetweenActors(this.actor, game.actors.party);
             }
         });
     }
@@ -86,62 +88,6 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
         const data = super.prepareInventoryItem(item);
         data.hidden = isMerchant && item.isOfType("treasure") && item.isCoinage && !item.container;
         return data;
-    }
-
-    private async transferToPartyStash(): Promise<void> {
-        const activeParty = game.actors.party;
-
-        if (!activeParty) return;
-
-        const newItems: PhysicalItemPF2e[] = [];
-        const itemUpdates = new Map<string, number>();
-        const itemsToDelete: string[] = [];
-
-        for (const item of this.actor.inventory) {
-            const stackableItem = activeParty.inventory.findStackableItem(item);
-            if (stackableItem) {
-                const currentQuantity = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
-                itemUpdates.set(stackableItem.id, currentQuantity + item.quantity);
-                continue;
-            }
-            newItems.push(item);
-        }
-
-        itemsToDelete.push(...this.actor.inventory.map((item) => item.id));
-
-        if (newItems.length > 0) {
-            const stacked = newItems.reduce((result: PhysicalItemPF2e[], item) => {
-                const stackableItem = result.find((i) => i.isStackableWith(item));
-                if (stackableItem) {
-                    stackableItem.updateSource({
-                        system: {
-                            quantity: stackableItem.quantity + item.quantity,
-                        },
-                    });
-                    return result;
-                }
-                result.push(item);
-                return result;
-            }, []);
-            const sources = stacked.map((i) => i.toObject());
-            await activeParty.createEmbeddedDocuments("Item", sources, {
-                render: itemUpdates.size === 0,
-            });
-        }
-
-        if (itemUpdates.size > 0) {
-            const updates = [...itemUpdates.entries()].map(([id, quantity]) => ({
-                _id: id,
-                system: {
-                    quantity,
-                },
-            }));
-            await activeParty.updateEmbeddedDocuments("Item", updates);
-        }
-
-        if (itemsToDelete.length > 0) {
-            await this.actor.deleteEmbeddedDocuments("Item", itemsToDelete);
-        }
     }
 }
 
