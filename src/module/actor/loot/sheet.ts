@@ -36,6 +36,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
         return {
             ...sheetData,
+            hasActiveParty: !!game.actors.party,
             isLoot,
             lootSheetTypeOptions: [
                 { value: "Loot", label: "PF2E.loot.LootLabel" },
@@ -90,10 +91,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
     private async transferToPartyStash(): Promise<void> {
         const activeParty = game.actors.party;
 
-        if (!activeParty) {
-            ui.notifications.warn("No active party found.");
-            return;
-        }
+        if (!activeParty) return;
 
         const newItems: PhysicalItemPF2e[] = [];
         const itemUpdates = new Map<string, number>();
@@ -148,6 +146,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 }
 
 interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
+    hasActiveParty: boolean;
     isLoot: boolean;
     lootSheetTypeOptions: FormSelectOption[];
 }
