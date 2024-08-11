@@ -11,33 +11,32 @@ class CombatantPF2e<
     /** Has this document completed `DataModel` initialization? */
     declare initialized: boolean;
 
-    get encounter(): TParent {
-        return this.parent;
-    }
+    static override async createDocuments<TDocument extends foundry.abstract.Document>(
+        this: ConstructorOf<TDocument>,
+        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
+        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
+    ): Promise<TDocument[]>;
+    static override async createDocuments(
+        data: (CombatantPF2e | PreCreate<foundry.documents.CombatantSource>)[] = [],
+        operation: Partial<DatabaseCreateOperation<EncounterPF2e>> = {},
+    ): Promise<Combatant<EncounterPF2e, TokenDocument<Scene | null> | null>[]> {
+        type DataType = (typeof data)[number];
+        const entries: { token: TokenDocumentPF2e | null; data: DataType }[] = data.map((d) => {
+            const scene = d.sceneId ? game.scenes.get(d.sceneId) : operation.parent?.scene;
+            const token = scene?.tokens.get(d.tokenId ?? "") || null;
+            return { token, data: d };
+        });
 
-    /** The round this combatant last had a turn */
-    get roundOfLastTurn(): number | null {
-        return this.flags.pf2e.roundOfLastTurn;
-    }
-
-    /** Can the user see this combatant's name? */
-    get playersCanSeeName(): boolean {
-        return !!this.token?.playersCanSeeName;
-    }
-
-    overridePriority(initiative: number): number | null {
-        return this.flags.pf2e.overridePriority[initiative] ?? null;
-    }
-
-    hasHigherInitiative(
-        this: RolledCombatant<NonNullable<TParent>>,
-        { than }: { than: RolledCombatant<NonNullable<TParent>> },
-    ): boolean {
-        if (this.parent.id !== than.parent.id) {
-            throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
+        // Party actors add their members to initiative instead of themselves
+        const tokens = entries.map((e) => e.token);
+        for (const token of tokens) {
+            if (token?.actor?.isOfType("party")) {
+                await token?.actor.addToCombat({ combat: operation.parent });
+            }
         }
 
-        return this.parent.getCombatantWithHigherInit(this, than) === this;
+        const nonPartyData = entries.filter((e) => !e.token?.actor?.isOfType("party")).map((e) => e.data);
+        return super.createDocuments<Combatant<EncounterPF2e, TokenDocument<Scene | null>>>(nonPartyData, operation);
     }
 
     /** Get the active Combatant for the given actor, creating one if necessary */
@@ -74,32 +73,33 @@ class CombatantPF2e<
         return null;
     }
 
-    static override async createDocuments<TDocument extends foundry.abstract.Document>(
-        this: ConstructorOf<TDocument>,
-        data?: (TDocument | PreCreate<TDocument["_source"]>)[],
-        operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
-    ): Promise<TDocument[]>;
-    static override async createDocuments(
-        data: (CombatantPF2e | PreCreate<foundry.documents.CombatantSource>)[] = [],
-        operation: Partial<DatabaseCreateOperation<EncounterPF2e>> = {},
-    ): Promise<Combatant<EncounterPF2e, TokenDocument<Scene | null> | null>[]> {
-        type DataType = (typeof data)[number];
-        const entries: { token: TokenDocumentPF2e | null; data: DataType }[] = data.map((d) => {
-            const scene = d.sceneId ? game.scenes.get(d.sceneId) : operation.parent?.scene;
-            const token = scene?.tokens.get(d.tokenId ?? "") || null;
-            return { token, data: d };
-        });
+    get encounter(): TParent {
+        return this.parent;
+    }
 
-        // Party actors add their members to initiative instead of themselves
-        const tokens = entries.map((e) => e.token);
-        for (const token of tokens) {
-            if (token?.actor?.isOfType("party")) {
-                await token?.actor.addToCombat({ combat: operation.parent });
-            }
+    /** The round this combatant last had a turn */
+    get roundOfLastTurn(): number | null {
+        return this.flags.pf2e.roundOfLastTurn;
+    }
+
+    /** Can the user see this combatant's name? */
+    get playersCanSeeName(): boolean {
+        return !!this.token?.playersCanSeeName;
+    }
+
+    overridePriority(initiative: number): number | null {
+        return this.flags.pf2e.overridePriority[initiative] ?? null;
+    }
+
+    hasHigherInitiative(
+        this: RolledCombatant<NonNullable<TParent>>,
+        { than }: { than: RolledCombatant<NonNullable<TParent>> },
+    ): boolean {
+        if (this.parent.id !== than.parent.id) {
+            throw ErrorPF2e("The initiative of Combatants from different combats cannot be compared");
         }
 
-        const nonPartyData = entries.filter((e) => !e.token?.actor?.isOfType("party")).map((e) => e.data);
-        return super.createDocuments<Combatant<EncounterPF2e, TokenDocument<Scene | null>>>(nonPartyData, operation);
+        return this.parent.getCombatantWithHigherInit(this, than) === this;
     }
 
     async startTurn(): Promise<void> {
