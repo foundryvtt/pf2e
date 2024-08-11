@@ -109,6 +109,11 @@ class CompendiumBrowser extends Application {
                     initial: "landing-page",
                 },
                 {
+                    navSelector: "nav[data-group=character-building]",
+                    contentSelector: "section.content",
+                    initial: "landing-page",
+                },
+                {
                     navSelector: "nav[data-group=settings]",
                     contentSelector: ".settings-container",
                     initial: "packs",
@@ -127,7 +132,7 @@ class CompendiumBrowser extends Application {
     }
 
     hookTab(): Tabs {
-        const navigationTab = this._tabs[0];
+        const navigationTab = this.activeTab === "character-building" ? this._tabs[1] : this._tabs[0];
         const tabCallback = navigationTab.callback;
         navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
             tabCallback?.(event, tabs, active);
@@ -137,7 +142,7 @@ class CompendiumBrowser extends Application {
     }
 
     initCompendiumList(): void {
-        const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
+        const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings" | "character-building"> = {
             action: {},
             ancestry: {},
             background: {},
@@ -187,7 +192,7 @@ class CompendiumBrowser extends Application {
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings" | "character-building">>([
             ["action", "action"],
             ["ancestry", "ancestry"],
             ["background", "background"],
@@ -245,10 +250,13 @@ class CompendiumBrowser extends Application {
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
     openTab(name: "heritage", filter?: HeritageFilters): Promise<void>;
     openTab(name: "spell", filter?: SpellFilters): Promise<void>;
+    openTab(name: "character-building"): Promise<void>;
     openTab(name: "settings"): Promise<void>;
     async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
-        this.activeTab = tabName;
-        if (tabName !== "settings" && filter) {
+        if (tabName === "character-building") {
+            this.navigationTab = this.hookTab();
+        }
+        if (tabName !== "settings" && tabName !== "character-building" && filter) {
             return this.tabs[tabName].open(filter);
         }
         return this.loadTab(tabName);
@@ -330,6 +338,11 @@ class CompendiumBrowser extends Application {
             return;
         }
 
+        if (tabName === "character-building") {
+            this.navigationTab = this.hookTab();
+            return;
+        }
+
         if (!this.dataTabsList.includes(tabName)) {
             throw ErrorPF2e(`Unknown tab "${tabName}"`);
         }
@@ -345,7 +358,7 @@ class CompendiumBrowser extends Application {
     }
 
     loadedPacks(tab: TabName): string[] {
-        if (tab === "settings") return [];
+        if (tab === "settings" || tab === "character-building") return [];
         return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
             return info?.load ? [collection] : [];
         });
@@ -363,6 +376,12 @@ class CompendiumBrowser extends Application {
         // Set the navigation tab. This is only needed when the browser is openend
         // with CompendiumBrowserTab#open
         if (this.navigationTab.active !== activeTabName) {
+            // Character Building needs special handling
+            if (["ancestry", "background", "class", "deity", "heritage"].includes(activeTabName)) {
+                this.navigationTab.activate("character-building");
+                this.openTab("character-building");
+                this.loadTab(activeTabName);
+            }
             this.navigationTab.activate(activeTabName);
         }
 
@@ -452,8 +471,15 @@ class CompendiumBrowser extends Application {
             return;
         }
 
+        if (activeTabName === "character-building") {
+            this.render(true);
+            return;
+        }
+
         // Other tabs
         const currentTab = this.tabs[activeTabName];
+        if (!currentTab) return;
+        if (!currentTab) return;
         const controlArea = html.querySelector<HTMLDivElement>("div.control-area");
         if (!controlArea) return;
 
@@ -797,7 +823,8 @@ class CompendiumBrowser extends Application {
      * @param options.replace Replace the current list with the new results?
      */
     async #renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
-        const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
+        const currentTab =
+            this.activeTab !== "settings" && this.activeTab !== "character-building" ? this.tabs[this.activeTab] : null;
         const html = this.element[0];
         if (!currentTab) return;
 
@@ -1011,14 +1038,14 @@ class CompendiumBrowser extends Application {
 
     #resetFilters(): void {
         const activeTab = this.activeTab;
-        if (activeTab !== "settings") {
+        if (activeTab !== "settings" && activeTab !== "character-building") {
             this.tabs[activeTab].resetFilters();
         }
     }
 
     #clearScrollLimit(render = false): void {
         const tab = this.activeTab;
-        if (tab === "settings") return;
+        if (tab === "settings" || tab === "character-building") return;
 
         const list = htmlQuery(this.element[0], ".tab.active ul.item-list");
         if (!list) return;
@@ -1031,7 +1058,7 @@ class CompendiumBrowser extends Application {
     }
 }
 
-type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings" | "character-building">;
 
 type CompendiumBrowserSourcesList = Record<string, SourceInfo | undefined>;
 interface CompendiumBrowserSources {

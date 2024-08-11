@@ -39,8 +39,9 @@ type TabName =
     | "hazard"
     | "heritage"
     | "spell"
+    | "character-building"
     | "settings";
-type ContentTabName = Exclude<TabName, "settings">;
+type ContentTabName = Exclude<TabName, "settings" | "character-building">;
 type BrowserTab = InstanceType<(typeof browserTabs)[keyof typeof browserTabs]>;
 type TabData<T> = Record<TabName, T | null>;
 

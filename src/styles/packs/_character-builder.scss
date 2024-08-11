@@ -1,26 +1,18 @@
-#compendium-browser,
-#license-viewer {
-    > section.window-content > .content-box {
-        @import "filter-slider";
+.tab.character-building.active {
+    height: 98%;
+    > .content-box.character-builder {
+        height: 100%;
         @import "nav";
-        @import "settings";
-        @import "tab";
-        @import "character-builder";
-
-        flex: 1;
-        overflow: hidden;
-        height: inherit;
-
+        > nav {
+            border-width: unset;
+        }
         > section.content {
-            height: 96%;
-
+            height: 98%;
             > .tab.browser.active {
-                height: inherit;
-
+                height: 94%;
                 > div {
                     display: grid;
                     grid-template-columns: 320px auto;
-
                     .control-area {
                         grid-column-start: 1;
                     }
@@ -28,10 +20,6 @@
                         grid-column-start: 2;
                     }
                 }
-            }
-
-            > .tab.settings.active {
-                height: 98%;
             }
         }
     }

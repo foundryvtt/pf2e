@@ -133,6 +133,7 @@ export function registerTemplates(): void {
         "systems/pf2e/templates/actors/vehicle/tabs/effects.hbs",
 
         // Compendium Browser Partials
+        "systems/pf2e/templates/compendium-browser/character-building/character-building.hbs",
         "systems/pf2e/templates/compendium-browser/settings/settings.hbs",
         "systems/pf2e/templates/compendium-browser/settings/pack-settings.hbs",
         "systems/pf2e/templates/compendium-browser/settings/source-settings.hbs",

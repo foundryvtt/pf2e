@@ -2,23 +2,19 @@
     <nav data-group="primary">
         <a data-tab="landing-page" style="display:none"></a>
         <a data-tab="action">{{localize "PF2E.Item.Action.Plural"}}</a>
-        <a data-tab="ancestry">{{localize "PF2E.CompendiumBrowser.TabAncestry"}}</a>
-        <a data-tab="background">{{localize "PF2E.CompendiumBrowser.TabBackground"}}</a>
         {{#if user.isGM}}
             <a data-tab="bestiary">{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</a>
         {{/if}}
         {{#if showCampaign}}
             <a data-tab="campaignFeature">{{localize "PF2E.CompendiumBrowser.TabCampaign"}}</a>
         {{/if}}
-        <a data-tab="class">{{localize "PF2E.CompendiumBrowser.TabClass"}}</a>
-        <a data-tab="deity">{{localize "PF2E.CompendiumBrowser.TabDeity"}}</a>
         <a data-tab="equipment">{{localize "TYPES.Item.equipment"}}</a>
         <a data-tab="feat">{{localize "PF2E.CompendiumBrowser.TabFeat"}}</a>
         {{#if user.isGM}}
             <a data-tab="hazard">{{localize "PF2E.Actor.Hazard.Plural"}}</a>
         {{/if}}
-        <a data-tab="heritage">{{localize "PF2E.CompendiumBrowser.TabHeritage"}}</a>
         <a data-tab="spell">{{localize "PF2E.Item.Spell.Plural"}}</a>
+        <a data-tab="character-building">Character Building</a>
         {{#if user.isGM}}
             <a data-tab="settings">{{localize "DOCUMENT.Settings"}}</a>
         {{/if}}
@@ -30,24 +26,6 @@
 
         {{#with action}}
             <div class="tab browser" data-group="primary" data-tab="action">
-                <div class="spell-browser">
-                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
-                    <ul class="item-list result-list"></ul>
-                </div>
-            </div>
-        {{/with}}
-
-        {{#with ancestry}}
-            <div class="tab browser" data-group="primary" data-tab="ancestry">
-                <div class="spell-browser">
-                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
-                    <ul class="item-list result-list"></ul>
-                </div>
-            </div>
-        {{/with}}
-
-        {{#with background}}
-            <div class="tab browser" data-group="primary" data-tab="background">
                 <div class="spell-browser">
                     {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
                     <ul class="item-list result-list"></ul>
@@ -68,24 +46,6 @@
 
         {{#with campaignFeature}}
             <div class="tab browser" data-group="primary" data-tab="campaignFeature">
-                <div class="spell-browser">
-                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
-                    <ul class="item-list result-list"></ul>
-                </div>
-            </div>
-        {{/with}}
-
-        {{#with class}}
-            <div class="tab browser" data-group="primary" data-tab="class">
-                <div class="spell-browser">
-                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
-                    <ul class="item-list result-list"></ul>
-                </div>
-            </div>
-        {{/with}}
-
-        {{#with deity}}
-            <div class="tab browser" data-group="primary" data-tab="deity">
                 <div class="spell-browser">
                     {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
                     <ul class="item-list result-list"></ul>
@@ -122,15 +82,6 @@
             {{/with}}
         {{/if}}
 
-        {{#with heritage}}
-            <div class="tab browser" data-group="primary" data-tab="heritage">
-                <div class="spell-browser">
-                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
-                    <ul class="item-list result-list"></ul>
-                </div>
-            </div>
-        {{/with}}
-
         {{#with spell}}
             <div class="tab browser" data-group="primary" data-tab="spell">
                 <div class="spell-browser">
@@ -139,6 +90,12 @@
                 </div>
             </div>
         {{/with}}
+
+
+        <div class="tab character-building" data-group="primary" data-tab="character-building">
+            {{> "systems/pf2e/templates/compendium-browser/character-building/character-building.hbs" this}}
+        </div>
+
 
         {{#if user.isGM}}
             {{#with settings}}

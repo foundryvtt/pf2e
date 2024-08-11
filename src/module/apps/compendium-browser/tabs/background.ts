@@ -116,7 +116,7 @@ export class CompendiumBrowserBackgroundTab extends CompendiumBrowserTab {
             this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
             this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
             this.filterData.multiselects.boosts.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
-            this.filterData.multiselects.skills.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
+            this.filterData.multiselects.skills.options = this.generateMultiselectOptions(skillList);
             this.filterData.multiselects.lores.options = this.generateMultiselectOptions(loreOptions);
             this.filterData.multiselects.feats.options = this.generateMultiselectOptions(featOptions);
 

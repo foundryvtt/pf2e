@@ -1,0 +1,60 @@
+<div class="content-box character-builder" data-tooltip-class="pf2e">
+    <nav data-group="character-building">
+        <a data-tab="landing-page" style="display:none"></a>
+        <a data-tab="ancestry">{{localize "PF2E.CompendiumBrowser.TabAncestry"}}</a>
+        <a data-tab="background">{{localize "PF2E.CompendiumBrowser.TabBackground"}}</a>
+        <a data-tab="class">{{localize "PF2E.CompendiumBrowser.TabClass"}}</a>
+        <a data-tab="deity">{{localize "PF2E.CompendiumBrowser.TabDeity"}}</a>
+        <a data-tab="heritage">{{localize "PF2E.CompendiumBrowser.TabHeritage"}}</a>
+    </nav>
+    <section class="content">
+        <div class="tab" data-group="character-building" data-tab="landing-page">
+            <div style='text-align:center; padding: 2em;'>{{localize "PF2E.CompendiumBrowser.Hint"}}</div>
+        </div>
+
+        {{#with ancestry}}
+            <div class="tab browser" data-group="character-building" data-tab="ancestry">
+                <div class="spell-browser">
+                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
+                    <ul class="item-list result-list"></ul>
+                </div>
+            </div>
+        {{/with}}
+
+        {{#with background}}
+            <div class="tab browser" data-group="character-building" data-tab="background">
+                <div class="spell-browser">
+                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
+                    <ul class="item-list result-list"></ul>
+                </div>
+            </div>
+        {{/with}}
+
+        {{#with class}}
+            <div class="tab browser" data-group="character-building" data-tab="class">
+                <div class="spell-browser">
+                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
+                    <ul class="item-list result-list"></ul>
+                </div>
+            </div>
+        {{/with}}
+
+        {{#with deity}}
+            <div class="tab browser" data-group="character-building" data-tab="deity">
+                <div class="spell-browser">
+                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
+                    <ul class="item-list result-list"></ul>
+                </div>
+            </div>
+        {{/with}}
+
+        {{#with heritage}}
+            <div class="tab browser" data-group="character-building" data-tab="heritage">
+                <div class="spell-browser">
+                    {{> "systems/pf2e/templates/compendium-browser/filters.hbs"}}
+                    <ul class="item-list result-list"></ul>
+                </div>
+            </div>
+        {{/with}}
+    </section>
+</div>

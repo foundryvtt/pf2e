@@ -173,7 +173,7 @@ export class CompendiumBrowserDeityTab extends CompendiumBrowserTab {
                 none: "PF2E.Item.Deity.DivineFont.None",
             });
             this.filterData.multiselects.attribute.options = this.generateMultiselectOptions(CONFIG.PF2E.abilities);
-            this.filterData.multiselects.skill.options = this.generateMultiselectOptions(CONFIG.PF2E.skillList);
+            this.filterData.multiselects.skill.options = this.generateMultiselectOptions(skillList);
             this.filterData.multiselects.primaryDomain.options = this.generateMultiselectOptions(primaryDomainsOptions);
             this.filterData.multiselects.alternateDomain.options =
                 this.generateMultiselectOptions(alternateDomainOptions);
