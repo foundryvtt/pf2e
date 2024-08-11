@@ -28,7 +28,58 @@
             "remaster": false,
             "title": "Pathfinder Secrets of Magic"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heal",
+                    "spellshape:purifying-spell",
+                     {
+                        "lte": [
+                            "item:cast:actions", 2
+                        ]
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.PurifyingSpell"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "purifying-spell"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:heal",
+                    "spellshape:purifying-spell",
+                    {
+                        "lte": [
+                            "item:cast:actions", 2
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "water"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
