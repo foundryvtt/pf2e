@@ -764,11 +764,10 @@ function* iterateAllItems<T extends ActorPF2e>(document: T | PhysicalItemPF2e<T>
 }
 
 /**
- * Transfer a list of items between actors, adjusting stack quantities where appropriate
- * @param source {ActorPF2e} the source actor
- * @param dest {ActorPF2e} the destination actor
- * @param [itemFilterFn] an optional filter function called for each inventory item; items that return
- * <code>false</code> will not be transferred
+ * Transfer a list of items between actors, stacking equivalent helpers. Temporary until a proper inventory method exists
+ * @param source the source actor
+ * @param dest the destination actor
+ * @param [itemFilterFn] an optional filter function called for each inventory item
  */
 async function transferItemsBetweenActors(
     source: ActorPF2e,
