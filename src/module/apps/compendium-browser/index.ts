@@ -833,7 +833,7 @@ class CompendiumBrowser extends Application {
     }
 
     async #buyPhysicalItem(uuid: string): Promise<void> {
-        const actors = getSelectedActors({ include: ["character", "loot", "npc"], assignedFallback: true });
+        const actors = getSelectedActors({ include: ["character", "loot", "npc", "party"], assignedFallback: true });
         const item = await this.#getPhysicalItem(uuid);
 
         if (actors.length === 0) {
