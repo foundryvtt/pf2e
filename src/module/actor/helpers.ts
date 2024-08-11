@@ -783,10 +783,9 @@ async function transferItemsBetweenActors(
 
         const stackableItem = dest.inventory.findStackableItem(item);
         if (stackableItem) {
-            const currentQty = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
-            itemUpdates.set(stackableItem.id, currentQty + item.quantity);
+            const currentQuantity = itemUpdates.get(stackableItem.id) ?? stackableItem.quantity;
+            itemUpdates.set(stackableItem.id, currentQuantity + item.quantity);
             itemsToDelete.push(item.id);
-
             continue;
         }
 
