@@ -2,6 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { SkillSlug } from "@actor/types.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ErrorPF2e } from "@util";
+import type { CombatantSource } from "types/foundry/common/documents/combatant.d.ts";
 import type { EncounterPF2e } from "./index.ts";
 
 class CombatantPF2e<
@@ -17,26 +18,37 @@ class CombatantPF2e<
         operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>,
     ): Promise<TDocument[]>;
     static override async createDocuments(
-        data: (CombatantPF2e | PreCreate<foundry.documents.CombatantSource>)[] = [],
+        data: (CombatantPF2e | PreCreate<CombatantSource>)[] = [],
         operation: Partial<DatabaseCreateOperation<EncounterPF2e>> = {},
-    ): Promise<Combatant<EncounterPF2e, TokenDocument<Scene | null> | null>[]> {
-        type DataType = (typeof data)[number];
-        const entries: { token: TokenDocumentPF2e | null; data: DataType }[] = data.map((d) => {
-            const scene = d.sceneId ? game.scenes.get(d.sceneId) : operation.parent?.scene;
-            const token = scene?.tokens.get(d.tokenId ?? "") || null;
-            return { token, data: d };
-        });
+    ): Promise<Combatant[]> {
+        this.#swapPartyForMembers(data, operation);
+        return super.createDocuments(data, operation);
+    }
 
-        // Party actors add their members to initiative instead of themselves
-        const tokens = entries.map((e) => e.token);
-        for (const token of tokens) {
-            if (token?.actor?.isOfType("party")) {
-                await token?.actor.addToCombat({ combat: operation.parent });
+    /** Remove any party to be added to an encounter and instead add its members */
+    static #swapPartyForMembers(
+        data: (CombatantPF2e | PreCreate<CombatantSource>)[],
+        operation: Partial<DatabaseCreateOperation<EncounterPF2e>>,
+    ): void {
+        for (const datum of [...data]) {
+            const actor = game.actors.get(datum.actorId ?? "");
+            const scene = game.scenes.get(datum.sceneId ?? "");
+            if (!scene || !actor?.isOfType("party")) continue;
+            data.findSplice((d) => d.actorId === actor.id);
+            for (const member of actor.members) {
+                const token = member.getDependentTokens({ scenes: [scene], linked: true }).at(0);
+                const alreadyAdded = operation.parent?.combatants.some((c) => c.actor === member);
+                const alreadyBeingAdded = data.some((d) => d.actorId === member.id);
+                if (token && !alreadyAdded && !alreadyBeingAdded) {
+                    data.push({
+                        actorId: member.id,
+                        sceneId: scene.id,
+                        tokenId: token.id,
+                        hidden: !!datum.hidden,
+                    });
+                }
             }
         }
-
-        const nonPartyData = entries.filter((e) => !e.token?.actor?.isOfType("party")).map((e) => e.data);
-        return super.createDocuments<Combatant<EncounterPF2e, TokenDocument<Scene | null>>>(nonPartyData, operation);
     }
 
     /** Get the active Combatant for the given actor, creating one if necessary */
