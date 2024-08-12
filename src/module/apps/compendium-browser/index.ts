@@ -59,6 +59,13 @@ class CompendiumBrowser extends Application {
         "spell",
     ] as const;
 
+    tabContext: { [key: string]: string[] } = {
+        primary: ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"],
+        "character-building": ["ancestry", "background", "class", "deity", "heritage"],
+    };
+
+    navigationTabs: { [key: string]: Tabs } = { primary: this._tabs[0], "character-building": this._tabs[1] };
+
     navigationTab: Tabs;
     tabs: BrowserTabs;
 
@@ -136,7 +143,7 @@ class CompendiumBrowser extends Application {
         const tabCallback = navigationTab.callback;
         navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
             tabCallback?.(event, tabs, active);
-            await this.loadTab(active);
+            if ((active as string) !== "landing-page") await this.loadTab(active);
         };
         return navigationTab;
     }
@@ -253,9 +260,7 @@ class CompendiumBrowser extends Application {
     openTab(name: "character-building"): Promise<void>;
     openTab(name: "settings"): Promise<void>;
     async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
-        if (tabName === "character-building") {
-            this.navigationTab = this.hookTab();
-        }
+        this.changeNavContext(tabName);
         if (tabName !== "settings" && tabName !== "character-building" && filter) {
             return this.tabs[tabName].open(filter);
         }
@@ -368,6 +373,21 @@ class CompendiumBrowser extends Application {
         return R.unique(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
     }
 
+    // Change the context of the nav
+    changeNavContext(tab: TabName): void {
+        const nav = this.tabToNav(tab);
+        if (this.navigationTab !== this.navigationTabs[nav]) this.navigationTab = this.hookTab();
+        if (this.navigationTab.active !== tab) {
+            this.navigationTab.activate("character-building");
+        }
+    }
+
+    // Get the nav that the tab belongs to
+    tabToNav(tab: TabName): string {
+        const nav = Object.keys(this.tabContext).find((key: string) => this.tabContext[key].includes(tab)) ?? "primary";
+        return nav;
+    }
+
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
@@ -378,7 +398,7 @@ class CompendiumBrowser extends Application {
         if (this.navigationTab.active !== activeTabName) {
             // Character Building needs special handling
             if (["ancestry", "background", "class", "deity", "heritage"].includes(activeTabName)) {
-                this.navigationTab.activate("character-building");
+                this.changeNavContext(activeTabName);
                 this.openTab("character-building");
                 this.loadTab(activeTabName);
             }
