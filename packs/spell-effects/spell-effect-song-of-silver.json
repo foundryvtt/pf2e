@@ -1,0 +1,85 @@
+{
+    "_id": "BdgWuULYjFwlVkr7",
+    "img": "icons/magic/sonic/explosion-shock-wave-teal.webp",
+    "name": "Spell Effect: Song of Silver",
+    "system": {
+        "description": {
+            "value": "<p>You gain a +2 status bonus to all saving throws against mental effects; this bonus doubles to a +4 status bonus against all fear effects. On a critical success all weapons you wield are treated as silver.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 7
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #205: Singer, Stalker, Skinsaw Man"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "rollOption": "song-of-silver"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:fear"
+                ],
+                "selector": "saving-throw",
+                "slug": "song-of-silver",
+                "value": 2
+            },
+            {
+                "definition": [
+                    {
+                        "not": "item:unarmed"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "song-of-silver:critical-success"
+                ],
+                "property": "materials",
+                "value": "silver"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
