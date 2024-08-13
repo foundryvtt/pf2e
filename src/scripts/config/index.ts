@@ -826,6 +826,14 @@ export const PF2ECONFIG = {
         urban: "PF2E.Environment.Type.Urban",
     },
 
+    sheetCompendium: {
+        ancestries: "pf2e.ancestries",
+        heritages: "pf2e.heritages",
+        backgrounds: "pf2e.backgrounds",
+        classes: "pf2e.classes",
+        deities: "pf2e.deities",
+    },
+
     SETTINGS: {
         automation: {
             rulesBasedVision: {

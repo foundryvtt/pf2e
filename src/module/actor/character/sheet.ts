@@ -417,6 +417,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             };
         });
 
+        sheetData.compendium = CONFIG.PF2E.sheetCompendium;
+
         // Return data for rendering
         return sheetData;
     }
@@ -1667,6 +1669,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     elementalBlasts: ElementalBlastSheetConfig[];
     senses: Sense[];
     speeds: SpeedSheetData[];
+    compendium: Record<string, string>;
 }
 
 type LanguageSheetData = {
