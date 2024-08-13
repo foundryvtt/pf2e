@@ -24,7 +24,30 @@
             "remaster": false,
             "title": "Pathfinder Guns & Gears"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
+                "option": "unstable-state",
+                "predicate": [
+                    {
+                        "not": "feature:construct-innovation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "unstable-state",
+                    "item:deep-freeze"
+                ],
+                "property": "traits",
+                "value": "unstable"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
