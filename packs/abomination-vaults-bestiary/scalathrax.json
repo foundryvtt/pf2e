@@ -115,24 +115,6 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "action:squeeze"
-                        ],
-                        "selector": "acrobatics",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    },
-                    {
-                        "key": "Note",
-                        "predicate": [
-                            "action:escape"
-                        ],
-                        "selector": "skill-check",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}"
-                    },
-                    {
                         "adjustment": {
                             "criticalFailure": "one-degree-better",
                             "failure": "one-degree-better",
@@ -140,23 +122,14 @@
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "action:squeeze"
+                            {
+                                "or": [
+                                    "action:escape",
+                                    "action:squeeze"
+                                ]
+                            }
                         ],
-                        "selector": "acrobatics",
-                        "type": "skill"
-                    },
-                    {
-                        "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "failure": "one-degree-better",
-                            "success": "one-degree-better"
-                        },
-                        "key": "AdjustDegreeOfSuccess",
-                        "predicate": [
-                            "action:escape"
-                        ],
-                        "selector": "skill-check",
-                        "type": "skill"
+                        "selector": "skill-check"
                     }
                 ],
                 "slug": null,
