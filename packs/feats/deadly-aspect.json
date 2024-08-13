@@ -30,31 +30,37 @@
         },
         "rules": [
             {
+                "definition": [
+                    "item:claw"
+                ],
                 "key": "AdjustStrike",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            {
-                                "and": [
-                                    "draconic-aspect:claw",
-                                    "item:slug:claw"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "draconic-aspect:jaws",
-                                    "item:slug:jaws"
-                                ]
-                            },
-                            {
-                                "and": [
-                                    "draconic-aspect:tail",
-                                    "item:slug:tail"
-                                ]
-                            }
-                        ]
-                    }
+                    "draconic-aspect:claw"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            },
+            {
+                "definition": [
+                    "item:jaws"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "draconic-aspect:jaws"
+                ],
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            },
+            {
+                "definition": [
+                    "item:tail"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "draconic-aspect:tail"
                 ],
                 "property": "weapon-traits",
                 "value": "deadly-d8"
