@@ -60,6 +60,57 @@
                         }
                     ]
                 }
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": 0
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
+                        "predicate": [
+                            {
+                                "nor": [
+                                    "defense:light:rank:0",
+                                    "defense:medium:rank:0"
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    }
+                ],
+                "flag": "armor",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "value": "@item.flags.pf2e.rulesSelections.armor"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    {
+                        "nor": [
+                            "defense:light:rank:0",
+                            "defense:medium:rank:0"
+                        ]
+                    }
+                ],
+                "value": 1
             }
         ],
         "traits": {
