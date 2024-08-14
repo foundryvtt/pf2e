@@ -87,7 +87,7 @@ export type ItemSchema<TType extends string = string, TSystemSource extends obje
     /** An object of optional key/value flags */
     flags: fields.ObjectField<ItemFlags>;
     /** An object of creation and access information */
-    _stats: fields.DocumentStatsField;
+    _stats: fields.DocumentStatsField<ItemUUID>;
 };
 
 export type ItemSource<TType extends string = string, TSystemSource extends object = object> = SourceFromSchema<

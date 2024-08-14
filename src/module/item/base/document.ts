@@ -63,7 +63,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The compendium source ID of the item **/
     get sourceId(): ItemUUID | null {
-        return this.flags.core?.sourceId ?? null;
+        return this.flags.core?.sourceId ?? this._stats.compendiumSource ?? null;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
