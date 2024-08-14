@@ -1929,26 +1929,15 @@
                 },
                 "rules": [
                     {
-                        "key": "Note",
-                        "predicate": [
-                            "mental"
-                        ],
-                        "selector": "saving-throw",
-                        "text": "{item|system.description.value}",
-                        "title": "{item|name}",
-                        "visibility": "owner"
-                    },
-                    {
                         "adjustment": {
                             "success": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "mental",
+                            "item:trait:mental",
                             "inflicts:controlled"
                         ],
-                        "selector": "saving-throw",
-                        "type": "save"
+                        "selector": "saving-throw"
                     }
                 ],
                 "slug": null,
