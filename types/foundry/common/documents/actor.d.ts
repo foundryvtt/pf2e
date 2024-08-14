@@ -111,7 +111,7 @@ type ActorSchema<
     /** An object of optional key/value flags */
     flags: fields.ObjectField<ActorFlags>;
     /** An object of creation and access information. */
-    _stats: fields.DocumentStatsField<ActorUUID>;
+    _stats: fields.DocumentStatsField<WorldActorUUID | CompendiumActorUUID>;
 };
 
 export type ActorFlags = DocumentFlags & {
