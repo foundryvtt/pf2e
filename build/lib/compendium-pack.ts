@@ -263,7 +263,7 @@ class CompendiumPack {
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
-                item._stats = partialStats;
+                item._stats = partialStats as DocumentStatsData<WorldItemUUID | CompendiumItemUUID>;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });

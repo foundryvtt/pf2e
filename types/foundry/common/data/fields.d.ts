@@ -1230,7 +1230,9 @@ type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
     duplicateSource: DocumentUUIDField<DocumentUUID>;
 };
 
-export type DocumentStatsData = SourceFromSchema<DocumentStatsSchema>;
+export type DocumentStatsData<TDocumentUUID extends DocumentUUID = DocumentUUID> = SourceFromSchema<
+    DocumentStatsSchema<TDocumentUUID>
+>;
 
 /**
  * A subclass of [StringField]{@link StringField} that is used specifically for the Document "type" field.
