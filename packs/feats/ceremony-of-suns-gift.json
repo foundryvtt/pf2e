@@ -26,36 +26,38 @@
         },
         "rules": [
             {
-                "itemType": "feat",
-                "key": "ItemAlteration",
-                "mode": "add",
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:sunlight-healing"
+                ],
+                "priority": 150,
+                "property": "dice-number",
+                "selectors": [
+                    "inline-healing"
+                ],
+                "value": 0
+            },
+            {
+                "key": "FlatModifier",
                 "predicate": [
                     "item:slug:sunlight-healing",
                     {
                         "not": "feat:ceremony-of-sunlight"
                     }
                 ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Conrasu.CeremonyOfSunsGift.SunlightHealing"
-                    }
-                ]
+                "selector": "inline-healing",
+                "value": "ceil(@actor.level/2)*8"
             },
             {
-                "itemType": "feat",
-                "key": "ItemAlteration",
-                "mode": "add",
+                "key": "FlatModifier",
                 "predicate": [
                     "item:slug:sunlight-healing",
                     "feat:ceremony-of-sunlight"
                 ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Conrasu.CeremonyOfSunsGift.CeremonyOfSunlightHealing"
-                    }
-                ]
+                "selector": "inline-healing",
+                "slug": "ceremony-of-suns-gift-ceremony-of-sunlight",
+                "value": "@actor.level*8"
             }
         ],
         "traits": {
