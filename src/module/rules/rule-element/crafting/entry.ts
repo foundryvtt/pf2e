@@ -50,7 +50,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
                 },
                 { initial: (d) => ({ default: d.isAlchemical ? 2 : 1, other: [] }) },
             ),
-            maxItemLevel: new ResolvableValueField({ required: false, nullable: false, initial: 1 }),
+            maxItemLevel: new ResolvableValueField({ required: false, nullable: false }),
             maxSlots: new fields.NumberField({ required: false, nullable: false, initial: undefined }),
             craftableItems: new PredicateField(),
             preparedFormulas: new fields.ArrayField(
@@ -83,7 +83,7 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             isPrepared: this.isPrepared,
             batchSizes: this.batchSizes,
             craftableItems: this.craftableItems,
-            maxItemLevel: Number(this.resolveValue(this.maxItemLevel)) || 1,
+            maxItemLevel: this.maxItemLevel !== undefined ? Number(this.resolveValue(this.maxItemLevel)) : null,
             maxSlots: this.maxSlots,
             preparedFormulaData: this.preparedFormulas,
         };
