@@ -31,35 +31,20 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.crafting.entries.alchemist.maxItemLevel",
-                "phase": "beforeDerived",
-                "predicate": [
-                    "crafting:entry:alchemist"
-                ],
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 12,
-                            "start": 12,
-                            "value": 7
-                        },
-                        {
-                            "start": 13,
-                            "value": "@actor.level - 5"
-                        }
-                    ]
-                }
-            }
-        ],
+        "rules": [],
         "traits": {
             "rarity": "common",
             "value": [
                 "archetype"
             ]
+        },
+        "subfeatures": {
+            "proficiencies": {
+                "alchemist": {
+                    "rank": 2,
+                    "attribute": null
+                }
+            }
         }
     },
     "type": "feat"
