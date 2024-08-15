@@ -273,8 +273,8 @@ declare global {
         const implementation: typeof Actor;
     }
 
-    type EmbeddedActormUUID = `${TokenDocumentUUID}.Actor.${string}`;
+    type EmbeddedActorUUID = `${TokenDocumentUUID}.Actor.${string}`;
     type WorldActorUUID = WorldDocumentUUID<Actor<null>>;
     type CompendiumActorUUID = `Compendium.${string}.Actor.${string}`;
-    type ActorUUID = WorldActorUUID | EmbeddedActormUUID | CompendiumActorUUID;
+    type ActorUUID = WorldActorUUID | EmbeddedActorUUID | CompendiumActorUUID;
 }
