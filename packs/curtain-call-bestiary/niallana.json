@@ -1,0 +1,486 @@
+{
+    "_id": "XlEHPOxIIvne6oxe",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "n5oh9urk0vokvmfv",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 29
+                },
+                "damageRolls": {
+                    "W43PpPY7Tp2dANf1": {
+                        "damage": "3d8+16",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "df79dbzoljgbj0mq",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Self-Loathing",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If a silent stalker sees their own reflection or any object important to them in life, they must attempt a @Check[will|dc:40] save.</p><hr /><p><strong>Critical Success</strong> The pale stranger is unaffected and can no longer be affected by that reflection or object in this way.</p>\n<p><strong>Success</strong> The silent stalker is distracted by self-loathing and is @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} for 1 round.</p>\n<p><strong>Failure</strong> The silent stalker becomes @UUID[Compendium.pf2e.conditionitems.Item.Fascinated] by the source of their self-loathing and does everything they can to destroy it until the end of their next turn.</p>\n<p><strong>Critical Failure</strong> The silent stalker becomes @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] as long as the source of their self-loathing is apparent, until they're attacked, or until they see their murderer.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "pvl5y6qz89i11vc5",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Sense Murderer",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A silent stalker knows the direction of their murderer (as long as both are on the same plane), but not the distance.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "detection",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "eyfrpq3bvxnh075k",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Silent Aura",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>10 feet. A silent stalker makes no sound, preventing creatures from noticing them using hearing or a similar sense alone. This silence stops all sound within it or passing through. The silent stalker and all creatures in the aura can't use sonic attacks or actions that have the auditory trait; this prevents creatures from casting spells with verbal components or activating items with command components.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Silent Aura]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "all",
+                                "events": [
+                                    "enter"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Silent Aura"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 10,
+                        "slug": "silent-aura",
+                        "traits": [
+                            "illusion",
+                            "occult"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "aura",
+                        "illusion",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2axamykyrsqyw3y1",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Undying Vendetta",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>If the silent stalker's murderer dies, the pale stranger is immediately destroyed. A pale stranger that can't sense their murderer must attempt a @Check[flat|dc:11] once every 24 hours to avoid becoming @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] and @UUID[Compendium.pf2e.conditionitems.Item.Prone]; they immediately rise again once they can sense their murderer. A murderer who becomes undead does not trigger the silent stalker's destruction until the murderer is finally destroyed. The silent stalker gains a +2 status bonus to checks and DCs against their murderer.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "undying-vendetta",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "undying-vendetta"
+                        ],
+                        "selector": "all",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "IMlXx0dxH2pyVYkZ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.TTCw5NusiSSkJU1x"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Void Healing",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.NegativeHealing]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary 2"
+                },
+                "rules": [
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "override",
+                        "path": "system.attributes.hp.negativeHealing",
+                        "value": true
+                    }
+                ],
+                "slug": "negative-healing",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "HgX8EdBcuekHoaYB",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Damage[(3d8+8)[bludgeoning]], @Check[fortitude|dc:36|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Constrict]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "constrict",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "GdByrDIFQsIb65c6",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Siphon Voice",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Niallana attempts to steal the voice of a living creature within 30 feet. The target must attempt a @Check[fortitude|dc:36] save. As long as a creature is voiceless due to this effect, Niallana's silent aura is suppressed, and she can speak in the voice of the affected creature.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The target becomes voiceless until the end of Niallana's next turn. A voiceless creature can't speak, create vocal sounds, or take auditory actions (including supplying verbal or command components).</p>\n<p><strong>Failure</strong> As success, but the duration is 1 minute.</p>\n<p><strong>Critical Failure</strong> As success, but the curse duration is permanent.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "curse",
+                        "occult"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "i5QEKnRQOxdbucFa",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Niallana",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 6
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": 0
+            },
+            "str": {
+                "mod": 8
+            },
+            "wis": {
+                "mod": 3
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 36
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "void healing",
+                "max": 275,
+                "temp": 0,
+                "value": 275
+            },
+            "immunities": [
+                {
+                    "type": "death-effects"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                },
+                {
+                    "type": "sleep"
+                }
+            ],
+            "resistances": [
+                {
+                    "exceptions": [
+                        "slashing"
+                    ],
+                    "type": "physical",
+                    "value": 15
+                }
+            ],
+            "speed": {
+                "otherSpeeds": [],
+                "special": "",
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "Variant silent stalker",
+            "languages": {
+                "details": "Can't Speak",
+                "value": [
+                    "common"
+                ]
+            },
+            "level": {
+                "value": 15
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>When a person is betrayed and killed in a way that their voice was silenced (such as through strangulation by a lover or close confidante), they might come back as a silent stalker. A silent stalker is a horrifying, twisted likeness of the person they were in life, with one obvious difference: the silent stalker has no mouth, simply a smooth patch of flesh where a mouth should be. Sound is suppressed in an area around a silent stalker, but once someone notices the quiet, it's often too late.</p>\n<hr />\n<p>A revenant is a vengeful undead who stalks the one who killed them in life. They're relentless in the pursuit of their murderer, seeking a final justice.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #205: Singer, Stalker, Skinsaw Man"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "sense murderer",
+            "mod": 26,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 24
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 28
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 26
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 31
+            },
+            "performance": {
+                "base": 29
+            },
+            "stealth": {
+                "base": 28
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "undead"
+            ]
+        }
+    },
+    "type": "npc"
+}
