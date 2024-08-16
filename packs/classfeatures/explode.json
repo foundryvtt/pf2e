@@ -28,6 +28,24 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Explode"
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "PF2E.TraitUnstable",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:unstable",
+                    {
+                        "not": "item:megaton-strike"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Inventor.Unstable.Note"
+                    }
+                ]
             }
         ],
         "traits": {
