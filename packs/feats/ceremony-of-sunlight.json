@@ -24,7 +24,20 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: The Mwangi Expanse"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:slug:sunlight-healing"
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "inline-healing"
+                ],
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
