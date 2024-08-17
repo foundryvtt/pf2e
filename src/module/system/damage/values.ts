@@ -99,7 +99,7 @@ const PERSISTENT_DAMAGE_IMAGES: Partial<Record<DamageType, ImageFilePath>> = {
     force: "systems/pf2e/icons/spells/magic-missile.webp",
     mental: "systems/pf2e/icons/spells/modify-memory.webp",
     piercing: "systems/pf2e/icons/equipment/weapons/throwing-knife.webp",
-    poison: "systems/pf2e/icons/spells/acidic-burst.webp",
+    poison: "icons/skills/toxins/cauldron-bubbles-overflow-green.webp",
     slashing: "systems/pf2e/icons/equipment/weapons/scimitar.webp",
     sonic: "systems/pf2e/icons/spells/cry-of-destruction.webp",
     spirit: "icons/magic/unholy/hand-claw-fire-blue.webp",
