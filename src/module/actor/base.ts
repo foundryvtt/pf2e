@@ -168,7 +168,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null {
-        return this.flags.core?.sourceId ?? this._stats.compendiumSource ?? null;
+        return this._stats.compendiumSource;
     }
 
     /** The recorded schema version of this actor, updated after each data migration */
