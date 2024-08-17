@@ -18,6 +18,10 @@ export const Setup = {
             game.settings.settings.get("core.chatBubblesPan").default = false;
             // Improve discoverability of map notes
             game.settings.settings.get("core.notesDisplayToggle").default = true;
+            // Use grid fit mode
+            if (game.release.generation >= 12 && game.release.build >= 331) {
+                game.settings.settings.get("core.dynamicTokenRingFitMode").default = "grid";
+            }
 
             // Set Hover by Owner as defaults for Default Token Configuration
             const defaultTokenSettingsDefaults = game.settings.settings.get("core.defaultToken").default;
