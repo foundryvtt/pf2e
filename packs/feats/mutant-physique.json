@@ -26,76 +26,26 @@
         },
         "rules": [
             {
-                "key": "DamageAlteration",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "upgrade",
                 "predicate": [
-                    "dice:slug:base",
+                    {
+                        "or": [
+                            "item:slug:claw",
+                            "item:slug:jaws"
+                        ]
+                    },
                     {
                         "or": [
                             "self:effect:bestial-mutagen-lesser",
-                            "self:effect:bestial-mutagen-moderate"
-                        ]
-                    }
-                ],
-                "property": "dice-faces",
-                "selectors": [
-                    "claw-damage"
-                ],
-                "value": 6
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "predicate": [
-                    "dice:slug:base",
-                    {
-                        "or": [
-                            "self:effect:bestial-mutagen-lesser",
-                            "self:effect:bestial-mutagen-moderate"
-                        ]
-                    }
-                ],
-                "property": "dice-faces",
-                "selectors": [
-                    "jaws-damage"
-                ],
-                "value": 8
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "predicate": [
-                    "dice:slug:base",
-                    {
-                        "or": [
+                            "self:effect:bestial-mutagen-moderate",
                             "self:effect:bestial-mutagen-greater",
                             "self:effect:bestial-mutagen-major"
                         ]
                     }
                 ],
-                "property": "dice-faces",
-                "selectors": [
-                    "claw-damage"
-                ],
-                "value": 10
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "upgrade",
-                "predicate": [
-                    "dice:slug:base",
-                    {
-                        "or": [
-                            "self:effect:bestial-mutagen-greater",
-                            "self:effect:bestial-mutagen-major"
-                        ]
-                    }
-                ],
-                "property": "dice-faces",
-                "selectors": [
-                    "jaws-damage"
-                ],
-                "value": 12
+                "property": "damage-dice-faces"
             },
             {
                 "key": "FlatModifier",
