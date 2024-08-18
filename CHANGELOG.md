@@ -1,3 +1,39 @@
+## 6.2.3
+
+This update requires Foundry VTT version 12.328.
+
+### Bugfixes
+
+-   (stwlam) Fix Treat Wounds macro always using Risky Surgery given presence of feat
+-   (stwlam) Test against crit immunity exceptions when processing IWR
+-   (Supe) Do not persist other tags added via item alterations
+
+### Data Updates
+
+-   (Abaddon) Add Qi Spells link to Bullet Dancer journal entry page
+-   (Ambrose) Consolidate Keep Pace and Know It All feats
+-   (Ambrose) Fix localization for Breath Weapon action
+-   (Ambrose) Fix Obsidian Edge base damage and range
+-   (Ambrose) Remove self-applying effect from Portents of Haruspex
+-   (Ambrose) Update inline damage rolls for the Critical Deck journal entries
+-   (Dire Weasel) Add effects for Clay Sphere, unified effect for Elemental Motion
+-   (Dire Weasel) Brush up Ghosthand's Comet
+-   (Dire Weasel) Fix level of The Dancing Lady
+-   (Dire Weasel) Fix level of Tunnel feat in Worm Caller journal entry page
+-   (Dire Weasel) Update Fortify Summoning effect to remaster
+-   (kromko) Make Ignition rank persistent damage links actually scale
+-   (MechaMaya) Fix categories of Sharp Teeth and Draconic Scent
+-   (Mose) Fix formula for damage based on proficiency on agonizing rebuke
+-   (Mose) Fix typo in Swift Swimmer
+-   (Mose) Remove incorrect link to Escape action in No Escape
+-   (rectulo) Fix inline check in Folksy Patter
+-   (Rigo) Add effect for Connect the Dots
+-   (Rigo) Add PFS draconic options to dragon instinct barbarian
+-   (Rigo) Add versatile vial item and basic Field Vial benefits
+-   (Rigo) Fix Bestial Mutagen Strikes
+-   (Rigo) Fix typo on Insight Coffee rule elements
+-   (Rigo) Limit defensive stratagem bonus to Devise a Stratagem target
+
 ## 6.2.2
 
 ### Bugfixes
