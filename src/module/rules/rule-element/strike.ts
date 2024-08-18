@@ -182,23 +182,9 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     }
 
     override beforePrepareData(): void {
-        if (this.ignored) return;
-
-        // Prefer a non-default fist icon if one is set
-        const actor = this.actor;
-        if (this.fist && this.img === StrikeRuleElement.#defaultFistIcon) {
-            const nonDefaultImg = actor.rules.find(
-                (r): r is StrikeRuleElement =>
-                    !r.ignored &&
-                    r instanceof StrikeRuleElement &&
-                    r.fist &&
-                    r.img !== StrikeRuleElement.#defaultFistIcon,
-            )?.img;
-            this.img = nonDefaultImg ?? this.img;
-        }
-
+        if (!this.test()) return;
         const slug = this.slug ?? sluggify(this.label);
-        actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
+        this.actor.synthetics.strikes[slug] = (unarmedRunes) => this.#constructWeapon({ slug, unarmedRunes });
     }
 
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
@@ -229,7 +215,6 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
      * @param damageType The resolved damage type for the strike
      */
     #constructWeapon({ slug, unarmedRunes }: ConstructWeaponParams): WeaponPF2e<ActorPF2e> | null {
-        if (!this.test()) return null;
         const actor = this.actor;
 
         const attribute = this.resolveInjectedProperties(this.ability) || null;
