@@ -1,0 +1,69 @@
+{
+    "_id": "OzvvsyjAWWij4mmm",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Keep Pace",
+    "system": {
+        "actionType": {
+            "value": "reaction"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Trigger</strong> Your prey is within reach and attempts to move away from you.</p><hr /><p><strong>Bounty Hunter -</strong> Once you are upon your prey, they can't escape.</p>\n<p><strong>Game Hunter</strong> - When your hunted prey tries to bolt, you follow.</p>\n<p>@UUID[Compendium.pf2e.actionspf2e.Item.Stride] up to your Speed, following the foe and keeping it in reach throughout its movement until it stops moving or you've moved your full Speed. You can use Keep Pace to @UUID[Compendium.pf2e.actionspf2e.Item.Burrow], @UUID[Compendium.pf2e.actionspf2e.Item.Climb], @UUID[Compendium.pf2e.actionspf2e.Item.Fly], or @UUID[Compendium.pf2e.actionspf2e.Item.Swim] instead of Stride if you have the corresponding movement type.</p>"
+        },
+        "level": {
+            "value": 6
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Bounty Hunter Dedication or Game Hunter Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "item:bounty-hunter-dedication"
+                        ],
+                      "text": "PF2E.SpecificRule.KeepPace.Trigger",
+                      "title": "PF2E.FeatDescription.Trigger.Label"
+                    },
+                    {
+                        "divider": true,
+                        "predicate": [
+                            "item:bounty-hunter-dedication"
+                        ],
+                        "text": "PF2E.SpecificRule.KeepPace.BountyHunter"
+                    },
+                    {
+                        "predicate": [
+                            "item:game-hunter-dedication"
+                        ],
+                        "text": "PF2E.SpecificRule.KeepPace.GameHunter"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}
