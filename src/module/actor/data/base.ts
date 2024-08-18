@@ -63,7 +63,7 @@ interface ActorDetailsSource {
     alliance?: ActorAlliance;
 }
 
-interface ActorSystemData extends ActorSystemSource {
+interface ActorSystemData extends Omit<ActorSystemSource, "schema"> {
     abilities?: Abilities;
     details: ActorDetails;
     actions?: StrikeData[];

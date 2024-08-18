@@ -1,4 +1,5 @@
 import { ActorProxyPF2e } from "@actor";
+import { ArmySystemData } from "@actor/army/data.ts";
 import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
@@ -84,6 +85,7 @@ export const Load = {
 
         // Assign canvas layer and placeable classes
 
+        CONFIG.Actor.dataModels.army = ArmySystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
