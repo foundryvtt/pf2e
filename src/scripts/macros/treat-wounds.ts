@@ -190,7 +190,7 @@ async function treatWoundsMacroCallback({
 }): Promise<void> {
     const successLabel = outcome ? game.i18n.localize(`PF2E.Check.Result.Degree.Check.${outcome}`) : "";
     const magicHands = CheckFeat(actor, "magic-hands");
-    const riskySurgery = (message.flags.pf2e.modifiers ?? []).some((m) => m.slug === "risky-surgery");
+    const riskySurgery = !!message.flags.pf2e.modifiers?.some((m) => m.slug === "risky-surgery" && m.enabled);
     const bonusString = bonus > 0 ? `+ ${bonus}` : "";
 
     const healFormula = (() => {
