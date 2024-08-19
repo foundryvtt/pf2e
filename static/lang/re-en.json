@@ -2131,6 +2131,20 @@
                 "Prompt": "Select a Brevic lineage.",
                 "Surtova": "Surtova"
             },
+            "BreathWeapon": {
+                    "Shape": {
+                        "Cone": {
+                            "Label": "Cone",
+                            "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[cone|distance:30], with a basic Reflex save against your spell DC."
+                        },
+                        "Line": {
+                           "Label": "Line",
+                           "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[line|distance:60], with a basic Reflex save against your spell DC."
+                        }
+                    },
+                    "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
+                    "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+            },
             "CapeOfJustice": {
                 "Toggle": "Target is your designated offender"
             },
