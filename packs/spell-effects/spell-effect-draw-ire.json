@@ -1,0 +1,106 @@
+{
+    "_id": "0WYy3bY7HJ7TDSYD",
+    "img": "icons/skills/targeting/target-glowing-yellow.webp",
+    "name": "Spell Effect: Draw Ire",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</p>\n<p><strong>Failure</strong> The target takes full damage and the penalty.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, and the status penalty is -2.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.DegreeOfSuccess.Failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.DegreeOfSuccess.CriticalFailure",
+                        "value": "critical-failure"
+                    }
+                ],
+                "flag": "degreeOfSuccess",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "option": "spell-effect:{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Draw Ire (Critical Failure)",
+                "predicate": [
+                    "spell-effect:critical-failure",
+                    {
+                        "not": "target:drawIre"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": -2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "Draw Ire (Failure)",
+                "predicate": [
+                    "spell-effect:failure",
+                    {
+                        "not": "target:drawIre"
+                    }
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.GrantedBy"
+                    },
+                    {
+                        "predicate": [
+                            "spell-effect:critical-failure"
+                        ],
+                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.CritialFailure"
+                    },
+                    {
+                        "predicate": [
+                            "spell-effect:failure"
+                        ],
+                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.Failure"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
