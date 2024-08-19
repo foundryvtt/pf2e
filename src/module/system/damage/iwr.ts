@@ -87,7 +87,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
-            const critImmunity = immunities.find((i) => i.type === "critical-hits");
+            const critImmunity = immunities.find((i) => i.type === "critical-hits" && i.test(formalDescription));
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmuneTotal = instance.critImmuneTotal;
             const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;
