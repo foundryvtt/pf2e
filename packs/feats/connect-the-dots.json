@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>Ephemeral connections between people, places, and concepts are invisible to most, but seeing them is your stock and trade. Choose an ally and a non-allied creature. You must be able to see both of them. You briefly study the way they both move and attempt a @Check[perception] check against the higher of the non-allied creature's Deception DC or Will DC. Both targets are then temporarily immune to Connect the Dots for 10 minutes.</p><hr /><p><strong>Critical Success</strong> You spot a way for your ally to take advantage of the other target's flaws and let them know about it. Your ally gains your @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] investigation bonus as a circumstance bonus to all its Strikes or skill checks against the creature until the start of your next turn.</p>\n<p><strong>Success</strong> As critical success, but your ally gains the bonus only for their next Strike or skill check against the creature.</p>\n<p><strong>Failure</strong> You fail to make a connection.</p>\n<p><strong>Critical Failure</strong> You misconstrue a vital piece of information, which temporarily disconcerts you. You are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of your next turn.</p>"
+            "value": "<p>Ephemeral connections between people, places, and concepts are invisible to most, but seeing them is your stock and trade. Choose an ally and a non-allied creature. You must be able to see both of them. You briefly study the way they both move and attempt a @Check[perception] check against the higher of the non-allied creature's Deception DC or Will DC. Both targets are then temporarily immune to Connect the Dots for 10 minutes.</p><hr /><p><strong>Critical Success</strong> You spot a way for your ally to take advantage of the other target's flaws and let them know about it. Your ally gains your @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] investigation bonus as a circumstance bonus to all its Strikes or skill checks against the creature until the start of your next turn.</p>\n<p><strong>Success</strong> As critical success, but your ally gains the bonus only for their next Strike or skill check against the creature.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Connect the Dots]</p>\n<p><strong>Failure</strong> You fail to make a connection.</p>\n<p><strong>Critical Failure</strong> You misconstrue a vital piece of information, which temporarily disconcerts you. You are @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 1} until the end of your next turn.</p>"
         },
         "level": {
             "value": 6
@@ -24,7 +24,18 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "feature:investigator-expertise"
+                ],
+                "property": "other-tags",
+                "value": "investigator-expertise"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
