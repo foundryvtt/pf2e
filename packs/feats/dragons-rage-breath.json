@@ -11,7 +11,11 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per 10 minutes</p>\n<p>You breathe deeply and exhale powerful energy in a @Template[cone|distance:30], dealing @Damage[(@actor.level)d6[@actor.flags.pf2e.barbarian.instinct.dragon.damageType]|traits:area-damage] damage to each creature in the area with a @Check[reflex|against:barbarian|basic] save against your class DC. The damage type matches your instinct's dragon breath, and this action gains the trait of your dragon instinct's tradition.</p>"
+            "value": "<p><strong>Frequency</strong> once per 10 minutes</p><hr /><p>You breathe deeply and exhale powerful energy in a @Template[cone|distance:30], dealing @Damage[(@actor.level)d6[@actor.flags.pf2e.barbarian.instinct.dragon.damageType]|options:area-damage] damage to each creature in the area with a @Check[reflex|against:barbarian|basic] save against your class DC. The damage type matches your instinct's dragon breath, and this action gains the trait of your dragon instinct's tradition.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "PT10M"
         },
         "level": {
             "value": 6
@@ -28,7 +32,15 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|flags.pf2e.barbarian.instinct.dragon.tradition}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
