@@ -1,7 +1,7 @@
 import type { ActorPF2e } from "@actor";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { OneToTen } from "@module/data.ts";
-import { TraitTagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
+import { TagifyEntry, createTagifyTraits } from "@module/sheet/helpers.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
 import { DAMAGE_CATEGORIES_UNIQUE } from "@system/damage/values.ts";
 import { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
@@ -527,5 +527,5 @@ interface SpellSheetHeightenOverlayData extends SpellSheetOverlayData {
     system: Partial<SpellSystemSource>;
     heightenLevels: FormSelectOption[];
     missing: { key: keyof SpellSystemData; label: string }[];
-    traits?: TraitTagifyEntry[] | null;
+    traits?: TagifyEntry[] | null;
 }
