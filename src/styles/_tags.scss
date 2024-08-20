@@ -83,115 +83,115 @@
             opacity: 0.7;
         }
     }
+}
 
-    // Tagify and non-tagify paizo style main traits row
-    &.paizo-style {
-        border: none;
-        gap: 0;
-        padding: 0.5em 0.05em;
+// Tagify and non-tagify paizo style main traits row
+.tags.paizo-style {
+    border: none;
+    gap: 0;
+    padding: 0.5em 0.05em;
 
-        tag,
-        .tag,
-        select.tag {
-            background-color: var(--color-bg-trait);
-            border: solid var(--color-border-trait);
-            border-radius: 0;
-            box-shadow: none;
+    tag,
+    .tag,
+    select.tag {
+        background-color: var(--color-bg-trait);
+        border: solid var(--color-border-trait);
+        border-radius: 0;
+        box-shadow: none;
+        margin: 0;
+
+        x {
+            align-items: start;
             margin: 0;
-
-            x {
-                align-items: start;
-                margin: 0;
-            }
-
-            &__removeBtn {
-                align-items: baseline;
-            }
         }
 
-        tag,
-        select.tag {
-            border-width: 2px 3px 2px 2px;
+        &__removeBtn {
+            align-items: baseline;
+        }
+    }
 
-            &:first-child {
-                border-left-width: 5px;
-            }
+    tag,
+    select.tag {
+        border-width: 2px 3px 2px 2px;
 
-            &:last-child {
-                border-right-width: 5px;
-            }
+        &:first-child {
+            border-left-width: 5px;
         }
 
-        tag:last-of-type {
+        &:last-child {
             border-right-width: 5px;
         }
+    }
 
-        .tag {
-            border-width: 1px 2px 1px 1px;
+    tag:last-of-type {
+        border-right-width: 5px;
+    }
 
-            &:first-child {
-                border-left-width: 3px;
-            }
+    .tag {
+        border-width: 1px 2px 1px 1px;
 
-            &:last-child {
-                border-right-width: 3px;
-            }
-
-            &.size {
-                background-color: var(--color-bg-size);
-            }
+        &:first-child {
+            border-left-width: 3px;
         }
 
-        tag > div {
-            border-radius: 0;
-            display: flex;
-            font: 500 var(--font-size-10) var(--sans-serif);
-            padding: 0 0.09rem 0 var(--space-4);
-
-            .tagify__tag-text {
-                text-transform: uppercase;
-            }
+        &:last-child {
+            border-right-width: 3px;
         }
 
-        hr.vr {
-            height: 1.25em;
-            margin: var(--space-1) var(--space-2);
-        }
-
-        // Tone down disabled effects so we still see trait colors
-        &[disabled] {
-            filter: none;
-            tag > div::before {
-                animation: none !important;
-            }
-
-            // There's some css specificity issues that reintroduce margins,
-            // display none makes it easier to remove
-            & > .tagify__input {
-                display: none;
-            }
+        &.size {
+            background-color: var(--color-bg-size);
         }
     }
 
-    &.light > .tag,
-    > .tag.light {
-        --tag-color: var(--color-pf-alternate-dark);
-        align-items: center;
-        background: none;
-        border-radius: 2px;
-        border: 1px solid var(--tag-color);
-        box-shadow: none;
-        color: var(--tag-color);
+    tag > div {
+        border-radius: 0;
         display: flex;
-        font: 700 var(--font-size-14) / 1.5em var(--sans-serif);
-        font-variant: all-small-caps;
-        letter-spacing: normal;
-        height: 1.5em;
-        margin: 0;
-        padding: 0 var(--space-4);
-        white-space: nowrap;
-        width: auto;
+        font: 500 var(--font-size-10) var(--sans-serif);
+        padding: 0 0.09rem 0 var(--space-4);
+
+        .tagify__tag-text {
+            text-transform: uppercase;
+        }
     }
+
+    hr.vr {
+        height: 1.25em;
+        margin: var(--space-1) var(--space-2);
+    }
+
+    // Tone down disabled effects so we still see trait colors
+    &[disabled] {
+        filter: none;
+        tag > div::before {
+            animation: none !important;
+        }
+
+        // There's some css specificity issues that reintroduce margins,
+        // display none makes it easier to remove
+        & > .tagify__input {
+            display: none;
+        }
+    }
+}
+
+.tags.light > .tag,
+.tags > .tag.light {
+    --tag-color: var(--color-pf-alternate-dark);
+    align-items: center;
+    background: none;
+    border-radius: 2px;
+    border: 1px solid var(--tag-color);
+    box-shadow: none;
+    color: var(--tag-color);
+    display: flex;
+    font: 700 var(--font-size-14) / 1.5em var(--sans-serif);
+    font-variant: all-small-caps;
+    letter-spacing: normal;
+    height: 1.5em;
+    margin: 0;
+    padding: 0 var(--space-4);
+    white-space: nowrap;
+    width: auto;
 }
 
 .chat-message .tags {
