@@ -1,7 +1,7 @@
 import type DocumentSheetV2 from "./document-sheet.d.ts";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
-declare function HandlebarsApplicationMixin<
+export declare function HandlebarsApplicationMixin<
     TDocument extends foundry.abstract.Document,
     TConfig extends DocumentSheetConfiguration = DocumentSheetConfiguration,
     TRenderOptions extends DocumentSheetRenderOptions = DocumentSheetRenderOptions,
@@ -16,7 +16,7 @@ export class HandlebarsApplicationDocumentSheet<
     TConfig extends DocumentSheetConfiguration = DocumentSheetConfiguration,
     TRenderOptions extends DocumentSheetRenderOptions = DocumentSheetRenderOptions,
 > extends DocumentSheetV2<TDocument, TConfig, TRenderOptions> {
-    static PARTS: Record<string, unknown>;
+    static PARTS: Record<string, HandlebarsTemplatePart>;
 
     /**
      * A record of all rendered template parts.
@@ -101,39 +101,37 @@ export class HandlebarsApplicationDocumentSheet<
     ): void;
 }
 
-declare global {
-    interface HandlebarsTemplatePart {
-        /** The template entry-point for the part */
-        template: string;
+export interface HandlebarsTemplatePart {
+    /** The template entry-point for the part */
+    template: string;
 
-        /**
-         * A CSS id to assign to the top-level element of the rendered part.
-         * This id string is automatically prefixed by the application id.
-         */
-        id?: string;
+    /**
+     * A CSS id to assign to the top-level element of the rendered part.
+     * This id string is automatically prefixed by the application id.
+     */
+    id?: string;
 
-        /** An array of CSS classes to apply to the top-level element of the rendered part. */
-        classes?: string[];
+    /** An array of CSS classes to apply to the top-level element of the rendered part. */
+    classes?: string[];
 
-        /**
-         * An array of templates that are required to render the part.
-         * If omitted, only the entry-point is inferred as required.
-         */
-        templates?: string[];
+    /**
+     * An array of templates that are required to render the part.
+     * If omitted, only the entry-point is inferred as required.
+     */
+    templates?: string[];
 
-        /**
-         * An array of selectors within this part whose scroll positions should
-         * be persisted during a re-render operation. A blank string is used
-         * to denote that the root level of the part is scrollable.
-         */
-        scrollable?: boolean[];
+    /**
+     * An array of selectors within this part whose scroll positions should
+     * be persisted during a re-render operation. A blank string is used
+     * to denote that the root level of the part is scrollable.
+     */
+    scrollable?: boolean[];
 
-        /** A registry of forms selectors and submission handlers. */
-        forms?: Record<string, ApplicationFormConfiguration>;
-    }
+    /** A registry of forms selectors and submission handlers. */
+    forms?: Record<string, ApplicationFormConfiguration>;
+}
 
-    interface HandlebarsRenderOptions {
-        /** An array of named template parts to render */
-        parts: string[];
-    }
+export interface HandlebarsRenderOptions {
+    /** An array of named template parts to render */
+    parts: string[];
 }
