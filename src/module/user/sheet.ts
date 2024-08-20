@@ -11,8 +11,7 @@ export class UserConfigPF2e<TUser extends UserPF2e> extends foundry.applications
         main: {
             template: "systems/pf2e/templates/user/sheet.hbs",
         },
-
-        ...fu.deepClone(super.PARTS),
+        ...super.PARTS,
     };
 
     override tabGroups = {
