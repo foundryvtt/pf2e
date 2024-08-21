@@ -259,7 +259,14 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             };
             return source.replace(pattern, (_match, key: string, prop: string) => {
                 const data = allInjectables[key];
-                const value = fu.getProperty(data, prop);
+                const value = (() => {
+                    // In case of formerly deprecated paths upstream now throws on
+                    try {
+                        return fu.getProperty(data, prop);
+                    } catch {
+                        return undefined;
+                    }
+                })();
                 if (value === undefined) {
                     this.ignored = true;
                     if (warn) this.failValidation(`Failed to resolve injected property "${source}"`);
