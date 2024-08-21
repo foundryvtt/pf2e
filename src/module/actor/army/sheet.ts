@@ -11,8 +11,7 @@ import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
 import type { ArmyPF2e } from "./document.ts";
-import type { Alignment } from "./types.ts";
-import { ALIGNMENTS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData } from "./values.ts";
+import { ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData } from "./values.ts";
 
 class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
     /** Basic war actions are sheet data. Note that they cannot ever work with rule elements */
@@ -72,7 +71,6 @@ class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
                 ),
             },
             linked: !!actor.prototypeToken.actorLink && (!actor.token || actor.token.isLinked),
-            alignments: ALIGNMENTS,
             armyTypes: R.pick(kingmakerTraits, ARMY_TYPES),
             rarityTraits: CONFIG.PF2E.rarityTraits,
             saves: R.sortBy(
@@ -326,7 +324,6 @@ interface ArmySheetData extends ActorSheetDataPF2e<ArmyPF2e> {
         routThreshold: AdjustedValue;
     };
     linked: boolean;
-    alignments: Iterable<Alignment>;
     armyTypes: Record<string, string>;
     rarityTraits: Record<string, string>;
     saves: ArmySaveSheetData[];

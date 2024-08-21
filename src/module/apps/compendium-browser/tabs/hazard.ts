@@ -27,12 +27,7 @@ export class CompendiumBrowserHazardTab extends CompendiumBrowserTab {
 
         const hazardActors: CompendiumBrowserIndexData[] = [];
         const publications = new Set<string>();
-        const indexFields = [
-            ...this.index,
-            "system.details.alignment.value",
-            "system.details.publication",
-            "system.details.source",
-        ];
+        const indexFields = [...this.index, "system.details.publication", "system.details.source"];
 
         for await (const { pack, index } of this.browser.packLoader.loadPacks(
             "Actor",
