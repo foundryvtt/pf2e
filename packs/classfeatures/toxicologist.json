@@ -34,6 +34,50 @@
                     "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.Field Discovery (Toxicologist)",
                     "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Toxicologist)"
                 }
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "acid"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "traits",
+                "value": "poison"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "property": "damage-type",
+                "selectors": [
+                    "versatile-vial-damage"
+                ],
+                "value": "poison"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.FieldVials",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:versatile-vial"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Alchemist.ResearchField.Toxicologist.FieldVials.Description"
+                    }
+                ]
             }
         ],
         "traits": {

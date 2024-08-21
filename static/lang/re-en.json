@@ -1870,9 +1870,28 @@
                 "ResearchField": {
                     "Bomber": {
                         "FieldBenefit": "When throwing an alchemical bomb with the splash trait, you can choose to deal splash damage to only your primary target instead of the usual splash area.",
+                        "FieldVials": {
+                            "RollOptionLabel": "Versatile Vials Damage"
+                        },
                         "GreaterFieldDiscovery": "You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have Expanded Splash."
                     },
-                    "Prompt": "Select a research field."
+                    "Chirurgeon": {
+                        "FieldVials": {
+                            "Description": "Your versatile vials can be used to heal a living creature @Damage[(ternary(gte(@actor.level,18),4,ternary(gte(@actor.level,12),3,ternary(gte(@actor.level,4),2,1))))d6[healing]] Hit Points. A creature can drink the vial for this benefit, or you can throw the vial at a willing creature within 20 feet as an Interact action to heal that creature. In either case, a vial used this way loses the acid and splash traits and gains the coagulant and healing traits, plus the elixir trait if a creature drinks it."
+                        }
+                    },
+                    "FieldVials": "Field Vials",
+                    "Mutagenist": {
+                        "FieldVials": {
+                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you until the beginning of your next turn. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
+                        }
+                    },
+                    "Prompt": "Select a research field.",
+                    "Toxicologist": {
+                        "FieldVials": {
+                            "Description": "You can apply the contents of a versatile vial to a weapon or piece of ammunition as an injury poison. Add the versatile vial's initial damage to the first successful Strike with that weapon or ammunition. The substance becomes inert at the end of your current turn."
+                        }
+                    }
                 }
             },
             "AldoriDuelist": {
