@@ -546,6 +546,11 @@ class TextEditorPF2e extends TextEditor {
         const overrideTraits = "overrideTraits" in rawParams;
         const rawTraits = splitListString(rawParams.traits ?? "");
         const traits = R.unique(overrideTraits ? rawTraits : [rawTraits, item?.system.traits.value ?? []].flat());
+        const rollerRole = tupleHasValue(["origin", "target"], rawParams.rollerRole)
+            ? rawParams.rollerRole
+            : tupleHasValue(SAVE_TYPES, type)
+              ? "target"
+              : "origin";
 
         const params: CheckLinkParams = {
             ...rawParams,
@@ -553,6 +558,7 @@ class TextEditorPF2e extends TextEditor {
             basic,
             dc: rawParams.dc?.trim() || null,
             against: rawParams.against?.trim() || rawParams.defense?.trim() || null,
+            rollerRole,
             showDC,
             overrideTraits,
             traits,
@@ -664,6 +670,7 @@ class TextEditorPF2e extends TextEditor {
                 targetOwner: params.targetOwner,
                 pf2Check: sluggify(params.type),
                 against: params.against,
+                rollerRole: params.rollerRole,
             },
         });
 
@@ -676,8 +683,7 @@ class TextEditorPF2e extends TextEditor {
             anchor.dataset.itemUuid = item.uuid;
         }
 
-        const isSavingThrow = ["fortitude", "reflex", "will"].includes(params.type);
-        if ((params.type && params.dc) || (isSavingThrow && params.against)) {
+        if ((params.type && params.dc) || (params.rollerRole === "target" && params.against)) {
             // Let the inline roll function handle level base DCs
             // Don't save the result if we are matching a statistic
             const checkDC = params.dc === "@self.level" ? params.dc : getCheckDC({ name, params, item, actor });
@@ -1042,7 +1048,8 @@ interface ConvertXMLNodeOptions {
 interface CheckLinkParams {
     type: string;
     dc?: Maybe<string>;
-    against?: Maybe<string>;
+    against: string | null;
+    rollerRole: "origin" | "target";
     basic: boolean;
     adjustment?: string;
     traits: string[];

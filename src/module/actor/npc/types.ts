@@ -48,9 +48,6 @@ interface NPCSystemSheetData extends NPCSystemData {
     };
     details: NPCSystemData["details"] & {
         level: NPCSystemData["details"]["level"] & WithAdjustments;
-        alignment: {
-            localizedName?: string;
-        };
     };
     saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & { labelShort?: string }>;
     skills: Record<SkillSlug, NPCSkillSheetData>;

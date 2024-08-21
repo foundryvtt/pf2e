@@ -45,6 +45,38 @@
                     "fieldDiscovery": "Compendium.pf2e.classfeatures.Item.Field Discovery (Bomber)",
                     "greaterFieldDiscovery": "Compendium.pf2e.classfeatures.Item.Greater Field Discovery (Bomber)"
                 }
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.Bomber.FieldVials.RollOptionLabel",
+                "option": "bomber-field-vials",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "bomber-field-vials"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "versatile-vial-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.bomberFieldVials}"
             }
         ],
         "traits": {

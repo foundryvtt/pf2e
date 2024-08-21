@@ -1,0 +1,43 @@
+{
+    "_id": "SMsTQhsPJ58WqPKy",
+    "img": "icons/commodities/materials/plant-sprout-seed-brown-green.webp",
+    "name": "Effect: Clay Sphere - Weapon Damage Increase",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Major)]</p>\n<p>Strikes with the affixed weapon have their damage dice increase by one step.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "itemId": "{actor|flags.pf2e.claySphere.weapon}",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
