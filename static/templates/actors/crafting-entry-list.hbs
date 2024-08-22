@@ -5,6 +5,7 @@
     <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-entry-selector="{{entry.selector}}">
         <div class="action-header">
             <h3 class="item-name hide-container-toggle title">{{entry.name}}</h3>
+            <span class="level">{{localize "PF2E.LevelN" level=entry.maxItemLevel}}</span>
         </div>
         <ol class="directory-list item-list formula-list">
             {{#each entry.formulas as |formula|}}
