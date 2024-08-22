@@ -25,11 +25,11 @@
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Check.failure",
-                        "value": "failure"
+                        "value": "-1"
                     },
                     {
                         "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
-                        "value": "critical-failure"
+                        "value": "-2"
                     }
                 ],
                 "flag": "degreeOfSuccess",
@@ -41,55 +41,15 @@
                 "option": "spell-effect:{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
             },
             {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "label": "Draw Ire (Critical Failure)",
+                "key": "FlatModifier", 
                 "predicate": [
-                    "spell-effect:critical-failure",
                     {
                         "not": "target:drawIre"
                     }
                 ],
                 "selector": "attack",
                 "type": "status",
-                "value": -2
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "label": "Draw Ire (Failure)",
-                "predicate": [
-                    "spell-effect:failure",
-                    {
-                        "not": "target:drawIre"
-                    }
-                ],
-                "selector": "attack",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.GrantedBy"
-                    },
-                    {
-                        "predicate": [
-                            "spell-effect:critical-failure"
-                        ],
-                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.CritialFailure"
-                    },
-                    {
-                        "predicate": [
-                            "spell-effect:failure"
-                        ],
-                        "text": "PF2E.SpecificRule.SpellEffect.DrawIre.Failure"
-                    }
-                ]
+                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
             }
         ],
         "start": {
