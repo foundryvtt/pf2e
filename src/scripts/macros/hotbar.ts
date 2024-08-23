@@ -184,10 +184,10 @@ if (item?.type === "condition") {
     }
 } else if (item?.type === "effect") {
     const source = item.toObject();
-    source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
+    source._stats.compendiumSource = ITEM_UUID;
 
     for (const actor of actors) {
-        const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+        const existing = actor.itemTypes.effect.find((e) => e._stats.compendiumSource === ITEM_UUID);
         if (existing) {
             await existing.delete();
         } else {
