@@ -47,6 +47,7 @@ async function treatWounds(options: ActionDefaultOptions): Promise<void> {
     const chirurgeon = CheckFeat(actor, "chirurgeon");
     const naturalMedicine = CheckFeat(actor, "natural-medicine");
     const domIdAppend = fu.randomID(); // Attached to element id attributes for DOM uniqueness
+    const riskySurgeryChecked = actor.getRollOptions(["medicine"]).includes("risky-surgery") ? " checked" : "";
     const dialog = new Dialog({
         title: game.i18n.localize("PF2E.Actions.TreatWounds.Label"),
         content: `
@@ -78,7 +79,7 @@ ${
     CheckFeat(actor, "risky-surgery")
         ? `<div class="form-group">
 <label for="risky-surgery-${domIdAppend}">${game.i18n.localize("PF2E.Actions.TreatWounds.Feats.RiskySurgery")}</label>
-<input type="checkbox" id="risky-surgery-${domIdAppend}" />
+<input type="checkbox" id="risky-surgery-${domIdAppend}"${riskySurgeryChecked} />
 </div>`
         : ``
 }
@@ -114,18 +115,19 @@ async function treat(
     event: JQuery.TriggeredEvent | Event | null = null,
     domIdAppend: string,
 ): Promise<void> {
-    const { name } = actor;
-    const mod = Number($html.find(`#modifier-${domIdAppend}`).val()) || 0;
-    const requestedProf = Number($html.find(`#dc-type-${domIdAppend}`).val()) || 1;
-    const riskySurgery: boolean = $html.find(`#risky-surgery-${domIdAppend}`).prop("checked");
-    const mortalHealing: boolean = $html.find(`#mortal-healing-${domIdAppend}`).prop("checked");
-    const skillSlug = String($html.find(`#skill-${domIdAppend}`).val()) || "medicine";
+    const html = $html[0];
+    const mod = Number(html.querySelector<HTMLInputElement>(`#modifier-${domIdAppend}`)?.value) || 0;
+    const requestedProf = Number(html.querySelector<HTMLInputElement>(`#dc-type-${domIdAppend}`)?.value) || 1;
+    const riskySurgery = !!html.querySelector<HTMLInputElement>(`#risky-surgery-${domIdAppend}`)?.checked;
+    const mortalHealing = !!html.querySelector<HTMLInputElement>(`#mortal-healing-${domIdAppend}`)?.checked;
+    const skillSlug = html.querySelector<HTMLSelectElement>(`#skill-${domIdAppend}`)?.value ?? "medicine";
     const skill = actor.skills[skillSlug];
     if (!skill?.proficient) {
         const skillName = objectHasKey(CONFIG.PF2E.skills, skillSlug)
             ? game.i18n.localize(CONFIG.PF2E.skills[skillSlug].label)
             : skillSlug;
-        ui.notifications.warn(game.i18n.format("PF2E.Actions.TreatWounds.Error", { name, skill: skillName }));
+        const message = game.i18n.format("PF2E.Actions.TreatWounds.Error", { name: actor.name, skill: skillName });
+        ui.notifications.warn(message);
         return;
     }
 
