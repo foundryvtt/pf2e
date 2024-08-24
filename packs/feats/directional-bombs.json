@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can lob bombs with great force and a precise trajectory to angle the splash in a cone that sprays in a single direction, potentially allowing you to avoid allies and splash deeper into enemy lines. When throwing an alchemical bomb with the splash trait, instead of splashing all squares adjacent to the target, you can create a splash in a @Template[cone|distance:15]. You choose the cone's direction, but its first square must be a square in the target's space.</p><hr /><p><strong>Special</strong> If you have the Expanded Splash feat or another ability that increases the radius of splash damage, you can have the splash damage be a @Template[cone|distance:20].</p>"
+            "value": "<p>You can lob bombs with great force and a precise trajectory to angle the splash in a cone that sprays in a single direction, potentially allowing you to avoid allies and splash deeper into enemy lines. When throwing an alchemical bomb with the splash trait, instead of splashing all squares adjacent to the target, you can create a splash in a @Template[cone|distance:15]. You choose the cone's direction, but its first square must be a square in the target's space.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.pf2e.feats-srd.Item.Expanded Splash] feat or another ability that increases the radius of splash damage, you can have the splash damage be a @Template[cone|distance:20].</p>"
         },
         "level": {
             "value": 6
@@ -24,7 +24,24 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "alchemical-bomb-base-attack-roll",
+                "key": "RollOption",
+                "option": "directional-bombs",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:trait:splash",
+                    "directional-bombs"
+                ],
+                "selector": "alchemical-bomb-base-attack-roll",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

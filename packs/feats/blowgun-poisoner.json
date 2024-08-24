@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can capably deliver toxins with a @UUID[Compendium.pf2e.equipment-srd.Item.Blowgun]. Your blowgun @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} can apply injury poisons even if they deal no damage due to a creature's resistance. If you critically succeed at a blowgun Strike using a poisoned dart, the target's initial save against the poison is one degree of success worse than the creature rolls; this is a misfortune effect.</p>\n<p>In addition, if you make a blowgun Strike while @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected], you don't automatically become @UUID[Compendium.pf2e.conditionitems.Item.Observed]. Instead, immediately attempt a @Check[stealth] check against the Perception DC of the target. If you succeed, you don't become observed, and are hidden (if you were undetected, you still become hidden rather than remaining undetected).</p>"
+            "value": "<p>You can capably deliver toxins with a @UUID[Compendium.pf2e.equipment-srd.Item.Blowgun]. Your blowgun @UUID[Compendium.pf2e.actionspf2e.Item.Strike]{Strikes} can apply injury poisons even if they deal no damage due to a creature's resistance. If you critically succeed at a blowgun Strike using a poisoned dart, the target's initial save against the poison is one degree of success worse than the creature rolls; this is a misfortune effect.</p>\n<p>In addition, if you make a blowgun Strike while @UUID[Compendium.pf2e.conditionitems.Item.Hidden] or @UUID[Compendium.pf2e.conditionitems.Item.Undetected], you don't automatically become @UUID[Compendium.pf2e.conditionitems.Item.Observed]. Instead, immediately attempt a @Check[stealth|against:perception] check against the Perception DC of the target. If you succeed, you don't become observed, and are hidden (if you were undetected, you still become hidden rather than remaining undetected).</p>"
         },
         "level": {
             "value": 1
@@ -27,8 +27,25 @@
         "rules": [
             {
                 "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
                 "selector": "blowgun-attack",
-                "text": "If you critically succeed at a blowgun Strike using a poisoned dart, the target's initial save against the poison is one degree of success worse than the creature rolls; this is a misfortune effect.",
+                "text": "PF2E.SpecificRule.Alchemist.BlowgunPoisoner.CriticalNote",
+                "title": "{item|name}"
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:condition:hidden",
+                            "self:condition:undetected"
+                        ]
+                    }
+                ],
+                "selector": "blowgun-attack",
+                "text": "PF2E.SpecificRule.Alchemist.BlowgunPoisoner.StealthNote",
                 "title": "{item|name}"
             }
         ],
