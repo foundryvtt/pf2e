@@ -162,6 +162,13 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
         await super._preUpdate(changed, operation, user);
     }
+
+    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        const list = this.system.prerequisites?.value?.map((item) => item.value).join(",") ?? "";
+        return (list.length ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+            (_config.hr !== false ? "<hr>" : "") : "") +
+            super.embedHTMLString(_config, _options);
+    }
 }
 
 interface CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
