@@ -1202,11 +1202,13 @@ export class IntegerSortField<
  * A subclass of {@link SchemaField} which stores document metadata in the _stats field.
  * @mixes DocumentStats
  */
-export class DocumentStatsField extends SchemaField<DocumentStatsSchema> {
+export class DocumentStatsField<TDocumentUUID extends DocumentUUID = DocumentUUID> extends SchemaField<
+    DocumentStatsSchema<TDocumentUUID>
+> {
     constructor(options?: ObjectFieldOptions<DocumentStatsSchema, true, false, true>, context?: DataFieldContext);
 }
 
-type DocumentStatsSchema = {
+type DocumentStatsSchema<TDocumentUUID extends DocumentUUID = DocumentUUID> = {
     /** The package name of the system the Document was created in. */
     systemId: StringField<string, string, true, false, true>;
     /** The version of the system the Document was created or last modified in. */
@@ -1220,9 +1222,9 @@ type DocumentStatsSchema = {
     /** The ID of the user who last modified the Document. */
     lastModifiedBy: ForeignDocumentField<string>;
     /** The UUID of the compendium Document this one was imported from. */
-    compendiumSource: DocumentUUIDField<CompendiumUUID>;
+    compendiumSource: DocumentUUIDField<TDocumentUUID>;
     /** The UUID of the Document this one is a duplicate of. */
-    duplicateSource: DocumentUUIDField<DocumentUUID>;
+    duplicateSource: DocumentUUIDField<TDocumentUUID>;
 };
 
 export type DocumentStatsData = SourceFromSchema<DocumentStatsSchema>;
