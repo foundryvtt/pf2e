@@ -864,10 +864,11 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     }
 
     /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
-    _embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
-        // prerequisites (PrerequisiteTagData[])
-        const prereq: { value: string }[] | null = foundry.utils.getProperty(this, "system.prerequisites.value");
-        let result = "";
+    protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        // @ts-ignore
+        // in some types of Item, prerequisites (PrerequisiteTagData[])
+        const prereq: { value: string }[] | null = this.system.prerequisites?.value;
+        let result: string = "";
         if (prereq && prereq?.length > 0) {
             const list = prereq.map((item) => item.value).join(",");
             result += `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>`;
