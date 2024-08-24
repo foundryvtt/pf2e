@@ -41,7 +41,7 @@ class CraftingEntry implements CraftingEntryData {
         this.maxItemLevel = data.maxItemLevel ?? this.actor.level;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSizes = {
-            default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
+            default: data.batchSize ?? (this.isAlchemical ? 1 : 1),
             other:
                 data.batchSizes?.other.map((o) => ({
                     definition: new Predicate(o.definition),
@@ -242,6 +242,7 @@ interface CraftingEntryData {
     maxSlots?: number;
     craftableItems: RawPredicate;
     fieldDiscovery?: RawPredicate | null;
+    batchSize?: number;
     batchSizes?: { default: number; other: { definition: RawPredicate; quantity: number }[] };
     fieldDiscoveryBatchSize?: number;
     maxItemLevel?: number | null;
