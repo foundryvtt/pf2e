@@ -32,6 +32,7 @@ import type {
 } from "./data/index.ts";
 import type { ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
+import { FeatSystemData } from "@item/feat/data.ts";
 
 /** The basic `Item` subclass for the system */
 class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
@@ -866,8 +867,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
     /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
     protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
         // in some types of Item, prerequisites (PrerequisiteTagData[])
-        // @ts-ignore
-        const prereq: { value: string }[] | null = this.system.prerequisites?.value;
+        // item.system = CampaignFeatureSystemSource || FeatSystemSource || something-else
+        const prereq: { value: string }[] | null = (this.system as FeatSystemData).prerequisites?.value;
         let result: string = "";
         if (prereq && prereq?.length > 0) {
             const list = prereq.map((item) => item.value).join(",");
