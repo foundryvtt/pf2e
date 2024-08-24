@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AttackPopout } from "@actor/character/attack-popout.ts";
+import { AttackPopout } from "@actor/character/apps/attack-popout.ts";
 import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
@@ -184,10 +184,10 @@ if (item?.type === "condition") {
     }
 } else if (item?.type === "effect") {
     const source = item.toObject();
-    source.flags = mergeObject(source.flags ?? {}, { core: { sourceId: ITEM_UUID } });
+    source._stats.compendiumSource = ITEM_UUID;
 
     for (const actor of actors) {
-        const existing = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+        const existing = actor.itemTypes.effect.find((e) => e._stats.compendiumSource === ITEM_UUID);
         if (existing) {
             await existing.delete();
         } else {

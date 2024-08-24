@@ -12,7 +12,7 @@ export default class ApplicationV2<
      */
     static BASE_APPLICATION: ApplicationV2;
 
-    static DEFAULT_OPTIONS: Partial<ApplicationConfiguration>;
+    static DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration>;
 
     static RENDER_STATES: {
         ERROR: -3;

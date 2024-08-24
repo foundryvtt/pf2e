@@ -1,12 +1,12 @@
-import { BoostFlawState } from "@actor/character/attribute-builder.ts";
-import { SocketMessage } from "@scripts/socket.ts";
+import type { BoostFlawState } from "@actor/character/apps/attribute-builder.ts";
+import type { SocketMessage } from "@scripts/socket.ts";
 import { htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
 import * as R from "remeda";
-import { PartyPF2e } from "../document.ts";
+import type { PartyPF2e } from "../document.ts";
 import { resolveKingdomBoosts } from "./helpers.ts";
-import { Kingdom } from "./model.ts";
+import type { Kingdom } from "./model.ts";
 import { KingdomSheetPF2e } from "./sheet.ts";
-import { KingdomAbility, KingdomCHG } from "./types.ts";
+import type { KingdomAbility, KingdomCHG } from "./types.ts";
 import {
     KINGDOM_ABILITIES,
     KINGDOM_ABILITY_LABELS,

@@ -24,7 +24,7 @@ type BaseActorSourcePF2e<
     prototypeToken: PrototypeTokenSourcePF2e;
 };
 
-type ActorFlagsPF2e = foundry.documents.ActorFlags & {
+type ActorFlagsPF2e = DocumentFlags & {
     pf2e: {
         rollOptions: RollOptionFlags;
         /** IDs of granted items that are tracked */

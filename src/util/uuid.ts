@@ -44,9 +44,15 @@ class UUIDUtils {
         }
     }
 
-    static isCompendiumUUID(uuid: unknown): uuid is CompendiumUUID {
+    static isCompendiumUUID(uuid: unknown, docType: "Actor"): uuid is CompendiumActorUUID;
+    static isCompendiumUUID(uuid: unknown, docType: "Item"): uuid is CompendiumItemUUID;
+    static isCompendiumUUID<TDocType extends DocumentType>(uuid: unknown, docType?: TDocType): uuid is CompendiumUUID;
+    static isCompendiumUUID<TDocType extends DocumentType>(uuid: unknown, docType?: TDocType): boolean {
+        if (typeof uuid !== "string") return false;
         try {
-            return typeof uuid === "string" && fu.parseUuid(uuid).collection instanceof CompendiumCollection;
+            const parseResult = fu.parseUuid(uuid);
+            const isCompendiumUUID = parseResult.collection instanceof CompendiumCollection;
+            return isCompendiumUUID && (docType ? uuid.includes(`.${docType}.`) : true);
         } catch {
             return false;
         }

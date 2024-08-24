@@ -16,7 +16,7 @@ export class Migration719ShrugFlanking extends MigrationBase {
                     source.system.rules = [this.#allAroundVision];
                 } else if (actorSource?.type === "npc" && source.name === "Deny Advantage") {
                     // No slugs, unfortunately
-                    const sourceId = actorSource.flags.core?.sourceId;
+                    const sourceId = actorSource._stats.compendiumSource;
                     const npcId = sourceId?.replace(/^Compendium\.[^.]+\./, "") ?? actorSource._id;
 
                     if (this.#needsDenyAdvantage(source.system.rules)) {
