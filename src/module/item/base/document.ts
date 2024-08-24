@@ -894,7 +894,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         // Get correct HTML
         const container = document.createElement("div");
-        container.innerHTML = await TextEditor.enrichHTML(this._embedHTMLString(config, options), options);
+        container.innerHTML = await TextEditor.enrichHTML(this.embedHTMLString(config, options), options);
         return container.children;
     }
 }
