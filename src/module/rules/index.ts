@@ -10,8 +10,7 @@ import { AuraRuleElement } from "./rule-element/aura.ts";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed.ts";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element.ts";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element.ts";
-import { CraftingEntryRuleElement } from "./rule-element/crafting/entry.ts";
-import { CraftingFormulaRuleElement } from "./rule-element/crafting/formula.ts";
+import { CraftingEntryRuleElement } from "./rule-element/crafting-entry.ts";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size.ts";
 import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
 import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
@@ -62,7 +61,6 @@ class RuleElements {
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
         CraftingEntry: CraftingEntryRuleElement,
-        CraftingFormula: CraftingFormulaRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
         DamageAlteration: DamageAlterationRuleElement,
@@ -144,4 +142,4 @@ type RuleElementConstructor = { schema: LaxSchemaField<RuleElementSchema> } & (n
     options: RuleElementOptions,
 ) => RuleElementPF2e);
 
-export { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements };
+export { RuleElementOptions, RuleElementPF2e, RuleElements, RuleElementSource };
