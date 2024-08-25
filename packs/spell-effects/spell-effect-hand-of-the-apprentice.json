@@ -33,10 +33,36 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "ability": "int",
+                "ability": "cha",
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    "focus-spell:charisma"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "type": "ability",
+                "value": "charisma"
+            },
+            {
+                "ability": "int",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "focus-spell:intelligence"
+                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "type": "ability"
+            },
+            {
+                "ability": "wis",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "focus-spell:wisdom"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "type": "ability",
+                "value": 0
             },
             {
                 "key": "CriticalSpecialization",
