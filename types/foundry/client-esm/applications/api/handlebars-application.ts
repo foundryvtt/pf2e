@@ -19,7 +19,7 @@ export default function HandlebarsApplicationMixin<TBase extends ConstructorOf<A
          * @returns A single rendered HTMLElement for each requested part
          */
         protected override async _renderHTML(
-            context: ApplicationRenderContext,
+            context: object,
             options: HandlebarsRenderOptions,
         ): Promise<Record<string, HTMLElement>> {
             context;
@@ -38,10 +38,7 @@ export default function HandlebarsApplicationMixin<TBase extends ConstructorOf<A
          * @param context      Shared context provided by _prepareContext
          * @returns Context data for a specific part
          */
-        protected async _preparePartContext(
-            partId: string,
-            context: ApplicationRenderContext,
-        ): Promise<ApplicationRenderContext> {
+        protected async _preparePartContext(partId: string, context: object): Promise<object> {
             partId;
             context;
             return {};
