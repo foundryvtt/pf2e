@@ -1,7 +1,12 @@
+import type { ActorPF2e } from "@actor";
+import type { ItemPF2e } from "@item";
 import * as R from "remeda";
 
 class UUIDUtils {
     /** Retrieve multiple documents by UUID */
+    static async fromUUIDs(uuids: ActorUUID[], options?: { relative?: Maybe<ClientDocument> }): Promise<ActorPF2e[]>;
+    static async fromUUIDs(uuids: ItemUUID[], options?: { relative?: Maybe<ClientDocument> }): Promise<ItemPF2e[]>;
+    static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]>;
     static async fromUUIDs(uuids: string[], options?: { relative?: Maybe<ClientDocument> }): Promise<ClientDocument[]> {
         const resolvedUUIDs = R.unique(uuids).flatMap((u) => fu.parseUuid(u, options).uuid ?? []);
 
