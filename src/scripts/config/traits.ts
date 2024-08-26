@@ -598,6 +598,7 @@ const featTraits = {
     ...damageTraits,
     ...magicTraditions,
     ...spellTraits,
+    additive: "PF2E.TraitAdditive",
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
@@ -662,6 +663,7 @@ const featTraits = {
 
 const consumableTraits = {
     ...spellTraits,
+    additive: "PF2E.TraitAdditive",
     additive1: "PF2E.TraitAdditive1",
     additive2: "PF2E.TraitAdditive2",
     additive3: "PF2E.TraitAdditive3",
@@ -752,6 +754,7 @@ const effectTraits = R.omit(actionTraits, [
     ...R.keys.strict(ancestryTraits),
     ...R.keys.strict(classTraits),
     ...R.keys.strict(weaponActionTraits),
+    "additive"
     "additive1",
     "additive2",
     "additive3",
@@ -868,6 +871,7 @@ const equipmentTraits = {
     ...energyDamageTypes,
     ...magicTraditions,
     ...sanctificationTraits,
+    additive: "PF2E.TraitAdditive",
     additive0: "PF2E.TraitAdditive0",
     additive1: "PF2E.TraitAdditive1",
     adjusted: "PF2E.TraitAdjusted",
@@ -1055,6 +1059,7 @@ const traitDescriptions = {
     aberration: "PF2E.TraitDescriptionAberration",
     abjuration: "PF2E.TraitDescriptionAbjuration",
     acid: "PF2E.TraitDescriptionAcid",
+    additive: "PF2E.TraitDescriptionAdditive",
     additive0: "PF2E.TraitDescriptionAdditive",
     additive1: "PF2E.TraitDescriptionAdditive",
     additive2: "PF2E.TraitDescriptionAdditive",
