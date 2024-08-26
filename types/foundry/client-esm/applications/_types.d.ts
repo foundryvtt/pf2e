@@ -1,4 +1,4 @@
-import type { DataField } from "../../common/data/fields.d.ts";
+import type { DataField } from "../../common/data/fields.js";
 
 declare global {
     interface ApplicationConfiguration {
@@ -95,6 +95,17 @@ declare global {
          * @default false
          */
         force?: boolean;
+        /** A specific position at which to render the Application */
+        position?: ApplicationPosition;
+        /** Updates to the Application window frame */
+        window?: ApplicationWindowRenderOptions;
+        /**
+         * Some Application classes, for example the HandlebarsApplication, support re-rendering a subset of application
+         * parts instead of the full Application HTML.
+         */
+        parts?: string[];
+        /** Is this render the first one for the application? This property is populated automatically. */
+        isFirstRender?: boolean;
     }
 
     interface ApplicationWindowRenderOptions {
@@ -105,8 +116,6 @@ declare global {
         /** Re-render the window controls menu? */
         controls: boolean;
     }
-
-    interface ApplicationRenderContext {}
 
     interface ApplicationClosingOptions {
         /** Whether to animate the close, or perform it instantaneously */
