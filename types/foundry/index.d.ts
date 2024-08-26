@@ -1,4 +1,4 @@
-import "./client-esm/applications/types.d.ts";
+import "./client-esm/applications/_types.js";
 import "./client/index.d.ts";
 import "./common/grid/index.ts";
 import "./common/module.d.ts";
