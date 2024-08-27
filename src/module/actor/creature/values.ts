@@ -25,6 +25,7 @@ const SENSE_TYPES = new Set([
     "infrared-vision",
     "lifesense",
     "low-light-vision",
+    "magicsense",
     "motion-sense",
     "scent",
     "see-invisibility",
