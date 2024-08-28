@@ -1,0 +1,63 @@
+{
+    "_id": "ua0O6tQ3D5099mmH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Folk Healer",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your community recognizes you as a shaman or other animist, a status you obtained through lineage, apprenticeship, or a supernatural event. You're trained in Medicine and Occultism. If you would automatically become trained in one of those skills (from your background or class, for example), you instead become trained in a skill of your choice. You gain a +1 circumstance bonus to Medicine checks to @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds] and @UUID[Compendium.pf2e.actionspf2e.Item.Treat Disease].</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:treat-wounds",
+                            "action:treat-disease"
+                        ]
+                    }
+                ],
+                "selector": "medicine",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.medicine.rank",
+                "value": 1
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.occultism.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sarangay"
+            ]
+        }
+    },
+    "type": "feat"
+}

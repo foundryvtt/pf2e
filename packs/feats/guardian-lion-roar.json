@@ -1,0 +1,65 @@
+{
+    "_id": "cgHpgpUeZdMXyCY4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Guardian Lion Roar",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your innovation is augmented with plates shaped to resemble the gaping maws of guardian lions, which you can energize to expel a stream of sonic energy reminiscent of a lion's powerful roar. All creatures in a @Template[type:line|distance:20] from your innovation take @Damage[(ceil(@actor.level/2)-2)d8[sonic]] damage with a @Check[fortitude|against:class|basic] against your class DC. Creatures that fail this save become @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] for 1 round. The damage from this effect increases by 1d8 at 10th level and every 2 levels thereafter.</p>\n<p><strong>Unstable Function</strong> You press concealed switches in the guardian lions' plates, extending their reach and power. Add the unstable trait to Guardian Lion Roar. The range of your roar increases to a @Template[type:line|distance:60]. Creatures that succeed (but not critically succeed) at their save also become off-guard for 1 round. On a critical failure when attempting the flat check for this unstable action, you take sonic damage equal to your level instead of fire damage.</p><hr /><p><strong>Special</strong> If your innovation is a minion, it can take this action rather than you.</p>"
+        },
+        "level": {
+            "value": 8
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "armor, construct, or weapon innovation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
+                "option": "unstable-state",
+                "predicate": [
+                    {
+                        "not": "feature:construct-innovation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "unstable-state",
+                    "item:guardian-lion-roar"
+                ],
+                "property": "traits",
+                "value": "unstable"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "auditory",
+                "inventor",
+                "sonic"
+            ]
+        }
+    },
+    "type": "feat"
+}

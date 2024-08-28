@@ -45,6 +45,7 @@ const ancestryTraits = {
     halfling: "PF2E.TraitHalfling",
     hobgoblin: "PF2E.TraitHobgoblin",
     human: "PF2E.TraitHuman",
+    hungerseed: "PF2E.TraitHungerseed",
     kashrishi: "PF2E.TraitKashrishi",
     kitsune: "PF2E.TraitKitsune",
     kobold: "PF2E.TraitKobold",
@@ -60,6 +61,8 @@ const ancestryTraits = {
     poppet: "PF2E.TraitPoppet",
     ratfolk: "PF2E.TraitRatfolk",
     reflection: "PF2E.TraitReflection",
+    samsaran: "PF2E.TraitSamsaran",
+    sarangay: "PF2E.TraitSarangay",
     shisk: "PF2E.TraitShisk",
     shoony: "PF2E.TraitShoony",
     skeleton: "PF2E.TraitSkeleton",
@@ -74,6 +77,9 @@ const ancestryTraits = {
     undine: "PF2E.TraitUndine",
     vanara: "PF2E.TraitVanara",
     vishkanya: "PF2E.TraitVishkanya",
+    wayang: "PF2E.TraitWayang",
+    yaksha: "PF2E.TraitYaksha",
+    yaoguai: "PF2E.TraitYaoguai",
 };
 
 const elementTraits = {
@@ -216,7 +222,6 @@ const creatureTraits = {
     rakshasa: "PF2E.TraitRakshasa",
     reflection: "PF2E.TraitReflection",
     sahkil: "PF2E.TraitSahkil",
-    samsaran: "PF2E.TraitSamsaran",
     "sea-devil": "PF2E.TraitSeaDevil",
     sedacthy: "PF2E.TraitSedacthy",
     serpentfolk: "PF2E.TraitSerpentfolk",
@@ -652,6 +657,7 @@ const featTraits = {
     spellshot: "PF2E.TraitSpellshot",
     stamina: "PF2E.TraitStamina",
     stance: "PF2E.TraitStance",
+    talisman: "PF2E.TraitTalisman",
     tandem: "PF2E.TraitTandem",
     time: "PF2E.TraitTime",
     "true-name": "PF2E.TraitTrueName",

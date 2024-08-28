@@ -83,6 +83,9 @@
             "KnockProne": "On a hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
             "ReduceHiddenCheck": "The DC of the flat check to target a @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} creature is only @Check[flat|dc:5]."
         },
+        "Background": {
+            "Favored": "<p><strong>Frequency</strong> once per day;</p><hr><p><strong>Effect</strong> Reroll the skill check. You must use the second result, even if it's worse.</p>"
+        },
         "BattleForm": {
             "AberrantForm": {
                 "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
@@ -3496,6 +3499,7 @@
                 "AdvancedHobgoblinWeapons": "Advanced Hobgoblin Weapons",
                 "AdvancedKholoWeapons": "Advanced Kholo Weapons",
                 "AdvancedKoboldWeapons": "Advanced Kobold Weapons",
+                "AdvancedMonasticWeaponry": "Advanced Monastic Weaponry",
                 "AdvancedMerfolkWeapons": "Advanced Merfolk Weapons",
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
                 "AdvancedSurkiWeapons": "Advanced Surki Weapons",
@@ -3546,6 +3550,7 @@
                 "MartialKholoWeapons": "Martial Kholo Weapons",
                 "MartialKoboldWeapons": "Martial Kobold Weapons",
                 "MartialMerfolkWeapons": "Martial Merfolk Weapons",
+                "MartialOniWeapons": "Martial Oni Weapons",
                 "MartialOrcWeapons": "Martial Orc Weapons",
                 "MartialSurkiWeapons": "Martial Surki Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
@@ -4474,9 +4479,11 @@
                 "EnergyAblation": "If your next action is to Cast a Spell that deals at least one type of energy damage (acid, cold, electricity, fire, force, sonic, vitality, or void), you gain resistance to an energy damage type of your choice equal to the spell's rank. The resistance lasts until the end of your next turn. You get the resistance regardless of whether or not your spell dealt damage.",
                 "EnergyFusion": "If the next action you use is to Cast a Spell that deals energy damage, select a non-cantrip spell in your spell repertoire that deals a different type of energy damage, and expend an additional spell slot of the same rank as this secondary spell. The spell you cast deals additional damage equal to the rank of the secondary spell slot expended. The spell's total damage is divided evenly between the energy type of the spell you cast and the energy type of the secondary spell.",
                 "ExplosiveArrival": "If your next action is to Cast a Spell with the summon trait, all creatures in a @Template[emanation|distance:10] around the creature you summoned take @Damage[(@item.level)d4[fire]|traits:area-damage] damage. If the creature summoned has the @Damage[(@item.level)d4[acid]|traits:area-damage]{acid}, @Damage[(@item.level)d4[cold]|traits:area-damage]{cold}, @Damage[(@item.level)d4[electricity]|traits:area-damage]{electricity}, @Damage[(@item.level)d4[sonic]|traits:area-damage]{sonic}, or @Damage[(@item.level)d4[spirit]|traits:area-damage]{spirit} trait, you can deal damage of that type instead.",
+                "FamiliarsResolve": "If the next action you use is to Cast a Spell, you or an ally within 30 feet gain a +2 status bonus to saving throws against effects that would cause you to be doomed or frightened for 1 round. At 14th level, you or an ally gain a +3 status bonus to saving throws against these effects instead. @UUID[Compendium.pf2e.feat-effects.Item.6I4qWkHzxj4MAt6g]{Effect: Familiar's Resolve}",
                 "ForcibleEnergy": "If your next action is to Cast a Spell that deals acid, cold, electricity, fire, or sonic damage, you can select one target that was damaged to gain weakness 5 to that damage type until the end of your next turn. If a spell deals multiple types of energy damage, choose one that the target gains weakness to. This has no effect on creatures with resistance or immunity to the energy type you choose. @UUID[Compendium.pf2e.feat-effects.Item.0Ai0u9kNJrEudPnN]{Effect: Forcible Energy}",
                 "FormControl": "The spell's rank is 2 lower than normal (minimum 1st rank), but you can remain transformed for up to 1 hour or the listed duration (whichever is longer). You can still Dismiss untamed form as normal.",
                 "GarlandSpell": "A garland of plants grows in a @Template[burst|distance:10] in the spell's range. The plants are difficult terrain and hazardous terrain, covered in your choice of thorns or poisonous vines. Any creature that moves into one of these squares or ends its turn in one takes @Damage[2d6[piercing]]damage for thorns or @Damage[2d6[poison]] for vines. A creature can take this damage only once per turn. You and your familiar are immune to this damage. The plants last for 1 minute or until you cast another Garland Spell, whichever comes first. The damage increases to 3d6 at 16th level and 4d6 at 20th level.",
+                "GoldenDragonsBounty": "If the next action you use is to Cast a Spell that deals bludgeoning, piercing, or slashing damage, that damage is your choice of cold iron, silver, or steel for the purposes of weaknesses, resistances, vulnerabilities, and the like. At 14th level, adamantine is added to the list of metal choices. The spell gains the metal trait.",
                 "GrowthSpell": "Expand the area of the spell. For bursts, expand the radius by 5 feet; for cones, expand the cone by 10 feet; and for lines, expand the length by 15 feet. The spell gains the wood trait.",
                 "GustingSpell": "If the next action you use is to Cast a Spell with the air or electricity trait, you can Fly up to 10 feet before or after the spell is cast.",
                 "Harmonize": "If your next action is to cast a composition, it becomes a harmonized composition. Unlike a normal composition, a harmonized composition doesn't end if you cast another composition, and you can cast another composition on the same turn as a harmonized one. Casting another harmonized composition ends any harmonized composition you already have in effect.",
@@ -4530,6 +4537,9 @@
                 "MinorPrompt": "Select a minor spirit power"
             },
             "Sprite": {
+                "Dijiang": {
+                    "Emotion": "When you roll a failure (though not a critical failure) on a saving throw against an emotion effect, you get a success instead."
+                },
                 "LuminousSprite": {
                     "Light": "Shed Light"
                 },
@@ -4556,10 +4566,13 @@
                     "FireTalon": "Fire Talon",
                     "FlashingSpark": "Flashing Spark",
                     "FlowingWave": "Flowing Wave",
+                    "GaleBlossom": "Gale Blossom",
                     "GorillaSlam": "Gorilla Slam",
                     "IronSweep": "Iron Sweep",
                     "LashingBranch": "Lashing Branch",
+                    "RammingHorn": "Ramming Horn",
                     "ShadowGrasp": "Shadow Grasp",
+                    "ShatteringEarth": "Shattering Earth",
                     "SkywardSlash": "Skyward Slash",
                     "StingingLash": "Stinging Lash",
                     "Stonestrike": "Stonestrike",
@@ -4808,6 +4821,9 @@
             },
             "WardingRune": {
                 "Prompt": "Select a school of magic other than divination."
+            },
+            "Wayang": {
+                "ShadowOfTheCourtier": "Once per day, if you fail, but not critically fail, a check to Make an Impression, you can play it off as part of a performance, allowing you to reroll the check; this is a fortune effect."
             },
             "Weapon": {
                 "Metal": "Using a metal weapon"

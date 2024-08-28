@@ -1,0 +1,46 @@
+{
+    "_id": "GvtOzLp4kIuYfx1R",
+    "folder": "CrHaY0KxLmVmLQog",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Shadow of the Courtier",
+    "system": {
+        "ancestry": {
+            "name": "Wayang",
+            "slug": "wayang",
+            "uuid": "Compendium.pf2e.ancestries.Item.8FpI46oVxYVku04u"
+        },
+        "description": {
+            "value": "<p>Your shadow dances alongside you. You gain the Impressive Performance skill feat, allowing you to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] using Performance instead of Diplomacy. Once per day, if you fail, but not critically fail, a check to Make an Impression, you can play it off as part of a performance, allowing you to reroll the check; this is a fortune effect.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    "action:make-an-impression"
+                ],
+                "selector": "diplomacy",
+                "text": "PF2E.SpecificRule.Wayang.ShadowOfTheCourtier",
+                "title": "{item|name}"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Impressive Performance"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wayang"
+            ]
+        }
+    },
+    "type": "heritage"
+}
