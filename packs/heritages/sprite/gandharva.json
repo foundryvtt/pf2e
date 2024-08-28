@@ -1,0 +1,58 @@
+{
+    "_id": "lBSO9RuEUv2P4rnp",
+    "folder": "swBqRqcxrbrK94y7",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Gandharva",
+    "system": {
+        "ancestry": {
+            "name": "Sprite",
+            "slug": "sprite",
+            "uuid": "Compendium.pf2e.ancestries.Item.TRqoeYfGAFjQbviF"
+        },
+        "description": {
+            "value": "<p>You're descended from the self-proclaimed musicians, poets, and dancers of the gods, with a body that's part humanoid and part horse or bird. If you gain wings, they come in many different brilliant colors. Due to your celestial connection, the tradition of any spells or magical abilities you gain from a sprite heritage or ancestry feat is divine instead of its normal tradition.</p>\n<p>You become trained in Performance (or another skill of your choice if you're already trained in Performance), and you can cast @UUID[Compendium.pf2e.spells-srd.Item.Summon Instrument] as a divine innate cantrip.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.performance.rank",
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:summon-instrument",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:summon-instrument",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sprite"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "sprite"
+            ]
+        }
+    },
+    "type": "heritage"
+}

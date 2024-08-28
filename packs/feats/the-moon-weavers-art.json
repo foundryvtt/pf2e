@@ -1,0 +1,69 @@
+{
+    "_id": "ceQ09tTO4M7qwHXv",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "The Moon Weaver's Art",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You've learned to create minor illusions by collecting strands of moonlight and weaving them together to create small images or cloaking veils. You can cast either @UUID[Compendium.pf2e.spells-srd.Item.Illusory Object] or @UUID[Compendium.pf2e.spells-srd.Item.Invisible Item] as an occult innate spell once per day.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:illusory-object",
+                            "item:slug:invisible-item"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:illusory-object",
+                            "item:slug:invisible-item"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:sarangay"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sarangay"
+            ]
+        }
+    },
+    "type": "feat"
+}

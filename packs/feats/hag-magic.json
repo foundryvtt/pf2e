@@ -24,7 +24,102 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:augury",
+                                "item:slug:charm",
+                                "item:slug:clairaudience",
+                                "item:slug:clairvoyance",
+                                "item:slug:dream-message",
+                                "item:slug:illusory-disguise",
+                                {
+                                    "and": [
+                                        "feat:brine-may",
+                                        {
+                                            "or": [
+                                                "item:slug:humanoid-form",
+                                                "item:slug:water-walk"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:callow-may",
+                                        {
+                                            "or": [
+                                                "item:slug:honeyed-words",
+                                                "item:slug:outcasts-curse"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        {
+                                            "or": [
+                                                "feat:dream-may",
+                                                "feat:veil-may"
+                                            ]
+                                        },
+                                        "item:slug:nightmare"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:slag-may",
+                                        "item:slug:earthbind"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:snow-may",
+                                        "item:slug:solid-fog"
+                                    ]
+                                },
+                                {
+                                    "and": [
+                                        "feat:virga-may",
+                                        "item:slug:hydraulic-torrent"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "hagMagic",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:{item|flags.pf2e.rulesSelections.hagMagic}"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "spellcasting:innate",
+                    "item:slug:{item|flags.pf2e.rulesSelections.hagMagic}"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:changeling"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

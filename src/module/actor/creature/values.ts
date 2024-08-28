@@ -25,6 +25,7 @@ const SENSE_TYPES = new Set([
     "infrared-vision",
     "lifesense",
     "low-light-vision",
+    "magicsense",
     "motion-sense",
     "scent",
     "see-invisibility",
@@ -116,6 +117,7 @@ const UNCOMMON_LANGUAGES = [
     "varisian",
     "vudrani",
     "xanmba",
+    "wayang",
     "ysoki",
 ] as const;
 
@@ -175,6 +177,7 @@ const RARE_LANGUAGES = [
     "varki",
     "vishkanyan",
     "wyrwood",
+    "yaksha",
     "yithian",
 ] as const;
 
