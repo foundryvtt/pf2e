@@ -115,16 +115,6 @@
             {
                 "itemType": "action",
                 "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:change-shape"
-                ],
-                "property": "description",
-                "value": "PF2E.SpecificRule.ChangeShape.Werecreature"
-            },
-            {
-                "itemType": "action",
-                "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "item:slug:change-shape"
@@ -140,8 +130,13 @@
                 "predicate": [
                     "item:slug:change-shape"
                 ],
+                "priority": 160,
                 "property": "description",
                 "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.ChangeShape.Werecreature"
+                    },
                     {
                         "predicate": [
                             "werecreature:werebat"
