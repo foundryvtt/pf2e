@@ -6,7 +6,16 @@
         "additionalLanguages": {
             "count": 0,
             "custom": "",
-            "value": []
+            "value": [
+                "aklo",
+                "draconic",
+                "elven",
+                "fey",
+                "kitsune",
+                "sakvroth",
+                "tengu",
+                "ysoki"
+            ]
         },
         "boosts": {
             "0": {
@@ -54,7 +63,60 @@
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "mergeable": true,
+                "option": "change-shape",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Yaoguai",
+                        "value": "yaoguai"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ChangeShape.Yaoguai"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "occult"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "yaoguai"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
+            }
+        ],
         "size": "med",
         "speed": 25,
         "traits": {
