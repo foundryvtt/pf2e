@@ -48,14 +48,7 @@
             }
         },
         "hp": 10,
-        "items": {
-            "8Ry42": {
-                "img": "systems/pf2e/icons/default-icons/feat.svg",
-                "level": 1,
-                "name": "Change Shape (Tanuki)",
-                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Change Shape (Tanuki)"
-            }
-        },
+        "items": {},
         "languages": {
             "custom": "",
             "value": [
@@ -69,7 +62,56 @@
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "mergeable": true,
+                "option": "change-shape",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.RacoonDog",
+                        "value": "racoon-dog"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "description",
+                "value": "PF2E.SpecificRule.ChangeShape.Tanuki"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "primal"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "tanuki"
+            }
+        ],
         "size": "sm",
         "speed": 25,
         "traits": {
