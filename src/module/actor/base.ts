@@ -166,9 +166,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         return this.type === "party" ? false : true;
     }
 
-    /** The compendium source ID of the actor **/
+    /** The UUID of the actor from which this one was copied (or is identical to if a compendium actor) **/
     get sourceId(): ActorUUID | null {
-        return this._stats.compendiumSource ?? this._stats.duplicateSource;
+        return this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
     }
 
     /** The recorded schema version of this actor, updated after each data migration */
@@ -466,7 +466,6 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 }
 
                 const flags: DeepPartial<EffectFlags> = {
-                    core: { sourceId: effect.uuid },
                     pf2e: {
                         aura: {
                             slug: aura.slug,
@@ -480,6 +479,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                 source.system.level.value = aura.level ?? source.system.level.value;
                 source.system.duration.unit = "unlimited";
                 source.system.duration.expiry = null;
+                source._stats.compendiumSource = effect._stats.compendiumSource;
+                source._stats.duplicateSource = effect.uuid;
+
                 // Only transfer traits from the aura if the effect lacks its own
                 if (source.system.traits.value.length === 0) {
                     source.system.traits.value.push(...aura.traits);
