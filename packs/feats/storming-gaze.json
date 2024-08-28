@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can open or energize a notable third eye on your forehead to strike with storming power. You deal 3d4 electricity or 3d4 sonic damage damage in a 15-foot cone; Storming Gaze gains this trait. Each creature in the area must attempt a basic Reflex saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1d4 rounds.</p>\n<p>At 7th level and every 2 levels thereafter, the damage increases by 1d4.</p>"
+            "value": "<p>You can open or energize a notable third eye on your forehead to strike with storming power. You deal @Damage[(ceil(@actor.level/2))d4[@item.flags.pf2e.rulesSelections.stormingGaze]|options:area-damage]{3d4 electricity or 3d4 sonic damage} in a @Template[type:cone|distance:15]; Storming Gaze gains this trait. Each creature in the area must attempt a @Check[reflex|against:class-spell|basic] saving throw against the higher of your class DC or spell DC. You can't use this ability again for [[/r 1d4 #Recharge Storming Gaze]]{1d4 rounds}.</p>\n<p>At 7th level and every 2 levels thereafter, the damage increases by 1d4.</p>"
         },
         "level": {
             "value": 5
@@ -53,22 +53,6 @@
                 ],
                 "property": "traits",
                 "value": "{item|flags.pf2e.rulesSelections.stormingGaze}"
-            },
-            {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    {
-                        "not": "storming-gaze:tempest-gaze"
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Oni.StormingGaze.Base"
-                    }
-                ]
             }
         ],
         "traits": {
