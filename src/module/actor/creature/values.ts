@@ -109,6 +109,7 @@ const UNCOMMON_LANGUAGES = [
     "skald",
     "sphinx",
     "sussuran",
+    "tang",
     "tengu",
     "thalassic",
     "tien",
