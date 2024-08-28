@@ -53,60 +53,6 @@
             "type": "lore"
         },
         {
-            "_id": "TOEvP4e0iTZNTcMa",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.heritages.Item.Wk4HyaZtC1j221i1"
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/heritage.svg",
-            "name": "Earthly Wilds Kitsune",
-            "sort": 0,
-            "system": {
-                "ancestry": {
-                    "name": "Kitsune",
-                    "slug": "kitsune",
-                    "uuid": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
-                },
-                "description": {
-                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Pest Form].</p>"
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens: Ancestry Guide"
-                },
-                "rules": [
-                    {
-                        "baseType": "jaws",
-                        "category": "unarmed",
-                        "damage": {
-                            "base": {
-                                "damageType": "piercing",
-                                "dice": 1,
-                                "die": "d6"
-                            }
-                        },
-                        "group": "brawling",
-                        "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
-                        "key": "Strike",
-                        "label": "PF2E.Weapon.Base.jaws",
-                        "range": null,
-                        "traits": [
-                            "finesse",
-                            "unarmed"
-                        ]
-                    }
-                ],
-                "slug": "earthly-wilds-kitsune",
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "heritage"
-        },
-        {
             "_id": "BxICWbkH2Nl6qPEi",
             "flags": {
                 "core": {
@@ -2175,10 +2121,15 @@
             "type": "action"
         },
         {
-            "_id": "AI1eCLTL7EiUw8o0",
+            "_id": "fscqiq92Ef00Samd",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
+                "pf2e": {
+                    "itemGrants": {
+                        "changeShape": {
+                            "id": "XiHYRoyJyHHZHYoD",
+                            "onDelete": "detach"
+                        }
+                    }
                 }
             },
             "img": "systems/pf2e/icons/default-icons/alternatives/ancestries/kitsune.svg",
@@ -2207,7 +2158,6 @@
                         "value": []
                     },
                     "2": {
-                        "selected": "str",
                         "value": [
                             "str",
                             "dex",
@@ -2227,14 +2177,7 @@
                     }
                 },
                 "hp": 8,
-                "items": {
-                    "7ytru": {
-                        "img": "systems/pf2e/icons/default-icons/feat.svg",
-                        "level": 1,
-                        "name": "Change Shape",
-                        "uuid": "Compendium.pf2e.ancestryfeatures.Item.Change Shape (Kitsune)"
-                    }
-                },
+                "items": {},
                 "languages": {
                     "custom": "",
                     "value": [
@@ -2247,7 +2190,37 @@
                     "title": "Pathfinder Lost Omens: Ancestry Guide"
                 },
                 "reach": 5,
-                "rules": [],
+                "rules": [
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "override",
+                        "predicate": [
+                            "item:slug:change-shape"
+                        ],
+                        "property": "description",
+                        "value": [
+                            {
+                                "text": "PF2E.SpecificRule.ChangeShape.Kitsune"
+                            }
+                        ]
+                    },
+                    {
+                        "itemType": "action",
+                        "key": "ItemAlteration",
+                        "mode": "add",
+                        "predicate": [
+                            "item:slug:change-shape"
+                        ],
+                        "property": "traits",
+                        "value": "divine"
+                    },
+                    {
+                        "flag": "changeShape",
+                        "key": "GrantItem",
+                        "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
+                    }
+                ],
                 "size": "med",
                 "slug": "kitsune",
                 "speed": 25,
@@ -2263,78 +2236,17 @@
             "type": "ancestry"
         },
         {
-            "_id": "2emde9JXh6euSAH7",
+            "_id": "XiHYRoyJyHHZHYoD",
             "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.ancestryfeatures.Item.Ymg6WqeJqOyLJLEr"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "changeShapeKitsune": {
-                            "id": "Pn45255OjOEZQgKh",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/spells/fey-disapperance.webp",
-            "name": "Change Shape (Kitsune)",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "ancestryfeature",
-                "description": {
-                    "value": "<p>As a kitsune, you gain the @UUID[Compendium.pf2e.actionspf2e.Item.Change Shape (Kitsune)] ability.</p>"
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": "AI1eCLTL7EiUw8o0",
-                "prerequisites": {
-                    "value": []
-                },
-                "publication": {
-                    "license": "OGL",
-                    "remaster": false,
-                    "title": "Pathfinder Lost Omens: Ancestry Guide"
-                },
-                "rules": [
-                    {
-                        "flag": "changeShapeKitsune",
-                        "key": "GrantItem",
-                        "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape (Kitsune)"
-                    }
-                ],
-                "slug": "change-shape-kitsune",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "kitsune"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
-            "_id": "Pn45255OjOEZQgKh",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.actionspf2e.Item.wwvPiG2kET2rkSAG"
-                },
                 "pf2e": {
                     "grantedBy": {
-                        "id": "2emde9JXh6euSAH7",
+                        "id": "fscqiq92Ef00Samd",
                         "onDelete": "cascade"
                     }
                 }
             },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Change Shape (Kitsune)",
+            "name": "Change Shape",
             "sort": 0,
             "system": {
                 "actionType": {
@@ -2345,30 +2257,117 @@
                 },
                 "category": "interaction",
                 "description": {
-                    "value": "<p>You transform into a specific alternate form determined by your heritage. If your heritage doesn't list a form, your alternate form is a tailless form, which is a common Medium humanoid ancestry prevalent where you grew up (typically human). This form is the same age and body type as your true form and has roughly analogous physical traits, such as hair color. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. You lose any unarmed Strikes you gained from a kitsune heritage or ancestry feat in this form. You can remain in your alternate form indefinitely, and you can shift back to your true kitsune form by using this action again.</p>"
+                    "value": "<p>You return to your natural shape or adopt a new shape as described in the feature that grants this action.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens: The Mwangi Expanse"
+                },
+                "rules": [
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "mergeable": true,
+                        "option": "change-shape",
+                        "selection": "humanoid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Humanoid",
+                                "predicate": [
+                                    {
+                                        "not": "non-humanoid-change-shape"
+                                    }
+                                ],
+                                "value": "humanoid"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": "change-shape",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "concentrate",
+                        "polymorph"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "bXxS6D6kxPMgzrOl",
+            "folder": "RQK8iClIsUamNc1W",
+            "img": "systems/pf2e/icons/default-icons/heritage.svg",
+            "name": "Earthly Wilds Kitsune",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Kitsune",
+                    "slug": "kitsune",
+                    "uuid": "Compendium.pf2e.ancestries.Item.4BL5wf1VF9feC2rY"
+                },
+                "description": {
+                    "value": "<p>You are a creature of the material world, with an affinity closer to the wilds than urban society. You gain a jaws unarmed attack that deals 1d6 piercing damage. Your jaws are in the brawling group and have the finesse and unarmed traits. Your alternate form is a fox, which has the statistics of 1st-rank @UUID[Compendium.pf2e.spells-srd.Item.Pest Form].</p>"
                 },
                 "publication": {
                     "license": "OGL",
                     "remaster": false,
                     "title": "Pathfinder Lost Omens: Ancestry Guide"
                 },
-                "rules": [],
-                "slug": "change-shape-kitsune",
+                "rules": [
+                    {
+                        "baseType": "jaws",
+                        "category": "unarmed",
+                        "damage": {
+                            "base": {
+                                "damageType": "piercing",
+                                "dice": 1,
+                                "die": "d6"
+                            }
+                        },
+                        "group": "brawling",
+                        "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+                        "key": "Strike",
+                        "label": "PF2E.Weapon.Base.jaws",
+                        "range": null,
+                        "traits": [
+                            "finesse",
+                            "unarmed"
+                        ]
+                    },
+                    {
+                        "alwaysActive": true,
+                        "key": "RollOption",
+                        "label": "PF2E.NPCAbility.ChangeShape.Label",
+                        "mergeable": true,
+                        "option": "change-shape",
+                        "selection": "humanoid",
+                        "suboptions": [
+                            {
+                                "label": "PF2E.NPCAbility.ChangeShape.Form.Fox",
+                                "value": "fox"
+                            }
+                        ],
+                        "toggleable": true,
+                        "value": true
+                    }
+                ],
+                "slug": "earthly-wilds-kitsune",
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "kitsune",
-                        "polymorph"
-                    ]
+                    "value": []
                 }
             },
-            "type": "action"
+            "type": "heritage"
         }
     ],
     "name": "Takemiru",
     "system": {
+        "abilities": null,
         "attributes": {
             "hp": {
                 "temp": 0,

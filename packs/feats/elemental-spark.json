@@ -34,26 +34,46 @@
                 "choices": [
                     {
                         "label": "PF2E.TraitEarth",
-                        "value": "versatile-p"
+                        "value": {
+                            "damage": "piercing",
+                            "element": "earth",
+                            "trait": "versatile-p"
+                        }
                     },
                     {
                         "label": "PF2E.TraitFire",
-                        "value": "versatile-fire"
+                        "value": {
+                            "damage": "fire",
+                            "element": "fire",
+                            "trait": "versatile-fire"
+                        }
                     },
                     {
                         "label": "PF2E.TraitMetal",
-                        "value": "versatile-s"
+                        "value": {
+                            "damage": "slashing",
+                            "element": "metal",
+                            "trait": "versatile-s"
+                        }
                     },
                     {
                         "label": "PF2E.TraitWater",
-                        "value": "versatile-b"
+                        "value": {
+                            "damage": "bludgeoning",
+                            "element": "water",
+                            "trait": "versatile-b"
+                        }
                     },
                     {
                         "label": "PF2E.TraitWood",
-                        "value": "versatile-vitality"
+                        "value": {
+                            "damage": "vitality",
+                            "element": "wood",
+                            "trait": "versatile-vitality"
+                        }
                     }
                 ],
-                "flag": "element",
+                "flag": "elementalSpark",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Element"
             },
@@ -64,7 +84,17 @@
                 "key": "AdjustStrike",
                 "mode": "add",
                 "property": "weapon-traits",
-                "value": "{item|flags.pf2e.rulesSelections.element}"
+                "value": "{item|flags.pf2e.rulesSelections.elementalSpark.trait}"
+            },
+            {
+                "definition": [
+                    "item:slug:sprites-spark",
+                    "item:damage:type:{item|flags.pf2e.rulesSelections.elementalSpark.damage}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.elementalSpark.element}"
             }
         ],
         "traits": {

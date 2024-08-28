@@ -21,6 +21,7 @@
                 "key": "ActorTraits"
             },
             {
+                "allowDuplicate": false,
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
             },
@@ -41,12 +42,17 @@
             {
                 "itemType": "action",
                 "key": "ItemAlteration",
-                "mode": "override",
+                "mode": "add",
                 "predicate": [
                     "item:slug:change-shape"
                 ],
+                "priority": 160,
                 "property": "description",
-                "value": "PF2E.SpecificRule.ChangeShape.Beastkin"
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ChangeShape.Beastkin"
+                    }
+                ]
             },
             {
                 "itemType": "action",
