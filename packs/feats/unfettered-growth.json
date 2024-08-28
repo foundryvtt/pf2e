@@ -30,30 +30,13 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Second",
-                        "value": 2
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
-                        "value": 4
-                    }
-                ],
-                "flag": "rank",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
-            },
-            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "item:slug:enlarge",
-                    "spellcasting:innate",
-                    "item:rank:{item|flags.pf2e.rulesSelections.rank}"
+                    "spellcasting:innate"
                 ],
-                "priority": 119,
                 "property": "other-tags",
                 "value": "ancestral-spell"
             },
@@ -64,10 +47,8 @@
                 "predicate": [
                     "item:slug:enlarge",
                     "self:heritage:ardande",
-                    "spellcasting:innate",
-                    "item:rank:{item|flags.pf2e.rulesSelections.rank}"
+                    "spellcasting:innate"
                 ],
-                "priority": 119,
                 "property": "other-tags",
                 "value": "ancestral-spell:ardande"
             }
