@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can open or energize a notable third eye on your forehead to strike with storming power. You deal @Damage[(ceil(@actor.level/2))d4[electricity]|traits:area-damage] or @Damage[(ceil(@actor.level/2))d4[sonic]|traits:area-damage] damage in a @Template[cone|distance:15]; Storming Gaze gains this trait. Each creature in the area must attempt a @Check[reflex|against:class-spell|basic] saving throw against the higher of your class DC or spell DC. You can't use this ability again for [[/br 1d4 #Recharge Storming Gaze]]{1d4 rounds}.</p>\n<p>At 7th level and every 2 levels thereafter, the damage increases by 1d4.</p>"
+            "value": "<p>You can open or energize a notable third eye on your forehead to strike with storming power. You deal 3d4 electricity or 3d4 sonic damage damage in a 15-foot cone; Storming Gaze gains this trait. Each creature in the area must attempt a basic Reflex saving throw against the higher of your class DC or spell DC. You can't use this ability again for 1d4 rounds.</p>\n<p>At 7th level and every 2 levels thereafter, the damage increases by 1d4.</p>"
         },
         "level": {
             "value": 5
@@ -24,7 +24,53 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "mergeable": true,
+                "option": "storming-gaze",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "not": "storming-gaze:tempest-gaze"
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.stormingGaze}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    {
+                        "not": "storming-gaze:tempest-gaze"
+                    }
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oni.StormingGaze.Base"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

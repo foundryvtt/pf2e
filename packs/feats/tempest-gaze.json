@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your third eye grows stronger and more powerful. When you use Storming Gaze, you can increase the area to a @Template[cone|distance:30] and double the number of damage dice; half deal electricity damage, and half deal sonic damage. If you Storming Gaze in this way, you can't use it again for 1 hour.</p>\n<p>@Damage[(ceil(@actor.level/2))d4[electricity],(ceil(@actor.level/2))d4[sonic]]</p>"
+            "value": "<p>Your third eye grows stronger and more powerful. When you use Storming Gaze, you can increase the area to a 30-foot cone and double the number of damage dice; half deal electricity damage, and half deal sonic damage. If you Storming Gaze in this way, you can't use it again for 1 hour.</p>"
         },
         "level": {
             "value": 13
@@ -28,7 +28,36 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "mergeable": true,
+                "option": "storming-gaze",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "tempest-gaze"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:storming-gaze",
+                    "storming-gaze:tempest-gaze"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Oni.StormingGaze.TempestGaze"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
