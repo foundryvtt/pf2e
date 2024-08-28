@@ -1,0 +1,51 @@
+{
+    "_id": "EW6uZKpD0axk3VTg",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Bloodsoaked Dash",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Injuries don't bother you anymore—in fact, the pain invigorates you. If you're at or below half of your maximum Hit Points, you gain a 10-foot status bonus to all of your Speeds.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "lte": [
+                            "hp-percent",
+                            50
+                        ]
+                    }
+                ],
+                "selector": "all-speeds",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hungerseed"
+            ]
+        }
+    },
+    "type": "feat"
+}

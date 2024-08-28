@@ -1,0 +1,67 @@
+{
+    "_id": "UWOSRX6FH6MZDlEw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ancestral Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Casting your memory back deep into the past, you take the form of an ancestral guardian. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] on yourself as a 3rd-rank primal innate spell once per day. You must choose the crocodile form.</p><hr /><p><strong>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Animal Form (Crocodile)]{Crocodile}</strong></p><ul><li>Speed 25 feet, swim Speed 30 feet;</li><li><strong>Melee</strong> <span class=\"action-glyph\">a</span> jaws, <strong>Damage</strong> 2d8 piercing;</li><li><strong>Melee</strong> <span class=\"action-glyph\">a</span> tail (agile), <strong>Damage</strong> 1d8 bludgeoning.</li><li>can hold your breath for the duration of the transformation.</li></ul>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bakuwa lizardfolk heritage or makari lizardfolk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

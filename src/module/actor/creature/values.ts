@@ -117,6 +117,7 @@ const UNCOMMON_LANGUAGES = [
     "varisian",
     "vudrani",
     "xanmba",
+    "wayang",
     "ysoki",
 ] as const;
 
@@ -176,6 +177,7 @@ const RARE_LANGUAGES = [
     "varki",
     "vishkanyan",
     "wyrwood",
+    "yaksha",
     "yithian",
 ] as const;
 

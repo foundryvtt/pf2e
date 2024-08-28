@@ -1,0 +1,97 @@
+{
+    "_id": "7Eh8gHNcRNs9iIR8",
+    "img": "icons/commodities/flowers/flowers-cherry-white.webp",
+    "name": "Stance: Twisting Petal Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Twisting Petal Stance]</p>\n<p>our body moves like a petal twisting on the wind, confounding your opponents while using their energy against them. You can make gale blossom strikes that deal 1d6 slashing damage. These strikes are in the brawling group and have the agile, finesse, nonlethal, shove, and unarmed traits. While in Twisting Petal Stance, you gain a +1 circumstance bonus to Athletics checks to @UUID[Compendium.pf2e.actionspf2e.Item.Shove] and a +2 circumstance bonus to your Fortitude DC to avoid being Shoved. You also gain a +1 circumstance bonus to Deception checks to @UUID[Compendium.pf2e.actionspf2e.Item.Feint] and a +2 circumstance bonus to your Perception DC to resist an opponent's Feint attempt.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "slashing",
+                        "dice": 1,
+                        "die": "d6"
+                    }
+                },
+                "group": "brawling",
+                "img": "icons/commodities/flowers/flowers-cherry-white.webp",
+                "key": "Strike",
+                "label": "PF2E.SpecificRule.Stance.Attack.GaleBlossom",
+                "range": null,
+                "replaceAll": true,
+                "slug": "gale-blossom",
+                "traits": [
+                    "agile",
+                    "finesse",
+                    "nonlethal",
+                    "shove",
+                    "nonlethal"
+                ]
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "athletics",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:shove"
+                ],
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "deception",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:feint"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

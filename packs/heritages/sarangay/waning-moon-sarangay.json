@@ -1,0 +1,56 @@
+{
+    "_id": "MNeg7vI854rB6fmz",
+    "folder": "gliBhRgOfcs7bTjE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Waning Moon Sarangay",
+    "system": {
+        "ancestry": {
+            "name": "Sarangay",
+            "slug": "sarangay",
+            "uuid": "Compendium.pf2e.ancestries.Item.7mpMGhVoaPANJnZ8"
+        },
+        "description": {
+            "value": "<p>Your ancestors were named for the moon in transition, ever-changing and ephemeral. They're the keepers of secret arts, just as the waning moon hides its face, and their communities were highly regarded for their storytellers, performers, and artists. You lived among your community on the outskirts of forests or rivers, where many answers came as riddles, and you learned to see the world from different perspectives. Your people are often red or fawn colored, with prominent eyes and flat, compact horns. You become trained in your choice of Acrobatics, Crafting, or Performance.</p>\n<p>Once per day, when you roll a critical failure with the chosen skill, you can reroll the check, taking the new result, even if it's worse. Rerolling in this way is a fortune effect.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Acrobatics",
+                        "value": "acrobatics"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Performance",
+                        "value": "performance"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sarangay"
+            ]
+        }
+    },
+    "type": "heritage"
+}
