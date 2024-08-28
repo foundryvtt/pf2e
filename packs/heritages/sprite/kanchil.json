@@ -23,8 +23,17 @@
                 "predicate": [
                     {
                         "or": [
-                            "action:lie",
-                            "action:sense-motive",
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            "action:lie",
+                                            "action:sense-motive"
+                                        ]
+                                    },
+                                    "to-avoid-danger"
+                                ]
+                            },
                             "initiative"
                         ]
                     }
