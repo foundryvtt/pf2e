@@ -26,11 +26,18 @@
         },
         "rules": [
             {
-                "key": "RollOption",
-                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.AncestralBloodMagic",
-                "option": "ancestral-blood-magic",
-                "placement": "spellcasting",
-                "toggleable": true
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:ancestral-spell",
+                    {
+                        "not": "item:trait:cantrip"
+                    }
+                ],
+                "priority": 121,
+                "property": "other-tags",
+                "value": "blood-magic-spell"
             }
         ],
         "traits": {

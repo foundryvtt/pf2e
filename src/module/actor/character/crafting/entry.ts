@@ -1,6 +1,6 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
+import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";

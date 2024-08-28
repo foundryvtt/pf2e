@@ -1,0 +1,52 @@
+{
+    "_id": "6I4qWkHzxj4MAt6g",
+    "img": "icons/creatures/magical/spirit-mischief-fire-ice-blue.webp",
+    "name": "Effect: Familiar's Resolve",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Familiar's Resolve]</p>\n<p>You or an ally within 30 feet gain a +2 status bonus to saving throws against effects that would cause you to be doomed or frightened for 1 round. At 14th level, you or an ally gain a +3 status bonus to saving throws against these effects instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 0
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "origin:action:trait:fear",
+                            "origin:action:trait:doomed",
+                            "item:slug:doomed"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "ternary(gte(@actor.level,14),3,2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

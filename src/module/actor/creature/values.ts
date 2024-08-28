@@ -109,6 +109,7 @@ const UNCOMMON_LANGUAGES = [
     "skald",
     "sphinx",
     "sussuran",
+    "tang",
     "tengu",
     "thalassic",
     "tien",
@@ -117,6 +118,7 @@ const UNCOMMON_LANGUAGES = [
     "varisian",
     "vudrani",
     "xanmba",
+    "wayang",
     "ysoki",
 ] as const;
 
@@ -176,6 +178,7 @@ const RARE_LANGUAGES = [
     "varki",
     "vishkanyan",
     "wyrwood",
+    "yaksha",
     "yithian",
 ] as const;
 

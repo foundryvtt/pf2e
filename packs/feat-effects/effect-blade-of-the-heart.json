@@ -1,0 +1,213 @@
+{
+    "_id": "5yfA4sAo0CjXIYDr",
+    "img": "icons/magic/light/beam-rays-magenta.webp",
+    "name": "Effect: Blade of the Heart",
+    "system": {
+        "description": {
+            "value": "<p>Granted @UUID[Compendium.pf2e.feats-srd.Item.Blade of the Heart]</p>\n<p>You plunge your transformed weapon into the heart of a willing adjacent ally, where it phases harmlessly into their body. As you pull the weapon out, your ally's heart inscribes one of the following weapon property runes on your weapon: corrosive, flaming, frost, shock, thundering, or vitalizing.</p>\n<p>At 16th level, you draw the greater version of the rune instead.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.WeaponPropertyRune.corrosive.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "corrosive"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterCorrosive.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-corrosive"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.flaming.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "flaming"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterFlaming.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-flaming"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.frost.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "frost"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterFrost.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-frost"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.shock.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "shock"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterShock.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-shock"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.thundering.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "thundering"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterThundering.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-thundering"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.disrupting.Name",
+                        "predicate": [
+                            {
+                                "lt": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "disrupting"
+                    },
+                    {
+                        "label": "PF2E.WeaponPropertyRune.greaterDisrupting.Name",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "self:level",
+                                    16
+                                ]
+                            }
+                        ],
+                        "value": "greater-disrupting"
+                    }
+                ],
+                "flag": "rune",
+                "key": "ChoiceSet"
+            },
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:id:{item|flags.pf2e.rulesSelections.weapon}",
+                            "item:category:{item|flags.pf2e.rulesSelections.weapon}"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "property-runes",
+                "value": "{item|flags.pf2e.rulesSelections.rune}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

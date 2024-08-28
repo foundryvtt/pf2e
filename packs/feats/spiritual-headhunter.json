@@ -1,0 +1,63 @@
+{
+    "_id": "Y5w2BOMeZpbSC6Ss",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spiritual Headhunter",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your spirit coffin can temporarily detain the spirits of those you kill, allowing you to ask them one last question before they pass on. If you kill a creature with a slashing weapon, you can decapitate it and trap the spirit of its head in your spirit coffin. Once before your next daily preparations, you can cast @UUID[Compendium.pf2e.spells-srd.Item.Talking Corpse] as a primal innate spell, which targets the spiritual head trapped in your coffin, not its physical corpse. A ghostly version of the head manifests from the coffin to answer the questions, taking a –2 status penalty to its Will save to resist the spell. After the spell resolves, or 1 day later, the head is released and rejoins its spiritual body. You can trap only one spirit in this way at a time.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Coffin"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:talking-corpse",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:talking-corpse",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

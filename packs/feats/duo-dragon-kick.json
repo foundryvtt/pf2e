@@ -1,0 +1,63 @@
+{
+    "_id": "wOb5YGq1EcRn3lwl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Duo Dragon Kick",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Requirements</strong> Your construct innovation is adjacent to you.</p><hr /><p>You've practiced an impressive spin technique with your construct, automatically attacking in tandem as you launch each other through the air. You Command your construct companion to fight alongside you, after which you both @UUID[Compendium.pf2e.actionspf2e.Item.Leap] in the same direction, making an unarmed Strike at the start or end of the Leap; this uses your companion's actions for the turn. If the Strikes both hit the same creature, combine their damage for the purposes of resistances and weaknesses.</p>\n<p><strong>Unstable Function</strong> You spin farther and higher, though the extreme movement risks discombobulating your innovation. Add the unstable trait to Duo Dragon Kick. Increase the distance of your Leaps by 10 feet if horizontal or 5 feet if vertical.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "construct innovation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
+                "option": "unstable-state",
+                "predicate": [
+                    {
+                        "not": "feature:construct-innovation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "unstable-state",
+                    "item:duo-dragon-kick"
+                ],
+                "property": "traits",
+                "value": "unstable"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "inventor"
+            ]
+        }
+    },
+    "type": "feat"
+}
