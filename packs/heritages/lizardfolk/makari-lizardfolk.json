@@ -34,7 +34,7 @@
                 },
                 "flag": "cantrip",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpeciciRule.Prompt.Cantrip "
+                "prompt": "PF2E.SpecificRule.Prompt.Cantrip "
             },
             {
                 "itemType": "spell",
@@ -57,6 +57,17 @@
                 ],
                 "property": "other-tags",
                 "value": "ancestral-spell:lizardfolk"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "manipulate"
             }
         ],
         "traits": {

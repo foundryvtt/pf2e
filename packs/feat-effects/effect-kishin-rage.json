@@ -4,7 +4,7 @@
     "name": "Effect: Kishin Rage",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Kishin Rage]</p>\n<p>You gain 40 temporary Hit Points, and a fly Speed equal to your Speed.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Kishin Rage]</p>\n<p>You gain 40 temporary Hit Points, a fly Speed equal to your Speed, and your horns deal an additional 1d4 electricity damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -29,6 +29,16 @@
                 "key": "BaseSpeed",
                 "selector": "fly",
                 "value": "@actor.attributes.speed.total"
+            },
+            {
+                "damageType": "electricity",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "predicate": [
+                    "hungerseed-horns"
+                ],
+                "selector": "horns-damage"
             }
         ],
         "start": {
