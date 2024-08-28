@@ -31,11 +31,15 @@
                     "criticalSuccess"
                 ],
                 "predicate": [
-                    "target:condition:prone",
-                    "target:condition:grabbed",
-                    "target:condition:restrained"
+                    {
+                        "or": [
+                            "target:condition:prone",
+                            "target:condition:grabbed",
+                            "target:condition:restrained"
+                        ]
+                    }
                 ],
-                "selector": "strike",
+                "selector": "strike-attack-roll",
                 "text": "{item|description}",
                 "title": "{item|name}"
             }
