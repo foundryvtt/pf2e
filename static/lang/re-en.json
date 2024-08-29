@@ -2218,10 +2218,103 @@
             },
             "CatharticMage": {
                 "EmotionalState": {
-                    "Prompt": "Select a catharsis emotion."
+                    "Activation": "Catharsis Activation",
+                    "Fallout": "Emotional Fallout",
+                    "Fervor": "Emotional Fervor",
+                    "Focus": "Focus Spell",
+                    "Prompt": "Select a catharsis emotion.",
+                    "Trigger": "Catharsis Trigger"
+                },
+                "Anger": {
+                    "Activation": "If you're @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}, or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape}. If you succeed, the creature or hazard imposing the condition on you (if applicable) takes force damage equal to your level.",
+                    "Description": "Your destructive wrath allows you to harm your foes but causes you pain in the process.",
+                    "Fallout": " You become @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{fatigued }until you Settle your Emotions.",
+                    "Fervor": "When you Cast a Spell from your spell slots, if the spell deals damage and doesn't have a duration, you gain a status bonus to that spell's damage equal to the spell's rank. Spell: @UUID[Compendium.pf2e.spells-srd.Item.jsWthW1Qy6tg3SwD]{Draw Ire}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.UGJzJRJDoonfWqqI]{Athletic Rush}",
+                    "Label": "Anger",
+                    "Trigger": "An enemy deals damage to you. You can't use this reaction if you're @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued}."
+                },
+                "Awe": {
+                    "Activation": "If you're @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied}, you can attempt an additional save to end the effect if it allowed a save.",
+                    "Description": "Your powerful sense of wonderment can be infectious and distracting.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until you Settle your Emotions.",
+                    "Fervor": " When you cast a spell, choose one creature that was hit by your spell attack roll or that failed its saving throw, if any. That creature becomes fascinated with you until the end of its next turn. It's then temporarily immune to this fervor effect for 1 hour. Spell: @UUID[Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE]{Revealing Light}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.zul5cBTfr7NXHBZf]{Dazzling Flash (doesn't require a religious symbol)",
+                    "Label": "Awe",
+                    "Trigger": "You or an ally within 30 feet critically succeeds on an attack roll against an enemy's AC or a skill check against one of an enemy's DCs."
+                },
+                "Dedication": {
+                    "Activation": "Your emotional focus gains a number of temporary Hit Points equal to half your level rounded up. These temporary HP last for 1 minute.",
+                    "Description": "Your commitment protects those you are dedicated to but can lead to dependency. Your emotional focus is an individual creature you're bound to.",
+                    "Fallout": "Until you Settle your Emotions, you can't Cast Spells unless you're adjacent to your emotional focus.",
+                    "Fervor": "Your spells that target your emotional focus gain the benefits of Reach Spell. When you cast a healing spell that affects your emotional focus, your emotional focus also gains temporary HP equal to the spell's rank in addition to the spell's effects. These temporary HP last for 1 minute. Spell: @UUID[Compendium.pf2e.spells-srd.Item.yHujiDQPdtXW797e]{Spirit Link}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.rQYob0QMJ0I1U2sU]{Protector's Sacrifice}",
+                    "Label": "Dedication",
+                    "Trigger": "Your emotional focus takes damage from an enemy while within 30 feet of you."
+                },
+                "Fear": {
+                    "Activation": "Increase your frightened value by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 4}.",
+                    "Description": "You let your fear fuel you, rather than consume you, but it burns your endurance.",
+                    "Fallout": "You are @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing} for 2 rounds, running from the source of the frightened condition that triggered your Catharsis. If that source is no longer present, you instead flee from the position where you were at the start of your emotional fallout.",
+                    "Fervor": "You don't take the status penalty from the frightened condition to your spell DCs or spell attack bonus. Instead, you gain a status bonus to spell attack rolls equal to the penalty you would've taken, and your foes take the same status penalty to their saving throws against your spells. Any other statistic takes the status penalty as normal. Spell: @UUID[Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D]{Fear}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.DU5daB09xwfE1y38]{Waking Nightmare}",
+                    "Label": "Fear",
+                    "Trigger": "You let your fear fuel you, rather than consume you, but it burns your endurance."
+                },
+                "Hatred": {
+                    "Activation": "You can Step or Stride. You must end this movement closer to your emotional focus.",
+                    "Description": "Your unabashed hatred consumes your soul and causes your foe to falter. Your emotional focus is an individual enemy you detest.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2}.",
+                    "Fervor": "Your emotional focus is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to you and takes a –2 status penalty to saves against your spells. You're off-guard to your emotional focus and take a –2 status penalty to saves against it. Spell: @UUID[Compendium.pf2e.spells-srd.Item.TaaMEYdZXQXF0Sks]{Blood Vendetta}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.0H1ozccQGGFLUwFI]{Cry of Destruction}",
+                    "Label": "Hatred",
+                    "Trigger": "You start your first turn in an encounter against your emotional focus or one of their followers. If the encounter includes multiple eligible followers and doesn't include your actual emotional focus, choose one of the followers to act as your emotional focus for this encounter (or until your actual emotional focus shows up)"
+                },
+                "Joy": {
+                    "Activation": "Reduce the value of any @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened} or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied} condition you have by 1 and end any persistent mental damage you have.",
+                    "Description": "Your unbridled enthusiasm and positive attitude can lead you to success, but you might expend more energy than you planned.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until you Settle your Emotions.",
+                    "Fervor": "You gain a +1 status bonus to Performance checks and to the spell attack rolls of emotion spells, and enemies take a –1 status penalty to saves against your emotion spells. Spell: @UUID[Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv]{Laughing Fit}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.gwOYh5zMVZB0HNcT]{Unimpeded Stride}",
+                    "Label": "Joy",
+                    "Trigger": "You critically succeed on an attack roll or save, or an enemy critically fails on a save against you."
                 },
                 "Love": {
-                    "Toggle": "You cast a spell to benefit your emotional focus"
+                    "Activation": "If either you or your emotional focus is @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} or @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{Controlled}, one of you can attempt a new saving throw against one confusing or controlling effect (if it allowed a save), ending the condition if the new save is a success. If both of you are eligible, your emotional focus gets the new save.",
+                    "Description": "You're joined by the bonds of love and nothing can break that, but love can distract you from other things in your life. Your emotional focus is someone you're in love with; they aren't required to love you back.",
+                    "Fallout": "You're @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} with your emotional focus for 1 minute.",
+                    "Fervor": "You gain a +1 status bonus to Will saves. If you cast a spell to benefit your emotional focus, this bonus increases to +3 until the start of your next turn. Spell: @UUID[Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n]{Soothe}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.YGRpHU5yxw73mls8]{Soothing Words}",
+                    "Toggle": "You cast a spell to benefit your emotional focus",
+                    "Label": "Love",
+                    "Trigger": "Your emotional focus takes damage from an enemy while within 30 feet of you."
+                },
+               "Misery": {
+                    "Activation": "You gain a number of temporary Hit Points equal to your level. They last for 1 minute.",
+                    "Description": "To suffer is to know you're alive; to make your enemies suffer as greatly as you have eases your suffering.",
+                    "Fallout": "You take an untyped penalty to any damage you would deal with any spell you cast until you Settle your Emotions. The penalty is –1 per spell rank.",
+                    "Fervor": "You can choose not to attempt a flat check to end persistent damage you're taking. When you cast a damaging spell, you can choose one creature that failed its save or that you hit with your spell attack roll. That target takes persistent damage of the same type the spell dealt, of an amount equal to the highest amount of persistent damage you currently have. You can't choose a creature that's already taking persistent damage. Spell: @UUID[Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD]{Phantom Pain}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.xn0V2HDrmDWNzPEt]{Savor the Sting}",
+                    "Label": "Misery",
+                    "Trigger": "You gain persistent damage from a foe."
+                },
+                "Pride": {
+                    "Activation": "The critical failure becomes a failure.",
+                    "Description": "All is well as long as you appear well, but you get caught up in the moment and lose track of what's important.",
+                    "Fallout": "You momentarily lose track of what's real, becoming @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} for 1 round. Spell: @UUID[Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI]{Mirror Image}",
+                    "Fervor": "Each time you cast an illusion spell, until the start of your next turn, any critical failure you roll on an attack roll or saving throw is a failure instead. Spell: @UUID[Compendium.pf2e.spells-srd.Item.UKsIOWmMx4hSpafl]{Dizzying Colors}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.Q25JQAgnJSGgFDKZ]{Veil of Confidence}",
+                    "Label": "Pride",
+                    "Trigger": "You critically fail on an attack roll or saving throw."
+                },
+                "Remorse": {
+                    "Activation": "You Step or Stride. You must end this movement closer to the triggering ally.",
+                    "Description": "You attempt to overcome your failings, but your guilt stays with you.",
+                    "Fallout": "Your emotional weight crushes you, leaving you @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} until you Settle your Emotions.",
+                    "Fervor": "Any spell you cast that restores Hit Points to the triggering ally gets a status bonus to the Hit Points healed equal to the spell's rank, or double the spell's rank if the ally is at 0 Hit Points. Spell: @UUID[Compendium.pf2e.spells-srd.Item.kIwA7kwp5E0AC3yM]{Warrior's Regret}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.rhJyqB9g3ziImQgM]{Healer's Blessing}",
+                    "Label": "Remorse",
+                    "Trigger": "An ally within 30 feet drops to 0 Hit Points."
                 }
             },
             "CelestialResistance": {
