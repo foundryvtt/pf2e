@@ -35,11 +35,17 @@
                 "value": "concussive"
             },
             {
-                "key": "DamageDice",
-                "override": {
-                    "dieSize": "d8"
-                },
-                "selector": "horns-damage"
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "sarangay-horns",
+                    "dice:slug:base"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "horns-damage"
+                ],
+                "value": 8
             }
         ],
         "traits": {

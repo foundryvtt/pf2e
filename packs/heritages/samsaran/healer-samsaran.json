@@ -27,10 +27,11 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "target:self",
-                    "action:treat-wounds"
+                    "action:treat-wounds",
+                    "check:statistic:medicine",
+                    "origin:signature:{actor|signature}"
                 ],
-                "selector": "healing",
+                "selector": "healing-received",
                 "value": "@actor.level"
             }
         ],
