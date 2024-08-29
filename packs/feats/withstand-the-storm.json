@@ -28,7 +28,43 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "withstand-the-storm",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "withstand-the-storm"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.withstandTheStorm}",
+                "value": "@actor.level"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
