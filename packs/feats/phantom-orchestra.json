@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>An easy way to trick others is to throw your voice into a nearby forest or thicket to make strange noises. You can cast 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism] as an innate primal spell once per day. You can also cast the figment cantrip as a primal innate spell at will, heightened to a spell rank equal to half your level rounded up.</p>"
+            "value": "<p>An easy way to trick others is to throw your voice into a nearby forest or thicket to make strange noises. You can cast 2nd-rank @UUID[Compendium.pf2e.spells-srd.Item.Ventriloquism] as an innate primal spell once per day. You can also cast the @UUID[Compendium.pf2e.spells-srd.Item.Figment] cantrip as a primal innate spell at will, heightened to a spell rank equal to half your level rounded up.</p>"
         },
         "level": {
             "value": 9
@@ -24,7 +24,40 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:figment",
+                            "item:slug:ventriloquism"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:figment",
+                            "item:slug:ventriloquism"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tanuki"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
