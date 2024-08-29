@@ -1385,6 +1385,7 @@ const traitDescriptions = {
     potion: "PF2E.TraitDescriptionPotion",
     precious: "PF2E.TraitDescriptionPrecious",
     prediction: "PF2E.TraitDescriptionPrediction",
+    processed: "PF2E.TraitDescriptionProcessed",
     press: "PF2E.TraitDescriptionPress",
     primal: "PF2E.TraitDescriptionPrimal",
     propulsive: "PF2E.TraitDescriptionPropulsive",
