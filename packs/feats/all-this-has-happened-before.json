@@ -28,11 +28,23 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
-        "selfEffect": {
-            "name": "Effect: All This Has Happened Before",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: All This Has Happened Before"
-        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "all-this-has-happened-before",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "all-this-has-happened-before"
+                ],
+                "selector": "initiative",
+                "type": "circumstance",
+                "value": 4
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -28,11 +28,24 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
-        "selfEffect": {
-            "name": "Effect: All This Will Happen Again",
-            "uuid": "Compendium.pf2e.feat-effects.Item.Effect: All This Will Happen Again"
-        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "all-this-will-happen-again",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:emotion",
+                    "all-this-will-happen-again"
+                ],
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
