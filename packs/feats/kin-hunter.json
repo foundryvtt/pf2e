@@ -30,13 +30,29 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "kin-hunter",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "succeeded-recall-knowledge"
+                    "kin-hunter"
                 ],
                 "selector": "strike-damage",
+                "slug": "kin-hunter-damage",
                 "type": "circumstance",
                 "value": "@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "kin-hunter"
+                ],
+                "selector": "saving-throw",
+                "slug": "kin-hunter-saves",
+                "type": "circumstance",
+                "value": 1
             }
         ],
         "traits": {

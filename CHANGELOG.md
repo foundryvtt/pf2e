@@ -1,3 +1,66 @@
+## 6.3.0
+
+### Highlights
+
+-   (Ambrose, Mecha Maya, Rigo, SpartanCPA, Tikael) Add content from Tian Xia Character Guide
+
+### System Improvements
+
+-   (stwlam) Allow `rollerRole` (target/origin status) of inline check rolls to be overridden
+-   (Supe) Add token images to some chat messages
+-   (Supe) Display max crafting level in header of PC sheet's crafting tab
+
+### Bugfixes
+
+-   (7H3LaughingMan) Snap ruler origin/destination to bottom-right vertex
+-   (Supe) Set default condition roll option prefix
+
+### Data Updates
+
+-   (Ambrose) Brush up Hand of the Apprentice wizard focus spell
+-   (Ambrose) Brush up Vicious Incisors feat RE
+-   (Ambrose) Consolidate Draw Ire failure and critical failure effects
+-   (Ambrose) Consolidate Elementalist feats
+-   (Ambrose) Correct duration and description for Potency Crystal effects
+-   (Ambrose) Correct prerequisites for Sanctify Water feat
+-   (Ambrose) Correct spell list for Azi
+-   (Ambrose) Correct stats for Charau-ka butcher Actor
+-   (Ambrose) Fix action cost for Blessed Boundary spell
+-   (Ambrose) Fix bonus for Greater Arboreal Boots
+-   (Ambrose) Fix slugs used by Vicious Incisors
+-   (Ambrose) Remove select Actors and redirect to Monster Core Versions
+-   (Ambrose) Update Alchemist traits to match PC2 text
+-   (Ambrose) Update Halfling and Human ancestries' publication information to remaster
+-   (Dire Weasel) Fix action type and cost of Sleek Reposition
+-   (Dire Weasel) Fix inline damage roll for Invoke the Elements and add automation for Stormy Heart
+-   (Dire Weasel) Fix predicate and selector for Fiend-Trampling Stature
+-   (Dire Weasel) Fix save type of Giant Scorpion Venom
+-   (Dire Weasel) Fix selectors in rule elements on Dragonstorm Blade
+-   (Dire Weasel) Tidy description of Void Fragment and add links
+-   (Dire Weasel) Update Soul Swarm's Soul Grasp damage to RollOption with suboptions
+-   (JJellie) Fix the radius of the Harpy's aura
+-   (kromko) Fix Desperate Wrath AC penalty
+-   (kromko) Fix Oversized Throw requirements formatting
+-   (kromko) Update Medium Armor Mastery publication to PC2
+-   (Mecha Maya) Count Domain Initiate Cleric feats toward Soul Warden feat count
+-   (Mose) Fix typos in Crane Flutter, Major Juggernaut Elixir, and Safe House
+-   (reyzor1991) Set Ijhyeojin HP to max
+-   (Rigo) Add DoS adjustments to Magical Shorthand and Spellbook Prodigy
+-   (Rigo) Add missing dice number to Goring Charge's rule element
+-   (Rigo) Redirect several removed effects to their condensed version
+-   (Rigo) Set dragonblood rarity to uncommon
+-   (Rigo) Update Goblin ancestry's publication information to remaster
+-   (Rigo) Update Sticky Bomb to correctly calculate persistent damage
+-   (SpartanCPA) Begin Refactoring Player Character Change Shape
+-   (stwlam) Add morph and primal traits to Rage action from Animal Instinct
+-   (Tikael) Add magicsense to selectable senses
+-   (Tikael) Condense ancestry Change Shape actions
+-   (websterguy) Remove duplicate paragraph from Reaper's Grasp description
+
+### Under the Hood
+
+-   (stwlam) Switch to use of `_stats.compendiumSource` instead of `flags.core.sourceId` (#16193)
+
 ## 6.2.3
 
 This update requires Foundry VTT version 12.328.

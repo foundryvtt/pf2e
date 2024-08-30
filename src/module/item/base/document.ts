@@ -63,7 +63,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The UUID of the item from which this one was copied (or is identical to if a compendium item) **/
     get sourceId(): ItemUUID | null {
-        return this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
+        return this._id && this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
     }
 
     /** The recorded schema version of this item, updated after each data migration */

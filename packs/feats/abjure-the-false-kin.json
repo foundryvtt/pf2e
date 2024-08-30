@@ -31,22 +31,13 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "mental"
+                    "item:trait:mental",
+                    {
+                        "not": "damaging-effect"
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "save"
-            },
-            {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "predicate": [
-                    "mental"
-                ],
-                "selector": "saving-throw",
-                "text": "{item|description}",
-                "title": "{item|name}"
             }
         ],
         "traits": {
