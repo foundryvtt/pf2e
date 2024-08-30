@@ -16,7 +16,7 @@
                 },
                 "category": null,
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature comes within 15 feet of the nest</p>\n<hr />\n<p><strong>Effect</strong> A mass of skittering ostovite hatchlings crawls all over the nest, spewing acid in all directions. Each creature within @Template[emanation|distance:30]{30 feet} of the nest takes @Damage[(1d10+4)[acid]] damage (@Check[reflex|dc:18|basic]). A creature who fails the save also takes @Damage[1[persistent,acid]] damage. The hazard then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature comes within 15 feet of the nest</p><hr /><p><strong>Effect</strong> A mass of skittering ostovite hatchlings crawls all over the nest, spewing acid in all directions. Each creature within @Template[emanation|distance:30]{30 feet} of the nest takes @Damage[(1d10+4)[acid]] damage (@Check[reflex|dc:18|basic]). A creature who fails the save also takes @Damage[1[persistent,acid]] damage. The hazard then rolls initiative.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -82,6 +82,7 @@
             "ac": {
                 "value": 18
             },
+            "emitsSound": "encounter",
             "hardness": 7,
             "hp": {
                 "details": "",
@@ -132,7 +133,7 @@
                 "remaster": false,
                 "title": "Pathfinder #181: Zombie Feast"
             },
-            "reset": "<p>The hazard deactivates if there are no targets for its acid spew at the start of its turn. The hatchlings return to the nest, and the hazard resets. If damaged but not destroyed, the nest recovers [[/r 1d6[healing]]] Hit Points per hour as the hatchlings repair it.</p>",
+            "reset": "<p>The hazard deactivates if there are no targets for its acid spew at the start of its turn. The hatchlings return to the nest, and the hazard resets. If damaged but not destroyed, the nest recovers @Damage[1d6[healing]] Hit Points per hour as the hatchlings repair it.</p>",
             "routine": "<p>(1 action) The hazard makes an acid spew Strike against the nearest creature.</p>"
         },
         "saves": {
