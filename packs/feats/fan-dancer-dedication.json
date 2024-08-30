@@ -33,24 +33,7 @@
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
                 "path": "system.skills.performance.rank",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 6,
-                            "start": 1,
-                            "value": 2
-                        },
-                        {
-                            "end": 14,
-                            "start": 7,
-                            "value": 3
-                        },
-                        {
-                            "start": 15,
-                            "value": 4
-                        }
-                    ]
-                }
+                "value": "ternary(gte(@actor.level,15),4,ternary(gte(@actor.level,7),3,2))"
             }
         ],
         "traits": {

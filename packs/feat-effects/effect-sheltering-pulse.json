@@ -1,16 +1,16 @@
 {
-    "_id": "no8vv18N7YmEKvOH",
-    "img": "icons/sundries/gaming/chess-knight-white-glass.webp",
-    "name": "Effect: Strategist Stance",
+    "_id": "m0hi0jpIF6tNJzzo",
+    "img": "icons/magic/defensive/barrier-shield-dome-blue-purple.webp",
+    "name": "Effect: Sheltering Pulse",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Strategist Stance]</p>\n<p>Your marshal's aura grants you and allies a +1 status bonus to Reflex saving throws</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Sheltering Pulse]</p>\n<p>You gain a +1 status bonus to AC.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "encounter",
-            "value": -1
+            "unit": "rounds",
+            "value": 3
         },
         "level": {
             "value": 1
@@ -23,7 +23,10 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "reflex",
+                "predicate": [
+                    "sheltering-pulse"
+                ],
+                "selector": "ac",
                 "type": "status",
                 "value": 1
             }

@@ -41,9 +41,18 @@ class UUIDUtils {
         return R.sortBy([...packEmbeddedDocs, ...worldDocsAndCacheHits, ...packDocs], (d) => uuids.indexOf(d.uuid));
     }
 
-    static isItemUUID(uuid: unknown): uuid is ItemUUID {
+    static isItemUUID(uuid: unknown, options: { embedded: true }): uuid is EmbeddedItemUUID;
+    static isItemUUID(uuid: unknown, options: { embedded: false }): uuid is WorldItemUUID | CompendiumItemUUID;
+    static isItemUUID(uuid: unknown, options?: { embedded?: boolean }): uuid is ItemUUID;
+    static isItemUUID(uuid: unknown, options: { embedded?: boolean } = {}): uuid is ItemUUID {
+        if (typeof uuid !== "string") return false;
         try {
-            return typeof uuid === "string" && fu.parseUuid(uuid).type === "Item";
+            const parseResult = fu.parseUuid(uuid);
+            const isEmbedded = parseResult.embedded.length > 0;
+            return (
+                parseResult.type === "Item" &&
+                (options.embedded === true ? isEmbedded : options.embedded === false ? !isEmbedded : true)
+            );
         } catch {
             return false;
         }

@@ -111,7 +111,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const ruleSource: GrantItemSource = args.ruleSource;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
-        if (!UUIDUtils.isCompendiumUUID(uuid, "Item")) return;
+        if (!UUIDUtils.isItemUUID(uuid, { embedded: false })) return;
         const grantedItem: ClientDocument | null = await (async () => {
             try {
                 return (await fromUuid(uuid))?.clone() ?? null;

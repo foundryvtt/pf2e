@@ -11,7 +11,7 @@
         },
         "category": "skill",
         "description": {
-            "value": "<p>You've trained in drawing the eyes of your audience to specific aspects of your performance through the careful manipulation of your fans and body. While wielding a fan, you can snap open, flutter, or otherwise manipulate the fan to briefly distract observers around you, giving you and adjacent allies a constant +1 circumstance bonus to Stealth checks to secretly Conceal an Object and to Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] or Palm an Object.</p>"
+            "value": "<p>You've trained in drawing the eyes of your audience to specific aspects of your performance through the careful manipulation of your fans and body. While wielding a fan, you can snap open, flutter, or otherwise manipulate the fan to briefly distract observers around you, giving you and adjacent allies a constant +1 circumstance bonus to Stealth checks to secretly @UUID[Compendium.pf2e.actionspf2e.Item.Conceal an Object] and to Thievery checks to @UUID[Compendium.pf2e.actionspf2e.Item.Steal] or @UUID[Compendium.pf2e.actionspf2e.Item.Palm an Object].</p>"
         },
         "level": {
             "value": 6
@@ -28,7 +28,26 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "action:conceal-an-object",
+                            "action:palm-an-object",
+                            "action:steal"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "stealth",
+                    "thievery"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
