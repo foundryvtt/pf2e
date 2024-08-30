@@ -28,7 +28,24 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:make-an-impression",
+                    {
+                        "or": [
+                            "target:trait:beast",
+                            "target:trait:fey",
+                            "target:trait:kami"
+                        ]
+                    }
+                ],
+                "selector": "diplomacy",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

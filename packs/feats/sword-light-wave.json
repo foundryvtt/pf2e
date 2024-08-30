@@ -28,7 +28,26 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.SpiritWarrior.SpiritDamage",
+                "option": "deal-spirit-damage",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "deal-spirit-damage"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": "spirit"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You've sworn an oath to ferret out and destroy malevolent shapechangers who pose as mortals with evil intent. You gain a +4 circumstance bonus to Perception checks to detect a shapechanged creature's disguise, and a +2 circumstance bonus to attempts to Recall Knowledge about shapechangers. Whenever you use Overwhelming Combination against a shapechanged creature, you attempt to counteract one polymorph effect on that creature. The counteract rank is half your level rounded up, and the counteract check modifier is your Charisma modifier + your proficiency bonus with the weapon used to Strike as part of your Overwhelming Combination. You gain the following edict.</p>\n<p><strong>Edict</strong> You must reveal and slay evil or predatory shapechangers you discover or encounter, as long as you have a reasonable chance of success.</p>"
+            "value": "<p>You've sworn an oath to ferret out and destroy malevolent shapechangers who pose as mortals with evil intent. You gain a +4 circumstance bonus to Perception checks to detect a shapechanged creature's disguise, and a +2 circumstance bonus to attempts to Recall Knowledge about shapechangers. Whenever you use @UUID[Compendium.pf2e.actionspf2e.Item.Overwhelming Combination] against a shapechanged creature, you attempt to counteract one polymorph effect on that creature. The counteract rank is half your level rounded up, and the counteract check modifier is your Charisma modifier + your proficiency bonus with the weapon used to Strike as part of your Overwhelming Combination. You gain the following edict.</p>\n<p><strong>Edict</strong> You must reveal and slay evil or predatory shapechangers you discover or encounter, as long as you have a reasonable chance of success.</p>"
         },
         "level": {
             "value": 4
@@ -28,7 +28,34 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "tricksterbane-oath",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "tricksterbane-oath"
+                ],
+                "selector": "perception",
+                "slug": "tricksterbane-oath-perception",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "tricksterbane-oath"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "slug": "tricksterbane-oath-recall-knowledge",
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
