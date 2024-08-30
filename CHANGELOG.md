@@ -1,3 +1,24 @@
+## 6.3.1
+
+### Bugfixes
+
+-   (Idle) Fixed background label in the attribute boosts menu
+-   (stwlam, Supe) Fix level up feature granting and grant item
+-   (stwlam) Fix critical hit immunities
+-   (Supe) Don't show chat portraits in secret messages
+
+### Data Updates
+
+-   (Abbadon) Adding missing sources to some items
+-   (Ambrose) Add processed trait
+-   (Ambrose) Consolidate Catharsis Emotion features into one
+-   (Dire Weasel) Link some Tian Xia feats to relevant archetype journal entries
+-   (Nythz) Add dedication trait to Pactbound Dedication
+-   (Rigo) Fix several Wayang, Yaksha, and Yaoguai ancestry feats
+-   (Rigo) Add degree of success radius adjustments to Strategist Stance
+-   (Rigo) Add automation for Protective Cycle, Renewing Cycle, and some Spirit Warrior features
+-   (TiloBuechsenschuss) Add expiration to Buckler Stance
+
 ## 6.3.0
 
 ### Highlights
