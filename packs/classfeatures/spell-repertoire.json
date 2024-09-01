@@ -26,67 +26,26 @@
         },
         "rules": [
             {
-                "choices": [
-                    {
-                        "label": "PF2E.TraitBard",
-                        "predicate": [
-                            "class:bard"
-                        ],
-                        "value": "bard"
-                    },
-                    {
-                        "label": "PF2E.TraitOracle",
-                        "predicate": [
-                            "class:oracle"
-                        ],
-                        "value": "oracle"
-                    },
-                    {
-                        "label": "PF2E.TraitPsychic",
-                        "predicate": [
-                            "class:psychic"
-                        ],
-                        "value": "psychic"
-                    },
-                    {
-                        "label": "PF2E.TraitSorcerer",
-                        "predicate": [
-                            "class:sorcerer"
-                        ],
-                        "value": "sorcerer"
-                    },
-                    {
-                        "label": "PF2E.TraitSummoner",
-                        "predicate": [
-                            "class:summoner"
-                        ],
-                        "value": "summoner"
-                    }
-                ],
-                "flag": "spellcaster",
-                "key": "ChoiceSet"
-            },
-            {
-                "itemId": "{item|id}",
                 "key": "ItemAlteration",
                 "mode": "override",
                 "property": "description",
+                "itemId": "{item|id}",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{item|flags.pf2e.rulesSelections.spellcaster}.PartOne"
+                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{actor|class.slug}.PartOne"
                     },
                     {
-                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{item|flags.pf2e.rulesSelections.spellcaster}.PartTwo"
+                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{actor|class.slug}.PartTwo"
                     },
                     {
-                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{item|flags.pf2e.rulesSelections.spellcaster}.PartThree"
+                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{actor|class.slug}.PartThree"
                     },
                     {
-                        "divider": true,
-                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.SpellSwapping"
+                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.SpellSwapping",
+                        "divider": true
                     },
                     {
-                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{item|flags.pf2e.rulesSelections.spellcaster}.SpellSwapping"
+                        "text": "PF2E.SpecificRule.ClassFeatures.SpellRepertoire.{actor|class.slug}.SpellSwapping"
                     }
                 ]
             },
