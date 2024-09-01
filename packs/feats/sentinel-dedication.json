@@ -26,59 +26,29 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.medium.rank",
-                "priority": 41,
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 12,
-                            "value": "max(1,@actor.system.proficiencies.defenses.light.rank)"
-                        },
-                        {
-                            "start": 13,
-                            "value": "max(1,@actor.system.proficiencies.defenses.light.rank,min(2,@actor.system.proficiencies.defenses.unarmored.rank))"
-                        }
-                    ]
-                }
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.proficiencies.defenses.light.rank",
-                "priority": 41,
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 12,
-                            "value": 1
-                        },
-                        {
-                            "start": 13,
-                            "value": "max(1,min(2,@actor.system.proficiencies.defenses.unarmored.rank))"
-                        }
-                    ]
-                }
-            },
-            {
                 "adjustName": false,
                 "choices": [
                     {
                         "label": "PF2E.Actor.Character.Proficiency.Defense.LightShort",
                         "predicate": [
+                            "defense:light:rank:0"
+                        ],
+                        "value": "light"
+                    },
+                    {
+                        "label": "PF2E.Actor.Character.Proficiency.Defense.MediumShort",
+                        "predicate": [
+                            "defense:medium:rank:0",
                             {
-                                "or": [
-                                    "defense:light:rank:0",
-                                    "defense:medium:rank:0"
-                                ]
+                                "not": "defense:light:rank:0"
                             }
                         ],
-                        "value": 0
+                        "value": "medium"
                     },
                     {
                         "label": "PF2E.Actor.Character.Proficiency.Defense.HeavyShort",
                         "predicate": [
+                            "defense:heavy:rank:0",
                             {
                                 "nor": [
                                     "defense:light:rank:0",
@@ -86,7 +56,7 @@
                                 ]
                             }
                         ],
-                        "value": 1
+                        "value": "heavy"
                     }
                 ],
                 "flag": "armor",
@@ -95,24 +65,48 @@
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.defenses.heavy.rank",
-                "value": "@item.flags.pf2e.rulesSelections.armor"
+                "path": "system.proficiencies.defenses.light.rank",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            13
+                        ]
+                    }
+                ],
+                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
             },
             {
                 "key": "ActiveEffectLike",
                 "mode": "upgrade",
-                "path": "system.proficiencies.defenses.heavy.rank",
+                "path": "system.proficiencies.defenses.medium.rank",
                 "predicate": [
                     {
-                        "nor": [
-                            "defense:light:rank:0",
-                            "defense:medium:rank:0"
+                        "gte": [
+                            "self:level",
+                            13
                         ]
                     }
                 ],
-                "value": 1
+                "value": "ternary(gte(@actor.system.proficiencies.defenses.unarmored.rank,2),2,1)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.{item|flags.pf2e.rulesSelections.armor}.rank",
+                "value": "ternary(gte(@actor.level,13),2,1)"
             }
         ],
+        "subfeatures": {
+            "proficiencies": {
+                "light": {
+                    "rank": 1
+                },
+                "medium": {
+                    "rank": 1
+                }
+            }
+        },
         "traits": {
             "rarity": "common",
             "value": [
