@@ -111,113 +111,13 @@
                 "key": "DamageAlteration",
                 "mode": "override",
                 "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    "starlit-sentinel:underworld-dragon"
+                    "item:slug:shining-starlight-attack"
                 ],
                 "property": "damage-type",
                 "selectors": [
                     "spell-damage"
                 ],
-                "value": "fire"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    {
-                        "or": [
-                            "starlit-sentinel:ogre",
-                            "starlit-sentinel:ox"
-                        ]
-                    }
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "bludgeoning"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    {
-                        "or": [
-                            "starlit-sentinel:swordswoman",
-                            "starlit-sentinel:sea-dragon",
-                            "starlit-sentinel:archer"
-                        ]
-                    }
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "piercing"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    {
-                        "or": [
-                            "starlit-sentinel:swallow",
-                            "starlit-sentinel:dog"
-                        ]
-                    }
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "slashing"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    "starlit-sentinel:sky-dragon"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "electricity"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    {
-                        "or": [
-                            "starlit-sentinel:forest-dragon",
-                            "starlit-sentinel:blossom"
-                        ]
-                    }
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "poison"
-            },
-            {
-                "key": "DamageAlteration",
-                "mode": "override",
-                "predicate": [
-                    "item:slug:shining-starlight-attack",
-                    "starlit-sentinel:sovereign-dragon"
-                ],
-                "property": "damage-type",
-                "selectors": [
-                    "spell-damage"
-                ],
-                "value": "mental"
+                "value": "{actor|flags.pf2e.starlitSentinelDedication.damageType}"
             }
         ],
         "target": {
