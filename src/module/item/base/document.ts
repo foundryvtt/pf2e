@@ -864,6 +864,29 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             this.actor.update(actorUpdates);
         }
     }
+
+    /** To be overridden by subclasses to extend the HTML string that will become part of the embed */
+    protected embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        return this.description;
+    }
+
+    async _buildEmbedHTML(config: DocumentHTMLEmbedConfig, options: EnrichmentOptions): Promise<HTMLCollection> {
+        // As per foundry.js: JournalEntryPage#_embedTextPage
+        options = { ...options, relativeTo: this };
+        const {
+            secrets = options.secrets,
+            documents = options.documents,
+            links = options.links,
+            rolls = options.rolls,
+            embeds = options.embeds,
+        } = config;
+        foundry.utils.mergeObject(options, { secrets, documents, links, rolls, embeds });
+
+        // Get correct HTML
+        const container = document.createElement("div");
+        container.innerHTML = await TextEditor.enrichHTML(this.embedHTMLString(config, options), options);
+        return container.children;
+    }
 }
 
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {

@@ -414,6 +414,16 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             ui.notifications.warn(game.i18n.format("PF2E.Item.Feat.Warning.TakenMoreThanMax", formatParams));
         }
     }
+
+    protected override embedHTMLString(_config: DocumentHTMLEmbedConfig, _options: EnrichmentOptions): string {
+        const list = this.system.prerequisites?.value?.map((item) => item.value).join(",") ?? "";
+        return (
+            (list
+                ? `<p><strong>${game.i18n.localize("PF2E.FeatPrereqLabel")}</strong> ${list}</p>` +
+                  (_config.hr === false ? "" : "<hr>")
+                : "") + this.description
+        );
+    }
 }
 
 interface FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
