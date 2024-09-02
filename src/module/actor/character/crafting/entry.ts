@@ -1,6 +1,6 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
+import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
@@ -38,7 +38,7 @@ class CraftingEntry implements CraftingEntryData {
         this.isDailyPrep = data.isDailyPrep;
         this.isPrepared = data.isPrepared;
         this.maxSlots = data.maxSlots ?? 0;
-        this.maxItemLevel = data.maxItemLevel;
+        this.maxItemLevel = data.maxItemLevel ?? this.actor.level;
         this.fieldDiscovery = data.fieldDiscovery ? new Predicate(data.fieldDiscovery) : null;
         this.batchSizes = {
             default: data.batchSizes?.default ?? (this.isAlchemical ? 2 : 1),
@@ -131,12 +131,13 @@ class CraftingEntry implements CraftingEntryData {
             if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
             return false;
         }
-        if (this.actor.level < formula.level) {
-            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.CharacterLevel"));
-            return false;
-        }
+
         if (formula.level > this.maxItemLevel) {
-            if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxItemLevel"));
+            if (warn) {
+                ui.notifications.warn(
+                    game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
+                );
+            }
             return false;
         }
 
@@ -243,7 +244,7 @@ interface CraftingEntryData {
     fieldDiscovery?: RawPredicate | null;
     batchSizes?: { default: number; other: { definition: RawPredicate; quantity: number }[] };
     fieldDiscoveryBatchSize?: number;
-    maxItemLevel: number;
+    maxItemLevel?: number | null;
     preparedFormulaData?: PreparedFormulaData[];
 }
 

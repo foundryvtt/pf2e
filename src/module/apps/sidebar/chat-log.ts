@@ -38,7 +38,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
             const { message, element: messageEl } = ChatLogPF2e.#messageFromEvent(event);
             if (!message) return;
 
-            const senderEl = message ? htmlClosest(event.target, ".message-sender") : null;
+            const senderEl = message ? htmlClosest(event.target, ".message-sender, .portrait") : null;
             if (senderEl && message) return this.#onClickSender(message, event);
 
             const button = htmlClosest(event.target, "button[data-action]");

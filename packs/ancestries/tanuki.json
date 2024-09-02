@@ -1,0 +1,131 @@
+{
+    "_id": "pILFsoGsUQkVF5dZ",
+    "img": "systems/pf2e/icons/default-icons/ancestry.svg",
+    "name": "Tanuki",
+    "system": {
+        "additionalLanguages": {
+            "count": 0,
+            "custom": "",
+            "value": [
+                "elven",
+                "fey",
+                "gnomish",
+                "goblin",
+                "kitsune",
+                "tengu"
+            ]
+        },
+        "boosts": {
+            "0": {
+                "value": [
+                    "con"
+                ]
+            },
+            "1": {
+                "value": [
+                    "cha"
+                ]
+            },
+            "2": {
+                "value": [
+                    "str",
+                    "dex",
+                    "con",
+                    "int",
+                    "wis",
+                    "cha"
+                ]
+            }
+        },
+        "description": {
+            "value": "<p><em>Tian Xia is replete with magically gifted ancestries—such as tengu, kitsune, yakshas, and yaoguai—whose powers bring them high regard and who, in turn, use their gifts for responsible ends. Tanuki aren't one of these ancestries. Instead, the shapeshifting raccoon dog–like humanoids use their powers of illusion and transformation in ways more people should: for fun! Tanuki delight in pranks and practical jokes, especially those that allow them to take the high and mighty down a notch and show them what life is like for everyone else. Where other peoples take pride in their storied histories, noble traditions, or intricate ceremonies, tanuki take pride in their simplicity and disregard for the world's many rules. Though some might claim this outlook reduces tanuki to uncouth rubes, tanuki feel it makes them more cultured; after all, one must know a rule to bend it, and one must understand a norm to break it.</em></p>\n<p><em>@UUID[Compendium.pf2e.journals.JournalEntry.45SK8rdbbxvEHfMn.JournalEntryPage.I1uEGrIhe4zLs8Ei]{Tanuki}</em></p>"
+        },
+        "flaws": {
+            "0": {
+                "value": [
+                    "wis"
+                ]
+            }
+        },
+        "hp": 10,
+        "items": {},
+        "languages": {
+            "custom": "",
+            "value": [
+                "common",
+                "tanuki"
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "reach": 5,
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Change Shape"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "mergeable": true,
+                "option": "change-shape",
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.RacoonDog",
+                        "value": "racoon-dog"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ChangeShape.Tanuki"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "primal"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "tanuki"
+            }
+        ],
+        "size": "sm",
+        "speed": 25,
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "humanoid",
+                "tanuki"
+            ]
+        },
+        "vision": "normal"
+    },
+    "type": "ancestry"
+}

@@ -1,3 +1,4 @@
+import { TagifyEntry } from "@module/sheet/helpers.ts";
 import * as R from "remeda";
 
 /**
@@ -5,7 +6,7 @@ import * as R from "remeda";
  * `Tagify` must be bound to the child input element that can be accessed at `HTMLTagifyTagsElement#input`
  */
 class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormInputElement<
-    TagifySelection[] | string[],
+    TagifyEntry[] | string[],
     string
 > {
     static override tagName = "tagify-tags";
@@ -85,7 +86,5 @@ class HTMLTagifyTagsElement extends foundry.applications.elements.AbstractFormIn
         });
     }
 }
-
-type TagifySelection = { id?: string; value?: string; readonly?: boolean };
 
 export { HTMLTagifyTagsElement };

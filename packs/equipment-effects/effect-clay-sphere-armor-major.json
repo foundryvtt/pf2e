@@ -1,0 +1,56 @@
+{
+    "_id": "54yMDgR34XuYOwJk",
+    "img": "icons/commodities/materials/plant-sprout-seed-brown-green.webp",
+    "name": "Effect: Clay Sphere - Armor (Major)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Clay Sphere (Major)]</p>\n<p>You gain resistance 10 to precision damage and a +3 item bonus to saving throws against effects with the morph or polymorph traits.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 14
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #202: Severed at the Root"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "precision",
+                "value": 10
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:morph",
+                            "item:trait:polymorph"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 3
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

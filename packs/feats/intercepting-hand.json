@@ -1,0 +1,55 @@
+{
+    "_id": "oyE933TmrbRyYqJY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Intercepting Hand",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>Your particular martial art includes various defensive actions designed to remove your opponent's ability to cause harm. Your fist unarmed attack gains the disarm trait. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Disarming Interception] action.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Warrior Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Disarming Interception"
+            },
+            {
+                "definition": [
+                    "item:slug:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "disarm"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

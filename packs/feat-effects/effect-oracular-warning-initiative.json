@@ -4,7 +4,7 @@
     "name": "Effect: Oracular Warning (Initiative)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Oracular Warning]</p>\n<p>Each ally gains a +2 status bonus to their initiative roll. <span style=\"font-family:Roboto, sans-serif\">If you are cursebound 2 when you use Oracular Warning, the bonus increases to +3, and if you are cursebound 3, the bonus increases to +4.</span></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Oracular Warning]</p>\n<p>Each ally gains a +2 status bonus to their initiative roll. If you are cursebound 2 when you use Oracular Warning, the bonus increases to +3, and if you are cursebound 3, the bonus increases to +4.</p>"
         },
         "duration": {
             "expiry": null,
@@ -25,8 +25,34 @@
                 "key": "FlatModifier",
                 "removeAfterRoll": true,
                 "selector": "initiative",
+                "slug": "oracular-warning",
                 "type": "status",
-                "value": "min(1+@item.origin.conditions.cursebound.value,4)"
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:granter:origin:condition:cursebound:2"
+                ],
+                "selector": "initiative",
+                "slug": "oracular-warning",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "parent:granter:origin:condition:cursebound",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "initiative",
+                "slug": "oracular-warning",
+                "value": 4
             }
         ],
         "start": {

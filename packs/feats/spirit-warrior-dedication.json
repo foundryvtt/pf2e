@@ -1,0 +1,63 @@
+{
+    "_id": "lxfVXvlOK8id3MqA",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spirit Warrior Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> Tian Xia origin</p><hr /><p>You're a warrior who trains your spirit and body to work in perfect harmony, enhancing your attacks with your spiritual energy while fighting with a ferocious martial technique that combines blade and fist.</p>\n<p>The damage die for your fist changes to 1d6 instead of 1d4, and your fist gains the parry trait. You don't take the normal –2 circumstance penalty when making a lethal attack with your fist or any other unarmed attacks. You gain the @UUID[Compendium.pf2e.actionspf2e.Item.Overwhelming Combination] action.</p>\n<p>@UUID[Compendium.pf2e.journals.JournalEntry.vx5FGEG34AxI2dow.JournalEntryPage.bT2NuSZ1h02PFhpJ]{Spirit Warrior}</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Overwhelming Combination"
+            },
+            {
+                "fist": true,
+                "img": "systems/pf2e/icons/features/classes/powerful-fist.webp",
+                "key": "Strike"
+            },
+            {
+                "itemId": "xxxxxxFISTxxxxxx",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "property": "damage-dice-faces"
+            },
+            {
+                "definition": [
+                    "item:slug:fist"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "parry"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

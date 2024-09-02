@@ -1,4 +1,5 @@
 import { ActorPF2e } from "@actor";
+import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
@@ -138,13 +139,13 @@ export class InlineRollLinks {
         if (!pf2Check) return;
 
         const foundryDoc = resolveDocument(link);
-        const parent = resolveActor(foundryDoc);
+        const parentActor = resolveActor(foundryDoc);
         const actors = ((): ActorPF2e[] => {
             switch (pf2Roller) {
                 case "self":
-                    return parent?.canUserModify(game.user, "update") ? [parent] : [];
+                    return parentActor?.canUserModify(game.user, "update") ? [parentActor] : [];
                 case "party":
-                    if (parent?.isOfType("party")) return [parent];
+                    if (parentActor?.isOfType("party")) return [parentActor];
                     return [game.actors.party].filter(R.isTruthy);
             }
 
@@ -154,16 +155,16 @@ export class InlineRollLinks {
                 return [actorFromSheet];
             }
 
-            // If the parent is a party actor, return it (likely kingmaker)
-            if (parent?.isOfType("party")) {
-                return [parent];
+            // If the rolling actor is a party actor, return it (likely kingmaker)
+            if (parentActor?.isOfType("party")) {
+                return [parentActor];
             }
 
             // Get selected actors, but fallback to parent if its not a save
             const rollingActors = getSelectedActors({ exclude: ["loot"], assignedFallback: true });
             const isSave = tupleHasValue(SAVE_TYPES, pf2Check);
-            if (rollingActors.length === 0 && parent && !isSave) {
-                return [parent];
+            if (rollingActors.length === 0 && parentActor && !isSave) {
+                return [parentActor];
             }
 
             return rollingActors;
@@ -214,17 +215,29 @@ export class InlineRollLinks {
             return;
         }
 
-        for (const { actor, statistic } of actorStatistics) {
+        for (const { actor: rollingActor, statistic } of actorStatistics) {
             if (!statistic) {
-                console.warn(ErrorPF2e(`Skip rolling unknown statistic ${pf2Check} for actor ${actor.name}`).message);
+                console.warn(
+                    ErrorPF2e(`Skip rolling unknown statistic ${pf2Check} for actor ${rollingActor.name}`).message,
+                );
                 continue;
             }
 
             // Determine if this actor is the origin/target. Currently we only guess based on if its a save
-            const alias = isSavingThrow ? "target" : "origin";
-            const opposingAlias = alias === "target" ? "origin" : "target";
-
-            const targetActor = against ? (targetOwner ? parent : game.user.targets.first()?.actor) : null;
+            const rollerRole = tupleHasValue(["origin", "target"], link.dataset.rollerRole)
+                ? link.dataset.rollerRole
+                : isSavingThrow
+                  ? "target"
+                  : "origin";
+            const opposingRole = rollerRole === "target" ? "origin" : "target";
+            const targetActor =
+                against && rollerRole === "target"
+                    ? rollingActor
+                    : targetOwner
+                      ? parentActor
+                      : game.user.targets.first()?.actor ?? null;
+            const opposingActor = rollerRole === "target" ? parentActor : targetActor;
+            const originActor = rollerRole === "origin" ? rollingActor : parentActor;
 
             // Retrieve the item if:
             // (2) The item is an action or,
@@ -245,16 +258,18 @@ export class InlineRollLinks {
             })();
 
             const dc = ((): CheckDC | null => {
-                const dcValue = pf2Dc === "@self.level" ? calculateDC(actor.level) : Number(pf2Dc ?? "NaN");
+                const dcValue = pf2Dc === "@self.level" ? calculateDC(rollingActor.level) : Number(pf2Dc ?? "NaN");
+                const adjustment = Number(pf2Adjustment) || 0;
 
                 if (Number.isInteger(dcValue)) {
-                    const adjustment = Number(pf2Adjustment) || 0;
                     return { label: pf2Label, value: dcValue + adjustment };
                 } else if (against) {
-                    const checkedActor = isSavingThrow ? parent : targetActor;
-                    const defenseStat = checkedActor?.getStatistic(against)?.clone({
+                    const defenseStat = opposingActor?.getStatistic(against)?.clone({
+                        modifiers: adjustment
+                            ? [new ModifierPF2e({ label: "PF2E.InlineCheck.DCAdjustment", modifier: adjustment })]
+                            : [],
                         rollOptions: [
-                            item?.isOfType("action", "feat") ? `${opposingAlias}:action:slug:${item.slug}` : null,
+                            item?.isOfType("action", "feat") ? `${opposingRole}:action:slug:${item.slug}` : null,
                         ].filter(R.isTruthy),
                     });
                     if (defenseStat) {
@@ -275,18 +290,16 @@ export class InlineRollLinks {
             const args: StatisticRollParameters = {
                 ...eventRollParams,
                 extraRollOptions,
-                origin: opposingAlias === "origin" ? parent : null,
+                origin: originActor,
                 dc,
-                target: opposingAlias === "target" && dc?.statistic ? targetActor : null,
+                target: dc?.statistic ? targetActor : null,
                 item,
                 traits: abilityTraits,
             };
 
             // Use a special header for checks against defenses
             const itemIsEncounterAction =
-                !overrideTraits &&
-                !!(item?.isOfType("action", "feat") && item.actionCost) &&
-                !["flat-check", "saving-throw"].includes(statistic.check.type);
+                !overrideTraits && rollerRole === "origin" && !!(item?.isOfType("action", "feat") && item.actionCost);
             if (itemIsEncounterAction) {
                 const subtitleLocKey =
                     pf2Check in CONFIG.PF2E.magicTraditions

@@ -1,0 +1,70 @@
+{
+    "_id": "JXKbfwsyYWcqZUUl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Horn and Bone Incantation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You invoke mantras of tellurian rebirth. You gain the ability to cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] and @UUID[Compendium.pf2e.spells-srd.Item.Humanoid Form] as 2nd-rank primal innate spells, each once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-form",
+                            "item:slug:humanoid-form"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:animal-form",
+                            "item:slug:humanoid-form"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:yaksha"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "primal",
+                "yaksha"
+            ]
+        }
+    },
+    "type": "feat"
+}

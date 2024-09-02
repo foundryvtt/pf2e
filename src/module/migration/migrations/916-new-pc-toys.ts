@@ -1,6 +1,6 @@
 import { AbilitySource, ClassSource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
-import { CraftingEntryRuleSource } from "@module/rules/rule-element/crafting/entry.ts";
+import { CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { NoteRESource } from "@module/rules/rule-element/roll-note.ts";
 import { MigrationBase } from "../base.ts";
 

@@ -1,0 +1,67 @@
+{
+    "_id": "UWOSRX6FH6MZDlEw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Ancestral Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Casting your memory back deep into the past, you take the form of an ancestral guardian. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Animal Form] on yourself as a 3rd-rank primal innate spell once per day. You must choose the crocodile form.</p>"
+        },
+        "frequency": {
+            "max": 1,
+            "per": "day"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bakuwa lizardfolk heritage or makari lizardfolk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:animal-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

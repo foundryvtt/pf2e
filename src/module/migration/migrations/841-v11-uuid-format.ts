@@ -43,8 +43,8 @@ export class Migration841V11UUIDFormat extends MigrationBase {
     }
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
-        if (source.flags.core?.sourceId) {
-            source.flags.core.sourceId = this.#replaceUUID(source.flags.core.sourceId, "Actor");
+        if (source._stats.compendiumSource) {
+            source._stats.compendiumSource = this.#replaceUUID(source._stats.compendiumSource, "Actor");
         }
 
         if (source.type === "character") {
@@ -67,8 +67,8 @@ export class Migration841V11UUIDFormat extends MigrationBase {
     }
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        if (source.flags.core?.sourceId) {
-            source.flags.core.sourceId = this.#replaceUUID(source.flags.core.sourceId, "Item");
+        if (source._stats.compendiumSource) {
+            source._stats.compendiumSource = this.#replaceUUID(source._stats.compendiumSource, "Item");
         }
 
         source.system.rules = source.system.rules.map((rule) => {

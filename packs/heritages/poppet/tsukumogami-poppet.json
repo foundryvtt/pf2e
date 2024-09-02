@@ -1,0 +1,61 @@
+{
+    "_id": "cKgxEWnRVazFPi3M",
+    "folder": "vffrEPtm1AQ4oRK4",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Tsukumogami Poppet",
+    "system": {
+        "ancestry": {
+            "name": "Poppet",
+            "slug": "poppet",
+            "uuid": "Compendium.pf2e.ancestries.Item.6F2fSFC1Eo1JdpY4"
+        },
+        "description": {
+            "value": "<p>You have the form and memories of a common tool. Choose one Lore skill related to what kind of tool you were; for instance, Cooking Lore for a kitchen knife or spoon. You're trained in this skill, and you gain a +2 circumstance bonus to checks to Aid with this skill. If you take the @UUID[Compendium.pf2e.feats-srd.Item.Helpful Poppet] feat, the bonus increases to +3.</p>\n<p>While most poppets are made of stuffing, cloth, or soft metals, some tsukumogami are made of other materials, changing the poppet weakness to fire. If your body is primarily wood or cloth, you have the normal poppet weakness to fire. If your body is primarily metal, you're instead weak to electricity; if its primarily ceramic, you're instead weak to cold.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Poppet.Tsukumogami.Cloth",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Poppet.Tsukumogami.Ceramic",
+                        "value": "cold"
+                    }
+                ],
+                "flag": "weakness",
+                "key": "ChoiceSet",
+                "label": "PF2E.SpecificRule.Prompt.Material",
+                "rollOption": "tsukumogami-poppet"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    {
+                        "not": "feat:insulated-poppet"
+                    }
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.weakness}",
+                "value": "max(1,floor(@actor.level/3))"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "poppet"
+            ]
+        }
+    },
+    "type": "heritage"
+}

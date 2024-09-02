@@ -4,8 +4,6 @@ import * as R from "remeda";
 
 const BASIC_WAR_ACTIONS_FOLDER = "Vqp8b64uH35zkncy";
 
-const ALIGNMENTS = new Set(["LG", "NG", "CG", "LN", "N", "CN", "LE", "NE", "CE"] as const);
-
 const ARMY_TYPES = ["infantry", "cavalry", "siege", "skirmisher"] as const;
 
 // Default stat arrays
@@ -106,4 +104,4 @@ function getArmyGearData(): Record<ArmyGearType, ArmyGearData> {
     };
 }
 
-export { ALIGNMENTS, ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData };
+export { ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData };

@@ -104,7 +104,7 @@ class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     }
 
     /** Include damage type and possibly category for persistent-damage conditions */
-    override getRollOptions(prefix: string, options?: { includeGranter?: boolean }): string[] {
+    override getRollOptions(prefix = this.type, options?: { includeGranter?: boolean }): string[] {
         const rollOptions = super.getRollOptions(prefix, options);
         if (this.system.persistent) {
             const { damageType } = this.system.persistent;

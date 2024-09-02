@@ -1,0 +1,73 @@
+{
+    "_id": "UJdKgw8rbpkyoaeR",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "False Priest Form",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Nobody respects tanuki, but most everyone respects an esteemed priest, so what better form to take if you want to get by a little easier? When you Change Shape, you can assume the shape of a priest or other religious official from a religion of your choosing. While in your false priest form, you can attempt Deception checks to [[/act recall-knowledge skill=deception]]{Recall Knowledge} about Religion, and you can cast @UUID[Compendium.pf2e.spells-srd.Item.Divine Lance] and @UUID[Compendium.pf2e.spells-srd.Item.Haunting Hymn] as primal innate cantrips. If you critically fail at a Deception check while in your false priest form, your transformation is broken, returning you to your tanuki form, and you're so embarrassed that you can't resume your False Priest Form until your next daily preparations, after you've taken a night to sleep on it.</p>"
+        },
+        "level": {
+            "value": 5
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Everyday Form"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:divine-lance",
+                            "item:slug:haunting-hymn"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:divine-lance",
+                            "item:slug:haunting-hymn"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:tanuki"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tanuki"
+            ]
+        }
+    },
+    "type": "feat"
+}

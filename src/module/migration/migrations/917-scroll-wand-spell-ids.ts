@@ -10,7 +10,8 @@ export class Migration917ScrollWandSpellIds extends MigrationBase {
             return;
         }
 
-        if (!source.system.spell?.flags?.core?.sourceId) {
+        const sourceId = source.system.spell?.flags?.core?.sourceId ?? source.system.spell?._stats?.compendiumSource;
+        if (!source.system.spell || !sourceId) {
             source.system.spell = null;
         } else {
             source.system.spell._id ??= fu.randomID();

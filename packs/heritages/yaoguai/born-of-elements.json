@@ -1,0 +1,92 @@
+{
+    "_id": "RXn2y7QVHVB0XHr8",
+    "folder": "u780Frvqdoqf5oLE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Born of Elements",
+    "system": {
+        "ancestry": {
+            "name": "Yaoguai",
+            "slug": "yaoguai",
+            "uuid": "Compendium.pf2e.ancestries.Item.dnk0Rf7AUmyR5b8z"
+        },
+        "description": {
+            "value": "<p>You were an aspect of nature—the rain, the wind, a ray of light—until the wild essences gave you a soul. Due to your natural connection, the tradition of any spells or magical abilities you gain from a yaoguai heritage or ancestry feat is primal instead of its normal tradition (usually occult).</p><ul><li><strong>Humanoid Form</strong> You remain attuned to the natural world. You gain a +1 circumstance bonus to Survival checks to @UUID[Compendium.pf2e.actionspf2e.Item.Sense Direction], and you don't take a penalty if you don't have a compass.</li><li><strong>Yaoguai Form</strong> The power of nature flows through you, ready to lash out. Choose @UUID[Compendium.pf2e.spells-srd.Item.Electric Arc], @UUID[Compendium.pf2e.spells-srd.Item.Frostbite], @UUID[Compendium.pf2e.spells-srd.Item.Ignition], @UUID[Compendium.pf2e.spells-srd.Item.Needle Darts], @UUID[Compendium.pf2e.spells-srd.Item.Timber], @UUID[Compendium.pf2e.spells-srd.Item.Scatter Scree], @UUID[Compendium.pf2e.spells-srd.Item.Slashing Gust], or @UUID[Compendium.pf2e.spells-srd.Item.Spout]. You can cast this spell as an innate primal cantrip at will. A cantrip is heightened to a spell rank equal to half your level rounded up.</li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:electric-arc",
+                                "item:slug:frostbite",
+                                "item:slug:ignition",
+                                "item:slug:needle-darts",
+                                "item:slug:timber",
+                                "item:slug:scatter-scree",
+                                "item:slug:slashing-gust",
+                                "item:slug:spout"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "cantrip",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Cantrip",
+                "rollOption": "born-of-elements"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.cantrip}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:yaoguai"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:sense-direction",
+                    "change-shape:humanoid"
+                ],
+                "selector": "survival",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "domain": "skill-check",
+                "key": "RollOption",
+                "option": "compass-in-possession"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaoguai"
+            ]
+        }
+    },
+    "type": "heritage"
+}

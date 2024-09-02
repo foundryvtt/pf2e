@@ -1,0 +1,69 @@
+{
+    "_id": "lzXVF6VTaPRfGDgj",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Blood Must Have Blood",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You tap into a bottomless hunger for carnage. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Blood Vendetta] and @UUID[Compendium.pf2e.spells-srd.Item.Share Life] as 2nd-rank primal spells, each once per day.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:blood-vendetta",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:blood-vendetta",
+                            "item:slug:share-life"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:hungerseed"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hungerseed"
+            ]
+        }
+    },
+    "type": "feat"
+}

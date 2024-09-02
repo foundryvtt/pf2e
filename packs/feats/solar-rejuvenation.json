@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your [[/r (@actor.abilities.con.mod * floor(@actor.level/2))[healing]]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Leshies whose plant nourishment does not rely on photosynthesis require a similarly suitable environment. For example, fungus leshies need dark, damp environments and a pile of decaying plant matter.</p>"
+            "value": "<p><strong>Ghoran</strong> - The warmth and light of the sun gives you life. If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds].</p>\n<p><strong>Leshy</strong> - If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.Treat Wounds]. Leshies whose plant nourishment does not rely on photosynthesis require a similarly suitable environment. For example, fungus leshies need dark, damp environments and a pile of decaying plant matter.</p>"
         },
         "level": {
             "value": 9
@@ -24,10 +24,32 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "self:ancestry:ghoran"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.SolarRejuvenation.Ghoran"
+                    },
+                    {
+                        "predicate": [
+                            "self:ancestry:leshy"
+                        ],
+                        "text": "PF2E.SpecificRule.Feat.SolarRejuvenation.Leshy"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
+                "ghoran",
                 "leshy"
             ]
         }

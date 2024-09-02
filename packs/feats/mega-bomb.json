@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can add a highly explosive additive to an alchemical bomb to turn it into a mega bomb. Throwing this bomb takes a 2-action activity instead of a Strike. This isn't a Strike, and you don't make an attack roll. The mega bomb explodes in a @Template[type:burst|distance:30] within 60 feet. It deals damage as if each creature were the primary target, with a @Check[type:reflex|dc:resolve(@actor.system.proficiencies.classDCs.alchemist.value)|basic:true] save. On a failed save, a creature also takes any extra effects that affect a primary target (such as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from bottled lightning). Though all targets in the area take splash damage as primary targets, there is no further splash beyond that area.</p>"
+            "value": "<p>You can add a highly explosive additive to an alchemical bomb to turn it into a mega bomb. Throwing this bomb takes a 2-action activity instead of a Strike. This isn't a Strike, and you don't make an attack roll. The mega bomb explodes in a @Template[burst|distance:30] within 60 feet. It deals damage as if each creature were the primary target, with a @Check[reflex|against:alchemist|basic] save. On a failed save, a creature also takes any extra effects that affect a primary target (such as @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] from bottled lightning). Though all targets in the area take splash damage as primary targets, there is no further splash beyond that area.</p>"
         },
         "level": {
             "value": 20
@@ -28,6 +28,7 @@
         "traits": {
             "rarity": "common",
             "value": [
+                "additive",
                 "alchemist",
                 "manipulate"
             ]

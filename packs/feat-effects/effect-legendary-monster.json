@@ -1,0 +1,59 @@
+{
+    "_id": "ELCODoiGDBEqRAtT",
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Effect: Legendary Monster",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Legendary Monster].</p>\n<p>Your yaoguai form has reached its pinnacle, allowing you to assume (or perhaps, return to) the form of a monster of legend. You can Unleash Yaoguai Might any number of times per day. Once per day when you Unleash Yaoguai Might, you can gain one of the following additional benefits, which persists for 1 minute or until you Change Shape again.</p><ul><li>Your body grows to impossible heights. Your @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] effect is heightened to 4th rank.</li><li>Your spiritual power erupts to punish your enemies. You deal an additional 1d4 spirit damage with all Strikes and attack spells, and your Strikes and attack spells gain the spirit trait.</li><li>You can leap off the air itself. You gain the effects of the @UUID[Compendium.pf2e.spells-srd.Item.Fly] spell.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge (Heightened 4th)"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fly"
+            },
+            {
+                "damageType": "spirit",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "DamageDice",
+                "selector": [
+                    "strike-damage",
+                    "spell-damage"
+                ]
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Unleash Yaoguai Might"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

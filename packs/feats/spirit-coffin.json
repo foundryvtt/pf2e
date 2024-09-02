@@ -1,0 +1,74 @@
+{
+    "_id": "ky9jhAGOWGj8gAsO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Spirit Coffin",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>A hump forms on your back that allows you to attack and trap spirits. Your weapon and unarmed attack Strikes against incorporeal creatures become magical. If they're already magical, they instead gain the effects of a @UUID[Compendium.pf2e.equipment-srd.Item.Ghost Touch] rune.</p><hr /><p><strong>Special</strong> If you have access to this feat but aren't a bakuwa lizardfolk, your body doesn't change when you take this feat. You must instead wear a physical coffin, which is a small wooden chest of light Bulk that you specially anoint during your daily preparations. If your chest is missing or destroyed, you lose the benefits of spirit coffin until you've replaced and re-anointed it.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "bakuwa lizardfolk heritage or Tian Xia origin"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.TOTMToggle.Incorporeal",
+                "option": "target:trait:incorporeal",
+                "toggleable": "totm"
+            },
+            {
+                "definition": [
+                    "item:magical"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "property-runes",
+                "value": "ghost-touch"
+            },
+            {
+                "definition": [
+                    {
+                        "not": "item:magical"
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "target:trait:incorporeal"
+                ],
+                "property": "weapon-traits",
+                "value": "magical"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

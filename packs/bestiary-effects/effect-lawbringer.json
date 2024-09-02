@@ -1,0 +1,57 @@
+{
+    "_id": "bRYIsyDIsZNaLUEe",
+    "img": "icons/commodities/treasure/token-gold-gem-purple.webp",
+    "name": "Effect: Lawbringer",
+    "system": {
+        "description": {
+            "value": "<p>The shieldmarshal marks a foe for judgment.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #178: Punks in a Powder Keg"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "lawbringer"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.Shieldmarshal.LawbringerSpeedLabel",
+                "option": "lawbringer-speed",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "lawbringer-speed"
+                ],
+                "selector": "land-speed",
+                "type": "circumstance",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

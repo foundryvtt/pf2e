@@ -1,0 +1,104 @@
+{
+    "_id": "9CC5Ek0Mq768Lhgx",
+    "img": "icons/magic/air/weather-clouds.webp",
+    "name": "Aloof Firmament",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You're a philosopher of the sword who codifies your study of qinggong along principles arcane and martial. Your blade teaches morality and immortality, and you illustrate its lessons with an academician's rigor. Through your training, you've learned to move about with grace and create opportunity to strike foes.</p>\n<p>You gain the @UUID[Compendium.pf2e.feats-srd.Item.Cat Fall] general feat, though you benefit from it only as long as you aren't using a shield and are wearing light or no armor.</p>\n<p>While in Arcane Cascade stance, your steps become even lighter, giving you the benefits of the Quick Jump general feat. When you Fly, @UUID[Compendium.pf2e.actionspf2e.Item.Leap], @UUID[Compendium.pf2e.actionspf2e.Item.High Jump], or @UUID[Compendium.pf2e.actionspf2e.Item.Long Jump] while in that stance, your movement doesn't trigger reactions. If you take one of these actions, the next Strike you make before the end of your turn with a one-handed weapon in the sword group has greater damage from Arcane Cascade. Increase the extra damage to 4; increase it to 6 if you have weapon specialization, or to 8 if you have greater weapon specialization. You must have your other hand completely free; the extra damage doesn't apply if you have a free-hand weapon or other item in that hand, even if you would normally be able to use the hand for other things.</p>\n<p><strong>Conflux Spell</strong>@UUID[Compendium.pf2e.spells-srd.Item.Sky Laughs at Waves]</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feats-srd.Item.Cat Fall"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "aloof-flew-or-jumped",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:weapon-specialization",
+                    "aloof-flew-or-jumped",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 6
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "feature:greater-weapon-specialization",
+                    "aloof-flew-or-jumped",
+                    {
+                        "gte": [
+                            "hands-free:but-really",
+                            1
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "arcane-cascade-extra-damage",
+                "value": 8
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Magus.ArcaneCascade.IncreaseDamage",
+                "option": "aloof-flew-or-jumped",
+                "predicate": [
+                    "self:effect:arcane-cascade"
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "otherTags": [
+                "magus-hybrid-study"
+            ],
+            "rarity": "uncommon",
+            "value": [
+                "magus"
+            ]
+        }
+    },
+    "type": "feat"
+}

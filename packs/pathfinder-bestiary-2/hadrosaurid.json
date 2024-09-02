@@ -113,7 +113,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "sprint",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "sprint"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 20
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
@@ -141,7 +157,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Large or smaller, foot, @Check[type:reflex|dc:21|basic:true]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
+                    "value": "<p>Large or smaller, foot, @Check[reflex|dc:21|basic]</p>\n<hr />\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Trample]</p>"
                 },
                 "publication": {
                     "license": "OGL",

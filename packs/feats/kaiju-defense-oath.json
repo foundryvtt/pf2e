@@ -1,0 +1,120 @@
+{
+    "_id": "9MbeKaIV8Xa7H4Of",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Kaiju Defense Oath",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You've sworn an oath to defend the helpless from dangerous titanic beasts, including kaiju that roam the surface of Golarion. Attacks made as part of your @UUID[Compendium.pf2e.actionspf2e.Item.Overwhelming Combination] ability gain a +4 circumstance bonus to damage against a creature at least 2 sizes larger than you, or +6 if you have master proficiency with the weapon you used. You also gain a +2 circumstance bonus to saving throws and DCs against kaiju hazards. You gain the following edict.</p>\n<p><strong>Edict</strong> You must do everything within your power to protect others from massive creatures they can't defend themselves from; in the event the victims are evil or actively trying to harm you or other innocents, you don't have to save them.</p>"
+        },
+        "level": {
+            "value": 4
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Spirit Warrior Dedication"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "overwhelming-combination",
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:size:0",
+                                    {
+                                        "gte": [
+                                            "target:size",
+                                            2
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:size:1",
+                                    {
+                                        "gte": [
+                                            "target:size",
+                                            3
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:size:2",
+                                    {
+                                        "gte": [
+                                            "target:size",
+                                            4
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:size:3",
+                                    "target:size:5"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "kaiju-defense-oath-damage-bonus",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            3
+                        ]
+                    }
+                ],
+                "selector": "strike-damage",
+                "slug": "kaiju-defense-oath-damage-bonus",
+                "value": 6
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:type:hazard",
+                    "origin:trait:kaiju"
+                ],
+                "selector": "saving-throw",
+                "slug": "kaiju-defense-oath-save-bonus",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "archetype"
+            ]
+        }
+    },
+    "type": "feat"
+}

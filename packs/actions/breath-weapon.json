@@ -1,0 +1,115 @@
+{
+    "_id": "Vr3w3t028ZKDg0mO",
+    "img": "systems/pf2e/icons/actions/TwoActions.webp",
+    "name": "Breath Weapon",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 2
+        },
+        "category": "offensive",
+        "description": {
+            "value": "<p>Your eidolon exhales a blast of destructive energy. Your eidolon deals 1d6 damage to all creatures in the area, with a basic Reflex save against your spell DC. The area and damage type of the Breath Weapon are chosen when the eidolon gains this ability. Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.</p>\n<p>At 3rd level and every 2 levels thereafter, the damage increases by 1d6.</p>"
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "breathDamage",
+                "key": "ChoiceSet"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.BreathWeapon.Shape.Cone.Label",
+                        "value": "cone"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.BreathWeapon.Shape.Line.Label",
+                        "value": "line"
+                    }
+                ],
+                "flag": "shape",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "option": "breath-shape:{item|flags.pf2e.rulesSelections.shape}"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "predicate": [
+                            "breath-shape:cone"
+                        ],
+                        "text": "PF2E.SpecificRule.BreathWeapon.Shape.Cone.Description"
+                    },
+                    {
+                        "predicate": [
+                            "breath-shape:line"
+                        ],
+                        "text": "PF2E.SpecificRule.BreathWeapon.Shape.Line.Description"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.BreathWeapon.Cooldown"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.BreathWeapon.Scaling"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.breathweapon.breathDamage",
+                "value": "{item|flags.pf2e.rulesSelections.breathDamage}"
+            }
+        ],
+        "traits": {
+            "value": [
+                "arcane",
+                "eidolon"
+            ]
+        }
+    },
+    "type": "action"
+}

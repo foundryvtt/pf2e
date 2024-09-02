@@ -19,3 +19,5 @@ export * as grid from "../../common/grid/module.ts";
 export * as dice from "../../client-esm/dice/module.ts";
 /** ProseMirror implementation definitions */
 export * as prosemirror from "../../common/prosemirror/module.ts";
+/** A submodule containing core helper classes. */
+export * as helpers from "../../client-esm/helpers/_module.ts";

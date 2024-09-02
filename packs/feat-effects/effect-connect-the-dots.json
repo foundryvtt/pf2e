@@ -1,0 +1,85 @@
+{
+    "_id": "4a7g78DOZqHE9pRD",
+    "img": "icons/skills/trades/academics-investigation-puzzles.webp",
+    "name": "Effect: Connect the Dots",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Connect the Dots]</p>\n<p>Your ally gains your @UUID[Compendium.pf2e.actionspf2e.Item.Pursue a Lead] investigation bonus as a circumstance bonus to its Strikes or skill checks.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "connect-the-dots"
+            },
+            {
+                "key": "TokenMark",
+                "slug": "connect-the-dots"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:connect-the-dots"
+                ],
+                "removeAfterRoll": [
+                    "connect-the-dots:success"
+                ],
+                "selector": [
+                    "strike-attack-roll",
+                    "skill-check"
+                ],
+                "slug": "connect-the-dots",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:origin:item:tag:investigator-expertise"
+                ],
+                "selectors": [
+                    "strike-attack-roll",
+                    "skill-check"
+                ],
+                "slug": "connect-the-dots",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

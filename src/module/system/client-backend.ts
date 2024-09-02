@@ -22,7 +22,7 @@ class ClientDatabaseBackendPF2e extends foundry.data.ClientDatabaseBackend {
         }
 
         // Dispatch the request
-        const request = { action: "get", type: documentClass.documentName, operation };
+        const request = { action: "get", type, operation };
         const response = new foundry.abstract.DocumentSocketResponse(
             await SocketInterface.dispatch("modifyDocument", request),
         );
@@ -30,8 +30,12 @@ class ClientDatabaseBackendPF2e extends foundry.data.ClientDatabaseBackend {
         // Create Document objects
         return Promise.all(
             response.result
-                .filter((d): d is object => R.isPlainObject(d))
+                .filter((d): d is Record<string, unknown> => R.isPlainObject(d))
                 .map(async (data) => {
+                    // Ensure compendium source is populated if appropriate
+                    if (R.isPlainObject((data._stats ??= {})) && operation.pack) {
+                        data._stats.compendiumSource = `Compendium.${operation.pack}.${type}.${data._id}`;
+                    }
                     const document = documentClass.fromSource(data, { pack: operation.pack }) as ActorPF2e | ItemPF2e;
                     const migrations = MigrationList.constructFromVersion(document.schemaVersion);
                     if (migrations.length > 0) {

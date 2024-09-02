@@ -184,6 +184,38 @@
                 "selector": "{item|_id}-damage"
             },
             {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "morph"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:rage",
+                    {
+                        "or": [
+                            "class:barbarian",
+                            "feat:instinct-ability"
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "primal"
+            },
+            {
                 "baseType": "fist",
                 "category": "unarmed",
                 "damage": {

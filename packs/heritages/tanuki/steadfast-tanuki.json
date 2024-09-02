@@ -1,0 +1,48 @@
+{
+    "_id": "5gqcEsJ4gkE6W5jj",
+    "folder": "W02zcMYyeNEfvUOz",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Steadfast Tanuki",
+    "system": {
+        "ancestry": {
+            "name": "Tanuki",
+            "slug": "tanuki",
+            "uuid": "Compendium.pf2e.ancestries.Item.pILFsoGsUQkVF5dZ"
+        },
+        "description": {
+            "value": "<p>Your pride in your true tanuki form knows no bounds. You gain your choice of @UUID[Compendium.pf2e.feats-srd.Item.Everyday Form] or @UUID[Compendium.pf2e.feats-srd.Item.Teakettle Form] as a bonus ancestry feat.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Everyday Form"
+                    },
+                    {
+                        "value": "Compendium.pf2e.feats-srd.Item.Teakettle Form"
+                    }
+                ],
+                "flag": "steadfastTanuki",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Feat"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "{item|flags.pf2e.rulesSelections.steadfastTanuki}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "tanuki"
+            ]
+        }
+    },
+    "type": "heritage"
+}

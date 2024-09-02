@@ -10,7 +10,7 @@ export class Migration800SelfEffectPanacheRage extends MigrationBase {
     override async updateItem(source: ItemSourcePF2e, actorSource?: ActorSourcePF2e): Promise<void> {
         if (
             actorSource?._id === "bpTQfx4UixMV3Fja" ||
-            actorSource?.flags.core?.sourceId === "Compendium.pf2e.extinction-curse-bestiary.Actor.bpTQfx4UixMV3Fja"
+            actorSource?._stats.compendiumSource === "Compendium.pf2e.extinction-curse-bestiary.Actor.bpTQfx4UixMV3Fja"
         ) {
             // Skip "Kharostan" for this due to having a weird rage toggle
             return;

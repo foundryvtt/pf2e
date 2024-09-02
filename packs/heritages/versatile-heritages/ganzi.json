@@ -18,11 +18,37 @@
                 "key": "FlatModifier",
                 "label": "PF2E.SkillVariant.VsControlled",
                 "predicate": [
-                    "controlled"
+                    "inflicts:controlled"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ganzi.Resistance",
+                "option": "ganzi-resistance",
+                "suboptions": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitSonic",
+                        "value": "sonic"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.ganziResistance}",
+                "value": "max(1,floor(@actor.level/2))"
             }
         ],
         "traits": {
