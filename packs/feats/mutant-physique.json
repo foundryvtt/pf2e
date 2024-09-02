@@ -24,7 +24,102 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:claw",
+                            "item:slug:jaws"
+                        ]
+                    },
+                    {
+                        "or": [
+                            "self:effect:bestial-mutagen-lesser",
+                            "self:effect:bestial-mutagen-moderate",
+                            "self:effect:bestial-mutagen-greater",
+                            "self:effect:bestial-mutagen-major"
+                        ]
+                    }
+                ],
+                "property": "damage-dice-faces"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:bestial-mutagen-lesser",
+                            "self:effect:bestial-mutagen-moderate",
+                            "self:effect:bestial-mutagen-greater",
+                            "self:effect:bestial-mutagen-major"
+                        ]
+                    }
+                ],
+                "selector": "intimidation",
+                "slug": "mutant-physique-intimidation",
+                "type": "item",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:bestial-mutagen-moderate"
+                ],
+                "selector": "intimidation",
+                "slug": "mutant-physique-intimidation",
+                "value": 2
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:bestial-mutagen-greater"
+                ],
+                "selector": "intimidation",
+                "slug": "mutant-physique-intimidation",
+                "value": 3
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "self:effect:bestial-mutagen-major"
+                ],
+                "selector": "intimidation",
+                "slug": "mutant-physique-intimidation",
+                "value": 4
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "feat:mutant-physique"
+                ],
+                "property": "weapon-traits",
+                "selector": "bestial-mutagen-strike",
+                "value": "deadly-d10"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:effect:juggernaut-mutagen-lesser",
+                            "self:effect:juggernaut-mutagen-moderate",
+                            "self:effect:juggernaut-mutagen-greater",
+                            "self:effect:juggernaut-mutagen-major"
+                        ]
+                    }
+                ],
+                "type": "physical",
+                "value": "floor(@actor.level/2)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

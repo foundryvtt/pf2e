@@ -1,0 +1,59 @@
+{
+    "_id": "pC9sGxKBOGWQLOuw",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Crown of Bone",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>When you came of age, you were blessed by the Mother Earth with a thickened skull, which was celebrated as an auspicious sign among your community. Your horns come together to form a bony plate that protects your head from heavy impacts. The damage die for your horns unarmed attack increases to 1d8, and it gains the concussive trait.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "item:slug:horns"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "concussive"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "sarangay-horns",
+                    "dice:slug:base"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "horns-damage"
+                ],
+                "value": 8
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "sarangay"
+            ]
+        }
+    },
+    "type": "feat"
+}

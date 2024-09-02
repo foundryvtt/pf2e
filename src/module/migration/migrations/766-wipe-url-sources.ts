@@ -8,7 +8,7 @@ export class Migration766WipeURLSources extends MigrationBase {
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
         if (
-            (!("game" in globalThis) || source.flags.core?.sourceId?.startsWith("Compendium.pf2e.")) &&
+            (!("game" in globalThis) || source._stats.compendiumSource?.startsWith("Compendium.pf2e.")) &&
             "source" in source.system &&
             isObject<{ value: unknown }>(source.system.source) &&
             typeof source.system.source.value === "string" &&

@@ -16,7 +16,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Trigger</strong> A creature enters the area of the trap</p><hr /><p><strong>Effect</strong> All four vents rapidly heat and let out steam for 5 seconds, filling room with a painfully acrid smell. Each creature in the room must attempt a @Check[type:fortitude|dc:29] save, and the trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}, and, struck by a coughing fit, falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the area of the trap</p><hr /><p><strong>Effect</strong> All four vents rapidly heat and let out steam for 5 seconds, filling room with a painfully acrid smell. Each creature in the room must attempt a @Check[fortitude|dc:29] save, and the trap then rolls initiative.</p><hr /><p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 2} and @UUID[Compendium.pf2e.conditionitems.Item.Blinded].</p>\n<p><strong>Critical Failure</strong> The creature is @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}, and, struck by a coughing fit, falls @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -47,13 +47,13 @@
                 "value": 72
             },
             "stealth": {
-                "details": "<p>(trained); @Check[type:perception|dc:32] (expert) to find the precise location of the steam vents</p>",
+                "details": "<p>(trained); @Check[perception|dc:32] (expert) to find the precise location of the steam vents</p>",
                 "value": 22
             }
         },
         "details": {
             "description": "<p>Hidden vents emit scalding hot steam made from a particularly acrid solution, irritating the eyes and throat of anyone who inhales it.</p>",
-            "disable": "<p>@Check[type:thievery|name:disable|dc:33] (expert) to block a vent, or @Check[type:crafting|name:disable|dc:31] (expert) to disable the heating element within the vent that turns the liquid into steam</p>",
+            "disable": "<p>@Check[thievery|name:disable|dc:33] (expert) to block a vent, or @Check[crafting|name:disable|dc:31] (expert) to disable the heating element within the vent that turns the liquid into steam</p>",
             "isComplex": true,
             "level": {
                 "value": 10
@@ -64,7 +64,7 @@
                 "title": "Pathfinder Society Scenario #5-20: The Rakshasa's Court"
             },
             "reset": "<p>The steam vents cease to operate 1 minute after all creatures have left the area and go into a maintenance cycle for 1 hour. After this time, they can be triggered again.</p>",
-            "routine": "<p>(4 actions) Each of the four steam vents uses a single action each to emit superheated steam, which spreads for 60 feet along the wall from its location and extends out from the wall by 30 feet, dealing @Damage[(2d12+13)[untyped]] damage to each creature in their range (@Check[type:fortitude|dc:29] save). For each disabled vent, the trap loses 1 action each turn.</p>"
+            "routine": "<p>(4 actions) Each of the four steam vents uses a single action each to emit superheated steam, which spreads for 60 feet along the wall from its location and extends out from the wall by 30 feet, dealing @Damage[(2d12+13)[untyped]] damage to each creature in their range (@Check[fortitude|dc:29] save). For each disabled vent, the trap loses 1 action each turn.</p>"
         },
         "saves": {
             "fortitude": {

@@ -1,0 +1,140 @@
+{
+    "_id": "SmfZzzPj5KAdGaaP",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "bzPlyLwoblXGrr3h",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Summon Demons",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature approaches within 10 feet of the distortion circle</p><hr /><p><strong>Effect</strong> The distortion circle begins glowing with red light, shining through any cloth covering it might still have over it, and then summons four seraptis demons into the room. The demons appear in pairs at the entrances to the alcoves to the left and right of the distortion circle's alcove, and they then roll initiative. The demons do not pursue foes from this room, and vanish if the trap resets or if the trap is disabled. The summoned demons can use 3 actions each round and can use reactions, unlike most summoned creatures. The distortion circle then appears to open into a bloody toothy mouth and rolls initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "arcane"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "hH2un5m8vtVi3IAh",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Tooth Volley",
+            "sort": 0,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 33
+                },
+                "damageRolls": {
+                    "sfdozE4xhbvCZYX8": {
+                        "damage": "4d10+13",
+                        "damageType": "piercing"
+                    },
+                    "wEf9g8rpHroPqWMH": {
+                        "category": "persistent",
+                        "damage": "2d6",
+                        "damageType": "bleed"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "magical",
+                        "range-90"
+                    ]
+                }
+            },
+            "type": "melee"
+        }
+    ],
+    "name": "Distortion Circle",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(expert) to notice the softly glowing magic circle shimmering from under the moldering sheets; noticing the circle if the sheets are pulled aside has a DC of 0</p>",
+                "value": 37
+            }
+        },
+        "details": {
+            "description": "<p>A softly flickering circle of runes pulses and periodically distorts the air above it before a raw red wound in reality splits open to disgorge demons and lash out with tendrils of acidic blood.</p>",
+            "disable": "<p>@Check[thievery|dc:47] to erase key runes from the circle, defeat all four summoned demons in combat, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (9th rank, counteract DC 36)</p>",
+            "isComplex": true,
+            "level": {
+                "value": 19
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #205: Singer, Stalker, Skinsaw Man"
+            },
+            "reset": "<p>The distortion circle deactivates (and any summoned demons vanish) at the end of any round in which no viable targets for the tongue to attack are in area <strong>C10</strong>. The trap then immediately resets (and is ready to summon a new batch of four demons).</p>",
+            "routine": "<p>(1 action) On its initiative, the trap extends a tongue-like appendage covered with sharp teeth. The tongue snaps like a whip, firing a volley of sharp teeth at a non-demon target in the room. The trap can precisely sense the location of all viable targets in the room, and teeth fired from the tongue penetrate the many wooden shelves (although a character with at least one shelf between it and the trap gains greater cover).</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

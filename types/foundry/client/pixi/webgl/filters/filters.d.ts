@@ -28,7 +28,7 @@ declare global {
         /** If the filter is animated or not. */
         animate: boolean;
 
-        static override defaultUniforms: object;
+        static override defaultUniforms: Record<string, unknown>;
 
         static vertexShader: string;
 

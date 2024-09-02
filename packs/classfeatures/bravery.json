@@ -26,27 +26,14 @@
         },
         "rules": [
             {
-                "key": "Note",
-                "outcome": [
-                    "success"
-                ],
-                "predicate": [
-                    "fear"
-                ],
-                "selector": "will",
-                "text": "When you roll a success at a Will save against a fear effect, you get a critical success instead.",
-                "title": "{item|name}"
-            },
-            {
                 "adjustment": {
                     "success": "one-degree-better"
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "fear"
+                    "item:trait:fear"
                 ],
-                "selector": "will",
-                "type": "save"
+                "selector": "will"
             }
         ],
         "subfeatures": {

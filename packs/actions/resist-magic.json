@@ -29,15 +29,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "resist-magic",
-                    {
-                        "or": [
-                            "arcane",
-                            "divine",
-                            "primal",
-                            "occult",
-                            "magical"
-                        ]
-                    }
+                    "item:magical"
                 ],
                 "selector": "saving-throw",
                 "type": "circumstance",
@@ -50,10 +42,9 @@
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
                     "resist-magic",
-                    "arcane"
+                    "item:trait:arcane"
                 ],
-                "selector": "saving-throw",
-                "type": "save"
+                "selector": "saving-throw"
             }
         ],
         "traits": {

@@ -1,0 +1,71 @@
+{
+    "_id": "8Uw1E3L2Mgo6PxwB",
+    "folder": "m0AVBp1MMQgNQRhn",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Kijimuna Gnome",
+    "system": {
+        "ancestry": {
+            "name": "Gnome",
+            "slug": "gnome",
+            "uuid": "Compendium.pf2e.ancestries.Item.CYlfsYLJcBOgqKtD"
+        },
+        "description": {
+            "value": "<p>Your ancestors lived in the trees and fished in all the waters of Tian Xia. You gain your choice of the following benefits. Once made, this choice can't be changed.</p><ul><li>You can climb any banyan. You gain the @UUID[Compendium.pf2e.feats-srd.Item.Combat Climber] feat, and if you roll a success on the Athletics check to Climb, you get a critical success instead.</li><li>You can catch any fish. You gain a swim Speed of 15 feet.</li></ul>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Climb",
+                        "value": "climb"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.MovementType",
+                "rollOption": "kijimuna-gnome"
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "kijimuna-gnome:climb"
+                ],
+                "uuid": "Compendium.pf2e.feats-srd.Item.Combat Climber"
+            },
+            {
+                "adjustment": {
+                    "success": "one-degree-better"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb",
+                    "kijimuna-gnome:climb"
+                ],
+                "selector": "athletics"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "kijimuna-gnome:swim"
+                ],
+                "selector": "swim",
+                "value": 15
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "gnome"
+            ]
+        }
+    },
+    "type": "heritage"
+}

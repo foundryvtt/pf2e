@@ -49,7 +49,7 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     senses: SenseSynthetic[];
     statistics: Map<string, Statistic>;
     strikeAdjustments: StrikeAdjustment[];
-    strikes: DeferredStrike[];
+    strikes: Record<string, DeferredStrike>;
     striking: Record<string, StrikingSynthetic[]>;
     toggles: Record<string, Record<string, RollOptionToggle>>;
     tokenEffectIcons: ActiveEffectPF2e<TActor>[];

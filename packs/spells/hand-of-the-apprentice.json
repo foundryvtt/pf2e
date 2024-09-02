@@ -29,7 +29,37 @@
             "value": "500 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "predicate": [
+                            "spellcasting:cha"
+                        ],
+                        "value": "charisma"
+                    },
+                    {
+                        "predicate": [
+                            "spellcasting:int"
+                        ],
+                        "value": "intelligence"
+                    },
+                    {
+                        "predicate": [
+                            "spellcasting:wis"
+                        ],
+                        "value": "wisdom"
+                    }
+                ],
+                "flag": "handOfApprentice",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "option": "focus-spell:{item|flags.pf2e.rulesSelections.handOfApprentice}"
+            }
+        ],
         "target": {
             "value": "1 creature"
         },

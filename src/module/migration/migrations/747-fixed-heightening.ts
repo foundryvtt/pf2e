@@ -15,7 +15,7 @@ export class Migration747FixedHeightening extends MigrationBase {
         const isAcidSplash = (source.system.slug ?? sluggify(source.name)) === "acid-splash";
         if (source.system.heightening?.type === "fixed" && !isAcidSplash) return;
 
-        const sourceId = source.flags.core?.sourceId;
+        const sourceId = source._stats.compendiumSource;
         if (sourceId && this.fixedHeightenSpells.has(sourceId)) {
             const spells = await this.loadSpells();
             const spell = spells[sourceId];

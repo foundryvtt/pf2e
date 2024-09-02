@@ -111,6 +111,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         const ruleSource: GrantItemSource = args.ruleSource;
 
         const uuid = this.resolveInjectedProperties(this.uuid);
+        if (!UUIDUtils.isItemUUID(uuid, { embedded: false })) return;
         const grantedItem: ClientDocument | null = await (async () => {
             try {
                 return (await fromUuid(uuid))?.clone() ?? null;
@@ -156,7 +157,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         grantedSource._id = fu.randomID();
 
         // An item may grant another copy of itself, but at least strip the copy of its grant REs
-        if (this.item.sourceId === (grantedSource.flags.core?.sourceId ?? "")) {
+        if (this.item.sourceId === (grantedSource._stats.compendiumSource ?? "")) {
             grantedSource.system.rules = grantedSource.system.rules.filter((r) => r.key !== "GrantItem");
         }
 
@@ -166,7 +167,7 @@ class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         }
 
         // Guarantee future already-granted checks pass in all cases by re-assigning sourceId
-        grantedSource.flags = fu.mergeObject(grantedSource.flags, { core: { sourceId: uuid } });
+        grantedSource._stats.compendiumSource = uuid;
 
         // Apply alterations
         try {

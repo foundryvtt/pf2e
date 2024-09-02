@@ -101,7 +101,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>@Check[type:reflex|dc:17]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
+                    "value": "<p>@Check[reflex|dc:17]</p>\n<p>@Localize[PF2E.NPC.Abilities.Glossary.Buck]</p>"
                 },
                 "publication": {
                     "license": "ORC",
@@ -167,7 +167,26 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "scurry",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "scurry"
+                        ],
+                        "selector": [
+                            "climb-speed",
+                            "land-speed"
+                        ],
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "value": []

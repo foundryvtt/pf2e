@@ -218,201 +218,6 @@
             "type": "feat"
         },
         {
-            "_id": "JzpUBqBzDRzoSzaP",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.backgrounds.Item.v0WPfxN6G8XFfFZT"
-                },
-                "pf2e": {
-                    "itemGrants": {
-                        "assurance": {
-                            "id": "cICynPkA1oiS7DwW",
-                            "onDelete": "detach"
-                        }
-                    }
-                }
-            },
-            "img": "systems/pf2e/icons/default-icons/background.svg",
-            "name": "Scholar (Arcana)",
-            "sort": 0,
-            "system": {
-                "boosts": {
-                    "0": {
-                        "selected": "int",
-                        "value": [
-                            "int",
-                            "wis"
-                        ]
-                    },
-                    "1": {
-                        "selected": "wis",
-                        "value": [
-                            "cha",
-                            "con",
-                            "dex",
-                            "int",
-                            "str",
-                            "wis"
-                        ]
-                    }
-                },
-                "description": {
-                    "value": "<p>You have a knack for learning and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, always dreaming about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Arcana, Nature, Occultism, or Religion skill, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat in your chosen skill. You're also trained in the Academia Lore skill.</p>"
-                },
-                "items": {},
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "choices": [
-                            {
-                                "label": "PF2E.Skill.Arcana",
-                                "value": "arcana"
-                            },
-                            {
-                                "label": "PF2E.Skill.Nature",
-                                "value": "nature"
-                            },
-                            {
-                                "label": "PF2E.Skill.Occultism",
-                                "value": "occultism"
-                            },
-                            {
-                                "label": "PF2E.Skill.Religion",
-                                "value": "religion"
-                            }
-                        ],
-                        "flag": "skill",
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
-                        "selection": "arcana"
-                    },
-                    {
-                        "key": "ActiveEffectLike",
-                        "mode": "upgrade",
-                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
-                        "value": 1
-                    },
-                    {
-                        "flag": "assurance",
-                        "key": "GrantItem",
-                        "preselectChoices": {
-                            "assurance": "{item|flags.pf2e.rulesSelections.skill}"
-                        },
-                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
-                    }
-                ],
-                "slug": "scholar",
-                "trainedSkills": {
-                    "lore": [
-                        "Academia Lore"
-                    ],
-                    "value": []
-                },
-                "traits": {
-                    "rarity": "common",
-                    "value": []
-                }
-            },
-            "type": "background"
-        },
-        {
-            "_id": "cICynPkA1oiS7DwW",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
-                },
-                "pf2e": {
-                    "grantedBy": {
-                        "id": "JzpUBqBzDRzoSzaP",
-                        "onDelete": "cascade"
-                    }
-                }
-            },
-            "img": "icons/sundries/books/book-red-exclamation.webp",
-            "name": "Assurance",
-            "sort": 0,
-            "system": {
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": null
-                },
-                "category": "skill",
-                "description": {
-                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": null,
-                "maxTakable": null,
-                "prerequisites": {
-                    "value": [
-                        {
-                            "value": "trained in at least one skill"
-                        }
-                    ]
-                },
-                "publication": {
-                    "license": "ORC",
-                    "remaster": true,
-                    "title": "Pathfinder Player Core"
-                },
-                "rules": [
-                    {
-                        "choices": {
-                            "config": "skills",
-                            "predicate": [
-                                {
-                                    "gte": [
-                                        "skill:{choice|value}:rank",
-                                        1
-                                    ]
-                                }
-                            ]
-                        },
-                        "flag": "assurance",
-                        "ignored": true,
-                        "key": "ChoiceSet",
-                        "prompt": "PF2E.SpecificRule.Prompt.Skill"
-                    },
-                    {
-                        "key": "SubstituteRoll",
-                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
-                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
-                        "slug": "assurance",
-                        "value": 10
-                    },
-                    {
-                        "key": "AdjustModifier",
-                        "predicate": [
-                            "substitute:assurance",
-                            {
-                                "not": "bonus:type:proficiency"
-                            }
-                        ],
-                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
-                        "suppress": true
-                    }
-                ],
-                "slug": "assurance",
-                "traits": {
-                    "rarity": "common",
-                    "value": [
-                        "fortune",
-                        "general",
-                        "skill"
-                    ]
-                }
-            },
-            "type": "feat"
-        },
-        {
             "_id": "hCPg4kLKbrpvo8QF",
             "flags": {
                 "core": {
@@ -3356,6 +3161,305 @@
                 }
             },
             "type": "spell"
+        },
+        {
+            "_id": "486D4igRfvHeucvN",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Academia Lore",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": ""
+                },
+                "mod": {
+                    "value": 0
+                },
+                "proficient": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {}
+            },
+            "type": "lore"
+        },
+        {
+            "_id": "krlMUldN26kN8sQs",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.heritages.Item.Cv7BOjuziOQ0PO9r"
+                }
+            },
+            "folder": "vffrEPtm1AQ4oRK4",
+            "img": "systems/pf2e/icons/default-icons/heritage.svg",
+            "name": "Windup Poppet",
+            "sort": 0,
+            "system": {
+                "ancestry": {
+                    "name": "Poppet",
+                    "slug": "poppet",
+                    "uuid": "Compendium.pf2e.ancestries.Item.6F2fSFC1Eo1JdpY4"
+                },
+                "description": {
+                    "value": "<p>You're made primarily of soft metals, such as tin or silver, and your life force dwells within an exceptional array of clockworks deep in your body. Provided you wind metal tabs on your body a few times each day, you don't need food or water to survive. You must still breathe to ventilate your internal mechanisms and sleep to give your mechanisms rest, just like other poppets.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Lost Omens: The Grand Bazaar"
+                },
+                "rules": [],
+                "slug": "windup-poppet",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "heritage"
+        },
+        {
+            "_id": "iW2oX0rWEpVgmVZQ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.backgrounds.Item.v0WPfxN6G8XFfFZT"
+                },
+                "pf2e": {
+                    "itemGrants": {
+                        "assurance": {
+                            "id": "I1zo1ukbRjjuIz7O",
+                            "onDelete": "detach"
+                        }
+                    }
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/background.svg",
+            "name": "Scholar (Arcana)",
+            "sort": 0,
+            "system": {
+                "boosts": {
+                    "0": {
+                        "selected": "int",
+                        "value": [
+                            "int",
+                            "wis"
+                        ]
+                    },
+                    "1": {
+                        "selected": "wis",
+                        "value": [
+                            "cha",
+                            "con",
+                            "dex",
+                            "int",
+                            "str",
+                            "wis"
+                        ]
+                    }
+                },
+                "description": {
+                    "value": "<p>You have a knack for learning and sequestered yourself from the outside world to learn all you could. You read about so many wondrous places and things in your books, always dreaming about one day seeing the real things. Eventually, that curiosity led you to leave your studies and become an adventurer.</p>\n<p>Choose two attribute boosts. One must be to <strong>Intelligence</strong> or <strong>Wisdom</strong>, and one is a free attribute boost.</p>\n<p>You're trained in your choice of the Arcana, Nature, Occultism, or Religion skill, and gain the @UUID[Compendium.pf2e.feats-srd.Item.Assurance] skill feat in your chosen skill. You're also trained in the Academia Lore skill.</p>"
+                },
+                "items": {},
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": [
+                            {
+                                "label": "PF2E.Skill.Arcana",
+                                "value": "arcana"
+                            },
+                            {
+                                "label": "PF2E.Skill.Nature",
+                                "value": "nature"
+                            },
+                            {
+                                "label": "PF2E.Skill.Occultism",
+                                "value": "occultism"
+                            },
+                            {
+                                "label": "PF2E.Skill.Religion",
+                                "value": "religion"
+                            }
+                        ],
+                        "flag": "skill",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "arcana"
+                    },
+                    {
+                        "key": "ActiveEffectLike",
+                        "mode": "upgrade",
+                        "path": "system.skills.{item|flags.pf2e.rulesSelections.skill}.rank",
+                        "value": 1
+                    },
+                    {
+                        "flag": "assurance",
+                        "key": "GrantItem",
+                        "preselectChoices": {
+                            "assurance": "{item|flags.pf2e.rulesSelections.skill}"
+                        },
+                        "uuid": "Compendium.pf2e.feats-srd.Item.Assurance"
+                    }
+                ],
+                "slug": "scholar",
+                "trainedSkills": {
+                    "lore": [
+                        "Academia Lore"
+                    ],
+                    "value": []
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "background"
+        },
+        {
+            "_id": "I1zo1ukbRjjuIz7O",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.feats-srd.Item.W6Gl9ePmItfDHji0"
+                },
+                "pf2e": {
+                    "grantedBy": {
+                        "id": "iW2oX0rWEpVgmVZQ",
+                        "onDelete": "cascade"
+                    }
+                }
+            },
+            "img": "icons/sundries/books/book-red-exclamation.webp",
+            "name": "Assurance (Arcana)",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "skill",
+                "description": {
+                    "value": "<p>Even in the worst circumstances, you can perform basic tasks. Choose a skill you're trained in. You can forgo rolling a skill check for that skill to instead receive a result of 10 + your proficiency bonus (do not apply any other bonuses, penalties, or modifiers).</p>\n<hr />\n<p><strong>Special</strong> You can select this feat multiple times. Each time, choose a different skill and gain the benefits for that skill.</p>"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": null,
+                "maxTakable": null,
+                "prerequisites": {
+                    "value": [
+                        {
+                            "value": "trained in at least one skill"
+                        }
+                    ]
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "rules": [
+                    {
+                        "choices": {
+                            "config": "skills",
+                            "predicate": [
+                                {
+                                    "gte": [
+                                        "skill:{choice|value}:rank",
+                                        1
+                                    ]
+                                }
+                            ]
+                        },
+                        "flag": "assurance",
+                        "key": "ChoiceSet",
+                        "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                        "selection": "arcana"
+                    },
+                    {
+                        "key": "SubstituteRoll",
+                        "label": "PF2E.SpecificRule.SubstituteRoll.Assurance",
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "slug": "assurance",
+                        "value": 10
+                    },
+                    {
+                        "key": "AdjustModifier",
+                        "predicate": [
+                            "substitute:assurance",
+                            {
+                                "not": "bonus:type:proficiency"
+                            }
+                        ],
+                        "selector": "{item|flags.pf2e.rulesSelections.assurance}",
+                        "suppress": true
+                    }
+                ],
+                "slug": "assurance",
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "fortune",
+                        "general",
+                        "skill"
+                    ]
+                }
+            },
+            "type": "feat"
+        },
+        {
+            "_id": "jFmEQ5nXAdDy1wL9",
+            "img": "systems/pf2e/icons/default-icons/effect.svg",
+            "name": "Effect: Paizo Adjustment",
+            "sort": 0,
+            "system": {
+                "description": {
+                    "value": "<p>Adds a +1 Untyped Bonus to Crafting per the Tin Wizard's Crafting Checks.</p>"
+                },
+                "duration": {
+                    "expiry": null,
+                    "sustained": false,
+                    "unit": "unlimited",
+                    "value": -1
+                },
+                "level": {
+                    "value": 1
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Free RPG Day Adventure: The Great Toy Heist"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "selector": "crafting",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "start": {
+                    "initiative": 38,
+                    "value": 0
+                },
+                "tokenIcon": {
+                    "show": false
+                },
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "effect"
         }
     ],
     "name": "The Tin Wizard",
@@ -3468,7 +3572,26 @@
                 "value": 1
             }
         },
-        "skills": {}
+        "skills": {
+            "crafting": {
+                "rank": 1
+            },
+            "diplomacy": {
+                "rank": 1
+            },
+            "nature": {
+                "rank": 1
+            },
+            "occultism": {
+                "rank": 1
+            },
+            "religion": {
+                "rank": 1
+            },
+            "society": {
+                "rank": 1
+            }
+        }
     },
     "type": "character"
 }

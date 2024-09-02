@@ -5,7 +5,7 @@ import type { TokenPF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import { DifficultTerrainGrade, EnvironmentFeatureRegionBehavior, RegionDocumentPF2e } from "@scene";
-import { computeSightAndDetectionForRBV } from "@scene/helpers.ts";
+import { computeSightAndDetectionForRBV, isDefaultTokenImage } from "@scene/helpers.ts";
 import { objectHasKey, sluggify } from "@util";
 import * as R from "remeda";
 import type { ScenePF2e } from "../document.ts";
@@ -315,10 +315,8 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         const actor = token.actor;
         if (!actor) return;
 
-        const defaultIcons = [ActorPF2e.DEFAULT_ICON, `systems/pf2e/icons/default-icons/${actor.type}.svg`];
-
         // Always override token images if in Nath mode
-        if (game.pf2e.settings.tokens.nathMode && defaultIcons.includes(token.texture.src)) {
+        if (game.pf2e.settings.tokens.nathMode && isDefaultTokenImage(token)) {
             token.texture.src = ((): ImageFilePath | VideoFilePath => {
                 switch (actor.alliance) {
                     case "party":
@@ -329,7 +327,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                         return token.texture.src;
                 }
             })();
-        } else if (defaultIcons.some((path) => token.texture.src?.endsWith(path))) {
+        } else if (isDefaultTokenImage(token)) {
             token.texture.src = actor._source.img;
         }
     }

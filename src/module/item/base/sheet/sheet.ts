@@ -7,7 +7,7 @@ import {
     createTagifyTraits,
     maintainFocusInRender,
     SheetOptions,
-    TraitTagifyEntry,
+    TagifyEntry,
 } from "@module/sheet/helpers.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import {
@@ -115,6 +115,9 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         const traitTagifyData = validTraits
             ? createTagifyTraits(itemTraits, { sourceTraits, record: validTraits })
             : null;
+        const otherTagsTagifyData = createTagifyTraits(item.system.traits.otherTags, {
+            sourceTraits: item._source.system.traits.otherTags,
+        });
 
         return {
             itemType: null,
@@ -143,6 +146,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
+            otherTagsTagifyData,
             enabledRulesUI: game.user.hasRole(game.settings.get("pf2e", "minimumRulesUI")),
             ruleEditing: !!this.editingRuleElement,
             rules: {
@@ -655,7 +659,8 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     rarity: Rarity | null;
     rarities: typeof CONFIG.PF2E.rarityTraits;
     traits: SheetOptions | null;
-    traitTagifyData: TraitTagifyEntry[] | null;
+    traitTagifyData: TagifyEntry[] | null;
+    otherTagsTagifyData: TagifyEntry[] | null;
     rules: {
         selection: {
             selected: string | null;

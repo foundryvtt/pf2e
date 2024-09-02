@@ -2,12 +2,13 @@ import type { ActorPF2e } from "@actor";
 import { StrikeData } from "@actor/data/base.ts";
 import { ItemPF2e, ItemProxyPF2e } from "@item";
 import type { UserPF2e } from "@module/user/index.ts";
+import { isDefaultTokenImage } from "@scene/helpers.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import { CheckRoll } from "@system/check/roll.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
-import { htmlQuery, htmlQueryAll, parseHTML } from "@util";
+import { createHTMLElement, htmlQuery, htmlQueryAll, parseHTML } from "@util";
 import { CriticalHitAndFumbleCards } from "./crit-fumble-cards.ts";
 import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 import * as Listeners from "./listeners/index.ts";
@@ -190,6 +191,46 @@ class ChatMessagePF2e extends ChatMessage {
 
         const $html = await super.getHTML();
         const html = $html[0];
+
+        // Attach actor image to header. Use token if its an image type with a non-default image, otherwise actor image
+        // For non-image types consider video thumbnails using game.video.createThumbnail() depending on cache performance
+        // Tokens with smaller scales (such as for small and tiny actors) are set to scale 1
+        const header = html?.querySelector("header.message-header");
+        if (actor && header && this.isContentVisible) {
+            const token = this.token ?? actor.prototypeToken;
+            const useToken =
+                actor.prototypeToken?.texture?.src &&
+                ImageHelper.hasImageExtension(token.texture.src) &&
+                !isDefaultTokenImage(token);
+            const [imageUrl, scale] = useToken
+                ? [actor.prototypeToken.texture.src, Math.max(1, actor.prototypeToken.texture.scaleX)]
+                : [actor.img, 1];
+
+            const image = createHTMLElement("img");
+            image.alt = actor.name;
+            image.src = imageUrl;
+            image.style.transform = `scale(${scale})`;
+
+            // If image scale is above 1.2, we might need to add a radial fade to not block out the name
+            if (scale > 1.2) {
+                const ringPercent = 100 - Math.floor(((scale - 0.7) / scale) * 100);
+                const limitPercent = 100 - Math.floor(((scale - 1.15) / scale) * 100);
+                image.style.maskImage = `radial-gradient(circle at center, black ${ringPercent}%, rgba(0, 0, 0, 0.2) ${limitPercent}%)`;
+            }
+
+            const portrait = createHTMLElement("div", {
+                children: [image],
+                classes: ["portrait", useToken ? "token" : "actor-image"],
+            });
+
+            header.prepend(portrait);
+            header.classList.toggle("with-image", true);
+
+            if (this.author) {
+                header.append(createHTMLElement("span", { classes: ["user"], children: [this.author.name] }));
+            }
+        }
+
         if (!this.flags.pf2e.suppressDamageButtons && this.isDamageRoll) {
             // Mark each button group with the index in the message's `rolls` array
             htmlQueryAll(html, ".damage-application").forEach((buttons, index) => {

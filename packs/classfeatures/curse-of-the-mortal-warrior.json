@@ -1,0 +1,62 @@
+{
+    "_id": "zLYqrQdheciiW2nm",
+    "img": "icons/skills/melee/sword-stuck-glowing-pink.webp",
+    "name": "Curse of the Mortal Warrior",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p>You thrive in the thick of battle, but your mystery's sheer focus on the physical and material leaves your soul weak against the tricks of spellcraft. You smell faintly of steel and blood no matter how you try to remove or mask the scent, you appear more imposing and muscular than you actually are, and you hear the faint clash and clamor of battle in the distance at all times.</p>\n<p><strong>@UUID[Compendium.pf2e.conditionitems.Item.Cursebound]{Cursebound 1}</strong> Spells have an easier time wounding you. You gain weakness 2 to any damage dealt by a spell. Any immunity or resistance you have to spells is suppressed. This applies only to spells, not other magical abilities.</p>\n<p><strong>Cursebound 2</strong> You take a –1 status penalty to saving throws against spells.</p>\n<p><strong>Cursebound 3</strong> Your weakness to spells is equal to your level.</p>\n<p><strong>Cursebound 4</strong> Your status penalty to saving throws against spells increases to –2.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "self:condition:cursebound"
+                ],
+                "type": "spells",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,3),@actor.level,2)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:spell",
+                    {
+                        "gte": [
+                            "self:condition:cursebound",
+                            2
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": "ternary(gte(@actor.conditions.cursebound.value,4),-2,-1)"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "curse",
+                "divine",
+                "oracle"
+            ]
+        }
+    },
+    "type": "feat"
+}

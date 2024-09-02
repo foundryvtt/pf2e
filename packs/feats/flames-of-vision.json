@@ -1,0 +1,59 @@
+{
+    "_id": "3OmL54xnVTx1pW25",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Flames of Vision",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p><strong>Access</strong> dokkaebi goblin heritage or Tian Xia origin</p><hr /><p>Dokkaebi were among the first goblins to pioneer gazing through flames, spectral or physical, to cast their senses far and wide. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance] as a 4th-rank innate occult spell twice per day. To see through the spell's eye, you must be staring into a source of fire.</p><hr /><p><strong>Special</strong> If you can cast @UUID[Compendium.pf2e.spells-srd.Item.Ignition], including from the @UUID[Compendium.pf2e.feats-srd.Item.Dokkaebi Fire] feat, then you can cast that spell as part of casting <em>clairvoyance</em>. Instead of the cantrip's normal effect, you conjure flames in your hand, which persist for the duration of your <em>clairvoyance</em> spell for you to gaze through.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:clairvoyance",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:clairvoyance",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:goblin"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

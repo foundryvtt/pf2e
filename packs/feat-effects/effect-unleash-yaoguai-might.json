@@ -1,0 +1,100 @@
+{
+    "_id": "OBsItGQScxHyUcmR",
+    "img": "systems/pf2e/icons/spells/enlarge.webp",
+    "name": "Effect: Unleash Yaoguai Might",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Unleash Yaoguai Might]</p>\n<p><strong>Frequency</strong> once per day</p>\n<p>As you enter your yaoguai form, you draw upon your internal magic to assume an even greater form. When you Change Shape to enter your yaoguai form, you can spend an additional action to gain the effects of @UUID[Compendium.pf2e.spells-srd.Item.Enlarge] and an additional effect based on your heritage. This effect persists for 1 minute or until you Change Shape again.</p><ul><li><strong>Animal</strong> Your hide thickens, granting a +1 circumstance bonus to AC.</li><li><strong>Celestial</strong> You recover some of your celestial perfection, granting you and all allies within 15 feet a +1 status bonus to attack rolls.</li><li><strong>Elements</strong> You're surrounded in wind and dust, granting concealment each round that you spend at least 1 action that has the move trait. You can't use this concealment to Hide or @UUID[Compendium.pf2e.actionspf2e.Item.Sneak], as normal for sources of obvious concealment.</li><li><strong>Object</strong> Your skin transmutes partially into an inorganic substance, granting resistance 5 to your choice of bludgeoning, piercing, or slashing.</li><li><strong>Vegetation</strong> You trigger an accelerated growth, gaining fast healing 5.</li></ul>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:heritage:born-of-animal"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "effects": [
+                    {
+                        "affects": "allies",
+                        "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Celestial Yaoguai Might"
+                    }
+                ],
+                "key": "Aura",
+                "predicate": [
+                    "self:heritage:born-of-celestial"
+                ],
+                "radius": 15
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitBludgeoning",
+                        "value": "bludgeoning"
+                    },
+                    {
+                        "label": "PF2E.TraitPiercing",
+                        "value": "piercing"
+                    },
+                    {
+                        "label": "PF2E.TraitSlashing",
+                        "value": "slashing"
+                    }
+                ],
+                "flag": "objectResistanceType",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "self:heritage:born-of-item"
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "self:heritage:born-of-item"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.objectResistanceType}",
+                "value": 5
+            },
+            {
+                "key": "FastHealing",
+                "predicate": [
+                    "self:heritage:born-of-vegetation"
+                ],
+                "value": 5
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Enlarge"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

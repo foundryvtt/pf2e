@@ -61,9 +61,9 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         return this.system.slug;
     }
 
-    /** The compendium source ID of the item **/
+    /** The UUID of the item from which this one was copied (or is identical to if a compendium item) **/
     get sourceId(): ItemUUID | null {
-        return this.flags.core?.sourceId ?? null;
+        return this._id && this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -100,8 +100,10 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
             const item = fromUuidSync(data.uuid);
             if (item instanceof ItemPF2e && item.parent && !item.sourceId) {
                 // Upstream would do this via `item.updateSource(...)`, causing a data reset
-                item._source.flags = fu.mergeObject(item._source.flags, { core: { sourceId: item.uuid } });
-                item.flags = fu.mergeObject(item.flags, { core: { sourceId: item.uuid } });
+                item._source._stats.duplicateSource = item.uuid;
+                item._stats.duplicateSource = item._source._stats.duplicateSource;
+                item._source._stats.compendiumSource ??= item.uuid.startsWith("Compendium.") ? item.uuid : null;
+                item._stats.compendiumSource = item._source._stats.compendiumSource;
             }
         }
 
@@ -375,8 +377,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
                 !latestSource.system.spell
             ) {
                 // If a spell consumable, refresh the spell as well as the consumable
-                const spellSourceId = currentSource.system.spell.flags.core?.sourceId ?? "";
-                const refreshedSpell = await fromUuid(currentSource.system.spell.flags.core?.sourceId ?? "");
+                const spellSourceId = currentSource._stats.compendiumSource ?? currentSource._stats.duplicateSource;
+                const refreshedSpell = spellSourceId ? await fromUuid(spellSourceId) : null;
                 if (refreshedSpell instanceof ItemPF2e && refreshedSpell.isOfType("spell")) {
                     const spellConsumableData = await createConsumableFromSpell(refreshedSpell, {
                         type: currentSource.system.category,

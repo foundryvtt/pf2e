@@ -331,7 +331,7 @@
                     "sourceId": "Compendium.pf2e.spells-srd.Item.vJuaxTd6q11OjGqA"
                 }
             },
-            "img": "systems/pf2e/icons/spells/abyssal-plague.webp",
+            "img": "icons/magic/lightning/bolt-strike-purple.webp",
             "name": "Abyssal Plague (At Will)",
             "sort": 600000,
             "system": {
@@ -1215,7 +1215,7 @@
                     "die": "d12"
                 },
                 "description": {
-                    "value": "<p>This potent weapon used by Treerazer is a +4 @UUID[Compendium.pf2e.equipment-srd.Item.Corrosive (Greater)] major striking obsidian greataxe that grants a +4 item bonus to attack rolls, deals an extra 2d6 damage to plants, and has the properties of adamantine.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (divination, scrying)</p>\n<p><strong>Requirements</strong> You aren't wielding <em>Blackaxe</em> and you are its true owner.</p>\n<hr />\n<p><strong>Effect</strong> You sense the world around <em>Blackaxe</em> as though you were in its location and can use any of your innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[type:will|dc:50] or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">f</span> command (conjuration, teleportation)</p>\n<p><strong>Requirements</strong> You aren't wielding <em>Blackaxe</em> and you are its true owner.</p>\n<hr />\n<p><strong>Effect</strong> <em>Blackaxe</em> appears in your hands, teleporting instantly from its prior location.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command (death, healing, necromancy)</p>\n<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> Make a Strike against a living tree with <em>Blackaxe</em>. If it hits, the tree withers to ash and you heal 250 Hit Points and gain the benefit of @UUID[Compendium.pf2e.spells-srd.Item.Restoration] (6th) and @UUID[Compendium.pf2e.spells-srd.Item.Sound Body].</p>"
+                    "value": "<p>This potent weapon used by Treerazer is a +4 @UUID[Compendium.pf2e.equipment-srd.Item.Corrosive (Greater)] major striking obsidian greataxe that grants a +4 item bonus to attack rolls, deals an extra 2d6 damage to plants, and has the properties of adamantine.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> (divination, scrying)</p>\n<p><strong>Requirements</strong> You aren't wielding <em>Blackaxe</em> and you are its true owner.</p>\n<hr />\n<p><strong>Effect</strong> You sense the world around <em>Blackaxe</em> as though you were in its location and can use any of your innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[will|dc:50] or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">f</span> command (conjuration, teleportation)</p>\n<p><strong>Requirements</strong> You aren't wielding <em>Blackaxe</em> and you are its true owner.</p>\n<hr />\n<p><strong>Effect</strong> <em>Blackaxe</em> appears in your hands, teleporting instantly from its prior location.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">1</span> command (death, healing, necromancy)</p>\n<p><strong>Frequency</strong> once per minute.</p>\n<hr />\n<p><strong>Effect</strong> Make a Strike against a living tree with <em>Blackaxe</em>. If it hits, the tree withers to ash and you heal 250 Hit Points and gain the benefit of @UUID[Compendium.pf2e.spells-srd.Item.Restoration] (6th) and @UUID[Compendium.pf2e.spells-srd.Item.Sound Body].</p>"
                 },
                 "equipped": {
                     "carryType": "held",
@@ -1539,15 +1539,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -1656,7 +1648,7 @@
                 },
                 "category": "defensive",
                 "description": {
-                    "value": "<p>120 feet. Plants near Treerazer twist, deform, and transform into thorny or fungoid parodies of their natural shapes. A living creature in this area must succeed at a @Check[type:fortitude|dc:47] save each round or become partially transformed into plantlike matter. Those who fail this saving throw are treated as if they were plants for the purposes of any effect that particularly harms or inconveniences plant creatures more than other creatures, but do not gain any benefits of being plant creatures. This effect lasts as long as the creature remains within the area of corruption and for 1 minute thereafter.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Corruption]</p>"
+                    "value": "<p>120 feet. Plants near Treerazer twist, deform, and transform into thorny or fungoid parodies of their natural shapes. A living creature in this area must succeed at a @Check[fortitude|dc:47] save each round or become partially transformed into plantlike matter. Those who fail this saving throw are treated as if they were plants for the purposes of any effect that particularly harms or inconveniences plant creatures more than other creatures, but do not gain any benefits of being plant creatures. This effect lasts as long as the creature remains within the area of corruption and for 1 minute thereafter.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Corruption]</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1700,7 +1692,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> Treerazer senses the world around <em>Blackaxe</em> as though it were in its location and can use any of it's innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[type:will|dc:50] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>"
+                    "value": "<p><strong>Requirements</strong> Treerazer isn't wielding <em>Blackaxe</em>.</p>\n<hr />\n<p><strong>Effect</strong> Treerazer senses the world around <em>Blackaxe</em> as though it were in its location and can use any of it's innate spells through the link as if it were the source of the spell. If another creature is wielding Blackaxe, it must succeed at a @Check[will|dc:50] save or be @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 2} until it relinquishes the weapon.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -1801,7 +1793,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Treerazer exudes a pulse of sickly green light in a @Template[type:emanation|distance:30]. All plants in the area (including creatures under the effect of his aura of corruption) blacken and wither. Non-creature plants immediately wither and die. Plant creatures take @Damage[20d8[void]] damage with a @Check[type:fortitude|dc:49|basic:true] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}. Treerazer can choose to exclude any number of plants in the area from this effect, and generally does so to preserve twisted and corrupted plants or fungi, or plant creatures that are allied to his cause.</p>\n<p>Treerazer can't use Defoliation for [[/br 1d4 #Recharge Defoliation]]{1d4 rounds}.</p>"
+                    "value": "<p>Treerazer exudes a pulse of sickly green light in a @Template[emanation|distance:30]. All plants in the area (including creatures under the effect of his aura of corruption) blacken and wither. Non-creature plants immediately wither and die. Plant creatures take @Damage[20d8[void]] damage with a @Check[fortitude|dc:49|basic] save. A creature that fails its save is @UUID[Compendium.pf2e.conditionitems.Item.Doomed]{Doomed 1} for 1 minute and @UUID[Compendium.pf2e.conditionitems.Item.Sickened]{Sickened 3}. Treerazer can choose to exclude any number of plants in the area from this effect, and generally does so to preserve twisted and corrupted plants or fungi, or plant creatures that are allied to his cause.</p>\n<p>Treerazer can't use Defoliation for [[/br 1d4 #Recharge Defoliation]]{1d4 rounds}.</p>"
                 },
                 "publication": {
                     "license": "OGL",

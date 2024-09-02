@@ -18,7 +18,22 @@
             "remaster": false,
             "title": "Pathfinder #180: The Smoking Gun"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess",
+                    "success"
+                ],
+                "predicate": [
+                    "item:melee"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "{item|system.description.value}",
+                "title": "{item|name}",
+                "visibility": "owner"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -735,15 +735,7 @@
                     {
                         "key": "FlatModifier",
                         "predicate": [
-                            {
-                                "or": [
-                                    "magical",
-                                    "arcane",
-                                    "divine",
-                                    "primal",
-                                    "occult"
-                                ]
-                            }
+                            "item:magical"
                         ],
                         "selector": "saving-throw",
                         "type": "status",
@@ -782,17 +774,13 @@
                 "rules": [
                     {
                         "adjustment": {
-                            "criticalFailure": "one-degree-better",
-                            "criticalSuccess": "one-degree-better",
-                            "failure": "one-degree-better",
-                            "success": "one-degree-better"
+                            "all": "one-degree-better"
                         },
                         "key": "AdjustDegreeOfSuccess",
                         "predicate": [
-                            "trap"
+                            "origin:trait:trap"
                         ],
-                        "selector": "saving-throw",
-                        "type": "skill"
+                        "selector": "saving-throw"
                     }
                 ],
                 "slug": null,

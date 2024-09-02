@@ -16,6 +16,7 @@
         "level": {
             "value": 1
         },
+        "maxTakable": 3,
         "prerequisites": {
             "value": []
         },
@@ -55,6 +56,7 @@
                         "value": "tail"
                     }
                 ],
+                "flag": "iruxiArmaments",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.UnarmedAttack",
                 "rollOption": "iruxi-armaments"
@@ -91,11 +93,14 @@
                     }
                 },
                 "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/fangs.webp",
                 "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Fangs",
                 "predicate": [
                     "iruxi-armaments:fangs"
                 ],
                 "range": null,
+                "slug": "fangs",
                 "traits": [
                     "unarmed"
                 ]
@@ -110,7 +115,9 @@
                     }
                 },
                 "group": "brawling",
+                "img": "systems/pf2e/icons/unarmed-attacks/tail.webp",
                 "key": "Strike",
+                "label": "PF2E.BattleForm.Attack.Tail",
                 "predicate": [
                     {
                         "not": "self:effect:shed-tail"
@@ -118,6 +125,7 @@
                     "iruxi-armaments:tail"
                 ],
                 "range": null,
+                "slug": "tail",
                 "traits": [
                     "sweep",
                     "unarmed"

@@ -1,0 +1,74 @@
+{
+    "_id": "3o5tWjDIcfIARHIj",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Oni Weapon Familiarity",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Oni prefer large, cruel weapons for smashing their foes to pieces, and so do you. For the purposes of proficiency, you treat the @UUID[Compendium.pf2e.equipment-srd.Item.Khakkhara], @UUID[Compendium.pf2e.equipment-srd.Item.Nodachi], @UUID[Compendium.pf2e.equipment-srd.Item.Ogre Hook], and @UUID[Compendium.pf2e.equipment-srd.Item.Tetsubo] as simple weapons.</p>\n<p>The ogre hook is an uncommon martial weapon that costs 1 gp, deals 1d10 piercing damage, has 2 Bulk, requires two hands to use, is in the pick weapon group, and has the deadly d10 and trip weapon traits.</p>\n<p>At 5th level, whenever you get a critical hit with one of these weapons, or with your horns unarmed Strike, you get its critical specialization effect.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:base:khakkhara",
+                            "item:base:nodachi",
+                            "item:base:ogre-hook",
+                            "item:base:tetsubo"
+                        ]
+                    },
+                    "item:category:martial"
+                ],
+                "key": "MartialProficiency",
+                "label": "PF2E.SpecificRule.MartialProficiency.MartialOniWeapons",
+                "sameAs": "simple",
+                "slug": "martial-oni-weapons"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "self:level",
+                            5
+                        ]
+                    },
+                    {
+                        "or": [
+                            "item:base:khakkhara",
+                            "item:base:nodachi",
+                            "item:base:ogre-hook",
+                            "item:base:tetsubo",
+                            "hungerseed-horns"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hungerseed"
+            ]
+        }
+    },
+    "type": "feat"
+}

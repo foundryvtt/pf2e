@@ -1,0 +1,195 @@
+{
+    "_id": "aSOgbQWMwStTTmap",
+    "img": "icons/magic/symbols/star-rising-purple.webp",
+    "name": "Catharsis Emotion",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "classfeature",
+        "description": {
+            "value": "<p><strong>Catharsis Trigger</strong> The event or conditions you must meet to take your Catharsis reaction.</p>\n<p><strong>Catharsis Activation</strong> The benefit when you use Catharsis.</p>\n<p><strong>Emotional Fervor</strong> <strong>Benefits</strong> you gain for 3 rounds after you use Catharsis. This entry also lists a spell you're able to cast while in your emotional fervor. You must expend a spell slot to cast it. This slot most be of at least the spell's level, and the spell is automatically heightened to the level of slot you expended.</p>\n<p><strong>Emotional Fallout</strong> The effect you experience when your emotional fervor ends.</p>\n<p><strong>Focus Spell</strong> The focus spell you gain if you select the Cathartic Focus Spell archetype feat.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "mode": "override",
+                "predicate": [
+                    "benefit-love-focus"
+                ],
+                "selector": "will",
+                "slug": "catharsis-emotion-love",
+                "value": 3
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Anger.Label",
+                        "value": "anger"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Awe.Label",
+                        "value": "awe"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Dedication.Label",
+                        "value": "dedication"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Fear.Label",
+                        "value": "fear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Hatred.Label",
+                        "value": "hatred"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Joy.Label",
+                        "value": "joy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Love.Label",
+                        "value": "love"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Misery.Label",
+                        "value": "misery"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Pride.Label",
+                        "value": "pride"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.CatharticMage.Remorse.Label",
+                        "value": "remorse"
+                    }
+                ],
+                "flag": "catharticMageDedication",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.CatharticMage.EmotionalState.Prompt"
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Description"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Trigger",
+                        "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Trigger"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Activation",
+                        "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Activation"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Fervor",
+                        "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Fervor"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Fallout",
+                        "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Fallout"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Focus",
+                        "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Focus"
+                    }
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.emotionalCatharsis.emotion",
+                "value": "{item|flags.pf2e.rulesSelections.catharticMageDedication}"
+            },
+            {
+                "key": "RollOption",
+                "option": "emotional-catharsis:{item|flags.pf2e.rulesSelections.catharticMageDedication}"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.CatharticMage.Love.Toggle",
+                "option": "benefit-love-focus",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "emotional-catharsis:love"
+                ],
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "emotional-catharsis:love"
+                ],
+                "selector": "will",
+                "slug": "catharsis-emotion-love",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "multiply",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "emotional-catharsis:fear"
+                ],
+                "selector": "spell-attack-dc",
+                "slug": "frightened",
+                "value": -1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "emotional-catharsis:joy"
+                ],
+                "selector": "performance",
+                "slug": "catharsis-emotion-joy",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "self:effect:emotional-fervor",
+                    "item:trait:emotion",
+                    "emotional-catharsis:joy"
+                ],
+                "selector": [
+                    "spell-dc",
+                    "spell-attack"
+                ],
+                "slug": "catharsis-emotion-joy-emotion",
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": []
+        }
+    },
+    "type": "feat"
+}

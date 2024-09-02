@@ -1,0 +1,67 @@
+{
+    "_id": "zWbPmIQfv9VTYwwH",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Celestial Cacophony",
+    "system": {
+        "actionType": {
+            "value": "action"
+        },
+        "actions": {
+            "value": 3
+        },
+        "category": "class",
+        "description": {
+            "value": "<p><strong>Access</strong> Tian Xia origin</p><hr /><p>Your weapon contains a detonation chamber that launches fireworks, sparklers, and black powder pellets that sizzle, twist, and scatter on the ground in a cacophonous manner liable to annoy the entire Celestial Court. All creatures in a @Template[type:cone|distance:15] extending from your innovation take @Damage[(ceil(@actor.level/2)-3)d4[fire]] damage and @Damage[(ceil(@actor.level/2)-3)d4[sonic]] damage with a basic Fortitude save against your class DC; both the fire and sonic damage increase by 1d4 at 14th level and every 2 levels thereafter. The area affected by the cone becomes difficult terrain until the start of your next turn. Creatures moving through this area must succeed at a @Check[reflex|against:class] save against your class DC or take @Damage[2d4[persistent,fire]] damage.</p>\n<p><strong>Unstable Function</strong> You rattle your weapon violently to make it belch out even more pyrotechnics. Add the unstable trait to Celestial Cacophony. The area increases to a 30-foot cone, and all damage dice increase from d4s to d8s.</p>"
+        },
+        "level": {
+            "value": 12
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "weapon innovation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Inventor.Unstable.UnstableFunction.Label",
+                "option": "unstable-state",
+                "predicate": [
+                    {
+                        "not": "feature:construct-innovation"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "unstable-state",
+                    "item:celestial-cacophony"
+                ],
+                "property": "traits",
+                "value": "unstable"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "fire",
+                "inventor",
+                "manipulate",
+                "sonic",
+                "visual"
+            ]
+        }
+    },
+    "type": "feat"
+}

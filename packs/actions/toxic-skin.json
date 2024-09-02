@@ -11,7 +11,7 @@
         },
         "category": "defensive",
         "description": {
-            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> A creature touches you, such as by @UUID[Compendium.pf2e.actionspf2e.Item.Grapple]{Grappling} you, successfully hitting you with an unarmed attack, or using a touch-range spell against you</p><hr /><p><strong>Effect</strong> You exude a deadly toxin. The triggering creature takes @Damage[(ceil(@actor.level/2))d4[poison]] damage (@Check[type:fortitude|dc:resolve(@actor.attributes.classOrSpellDC.value)|basic:true] save using your class DC or spell DC, whichever is higher). At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p>"
+            "value": "<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Trigger</strong> A creature touches you, such as by @UUID[Compendium.pf2e.actionspf2e.Item.Grapple]{Grappling} you, successfully hitting you with an unarmed attack, or using a touch-range spell against you</p><hr /><p><strong>Effect</strong> You exude a deadly toxin. The triggering creature takes @Damage[(ceil(@actor.level/2))d4[poison]] damage (@Check[fortitude|against:class-spell|basic] save using your class DC or spell DC, whichever is higher). At 3rd level and every 2 levels thereafter, the damage increases by 1d4.</p>"
         },
         "frequency": {
             "max": 1,
