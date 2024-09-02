@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You have grown more comfortable with your penchant for supernatural disappearance. The flat check DC of your Fortuitous Shift feat decreases to @Check[flat|dc:11]{11}, and you are no longer @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] if you succeed.</p>"
+            "value": "<p>You have grown more comfortable with your penchant for supernatural disappearance. The flat check DC of your Fortuitous Shift feat decreases to @Check[flat|dc:11], and you are no longer @UUID[Compendium.pf2e.conditionitems.Item.Dazzled] if you succeed.</p>"
         },
         "level": {
             "value": 9
@@ -28,7 +28,22 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:unexpected-shift"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
