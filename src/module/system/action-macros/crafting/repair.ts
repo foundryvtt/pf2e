@@ -72,7 +72,7 @@ async function repair(options: RepairActionOptions): Promise<void> {
                 const messageSource = result.message.toObject();
                 const flavor = await (async () => {
                     const proficiencyRank = actor.skills.crafting.rank ?? 0;
-                    const repairValue = actor.system.crafting.repairValue;
+                    const repairValue = actor.system.crafting.repair.value;
                     if ("criticalSuccess" === result.outcome) {
                         const label = "PF2E.Actions.Repair.Labels.RestoreItemHitPoints";
                         const restored = String(repairValue + 5 + proficiencyRank * (repairValue + 5));

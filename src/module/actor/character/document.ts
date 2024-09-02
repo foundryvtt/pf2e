@@ -456,7 +456,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
 
         // Indicate that crafting formulas stored directly on the actor are deletable
-        system.crafting = fu.mergeObject({ formulas: [], entries: {}, repairValue: 5 }, system.crafting ?? {});
+        system.crafting = fu.mergeObject({ formulas: [], entries: {}, repair: { value: 5 } }, system.crafting ?? {});
         for (const formula of this.system.crafting.formulas) {
             formula.deletable = true;
         }
