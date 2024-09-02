@@ -28,7 +28,48 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:paranoia",
+                            "item:slug:shatter",
+                            "item:slug:disguise-magic",
+                            "item:slug:see-the-unseen",
+                            "item:slug:false-vitality",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:paranoia",
+                            "item:slug:shatter",
+                            "item:slug:disguise-magic",
+                            "item:slug:see-the-unseen",
+                            "item:slug:false-vitality",
+                            "item:slug:invisibility"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nephilim"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
