@@ -4,7 +4,7 @@
     "name": "Effect: Starlit Transformation",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Starlit Transformation]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Starlit Transformation]</p>\n<p>Your weapon gains a +1 status bonus to damage rolls. You can fling bolts of starlight from your weapon with a Strike action, using your melee attack modifier with the weapon. These bolts deal 1d4 force damage and have the arcane and force traits.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,7 +20,100 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": {
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.StarlitSentinel.StarlitTransformation.BoltsOfStarlight",
+                "option": "bolts-of-starlight",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-attack",
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.weapon}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "value": "starlit-sentinel-weapon"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "dice:slug:base",
+                    "bolts-of-starlight"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": 4
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "dice:slug:base",
+                    "bolts-of-starlight"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "{item|flags.pf2e.rulesSelections.weapon}-damage"
+                ],
+                "value": "force"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "bolts-of-starlight"
+                ],
+                "property": "traits",
+                "value": "arcane"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "bolts-of-starlight"
+                ],
+                "property": "traits",
+                "value": "force"
+            },
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    "bolts-of-starlight"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
+                "slug": "str",
+                "suppress": true
+            }
+        ],
         "start": {
             "initiative": null,
             "value": 0
