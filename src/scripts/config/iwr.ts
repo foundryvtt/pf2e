@@ -56,6 +56,7 @@ const immunityTypes = {
     fire: "PF2E.Damage.RollFlavor.fire",
     fleeing: "PF2E.Damage.IWR.Type.fleeing",
     force: "PF2E.Damage.RollFlavor.force",
+    "fortune-effects": "PF2E.Damage.IWR.Type.fortune-effects",
     frightened: "PF2E.Damage.IWR.Type.frightened",
     grabbed: "PF2E.Damage.IWR.Type.grabbed",
     healing: "PF2E.Damage.IWR.Type.healing",
