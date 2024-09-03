@@ -28,7 +28,16 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "self:effect:starlit-transformation"
+                ],
+                "selector": "fly",
+                "value": "max(20,@actor.attributes.speed.total)"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
