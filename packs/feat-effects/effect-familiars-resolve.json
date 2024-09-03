@@ -4,7 +4,7 @@
     "name": "Effect: Familiar's Resolve",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Familiar's Resolve]</p>\n<p>You or an ally within 30 feet gain a +2 status bonus to saving throws against effects that would cause you to be doomed or frightened for 1 round. At 14th level, you or an ally gain a +3 status bonus to saving throws against these effects instead.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Familiar's Resolve]</p>\n<p>You gain a status bonus to saving throws against effects that would cause you to be @UUID[Compendium.pf2e.conditionitems.Item.Doomed] or @UUID[Compendium.pf2e.conditionitems.Item.Frightened].</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,9 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "origin:action:trait:fear",
-                            "origin:action:trait:doomed",
-                            "item:slug:doomed"
+                            "inflicts:doomed",
+                            "inflicts:frightened"
                         ]
                     }
                 ],
