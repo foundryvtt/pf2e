@@ -39,43 +39,73 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Anger.Label",
-                        "value": "Anger"
+                        "value": {
+                            "label": "Anger",
+                            "option": "anger"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Awe.Label",
-                        "value": "Awe"
+                        "value": {
+                            "label": "Awe",
+                            "option": "awe"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Dedication.Label",
-                        "value": "Dedication"
+                        "value": {
+                            "label": "Dedication",
+                            "option": "dedication"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Fear.Label",
-                        "value": "Fear"
+                        "value": {
+                            "label": "Fear",
+                            "option": "fear"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Hatred.Label",
-                        "value": "Hatred"
+                        "value": {
+                            "label": "Hatred",
+                            "option": "hatred"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Joy.Label",
-                        "value": "joy"
+                        "value": {
+                            "label": "Joy",
+                            "option": "joy"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Love.Label",
-                        "value": "love"
+                        "value": {
+                            "label": "Love",
+                            "option": "love"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Misery.Label",
-                        "value": "Misery"
+                        "value": {
+                            "label": "Misery",
+                            "option": "misery"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Pride.Label",
-                        "value": "Pride"
+                        "value": {
+                            "label": "Pride",
+                            "option": "pride"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.CatharticMage.Remorse.Label",
-                        "value": "Remorse"
+                        "value": {
+                            "label": "Remorse",
+                            "option": "remorse"
+                        }
                     }
                 ],
                 "flag": "catharticMageDedication",
@@ -89,26 +119,26 @@
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Description"
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Description"
                     },
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Trigger",
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Trigger",
                         "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Trigger"
                     },
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Activation",
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Activation",
                         "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Activation"
                     },
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Fervor",
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Fervor",
                         "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Fervor"
                     },
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Fallout",
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Fallout",
                         "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Fallout"
                     },
                     {
-                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication}.Focus",
+                        "text": "PF2E.SpecificRule.CatharticMage.{item|flags.pf2e.rulesSelections.catharticMageDedication.label}.Focus",
                         "title": "PF2E.SpecificRule.CatharticMage.EmotionalState.Focus"
                     }
                 ]
@@ -121,7 +151,7 @@
             },
             {
                 "key": "RollOption",
-                "option": "emotional-catharsis:{item|flags.pf2e.rulesSelections.catharticMageDedication}"
+                "option": "emotional-catharsis:{item|flags.pf2e.rulesSelections.catharticMageDedication.option}"
             },
             {
                 "domain": "all",
@@ -130,7 +160,7 @@
                 "option": "benefit-love-focus",
                 "predicate": [
                     "self:effect:emotional-fervor",
-                    "emotional-catharsis:Love"
+                    "emotional-catharsis:love"
                 ],
                 "toggleable": true
             },
@@ -139,7 +169,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "self:effect:emotional-fervor",
-                    "emotional-catharsis:Love"
+                    "emotional-catharsis:love"
                 ],
                 "selector": "will",
                 "slug": "catharsis-emotion-love",
@@ -151,7 +181,7 @@
                 "mode": "multiply",
                 "predicate": [
                     "self:effect:emotional-fervor",
-                    "emotional-catharsis:Fear"
+                    "emotional-catharsis:fear"
                 ],
                 "selector": "spell-attack-dc",
                 "slug": "frightened",
@@ -162,7 +192,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     "self:effect:emotional-fervor",
-                    "emotional-catharsis:Joy"
+                    "emotional-catharsis:joy"
                 ],
                 "selector": "performance",
                 "slug": "catharsis-emotion-joy",
@@ -175,7 +205,7 @@
                 "predicate": [
                     "self:effect:emotional-fervor",
                     "item:trait:emotion",
-                    "emotional-catharsis:Joy"
+                    "emotional-catharsis:joy"
                 ],
                 "selector": [
                     "spell-dc",
