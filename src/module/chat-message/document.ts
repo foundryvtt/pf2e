@@ -204,7 +204,7 @@ class ChatMessagePF2e extends ChatMessage {
                 ? [token.texture.src, Math.max(1, token.texture.scaleX)]
                 : [actor.img, 1];
 
-            const image = createHTMLElement("img");
+            const image = document.createElement("img");
             image.alt = actor.name;
             image.src = imageUrl;
             image.style.transform = `scale(${scale})`;
