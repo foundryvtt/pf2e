@@ -199,7 +199,7 @@ class ChatMessagePF2e extends ChatMessage {
         if (actor && header && this.isContentVisible) {
             const token = this.token ?? actor.prototypeToken;
             const useToken =
-                token?.texture?.src && ImageHelper.hasImageExtension(token.texture.src) && !isDefaultTokenImage(token);
+                token.texture.src && ImageHelper.hasImageExtension(token.texture.src) && !isDefaultTokenImage(token);
             const [imageUrl, scale] = useToken
                 ? [token.texture.src, Math.max(1, token.texture.scaleX)]
                 : [actor.img, 1];
