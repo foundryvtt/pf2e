@@ -30,20 +30,33 @@
         },
         "rules": [
             {
+                "adjustName": false,
+                "choices": {
+                    "filter": [
+                        {
+                            "or": [
+                                "item:slug:paranoia",
+                                "item:slug:shatter",
+                                "item:slug:disguise-magic",
+                                "item:slug:see-the-unseen",
+                                "item:slug:false-vitality",
+                                "item:slug:invisibility"
+                            ]
+                        }
+                    ],
+                    "itemType": "spell",
+                    "slugsAsValues": true
+                },
+                "flag": "spell",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpeciciRule.Prompt.Spell"
+            },
+            {
                 "itemType": "spell",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            "item:slug:paranoia",
-                            "item:slug:shatter",
-                            "item:slug:disguise-magic",
-                            "item:slug:see-the-unseen",
-                            "item:slug:false-vitality",
-                            "item:slug:invisibility"
-                        ]
-                    },
+                    "{item|flags.pf2e.rulesSelections.spell}",
                     "spellcasting:innate"
                 ],
                 "property": "other-tags",
@@ -54,16 +67,7 @@
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
-                    {
-                        "or": [
-                            "item:slug:paranoia",
-                            "item:slug:shatter",
-                            "item:slug:disguise-magic",
-                            "item:slug:see-the-unseen",
-                            "item:slug:false-vitality",
-                            "item:slug:invisibility"
-                        ]
-                    },
+                    "{item|flags.pf2e.rulesSelections.spell}",
                     "spellcasting:innate"
                 ],
                 "property": "other-tags",
