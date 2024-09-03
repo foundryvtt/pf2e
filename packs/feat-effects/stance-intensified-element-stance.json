@@ -1,0 +1,156 @@
+{
+    "_id": "EWiuxy4H1mCVcmud",
+    "img": "icons/magic/earth/strike-body-stone-crumble.webp",
+    "name": "Stance: Intensified Element Stance",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Intensified Element Stance]</p>\n<p>Your Strikes and damaging spells deal an additional 1d6 damage against certain creatures, depending on the type of elemental medicine expended. If the person who crafted the elemental medicine expended was legendary in the skill they used, increased this damage to 2d6.</p><ul><li><p><strong>Earth</strong> acid damage against water creatures</p></li><li><p><strong>Fire</strong> fire damage against metal creatures and constructs that are primarily metallic</p></li><li><p><strong>Metal</strong> electricity damage against wood or plant creatures and constructs primarily made of wood or plant matter</p></li><li><p><strong>Water</strong> sonic damage against fire creatures</p></li><li><p><strong>Wood</strong> cold damage against earth creatures and constructs that are primarily made of rock or earth</p></li></ul>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "encounter",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            "prepare-elemental-medicine:earth"
+                        ],
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            "prepare-elemental-medicine:fire"
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "predicate": [
+                            "prepare-elemental-medicine:metal"
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            "prepare-elemental-medicine:water"
+                        ],
+                        "value": "sonic"
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "predicate": [
+                            "prepare-elemental-medicine:wood"
+                        ],
+                        "value": "cold"
+                    }
+                ],
+                "flag": "damageType",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Feat.IntensifiedElementStance.RollOptionLabel",
+                "option": "intensified-element-stance-construct-damage",
+                "predicate": [
+                    {
+                        "or": [
+                            "prepare-elemental-medicine:fire",
+                            "prepare-elemental-medicine:metal",
+                            "prepare-elemental-medicine:wood"
+                        ]
+                    }
+                ],
+                "priority": 51,
+                "toggleable": true
+            },
+            {
+                "damageType": "{item|flags.pf2e.rulesSelections.damageType}",
+                "diceNumber": "ternary(gte(@actor.flags.pf2e.prepareElementalMedicine.skillRank,4),2,1)",
+                "dieSize": "d6",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "prepare-elemental-medicine:earth",
+                                    "target:trait:water"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "prepare-elemental-medicine:fire",
+                                    {
+                                        "or": [
+                                            "target:trait:metal",
+                                            "intensified-element-stance-construct-damage"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "prepare-elemental-medicine:metal",
+                                    {
+                                        "or": [
+                                            "target:trait:plant",
+                                            "target:trait:wood",
+                                            "intensified-element-stance-construct-damage"
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "prepare-elemental-medicine:water",
+                                    "target:trait:fire"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "prepare-elemental-medicine:water",
+                                    {
+                                        "or": [
+                                            "target:trait:earth",
+                                            "intensified-element-stance-construct-damage"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": [
+                    "spell-damage",
+                    "strike-damage"
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
