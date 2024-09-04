@@ -198,11 +198,10 @@ class ChatMessagePF2e extends ChatMessage {
         const header = html?.querySelector("header.message-header");
         if (actor && header && this.isContentVisible) {
             const token = this.token ?? actor.prototypeToken;
-            const useToken =
-                token.texture.src && ImageHelper.hasImageExtension(token.texture.src) && !isDefaultTokenImage(token);
-            const [imageUrl, scale] = useToken
-                ? [token.texture.src, Math.max(1, token.texture.scaleX)]
-                : [actor.img, 1];
+            const [imageUrl, scale] =
+                token.texture.src && ImageHelper.hasImageExtension(token.texture.src) && !isDefaultTokenImage(token)
+                    ? [token.texture.src, Math.max(1, token.texture.scaleX)]
+                    : [actor.img, 1];
 
             const image = document.createElement("img");
             image.alt = actor.name;
@@ -216,9 +215,10 @@ class ChatMessagePF2e extends ChatMessage {
                 image.style.maskImage = `radial-gradient(circle at center, black ${ringPercent}%, rgba(0, 0, 0, 0.2) ${limitPercent}%)`;
             }
 
+            const usedToken = imageUrl === token.texture.src;
             const portrait = createHTMLElement("div", {
                 children: [image],
-                classes: ["portrait", useToken ? "token" : "actor-image"],
+                classes: ["portrait", usedToken ? "token" : "actor-image"],
             });
 
             header.prepend(portrait);
