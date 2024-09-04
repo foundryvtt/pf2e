@@ -30,27 +30,6 @@
         },
         "rules": [
             {
-                "itemType": "spell",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:golden-dragons-bounty",
-                    {
-                        "or": [
-                            "item:damage:bludgeoning",
-                            "item:damage:piercing",
-                            "item:damage:slashing"
-                        ]
-                    }
-                ],
-                "property": "description",
-                "value": [
-                    {
-                        "text": "PF2E.SpecificRule.Spellshape.GoldenDragonsBounty"
-                    }
-                ]
-            },
-            {
                 "key": "RollOption",
                 "label": "PF2E.TraitSpellshape",
                 "mergeable": true,
@@ -66,9 +45,10 @@
             },
             {
                 "alwaysActive": true,
+                "domain": "spell-damage",
                 "key": "RollOption",
-                "label": "PF2E.SpecificRule.Prompt.Trait",
-                "option": "precious-metal",
+                "label": "PF2E.PreciousMaterialLabel",
+                "option": "damage:material",
                 "placement": "spellcasting",
                 "predicate": [
                     "spellshape:golden-dragons-bounty"
@@ -96,44 +76,6 @@
                     }
                 ],
                 "toggleable": true
-            },
-            {
-                "definition": [
-                    "item:trait:cantrip"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:golden-dragons-bounty",
-                    {
-                        "or": [
-                            "item:damage:bludgeoning",
-                            "item:damage:piercing",
-                            "item:damage:slashing"
-                        ]
-                    }
-                ],
-                "property": "materials",
-                "value": "{item|flags.pf2e.rulesSelections.preciousMetal}"
-            },
-            {
-                "definition": [
-                    "item:trait:spell"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "spellshape:golden-dragons-bounty",
-                    {
-                        "or": [
-                            "item:damage:bludgeoning",
-                            "item:damage:piercing",
-                            "item:damage:slashing"
-                        ]
-                    }
-                ],
-                "property": "materials",
-                "value": "{item|flags.pf2e.rulesSelections.preciousMetal}"
             }
         ],
         "traits": {

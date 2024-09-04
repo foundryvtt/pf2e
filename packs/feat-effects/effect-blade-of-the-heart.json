@@ -4,13 +4,13 @@
     "name": "Effect: Blade of the Heart",
     "system": {
         "description": {
-            "value": "<p>Granted @UUID[Compendium.pf2e.feats-srd.Item.Blade of the Heart]</p>\n<p>You plunge your transformed weapon into the heart of a willing adjacent ally, where it phases harmlessly into their body. As you pull the weapon out, your ally's heart inscribes one of the following weapon property runes on your weapon: corrosive, flaming, frost, shock, thundering, or vitalizing.</p>\n<p>At 16th level, you draw the greater version of the rune instead.</p>"
+            "value": "<p>Granted @UUID[Compendium.pf2e.feats-srd.Item.Blade of the Heart]</p>\n<p>Your transformed weapon gains one of the following weapon property runes on your weapon: corrosive, flaming, frost, shock, thundering, or vitalizing.</p>\n<p>At 16th level, you draw the greater version of the rune instead.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
             "value": 1
@@ -21,18 +21,6 @@
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
         "rules": [
-            {
-                "choices": {
-                    "includeHandwraps": true,
-                    "ownedItems": true,
-                    "types": [
-                        "weapon"
-                    ]
-                },
-                "flag": "weapon",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
-            },
             {
                 "choices": [
                     {
@@ -185,12 +173,7 @@
             },
             {
                 "definition": [
-                    {
-                        "or": [
-                            "item:id:{item|flags.pf2e.rulesSelections.weapon}",
-                            "item:category:{item|flags.pf2e.rulesSelections.weapon}"
-                        ]
-                    }
+                    "item:tag:starlit-sentinel-weapon"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
