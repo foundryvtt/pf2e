@@ -1,0 +1,786 @@
+{
+    "_id": "p6ScuVpuqhDJxNie",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "dA9ja4nE5mwYhHh5",
+            "img": "systems/pf2e/icons/equipment/weapons/specific-magic-weapons/bloodletting-kukri.webp",
+            "name": "Bloodletting Kukri",
+            "sort": 100000,
+            "system": {
+                "baseItem": "kukri",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 0.1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This <em>+1 striking kukri</em> has a crimson blade that shimmers eerily in bright light. On a critical hit, the kukri deals 1d8 persistent bleed damage. If the target didn't already have persistent bleed damage when you scored the critical hit, you also gain [[/r 1d8]] temporary Hit Points for 1 minute.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "knife",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 6
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 240
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder GM Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "target:condition:persistent-damage:bleed"
+                            }
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.SpecificRule.BloodlettingKukri.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "bloodletting-kukri",
+                "specific": {
+                    "material": {
+                        "grade": null,
+                        "type": null
+                    },
+                    "runes": {
+                        "potency": 1,
+                        "property": [],
+                        "striking": 1
+                    }
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "uncommon",
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "magical",
+                        "trip"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "pgGlnZE5nJCgD5ig",
+            "img": "icons/weapons/swords/scimitar-worn-blue.webp",
+            "name": "Scimitar",
+            "sort": 200000,
+            "system": {
+                "baseItem": "scimitar",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "bulk": {
+                    "value": 1
+                },
+                "category": "martial",
+                "containerId": null,
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6"
+                },
+                "description": {
+                    "value": "<p>This one-handed curved blade is sharp on one side.</p>"
+                },
+                "equipped": {
+                    "carryType": "worn",
+                    "handsHeld": 0,
+                    "invested": null
+                },
+                "group": "sword",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 1
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "range": null,
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "striking": 1
+                },
+                "size": "med",
+                "slug": "scimitar",
+                "splashDamage": {
+                    "value": 0
+                },
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "type": "weapon"
+        },
+        {
+            "_id": "b29OyuOTEFmiMVeD",
+            "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+            "name": "Leather Armor",
+            "sort": 300000,
+            "system": {
+                "acBonus": 1,
+                "baseItem": "leather-armor",
+                "bulk": {
+                    "value": 1
+                },
+                "category": "light",
+                "checkPenalty": -1,
+                "containerId": null,
+                "description": {
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dexCap": 4,
+                "equipped": {
+                    "carryType": "worn",
+                    "invested": null
+                },
+                "group": "leather",
+                "hardness": 0,
+                "hp": {
+                    "max": 0,
+                    "value": 0
+                },
+                "level": {
+                    "value": 0
+                },
+                "material": {
+                    "grade": null,
+                    "type": null
+                },
+                "price": {
+                    "value": {
+                        "gp": 2
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "quantity": 1,
+                "rules": [],
+                "runes": {
+                    "potency": 1,
+                    "property": [],
+                    "resilient": 0
+                },
+                "size": "med",
+                "slug": "leather-armor",
+                "speedPenalty": 0,
+                "strength": 0,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "armor"
+        },
+        {
+            "_id": "ZKGKmMVNBF8CBnWl",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "dA9ja4nE5mwYhHh5"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Bloodletting Kukri",
+            "sort": 400000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "al1WTaTonPfWOdNy": {
+                        "damage": "2d6+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": "<p>Plus 1d8 persistent bleed on crit. If the target of the critical hit didn't already have persistent bleed damage, Nanaeil also gains 1d8 temporary Hit Points for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "critical": true,
+                        "damageType": "bleed",
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "DamageDice",
+                        "selector": "{item|_id}-damage"
+                    },
+                    {
+                        "key": "Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "predicate": [
+                            {
+                                "not": "target:condition:persistent-damage:bleed"
+                            }
+                        ],
+                        "selector": "{item|_id}-damage",
+                        "text": "PF2E.SpecificRule.BloodlettingKukri.Note",
+                        "title": "{item|name}"
+                    }
+                ],
+                "slug": "bloodletting-kukri",
+                "traits": {
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "wQf6uu8PeB8q6Cib",
+            "flags": {
+                "pf2e": {
+                    "linkedWeapon": "pgGlnZE5nJCgD5ig"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Scimitar",
+            "sort": 500000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 17
+                },
+                "damageRolls": {
+                    "L89PV9Ij3Ryx6JjN": {
+                        "damage": "2d6+7",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": "scimitar",
+                "traits": {
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "QOT0UbjPYnIIySH9",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "+2 on All Saves Against Divine Magic",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "item:trait:divine"
+                        ],
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 2
+                    }
+                ],
+                "slug": "1-status-to-all-saves-vs-magic",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "r0C8GUjKqvNfnURR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Aura of Command",
+            "sort": 700000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>30 feet. As captain of the Pure Legion, Nanaeil bolsters the lower-level legionnaires under his command, granting them a +1 status bonus to their attack rolls and +2 status bonus to their will saves.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "effects": [
+                            {
+                                "affects": "allies",
+                                "predicate": [
+                                    "target:tag:pure-legion"
+                                ],
+                                "uuid": "Compendium.pf2e.bestiary-effects.Item.Effect: Aura of Command"
+                            }
+                        ],
+                        "key": "Aura",
+                        "radius": 30,
+                        "traits": [
+                            "emotion",
+                            "mental"
+                        ]
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "aura",
+                        "emotion",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "jr5CFCk4BfGaQErO",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Dual-Weapon Warrior",
+            "sort": 800000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>Pitros Nanaeil is highly trained in the art of wielding two weapons at once, preferring to wield the <em>+1 striking scimitar</em> in his main hand and the <em>bloodletting kukri</em> in his off-hand.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "2byeGaISmswuUpxU",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "May No Mortal Be Beholden",
+            "sort": 900000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When Captain Nanaeil rolls a success on a save against an effect or spell from the divine tradition, they get a critical success instead.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "adjustment": {
+                            "success": "one-degree-better"
+                        },
+                        "key": "AdjustDegreeOfSuccess",
+                        "predicate": [
+                            "item:trait:divine"
+                        ],
+                        "selector": "saving-throw"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "mTQ6VoPGwh2Y8JOc",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Retributive Strike",
+            "sort": 1000000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.RetributiveStrike]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "Pathfinder Bestiary"
+                },
+                "rules": [],
+                "slug": "retributive-strike",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "liIsPsXqsjby7neR",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Twin Riposte",
+            "sort": 1100000,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature within your reach critically fails to Strike you.</p><hr /><p>A clever parry with one weapon leaves your opponent open to an attack with the other weapon. Make a melee Strike or @UUID[Compendium.pf2e.actionspf2e.Item.Disarm] action against the triggering opponent.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "4LPO8MfLTdkoM9NV",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Double Slice",
+            "sort": 1200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>Nanaeil lashes out at his foe with both weapons. He makes two Strikes, one with each melee weapon, each using his current multiple attack penalty. Both Strikes must have the same target. If both attacks hit, combine their damage, then add any other applicable effects from both weapons. Precision damage is added only once. Combine the damage from both Strikes and apply resistances and weaknesses only once. This counts as two attacks when calculating his multiple attack penalty.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "NQMFcbNx3quS2mgG",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Smite Divine",
+            "sort": 1300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Pure Legion's scimitars have been enchanted specifically to take down divine spellcasters. Melee Strikes against clerics, champions, and other creatures capable of casting divine spells do an additional 2d6 mental damage.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "damageType": "mental",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "DamageDice",
+                        "predicate": [
+                            "target:caster:tradition:divine"
+                        ],
+                        "selector": "strike-damage"
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Captain Pitros Nanaeil",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 3
+            },
+            "con": {
+                "mod": 3
+            },
+            "dex": {
+                "mod": 2
+            },
+            "int": {
+                "mod": 1
+            },
+            "str": {
+                "mod": 4
+            },
+            "wis": {
+                "mod": 0
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 24
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": "+2 on all saves against divine magic"
+            },
+            "hp": {
+                "details": "",
+                "max": 140,
+                "temp": 0,
+                "value": 140
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 25
+            }
+        },
+        "details": {
+            "blurb": "",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 7
+            },
+            "privateNotes": "",
+            "publicNotes": "",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-03: Godsrain in a Godless Land"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 18,
+            "senses": []
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 15
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 18
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 15
+            }
+        },
+        "skills": {
+            "acrobatics": {
+                "base": 11
+            },
+            "athletics": {
+                "base": 15
+            },
+            "diplomacy": {
+                "base": 14
+            },
+            "intimidation": {
+                "base": 17
+            },
+            "society": {
+                "base": 14
+            },
+            "stealth": {
+                "base": 13
+            },
+            "survival": {
+                "base": 11
+            }
+        },
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "aiuvarin",
+                "elf",
+                "human",
+                "humanoid"
+            ]
+        }
+    },
+    "type": "npc"
+}

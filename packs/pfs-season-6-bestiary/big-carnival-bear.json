@@ -1,0 +1,343 @@
+{
+    "_id": "iDDdkl7Q4tKSaOk8",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
+    "items": [
+        {
+            "_id": "IJhY1kNU4OIS7fL4",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "system": {
+                "attackEffects": {
+                    "value": []
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "qxw1q3m9vgbanw3w7dlp": {
+                        "damage": "2d8+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "p51DG64tQvgJwgyu",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "Claw",
+            "sort": 200000,
+            "system": {
+                "attackEffects": {
+                    "value": [
+                        "grab"
+                    ]
+                },
+                "bonus": {
+                    "value": 10
+                },
+                "damageRolls": {
+                    "6j9m9maszhvs1yn7ucuq": {
+                        "damage": "1d10+3",
+                        "damageType": "slashing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": [
+                        "agile"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "UImzHQZgpKz2aCta",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Somewhat Less Trained",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>The big carnival bear isn't well trained yet, though it might occasionally respond to commands. Whatever its current attitude, use the following degrees of success instead of the usual check results for attempts to @UUID[Compendium.pf2e.actionspf2e.Item.Command an Animal] against the big carnival bear.</p><hr /><p><strong>Critical Success</strong> The bear does as commanded on its next turn.</p>\n<p><strong>Success</strong> The bear acts normally (as determined by the GM) on its next turn.</p>\n<p><strong>Failure</strong> The bear attacks the creature attempting to command it on its next turn.</p>\n<p><strong>Critical Failure</strong> The bear attacks the creature attempting to command it on its next turn, and becomes immune to Command an Animal for 1 minute.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "Emupr9krjKNn5xjb",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Not So Gentle Mauler",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The big carnival bear gains a +2 circumstance bonus to damage rolls against creatures it has @UUID[Compendium.pf2e.conditionitems.Item.Grabbed]. After damaging a creature it has grabbed, it automatically releases it from its grip, but also knocks the creature @UUID[Compendium.pf2e.conditionitems.Item.Prone] unless the target succeeds at a @Check[fortitude|dc:20] save.</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [
+                    {
+                        "domain": "damage",
+                        "key": "RollOption",
+                        "option": "mauler",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "mauler"
+                        ],
+                        "selector": "strike-damage",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "lN9hEunTXVI3YGXA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Rush",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The big carnival bear Strides and makes a Strike at the end of that movement. During the Stride, the bear gains a +10-foot circumstance bonus to its Speed.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rush",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rush"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "M7sBCYj1yfPikRDu",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 600000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Grab]</p>"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Monster Core"
+                },
+                "rules": [],
+                "slug": "grab",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Big Carnival Bear",
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": -2
+            },
+            "con": {
+                "mod": 5
+            },
+            "dex": {
+                "mod": 1
+            },
+            "int": {
+                "mod": -4
+            },
+            "str": {
+                "mod": 3
+            },
+            "wis": {
+                "mod": 1
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 18
+            },
+            "adjustment": null,
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 59,
+                "temp": 0,
+                "value": 59
+            },
+            "speed": {
+                "otherSpeeds": [],
+                "value": 35
+            }
+        },
+        "details": {
+            "blurb": "Variant grizzly bear",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 3
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>This large and powerful omnivore inhabits forested hills. While it typically sustains itself on nuts, berries, fish, and small mammals, it's fiercely territorial and will chase off or kill any creature it views as competition. Grizzly bears are especially temperamental when their young are nearby. In combat, a grizzly bear often attempts to grab and maul its foe with surprising ferocity. It continues its assault until its foe seems like it is no longer a threat, though if the bear is hungry, it will not hesitate to feed.</p>\n<hr />\n<p>Bears are ferocious predators typically found in cold or temperate woodlands and hills. Many species of bear exist in addition to the two presented below, such as the smaller black bear or the arctic-dwelling polar bear.</p>",
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder Society Scenario #6-04: An Enkindled Carnival"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 10,
+            "senses": [
+                {
+                    "type": "low-light-vision"
+                },
+                {
+                    "acuity": "imprecise",
+                    "range": 30,
+                    "type": "scent"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 6
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 8
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 10
+            },
+            "survival": {
+                "base": 8
+            }
+        },
+        "traits": {
+            "rarity": "uncommon",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "animal"
+            ]
+        }
+    },
+    "type": "npc"
+}

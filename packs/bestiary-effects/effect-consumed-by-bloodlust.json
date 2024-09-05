@@ -1,0 +1,60 @@
+{
+    "_id": "l9sm9MVVzWlx010m",
+    "img": "icons/magic/unholy/projectile-helix-blood-red.webp",
+    "name": "Effect: Consumed by Bloodlust",
+    "system": {
+        "description": {
+            "value": "<p>Blackfingers gains a +2 status bonus to attacks and damage with his dagger, but is @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]{Stupefied 2}.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": ""
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": [
+                    "dagger-attack-roll",
+                    "dagger-damage"
+                ],
+                "type": "status",
+                "value": 2
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "override",
+                        "property": "badge-value",
+                        "value": 2
+                    }
+                ],
+                "key": "GrantItem",
+                "onDeleteActions": {
+                    "grantee": "restrict"
+                },
+                "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
