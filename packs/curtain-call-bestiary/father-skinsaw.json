@@ -793,10 +793,43 @@
             "type": "action"
         },
         {
+            "_id": "Teg14zf8EYlHyLCu",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Bloodletting",
+            "sort": 1400000,
+            "system": {
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> Father Skinsaw is adjacent to a creature that takes persistent bleed damage</p>\n<p><strong>Frequency</strong> once per round</p><hr /><p><strong>Effect</strong> Blood writhes from the bleeding creature to splash onto Father Skinsaw, granting him 40 temporary Hit Points for 1 minute.</p>\n<p>@UUID[Compendium.pf2e.bestiary-effects.Item.Effect: Bloodletting]</p>"
+                },
+                "frequency": {
+                    "max": 1,
+                    "per": "round"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
             "_id": "tzTWyDyfjWcFnju0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Cut Across Space",
-            "sort": 1400000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -829,7 +862,7 @@
             "_id": "D7OsfWfLYguu1oWO",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Grievous Cut",
-            "sort": 1500000,
+            "sort": 1600000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -839,7 +872,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Father Skinsaw attempts a war razor Strike against an adjacent target. If he hits, the blade cuts deep and creates a grievous wound. In addition to the normal damage caused by the attack, the creature struck takes 4d6 persistent bleed damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1} (or increases the value of an existing wounded condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 4}.</p>"
+                    "value": "<p>Father Skinsaw attempts a war razor Strike against an adjacent target. If he hits, the blade cuts deep and creates a grievous wound. In addition to the normal damage caused by the attack, the creature struck takes @Damage[4d6[bleed]] damage and becomes @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 1} (or increases the value of an existing wounded condition by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.Wounded]{Wounded 4}.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -875,7 +908,7 @@
             "_id": "KiwSTKZTQRe0Yzt9",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1600000,
+            "sort": 1700000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -923,7 +956,7 @@
             "_id": "JNuHG1jS3Se1DI1X",
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Norgorber Lore",
-            "sort": 1700000,
+            "sort": 1800000,
             "system": {
                 "description": {
                     "value": ""
@@ -1002,6 +1035,16 @@
                 {
                     "exceptions": [],
                     "type": "detection"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "cold-iron"
+                    ],
+                    "type": "physical",
+                    "value": 15
                 }
             ],
             "speed": {

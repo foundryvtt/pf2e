@@ -32,8 +32,8 @@
                 "slots": {},
                 "slug": null,
                 "spelldc": {
-                    "dc": 40,
-                    "value": 32
+                    "dc": 42,
+                    "value": 34
                 },
                 "tradition": {
                     "value": "occult"
@@ -43,9 +43,9 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "h4OX3Y0GYxRMbFUJ",
-            "img": "systems/pf2e/icons/spells/possession.webp",
-            "name": "Possession",
+            "_id": "42SChq5jZWt9pFAH",
+            "img": "systems/pf2e/icons/spells/weird.webp",
+            "name": "Phantasmagoria",
             "sort": 200000,
             "system": {
                 "area": null,
@@ -53,6 +53,83 @@
                     "value": ""
                 },
                 "counteraction": false,
+                "damage": {
+                    "1pyYgYlbN6qQ6aOV": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "16d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You fill the targets' minds with endless images, like countless dreams and lives colliding with each other. The onrushing information deals @Damage[16d6[mental]] damage to each target, depending on its Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and can't use reactions until the start of your next turn.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Confused] until the start of your next turn.</p>\n<p><strong>Critical Failure</strong> The target takes double damage and is confused for 1 minute.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "level": {
+                    "value": 9
+                },
+                "location": {
+                    "heightenedLevel": 9,
+                    "value": "vWhXrDJN3LLYXmxF"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "phantasmagoria",
+                "target": {
+                    "value": "any number of creatures"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "illusion",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "P7bamPIAcLHSHtCf",
+            "img": "systems/pf2e/icons/spells/warp-mind.webp",
+            "name": "Warp Mind",
+            "sort": 300000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": true,
                 "damage": {},
                 "defense": {
                     "save": {
@@ -61,21 +138,306 @@
                     }
                 },
                 "description": {
-                    "value": "<p>You send your mind and soul into the target's body, attempting to take control. The target must attempt a Will save. If you want to exert less control over the target, you can choose to use the effects of any degree of success more favorable to the target.</p>\n<p>While you're possessing a target, your own body is @UUID[Compendium.pf2e.conditionitems.Item.Unconscious] and can't wake up normally. You can sense everything the possessed target does. You can Dismiss this spell. If the possessed body dies, the spell ends and you must succeed at a Fortitude save against your spell DC or be @UUID[Compendium.pf2e.conditionitems.Item.Paralyzed] for 1 hour, or 24 hours on a critical failure. If the spell ends during an encounter, you act just before the possessed creature's initiative.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> You possess the target but can't control it. You ride along in the body while the spell lasts.</p>\n<p><strong>Failure</strong> You possess the target and take partial control of it. You no longer have a separate turn; instead, you might control the target. At the start of each of the target's turns, it attempts another Will save. If it fails, it's controlled by you on that turn; if it succeeds, it chooses its own actions; and if it critically succeeds, it forces you out and the spell ends.</p>\n<p><strong>Critical Failure</strong> You possess the target fully, and it can only watch as you manipulate it like a puppet. The target is controlled by you.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> The duration is 10 minutes, and you can physically enter the creature's body, protecting your physical body while the spell lasts.</p>"
+                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] and other effects that counteract spells can't counteract them. However, @UUID[Compendium.pf2e.spells-srd.Item.Wish] rituals and abilities that can remove non-magical effects can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @UUID[Compendium.pf2e.conditionitems.Item.Confused] condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
                 },
                 "duration": {
                     "sustained": false,
-                    "value": "1 minute"
+                    "value": ""
                 },
                 "level": {
                     "value": 7
                 },
                 "location": {
-                    "heightenedLevel": 9,
-                    "uses": {
-                        "max": 3,
-                        "value": 3
+                    "heightenedLevel": 7,
+                    "value": "vWhXrDJN3LLYXmxF"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "warp-mind",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "emotion",
+                        "incapacitation",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "vVQpbHETK71aqhiq",
+            "img": "systems/pf2e/icons/spells/phantasmal-killer.webp",
+            "name": "Vision of Death",
+            "sort": 400000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "8d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "mental"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": false,
+                        "statistic": "will"
+                    }
+                },
+                "description": {
+                    "value": "<p>You force the target to see a vision of its own death. It takes @Damage[8d6[mental]] damage with a Will save. If the target is reduced to 0 HP by this spell, its vision becomes reality and kills it instantly.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes half damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes full damage and is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 4} and is @UUID[Compendium.pf2e.conditionitems.Item.Fleeing] for as long as it's frightened.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "2d6"
                     },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "heightenedLevel": 8,
+                    "value": "vWhXrDJN3LLYXmxF"
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "120 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "vision-of-death",
+                "target": {
+                    "value": "1 living creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "concentrate",
+                        "death",
+                        "emotion",
+                        "fear",
+                        "manipulate",
+                        "mental"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "LRtJuH81o1G3hWoS",
+            "img": "systems/pf2e/icons/spells/telekinetic-projectile.webp",
+            "name": "Telekinetic Projectile",
+            "sort": 500000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d6",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "untyped"
+                    }
+                },
+                "defense": null,
+                "description": {
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack roll against the target. If you hit, you deal 2d6 bludgeoning, piercing, or slashing damage—as appropriate for the object you hurled. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr />\n<p><strong>Critical Success</strong> You deal double damage.</p>\n<p><strong>Success</strong> You deal full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d6.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d6"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "vWhXrDJN3LLYXmxF"
+                },
+                "overlays": {
+                    "2I469pfbYcmFvzOA": {
+                        "_id": "2I469pfbYcmFvzOA",
+                        "name": "Telekinetic Projectile (Bludgeoning)",
+                        "overlayType": "override",
+                        "sort": 1,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "type": "bludgeoning"
+                                }
+                            }
+                        }
+                    },
+                    "cUFX7ExSLeoa3vIF": {
+                        "_id": "cUFX7ExSLeoa3vIF",
+                        "name": "Telekinetic Projectile (Piercing)",
+                        "overlayType": "override",
+                        "sort": 2,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "type": "piercing"
+                                }
+                            }
+                        }
+                    },
+                    "zFWsMjoeCnLxqJaV": {
+                        "_id": "zFWsMjoeCnLxqJaV",
+                        "name": "Telekinetic Projectile (Slashing)",
+                        "overlayType": "override",
+                        "sort": 3,
+                        "system": {
+                            "damage": {
+                                "0": {
+                                    "category": null,
+                                    "type": "slashing"
+                                }
+                            }
+                        }
+                    }
+                },
+                "publication": {
+                    "license": "ORC",
+                    "remaster": true,
+                    "title": "Pathfinder Player Core"
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "requirements": "",
+                "rules": [],
+                "slug": "telekinetic-projectile",
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traits": {
+                    "rarity": "common",
+                    "traditions": [
+                        "arcane",
+                        "occult"
+                    ],
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "concentrate",
+                        "manipulate"
+                    ]
+                }
+            },
+            "type": "spell"
+        },
+        {
+            "_id": "rf2MzKQCoE0smpvW",
+            "img": "systems/pf2e/icons/spells/chill-touch.webp",
+            "name": "Void Warp",
+            "sort": 600000,
+            "system": {
+                "area": null,
+                "cost": {
+                    "value": ""
+                },
+                "counteraction": false,
+                "damage": {
+                    "0": {
+                        "applyMod": false,
+                        "category": null,
+                        "formula": "2d4",
+                        "kinds": [
+                            "damage"
+                        ],
+                        "materials": [],
+                        "type": "void"
+                    }
+                },
+                "defense": {
+                    "save": {
+                        "basic": true,
+                        "statistic": "fortitude"
+                    }
+                },
+                "description": {
+                    "value": "<p>You call upon the Void to harm life force. The target takes 2d4 void damage with a basic Fortitude save. On a critical failure, the target is also @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled]{Enfeebled 1} until the start of your next turn.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
+                },
+                "duration": {
+                    "sustained": false,
+                    "value": ""
+                },
+                "heightening": {
+                    "damage": {
+                        "0": "1d4"
+                    },
+                    "interval": 1,
+                    "type": "interval"
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
                     "value": "vWhXrDJN3LLYXmxF"
                 },
                 "publication": {
@@ -88,7 +450,7 @@
                 },
                 "requirements": "",
                 "rules": [],
-                "slug": "possession",
+                "slug": "void-warp",
                 "target": {
                     "value": "1 living creature"
                 },
@@ -96,16 +458,17 @@
                     "value": "2"
                 },
                 "traits": {
-                    "rarity": "uncommon",
+                    "rarity": "common",
                     "traditions": [
+                        "arcane",
+                        "divine",
                         "occult"
                     ],
                     "value": [
+                        "cantrip",
                         "concentrate",
-                        "incapacitation",
                         "manipulate",
-                        "mental",
-                        "possession"
+                        "void"
                     ]
                 }
             },
@@ -115,7 +478,7 @@
             "_id": "YAYSeSimuytbWXUF",
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
-            "sort": 300000,
+            "sort": 700000,
             "system": {
                 "attackEffects": {
                     "value": []
@@ -124,13 +487,13 @@
                     "value": 35
                 },
                 "damageRolls": {
-                    "A4jEUXMyFRNYKnt8": {
-                        "damage": "4d6",
-                        "damageType": "spirit"
-                    },
                     "gEZOMTRe13OHQbHw": {
                         "damage": "4d6+10",
                         "damageType": "slashing"
+                    },
+                    "z6EZb6vlLhRy2ccB": {
+                        "damage": "4d6",
+                        "damageType": "spirit"
                     }
                 },
                 "description": {
@@ -157,7 +520,7 @@
             "_id": "Hx1L4VMSiPUJNWbW",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Backward Speakers",
-            "sort": 400000,
+            "sort": 800000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -186,7 +549,7 @@
             "_id": "HYtlE21oST6qU6J4",
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Void Healing",
-            "sort": 500000,
+            "sort": 900000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -223,7 +586,7 @@
             "_id": "XF05mjBx5z4Z6FYL",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Come Out, You Cowards!",
-            "sort": 600000,
+            "sort": 1000000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -255,7 +618,7 @@
             "_id": "sR29kLYxvKZkQWE3",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Distort Perception",
-            "sort": 700000,
+            "sort": 1100000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -288,7 +651,7 @@
             "_id": "Y72R1RbURKO0JsrR",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Predestined Defeat",
-            "sort": 800000,
+            "sort": 1200000,
             "system": {
                 "actionType": {
                     "value": "reaction"
@@ -319,7 +682,7 @@
             "_id": "MHNigTiEfg1SgrT0",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Reaction Reversal",
-            "sort": 900000,
+            "sort": 1300000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -348,7 +711,7 @@
             "_id": "zPQlfR1Hg26krjPd",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Temporal Possession",
-            "sort": 1000000,
+            "sort": 1400000,
             "system": {
                 "actionType": {
                     "value": "passive"
@@ -377,7 +740,7 @@
             "_id": "fQu0yUD2r9nf6RCk",
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Undo Destruction",
-            "sort": 1100000,
+            "sort": 1500000,
             "system": {
                 "actionType": {
                     "value": "action"
@@ -387,7 +750,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42] save. The Risen Nemesis cannot use Undo Destruction again for [[/br 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]]{4d10 for each damage type} and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]]{8d10 for each damage type} and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 42). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
+                    "value": "<p>Destruction is the beginning, not the end! The Risen Nemesis rewinds time on a pile of rubble that they can see within 120 feet, causing the rubble in a @Template[type:burst|distance:10] to restore itself to its pre-destroyed state and causing the area to no longer serve as difficult terrain. All creatures in the area must make a @Check[reflex|dc:42] save. The Risen Nemesis cannot use Undo Destruction again for [[/br 1d4 #rounds]]{1d4 rounds}.</p><hr /><p><strong>Critical Success</strong> The creature avoids being harmed by the violence of the repairs.</p>\n<p><strong>Success</strong> The creature takes @Damage[2d10[bludgeoning],2d10[piercing],2d10[slashing]]{2d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage as pieces of rubble bash, slice, and pierce them while it swirls through the air to rebuild.</p>\n<p><strong>Failure</strong> As success but @Damage[4d10[bludgeoning],4d10[piercing],4d10[slashing]]{4d10 bludgeoning, 2d10 piercing, and 2d10 slashing} damage and the creature is knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<p><strong>Critical Failure</strong> As failure but @Damage[8d10[bludgeoning],8d10[piercing],8d10[slashing]]{8d10 bludgeoning, 8d10 piercing, and 8d10 slashing} damage and the target is carried away with the rubble. They become @UUID[Compendium.pf2e.conditionitems.Item.Restrained] by the rebuilt structure (usually the wall or floor within the rubble pile or closest to it; @UUID[Compendium.pf2e.actionspf2e.Item.Escape] DC 42). The restrained character might be so encased in rubble that they run the risk of suffocation.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -515,9 +878,13 @@
             "statistic": "perception"
         },
         "perception": {
-            "details": "darkvision",
+            "details": "",
             "mod": 35,
-            "senses": []
+            "senses": [
+                {
+                    "type": "greater-darkvision"
+                }
+            ]
         },
         "resources": {},
         "saves": {
