@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p><strong>Requirements</strong> You have a foe @UUID[Compendium.pf2e.conditionitems.Item.Grabbed].</p><hr /><p>Your armor includes flame-resistant gauntlets with oil-filled finger joints. These joints can split apart, dousing your opponent in flammable oil and then igniting it. The opponent must attempt a @Check[reflex|against:class] save against your class DC.</p><hr /><p><strong>Critical Success</strong> The grab ends.</p>\n<p><strong>Success</strong> The grab ends, and the target takes 1 persistent fire damage.</p>\n<p><strong>Failure</strong> The target takes persistent fire damage equal to half your level.</p>\n<p><strong>Critical Failure</strong> The target takes persistent fire damage equal to your level.</p>"
+            "value": "<p><strong>Requirements</strong> You have a foe @UUID[Compendium.pf2e.conditionitems.Item.Grabbed].</p><hr /><p>Your armor includes flame-resistant gauntlets with oil-filled finger joints. These joints can split apart, dousing your opponent in flammable oil and then igniting it. The opponent must attempt a @Check[reflex|against:inventor] save against your class DC.</p><hr /><p><strong>Critical Success</strong> The grab ends.</p>\n<p><strong>Success</strong> The grab ends, and the target takes @Damage[1[persistent,fire]] damage.</p>\n<p><strong>Failure</strong> The target takes @Damage[(floor(@actor.level/2))[persistent,fire]] damage equal to half your level.</p>\n<p><strong>Critical Failure</strong> The target takes @Damage[(@actor.level)[persistent,fire]] damage equal to your level.</p>"
         },
         "level": {
             "value": 2
