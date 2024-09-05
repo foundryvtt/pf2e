@@ -6,6 +6,7 @@ import type {
     PointSoundSource,
     PointVisionSource,
 } from "../client-esm/canvas/sources/module.ts";
+import type { TokenRingConfig } from "../client-esm/canvas/tokens/module.ts";
 import type * as terms from "../client-esm/dice/terms/module.d.ts";
 import abstract = foundry.abstract;
 import data = foundry.data;
@@ -316,6 +317,7 @@ declare global {
             documentClass: ConstructorOf<TTokenDocument>;
             objectClass: ConstructorOf<NonNullable<TTokenDocument["object"]>>;
             prototypeSheetClass: ConstructorOf<TTokenDocument["sheet"]>;
+            ring: TokenRingConfig;
         };
 
         /** Configuration for the Wall embedded document type and its representation on the game Canvas */
