@@ -198,11 +198,21 @@ class ChatMessagePF2e extends ChatMessage {
         const header = html?.querySelector("header.message-header");
         if (actor && header && this.isContentVisible) {
             const token = this.token ?? actor.prototypeToken;
-            const useToken =
-                token.texture.src && ImageHelper.hasImageExtension(token.texture.src) && !isDefaultTokenImage(token);
-            const [imageUrl, scale] = useToken
-                ? [token.texture.src, Math.max(1, token.texture.scaleX)]
-                : [actor.img, 1];
+
+            const [imageUrl, scale] = (() => {
+                const tokenImage = token.texture.src;
+                const hasTokenImage = tokenImage && ImageHelper.hasImageExtension(tokenImage);
+                if (!hasTokenImage || isDefaultTokenImage(token)) {
+                    return [actor.img, 1];
+                }
+
+                // Calculate the correction factor for dynamic tokens.
+                // Prototype tokens do not have access to subjectScaleAdjustment so we recompute using default values
+                const defaultRingThickness = 0.1269848;
+                const defaultSubjectThickness = 0.6666666;
+                const scaleCorrection = token.ring.enabled ? 1 / (defaultRingThickness + defaultSubjectThickness) : 1;
+                return [tokenImage, Math.max(1, token.texture.scaleX) * scaleCorrection];
+            })();
 
             const image = document.createElement("img");
             image.alt = actor.name;
@@ -216,9 +226,10 @@ class ChatMessagePF2e extends ChatMessage {
                 image.style.maskImage = `radial-gradient(circle at center, black ${ringPercent}%, rgba(0, 0, 0, 0.2) ${limitPercent}%)`;
             }
 
+            const usedToken = imageUrl === token.texture.src;
             const portrait = createHTMLElement("div", {
                 children: [image],
-                classes: ["portrait", useToken ? "token" : "actor-image"],
+                classes: ["portrait", usedToken ? "token" : "actor-image"],
             });
 
             header.prepend(portrait);

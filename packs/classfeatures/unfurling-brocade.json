@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>You disdain others' reliance on crude contrivances of iron, instead favoring the elegance of fabric, with thread and brocade your panoply. Your mastery of qinggong allows qi-infused fabric to tear flesh, bind blades, and pierce steel.</p>\n<p>You can create a special weapon, qi-infused fabric, by Interacting to grip a length of cloth of 1 Bulk or less and filling it with your qi. If you Interact to draw the object, you can do this as part of that action. For most unfurling brocade magi, this item is a scarf, sash, ribbon, or a similarly voluminous article of worn clothing, such as long sleeves. You can use the fabric as a bladed scarf. Unlike a normal bladed scarf, you have the option to wield the fabric in one hand instead of two. Its damage die is d4 if held in one hand. If you're wearing handwraps of mighty blows, you can apply any of its runes to the fabric, provided those runes could be added to a bladed scarf. This begins when you wield the fabric and ends when you cease doing so.</p>\n<p>While in Arcane Cascade stance, the magical energy flowing through your fabric partially animates it to accomplish an even greater range of tricks.</p><ul><li><p>If you critically succeed at an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], you can spend a single action immediately afterward to flick your fabric, causing the disarmed object to fall to the ground in your space rather than in your opponent's.</p></li><li><p>Your fabric gains the grapple trait. If you succeed at an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] using your fabric, you can spend a single action immediately afterward to pull the creature 5 feet toward you.</p></li><li><p>When you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a foe using your fabric, the target can be two sizes larger than you instead of one.</p></li></ul><p><strong>Conflux Spell</strong>@UUID[Compendium.pf2e.spells-srd.Item.Home Among Mulberry Leaves]</p>"
+            "value": "<p>You disdain others' reliance on crude contrivances of iron, instead favoring the elegance of fabric, with thread and brocade your panoply. Your mastery of qinggong allows qi-infused fabric to tear flesh, bind blades, and pierce steel.</p>\n<p>You can create a special weapon, qi-infused fabric, by Interacting to grip a length of cloth of 1 Bulk or less and filling it with your qi. If you Interact to draw the object, you can do this as part of that action. For most unfurling brocade magi, this item is a scarf, sash, ribbon, or a similarly voluminous article of worn clothing, such as long sleeves. You can use the fabric as a @UUID[Compendium.pf2e.equipment-srd.Item.Bladed Scarf]. Unlike a normal bladed scarf, you have the option to wield the fabric in one hand instead of two. Its damage die is d4 if held in one hand. If you're wearing @UUID[Compendium.pf2e.equipment-srd.Item.Handwraps of Mighty Blows], you can apply any of its runes to the fabric, provided those runes could be added to a bladed scarf. This begins when you wield the fabric and ends when you cease doing so.</p>\n<p>While in @UUID[Compendium.pf2e.actionspf2e.Item.Arcane Cascade] stance, the magical energy flowing through your fabric partially animates it to accomplish an even greater range of tricks.</p><ul><li><p>If you critically succeed at an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Disarm], you can spend a single action immediately afterward to flick your fabric, causing the disarmed object to fall to the ground in your space rather than in your opponent's.</p></li><li><p>Your fabric gains the grapple trait. If you succeed at an Athletics check to @UUID[Compendium.pf2e.actionspf2e.Item.Grapple] using your fabric, you can spend a single action immediately afterward to pull the creature 5 feet toward you.</p></li><li><p>When you attempt to @UUID[Compendium.pf2e.actionspf2e.Item.Trip] a foe using your fabric, the target can be two sizes larger than you instead of one.</p></li></ul><p><strong>Conflux Spell</strong> @UUID[Compendium.pf2e.spells-srd.Item.Home Among Mulberry Leaves]</p>"
         },
         "level": {
             "value": 1
@@ -24,7 +24,26 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Magus.UnfurlingBrocade.QiInfusedFabric.Label",
+                "option": "qi-infused-fabric",
+                "toggleable": true
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:base:bladed-scarf",
+                    "self:effect:arcane-cascade",
+                    "qi-infused-fabric"
+                ],
+                "property": "traits",
+                "value": "grapple"
+            }
+        ],
         "traits": {
             "otherTags": [
                 "magus-hybrid-study"

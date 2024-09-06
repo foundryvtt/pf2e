@@ -324,7 +324,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
                     case "opposition":
                         return "systems/pf2e/icons/default-icons/alternatives/nath/enemy.webp";
                     default:
-                        return token.texture.src;
+                        return token.texture.src ?? CONST.DEFAULT_TOKEN;
                 }
             })();
         } else if (isDefaultTokenImage(token)) {
