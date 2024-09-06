@@ -1,0 +1,147 @@
+{
+    "_id": "U6BAwYT5iC8cmBDG",
+    "img": "icons/skills/melee/shield-block-fire-orange.webp",
+    "name": "Effect: Elemental Bulwark",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Elemental Bulwark]</p>\n<p>You gain resistance against the triggering damage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Ancestry Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAir",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:air"
+                                ]
+                            }
+                        ],
+                        "value": "air"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "predicate": [
+                            {
+                                "not": "feat:dualborn"
+                            }
+                        ],
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "predicate": [
+                            {
+                                "not": "feat:dualborn"
+                            }
+                        ],
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:earth"
+                                ]
+                            }
+                        ],
+                        "value": "earth"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:fire"
+                                ]
+                            }
+                        ],
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    {
+                                        "not": "feat:dualborn"
+                                    },
+                                    "dualborn:water"
+                                ]
+                            }
+                        ],
+                        "value": "water"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.elementalBulwark.value",
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.elementalBulwark.value",
+                "predicate": [
+                    "feat:improved-elemental-bulwark"
+                ],
+                "value": 5
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.elementalBulwark.value",
+                "predicate": [
+                    "feat:dualborn"
+                ],
+                "value": "floor(@actor.level/2)"
+            },
+            {
+                "key": "Resistance",
+                "type": "{item|flags.pf2e.rulesSelections.element}",
+                "value": "{actor|flags.pf2e.elementalBulwark.value}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
