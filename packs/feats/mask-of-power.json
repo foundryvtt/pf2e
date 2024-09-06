@@ -28,7 +28,51 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "mask-of-power",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Fear.Label",
+                        "value": "fear"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.PhantomPain.Label",
+                        "value": "phantom-pain"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.SureStrike.Label",
+                        "value": "sure-strike"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.maskOfPower}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.maskOfPower}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:orc"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

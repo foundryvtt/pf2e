@@ -32,7 +32,40 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Impossible Lands"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:dispel-magic",
+                            "item:slug:reapers-lantern"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:dispel-magic",
+                            "item:slug:reapers-lantern"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:nephilim"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

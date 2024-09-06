@@ -24,7 +24,51 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "option": "kitsune-spell-familiarity",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Daze.Label",
+                        "value": "daze"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.ForbiddingWard.Label",
+                        "value": "forbidding-ward"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.GhostSound.Label",
+                        "value": "ghost-sound"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.kitsuneSpellFamiliarity}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.kitsuneSpellFamiliarity}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kitsune"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

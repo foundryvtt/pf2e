@@ -24,7 +24,156 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ganzi.AnarchicArcana.FirstSpell",
+                "option": "anarchic-arcana-first-spell",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spell.AcidArrow.Label",
+                        "value": "acid-arrow"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Blur.Label",
+                        "value": "blur"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.LaughingFit.Label",
+                        "value": "laughing-fit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.HumanoidForm.Label",
+                        "value": "humanoid-form"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.IllusoryObject.Label",
+                        "value": "illusory-object"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.MirrorImage.Label",
+                        "value": "mirror-image"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.ResistEnergy.Label",
+                        "value": "resist-energy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.SeeTheUnseen.Label",
+                        "value": "see-the-unseen"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Shatter.Label",
+                        "value": "shatter"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.NoiseBlast.Label",
+                        "value": "noise-blast"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.GeckoGrip.Label",
+                        "value": "gecko-grip"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.TelekineticManeuver.Label",
+                        "value": "telekinetic-maneuver"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Ganzi.AnarchicArcana.SecondSpell",
+                "option": "anarchic-arcana-second-spell",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Spell.AcidArrow.Label",
+                        "value": "acid-arrow"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Blur.Label",
+                        "value": "blur"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.LaughingFit.Label",
+                        "value": "laughing-fit"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.HumanoidForm.Label",
+                        "value": "humanoid-form"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.IllusoryObject.Label",
+                        "value": "illusory-object"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.MirrorImage.Label",
+                        "value": "mirror-image"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.ResistEnergy.Label",
+                        "value": "resist-energy"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.SeeTheUnseen.Label",
+                        "value": "see-the-unseen"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.Shatter.Label",
+                        "value": "shatter"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.NoiseBlast.Label",
+                        "value": "noise-blast"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.GeckoGrip.Label",
+                        "value": "gecko-grip"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Spell.TelekineticManeuver.Label",
+                        "value": "telekinetic-maneuver"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:{item|flags.pf2e.rulesSelections.anarchicArcanaFirstSpell}",
+                            "item:slug:{item|flags.pf2e.rulesSelections.anarchicArcanaSecondSpell}"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:{item|flags.pf2e.rulesSelections.anarchicArcanaFirstSpell}",
+                            "item:slug:{item|flags.pf2e.rulesSelections.anarchicArcanaSecondSpell}"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:ganzi"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
