@@ -24,7 +24,106 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    }
+                ],
+                "flag": "element",
+                "key": "ChoiceSet",
+                "rollOption": "elemental-wrath"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:elf"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "manipulate"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage",
+                    "inline-damage"
+                ],
+                "value": "{item|flags.pf2e.rulesSelections.element}"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate",
+                    {
+                        "not": "elemental-wrath:acid"
+                    }
+                ],
+                "property": "traits",
+                "value": "acid"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:acid-splash",
+                    "spellcasting:innate",
+                    {
+                        "not": "elemental-wrath:acid"
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.element}"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -1,6 +1,6 @@
 {
     "_id": "qVmOQFcsVQkOn4zM",
-    "img": "systems/pf2e/icons/default-icons/equipment.svg",
+    "img": "icons/equipment/back/cape-layered-violet-white-swirl.webp",
     "name": "Cloak of Waves & Clouds",
     "system": {
         "baseItem": null,
@@ -34,7 +34,40 @@
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.CloakOfWavesAndClouds.CutAirAndSea",
+                "option": "cut-air-and-sea",
+                "suboptions": [
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Fly",
+                        "value": "fly"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Type.Swim",
+                        "value": "swim"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "cut-air-and-sea:swim"
+                ],
+                "selector": "swim",
+                "value": 40
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "cut-air-and-sea:fly"
+                ],
+                "selector": "fly",
+                "value": 60
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

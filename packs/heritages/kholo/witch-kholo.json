@@ -10,7 +10,7 @@
             "uuid": "Compendium.pf2e.ancestries.Item.vxbQ1Yw4qwgjTzqo"
         },
         "description": {
-            "value": "<p>You're a shaggy, dark-furred kholo capable of making some truly uncanny sounds. You can cast the figment cantrip as an occult innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up. In addition, you gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] and Impersonate when using only your voice.</p>"
+            "value": "<p>You're a shaggy, dark-furred kholo capable of making some truly uncanny sounds. You can cast the @UUID[Compendium.pf2e.spells-srd.Item.Figment] cantrip as an occult innate spell at will. A cantrip is heightened to a spell rank equal to half your level rounded up. In addition, you gain a +1 circumstance bonus to checks to @UUID[Compendium.pf2e.actionspf2e.Item.Create a Diversion] and Impersonate when using only your voice.</p>"
         },
         "publication": {
             "license": "ORC",
@@ -32,6 +32,28 @@
                 "selector": "deception",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:figment",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kholo"
             }
         ],
         "traits": {

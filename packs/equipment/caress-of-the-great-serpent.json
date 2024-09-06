@@ -51,7 +51,22 @@
         "reload": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.CaressOfTheGreatSerpent.SerpentsKiss",
+                "option": "serpents-kiss",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "serpents-kiss"
+                ],
+                "selector": "{item|id}-attack",
+                "value": -2
+            }
+        ],
         "runes": {
             "potency": 3,
             "property": [

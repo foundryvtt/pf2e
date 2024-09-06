@@ -28,7 +28,40 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:revealing-light"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:revealing-light"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:gnome"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
