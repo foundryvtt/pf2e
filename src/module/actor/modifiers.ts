@@ -238,7 +238,10 @@ class ModifierPF2e implements RawModifier {
     }
 
     /** Return a copy of this ModifierPF2e instance */
-    clone(data: Partial<ModifierObjectParams> = {}, options: { test?: Set<string> | string[] } = {}): ModifierPF2e {
+    clone(
+        data: Partial<ModifierObjectParams> = {},
+        options: { test?: Set<string> | string[] | null } = {},
+    ): ModifierPF2e {
         const clone = new ModifierPF2e({ ...this, modifier: this.#originalValue, rule: this.rule, ...data });
         if (options.test) clone.test(options.test);
 
@@ -503,7 +506,8 @@ class StatisticModifier {
         this.slug = slug;
 
         // De-duplication. Prefer higher valued, and deprioritize disabled ones
-        // This behavior is used by kingmaker to create "custom modifier types" as well special skill modifiers when rolling manually
+        // This behavior is used by kingmaker to create "custom modifier types" via slugs,
+        // as well as special skill modifiers when rolling manually
         const seen = modifiers.reduce((result: Record<string, ModifierPF2e>, modifier) => {
             const existing = result[modifier.slug];
             if (!existing?.enabled || Math.abs(modifier.modifier) > Math.abs(result[modifier.slug].modifier)) {
