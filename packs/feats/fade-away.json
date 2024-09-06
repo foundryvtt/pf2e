@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>Your ability to blend into the background allows you to fade away entirely or appear innocuous even to magical effects. You gain @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] and @UUID[Compendium.pf2e.spells-srd.Item.Disguise Magic] as 2nd-rank innate occult spells. You can target only yourself with <em>invisibility</em>, and you must be the primary target of <em>misdirection</em>. You can cast each spell once per day.</p>"
+            "value": "<p>Your ability to blend into the background allows you to fade away entirely or appear innocuous even to magical effects. You gain @UUID[Compendium.pf2e.spells-srd.Item.Invisibility] and @UUID[Compendium.pf2e.spells-srd.Item.Disguise Magic] as 2nd-rank innate occult spells. You can target only yourself with <em>invisibility</em>, and you must be the primary target of <em>disguise magic</em>. You can cast each spell once per day.</p>"
         },
         "level": {
             "value": 9
@@ -28,7 +28,40 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:disguise-magic"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:invisibility",
+                            "item:slug:disguise-magic"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:halfling"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
