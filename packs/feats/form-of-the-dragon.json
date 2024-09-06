@@ -11,7 +11,7 @@
         },
         "category": "ancestry",
         "description": {
-            "value": "<p>You can briefly transform into a paragon of your draconic ancestry. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Dragon Form] as an 8th-rank innate spell once per day. This spell has the same tradition as your draconic exemplar. When you cast this innate spell, you must transform into your draconic exemplar. However, if you have the Arcane Dragonblood, Divine Dragonblood, Occult Dragonkin, or Primal Dragonblood lineage feat, you can instead choose any dragon of that tradition.</p>"
+            "value": "<p>You can briefly transform into a paragon of your draconic ancestry. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Dragon Form] as an 8th-rank innate spell once per day. This spell has the same tradition as your draconic exemplar. When you cast this innate spell, you must transform into your draconic exemplar. However, if you have the @UUID[Compendium.pf2e.feats-srd.Item.Arcane Dragonblood], @UUID[Compendium.pf2e.feats-srd.Item.Divine Dragonblood], @UUID[Compendium.pf2e.feats-srd.Item.Occult Dragonblood], or @UUID[Compendium.pf2e.feats-srd.Item.Primal Dragonblood] lineage feat, you can instead choose any dragon of that tradition.</p>"
         },
         "level": {
             "value": 17
@@ -24,7 +24,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dragon-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:dragon-form",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:dragonblood"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
