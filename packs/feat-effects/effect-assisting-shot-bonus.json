@@ -1,13 +1,13 @@
 {
-    "_id": "AAgoUuwMvHzqNhIN",
+    "_id": "c4FkrWvSiBuFq1o1",
     "img": "icons/skills/melee/spear-tips-double-purple.webp",
-    "name": "Effect: Assisting Shot (Critical Hit)",
+    "name": "Effect: Assisting Shot Bonus",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assisting Shot] if you critically hit the target.</p>\n<p>The next creature other than you to attack the same target before the start of your next turn gains a +2 circumstance bonus on their roll.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Assisting Shot]</p>\n<p>You gain a circumstance bonus to your attack roll.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,17 +16,17 @@
             "value": 2
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Assisting Shot",
+                "label": "PF2E.SpecificRule.Fighter.AssistingShot.Label",
                 "selector": "attack",
                 "type": "circumstance",
-                "value": 2
+                "value": "@item.origin.flags.pf2e.assistingShot.value"
             }
         ],
         "start": {
