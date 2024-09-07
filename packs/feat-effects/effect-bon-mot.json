@@ -4,7 +4,7 @@
     "name": "Effect: Bon Mot",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot]</p>\n<p>You are distracted and take a -2 status penalty to Perception and Will saves for 1 minute.</p>\n<p>You can end the effect early with a retort to your Bon Mot. This can either be a single action that has the concentrate trait or an appropriate skill action to frame their retort. The GM determines which skill actions qualify, though they must take at least 1 action. Typically, the retort needs to use a linguistic Charisma-based skill action.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Bon Mot]</p>\n<p>You are distracted and take a status penalty to Perception and Will saves.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,11 +16,75 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": -3
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": -2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:0",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": -2
+                    }
+                ],
+                "flag": "penalty",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
             {
                 "key": "FlatModifier",
                 "selector": [
@@ -28,7 +92,7 @@
                     "will"
                 ],
                 "type": "status",
-                "value": -2
+                "value": "{item|flags.pf2e.rulesSelections.penalty}"
             }
         ],
         "start": {
