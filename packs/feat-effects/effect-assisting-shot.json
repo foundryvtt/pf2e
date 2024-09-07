@@ -22,7 +22,6 @@
         },
         "rules": [
             {
-                "actorFlag": true,
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Attack.success",
@@ -63,22 +62,15 @@
                         "value": 2
                     }
                 ],
-                "flag": "assistingShotBonus",
+                "flag": "bonus",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
-                "affects": "origin",
-                "key": "EphemeralEffect",
-                "predicate": [
-                    {
-                        "not": "origin:signature:{item|origin.signature}"
-                    }
-                ],
-                "selectors": [
-                    "attack"
-                ],
-                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Assisting Shot Bonus"
+                "key": "FlatModifier",
+                "selector": "attack",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.bonus}"
             }
         ],
         "start": {
