@@ -22,6 +22,7 @@
         },
         "rules": [
             {
+                "actorFlag": true,
                 "choices": [
                     {
                         "label": "PF2E.Check.Result.Degree.Attack.success",
@@ -62,15 +63,9 @@
                         "value": 2
                     }
                 ],
-                "flag": "bonus",
+                "flag": "assistingShotBonus",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.assistingShot.value",
-                "value": "{item|flags.pf2e.rulesSelections.bonus}"
             },
             {
                 "affects": "origin",
