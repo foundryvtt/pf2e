@@ -10,7 +10,7 @@
             "uuid": "Compendium.pf2e.ancestries.Item.hIA3qiUsxvLZXrFP"
         },
         "description": {
-            "value": "<p>Your body proves that shadow can't exist without light. Perhaps your eyes glow brighter or your veins occasionally pulse with light. You emit dim light within 5 feet of you. You can activate or suppress this ability as an action, which has the concentrate trait. Additionally, you can force fragments of your shadow to glow and cast @UUID[Compendium.pf2e.spells-srd.Item.Light] and @UUID[Compendium.pf2e.spells-srd.Item.Light] as occult innate cantrips. Cantrips are heightened to a spell rank equal to half your level rounded up.</p>"
+            "value": "<p>Your body proves that shadow can't exist without light. Perhaps your eyes glow brighter or your veins occasionally pulse with light. You emit dim light within 5 feet of you. You can activate or suppress this ability as an action, which has the concentrate trait. Additionally, you can force fragments of your shadow to glow and cast @UUID[Compendium.pf2e.spells-srd.Item.Light] as an occult innate cantrip. Cantrips are heightened to a spell rank equal to half your level rounded up.</p>"
         },
         "publication": {
             "license": "OGL",
@@ -34,6 +34,28 @@
                 "key": "RollOption",
                 "option": "bright-fetchling",
                 "toggleable": true
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:light",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:fetchling"
             }
         ],
         "traits": {
