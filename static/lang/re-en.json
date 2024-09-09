@@ -1540,8 +1540,7 @@
                         "Y": "y"
                     }
                 },
-                "Basic": {
-                    "Label": "Basic",
+                "Basics": {
                     "Level": {
                         "Hint": "An optional level for the aura, to be used to set the level of the effects it transmits",
                         "Label": "Level"
@@ -1583,6 +1582,7 @@
             },
             "General": {
                 "Add": "Add",
+                "Basics": "Basics",
                 "Brackets": "Brackets",
                 "CriticalBehavior": {
                     "false": "1x Damage on Crit",
@@ -2203,18 +2203,18 @@
                 "Surtova": "Surtova"
             },
             "BreathWeapon": {
-                    "Shape": {
-                        "Cone": {
-                            "Label": "Cone",
-                            "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[cone|distance:30], with a basic Reflex save against your spell DC."
-                        },
-                        "Line": {
-                           "Label": "Line",
-                           "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[line|distance:60], with a basic Reflex save against your spell DC."
-                        }
+                "Shape": {
+                    "Cone": {
+                        "Label": "Cone",
+                        "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[cone|distance:30], with a basic Reflex save against your spell DC."
                     },
-                    "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
-                    "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+                    "Line": {
+                        "Label": "Line",
+                        "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[line|distance:60], with a basic Reflex save against your spell DC."
+                    }
+                },
+                "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
+                "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
             },
             "CapeOfJustice": {
                 "Toggle": "Target is your designated offender"
@@ -2430,7 +2430,7 @@
                         "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank occult spells of your choice and five occult cantrips of your choice. You choose these from the common spells from the occult list or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
                         "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Bard Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
                         "PartThree": "Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.",
-                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."  
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
                     },
                     "oracle": {
                         "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
