@@ -1,0 +1,82 @@
+{
+    "_id": "rAW5o8MjjuIhYhLg",
+    "img": "systems/pf2e/icons/spells/inspire-heroics.webp",
+    "name": "Spell Effect: Fortissimo Composition",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortissimo Composition]</p>\n<p>Improve composition bonuses from +1 to +2</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "selectors": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "mode": "upgrade",
+                "value": 2,
+                "slug": "courageous-anthem-attack-bonuses"
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "saving-throw",
+                "mode": "upgrade",
+                "value": 2,
+                "slug": "courageous-anthem-fear-bonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "selectors": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "mode": "upgrade",
+                "value": 2,
+                "slug": "rallying-anthem-defensive-bonuses"
+            },
+            {
+                "key": "AdjustModifier",
+                "selector": "athletics",
+                "mode": "upgrade",
+                "value": 2,
+                "slug": "song-of-strength-athletics-bonus"
+            },
+            {
+                "key": "AdjustModifier",
+                "selectors": [
+                    "fortitude",
+                    "reflex"
+                ],
+                "mode": "upgrade",
+                "value": 2,
+                "slug": "song-of-strength-save-bonuses"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
