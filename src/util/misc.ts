@@ -388,16 +388,16 @@ function configFromLocalization<T extends Record<string, TranslationDictionaryVa
 
 /** Does the parameter look like an image file path? */
 function isImageFilePath(path: unknown): path is ImageFilePath {
-    return typeof path === "string" && Object.keys(CONST.IMAGE_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+    return typeof path === "string" && ImageHelper.hasImageExtension(path);
 }
 
 /** Does the parameter look like a video file path? */
 function isVideoFilePath(path: unknown): path is ImageFilePath {
-    return typeof path === "string" && Object.keys(CONST.VIDEO_FILE_EXTENSIONS).some((e) => path.endsWith(`.${e}`));
+    return typeof path === "string" && VideoHelper.hasVideoExtension(path);
 }
 
 function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath {
-    return isImageFilePath(path) || isVideoFilePath(path);
+    return typeof path === "string" && (ImageHelper.hasImageExtension(path) || VideoHelper.hasVideoExtension(path));
 }
 
 const SORTABLE_BASE_OPTIONS: Sortable.Options = {
