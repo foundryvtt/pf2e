@@ -245,14 +245,14 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 required: true,
                 nullable: false,
                 initial: 5,
-                label: "PF2E.RuleEditor.Aura.Basic.Radius",
+                label: "PF2E.RuleEditor.Aura.Basics.Radius",
             }),
             level: new ResolvableValueField({
                 required: false,
                 nullable: true,
                 initial: null,
-                label: "PF2E.RuleEditor.Aura.Basic.Level.Label",
-                hint: "PF2E.RuleEditor.Aura.Basic.Level.Hint",
+                label: "PF2E.RuleEditor.Aura.Basics.Level.Label",
+                hint: "PF2E.RuleEditor.Aura.Basics.Level.Hint",
             }),
             traits: new StrictArrayField(auraTraitField, {
                 required: true,
@@ -278,8 +278,8 @@ class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
                 required: true,
                 nullable: false,
                 initial: true,
-                label: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Label",
-                hint: "PF2E.RuleEditor.Aura.Basic.MergeExisting.Hint",
+                label: "PF2E.RuleEditor.Aura.Basics.MergeExisting.Label",
+                hint: "PF2E.RuleEditor.Aura.Basics.MergeExisting.Hint",
             }),
         };
     }

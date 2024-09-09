@@ -25,16 +25,15 @@ abstract class BaseStatistic<TActor extends ActorPF2e> {
         this.label = game.i18n.localize(data.label).trim();
         this.data = { ...data };
         this.domains = R.unique((data.domains ??= []));
-        const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)].flat();
-        this.modifiers = new StatisticModifier("", modifiers).modifiers.map((m) => m.clone({ domains: this.domains }));
 
-        if (this.domains.length > 0) {
-            // Test the gathered modifiers if there are any domains
-            const options = this.createRollOptions();
-            for (const modifier of this.modifiers) {
-                modifier.test(options);
-            }
-        }
+        // Extract modifiers, clone them, and test them if there are any domains
+        // This must occur before stack resolution, to avoid disabled ability modifiers from suppressing other modifiers
+        const test = this.domains.length > 0 ? this.createRollOptions() : null;
+        const modifiers = [data.modifiers ?? [], extractModifiers(this.actor.synthetics, this.domains)]
+            .flat()
+            .map((m) => m.clone({ domains: this.domains }, { test }));
+
+        this.modifiers = new StatisticModifier("", modifiers).modifiers;
     }
 
     createRollOptions(domains = this.domains): Set<string> {
