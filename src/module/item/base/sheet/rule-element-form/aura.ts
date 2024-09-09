@@ -8,8 +8,9 @@ import { RuleElementForm, RuleElementFormSheetData, RuleElementFormTabData } fro
 
 class AuraForm extends RuleElementForm<AuraRuleElementSource, AuraRuleElement> {
     override template = "systems/pf2e/templates/items/rules/aura.hbs";
+
     protected override tabs: RuleElementFormTabData = {
-        names: ["basic", "effects", "appearance"],
+        names: ["basics", "effects", "appearance"],
         displayStyle: "grid",
     };
 

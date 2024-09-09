@@ -33,7 +33,7 @@ class ImageHelper {
      * @param src      A requested image source path
      * @returns       Does the filename end with a valid image extension?
      */
-    static hasImageExtension(src: string): boolean;
+    static hasImageExtension(src: string): src is ImageFilePath;
 
     /**
      * Composite a canvas object by rendering it to a single texture
