@@ -6,7 +6,7 @@ import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import { CraftingFormula } from "./formula.ts";
 
-class CraftingEntry implements CraftingEntryData {
+class CraftingAbility implements CraftingAbilityData {
     /** A label for this crafting entry to display on sheets */
     name: string;
 
@@ -30,7 +30,7 @@ class CraftingEntry implements CraftingEntryData {
     fieldDiscoveryBatchSize: number;
     maxItemLevel: number;
 
-    constructor(knownFormulas: CraftingFormula[], data: CraftingEntryData) {
+    constructor(knownFormulas: CraftingFormula[], data: CraftingAbilityData) {
         this.parent = data.item;
         this.selector = data.selector;
         this.name = data.name;
@@ -108,7 +108,7 @@ class CraftingEntry implements CraftingEntryData {
         );
     }
 
-    static isValid(data: Maybe<Partial<CraftingEntryData>>): data is CraftingEntryData {
+    static isValid(data: Maybe<Partial<CraftingAbilityData>>): data is CraftingAbilityData {
         return !!data && !!data.name && !!data.selector;
     }
 
@@ -232,7 +232,7 @@ class CraftingEntry implements CraftingEntryData {
     }
 }
 
-interface CraftingEntryData {
+interface CraftingAbilityData {
     selector: string;
     name: string;
     item: ItemPF2e<CharacterPF2e>;
@@ -272,5 +272,5 @@ interface PreparedFormulaSheetData {
     isSignatureItem: boolean;
 }
 
-export { CraftingEntry };
-export type { CraftingEntryData, PreparedFormulaData };
+export { CraftingAbility };
+export type { CraftingAbilityData, PreparedFormulaData };

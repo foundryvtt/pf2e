@@ -1,4 +1,4 @@
-import { CraftingEntryData } from "@actor/character/crafting/entry.ts";
+import { CraftingAbilityData } from "@actor/character/crafting/ability.ts";
 import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
 import {
     AbilityData,
@@ -403,7 +403,7 @@ interface VersatileWeaponOption {
 
 interface CharacterCraftingData {
     formulas: CraftingFormulaData[];
-    entries: Record<string, Partial<CraftingEntryData>>;
+    entries: Record<string, Partial<CraftingAbilityData>>;
 }
 
 interface CharacterResources extends CreatureResources {
