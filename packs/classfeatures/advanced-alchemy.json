@@ -45,7 +45,7 @@
                 "predicate": [
                     "class:alchemist"
                 ],
-                "value": "@actor.level + @actor.abilities.int.mod"
+                "value": "4 + @actor.abilities.int.mod"
             },
             {
                 "key": "ActiveEffectLike",
@@ -57,6 +57,13 @@
                     }
                 ],
                 "value": "@actor.level"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.crafting.entries.alchemist.batchSize",
+                "phase": "afterDerived",
+                "value": 1
             }
         ],
         "traits": {
