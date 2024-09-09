@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p><strong>Champion, Investigator, Oracle, Magus</strong> You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert.</p>\n<p><strong>Druid, Kineticist</strong> You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Sorcerer</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Summoner</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert. (<em>Note: this is called Simple Weapon Expertise in Secrets of Magic</em>)</p>\n<p><strong>Witch, Wizard</strong> Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert.</p>"
+            "value": "<p><strong>Alchemist</strong> You've trained to more effectively wield the weapons you find in your lab. Your proficiency ranks for simple weapons, alchemical bombs, and unarmed attacks increase to expert.</p>\n<p><strong>Bard</strong> You have become thoroughly adept with bardic weapons. Your proficiency rank for martial weapons, simple weapons, and unarmed attacks increases to expert. When you critically succeed at an attack roll using one of these weapons or an unarmed attack while one of your compositions is active, you apply the critical specialization effect for that weapon or unarmed attack.</p>\n<p><strong>Champion, Investigator, Oracle, Magus</strong> You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert.</p>\n<p><strong>Druid, Kineticist</strong> You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Inventor</strong> You develop tricks for using your weapons more effectively. Your proficiency ranks for simple and martial weapons and unarmed attacks increase to expert. If you have a Weapon Innovation, you gain access to the critical specialization effect with your innovation.</p>\n<p><strong>Psychic</strong> Training and magic have improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert.</p>\n<p><strong>Ranger</strong> You gain every advantage from your weapons. Your proficiency rank for martial weapons, simple weapons, and unarmed attacks increases to expert. You gain access to the critical specialization effects of all such weapons and unarmed attacks when attacking your hunted prey.</p>\n<p><strong>Sorcerer</strong> You've improved your combat skill. Your proficiency ranks for simple weapons and unarmed attacks increase to expert.</p>\n<p><strong>Summoner</strong> Training and magic improved your weapon technique. Your proficiency rank for simple weapons and unarmed attacks increases to expert. (<em>Note: this is called Simple Weapon Expertise in Secrets of Magic</em>)</p>\n<p><strong>Swashbuckler</strong> You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert. You gain access to the critical specialization effects of all weapons for which you have expert proficiency.</p>\n<p><strong>Witch, Wizard</strong> Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert.</p>"
         },
         "level": {
             "value": 5
@@ -32,13 +32,79 @@
                 "predicate": [
                     {
                         "or": [
+                            "class:bard",
                             "class:champion",
+                            "class:inventor",
                             "class:investigator",
-                            "class:magus"
+                            "class:magus",
+                            "class:swashbuckler"
                         ]
                     }
                 ],
                 "value": 2
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.attacks.weapon-base-alchemical-bomb.rank",
+                "predicate": [
+                    "class:alchemist"
+                ],
+                "value": 2
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "feature:weapon-innovation",
+                    "class:inventor",
+                    "item:id:{actor|flags.pf2e.innovationId}"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    "class:swashbuckler"
+                ]
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    "hunted-prey",
+                    {
+                        "or": [
+                            "item:category:simple",
+                            "item:category:martial",
+                            "item:category:unarmed"
+                        ]
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.WeaponExpertise.{actor|class.slug}.Title"
+                    },
+                    {
+                        "text": "PF2E.SpecificRule.ClassFeatures.WeaponExpertise.{actor|class.slug}.Description"
+                    }
+                ]
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "traits",
+                "value": "{actor|class.slug}"
             }
         ],
         "subfeatures": {
@@ -54,14 +120,20 @@
         "traits": {
             "rarity": "common",
             "value": [
+                "alchemist",
+                "bard",
                 "champion",
                 "druid",
+                "inventor",
                 "investigator",
                 "kineticist",
                 "magus",
                 "oracle",
+                "psychic",
+                "ranger",
                 "sorcerer",
                 "summoner",
+                "thaumaturge",
                 "witch",
                 "wizard"
             ]
