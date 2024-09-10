@@ -838,13 +838,30 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "ac",
+                        "key": "RollOption",
+                        "option": "icy-deflection",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "icy-deflection",
+                            {
+                                "not": "item:trait:fire"
+                            }
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",
-                    "value": [
-                        "fire"
-                    ]
+                    "value": []
                 }
             },
             "type": "action"

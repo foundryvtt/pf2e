@@ -52,9 +52,9 @@ import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-profici
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
-import { PreparedFormulaData } from "./crafting/entry.ts";
+import { PreparedFormulaData } from "./crafting/ability.ts";
 import {
-    CraftingEntry,
+    CraftingAbility,
     CraftingFormula,
     CraftingFormulaData,
     craftItem,
@@ -1602,9 +1602,9 @@ type CharacterSystemSheetData = CharacterSystemData & {
 
 export interface CraftingEntriesSheetData {
     dailyCrafting: boolean;
-    other: CraftingEntry[];
+    other: CraftingAbility[];
     alchemical: {
-        entries: CraftingEntry[];
+        entries: CraftingAbility[];
         totalReagentCost: number;
         infusedReagents: {
             value: number;
