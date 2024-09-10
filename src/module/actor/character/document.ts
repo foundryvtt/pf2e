@@ -69,7 +69,7 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
+import { CraftingAbility, CraftingAbilityData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -217,18 +217,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
     }
 
-    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]> {
+    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingAbility[]> {
         const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
         return Object.values(this.system.crafting.entries)
-            .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
-            .map((entry) => new CraftingEntry(craftingFormulas, entry));
+            .filter((entry): entry is CraftingAbilityData => CraftingAbility.isValid(entry))
+            .map((entry) => new CraftingAbility(craftingFormulas, entry));
     }
 
-    async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
+    async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
         const craftingFormulas = await this.getCraftingFormulas();
         const craftingEntryData = this.system.crafting.entries[selector];
-        if (CraftingEntry.isValid(craftingEntryData)) {
-            return new CraftingEntry(craftingFormulas, craftingEntryData);
+        if (CraftingAbility.isValid(craftingEntryData)) {
+            return new CraftingAbility(craftingFormulas, craftingEntryData);
         }
 
         return null;
