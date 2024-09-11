@@ -490,8 +490,8 @@ export const ARMOR_PROPERTY_RUNES: { [T in ArmorPropertyRuneType]: ArmorProperty
     },
     energyAdaptive: {
         name: "PF2E.ArmorPropertyRuneEnergyAdaptive",
-        level: 6,
-        price: 225,
+        level: 13,
+        price: 2600,
         rarity: "common",
         slug: "energyAdaptive",
         traits: ["magical"],
