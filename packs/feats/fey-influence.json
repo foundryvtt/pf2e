@@ -29,35 +29,59 @@
                 "choices": [
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Anteater",
-                        "value": "anteater"
+                        "value": {
+                            "creature": "anteater",
+                            "spell": "grim-tendrils"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.CatSith",
-                        "value": "cat-sith"
+                        "value": {
+                            "creature": "cat-sith",
+                            "spell": "pest-form"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.CursedBluebird",
-                        "value": "cursed-bluebird"
+                        "value": {
+                            "creature": "cursed-bluebird",
+                            "spell": "ill-omen"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Dryad",
-                        "value": "dryad"
+                        "value": {
+                            "creature": "dryad",
+                            "spell": "summon-plant-or-fungus"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Faun",
-                        "value": "faun"
+                        "value": {
+                            "creature": "faun",
+                            "spell": "fleet-step"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Gremlin",
-                        "value": "gremlin"
+                        "value": {
+                            "creature": "gremlin",
+                            "spell": "bane"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Monarch",
-                        "value": "monarch"
+                        "value": {
+                            "creature": "monarch",
+                            "spell": "spider-sting"
+                        }
                     },
                     {
                         "label": "PF2E.SpecificRule.Feat.FeyInfluence.Unicorn",
-                        "value": "unicorn"
+                        "value": {
+                            "creature": "unicorn",
+                            "spell": "heal"
+                        }
                     }
                 ],
                 "flag": "feyInfluence",
@@ -66,10 +90,25 @@
                 "rollOption": "fey-influence"
             },
             {
+                "key": "RollOption",
+                "option": "fey-influence:{item|flags.pf2e.rulesSelections.feyInfluence.creature}"
+            },
+            {
                 "add": [
                     "fey"
                 ],
                 "key": "ActorTraits"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:{item|flags.pf2e.rulesSelections.feyInfluence.spell}",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
             }
         ],
         "subfeatures": {
