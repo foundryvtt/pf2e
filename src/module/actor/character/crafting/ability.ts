@@ -13,7 +13,7 @@ class CraftingAbility implements CraftingAbilityData {
 
     selector: string;
 
-    /** This crafting entry's parent actor */
+    /** This crafting ability's parent actor */
     actor: CharacterPF2e;
 
     preparedFormulaData: PreparedFormulaData[];
