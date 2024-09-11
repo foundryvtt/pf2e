@@ -24,7 +24,7 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "composition-signature:origin:signature:{item|origin.signature}"
+                "option": "uplifting-overture:origin:signature:{item|origin.signature}"
             },
             {
                 "adjustment": {
@@ -36,6 +36,21 @@
                         "lte": [
                             "skill:performance:rank",
                             3
+                        ]
+                    }
+                ],
+                "selector": "performance"
+            },
+            {
+                "adjustment": {
+                    "all": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    {
+                        "gte": [
+                            "skill:performance:rank",
+                            4
                         ]
                     }
                 ],

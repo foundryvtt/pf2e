@@ -23,16 +23,12 @@
         "rules": [
             {
                 "definition": [
-                    "item:category:unarmed"
-                ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "materials",
-                "value": "silver"
-            },
-            {
-                "definition": [
-                    "item:equipped"
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            "item:equipped"
+                        ]
+                    }
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -42,7 +38,7 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "option": "composition-signature:origin:signature:{item|origin.signature}"
+                "option": "silvers-refrain:origin:signature:{item|origin.signature}"
             }
         ],
         "start": {
