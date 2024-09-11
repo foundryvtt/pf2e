@@ -26,21 +26,11 @@ import { CheckContext } from "@actor/roll-context/check.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
-import type {
-    AncestryPF2e,
-    BackgroundPF2e,
-    ClassPF2e,
-    ConsumablePF2e,
-    DeityPF2e,
-    FeatPF2e,
-    HeritagePF2e,
-    PhysicalItemPF2e,
-} from "@item";
-import { ItemPF2e, WeaponPF2e } from "@item";
+import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
+import { WeaponPF2e } from "@item";
 import { ActionTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
-import { ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
-import { itemIsOfType } from "@item/helpers.ts";
+import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { WeaponSource } from "@item/weapon/data.ts";
 import { processTwoHandTrait } from "@item/weapon/helpers.ts";
@@ -67,9 +57,8 @@ import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
-import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { CraftingAbility, CraftingAbilityData, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting, CraftingAbility, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -125,6 +114,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     declare skills: CharacterSkills<this>;
 
     declare initiative: ActorInitiative;
+
+    declare crafting: CharacterCrafting;
 
     override get allowedItemTypes(): (ItemType | "physical")[] {
         const buildItems = ["ancestry", "heritage", "background", "class", "deity", "feat"] as const;
@@ -203,71 +194,24 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         return this.classDCs[slug] ?? super.getStatistic(slug);
     }
 
+    /** Will be deprecated/removed after PC2 alchemist is complete */
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
-        const formulas = this.system.crafting.formulas;
-        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
-        const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
-        const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
-
-        return items
-            .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
-            .map((item) => {
-                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
-            });
+        return this.crafting.getFormulas();
     }
 
-    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingAbility[]> {
-        const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
-        return Object.values(this.system.crafting.entries)
-            .filter((entry): entry is CraftingAbilityData => CraftingAbility.isValid(entry))
-            .map((entry) => new CraftingAbility(craftingFormulas, entry));
+    /** Will be deprecated/removed after PC2 alchemist is complete */
+    async getCraftingEntries(): Promise<CraftingAbility[]> {
+        return this.crafting.abilities;
     }
 
+    /** Will be deprecated/removed after PC2 alchemist is complete */
     async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
-        const craftingFormulas = await this.getCraftingFormulas();
-        const craftingEntryData = this.system.crafting.entries[selector];
-        if (CraftingAbility.isValid(craftingEntryData)) {
-            return new CraftingAbility(craftingFormulas, craftingEntryData);
-        }
-
-        return null;
+        return this.crafting.getAbility(selector);
     }
 
+    /** Will be deprecated/removed after PC2 alchemist is complete */
     async performDailyCrafting(): Promise<void> {
-        const entries = (await this.getCraftingEntries()).filter((e) => e.isDailyPrep);
-        const alchemicalEntries = entries.filter((e) => e.isAlchemical);
-        const reagentCost = alchemicalEntries.reduce((sum, entry) => sum + entry.reagentCost, 0);
-        const reagentValue = (this.system.resources.crafting.infusedReagents.value || 0) - reagentCost;
-        if (reagentValue < 0) {
-            ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MissingReagents"));
-            return;
-        } else {
-            await this.update({ "system.resources.crafting.infusedReagents.value": reagentValue });
-            const key = reagentCost === 0 ? "ZeroConsumed" : reagentCost === 1 ? "OneConsumed" : "NConsumed";
-            ui.notifications.info(
-                game.i18n.format(`PF2E.Actor.Character.Crafting.Daily.Complete.${key}`, { quantity: reagentCost }),
-            );
-        }
-
-        // Remove infused/temp items
-        for (const item of this.inventory) {
-            if (item.system.temporary) await item.delete();
-        }
-
-        for (const entry of entries) {
-            for (const formula of entry.preparedCraftingFormulas) {
-                const itemSource: PhysicalItemSource = formula.item.toObject();
-                itemSource.system.quantity = formula.quantity;
-                itemSource.system.temporary = true;
-                itemSource.system.size = this.ancestry?.size === "tiny" ? "tiny" : "med";
-
-                if (entry.isAlchemical && itemIsOfType(itemSource, "consumable", "equipment", "weapon")) {
-                    itemSource.system.traits.value.push("infused");
-                }
-                await this.addToInventory(itemSource);
-            }
-        }
+        return this.crafting.performDailyCrafting();
     }
 
     protected override _initialize(options?: Record<string, unknown>): void {
@@ -525,6 +469,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
     override prepareDerivedData(): void {
         super.prepareDerivedData();
+
+        this.crafting = new CharacterCrafting(this);
 
         imposeOversizedWeaponCondition(this);
         game.pf2e.variantRules.AutomaticBonusProgression.concatModifiers(this);
