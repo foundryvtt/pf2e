@@ -22,7 +22,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         return;
     }
 
-    const existingEffect = actor.itemTypes.effect.find((e) => e.flags.core?.sourceId === ITEM_UUID);
+    const existingEffect = actor.itemTypes.effect.find((e) => e.sourceId === ITEM_UUID);
     if (existingEffect) {
         await existingEffect.delete();
         return;

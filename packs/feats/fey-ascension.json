@@ -85,6 +85,57 @@
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    {
+                                        "or": [
+                                            {
+                                                "and": [
+                                                    "item:slug:slow",
+                                                    "fey-influence:anteater"
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    {
+                                                        "or": [
+                                                            "item:slug:charm",
+                                                            "item:slug:sleep"
+                                                        ]
+                                                    },
+                                                    "fey-influence:faun"
+                                                ]
+                                            },
+                                            {
+                                                "and": [
+                                                    "item:slug:mad-monkeys",
+                                                    "fey-influence:gremlin"
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    "spellcasting:innate"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "item:slug:triple-time",
+                                    "fey-influence:faun"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
             }
         ],
         "traits": {

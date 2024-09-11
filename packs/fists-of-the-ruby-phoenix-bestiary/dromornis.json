@@ -140,7 +140,7 @@
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>Dromornises fight best while among their fellows. A dromornis deals [[/r 1d8]] extra damage to any creature that's within reach of at least two of the dromornis's allies.</p>"
+                    "value": "<p>Dromornises fight best while among their fellows. A dromornis deals 1d8 extra damage to any creature that's within reach of at least two of the dromornis's allies.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -193,7 +193,23 @@
                     "remaster": false,
                     "title": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "domain": "all",
+                        "key": "RollOption",
+                        "option": "rushing-attack",
+                        "toggleable": true
+                    },
+                    {
+                        "key": "FlatModifier",
+                        "predicate": [
+                            "rushing-attack"
+                        ],
+                        "selector": "land-speed",
+                        "type": "circumstance",
+                        "value": 10
+                    }
+                ],
                 "slug": null,
                 "traits": {
                     "rarity": "common",

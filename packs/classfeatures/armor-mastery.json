@@ -11,7 +11,7 @@
         },
         "category": "classfeature",
         "description": {
-            "value": "<p>Your skill with armor improves further. Your proficiency ranks for light, medium, and heavy armor, as well as for unarmored defense, increase to master.</p>"
+            "value": "<p><strong>Barbarian</strong> Your training and rage deepen your connection to your armor. Your proficiency ranks for light armor, medium armor, and unarmored defense increase to master.</p><hr /><p><strong>Champion</strong> Your skill with armor improves, helping you avoid more blows. Your proficiency ranks for light, medium, and heavy armor, as well as for unarmored defense, increase to master.</p><hr /><p><strong>Fighter</strong> Your skill with armor improves further. Your proficiency ranks for light, medium, and heavy armor, as well as for unarmored defense, increase to master.</p>"
         },
         "level": {
             "value": 13
@@ -24,12 +24,21 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "upgrade",
+                "path": "system.proficiencies.defenses.heavy.rank",
+                "predicate": [
+                    {
+                        "not": "class:barbarian"
+                    }
+                ],
+                "value": 3
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
-                "heavy": {
-                    "rank": 3
-                },
                 "light": {
                     "rank": 3
                 },

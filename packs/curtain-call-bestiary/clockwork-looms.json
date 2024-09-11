@@ -1,0 +1,107 @@
+{
+    "_id": "iHO2GX503kpQLneW",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QJXha0zkqJcfPizn",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Weaving Clatter",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A Small or larger creature ends their turn in area <strong>C6</strong></p><hr /><p><strong>Effect</strong> The looms suddenly begin to grind and churn, filling the room with the squeal of metal on metal. All eight looms roll initiative.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Clockwork Looms",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 34
+            },
+            "emitsSound": "encounter",
+            "hardness": 22,
+            "hp": {
+                "details": "",
+                "max": 90,
+                "temp": 0,
+                "value": 90
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(master)</p>",
+                "value": 27
+            }
+        },
+        "details": {
+            "description": "<p>The looms spring to life, sending skeins of spidersilk yarn between them that attempt to ensnare nearby creatures and pull them into the machinery.</p>",
+            "disable": "<p>@Check[thievery|dc:46] (master) to shut down all eight looms at once by activating either of the bypass locks once either lock is located (this check is automatically successful if Fenton's keys are used), @Check[thievery|dc:37] (master) twice to shut down a single loom by deftly removing critical components, or @UUID[Compendium.pf2e.spells-srd.Item.Dispel Magic] (7th rank, counteract DC 33) to counteract a single loom</p>",
+            "isComplex": true,
+            "level": {
+                "value": 13
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #205: Singer, Stalker, Skinsaw Man"
+            },
+            "reset": "<p>A loom deactivates if no Small or larger creatures are in area <strong>C6</strong>, resetting in 1 minute unless disabled or all looms are broken.</p>",
+            "routine": "<p>(1 action) Each loom takes one of two possible actions on its turn, depending on if it's currently restraining a creature or not.</p><p><strong>Not Restraining a Creature:</strong> If a loom isn't restraining a creature, it launches a tangle of yarn at a random creature in the room that isn't currently @UUID[Compendium.pf2e.conditionitems.Item.Restrained]. That creature must attempt a @Check[reflex|dc:37] save. If there are no non-restrained targets for the loom to attempt to grapple, it takes no actions this round.</p><hr><p><strong>Critical Success</strong> The creature is unaffected.</p><p><strong>Success</strong> The creature is entangled, and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 1} until the end of the looms' next turn.</p><p><strong>Failure</strong> The creature is tangled in the yarn and becomes @UUID[Compendium.pf2e.conditionitems.Item.Clumsy]{Clumsy 2} until the end of the loom's next turn—or if it already has the clumsy condition, it becomes restrained (see critical failure).</p><p><strong>Critical Failure</strong> The creature becomes restrained. A restrained creature can @UUID[Compendium.pf2e.actionspf2e.Item.Force Open] the tangle of yarn or @UUID[Compendium.pf2e.actionspf2e.Item.Escape] with a DC 37 check.</p><p><strong>Restraining a Creature:</strong> If a loom has restrained a creature, it instead fires more lines of yarn at the restrained creature and then drags that creature (if the creature is Medium or smaller) 20 feet toward itself. (If it's restraining a Large or larger creature, it can only drag the creature 5 feet toward itself). If this dragging causes a creature to become adjacent to the loom, the loom pulls the creature into its grinding gears and inflicts @Damage[5d12[bludgeoning],5d12[slashing]] damage to the creature (@Check[reflex|dc:37|basic] save). The creature is then placed in an adjacent square and is still restrained by that loom.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 26
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 20
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "magical",
+                "mechanical",
+                "trap"
+            ]
+        }
+    },
+    "type": "hazard"
+}

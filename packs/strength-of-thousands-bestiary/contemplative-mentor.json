@@ -1352,7 +1352,7 @@
         {
             "_id": "45xonz5LSMC3ToFf",
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Temporal Sense 100 feet",
+            "name": "Temporal Sense",
             "sort": 2100000,
             "system": {
                 "actionType": {
@@ -1372,19 +1372,11 @@
                 },
                 "rules": [
                     {
-                        "domain": "all",
-                        "key": "RollOption",
-                        "label": "Using Dimension of Time Lore for Initiative",
-                        "option": "temporal-sense",
-                        "toggleable": true
-                    },
-                    {
                         "key": "FlatModifier",
-                        "label": "Using Dimension of Time Lore for Initiative",
                         "predicate": [
-                            "temporal-sense"
+                            "dimension-of-time-lore"
                         ],
-                        "selector": "dimension-of-time-lore",
+                        "selector": "initiative",
                         "type": "circumstance",
                         "value": 2
                     }

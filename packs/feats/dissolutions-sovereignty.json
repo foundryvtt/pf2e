@@ -1,0 +1,59 @@
+{
+    "_id": "PbSyQ8PRlG3x42zY",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dissolution's Sovereignty",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>With discipline born from a lifetime in darkness, you convince the shadow of an enemy to fight by your side. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Duplicate Foe] as an occult innate spell once per day. The duplicate is the target's shadow, which takes three-dimensional form and grants it the shadow trait; for the duration of the spell, the target loses their shadow. If the target is in an area of darkness when the spell is cast, the created duplicate has 15 more Hit Points.</p>"
+        },
+        "level": {
+            "value": 17
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:duplicate-foe",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:duplicate-foe",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:wayang"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "wayang"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,157 @@
+{
+    "_id": "gRa4bvQn7rI1LoRl",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Dokkaebi Fire",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>You can create illusory wisps of ghostly blue flame. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Ignition] as an innate occult cantrip at will. A cantrip is heightened to a spell rank equal to half your level rounded up. Your Dokkaebi Fire is purely illusory; while it emits light, it deals mental damage instead of fire damage (so it can't light objects on fire or affect mindless creatures), and it has the illusion and mental traits instead of the fire trait.</p><hr /><p><strong>Special</strong> If you have the @UUID[Compendium.pf2e.feats-srd.Item.Burn It!] feat, its effects apply to your dokkaebi fire even though it deals mental damage—dokkaebi consider these flames as real as any mortal fire, and so they are.</p>"
+        },
+        "level": {
+            "value": 1
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "dokkaebi goblin heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:occult",
+                    "spellcasting:innate"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "spell-damage"
+                ],
+                "value": "mental"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "spellcasting:occult",
+                    "spellcasting:innate",
+                    "damage:category:persistent"
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "ignition-inline-damage"
+                ],
+                "value": "mental"
+            },
+            {
+                "damageType": "mental",
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Feat.BurnIt.Label",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:occult",
+                    "spellcasting:innate",
+                    "feat:burn-it"
+                ],
+                "selector": "spell-damage",
+                "slug": "burn-it-spell",
+                "type": "status",
+                "value": "max(floor(@spell.level/2), 1)"
+            },
+            {
+                "damageCategory": "persistent",
+                "damageType": "mental",
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Feat.BurnIt.Label",
+                "predicate": [
+                    "spellcasting:occult",
+                    "spellcasting:innate"
+                ],
+                "selector": "ignition-inline-damage",
+                "slug": "burn-it-persistent",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:occult",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "illusion"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:occult",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "mental"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:occult",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "fire"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:ignition",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:goblin"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "goblin"
+            ]
+        }
+    },
+    "type": "feat"
+}

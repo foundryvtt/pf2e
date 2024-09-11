@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>You can mix an aromatic salve into an elixir with the healing trait to soothe physical maladies. In addition to its normal effects, the elixir can be imbibed by a creature prevented from doing so (such as a sickened creature). In addition to its other effects, the elixir attempts to counteract an effect imposing one of the following conditions of the imbiber's choice: clumsy, enfeebled, sickened, or stupefied. Use half your level rounded up for the counteract rank and your class DC – 10 for the counteract modifier. The imbiber is then temporarily immune to the effects of this additive for 10 minutes. The additive can't counteract curses, diseases, or conditions that are part of the creature's normal state.</p>"
+            "value": "<p>You can mix an aromatic salve into an elixir with the healing trait to soothe physical maladies. In addition to its normal effects, the elixir can be imbibed by a creature prevented from doing so (such as a @UUID[Compendium.pf2e.conditionitems.Item.Sickened] creature).</p>\n<p>In addition to its other effects, the elixir attempts to counteract an effect imposing one of the following conditions of the imbiber's choice: @UUID[Compendium.pf2e.conditionitems.Item.Clumsy], @UUID[Compendium.pf2e.conditionitems.Item.Enfeebled], @UUID[Compendium.pf2e.conditionitems.Item.Sickened], or @UUID[Compendium.pf2e.conditionitems.Item.Stupefied]. Use half your level rounded up for the counteract rank and your class DC – 10 for the counteract modifier. The imbiber is then temporarily immune to the effects of this additive for 10 minutes. The additive can't counteract curses, diseases, or conditions that are part of the creature's normal state.</p>"
         },
         "level": {
             "value": 4
@@ -24,10 +24,41 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Label",
+                "mode": "add",
+                "predicate": [
+                    "feat:improved-invigorating-elixir"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Description"
+                    },
+                    {
+                        "predicate": [
+                            "improved-invigorating-elixir:mental"
+                        ],
+                        "text": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Mental.Conditions",
+                        "title": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Mental.Label"
+                    },
+                    {
+                        "predicate": [
+                            "improved-invigorating-elixir:physical"
+                        ],
+                        "text": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Physical.Conditions",
+                        "title": "PF2E.SpecificRule.Alchemist.ImprovedInvigoratingElixir.Physical.Label"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
+                "additive",
                 "alchemist"
             ]
         }

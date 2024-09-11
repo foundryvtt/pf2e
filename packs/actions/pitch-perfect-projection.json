@@ -18,7 +18,37 @@
             "remaster": true,
             "title": "Pathfinder #204: Stage Fright"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:trait:auditory",
+                    "spellshape:pitch-perfect-projection"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Spellshape.PitchPerfectProjection"
+                    }
+                ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.TraitSpellshape",
+                "mergeable": true,
+                "option": "spellshape",
+                "placement": "spellcasting",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "pitch-perfect-projection"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
         "traits": {
             "value": [
                 "auditory",

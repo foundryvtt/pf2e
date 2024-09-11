@@ -20,7 +20,7 @@ export class Migration794AddWildShapeChoices extends MigrationBase {
     );
 
     override async updateItem(source: ItemSourcePF2e): Promise<void> {
-        const sourceId = source.flags.core?.sourceId;
+        const sourceId = source._stats.compendiumSource;
         if (source.type === "feat" && sourceId && this.#shapeFeats.has(sourceId)) {
             const fromPack = await fromUuid(sourceId);
             if (fromPack instanceof FeatPF2e) {

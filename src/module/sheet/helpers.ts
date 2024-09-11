@@ -112,10 +112,10 @@ type SheetSelections = { value: (string | number)[] } | (string[] & { custom?: n
 
 interface TagifyTraitOptions {
     sourceTraits?: Iterable<string>;
-    record: Record<string, string>;
+    record?: Record<string, string>;
 }
 
-interface TraitTagifyEntry {
+interface TagifyEntry {
     id: string;
     value: string;
     readonly: boolean;
@@ -129,4 +129,4 @@ export {
     getAdjustment,
     maintainFocusInRender,
 };
-export type { AdjustedValue, SheetOption, SheetOptions, TraitTagifyEntry };
+export type { AdjustedValue, SheetOption, SheetOptions, TagifyEntry };

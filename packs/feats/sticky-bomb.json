@@ -46,7 +46,12 @@
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [
-                    "feat:calculated-splash"
+                    {
+                        "or": [
+                            "feat:calculated-splash",
+                            "feature:field-discovery-bomber"
+                        ]
+                    }
                 ],
                 "selector": "alchemical-bomb-base-type-damage",
                 "slug": "sticky-bomb",
@@ -56,8 +61,9 @@
                 "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
-                    "feat:expanded-splash"
+                    "expanded-splash"
                 ],
+                "priority": 41,
                 "selector": "alchemical-bomb-base-type-damage",
                 "slug": "sticky-bomb",
                 "value": "@actor.abilities.int.mod"
@@ -66,7 +72,7 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "additive2",
+                "additive",
                 "alchemist"
             ]
         }

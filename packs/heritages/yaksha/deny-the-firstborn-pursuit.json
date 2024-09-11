@@ -1,0 +1,45 @@
+{
+    "_id": "AWLcCe69nzxZzWQc",
+    "folder": "HSPsB9iHmfvgyxRE",
+    "img": "systems/pf2e/icons/default-icons/heritage.svg",
+    "name": "Deny the Firstborn Pursuit",
+    "system": {
+        "ancestry": {
+            "name": "Yaksha",
+            "slug": "yaksha",
+            "uuid": "Compendium.pf2e.ancestries.Item.k3zyr6du4gV0Ftuh"
+        },
+        "description": {
+            "value": "<p>You swore a vow to shelter others from the First World's cruelties. Wise to fey's mind-affecting abilities, your vow grants mental resistance equal to half your level (minimum 1), and a +2 circumstance bonus to Nature checks to Recall Knowledge about fey.</p><hr /><p><strong>Additional Edict</strong> confront cruel fey you encounter (as long as you have a reasonable chance of success)</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "Resistance",
+                "type": "mental",
+                "value": "max(1,floor(@actor.level/2))"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:recall-knowledge",
+                    "target:trait:fey"
+                ],
+                "selector": "nature",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "yaksha"
+            ]
+        }
+    },
+    "type": "heritage"
+}

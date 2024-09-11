@@ -253,7 +253,7 @@ export class TextureData extends fields.SchemaField<TextureDataSchema> {
 
 type TextureDataSchema = {
     /** The URL of the texture source. */
-    src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, true, false, true>;
+    src: fields.FilePathField<ImageFilePath | VideoFilePath, ImageFilePath | VideoFilePath, false, true, true>;
     /** The scale of the texture in the X dimension. */
     scaleX: fields.NumberField<number, number, false, false>;
     /** The scale of the texture in the Y dimension. */

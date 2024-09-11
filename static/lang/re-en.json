@@ -83,6 +83,9 @@
             "KnockProne": "On a hit, the target is knocked @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}.",
             "ReduceHiddenCheck": "The DC of the flat check to target a @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} creature is only @Check[flat|dc:5]."
         },
+        "Background": {
+            "Favored": "<p><strong>Frequency</strong> once per day;</p><hr><p><strong>Effect</strong> Reroll the skill check. You must use the second result, even if it's worse.</p>"
+        },
         "BattleForm": {
             "AberrantForm": {
                 "GugSqueezeNote": "Your multiple joints allow you to fit through tight spaces as if you were a Medium creature."
@@ -95,6 +98,7 @@
                 "AqueousFist": "Aqueous Fist",
                 "Beak": "Beak",
                 "Beard": "Beard",
+                "Belly": "Belly",
                 "BigClaw": "Big Claw",
                 "Bite": "Bite",
                 "Blade": "Blade",
@@ -107,9 +111,11 @@
                 "Branch": "Branch",
                 "Claw": "Claw",
                 "CubeFace": "Cube Face",
+                "ElementalCurrent": "Elemental Current",
                 "Fangs": "Fangs",
                 "FireMote": "Fire Mote",
                 "Fist": "Fist",
+                "FlameHair": "Flame-Hair",
                 "Foot": "Foot",
                 "Foreleg": "Foreleg",
                 "Gust": "Gust",
@@ -132,11 +138,15 @@
                 "Pseudopod": "Pseudopod",
                 "Quill": "Quill",
                 "Rock": "Rock",
+                "Root": "Root",
                 "Seed": "Seed",
                 "Spikes": "Spikes",
                 "Spine": "Spine",
+                "Spoke": "Spoke",
                 "Stinger": "Stinger",
+                "SpiritTouch": "Spirit Touch",
                 "StoneBall": "Stone Ball",
+                "StrikingSurface": "Striking Surface",
                 "Sunbeam": "Sunbeam",
                 "Tail": "Tail",
                 "Talon": "Talon",
@@ -151,7 +161,8 @@
                 "WaterSpout": "Water Spout",
                 "Wave": "Wave",
                 "Web": "Web",
-                "Wing": "Wing"
+                "Wing": "Wing",
+                "Wrap": "Wrap"
             },
             "CosmicForm": {
                 "MoonNote": "The target is @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} for 1 round.",
@@ -595,22 +606,32 @@
             "Black": "Black Dragon",
             "Blue": "Blue Dragon",
             "Brass": "Brass Dragon",
+            "Brine": "Brine Dragon",
             "Bronze": "Bronze Dragon",
+            "Cloud": "Cloud Dragon",
             "Conspirator": "Conspirator Dragon",
             "Copper": "Copper Dragon",
+            "Crystal": "Crystal Dragon",
             "Diabolic": "Diabolic Dragon",
             "Divine": "Divine Dragon",
             "Empyreal": "Empyreal Dragon",
+            "Forest": "Forest Dragon",
             "Fortune": "Fortune Dragon",
             "Gold": "Gold Dragon",
             "Green": "Green Dragon",
             "Horned": "Horned Dragon",
+            "Magma": "Magma Dragon",
             "Mirage": "Mirage Dragon",
             "Occult": "Occult Dragon",
             "Omen": "Omen Dragon",
             "Primal": "Primal Dragon",
             "Red": "Red Dragon",
+            "Sea": "Sea Dragon",
             "Silver": "Silver Dragon",
+            "Sky": "Sky Dragon",
+            "Sovereign": "Sovereign Dragon",
+            "Umbral": "Umbral Dragon",
+            "Underworld": "Underworld Dragon",
             "White": "White Dragon"
         },
         "FeatDescription": {
@@ -622,6 +643,11 @@
             },
             "Trigger": {
                 "Label": "Trigger"
+            }
+        },
+        "GenericLabel": {
+            "PreviousAction": {
+                "ClimbLeapStride": "Your previous action was to Climb, Leap, or Stride"
             }
         },
         "IWR": {
@@ -767,12 +793,14 @@
                     },
                     "Faydhaan": "Faydhaan",
                     "Fish": "Fish",
+                    "Fox": "Fox",
                     "Gancanagh": "Gancanagh",
                     "Gimmerling": "Gimmerling",
                     "Gosreg": "Gosreg",
                     "Gourd": "Gourd",
                     "Gylou": "Gylou",
                     "Hag": "Hag",
+                    "Human": "Human",
                     "Humanoid": "Humanoid",
                     "HumanoidLarge": "Large Humanoid",
                     "HumanoidMedium": "Medium Humanoid",
@@ -800,12 +828,15 @@
                     "Plant": "Plant",
                     "PorcupineGiant": "Giant Porcupine",
                     "Pukwudgie": "Pukwudgie",
+                    "RacoonDog": "Racoon Dog",
                     "RajaKrodha": "Raja-Krodha",
                     "Raktavarna": "Raktavarna",
                     "Rat": "Rat",
                     "Scorpion": "Scorpion",
                     "Shark": "Shark",
+                    "Spider": "Spider",
                     "Succubus": "Succubus",
+                    "Tailless": "Tailless",
                     "Tree": "Tree",
                     "Unicorn": "Unicorn",
                     "Vampire": "Vampire",
@@ -814,7 +845,8 @@
                     "Voidworm": "Voidworm",
                     "WingedHumanoid": "Winged Humanoid",
                     "Wolf": "Wolf",
-                    "WolfDire": "Dire Wolf"
+                    "WolfDire": "Dire Wolf",
+                    "Yaoguai": "Yaoguai"
                 },
                 "Label": "Current Form"
             },
@@ -1066,6 +1098,9 @@
             "Shell": {
                 "BrokenShell": "Broken Shell",
                 "CriticalHit": "Shell Broken by a Critical Hit"
+            },
+            "Shieldmarshal": {
+                "LawbringerSpeedLabel": "Lawbringer - Moving Toward Target"
             },
             "ShockerLizard": {
                 "ShockingBurst": {
@@ -1505,8 +1540,7 @@
                         "Y": "y"
                     }
                 },
-                "Basic": {
-                    "Label": "Basic",
+                "Basics": {
                     "Level": {
                         "Hint": "An optional level for the aura, to be used to set the level of the effects it transmits",
                         "Label": "Level"
@@ -1548,6 +1582,7 @@
             },
             "General": {
                 "Add": "Add",
+                "Basics": "Basics",
                 "Brackets": "Brackets",
                 "CriticalBehavior": {
                     "false": "1x Damage on Crit",
@@ -1576,6 +1611,12 @@
                 "Outcome": "Outcome",
                 "Text": "Text Content",
                 "Title": "Title"
+            },
+            "TokenImage": {
+                "Ring": {
+                    "Label": "Dynamic Ring",
+                    "ScaleCorrection": "Scale Correction"
+                }
             }
         },
         "RuleElement": {
@@ -1589,7 +1630,6 @@
             "BattleForm": "Battle Form",
             "ChoiceSet": "Choice Set",
             "CraftingEntry": "Crafting Entry",
-            "CraftingFormula": "Crafting Formula",
             "CreatureSize": "Creature Size",
             "CriticalSpecialization": "Critical Specialization",
             "DamageAlteration": "Damage Alteration",
@@ -1795,6 +1835,9 @@
             "Weave": "To Weave",
             "Woodworking": "Woodworking"
         },
+        "SpecificLore": {
+            "Herbalism": "Herbalism Lore"
+        },
         "SpecificRule": {
             "Acrobat": {
                 "AcrobatDedication": {
@@ -1848,21 +1891,65 @@
                 "Prompt": "Choose the bonus from Aid."
             },
             "Alchemist": {
+                "AlchemicalAssessment": {
+                    "Note": "If have the formula for the item you're identifying, and you roll a critical failure, you get a failure instead."
+                },
                 "AlchemicalCrossbow": {
                     "Prompt": "Choose a bomb to add to the crossbow."
                 },
                 "Alchemy": {
                     "IdentifyAlchemy": "You can automatically identify alchemical items that you have the formula for."
                 },
+                "BlowgunPoisoner": {
+                    "CriticalNote": "If you critically succeed at a blowgun Strike using a poisoned dart, the target's initial save against the poison is one degree of success worse than the creature rolls; this is a misfortune effect.",
+                    "StealthNote": "In addition, if you make a blowgun Strike while @UUID[Compendium.pf2e.conditionitems.Item.iU0fEDdBp3rXpTMC]{Hidden} or @UUID[Compendium.pf2e.conditionitems.Item.VRSef5y1LmL2Hkjf]{Undetected}, you don't automatically become @UUID[Compendium.pf2e.conditionitems.Item.1wQY3JYyhMYeeV2G]{Observed}. Instead, immediately attempt a @Check[stealth|against:perception] check against the Perception DC of the target. If you succeed, you don't become observed, and are hidden (if you were undetected, you still become hidden rather than remaining undetected)."
+                },
                 "ExpandedSplash": {
                     "Note": "The splash damage affects all creatures within 10 feet of the target instead of 5 feet."
+                },
+                "ImprovedInvigoratingElixir": {
+                    "Description": "Add the listed conditions to those you can choose for an invigorating elixir you create to counteract:",
+                    "Label": "Improved Invigorating Elixir",
+                    "Mental": {
+                        "Label": "Mental Invigoration",
+                        "Conditions": "@UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused}, controlled, @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing}, @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened}, @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed}."
+                    },
+                    "Physical": {
+                        "Label": "Physical Invigoration",
+                        "Conditions": "@UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded}, @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened}, @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained}, @UUID[Compendium.pf2e.conditionitems.Item.6uEgoh53GbXuHpTF]{Paralyzed}, @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed}"
+                    }
                 },
                 "ResearchField": {
                     "Bomber": {
                         "FieldBenefit": "When throwing an alchemical bomb with the splash trait, you can choose to deal splash damage to only your primary target instead of the usual splash area.",
+                        "FieldVials": {
+                            "RollOptionLabel": "Versatile Vials Damage"
+                        },
                         "GreaterFieldDiscovery": "You can increase the splash on your bombs to damage creatures within 10 feet, or 15 feet if you have Expanded Splash."
                     },
-                    "Prompt": "Select a research field."
+                    "Chirurgeon": {
+                        "FieldVials": {
+                            "Description": "Your versatile vials can be used to heal a living creature @Damage[(ternary(gte(@actor.level,18),4,ternary(gte(@actor.level,12),3,ternary(gte(@actor.level,4),2,1))))d6[healing]] Hit Points. A creature can drink the vial for this benefit, or you can throw the vial at a willing creature within 20 feet as an Interact action to heal that creature. In either case, a vial used this way loses the acid and splash traits and gains the coagulant and healing traits, plus the elixir trait if a creature drinks it."
+                        }
+                    },
+                    "FieldVials": "Field Vials",
+                    "Mutagenist": {
+                        "FieldVials": {
+                            "Description": "You can drink the contents of one your versatile vials to suppress the drawback you take from one mutagen currently affecting you until the beginning of your next turn. A vial used this way loses the acid, bomb, and splash traits and gains the elixir trait. If you have more than one drawback due to @UUID[Compendium.pf2e.feats-srd.Item.jSkJIWPfSZZzvYzq]{Combine Elixirs} or a similar ability, drinking the vial suppresses one drawback of your choice."
+                        }
+                    },
+                    "Prompt": "Select a research field.",
+                    "Toxicologist": {
+                        "FieldVials": {
+                            "Description": "You can apply the contents of a versatile vial to a weapon or piece of ammunition as an injury poison. Add the versatile vial's initial damage to the first successful Strike with that weapon or ammunition. The substance becomes inert at the end of your current turn."
+                        }
+                    }
+                },
+                "SupremeInvigoratingElixir": {
+                    "Description": "For the purposes of counteracting effects with invigorating elixirs, treat your level as though it were 2 higher. Add the listed conditions to those you can choose for an invigorating elixir you create to counteract: @UUID[Compendium.pf2e.conditionitems.Item.dTwPJuKgBQCMxixg]{Petrified}, @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned}. You can also choose a disease regardless of what, if any, conditions it imposes."
+                },
+                "UncannyBombs": {
+                    "Note": "You automatically succeed at the flat check when targeting a @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} creature."
                 }
             },
             "AldoriDuelist": {
@@ -2121,19 +2208,131 @@
                 "Prompt": "Select a Brevic lineage.",
                 "Surtova": "Surtova"
             },
+            "BreathWeapon": {
+                "Shape": {
+                    "Cone": {
+                        "Label": "Cone",
+                        "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[cone|distance:30], with a basic Reflex save against your spell DC."
+                    },
+                    "Line": {
+                        "Label": "Line",
+                        "Description": "Your eidolon exhales a blast of destructive energy. Your eidolon deals @Damage[((ceil(@actor.level/2))d6)[@actor.flags.pf2e.breathweapon.breathDamage]|options:area-damage] damage to all creatures in a @Template[line|distance:60], with a basic Reflex save against your spell DC."
+                    }
+                },
+                "Cooldown": "Your eidolon then can't use their Breath Weapon again for the next [[/r 1d4 #rounds]]{1d4 rounds}.",
+                "Scaling": "At 3rd level and every 2 levels thereafter, the damage increases by 1d6."
+            },
             "CapeOfJustice": {
                 "Toggle": "Target is your designated offender"
             },
             "CatharticMage": {
                 "EmotionalState": {
-                    "Prompt": "Select a catharsis emotion."
+                    "Activation": "Catharsis Activation",
+                    "Fallout": "Emotional Fallout",
+                    "Fervor": "Emotional Fervor",
+                    "Focus": "Focus Spell",
+                    "Prompt": "Select a catharsis emotion.",
+                    "Trigger": "Catharsis Trigger"
+                },
+                "Anger": {
+                    "Activation": "If you're @UUID[Compendium.pf2e.conditionitems.Item.kWc1fhmv9LBiTuei]{Grabbed}, @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized}, or @UUID[Compendium.pf2e.conditionitems.Item.VcDeM8A5oI6VqhbM]{Restrained}, you can attempt to @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape}. If you succeed, the creature or hazard imposing the condition on you (if applicable) takes force damage equal to your level.",
+                    "Description": "Your destructive wrath allows you to harm your foes but causes you pain in the process.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until you Settle your Emotions.",
+                    "Fervor": "When you Cast a Spell from your spell slots, if the spell deals damage and doesn't have a duration, you gain a status bonus to that spell's damage equal to the spell's rank. Spell: @UUID[Compendium.pf2e.spells-srd.Item.jsWthW1Qy6tg3SwD]{Draw Ire}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.UGJzJRJDoonfWqqI]{Athletic Rush}",
+                    "Label": "Anger",
+                    "Trigger": "An enemy deals damage to you. You can't use this reaction if you're @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued}."
+                },
+                "Awe": {
+                    "Activation": "If you're @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied}, you can attempt an additional save to end the effect if it allowed a save.",
+                    "Description": "Your powerful sense of wonderment can be infectious and distracting.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} until you Settle your Emotions.",
+                    "Fervor": "When you cast a spell, choose one creature that was hit by your spell attack roll or that failed its saving throw, if any. That creature becomes fascinated with you until the end of its next turn. It's then temporarily immune to this fervor effect for 1 hour. Spell: @UUID[Compendium.pf2e.spells-srd.Item.0qaqksrGGDj74HXE]{Revealing Light}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.zul5cBTfr7NXHBZf]{Dazzling Flash (doesn't require a religious symbol)",
+                    "Label": "Awe",
+                    "Trigger": "You or an ally within 30 feet critically succeeds on an attack roll against an enemy's AC or a skill check against one of an enemy's DCs."
+                },
+                "Dedication": {
+                    "Activation": "Your emotional focus gains a number of temporary Hit Points equal to half your level rounded up. These temporary HP last for 1 minute.",
+                    "Description": "Your commitment protects those you are dedicated to but can lead to dependency. Your emotional focus is an individual creature you're bound to.",
+                    "Fallout": "Until you Settle your Emotions, you can't Cast Spells unless you're adjacent to your emotional focus.",
+                    "Fervor": "Your spells that target your emotional focus gain the benefits of Reach Spell. When you cast a healing spell that affects your emotional focus, your emotional focus also gains temporary HP equal to the spell's rank in addition to the spell's effects. These temporary HP last for 1 minute. Spell: @UUID[Compendium.pf2e.spells-srd.Item.yHujiDQPdtXW797e]{Spirit Link}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.rQYob0QMJ0I1U2sU]{Protector's Sacrifice}",
+                    "Label": "Dedication",
+                    "Trigger": "Your emotional focus takes damage from an enemy while within 30 feet of you."
+                },
+                "Fear": {
+                    "Activation": "Increase your frightened value by 1, to a maximum of @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened 4}.",
+                    "Description": "You let your fear fuel you, rather than consume you, but it burns your endurance.",
+                    "Fallout": "You are @UUID[Compendium.pf2e.conditionitems.Item.sDPxOjQ9kx2RZE8D]{Fleeing} for 2 rounds, running from the source of the frightened condition that triggered your Catharsis. If that source is no longer present, you instead flee from the position where you were at the start of your emotional fallout.",
+                    "Fervor": "You don't take the status penalty from the frightened condition to your spell DCs or spell attack bonus. Instead, you gain a status bonus to spell attack rolls equal to the penalty you would've taken, and your foes take the same status penalty to their saving throws against your spells. Any other statistic takes the status penalty as normal. Spell: @UUID[Compendium.pf2e.spells-srd.Item.4koZzrnMXhhosn0D]{Fear}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.DU5daB09xwfE1y38]{Waking Nightmare}",
+                    "Label": "Fear",
+                    "Trigger": "You let your fear fuel you, rather than consume you, but it burns your endurance."
+                },
+                "Hatred": {
+                    "Activation": "You can Step or Stride. You must end this movement closer to your emotional focus.",
+                    "Description": "Your unabashed hatred consumes your soul and causes your foe to falter. Your emotional focus is an individual enemy you detest.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.dfCMdR4wnpbYNTix]{Stunned 2}.",
+                    "Fervor": "Your emotional focus is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to you and takes a –2 status penalty to saves against your spells. You're off-guard to your emotional focus and take a –2 status penalty to saves against it. Spell: @UUID[Compendium.pf2e.spells-srd.Item.TaaMEYdZXQXF0Sks]{Blood Vendetta}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.0H1ozccQGGFLUwFI]{Cry of Destruction}",
+                    "Label": "Hatred",
+                    "Trigger": "You start your first turn in an encounter against your emotional focus or one of their followers. If the encounter includes multiple eligible followers and doesn't include your actual emotional focus, choose one of the followers to act as your emotional focus for this encounter (or until your actual emotional focus shows up)"
+                },
+                "Joy": {
+                    "Activation": "Reduce the value of any @UUID[Compendium.pf2e.conditionitems.Item.TBSHQspnbcqxsmjL]{Frightened} or @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied} condition you have by 1 and end any persistent mental damage you have.",
+                    "Description": "Your unbridled enthusiasm and positive attitude can lead you to success, but you might expend more energy than you planned.",
+                    "Fallout": "You become @UUID[Compendium.pf2e.conditionitems.Item.HL2l2VRSaQHu9lUw]{Fatigued} until you Settle your Emotions.",
+                    "Fervor": "You gain a +1 status bonus to Performance checks and to the spell attack rolls of emotion spells, and enemies take a –1 status penalty to saves against your emotion spells. Spell: @UUID[Compendium.pf2e.spells-srd.Item.tlSE7Ly8vi1Dgddv]{Laughing Fit}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.gwOYh5zMVZB0HNcT]{Unimpeded Stride}",
+                    "Label": "Joy",
+                    "Trigger": "You critically succeed on an attack roll or save, or an enemy critically fails on a save against you."
                 },
                 "Love": {
-                    "Toggle": "You cast a spell to benefit your emotional focus"
+                    "Activation": "If either you or your emotional focus is @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} or @UUID[Compendium.pf2e.conditionitems.Item.9qGBRpbX9NEwtAAr]{Controlled}, one of you can attempt a new saving throw against one confusing or controlling effect (if it allowed a save), ending the condition if the new save is a success. If both of you are eligible, your emotional focus gets the new save.",
+                    "Description": "You're joined by the bonds of love and nothing can break that, but love can distract you from other things in your life. Your emotional focus is someone you're in love with; they aren't required to love you back.",
+                    "Fallout": "You're @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} with your emotional focus for 1 minute.",
+                    "Fervor": "You gain a +1 status bonus to Will saves. If you cast a spell to benefit your emotional focus, this bonus increases to +3 until the start of your next turn. Spell: @UUID[Compendium.pf2e.spells-srd.Item.szIyEsvihc5e1w8n]{Soothe}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.YGRpHU5yxw73mls8]{Soothing Words}",
+                    "Toggle": "You cast a spell to benefit your emotional focus",
+                    "Label": "Love",
+                    "Trigger": "Your emotional focus takes damage from an enemy while within 30 feet of you."
+                },
+                "Misery": {
+                    "Activation": "You gain a number of temporary Hit Points equal to your level. They last for 1 minute.",
+                    "Description": "To suffer is to know you're alive; to make your enemies suffer as greatly as you have eases your suffering.",
+                    "Fallout": "You take an untyped penalty to any damage you would deal with any spell you cast until you Settle your Emotions. The penalty is –1 per spell rank.",
+                    "Fervor": "You can choose not to attempt a flat check to end persistent damage you're taking. When you cast a damaging spell, you can choose one creature that failed its save or that you hit with your spell attack roll. That target takes persistent damage of the same type the spell dealt, of an amount equal to the highest amount of persistent damage you currently have. You can't choose a creature that's already taking persistent damage. Spell: @UUID[Compendium.pf2e.spells-srd.Item.R8bqnYiThB6MYTxD]{Phantom Pain}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.xn0V2HDrmDWNzPEt]{Savor the Sting}",
+                    "Label": "Misery",
+                    "Trigger": "You gain persistent damage from a foe."
+                },
+                "Pride": {
+                    "Activation": "The critical failure becomes a failure.",
+                    "Description": "All is well as long as you appear well, but you get caught up in the moment and lose track of what's important.",
+                    "Fallout": "You momentarily lose track of what's real, becoming @UUID[Compendium.pf2e.conditionitems.Item.yblD8fOR1J8rDwEQ]{Confused} for 1 round. Spell: @UUID[Compendium.pf2e.spells-srd.Item.j8vIoIEWElvpwkcI]{Mirror Image}",
+                    "Fervor": "Each time you cast an illusion spell, until the start of your next turn, any critical failure you roll on an attack roll or saving throw is a failure instead. Spell: @UUID[Compendium.pf2e.spells-srd.Item.UKsIOWmMx4hSpafl]{Dizzying Colors}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.Q25JQAgnJSGgFDKZ]{Veil of Confidence}",
+                    "Label": "Pride",
+                    "Trigger": "You critically fail on an attack roll or saving throw."
+                },
+                "Remorse": {
+                    "Activation": "You Step or Stride. You must end this movement closer to the triggering ally.",
+                    "Description": "You attempt to overcome your failings, but your guilt stays with you.",
+                    "Fallout": "Your emotional weight crushes you, leaving you @UUID[Compendium.pf2e.conditionitems.Item.e1XGnhKNSQIm5IXg]{Stupefied 2} until you Settle your Emotions.",
+                    "Fervor": "Any spell you cast that restores Hit Points to the triggering ally gets a status bonus to the Hit Points healed equal to the spell's rank, or double the spell's rank if the ally is at 0 Hit Points. Spell: @UUID[Compendium.pf2e.spells-srd.Item.kIwA7kwp5E0AC3yM]{Warrior's Regret}",
+                    "Focus": "@UUID[Compendium.pf2e.spells-srd.Item.rhJyqB9g3ziImQgM]{Healer's Blessing}",
+                    "Label": "Remorse",
+                    "Trigger": "An ally within 30 feet drops to 0 Hit Points."
                 }
             },
             "CelestialResistance": {
                 "Prompt": "Select a type of energy associated with your bloodline."
+            },
+            "Centaur": {
+                "MentorOfLegends": {
+                    "Description": "In addition to its normal effects, the spell also grants temporary Hit Points equal to half your level. You can't cast this spell on yourself."
+                }
             },
             "Champion": {
                 "AuraOfFaith": {
@@ -2198,6 +2397,14 @@
                     "Description": "Guilt clouds the minds of those who ignore your Glimpse of Redemption. Instead of making the triggering creature enfeebled 2, you can make it @UUID[Compendium.pf2e.conditionitems.e1XGnhKNSQIm5IXg]{Stupefied 2} for the same duration."
                 }
             },
+            "ChangeShape": {
+                "Anadi": "You change into your human or spider shape. Each shape has a specific, persistent appearance. In your human shape, you can't use unarmed attacks granted by your ancestry. You aren't off-guard when climbing in your spider shape. However, in your spider shape you can't use weapons, shields, or other held items of any sort, and you are limited in what actions you can take that have the manipulate trait. The only manipulate actions you can take are to @UUID[Compendium.pf2e.actionspf2e.Item.aBQ8ajvEBByv45yz]{Cast a Spell} with somatic components, weave silk or webbing, or simple @UUID[Compendium.pf2e.actionspf2e.Item.pvQ5rY2zrtPI614F]{Interact} actions such as opening an unlocked door. Your spider legs can't perform actions that require fingers or significant manual dexterity, including any action that would require a check to accomplish. The GM might determine other manipulate actions are appropriate for your spider legs.",
+                "Beastkin": "You change into your humanoid or hybrid shape. Each shape has a specific, persistent appearance, and most beastkin remain in their hybrid shapes by default. In hybrid shape, you appear as a mix between your ancestry and your inherent animal. While in hybrid shape, you gain a jaws unarmed Strike resembling the features of your inherent animal (fangs for bats, beaks for eagles, mandibles for wasps, and so on). Your jaws deal 1d4 piercing damage, have the agile, finesse, and unarmed traits, and are in the brawling weapon group. In your humanoid shape, you retain the appearance of your original ancestry.",
+                "Kitsune": "You transform into a specific alternate form determined by your heritage. If your heritage doesn't list a form, your alternate form is a tailless form, which is a common Medium humanoid ancestry prevalent where you grew up (typically human). This form is the same age and body type as your true form and has roughly analogous physical traits, such as hair color. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. You lose any unarmed Strikes you gained from a kitsune heritage or ancestry feat in this form. You can remain in your alternate form indefinitely, and you can shift back to your true kitsune form by using this action again.",
+                "Tanuki": "You can transform into a mundane raccoon dog, using the statistics of @UUID[Compendium.pf2e.spells-srd.Item.gfPjmG6Fe6D3MFjl]{Pest Form}. This is a specific raccoon dog form that's the same age and body type as your true form and has roughly analogous physical traits, such as hair color. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. You lose any unarmed Strikes you gained from a tanuki heritage or ancestry feat in this form. You can remain in your raccoon dog form indefinitely, and you can shift back to your tanuki form by using this action again.",
+                "Werecreature": "You transform into your hybrid or animal shape. Your equipment transforms with you and continues to provide bonuses, but your animal shape cannot use weapons, shields, or other held items and cannot use manipulate actions. You gain a movement speed, unarmed attacks, and potentially other abilities based on your werecreature type. These unarmed attacks are in the brawling group. You can Dismiss the effect to return to your humanoid shape, and you resume your humanoid shape automatically if you're reduced to 0 Hit Points.",
+                "Yaoguai": "You transform to or from your true yaoguai form into a humanoid alternate form, which is a common Medium humanoid ancestry prevalent where you were born (typically human). This form is the same apparent age and body type as your yaoguai form and has roughly analogous physical traits, such as hair color. Using Change Shape counts as creating a disguise for the @UUID[Compendium.pf2e.actionspf2e.Item.AJstokjdG6iDjVjE]{Impersonate} use of Deception. You can remain in your humanoid form indefinitely, but you revert to your yaoguai form after 1 hour of unconsciousness or 1 minute after death."
+            },
             "CharmOfResistance": {
                 "Greater": "Charm of {damageType} Resistance (Greater)",
                 "Major": "Charm of {damageType} Resistance (Major)",
@@ -2222,6 +2429,41 @@
                 "ClanPistol": "Clan Pistol (Ancestry Feat)",
                 "Label": "Clan Weapon",
                 "Prompt": "Select a clan weapon."
+            },
+            "ClassFeatures": {
+                "SpellRepertoire": {
+                    "bard": {
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank occult spells of your choice and five occult cantrips of your choice. You choose these from the common spells from the occult list or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Bard Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
+                        "PartThree": "Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.",
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
+                    },
+                    "oracle": {
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank divine spells of your choice and five divine cantrips of your choice. You choose these from the common spells on the divine list or from other divine spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Oracle Spells per Day table), you add a spell to your spell repertoire of the same rank. At 2nd level, you select another 1st-rank spell; at 3rd level, you select two 2nd-rank spells, and so on. When you add spells, you might add a higher-rank version of a spell you already have, so you can cast a heightened version of that spell.",
+                        "PartThree": "Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot, and vice versa.",
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
+                    },
+                    "psychic": {
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn one 1st-level occult spell of your choice and three occult cantrips of your choice. You choose these from the common spells from the occult list or from other occult spells to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level. Your choice of conscious mind also grants you additional spells in your repertoire, starting with an additional 1st-level spell and two cantrips listed in your conscious mind, which you cast as psi cantrips.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Psychic Spells per Day table), you add a spell to your spell repertoire of the same level. At 2nd level, you select another 1st-level spell; at 3rd level, you select one 2nd-level spell, and so on. When you add spells, you might add a higher-level version of a spell you already have, so you can cast a heightened version of that spell. Your conscious mind also adds additional spells to your repertoire as you gain spells of higher levels.",
+                        "PartThree": "Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, such as the spells you gain from your conscious mind, it wouldn't give you another spell slot, and vice versa.",
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. This spell can be a cantrip. You can also swap out spells by retraining during downtime."
+                    },
+                    "sorcerer": {
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-rank spells of your choice and four cantrips of your choice, as well as an additional spell and cantrip from your bloodline. You choose these from the common spells from the tradition corresponding to your bloodline, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell rank.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see the Sorcerer Spells per Day table above), you add a spell to your spell repertoire of the same rank. When you gain a new rank of spells, your first new spell is always the sorcerous gift spell for that rank that's listed in your bloodline, but you can choose the other spells. At 2nd level, you select another 1st-rank spell; at 3rd level, you gain a new spell from your bloodline and two other 2nd-rank spells, and so on. When you add spells, you might select a higher-rank version of a spell you already know so that you can cast a heightened version of that spell.",
+                        "PartThree": "Though you gain them at the same rate, your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it wouldn't give you another spell slot or vice versa.",
+                        "SpellSwapping": "As you gain new spells in your spell repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same rank. This spell can be a cantrip, but you can't swap out bloodline spells. You can also swap out spells by retraining during downtime."
+                    },
+                    "SpellSwapping": "**Swapping Spells in Your Repertoire**",
+                    "summoner": {
+                        "PartOne": "The collection of spells you can cast is called your spell repertoire. At 1st level, you learn two 1st-level spells of your choice and five cantrips of your choice. You choose these from the common spells from the tradition corresponding to your eidolon, or from other spells from that tradition to which you have access. You can cast any spell in your spell repertoire by using a spell slot of an appropriate spell level. Your spell slots and the spells in your spell repertoire are separate. If a feat or other ability adds a spell to your spell repertoire, it doesn't give you another spell slot, and vice versa.",
+                        "PartTwo": "You add to this spell repertoire as you increase in level. Each time you get a spell slot (see Table 2–4: Summoner Spells per Day), you add a spell of the same level to your spell repertoire. At 2nd level, you select another 1st-level spell. At 3rd level, you add the first 2nd-level spell to your repertoire. At 4th level you gain your second and your spell repertoire reaches its maximum size of five spells.",
+                        "PartThree": "At 5th level, in addition to adding two 3rd-level spells to your repertoire, you lose your lowest level of spell slots. Any time you lose a level of spell slots, you lose two spells in your repertoire as well. These can come from spells you already know or out of the number of new spells you're learning. On levels in which you don't change your spell slots, you can swap out multiple spells, as described below.",
+                        "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. If it's a level at which you lose a set of lower-level slots, you can replace the two in either order. You can also instead swap a cantrip. You can also swap out spells by retraining during downtime."
+                    }
+                }
             },
             "Cleric": {
                 "CastigatingWeapon": {
@@ -2584,6 +2826,9 @@
                 }
             },
             "Equipment": {
+                "AlchemistGoggles": {
+                    "RollOptionLabel": "Failed Strike with an alchemical bomb"
+                },
                 "AmphisbaenaHandwraps": {
                     "TwinVenomStrikeLabel": "Amphisbaena Handwraps - Twin Venom Strike"
                 },
@@ -2628,6 +2873,9 @@
                     "Poison": "Orange (Poison)",
                     "Void": "Pink (Void)"
                 },
+                "CaressOfTheGreatSerpent": {
+                    "SerpentsKiss": "Serpent's Kiss"
+                },
                 "ChaliceOfJustice": {
                     "SipOfJustice": {
                         "Note": "Whenever you critically hit an unholy creature with the <em>chalice of justice</em>, the creature is @UUID[Compendium.pf2e.conditionitems.Item.xYTAsEpcJE1Ccni3]{Slowed 1} for 1 round."
@@ -2648,6 +2896,9 @@
                     "PouncingWhirlLabel": "Chimera Flail - Pouncing Whirl",
                     "PouncingWhirlUsedLabel": "Chimera Flail - Pouncing Whirl Used",
                     "StrideHalfLabel": "Chimera Flail - Stride at least half your Speed"
+                },
+                "CloakOfWavesAndClouds": {
+                    "CutAirAndSea": "Cut Air and Sea"
                 },
                 "ConstrictingMeteor": {
                     "CoilingChainLabel": "Constricting Meteor - Coiling Chain"
@@ -2776,6 +3027,11 @@
                     "PromptLevel": "Select the level of your Spirit Remnant"
                 }
             },
+            "FamiliarSage": {
+                "LightningRingsOvercharge": {
+                    "Prompt": "Did the Familiar Sage cast a spell with the air or electricity trait this turn?"
+                }
+            },
             "FanesFourberie": {
                 "Prompt": "Treat Cards as darts or daggers?"
             },
@@ -2785,6 +3041,9 @@
                     "Requirements": "Your most recent action was to cast a non-cantrip spell",
                     "Sorcerer": "You siphon spell energy into one weapon you're wielding or into one of your unarmed attacks, such as a fist. Until the end of your turn, the weapon or unarmed attack deals an extra 1d6 force damage and gains the trait of your bloodline's magical tradition if it didn't have it already. If the spell dealt a different type of damage, the Strike deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage).",
                     "Wizard": "You siphon spell energy into one weapon you're wielding, or into one of your unarmed attacks, such as a fist. Until the end of your turn, the weapon or unarmed attack deals an extra 1d6 force damage and gains the arcane trait if it didn't have it already. If the spell dealt a different type of damage, the Strike deals this type of damage instead (or one type of your choice if the spell could deal multiple types of damage)."
+                },
+                "BurnIt": {
+                    "Label": "Burn It!"
                 },
                 "CharmingLiar": {
                     "Note": "When you get a critical success using the Lie action, the target's attitude toward you improves by one step, as though you'd succeeded at using Diplomacy to Make an Impression."
@@ -2815,18 +3074,29 @@
                 "Forager": {
                     "Note": "While using Survival to Subsist, if you roll any result worse than a success, you get a success. You can also provide for multiple creatures."
                 },
+                "IntensifiedElementStance": {
+                    "RollOptionLabel": "Intensified Element Stance — Damage vs. Constructs"
+                },
+                "KnowItAll": {
+                    "Bard": "When you succeed at a check to Recall Knowledge, you gain additional information or context. When you critically succeed at a check to Recall Knowledge, you get additional information or context or can ask an additional follow-up question (the GM chooses which).",
+                    "Thaumaturge": "Having heard every rumor or story in the book, you know that if you've heard of something in the first place, you've probably heard about it at length. When you succeed at a check to Recall Knowledge, you gain additional information or context about the given topic. When you critically succeed at a check to Recall Knowledge, at the GM's discretion, you might gain even more additional information or context than normal."
+                },
                 "PeerBeyond": {
                     "Note": "You can roll a Spirit Lore or Haunt Lore check for initiative if you know that an incorporeal undead or a haunt is present."
                 },
                 "RiskySurgery": {
                     "Note": "When you Treat Wounds, you can deal @Damage[1d8[slashing]] damage to your patient just before applying the effects of the Treat Wounds. If you do, gain a +2 circumstance bonus to your Medicine check to Treat Wounds, and if you roll a success, you get a critical success instead."
                 },
+                "SolarRejuvenation": {
+                    "Ghoran": "The warmth and light of the sun gives you life. If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}.",
+                    "Leshy": "If you rest outdoors for 10 minutes during the day, you regain Hit Points equal to your @Damage[(floor(@actor.level/2)*@actor.con.mod)[healing]]{Constitution modifier × half your level}. You gain this benefit in addition to any healing from @UUID[Compendium.pf2e.actionspf2e.Item.1kGNdIIhuglAjIp9]{Treat Wounds}. Leshies whose plant nourishment does not rely on photosynthesis require a similarly suitable environment. For example, fungus leshies need dark, damp environments and a pile of decaying plant matter."
+                },
                 "ThlipitContestantDedication": {
                     "Lash": "Lash"
                 },
                 "YoureNext": {
                     "Rogue": "After downing a foe, you menace another. Attempt to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a creature within 60 feet, with a +2 circumstance bonus. If you have legendary proficiency in Intimidation, you can use this as a free action with the same trigger.",
-                    "Swashbuckler": "After downing a foe, you promise another that you’re coming after them next. Attempt an Intimidation check with a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a single creature that you can see and that can see you. If you’re legendary in Intimidation, you can use this as a free action with the same trigger.",
+                    "Swashbuckler": "After downing a foe, you promise another that you're coming after them next. Attempt an Intimidation check with a +2 circumstance bonus to @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize} a single creature that you can see and that can see you. If you're legendary in Intimidation, you can use this as a free action with the same trigger.",
                     "Trigger": "You reduce an enemy to 0 Hit Points."
                 }
             },
@@ -2907,7 +3177,8 @@
             "Ganzi": {
                 "Irrepressible": {
                     "SaveNote": "When you roll a success on a save against an emotion or fear effect, you get a critical success instead."
-                }
+                },
+                "Resistance": "Ganzi Resistance"
             },
             "GeneralTraining": {
                 "Prompt": "Select a 1st-level general feat."
@@ -3182,7 +3453,10 @@
                         "Label": "Unstable Check"
                     },
                     "Note": "When you take an unstable action, attempt a @Check[flat|dc:15|options:unstable-check|name:PF2E.SpecificRule.Inventor.Unstable.FlatCheck.Label]{flat check} immediately after applying its effects.",
-                    "Stable": "Stable"
+                    "Stable": "Stable",
+                    "UnstableFunction": {
+                        "Label": "Enable Unstable Functions"
+                    }
                 }
             },
             "Investigator": {
@@ -3205,6 +3479,11 @@
                 }
             },
             "ItemStrike": "{item} Strike",
+            "KeepPace": {
+                "BountyHunter": "When your hunted prey tries to bolt, you follow. You Stride up to your Speed, following your hunted prey and keeping it in reach throughout its movement until it stops moving or you've moved your full Speed. You can use Keep Pace to @UUID[Compendium.pf2e.actionspf2e.Item.H6v1VgowHaKHnVlG]{Burrow}, @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{Climb}, @UUID[Compendium.pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{Fly}, or @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{Swim} instead of Stride if you have the appropriate movement type.",
+                "GameHunter": "Once you are upon your prey, they can't escape. @UUID[Compendium.pf2e.actionspf2e.Item.Bcxarzksqt9ezrs6]{Stride} up to your Speed, following the foe and keeping it in reach throughout its movement until it stops moving or you've moved your full Speed. You can use Keep Pace to @UUID[Compendium.pf2e.actionspf2e.Item.H6v1VgowHaKHnVlG]{Burrow}, @UUID[Compendium.pf2e.actionspf2e.Item.pprgrYQ1QnIDGZiy]{Climb}, @UUID[Compendium.pf2e.actionspf2e.Item.cS9nfDRGD83bNU1p]{Fly}, or @UUID[Compendium.pf2e.actionspf2e.Item.c8TGiZ48ygoSPofx]{Swim} instead of Stride if you have the corresponding movement type.",
+                "Trigger": "Your prey is within reach and attempts to move away from you."
+            },
             "Kineticist": {
                 "GateAttenuator": "Gate Attenuator",
                 "Impulse": {
@@ -3341,6 +3620,7 @@
             },
             "Magus": {
                 "ArcaneCascade": {
+                    "IncreaseDamage": "Increase Arcane Cascade damage",
                     "WeaponDamage": "Weapon Damage"
                 },
                 "HybridStudy": {
@@ -3351,6 +3631,14 @@
                 },
                 "Spellstrike": {
                     "RechargeNote": "You recharge your Spellstrike when you cast a conflux spell that takes at least 1 action to cast."
+                },
+                "UnfurlingBrocade": {
+                    "QiInfusedFabric": {
+                        "Label": "Qi-Infused Fabric"
+                    }
+                },
+                "UnsheathingTheSwordLight": {
+                    "Note": "Countless copies of your sword, made of light, fall around you, dealing @Damage[(2*{item|flags.pf2e.rulesSelections.unsheathingTheSwordLight})[@item.system.damage.damageType]|options:area-damage,damage:material:cold-iron,damage:material:silver] damage to each creature within a @Template[type:emanation|distance:10] of the target, excluding you and the target of the Spellstrike."
                 }
             },
             "MantleOfTheUnwaveringHeart": {
@@ -3408,14 +3696,17 @@
                 "AdvancedHobgoblinWeapons": "Advanced Hobgoblin Weapons",
                 "AdvancedKholoWeapons": "Advanced Kholo Weapons",
                 "AdvancedKoboldWeapons": "Advanced Kobold Weapons",
+                "AdvancedMonasticWeaponry": "Advanced Monastic Weaponry",
                 "AdvancedMerfolkWeapons": "Advanced Merfolk Weapons",
                 "AdvancedOrcWeapons": "Advanced Orc Weapons",
+                "AdvancedSamsaranWeapons": "Advanced Samsaran Weapons",
                 "AdvancedSurkiWeapons": "Advanced Surki Weapons",
                 "AdvancedTenguWeapons": "Advanced Tengu Weapons",
                 "AdvancedTripkeeWeapons": "Advanced Tripkee Weapons",
                 "AdvancedTwoHandedMeleeWeapons": "Advanced Two-Handed Melee Weapons",
                 "AdvancedVanaraWeapons": "Advanced Vanara Weapons",
                 "AdvancedVishkanyaWeapons": "Advanced Vishkanya Weapons",
+                "AdvancedWayangWeapons": "Advanced Wayang Weapons",
                 "BayonetsAndReinforcedStocks": "Bayonets and Reinforced Stocks",
                 "BountyHunterWeapons": "Bounty Hunter Tools of the Trade",
                 "MartialAthamaruWeapons": "Martial Athamaru Weapons",
@@ -3458,13 +3749,16 @@
                 "MartialKholoWeapons": "Martial Kholo Weapons",
                 "MartialKoboldWeapons": "Martial Kobold Weapons",
                 "MartialMerfolkWeapons": "Martial Merfolk Weapons",
+                "MartialOniWeapons": "Martial Oni Weapons",
                 "MartialOrcWeapons": "Martial Orc Weapons",
+                "MartialSamsaranWeapons": "Martial Samsaran Weapons",
                 "MartialSurkiWeapons": "Martial Surki Weapons",
                 "MartialTenguWeapons": "Martial Tengu Weapons",
                 "MartialTripkeeWeapons": "Martial Tripkee Weapons",
                 "MartialTwoHandedMeleeWeapons": "Martial Two-Handed Melee Weapons",
                 "MartialVanaraWeapons": "Martial Vanara Weapons",
                 "MartialVishkanyaWeapons": "Martial Vishkanya Weapons",
+                "MartialWayangWeapons": "Martial Wayang Weapons",
                 "MinotaurWeapons": "Minotaur Weapons",
                 "MonasticArchery": "Monastic Archery",
                 "PerformativeWeapons": "Gladiator Performative Weapons",
@@ -3498,6 +3792,15 @@
             },
             "Mindmoppet": {
                 "BrokenShell": "Shell is Broken"
+            },
+            "Minotaur": {
+                "SiphonTorment": {
+                    "Description": "The target creature gains temporary Hit Points equal to your level"
+                }
+            },
+            "Modifier": {
+                "Bonus": "Bonus",
+                "Penalty": "Penalty"
             },
             "Monk": {
                 "DragonRoar": {
@@ -3536,6 +3839,29 @@
                     "Mountain": "Mountain",
                     "Prompt": "Select a bound terrain.",
                     "Swamp": "Swamp"
+                }
+            },
+            "MusicalShift": {
+                "Double": {
+                    "Label": "Double"
+                },
+                "Flat": {
+                    "Label": "Flat",
+                    "Note": "<p>Whenever the enemy critically fails at a Strike, saving throw, or skill check, they fall @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone} in addition to other effects from the critical failure.</p>"
+                },
+                "Natural": {
+                    "Label": "Natural"
+                },
+                "Prompt": "Select a Signature",
+                "Quadruple": {
+                    "Label": "Quadruple"
+                },
+                "Sharp": {
+                    "Label": "Sharp",
+                    "Note": "<p>Whenever an enemy takes piercing or slashing damage, they also take @Damage[2d6[bleed]] damage.</p>"
+                },
+                "Triple": {
+                    "Label": "Triple"
                 }
             },
             "Nagaji": {
@@ -3641,6 +3967,10 @@
                 "ThoroughReports": "Thorough Reports"
             },
             "Poppet": {
+                "Tsukumogami": {
+                    "Ceramic": "Ceramic",
+                    "Cloth": "Cloth or Wood"
+                },
                 "WashOut": {
                     "Note": "Each time you succeed at a Fortitude save against an ongoing poison, you reduce its stage by 2, or by 1 against a virulent poison. Each critical success you achieve against an ongoing poison reduces its stage by 3, or by 2 against a virulent poison."
                 }
@@ -3656,6 +3986,7 @@
                 "AdvancedMulticlassFeat": "Select a class feat up to half your character level.",
                 "Alignment": "Select an alignment.",
                 "Benefit": "Select a benefit.",
+                "Cantrip": "Select a cantrip.",
                 "CantripOrNonCantrip": "Select cantrip or non-cantrip spell.",
                 "ClassDCAbilityScore": "Select the class DC's key attribute.",
                 "Color": "Select a Color.",
@@ -3681,6 +4012,7 @@
                 "LevelOneClassFeat": "Select a 1st-level class feat.",
                 "LevelOneOrTwoClassFeat": "Select a 1st or 2nd-level class feat.",
                 "Material": "Select a material.",
+                "MovementType": "Select a movement type.",
                 "PathToPerfection": "Select a path to perfection.",
                 "Persona": "Select a persona trait.",
                 "PsiCantrip": "Select a psi cantrip.",
@@ -4090,7 +4422,7 @@
                         "Fey": "Either you gain a +2 status bonus to Performance checks for 1 round, or you can become @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealed} for 1 round. Such obvious concealment can't be used to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}",
                         "Genie": "Your spellcasting warps reality and distracts your foes. Either you gain a +1 status bonus to Deception checks for 1 round, or a target takes a -1 status penalty to Perception for 1 round.",
                         "Hag": "You deal @Damage[(4*@item.level)[mental]] damage (@Check[will|basic|against:spell] save) to the first creature that deals damage to you before the end of your next turn; if no creature damages you in that time, you consume that spite to gain temporary Hit Points at the beginning of your next turn equal to the spell's rank. These temporary Hit Points last until the beginning of your following turn.",
-                        "Harrow": "You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealement} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}.",
+                        "Harrow": "You become enveloped in possibility, represented as multiple versions of yourself from your possible futures overlaid on each other. You gain @UUID[Compendium.pf2e.conditionitems.Item.DmAIPqOBomZ7H95W]{Concealment} for 1 round, but can't use the concealment to @UUID[Compendium.pf2e.actionspf2e.Item.XMcnh4cSI32tljXa]{Hide}.",
                         "Imperial": "Until the start of your next turn, you gain your choice of either a +1 status bonus to AC or to saving throws.",
                         "Nymph": "Nymph grace accentuates your movements and distracts your foes, either granting you a +1 status bonus to Diplomacy checks for 1 round or imposing a -1 status penalty on one target's Will saves for 1 round.",
                         "Phoenix": "The primal fire of life and death flows through you or one target. Choose to have either you or a target of the spell gain temporary Hit Points equal to the spell's rank for 1 round, or to have a target of the spell take @Damage[@item.level[fire]] damage (if the spell already deals initial fire damage, combine this with the spell's initial damage before determining weaknesses and resistances).",
@@ -4127,6 +4459,14 @@
                         "Wyrmblessed": "Wyrmblessed Bloodline"
                     },
                     "Prompt": "Select a bloodline."
+                },
+                "DiabolicEdict": {
+                    "Label": "Performing requested Diabolic Edict task",
+                    "Prompt": "Choose if you accept this edict.",
+                    "Accept": "Accept",
+                    "Refuse": "Refuse",
+                    "Bonus": "Diabolic Edict: Accepted",
+                    "Penalty": "Diabolic Edict: Refused"
                 },
                 "SecondBloodMagic": "Second Blood Magic",
                 "TapIntoBlood": {
@@ -4350,10 +4690,12 @@
                 "EchoingChannel": "Choose one additional creature in range. Target that creature with a 1-action version of the same spell. This spell is the same rank as the 2-action harm or heal you cast and doesn't cost another spell slot",
                 "EnergyAblation": "If your next action is to Cast a Spell that deals at least one type of energy damage (acid, cold, electricity, fire, force, sonic, vitality, or void), you gain resistance to an energy damage type of your choice equal to the spell's rank. The resistance lasts until the end of your next turn. You get the resistance regardless of whether or not your spell dealt damage.",
                 "EnergyFusion": "If the next action you use is to Cast a Spell that deals energy damage, select a non-cantrip spell in your spell repertoire that deals a different type of energy damage, and expend an additional spell slot of the same rank as this secondary spell. The spell you cast deals additional damage equal to the rank of the secondary spell slot expended. The spell's total damage is divided evenly between the energy type of the spell you cast and the energy type of the secondary spell.",
-                "ExplosiveArrival": "If your next action is to Cast a Spell with the summon trait, all creatures in a @Template[emanation|distance:10] around the creature you summoned take @Damage[(@item.level)d4[fire]] damage. If the creature summoned has the @Damage[(@item.level)d4[acid]]{acid}, @Damage[(@item.level)d4[cold]]{cold}, @Damage[(@item.level)d4[electricity]]{electricity}, @Damage[(@item.level)d4[sonic]]{sonic}, or @Damage[(@item.level)d4[spirit]]{spirit} trait, you can deal damage of that type instead.",
+                "ExplosiveArrival": "If your next action is to Cast a Spell with the summon trait, all creatures in a @Template[emanation|distance:10] around the creature you summoned take @Damage[(@item.level)d4[fire]|traits:area-damage] damage. If the creature summoned has the @Damage[(@item.level)d4[acid]|traits:area-damage]{acid}, @Damage[(@item.level)d4[cold]|traits:area-damage]{cold}, @Damage[(@item.level)d4[electricity]|traits:area-damage]{electricity}, @Damage[(@item.level)d4[sonic]|traits:area-damage]{sonic}, or @Damage[(@item.level)d4[spirit]|traits:area-damage]{spirit} trait, you can deal damage of that type instead.",
+                "FamiliarsResolve": "If the next action you use is to Cast a Spell, you or an ally within 30 feet gain a +2 status bonus to saving throws against effects that would cause you to be doomed or frightened for 1 round. At 14th level, you or an ally gain a +3 status bonus to saving throws against these effects instead. @UUID[Compendium.pf2e.feat-effects.Item.6I4qWkHzxj4MAt6g]{Effect: Familiar's Resolve}",
                 "ForcibleEnergy": "If your next action is to Cast a Spell that deals acid, cold, electricity, fire, or sonic damage, you can select one target that was damaged to gain weakness 5 to that damage type until the end of your next turn. If a spell deals multiple types of energy damage, choose one that the target gains weakness to. This has no effect on creatures with resistance or immunity to the energy type you choose. @UUID[Compendium.pf2e.feat-effects.Item.0Ai0u9kNJrEudPnN]{Effect: Forcible Energy}",
                 "FormControl": "The spell's rank is 2 lower than normal (minimum 1st rank), but you can remain transformed for up to 1 hour or the listed duration (whichever is longer). You can still Dismiss untamed form as normal.",
                 "GarlandSpell": "A garland of plants grows in a @Template[burst|distance:10] in the spell's range. The plants are difficult terrain and hazardous terrain, covered in your choice of thorns or poisonous vines. Any creature that moves into one of these squares or ends its turn in one takes @Damage[2d6[piercing]]damage for thorns or @Damage[2d6[poison]] for vines. A creature can take this damage only once per turn. You and your familiar are immune to this damage. The plants last for 1 minute or until you cast another Garland Spell, whichever comes first. The damage increases to 3d6 at 16th level and 4d6 at 20th level.",
+                "GoldenDragonsBounty": "If the next action you use is to Cast a Spell that deals bludgeoning, piercing, or slashing damage, that damage is your choice of cold iron, silver, or steel for the purposes of weaknesses, resistances, vulnerabilities, and the like. At 14th level, adamantine is added to the list of metal choices. The spell gains the metal trait.",
                 "GrowthSpell": "Expand the area of the spell. For bursts, expand the radius by 5 feet; for cones, expand the cone by 10 feet; and for lines, expand the length by 15 feet. The spell gains the wood trait.",
                 "GustingSpell": "If the next action you use is to Cast a Spell with the air or electricity trait, you can Fly up to 10 feet before or after the spell is cast.",
                 "Harmonize": "If your next action is to cast a composition, it becomes a harmonized composition. Unlike a normal composition, a harmonized composition doesn't end if you cast another composition, and you can cast another composition on the same turn as a harmonized one. Casting another harmonized composition ends any harmonized composition you already have in effect.",
@@ -4367,14 +4709,18 @@
                 "Martyr": "You lose @Damage[(@item.rank)d8] Hit Points, which can't be reduced or mitigated in any way, and your ally regains an equal number of Hit Points. @UUID[Compendium.pf2e.feat-effects.Item.7ogytOgDmh4h2g5d]{Effect: Heroic Recovery}",
                 "MelodiousSpell": "The spell gains the Subtle trait. The trait hides only the spell's spellcasting actions and manifestations, not its effects. As part of using Melodious Spell, you can choose to @UUID[Compendium.pf2e.actionspf2e.Item.GkmbTGfg8KcgynOA]{Create a Diversion}, @UUID[Compendium.pf2e.actionspf2e.Item.2u915NdUyQan6uKF]{Demoralize}, @UUID[Compendium.pf2e.actionspf2e.Item.EEDElIyin4z60PXx]{Perform}, or Request. If you do so, the spell you cast must have the auditory, emotion, sonic, or visual trait to gain the subtle trait.",
                 "NonLethal": "If your next action is to Cast a Spell that deals damage and doesn't have the death or void trait, that spell gains the nonlethal trait.",
+                "OstentatiousArrivalManifestEidolon": "All creatures in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@actor.level)d4[@actor.flags.pf2e.spellshape.arrayDamage]]. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
+                "OstentatiousArrivalSummonSpell": "All creatures in a @Template[type:emanation|distance:10] around the creature you summoned or manifested take @Damage[(@item.level)d4[@actor.flags.pf2e.spellshape.arrivalDamage]] damage. If the creature you summoned or manifested has the acid, cold, electricity, fire, sonic, or water trait, the damage is that type instead (or cold damage for the water trait). If the creature has more than one of these traits, you choose which damage type to deal.",
                 "OverwhelmingBreath": "If you use your next action to Cast a Spell that has the monk trait and no duration, the spell and any Strikes you make as a result of casting it ignore an amount of the target's resistance to physical damage equal to your level.",
                 "OverwhelmingEnergy": "If the next action you use is to Cast a Spell, the spell ignores an amount of the target's resistance to acid, cold, electricity, fire, or sonic damage equal to your level. This applies to all damage the spell deals, including persistent damage and damage caused by an ongoing effect of the spell, such as the wall created by wall of fire. A creature's immunities are unaffected.",
+                "PitchPerfectProjection": "If your next action this round is to Cast a Spell or use an action that creates an auditory effect with a range, increase that range by 30 feet.",
                 "PortentousSpell": "If the next action you use is to Cast a Spell, any creature that attempts to use a reaction triggered by your Cast a Spell activity takes a –2 circumstance penalty to attack rolls and skill checks rolled as part of the reaction. In addition, if the spell includes a spell attack or requires a saving throw, creatures you hit or that fail their saves are @UUID[Compendium.pf2e.conditionitems.Item.AdPVz7rbaVSRxHFg]{Fascinated} with you until the start of your next turn. @UUID[Compendium.pf2e.feat-effects.Item.klZVVIetJlR99cT6]{Effect: Portentous Spell}",
+                "PurifyingSpell": "If the next action you use is to cast _heal_ targeting a single living creature, you can attempt to counteract a disease or poison affecting the target, in addition to the other benefits of _heal_. If you do, _heal_ gains the water trait.",
                 "QuickenedCasting": "If your next action is to cast a cantrip or a spell that is at least 2 ranks lower than the highest-rank bard spell slot you have, reduce the number of actions to cast it by 1 (minimum 1 action).",
                 "ReachSpell": "If the next action you use is to Cast a Spell that has a range, increase that spell's range by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet.",
                 "Remediate": "If your next action is to use your divine font to cast a 3-action heal or harm spell, you can harness the residual energy to counterbalance opposing forces. In addition to its normal effects, you use your heal or harm spell to attempt to counteract one divine effect in the spell's area.",
                 "ReverberatingSpell": "The spell deals an additional @Damage[1d8[sonic]] damage and all creatures who fail their save against the spell are @UUID[Compendium.pf2e.conditionitems.Item.9PR9y0bi4JPKnHPR]{Deafened} for 1 round. Targets who critically fail their saves against this spell are instead deafened for 1 minute. The spell gains the sonic trait.",
-                "RockslideSpell": "(@item.rank) 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.",
+                "RockslideSpell": "A number of 5-foot squares in the area equal to the spell rank become difficult terrain for 1 round. These squares must be on the ground, and the entire area of difficult terrain must be contiguous. The spell gains the earth trait.",
                 "SafeguardSpell": "If the next action you take is to Cast a Spell with an area, you aren't affected by the spell even if you are within the area.",
                 "ScintillatingSpell": "If your next action is to Cast a Spell that doesn't have the darkness trait, has no duration, and requires creatures to attempt a Reflex save, the spell explodes in a spray of scintillating lights, in addition to its other effects. Each creature that failed its Reflex save against the spell is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} for 1 round, and those who critically failed are instead @UUID[Compendium.pf2e.conditionitems.Item.XgEqL1kFApUbl5Z2]{Blinded} for 1 round.",
                 "SecondaryDetonationArray": "If your next action is to Cast a Spell that deals damage, has no duration, and affects an area, a glowing magic circle appears in a @Template[burst|distance:5] within that area. At the beginning of your next turn, the circle detonates, dealing @Damage[(@item.level)d6[force]] damage to all creatures within the circle, with a @Check[reflex|against:spell]. If the spell dealt a different type of damage, the circle deals @Damage[(@item.level)d6[@actor.flags.pf2e.spellshape.arrayDamage]]{this type of damage instead} (or one type of your choice if the spell could deal multiple types of damage)",
@@ -4402,13 +4748,23 @@
                 "MajorPrompt": "Select a major spirit power",
                 "MinorPrompt": "Select a minor spirit power"
             },
+            "SpiritWarrior": {
+                "SpiritDamage": "Spirit Warrior — Deal spirit damage"
+            },
             "Sprite": {
+                "Dijiang": {
+                    "Emotion": "When you roll a failure (though not a critical failure) on a saving throw against an emotion effect, you get a success instead."
+                },
                 "LuminousSprite": {
                     "Light": "Shed Light"
                 },
                 "SpritesSpark": {
+                    "Dijiang": "Primordial Pulse",
                     "Draxie": "Euphoric Spark",
+                    "Gandharva": "Celestial Song",
                     "Grig": "Dissonant Note",
+                    "Kanchil": "Puzzling Bolt",
+                    "Leungli": "Surging Splash",
                     "LuminousSprite": "Luminous Spark",
                     "Melixie": "Sting Shot",
                     "Nyktera": "Ultrasonic Pulse",
@@ -4429,10 +4785,13 @@
                     "FireTalon": "Fire Talon",
                     "FlashingSpark": "Flashing Spark",
                     "FlowingWave": "Flowing Wave",
+                    "GaleBlossom": "Gale Blossom",
                     "GorillaSlam": "Gorilla Slam",
                     "IronSweep": "Iron Sweep",
                     "LashingBranch": "Lashing Branch",
+                    "RammingHorn": "Ramming Horn",
                     "ShadowGrasp": "Shadow Grasp",
+                    "ShatteringEarth": "Shattering Earth",
                     "SkywardSlash": "Skyward Slash",
                     "StingingLash": "Stinging Lash",
                     "Stonestrike": "Stonestrike",
@@ -4440,6 +4799,20 @@
                     "TigerClaw": "Tiger Claw",
                     "WindCrash": "Wind Crash",
                     "WolfJaws": "Wolf Jaws"
+                }
+            },
+            "StarlitSentinel": {
+                "Constellation": {
+                    "Archer": "Archer",
+                    "Blossom": "Blossom",
+                    "Ogre": "Ogre",
+                    "Ox": "Ox",
+                    "Prompt": "Choose a constellation",
+                    "Swallow": "Swallow",
+                    "Swordswoman": "Swordswoman"
+                },
+                "StarlitTransformation": {
+                    "BoltsOfStarlight": "Bolts of Starlight"
                 }
             },
             "SteadyBalance": {
@@ -4467,6 +4840,11 @@
                 },
                 "ElementalAssault": {
                     "Prompt": "Select an element."
+                }
+            },
+            "Summoner": {
+                "OstentatiousArrival": {
+                    "Label": "Ostentatious Arrival: Creature Trait."
                 }
             },
             "Surki": {
@@ -4676,6 +5054,9 @@
             },
             "WardingRune": {
                 "Prompt": "Select a school of magic other than divination."
+            },
+            "Wayang": {
+                "ShadowOfTheCourtier": "Once per day, if you fail, but not critically fail, a check to Make an Impression, you can play it off as part of a performance, allowing you to reroll the check; this is a fortune effect."
             },
             "Weapon": {
                 "Metal": "Using a metal weapon"

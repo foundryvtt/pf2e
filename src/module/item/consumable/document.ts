@@ -167,7 +167,7 @@ class ConsumablePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
             const flags = {
                 pf2e: {
                     origin: {
-                        sourceId: this.flags.core?.sourceId,
+                        sourceId: this.sourceId,
                         uuid: this.uuid,
                         type: this.type,
                     },

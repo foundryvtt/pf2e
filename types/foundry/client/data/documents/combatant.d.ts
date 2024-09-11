@@ -8,7 +8,7 @@ declare global {
      * @see {@link CombatantConfig}         The application which configures a Combatant.
      */
     class Combatant<
-        TParent extends Combat | null,
+        TParent extends Combat | null = Combat | null,
         TTokenDocument extends TokenDocument | null = TokenDocument | null,
     > extends ClientBaseCombatant<TParent> {
         constructor(data: PreCreate<foundry.documents.CombatantSource>, context?: DocumentConstructionContext<TParent>);

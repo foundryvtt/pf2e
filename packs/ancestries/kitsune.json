@@ -44,14 +44,7 @@
             }
         },
         "hp": 8,
-        "items": {
-            "7ytru": {
-                "img": "systems/pf2e/icons/default-icons/feat.svg",
-                "level": 1,
-                "name": "Change Shape",
-                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Change Shape (Kitsune)"
-            }
-        },
+        "items": {},
         "languages": {
             "custom": "",
             "value": [
@@ -64,7 +57,32 @@
             "title": "Pathfinder Lost Omens: Ancestry Guide"
         },
         "reach": 5,
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ChangeShape.Kitsune"
+                    }
+                ]
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:change-shape"
+                ],
+                "property": "traits",
+                "value": "divine"
+            }
+        ],
         "size": "med",
         "speed": 25,
         "traits": {

@@ -1,0 +1,190 @@
+{
+    "_id": "ZqEOsqnGFLI2ob9m",
+    "img": "icons/commodities/flowers/rosaecia-red.webp",
+    "name": "Effect: Prepare Elemental Medicine",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Prepare Elemental Medicine]</p>\n<p>The recipient is granted a circumstance bonus to saves against an affliction, or a –1 circumstance penalty on a critical failure.</p>\n<p>If you have @UUID[Compendium.pf2e.feats-srd.Item.Energy Fortification] and use Occultism to Prepare Elemental Medicine, the recipient gains resistance and weakness to vitality damage and void damage based on the element you chose.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -1
+                    }
+                ],
+                "flag": "value",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.SpecificLore.Herbalism",
+                        "value": "herbalism-lore"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            "parent:origin:item:tag:energy-fortification"
+                        ],
+                        "value": "occultism"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "predicate": [
+                    {
+                        "or": [
+                            "parent:origin:item:tag:energy-fortification",
+                            "feat:intensified-element-stance"
+                        ]
+                    }
+                ],
+                "prompt": "PF2E.SpecificRule.Prompt.Skill",
+                "rollOption": "prepare-elemental-medicine:skill"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.TraitEarth",
+                        "value": {
+                            "element": "earth",
+                            "resistance": "void",
+                            "weakness": "vitality"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": {
+                            "damageType": "fire",
+                            "element": "fire",
+                            "resistance": "vitality",
+                            "weakness": "void"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitMetal",
+                        "value": {
+                            "element": "metal",
+                            "resistance": "vitality",
+                            "weakness": "void"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWater",
+                        "value": {
+                            "element": "water",
+                            "resistance": "void",
+                            "weakness": "vitality"
+                        }
+                    },
+                    {
+                        "label": "PF2E.TraitWood",
+                        "value": {
+                            "element": "wood",
+                            "resistance": "void",
+                            "weakness": "vitality"
+                        }
+                    }
+                ],
+                "flag": "prepareElementalMedicine",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Element"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "prepare-elemental-medicine",
+                    {
+                        "or": [
+                            "item:trait:curse",
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.value"
+            },
+            {
+                "key": "Resistance",
+                "predicate": [
+                    "prepare-elemental-medicine:skill:occultism"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.prepareElementalMedicine.resistance}",
+                "value": "ternary(gte(@item.origin.skills.occultism.rank,4),8,ternary(gte(@item.origin.skills.occultism.rank,3),4,2))"
+            },
+            {
+                "key": "Weakness",
+                "predicate": [
+                    "prepare-elemental-medicine:skill:occultism"
+                ],
+                "type": "{item|flags.pf2e.rulesSelections.prepareElementalMedicine.weakness}",
+                "value": "ternary(gte(@item.origin.skills.occultism.rank,4),8,ternary(gte(@item.origin.skills.occultism.rank,3),4,2))"
+            },
+            {
+                "key": "RollOption",
+                "option": "prepare-elemental-medicine:{item|flags.pf2e.rulesSelections.prepareElementalMedicine.element}",
+                "predicate": [
+                    "feat:intensified-element-stance"
+                ]
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.prepareElementalMedicine.skillRank",
+                "predicate": [
+                    "feat:intensified-element-stance"
+                ],
+                "value": "@item.origin.skills.{item|flags.pf2e.rulesSelections.skill}.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

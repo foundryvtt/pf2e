@@ -22,55 +22,67 @@
         },
         "rules": [
             {
+                "choices": [
+                    {
+                        "label": "Accept",
+                        "value": "1"
+                    },
+                    {
+                        "label": "Refuse",
+                        "value": "-1"
+                    }
+                ],
+                "flag": "edict",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Prompt"
+            },
+            {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Performing requested Diabolic Edict task",
+                "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Label",
                 "option": "diabolic-edict-agree",
+                "predicate": [
+                    {
+                        "gte": [
+                            "{item|flags.pf2e.rulesSelections.edict}",
+                            1
+                        ]
+                    }
+                ],
                 "toggleable": true
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "label": "Diabolic Edict Request",
+                "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Bonus",
                 "predicate": [
                     "diabolic-edict-agree"
                 ],
-                "selector": "attack",
+                "selector": [
+                    "attack",
+                    "skill-check"
+                ],
                 "type": "status",
-                "value": 1
+                "value": "{item|flags.pf2e.rulesSelections.edict}"
             },
             {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "label": "Diabolic Edict Refused",
+                "label": "PF2E.SpecificRule.Sorcerer.DiabolicEdict.Penalty",
                 "predicate": [
                     {
-                        "not": "diabolic-edict-agree"
+                        "lt": [
+                            "{item|flags.pf2e.rulesSelections.edict}",
+                            1
+                        ]
                     }
                 ],
-                "selector": "attack",
-                "type": "status",
-                "value": -1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Diabolic Edict Performed",
-                "predicate": [
-                    "diabolic-edict"
+                "selector": [
+                    "attack",
+                    "skill-check"
                 ],
-                "selector": "skill-check",
                 "type": "status",
-                "value": 1
-            },
-            {
-                "key": "FlatModifier",
-                "label": "Diabolic Edict Refused",
-                "predicate": [
-                    {
-                        "not": "diabolic-edict"
-                    }
-                ],
-                "selector": "skill-check",
-                "type": "status",
-                "value": -1
+                "value": "{item|flags.pf2e.rulesSelections.edict}"
             }
         ],
         "start": {

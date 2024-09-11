@@ -204,6 +204,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
             const newButton = createHTMLElement("button", {
                 classes: ["with-image"],
                 children: [img, createHTMLElement("span", { children: [droppedItem.name] })],
+                dataset: { action: "pick" },
             });
             newButton.type = "button";
             newButton.value = String(choicesLength - 1);

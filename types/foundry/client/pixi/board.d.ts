@@ -1,4 +1,4 @@
-export {};
+import type { GridlessGrid, HexagonalGrid, SquareGrid } from "../../common/grid/module.d.ts";
 
 declare global {
     class Canvas<
@@ -178,7 +178,7 @@ declare global {
         get dimensions(): SceneDimensions;
 
         /** A reference to the grid of the currently displayed Scene document, or null if the Canvas is currently blank. */
-        get grid(): foundry.grid.BaseGrid;
+        get grid(): SquareGrid | HexagonalGrid | GridlessGrid;
 
         /** A flag for whether the game Canvas is ready to be used. False if the canvas is not yet drawn, true otherwise. */
         get ready(): boolean;

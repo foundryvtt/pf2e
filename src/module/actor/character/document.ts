@@ -69,7 +69,7 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
-import { CraftingEntry, CraftingEntryData, CraftingFormula } from "./crafting/index.ts";
+import { CraftingAbility, CraftingAbilityData, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -217,18 +217,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             });
     }
 
-    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]> {
+    async getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingAbility[]> {
         const craftingFormulas = formulas ?? (await this.getCraftingFormulas());
         return Object.values(this.system.crafting.entries)
-            .filter((entry): entry is CraftingEntryData => CraftingEntry.isValid(entry))
-            .map((entry) => new CraftingEntry(craftingFormulas, entry));
+            .filter((entry): entry is CraftingAbilityData => CraftingAbility.isValid(entry))
+            .map((entry) => new CraftingAbility(craftingFormulas, entry));
     }
 
-    async getCraftingEntry(selector: string): Promise<CraftingEntry | null> {
+    async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
         const craftingFormulas = await this.getCraftingFormulas();
         const craftingEntryData = this.system.crafting.entries[selector];
-        if (CraftingEntry.isValid(craftingEntryData)) {
-            return new CraftingEntry(craftingFormulas, craftingEntryData);
+        if (CraftingAbility.isValid(craftingEntryData)) {
+            return new CraftingAbility(craftingFormulas, craftingEntryData);
         }
 
         return null;
@@ -288,6 +288,11 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     override prepareBaseData(): void {
         super.prepareBaseData();
 
+        const levelData = this.system.details.level;
+        if (!Number.isInteger(levelData.value) || levelData.value < 0) {
+            levelData.value = 1;
+        }
+
         // Traits
         this.system.traits = {
             value: [],
@@ -296,7 +301,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         };
 
         // Flags
-        const { flags } = this;
+        const flags = this.flags;
         flags.pf2e.favoredWeaponRank = 0;
         flags.pf2e.freeCrafting ??= false;
         flags.pf2e.quickAlchemy ??= false;
@@ -1119,11 +1124,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
         const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
-        const syntheticWeapons = R.uniqueBy(
-            synthetics.strikes.map((s) => s(unarmedRunes)).filter(R.isTruthy),
-            (w) => w.slug,
-        );
-
+        const syntheticWeapons = Object.values(synthetics.strikes)
+            .map((s) => s(unarmedRunes))
+            .filter(R.isNonNull);
         // Exclude handwraps as a strike
         const weapons = [
             itemTypes.weapon.filter((w) => w.slug !== handwrapsSlug),
@@ -1613,6 +1616,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     createMessage: params.createMessage ?? true,
                 };
 
+                // consumeAmmo will add/wrap the callback to do the actual consumption of ammo at the end
                 if (params.consumeAmmo && !this.consumeAmmo(context.origin.item, params)) {
                     return null;
                 }
@@ -1741,8 +1745,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             return false;
         } else {
             const existingCallback = params.callback;
-            params.callback = async (roll: Rolled<Roll>) => {
-                existingCallback?.(roll);
+            params.callback = async (...args) => {
+                await existingCallback?.(...args);
                 await weapon.consumeAmmo();
             };
             return true;
@@ -1848,16 +1852,18 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         if (!changed.system) return super._preUpdate(changed, options, user);
 
         // Clamp level, allowing for level-0 variant rule and enough room for homebrew "mythical" campaigns
-        const newLevel = changed.system.details?.level?.value ?? this.level;
         const attributeChanged =
             !!changed.system.build?.attributes &&
             !R.isEmpty(fu.diffObject(this._source.system.build?.attributes ?? {}, changed.system.build.attributes));
-        if (newLevel !== this.level || attributeChanged) {
-            const level = changed.system.details?.level;
-            if (level) {
-                level.value = Math.clamp(newLevel, 0, 30);
-            }
 
+        const levelData = changed.system.details?.level;
+        if (levelData?.value !== undefined) {
+            if (!Number.isInteger(levelData.value)) levelData.value = 1;
+            levelData.value = Math.clamp(levelData.value, 0, 30);
+        }
+        const newLevel = levelData?.value ?? this.level;
+
+        if (newLevel !== this.level || attributeChanged) {
             // Adjust hit points if level is changing
             const clone = this.clone(changed);
             const hpMaxDifference = clone.hitPoints.max - this.hitPoints.max;
@@ -1920,7 +1926,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     .filter(
                         (feature) =>
                             feature.system.level.value > this.level &&
-                            !current.some((currentFeature) => currentFeature.sourceId === feature.flags.core?.sourceId),
+                            !current.some((cf) => cf.sourceId === feature.sourceId),
                     )
                     .map((i) => i.toObject());
                 await this.createEmbeddedDocuments("Item", classFeaturesToCreate, { keepId: true, render: false });

@@ -32,18 +32,9 @@
                 "isDailyPrep": true,
                 "key": "CraftingEntry",
                 "label": "PF2E.SpecificRule.DedicationCraftingEntry.TalismanDabbler",
+                "maxItemLevel": "floor(@actor.level / 2)",
                 "maxSlots": 2,
                 "selector": "talismanDabbler"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "upgrade",
-                "path": "system.crafting.entries.talismanDabbler.maxItemLevel",
-                "phase": "beforeDerived",
-                "predicate": [
-                    "crafting:entry:talisman-dabbler"
-                ],
-                "value": "floor(@actor.level / 2)"
             }
         ],
         "traits": {

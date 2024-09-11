@@ -38,7 +38,7 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "alchemical",
+                    "item:trait:alchemical",
                     "action:craft"
                 ],
                 "selector": "crafting",
@@ -46,12 +46,26 @@
                 "value": 3
             },
             {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:cover-level:lesser"
+                ],
+                "selectors": "alchemical-bomb-base-attack-roll",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Alchemist Goggles"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.AlchemistGoggles.RollOptionLabel",
+                "option": "alchemist-goggles-failure",
+                "toggleable": true
+            },
+            {
+                "damageCategory": "splash",
                 "key": "FlatModifier",
                 "predicate": [
-                    "alchemical",
-                    "bomb"
+                    "alchemist-goggles-failure"
                 ],
-                "selector": "attack",
+                "selector": "alchemical-bomb-base-damage",
                 "type": "item",
                 "value": 3
             }

@@ -60,7 +60,10 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
             // Step 1: Immunities
 
             // If the target is immune to the entire instance, we're done with it.
-            const applicableImmunities = immunities.filter((i) => i.test(formalDescription));
+            const applicableImmunities = immunities.filter(
+                // Handle critical hits separately (see below)
+                (i) => i.type !== "critical-hits" && i.test(formalDescription),
+            );
             const appliedImmunity = applicableImmunities.find(
                 (i) => !hasImmunityRedirection(i, immunities, irRedirects.immunities),
             );
@@ -87,7 +90,7 @@ function applyIWR(actor: ActorPF2e, roll: Rolled<DamageRoll>, rollOptions: Set<s
 
             // Before getting a manually-adjusted total, check for immunity to critical hits and "undouble"
             // (or untriple) the total.
-            const critImmunity = immunities.find((i) => i.type === "critical-hits");
+            const critImmunity = immunities.find((i) => i.type === "critical-hits" && i.test(formalDescription));
             const isCriticalSuccess = roll.options.degreeOfSuccess === DEGREE_OF_SUCCESS.CRITICAL_SUCCESS;
             const critImmuneTotal = instance.critImmuneTotal;
             const critImmunityApplies = isCriticalSuccess && !!critImmunity && critImmuneTotal < instanceTotal;

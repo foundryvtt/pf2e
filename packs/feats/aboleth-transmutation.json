@@ -24,7 +24,40 @@
             "remaster": false,
             "title": "Pathfinder Lost Omens: Absalom, City of Lost Omens"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:feet-to-fins",
+                            "item:slug:water-breathing"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:slug:feet-to-fins",
+                            "item:slug:water-breathing"
+                        ]
+                    },
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:azarketi"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

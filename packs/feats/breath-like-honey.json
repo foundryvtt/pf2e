@@ -30,13 +30,55 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "action:make-an-impression"
-                ],
+                "key": "AdjustModifier",
+                "mode": "upgrade",
                 "selector": "diplomacy",
-                "type": "circumstance",
+                "slug": "sweetbreath-kholo",
                 "value": 2
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enthrall",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enthrall",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:kholo"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:enthrall",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "olfactory"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "remove",
+                "predicate": [
+                    "item:slug:enthrall",
+                    "spellcasting:innate"
+                ],
+                "property": "traits",
+                "value": "auditory"
             }
         ],
         "traits": {

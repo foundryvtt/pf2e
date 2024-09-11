@@ -1,0 +1,69 @@
+{
+    "_id": "Cjl530PBu86JKL9c",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tempest Gaze",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Your third eye grows stronger and more powerful. When you use Storming Gaze, you can increase the area to a @Template[type:cone|distance:30] and @Damage[(ceil(@actor.level/2))d4[electricity],(ceil(@actor.level/2))d4[sonic]|options:area-damage]{double the number of damage dice}; half deal electricity damage, and half deal sonic damage. If you Storming Gaze in this way, you can't use it again for 1 hour.</p>"
+        },
+        "level": {
+            "value": 13
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Storming Gaze"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "mergeable": true,
+                "option": "storming-gaze",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "tempest-gaze"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "item:slug:storming-gaze",
+                    "storming-gaze:tempest-gaze"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "hungerseed"
+            ]
+        }
+    },
+    "type": "feat"
+}

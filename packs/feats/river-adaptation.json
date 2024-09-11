@@ -1,0 +1,63 @@
+{
+    "_id": "ruRhslwl9ReaVcY4",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "River Adaptation",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "ancestry",
+        "description": {
+            "value": "<p>Webbing sprouts on your legs and tail as you shift to a more aquatic form. You can cast @UUID[Compendium.pf2e.spells-srd.Item.Feet to Fins] as an innate divine spell once per day. This innate magic relies on your makari heritage, limiting the effect to yourself but allowing you to cast it more easily than a common mage; you can target only yourself with the spell, but you can Cast the Spell as a free action if you're within a body of water when you cast it.</p>"
+        },
+        "level": {
+            "value": 9
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "makari lizardfolk heritage"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:feet-to-fins",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell"
+            },
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:feet-to-fins",
+                    "spellcasting:innate"
+                ],
+                "property": "other-tags",
+                "value": "ancestral-spell:lizardfolk"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "lizardfolk"
+            ]
+        }
+    },
+    "type": "feat"
+}

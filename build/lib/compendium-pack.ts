@@ -8,7 +8,7 @@ import { RuleElementSource } from "@module/rules/index.ts";
 import { isObject, recursiveReplaceString, setHasElement, sluggify, tupleHasValue } from "@util/misc.ts";
 import fs from "fs";
 import path from "path";
-import type { DocumentStatsData } from "types/foundry/common/data/fields.d.ts";
+import type { DocumentStatsData, DocumentStatsSchema } from "types/foundry/common/data/fields.d.ts";
 import systemJSON from "../../static/system.json";
 import coreIconsJSON from "../core-icons.json";
 import "./foundry-utils.ts";
@@ -254,23 +254,22 @@ class CompendiumPack {
             systemId: "pf2e",
             systemVersion: systemJSON.version,
         } as DocumentStatsData;
-        docSource._stats = partialStats;
+        docSource._stats = { ...partialStats };
 
-        docSource.flags ??= {};
         if (isActorSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" }) };
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" });
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
-                item._stats = partialStats;
+                item._stats = { ...partialStats } as SourceFromSchema<DocumentStatsSchema<ItemUUID>>;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
         } else if (isItemSource(docSource)) {
             docSource.effects = [];
-            docSource.flags.core = { sourceId: this.#sourceIdOf(docSource._id ?? "", { docType: "Item" }) };
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 
@@ -287,7 +286,7 @@ class CompendiumPack {
             CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
         } else if ("pages" in docSource) {
             for (const page of docSource.pages) {
-                page._stats = partialStats;
+                page._stats = { ...partialStats };
             }
         }
 
