@@ -1,0 +1,46 @@
+{
+    "_id": "yH2W6OlHwA7ZDqu6",
+    "img": "icons/creatures/birds/birds-flock-fly-yellow.webp",
+    "name": "Spell Effect: Songbird's Call",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Songbird's Call]</p>\n<p>All creatures within the area of whirling birds become Concealed, and all creatures outside the area become concealed to creatures within it.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Concealed"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "composition-signature:origin:signature:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

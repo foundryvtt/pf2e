@@ -1,0 +1,48 @@
+{
+    "_id": "TPYleagJfISUrdsI",
+    "img": "systems/pf2e/icons/spells/song-of-marching.webp",
+    "name": "Spell Effect: Song of Marching",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Song of Marching]</p>\n<p>If you enter an encounter while performing this song, you can use your Performance modifier for the initiative roll. You and your affected allies also receive a +1 status bonus to that initiative roll.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "selector": "initiative",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "composition-signature:origin:signature:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
