@@ -254,6 +254,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
             this.texture.tint = tokenOverrides.texture.tint ?? this.texture.tint;
         }
 
+        if (tokenOverrides.ring) {
+            this.ring.enabled = true;
+            this.ring.effects ||= 1;
+            this.ring.subject = { ...tokenOverrides.ring.subject };
+            this.ring.colors = { ...tokenOverrides.ring.colors };
+            // Upstream makes some decisions by inspecting the subject texture in the source source data:
+            // Fake it for now until this can be addressed upstairs
+            this._source.ring.subject.texture ??= this.ring.subject.texture;
+        }
+
         if (tokenOverrides.light) {
             this.light = new foundry.data.LightData(tokenOverrides.light, { parent: this });
         }

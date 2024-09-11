@@ -57,8 +57,12 @@ interface RuleElementSynthetics<TActor extends ActorPF2e = ActorPF2e> {
     tokenOverrides: DeepPartial<Pick<TokenSource, "light" | "name">> & {
         alpha?: number | null;
         texture?:
-            | { src: VideoFilePath; tint?: Color | null }
-            | { src: VideoFilePath; tint?: Color | null; scaleX: number; scaleY: number };
+            | { src: ImageFilePath | VideoFilePath; tint?: Color | null }
+            | { src: ImageFilePath | VideoFilePath; tint?: Color | null; scaleX: number; scaleY: number };
+        ring?: {
+            subject: TokenDocument["ring"]["subject"];
+            colors: TokenDocument["ring"]["colors"];
+        };
         animation?: TokenAnimationOptions;
     };
     weaponPotency: Record<string, PotencySynthetic[]>;

@@ -68,6 +68,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
 
         const encounter = this.viewed;
         if (!encounter) return super.activateListeners($html);
+        const trackerPlaceholder = document.createElement("div");
+        tracker.replaceWith(trackerPlaceholder);
 
         const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
         const allyColor = (c: CombatantPF2e<EncounterPF2e>) =>
@@ -129,7 +131,7 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
                 }
             }
 
-            this.refreshTargetDisplay(combatant);
+            this.refreshTargetDisplay(combatant, [tracker]);
 
             // Hide names in the tracker of combatants with tokens that have unviewable nameplates
             if (tokenSetsNameVisibility) {
@@ -180,11 +182,12 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             }
         }
 
+        trackerPlaceholder.replaceWith(tracker);
         super.activateListeners($html);
     }
 
     /** Refresh the list of users targeting a combatant's token as well as the active state of the target toggle */
-    refreshTargetDisplay(combatantOrToken: CombatantPF2e | TokenDocumentPF2e): void {
+    refreshTargetDisplay(combatantOrToken: CombatantPF2e | TokenDocumentPF2e, trackers?: HTMLElement[]): void {
         if (!this.viewed || !canvas.ready) return;
 
         const { combatant, tokenDoc } = combatantAndTokenDoc(combatantOrToken);
@@ -192,7 +195,8 @@ export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> exten
             return;
         }
 
-        for (const tracker of htmlQueryAll(document, "#combat, #combat-popout")) {
+        trackers ??= htmlQueryAll(document, "#combat, #combat-popout");
+        for (const tracker of trackers) {
             const combatantRow = htmlQuery(tracker, `li.combatant[data-combatant-id="${combatant?.id ?? null}"]`);
             if (!combatantRow) return;
 

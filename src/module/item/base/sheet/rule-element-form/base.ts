@@ -312,7 +312,7 @@ class RuleElementForm<
             return;
         }
 
-        source = fu.mergeObject(fu.duplicate(this.rule), source);
+        source = fu.mergeObject(this.rule, source, { inplace: false });
 
         // Prevent wheel events on the sliders from spamming updates
         for (const slider of htmlQueryAll<HTMLInputElement>(this.element, "input[type=range")) {

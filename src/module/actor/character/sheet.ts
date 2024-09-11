@@ -52,14 +52,8 @@ import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-profici
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
-import { PreparedFormulaData } from "./crafting/ability.ts";
-import {
-    CraftingAbility,
-    CraftingFormula,
-    CraftingFormulaData,
-    craftItem,
-    craftSpellConsumable,
-} from "./crafting/index.ts";
+import type { CraftingAbilitySheetData, PreparedFormulaData } from "./crafting/ability.ts";
+import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import {
     CharacterBiography,
     CharacterSaveData,
@@ -290,8 +284,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         sheetData.actions = this.#prepareAbilities();
         sheetData.feats = [...actor.feats, actor.feats.bonus];
 
-        const craftingFormulas = await actor.getCraftingFormulas();
-        const formulasByLevel = R.groupBy(craftingFormulas, (f) => f.level);
+        const formulasByLevel = R.groupBy(await actor.crafting.getFormulas(), (f) => f.level);
         const flags = actor.flags.pf2e;
         const hasQuickAlchemy = !!(
             actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
@@ -301,7 +294,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
             knownFormulas: formulasByLevel,
-            entries: await this.#prepareCraftingEntries(craftingFormulas),
+            entries: await this.#prepareCraftingEntries(),
         };
 
         this.#knownFormulas = Object.values(formulasByLevel)
@@ -520,7 +513,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return result;
     }
 
-    async #prepareCraftingEntries(formulas: CraftingFormula[]): Promise<CraftingEntriesSheetData> {
+    async #prepareCraftingEntries(): Promise<CraftingEntriesSheetData> {
         const craftingEntries: CraftingEntriesSheetData = {
             dailyCrafting: false,
             other: [],
@@ -531,13 +524,14 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             },
         };
 
-        for (const entry of await this.actor.getCraftingEntries(formulas)) {
+        for (const entry of this.actor.crafting.abilities) {
+            const sheetData = await entry.getSheetData();
             if (entry.isAlchemical) {
-                craftingEntries.alchemical.entries.push(entry);
-                craftingEntries.alchemical.totalReagentCost += entry.reagentCost || 0;
+                craftingEntries.alchemical.entries.push(sheetData);
+                craftingEntries.alchemical.totalReagentCost += (await entry.calculateReagentCost()) || 0;
                 craftingEntries.dailyCrafting = true;
             } else {
-                craftingEntries.other.push(entry);
+                craftingEntries.other.push(sheetData);
                 if (entry.isDailyPrep) craftingEntries.dailyCrafting = true;
             }
         }
@@ -1133,7 +1127,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             const uuid = htmlClosest(event?.target, "li")?.dataset.itemUuid;
             if (!UUIDUtils.isItemUUID(uuid)) throw ErrorPF2e(`Invalid UUID: ${uuid}`);
 
-            const craftingFormulas = await this.actor.getCraftingFormulas();
+            const craftingFormulas = await this.actor.crafting.getFormulas();
             const formula = craftingFormulas.find((f) => f.uuid === uuid);
             if (!formula) return;
 
@@ -1602,9 +1596,9 @@ type CharacterSystemSheetData = CharacterSystemData & {
 
 export interface CraftingEntriesSheetData {
     dailyCrafting: boolean;
-    other: CraftingAbility[];
+    other: CraftingAbilitySheetData[];
     alchemical: {
-        entries: CraftingAbility[];
+        entries: CraftingAbilitySheetData[];
         totalReagentCost: number;
         infusedReagents: {
             value: number;

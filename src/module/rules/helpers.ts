@@ -15,7 +15,7 @@ import { DegreeOfSuccessAdjustment } from "@system/degree-of-success.ts";
 import { RollTwiceOption } from "@system/rolls.ts";
 import * as R from "remeda";
 import { DamageAlteration } from "./rule-element/damage-alteration/alteration.ts";
-import { BracketedValue, RuleElementPF2e } from "./rule-element/index.ts";
+import { BracketedValue, RuleElementPF2e, RuleElementSource } from "./rule-element/index.ts";
 import { DamageDiceSynthetics, RollSubstitution, RollTwiceSynthetic, RuleElementSynthetics } from "./synthetics.ts";
 
 /** Extracts a list of all cloned modifiers across all given keys in a single list. */
@@ -212,7 +212,33 @@ async function processPreUpdateActorHooks(
     }
 }
 
+/** Gets the item update info that applies an update to all given rules */
+function createBatchRuleElementUpdate(
+    rules: RuleElementPF2e[],
+    update: Record<string, unknown>,
+): EmbeddedDocumentUpdateData[] {
+    const itemUpdates: EmbeddedDocumentUpdateData[] = [];
+    const rulesByItem = R.groupBy(rules, (r) => r.item.id);
+    const actor = rules[0]?.actor;
+    if (!actor) return [];
+
+    for (const [itemId, rules] of Object.entries(rulesByItem)) {
+        const item = actor.items.get(itemId, { strict: true });
+        const ruleSources = item.toObject().system.rules;
+        const rollOptionSources = rules
+            .map((rule) => (typeof rule.sourceIndex === "number" ? ruleSources[rule.sourceIndex] : null))
+            .filter((source): source is RuleElementSource => !!source);
+        for (const ruleSource of rollOptionSources) {
+            fu.mergeObject(ruleSource, update);
+        }
+        itemUpdates.push({ _id: itemId, system: { rules: ruleSources } });
+    }
+
+    return itemUpdates;
+}
+
 export {
+    createBatchRuleElementUpdate,
     extractDamageAlterations,
     extractDamageDice,
     extractDegreeOfSuccessAdjustments,

@@ -77,7 +77,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
         const entryData = {
             selector: selector,
             name: this.label,
-            item: this.item,
             isAlchemical: this.isAlchemical,
             isDailyPrep: this.isDailyPrep,
             isPrepared: this.isPrepared,
@@ -87,7 +86,6 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             maxSlots: this.maxSlots,
             preparedFormulaData: this.preparedFormulas,
         };
-        Object.defineProperty(entryData, "item", { enumerable: false });
         this.actor.system.crafting.entries[this.selector] = entryData;
 
         // Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s

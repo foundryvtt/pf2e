@@ -1,0 +1,67 @@
+{
+    "_id": "ci2oacfcvNyjR1Kn",
+    "img": "systems/pf2e/icons/equipment/consumables/talismans/tiger-menuki.webp",
+    "name": "Effect: Tiger Menuki",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Tiger Menuki]</p>\n<p>The weapon gains the forceful and sweep traits on the triggering Strike and all other Strikes.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 5
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "forceful"
+            },
+            {
+                "definition": [
+                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "sweep"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
