@@ -1,5 +1,6 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
+import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
@@ -12,13 +13,9 @@ class CraftingAbility implements CraftingAbilityData {
 
     selector: string;
 
-    /** This crafting entry's parent item */
-    parent: ItemPF2e<CharacterPF2e>;
+    /** This crafting entry's parent actor */
+    actor: CharacterPF2e;
 
-    /** All formulas relevant to this crafting known by the grandparent actor */
-    knownFormulas: CraftingFormula[];
-
-    preparedCraftingFormulas: PreparedCraftingFormula[];
     preparedFormulaData: PreparedFormulaData[];
     isAlchemical: boolean;
     isDailyPrep: boolean;
@@ -30,8 +27,10 @@ class CraftingAbility implements CraftingAbilityData {
     fieldDiscoveryBatchSize: number;
     maxItemLevel: number;
 
-    constructor(knownFormulas: CraftingFormula[], data: CraftingAbilityData) {
-        this.parent = data.item;
+    #preparedCraftingFormulas: PreparedCraftingFormula[] | null = null;
+
+    constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
+        this.actor = actor;
         this.selector = data.selector;
         this.name = data.name;
         this.isAlchemical = data.isAlchemical;
@@ -50,14 +49,22 @@ class CraftingAbility implements CraftingAbilityData {
         };
         this.fieldDiscoveryBatchSize = data.fieldDiscoveryBatchSize ?? 3;
         this.craftableItems = new Predicate(data.craftableItems);
-        this.knownFormulas = knownFormulas.filter((f) => this.craftableItems.test(f.options));
-        this.preparedFormulaData = (data.preparedFormulaData ?? []).filter((d) =>
-            this.knownFormulas.some((f) => f.item.uuid === d.itemUUID),
+        this.preparedFormulaData = data.preparedFormulaData ?? [];
+    }
+
+    async getPreparedCraftingFormulas(): Promise<PreparedCraftingFormula[]> {
+        if (this.#preparedCraftingFormulas) return this.#preparedCraftingFormulas;
+
+        // Filter prepared formula data to valid ones. We can't do this until we've loaded compendium items
+        const knownFormulas = await this.actor.crafting.getFormulas();
+        this.preparedFormulaData = (this.preparedFormulaData ?? []).filter((d) =>
+            knownFormulas.some((f) => f.item.uuid === d.itemUUID),
         );
-        this.preparedCraftingFormulas = this.preparedFormulaData
+
+        this.#preparedCraftingFormulas = this.preparedFormulaData
             .sort((prepDataA, prepDataB) => (prepDataA.sort ?? 0) - (prepDataB.sort ?? 0))
             .flatMap((prepData): PreparedCraftingFormula | never[] => {
-                const formula = this.knownFormulas.find((f) => f.uuid === prepData.itemUUID);
+                const formula = knownFormulas.find((f) => f.uuid === prepData.itemUUID);
                 return formula
                     ? Object.assign(new CraftingFormula(formula.item), {
                           quantity: prepData.quantity || 1,
@@ -67,18 +74,12 @@ class CraftingAbility implements CraftingAbilityData {
                       })
                     : [];
             });
+        return this.#preparedCraftingFormulas;
     }
 
-    get item(): ItemPF2e<CharacterPF2e> {
-        return this.parent;
-    }
-
-    get actor(): CharacterPF2e {
-        return this.parent.actor;
-    }
-
-    get formulas(): (PreparedFormulaSheetData | null)[] {
-        const formulas: (PreparedFormulaSheetData | null)[] = this.preparedCraftingFormulas.map((formula) => {
+    async getSheetData(): Promise<CraftingAbilitySheetData> {
+        const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
+        const formulas = preparedCraftingFormulas.map((formula) => {
             return {
                 uuid: formula.uuid,
                 img: formula.img,
@@ -92,20 +93,31 @@ class CraftingAbility implements CraftingAbilityData {
             const fill = this.maxSlots - formulas.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
-                return formulas.concat(nulls);
+                formulas.push(...nulls);
             }
         }
-        return formulas;
+        return {
+            name: this.name,
+            selector: this.selector,
+            isAlchemical: this.isAlchemical,
+            isPrepared: this.isPrepared,
+            isDailyPrep: this.isDailyPrep,
+            maxItemLevel: this.maxItemLevel,
+            maxSlots: this.maxSlots,
+            reagentCost: await this.calculateReagentCost(),
+            formulas,
+        };
     }
 
-    get reagentCost(): number {
+    /** Computes reagent cost. Will go away once updated to PC2 */
+    async calculateReagentCost(): Promise<number> {
         if (!this.isAlchemical) return 0;
 
-        return Math.ceil(
-            this.preparedCraftingFormulas.reduce((total, formula) => {
-                return total + formula.quantity / this.#batchSizeFor(formula);
-            }, 0),
+        const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
+        const values = await Promise.all(
+            preparedCraftingFormulas.map(async (f) => f.quantity / (await this.#batchSizeFor(f))),
         );
+        return Math.ceil(values.reduce((total, part) => total + part, 0));
     }
 
     static isValid(data: Maybe<Partial<CraftingAbilityData>>): data is CraftingAbilityData {
@@ -115,7 +127,7 @@ class CraftingAbility implements CraftingAbilityData {
     async prepareFormula(formula: CraftingFormula): Promise<void> {
         this.checkEntryRequirements(formula);
 
-        const quantity = this.#batchSizeFor(formula);
+        const quantity = await this.#batchSizeFor(formula);
         const existing = this.preparedFormulaData.find((f) => f.itemUUID === formula.uuid);
         if (existing && this.isAlchemical) {
             existing.quantity = quantity;
@@ -127,7 +139,7 @@ class CraftingAbility implements CraftingAbilityData {
     }
 
     checkEntryRequirements(formula: CraftingFormula, { warn = true } = {}): boolean {
-        if (!!this.maxSlots && this.formulas.filter((f) => f !== null).length >= this.maxSlots) {
+        if (!!this.maxSlots && this.preparedFormulaData.length >= this.maxSlots) {
             if (warn) ui.notifications.warn(game.i18n.localize("PF2E.CraftingTab.Alerts.MaxSlots"));
             return false;
         }
@@ -168,7 +180,9 @@ class CraftingAbility implements CraftingAbilityData {
         if (data?.itemUUID !== itemUUID) return;
         const item = this.fieldDiscovery ? await fromUuid<ItemPF2e>(itemUUID) : null;
         const currentQuantity = data.quantity ?? 0;
-        const adjustment = this.fieldDiscovery?.test(item?.getRollOptions("item") ?? []) ? 1 : this.#batchSizeFor(data);
+        const adjustment = this.fieldDiscovery?.test(item?.getRollOptions("item") ?? [])
+            ? 1
+            : await this.#batchSizeFor(data);
         const newQuantity =
             typeof value === "number"
                 ? value
@@ -196,7 +210,7 @@ class CraftingAbility implements CraftingAbilityData {
         return this.setFormulaQuantity(
             this.preparedFormulaData.indexOf(data),
             itemUUID,
-            data.quantity ?? this.#batchSizeFor(data),
+            data.quantity ?? (await this.#batchSizeFor(data)),
         );
     }
 
@@ -205,9 +219,10 @@ class CraftingAbility implements CraftingAbilityData {
         return this.#updateRuleElement();
     }
 
-    #batchSizeFor(data: CraftingFormula | PreparedFormulaData): number {
+    async #batchSizeFor(data: CraftingFormula | PreparedFormulaData): Promise<number> {
+        const knownFormulas = await this.actor.crafting.getFormulas();
         const formula =
-            data instanceof CraftingFormula ? data : this.knownFormulas.find((f) => f.item.uuid === data.itemUUID);
+            data instanceof CraftingFormula ? data : knownFormulas.find((f) => f.item.uuid === data.itemUUID);
         if (!formula) return 1;
 
         const isSignatureItem = "isSignatureItem" in data && !!data.isSignatureItem;
@@ -220,14 +235,13 @@ class CraftingAbility implements CraftingAbilityData {
     }
 
     async #updateRuleElement(): Promise<void> {
-        const rules = this.item.toObject().system.rules;
-        const ruleSource = rules.find(
+        const rules = this.actor.rules.filter(
             (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
                 r.key === "CraftingEntry" && r.selector === this.selector,
         );
-        if (ruleSource) {
-            ruleSource.preparedFormulas = this.preparedFormulaData;
-            await this.parent.update({ "system.rules": rules });
+        const itemUpdates = createBatchRuleElementUpdate(rules, { preparedFormulas: this.preparedFormulaData });
+        if (itemUpdates.length) {
+            await this.actor.updateEmbeddedDocuments("Item", itemUpdates);
         }
     }
 }
@@ -235,7 +249,6 @@ class CraftingAbility implements CraftingAbilityData {
 interface CraftingAbilityData {
     selector: string;
     name: string;
-    item: ItemPF2e<CharacterPF2e>;
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
@@ -263,14 +276,24 @@ interface PreparedCraftingFormula extends CraftingFormula {
     sort: number;
 }
 
-interface PreparedFormulaSheetData {
-    uuid: string;
-    expended: boolean;
-    img: ImageFilePath;
+interface CraftingAbilitySheetData {
     name: string;
-    quantity: number;
-    isSignatureItem: boolean;
+    selector: string;
+    isAlchemical: boolean;
+    isPrepared: boolean;
+    isDailyPrep: boolean;
+    maxSlots: number;
+    maxItemLevel: number;
+    reagentCost: number;
+    formulas: ({
+        uuid: string;
+        expended: boolean;
+        img: ImageFilePath;
+        name: string;
+        quantity: number;
+        isSignatureItem: boolean;
+    } | null)[];
 }
 
 export { CraftingAbility };
-export type { CraftingAbilityData, PreparedFormulaData };
+export type { CraftingAbilityData, CraftingAbilitySheetData, PreparedFormulaData };
