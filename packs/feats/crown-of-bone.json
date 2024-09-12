@@ -27,7 +27,7 @@
         "rules": [
             {
                 "definition": [
-                    "item:slug:horns"
+                    "item:tag:sarangay-horns"
                 ],
                 "key": "AdjustStrike",
                 "mode": "add",
@@ -35,17 +35,13 @@
                 "value": "concussive"
             },
             {
-                "key": "DamageAlteration",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "upgrade",
                 "predicate": [
-                    "sarangay-horns",
-                    "dice:slug:base"
+                    "item:tag:sarangay-horns"
                 ],
-                "property": "dice-faces",
-                "selectors": [
-                    "horns-damage"
-                ],
-                "value": 8
+                "property": "damage-dice-faces"
             }
         ],
         "traits": {

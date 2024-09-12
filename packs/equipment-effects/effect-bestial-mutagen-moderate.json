@@ -53,9 +53,6 @@
                 "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.jaws",
-                "options": [
-                    "bestial-mutagen-strike"
-                ],
                 "range": null,
                 "slug": "jaws",
                 "traits": [
@@ -76,14 +73,21 @@
                 "img": "icons/commodities/claws/claw-bear-brown-grey.webp",
                 "key": "Strike",
                 "label": "PF2E.Weapon.Base.claw",
-                "options": [
-                    "bestial-mutagen-strike"
-                ],
                 "range": null,
                 "traits": [
                     "unarmed",
                     "agile"
                 ]
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:id:{item|id}"
+                ],
+                "property": "other-tags",
+                "value": "bestial-mutagen-strike"
             }
         ],
         "start": {

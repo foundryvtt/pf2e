@@ -43,32 +43,27 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    {
-                        "or": [
-                            "disease",
-                            "paralysis"
-                        ]
-                    }
+                    "item:trait:curse"
                 ],
                 "selector": "saving-throw",
                 "type": "item",
                 "value": 1
             },
             {
-                "itemId": "{item|id}",
-                "key": "ItemAlteration",
+                "key": "AdjustModifier",
                 "mode": "add",
                 "predicate": [
-                    "self:trait:elf"
+                    "item:trait:curse"
                 ],
-                "property": "traits",
-                "value": "noisy"
+                "selector": "saving-throw",
+                "slug": "resilient",
+                "value": 1
             }
         ],
         "runes": {
             "potency": 1,
             "property": [],
-            "resilient": null
+            "resilient": 0
         },
         "size": "med",
         "specific": {

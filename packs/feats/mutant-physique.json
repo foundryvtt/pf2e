@@ -30,22 +30,18 @@
                 "key": "ItemAlteration",
                 "mode": "upgrade",
                 "predicate": [
-                    {
-                        "or": [
-                            "item:slug:claw",
-                            "item:slug:jaws"
-                        ]
-                    },
-                    {
-                        "or": [
-                            "self:effect:bestial-mutagen-lesser",
-                            "self:effect:bestial-mutagen-moderate",
-                            "self:effect:bestial-mutagen-greater",
-                            "self:effect:bestial-mutagen-major"
-                        ]
-                    }
+                    "item:tag:bestial-mutagen-strike"
                 ],
                 "property": "damage-dice-faces"
+            },
+            {
+                "definition": [
+                    "item:tag:bestial-mutagen-strike"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "weapon-traits",
+                "value": "deadly-d10"
             },
             {
                 "key": "FlatModifier",
@@ -93,16 +89,6 @@
                 "selector": "intimidation",
                 "slug": "mutant-physique-intimidation",
                 "value": 4
-            },
-            {
-                "key": "AdjustStrike",
-                "mode": "add",
-                "predicate": [
-                    "feat:mutant-physique"
-                ],
-                "property": "weapon-traits",
-                "selector": "bestial-mutagen-strike",
-                "value": "deadly-d10"
             },
             {
                 "key": "Resistance",
