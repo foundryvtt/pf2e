@@ -1,0 +1,56 @@
+{
+    "_id": "2W4qAipPVlapaWbc",
+    "img": "systems/pf2e/icons/spells/silvers-refrain.webp",
+    "name": "Spell Effect: Silver's Refrain",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Silver's Refrain]</p>\n<p>Your weapon and unarmed attacks are treated as silver.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #147: Tomorrow Must Burn"
+        },
+        "rules": [
+            {
+                "definition": [
+                    {
+                        "or": [
+                            "item:category:unarmed",
+                            "item:equipped"
+                        ]
+                    }
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "property": "materials",
+                "value": "silver"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "silvers-refrain:origin:signature:{item|origin.signature}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
