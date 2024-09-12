@@ -1,10 +1,10 @@
 {
     "_id": "G0lG7IIZnCZtYi6v",
     "img": "icons/equipment/chest/breastplate-gorget-steel-purple.webp",
-    "name": "Effect: Warleader's Bulwark",
+    "name": "Effect: Command Bravery",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warleader's Bulwark]{Breastplate of Command}</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Warleader's Bulwark]</p>\n<p>You gain a +2 status bonus to saves against fear effects.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,17 +16,17 @@
             "value": 10
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "fear"
+                    "item:trait:fear"
                 ],
-                "selector": "will",
+                "selector": "saving-throw",
                 "type": "status",
                 "value": 2
             }
