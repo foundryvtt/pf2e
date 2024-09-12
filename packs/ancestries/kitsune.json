@@ -44,7 +44,14 @@
             }
         },
         "hp": 8,
-        "items": {},
+        "items": {
+            "lzwB0": {
+                "img": "icons/creatures/mammals/humanoid-fox-cat-archer.webp",
+                "level": 1,
+                "name": "Change Shape",
+                "uuid": "Compendium.pf2e.ancestryfeatures.Item.Change Shape"
+            }
+        },
         "languages": {
             "custom": "",
             "value": [
@@ -81,6 +88,25 @@
                 ],
                 "property": "traits",
                 "value": "divine"
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.NPCAbility.ChangeShape.Label",
+                "mergeable": true,
+                "option": "change-shape",
+                "predicate": [
+                    {
+                        "not": "non-tailless-form"
+                    }
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.NPCAbility.ChangeShape.Form.Tailless",
+                        "value": "tailless"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "size": "med",
