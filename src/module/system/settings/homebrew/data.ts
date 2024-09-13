@@ -25,7 +25,7 @@ const HOMEBREW_ELEMENT_KEYS = [
 /** Homebrew elements from some of the above records are propagated to related records */
 const TRAIT_PROPAGATIONS = {
     actionTraits: ["effectTraits"],
-    creatureTraits: ["ancestryTraits"],
+    creatureTraits: ["ancestryTraits", "hazardTraits"],
     equipmentTraits: ["armorTraits", "consumableTraits"],
     featTraits: ["actionTraits"],
     weaponTraits: ["npcAttackTraits"],
