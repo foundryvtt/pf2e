@@ -848,6 +848,7 @@ const hazardTraits = {
     environmental: "PF2E.TraitEnvironmental",
     haunt: "PF2E.TraitHaunt",
     inhaled: "PF2E.TraitInhaled",
+    kaiju: "PF2E.TraitKaiju",
     mechanical: "PF2E.TraitMechanical",
     poison: "PF2E.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
