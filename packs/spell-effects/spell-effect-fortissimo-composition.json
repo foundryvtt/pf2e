@@ -4,7 +4,7 @@
     "name": "Spell Effect: Fortissimo Composition",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortissimo Composition]</p>\n<p>Improve composition bonuses from +1 to +2</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortissimo Composition]</p>\n<p>Improve composition bonuses from +1 to +2 or +3 on crit/p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,48 +22,41 @@
         },
         "rules": [
             {
-                "key": "AdjustModifier",
-                "selectors": [
-                    "attack-roll",
-                    "damage"
+                "choices": [
+                    {
+                        "label": "Critical Success",
+                        "value": "3"
+                    },
+                    {
+                        "label": "Success",
+                        "value": "2"
+                    }
                 ],
-                "mode": "upgrade",
-                "value": 2,
-                "slug": "courageous-anthem-attack-bonuses"
+                "flag": "fortissimoBonus",
+                "key": "ChoiceSet",
+                "prompt": "Success type"
             },
             {
                 "key": "AdjustModifier",
-                "selector": "saving-throw",
-                "mode": "upgrade",
-                "value": 2,
-                "slug": "courageous-anthem-fear-bonus"
-            },
-            {
-                "key": "AdjustModifier",
+                "predicate": [{ "and" : [
+                    "bonus:type:status", 
+                    { "or": [
+                        {"and": ["bonus:slug:courageous-anthem", "courageous-anthem:origin:signature:{item|origin.signature}"]},
+                        {"and": ["bonus:slug:rallying-anthem", "rallying-anthem:origin:signature:{item|origin.signature}"]},
+                        {"and": ["bonus:slug:song-of-strength", "song-of-strength:origin:signature:{item|origin.signature}"]}
+                    ]}
+                ]}],
                 "selectors": [
                     "ac",
-                    "saving-throw"
-                ],
-                "mode": "upgrade",
-                "value": 2,
-                "slug": "rallying-anthem-defensive-bonuses"
-            },
-            {
-                "key": "AdjustModifier",
-                "selector": "athletics",
-                "mode": "upgrade",
-                "value": 2,
-                "slug": "song-of-strength-athletics-bonus"
-            },
-            {
-                "key": "AdjustModifier",
-                "selectors": [
+                    "saving-throw",
+                    "attack-roll",
+                    "damage",
+                    "athletics",
                     "fortitude",
                     "reflex"
                 ],
                 "mode": "upgrade",
-                "value": 2,
-                "slug": "song-of-strength-save-bonuses"
+                "value": "{item|flags.pf2e.rulesSelections.fortissimoBonus}"
             }
         ],
         "start": {
