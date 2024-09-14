@@ -4,15 +4,7 @@ import type { ActorDeltaSource } from "types/foundry/common/documents/actor-delt
 import type { TokenDocumentPF2e } from "./document.ts";
 
 class ActorDeltaPF2e<TParent extends TokenDocumentPF2e | null> extends ActorDelta<TParent> {
-    // Upstream calls _initialize: reset after to ensure clean data
-    override prepareData(): void {
-        super.prepareData();
-        if (!game.ready && !this.parent?.isLinked) {
-            this.syntheticActor?.reset();
-        }
-    }
-
-    /** Following synthetic actor  updates, send the `Token` a fake update notification to trigger redraws */
+    /** Following synthetic actor updates, send the `Token` a fake update notification to trigger redraws */
     protected override _onUpdate(
         changed: DeepPartial<this["_source"]>,
         options: DatabaseUpdateOperation<TParent>,
