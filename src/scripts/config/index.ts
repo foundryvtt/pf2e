@@ -69,6 +69,11 @@ import {
     weaponTraits,
 } from "./traits.ts";
 
+import { AuraRenderers } from "@module/canvas/token/aura/map.ts";
+import { AuraRenderer } from "@module/canvas/token/aura/renderer.ts";
+import { TokenAura } from "@scene/token-document/aura/index.ts";
+import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
+
 export type StatusEffectIconTheme = "default" | "blackWhite";
 
 const actorTypes: Record<ActorType, string> = {
@@ -948,6 +953,13 @@ export const PF2ECONFIG = {
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,
         },
+    },
+
+    Aura: {
+        renderers: AuraRenderers,
+        renderer: AuraRenderer,
+        token: TokenAura,
+        square: EffectAreaSquare,
     },
 
     JournalEntry: { sheetClass: JournalSheetPF2e },
