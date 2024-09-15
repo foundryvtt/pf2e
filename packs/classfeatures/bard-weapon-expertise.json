@@ -24,7 +24,30 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "courageous-anthem:origin:signature:{actor|signature}",
+                            "hymn-of-healing:origin:signature:{actor|signature}",
+                            "silvers-refrain:origin:signature:{actor|signature}",
+                            "song-of-strength:origin:signature:{actor|signature}",
+                            "uplifting-overture:origin:signature:{actor|signature}",
+                            "rallying-anthem:origin:signature:{actor|signature}",
+                            "triple-time:origin:signature:{actor|signature}"
+                        ]
+                    }
+                ]
+            }
+        ],
         "subfeatures": {
             "proficiencies": {
                 "martial": {
