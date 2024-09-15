@@ -38,14 +38,36 @@
             },
             {
                 "key": "AdjustModifier",
-                "predicate": [{ "and" : [
-                    "bonus:type:status", 
-                    { "or": [
-                        {"and": ["bonus:slug:courageous-anthem", "courageous-anthem:origin:signature:{item|origin.signature}"]},
-                        {"and": ["bonus:slug:rallying-anthem", "rallying-anthem:origin:signature:{item|origin.signature}"]},
-                        {"and": ["bonus:slug:song-of-strength", "song-of-strength:origin:signature:{item|origin.signature}"]}
-                    ]}
-                ]}],
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "and": [
+                            "bonus:type:status",
+                            {
+                                "or": [
+                                    {
+                                        "and": [
+                                            "bonus:slug:courageous-anthem",
+                                            "courageous-anthem:origin:signature:{item|origin.signature}"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "bonus:slug:rallying-anthem",
+                                            "rallying-anthem:origin:signature:{item|origin.signature}"
+                                        ]
+                                    },
+                                    {
+                                        "and": [
+                                            "bonus:slug:song-of-strength",
+                                            "song-of-strength:origin:signature:{item|origin.signature}"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "selectors": [
                     "ac",
                     "saving-throw",
@@ -55,7 +77,6 @@
                     "fortitude",
                     "reflex"
                 ],
-                "mode": "upgrade",
                 "value": "{item|flags.pf2e.rulesSelections.fortissimoBonus}"
             }
         ],
