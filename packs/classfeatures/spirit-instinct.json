@@ -64,6 +64,28 @@
                 "value": "@actor.abilities.con.mod+3"
             },
             {
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feat:unstoppable-juggernaut"
+                ],
+                "type": "void",
+                "value": "@actor.abilities.con.mod+8"
+            },
+            {
+                "definition": [
+                    "origin:mode:undead"
+                ],
+                "key": "Resistance",
+                "label": "PF2E.IWR.Custom.AllDamageFromUndead",
+                "predicate": [
+                    "self:effect:rage",
+                    "feat:unstoppable-juggernaut"
+                ],
+                "type": "custom",
+                "value": "@actor.abilities.con.mod+8"
+            },
+            {
                 "damageType": "spirit",
                 "key": "AdjustModifier",
                 "mode": "upgrade",

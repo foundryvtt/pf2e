@@ -173,6 +173,84 @@
                 ],
                 "slug": "agile-rage",
                 "value": 4
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.Traditions.ArcaneAndOccult",
+                        "value": {
+                            "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.ResistanceLabels.ArcaneAndOccult",
+                            "resistanceOne": "arcane",
+                            "resistanceTwo": "occult"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.Traditions.ArcaneAndPrimal",
+                        "value": {
+                            "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.ResistanceLabels.ArcaneAndPrimal",
+                            "resistanceOne": "arcane",
+                            "resistanceTwo": "primal"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.Traditions.DivineAndOccult",
+                        "value": {
+                            "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.ResistanceLabels.DivineAndOccult",
+                            "resistanceOne": "divine",
+                            "resistanceTwo": "occult"
+                        }
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.Traditions.DivineAndPrimal",
+                        "value": {
+                            "label": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.ResistanceLabels.DivineAndPrimal",
+                            "resistanceOne": "divine",
+                            "resistanceTwo": "primal"
+                        }
+                    }
+                ],
+                "flag": "ragingResistance",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Barbarian.Superstition.RagingResistance.Prompt"
+            },
+            {
+                "definition": [
+                    "item:type:spell",
+                    {
+                        "or": [
+                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceOne}",
+                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceTwo}"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|flags.pf2e.rulesSelections.ragingResistance.label}",
+                "predicate": [
+                    "self:effect:rage",
+                    "feature:raging-resistance"
+                ],
+                "type": "custom",
+                "value": "3+@actor.abilities.con.mod"
+            },
+            {
+                "definition": [
+                    "item:type:spell",
+                    {
+                        "or": [
+                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceOne}",
+                            "item:trait:{item|flags.pf2e.rulesSelections.ragingResistance.resistanceTwo}"
+                        ]
+                    }
+                ],
+                "key": "Resistance",
+                "label": "{item|flags.pf2e.rulesSelections.ragingResistance.label}",
+                "predicate": [
+                    "self:effect:rage",
+                    "feat:unstoppable-juggernaut"
+                ],
+                "type": "custom",
+                "value": "8+@actor.abilities.con.mod"
             }
         ],
         "traits": {
