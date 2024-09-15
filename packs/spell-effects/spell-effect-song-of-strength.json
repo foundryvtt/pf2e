@@ -50,6 +50,19 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "song-of-strength:origin:signature:{item|origin.signature}"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    "song-of-strength:origin:signature:{item|origin.signature}",
+                    "feature:bard-weapon-expertise"
+                ]
             }
         ],
         "start": {

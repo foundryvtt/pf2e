@@ -39,6 +39,19 @@
                 "domain": "all",
                 "key": "RollOption",
                 "option": "silvers-refrain:origin:signature:{item|origin.signature}"
+            },
+            {
+                "key": "CriticalSpecialization",
+                "predicate": [
+                    {
+                        "gte": [
+                            "item:proficiency:rank",
+                            2
+                        ]
+                    },
+                    "silvers-refrain:origin:signature:{item|origin.signature}",
+                    "feature:bard-weapon-expertise"
+                ]
             }
         ],
         "start": {
