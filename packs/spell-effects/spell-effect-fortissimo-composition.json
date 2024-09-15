@@ -4,7 +4,7 @@
     "name": "Spell Effect: Fortissimo Composition",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortissimo Composition]</p>\n<p>Improve composition bonuses from +1 to +2 or +3 on crit/p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Fortissimo Composition]</p>\n<p>Increase the status bonus from the composition to +2 (+3 on a critical success).</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,17 +24,17 @@
             {
                 "choices": [
                     {
-                        "label": "Critical Success",
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
                         "value": "3"
                     },
                     {
-                        "label": "Success",
+                        "label": "PF2E.Check.Result.Degree.Check.success",
                         "value": "2"
                     }
                 ],
                 "flag": "fortissimoBonus",
                 "key": "ChoiceSet",
-                "prompt": "Success type"
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
                 "key": "AdjustModifier",
