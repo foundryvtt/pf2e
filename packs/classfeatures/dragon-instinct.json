@@ -342,17 +342,23 @@
                     "self:effect:rage",
                     "feature:raging-resistance"
                 ],
-                "type": "piercing",
+                "type": [
+                    "piercing",
+                    "{item|flags.pf2e.rulesSelections.dragon.damageType}"
+                ],
                 "value": "@actor.abilities.con.mod+3"
             },
             {
                 "key": "Resistance",
                 "predicate": [
                     "self:effect:rage",
-                    "feature:raging-resistance"
+                    "feat:unstoppable-juggernaut"
                 ],
-                "type": "{item|flags.pf2e.rulesSelections.dragon.damageType}",
-                "value": "@actor.abilities.con.mod+3"
+                "type": [
+                    "piercing",
+                    "{item|flags.pf2e.rulesSelections.dragon.damageType}"
+                ],
+                "value": "@actor.abilities.con.mod+8"
             },
             {
                 "itemType": "action",
