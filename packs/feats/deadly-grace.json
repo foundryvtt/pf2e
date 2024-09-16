@@ -24,7 +24,67 @@
             "remaster": true,
             "title": "Pathfinder Player Core 2"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:equipped",
+                    {
+                        "or": [
+                            "item:trait:agile",
+                            "item:trait:finesse"
+                        ]
+                    },
+                    {
+                        "nor": [
+                            "item:trait:deadly-d4",
+                            "item:trait:deadly-d6",
+                            "item:trait:deadly-d8",
+                            "item:trait:deadly-d10",
+                            "item:trait:deadly-d12"
+                        ]
+                    }
+                ],
+                "priority": 119,
+                "property": "other-tags",
+                "value": "deadly-from-deadly-grace"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:tag:deadly-from-deadly-grace"
+                ],
+                "property": "traits",
+                "value": "deadly-d8"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "multiply",
+                "predicate": [
+                    {
+                        "not": "item:tag:deadly-from-deadly-grace"
+                    },
+                    {
+                        "or": [
+                            "dice:slug:deadly-d4",
+                            "dice:slug:deadly-d6",
+                            "dice:slug:deadly-d8",
+                            "dice:slug:deadly-d10",
+                            "dice:slug:deadly-d12"
+                        ]
+                    }
+                ],
+                "property": "dice-number",
+                "selectors": [
+                    "strike-damage"
+                ],
+                "value": 2
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
