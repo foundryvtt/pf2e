@@ -1,3 +1,65 @@
+## 6.4.0
+
+### System Improvements
+
+-   (Codas) Improve rendering performance in encounter tracker
+-   (Farling) Add @Embed support for items
+-   (stwlam) Add support for changing dynamic token ring subject using TokenImageRE
+-   (Supe) Improve scaling of dynamic token fallback token images in chat messages
+-   (Tikael) Add creature traits to hazards
+
+### Bugfixes
+
+-   (stwlam) Allow blank animation type in TokenLight RE form
+-   (Supe) Avoid disabled ability modifiers from suppressing enabled ones
+-   (Supe) Fix choice set homebrew item dropzone for button lists
+-   (Supe) Fix chat messages containing tokens with wildcards
+-   (Trent) Fix user callbacks not being awaited for weapons with ammo
+
+### Data Updates
+
+-   (Ambrose, kromko) Update publication data for certain items
+-   (Dire Weasel, Tikael) Update more items to use better core icons
+-   (Ambrose, Rigo) Improve support of ancestral spells
+-   (Abbadon) Add stonebound and stone brawler to archetype journal
+-   (Ambrose) Add icons to more equipment and npc items
+-   (Ambrose) Add Clawdancer and Shieldmarshal dedications to the archetypes journal
+-   (Ambrose) Automate Bard critical specialization
+-   (Ambrose) Condense weapon expertise and spell repertoire class features
+-   (Ambrose) Fix Seraptis skills
+-   (Ambrose) Handle Redemption cause in Exalted Reaction
+-   (Ambrose) Update Pathfinder Society Boons
+-   (Ambrose) Update Sentinel, Champion Dedication, Quickstrike, and Liberating Step to match PC2
+-   (Ambrose) Redirect certain actors to their Monster Core equivalent
+-   (Dire Weasel) Add note reminder for Uncanny Pounce
+-   (Dire Weasel) Add effects for Malleable Claw, Predator's Claw, and Tiger's Menuki
+-   (Dire Weasel) Automate Hollow Star aura and Elemental Bulwark
+-   (Dire Weasel) Automate NPC abilities Ambush and Terrain Advantage
+-   (Dire Weasel) Condense Elemental Gift and Evolution Surge effects
+-   (Dire Weasel) Fix error in Ainamuuren damage type
+-   (Dire Weasel) Update Oni Form effect
+-   (Dire Weasel) Update NPC Blood Frenzy effect
+-   (Dire Weasel) Add stance effect for Stretching Reach
+-   (kromko) Fix Cave Worm Venom and Taper of Sanctification
+-   (nythz) Fix prices of great Helm of Zeal and Sash of Prowess
+-   (MiddleTwin) Automate Fortissimo Composition
+-   (Mose) Fix typos in certain items
+-   (rectulo) Fix incorrect link in Wild Winds Stance
+-   (Rigo) Automate Fan Dancer and Starlit Span archetypes
+-   (Rigo) Automate TXCG Inventor Feats
+-   (Rigo) Automate TXCG Elemental Medicine Feats
+-   (Rigo) Fix Price and level of Energy Adaptive Rune
+-   (Rigo) Fix description and implement Prognostic Veil's Twist the Skeins of Fate
+-   (Rigo) Fix Awakened Animal's fist strike overriding other strikes
+-   (Rigo) Move Unleash Psyche's toggle to the spellcasting tab
+-   (Rigo) Update Mauler's Critical Specialization to include advanced weapons
+-   (Rigo) Update Alchemist Goggles and automate Berserker's Cloak
+-   (Rigo) Update several TXCG equipment and effects
+-   (Rigo) Rework werecreature dedication automation. Drag the feat in again.
+-   (Tikael) Fix automation of Kitsune Change Shape
+-   (Tikael) Fix rules for Conspirator Dragons and Bone Missile
+-   (Tikael) Fix Unstoppable Juggernaut and Superstition's raging resistance
+
 ## 6.3.1
 
 ### Bugfixes
