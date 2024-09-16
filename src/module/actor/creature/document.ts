@@ -394,7 +394,7 @@ abstract class CreaturePF2e<
 
         // set alliance roll options
         const allianceText =
-            this.alliance === null ? "neutral" : this.alliance ?? this.hasPlayerOwner ? "party" : "opposition";
+            this.alliance === null ? "neutral" : this.alliance === undefined ? (this.hasPlayerOwner ? "party" : "opposition") : this.alliance;
         this.rollOptions.all[`self:alliance:${allianceText}`] = true;
 
         // Set labels for attributes
