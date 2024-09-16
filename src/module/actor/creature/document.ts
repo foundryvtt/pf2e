@@ -392,6 +392,11 @@ abstract class CreaturePF2e<
     override prepareDerivedData(): void {
         super.prepareDerivedData();
 
+        // set alliance roll options
+        const allianceText =
+            this.alliance === null ? "neutral" : this.alliance ?? this.hasPlayerOwner ? "party" : "opposition";
+        this.rollOptions.all[`self:alliance:${allianceText}`] = true;
+
         // Set labels for attributes
         if (this.system.abilities) {
             for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
