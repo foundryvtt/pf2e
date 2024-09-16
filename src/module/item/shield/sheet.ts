@@ -37,7 +37,7 @@ class ShieldSheetPF2e extends PhysicalItemSheetPF2e<ShieldPF2e> {
         }));
         const materialData = shield.isBuckler
             ? MATERIAL_DATA.shield.buckler
-            : shield.isTowerShield
+            : shield.isMaterialTowerShield
               ? MATERIAL_DATA.shield.towerShield
               : MATERIAL_DATA.shield.shield;
 
