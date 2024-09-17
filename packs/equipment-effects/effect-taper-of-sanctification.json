@@ -1,0 +1,77 @@
+{
+    "_id": "j8dPwfhUuIeDgHYT",
+    "img": "icons/sundries/lights/candle-lit-angelic.webp",
+    "name": "Effect: Taper of Sanctification",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Taper of Sanctification]</p>\n<p>Your Strikes gain the holy or unholy trait (as appropriate for the candle).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 13
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitHoly",
+                        "value": "holy"
+                    },
+                    {
+                        "label": "PF2E.TraitUnholy",
+                        "value": "unholy"
+                    }
+                ],
+                "flag": "sanctification",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "taper-of-sanctification"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "taper-of-sanctification:holy",
+                                    "self:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "taper-of-sanctification:unholy",
+                                    "self:trait:holy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "traits",
+                "value": "{item|flags.pf2e.rulesSelections.sanctification}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

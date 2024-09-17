@@ -34,7 +34,49 @@
             "title": "Pathfinder GM Core"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "key": "AdjustModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "and": [
+                                    "self:condition:clumsy:1",
+                                    "penalty:slug:clumsy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:enfeebled:1",
+                                    "penalty:slug:enfeebled"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:frightened:1",
+                                    "penalty:slug:frightened"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:sickened:1",
+                                    "penalty:slug:sickened"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "self:condition:stupefied:1",
+                                    "penalty:slug:stupefied"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "selector": "skill-check",
+                "suppress": true
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",
