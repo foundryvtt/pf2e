@@ -34,11 +34,30 @@
                 ],
                 "flag": "sanctification",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.Sanctification"
+                "prompt": "PF2E.SpecificRule.Prompt.Sanctification",
+                "rollOption": "taper-of-sanctification"
             },
             {
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    {
+                        "nor": [
+                            {
+                                "and": [
+                                    "taper-of-sanctification:holy",
+                                    "self:trait:unholy"
+                                ]
+                            },
+                            {
+                                "and": [
+                                    "taper-of-sanctification:unholy",
+                                    "self:trait:holy"
+                                ]
+                            }
+                        ]
+                    }
+                ],
                 "property": "traits",
                 "value": "{item|flags.pf2e.rulesSelections.sanctification}"
             }
