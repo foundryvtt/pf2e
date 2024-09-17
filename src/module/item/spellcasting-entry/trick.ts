@@ -80,7 +80,7 @@ class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements Spell
         const skillRank = actor.skills[skill].rank;
         const trickRank = skillRank === 4 ? 2 : skillRank === 3 ? 1 : 0;
         const levelProficiencyBonus =
-            trickRank === 0 && !game.pf2e.settings.variants.pwol
+            trickRank === 0 && !game.pf2e.settings.variants.pwol.enabled
                 ? createProficiencyModifier({ actor, rank: 0, domains, addLevel: true })
                 : null;
 
