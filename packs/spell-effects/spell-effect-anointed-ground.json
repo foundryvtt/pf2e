@@ -1,0 +1,91 @@
+{
+    "_id": "Wlg9dAFQBuuv9oVa",
+    "img": "icons/consumables/potions/potion-flash-open-blue.webp",
+    "name": "Spell Effect: Anointed Ground",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Anointed Ground]</p>\n<p>Choose aberrations, celestials, dragons, fiends, monitors, or undead. You gain a +1 status bonus to AC, attack rolls, damage rolls, and saving throws against the chosen creatures.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "days",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAberration",
+                        "value": "aberration"
+                    },
+                    {
+                        "label": "PF2E.TraitCelestial",
+                        "value": "celestial"
+                    },
+                    {
+                        "label": "PF2E.TraitDragon",
+                        "value": "dragon"
+                    },
+                    {
+                        "label": "PF2E.TraitFiend",
+                        "value": "fiend"
+                    },
+                    {
+                        "label": "PF2E.TraitMonitor",
+                        "value": "monitor"
+                    },
+                    {
+                        "label": "PF2E.TraitUndead",
+                        "value": "undead"
+                    }
+                ],
+                "flag": "creatureType",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:{item|flags.pf2e.rulesSelections.creatureType}"
+                ],
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:trait:{item|flags.pf2e.rulesSelections.creatureType}"
+                ],
+                "selector": [
+                    "ac",
+                    "saving-throw"
+                ],
+                "type": "status",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
