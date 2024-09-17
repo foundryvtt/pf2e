@@ -4,7 +4,7 @@
     "name": "Spell Effect: Community Repair",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Community Repair]</p>\n<p><strong>Critical Success</strong> The public work is restored to its prior construction, and it takes on further qualities, encouraged by the thoughts of the community. For the next week, while a caster is within 60 feet of the site of the ritual, they receive a +1 status bonus to Will saves against emotion effects and a +10-foot status bonus to their Speeds.</p>\n<p><strong>Critical Failure</strong> The public work refuses to repair itself, and the memories of the community members are soured in response to the botched ritual. For the next week, while a caster is within 60 feet of the site of the ritual, they cannot receive any benefit from beneficial emotion effects, and they take a -10-foot status penalty to their Speeds as their movement slows to a morose crawl.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Community Repair]</p>\n<p>On a critical success, while a caster is within 60 feet of the site of the ritual, they receive a +1 status bonus to Will saves against emotion effects and a +10-foot status bonus to their Speeds. On a critical failure, while a caster is within 60 feet of the site of the ritual, they take a -10-foot status penalty to their Speeds as their movement slows to a morose crawl.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -49,35 +49,19 @@
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Within 60 feet of a Community Repair Ritual",
                 "option": "terrain:community-repair",
                 "toggleable": true
             },
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "emotion",
+                    "item:trait:emotion",
                     "community-repair-proximity",
                     "community-repair-speed:10"
                 ],
                 "selector": "will",
                 "type": "status",
                 "value": 1
-            },
-            {
-                "key": "Note",
-                "predicate": [
-                    "terrain:community-repair",
-                    "community-repair-speed:-10"
-                ],
-                "selector": [
-                    "attack-roll",
-                    "skill-check",
-                    "perception",
-                    "saving-throw"
-                ],
-                "text": "You cannot benefit from emotion effects.",
-                "title": "{item|name}"
             }
         ],
         "start": {

@@ -1,16 +1,16 @@
 {
-    "_id": "T3t9776ataHzrmTs",
-    "img": "systems/pf2e/icons/spells/inside-ropes.webp",
-    "name": "Spell Effect: Inside Ropes (3rd level)",
+    "_id": "7OrZBwdgj563YzlW",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+    "name": "Spell Effect: Warding Aggression (Critical Success)",
     "system": {
         "description": {
-            "value": "<p>The creature gains a +1 item bonus to Athletics checks to Climb while using the guts.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Warding Aggression]</p>\n<p>You gain a +3 status bonus to AC against the foe.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
-            "value": 10
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
             "value": 1
@@ -18,17 +18,17 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder #181: Zombie Feast"
+            "title": "Pathfinder Secrets of Magic"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "action:climb"
+                    "origin:mark:warding-aggression"
                 ],
-                "selector": "athletics",
-                "type": "item",
-                "value": 1
+                "selector": "ac",
+                "type": "status",
+                "value": 3
             }
         ],
         "start": {
@@ -39,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
