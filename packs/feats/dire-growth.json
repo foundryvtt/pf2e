@@ -33,65 +33,15 @@
         },
         "rules": [
             {
-                "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.ActorSizeHuge",
-                        "predicate": [
-                            {
-                                "gte": [
-                                    "parent:level",
-                                    4
-                                ]
-                            }
-                        ],
-                        "value": {
-                            "damage": 4,
-                            "reach": 15,
-                            "size": "huge"
-                        }
-                    },
-                    {
-                        "label": "PF2E.ActorSizeLarge",
-                        "predicate": [
-                            {
-                                "or": [
-                                    {
-                                        "lte": [
-                                            "parent:level",
-                                            3
-                                        ]
-                                    },
-                                    {
-                                        "gte": [
-                                            "parent:level",
-                                            6
-                                        ]
-                                    }
-                                ]
-                            }
-                        ],
-                        "value": {
-                            "damage": 2,
-                            "reach": 10,
-                            "size": "large"
-                        }
-                    }
-                ],
-                "flag": "enlarge",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.CreatureSize"
-            },
-            {
                 "key": "CreatureSize",
                 "predicate": [
                     "change-shape:animal"
                 ],
                 "reach": {
-                    "override": "{item|flags.pf2e.rulesSelections.enlarge.reach}"
+                    "override": "10"
                 },
                 "resizeEquipment": true,
-                "value": "{item|flags.pf2e.rulesSelections.enlarge.size}"
+                "value": "large"
             },
             {
                 "inMemoryOnly": true,
@@ -108,7 +58,7 @@
                 ],
                 "selector": "strike-damage",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.enlarge.damage}"
+                "value": 2
             }
         ],
         "traits": {
