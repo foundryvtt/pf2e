@@ -499,7 +499,7 @@
                 },
                 "defense": null,
                 "description": {
-                    "value": "<p>You imbue the target berry with the bounty of nature, turning it into a goodberry that can heal and sustain far beyond its normal capacity. A creature can eat the goodberry with an Interact action to regain 1d6+4 Hit Points. A berry not consumed during the duration withers away. Every six goodberries consumed gives as much nourishment as one square meal for a typical human.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Goodberry]</p>\n<hr />\n<p><strong>Heightened (+1)</strong> You can target an additional berry. A creature can consume any number of goodberries from the same casting with a single Interact action.</p>\n<p>[[/r (@item.level)d6+(@item.level)*4[vitality]]]{Consume All Berries}</p>"
+                    "value": "<p>You imbue the target berry with the bounty of nature, turning it into a goodberry that can heal and sustain far beyond its normal capacity. A creature can eat the goodberry with an Interact action to regain 1d6+4 Hit Points. A berry not consumed during the duration withers away. Every six goodberries consumed gives as much nourishment as one square meal for a typical human.</p>\n<p>@UUID[Compendium.pf2e.spell-effects.Item.Spell Effect: Goodberry]</p><hr /><p><strong>Heightened (+1)</strong> You can target an additional berry. A creature can consume any number of goodberries from the same casting with a single Interact action.</p>\n<p>@Damage[(@item.level)d6+(@item.level)*4[vitality]]{Consume All Berries}</p>"
                 },
                 "duration": {
                     "sustained": false,
@@ -1062,6 +1062,7 @@
                 "counteraction": false,
                 "damage": {
                     "0": {
+                        "applyMod": false,
                         "category": null,
                         "formula": "1d10+4",
                         "kinds": [
