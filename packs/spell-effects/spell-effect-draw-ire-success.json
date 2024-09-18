@@ -4,7 +4,7 @@
     "name": "Spell Effect: Draw Ire (Success)",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -1 status penalty to attack rolls against creatures other than you. The spell ends at the end of the target's next turn.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</p>\n<p>The creature takes a -1 status penalty to attack rolls against creatures other than you. The spell ends at the end of the target's next turn.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -25,7 +25,7 @@
                 "key": "FlatModifier",
                 "predicate": [
                     {
-                        "not": "target:drawIre"
+                        "not": "target:signature:{item|origin.signature}"
                     }
                 ],
                 "selector": "attack",

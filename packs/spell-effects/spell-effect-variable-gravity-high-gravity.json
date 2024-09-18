@@ -4,7 +4,7 @@
     "name": "Spell Effect: Variable Gravity (High Gravity)",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Variable Gravity]</p>\n<p>You gain a +2 status bonus to your saving throws and DCs to resist forced movement and attempts to knock you prone</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -26,7 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "forcedMovement",
+                            "forced-movement",
+                            "inflicts:prone",
                             "action:trip",
                             "action:shove"
                         ]

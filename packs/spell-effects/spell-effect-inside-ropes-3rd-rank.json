@@ -1,34 +1,34 @@
 {
-    "_id": "FT5Tt2DKBRutDqbV",
-    "img": "systems/pf2e/icons/spells/dread-ambience.webp",
-    "name": "Spell Effect: Dread Ambience (Critical Success)",
+    "_id": "T3t9776ataHzrmTs",
+    "img": "systems/pf2e/icons/spells/inside-ropes.webp",
+    "name": "Spell Effect: Inside Ropes (3rd Rank)",
     "system": {
         "description": {
-            "value": "<p>The sense of dread is particularly powerful. Every creature in an area takes a -2 status penalty to saving throws against fear effects</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Inside Ropes]</p>\n<p>The creature gains a +1 item bonus to Athletics checks to Climb while using the guts.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "minutes",
+            "value": 10
         },
         "level": {
-            "value": 5
+            "value": 1
         },
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder Secrets of Magic"
+            "title": "Pathfinder #181: Zombie Feast"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "fear"
+                    "action:climb"
                 ],
-                "selector": "saving-throw",
-                "type": "status",
-                "value": -2
+                "selector": "athletics",
+                "type": "item",
+                "value": 1
             }
         ],
         "start": {
