@@ -26,22 +26,54 @@
         },
         "rules": [
             {
-                "definition": [
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:category:unarmed",
+                    {
+                        "or": [
+                            "item:trait:deadly-d10",
+                            "item:trait:forceful"
+                        ]
+                    }
+                ],
+                "property": "other-tags",
+                "value": "diamond-fists-dice-upgrade"
+            },
+            {
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     "item:category:unarmed"
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
+                "priority": 121,
+                "property": "traits",
                 "value": "deadly-d10"
             },
             {
-                "definition": [
+                "itemType": "weapon",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
                     "item:category:unarmed"
                 ],
-                "key": "AdjustStrike",
-                "mode": "add",
-                "property": "weapon-traits",
+                "priority": 121,
+                "property": "traits",
                 "value": "forceful"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "dice:slug:base",
+                    "item:tag:diamond-fists-dice-upgrade"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "unarmed-damage"
+                ]
             }
         ],
         "traits": {

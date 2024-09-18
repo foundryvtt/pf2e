@@ -4,7 +4,7 @@
     "name": "Spell Effect: Lashunta's Life Bubble",
     "system": {
         "description": {
-            "value": "<p>You gain a +1 status bonus to saves against inhaled dangers.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Lashunta's Life Bubble]</p>\n<p>You gain a status bonus to saves against inhaled dangers.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -24,11 +24,21 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "inhaled"
+                    {
+                        "or": [
+                            "item:slug:toxic-cloud",
+                            {
+                                "and": [
+                                    "item:trait:poison",
+                                    "item:trait:inhaled"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "status",
-                "value": 1
+                "value": "ternary(gte(@item.level,8),2,1)"
             }
         ],
         "start": {

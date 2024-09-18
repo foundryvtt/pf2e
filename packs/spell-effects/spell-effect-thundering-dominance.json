@@ -4,7 +4,7 @@
     "name": "Spell Effect: Thundering Dominance",
     "system": {
         "description": {
-            "value": "<p>You shroud the target in a powerful predatory aura and amplify its vocalizations. It gains a +1 status bonus to Intimidation checks. Once during this spell's duration, it can take the Thundering Roar action.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The status bonus to Intimidation checks increases by 1 (to a maximum of a +4 status bonus for an 8th-rank spell), and the damage from the roar increases by 2d8.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Thundering Dominance]</p>\n<p>The target gains a status bonus to Intimidation checks. Once during this spell's duration, it can take the Thundering Roar action.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -49,6 +49,19 @@
                     ],
                     "field": "item|system.level.value"
                 }
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Thundering Roar"
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "property": "dice-number",
+                "selectors": [
+                    "thundering-roar-inline-damage"
+                ],
+                "value": "2 + 2*floor(@item.level/2)"
             }
         ],
         "start": {
