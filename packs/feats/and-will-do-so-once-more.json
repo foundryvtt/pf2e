@@ -28,7 +28,23 @@
             "remaster": true,
             "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
         },
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "feat",
+                "key": "ItemAlteration",
+                "label": "{item|name}",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:all-this-will-happen-again"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "{item|description}"
+                    }
+                ]
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
