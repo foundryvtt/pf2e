@@ -875,6 +875,27 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             return game.packs.get(actionTarget.dataset.compendium ?? "")?.render(true);
         };
 
+        // A(H)BCD
+        handlers["browse-ancestry"] = () => {
+            return game.pf2e.compendiumBrowser.tabs.ancestry.open();
+        };
+
+        handlers["browse-heritage"] = () => {
+            return this.#onClickBrowseHeritages();
+        };
+
+        handlers["browse-background"] = () => {
+            return game.pf2e.compendiumBrowser.tabs.background.open();
+        };
+
+        handlers["browse-class"] = () => {
+            return game.pf2e.compendiumBrowser.tabs.class.open();
+        };
+
+        handlers["browse-deity"] = () => {
+            return game.pf2e.compendiumBrowser.tabs.deity.open();
+        };
+
         // ACTIONS
 
         handlers["toggle-hide-stowed"] = () => {
@@ -1317,6 +1338,23 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         }
 
+        return featTab.open(filter);
+    }
+
+    /** Contextually search the heritages tab of the Compendium Browser */
+    async #onClickBrowseHeritages(): Promise<void> {
+        const chosenAncestry = this.actor.ancestry?.name;
+        const featTab = game.pf2e.compendiumBrowser.tabs.heritage;
+        const filter = await featTab.getFilterData();
+
+        const { ancestry } = filter.multiselects;
+
+        if (chosenAncestry) {
+            ancestry.selected.push(
+                { label: chosenAncestry, value: sluggify(chosenAncestry) },
+                { label: game.i18n.localize("PF2E.Item.Heritage.NoneVersatile"), value: "versatile" },
+            );
+        }
         return featTab.open(filter);
     }
 

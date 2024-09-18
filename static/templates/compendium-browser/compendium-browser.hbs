@@ -14,6 +14,7 @@
             <a data-tab="hazard">{{localize "PF2E.Actor.Hazard.Plural"}}</a>
         {{/if}}
         <a data-tab="spell">{{localize "PF2E.Item.Spell.Plural"}}</a>
+        <a data-tab="character-building">Character Building</a>
         {{#if user.isGM}}
             <a data-tab="settings">{{localize "DOCUMENT.Settings"}}</a>
         {{/if}}
@@ -89,6 +90,12 @@
                 </div>
             </div>
         {{/with}}
+
+
+        <div class="tab character-building" data-group="primary" data-tab="character-building">
+            {{> "systems/pf2e/templates/compendium-browser/character-building/character-building.hbs" this}}
+        </div>
+
 
         {{#if user.isGM}}
             {{#with settings}}

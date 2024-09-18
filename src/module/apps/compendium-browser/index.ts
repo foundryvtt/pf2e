@@ -24,12 +24,17 @@ import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";
 import { PackLoader } from "./loader.ts";
 import {
     ActionFilters,
+    AncestryFilters,
+    BackgroundFilters,
     BestiaryFilters,
     BrowserFilter,
     CheckboxData,
+    ClassFilters,
+    DeityFilters,
     EquipmentFilters,
     FeatFilters,
     HazardFilters,
+    HeritageFilters,
     RangesInputData,
     RenderResultListOptions,
     SliderData,
@@ -39,7 +44,28 @@ import * as browserTabs from "./tabs/index.ts";
 
 class CompendiumBrowser extends Application {
     settings: CompendiumBrowserSettings;
-    dataTabsList = ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"] as const;
+    dataTabsList = [
+        "action",
+        "ancestry",
+        "background",
+        "bestiary",
+        "campaignFeature",
+        "class",
+        "deity",
+        "equipment",
+        "feat",
+        "hazard",
+        "heritage",
+        "spell",
+    ] as const;
+
+    tabContext: { [key: string]: string[] } = {
+        primary: ["action", "bestiary", "campaignFeature", "equipment", "feat", "hazard", "spell"],
+        "character-building": ["ancestry", "background", "class", "deity", "heritage"],
+    };
+
+    navigationTabs: { [key: string]: Tabs } = { primary: this._tabs[0], "character-building": this._tabs[1] };
+
     navigationTab: Tabs;
     tabs: BrowserTabs;
 
@@ -53,11 +79,16 @@ class CompendiumBrowser extends Application {
         this.navigationTab = this.hookTab();
         this.tabs = {
             action: new browserTabs.Actions(this),
+            ancestry: new browserTabs.Ancestries(this),
+            background: new browserTabs.Backgrounds(this),
             bestiary: new browserTabs.Bestiary(this),
             campaignFeature: new browserTabs.CampaignFeatures(this),
+            deity: new browserTabs.Deities(this),
+            class: new browserTabs.Classes(this),
             equipment: new browserTabs.Equipment(this),
             feat: new browserTabs.Feats(this),
             hazard: new browserTabs.Hazards(this),
+            heritage: new browserTabs.Heritages(this),
             spell: new browserTabs.Spells(this),
         };
 
@@ -85,6 +116,11 @@ class CompendiumBrowser extends Application {
                     initial: "landing-page",
                 },
                 {
+                    navSelector: "nav[data-group=character-building]",
+                    contentSelector: "section.content",
+                    initial: "landing-page",
+                },
+                {
                     navSelector: "nav[data-group=settings]",
                     contentSelector: ".settings-container",
                     initial: "packs",
@@ -103,21 +139,26 @@ class CompendiumBrowser extends Application {
     }
 
     hookTab(): Tabs {
-        const navigationTab = this._tabs[0];
+        const navigationTab = this.activeTab === "character-building" ? this._tabs[1] : this._tabs[0];
         const tabCallback = navigationTab.callback;
         navigationTab.callback = async (event: JQuery.TriggeredEvent | null, tabs: Tabs, active: TabName) => {
             tabCallback?.(event, tabs, active);
-            await this.loadTab(active);
+            if ((active as string) !== "landing-page") await this.loadTab(active);
         };
         return navigationTab;
     }
 
     initCompendiumList(): void {
-        const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings"> = {
+        const settings: Omit<TabData<Record<string, PackInfo | undefined>>, "settings" | "character-building"> = {
             action: {},
+            ancestry: {},
+            background: {},
             bestiary: {},
             campaignFeature: {},
+            class: {},
+            deity: {},
             hazard: {},
+            heritage: {},
             equipment: {},
             feat: {},
             spell: {},
@@ -128,6 +169,10 @@ class CompendiumBrowser extends Application {
             bestiary: true,
             hazard: true,
             "pf2e.actionspf2e": true,
+            "pf2e.ancestries": true,
+            "pf2e.backgrounds": true,
+            "pf2e.classes": true,
+            "pf2e.deities": true,
             "pf2e.familiar-abilities": true,
             "pf2e.equipment-srd": true,
             "pf2e.ancestryfeatures": true,
@@ -135,25 +180,36 @@ class CompendiumBrowser extends Application {
             "pf2e.feats-srd": true,
             "pf2e.spells-srd": true,
             "pf2e.kingmaker-features": true,
+            "pf2e.heritages": true,
         };
 
         const browsableTypes = new Set([
             "action",
+            "ancestry",
+            "background",
             "campaignFeature",
+            "class",
+            "deity",
             "feat",
             "kit",
             "hazard",
+            "heritage",
             "npc",
             "spell",
             ...PHYSICAL_ITEM_TYPES,
         ] as const);
         type BrowsableType = SetElement<typeof browsableTypes>;
-        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings">>([
+        const typeToTab = new Map<ItemType | "hazard" | "npc", Exclude<TabName, "settings" | "character-building">>([
             ["action", "action"],
+            ["ancestry", "ancestry"],
+            ["background", "background"],
             ["campaignFeature", "campaignFeature"],
+            ["class", "class"],
+            ["deity", "deity"],
             ["feat", "feat"],
             ["kit", "equipment"],
             ["hazard", "hazard"],
+            ["heritage", "heritage"],
             ["npc", "bestiary"],
             ["spell", "spell"],
             ...Array.from(PHYSICAL_ITEM_TYPES).map((t): [ItemType, "equipment"] => [t, "equipment"]),
@@ -191,15 +247,21 @@ class CompendiumBrowser extends Application {
     }
 
     openTab(name: "action", filter?: ActionFilters): Promise<void>;
+    openTab(name: "ancestry", filter?: AncestryFilters): Promise<void>;
+    openTab(name: "background", filter?: BackgroundFilters): Promise<void>;
     openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
+    openTab(name: "class", filter?: ClassFilters): Promise<void>;
+    openTab(name: "deity", filter?: DeityFilters): Promise<void>;
     openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
     openTab(name: "feat", filter?: FeatFilters): Promise<void>;
     openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
+    openTab(name: "heritage", filter?: HeritageFilters): Promise<void>;
     openTab(name: "spell", filter?: SpellFilters): Promise<void>;
+    openTab(name: "character-building"): Promise<void>;
     openTab(name: "settings"): Promise<void>;
     async openTab(tabName: TabName, filter?: BrowserFilter): Promise<void> {
-        this.activeTab = tabName;
-        if (tabName !== "settings" && filter) {
+        this.changeNavContext(tabName);
+        if (tabName !== "settings" && tabName !== "character-building" && filter) {
             return this.tabs[tabName].open(filter);
         }
         return this.loadTab(tabName);
@@ -281,6 +343,11 @@ class CompendiumBrowser extends Application {
             return;
         }
 
+        if (tabName === "character-building") {
+            this.navigationTab = this.hookTab();
+            return;
+        }
+
         if (!this.dataTabsList.includes(tabName)) {
             throw ErrorPF2e(`Unknown tab "${tabName}"`);
         }
@@ -296,7 +363,7 @@ class CompendiumBrowser extends Application {
     }
 
     loadedPacks(tab: TabName): string[] {
-        if (tab === "settings") return [];
+        if (tab === "settings" || tab === "character-building") return [];
         return Object.entries(this.settings[tab] ?? []).flatMap(([collection, info]) => {
             return info?.load ? [collection] : [];
         });
@@ -304,6 +371,21 @@ class CompendiumBrowser extends Application {
 
     loadedPacksAll(): string[] {
         return R.unique(this.dataTabsList.flatMap((t) => this.loadedPacks(t))).sort();
+    }
+
+    // Change the context of the nav
+    changeNavContext(tab: TabName): void {
+        const nav = this.tabToNav(tab);
+        if (this.navigationTab !== this.navigationTabs[nav]) this.navigationTab = this.hookTab();
+        if (this.navigationTab.active !== tab) {
+            this.navigationTab.activate("character-building");
+        }
+    }
+
+    // Get the nav that the tab belongs to
+    tabToNav(tab: TabName): string {
+        const nav = Object.keys(this.tabContext).find((key: string) => this.tabContext[key].includes(tab)) ?? "primary";
+        return nav;
     }
 
     override activateListeners($html: JQuery): void {
@@ -314,6 +396,12 @@ class CompendiumBrowser extends Application {
         // Set the navigation tab. This is only needed when the browser is openend
         // with CompendiumBrowserTab#open
         if (this.navigationTab.active !== activeTabName) {
+            // Character Building needs special handling
+            if (["ancestry", "background", "class", "deity", "heritage"].includes(activeTabName)) {
+                this.changeNavContext(activeTabName);
+                this.openTab("character-building");
+                this.loadTab(activeTabName);
+            }
             this.navigationTab.activate(activeTabName);
         }
 
@@ -403,8 +491,15 @@ class CompendiumBrowser extends Application {
             return;
         }
 
+        if (activeTabName === "character-building") {
+            this.render(true);
+            return;
+        }
+
         // Other tabs
         const currentTab = this.tabs[activeTabName];
+        if (!currentTab) return;
+        if (!currentTab) return;
         const controlArea = html.querySelector<HTMLDivElement>("div.control-area");
         if (!controlArea) return;
 
@@ -586,6 +681,7 @@ class CompendiumBrowser extends Application {
                     );
                     if (!multiselect) continue;
                     const data = multiselects[filterName];
+                    if (!data) continue;
 
                     const tagify = new Tagify(multiselect, {
                         enforceWhitelist: true,
@@ -747,7 +843,8 @@ class CompendiumBrowser extends Application {
      * @param options.replace Replace the current list with the new results?
      */
     async #renderResultList({ list, start = 0, replace = false }: RenderResultListOptions): Promise<void> {
-        const currentTab = this.activeTab !== "settings" ? this.tabs[this.activeTab] : null;
+        const currentTab =
+            this.activeTab !== "settings" && this.activeTab !== "character-building" ? this.tabs[this.activeTab] : null;
         const html = this.element[0];
         if (!currentTab) return;
 
@@ -961,14 +1058,14 @@ class CompendiumBrowser extends Application {
 
     #resetFilters(): void {
         const activeTab = this.activeTab;
-        if (activeTab !== "settings") {
+        if (activeTab !== "settings" && activeTab !== "character-building") {
             this.tabs[activeTab].resetFilters();
         }
     }
 
     #clearScrollLimit(render = false): void {
         const tab = this.activeTab;
-        if (tab === "settings") return;
+        if (tab === "settings" || tab === "character-building") return;
 
         const list = htmlQuery(this.element[0], ".tab.active ul.item-list");
         if (!list) return;
@@ -981,7 +1078,7 @@ class CompendiumBrowser extends Application {
     }
 }
 
-type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;
+type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings" | "character-building">;
 
 type CompendiumBrowserSourcesList = Record<string, SourceInfo | undefined>;
 interface CompendiumBrowserSources {
