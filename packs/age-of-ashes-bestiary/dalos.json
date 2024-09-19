@@ -459,7 +459,7 @@
         },
         {
             "_id": "Bizy0PzkQAYT8X7H",
-            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Heat Rock",
             "sort": 1000000,
             "system": {
@@ -467,11 +467,11 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": 1
                 },
                 "category": "offensive",
                 "description": {
-                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional @Damage[4d6[fire]] damage.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
+                    "value": "<p>The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional 4d6 fire damage.</p>\n<p>Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling.</p>"
                 },
                 "publication": {
                     "license": "OGL",
@@ -484,10 +484,10 @@
                         "diceNumber": 4,
                         "dieSize": "d6",
                         "key": "DamageDice",
-                        "selector": "rock-damage",
-                        "traits": [
+                        "predicate": [
                             "heat-rock"
-                        ]
+                        ],
+                        "selector": "rock-damage"
                     },
                     {
                         "domain": "damage",
