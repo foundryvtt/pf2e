@@ -951,14 +951,14 @@ class CompendiumBrowser extends Application {
         const settings = {
             settings: this.settings,
             sources: this.packLoader.sourcesSettings,
-            showCampaign: showCampaign,
+            showCampaign,
         };
 
         return {
             user: game.user,
             [activeTab]: activeTab === "settings" ? settings : { filterData: tab?.filterData },
             scrollLimit: tab?.scrollLimit,
-            showCampaign: showCampaign,
+            showCampaign,
         };
     }
 
