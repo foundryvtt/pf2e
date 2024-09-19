@@ -87,16 +87,16 @@ class RollInspector extends Application {
 
             const rollOptions = R.sortBy(object.getRollOptions().sort(), (o) => o.includes(":"));
 
-            htmlQuery(element, "h4 .fa-solid")?.addEventListener("pointerenter", () => {
-                const content = createHTMLElement("ul", {
-                    children: rollOptions.map((o) => createHTMLElement("li", { innerHTML: o })),
+            htmlQuery(element, "h4 .fa-solid")?.addEventListener("pointerenter", async () => {
+                const content = await renderTemplate("systems/pf2e/templates/system/roll-options-tooltip.hbs", {
+                    description: game.i18n.localize("PF2E.ChatRollDetails.DiceRollOptionsHint"),
+                    rollOptions,
                 });
                 game.tooltip.dismissLockedTooltips();
                 game.tooltip.activate(element, {
-                    content,
+                    content: createHTMLElement("div", { innerHTML: content }),
                     locked: true,
                     direction: "RIGHT",
-                    cssClass: "pf2e roll-options",
                 });
             });
         }
