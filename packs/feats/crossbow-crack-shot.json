@@ -26,7 +26,7 @@
         },
         "rules": [
             {
-                "domain": "damage",
+                "domain": "all",
                 "key": "RollOption",
                 "option": "crossbow-crack-shot",
                 "toggleable": true
@@ -35,22 +35,31 @@
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    "crossbow-crack-shot",
-                    "item:group:crossbow"
+                    "crossbow-crack-shot"
                 ],
-                "selector": "strike-damage",
-                "type": "circumstance",
+                "selector": "crossbow-weapon-group-damage",
                 "value": "@weapon.system.damage.dice"
             },
             {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "label": "Backstabber (Crossbow Crack Shot)",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:trait:backstabber",
+                    "target:condition:off-guard"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "value": "2 * @weapon.system.damage.dice"
+            },
+            {
                 "key": "AdjustModifier",
-                "mode": "upgrade",
                 "predicate": [
                     "crossbow-crack-shot"
                 ],
-                "selector": "crossbow-group-damage",
+                "selector": "crossbow-weapon-group-damage",
                 "slug": "backstabber",
-                "value": "2*@weapon.system.damage.dice"
+                "suppress": true
             },
             {
                 "definition": [
