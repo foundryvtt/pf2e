@@ -4,7 +4,7 @@
     "name": "Spell Effect: Impeccable Flow",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Impeccable Flow]</p>\n<p>You gain a +1 status bonus to Perception checks, saving throws, and skill checks.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Impeccable Flow]</p>\n<p>You gain a +1 status bonus to Perception checks, saving throws, and skill checks. If you critically fail any check while under the effects of this spell, you instead have a -1 status penalty to all checks for the remaining duration.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,14 +22,51 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ImpeccableFlow.RollOptionLabel",
+                "option": "impeccable-flow:critically-failed",
+                "toggleable": true
+            },
+            {
+                "hideIfDisabled": true,
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "impeccable-flow:critically-failed"
+                    }
+                ],
                 "selector": [
                     "perception",
                     "saving-throw",
                     "skill-check"
                 ],
+                "slug": "impeccable-flow-bonus",
                 "type": "status",
                 "value": "ceil((@item.level - 1) / 3 )"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "impeccable-flow:critically-failed"
+                ],
+                "selector": "check",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalFailure"
+                ],
+                "predicate": [
+                    {
+                        "not": "impeccable-flow:critically-failed"
+                    }
+                ],
+                "selector": "check",
+                "text": "PF2E.SpecificRule.ImpeccableFlow.Note",
+                "title": "{item|name}"
             }
         ],
         "start": {
