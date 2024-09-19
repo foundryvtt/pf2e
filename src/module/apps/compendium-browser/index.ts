@@ -946,16 +946,19 @@ class CompendiumBrowser extends Application {
         const activeTab = this.activeTab;
         const tab = objectHasKey(this.tabs, activeTab) ? this.tabs[activeTab] : null;
 
+        const showCampaign = game.settings.get("pf2e", "campaignType") !== "none";
+
         const settings = {
             settings: this.settings,
             sources: this.packLoader.sourcesSettings,
+            showCampaign: showCampaign,
         };
 
         return {
             user: game.user,
             [activeTab]: activeTab === "settings" ? settings : { filterData: tab?.filterData },
             scrollLimit: tab?.scrollLimit,
-            showCampaign: game.settings.get("pf2e", "campaignType") !== "none",
+            showCampaign: showCampaign,
         };
     }
 
