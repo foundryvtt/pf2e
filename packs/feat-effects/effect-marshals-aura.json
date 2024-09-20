@@ -4,10 +4,10 @@
     "name": "Effect: Marshal's Aura",
     "system": {
         "description": {
-            "value": "<p>Granted by being inside a Marshal's Aura.</p>\n<hr />\n<p>Your aura has the emotion, mental, and visual traits and grants you and allies within the aura a +1 status bonus to saving throws against fear.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Marshal Dedication]</p>\n<p>You gain a +1 status bonus to saving throws against fear.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -16,19 +16,88 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "fear"
+                    {
+                        "or": [
+                            "item:trait:fear",
+                            {
+                                "and": [
+                                    "item:trait:mental",
+                                    "parent:origin:effect:inspiring-marshal-stance"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": "saving-throw",
                 "type": "status",
                 "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Marshal.DreadMarshalStance.Title",
+                "predicate": [
+                    "parent:origin:effect:dread-marshal-stance"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": "@item.origin.flags.pf2e.highestWeaponDamageDice"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "parent:origin:effect:dread-marshal-stance"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Marshal.DreadMarshalStance.Note",
+                "title": "PF2E.SpecificRule.Marshal.DreadMarshalStance.Title"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Marshal.InspiringMarshalStance.Title",
+                "predicate": [
+                    "parent:origin:effect:inspiring-marshal-stance"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "label": "PF2E.SpecificRule.Marshal.DevrinsCunningStance.Title",
+                "predicate": [
+                    "parent:origin:effect:devrins-cunning-stance"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:condition:off-guard",
+                    "parent:origin:effect:devrins-cunning-stance"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Marshal.DevrinsCunningStance.Note",
+                "title": "PF2E.SpecificRule.Marshal.DevrinsCunningStance.Title"
             }
         ],
         "start": {
