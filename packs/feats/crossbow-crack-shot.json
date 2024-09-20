@@ -35,22 +35,20 @@
                 "damageCategory": "precision",
                 "key": "FlatModifier",
                 "predicate": [
-                    "crossbow-crack-shot",
-                    "item:group:crossbow"
+                    "crossbow-crack-shot"
                 ],
-                "selector": "strike-damage",
-                "type": "circumstance",
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "crossbow-crack-shot-bonus",
                 "value": "@weapon.system.damage.dice"
             },
             {
                 "key": "AdjustModifier",
-                "mode": "upgrade",
                 "predicate": [
                     "crossbow-crack-shot"
                 ],
-                "selector": "crossbow-group-damage",
+                "selector": "crossbow-weapon-group-damage",
                 "slug": "backstabber",
-                "value": "2*@weapon.system.damage.dice"
+                "suppress": true
             },
             {
                 "definition": [
@@ -63,6 +61,19 @@
                 ],
                 "property": "range-increment",
                 "value": 10
+            },
+            {
+                "damageCategory": "precision",
+                "key": "FlatModifier",
+                "label": "PF2E.TraitBackstabber",
+                "predicate": [
+                    "crossbow-crack-shot",
+                    "item:trait:backstabber",
+                    "target:condition:off-guard"
+                ],
+                "selector": "crossbow-weapon-group-damage",
+                "slug": "crossbow-crack-shot-backstabber",
+                "value": "2*@weapon.system.damage.dice"
             }
         ],
         "traits": {
