@@ -1558,8 +1558,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const toReturn: Set<string> = new Set();
 
         for (const domain of withAll) {
-            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) toReturn.add(option);
+            const optionsRecord = rollOptions[domain] ?? {};
+            for (const option of Object.keys(optionsRecord)) {
+                if (optionsRecord[option]) toReturn.add(option);
             }
         }
 
