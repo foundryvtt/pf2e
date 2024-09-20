@@ -31,7 +31,35 @@
             "remaster": true,
             "title": "Pathfinder #201: Pactbreaker"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "option": "canopy-predator",
+                "toggleable": true
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:climb",
+                    "canopy-predator"
+                ],
+                "selector": "athletics"
+            },
+            {
+                "adjustment": {
+                    "success": "to-critical-success"
+                },
+                "key": "AdjustDegreeOfSuccess",
+                "predicate": [
+                    "action:balance",
+                    "canopy-predator"
+                ],
+                "selector": "acrobatics"
+            }
+        ],
         "traits": {
             "rarity": "uncommon",
             "value": [
