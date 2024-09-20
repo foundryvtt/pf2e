@@ -62,7 +62,6 @@ type SourceOmission =
     | "customModifiers"
     | "details"
     | "perception"
-    | "toggles"
     | "resources"
     | "saves"
     | "skills"
