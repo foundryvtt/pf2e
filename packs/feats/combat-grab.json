@@ -24,7 +24,27 @@
             "remaster": true,
             "title": "Pathfinder Player Core"
         },
-        "rules": [],
+        "rules": [
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "combat-grab",
+                "toggleable": true
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "combat-grab"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Fighter.CombatGrab.Note",
+                "title": "PF2E.SpecificRule.Fighter.CombatGrab.Name"
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [
