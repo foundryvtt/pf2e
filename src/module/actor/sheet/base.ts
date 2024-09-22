@@ -334,6 +334,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             });
         }
 
+        // General handler for embedded item updates
+        const itemPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
+            html,
+            "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
+        );
+        for (const element of itemPropertyInputs) {
+            element.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const { itemId, itemProperty } = element.dataset;
+                if (!itemId || !itemProperty) return;
+
+                const value = (() => {
+                    const value =
+                        element instanceof HTMLInputElement && element.type === "checbox"
+                            ? element.checked
+                            : element.value;
+                    if (typeof value === "boolean") return value;
+                    const dataType =
+                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
+
+                    return dataType === "Number" ? Number(value) || 0 : value.trim();
+                })();
+
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
+            });
+        }
+
         // Set listener toggles and their suboptions
         for (const togglesSection of htmlQueryAll(html, "ul[data-option-toggles]")) {
             togglesSection.addEventListener("change", (event) => {
