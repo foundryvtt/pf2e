@@ -245,40 +245,19 @@ abstract class RollContext<
         })();
 
         const allianceOptions = (() => {
-                const originAlliance = originActor
-                    ? originActor.alliance === null
-                        ? "neutral"
-                        : originActor.alliance === undefined && originActor.hasPlayerOwner
-                          ? "party"
-                          : originActor.alliance === undefined && !originActor.hasPlayerOwner
-                            ? "opposition"
-                            : originActor.alliance
-                    : null;
-                const targetAlliance = targetActor
-                    ? targetActor.alliance === null
-                        ? "neutral"
-                        : targetActor.alliance === undefined && targetActor.hasPlayerOwner
-                          ? "party"
-                          : targetActor.alliance === undefined && !targetActor.hasPlayerOwner
-                            ? "opposition"
-                            : targetActor.alliance
+            const relativeAlliance =
+                originActor && targetActor
+                    ? originActor.isAllyOf(targetActor)
+                        ? "ally"
+                        : originActor.isEnemyOf(targetActor)
+                          ? "opposed"
+                          : "neutral"
                     : null;
 
-                // if either alliance is null, then they are neutral to each other
-                //
-                const relativeAlliance =
-                    originAlliance && targetAlliance
-                        ? originAlliance === "neutral" || targetAlliance === "neutral"
-                            ? "neutral"
-                            : originAlliance === targetAlliance
-                              ? "ally"
-                              : "opposed"
-                        : null;
-
-                return [
-                    originActor ? `origin:alliance:${relativeAlliance}` : null,
-                    targetActor ? `target:alliance:${relativeAlliance}` : null,
-                ].filter(R.isTruthy);
+            return [
+                relativeAlliance ? `origin:alliance:${relativeAlliance}` : null,
+                relativeAlliance ? `target:alliance:${relativeAlliance}` : null,
+            ].filter(R.isTruthy);
         })();
 
         // Get ephemeral effects from the target that affect this actor while attacking
