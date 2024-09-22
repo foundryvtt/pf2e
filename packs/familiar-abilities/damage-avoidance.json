@@ -1,0 +1,57 @@
+{
+    "_id": "mK3mAUWiRLZZYNdz",
+    "img": "systems/pf2e/icons/actions/Passive.webp",
+    "name": "Damage Avoidance",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "familiar",
+        "description": {
+            "value": "<p>Choose one type of save. Your familiar takes no damage when it rolls a success on that type of save; this doesn't prevent effects other than damage.</p>"
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SavesFortitude",
+                        "value": "fortitude"
+                    },
+                    {
+                        "label": "PF2E.SavesReflex",
+                        "value": "reflex"
+                    },
+                    {
+                        "label": "PF2E.SavesWill",
+                        "value": "will"
+                    }
+                ],
+                "flag": "save",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "{item|flags.pf2e.rulesSelections.save}",
+                "text": "{item|description}",
+                "title": "{item|name}"
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "action"
+}
