@@ -227,13 +227,14 @@ abstract class RollContext<
         const item = this.item;
         const itemOptions = item?.getRollOptions("item") ?? [];
 
+        // grab the origin and target actors, if they exist
+        const originActor = unresolved.origin?.actor;
+        const originUuid = unresolved.origin?.token?.uuid;
+        const targetActor = unresolved.target?.actor;
+        const targetUuid = unresolved.target?.token?.uuid;
+
         // Extract origin and target marks
         const markOptions = (() => {
-            const originActor = unresolved.origin?.actor;
-            const originUuid = unresolved.origin?.token?.uuid;
-            const targetActor = unresolved.target?.actor;
-            const targetUuid = unresolved.target?.token?.uuid;
-
             const originMark = originUuid ? targetActor?.synthetics.tokenMarks.get(originUuid) : null;
             const targetMark = targetUuid ? originActor?.synthetics.tokenMarks.get(targetUuid) : null;
 
@@ -241,6 +242,43 @@ abstract class RollContext<
                 originMark ? `origin:mark:${originMark}` : null,
                 targetMark ? `target:mark:${targetMark}` : null,
             ].filter(R.isTruthy);
+        })();
+
+        const allianceOptions = (() => {
+                const originAlliance = originActor
+                    ? originActor.alliance === null
+                        ? "neutral"
+                        : originActor.alliance === undefined && originActor.hasPlayerOwner
+                          ? "party"
+                          : originActor.alliance === undefined && !originActor.hasPlayerOwner
+                            ? "opposition"
+                            : originActor.alliance
+                    : null;
+                const targetAlliance = targetActor
+                    ? targetActor.alliance === null
+                        ? "neutral"
+                        : targetActor.alliance === undefined && targetActor.hasPlayerOwner
+                          ? "party"
+                          : targetActor.alliance === undefined && !targetActor.hasPlayerOwner
+                            ? "opposition"
+                            : targetActor.alliance
+                    : null;
+
+                // if either alliance is null, then they are neutral to each other
+                //
+                const relativeAlliance =
+                    originAlliance && targetAlliance
+                        ? originAlliance === "neutral" || targetAlliance === "neutral"
+                            ? "neutral"
+                            : originAlliance === targetAlliance
+                              ? "ally"
+                              : "opposed"
+                        : null;
+
+                return [
+                    originActor ? `origin:alliance:${relativeAlliance}` : null,
+                    targetActor ? `target:alliance:${relativeAlliance}` : null,
+                ].filter(R.isTruthy);
         })();
 
         // Get ephemeral effects from the target that affect this actor while attacking
@@ -253,7 +291,7 @@ abstract class RollContext<
             options: [...this.rollOptions, ...itemOptions, ...markOptions],
         });
 
-        // Add an epehemeral effect from flanking
+        // Add an ephemeral effect from flanking
         const isFlankingAttack = this.isFlankingAttack;
         if (which === "target" && isFlankingAttack && isOffGuardFromFlanking(uncloned.actor, otherActor)) {
             const name = game.i18n.localize("PF2E.Item.Condition.Flanked");
@@ -277,6 +315,7 @@ abstract class RollContext<
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
                 ...actionOptions,
                 ...(which === "target" ? itemOptions : []),
+                ...allianceOptions,
             ].filter(R.isNonNull),
             ephemeralEffects,
         );
