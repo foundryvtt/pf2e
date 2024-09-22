@@ -1,0 +1,64 @@
+{
+    "_id": "CGkWnH402Q45HEVt",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Rainbow Vinegar (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Rainbow Vinegar (Greater)]</p>\n<p>Your unarmed attacks deal an additional 1d8 acid damage, and you have resistance 15 to electricity. Vampires take an additional 2d8 acid damage instead.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 12
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "damageType": "acid",
+                "diceNumber": 1,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    {
+                        "not": "target:trait:vampire"
+                    }
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "damageType": "acid",
+                "diceNumber": 2,
+                "dieSize": "d8",
+                "key": "DamageDice",
+                "predicate": [
+                    "target:trait:vampire"
+                ],
+                "selector": "unarmed-damage"
+            },
+            {
+                "key": "Resistance",
+                "type": "electricity",
+                "value": 15
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
