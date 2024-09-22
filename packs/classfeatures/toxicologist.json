@@ -56,12 +56,13 @@
                 "value": "poison"
             },
             {
-                "key": "DamageAlteration",
+                "itemType": "weapon",
+                "key": "ItemAlteration",
                 "mode": "override",
-                "property": "damage-type",
-                "selectors": [
-                    "versatile-vial-damage"
+                "predicate": [
+                    "item:slug:versatile-vial"
                 ],
+                "property": "damage-type",
                 "value": "poison"
             },
             {
@@ -78,6 +79,38 @@
                         "text": "PF2E.SpecificRule.Alchemist.ResearchField.Toxicologist.FieldVials.Description"
                     }
                 ]
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.Toxicologist.FieldBenefit.RollOptionLabel",
+                "option": "toxicologist-field-benefit",
+                "toggleable": true
+            },
+            {
+                "key": "DamageAlteration",
+                "mode": "override",
+                "predicate": [
+                    "toxicologist-field-benefit",
+                    "item:trait:infused",
+                    {
+                        "or": [
+                            "item:category:poison",
+                            {
+                                "and": [
+                                    "item:base:alchemical-bomb",
+                                    "damage:type:poison",
+                                    "item:trait:poison"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "property": "damage-type",
+                "selectors": [
+                    "alchemical-bomb-base-damage",
+                    "inline-damage"
+                ],
+                "value": "acid"
             }
         ],
         "traits": {
