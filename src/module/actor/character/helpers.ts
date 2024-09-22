@@ -322,6 +322,21 @@ function createForceOpenPenalty(actor: CharacterPF2e, domains: string[]): Modifi
     });
 }
 
+/** Create a penalty for attempting to Sense Direction without a compass equivalent tool */
+function createSenseDirectionPenalty(actor: CharacterPF2e, domains: string[]): ModifierPF2e {
+    const slug = "no-compass";
+    const { modifierAdjustments } = actor.synthetics;
+    return new ModifierPF2e({
+        slug,
+        label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
+        type: "item",
+        modifier: -2,
+        predicate: ["action:sense-direction"],
+        hideIfDisabled: true,
+        adjustments: extractModifierAdjustments(modifierAdjustments, domains, slug),
+    });
+}
+
 function createShoddyPenalty(
     actor: ActorPF2e,
     item: WeaponPF2e | ArmorPF2e | null,
@@ -386,6 +401,7 @@ export {
     createForceOpenPenalty,
     createHinderingPenalty,
     createPonderousPenalty,
+    createSenseDirectionPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
 };

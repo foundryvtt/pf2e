@@ -1,16 +1,8 @@
 import { ActionMacroHelpers, SkillActionOptions } from "../index.ts";
-import { ModifierPF2e } from "@actor/modifiers.ts";
 import { SingleCheckAction } from "@actor/actions/index.ts";
 
 function senseDirection(options: SkillActionOptions): void {
-    const modifiers = [
-        new ModifierPF2e({
-            label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
-            modifier: -2,
-            predicate: [{ not: "compass-in-possession" }],
-            type: "item",
-        }),
-    ].concat(options?.modifiers ?? []);
+    const modifiers = options?.modifiers;
     const slug = options?.skill ?? "survival";
     const rollOptions = ["action:sense-direction"];
     ActionMacroHelpers.simpleRollActionCheck({
@@ -35,14 +27,6 @@ function senseDirection(options: SkillActionOptions): void {
 const action = new SingleCheckAction({
     description: "PF2E.Actions.SenseDirection.Description",
     img: "icons/skills/movement/arrow-upward-yellow.webp",
-    modifiers: [
-        {
-            label: "PF2E.Actions.SenseDirection.Modifier.NoCompass",
-            modifier: -2,
-            predicate: [{ not: "compass-in-possession" }],
-            type: "item",
-        },
-    ],
     name: "PF2E.Actions.SenseDirection.Title",
     notes: [
         { outcome: ["criticalSuccess"], text: "PF2E.Actions.SenseDirection.Notes.criticalSuccess" },

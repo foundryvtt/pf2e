@@ -78,6 +78,7 @@ import {
     WeaponAuxiliaryAction,
     createForceOpenPenalty,
     createHinderingPenalty,
+    createSenseDirectionPenalty,
     createShoddyPenalty,
     imposeOversizedWeaponCondition,
 } from "./helpers.ts";
@@ -871,6 +872,9 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
             // Add a penalty for attempting to Force Open without a crowbar or similar tool
             if (skillSlug === "athletics") modifiers.push(createForceOpenPenalty(this, domains));
+
+            // Add a penalty for attempting to Sense Direction without a compass or similar tool
+            if (skillSlug === "survival") modifiers.push(createSenseDirectionPenalty(this, domains));
 
             const statistic = new Statistic(this, {
                 slug: skillSlug,
