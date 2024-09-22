@@ -1,0 +1,51 @@
+{
+    "_id": "bDcRrcC6VlkenVK4",
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Cloud Buns (Greater)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Cloud Buns (Greater)]</p>\n<p>You gain a fly Speed of 30 feet or your speed, whichever is lower.</p>\n<p>You also gain a +2 item bonus to Acrobatics checks to Maneuver in Flight.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "fly",
+                "value": "min(30,@actor.attributes.speed.total)"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "action:maneuver-in-flight"
+                ],
+                "selector": "acrobatics",
+                "type": "item",
+                "value": 2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
