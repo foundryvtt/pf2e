@@ -54,7 +54,7 @@ interface NPCSystemSheetData extends NPCSystemData {
 }
 
 interface NPCStrikeSheetData {
-    _id: string;
+    id: string;
     name: string;
     sort: number;
     breakdown: string;
