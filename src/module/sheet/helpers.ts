@@ -32,17 +32,21 @@ function createSheetTags(
     return createSheetOptions(options, selections, { selected: true });
 }
 
-function createTagifyTraits(
-    traits: Iterable<string>,
-    { sourceTraits, record }: TagifyTraitOptions,
-): { id: string; value: string; readonly: boolean }[] {
+function createTagifyTraits(traits: Iterable<string>, { sourceTraits, record }: TagifyTraitOptions): TagifyEntry[] {
     const sourceSet = new Set(sourceTraits ?? traits);
-    const traitSlugs = [...traits];
+    const traitSlugs = new Set(traits);
     const readonlyTraits = traitSlugs.filter((t) => !sourceSet.has(t));
-    return traitSlugs
+    const hiddenTraits = sourceSet.filter((t) => !traitSlugs.has(t));
+    return [...traitSlugs, ...hiddenTraits]
         .map((slug) => {
             const label = game.i18n.localize(record?.[slug] ?? slug);
-            return { id: slug, value: label, readonly: readonlyTraits.includes(slug) };
+            return {
+                id: slug,
+                value: label,
+                readonly: readonlyTraits.has(slug),
+                // Must be undefined for tagify to work
+                hidden: !traitSlugs.has(slug) || undefined,
+            };
         })
         .sort((t1, t2) => t1.value.localeCompare(t2.value));
 }
@@ -118,7 +122,13 @@ interface TagifyTraitOptions {
 interface TagifyEntry {
     id: string;
     value: string;
+    /** If true, the tag will exist in tagify but unremovable. */
     readonly: boolean;
+    /**
+     * If true, it will be hidden from tagify itself but exist in submit data.
+     * Tagify treats any value as true, even false or null.
+     */
+    hidden?: true;
 }
 
 export {

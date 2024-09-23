@@ -84,30 +84,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         super.activateListeners($html);
         const html = $html[0];
 
-        // General handler for embedded item updates
-        const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
-        for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selectors)) {
-            element.addEventListener("change", (event) => {
-                event.stopPropagation();
-                const { itemId, itemProperty } = element.dataset;
-                if (!itemId || !itemProperty) return;
-
-                const value = (() => {
-                    const value =
-                        element instanceof HTMLInputElement && element.type === "checbox"
-                            ? element.checked
-                            : element.value;
-                    if (typeof value === "boolean") return value;
-                    const dataType =
-                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
-
-                    return dataType === "Number" ? Number(value) || 0 : value.trim();
-                })();
-
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
-            });
-        }
-
         // Increase/decrease Dying/Wounded value
         for (const pips of htmlQueryAll(html, "a[data-action=adjust-condition-value]")) {
             const slug = pips.dataset.condition === "dying" ? "dying" : "wounded";

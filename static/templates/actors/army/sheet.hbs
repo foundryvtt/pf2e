@@ -348,14 +348,14 @@
 
 {{#*inline "actionItem"}}
     {{#if action}}
-        <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
+        <li class="item" {{#if action}}data-item-id="{{action.id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
             <h4 class="item-name">
                 <a data-action="toggle-summary">{{action.name}}</a>
                 {{{actionGlyph action.actionCost}}}
             </h4>
             {{#if action.system.frequency}}
                 <section class="item-frequency">
-                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value"/>
                     <span>
                         /
                         {{action.system.frequency.max}}
@@ -381,7 +381,7 @@
 
 {{#*inline "featItem"}}
     {{#if action}}
-        <li class="item" {{#if action}}data-item-id="{{action._id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
+        <li class="item" {{#if action}}data-item-id="{{action.id}}"{{/if}} {{#if slotId}}data-slot-id="{{slotId}}"{{/if}}>
             <a class="icon item-image">
                 <img class="item-icon" src="{{action.img}}" alt="{{action.name}}" />
                 <i class="fa-solid fa-fw fa-message"></i>
@@ -391,7 +391,7 @@
             </h4>
             {{#if action.system.frequency}}
                 <section class="item-frequency">
-                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action._id}}" data-item-property="system.frequency.value"/>
+                    <input type="number" value="{{action.system.frequency.value}}" data-item-id="{{action.id}}" data-item-property="system.frequency.value"/>
                     <span>
                         /
                         {{action.system.frequency.max}}

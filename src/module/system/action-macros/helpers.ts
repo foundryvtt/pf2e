@@ -83,9 +83,22 @@ class ActionMacroHelpers {
             target: options.target,
         });
 
+        // add relevant modifier adjustments
+        const modifiers = (data.modifiers ?? [])
+            .map((modifier) => modifier.clone())
+            .map((modifier) => {
+                const adjustments = extractModifierAdjustments(
+                    options.actor.synthetics.modifierAdjustments,
+                    [type, slug],
+                    modifier.slug,
+                );
+                modifier.adjustments = (modifier.adjustments ?? []).concat(adjustments);
+                return modifier;
+            });
+
         return {
             item,
-            modifiers: data.modifiers ?? [],
+            modifiers,
             rollOptions: contextualRollOptions,
             slug,
             statistic,
