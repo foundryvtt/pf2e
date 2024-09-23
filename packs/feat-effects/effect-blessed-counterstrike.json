@@ -1,0 +1,47 @@
+{
+    "_id": "rYYU6UVHblaJBxFB",
+    "img": "icons/skills/melee/swords-parry-block-blue.webp",
+    "name": "Effect: Blessed Counterstrike",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Blessed Counterstrike]</p>\n<p>The target gains weakness equal to half your level to all Strikes made by you and your allies.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "definition": [
+                    "action:strike",
+                    "origin:enemy"
+                ],
+                "key": "Weakness",
+                "label": "PF2E.IWR.Custom.EnemyStrikes",
+                "type": "custom",
+                "value": "floor(@item.origin.level / 2)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
