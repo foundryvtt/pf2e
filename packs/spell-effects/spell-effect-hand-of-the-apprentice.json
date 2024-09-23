@@ -4,7 +4,7 @@
     "name": "Spell Effect: Hand of the Apprentice",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Hand of the Apprentice]</p>\n<p>You take advantage of one of the most fundamental lessons of magic to levitate and propel your weapon. You hurl a held melee weapon with which you are trained at the target, making a spell attack roll. On a success, you deal the weapon's damage as if you had hit with a melee Strike, but adding your spellcasting ability modifier to damage, rather than your Strength modifier. On a critical success, you deal double damage, and you add the weapon's critical specialization effect. Regardless of the outcome, the weapon flies back to you and returns to your hand.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Hand of the Apprentice]</p>\n<p>You deal the weapon's damage as if you had hit with a melee Strike, but adding your spellcasting ability modifier to damage, rather than your Strength modifier. On a critical success, you deal double damage, and you add the weapon's critical specialization effect.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -33,33 +33,10 @@
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
-                "ability": "cha",
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    "focus-spell:charisma"
-                ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
-                "type": "ability",
-                "value": "charisma"
-            },
-            {
                 "ability": "int",
+                "force": true,
                 "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": [
-                    "focus-spell:intelligence"
-                ],
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
-                "type": "ability"
-            },
-            {
-                "ability": "wis",
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    "focus-spell:wisdom"
-                ],
                 "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage",
                 "type": "ability"
             },

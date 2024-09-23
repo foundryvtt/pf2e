@@ -4,13 +4,13 @@
     "name": "Effect: Acupuncturist",
     "system": {
         "description": {
-            "value": "<p><strong>Access</strong> Tian Xia origin</p><hr /><p>You've studied the routes by which qi flows through the body. The needles stored in your healer's tools can manipulate its flow and improve health when applied to specific meridian points. You spend a day studying an ally to attempt a @Check[medicine] check to improve their qi against a standard DC for your ally's level. The ally is then immune to all uses of Acupuncturist for 1 week.</p><hr /><p><strong>Critical Success</strong> You grant your ally the choice of a +2 circumstance bonus to one downtime activity skill check within the next week, or the ability to roll twice on their next saving throw within the next week against an affliction and take the higher result; this is a fortune effect.</p>\n<p><strong>Success</strong> You grant your ally a +1 circumstance bonus to one downtime activity skill check within the next week.</p>\n<p><strong>Critical Failure</strong> Your ally takes a –1 circumstance penalty to all downtime activity skill checks within the next week.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Acupuncturist]</p>\n<p>You grant your ally the choice of a circumstance bonus to one downtime activity skill check. On a critical failure, your ally takes a –1 circumstance penalty to all downtime activity skill checks instead.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "days",
+            "value": 7
         },
         "level": {
             "value": 1
@@ -46,7 +46,7 @@
                 ],
                 "selector": "skill-check",
                 "type": "circumstance",
-                "value": "{item|flags.pf2e.rulesSelections.acupuncturist}"
+                "value": "@item.flags.pf2e.rulesSelections.acupuncturist"
             }
         ],
         "start": {
