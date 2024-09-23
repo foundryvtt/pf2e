@@ -341,9 +341,8 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                     })();
 
                     return {
-                        ...R.pick(item, ["name", "sort"]),
+                        ...R.pick(item, ["id", "name", "sort"]),
                         ...R.pick(attack, ["breakdown", "variants"]),
-                        _id: item.id,
                         attackType: item.isMelee ? "PF2E.NPCAttackMelee" : "PF2E.NPCAttackRanged",
                         traits,
                         effects,
@@ -380,7 +379,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
                 selfEffect: !!item.system.selfEffect,
             };
 
-            actions[actionGroup].actions.push({ _id: item.id, name: item.name, glyph, traits, frequency, has });
+            actions[actionGroup].actions.push({ id: item.id, name: item.name, glyph, traits, frequency, has });
         }
 
         sheetData.attacks = attacks;

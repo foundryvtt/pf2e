@@ -65,7 +65,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
                 ).map((item) => {
                     const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
                     return {
-                        _id: item.id,
+                        id: item.id,
                         name: item.name,
                         glyph: getActionGlyph(item.actionCost) || null,
                         frequency: item.system.frequency || null,
