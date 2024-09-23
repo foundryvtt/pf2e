@@ -267,11 +267,18 @@ abstract class RollContext<
             item?.isOfType("action", "feat") && !item.actionCost
                 ? []
                 : this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
+        // Set a roll option of the form `${"target" | "origin"}:${"ally" | "enemy"}`
+        const allyOrEnemyOption = uncloned.actor.alliance
+            ? uncloned.actor.alliance === otherActor.alliance
+                ? `${opposingAlias}:ally`
+                : `${opposingAlias}:enemy`
+            : null;
 
         return uncloned.actor.getContextualClone(
             [
                 ...Array.from(this.rollOptions),
                 opposingAlias,
+                allyOrEnemyOption,
                 ...otherActor.getSelfRollOptions(opposingAlias),
                 ...markOptions,
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
