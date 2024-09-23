@@ -40,7 +40,14 @@ import { Size } from "@module/data.ts";
 import { JournalSheetPF2e } from "@module/journal-entry/sheet.ts";
 import { configFromLocalization, sluggify } from "@util";
 import * as R from "remeda";
-import { damageCategories, damageRollFlavors, damageTypes, energyDamageTypes,materialDamageEffects, physicalDamageTypes, } from "./damage.ts";
+import {
+    damageCategories,
+    damageRollFlavors,
+    damageTypes,
+    energyDamageTypes,
+    materialDamageEffects,
+    physicalDamageTypes,
+} from "./damage.ts";
 import { immunityTypes, resistanceTypes, weaknessTypes } from "./iwr.ts";
 import {
     actionTraits,
