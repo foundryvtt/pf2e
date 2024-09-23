@@ -31,7 +31,7 @@
                 "path": "system.skills.intimidation.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -42,7 +42,7 @@
                 "path": "system.skills.nature.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -108,7 +108,7 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     },
                     {
                         "or": [
@@ -257,6 +257,7 @@
             {
                 "itemType": "spell",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -277,6 +278,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Elemental",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Elemental"
                     },
@@ -288,6 +290,7 @@
             {
                 "itemType": "feat",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -308,6 +311,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Elemental",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Elemental"
                     },
@@ -322,7 +326,7 @@
                 "option": "feature:bloodline:tradition:primal",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }

@@ -328,7 +328,7 @@
                 "path": "system.skills.intimidation.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -339,7 +339,7 @@
                 "path": "system.skills.{item|flags.pf2e.rulesSelections.dragonBloodline.skill}.rank",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ],
                 "value": 1
@@ -355,7 +355,7 @@
                 "mode": "add",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     },
                     {
                         "or": [
@@ -641,6 +641,7 @@
             {
                 "itemType": "spell",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -661,6 +662,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic"
                     },
@@ -672,6 +674,7 @@
             {
                 "itemType": "feat",
                 "key": "ItemAlteration",
+                "label": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Title",
                 "mode": "add",
                 "predicate": [
                     "class:sorcerer",
@@ -692,6 +695,7 @@
                 "property": "description",
                 "value": [
                     {
+                        "divider": true,
                         "text": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicDescription.Draconic",
                         "title": "PF2E.SpecificRule.Sorcerer.Bloodline.BloodMagicLabel.Draconic"
                     },
@@ -706,7 +710,7 @@
                 "option": "feature:bloodline:tradition:{item|flags.pf2e.rulesSelections.dragonBloodline.tradition}",
                 "predicate": [
                     {
-                        "not": "parent:tag:crossblooded-evolution"
+                        "not": "parent:granter:slug:crossblooded-evolution"
                     }
                 ]
             }
