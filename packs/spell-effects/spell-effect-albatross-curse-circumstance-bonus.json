@@ -1,7 +1,7 @@
 {
     "_id": "QFeJq767fymcw6LA",
     "img": "icons/creatures/birds/dove-pigeon-flying-white.webp",
-    "name": "Effect: Albatross Curse Circumstance Bonus",
+    "name": "Spell Effect: Albatross Curse (Circumstance Bonus)",
     "system": {
         "description": {
             "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Albatross Curse]</p>\n<p>You gain a +1 circumstance bonus to attacks against the target of the Albatross Curse.</p>"
@@ -23,6 +23,15 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    "target:enemy",
+                    {
+                        "lte": [
+                            "target:distance",
+                            30
+                        ]
+                    }
+                ],
                 "selector": "attack-roll",
                 "type": "circumstance",
                 "value": 1
