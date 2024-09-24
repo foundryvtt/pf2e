@@ -130,17 +130,18 @@ abstract class RollContext<
 
         const distance =
             originToken?.object && targetToken?.object ? originToken.object.distanceTo(targetToken.object) : null;
+        const distanceOption = Number.isInteger(distance) ? `${opposerRole}:distance:${distance}` : null;
+
         const rangeIncrement = itemClone ? getRangeIncrement(itemClone, distance) : null;
-        const distanceRangeOptions =
-            rangeIncrement && Number.isInteger(distance)
-                ? [`${opposerRole}:distance:${distance}`, `${opposerRole}:range-increment:${rangeIncrement}`]
-                : [];
+        const rangeIncrementOption =
+            rangeIncrement && Number.isInteger(distance) ? `${opposerRole}:range-increment:${rangeIncrement}` : null;
 
         const rollOptions = new Set(
             [
                 ...this.rollOptions,
                 rollingActor?.getRollOptions(resolvedDomains),
-                distanceRangeOptions,
+                distanceOption,
+                rangeIncrementOption,
                 selfRole === "origin" ? this.traits.map((t) => `self:action:trait:${t}`) : [],
                 itemOptions,
                 // Backward compatibility for predication looking for an "attack" trait by its lonesome

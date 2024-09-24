@@ -1,30 +1,33 @@
 {
-    "_id": "QFeJq767fymcw6LA",
-    "img": "icons/creatures/birds/dove-pigeon-flying-white.webp",
-    "name": "Effect: Albatross Curse Circumstance Bonus",
+    "_id": "ldl1aU5ovTQMUHJ2",
+    "img": "icons/sundries/flags/banner-skull-red.webp",
+    "name": "Spell Effect: Frenzied Revelry (Critical)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Albatross Curse]</p>\n<p>You gain a +1 circumstance bonus to attacks against the target of the Albatross Curse.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Frenzied Revelry]</p>\n<p>You gain a +1 status bonus to attack rolls and damage rolls.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "minutes",
+            "unit": "rounds",
             "value": 1
         },
         "level": {
             "value": 1
         },
         "publication": {
-            "license": "ORC",
-            "remaster": true,
-            "title": "Pathfinder Howl of the Wild"
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack-roll",
-                "type": "circumstance",
+                "selector": [
+                    "attack-roll",
+                    "damage"
+                ],
+                "type": "status",
                 "value": 1
             }
         ],

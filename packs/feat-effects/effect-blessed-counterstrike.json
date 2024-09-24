@@ -1,10 +1,10 @@
 {
-    "_id": "DawVHfoPKbPJsz4k",
-    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
-    "name": "Effect: Champion's Resistance",
+    "_id": "rYYU6UVHblaJBxFB",
+    "img": "icons/skills/melee/swords-parry-block-blue.webp",
+    "name": "Effect: Blessed Counterstrike",
     "system": {
         "description": {
-            "value": "<p>The ally gains resistance to all damage against the triggering damage equal to 2 + your level.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Blessed Counterstrike]</p>\n<p>The target gains weakness equal to half your level to all Strikes made by you and your allies.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,9 +22,14 @@
         },
         "rules": [
             {
-                "key": "Resistance",
-                "type": "all-damage",
-                "value": "@item.origin.level+2"
+                "definition": [
+                    "action:strike",
+                    "origin:enemy"
+                ],
+                "key": "Weakness",
+                "label": "PF2E.IWR.Custom.EnemyStrikes",
+                "type": "custom",
+                "value": "floor(@item.origin.level / 2)"
             }
         ],
         "start": {
