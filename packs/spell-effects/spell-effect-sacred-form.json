@@ -4,7 +4,7 @@
     "name": "Spell Effect: Sacred Form",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sacred Form]</p>\n<p>While in this form, you gain the statistics and abilities listed below. You have hands in this battle form and can use manipulate actions. You can Dismiss the spell. You gain the following statistics and abilities.</p><ul><li>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</li><li>10 temporary Hit Points.</li><li>Speed 40 feet.</li><li>Resistance 3 against physical damage.</li><li>Darkvision.</li><li>A special attack with a sacred armament, which is the only attack you can use. Your attack modifier with the sacred armament is +21, and your damage bonus is +8 (or +6 for a ranged attack). The damage dice for Strikes with the weapon are @Damage[3d6[bludgeoning]] damage plus @Damage[1d6[spirit]] damage. If you have a deity, you can have the weapon take the form of your deity's favored weapon and use its damage die size, damage type, and traits. If the favored weapon is a simple weapon with 1d4 or @Damage[1d6[untyped]] damage die, the weapon damage dice are one size larger than normal, though the spirit damage is unchanged. You can also use your attack modifier with this favored weapon if it's higher than that given by the spell.</li><li>Athletics modifier of +23, unless your own is higher.</li>\n</ul>\n<hr /><p><strong>Heightened (8th)</strong> You instead gain AC = 21 + your level, 15 temporary Hit Points, resistance 4 against physical damage, attack modifier +28, damage bonus +15 (+12 for a ranged attack), and Athletics +29. If you're Medium or smaller, your battle form is Large, and your attacks also have 10-foot reach, or 15-foot reach if you're using a favored weapon with reach.</p>\n<hr />\n<p><em>Note: The special attack is not added at this time due to the large amount of player choice and missing deity automation. Additionally, the resistance and removal of armor penalties cannot be automated at present. Please apply these manually for the time being.</em></p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Sacred Form]</p>\n<p>You gain the following statistics and abilities.</p><ul><li><p>AC = 20 + your level. Ignore your armor's check penalty and Speed reduction.</p></li><li><p>10 temporary Hit Points.</p></li><li><p>Speed 40 feet.</p></li><li><p>Resistance 3 against physical damage.</p></li><li><p>Darkvision.</p></li><li><p>A special attack with a sacred armament, which is the only attack you can use. Your attack modifier with the sacred armament is +21, and your damage bonus is +8. The damage dice for Strikes with the weapon are 3d6 bludgeoning damage plus 1d6 spirit damage.</p></li><li><p>Athletics modifier of +23, unless your own is higher.</p></li></ul><hr /><p><strong>Heightened (8th)</strong> You instead gain AC = 21 + your level, 15 temporary Hit Points, resistance 4 against physical damage, attack modifier +28, damage bonus +15, and Athletics +29. If you're Medium or smaller, your battle form is Large, and your attacks also have 10-foot reach.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -46,16 +46,17 @@
                         "land": 40
                     },
                     "strikes": {
-                        "favored-weapon": {
-                            "modifier": 21,
-                            "query": "{\"system.slug\":\"{actor|system.details.deities.primary.weapons.0}\"}"
+                        "sacred-armament": {
+                            "damage": {
+                                "dice": 3,
+                                "die": "d6",
+                                "modifier": 8
+                            },
+                            "modifier": 21
                         }
                     },
                     "tempHP": 10
                 },
-                "predicate": [
-                    "deity"
-                ],
                 "value": {
                     "brackets": [
                         {
@@ -71,8 +72,14 @@
                                     }
                                 },
                                 "strikes": {
-                                    "favored-weapon": {
-                                        "modifier": 28
+                                    "sacred-armament": {
+                                        "damage": {
+                                            "modifier": 15
+                                        },
+                                        "modifier": 28,
+                                        "traits": [
+                                            "reach"
+                                        ]
                                     }
                                 },
                                 "tempHP": 15
@@ -83,50 +90,11 @@
                 }
             },
             {
-                "key": "FlatModifier",
-                "selector": "favored-weapon-damage",
-                "value": "ternary(gte(@item.level,8),12,6)"
-            },
-            {
-                "key": "AdjustModifier",
-                "mode": "add",
-                "predicate": [
-                    "item:melee"
-                ],
-                "selector": "favored-weapon-damage",
-                "value": "ternary(gte(@item.level,8),3,2)"
-            },
-            {
-                "key": "DamageDice",
-                "override": {
-                    "diceNumber": 3
-                },
-                "selector": "favored-weapon-damage"
-            },
-            {
-                "key": "DamageDice",
-                "override": {
-                    "upgrade": true
-                },
-                "predicate": [
-                    "item:category:simple",
-                    {
-                        "or": [
-                            "item:damage:die:faces:4",
-                            "item:damage:die:faces:6"
-                        ]
-                    }
-                ],
-                "selector": "favored-weapon-damage"
-            },
-            {
-                "category": "precision",
+                "damageType": "spirit",
+                "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "predicate": [
-                    "deity:alignment:n"
-                ],
-                "selector": "favored-weapon-damage"
+                "selector": "{item|id}-damage"
             }
         ],
         "start": {
