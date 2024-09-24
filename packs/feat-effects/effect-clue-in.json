@@ -16,19 +16,51 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            {
+                                "not": "check:type:saving-throw"
+                            },
+                            {
+                                "and": [
+                                    "check:type:saving-throw",
+                                    "parent:origin:item:tag:detectives-readiness"
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "removeAfterRoll": "if-enabled",
                 "selector": [
                     "perception",
-                    "skill-check"
+                    "skill-check",
+                    "saving-throw"
                 ],
+                "slug": "clue-in",
                 "type": "circumstance",
                 "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "parent:origin:item:tag:investigator-expertise"
+                ],
+                "selectors": [
+                    "skill-check",
+                    "perception",
+                    "saving-throw"
+                ],
+                "slug": "clue-in",
+                "value": 2
             }
         ],
         "start": {
