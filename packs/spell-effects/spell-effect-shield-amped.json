@@ -1,0 +1,187 @@
+{
+    "_id": "N1b28wOrZmuSjN9i",
+    "img": "systems/pf2e/icons/spells/shield.webp",
+    "name": "Spell Effect: Shield (Amped)",
+    "system": {
+        "badge": {
+            "labels": [
+                "1 Layer",
+                "2 Layers",
+                "3 Layers"
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 3
+        },
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Shield]</p>\n<p>You gain a +1 circumstance bonus to AC. When you Shield Block with this spell, one of the three layers breaks and you cease to gain the bonus to AC. You can choose to break additional layers when you Shield Block with this spell. If you break two layers instead of one, increase the Hardness to 1-1/2 × the normal amount. If you break all three layers, increase the Hardness to double the normal amount.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Dark Archive"
+        },
+        "rules": [
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Psychic.Amp.Shield.RollOptionLabel",
+                "option": "shield-block-layers",
+                "priority": 49,
+                "suboptions": [
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.One",
+                        "value": "1"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Two",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:badge:value",
+                                    2
+                                ]
+                            }
+                        ],
+                        "value": "2"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Numbers.Three",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "parent:badge:value",
+                                    3
+                                ]
+                            }
+                        ],
+                        "value": "3"
+                    }
+                ],
+                "toggleable": true
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    "parent:badge:value:3",
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "ac": 1,
+                    "broken": false,
+                    "brokenThreshold": 0,
+                    "destroyed": false,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "icon": "systems/pf2e/icons/spells/shield.webp",
+                    "itemId": "{item|_id}",
+                    "name": "PF2E.ShieldLabel",
+                    "raised": true
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield",
+                "predicate": [
+                    {
+                        "lte": [
+                            "parent:badge:value",
+                            2
+                        ]
+                    },
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ],
+                "value": {
+                    "ac": 0,
+                    "broken": false,
+                    "brokenThreshold": 0,
+                    "destroyed": false,
+                    "hp": {
+                        "max": 0,
+                        "value": 0
+                    },
+                    "icon": "systems/pf2e/icons/spells/shield.webp",
+                    "itemId": "{item|_id}",
+                    "name": "PF2E.ShieldLabel",
+                    "raised": true
+                }
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "shield-block-layers:3"
+                ],
+                "value": "10*ceil(@item.level/2)"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "shield-block-layers:2"
+                ],
+                "value": "floor(7.5*ceil(@item.level/2))"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "system.attributes.shield.hardness",
+                "predicate": [
+                    "shield-block-layers:1"
+                ],
+                "value": "5*ceil(@item.level/2)"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "self:shield:equipped",
+                "predicate": [
+                    {
+                        "or": [
+                            "self:type:character",
+                            "self:type:npc"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
