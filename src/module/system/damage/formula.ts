@@ -115,15 +115,16 @@ function createDamageFormula(
         }
     }
 
+    const bonusableDamage = [
+        ...damage.base,
+        ...damage.dice.filter((d) => d.enabled),
+        ...damage.modifiers.filter((m) => m.enabled && m.value > 0 && m.type === "untyped"),
+    ];
+
     // Add modifiers
     for (const modifier of damage.modifiers.filter((m) => m.enabled && outcomeMatches(m))) {
         // A genuine bonus or penalty must match against both damage type and category: e.g., a bonus to flat damage
         // must not be applied to persistent damage--nor vice versa
-        const bonusableDamage = [
-            ...damage.base,
-            ...damage.dice,
-            ...damage.modifiers.filter((m) => m.value > 0 && m.type === "untyped"),
-        ];
         const matchingDamage =
             modifier.kind === "modifier"
                 ? bonusableDamage.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ??
