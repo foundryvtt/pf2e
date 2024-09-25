@@ -1,10 +1,10 @@
 {
-    "_id": "I4Ozf6mTnd3X0Oax",
+    "_id": "MqUZKmLRL3ntnCZS",
     "img": "systems/pf2e/icons/equipment/shields/precious-material-shields/orichalcum-buckler.webp",
-    "name": "Effect: Predictable! (Critical Success)",
+    "name": "Effect: Predictable! (Saving Throw)",
     "system": {
         "description": {
-            "value": "<p>Granted if you critically succeed with @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]{Predictable}</p>\n<p>You gain a circumstance bonus to your next saving throw against the target. On a critical failure, you take a –1 circumstance penalty instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,29 +16,20 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "predicatable"
+                    "origin:mark:predictable"
                 ],
-                "selector": [
-                    "ac",
-                    "reflex"
-                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
                 "type": "circumstance",
-                "value": 2
-            },
-            {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Defending against target of Predictable!",
-                "option": "predicable",
-                "toggleable": true
+                "value": "@actor.flags.pf2e.predictable"
             }
         ],
         "start": {
@@ -49,7 +40,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
