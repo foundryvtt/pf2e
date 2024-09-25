@@ -1,0 +1,69 @@
+{
+    "_id": "xdlAursiOE9A9rK7",
+    "img": "icons/equipment/hand/gauntlet-armored-grey.webp",
+    "name": "Effect: Boaster's Challenge (Critical Success)",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Boaster's Challenge]</p>\n<p>You gain a status bonus to damage rolls with your weapon or unarmed Strikes against the challenged foe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 3
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Character Guide"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "boasters-challenge"
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Deception",
+                        "value": "deception"
+                    },
+                    {
+                        "label": "PF2E.Skill.Diplomacy",
+                        "value": "diplomacy"
+                    },
+                    {
+                        "label": "PF2E.Skill.Intimidation",
+                        "value": "intimidation"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:mark:boasters-challenge"
+                ],
+                "selector": "strike-damage",
+                "type": "status",
+                "value": "ternary(gte(@actor.skills.{item|flags.pf2e.rulesSelections.skill}.rank,4),6,ternary(gte(@actor.skills.{item|flags.pf2e.rulesSelections.skill}.rank,3),4,2))"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
