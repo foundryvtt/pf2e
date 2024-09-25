@@ -1,0 +1,56 @@
+{
+    "_id": "ejnUAEdbvj6uPuNJ",
+    "img": "icons/magic/life/heart-cross-strong-flame-green.webp",
+    "name": "Effect: Near-Death Experience Healing",
+    "system": {
+        "description": {
+            "value": "<p>You gain fast healing.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #197: Let the Leaves Fall"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    }
+                ],
+                "flag": "healing",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FastHealing",
+                "value": "@item.flags.pf2e.rulesSelections.healing"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
