@@ -19,6 +19,8 @@ import { HomebrewElements } from "./menu.ts";
 export class DamageTypeManager {
     // All collections that homebrew damage must be updated in
     collections = {
+        physicalConfig: CONFIG.PF2E.physicalDamageTypes as Record<string, string>,
+        energyConfig: CONFIG.PF2E.energyDamageTypes as Record<string, string>,
         physical: PHYSICAL_DAMAGE_TYPES as unknown as string[],
         energy: ENERGY_DAMAGE_TYPES as unknown as string[],
         DAMAGE_TYPES,
@@ -37,6 +39,7 @@ export class DamageTypeManager {
         collections.DAMAGE_TYPES.add(slug);
         if (tupleHasValue(["physical", "energy"], data.category)) {
             collections[data.category].push(slug);
+            collections[`${data.category}Config`][slug] = data.label;
         }
         collections.BASE_DAMAGE_TYPES_TO_CATEGORIES[slug] = data.category ?? null;
         collections.DAMAGE_TYPE_ICONS[slug] = data.icon?.substring(3) ?? null; // icons registered do not include the fa-
