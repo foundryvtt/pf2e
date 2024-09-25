@@ -4,7 +4,7 @@
     "name": "Effect: Predictable!",
     "system": {
         "description": {
-            "value": "<p>Granted if you succeed with @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Predictable!]</p>\n<p>You gain a circumstance bonus to AC and your next saving throw against the target. On a critical failure, you take a –1 circumstance penalty instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,29 +16,47 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "predicate": [
-                    "predicatable"
+                "actorFlag": true,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": -1
+                    }
                 ],
-                "selector": [
-                    "ac",
-                    "reflex"
-                ],
-                "type": "circumstance",
-                "value": 1
+                "flag": "predictable",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
-                "domain": "all",
-                "key": "RollOption",
-                "label": "Defending against target of Predictable!",
-                "option": "predicable",
-                "toggleable": true
+                "key": "TokenMark",
+                "slug": "predictable"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:predictable"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": "@item.flags.pf2e.rulesSelections.predictable"
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Predictable! (Saving Throw)"
             }
         ],
         "start": {
