@@ -10,8 +10,11 @@ $dark-gray-color: #545454;
 
 /* Global */
 $primary-color: #5e0000;
+$primary-color-remaster: #002a17; /* Remaster Green - added 2024-09-26*/
 $secondary-color: #171f69; /* used for mini headers, alternate primary color */
 $tertiary-color: #e9d7a1; /* compliments the primary color, usually used in combination */
+$tertiary-color-dark-remaster: #eee3c8;
+$tertiary-color-light-remaster: #f5efe0;
 
 $alt-color: #786452 !default; /* for all other uses */
 $alt-dark: #443730;
@@ -43,6 +46,7 @@ $adjusted-lower: #cc3311;
 :root {
     /* Global */
     --color-pf-primary: #{$primary-color};
+    --color-pfr-primary: #{$primary-color-remaster}; /*Remaster Green - can be used for tables*/
     --color-pf-primary-dark: #{darken($primary-color, 5)};
     --color-pf-primary-darker: #{darken($primary-color, 10)};
     --color-pf-primary-light: #{lighten($primary-color, 5)};
@@ -60,6 +64,8 @@ $adjusted-lower: #cc3311;
     --color-pf-tertiary-darker: #{darken($tertiary-color, 20)};
     --color-pf-tertiary-darkest: #{darken($tertiary-color, 51)};
     --color-pf-tertiary-light: #{lighten($tertiary-color, 10)};
+    --color-pfr-tertiary-dark: #{$tertiary-color-dark-remaster}; /*Remaster table dark color*/
+    --color-pfr-tertiary-light: #{$tertiary-color-light-remaster}; /*Remaster table light color*/
     --primary: var(--color-pf-primary);
     --secondary: var(--color-pf-secondary);
     --tertiary: var(--color-pf-tertiary);
