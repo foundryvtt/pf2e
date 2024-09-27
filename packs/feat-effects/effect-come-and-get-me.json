@@ -1,0 +1,73 @@
+{
+    "_id": "k29Ao7wxjPVqxuez",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Come and Get Me",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Come and Get Me]</p>\n<p>You are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and damage rolls against you gain a +2 circumstance bonus.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "selectors": [
+                    "strike-damage-roll"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Come and Get Me (Circumstance Bonus)"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "selector": "damage-received",
+                "text": "PF2E.SpecificRule.Barbarian.ComeAndGetMe.IncomingDamage",
+                "title": "PF2E.SpecificRule.Barbarian.ComeAndGetMe.Name"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "predicate": [
+                    "target:condition:off-guard"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Barbarian.ComeAndGetMe.TemporaryHitPoints",
+                "title": "PF2E.SpecificRule.Barbarian.ComeAndGetMe.Name"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
