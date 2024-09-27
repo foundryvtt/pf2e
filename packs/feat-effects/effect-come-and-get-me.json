@@ -1,0 +1,56 @@
+{
+    "_id": "k29Ao7wxjPVqxuez",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Come and Get Me",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Come and Get Me]</p>\n<p>Until your rage ends, you are @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard], and damage rolls against you gain a +2 circumstance bonus. If a creature hits you, that creature is @UUID[Compendium.pf2e.conditionitems.Item.Off-Guard] to you until the end of your next turn. If you hit it before the end of your next turn, you gain temporary @Damage[(@actor.level)[healing]]{Hit Points equal to your Constitution modifier}, or @Damage[(2*(@actor.level))[healing]]{double} that on a critical hit. These temporary Hit Points last until the end of your rage.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
+        },
+        "rules": [
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            },
+            {
+                "affects": "origin",
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "self:effect:rage"
+                ],
+                "selectors": [
+                    "strike-damage-roll"
+                ],
+                "uuid": "Compendium.pf2e.feat-effects.Item.Effect: Come and Get Me (Circumstance Bonus)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
