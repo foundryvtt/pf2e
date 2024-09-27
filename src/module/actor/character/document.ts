@@ -404,11 +404,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             defenses[category] = { rank: defenses[category]?.rank ?? 0 };
         }
 
-        // Indicate that crafting formulas stored directly on the actor are deletable
+        // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
-        for (const formula of this.system.crafting.formulas) {
-            formula.deletable = true;
-        }
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;

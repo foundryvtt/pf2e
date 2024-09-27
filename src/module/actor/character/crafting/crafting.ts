@@ -1,10 +1,11 @@
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { calculateDC } from "@module/dc.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { CharacterPF2e } from "../document.ts";
 import { CraftingAbility, type CraftingAbilityData } from "./ability.ts";
-import { CraftingFormula } from "./formula.ts";
+import { CraftingFormula } from "./types.ts";
 
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
@@ -35,10 +36,32 @@ class CharacterCrafting {
 
         const result = items
             .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
-            .map((item) => {
-                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
-            });
+            .map((item): CraftingFormula | null => {
+                const formula = formulaMap.get(item.uuid);
+                if (!formula) return null;
+
+                const isAmmo = item.isOfType("consumable") && item.isAmmo;
+                const isMundaneAmmo = isAmmo && !item.isMagical;
+                const isConsumable =
+                    (item.isOfType("consumable") && item.category !== "wand") ||
+                    (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
+
+                const batchSize = Math.max(
+                    item.system.price.per,
+                    isMundaneAmmo ? Math.clamp(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
+                );
+
+                return {
+                    ...formula,
+                    item,
+                    dc: calculateDC(item.level, {
+                        rarity: item.rarity,
+                        pwol: game.pf2e.settings.variants.pwol.enabled,
+                    }),
+                    batchSize,
+                };
+            })
+            .filter((f): f is CraftingFormula => !!f);
         this.#formulas = result;
         return result;
     }
