@@ -1,3 +1,62 @@
+## 6.4.1
+
+## System Improvements
+
+-   (Codas) Improve performance of actor roll option retrieval
+-   (DocSchlock) Add roll option toggle support to NPC spells and familiars
+
+## Bug Fixes
+
+-   (Abrault) Fix untrained bonus in Trick Magic Item
+-   (DocSchlock) Fix permanently hidden Campaign Features in Compendium Browser
+-   (DocSchlock) Fix minions and eidolons getting added to initiative from party sheet
+-   (nikolaj-a) Fix modifier adjustments for single check actions
+-   (Supe) Fix bonuses to damage applying to damage without the suitable type
+-   (Supe) Fix updating frequencies in NPC and vehicle sheet
+-   (Supe) Fix temporarily removed actor and item traits from being permanently removed when opening and closing the sheet
+
+## Data Updates
+
+-   (Ambrose, Dire Weasel) Assign and replace icons for multiple items
+-   (Ambrose) Automate the Dire Growth Werecreature feat
+-   (Ambrose) Correct Ripnugget's intimidation
+-   (Ambrose) Fix Swashbuckler's Martial Weapon expertise
+-   (Ambrose) Reduce brightness of Ancient Scale Azarketi
+-   (Ambrose) Redirect more actors to monster core equivalents
+-   (Ambrose) Restore the Godless Healing feat
+-   (Dire Weasel) Add effects for TXCG food
+-   (Dire Weasel) Add effects for Spun Cloud
+-   (Dire Weasel) Add effect for Taper of Sanctification
+-   (Dire Weasel) Update effects for season of ghosts creatures
+-   (DocShlock) Add silver to Moonlit Spellgun's damage rolls
+-   (Michaël) Add armor item for Bakuwa Lizardfolk
+-   (MechaMaya) Add item alteration to "And Will Do This Once More"
+-   (rectulo) Fix unfurling brocade description
+-   (reyzor1991) Correct rank of Shrink the Span
+-   (Rigo) Automate Charged Javelin, Canopy Predator, Sneak Adept, Staggering Fire, Psychic's amped shield, Toxicologist Alchemist Field Benefit, Blessed Counterstrike, and Greater Security for Shields of the Spirit
+-   (Rigo) Automate Kindling and Luminous familiar abilities
+-   (Rigo) Automate dice upgrades for Diamond Fists
+-   (Rigo) Automate Smoothing Aeon Ston's penalty suppression
+-   (Rigo) Add toggle for Winged Warrior Dedication fly speed bonus
+-   (Rigo) Condense Investigator Clue in effects and Predictable!
+-   (Rigo) Condense Damage Avoidance familiar abilities
+-   (Rigo) Condense and update multiple spell effects
+-   (Rigo) Fix aid applying to more than attack rolls and skill checks
+-   (Rigo) Fix Mammoth Bow's weapon category to martial
+-   (Rigo) Improve blood magic description alteration formatting
+-   (Rigo) Partially update Sacred Form to Player Core 2
+-   (Rigo) Rework Dutiful Challenge to use Token Mark
+-   (Rigo) Update Albatross Curse to apply to enemies within a certain distance
+-   (Rigo) Update Crossbow Crackshot to work for any damage type and add backstabber damage
+-   (Tikael) Automate shield augmentations
+-   (websterguy) Remove erroneous attack bonus from Starlit Transformation
+
+## Under the Hood
+
+-   (stwlam) Add relative ally and enemy target and origin roll options
+-   (Supe) Include distance roll option for all checks
+-   (Tikael) Add support for choiceset queries for energy and physical damage types
+
 ## 6.4.0
 
 ### System Improvements
