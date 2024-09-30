@@ -68,6 +68,7 @@ function getUsageDetails(usage: string): UsageDetails {
         case "attached-to-crossbow-or-firearm-scope":
         case "attached-to-firearm":
         case "attached-to-firearm-scope":
+        case "attached-to-melee-weapon":
         case "attached-to-ships-bow":
             return { value: usage, type: "attached", where: usage.replace(/^attached-to-/, "") };
 

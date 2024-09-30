@@ -21,6 +21,7 @@ import { ItemPF2e, ItemProxyPF2e } from "@item";
 import { TraitToggleViewData } from "@item/ability/trait-toggles.ts";
 import { ActionCost, Frequency, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
+import { CoinsPF2e } from "@item/physical/coins.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/types.ts";
 import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
@@ -501,7 +502,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
         );
 
-        const craftingEntries: CraftingEntriesSheetData = {
+        const craftingEntries: CraftingSheetData["entries"] = {
             dailyCrafting: false,
             other: [],
             alchemical: {
@@ -526,16 +527,21 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         // Set up the cache of known formulas on the actor for use on sheet events
         // These formulas include any modified batch size.
         const formulas = await actor.crafting.getFormulas();
-        this.#knownFormulas = formulas.reduce((result: Record<string, CraftingFormula>, entry) => {
-            entry.batchSize = this.#formulaQuantities[entry.uuid] ?? entry.batchSize;
-            result[entry.uuid] = entry;
-            return result;
-        }, {});
+        this.#knownFormulas = R.mapToObj(formulas, (f) => [f.uuid, f]);
 
         return {
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
-            knownFormulas: R.groupBy(formulas, (f) => f.item.level),
+            knownFormulas: R.groupBy(
+                formulas.map((f) => ({
+                    uuid: f.uuid,
+                    item: f.item,
+                    dc: f.dc,
+                    batchSize: this.#formulaQuantities[f.uuid] ?? f.batchSize,
+                    cost: CoinsPF2e.fromPrice(f.item.price, this.#formulaQuantities[f.uuid] ?? f.batchSize),
+                })),
+                (f) => f.item.level,
+            ),
             entries: craftingEntries,
         };
     }
@@ -1595,24 +1601,30 @@ type CharacterSystemSheetData = CharacterSystemData & {
     >;
 };
 
-export interface CraftingEntriesSheetData {
-    dailyCrafting: boolean;
-    other: CraftingAbilitySheetData[];
-    alchemical: {
-        entries: CraftingAbilitySheetData[];
-        totalReagentCost: number;
-        infusedReagents: {
-            value: number;
-            max: number;
-        };
-    };
+interface FormulaSheetData {
+    uuid: string;
+    item: ItemPF2e;
+    dc: number;
+    batchSize: number;
+    cost: CoinsPF2e;
 }
 
 interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
-    knownFormulas: Record<number, CraftingFormula[]>;
-    entries: CraftingEntriesSheetData;
+    knownFormulas: Record<number, FormulaSheetData[]>;
+    entries: {
+        dailyCrafting: boolean;
+        other: CraftingAbilitySheetData[];
+        alchemical: {
+            entries: CraftingAbilitySheetData[];
+            totalReagentCost: number;
+            infusedReagents: {
+                value: number;
+                max: number;
+            };
+        };
+    };
 }
 
 type CharacterSheetTabVisibility = Record<(typeof CHARACTER_SHEET_TABS)[number], boolean>;
