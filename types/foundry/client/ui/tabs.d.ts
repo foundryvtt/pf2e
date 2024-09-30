@@ -3,7 +3,7 @@ declare interface TabsOptions {
     contentSelector?: string;
     group?: string;
     initial?: string;
-    callback?: Function;
+    callback?: (...args: unknown[]) => void;
 }
 
 /**
@@ -33,49 +33,31 @@ declare interface TabsOptions {
  * tabs.bind(html);
  */
 declare class Tabs {
-    /**
-     * The value of the active tab
-     */
+    /** The value of the active tab */
     active: string;
 
-    /**
-     * A callback function to trigger when the tab is changed
-     */
-    callback: Function | null;
+    /** A callback function to trigger when the tab is changed */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    callback: ((...args: any[]) => void) | null;
 
-    /**
-     * The CSS selector used to target the tab navigation element
-     */
+    /** The CSS selector used to target the tab navigation element */
     _navSelector: string;
 
-    /**
-     * A reference to the HTML navigation element the tab controller is bound to
-     */
+    /** A reference to the HTML navigation element the tab controller is bound to */
     _nav: HTMLElement | null;
 
-    /**
-     * The CSS selector used to target the tab content element
-     */
+    /** The CSS selector used to target the tab content element */
     _contentSelector: string;
 
-    /**
-     * A reference to the HTML container element of the tab content
-     */
+    /** A reference to the HTML container element of the tab content */
     _content: HTMLElement | null;
 
     constructor({ navSelector, contentSelector, initial, callback }: TabsOptions);
 
-    /**
-     * Bind the Tabs controller to an HTML application
-     * @param html
-     */
+    /** Bind the Tabs controller to an HTML application */
     bind(html: HTMLElement): void;
 
-    /**
-     * Activate a new tab by name
-     * @param tabName
-     * @param triggerCallback
-     */
+    /** Activate a new tab by name */
     activate(tabName: string, { triggerCallback }?: { triggerCallback?: boolean }): void;
 
     /**

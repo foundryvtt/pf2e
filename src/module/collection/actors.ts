@@ -7,7 +7,7 @@ export class ActorsPF2e<TActor extends ActorPF2e<null>> extends Actors<TActor> {
         const actor = this.get(activePartyId);
         return actor?.isOfType("party")
             ? actor
-            : (this as Actors<ActorPF2e<null>>).find<PartyPF2e<null>>((a) => a.isOfType("party")) ?? null;
+            : ((this as Actors<ActorPF2e<null>>).find<PartyPF2e<null>>((a) => a.isOfType("party")) ?? null);
     }
 
     /** Overrwriten to omit actors in parties, which are rendered separately */

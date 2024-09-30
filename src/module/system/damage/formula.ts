@@ -127,8 +127,8 @@ function createDamageFormula(
         // must not be applied to persistent damage--nor vice versa
         const matchingDamage =
             modifier.kind === "modifier"
-                ? bonusableDamage.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ??
-                  damage.base.at(0)
+                ? (bonusableDamage.find((b) => b.damageType === (modifier.damageType ?? b.damageType)) ??
+                  damage.base.at(0))
                 : bonusableDamage.find(
                       (b) => b.damageType === (modifier.damageType ?? b.damageType) && b.category === modifier.category,
                   );

@@ -14,7 +14,7 @@ export class Migration918DeitySkills extends MigrationBase {
         source.system.skill = (
             typeof source.system.skill === "string"
                 ? [SKILL_DICTIONARY[source.system.skill]]
-                : source.system.skill ?? []
+                : (source.system.skill ?? [])
         ).filter(R.isTruthy);
     }
 }

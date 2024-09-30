@@ -1,5 +1,7 @@
 export {};
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 declare global {
     /**
      * The occlusion sampler shader.

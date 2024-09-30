@@ -61,7 +61,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");
-            const offset = referenceEl ? $(referenceEl).offset() ?? { left: 0, top: 0 } : null;
+            const offset = referenceEl ? ($(referenceEl).offset() ?? { left: 0, top: 0 }) : null;
             const options = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
             const sheet = new SpellPreparationSheet(entry, options);
             sheet.render(true);

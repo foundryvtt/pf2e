@@ -235,7 +235,7 @@ export class InlineRollLinks {
                     ? rollingActor
                     : targetOwner
                       ? parentActor
-                      : game.user.targets.first()?.actor ?? null;
+                      : (game.user.targets.first()?.actor ?? null);
             const opposingActor = rollerRole === "target" ? parentActor : targetActor;
             const originActor = rollerRole === "origin" ? rollingActor : parentActor;
 
@@ -373,7 +373,7 @@ export class InlineRollLinks {
         const messageId =
             foundryDoc instanceof ChatMessagePF2e
                 ? foundryDoc.id
-                : htmlClosest(link, "[data-message-id]")?.dataset.messageId ?? null;
+                : (htmlClosest(link, "[data-message-id]")?.dataset.messageId ?? null);
         if (messageId) {
             flags.pf2e.messageId = messageId;
         }
@@ -468,7 +468,7 @@ function resolveDocument(html: HTMLElement): ClientDocument | null {
 
     // Return the chat message if there is one
     const messageId = htmlClosest(html, "[data-message-id]")?.dataset.messageId;
-    return messageId ? game.messages.get(messageId) ?? null : null;
+    return messageId ? (game.messages.get(messageId) ?? null) : null;
 }
 
 /** Retrieve an actor via a passed document. Handles item owners and chat message actors. */

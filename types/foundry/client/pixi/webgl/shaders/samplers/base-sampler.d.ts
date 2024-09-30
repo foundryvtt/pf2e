@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 /**
  * The base sampler shader exposes a simple sprite shader and all the framework to handle:
  * - Batched shaders and plugin subscription

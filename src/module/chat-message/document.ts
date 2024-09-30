@@ -147,11 +147,11 @@ class ChatMessagePF2e extends ChatMessage {
         const itemMeleeOrRanged = strikeData?.item.isMelee ? "melee" : "ranged";
 
         return meleeOrRanged === itemMeleeOrRanged
-            ? strikeData ?? null
-            : strikeData?.altUsages?.find((u) => {
+            ? (strikeData ?? null)
+            : (strikeData?.altUsages?.find((u) => {
                   const altUsageMeleeOrRanged = u.item.isMelee ? "melee" : "ranged";
                   return meleeOrRanged === altUsageMeleeOrRanged;
-              }) ?? null;
+              }) ?? null);
     }
 
     async showDetails(): Promise<void> {

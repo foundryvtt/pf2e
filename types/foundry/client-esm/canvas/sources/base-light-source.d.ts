@@ -127,7 +127,7 @@ declare global {
 
 interface LightAnimationConfiguration {
     label: string;
-    animation: Function;
+    animation: (...args: unknown[]) => void;
     /* A custom illumination shader used by this animation */
     illuminationShader: PIXI.Shader;
     /* A custom coloration shader used by this animation */

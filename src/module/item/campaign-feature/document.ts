@@ -29,7 +29,7 @@ class CampaignFeaturePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> e
 
     /** Returns the level if the feature type supports it */
     get level(): number | null {
-        return this.behavior !== "activity" ? this.system.level?.value ?? 0 : null;
+        return this.behavior !== "activity" ? (this.system.level?.value ?? 0) : null;
     }
 
     get traits(): Set<KingmakerTrait> {

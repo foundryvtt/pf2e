@@ -47,7 +47,7 @@ class AttributeBuilder extends Application {
             class: actor.class,
             attributeModifiers: R.mapValues(actor.abilities, (value, attribute) => {
                 // Allow decimal values in manual mode (to track partial boosts)
-                const mod = build.manual ? actor._source.system.abilities?.[attribute].mod ?? 0 : value.base;
+                const mod = build.manual ? (actor._source.system.abilities?.[attribute].mod ?? 0) : value.base;
                 return {
                     mod: Number(mod.toFixed(1)).signedString(),
                     label: CONFIG.PF2E.abilities[attribute],

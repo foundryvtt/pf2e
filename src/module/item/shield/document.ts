@@ -114,7 +114,7 @@ class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
         const adjustFromMaterialAndRune = (property: "hardness" | "maxHP", base: number): number => {
             const fromMaterial = this.isSpecific
                 ? Math.max(base, materialData?.[property] ?? base)
-                : materialData?.[property] ?? base;
+                : (materialData?.[property] ?? base);
             const additionalFromRune = reinforcingRune
                 ? RUNE_DATA.shield.reinforcing[reinforcingRune]?.[property]
                 : null;

@@ -1,5 +1,7 @@
 export {};
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 declare global {
     /** A filter specialized for transition effects between a source object and a target texture. */
     class TextureTransitionFilter extends AbstractBaseFilter {
@@ -49,7 +51,7 @@ declare global {
             texture: PIXI.Texture,
             options?: {
                 type?: TextureTransitionType;
-                name?: string | Symbol;
+                name?: string | symbol;
                 duration?: number;
                 easing?: Function | string;
             },

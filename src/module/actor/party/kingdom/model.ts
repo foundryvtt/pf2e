@@ -575,7 +575,6 @@ class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampai
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Kingdom extends ModelPropsFromSchema<KingdomSchema> {}
 
 export { Kingdom };

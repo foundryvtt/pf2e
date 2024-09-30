@@ -216,7 +216,7 @@ class ActionMacroHelpers {
                     const distance = ((): number | null => {
                         const reach =
                             selfActor.isOfType("creature") && weapon?.isOfType("weapon")
-                                ? selfActor.getReach({ action: "attack", weapon }) ?? null
+                                ? (selfActor.getReach({ action: "attack", weapon }) ?? null)
                                 : null;
                         return selfToken?.object && targetData?.token?.object
                             ? selfToken.object.distanceTo(targetData.token.object, { reach })
@@ -366,7 +366,7 @@ class ActionMacroHelpers {
         fully = false,
     }: ResolveCheckDCParams): CheckDC | CheckDCReference | null {
         if (typeof unresolvedDC === "string") {
-            return fully ? target?.getStatistic(unresolvedDC)?.dc ?? null : { slug: unresolvedDC };
+            return fully ? (target?.getStatistic(unresolvedDC)?.dc ?? null) : { slug: unresolvedDC };
         }
         if (typeof unresolvedDC === "function") return unresolvedDC(target);
 

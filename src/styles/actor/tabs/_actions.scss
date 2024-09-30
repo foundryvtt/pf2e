@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .actions-container {
     padding: var(--space-8) var(--space-4) 2rem;
 
@@ -34,7 +36,7 @@ ol.actions-list {
 
         &.action,
         &.strike {
-            $border-color: lighten($alt-color, 40);
+            $border-color: color.adjust($alt-color, $lightness: 40%);
             border: solid transparent;
             border-image: linear-gradient(90deg, #f1edea, $border-color) 1 repeat;
             border-width: 0 0 var(--space-1);

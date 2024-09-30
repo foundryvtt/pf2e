@@ -174,7 +174,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         if (this.isLootSheet || this.actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
-            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+            const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
 
             if (this.actor.isDead) {
                 return `${actorName} [${game.i18n.localize("PF2E.NPC.Dead")}]`;
@@ -191,7 +191,7 @@ class NPCSheetPF2e extends AbstractNPCSheet {
         if (this.isLootSheet || this.actor.limited) {
             const tokenSetsNameVisibility = game.pf2e.settings.tokens.nameVisibility;
             const canSeeName = !tokenSetsNameVisibility || !this.token || this.token.playersCanSeeName;
-            const actorName = canSeeName ? this.token?.name ?? this.actor.name : "";
+            const actorName = canSeeName ? (this.token?.name ?? this.actor.name) : "";
 
             sheetData.actor.name = actorName;
         }

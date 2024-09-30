@@ -136,11 +136,11 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 const effect = data.item;
                 const badge = itemIsOfType(effect, "condition")
                     ? effect.system.value
-                    : effect.system.badge ?? { value: 0 };
+                    : (effect.system.badge ?? { value: 0 });
                 if (typeof badge.value !== "number") return;
                 const newValue = AELikeRuleElement.getNewValue(this.mode, badge.value, data.alteration.value);
-                const max = "max" in badge ? badge.max ?? Infinity : Infinity;
-                const min = "min" in badge ? badge.min ?? 0 : 0;
+                const max = "max" in badge ? (badge.max ?? Infinity) : Infinity;
+                const min = "min" in badge ? (badge.min ?? 0) : 0;
                 badge.value = Math.clamp(newValue, min, max) || 0;
                 return;
             }

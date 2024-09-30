@@ -47,7 +47,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
 
         // Attempt to acquire the trait corresponding with actor's class, falling back to homebrew variations
         const classTrait = ((): string | null => {
-            const slug = actor.class ? actor.class.slug ?? sluggify(actor.class.name) : null;
+            const slug = actor.class ? (actor.class.slug ?? sluggify(actor.class.name)) : null;
             return slug && slug in CONFIG.PF2E.featTraits ? slug : null;
         })();
 
@@ -170,7 +170,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         const validGroups = this.filter((c) => c.isFeatValid(feat) && !c.isFull);
         const group = validGroups.at(0);
         if (validGroups.length === 1 && group) {
-            const slotId = group.slotted ? Object.values(group.slots).find((slot) => !slot?.feat)?.id ?? null : null;
+            const slotId = group.slotted ? (Object.values(group.slots).find((slot) => !slot?.feat)?.id ?? null) : null;
             return { group, slotId };
         }
 
@@ -200,7 +200,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
             // Find the group then assign the feat
             const location = feat.system.location ?? "";
             const group = groupsBySlot[location] ?? this.get(location) ?? this.get(feat.category);
-            group?.assignFeat(feat) || this.bonus.assignFeat(feat);
+            if (!group?.assignFeat(feat)) this.bonus.assignFeat(feat);
         }
 
         this.get("classfeature").feats.sort((a, b) => (a.feat?.level || 0) - (b.feat?.level || 0));
@@ -305,8 +305,8 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     assignFeat(feat: TItem): boolean {
         const slotId =
             feat.isOfType("feat") && feat.system.location === this.id
-                ? feat.system.level.taken?.toString() ?? ""
-                : feat.system.location ?? "";
+                ? (feat.system.level.taken?.toString() ?? "")
+                : (feat.system.location ?? "");
         const slot: FeatSlot<TItem> | undefined = this.slots[slotId];
         if (!slot && this.slotted) return false;
 
@@ -320,7 +320,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
             slot.feat = feat;
             slot.children = childSlots;
         } else {
-            const label = feat.category === "classfeature" ? feat.system.level?.value.toString() ?? null : null;
+            const label = feat.category === "classfeature" ? (feat.system.level?.value.toString() ?? null) : null;
             this.feats.push({ feat, label, children: childSlots });
         }
         feat.group = this;
@@ -349,7 +349,7 @@ class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = F
     /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
     async insertFeat(feat: TItem, slotId: Maybe<string> = null): Promise<ItemPF2e<TActor>[]> {
         const slot = this.slots[slotId ?? ""];
-        const location = this.slotted || this.id === "bonus" ? slot?.id ?? null : this.id;
+        const location = this.slotted || this.id === "bonus" ? (slot?.id ?? null) : this.id;
         const existing = this.actor.items.filter(
             (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location,
         );

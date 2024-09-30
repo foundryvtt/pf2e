@@ -21,7 +21,7 @@ class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleElement> {
         // Add events for toggle buttons
         htmlQuery(html, "[data-action=toggle-selector]")?.addEventListener("click", () => {
             const selector = this.rule.selector;
-            const newValue = Array.isArray(selector) ? selector.at(0) ?? "" : [selector ?? ""].filter((s) => !!s);
+            const newValue = Array.isArray(selector) ? (selector.at(0) ?? "") : [selector ?? ""].filter((s) => !!s);
             this.updateItem({ selector: newValue });
         });
         const optionsEl = htmlQuery<HTMLTagifyTagsElement>(html, "tagify-tags.outcomes");
