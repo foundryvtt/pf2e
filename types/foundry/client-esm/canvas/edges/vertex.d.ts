@@ -7,9 +7,6 @@ import type { Edge } from "./edge.d.ts";
 export class PolygonVertex {
     constructor(x: number, y: number, options?: PolygonVertexOptions);
 
-    /** The effective maximum texture size that Foundry VTT "ever" has to worry about. */
-    static #MAX_TEXTURE_SIZE: number;
-
     /**
      * Determine the sort key to use for this vertex, arranging points from north-west to south-east.
      * @param   x    The x-coordinate

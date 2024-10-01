@@ -5,5 +5,5 @@
  * @param options   Additional application rendering options
  */
 declare class PlaylistSoundConfig extends FormApplication {
-    protected override _updateObject(event: Event, formData: {}): Promise<void>;
+    protected override _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }

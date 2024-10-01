@@ -30,7 +30,7 @@ function computePrice(item: PhysicalItemPF2e): CoinsPF2e {
     const reinforcingRuneValue =
         !item.isOfType("shield") || item.isSpecific
             ? 0
-            : RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0;
+            : (RUNE_DATA.shield.reinforcing[item.system.runes.reinforcing]?.price ?? 0);
     const runeValue = item.isSpecific ? 0 : runesData.reduce((sum, rune) => sum + rune.price, 0) - reinforcingRuneValue;
 
     const basePrice = materialValue > 0 || runeValue > 0 ? new CoinsPF2e() : item.price.value;

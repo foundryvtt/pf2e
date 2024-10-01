@@ -469,6 +469,5 @@ declare global {
     }
 
     // Empty extended interface that can be expanded by the system without polluting Math itself
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface RollMathProxy extends Math {}
 }

@@ -1,5 +1,7 @@
 export {};
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 declare global {
     /** The standard application window that is rendered for a large variety of UI elements in Foundry VTT */
     class Application<TOptions extends ApplicationOptions = ApplicationOptions> {

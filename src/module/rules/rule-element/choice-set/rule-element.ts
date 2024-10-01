@@ -319,8 +319,8 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
     ): PickableThing<string>[] {
         const data =
             typeof choices === "string"
-                ? fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {}
-                : fu.getProperty(CONFIG.PF2E, choices.config) ?? {};
+                ? (fu.getProperty(CONFIG.PF2E, choices) ?? fu.getProperty(this.actor, choices) ?? {})
+                : (fu.getProperty(CONFIG.PF2E, choices.config) ?? {});
         const predicate = !validate || typeof choices === "string" ? null : choices.predicate;
 
         // If this is an array, optionally run predicates on all the entries
@@ -501,7 +501,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
         return filteredItems
             .filter((i) => (i.isOfType("feat") ? (existing.get(i.slug ?? sluggify(i.name)) ?? 0) < i.maxTakable : true))
             .map((f) => ({
-                value: choices.slugsAsValues ? f.slug ?? sluggify(f.name) : f.uuid,
+                value: choices.slugsAsValues ? (f.slug ?? sluggify(f.name)) : f.uuid,
                 label: f.name,
                 img: f.img,
             }));

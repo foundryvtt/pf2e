@@ -310,7 +310,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 allowedBoosts,
                 flaws: { ancestry: [] },
-                apex: isABP ? system.build?.attributes?.apex ?? null : null,
+                apex: isABP ? (system.build?.attributes?.apex ?? null) : null,
             },
             languages: { value: 0, max: 0, granted: [] },
         };
@@ -1469,7 +1469,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
-                    : configuredAmmo?.quantity ?? 0;
+                    : (configuredAmmo?.quantity ?? 0);
                 params.consumeAmmo ??= ammoRequired > 0;
 
                 if (params.consumeAmmo && ammoRequired > ammoRemaining) {
@@ -1480,7 +1480,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
                 const targetToken = params.getFormula
                     ? null
-                    : (params.target ?? game.user.targets.first())?.document ?? null;
+                    : ((params.target ?? game.user.targets.first())?.document ?? null);
 
                 const context = await new CheckContext({
                     domains: attackDomains,

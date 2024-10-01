@@ -1657,7 +1657,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     magicTraditions: Record<MagicTradition, string>;
     martialProficiencies: Record<"attacks" | "defenses", Record<string, MartialProficiency>>;
     options: CharacterSheetOptions;
-    preparationType: Object;
+    preparationType: object;
     showPFSTab: boolean;
     spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;

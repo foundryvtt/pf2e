@@ -253,7 +253,7 @@ class ActorDirectoryPF2e extends ActorDirectory<ActorPF2e<null>> {
             // Inject any additional data for specific party implementations
             for (const header of htmlQueryAll($element.get(0), ".party")) {
                 const party = game.actors.get(header.dataset.documentId ?? "");
-                const sidebarButtons = party?.isOfType("party") ? party.campaign?.createSidebarButtons?.() ?? [] : [];
+                const sidebarButtons = party?.isOfType("party") ? (party.campaign?.createSidebarButtons?.() ?? []) : [];
                 header.querySelector("header h3")?.after(...sidebarButtons);
             }
         }

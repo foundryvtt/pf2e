@@ -10,13 +10,6 @@ type SlotKey = `slot${ZeroToTen}`;
 
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
 
-interface SpellAttackRollModifier {
-    breakdown: string;
-    notes: RollNotePF2e[];
-    roll: Function;
-    value: number;
-}
-
 interface SpellDifficultyClass {
     breakdown: string;
     notes: RollNotePF2e[];
@@ -78,7 +71,6 @@ interface SpellCollectionTypeData extends SpellCollectionTypeSource {
 
 export type {
     SlotKey,
-    SpellAttackRollModifier,
     SpellDifficultyClass,
     SpellcastingEntrySlots,
     SpellcastingEntrySource,

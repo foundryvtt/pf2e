@@ -571,7 +571,7 @@ class DamageInstance extends AbstractDamageRoll {
 
         // Get the total with all damage-doubling removed
         const undoubledTotal =
-            head instanceof ArithmeticExpression || head instanceof Grouping ? head.critImmuneTotal ?? 0 : this.total;
+            head instanceof ArithmeticExpression || head instanceof Grouping ? (head.critImmuneTotal ?? 0) : this.total;
 
         if (this.critRule === "double-damage") {
             return undoubledTotal;
@@ -619,7 +619,7 @@ class DamageInstance extends AbstractDamageRoll {
 Promise.resolve().then(() => {
     // Peggy calls `eval` by default, which makes build tools cranky: instead use the generated source and pass it to a
     // function constructor.
-    const Evaluator = function () {}.constructor as new (...args: unknown[]) => Function;
+    const Evaluator = function () {}.constructor as new (...args: unknown[]) => (obj: object) => void;
     new Evaluator("AbstractDamageRoll", ROLL_PARSER).call(this, AbstractDamageRoll);
 });
 

@@ -195,7 +195,7 @@ class TextEditorPF2e extends TextEditor {
                               subtitle,
                               title: item.name,
                           })
-                        : anchor.dataset.name ?? item?.name ?? "";
+                        : (anchor.dataset.name ?? item?.name ?? "");
                 args.template.name = game.i18n.localize(name);
 
                 await DamagePF2e.roll(args.template, args.context);
@@ -774,7 +774,7 @@ class TextEditorPF2e extends TextEditor {
         const label =
             "shortLabel" in rawParams // A "short label" will omit all damage types and categories
                 ? roll.instances.map((i) => i.head.expression).join(" + ")
-                : args.inlineLabel ?? formula;
+                : (args.inlineLabel ?? formula);
         const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {

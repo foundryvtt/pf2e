@@ -112,7 +112,7 @@ declare interface CollectionConstructor {
     readonly prototype: Collection<unknown>;
 }
 
-// biome-ignore lint/style/noVar:
+// eslint-disable-next-line no-var
 declare var Collection: CollectionConstructor;
 
 interface CollectionGetOptions {

@@ -33,7 +33,7 @@ declare global {
 
         static override get defaultOptions(): ApplicationOptions;
 
-        override getData(options?: {}): {
+        override getData(options?: Record<string, unknown>): {
             page: number;
             macros: TMacro[];
             barClass: string;

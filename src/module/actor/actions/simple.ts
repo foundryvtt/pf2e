@@ -77,7 +77,7 @@ class SimpleActionVariant extends BaseActionVariant {
                 flavor,
                 speaker: ChatMessage.getSpeaker({ actor }),
             };
-            const message = options.message?.create ?? true ? await ChatMessage.create(data) : new ChatMessage(data);
+            const message = (options.message?.create ?? true) ? await ChatMessage.create(data) : new ChatMessage(data);
             const item =
                 effect && actor.isOwner
                     ? ((await actor.createEmbeddedDocuments("Item", [effect.toObject()]))[0] as EffectPF2e)

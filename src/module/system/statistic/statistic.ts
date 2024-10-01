@@ -67,8 +67,8 @@ class Statistic<TActor extends ActorPF2e = ActorPF2e> extends BaseStatistic<TAct
         // If this is a character with an attribute, add/set the attribute modifier
         const attributeModifier =
             actor.isOfType("character") && data.attribute
-                ? data.modifiers.find((m) => m.type === "ability" && m.ability === data.attribute) ??
-                  createAttributeModifier({ actor, attribute: data.attribute, domains })
+                ? (data.modifiers.find((m) => m.type === "ability" && m.ability === data.attribute) ??
+                  createAttributeModifier({ actor, attribute: data.attribute, domains }))
                 : null;
         if (data.attribute) domains.push(`${data.attribute}-based`);
 
@@ -400,7 +400,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
 
     async roll(args: StatisticRollParameters = {}): Promise<Rolled<CheckRoll> | null> {
         // Work with a `CheckDC` object
-        args.dc = typeof args.dc === "number" ? { value: Math.trunc(args.dc) || 0 } : args.dc ?? null;
+        args.dc = typeof args.dc === "number" ? { value: Math.trunc(args.dc) || 0 } : (args.dc ?? null);
 
         // Allow use of events for modules and macros but don't allow it for internal system use
         const { rollMode, skipDialog } = (() => {
@@ -423,9 +423,9 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const originToken = selfIsTarget ? args.origin?.getActiveTokens(true, true).shift() : selfToken;
         const targetToken = selfIsTarget
             ? selfToken
-            : args.target?.getActiveTokens(true, true)?.find((t) => t.actor?.isOfType("army", "creature", "hazard")) ??
+            : (args.target?.getActiveTokens(true, true)?.find((t) => t.actor?.isOfType("army", "creature", "hazard")) ??
               game.user.targets.find((t) => !!t.actor?.isOfType("army", "creature", "hazard"))?.document ??
-              null;
+              null);
 
         const selfIsTargeting =
             !selfIsTarget &&
@@ -495,7 +495,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const originActor = rollContext.origin?.actor ?? self;
         const targetActor = rollContext.target?.actor ?? null;
         const selfActor = (selfIsTarget ? targetActor : originActor) ?? self;
-        const dc = typeof args.dc?.value === "number" ? args.dc : rollContext?.dc ?? null;
+        const dc = typeof args.dc?.value === "number" ? args.dc : (rollContext?.dc ?? null);
 
         // Extract modifiers, unless this is a flat check
         const extraModifiers =
@@ -531,7 +531,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
                 ? 2 * item.rank
                 : item?.isOfType("physical")
                   ? item.level
-                  : originActor?.level ?? selfActor.level;
+                  : (originActor?.level ?? selfActor.level);
 
             const amount =
                 this.type === "saving-throw" && selfActor.level > effectLevel

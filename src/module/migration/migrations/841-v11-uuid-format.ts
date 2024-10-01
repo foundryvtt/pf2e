@@ -20,7 +20,7 @@ export class Migration841V11UUIDFormat extends MigrationBase {
             if (explicitDocType) return explicitDocType;
             if ("game" in globalThis) {
                 const { collection } = fu.parseUuid(uuid) ?? {};
-                return collection instanceof CompendiumCollection ? collection.metadata.type ?? null : null;
+                return collection instanceof CompendiumCollection ? (collection.metadata.type ?? null) : null;
             }
             return null;
         })();

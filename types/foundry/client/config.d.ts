@@ -270,7 +270,7 @@ declare global {
                 string,
                 ConstructorOf<abstract.TypeDataModel<abstract.Document, data.fields.DataSchema>>
             >;
-            typeLabels: {};
+            typeLabels: Record<string, string>;
             typeIcons: Record<string, string>;
             defaultType: string;
             sidebarIcon: string;
@@ -674,7 +674,7 @@ declare global {
                 f: typeof terms.FateDie;
                 [key: string]: ConstructorOf<terms.DiceTerm>;
             };
-            randomUniform: Function;
+            randomUniform: () => number;
         };
 
         /** The control icons used for rendering common HUD operations */

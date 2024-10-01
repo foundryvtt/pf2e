@@ -90,7 +90,8 @@ export function getType(variable: unknown): string {
     if ((variable as object).constructor.name === "Object") return "Object"; // simple objects
 
     // Match prototype instances
-    const prototypes: [Function, string][] = [
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const prototypes: [new (...args: any[]) => object, string][] = [
         [Array, "Array"],
         [Set, "Set"],
         [Map, "Map"],
@@ -290,7 +291,7 @@ function _arrayEquals(arr: unknown[], other: unknown): boolean {
         const t1 = getType(v1);
         if (t0 !== t1) return false;
         if ((v0 as Maybe<{ equals?: unknown }>)?.equals instanceof Function)
-            return (v0 as { equals: Function }).equals(v1);
+            return (v0 as { equals: (arg: unknown) => boolean }).equals(v1);
         if (t0 === "Object") return objectsEqual(v0 as object, v1);
         return v0 === v1;
     });
@@ -318,7 +319,7 @@ function diffObject(original: object, other: object, { inner = false, deletionKe
 
         // If the prototype explicitly exposes an equality-testing method, use it
         if ((v0 as { equals?: unknown }).equals instanceof Function) {
-            return [!(v0 as { equals: Function }).equals(v1), v1];
+            return [!(v0 as { equals: (arg: unknown) => boolean }).equals(v1), v1];
         }
         if (Array.isArray(v0)) {
             return [!_arrayEquals(v0, v1), v1];

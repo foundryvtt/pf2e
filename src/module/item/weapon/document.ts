@@ -460,7 +460,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
     override generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const baseWeaponTypes: Record<string, string | undefined> = CONFIG.PF2E.baseWeaponTypes;
         const baseShieldTypes: Record<string, string | undefined> = CONFIG.PF2E.baseShieldTypes;
-        const base = this.baseType ? baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null : null;
+        const base = this.baseType ? (baseWeaponTypes[this.baseType] ?? baseShieldTypes[this.baseType] ?? null) : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const itemType = game.i18n.localize(base ?? group ?? "TYPES.Item.weapon");
 
@@ -480,7 +480,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             this.toThrownUsage() ?? [],
             meleeUsage ?? [],
             // Some combination weapons have a melee usage that is throwable
-            recurse ? meleeUsage?.toThrownUsage() ?? [] : [],
+            recurse ? (meleeUsage?.toThrownUsage() ?? []) : [],
         ].flat();
     }
 
@@ -608,7 +608,7 @@ class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ph
             const newTraits: NPCAttackTrait[] = traits
                 .flatMap((t) =>
                     t === "reach"
-                        ? reachTraitToNPCReach[this.size] ?? []
+                        ? (reachTraitToNPCReach[this.size] ?? [])
                         : t === "thrown" && setHasElement(THROWN_RANGES, rangeIncrement)
                           ? (`thrown-${rangeIncrement}` as const)
                           : t,

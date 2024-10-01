@@ -76,7 +76,7 @@ export class SceneManager {
     _registerHooks(): void;
 
     /** Register additional hook functions are only used while this Scene is active and is automatically deactivated. */
-    registerHook(hookName: string, handler: Function): void;
+    registerHook(hookName: string, handler: (...args: unknown[]) => number | void): void;
 
     /** Deactivate Hook functions that were added specifically for this Scene. */
     _deactivateHooks(): void;
