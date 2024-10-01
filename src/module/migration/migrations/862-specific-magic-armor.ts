@@ -64,7 +64,7 @@ export class Migration862SpecificMagicArmor extends MigrationBase {
                             ? (this.#resilientRuneValues.get(
                                   String(source.system.resiliencyRune?.value ?? ""),
                               ) as ZeroToThree) || 1
-                            : 0 || 0,
+                            : 0,
                     property: [],
                 },
             };

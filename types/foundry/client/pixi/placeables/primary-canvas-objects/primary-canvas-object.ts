@@ -32,7 +32,7 @@ export interface PrimaryCanvasObjectData {
  * @returns A DisplayObject subclass mixed with PrimaryCanvasObject features
  * @mixin
  */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function PrimaryCanvasObjectMixin<TBase extends ConstructorOf<PIXI.DisplayObject>>(DisplayObject: TBase) {
     /**

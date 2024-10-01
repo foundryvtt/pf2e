@@ -69,7 +69,7 @@ export class Migration718CarryType extends MigrationBase {
             equipped.inSlot = !!equipped.value;
         } else if (usage.type === "held") {
             if (equipped.value) equipped.carryType = "held";
-            equipped.handsHeld = equipped.value ? usage.hands ?? 1 : 0;
+            equipped.handsHeld = equipped.value ? (usage.hands ?? 1) : 0;
         }
 
         equipped["-=value"] = null;

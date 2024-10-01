@@ -9,7 +9,7 @@ const { DataModel } = foundry.abstract;
  * Exists if the party's campaign type does not match the configured setting.
  * Creates a warning and deletion dialog to give one last chance to back out.
  */
-class InvalidCampaign extends DataModel<PartyPF2e, {}> implements PartyCampaign {
+class InvalidCampaign extends DataModel<PartyPF2e, DataSchema> implements PartyCampaign {
     type = "invalid";
 
     actor: PartyPF2e;

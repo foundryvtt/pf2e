@@ -134,7 +134,7 @@ export class Migration882SpellDataReorganization extends MigrationBase {
                 value: system.duration?.value ?? "",
                 sustained: isObject(system.sustained)
                     ? !!system.sustained.value || system.duration?.value?.includes("sustained") || false
-                    : system.duration?.sustained ?? false,
+                    : (system.duration?.sustained ?? false),
             };
         }
         if ("sustained" in system) system["-=sustained"] = null;

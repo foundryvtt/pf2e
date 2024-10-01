@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .roll-modifiers-dialog {
     background: none;
     box-shadow: none;
@@ -6,9 +8,9 @@
         @include inset-gold-border;
         background: linear-gradient(
             90deg,
-            var(--secondary) 0%,
-            lighten($secondary-color, 10) 50%,
-            var(--secondary) 100%
+            var(--color-pf-secondary) 0%,
+            var(--color-pf-secondary-light) 50%,
+            var(--color-pf-secondary) 100%
         );
         border-radius: 0;
         margin-bottom: 2px;
@@ -22,19 +24,19 @@
 
     button {
         @include button;
-        background-color: var(--alt);
+        background-color: var(--color-pf-alternate);
         border-radius: 2px;
         color: var(--text-light);
         cursor: pointer;
         font-family: var(--sans-serif);
 
         &:hover {
-            text-shadow: 0 0 2px var(--tertiary);
+            text-shadow: 0 0 2px var(--color-pf-tertiary);
         }
     }
 
     .toggle {
-        background: var(--secondary);
+        background: var(--color-pf-secondary);
         border-radius: 50px;
         box-shadow:
             inset 0px 1px 1px rgba(0, 0, 0, 0.5),
@@ -230,7 +232,7 @@
 
     .roll {
         color: var(--text-light);
-        background-color: var(--secondary);
+        background-color: var(--color-pf-secondary);
 
         .damage.color,
         i {

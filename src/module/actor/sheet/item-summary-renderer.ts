@@ -84,8 +84,8 @@ export class ItemSummaryRenderer<TActor extends ActorPF2e, TSheet extends Applic
         return itemType === "condition"
             ? actor.conditions.get(itemId, { strict: true })
             : actionIndex
-              ? actor.system.actions?.[Number(actionIndex)].item ?? null
-              : actor.items.get(realItemId ?? "") ?? null;
+              ? (actor.system.actions?.[Number(actionIndex)].item ?? null)
+              : (actor.items.get(realItemId ?? "") ?? null);
     }
 
     /**

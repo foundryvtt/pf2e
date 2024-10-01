@@ -67,7 +67,7 @@ abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSc
             ? game.i18n.format(this.resolveInjectedProperties(this.label), {
                   actor: item.actor.name,
                   item: item.name,
-                  origin: item.isOfType("effect") ? item.origin?.name ?? null : null,
+                  origin: item.isOfType("effect") ? (item.origin?.name ?? null) : null,
               })
             : item.name;
 

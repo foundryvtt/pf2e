@@ -1,3 +1,5 @@
+@use "sass:color";
+
 ol.spell-list {
     border-bottom: 1px solid var(--color-border-light-2);
     display: flex;
@@ -213,7 +215,7 @@ ol.spell-list {
         .item-summary {
             background-color: rgba($light-background-color, 0.5);
             border-bottom: 1px solid var(--sub);
-            border-top: 1px solid lighten($sub-color, 30);
+            border-top: 1px solid color.adjust($sub-color, $lightness: -30%);
             display: block;
             grid-column: span 5;
             padding: var(--space-4) 0 var(--space-8);

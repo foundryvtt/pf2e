@@ -8,7 +8,7 @@ import { PrimaryOccludableObjectMixin } from "./primary-occludable-object.ts";
  * @param [options.name]        The name of this sprite.
  * @param [options.object]      Any object that owns this sprite.
  */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 export class PrimarySpriteMesh extends PrimaryOccludableObjectMixin(SpriteMesh) {
     constructor(
         options: { texture?: PIXI.Texture; name?: string | null; object?: object },

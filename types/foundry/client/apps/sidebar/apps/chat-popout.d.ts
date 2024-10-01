@@ -1,10 +1,8 @@
 declare class ChatPopout extends Application {
-    /**
-     * The displayed Chat Message entity
-     */
+    /** The displayed Chat Message document */
     message: ChatMessage;
 
-    constructor(message: ChatMessage, options?: {});
+    constructor(message: ChatMessage, options?: ApplicationOptions);
 
     /** @override */
     static get defaultOptions(): (typeof Application)["defaultOptions"] & {

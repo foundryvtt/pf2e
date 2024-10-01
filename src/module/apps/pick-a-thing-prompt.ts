@@ -53,7 +53,7 @@ abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | 
 
         return !selectedIndex || !Number.isInteger(Number(selectedIndex))
             ? null
-            : this.choices.at(Number(selectedIndex)) ?? null;
+            : (this.choices.at(Number(selectedIndex)) ?? null);
     }
 
     /** Return a promise containing the user's item selection, or `null` if no selection was made */

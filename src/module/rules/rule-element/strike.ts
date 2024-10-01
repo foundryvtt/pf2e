@@ -43,7 +43,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
         this.battleForm ??= false;
         this.options ??= [];
         this.graspingAppendage = ["fist", "claw"].includes(this.baseType ?? "")
-            ? this.graspingAppendage ?? true
+            ? (this.graspingAppendage ?? true)
             : this.category === "unarmed" || this.traits.includes("unarmed")
               ? !!this.graspingAppendage
               : false;
@@ -250,7 +250,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
             flags: {
                 pf2e: {
                     battleForm: this.battleForm,
-                    fixedAttack: actorIsNPC ? this.attackModifier ?? null : null,
+                    fixedAttack: actorIsNPC ? (this.attackModifier ?? null) : null,
                 },
             },
             system: {
@@ -261,7 +261,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                 baseItem: this.baseType,
                 attribute,
                 bonus: {
-                    value: actorIsNPC ? this.attackModifier ?? 0 : 0,
+                    value: actorIsNPC ? (this.attackModifier ?? 0) : 0,
                 },
                 damage: {
                     ...this.damage.base,
@@ -280,7 +280,7 @@ class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
                     },
                 },
                 options: { value: this.options },
-                runes: this.category === "unarmed" ? unarmedRunes ?? {} : {},
+                runes: this.category === "unarmed" ? (unarmedRunes ?? {}) : {},
                 usage: { value: "held-in-one-hand" },
                 equipped: {
                     carryType: "held",

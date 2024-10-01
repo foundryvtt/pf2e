@@ -84,7 +84,7 @@ abstract class CreaturePF2e<
         } else {
             const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
-                : this.system.actions ?? [];
+                : (this.system.actions ?? []);
             const readyAttacks = attacks.filter((a) => a.ready);
             const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
             if (traitsFromItems.length === 0) return baseReach;

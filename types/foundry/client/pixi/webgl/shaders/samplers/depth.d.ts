@@ -1,5 +1,7 @@
 export {};
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 declare global {
     /**
      * The batch data that is needed by {@link DepthSamplerShader} to render an element with batching.

@@ -149,11 +149,11 @@ class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     override prepareSiblingData(): void {
         const { linkedWeapon } = this;
         const isUnarmed = this.traits.has("unarmed");
-        this.category = isUnarmed ? "unarmed" : linkedWeapon?.category ?? null;
-        this.group = isUnarmed ? "brawling" : this.linkedWeapon?.group ?? null;
+        this.category = isUnarmed ? "unarmed" : (linkedWeapon?.category ?? null);
+        this.group = isUnarmed ? "brawling" : (this.linkedWeapon?.group ?? null);
         this.baseType = tupleHasValue(["claw", "fist", "jaws"] as const, this.slug)
             ? this.slug
-            : this.linkedWeapon?.baseType ?? null;
+            : (this.linkedWeapon?.baseType ?? null);
     }
 
     override prepareActorData(): void {

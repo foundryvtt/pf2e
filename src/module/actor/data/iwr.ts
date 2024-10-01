@@ -25,7 +25,7 @@ abstract class IWR<TType extends IWRType> {
         this.exceptions = fu.deepClone(data.exceptions ?? []);
         this.definition = data.definition ?? null;
         this.source = data.source ?? null;
-        this.#customLabel = this.type === "custom" ? data.customLabel ?? null : null;
+        this.#customLabel = this.type === "custom" ? (data.customLabel ?? null) : null;
     }
 
     abstract get label(): string;

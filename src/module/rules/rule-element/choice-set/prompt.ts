@@ -173,7 +173,7 @@ class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | num
             this.containsItems && this.choices.length > 0 && this.choices.every((c) => !UUIDUtils.isItemUUID(c.value));
 
         const newChoice = {
-            value: slugsAsValues ? droppedItem.slug ?? sluggify(droppedItem.id) : droppedItem.uuid,
+            value: slugsAsValues ? (droppedItem.slug ?? sluggify(droppedItem.id)) : droppedItem.uuid,
             label: droppedItem.name,
         };
         const choicesLength = this.choices.push(newChoice);

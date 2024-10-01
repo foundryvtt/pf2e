@@ -14,7 +14,7 @@ class MeasuredTemplateDocumentPF2e<
         const uuid = this.flags.pf2e?.origin?.actor;
         if (!uuid) return null;
         const document = fromUuidSync(uuid);
-        return document instanceof ActorPF2e ? document : this.item?.actor ?? null;
+        return document instanceof ActorPF2e ? document : (this.item?.actor ?? null);
     }
 
     get item(): ItemPF2e<ActorPF2e> | null {

@@ -401,7 +401,7 @@ function getDamageDiceOverrideLabel(d: DamageDicePF2e | RawDamageDice): string {
                             ? game.i18n.format("PF2E.Roll.Dialog.Damage.Dice", {
                                   dice: d.override.diceNumber,
                               })
-                            : d.override.dieSize ?? "",
+                            : (d.override.dieSize ?? ""),
               })
             : null,
     ].filter(R.isTruthy);

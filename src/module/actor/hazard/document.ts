@@ -56,7 +56,7 @@ class HazardPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | 
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, effect)
             ? effect
             : isObject(effect)
-              ? effect.system.persistent?.damageType ?? null
+              ? (effect.system.persistent?.damageType ?? null)
               : null;
 
         if (!this.system.attributes.hasHealth && damageType) {

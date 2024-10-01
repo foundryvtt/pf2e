@@ -52,8 +52,8 @@ class DicePF2e {
         template?: string;
         title: string;
         speaker: foundry.documents.ChatSpeakerData;
-        flavor?: Function;
-        onClose?: Function;
+        flavor?: (parts: (string | number | string[])[], data: Record<string, unknown>) => string;
+        onClose?: (html: HTMLElement | JQuery, parts: (string | number)[], data: Record<string, unknown>) => void;
         dialogOptions?: Partial<ApplicationOptions>;
         rollMode?: RollMode;
         rollType?: string;

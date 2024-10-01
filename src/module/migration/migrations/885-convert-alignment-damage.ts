@@ -50,7 +50,7 @@ export class Migration885ConvertAlignmentDamage extends MigrationBase {
 
     override async updateActor(source: ActorSourcePF2e): Promise<void> {
         const traits: { value: string[] } =
-            source.type === "character" ? { value: [] } : source.system.traits ?? { value: [] };
+            source.type === "character" ? { value: [] } : (source.system.traits ?? { value: [] });
 
         const iwrKeys = ["immunities", "weaknesses", "resistances"] as const;
         const iwr: WeaklyTypedIWR = R.pick(source.system.attributes, iwrKeys);

@@ -3,6 +3,7 @@ import { ItemType } from "@item/base/data/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { Statistic } from "@system/statistic/index.ts";
 import type DataModel from "types/foundry/common/abstract/data.d.ts";
+import type { DataSchema } from "types/foundry/common/data/fields.d.ts";
 import type { PartyPF2e } from "./document.ts";
 
 interface PartyUpdateOperation<TParent extends TokenDocumentPF2e | null> extends ActorUpdateOperation<TParent> {
@@ -10,7 +11,7 @@ interface PartyUpdateOperation<TParent extends TokenDocumentPF2e | null> extends
 }
 
 /** Interface for a party campaign implementation, alternative data preparation used by parties for special campaigns */
-interface PartyCampaign extends DataModel<PartyPF2e, {}> {
+interface PartyCampaign extends DataModel<PartyPF2e, DataSchema> {
     type: string;
     level?: number;
     /** Any additional item types supported by the campaign */
