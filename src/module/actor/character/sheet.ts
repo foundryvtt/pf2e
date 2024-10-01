@@ -502,9 +502,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             actor.rollOptions.all["feature:quick-alchemy"] || actor.rollOptions.all["feat:quick-alchemy"]
         );
 
-        const craftingEntries: CraftingSheetData["entries"] = {
-            dailyCrafting: false,
-            other: [],
+        const craftingEntries: CraftingSheetData["abilities"] = {
+            prepared: [],
             alchemical: {
                 entries: [],
                 totalReagentCost: 0,
@@ -517,10 +516,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             if (entry.isAlchemical) {
                 craftingEntries.alchemical.entries.push(sheetData);
                 craftingEntries.alchemical.totalReagentCost += (await entry.calculateReagentCost()) || 0;
-                craftingEntries.dailyCrafting = true;
             } else {
-                craftingEntries.other.push(sheetData);
-                if (entry.isDailyPrep) craftingEntries.dailyCrafting = true;
+                craftingEntries.prepared.push(sheetData);
             }
         }
 
@@ -532,6 +529,8 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         return {
             noCost: flags.freeCrafting,
             hasQuickAlchemy,
+            hasDailyCrafting: this.actor.crafting.abilities.some((a) => a.isDailyPrep || a.isAlchemical),
+            abilities: craftingEntries,
             knownFormulas: R.groupBy(
                 formulas.map((f) => ({
                     uuid: f.uuid,
@@ -542,7 +541,6 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 })),
                 (f) => f.item.level,
             ),
-            entries: craftingEntries,
         };
     }
 
@@ -1612,10 +1610,10 @@ interface FormulaSheetData {
 interface CraftingSheetData {
     noCost: boolean;
     hasQuickAlchemy: boolean;
+    hasDailyCrafting: boolean;
     knownFormulas: Record<number, FormulaSheetData[]>;
-    entries: {
-        dailyCrafting: boolean;
-        other: CraftingAbilitySheetData[];
+    abilities: {
+        prepared: CraftingAbilitySheetData[];
         alchemical: {
             entries: CraftingAbilitySheetData[];
             totalReagentCost: number;
