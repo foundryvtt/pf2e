@@ -1,6 +1,5 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e, PhysicalItemPF2e } from "@item";
-import { CoinsPF2e } from "@item/physical/coins.ts";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
@@ -81,23 +80,20 @@ class CraftingAbility implements CraftingAbilityData {
 
     async getSheetData(): Promise<CraftingAbilitySheetData> {
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
-        const formulas = preparedCraftingFormulas.map((formula) => {
+        const prepared = preparedCraftingFormulas.map((formula) => {
             return {
                 uuid: formula.uuid,
-                img: formula.item.img,
-                name: formula.item.name,
                 item: formula.item,
-                cost: CoinsPF2e.fromPrice(formula.item.price, formula.batchSize),
                 expended: formula.expended,
                 quantity: formula.quantity,
                 isSignatureItem: formula.isSignatureItem,
             };
         });
         if (this.maxSlots > 0) {
-            const fill = this.maxSlots - formulas.length;
+            const fill = this.maxSlots - prepared.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
-                formulas.push(...nulls);
+                prepared.push(...nulls);
             }
         }
         return {
@@ -109,7 +105,7 @@ class CraftingAbility implements CraftingAbilityData {
             maxItemLevel: this.maxItemLevel,
             maxSlots: this.maxSlots,
             reagentCost: await this.calculateReagentCost(),
-            formulas,
+            prepared,
         };
     }
 
@@ -290,12 +286,9 @@ interface CraftingAbilitySheetData {
     maxSlots: number;
     maxItemLevel: number;
     reagentCost: number;
-    formulas: ({
+    prepared: ({
         uuid: string;
-        img: ImageFilePath;
-        name: string;
         item: PhysicalItemPF2e;
-        cost: CoinsPF2e;
         expended: boolean;
         quantity: number;
         isSignatureItem: boolean;
