@@ -16,7 +16,7 @@ export class DamagePF2e {
     static async roll(
         data: DamageTemplate,
         context: DamageDamageContext,
-        callback?: Function,
+        callback?: (roll: Rolled<DamageRoll>) => void | Promise<void>,
     ): Promise<Rolled<DamageRoll> | null> {
         const outcome = context.outcome ?? null;
         context.createMessage ??= true;

@@ -1,11 +1,11 @@
 import type { CharacterPF2e } from "@actor";
-import type { ItemPF2e } from "@item";
+import type { ItemPF2e, PhysicalItemPF2e } from "@item";
 import { createBatchRuleElementUpdate } from "@module/rules/helpers.ts";
 import { CraftingEntryRuleData, CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
 import { Predicate, RawPredicate } from "@system/predication.ts";
 import { ErrorPF2e } from "@util";
 import { UUIDUtils } from "@util/uuid.ts";
-import { CraftingFormula } from "./formula.ts";
+import { CraftingFormula } from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
     /** A label for this crafting entry to display on sheets */
@@ -66,12 +66,13 @@ class CraftingAbility implements CraftingAbilityData {
             .flatMap((prepData): PreparedCraftingFormula | never[] => {
                 const formula = knownFormulas.find((f) => f.uuid === prepData.itemUUID);
                 return formula
-                    ? Object.assign(new CraftingFormula(formula.item), {
+                    ? {
+                          ...formula,
                           quantity: prepData.quantity || 1,
                           expended: !!prepData.expended,
                           isSignatureItem: !!prepData.isSignatureItem,
                           sort: prepData.sort ?? 0,
-                      })
+                      }
                     : [];
             });
         return this.#preparedCraftingFormulas;
@@ -79,21 +80,20 @@ class CraftingAbility implements CraftingAbilityData {
 
     async getSheetData(): Promise<CraftingAbilitySheetData> {
         const preparedCraftingFormulas = await this.getPreparedCraftingFormulas();
-        const formulas = preparedCraftingFormulas.map((formula) => {
+        const prepared = preparedCraftingFormulas.map((formula) => {
             return {
                 uuid: formula.uuid,
-                img: formula.img,
-                name: formula.name,
+                item: formula.item,
                 expended: formula.expended,
                 quantity: formula.quantity,
                 isSignatureItem: formula.isSignatureItem,
             };
         });
         if (this.maxSlots > 0) {
-            const fill = this.maxSlots - formulas.length;
+            const fill = this.maxSlots - prepared.length;
             if (fill > 0) {
                 const nulls = new Array(fill).fill(null);
-                formulas.push(...nulls);
+                prepared.push(...nulls);
             }
         }
         return {
@@ -105,7 +105,7 @@ class CraftingAbility implements CraftingAbilityData {
             maxItemLevel: this.maxItemLevel,
             maxSlots: this.maxSlots,
             reagentCost: await this.calculateReagentCost(),
-            formulas,
+            prepared,
         };
     }
 
@@ -144,7 +144,7 @@ class CraftingAbility implements CraftingAbilityData {
             return false;
         }
 
-        if (formula.level > this.maxItemLevel) {
+        if (formula.item.level > this.maxItemLevel) {
             if (warn) {
                 ui.notifications.warn(
                     game.i18n.format("PF2E.CraftingTab.Alerts.MaxItemLevel", { level: this.maxItemLevel }),
@@ -221,16 +221,17 @@ class CraftingAbility implements CraftingAbilityData {
 
     async #batchSizeFor(data: CraftingFormula | PreparedFormulaData): Promise<number> {
         const knownFormulas = await this.actor.crafting.getFormulas();
-        const formula =
-            data instanceof CraftingFormula ? data : knownFormulas.find((f) => f.item.uuid === data.itemUUID);
+        const uuid = "itemUUID" in data ? data.itemUUID : data.uuid;
+        const formula = knownFormulas.find((f) => f.item.uuid === uuid);
         if (!formula) return 1;
 
+        const rollOptions = formula.item.getRollOptions("item");
         const isSignatureItem = "isSignatureItem" in data && !!data.isSignatureItem;
-        if (isSignatureItem || this.fieldDiscovery?.test(formula.options)) {
+        if (isSignatureItem || this.fieldDiscovery?.test(rollOptions)) {
             return this.fieldDiscoveryBatchSize;
         }
 
-        const specialBatchSize = this.batchSizes.other.find((s) => s.definition.test(formula.options));
+        const specialBatchSize = this.batchSizes.other.find((s) => s.definition.test(rollOptions));
         return specialBatchSize?.quantity ?? this.batchSizes.default;
     }
 
@@ -285,11 +286,10 @@ interface CraftingAbilitySheetData {
     maxSlots: number;
     maxItemLevel: number;
     reagentCost: number;
-    formulas: ({
+    prepared: ({
         uuid: string;
+        item: PhysicalItemPF2e;
         expended: boolean;
-        img: ImageFilePath;
-        name: string;
         quantity: number;
         isSignatureItem: boolean;
     } | null)[];

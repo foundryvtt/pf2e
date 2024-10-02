@@ -2148,7 +2148,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
     },
     speed: {
         level: 16,
-        name: "PF2E.Actor.Speed.Label",
+        name: "PF2E.WeaponPropertyRune.speed.Name",
         price: 10_000,
         rarity: "rare",
         slug: "speed",

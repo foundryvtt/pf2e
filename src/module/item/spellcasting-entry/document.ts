@@ -381,7 +381,7 @@ class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
         const defaultData = { groups: [], prepList: null };
         const collectionData =
-            this.category === "items" ? defaultData : (await this.spells?.getSpellData({ prepList })) ?? defaultData;
+            this.category === "items" ? defaultData : ((await this.spells?.getSpellData({ prepList })) ?? defaultData);
 
         return fu.mergeObject(collectionData, {
             id: this.id,

@@ -1,5 +1,4 @@
-import { CraftingAbilityData } from "@actor/character/crafting/ability.ts";
-import { CraftingFormulaData } from "@actor/character/crafting/formula.ts";
+import type { CraftingAbilityData, CraftingFormulaData } from "@actor/character/crafting/index.ts";
 import {
     AbilityData,
     BaseCreatureSource,

@@ -310,7 +310,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 allowedBoosts,
                 flaws: { ancestry: [] },
-                apex: isABP ? system.build?.attributes?.apex ?? null : null,
+                apex: isABP ? (system.build?.attributes?.apex ?? null) : null,
             },
             languages: { value: 0, max: 0, granted: [] },
         };
@@ -404,11 +404,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             defenses[category] = { rank: defenses[category]?.rank ?? 0 };
         }
 
-        // Indicate that crafting formulas stored directly on the actor are deletable
+        // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
-        for (const formula of this.system.crafting.formulas) {
-            formula.deletable = true;
-        }
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
@@ -1472,7 +1469,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
-                    : configuredAmmo?.quantity ?? 0;
+                    : (configuredAmmo?.quantity ?? 0);
                 params.consumeAmmo ??= ammoRequired > 0;
 
                 if (params.consumeAmmo && ammoRequired > ammoRemaining) {
@@ -1483,7 +1480,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
                 const targetToken = params.getFormula
                     ? null
-                    : (params.target ?? game.user.targets.first())?.document ?? null;
+                    : ((params.target ?? game.user.targets.first())?.document ?? null);
 
                 const context = await new CheckContext({
                     domains: attackDomains,

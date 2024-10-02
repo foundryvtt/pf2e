@@ -1,14 +1,14 @@
 {
-    "_id": "m1tQTBrolf7uZBW0",
-    "img": "icons/sundries/scrolls/scroll-runed-tan-white.webp",
-    "name": "Spell Effect: Discern Secrets (Seek)",
+    "_id": "9O4q3bYlWkuC24vh",
+    "img": "icons/skills/targeting/crosshair-pointed-orange.webp",
+    "name": "Effect: Come and Get Me (Circumstance Bonus)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Discern Secrets], if you pick Seek.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Come and Get Me]</p>\n<p>Ephemeral effect. You gain a +2 circumstance bonus to damage rolls.</p>"
         },
         "duration": {
             "expiry": "turn-start",
-            "sustained": true,
+            "sustained": false,
             "unit": "minutes",
             "value": 1
         },
@@ -16,20 +16,19 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Advanced Player's Guide"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core 2"
         },
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Seek (Discern Secrets)",
                 "predicate": [
-                    "action:seek"
+                    "target:enemy"
                 ],
-                "selector": "perception",
-                "type": "status",
-                "value": 1
+                "selector": "strike-damage",
+                "type": "circumstance",
+                "value": 2
             }
         ],
         "start": {
@@ -40,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

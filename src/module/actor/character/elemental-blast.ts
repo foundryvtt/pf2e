@@ -290,7 +290,7 @@ class ElementalBlast {
         })();
 
         const clone = item.clone({ system: { traits: { value: traits } } }, { keepId: true });
-        clone.range = melee ? null : config?.range ?? null;
+        clone.range = melee ? null : (config?.range ?? null);
         clone.isMelee = melee;
 
         return clone;

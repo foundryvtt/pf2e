@@ -233,7 +233,7 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         const autoscaleDefault = game.pf2e.settings.tokens.autoscale;
         // Autoscaling is a secondary feature of linking to actor size
-        const autoscale = linkToActorSize ? this.flags.pf2e.autoscale ?? autoscaleDefault : false;
+        const autoscale = linkToActorSize ? (this.flags.pf2e.autoscale ?? autoscaleDefault) : false;
         this.flags.pf2e = fu.mergeObject(this.flags.pf2e ?? {}, { linkToActorSize, autoscale });
 
         // Token dimensions from actor size
@@ -441,10 +441,10 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
 
         if (this.scene?.isView && Object.keys(tokenChanges).length > 0) {
             const tokenOverrides = this.actor?.synthetics.tokenOverrides ?? {};
-            const animation = tokenChanges.texture?.src ? tokenOverrides.animation ?? this.#lastAnimation ?? {} : {};
+            const animation = tokenChanges.texture?.src ? (tokenOverrides.animation ?? this.#lastAnimation ?? {}) : {};
             this.#lastAnimation = R.isDeepEqual(animation, this.#lastAnimation ?? {})
                 ? null
-                : tokenOverrides.animation ?? null;
+                : (tokenOverrides.animation ?? null);
             this.object?._onUpdate(tokenChanges, { broadcast: false, updates: [], animation }, game.user.id);
         }
 

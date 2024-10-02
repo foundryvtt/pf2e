@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 interface CanvasAnimationAttribute {
     /** The attribute name being animated */
     attribute: string;

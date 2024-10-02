@@ -275,7 +275,7 @@ declare global {
          */
         updateAll(
             transformation: (document: TObject) => Record<string, unknown>,
-            condition?: Function | null,
+            condition?: ((...args: unknown[]) => boolean) | null,
             options?: DatabaseCreateOperation<TObject["document"]["parent"]>,
         ): Promise<TObject["document"][]>;
 

@@ -16,8 +16,8 @@ declare global {
         static override RENDER_FLAGS: {
             redraw: { propagate: ["refresh"] };
             refresh: { propagate: ["refreshState", "refreshBorder"]; alias: boolean };
-            refreshState: {};
-            refreshBorder: {};
+            refreshState: object;
+            refreshBorder: object;
         };
 
         /** The scaling factor used for Clipper paths. */

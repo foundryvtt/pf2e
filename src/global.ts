@@ -84,6 +84,7 @@ interface GamePF2e
         UserPF2e
     > {
     pf2e: {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;

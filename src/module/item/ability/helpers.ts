@@ -57,7 +57,7 @@ function getActionCostRollOptions(prefix: string, item: { actionCost?: ActionCos
     const actionCost = item.actionCost;
     if (!actionCost) return [];
 
-    const value = actionCost.type === "free" ? 0 : actionCost.type === "reaction" ? 1 : actionCost.value ?? 0;
+    const value = actionCost.type === "free" ? 0 : actionCost.type === "reaction" ? 1 : (actionCost.value ?? 0);
     return [`${prefix}:action:type:${actionCost.type}`, `${prefix}:action:cost:${value}`];
 }
 

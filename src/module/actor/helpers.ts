@@ -443,7 +443,7 @@ function getStrikeDamageDomains(
                 test: [...actor.getRollOptions(domains), ...weapon.getRollOptions("item")],
             }).filter((m) => !m.ignored && m.type === "ability"),
         ].reduce((best, candidate) =>
-            candidate && best ? (candidate.value > best.value ? candidate : best) : candidate ?? best,
+            candidate && best ? (candidate.value > best.value ? candidate : best) : (candidate ?? best),
         );
 
         if (attributeModifier) {

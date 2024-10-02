@@ -56,7 +56,7 @@ class ChatCards {
         const strikeAction = message._strike;
         if (strikeAction && action?.startsWith("strike-")) {
             const context = (
-                message.rolls.some((r) => r instanceof CheckRoll) ? message.flags.pf2e.context ?? null : null
+                message.rolls.some((r) => r instanceof CheckRoll) ? (message.flags.pf2e.context ?? null) : null
             ) as CheckContextChatFlag | null;
             const mapIncreases =
                 context && "mapIncreases" in context && tupleHasValue([0, 1, 2], context.mapIncreases)
@@ -243,7 +243,7 @@ class ChatCards {
                         (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "elemental-blast",
                     );
                     const checkContext = (
-                        roll ? message.flags.pf2e.context ?? null : null
+                        roll ? (message.flags.pf2e.context ?? null) : null
                     ) as CheckContextChatFlag | null;
                     const outcome = button.dataset.outcome === "success" ? "success" : "criticalSuccess";
                     const [element, damageType, meleeOrRanged, actionCost]: (string | undefined)[] =
@@ -344,7 +344,7 @@ class ChatCards {
             const roll = message.rolls.find(
                 (r): r is Rolled<CheckRoll> => r instanceof CheckRoll && r.options.action === "army-strike",
             );
-            const checkContext = (roll ? message.flags.pf2e.context ?? null : null) as CheckContextChatFlag | null;
+            const checkContext = (roll ? (message.flags.pf2e.context ?? null) : null) as CheckContextChatFlag | null;
             const action = button.dataset.outcome === "success" ? "damage" : "critical";
             const strike = actor.strikes[roll?.options.identifier ?? ""];
             strike?.[action]({ checkContext, event });

@@ -80,7 +80,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
 
     /** The id of the override overlay that constitutes this variant */
     get variantId(): string | null {
-        return this.original ? this.appliedOverlays?.get("override") ?? null : null;
+        return this.original ? (this.appliedOverlays?.get("override") ?? null) : null;
     }
 
     /** The spell's "base" rank; that is, before heightening */
@@ -253,7 +253,7 @@ class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Ite
     }
 
     override get uuid(): ItemUUID {
-        return this.isVariant ? this.original?.uuid ?? super.uuid : super.uuid;
+        return this.isVariant ? (this.original?.uuid ?? super.uuid) : super.uuid;
     }
 
     /** Given a slot level, compute the actual level the spell will be cast at */

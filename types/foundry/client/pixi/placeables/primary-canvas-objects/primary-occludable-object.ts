@@ -7,7 +7,7 @@ import { PrimaryCanvasObjectMixin } from "./primary-canvas-object.ts";
  * @returns A DisplayObject subclass mixed with OccludableObject features
  * @mixin
  */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function PrimaryOccludableObjectMixin<TBase extends ConstructorOf<PIXI.DisplayObject>>(DisplayObject: TBase) {
     abstract class PrimaryOccludableObject extends PrimaryCanvasObjectMixin(DisplayObject) {
