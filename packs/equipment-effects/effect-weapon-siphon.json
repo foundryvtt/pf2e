@@ -3,19 +3,14 @@
     "img": "icons/commodities/tech/pipe-tin.webp",
     "name": "Effect: Weapon Siphon",
     "system": {
-        "badge": {
-            "max": 3,
-            "type": "counter",
-            "value": 3
-        },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Weapon Siphon]</p>\n<p>The next three attacks made with the weapon deal 1d4 damage of the bomb's damage type in addition to the weapon's normal damage.</p>\n<p>The multiple attack penalty with the weapon is one greater than usual.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Weapon Siphon]</p>\n<p>The multiple attack penalty with the weapon is one greater than usual.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "minutes",
-            "value": 1
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
             "value": 1
@@ -27,6 +22,7 @@
         },
         "rules": [
             {
+                "actorFlag": true,
                 "choices": {
                     "ownedItems": true,
                     "predicate": [
@@ -36,31 +32,15 @@
                         "weapon"
                     ]
                 },
-                "flag": "weapon",
+                "flag": "weaponSiphonWeapon",
                 "key": "ChoiceSet",
                 "prompt": "PF2E.SpecificRule.Prompt.Weapon"
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "config": "energyDamageTypes"
-                },
-                "flag": "damage",
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Prompt.EnergyType"
-            },
-            {
-                "damageType": "{item|flags.pf2e.rulesSelections.damage}",
-                "diceNumber": 1,
-                "dieSize": "d4",
-                "key": "DamageDice",
-                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             },
             {
                 "key": "AdjustModifier",
                 "mode": "subtract",
                 "predicate": [
-                    "item:id:{item|flags.pf2e.rulesSelections.weapon}"
+                    "item:id:{actor|flags.pf2e.weaponSiphonWeapon}"
                 ],
                 "selector": "strike-attack-roll",
                 "slug": "multiple-attack-penalty",
