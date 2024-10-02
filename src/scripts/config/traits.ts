@@ -521,6 +521,7 @@ const weaponTraits = {
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+    "volley-60": "PF2E.TraitVolley60",
 };
 
 const preciousMaterials: Record<PreciousMaterialType, string> = {
@@ -748,6 +749,7 @@ const weaponActionTraits = R.pick(weaponTraits, [
     "volley-20",
     "volley-30",
     "volley-50",
+    "volley-60",
 ]);
 
 const actionTraits = {
@@ -1540,6 +1542,7 @@ const traitDescriptions = {
     "volley-20": "PF2E.TraitDescriptionVolley",
     "volley-30": "PF2E.TraitDescriptionVolley",
     "volley-50": "PF2E.TraitDescriptionVolley",
+    "volley-60": "PF2E.TraitDescriptionVolley",
     wand: "PF2E.TraitDescriptionWand",
     water: "PF2E.TraitDescriptionWater",
     werecreature: "PF2E.TraitDescriptionWerecreature",
