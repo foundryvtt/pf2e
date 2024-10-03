@@ -4,7 +4,7 @@ import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement, isOffGuardFromFlanking } from "@actor/helpers.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
@@ -26,7 +26,7 @@ abstract class RollContext<
     /** Initial roll options for the context */
     rollOptions: Set<string>;
 
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
 
     /** Whether this is a one-sided roll context for generating sheet-display data */
     viewOnly: boolean;
@@ -152,7 +152,7 @@ abstract class RollContext<
                 .sort(),
         );
 
-        const actionTraits = ((): ActionTrait[] => {
+        const actionTraits = ((): AbilityTrait[] => {
             const traits = this.traits;
             if (itemClone?.isOfType("weapon", "melee")) {
                 const strikeAdjustments = [

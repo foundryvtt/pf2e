@@ -7,18 +7,18 @@ import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
 import { AbilityTraitToggles } from "./trait-toggles.ts";
-import type { ActionTrait } from "./types.ts";
+import type { AbilityTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     declare range?: RangeData | null;
 
     declare isMelee?: boolean;
 
-    static override get validTraits(): Record<ActionTrait, string> {
+    static override get validTraits(): Record<AbilityTrait, string> {
         return CONFIG.PF2E.actionTraits;
     }
 
-    get traits(): Set<ActionTrait> {
+    get traits(): Set<AbilityTrait> {
         return new Set(this.system.traits.value);
     }
 

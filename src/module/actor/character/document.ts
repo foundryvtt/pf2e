@@ -28,7 +28,7 @@ import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
 import { WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
@@ -1346,7 +1346,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
-        const actionTraits: ActionTrait[] = [
+        const actionTraits: AbilityTrait[] = [
             "attack" as const,
             // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
             // the manipulate trait."

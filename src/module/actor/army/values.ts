@@ -1,4 +1,4 @@
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import type { KingmakerTrait } from "@item/campaign-feature/types.ts";
 import * as R from "remeda";
 
@@ -20,7 +20,7 @@ const ARMY_STATS = {
 interface ArmyGearData {
     img: string;
     name: string;
-    traits: (KingmakerTrait | ActionTrait)[];
+    traits: (KingmakerTrait | AbilityTrait)[];
     description: string;
     price?: number;
     level?: number;

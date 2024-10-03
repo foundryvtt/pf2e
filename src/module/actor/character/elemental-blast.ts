@@ -4,7 +4,7 @@ import { calculateMAPs } from "@actor/helpers.ts";
 import { ModifierPF2e, StatisticModifier } from "@actor/modifiers.ts";
 import { DamageContext } from "@actor/roll-context/damage.ts";
 import type { AbilityItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { RangeData } from "@item/types.ts";
 import { WeaponTrait } from "@item/weapon/types.ts";
@@ -279,13 +279,13 @@ class ElementalBlast {
         const item = this.item;
         if (!item) return null;
 
-        const traits = ((): ActionTrait[] => {
+        const traits = ((): AbilityTrait[] => {
             const baseTraits = this.item?.system.traits.value ?? [];
             const infusionTraits = melee ? this.infusion?.traits.melee : this.infusion?.traits.ranged;
             return R.unique(
                 [baseTraits, infusionTraits, config?.element, damageType]
                     .flat()
-                    .filter((t): t is ActionTrait => !!t && t in CONFIG.PF2E.actionTraits),
+                    .filter((t): t is AbilityTrait => !!t && t in CONFIG.PF2E.actionTraits),
             ).sort();
         })();
 

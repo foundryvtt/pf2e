@@ -11,7 +11,7 @@ import type {
 } from "@actor/modifiers.ts";
 import type { MovementType } from "@actor/types.ts";
 import type { MeleePF2e, WeaponPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/index.ts";
+import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ConditionSource, EffectSource } from "@item/base/data/index.ts";
 import type { WeaponRuneSource } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
@@ -138,7 +138,7 @@ interface StrikeAdjustment {
         { materials }: { materials?: Set<MaterialDamageEffect> },
     ) => void;
     adjustWeapon?: (weapon: WeaponPF2e | MeleePF2e) => void;
-    adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]) => void;
+    adjustTraits?: (weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]) => void;
 }
 
 interface StrikingSynthetic {
