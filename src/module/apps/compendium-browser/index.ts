@@ -1,5 +1,5 @@
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
+import { AbilityTrait, ActionCategory } from "@item/ability/index.ts";
 import { ActionType, ItemType } from "@item/base/data/index.ts";
 import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
@@ -208,7 +208,7 @@ class CompendiumBrowser extends Application {
     async openActionTab(options: {
         types?: ActionType[];
         categories?: ActionCategory[];
-        traits?: ActionTrait[];
+        traits?: AbilityTrait[];
     }): Promise<void> {
         const actionTab = this.tabs.action;
         const filter = await actionTab.getFilterData();

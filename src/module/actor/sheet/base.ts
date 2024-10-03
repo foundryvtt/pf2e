@@ -3,7 +3,7 @@ import type { StrikeData } from "@actor/data/base.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
-import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
@@ -796,7 +796,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
         const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
-        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const traits = (anchor.dataset.actionTrait || "").split(",") as AbilityTrait[];
         const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
         game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }

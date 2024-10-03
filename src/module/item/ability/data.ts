@@ -9,7 +9,7 @@ import {
 } from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import type { AbilityTraitToggles } from "./trait-toggles.ts";
-import { ActionCategory, ActionTrait } from "./types.ts";
+import { AbilityTrait, ActionCategory } from "./types.ts";
 
 type AbilitySource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
 
@@ -31,7 +31,7 @@ interface AbilitySystemSource extends ItemSystemSource {
     level?: never;
 }
 
-interface AbilityTraitsSource extends ItemTraitsNoRarity<ActionTrait> {
+interface AbilityTraitsSource extends ItemTraitsNoRarity<AbilityTrait> {
     toggles?: { mindshift?: { selected?: boolean } | null };
 }
 

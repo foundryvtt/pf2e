@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { ActionTrait } from "@item/ability/index.ts";
+import type { AbilityTrait } from "@item/ability/index.ts";
 import type { ProficiencyRank } from "@item/base/data/index.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { ChatMessagePF2e } from "@module/chat-message/document.ts";
@@ -22,7 +22,7 @@ interface ActionVariantUseOptions extends Record<string, unknown> {
     message: {
         create?: boolean;
     };
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
     target: ActorPF2e | TokenPF2e;
 }
 
@@ -32,7 +32,7 @@ interface ActionVariant {
     glyph?: string;
     name?: string;
     slug: string;
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
     toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     use(options?: Partial<ActionVariantUseOptions>): Promise<unknown>;
 }
@@ -50,7 +50,7 @@ interface Action {
     sampleTasks?: Partial<Record<ProficiencyRank, string>>;
     section?: ActionSection;
     slug: string;
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
     variants: Collection<ActionVariant>;
     toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     /** Uses the default variant for this action, which will usually be the first one in the collection. */

@@ -9,7 +9,7 @@ import {
 } from "@actor/modifiers.ts";
 import { ResistanceType } from "@actor/types.ts";
 import type { ArmorPF2e, MeleePF2e, PhysicalItemPF2e, WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ArmorPropertyRuneType, ResilientRuneType } from "@item/armor/types.ts";
 import { SpellTrait } from "@item/spell/types.ts";
 import { StrikingRuneType, WeaponPropertyRuneType, WeaponRangeIncrement } from "@item/weapon/types.ts";
@@ -1878,7 +1878,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         },
         strikeAdjustments: [
             {
-                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                     if (!traits.includes("holy")) traits.push("holy");
                 },
             },
@@ -2238,7 +2238,7 @@ const WEAPON_PROPERTY_RUNES: { [T in WeaponPropertyRuneType]: WeaponPropertyRune
         },
         strikeAdjustments: [
             {
-                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: ActionTrait[]): void => {
+                adjustTraits: (_weapon: WeaponPF2e | MeleePF2e, traits: AbilityTrait[]): void => {
                     if (!traits.includes("unholy")) traits.push("unholy");
                 },
             },

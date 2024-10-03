@@ -12,7 +12,7 @@ import {
 import { CheckContext } from "@actor/roll-context/check.ts";
 import { AttributeString } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ZeroToFour, ZeroToTwo } from "@module/data.ts";
 import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import {
@@ -570,7 +570,7 @@ class StatisticCheck<TParent extends Statistic = Statistic> {
         const traits =
             args.traits
                 ?.map((t) => (typeof t === "string" ? t : t.name))
-                .filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [];
+                .filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits) ?? [];
         for (const trait of traits) {
             options.add(trait);
         }

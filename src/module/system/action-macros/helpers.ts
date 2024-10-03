@@ -5,7 +5,7 @@ import { getRangeIncrement } from "@actor/helpers.ts";
 import { CheckModifier, ModifierPF2e, ensureProficiencyOption } from "@actor/modifiers.ts";
 import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
 import type { ItemPF2e, WeaponPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import type { WeaponTrait } from "@item/weapon/types.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import {
@@ -178,7 +178,7 @@ class ActionMacroHelpers {
                 });
 
                 const actionTraits = (options.traits ?? []).filter(
-                    (t): t is ActionTrait => t in CONFIG.PF2E.actionTraits,
+                    (t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits,
                 );
                 const notes = options.extraNotes?.(statistic.slug) ?? [];
                 const label = (await options.content?.(header)) ?? header;
