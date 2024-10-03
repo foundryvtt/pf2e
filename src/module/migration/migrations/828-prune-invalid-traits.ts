@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ArmorTrait } from "@item/armor/index.ts";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellTrait } from "@item/spell/index.ts";
@@ -59,7 +59,7 @@ export class Migration828PruneInvalidTraits extends MigrationBase {
                             .replace(/^(interact|manipulation)$/i, "manipulate")
                             .replace(/^vocal$/, "verbal"),
                     )
-                    .filter((t): t is ActionTrait => t.startsWith("hb_") || t in actionTraits);
+                    .filter((t): t is AbilityTrait => t.startsWith("hb_") || t in actionTraits);
                 return;
             }
             case "affliction":

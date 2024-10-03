@@ -3,7 +3,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -496,7 +496,7 @@ class TextEditorPF2e extends TextEditor {
 
         // traits
         const additionalTraits = splitListString(params["traits"] ?? "").filter(
-            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+            (trait): trait is AbilityTrait => trait in CONFIG.PF2E.actionTraits,
         );
         const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
@@ -987,7 +987,7 @@ async function augmentInlineDamageRoll(
                       modifiers,
                   }
                 : null,
-            traits: traits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [],
+            traits: traits?.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits) ?? [],
         };
 
         if (!options.skipDialog) {
