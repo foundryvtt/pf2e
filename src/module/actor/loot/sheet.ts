@@ -1,4 +1,5 @@
 import type { LootPF2e } from "@actor";
+import { transferItemsBetweenActors } from "@actor/helpers.js";
 import type { ActorSheetDataPF2e, InventoryItem, SheetInventory } from "@actor/sheet/data-types.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { htmlClosest, htmlQuery } from "@util";
@@ -36,6 +37,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 
         return {
             ...sheetData,
+            hasActiveParty: !!game.actors.party,
             isLoot,
             lootSheetTypeOptions: [
                 { value: "Loot", label: "PF2E.loot.LootLabel" },
@@ -59,6 +61,9 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
                 } else {
                     ui.notifications.warn("No tokens selected.");
                 }
+            } else if (button?.dataset.action === "send-to-party-stash") {
+                if (!game.actors.party) return;
+                transferItemsBetweenActors(this.actor, game.actors.party);
             }
         });
     }
@@ -87,6 +92,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
 }
 
 interface LootSheetDataPF2e<TActor extends LootPF2e> extends ActorSheetDataPF2e<TActor> {
+    hasActiveParty: boolean;
     isLoot: boolean;
     lootSheetTypeOptions: FormSelectOption[];
 }
