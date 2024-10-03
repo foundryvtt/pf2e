@@ -61,7 +61,7 @@ export class LootSheetPF2e<TActor extends LootPF2e> extends ActorSheetPF2e<TActo
                 } else {
                     ui.notifications.warn("No tokens selected.");
                 }
-            } else if (button?.dataset.action === "to-party-stash") {
+            } else if (button?.dataset.action === "send-to-party-stash") {
                 if (!game.actors.party) return;
                 transferItemsBetweenActors(this.actor, game.actors.party);
             }
