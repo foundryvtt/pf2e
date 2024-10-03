@@ -51,11 +51,12 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
         if (this.system.actionType.value === "passive") {
             this.system.selfEffect = null;
         }
+
+        this.system.deathNote ??= false;
     }
 
     override prepareActorData(): void {
         const actor = this.actor;
-
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
             actor.rollOptions.all[`self:ability:${slug}`] = true;
