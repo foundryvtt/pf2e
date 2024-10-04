@@ -1,3 +1,29 @@
+.gm-sidebar {
+    border-top: 1px solid var(--color-text-light-7);
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem;
+    margin-top: 0.5rem;
+
+    .loot-distribution {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        button {
+            background-color: var(--tertiary);
+
+            &:not(:hover) {
+                @include button;
+            }
+        }
+    }
+
+    label {
+        font-weight: 500;
+    }
+}
+
 .inventory-members {
     .box {
         .content {
