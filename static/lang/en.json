@@ -101,7 +101,6 @@
         "ActionActionTypeLabel": "Action Type",
         "ActionActionsLabel": "Actions",
         "ActionBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
-        "ActionDeathNoteLabel": "Death Note",
         "ActionNumber1": "One",
         "ActionNumber2": "Two",
         "ActionNumber3": "Three",
@@ -1702,7 +1701,7 @@
                 "Features": "Features",
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
-            "Action": {
+            "Ability": {
                 "Category": {
                     "None": "None",
                     "Defensive": "Defensive",
@@ -1710,13 +1709,20 @@
                     "Offensive": "Offensive",
                     "Familiar": "Familiar Ability"
                 },
+                "FIELDS": {
+                    "deathNote": {
+                        "label": "Death Note"
+                    },
+                    "selfEffect": {
+                        "hint": "A single effect item to be applied to the actor that uses this action",
+                        "label": "Self-Applied Effect"
+                    }
+                },
                 "Plural": "Abilities",
                 "SelfAppliedEffect": {
                     "Applied": "{effect} was applied.",
                     "Delete": "Delete Reference",
-                    "Drop": "Drop Effect",
-                    "Label": "Self-Applied Effect",
-                    "Hint": "A single effect item to be applied to the actor that uses this action"
+                    "Drop": "Drop Effect"
                 },
                 "Type": {
                     "Activity": "Activity",
@@ -2273,6 +2279,11 @@
                 "Plural": "Effects",
                 "ShowTokenIcon": "Show token icon?",
                 "Unidentified": "Unidentified?"
+            },
+            "FIELDS": {
+                "category": {
+                    "label": "Category"
+                }
             },
             "Feat": {
                 "Info": {

@@ -1,16 +1,21 @@
 import { ItemSystemModel, ItemSystemSchema } from "@item/base/data/schema.ts";
-import { ActionType, BaseItemSourcePF2e, FrequencyInterval, ItemSystemSource } from "@item/base/data/system.ts";
-import { OneToThree } from "@module/data.ts";
+import type { ActionType, BaseItemSourcePF2e, FrequencyInterval, ItemSystemSource } from "@item/base/data/system.ts";
+import type { OneToThree } from "@module/data.ts";
 import { LaxArrayField, SlugField } from "@system/schema-data-fields.ts";
-import { AbilityItemPF2e } from "./document.ts";
-import type { AbilityTraitToggles } from "./trait-toggles.ts";
+import type { ModelPropFromDataField } from "types/foundry/common/data/fields.d.ts";
+import type { AbilityItemPF2e } from "./document.ts";
+import { AbilityTraitToggles } from "./trait-toggles.ts";
 import type { AbilityTrait, ActionCategory } from "./types.ts";
 import fields = foundry.data.fields;
 
 type AbilitySource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
 
 class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSchema> {
+    static override LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "PF2E.Item.Ability"];
+
     declare traits: AbilityTraits;
+
+    declare frequency: FrequencyData | null;
 
     declare selfEffect: SelfEffectReference | null;
 
@@ -99,6 +104,24 @@ class AbilitySystemData extends ItemSystemModel<AbilityItemPF2e, AbilitySystemSc
             ),
         };
     }
+
+    override prepareBaseData(): void {
+        super.prepareBaseData();
+        this.traits.toggles = new AbilityTraitToggles(this.parent);
+        this.deathNote ??= false;
+
+        // Initialize frequency uses if not set
+        this.frequency ??= null;
+        if (this.parent.actor && this.frequency) {
+            this.frequency.value ??= this.frequency.max;
+        }
+
+        // Self effects are only usable with actions
+        this.selfEffect ??= null;
+        if (this.actionType.value === "passive") {
+            this.selfEffect = null;
+        }
+    }
 }
 
 interface AbilitySystemData
@@ -174,6 +197,8 @@ type AbilitySystemSource = SourceFromSchema<AbilitySystemSchema> & {
     schema?: ItemSystemSource["schema"];
 };
 
+type FrequencyData = NonNullable<ModelPropFromDataField<AbilitySystemSchema["frequency"]>>;
+
 type AbilityTraitsSource = AbilitySystemSource["traits"];
 
 interface AbilityTraits extends AbilityTraitsSource {
@@ -187,4 +212,4 @@ interface SelfEffectReference extends SelfEffectReferenceSource {
 }
 
 export { AbilitySystemData };
-export type { AbilitySource, AbilitySystemSource, SelfEffectReference, SelfEffectReferenceSource };
+export type { AbilitySource, AbilitySystemSchema, AbilitySystemSource, SelfEffectReference, SelfEffectReferenceSource };

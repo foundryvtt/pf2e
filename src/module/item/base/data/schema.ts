@@ -13,6 +13,8 @@ import { ItemDescriptionData } from "./system.ts";
 
 abstract class ItemSystemModel<TParent extends ItemPF2e, TSchema extends ItemSystemSchema> extends foundry.abstract
     .TypeDataModel<TParent, TSchema> {
+    static override LOCALIZATION_PREFIXES = ["PF2E.Item"];
+
     static override defineSchema(): ItemSystemSchema {
         const fields = foundry.data.fields;
 
