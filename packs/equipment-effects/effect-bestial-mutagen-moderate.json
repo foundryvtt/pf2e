@@ -32,6 +32,11 @@
             },
             {
                 "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "not": "suppress-mutagen-drawback:bestial-mutagen"
+                    }
+                ],
                 "selector": [
                     "reflex",
                     "acrobatics",
@@ -88,6 +93,22 @@
                 ],
                 "property": "other-tags",
                 "value": "bestial-mutagen-strike"
+            },
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Alchemist.ResearchField.Mutagenist.FieldVials.RollOptionLabel",
+                "mergeable": true,
+                "option": "suppress-mutagen-drawback",
+                "predicate": [
+                    "feature:mutagenist"
+                ],
+                "suboptions": [
+                    {
+                        "label": "PF2E.Mutagens.BestialMutagen.Label",
+                        "value": "bestial-mutagen"
+                    }
+                ],
+                "toggleable": true
             }
         ],
         "start": {
