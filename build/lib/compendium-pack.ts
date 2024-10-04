@@ -329,11 +329,6 @@ class CompendiumPack {
     ): void {
         const convertOptions = { to: to === "ids" ? "id" : "name", map } as const;
 
-        // Convert compendium source if it exists
-        if (source._stats?.compendiumSource) {
-            source._stats.compendiumSource = CompendiumPack.convertUUID(source._stats.compendiumSource, convertOptions);
-        }
-
         // Convert UUIDs found in places particular to certain item types
         if (itemIsOfType(source, "feat", "action") && source.system.selfEffect) {
             source.system.selfEffect.uuid = CompendiumPack.convertUUID(source.system.selfEffect.uuid, convertOptions);
