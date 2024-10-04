@@ -178,6 +178,92 @@ a.inline-roll.altered {
 }
 
 /* ----------------------------------------- */
+/* Styled table - Remaster                             */
+/* ----------------------------------------- */
+
+table.pf2e-rm,
+table.pf2-table-remaster {
+    border-collapse: collapse;
+    color: var(--text-dark);
+    font-size: var(--font-size-13);
+    user-select: text;
+
+    thead,
+    tbody,
+    th,
+    td {
+        box-sizing: border-box;
+        user-select: text;
+        word-break: auto-phrase;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #eee3c8;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f5efe0;
+    }
+
+    th,
+    td {
+        border: solid 1px var(--color-border-light-tertiary);
+        text-align: center;
+    }
+
+    th {
+        background-color: #002a17;
+        color: var(--text-light);
+        font-weight: bold;
+        padding: 0.5rem 0.25rem;
+    }
+
+    td {
+        padding: 0.25rem;
+    }
+}
+
+@mixin inline-link {
+    background: var(--inline-link-bg);
+    border-radius: 2px;
+    border: 1px solid var(--color-border-dark-tertiary);
+    box-sizing: border-box;
+    color: var(--color-text-dark-primary);
+    padding: 0 var(--space-4);
+    white-space: nowrap;
+    word-break: break-all;
+
+    > i.icon {
+        color: var(--color-text-dark-inactive);
+        margin-right: var(--space-4);
+    }
+}
+
+a.content-link,
+a.inline-roll {
+    padding: 0 var(--space-4);
+}
+
+a.content-link {
+    // Automatically italicize spell content links
+    &:has(i.fa-sparkles) {
+        font-style: italic;
+    }
+
+    & > span.fa-stack {
+        width: 1.25em;
+    }
+}
+
+#tooltip a.content-link {
+    color: var(--color-text-dark-primary);
+}
+
+a.inline-roll.altered {
+    color: var(--color-text-dark-improved);
+}
+
+/* ----------------------------------------- */
 /* PF2E Action Custom Element                */
 /* ----------------------------------------- */
 
