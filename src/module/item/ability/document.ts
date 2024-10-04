@@ -6,7 +6,6 @@ import type { UserPF2e } from "@module/user/index.ts";
 import { sluggify } from "@util";
 import type { AbilitySource, AbilitySystemData } from "./data.ts";
 import { getActionCostRollOptions, normalizeActionChangeData, processSanctification } from "./helpers.ts";
-import { AbilityTraitToggles } from "./trait-toggles.ts";
 import type { AbilityTrait } from "./types.ts";
 
 class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
@@ -33,29 +32,11 @@ class AbilityItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exten
     }
 
     get frequency(): Frequency | null {
-        return this.system.frequency ?? null;
-    }
-
-    override prepareBaseData(): void {
-        super.prepareBaseData();
-
-        // Initialize frequency uses if not set
-        if (this.actor && this.system.frequency) {
-            this.system.frequency.value ??= this.system.frequency.max;
-        }
-
-        this.system.traits.toggles = new AbilityTraitToggles(this);
-
-        this.system.selfEffect ??= null;
-        // Self effects are only usable with actions
-        if (this.system.actionType.value === "passive") {
-            this.system.selfEffect = null;
-        }
+        return this.system.frequency;
     }
 
     override prepareActorData(): void {
         const actor = this.actor;
-
         if (actor?.isOfType("familiar") && this.system.category === "familiar") {
             const slug = this.slug ?? sluggify(this.name);
             actor.rollOptions.all[`self:ability:${slug}`] = true;

@@ -62,7 +62,7 @@ function getActionCostRollOptions(prefix: string, item: { actionCost?: ActionCos
 }
 
 /** Create data for the "self-applied effect" drop zone on an ability or feat sheet. */
-function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffectSheetReference | null {
+function createSelfEffectSheetData(data: Maybe<SelfEffectReference>): SelfEffectSheetReference | null {
     if (!data) return null;
 
     type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;

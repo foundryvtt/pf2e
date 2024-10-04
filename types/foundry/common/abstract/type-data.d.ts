@@ -67,6 +67,9 @@ export default class TypeDataModel<
     /** The package that is providing this DataModel for the given sub-type. */
     readonly modelProvider: packages.BaseSystem | packages.BaseModule | null;
 
+    /** A set of localization prefix paths which are used by this data model. */
+    static LOCALIZATION_PREFIXES: string[];
+
     constructor(data?: object, options?: DataModelConstructionOptions<abstract.Document | null>);
 
     /** Prepare data related to this DataModel itself, before any derived data is computed. */

@@ -700,10 +700,10 @@ export const PF2ECONFIG = {
     },
 
     actionCategories: {
-        interaction: "PF2E.Item.Action.Category.Interaction",
-        defensive: "PF2E.Item.Action.Category.Defensive",
-        offensive: "PF2E.Item.Action.Category.Offensive",
-        familiar: "PF2E.Item.Action.Category.Familiar",
+        interaction: "PF2E.Item.Ability.Category.Interaction",
+        defensive: "PF2E.Item.Ability.Category.Defensive",
+        offensive: "PF2E.Item.Ability.Category.Offensive",
+        familiar: "PF2E.Item.Ability.Category.Familiar",
     },
 
     frequencies: {
