@@ -113,18 +113,10 @@ table.pf2-table {
 
     tr:nth-child(odd) {
         background-color: var(--tertiary-light);
-
-        &.remaster {
-            background-color: #eee3c8;
-        }
     }
 
     tr:nth-child(even) {
         background-color: var(--text-light);
-
-        &.remaster {
-            background-color: #f5efe0;
-        }
     }
 
     th,
@@ -138,14 +130,51 @@ table.pf2-table {
         color: var(--text-light);
         font-weight: bold;
         padding: 0.5rem 0.25rem;
-
-        &.remaster {
-            background-color: #002a17;
-        }
     }
 
     td {
         padding: 0.25rem;
+    }
+
+    &.remaster {
+        border-collapse: collapse;
+        color: var(--text-dark);
+        font-size: var(--font-size-13);
+        user-select: text;
+
+        thead,
+        tbody,
+        th,
+        td {
+            box-sizing: border-box;
+            user-select: text;
+            word-break: auto-phrase;
+        }
+
+        tr:nth-child(odd) {
+            background-color: eee3c8;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5efe0;
+        }
+
+        th,
+        td {
+            border: solid 1px var(--color-border-light-tertiary);
+            text-align: center;
+        }
+
+        th {
+            background-color: #002a17;
+            color: var(--text-light);
+            font-weight: bold;
+            padding: 0.5rem 0.25rem;
+        }
+
+        td {
+            padding: 0.25rem;
+        }
     }
 }
 
