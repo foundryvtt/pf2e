@@ -12,11 +12,9 @@ import path from "path";
 import * as R from "remeda";
 import "./lib/foundry-utils.ts";
 import { getFilesRecursively } from "./lib/helpers.ts";
+import type { PackEntry } from "./lib/types.ts";
 
 import { Migration913SpellSustainedText } from "@module/migration/migrations/913-spell-sustained-text.ts";
-import { Migration914MovePerceptionSenses } from "@module/migration/migrations/914-move-perception-senses.ts";
-import { Migration915MoveLanguages } from "@module/migration/migrations/915-move-languages.ts";
-import { Migration916NewPCToys } from "@module/migration/migrations/916-new-pc-toys.ts";
 import { Migration917ScrollWandSpellIds } from "@module/migration/migrations/917-scroll-wand-spell-ids.ts";
 import { Migration918DeitySkills } from "@module/migration/migrations/918-deity-skills.ts";
 import { Migration919WeaponToggleStructure } from "@module/migration/migrations/919-trait-toggle-structure.ts";
@@ -43,9 +41,6 @@ globalThis.Text = window.Text;
 
 const migrations: MigrationBase[] = [
     new Migration913SpellSustainedText(),
-    new Migration914MovePerceptionSenses(),
-    new Migration915MoveLanguages(),
-    new Migration916NewPCToys(),
     new Migration917ScrollWandSpellIds(),
     new Migration918DeitySkills(),
     new Migration919WeaponToggleStructure(),
@@ -138,6 +133,28 @@ async function getAllFiles(directory: string = packsDataPath, allEntries: string
     return allEntries;
 }
 
+/** Recursively set defaults such as flags on a document source */
+function setDefaults(source: PackEntry) {
+    source.flags ??= {};
+
+    if (isActorData(source)) {
+        for (const item of source.items) {
+            setDefaults(item);
+        }
+    } else if (isItemData(source)) {
+        source.system.slug = sluggify(source.name);
+        if (itemIsOfType(source, "physical")) {
+            source.system.subitems ??= [];
+            for (const subItem of source.system.subitems) {
+                setDefaults(subItem);
+            }
+        }
+        if (itemIsOfType(source, "consumable") && source.system.spell) {
+            setDefaults(source.system.spell);
+        }
+    }
+}
+
 async function migrate() {
     const allEntries = await getAllFiles();
 
@@ -169,16 +186,10 @@ async function migrate() {
             | foundry.documents.MacroSource
             | foundry.documents.RollTableSource
         > => {
-            source.flags ??= {};
             try {
-                if (isActorData(source)) {
-                    for (const embedded of source.items) {
-                        embedded.flags ??= {};
-                        if (itemIsOfType(embedded, "armor", "equipment", "shield", "weapon")) {
-                            embedded.system.subitems ??= [];
-                        }
-                    }
+                setDefaults(source);
 
+                if (isActorData(source)) {
                     const update = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
                     update.items = update.items.map((i) => fu.mergeObject({}, i, { performDeletions: true }));
 
@@ -187,10 +198,6 @@ async function migrate() {
 
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
-                    source.system.slug = sluggify(source.name);
-                    if (itemIsOfType(source, "armor", "equipment", "shield", "weapon")) {
-                        source.system.subitems ??= [];
-                    }
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
                     pruneDefaults(source);
