@@ -135,6 +135,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             item,
             isPhysical: false,
             data: item.system,
+            fieldRootId: this.item.collection.has(this.item.id) ? this.id : foundry.utils.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
@@ -650,6 +651,9 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    /** The leading part of IDs used for label-input/select matching */
+    fieldRootId: string;
+    /** Legacy value of the above */
     fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;
