@@ -28,6 +28,85 @@
             {
                 "key": "GrantItem",
                 "uuid": "Compendium.pf2e.actionspf2e.Item.Fling Magic"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Grant",
+                        "value": "granted"
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Pick",
+                        "value": "picked"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Prompt",
+                "rollOption": "wand-implement-origin"
+            },
+            {
+                "adjustName": false,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        {
+                            "or": [
+                                "item:type:equipment",
+                                {
+                                    "and": [
+                                        "item:type:consumable",
+                                        "item:trait:wand"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "types": [
+                        "equipment",
+                        "consumable"
+                    ]
+                },
+                "flag": "implement",
+                "key": "ChoiceSet",
+                "predicate": [
+                    "wand-implement-origin:picked"
+                ],
+                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.InventoryPrompt"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.implement}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "wand-implement-origin:picked"
+                ],
+                "property": "other-tags",
+                "value": "implement:wand"
+            },
+            {
+                "itemId": "{item|flags.pf2e.rulesSelections.implement}",
+                "key": "ItemAlteration",
+                "mode": "override",
+                "predicate": [
+                    "wand-implement-origin:picked"
+                ],
+                "property": "rarity",
+                "value": "unique"
+            },
+            {
+                "alterations": [
+                    {
+                        "mode": "add",
+                        "property": "other-tags",
+                        "value": "implement:wand"
+                    }
+                ],
+                "key": "GrantItem",
+                "predicate": [
+                    "wand-implement-origin:granted"
+                ],
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Wand Implement"
             }
         ],
         "traits": {
