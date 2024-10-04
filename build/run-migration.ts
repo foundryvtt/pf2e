@@ -142,7 +142,6 @@ function setDefaults(source: PackEntry) {
             setDefaults(item);
         }
     } else if (isItemData(source)) {
-        source.system.slug = sluggify(source.name);
         if (itemIsOfType(source, "physical")) {
             source.system.subitems ??= [];
             for (const subItem of source.system.subitems) {
@@ -198,6 +197,7 @@ async function migrate() {
 
                     return fu.mergeObject(source, update, { inplace: false, performDeletions: true });
                 } else if (isItemData(source)) {
+                    source.system.slug = sluggify(source.name);
                     const update = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
 
                     pruneDefaults(source);
