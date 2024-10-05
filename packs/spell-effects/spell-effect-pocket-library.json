@@ -4,7 +4,7 @@
     "name": "Spell Effect: Pocket Library",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Pocket Library]</p>\n<p>During the duration of this spell, you can call forth a tome from the extradimensional library when attempting a Recall Knowledge check using your chosen skill. This is part of the action to Recall Knowledge. You must have a hand free to do so. The tome appears in your hand, open to an appropriate page. This grants you a +1 status bonus on the Recall Knowledge check. If you roll a critical failure on this check, you get a failure instead. If the roll is successful and the subject is a creature, you gain additional information or context about the creature.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Pocket Library]</p>\n<p>You gain a +1 status bonus on Recall Knowledge checks using your chosen skill. If you roll a critical failure on this check, you get a failure instead.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,35 +22,116 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "option": "pocket-library",
+                "toggleable": true
+            },
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Skill.Arcana",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:arcana:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "arcana"
+                    },
+                    {
+                        "label": "PF2E.Skill.Crafting",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:crafting:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "crafting"
+                    },
+                    {
+                        "label": "PF2E.Skill.Medicine",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:medicine:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "medicine"
+                    },
+                    {
+                        "label": "PF2E.Skill.Nature",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:nature:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "nature"
+                    },
+                    {
+                        "label": "PF2E.Skill.Occultism",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:occultism:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "occultism"
+                    },
+                    {
+                        "label": "PF2E.Skill.Religion",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:religion:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "religion"
+                    },
+                    {
+                        "label": "PF2E.Skill.Society",
+                        "predicate": [
+                            {
+                                "gte": [
+                                    "skill:society:rank",
+                                    1
+                                ]
+                            }
+                        ],
+                        "value": "society"
+                    }
+                ],
+                "flag": "skill",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Skill"
+            },
+            {
                 "key": "FlatModifier",
                 "predicate": [
-                    "pocket-library"
+                    "action:recall-knowledge",
+                    "pocket-library",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
                 ],
-                "selector": "skill-check",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
                 "type": "status",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 2,
-                            "value": 1
-                        },
-                        {
-                            "end": 5,
-                            "start": 3,
-                            "value": 2
-                        },
-                        {
-                            "end": 8,
-                            "start": 6,
-                            "value": 3
-                        },
-                        {
-                            "start": 9,
-                            "value": 4
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "value": "1+floor(@item.level/3)"
             },
             {
                 "adjustment": {
@@ -58,16 +139,17 @@
                 },
                 "key": "AdjustDegreeOfSuccess",
                 "predicate": [
-                    "pocket-library"
+                    "action:recall-knowledge",
+                    "pocket-library",
+                    {
+                        "gte": [
+                            "hands-free",
+                            1
+                        ]
+                    }
                 ],
-                "selector": "skill-check",
+                "selector": "{item|flags.pf2e.rulesSelections.skill}",
                 "type": "skill"
-            },
-            {
-                "domain": "skill-check",
-                "key": "RollOption",
-                "option": "pocket-library",
-                "toggleable": true
             }
         ],
         "start": {
