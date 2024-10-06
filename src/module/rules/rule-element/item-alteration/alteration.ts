@@ -384,7 +384,8 @@ class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e, ItemAlt
                 if (this.mode === "add") {
                     if (!traits.includes(newValue)) traits.push(newValue);
                 } else if (["subtract", "remove"].includes(this.mode)) {
-                    traits.splice(traits.indexOf(newValue), 1);
+                    const index = traits.indexOf(newValue);
+                    if (index >= 0) traits.splice(index, 1);
                 }
                 return;
             }
