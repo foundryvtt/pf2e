@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +2 item bonus to Performance checks while playing music with the instrument.</p>\n<p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You play the instrument, causing it to cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell with DC 27.</p>\n<hr />\n<p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
+            "value": "<p>A <em>maestro's instrument</em> can be crafted in the form of any variety of handheld musical instruments. A <em>maestro's instrument</em> grants you a +2 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Charming Performance</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per day</p>\n<p><strong>Effect</strong> You play the instrument, causing it to cast a 4th-rank @UUID[Compendium.pf2e.spells-srd.Item.Charm] spell with DC 27.</p><hr /><p><strong>Craft Requirements</strong> You must supply a casting of <em>charm</em> of the appropriate rank.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,8 +36,14 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Maestro's Instrument (playing it)",
                 "predicate": [
                     "playing"
                 ],
