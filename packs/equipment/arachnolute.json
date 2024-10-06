@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>The strings of this spider-shaped lute are made from the webbing of a goliath spider and the tuning pegs are crafted from the spider's spinnerets. An arachnolute grants you a +2 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Web Chord</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> Sticky webbing sprays in a @Template[cone|distance:30] as you strum the lute's strings. Each creature in the area of the webbing is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] unless it succeeds at a @Check[reflex|dc:29] save.</p><hr /><p><strong>Craft Requirements</strong> The initial materials must include the spinnerets of a goliath spider, as well as a spool of its webbing.</p>"
+            "value": "<p>The strings of this spider-shaped lute are made from the webbing of a goliath spider and the tuning pegs are crafted from the spider's spinnerets. An <em>arachnolute</em> grants you a +2 item bonus to Performance checks while playing music with the instrument.</p><hr /><p><strong>Activate—Web Chord</strong> <span class=\"action-glyph\">2</span> (manipulate)</p>\n<p><strong>Frequency</strong> once per hour</p>\n<p><strong>Effect</strong> Sticky webbing sprays in a @Template[cone|distance:30] as you strum the lute's strings. Each creature in the area of the webbing is @UUID[Compendium.pf2e.conditionitems.Item.Immobilized] unless it succeeds at a @Check[reflex|dc:29] save.</p><hr /><p><strong>Craft Requirements</strong> The initial materials must include the spinnerets of a goliath spider, as well as a spool of its webbing.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -35,6 +35,13 @@
         },
         "quantity": 1,
         "rules": [
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
             {
                 "key": "FlatModifier",
                 "predicate": [
