@@ -1,8 +1,7 @@
 {
-    "_id": "oUmUcQYz4XQjRXjW",
-    "folder": "QAUr1QhFQXrsE7oG",
-    "img": "icons/magic/water/pseudopod-swirl-blue.webp",
-    "name": "Resonant Reflection: Reflection of Water",
+    "_id": "B1bq7N5YdK2EGAOe",
+    "img": "icons/magic/life/cross-explosion-burst-green.webp",
+    "name": "Resonant Reflection: Reflection of Life",
     "system": {
         "actionType": {
             "value": "passive"
@@ -12,10 +11,10 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p>Your body is infused with the essence of water and becomes adapted to its presence. You gain a swim speed of 10 feet and can breathe underwater. In addition, you can also focus this affinity to gain an additional effect.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Control Water] as a 5th-rank innate divine spell. The area of water you control increases by 10 feet in length and width for every 2 levels you have beyond 10th level.</p>"
+            "value": "<p>You regain double the normal number of Hit Points when resting (meaning you regain double your Constitution modifier multiplied by your level). The healing you gain from long-term rest is similarly doubled. In addition, you can focus this healing energy to accelerate your body's natural healing processes even further.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You gain fast healing 3 for 1 minute. This amount of fast healing increases by 1 for every 2 levels you have beyond 5th level.</p>\n<p>@UUID[Compendium.pf2e.campaign-effects.Item.Effect: Reflection of Life (Fast Healing)]</p>"
         },
         "level": {
-            "value": 10
+            "value": 5
         },
         "prerequisites": {
             "value": []
@@ -23,13 +22,14 @@
         "publication": {
             "license": "OGL",
             "remaster": false,
-            "title": "Pathfinder #153: Life's Long Shadows"
+            "title": "Pathfinder #151: The Show Must Go On"
         },
         "rules": [
             {
-                "key": "BaseSpeed",
-                "selector": "swim",
-                "value": 10
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "system.attributes.hp.recoveryMultiplier",
+                "value": 1
             },
             {
                 "itemType": "action",
@@ -37,13 +37,13 @@
                 "mode": "add",
                 "predicate": [
                     "item:slug:activate-resonant-reflection",
-                    "resonant:reflection-of-water"
+                    "resonant:reflection-of-life"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Description",
-                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Title"
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLife.Title"
                     }
                 ]
             },
@@ -57,7 +57,7 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "reflection-of-water"
+                        "value": "reflection-of-life"
                     }
                 ],
                 "toggleable": true
@@ -77,8 +77,8 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "magical",
-                "water"
+                "healing",
+                "magical"
             ]
         }
     },
