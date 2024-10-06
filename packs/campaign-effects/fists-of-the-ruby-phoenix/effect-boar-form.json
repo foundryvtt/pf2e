@@ -1,0 +1,97 @@
+{
+    "_id": "LJOZk2O6KS3iulXy",
+    "folder": "S0vnaS17OowkLvHX",
+    "img": "icons/creatures/abilities/fang-tooth-blood-red.webp",
+    "name": "Effect: Boar Form",
+    "system": {
+        "description": {
+            "value": "<p>The polymorphed character transforms into a Large animal. Each polymorphed character gains the following statistics and abilities regardless of which form they choose.</p>\n<ul>\n<li>AC = 36.</li>\n<li>30 temporary Hit Points.</li>\n<li>Low-light vision and scent (imprecise) 30 feet.</li>\n<li>One or more unarmed melee attacks specific to the battle form, which are the only attacks you can use. (You are trained with them.) You can use your own unarmed attack modifier if it is better.</li>\n<li>Athletics modifier of +26 unless yours is better.</li>\n<li><strong>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Rallying Display]</strong> <span class=\"action-glyph\">1</span> (auditory, visual) You roar or otherwise make a show of bestial strength. You automatically roll a success to rally the crowd for your team.</li>\n<li><strong>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Reposition Chains]</strong> <span class=\"action-glyph\">1</span> You pull on the chains, moving a willing chained ally up to 10 feet to a space within your reach.</li>\n</ul>\n<hr />\n<p><strong>Speed</strong> 40 feet</p>\n<p><strong>Melee</strong> <span class=\"action-glyph\">1</span> tusk +25, Damage 3d10+16 piercing</p>\n<p><strong>@UUID[Compendium.pf2e.adventure-specific-actions.Item.Chained Charge]</strong> <span class=\"action-glyph\">2</span> You Stride and then make a tusk Strike at the end of your movement. If you move farther than 15 feet from your chained allies, you pull them along to the nearest open space 15 feet behind you. The creature you hit must succeed at a @Check[reflex|dc:35] save or fall @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #167: Ready? Fight!"
+        },
+        "rules": [
+            {
+                "key": "BattleForm",
+                "overrides": {
+                    "armorClass": {
+                        "modifier": "36"
+                    },
+                    "senses": {
+                        "lowLightVision": {},
+                        "scent": {
+                            "acuity": "imprecise",
+                            "range": 30
+                        }
+                    },
+                    "size": "lg",
+                    "skills": {
+                        "athletics": {
+                            "modifier": 26
+                        }
+                    },
+                    "speeds": {
+                        "land": 40
+                    },
+                    "strikes": {
+                        "tusk": {
+                            "ability": "str",
+                            "category": "unarmed",
+                            "damage": {
+                                "damageType": "piercing",
+                                "dice": 3,
+                                "die": "d10",
+                                "modifier": 16
+                            },
+                            "modifier": 25,
+                            "traits": [
+                                "unarmed"
+                            ]
+                        }
+                    },
+                    "tempHP": 30,
+                    "traits": [
+                        "large"
+                    ]
+                }
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Rallying Display"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Reposition Chains"
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.adventure-specific-actions.Item.Chained Charge"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
