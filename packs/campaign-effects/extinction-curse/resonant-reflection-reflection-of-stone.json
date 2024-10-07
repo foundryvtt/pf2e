@@ -1,7 +1,8 @@
 {
-    "_id": "oUmUcQYz4XQjRXjW",
-    "img": "icons/magic/water/pseudopod-swirl-blue.webp",
-    "name": "Resonant Reflection: Reflection of Water",
+    "_id": "mL13OZS2t1eMRlly",
+    "folder": "x1BXD0wU3Jn73wgS",
+    "img": "icons/commodities/gems/pearl-brown-red.webp",
+    "name": "Resonant Reflection: Reflection of Stone",
     "system": {
         "actionType": {
             "value": "passive"
@@ -11,7 +12,7 @@
         },
         "category": "deityboon",
         "description": {
-            "value": "<p>Your body is infused with the essence of water and becomes adapted to its presence. You gain a swim speed of 10 feet and can breathe underwater. In addition, you can also focus this affinity to gain an additional effect.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Control Water] as a 5th-rank innate divine spell. The area of water you control increases by 10 feet in length and width for every 2 levels you have beyond 10th level.</p>"
+            "value": "<p>Your body is infused with the resilience and durability of stone. You are protected against the effects of severe cold and severe heat. In addition, you can also focus this durability to gain an additional effect.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p><hr /><p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Mountain Resilience] as an innate divine spell, heightened to a spell rank equal to half your level rounded up.</p>"
         },
         "level": {
             "value": 10
@@ -26,23 +27,18 @@
         },
         "rules": [
             {
-                "key": "BaseSpeed",
-                "selector": "swim",
-                "value": 10
-            },
-            {
                 "itemType": "action",
                 "key": "ItemAlteration",
                 "mode": "add",
                 "predicate": [
                     "item:slug:activate-resonant-reflection",
-                    "resonant:reflection-of-water"
+                    "resonant:reflection-of-stone"
                 ],
                 "property": "description",
                 "value": [
                     {
-                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Description",
-                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfWater.Title"
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfStone.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfStone.Title"
                     }
                 ]
             },
@@ -56,7 +52,7 @@
                 "suboptions": [
                     {
                         "label": "{item|name}",
-                        "value": "reflection-of-water"
+                        "value": "reflection-of-stone"
                     }
                 ],
                 "toggleable": true
@@ -76,8 +72,8 @@
         "traits": {
             "rarity": "common",
             "value": [
-                "magical",
-                "water"
+                "earth",
+                "magical"
             ]
         }
     },

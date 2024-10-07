@@ -1,0 +1,92 @@
+{
+    "_id": "KtWWU9lPtuFTda7d",
+    "folder": "eDXJ3K6EaXRdCgJa",
+    "img": "systems/pf2e/icons/deity/Shelyn.webp",
+    "name": "Effect: Hope or Despair",
+    "system": {
+        "description": {
+            "value": "<p><strong>Critical Success</strong> The target gains a +1 status bonus to all checks while remaining in the shrine's area.</p>\n<p><strong>Failure</strong> For the next hour, the creature takes a -1 penalty to all saving throws against mental effects; this penalty increases to a -2 penalty against emotion mental effects. This effect has the curse trait.</p>\n<p><strong>Critical Failure</strong> As failure, but the effects persist as long as the green hag Tulvak remains in control of the shrine.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "value": "failure"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "success"
+                    }
+                ],
+                "flag": "despairOrHope",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "RollOption",
+                "option": "shelyns-shame:{item|flags.pf2e.rulesSelections.despairOrHope}"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "shelyns-shame:success"
+                ],
+                "selector": "all",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental",
+                    "shelyns-shame:failure"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:mental",
+                    "item:trait:emotion",
+                    "shelyns-shame:failure"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -2
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
