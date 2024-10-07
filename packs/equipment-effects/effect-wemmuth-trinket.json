@@ -1,0 +1,51 @@
+{
+    "_id": "mS82CkuoGfOfQ9Jt",
+    "img": "icons/commodities/treasure/broach-spiral-blue.webp",
+    "name": "Effect: Wemmuth Trinket",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Wemmuth Trinket]</p>\n<p>Creatures who fail or critically fail their Reflex saves against <em>entangling flora</em> also take piercing damage equal to the spell's rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Howl of the Wild"
+        },
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:entangling-flora"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.Equipment.WemmuthTrinket.Description"
+                    }
+                ]
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

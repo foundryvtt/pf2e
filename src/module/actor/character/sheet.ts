@@ -1460,7 +1460,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
                 const formula = this.#knownFormulas[uuid];
                 // Sort existing formulas
                 if (formula) {
-                    const targetUuid = htmlClosest(event.target, "li.formula-item")?.dataset.itemId ?? "";
+                    const targetUuid = htmlClosest(event.target, "li.formula-item")?.dataset.itemUuid ?? "";
                     return this.#sortFormulas(formula, targetUuid, dropEntrySelector);
                 }
             }

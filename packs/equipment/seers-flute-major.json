@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This ivory flute is adorned with many carvings of eyes. Each has jade pupils and a semiprecious stone as its iris. The eyes flutter open and closed when the flute is played, as if it held the eyes of many independent beings. While playing the flute, you gain a +2 item bonus to Perception checks and Performance checks.</p>\n<hr />\n<p><strong>Activate</strong> Cast a Spell</p>\n<hr />\n<p><strong>Effect</strong> You expend a number of charges from this instrument to cast a spell from its list.</p>\n<ul>\n<li><strong>Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.Guidance], @UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</li>\n<li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Detect Alignment]</li>\n<li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Augury], @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen]</li>\n<li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Clairaudience], @UUID[Compendium.pf2e.spells-srd.Item.Hypercognition], @UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</li>\n<li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance], @UUID[Compendium.pf2e.spells-srd.Item.Read Omens]</li>\n<li><strong>5th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Inevitable Disaster], @UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye], @UUID[Compendium.pf2e.spells-srd.Item.Truespeech]</li>\n</ul>\n<hr />\n<p><strong>Craft Requirements</strong> Supply one casting of all listed levels of all listed spells.</p>"
+            "value": "<p>This ivory flute is adorned with many carvings of eyes. Each has jade pupils and a semiprecious stone as its iris. The eyes flutter open and closed when the flute is played, as if it held the eyes of many independent beings. While playing the flute, you gain a +2 item bonus to Perception checks and Performance checks.</p><hr /><p><strong>Activate</strong> Cast a Spell</p>\n<p><strong>Effect</strong> You expend a number of charges from this instrument to cast a spell from its list.</p><ul><li><strong>Cantrip</strong> @UUID[Compendium.pf2e.spells-srd.Item.Guidance], @UUID[Compendium.pf2e.spells-srd.Item.Read Aura]</li><li><strong>1st</strong> @UUID[Compendium.pf2e.spells-srd.Item.Detect Alignment]</li><li><strong>2nd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Augury], @UUID[Compendium.pf2e.spells-srd.Item.See the Unseen]</li><li><strong>3rd</strong> @UUID[Compendium.pf2e.spells-srd.Item.Clairaudience], @UUID[Compendium.pf2e.spells-srd.Item.Hypercognition], @UUID[Compendium.pf2e.spells-srd.Item.Wanderer's Guide]</li><li><strong>4th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Clairvoyance], @UUID[Compendium.pf2e.spells-srd.Item.Read Omens]</li><li><strong>5th</strong> @UUID[Compendium.pf2e.spells-srd.Item.Inevitable Disaster], @UUID[Compendium.pf2e.spells-srd.Item.Scouting Eye], @UUID[Compendium.pf2e.spells-srd.Item.Truespeech]</li></ul><hr /><p><strong>Craft Requirements</strong> Supply one casting of all listed ranks of all listed spells.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,7 +36,17 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "check",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
+                "predicate": [
+                    "playing"
+                ],
                 "selector": [
                     "perception",
                     "performance"
