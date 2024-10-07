@@ -1,0 +1,58 @@
+{
+    "_id": "omyZyfTnx3uYVgiP",
+    "img": "icons/equipment/chest/breastplate-banded-simple-leather-brown.webp",
+    "name": "Effect: Arachnid Harness",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Arachnid Harness] and @UUID[Compendium.pf2e.equipment-srd.Item.Arachnid Harness (Greater)]</p>\n<p>You gain a climb Speed equal to half your land Speed and have your limbs free as you climb. If you use all your free limbs to help you Climb, your climb Speed equals your land Speed.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 7
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "key": "BaseSpeed",
+                "selector": "climb",
+                "value": "floor(@actor.attributes.speed.total/2)"
+            },
+            {
+                "key": "BaseSpeed",
+                "predicate": [
+                    "use-all-limbs"
+                ],
+                "selector": "climb",
+                "value": "@actor.attributes.speed.total"
+            },
+            {
+                "domain": "all",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.Equipment.ArachnidHarness.ClimbWithAllLimbs",
+                "option": "use-all-limbs",
+                "toggleable": true
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

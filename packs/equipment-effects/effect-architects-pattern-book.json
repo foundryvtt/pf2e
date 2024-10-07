@@ -1,19 +1,19 @@
 {
-    "_id": "uijpoXaiKXcCYrSD",
-    "img": "systems/pf2e/icons/equipment/alchemical-items/food/auric-noodles.webp",
-    "name": "Effect: Auric Noodles",
+    "_id": "IlNjAwsIZShlVsCT",
+    "img": "icons/sundries/books/book-tooled-silver-blue.webp",
+    "name": "Effect: Architect's Pattern Book",
     "system": {
         "description": {
-            "value": "<p>Granted @UUID[Compendium.pf2e.equipment-srd.Item.Auric Noodles]</p>\n<p>You gain a +1 item bonus to checks to Identify Magic.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Architect's Pattern Book]</p>\n<p>You gain a +1 circumstance bonus to Athletics checks and Will saves for the next 12 hours.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "days",
-            "value": 1
+            "unit": "hours",
+            "value": 12
         },
         "level": {
-            "value": 1
+            "value": 6
         },
         "publication": {
             "license": "OGL",
@@ -23,16 +23,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "predicate": [
-                    "action:identify-magic"
-                ],
                 "selector": [
-                    "arcana",
-                    "nature",
-                    "religion",
-                    "occultism"
+                    "will",
+                    "athletics"
                 ],
-                "type": "item",
+                "type": "circumstance",
                 "value": 1
             }
         ],
@@ -44,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },
