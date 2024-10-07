@@ -31,40 +31,6 @@
             },
             {
                 "adjustName": false,
-                "choices": [
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Grant",
-                        "value": "granted"
-                    },
-                    {
-                        "label": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Pick",
-                        "value": "picked"
-                    }
-                ],
-                "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.Prompt",
-                "rollOption": "weapon-implement-origin"
-            },
-            {
-                "adjustName": false,
-                "choices": {
-                    "ownedItems": true,
-                    "predicate": [
-                        "item:usage:hands:1"
-                    ],
-                    "types": [
-                        "weapon"
-                    ]
-                },
-                "flag": "pickedImplement",
-                "key": "ChoiceSet",
-                "predicate": [
-                    "weapon-implement-origin:picked"
-                ],
-                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.InventoryPrompt"
-            },
-            {
-                "adjustName": false,
                 "choices": {
                     "filter": [
                         "item:level:0",
@@ -75,51 +41,41 @@
                     ],
                     "itemType": "weapon"
                 },
-                "flag": "grantedImplement",
+                "flag": "weaponImplement",
                 "key": "ChoiceSet",
-                "predicate": [
-                    "weapon-implement-origin:granted"
-                ],
-                "prompt": "PF2E.SpecificRule.Thaumaturge.Implement.ChoiceSet.PhysicalImplement.InventoryPrompt"
-            },
-            {
-                "itemId": "{item|flags.pf2e.rulesSelections.pickedImplement}",
-                "key": "ItemAlteration",
-                "mode": "add",
-                "predicate": [
-                    "weapon-implement-origin:picked"
-                ],
-                "property": "other-tags",
-                "value": "implement:weapon"
-            },
-            {
-                "itemId": "{item|flags.pf2e.rulesSelections.pickedImplement}",
-                "key": "ItemAlteration",
-                "mode": "override",
-                "predicate": [
-                    "weapon-implement-origin:picked"
-                ],
-                "property": "rarity",
-                "value": "unique"
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
             },
             {
                 "alterations": [
-                    {
-                        "mode": "add",
-                        "property": "other-tags",
-                        "value": "implement:weapon"
-                    },
                     {
                         "mode": "override",
                         "property": "rarity",
                         "value": "unique"
                     }
                 ],
+                "flag": "weaponImplement",
                 "key": "GrantItem",
+                "track": true,
+                "uuid": "{item|flags.pf2e.rulesSelections.weaponImplement}"
+            },
+            {
+                "key": "RollOption",
+                "option": "implement-held",
                 "predicate": [
-                    "weapon-implement-origin:granted"
-                ],
-                "uuid": "{item|flags.pf2e.rulesSelections.grantedImplement}"
+                    "weapon-implement:equipped"
+                ]
+            },
+            {
+                "itemId": "{item|flags.pf2e.itemGrants.weaponImplement.id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Thaumaturge.Implement.Description.Weapon"
+                    }
+                ]
             }
         ],
         "traits": {
