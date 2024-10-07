@@ -468,6 +468,7 @@ class ChoiceSetRuleElement extends RuleElementPF2e<ChoiceSetSchema> {
                         "system.sanctification",
                         "system.slug",
                         "system.traits",
+                        "system.usage",
                     ],
                 }),
             );
