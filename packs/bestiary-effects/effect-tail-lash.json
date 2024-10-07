@@ -23,15 +23,24 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
+                "removeAfterRoll": "if-enabled",
+                "selector": "{item|flags.pf2e.rulesSelections.tailLash}",
                 "type": "circumstance",
                 "value": -2
             },
             {
-                "key": "FlatModifier",
-                "selector": "skill-check",
-                "type": "circumstance",
-                "value": -2
+                "choices": [
+                    {
+                        "label": "Skill Check",
+                        "value": "skill-check"
+                    },
+                    {
+                        "label": "Attack Roll",
+                        "value": "attack-roll"
+                    }
+                ],
+                "flag": "tailLash",
+                "key": "ChoiceSet"
             }
         ],
         "start": {
