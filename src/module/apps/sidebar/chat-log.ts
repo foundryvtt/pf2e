@@ -331,7 +331,7 @@ class ChatLogPF2e extends ChatLog<ChatMessagePF2e> {
         await combatant.encounter.setInitiative(
             combatant.id,
             value,
-            (message.flags.pf2e.modifierName as string) ?? undefined,
+            message.flags.pf2e.modifierName ? String(message.flags.pf2e.modifierName) : undefined,
         );
 
         ui.notifications.info(
