@@ -1,7 +1,7 @@
 /**
  * A helper class to provide common functionality for working with Image objects
  */
-class ImageHelper {
+declare class ImageHelper {
     /**
      * Create thumbnail preview for a provided image path.
      * @param src               The URL or display object of the texture to render to a thumbnail
