@@ -9,8 +9,7 @@ import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
-import { setHasElement } from "@util";
-import { CORE_SKILL_SLUGS } from "@actor/values.ts";
+import { objectHasKey } from "@util";
 
 class EncounterPF2e extends Combat {
     /** Has this document completed `DataModel` initialization? */
@@ -222,7 +221,7 @@ class EncounterPF2e extends Combat {
                     id: combatant.id,
                     value,
                     statistic:
-                        setHasElement(CORE_SKILL_SLUGS, statistic) || statistic === "perception"
+                        objectHasKey(CONFIG.PF2E.skills, statistic) || statistic === "perception"
                             ? statistic
                             : combatant.actor.system.initiative.statistic || "perception",
                 },
