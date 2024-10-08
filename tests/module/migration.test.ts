@@ -61,7 +61,7 @@ describe("test migration runner", () => {
         actors: new MockActors(),
         i18n: {
             localize: (stringId): string => stringId,
-            format: (stringId: string, data: object): string => stringId,
+            format: (stringId: string, _data: object): string => stringId,
         },
         items: new MockItems(),
         journal: new MockWorldCollection<MockJournalEntry>(),
@@ -75,7 +75,7 @@ describe("test migration runner", () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).SceneNavigation = {
-        displayProgressBar(...args: unknown): void {},
+        displayProgressBar(..._args: unknown[]): void {},
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

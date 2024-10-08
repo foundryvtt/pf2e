@@ -22,8 +22,7 @@ const scrollCompendiumIds: Record<number, string | undefined> = {
     10: "o1XIHJ4MJyroAHfF",
 };
 
-const SPELL_CONSUMABLE_ITEM_TYPE = new Set(["cantripDeck5", "scroll", "wand"] as const);
-type SpellConsumableItemType = SetElement<typeof SPELL_CONSUMABLE_ITEM_TYPE>;
+type SpellConsumableItemType = "cantripDeck5" | "scroll" | "wand";
 const SPELL_CONSUMABLE_NAME_TEMPLATES = {
     cantripDeck5: "PF2E.Item.Physical.FromSpell.CantripDeck5",
     scroll: "PF2E.Item.Physical.FromSpell.Scroll",
