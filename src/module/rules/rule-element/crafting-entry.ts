@@ -72,11 +72,10 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
     override beforePrepareData(): void {
         if (this.ignored) return;
 
-        const selector = this.resolveInjectedProperties(this.selector);
-
-        const entryData = {
-            selector: selector,
-            name: this.label,
+        const slug = this.resolveInjectedProperties(this.selector);
+        this.actor.system.crafting.entries[this.selector] = {
+            slug: slug,
+            label: this.label,
             isAlchemical: this.isAlchemical,
             isDailyPrep: this.isDailyPrep,
             isPrepared: this.isPrepared,
@@ -86,10 +85,9 @@ class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema> 
             maxSlots: this.maxSlots,
             preparedFormulaData: this.preparedFormulas,
         };
-        this.actor.system.crafting.entries[this.selector] = entryData;
 
         // Set a roll option to cue any subsequent max-item-level-increasing `ActiveEffectLike`s
-        const option = sluggify(this.selector);
+        const option = sluggify(slug);
         this.actor.rollOptions.all[`crafting:entry:${option}`] = true;
     }
 }

@@ -42,8 +42,8 @@
                         </div>
                     </li>
                     {{#each crafting.abilities.alchemical.entries as |entry eid|}}
-                        <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-entry-selector="{{entry.selector}}">
-                            <div class="action-header alchemical-title">{{entry.name}}</div>
+                        <li class="crafting-entry item-container alchemical-entry" data-container-type="craftingEntry" data-ability="{{entry.slug}}">
+                            <div class="action-header alchemical-title">{{entry.label}}</div>
 
                             <ol class="directory-list item-list formula-list">
                                 <li class="formula-level-header formula-header">
@@ -64,7 +64,7 @@
                                         data-item-uuid="{{formula.uuid}}"
                                         data-item-type="formula"
                                         data-item-index={{@key}}
-                                        data-entry-selector="{{entry.selector}}"
+                                        data-ability="{{entry.slug}}"
                                         data-is-formula="true"
                                     >
                                         <div class="item-name">
@@ -110,9 +110,9 @@
             </li>
         {{/if}}
         {{#each crafting.abilities.prepared as |entry i|}}
-            <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-entry-selector="{{entry.selector}}">
+            <li class="crafting-entry item-container item" data-container-type="craftingEntry" data-ability="{{entry.slug}}">
                 <div class="action-header">
-                    <h3 class="item-name hide-container-toggle title">{{entry.name}}</h3>
+                    <h3 class="item-name hide-container-toggle title">{{entry.label}}</h3>
                     <span class="level">{{localize "PF2E.LevelN" level=entry.maxItemLevel}}</span>
                 </div>
                 <ol class="directory-list item-list formula-list">
@@ -124,7 +124,7 @@
                             data-item-type="formula"
                             data-expended-state="{{formula.expended}}"
                             data-item-index={{@key}}
-                            data-entry-selector="{{entry.selector}}"
+                            data-ability="{{entry.slug}}"
                         >
                             <div class="item-name{{#unless formula}} empty{{/unless}}">
                                 {{#if formula}}

@@ -10,16 +10,18 @@ import { CraftingFormula } from "./types.ts";
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
     actor: CharacterPF2e;
-    abilities: CraftingAbility[];
+    abilities: Collection<CraftingAbility>;
 
     #formulas: CraftingFormula[] | null = null;
 
     constructor(actor: CharacterPF2e) {
         this.actor = actor;
 
-        this.abilities = Object.values(actor.system.crafting.entries)
-            .filter((entry): entry is CraftingAbilityData => CraftingAbility.isValid(entry))
-            .map((entry) => new CraftingAbility(this.actor, entry));
+        // Assemble all abilities. We check if label exists as a simple validation due to potential AELike tinkering
+        const abilities = Object.values(actor.system.crafting.entries)
+            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug)
+            .map((d): [string, CraftingAbility] => [d.slug, new CraftingAbility(this.actor, d)]);
+        this.abilities = new Collection(abilities);
     }
 
     /**
@@ -64,10 +66,6 @@ class CharacterCrafting {
             .filter((f): f is CraftingFormula => !!f);
         this.#formulas = result;
         return result;
-    }
-
-    getAbility(selector: string): CraftingAbility | null {
-        return this.abilities.find((a) => a.selector === selector) ?? null;
     }
 
     async performDailyCrafting(): Promise<void> {

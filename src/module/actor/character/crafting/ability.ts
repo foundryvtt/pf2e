@@ -9,9 +9,9 @@ import { CraftingFormula } from "./types.ts";
 
 class CraftingAbility implements CraftingAbilityData {
     /** A label for this crafting entry to display on sheets */
-    name: string;
+    label: string;
 
-    selector: string;
+    slug: string;
 
     /** This crafting ability's parent actor */
     actor: CharacterPF2e;
@@ -27,12 +27,13 @@ class CraftingAbility implements CraftingAbilityData {
     fieldDiscoveryBatchSize: number;
     maxItemLevel: number;
 
+    /** A cache of all formulas that have been loaded from their compendiums */
     #preparedCraftingFormulas: PreparedCraftingFormula[] | null = null;
 
     constructor(actor: CharacterPF2e, data: CraftingAbilityData) {
         this.actor = actor;
-        this.selector = data.selector;
-        this.name = data.name;
+        this.slug = data.slug;
+        this.label = data.label;
         this.isAlchemical = data.isAlchemical;
         this.isDailyPrep = data.isDailyPrep;
         this.isPrepared = data.isPrepared;
@@ -97,8 +98,8 @@ class CraftingAbility implements CraftingAbilityData {
             }
         }
         return {
-            name: this.name,
-            selector: this.selector,
+            label: this.label,
+            slug: this.slug,
             isAlchemical: this.isAlchemical,
             isPrepared: this.isPrepared,
             isDailyPrep: this.isDailyPrep,
@@ -118,10 +119,6 @@ class CraftingAbility implements CraftingAbilityData {
             preparedCraftingFormulas.map(async (f) => f.quantity / (await this.#batchSizeFor(f))),
         );
         return Math.ceil(values.reduce((total, part) => total + part, 0));
-    }
-
-    static isValid(data: Maybe<Partial<CraftingAbilityData>>): data is CraftingAbilityData {
-        return !!data && !!data.name && !!data.selector;
     }
 
     async prepareFormula(formula: CraftingFormula): Promise<void> {
@@ -238,7 +235,7 @@ class CraftingAbility implements CraftingAbilityData {
     async #updateRuleElement(): Promise<void> {
         const rules = this.actor.rules.filter(
             (r: CraftingEntryRuleSource): r is CraftingEntryRuleData =>
-                r.key === "CraftingEntry" && r.selector === this.selector,
+                r.key === "CraftingEntry" && r.selector === this.slug,
         );
         const itemUpdates = createBatchRuleElementUpdate(rules, { preparedFormulas: this.preparedFormulaData });
         if (itemUpdates.length) {
@@ -248,8 +245,8 @@ class CraftingAbility implements CraftingAbilityData {
 }
 
 interface CraftingAbilityData {
-    selector: string;
-    name: string;
+    slug: string;
+    label: string;
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
@@ -278,8 +275,8 @@ interface PreparedCraftingFormula extends CraftingFormula {
 }
 
 interface CraftingAbilitySheetData {
-    name: string;
-    selector: string;
+    slug: string;
+    label: string;
     isAlchemical: boolean;
     isPrepared: boolean;
     isDailyPrep: boolean;
