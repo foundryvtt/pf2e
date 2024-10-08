@@ -200,13 +200,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingEntries(): Promise<CraftingAbility[]> {
-        return this.crafting.abilities;
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
     async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
-        return this.crafting.getAbility(selector);
+        return this.crafting.abilities.get(selector) ?? null;
     }
 
     /** Will be deprecated/removed after PC2 alchemist is complete */

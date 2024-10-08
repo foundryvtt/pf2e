@@ -865,7 +865,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
         if (previewElement && "isFormula" in previewElement.dataset) {
             baseDragData.isFormula = true;
-            baseDragData.entrySelector = previewElement.dataset.entrySelector;
+            baseDragData.ability = previewElement.dataset.ability;
             baseDragData.uuid = previewElement.dataset.itemUuid;
         }
 
