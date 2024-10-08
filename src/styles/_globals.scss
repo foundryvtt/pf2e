@@ -129,11 +129,41 @@ table.pf2-table {
         background-color: var(--color-pf-primary-dark);
         color: var(--text-light);
         font-weight: bold;
-        padding: 0.5rem 0.25rem;
+        padding: var(--space-8) var(--space-4);
     }
 
     td {
-        padding: 0.25rem;
+        padding: var(--space-4);
+    }
+
+    &.remaster {
+        color: var(--text-dark);
+        font-size: var(--font-size-13);
+
+        tr:nth-child(odd) {
+            background-color: #eee3c8;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5efe0;
+        }
+
+        th,
+        td {
+            border: solid 1px var(--color-border-light-tertiary);
+            text-align: center;
+        }
+
+        th {
+            background-color: #002a17;
+            color: var(--text-light);
+            font-weight: bold;
+            padding: var(--space-8) var(--space-4);
+        }
+
+        td {
+            padding: 0.25rem;
+        }
     }
 }
 
