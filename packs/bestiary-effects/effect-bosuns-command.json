@@ -1,0 +1,79 @@
+{
+    "_id": "WfiaKdXNSxC3POcs",
+    "img": "systems/pf2e/icons/spells/agitate.webp",
+    "name": "Effect: Bosun's Command",
+    "system": {
+        "description": {
+            "value": "<p>The creature gains the bosun's choice of a +2 status bonus to attack rolls or <span style=\"font-family:Roboto, sans-serif\">a +10 status bonus its Speeds.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 3
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Gamemastery Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.AttackLabel",
+                        "value": "attack"
+                    },
+                    {
+                        "label": "PF2E.Actor.Speed.Label",
+                        "value": "speed"
+                    }
+                ],
+                "flag": "bossunCommand",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.BossunsCommand"
+            },
+            {
+                "key": "RollOption",
+                "option": "order:{item|flags.pf2e.rulesSelections.bossunCommand}"
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "order:attack"
+                ],
+                "selector": "attack",
+                "slug": "attack-bonus",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "order:speed"
+                ],
+                "selector": "speed",
+                "slug": "speed-bonus",
+                "type": "status",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
