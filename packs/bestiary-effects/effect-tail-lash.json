@@ -1,13 +1,13 @@
 {
     "_id": "QqC9xymSXSVunDgl",
     "img": "icons/creatures/abilities/tail-swipe-green.webp",
-    "name": "Effect: Tail Lash (Attack Roll)",
+    "name": "Effect: Tail Lash",
     "system": {
         "description": {
-            "value": "<p>The creature takes a -2 circumstance penalty to the triggering attack roll.</p>"
+            "value": "<p>The creature takes a -2 circumstance penalty to the triggering roll.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -23,7 +23,11 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "attack",
+                "removeAfterRoll": true,
+                "selector": [
+                    "attack-roll",
+                    "skill-check"
+                ],
                 "type": "circumstance",
                 "value": -2
             }
