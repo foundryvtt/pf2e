@@ -22,12 +22,15 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
-                "predicate": [
-                    "self:shield:equipped"
-                ],
+                "predicate": ["item:equipped"],
+                "property": "hardness",
                 "value": "@actor.level"
             }
         ],
