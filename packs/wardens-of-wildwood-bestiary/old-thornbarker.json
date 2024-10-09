@@ -364,16 +364,16 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "J7kW9TIAJMATmmuT": {
+                    "0": {
+                        "damage": "4d6+10",
+                        "damageType": "piercing"
+                    },
+                    "1": {
                         "category": "persistent",
                         "damage": "4",
                         "damageType": "piercing"
                     },
-                    "uvyaR1UBmYtt84cQ": {
-                        "damage": "4d6+10",
-                        "damageType": "piercing"
-                    },
-                    "yPLSTZliRrd4KlYG": {
+                    "2": {
                         "category": "splash",
                         "damage": "4",
                         "damageType": "poison"
@@ -493,10 +493,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "override",
                         "path": "system.attributes.flanking.flankable",
+                        "phase": "afterDerived",
                         "predicate": [
-                            {
-                                "not": "sycophantic-scamps"
-                            }
+                            "sycophantic-scamps"
                         ],
                         "value": false
                     }
@@ -566,7 +565,8 @@
                         "domain": "all",
                         "key": "RollOption",
                         "option": "sycophantic-scamps",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     }
                 ],
                 "slug": null,
