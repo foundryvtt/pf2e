@@ -16,17 +16,26 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
+            "license": "OGL",guild
             "remaster": false,
             "title": "Pathfinder #158: Sixty Feet Under"
         },
         "rules": [
             {
+                "domain": "all",
+                "key": "RollOption",
+                "option": "guildmasters-lead",
+                "toggleable": true,
+                "label": "PF2E.NPCAbility.FayatiAlummur.GuildmastersLead"
+            }
+            {
                 "category": "precision",
                 "diceNumber": 1,
                 "dieSize": "d6",
                 "key": "DamageDice",
-                "removeAfterRoll": "if-enabled",
+                "predicate": [
+                    "guildmasters-lead"
+                ],
                 "selector": "strike-damage"
             }
         ],
