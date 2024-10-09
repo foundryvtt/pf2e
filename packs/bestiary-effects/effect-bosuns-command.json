@@ -25,39 +25,28 @@
                 "choices": [
                     {
                         "label": "PF2E.AttackLabel",
-                        "value": "attack"
+                        "value": {
+                            "selector": "attack",
+                            "modifier": 2
+                        }
                     },
                     {
                         "label": "PF2E.Actor.Speed.Label",
-                        "value": "speed"
+                        "value": {
+                            "selector": "land-speed",
+                            "modifier": 10
+                        }
                     }
                 ],
                 "flag": "bosunsCommand",
                 "key": "ChoiceSet",
-                "prompt": "PF2E.SpecificRule.NPCAbility.Bosun.Command",
-                "rollOption": "bosuns-command"
+                "label": "PF2E.SpecificRule.Prompt.Benefit"
             },
             {
-                "hideIfDisabled": true,
                 "key": "FlatModifier",
-                "predicate": [
-                    "bosuns-command:attack"
-                ],
-                "selector": "attack",
-                "slug": "attack-bonus",
+                "selector": "{item|flags.pf2e.rulesSelections.bosunsCommand.selector}",
                 "type": "status",
-                "value": 2
-            },
-            {
-                "hideIfDisabled": true,
-                "key": "FlatModifier",
-                "predicate": [
-                    "bosuns-command:speed"
-                ],
-                "selector": "speed",
-                "slug": "speed-bonus",
-                "type": "status",
-                "value": 10
+                "value": "@item.flags.pf2e.rulesSelections.bosunsCommand.modifer"
             }
         ],
         "start": {
