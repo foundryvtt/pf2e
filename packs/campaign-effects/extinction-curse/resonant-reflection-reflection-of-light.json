@@ -1,0 +1,92 @@
+{
+    "_id": "MXATTT52FQc8MTZv",
+    "folder": "x1BXD0wU3Jn73wgS",
+    "img": "icons/magic/light/explosion-star-glow-orange.webp",
+    "name": "Resonant Reflection: Reflection of Light",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "deityboon",
+        "description": {
+            "value": "<p>Your eyes are imbued with an inner light that is not visible externally but that provides you with darkvision and the ability to distinguish color in darkness. You can also focus this inner light to manifest as a brilliant beam of energy from your eyes.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> envision</p>\n<p><strong>Frequency</strong> once per day</p>\n<hr />\n<p><strong>Effect</strong> You cast @UUID[Compendium.pf2e.spells-srd.Item.Holy Light] as an innate divine spell, heightened to a spell rank equal to half your level rounded up.</p>"
+        },
+        "level": {
+            "value": 10
+        },
+        "prerequisites": {
+            "value": []
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #153: Life's Long Shadows"
+        },
+        "rules": [
+            {
+                "acuity": "precise",
+                "key": "Sense",
+                "selector": "darkvision"
+            },
+            {
+                "key": "ActiveEffectLike",
+                "mode": "override",
+                "path": "flags.pf2e.colorDarkvision",
+                "value": true
+            },
+            {
+                "allowDuplicate": false,
+                "key": "GrantItem",
+                "predicate": [
+                    {
+                        "not": "resonant-reflection"
+                    }
+                ],
+                "reevaluateOnUpdate": true,
+                "uuid": "Compendium.pf2e.actionspf2e.Item.Activate Resonant Reflection"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:activate-resonant-reflection",
+                    "resonant:reflection-of-light"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "text": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Description",
+                        "title": "PF2E.SpecificRule.ResonantReflection.ReflectionOfLight.Title"
+                    }
+                ]
+            },
+            {
+                "alwaysActive": true,
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ResonantReflection.Label",
+                "mergeable": true,
+                "option": "resonant",
+                "placement": "actions",
+                "suboptions": [
+                    {
+                        "label": "{item|name}",
+                        "value": "reflection-of-light"
+                    }
+                ],
+                "toggleable": true
+            }
+        ],
+        "traits": {
+            "rarity": "common",
+            "value": [
+                "light",
+                "magical"
+            ]
+        }
+    },
+    "type": "feat"
+}

@@ -1,0 +1,52 @@
+{
+    "_id": "TQQN1nBvrnUfnx5y",
+    "img": "icons/commodities/bones/horn-antler-brown.webp",
+    "name": "Effect: Stag's Helm",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Stag's Helm]</p>\n<p>Your target is off-guard to the next ranged Strike you make this turn against them.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Kingmaker"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "stags-helm"
+            },
+            {
+                "key": "EphemeralEffect",
+                "predicate": [
+                    "target:mark:stags-helm"
+                ],
+                "selectors": [
+                    "ranged-strike-attack-roll",
+                    "ranged-strike-damage"
+                ],
+                "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

@@ -40,7 +40,14 @@ export default [
             "@typescript-eslint/no-namespace": ["error", { allowDeclarations: true }],
             "@typescript-eslint/no-non-null-assertion": "off",
             "@typescript-eslint/no-unsafe-declaration-merging": "off",
-            "@typescript-eslint/no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": [
+                "error",
+                {
+                    argsIgnorePattern: "^_",
+                    destructuredArrayIgnorePattern: "^_",
+                    varsIgnorePattern: "^_[A-Z]", // Use only with type parameters
+                },
+            ],
             "@typescript-eslint/array-type": ["error", { default: "array" }],
         },
     },

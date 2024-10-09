@@ -236,8 +236,9 @@ class RulerPF2e<TToken extends TokenPF2e | null = TokenPF2e | null> extends Rule
         return super._animateSegment(token, segment, destination);
     }
 
-    /** If measuring with a token, only broadcast during an encounter. */
+    /** If measuring with a token, broadcast if the token is not hidden and only during encounters. */
     protected override _broadcastMeasurement(): void {
+        if (this.token?.document.hidden) return;
         if (!this.dragMeasurement || game.activeTool === "ruler" || game.combat?.started) {
             return super._broadcastMeasurement();
         }
