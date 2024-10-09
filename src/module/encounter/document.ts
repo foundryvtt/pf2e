@@ -9,6 +9,7 @@ import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
+import { objectHasKey } from "@util";
 
 class EncounterPF2e extends Combat {
     /** Has this document completed `DataModel` initialization? */
@@ -212,14 +213,17 @@ class EncounterPF2e extends Combat {
         if (this.turn !== null) await this.update({ turn: this.turns.findIndex((c) => c.id === currentId) });
     }
 
-    override async setInitiative(id: string, value: number): Promise<void> {
+    override async setInitiative(id: string, value: number, statistic?: string): Promise<void> {
         const combatant = this.combatants.get(id, { strict: true });
         if (combatant.actor?.isOfType("character", "npc")) {
             return this.setMultipleInitiatives([
                 {
                     id: combatant.id,
                     value,
-                    statistic: combatant.actor.system.initiative.statistic || "perception",
+                    statistic:
+                        objectHasKey(CONFIG.PF2E.skills, statistic) || statistic === "perception"
+                            ? statistic
+                            : combatant.actor.system.initiative.statistic || "perception",
                 },
             ]);
         }
