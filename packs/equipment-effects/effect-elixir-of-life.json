@@ -1,0 +1,139 @@
+{
+    "_id": "lPRuIRbu0rHBkoKY",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+    "name": "Effect: Elixir of Life",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Minor)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (Major)], @UUID[Compendium.pf2e.equipment-srd.Item.Elixir of Life (True)]</p>\n<p>You gain an item bonus to saving throws against diseases and poisons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 10
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.MinorOrLesser",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-minor",
+                                    "parent:origin:item:slug:elixir-of-life-lesser",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-moderate",
+                                            "parent:origin:item:slug:elixir-of-life-greater",
+                                            "parent:origin:item:slug:elixir-of-life-major",
+                                            "parent:origin:item:slug:elixir-of-life-true"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.ModerateOrGreater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-moderate",
+                                    "parent:origin:item:slug:elixir-of-life-greater",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
+                                            "parent:origin:item:slug:elixir-of-life-major",
+                                            "parent:origin:item:slug:elixir-of-life-true"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.Major",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-major",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
+                                            "parent:origin:item:slug:elixir-of-life-moderate",
+                                            "parent:origin:item:slug:elixir-of-life-greater",
+                                            "parent:origin:item:slug:elixir-of-life-true"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.ElixirOfLife.True",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:elixir-of-life-true",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:elixir-of-life-minor",
+                                            "parent:origin:item:slug:elixir-of-life-lesser",
+                                            "parent:origin:item:slug:elixir-of-life-moderate",
+                                            "parent:origin:item:slug:elixir-of-life-greater",
+                                            "parent:origin:item:slug:elixir-of-life-major"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    {
+                        "or": [
+                            "item:trait:disease",
+                            "item:trait:poison"
+                        ]
+                    }
+                ],
+                "selector": "saving-throw",
+                "type": "item",
+                "value": "@item.flags.pf2e.rulesSelections.bonus"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
