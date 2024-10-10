@@ -7,7 +7,6 @@ import { isSpellConsumable } from "@item/consumable/spell-consumables.ts";
 import { EffectSource } from "@item/effect/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { onRepairChatCardEvent } from "@system/action-macros/crafting/repair.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import {
@@ -20,6 +19,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import { ChatMessagePF2e, CheckContextChatFlag } from "../index.ts";
 
 class ChatCards {

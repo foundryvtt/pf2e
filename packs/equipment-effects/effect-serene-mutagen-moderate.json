@@ -4,7 +4,7 @@
     "name": "Effect: Serene Mutagen (Moderate)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Serene Mutagen (Moderate)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+2 item bonus to Will saves</li>\n<li>+3 item bonus to Will saves against mental effects</li>\n<li>+2 item bonus to Perception checks</li>\n<li>+2 item bonus to Medicine, Nature, Religion and Survival checks</li>\n<li>-1 penalty to attack rolls</li>\n</ul>\n<p>Unimplemented effects:</p>\n<ul>\n<li>-1 penalty to save DCs of offensive spells</li>\n<li>-1 penalty per damage die to all weapon, unarmed attack and spell damage rolls</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Serene Mutagen (Moderate)]</p>\n<p>You gain a +2 bonus to Will saves and Perception, Medicine, Nature, Religion, and Survival checks. This bonus improves to +3 when you attempt Will saves against mental effects.</p>\n<p>You take a -1 penalty to attack rolls and save DCs of offensive spells, and a -1 penalty per damage die to all weapon and unarmed attack damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -31,23 +31,46 @@
                     "survival",
                     "will"
                 ],
+                "slug": "serene-mutagen-bonus",
                 "type": "item",
                 "value": 2
             },
             {
+                "key": "RollOption",
+                "label": "PF2E.Mutagens.SereneMutagen.PenaltyLabel",
+                "option": "serene-mutagen-dc-penalty",
+                "placement": "spellcasting",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "selector": "attack",
-                "type": "untyped",
+                "selector": "attack-roll",
+                "slug": "serene-mutagen-attack-penalty",
                 "value": -1
             },
             {
                 "key": "FlatModifier",
-                "label": "Serene Mutagen, Moderate(vs. mental)",
+                "selector": "strike-damage",
+                "slug": "serene-mutagen-strike-damage-penalty",
+                "value": "-@weapon.system.damage.dice"
+            },
+            {
+                "key": "FlatModifier",
                 "predicate": [
-                    "mental"
+                    "serene-mutagen-dc-penalty"
+                ],
+                "selector": "spell-dc",
+                "slug": "serene-mutagen-spell-dc-penalty",
+                "value": -1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    "item:trait:mental"
                 ],
                 "selector": "will",
-                "type": "item",
+                "slug": "serene-mutagen-bonus",
                 "value": 3
             }
         ],

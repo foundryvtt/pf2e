@@ -1,0 +1,112 @@
+{
+    "_id": "1FrAlPeNseApVrX3",
+    "img": "systems/pf2e/icons/effects/treat-poison.webp",
+    "name": "Effect: Treat Poison",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.actionspf2e.Item.Treat Poison]</p>\n<p>You gain a circumstance bonus or penalty to your next save against the poison.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Player Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:3",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:2",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalFailure",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:context:check:outcome:0",
+                                    {
+                                        "not": {
+                                            "gte": [
+                                                "parent:context:check:outcome",
+                                                0
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": -2
+                    }
+                ],
+                "flag": "bonus",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "removeAfterRoll": "if-enabled",
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": "{item|flags.pf2e.rulesSelections.bonus}"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}
