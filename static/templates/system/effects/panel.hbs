@@ -1,0 +1,38 @@
+<article id="effects-panel">
+    <div class="effects-list">
+        {{#each afflictions as |affliction|}}
+            {{> effect this=affliction}}
+        {{/each}}
+
+        {{#if (and afflictions.length conditions.length)}}<hr />{{/if}}
+
+        {{#each conditions as |condition|}}
+            {{> effect this=condition}}
+        {{/each}}
+
+        {{#if (and conditions.length effects.length)}}<hr />{{/if}}
+
+        {{#each effects as |effect|}}
+            {{> effect this=effect}}
+        {{/each}}
+    </div>
+</article>
+
+{{#*inline "effect"}}
+{{#if (or effect.isIdentified @root.user.isGM)}}
+    <div class="effect-item" data-item-id="{{effect.id}}" data-item-uuid="{{effect.uuid}}" data-badge-type="{{effect.badge.type}}">
+        <div class="icon{{#if effect.isAura}} aura{{/if}}{{#unless effect.isIdentified}} unidentified{{/unless}}" data-locked="{{#if effect.isLocked}}true{{/if}}" style="background-image: url({{effect.img}})">
+            {{#if effect.isLocked}}
+                <div class="linked"><i class="fa-solid fa-link"></i></div>
+            {{/if}}
+            {{#if effect.system.expired}}
+                <span class="expired">{{localize "PF2E.EffectPanel.Expired"}}</span>
+            {{else if effect.badge}}
+                <div class="value-wrapper">
+                    <div class="value"><strong>{{coalesce effect.badge.label effect.badge.value}}</strong></div>
+                </div>
+            {{/if}}
+        </div>
+    </div>
+{{/if}}
+{{/inline}}

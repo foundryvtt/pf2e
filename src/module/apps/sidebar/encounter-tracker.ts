@@ -1,7 +1,6 @@
 import { combatantAndTokenDoc } from "@module/doc-helpers.ts";
 import type { CombatantPF2e, EncounterPF2e, RolledCombatant } from "@module/encounter/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { TextEditorPF2e } from "@system/text-editor.ts";
 import {
     ErrorPF2e,
@@ -13,6 +12,7 @@ import {
     localizer,
     parseHTML,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import Sortable, { SortableEvent } from "sortablejs";
 
 export class EncounterTrackerPF2e<TEncounter extends EncounterPF2e | null> extends CombatTracker<TEncounter> {

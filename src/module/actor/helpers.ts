@@ -15,13 +15,13 @@ import {
 } from "@module/rules/helpers.ts";
 import type { RegionDocumentPF2e, ScenePF2e } from "@scene";
 import type { EnvironmentRegionBehavior } from "@scene/region-behavior/types.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { WeaponDamagePF2e } from "@system/damage/weapon.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { ErrorPF2e, getActionGlyph, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { AttackTraitHelpers } from "./creature/helpers.ts";
 import { DamageRollFunction } from "./data/base.ts";

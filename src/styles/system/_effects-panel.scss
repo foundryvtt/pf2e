@@ -2,7 +2,14 @@
     pointer-events: initial;
     position: absolute;
     top: 5px;
-    right: 0;
+    right: -5px;
+    bottom: 5px;
+
+    .effects-list {
+        scrollbar-gutter: stable;
+        overflow: auto;
+        height: 100%;
+    }
 
     .effect-item {
         display: flex;
@@ -29,85 +36,6 @@
             }
         }
 
-        &:hover {
-            .effect-info {
-                display: flex;
-                align-items: end;
-                flex-direction: column;
-            }
-        }
-
-        .effect-info {
-            background-color: rgba(0, 0, 0, 0.75);
-            color: var(--color-text-light-2);
-            display: none;
-            gap: 3px;
-            height: min-content;
-            margin-right: 0.5em;
-            max-width: 350px;
-            padding: 0.25em 0.5rem;
-
-            h1 {
-                @include p-reset;
-                border: none;
-                display: flex;
-                font-size: var(--font-size-14);
-                padding-top: 0.25em;
-                text-align: right;
-
-                a[data-action="send-to-chat"] i {
-                    font-size: var(--font-size-13);
-                    margin-left: 2px;
-                }
-            }
-
-            > a.inline-check {
-                font-size: var(--font-size-13);
-                font-weight: normal;
-                line-height: normal;
-                vertical-align: middle;
-            }
-
-            .tags {
-                justify-content: end;
-
-                .tag {
-                    margin-bottom: 0;
-
-                    & + .tag,
-                    &:first-child {
-                        margin-left: 3px;
-                        margin-right: -2px;
-                    }
-                }
-            }
-
-            .instructions,
-            .description {
-                font-size: var(--font-size-12);
-            }
-
-            .instructions {
-                display: flex;
-                flex-direction: column;
-                gap: 2px;
-                text-align: right;
-            }
-
-            .description {
-                background: rgba(black, 0.7);
-                max-height: 16em;
-                overflow-y: auto;
-                padding: 0 0.5em;
-                text-align: left;
-
-                a,
-                span[data-pf2-effect-area] {
-                    color: var(--color-text-dark-primary);
-                }
-            }
-        }
-
         > .icon {
             @include frame-silver;
             align-items: center;
@@ -121,7 +49,7 @@
             display: flex;
             justify-content: center;
             position: relative;
-            margin: 2px 0;
+            margin: 2px;
             height: 48px;
             width: 48px;
 
@@ -184,5 +112,84 @@
     > hr {
         margin-right: 0;
         width: 48px;
+    }
+}
+
+aside.effect-info {
+    background-color: rgba(0, 0, 0, 0.75);
+    color: var(--color-text-light-2);
+    gap: 3px;
+    height: min-content;
+    margin-right: 0.5em;
+    max-width: 350px;
+    padding: 0.25em 0.5rem;
+
+    // Allow tooltips spawned from this element to have a higher z-index
+    z-index: 9998;
+
+    .content {
+        display: flex;
+        align-items: end;
+        flex-direction: column;
+    }
+
+    h1 {
+        @include p-reset;
+        border: none;
+        display: flex;
+        font-size: var(--font-size-14);
+        padding-top: 0.25em;
+        text-align: right;
+
+        a[data-action="send-to-chat"] i {
+            font-size: var(--font-size-13);
+            margin-left: 2px;
+        }
+    }
+
+    > a.inline-check {
+        font-size: var(--font-size-13);
+        font-weight: normal;
+        line-height: normal;
+        vertical-align: middle;
+    }
+
+    .tags {
+        justify-content: end;
+
+        .tag {
+            margin-bottom: 0;
+
+            & + .tag,
+            &:first-child {
+                margin-left: 3px;
+                margin-right: -2px;
+            }
+        }
+    }
+
+    .instructions,
+    .description {
+        font-size: var(--font-size-12);
+    }
+
+    .instructions {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: right;
+    }
+
+    .description {
+        background: rgba(black, 0.7);
+        max-height: 16em;
+        overflow-y: auto;
+        padding: 0 0.5em;
+        text-align: left;
+
+        a,
+        span[data-pf2-effect-area] {
+            color: var(--color-text-dark-primary);
+        }
     }
 }

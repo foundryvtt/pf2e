@@ -16,7 +16,6 @@ import {
     getAdjustedValue,
     getAdjustment,
 } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import {
@@ -30,6 +29,7 @@ import {
     setHasElement,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { KingdomBuilder } from "./builder.ts";
