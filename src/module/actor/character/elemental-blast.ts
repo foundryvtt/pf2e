@@ -15,7 +15,6 @@ import {
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
 import { effectTraits } from "@scripts/config/traits.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
@@ -34,6 +33,7 @@ import { DEGREE_OF_SUCCESS } from "@system/degree-of-success.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, objectHasKey, signedInteger } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type {
     ArrayField,

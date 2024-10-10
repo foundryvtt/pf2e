@@ -43,7 +43,6 @@ interface EffectSystemData
         Omit<AbstractEffectSystemData, "level"> {
     expired: boolean;
     badge: EffectBadge | null;
-    remaining: string;
 }
 
 export type { EffectFlags, EffectSource, EffectSystemData };
