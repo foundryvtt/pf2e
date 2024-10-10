@@ -1,6 +1,6 @@
 import { AbilitySource, ClassSource, FeatSource, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { AELikeSource } from "@module/rules/rule-element/ae-like.ts";
-import { CraftingEntryRuleSource } from "@module/rules/rule-element/crafting-entry.ts";
+import { CraftingAbilityRuleSource } from "@module/rules/rule-element/crafting-ability.ts";
 import { NoteRESource } from "@module/rules/rule-element/roll-note.ts";
 import { MigrationBase } from "../base.ts";
 
@@ -154,7 +154,7 @@ export class Migration916NewPCToys extends MigrationBase {
             source.system.rules = rules;
         } else if (slug === "munitions-crafter") {
             const craftingRule = source.system.rules.find(
-                (r): r is CraftingEntryRuleSource => r.key === "CraftingEntry",
+                (r): r is CraftingAbilityRuleSource => r.key === "CraftingEntry",
             );
             if (craftingRule) {
                 craftingRule.batchSizes = {

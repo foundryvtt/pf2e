@@ -32,7 +32,6 @@ class CharacterCrafting {
         if (this.#formulas) return this.#formulas;
 
         const formulas = this.actor.system.crafting.formulas;
-        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
 
