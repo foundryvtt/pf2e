@@ -1,10 +1,10 @@
 {
     "_id": "1WqXbwhfT1f6OrPU",
-    "img": "icons/magic/fire/explosion-flame-blue.webp",
-    "name": "Effect: Thermal Nimbus (Cold)",
+    "img": "icons/magic/fire/barrier-wall-explosion-orange.webp",
+    "name": "Effect: Thermal Nimbus",
     "system": {
         "description": {
-            "value": ""
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Thermal Nimbus]</p>\n<p>You gain cold or fire resistance.</p>"
         },
         "duration": {
             "expiry": null,
@@ -23,7 +23,7 @@
         "rules": [
             {
                 "key": "Resistance",
-                "type": "cold",
+                "type": "{item|origin.flags.pf2e.kineticist.thermalNimbus}",
                 "value": "@item.level"
             },
             {
@@ -32,17 +32,8 @@
                     "junction:fire:resistance",
                     "self:effect:kinetic-aura"
                 ],
-                "type": "cold",
+                "type": "{item|origin.flags.pf2e.kineticist.thermalNimbus}",
                 "value": "@actor.level + @item.level"
-            },
-            {
-                "key": "ActiveEffectLike",
-                "mode": "override",
-                "path": "flags.pf2e.kineticist.thermalNimbus",
-                "predicate": [
-                    "self:signature:{item|origin.signature}"
-                ],
-                "value": "cold"
             }
         ],
         "start": {
