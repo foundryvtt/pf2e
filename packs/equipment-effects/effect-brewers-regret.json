@@ -4,7 +4,7 @@
     "name": "Effect: Brewer's Regret",
     "system": {
         "description": {
-            "value": "<p>For 1 hour after consumption, you gain a +2 item bonus to saves against death and void effects.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Brewer's Regret]</p>\n<p>You gain a +2 item bonus to saves against death and void effects.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,8 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "death",
-                            "void"
+                            "item:trait:death",
+                            "item:trait:void"
                         ]
                     }
                 ],
