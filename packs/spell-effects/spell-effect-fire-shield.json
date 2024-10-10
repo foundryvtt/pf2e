@@ -112,7 +112,7 @@
                 "domain": "all",
                 "key": "RollOption",
                 "label": "PF2E.SpecificRule.FireShield.DefendingAgainstWaterLabel",
-                "option": "water-trait",
+                "option": "fire-shield-against-water",
                 "toggleable": true
             },
             {
@@ -120,8 +120,9 @@
                 "mode": "multiply",
                 "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    "item:trait:water"
+                    "fire-shield-against-water"
                 ],
+                "priority": 60,
                 "value": 0.5
             },
             {
