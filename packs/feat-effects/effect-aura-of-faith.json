@@ -1,7 +1,7 @@
 {
     "_id": "VOOShYoB4gTopZtg",
     "img": "systems/pf2e/icons/spells/destructive-aura.webp",
-    "name": "Effect: Aura of Faith (Holy)",
+    "name": "Effect: Aura of Faith",
     "system": {
         "description": {
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Aura of Faith]</p>\n<p>You add the holy trait to your Strikes.</p>"
@@ -24,8 +24,20 @@
             {
                 "key": "AdjustStrike",
                 "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:holy"
+                ],
                 "property": "traits",
                 "value": "holy"
+            },
+            {
+                "key": "AdjustStrike",
+                "mode": "add",
+                "predicate": [
+                    "parent:origin:trait:unholy"
+                ],
+                "property": "traits",
+                "value": "unholy"
             }
         ],
         "start": {
