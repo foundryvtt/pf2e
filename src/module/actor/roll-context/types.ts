@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import type { StrikeData } from "@actor/data/base.ts";
 import type { ModifierPF2e } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import type { CheckContextChatFlag } from "@module/chat-message/data.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { CheckDC, DegreeOfSuccessString } from "@system/degree-of-success.ts";
@@ -75,7 +75,7 @@ interface RollContextData<
     options: Set<string>;
     origin: RollOrigin<TActor, TStatistic, TItem> | null;
     target: RollTarget | null;
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
 }
 
 interface CheckContextData<
@@ -102,7 +102,7 @@ interface BaseConstructorParams<
     /** Whether the request is for display in a sheet view. If so, targets are not considered */
     viewOnly?: boolean;
     /** Action traits associated with the roll */
-    traits?: ActionTrait[];
+    traits?: AbilityTrait[];
 }
 
 interface ConstructorParamsSelfIsOrigin<

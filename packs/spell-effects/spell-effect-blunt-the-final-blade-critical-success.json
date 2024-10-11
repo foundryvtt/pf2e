@@ -4,7 +4,7 @@
     "name": "Spell Effect: Blunt the Final Blade (Critical Success)",
     "system": {
         "description": {
-            "value": "<p>You gain a +2 status bonus to saves against death and fear effects for the next year.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Blunt the Final Blade]</p>\n<p>You gain a +2 status bonus to saves against death and fear effects.</p>"
         },
         "duration": {
             "expiry": "turn-end",
@@ -26,8 +26,8 @@
                 "predicate": [
                     {
                         "or": [
-                            "death",
-                            "fear"
+                            "item:trait:death",
+                            "item:trait:fear"
                         ]
                     }
                 ],

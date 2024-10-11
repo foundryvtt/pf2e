@@ -129,6 +129,7 @@
                 "Leaves": "Leaves",
                 "Leg": "Leg",
                 "LightningLash": "Lightning Lash",
+                "LittleClaw": "Little Claw",
                 "Mandibles": "Mandibles",
                 "MetalShard": "Metal Shard",
                 "Moonbeam": "Moonbeam",
@@ -139,6 +140,7 @@
                 "Quill": "Quill",
                 "Rock": "Rock",
                 "Root": "Root",
+                "SacredArmament": "Sacred Armament",
                 "Seed": "Seed",
                 "Spikes": "Spikes",
                 "Spine": "Spine",
@@ -235,7 +237,7 @@
                 },
                 "Moderate": {
                     "criticalSuccess": "<strong>Effect</strong> The bomb also deals @Damage[(2*2)[persistent,fire]] and @Damage[(2[splash])[fire]]{2 fire splash damage}.",
-                    "success": "<strong>Effect</strong> The bomb also deals @Damage[2[persistent,fire]] and @Damage[(2[splash])[fire]][fire]]]{2 fire splash damage}."
+                    "success": "<strong>Effect</strong> The bomb also deals @Damage[2[persistent,fire]] and @Damage[(2[splash])[fire]]{2 fire splash damage}."
                 }
             },
             "BioluminescenceBomb": {
@@ -667,6 +669,7 @@
                 "ColdIronBludgeoning": "cold iron bludgeoning",
                 "CrystalHazards": "crystal hazards",
                 "DraconicBreathWeapons": "draconic breath weapons",
+                "EnemyStrikes": "enemy Strikes",
                 "HolyBludgeoningPiercingSlashing": "holy bludgeoning, piercing and slashing damage",
                 "ImpulseFireFrom": "impulse fire from {origin}",
                 "IngestedPoisons": "ingested poisons",
@@ -692,6 +695,9 @@
             "SanguineMutagen": {
                 "DamageNote": "Whenever you take piercing or slashing damage, you take @Damage[1d6[bleed]].",
                 "VariantSaveLabel": "{item} vs Disease, Poison, Fatigue"
+            },
+            "SereneMutagen": {
+                "PenaltyLabel": "Serene Mutagen — Casting an offensive spell."
             }
         },
         "NPCAbility": {
@@ -1629,7 +1635,7 @@
             "BaseSpeed": "Base Speed",
             "BattleForm": "Battle Form",
             "ChoiceSet": "Choice Set",
-            "CraftingEntry": "Crafting Entry",
+            "CraftingAbility": "Crafting Ability",
             "CreatureSize": "Creature Size",
             "CriticalSpecialization": "Critical Specialization",
             "DamageAlteration": "Damage Alteration",
@@ -1940,6 +1946,9 @@
                     },
                     "Prompt": "Select a research field.",
                     "Toxicologist": {
+                        "FieldBenefit": {
+                            "RollOptionLabel": "Toxicologist — Field Benefit"
+                        },
                         "FieldVials": {
                             "Description": "You can apply the contents of a versatile vial to a weapon or piece of ammunition as an injury poison. Add the versatile vial's initial damage to the first successful Strike with that weapon or ammunition. The substance becomes inert at the end of your current turn."
                         }
@@ -2117,6 +2126,11 @@
                     "WebNote": "<p>The spider's web attack deals no damage, but the target takes a –10-foot circumstance penalty to its Speeds for 1 round on a hit.</p><p>@UUID[Compendium.pf2e.feat-effects.Item.tCMVyxQhzYCjBQtK]</p><p>If a target is hit a second time by the same character's web attack while they have this penalty, they're instead @UUID[Compendium.pf2e.conditionitems.Item.eIcWbB5o3pP6OIMe]{Immobilized} until they succeed at a check to @UUID[Compendium.pf2e.actionspf2e.Item.SkZAQRkLLkmBQNB9]{Escape} against your class DC.</p>",
                     "Wolf": "Wolf"
                 },
+                "ComeAndGetMe": {
+                    "IncomingDamage": "If a creature hits you, that creature is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to you until the end of your next turn.",
+                    "Name": "Come and Get Me",
+                    "TemporaryHitPoints": "When you strike a creature who hit you in the last round, you gain temporary Hit Points equal to your Constitution modifier, or double that on a critical hit. These temporary Hit Points last until the end of your rage. @UUID[Compendium.pf2e.feat-effects.Item.CYmipBeliNuymENB]{Effect: Come and Get Me (Temporary Hit Points)}"
+                },
                 "Decay": {
                     "ToggleLabel": "Rotting Rage"
                 },
@@ -2150,6 +2164,21 @@
                     "ToggleLabel": "Spirit Rage"
                 },
                 "Superstition": {
+                    "RagingResistance": {
+                        "Prompt": "Select associated magical traditions.",
+                        "ResistanceLabels": {
+                            "ArcaneAndOccult": "Arcane and Occult spells",
+                            "ArcaneAndPrimal": "Arcane and Primal spells",
+                            "DivineAndOccult": "Divine and Occult spells",
+                            "DivineAndPrimal": "Divine and Primal spells"
+                        },
+                        "Traditions": {
+                            "ArcaneAndOccult": "Arcane and Occult",
+                            "ArcaneAndPrimal": "Arcane and Primal",
+                            "DivineAndOccult": "Divine and Occult",
+                            "DivineAndPrimal": "Divine and Primal"
+                        }
+                    },
                     "TargetingCaster": "Witnessed target casting a spell"
                 }
             },
@@ -2339,6 +2368,9 @@
                     "Toggle": "First Strike against an unholy creature this round"
                 },
                 "BladeAllyRune": "Select a property rune for your blade ally.",
+                "BlessedSwiftness": {
+                    "RollOptionLabel": "Defending against a reaction triggered by your movement"
+                },
                 "DivineSmite": {
                     "Label": "Divine Smite"
                 },
@@ -2353,7 +2385,8 @@
                     "Redemption": "If the enemy refuses, you can choose to grant the resistance to yourself and all allies in your champion's aura, including the triggering ally. If you do, the resistance is reduced by 2 for all @UUID[Compendium.pf2e.feat-effects.Item.GFLiTESBmoyQ3sLx]{Effect: Exalted Reaction (Redemption)}"
                 },
                 "GreaterSecurity": {
-                    "Description": "While the companion shield is in effect, if your shield is raised, the ally with the companion shield gets the same bonus to AC your shield grants, and you can trigger Shield Block if that ally would meet the trigger. This uses your shield's statistics and applies damage to your shield."
+                    "Description": "While the companion shield is in effect, if your shield is raised, the ally with the companion shield gets the same bonus to AC your shield grants, and you can trigger Shield Block if that ally would meet the trigger. This uses your shield's statistics and applies damage to your shield.",
+                    "RollOptionLabel": "Greater Security — Champion has their shield raised"
                 },
                 "GruesomeStrike": {
                     "Note": "The target must succeed at a @Check[fortitude|against:class] save against your class DC or be @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1}."
@@ -2463,6 +2496,38 @@
                         "PartThree": "At 5th level, in addition to adding two 3rd-level spells to your repertoire, you lose your lowest level of spell slots. Any time you lose a level of spell slots, you lose two spells in your repertoire as well. These can come from spells you already know or out of the number of new spells you're learning. On levels in which you don't change your spell slots, you can swap out multiple spells, as described below.",
                         "SpellSwapping": "As you gain new spells in your repertoire, you might want to replace some of the spells you previously learned. Each time you gain a level and learn new spells, you can swap out one of your old spells for a different spell of the same level. If it's a level at which you lose a set of lower-level slots, you can replace the two in either order. You can also instead swap a cantrip. You can also swap out spells by retraining during downtime."
                     }
+                },
+                "WeaponExpertise": {
+                    "champion": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
+                    },
+                    "investigator": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
+                    },
+                    "druid": {
+                        "Description": "You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increases to expert."
+                    },
+                    "kineticist": {
+                        "Description": "You've improved your combat skill. Your proficiency rank for simple weapons and unarmed attacks increase to expert."
+                    },
+                    "magus": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
+                    },
+                    "oracle": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert."
+                    },
+                    "sorcerer": {
+                        "Description": "You've improved your combat skill. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
+                    },
+                    "swashbuckler": {
+                        "Description": "You've dedicated yourself to learning the intricacies of your weapons. Your proficiency ranks for simple weapons, martial weapons, and unarmed attacks increase to expert. You gain access to the critical specialization effects of all weapons for which you have expert proficiency."
+                    },
+                    "witch": {
+                        "Description": "Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
+                    },
+                    "wizard": {
+                        "Description": "Through sheer experience, you've improved your technique with your weapons. Your proficiency ranks for simple weapons and unarmed attacks increase to expert."
+                    }
                 }
             },
             "Cleric": {
@@ -2552,7 +2617,7 @@
                 "Tactics": "An ally with Convergent Tactics is within reach of the target."
             },
             "CorrosiveBody": {
-                "Note": "The first time each round that you deal acid damage to a creature in this way, you gain [[/r 3d6 #Temporary Hit Points]]{3d6 temporary Hit Points}",
+                "Note": "The first time each round that you deal acid damage to a creature in this way, you gain temporary Hit Points. @UUID[Compendium.pf2e.spell-effects.Item.IUxQCyO3EXSkId5F]{Spell Effect: Corrosive Body (Temp HP)}",
                 "Note9th": "The first time each round that you deal acid damage to a creature in this way, you gain [[/r 5d6 #Temporary Hit Points]]{5d6 temporary Hit Points}"
             },
             "Cover": {
@@ -2825,6 +2890,9 @@
                     "Note": "When in a forest or jungle environment, if you roll a critical failure on a Survival skill check to Sense Direction, Subsist, or Cover Tracks, you get a failure instead, and if you roll a success, you get a critical success instead."
                 }
             },
+            "EnvenomCompanion": {
+                "DamageNote": "A creature that is damaged by this poison must attempt a @Check[fortitude|traits:poison] save. On a failure, it's also @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 1} for 1 round."
+            },
             "Equipment": {
                 "AlchemistGoggles": {
                     "RollOptionLabel": "Failed Strike with an alchemical bomb"
@@ -2907,6 +2975,9 @@
                     "GreaterNote": "If you critically succeed at your Survival check to Subsist, you can feed four times as many additional creatures.",
                     "Note": "If you critically succeed at your Survival check to Subsist, you can feed twice as many additional creatures."
                 },
+                "DazzlingRosary": {
+                    "Note": "The target is @UUID[Compendium.pf2e.conditionitems.Item.TkIyaNPgTZFBCCuh]{Dazzled} until the beginning of your next turn."
+                },
                 "DeckOfDestiny": {
                     "MatchingSuitPrompt": "Is the drawn card's suit related the check?",
                     "WealOrWoePrompt": "Select Weal or Woe."
@@ -2951,6 +3022,11 @@
                     "SkepticalLabel": "Skeptical",
                     "TitanicLabel": "Titanic",
                     "WyrmhideLabel": "Wyrmhide"
+                },
+                "HealersGel": {
+                    "Greater": "Greater Healer's Gel",
+                    "Lesser": "Lesser Healer's Gel",
+                    "Moderate": "Moderate Healer's Gel"
                 },
                 "HolyWater": {
                     "Note": "Can damage only creatures with the unholy trait."
@@ -3003,8 +3079,14 @@
                 "TacticiansHelm": {
                     "ReactiveStrikeNote": "On a successful @UUID[Compendium.pf2e.actionspf2e.Item.KAVf7AmRnbCAHrkT]{Reactive Strike}, add one charge: @UUID[Compendium.pf2e.equipment-effects.Item.nLwtvyLZZTZgFmKq]{Effect: Tactician's Helm Charges}"
                 },
+                "UnholyPlate": {
+                    "Note": "On a critical hit with the horns, the target must succeed at a @Check[fortitude|dc:30] or become @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 1} (or @UUID[Compendium.pf2e.conditionitems.Item.4D2KBtexWXa6oUMR]{Drained 2} on a critical failure)."
+                },
                 "UnholyWater": {
                     "Note": "Can damage only creatures with the holy trait."
+                },
+                "WemmuthTrinket": {
+                    "Description": "Creatures who fail or critically fail their Reflex saves also take @Damage[(@item.rank)[piercing]]."
                 },
                 "ZuhrasGloves": {
                     "WallOfMetalLabel": "Wall of Metal is Active"
@@ -3170,6 +3252,9 @@
             },
             "FollowTheExpert": {
                 "Prompt": "Select expert's proficiency in skill."
+            },
+            "FrenziedRevelry": {
+                "Note": "Whenever someone benefitting from this bonus critically succeeds at a saving throw against an enemy's mental effect, its revelry increases, granting it a +1 status bonus to attack rolls and damage rolls for 1 round. @UUID[Compendium.pf2e.spell-effects.Item.ldl1aU5ovTQMUHJ2]{Spell Effect: Frenzied Revelry (Critical)}"
             },
             "GameHunterDedication": {
                 "TargetHuntedPrey": "Target is your Hunted Prey (Animal, Beast, or Dragon Only)"
@@ -3381,6 +3466,10 @@
                     "MagmaSpikeCriticalSpecialization": "Instead of the normal critical specialization effect, the target takes @Damage[1d6[persistent,fire]] damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks."
                 }
             },
+            "ImpeccableFlow": {
+                "RollOptionLabel": "Impeccable Flow — You critically failed any check.",
+                "Note": "If you critically fail any check while under the effects of this spell, the bonus ends and you instead have a -1 status penalty to all checks for the remaining duration."
+            },
             "InCombat": {
                 "ToggleLabel": "In Combat"
             },
@@ -3463,6 +3552,9 @@
                 "CertainStratagem": {
                     "Note": "You deal half of your @Damage[(floor((@actor.level+3)/4)d6[precision])[@item.system.damage.damageType]|traits:certain-stratagem]{Strategic Strike damage} to the target"
                 },
+                "DetectivesReadiness": {
+                    "ClueInAddendum": "You can use Clue In to assist an ally's saving throw against creatures or effects that are related to the question at the heart of an open investigation."
+                },
                 "DeviseAStratagem": {
                     "Attack": "Attack Stratagem",
                     "Defensive": "Defensive Stratagem",
@@ -3472,7 +3564,7 @@
                     "Prompt": "Select a methodology."
                 },
                 "PursueALead": {
-                    "Label": "Investigating a designated subject with Pursue a Lead"
+                    "Label": "Pursue a Lead — Investigation Bonus"
                 },
                 "SharedStratagem": {
                     "Note": "The creature you hit is @UUID[Compendium.pf2e.conditionitems.Item.AJh5ex99aV6VTggg]{Off-Guard} to a designated ally on the next attack the ally makes against the creature before the start of your next turn."
@@ -3934,7 +4026,7 @@
                 },
                 "RevelInRetribution": {
                     "Label": "Revel in Retribution",
-                    "Note": "Lashing out at a defenseless enemy invigorates you with the thrill of combat, granting you temporary Hit Points whenever you successfully hit with a Reactive Strike. The temporary Hit Points last for the spell's duration. @UUID[Compendium.pf2e.spell-effects.Item.rnkQKEwUxrGruE1e]{Effect: Revel in Retribution (Temp HP)}",
+                    "Note": "Lashing out at a defenseless enemy invigorates you with the thrill of combat, granting you temporary Hit Points whenever you successfully hit with a Reactive Strike. The temporary Hit Points last for the spell's duration. @UUID[Compendium.pf2e.spell-effects.Item.rnkQKEwUxrGruE1e]{Spell Effect: Revel in Retribution (Temp HP)}",
                     "RollOptionLabel": "Using Reactive Strike"
                 }
             },
@@ -3957,6 +4049,11 @@
                     "Unknown": "The Unknown"
                 }
             },
+            "Organsight": {
+                "Organs": "Organsight (Organs)",
+                "Skin": "Organsight (Skin)",
+                "Success": "Organsight — Successful Medicine Check"
+            },
             "OverwhelmingBlow": {
                 "CriticalHit": "Critically hit with Overwhelming Blow"
             },
@@ -3966,6 +4063,7 @@
             "PathfinderAgentDedication": {
                 "ThoroughReports": "Thorough Reports"
             },
+            "PlayingItem": "Playing {item}",
             "Poppet": {
                 "Tsukumogami": {
                     "Ceramic": "Ceramic",
@@ -4000,6 +4098,7 @@
                 "DragonBreathWeapon": "Select a dragon's breath weapon.",
                 "Element": "Select an element.",
                 "EnergyType": "Select an energy type.",
+                "EquipmentVariety": "Select an item variety.",
                 "EvolutionFeat": "Select a first evolution feat.",
                 "Feat": "Select a feat.",
                 "Feature": "Select a feature.",
@@ -4134,7 +4233,8 @@
                     "ShatterSpace": "You or one target of the spell are surrounded by a spiral of torn space. This is an aura, and you choose the radius of the emanation, up to 20 feet. A creature that starts its turn in the aura or enters the aura during its turn takes @Damage[(@item.level)d6[slashing]] damage, with a basic Reflex save against your spell DC. If the creature critically fails, the torn space throws it off balance and it falls @UUID[Compendium.pf2e.conditionitems.Item.j91X7x0XSomq8d60]{Prone}. The aura lasts until the beginning of your next turn. You can choose whether the aura affects the creature emitting it.",
                     "Shield": {
                         "Base": "You create a layered barrier of three shields to improve your defenses. The duration increases to sustained up to 1 minute. The shield still lowers at the start of each of your turns, but you can raise it again when you Sustain the Spell.",
-                        "BaseTwo": "When you Shield Block with this spell, one of the three layers breaks and you cease to gain the bonus to AC, but the spell doesn't end. You can keep using the spell until the final layer breaks; once it does, the spell ends and you can't cast shield or amped shield again for 10 minutes. You can choose to break additional layers when you Shield Block with this spell to improve your defenses. If you break two layers instead of one, increase the Hardness to 1-1/2 × the normal amount (7 at 1st rank, 15 at 3rd rank, 22 at 5th rank, 30 at 7th rank, and 37 at 9th rank). If you break all three layers, increase the Hardness to double the normal amount."
+                        "BaseTwo": "When you Shield Block with this spell, one of the three layers breaks and you cease to gain the bonus to AC, but the spell doesn't end. You can keep using the spell until the final layer breaks; once it does, the spell ends and you can't cast shield or amped shield again for 10 minutes. You can choose to break additional layers when you Shield Block with this spell to improve your defenses. If you break two layers instead of one, increase the Hardness to 1-1/2 × the normal amount (7 at 1st rank, 15 at 3rd rank, 22 at 5th rank, 30 at 7th rank, and 37 at 9th rank). If you break all three layers, increase the Hardness to double the normal amount.",
+                        "RollOptionLabel": "Shield (Amped) — Break layers to Shield Block"
                     },
                     "TargetOfPsychicIre": "Choose one target of the spell. Psychic phenomena turn themselves on the target—typically, objects fling themselves at the creature. At the beginning of each of the target's turns, it takes @Damage[(@item.level)d4[bludgeoning]] damage, with a basic Reflex save. The target remains marked by psychic ire for 3 rounds. The effect persists even if you fall @UUID[Compendium.pf2e.conditionitems.Item.fBnFDH2MTzgFijKf]{Unconscious} or leave the area.",
                     "TelekineticHand": {
@@ -4217,6 +4317,9 @@
                     "FirstAttack": "First attack on hunted prey this round",
                     "Prompt": "Select a hunter's edge."
                 }
+            },
+            "RapidAdaptation": {
+                "Prompt": "Does this character already have a swim speed?"
             },
             "Ratfolk": {
                 "LabRat": {
@@ -5113,6 +5216,11 @@
                 },
                 "YouDontSmellRight": {
                     "Label": "Seek to determine if a creature is disguised."
+                }
+            },
+            "WingedWarrior": {
+                "Dedication": {
+                    "RollOptionLabel": "Flying using permanent wings"
                 }
             },
             "Witch": {

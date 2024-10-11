@@ -10,7 +10,6 @@ import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { RollNotePF2e } from "@module/notes.ts";
 import { TokenDocumentPF2e, type ScenePF2e } from "@scene";
 import { treatWoundsMacroCallback } from "@scripts/macros/treat-wounds.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { StatisticDifficultyClass } from "@system/statistic/index.ts";
 import {
     ErrorPF2e,
@@ -23,6 +22,7 @@ import {
     sluggify,
     traitSlugToObject,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type { Die } from "types/foundry/client-esm/dice/terms/die.d.ts";
 import {
@@ -245,8 +245,8 @@ class CheckPF2e {
         const item = context.item ?? null;
 
         const targeting = !!context.origin?.self;
-        const self = targeting ? context.origin ?? null : context.target ?? null;
-        const opposer = targeting ? context.target ?? null : context.origin ?? null;
+        const self = targeting ? (context.origin ?? null) : (context.target ?? null);
+        const opposer = targeting ? (context.target ?? null) : (context.origin ?? null);
 
         const flavor = await (async (): Promise<string> => {
             const result = await this.#createResultFlavor({ degree, self, opposer, targeting });
@@ -318,7 +318,7 @@ class CheckPF2e {
 
         if (callback) {
             const msg = message instanceof ChatMessagePF2e ? message : new ChatMessagePF2e(message);
-            const evt = !!event && event instanceof Event ? event : event?.originalEvent ?? null;
+            const evt = !!event && event instanceof Event ? event : (event?.originalEvent ?? null);
             await callback(roll, context.outcome, msg, evt);
         }
 
@@ -643,7 +643,7 @@ class CheckPF2e {
         const dc = degree.dc;
         const needsDCParam = !!dc.label && Number.isInteger(dc.value) && !dc.label.includes("{dc}");
         const customLabel =
-            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : dc.label ?? null;
+            needsDCParam && dc.label ? `<dc>${game.i18n.localize(dc.label)}: {dc}</dc>` : (dc.label ?? null);
 
         const opposingActor = await (async (): Promise<ActorPF2e | null> => {
             if (!opposer?.actor) return null;
@@ -688,7 +688,7 @@ class CheckPF2e {
             const dcSlug = ((): string | null => {
                 const fromParams =
                     dc.slug ?? (dc.statistic instanceof StatisticDifficultyClass ? dc.statistic.parent.slug : null);
-                return fromParams === "ac" ? "armor" : fromParams?.replace(/-dc$/, "") ?? null;
+                return fromParams === "ac" ? "armor" : (fromParams?.replace(/-dc$/, "") ?? null);
             })();
             const dcType = game.i18n.localize(
                 dc.label?.trim() ||
@@ -705,7 +705,7 @@ class CheckPF2e {
             const preadjustedDC =
                 circumstances.length > 0 && dc.statistic
                     ? dc.value - circumstances.reduce((total, c) => total + c.modifier, 0)
-                    : dc.value ?? null;
+                    : (dc.value ?? null);
 
             const visible = opposingActor?.hasPlayerOwner || dc.visible || game.pf2e.settings.metagame.dcs;
 
@@ -715,7 +715,7 @@ class CheckPF2e {
                         ? targeting
                             ? checkDCs.Label.WithTarget
                             : checkDCs.Label.WithOrigin
-                        : customLabel ?? checkDCs.Label.NoTarget,
+                        : (customLabel ?? checkDCs.Label.NoTarget),
                 );
                 const markup = game.i18n.format(labelKey, { dcType, dc: dc.value, opposer: opposerData?.name ?? null });
 

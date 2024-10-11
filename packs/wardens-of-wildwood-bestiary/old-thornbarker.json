@@ -46,10 +46,8 @@
         },
         {
             "_id": "OpXEq1RYtDfa75DT",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.JbAcSLu62TU1OgNF"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.JbAcSLu62TU1OgNF"
             },
             "img": "icons/magic/nature/root-vine-hand-strike.webp",
             "name": "Tangling Creepers",
@@ -114,10 +112,8 @@
         },
         {
             "_id": "1VZg8BVuvg7BFe9c",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.gPvtmKMRpg9I9D7H"
             },
             "img": "icons/magic/earth/barrier-stone-explosion-debris.webp",
             "name": "Earthbind (At Will)",
@@ -183,10 +179,8 @@
         },
         {
             "_id": "SUB1OncT9SQ2DofD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.qvwIwJ9QBihy8R0t"
             },
             "img": "icons/magic/nature/plant-poison-spit-green.webp",
             "name": "Speak with Plants (Constant)",
@@ -249,10 +243,8 @@
         },
         {
             "_id": "oDu6TBJj3ZqEHwTo",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Item.J6vNvrUT3b1hx2iA"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.spells-srd.Item.J6vNvrUT3b1hx2iA"
             },
             "img": "icons/magic/nature/root-vines-grow-brown.webp",
             "name": "Entangling Flora",
@@ -372,16 +364,16 @@
                     "value": 22
                 },
                 "damageRolls": {
-                    "J7kW9TIAJMATmmuT": {
+                    "0": {
+                        "damage": "4d6+10",
+                        "damageType": "piercing"
+                    },
+                    "1": {
                         "category": "persistent",
                         "damage": "4",
                         "damageType": "piercing"
                     },
-                    "uvyaR1UBmYtt84cQ": {
-                        "damage": "4d6+10",
-                        "damageType": "piercing"
-                    },
-                    "yPLSTZliRrd4KlYG": {
+                    "2": {
                         "category": "splash",
                         "damage": "4",
                         "damageType": "poison"
@@ -408,10 +400,8 @@
         },
         {
             "_id": "P6lMDdeaBGEoO8lA",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.j2wsK6IsW5yMW1jW"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tremorsense",
@@ -443,10 +433,8 @@
         },
         {
             "_id": "BI9PPwdfEfP8sJv5",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.kakyXBG5WA8c6Zfd"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Constant Spells",
@@ -478,10 +466,8 @@
         },
         {
             "_id": "EjeVDVSRojqop5bD",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.9qV49KjZujZnSp6w"
             },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "All-Around Vision",
@@ -507,10 +493,9 @@
                         "key": "ActiveEffectLike",
                         "mode": "override",
                         "path": "system.attributes.flanking.flankable",
+                        "phase": "afterDerived",
                         "predicate": [
-                            {
-                                "not": "sycophantic-scamps"
-                            }
+                            "sycophantic-scamps"
                         ],
                         "value": false
                     }
@@ -580,7 +565,8 @@
                         "domain": "all",
                         "key": "RollOption",
                         "option": "sycophantic-scamps",
-                        "toggleable": true
+                        "toggleable": true,
+                        "value": true
                     }
                 ],
                 "slug": null,
@@ -628,10 +614,8 @@
         },
         {
             "_id": "EXdI3guudVr8XFFO",
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.LbnsT8yXchHMQT3t"
-                }
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.LbnsT8yXchHMQT3t"
             },
             "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Improved Knockdown",

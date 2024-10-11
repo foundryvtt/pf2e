@@ -4,7 +4,7 @@
     "name": "Spell Effect: Draw Ire",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</p>\n<p>The target takes a -1 status penalty to attack rolls. On a critical failure the penalty is -2.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw Ire]</p>\n<p>The target takes a -1 status penalty to attack rolls against creatures other than you. On a critical failure the penalty is -2.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -37,19 +37,15 @@
                 "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess"
             },
             {
-                "key": "RollOption",
-                "option": "spell-effect:{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
-            },
-            {
                 "key": "FlatModifier",
                 "predicate": [
                     {
-                        "not": "target:drawIre"
+                        "not": "target:signature:{item|origin.signature}"
                     }
                 ],
                 "selector": "attack",
                 "type": "status",
-                "value": "{item|flags.pf2e.rulesSelections.degreeOfSuccess}"
+                "value": "@item.flags.pf2e.rulesSelections.degreeOfSuccess"
             }
         ],
         "start": {

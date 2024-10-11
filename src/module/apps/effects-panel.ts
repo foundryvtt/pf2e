@@ -1,10 +1,9 @@
 import type { ActorPF2e } from "@actor";
-import type { AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
-import { AbstractEffectPF2e } from "@item";
-import type { EffectExpiryType } from "@item/abstract-effect/index.ts";
+import { AbstractEffectPF2e, AfflictionPF2e, ConditionPF2e, EffectPF2e } from "@item";
 import { PersistentDialog } from "@item/condition/persistent-damage-dialog.ts";
 import type { TokenDocumentPF2e } from "@scene/token-document/document.ts";
-import { htmlQuery, htmlQueryAll } from "@util";
+import { createHTMLElement, ErrorPF2e, htmlQuery, htmlQueryAll } from "@util";
+import { createTooltipListener } from "@util/sheet.ts";
 
 export class EffectsPanel extends Application {
     private get token(): TokenDocumentPF2e | null {
@@ -19,70 +18,36 @@ export class EffectsPanel extends Application {
      * Debounce and slightly delayed request to re-render this panel. Necessary for situations where it is not possible
      * to properly wait for promises to resolve before refreshing the UI.
      */
-    refresh = fu.debounce(this.render, 100);
+    refresh = fu.debounce(this.render.bind(this), 100);
 
     static override get defaultOptions(): ApplicationOptions {
         return {
             ...super.defaultOptions,
             id: "pf2e-effects-panel",
             popOut: false,
-            template: "systems/pf2e/templates/system/effects-panel.hbs",
+            template: "systems/pf2e/templates/system/effects/panel.hbs",
+            // foundry does not let scrollY be the root component, so we wrap it
+            scrollY: [".effects-list"],
         };
     }
 
-    override async getData(options?: ApplicationOptions): Promise<EffectsPanelData> {
+    override async getData(options?: ApplicationOptions): Promise<EffectsPanelViewData> {
         const { actor } = this;
         if (!actor || !game.user.settings.showEffectPanel) {
             return {
                 afflictions: [],
                 conditions: [],
                 effects: [],
-                descriptions: { afflictions: [], conditions: [], effects: [] },
                 actor: null,
                 user: { isGM: false },
             };
         }
 
-        const effects =
-            actor.itemTypes.effect.map((effect) => {
-                const duration = effect.totalDuration;
-                const { system } = effect;
-                if (duration === Infinity) {
-                    if (system.duration.unit === "encounter") {
-                        system.remaining = system.expired
-                            ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                            : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
-                    } else {
-                        system.remaining = game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
-                    }
-                } else {
-                    const duration = effect.remainingDuration;
-                    system.remaining = system.expired
-                        ? game.i18n.localize("PF2E.EffectPanel.Expired")
-                        : this.#getRemainingDurationLabel(
-                              duration.remaining,
-                              system.start.initiative ?? 0,
-                              system.duration.expiry,
-                          );
-                }
-                return effect;
-            }) ?? [];
-
-        const conditions = actor.conditions.active;
-        const afflictions = actor.itemTypes.affliction ?? [];
-
-        const descriptions = {
-            afflictions: await this.#getEnrichedDescriptions(afflictions),
-            conditions: await this.#getEnrichedDescriptions(conditions),
-            effects: await this.#getEnrichedDescriptions(effects),
-        };
-
         return {
             ...(await super.getData(options)),
-            afflictions,
-            conditions,
-            descriptions,
-            effects,
+            afflictions: await this.#getViewData(actor.itemTypes.affliction ?? []),
+            conditions: await this.#getViewData(actor.conditions.active),
+            effects: await this.#getViewData(actor.itemTypes.effect),
             actor,
             user: { isGM: game.user.isGM },
         };
@@ -93,14 +58,14 @@ export class EffectsPanel extends Application {
         const html = $html[0];
 
         for (const effectEl of htmlQueryAll(html, ".effect-item[data-item-id]")) {
-            const { actor } = this;
+            const actor = this.actor;
             const itemId = effectEl.dataset.itemId ?? "";
             const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
-            if (!actor || !effect) continue;
-
             const iconElem = effectEl.querySelector(":scope > .icon");
+            if (!actor || !effect || !iconElem) continue;
+
             // Increase or render persistent-damage dialog on left click
-            iconElem?.addEventListener("click", async () => {
+            iconElem.addEventListener("click", async () => {
                 if (actor && effect.isOfType("condition") && effect.slug === "persistent-damage") {
                     await effect.onEndTurn({ token: this.token });
                 } else if (effect instanceof AbstractEffectPF2e) {
@@ -109,32 +74,13 @@ export class EffectsPanel extends Application {
             });
 
             // Remove effect or decrease its badge value on right-click
-            iconElem?.addEventListener("contextmenu", async () => {
+            iconElem.addEventListener("contextmenu", async () => {
                 if (effect instanceof AbstractEffectPF2e) {
                     await effect.decrease();
                 } else {
                     // Failover in case of a stale effect
                     this.refresh();
                 }
-            });
-
-            effectEl.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
-                if (effect.isOfType("condition")) {
-                    effect.rollRecovery();
-                }
-            });
-
-            effectEl.querySelector("[data-action=edit]")?.addEventListener("click", () => {
-                if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
-                    new PersistentDialog(actor, { editing: effect.id }).render(true);
-                } else {
-                    effect.sheet.render(true);
-                }
-            });
-
-            // Send effect to chat
-            effectEl.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
-                effect.toMessage();
             });
 
             // Uses a scale transform to fit the text within the box
@@ -160,9 +106,70 @@ export class EffectsPanel extends Application {
                 textElement.style.display = "inline";
             }
         }
+
+        // Add tooltip listener for effects panel entries
+        createTooltipListener(html, {
+            selector: ".effect-item[data-item-id]",
+            locked: true,
+            direction: "LEFT",
+            cssClass: "pf2e effect-info",
+            align: "top",
+            render: async (effectEl) => {
+                const actor = this.actor;
+                const itemId = effectEl.dataset.itemId ?? "";
+                const effect = actor?.conditions.get(itemId) ?? actor?.items.get(itemId);
+                if (!actor || !effect) return null;
+
+                const viewData = (await this.#getViewData([effect]))[0];
+                if (!viewData) throw ErrorPF2e("Error creating view data for effect");
+
+                const content = createHTMLElement("div", {
+                    innerHTML: await renderTemplate("systems/pf2e/templates/system/effects/tooltip.hbs", viewData),
+                }).firstElementChild;
+                if (!(content instanceof HTMLElement)) return null;
+
+                content.querySelector("[data-action=recover-persistent-damage]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition")) {
+                        effect.rollRecovery();
+                    }
+                });
+
+                content.querySelector("[data-action=edit]")?.addEventListener("click", () => {
+                    if (effect.isOfType("condition") && effect.slug === "persistent-damage") {
+                        new PersistentDialog(actor, { editing: effect.id }).render(true);
+                    } else {
+                        effect.sheet.render(true);
+                    }
+                });
+
+                // Send effect to chat
+                content.querySelector("[data-action=send-to-chat]")?.addEventListener("click", () => {
+                    effect.toMessage();
+                });
+
+                return content;
+            },
+        });
     }
 
-    #getRemainingDurationLabel(remaining: number, initiative: number, expiry: EffectExpiryType | null): string {
+    #getRemainingDurationLabel(effect: EffectPF2e): string {
+        const system = effect.system;
+        if (effect.totalDuration === Infinity) {
+            if (system.duration.unit === "encounter") {
+                return system.expired
+                    ? game.i18n.localize("PF2E.EffectPanel.Expired")
+                    : game.i18n.localize("PF2E.EffectPanel.UntilEncounterEnds");
+            } else {
+                return game.i18n.localize("PF2E.EffectPanel.UnlimitedDuration");
+            }
+        } else if (system.expired) {
+            return game.i18n.localize("PF2E.EffectPanel.Expired");
+        }
+
+        const remaining = effect.remainingDuration.remaining;
+        const initiative = system.start.initiative ?? 0;
+        const expiry = system.duration.expiry;
+
         if (remaining >= 63_072_000) {
             // two years
             return game.i18n.format("PF2E.EffectPanel.RemainingDuration.MultipleYears", {
@@ -218,28 +225,36 @@ export class EffectsPanel extends Application {
         }
     }
 
-    async #getEnrichedDescriptions(effects: AfflictionPF2e[] | EffectPF2e[] | ConditionPF2e[]): Promise<string[]> {
+    async #getViewData(effects: AfflictionPF2e[] | EffectPF2e[] | ConditionPF2e[]): Promise<EffectViewData[]> {
         return await Promise.all(
             effects.map(async (effect) => {
                 const actor = "actor" in effect ? effect.actor : null;
-                const rollData = { actor, item: effect };
-                return await TextEditor.enrichHTML(effect.description, { rollData });
+                return {
+                    effect,
+                    description: await TextEditor.enrichHTML(effect.description, {
+                        rollData: { actor, item: effect },
+                    }),
+                    remaining: effect instanceof EffectPF2e ? this.#getRemainingDurationLabel(effect) : null,
+                };
             }),
         );
     }
+
+    override render(force?: boolean, options?: RenderOptions): this {
+        return super.render(force, options);
+    }
 }
 
-interface EffectsDescriptionData {
-    afflictions: string[];
-    conditions: string[];
-    effects: string[];
-}
-
-interface EffectsPanelData {
-    afflictions: AfflictionPF2e[];
-    conditions: ConditionPF2e[];
-    descriptions: EffectsDescriptionData;
-    effects: EffectPF2e[];
+interface EffectsPanelViewData {
+    afflictions: EffectViewData[];
+    conditions: EffectViewData[];
+    effects: EffectViewData[];
     actor: ActorPF2e | null;
     user: { isGM: boolean };
+}
+
+interface EffectViewData {
+    effect: AbstractEffectPF2e;
+    description: string;
+    remaining: string | null;
 }

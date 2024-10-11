@@ -1,0 +1,76 @@
+{
+    "_id": "CWC2fPmlgixoIKy5",
+    "img": "icons/creatures/claws/claw-hooked-purple.webp",
+    "name": "Spell Effect: Clawsong",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Clawsong]</p>\n<p>The target's claw attack gains the versatile (piercing) trait, and deals 1d6 slashing damage. If the target's claw attack already deals 1d6 slashing damage, it deals 1d8 instead.</p>\n<p>If its claw attack already had the versatile (piercing) trait, it gains the deadly 1d8 trait.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": true,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 2
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder #171: Hurricane's Howl"
+        },
+        "rules": [
+            {
+                "key": "DamageAlteration",
+                "mode": "upgrade",
+                "predicate": [
+                    "dice:slug:base",
+                    {
+                        "lte": [
+                            "item:damage:die:faces",
+                            6
+                        ]
+                    }
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "claw-damage"
+                ]
+            },
+            {
+                "definition": [
+                    "item:base:claw",
+                    "item:trait:versatile-p"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "priority": 109,
+                "property": "weapon-traits",
+                "value": "deadly-d8"
+            },
+            {
+                "definition": [
+                    "item:base:claw"
+                ],
+                "key": "AdjustStrike",
+                "mode": "add",
+                "priority": 110,
+                "property": "weapon-traits",
+                "value": "versatile-p"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

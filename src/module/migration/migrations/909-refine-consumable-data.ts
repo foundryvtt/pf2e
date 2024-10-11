@@ -23,7 +23,7 @@ export class Migration909RefineConsumableData extends MigrationBase {
 
         const autoDestroy = R.isPlainObject(system.autoDestroy)
             ? !!system.autoDestroy.value
-            : system.uses?.autoDestroy ?? true;
+            : (system.uses?.autoDestroy ?? true);
         if ("autoDestroy" in system) {
             system["-=autoDestroy"] = null;
         }

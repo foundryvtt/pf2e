@@ -22,13 +22,13 @@ import { BaseSpeedSynthetic } from "@module/rules/synthetics.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { LightLevels } from "@scene/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
 import { Predicate } from "@system/predication.ts";
 import { Statistic, StatisticDifficultyClass, type ArmorStatistic } from "@system/statistic/index.ts";
 import { PerceptionStatistic } from "@system/statistic/perception.ts";
 import { ErrorPF2e, localizer, setHasElement } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { CreatureSpeeds, CreatureSystemData, LabeledSpeed, VisionLevel, VisionLevels } from "./data.ts";
 import { imposeEncumberedCondition, setImmunitiesFromTraits } from "./helpers.ts";
@@ -84,7 +84,7 @@ abstract class CreaturePF2e<
         } else {
             const attacks: { item: ItemPF2e<ActorPF2e>; ready: boolean }[] = weapon
                 ? [{ item: weapon, ready: true }]
-                : this.system.actions ?? [];
+                : (this.system.actions ?? []);
             const readyAttacks = attacks.filter((a) => a.ready);
             const traitsFromItems = readyAttacks.map((a) => new Set(a.item.system.traits?.value ?? []));
             if (traitsFromItems.length === 0) return baseReach;

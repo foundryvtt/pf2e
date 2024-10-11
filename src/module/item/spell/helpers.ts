@@ -35,7 +35,7 @@ async function createDescriptionPrepend(
                 : partialSaveLabel;
         return passive && save
             ? game.i18n.format("PF2E.ListPartsAnd.two", { first: passive, second: save })
-            : passive ?? save;
+            : (passive ?? save);
     })();
 
     const durationLabel = ((): string | null => {

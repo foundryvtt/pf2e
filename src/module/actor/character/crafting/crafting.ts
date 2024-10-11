@@ -1,24 +1,27 @@
 import { ItemPF2e, type PhysicalItemPF2e } from "@item";
 import type { PhysicalItemSource } from "@item/base/data/index.ts";
 import { itemIsOfType } from "@item/helpers.ts";
+import { calculateDC } from "@module/dc.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import type { CharacterPF2e } from "../document.ts";
 import { CraftingAbility, type CraftingAbilityData } from "./ability.ts";
-import { CraftingFormula } from "./formula.ts";
+import { CraftingFormula } from "./types.ts";
 
 /** Caches and performs operations on elements related to crafting */
 class CharacterCrafting {
     actor: CharacterPF2e;
-    abilities: CraftingAbility[];
+    abilities: Collection<CraftingAbility>;
 
     #formulas: CraftingFormula[] | null = null;
 
     constructor(actor: CharacterPF2e) {
         this.actor = actor;
 
-        this.abilities = Object.values(actor.system.crafting.entries)
-            .filter((entry): entry is CraftingAbilityData => CraftingAbility.isValid(entry))
-            .map((entry) => new CraftingAbility(this.actor, entry));
+        // Assemble all abilities. We check if label exists as a simple validation due to potential AELike tinkering
+        const abilities = Object.values(actor.system.crafting.entries)
+            .filter((d): d is CraftingAbilityData => !!d?.label && !!d.slug)
+            .map((d): [string, CraftingAbility] => [d.slug, new CraftingAbility(this.actor, d)]);
+        this.abilities = new Collection(abilities);
     }
 
     /**
@@ -29,22 +32,39 @@ class CharacterCrafting {
         if (this.#formulas) return this.#formulas;
 
         const formulas = this.actor.system.crafting.formulas;
-        formulas.sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
         const formulaMap = new Map(formulas.map((data) => [data.uuid, data]));
         const items = await UUIDUtils.fromUUIDs(formulas.map((f) => f.uuid));
 
         const result = items
             .filter((i): i is PhysicalItemPF2e => i instanceof ItemPF2e && i.isOfType("physical"))
-            .map((item) => {
-                const { dc, batchSize, deletable } = formulaMap.get(item.uuid) ?? { deletable: false };
-                return new CraftingFormula(item, { dc, batchSize, deletable });
-            });
+            .map((item): CraftingFormula | null => {
+                const formula = formulaMap.get(item.uuid);
+                if (!formula) return null;
+
+                const isAmmo = item.isOfType("consumable") && item.isAmmo;
+                const isMundaneAmmo = isAmmo && !item.isMagical;
+                const isConsumable =
+                    (item.isOfType("consumable") && item.category !== "wand") ||
+                    (item.isOfType("weapon") && item.baseType === "alchemical-bomb");
+
+                const batchSize = Math.max(
+                    item.system.price.per,
+                    isMundaneAmmo ? Math.clamp(item.system.price.per, 1, 10) : isConsumable && !isAmmo ? 4 : 1,
+                );
+
+                return {
+                    ...formula,
+                    item,
+                    dc: calculateDC(item.level, {
+                        rarity: item.rarity,
+                        pwol: game.pf2e.settings.variants.pwol.enabled,
+                    }),
+                    batchSize,
+                };
+            })
+            .filter((f): f is CraftingFormula => !!f);
         this.#formulas = result;
         return result;
-    }
-
-    getAbility(selector: string): CraftingAbility | null {
-        return this.abilities.find((a) => a.selector === selector) ?? null;
     }
 
     async performDailyCrafting(): Promise<void> {

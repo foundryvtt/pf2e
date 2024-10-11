@@ -1,6 +1,6 @@
 {
     "_id": "yw1kPxsdCoDUzOaE",
-    "img": "systems/pf2e/icons/equipment/adventuring-gear/musical-instrument-handheld-virtuoso-heavy.webp",
+    "img": "icons/tools/instruments/drum-brown-red.webp",
     "name": "Musical Instrument (Virtuoso heavy)",
     "system": {
         "baseItem": null,
@@ -36,8 +36,14 @@
         "quantity": 1,
         "rules": [
             {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "Virtuoso Instrument (playing it)",
                 "predicate": [
                     "playing"
                 ],

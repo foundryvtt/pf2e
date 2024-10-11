@@ -4,7 +4,7 @@
     "name": "Spell Effect: Organsight",
     "system": {
         "description": {
-            "value": "<p>You see the target as though it's dissected and arrayed before you. For the duration, you gain a +2 circumstance bonus on Medicine checks against the target that depend on its organs, but a -2 circumstance penalty on Medicine checks depending on seeing its skin.</p>\n<p>When you Cast the Spell, attempt a special Recall Knowledge check using Medicine to spot and discern a vital organ. If you have a Lore skill appropriate to the creature, you can use that skill instead of Medicine. If you succeed, the next time you deal piercing or slashing damage to the target with a Strike or spell, you deal 4d6 additional precision damage. Once on each of your subsequent turns, you can use a single action to attempt the special Recall Knowledge check again. The extra damage isn't cumulative, so making the check more than once before a Strike or spell has no extra benefit.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The precision damage increases by [[/r 1d6]]{1d6}.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Organsight]</p>\n<p>You gain a +2 circumstance bonus on Medicine checks against the target that depend on its organs, but a -2 circumstance penalty on Medicine checks depending on seeing its skin.</p>\n<p>If you succeed the Recall Knowledge check, the next time you deal piercing or slashing damage to the target with a Strike or spell, you deal additional precision damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,7 +23,7 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "Organsight (Organs)",
+                "label": "PF2E.SpecificRule.Organsight.Organs",
                 "predicate": [
                     "organ-dependent"
                 ],
@@ -34,7 +34,7 @@
             },
             {
                 "key": "FlatModifier",
-                "label": "Organsight (Skin)",
+                "label": "PF2E.SpecificRule.Organsight.Skin",
                 "predicate": [
                     "skin-dependent"
                 ],
@@ -45,11 +45,12 @@
             },
             {
                 "category": "precision",
+                "diceNumber": "1 + @item.level",
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "label": "Organsight",
                 "predicate": [
-                    "organsight-med-check",
+                    "organsight",
                     {
                         "or": [
                             "item:damage:type:piercing",
@@ -57,150 +58,17 @@
                         ]
                     }
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 7
-                            }
-                        },
-                        {
-                            "end": 7,
-                            "start": 7,
-                            "value": {
-                                "diceNumber": 8
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "diceNumber": 9
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 10
-                            }
-                        },
-                        {
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 11
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": [
+                    "strike-damage",
+                    "spell-damage"
+                ]
             },
             {
                 "domain": "damage",
                 "key": "RollOption",
-                "label": "Successful Medicine Check (Organsight)",
-                "option": "organsight-med-check",
+                "label": "PF2E.SpecificRule.Organsight.Success",
+                "option": "organsight",
                 "toggleable": true
-            },
-            {
-                "category": "precision",
-                "dieSize": "d6",
-                "key": "DamageDice",
-                "label": "Organsight",
-                "predicate": [
-                    "organsight-med-check",
-                    {
-                        "or": [
-                            "item:damage:type:piercing",
-                            "item:damage:type:slashing"
-                        ]
-                    }
-                ],
-                "selector": "spell-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 3,
-                            "start": 3,
-                            "value": {
-                                "diceNumber": 4
-                            }
-                        },
-                        {
-                            "end": 4,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 5
-                            }
-                        },
-                        {
-                            "end": 5,
-                            "start": 5,
-                            "value": {
-                                "diceNumber": 6
-                            }
-                        },
-                        {
-                            "end": 6,
-                            "start": 6,
-                            "value": {
-                                "diceNumber": 7
-                            }
-                        },
-                        {
-                            "end": 7,
-                            "start": 7,
-                            "value": {
-                                "diceNumber": 8
-                            }
-                        },
-                        {
-                            "end": 8,
-                            "start": 8,
-                            "value": {
-                                "diceNumber": 9
-                            }
-                        },
-                        {
-                            "end": 9,
-                            "start": 9,
-                            "value": {
-                                "diceNumber": 10
-                            }
-                        },
-                        {
-                            "start": 10,
-                            "value": {
-                                "diceNumber": 11
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
             }
         ],
         "start": {

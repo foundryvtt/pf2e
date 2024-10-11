@@ -1,7 +1,7 @@
 import type ApplicationV2 from "./application.d.ts";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
-/* eslint-disable no-unused-expressions */
+/* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function HandlebarsApplicationMixin<TBase extends ConstructorOf<ApplicationV2>>(BaseApplication: TBase) {
     class HandlebarsApplication extends BaseApplication {

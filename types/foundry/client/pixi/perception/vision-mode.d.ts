@@ -91,13 +91,13 @@ declare global {
 
 type ShaderSchema = fields.SchemaField<{
     shader: ShaderField;
-    uniforms: fields.ObjectField<{}>;
+    uniforms: fields.ObjectField<object>;
 }>;
 
 type LightingSchema = fields.SchemaField<{
     visibility: fields.NumberField;
     postProcessingModes: fields.ArrayField<fields.StringField>;
-    uniforms: fields.ObjectField<{}>;
+    uniforms: fields.ObjectField<object>;
 }>;
 
 type VisionModeSchema = {
@@ -106,15 +106,15 @@ type VisionModeSchema = {
     tokenConfig: fields.BooleanField;
     canvas: fields.SchemaField<{
         shader: ShaderField;
-        uniforms: fields.ObjectField<{}>;
+        uniforms: fields.ObjectField<object>;
     }>;
     lighting: fields.SchemaField<{
         background: LightingSchema;
         coloration: LightingSchema;
         illumination: LightingSchema;
         darkness: LightingSchema;
-        levels: fields.ObjectField<{}>;
-        multipliers: fields.ObjectField<{}>;
+        levels: fields.ObjectField<object>;
+        multipliers: fields.ObjectField<object>;
     }>;
     vision: fields.SchemaField<{
         background: ShaderSchema;

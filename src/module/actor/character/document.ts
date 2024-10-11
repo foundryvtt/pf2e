@@ -28,7 +28,7 @@ import { AttributeString, MovementType, SkillSlug } from "@actor/types.ts";
 import { ATTRIBUTE_ABBREVIATIONS, SAVE_TYPES } from "@actor/values.ts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, ConsumablePF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
 import { WeaponPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { ARMOR_CATEGORIES } from "@item/armor/values.ts";
 import type { ItemType } from "@item/base/data/index.ts";
 import { getPropertyRuneDegreeAdjustments, getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
@@ -47,7 +47,6 @@ import {
 import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -57,8 +56,9 @@ import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
-import { CharacterCrafting, CraftingAbility, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -200,16 +200,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     }
 
     /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingEntries(): Promise<CraftingAbility[]> {
-        return this.crafting.abilities;
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
-        return this.crafting.getAbility(selector);
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
     async performDailyCrafting(): Promise<void> {
         return this.crafting.performDailyCrafting();
     }
@@ -310,7 +300,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 },
                 allowedBoosts,
                 flaws: { ancestry: [] },
-                apex: isABP ? system.build?.attributes?.apex ?? null : null,
+                apex: isABP ? (system.build?.attributes?.apex ?? null) : null,
             },
             languages: { value: 0, max: 0, granted: [] },
         };
@@ -404,11 +394,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             defenses[category] = { rank: defenses[category]?.rank ?? 0 };
         }
 
-        // Indicate that crafting formulas stored directly on the actor are deletable
+        // Crafting
         system.crafting = fu.mergeObject({ formulas: [], entries: {} }, system.crafting ?? {});
-        for (const formula of this.system.crafting.formulas) {
-            formula.deletable = true;
-        }
 
         // PC level is never a derived number, so it can be set early
         this.rollOptions.all[`self:level:${this.level}`] = true;
@@ -1349,7 +1336,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         const handsAvailable = !weapon.system.graspingAppendage || handsReallyFree > 0;
 
-        const actionTraits: ActionTrait[] = [
+        const actionTraits: AbilityTrait[] = [
             "attack" as const,
             // CRB p. 544: "Due to the complexity involved in preparing bombs, Strikes to throw alchemical bombs gain
             // the manipulate trait."
@@ -1472,7 +1459,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                     ? configuredAmmo.uses.max > 1
                         ? configuredAmmo.uses.value
                         : configuredAmmo.quantity
-                    : configuredAmmo?.quantity ?? 0;
+                    : (configuredAmmo?.quantity ?? 0);
                 params.consumeAmmo ??= ammoRequired > 0;
 
                 if (params.consumeAmmo && ammoRequired > ammoRemaining) {
@@ -1483,7 +1470,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
                 }
                 const targetToken = params.getFormula
                     ? null
-                    : (params.target ?? game.user.targets.first())?.document ?? null;
+                    : ((params.target ?? game.user.targets.first())?.document ?? null);
 
                 const context = await new CheckContext({
                     domains: attackDomains,

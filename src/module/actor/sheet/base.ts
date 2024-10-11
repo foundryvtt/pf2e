@@ -3,7 +3,7 @@ import type { StrikeData } from "@actor/data/base.ts";
 import type { InitiativeRollResult } from "@actor/initiative.ts";
 import type { PhysicalItemPF2e } from "@item";
 import { AbstractEffectPF2e, ItemPF2e, SpellPF2e } from "@item";
-import type { ActionCategory, ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait, ActionCategory } from "@item/ability/types.ts";
 import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import type { ActionType, ItemSourcePF2e } from "@item/base/data/index.ts";
 import { createConsumableFromSpell } from "@item/consumable/spell-consumables.ts";
@@ -15,7 +15,6 @@ import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
-import { eventToRollMode, eventToRollParams } from "@scripts/sheet-util.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
 import {
@@ -43,6 +42,7 @@ import {
     signedInteger,
     tupleHasValue,
 } from "@util";
+import { eventToRollMode, eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import Sortable from "sortablejs";
 import { ActorSizePF2e } from "../data/size.ts";
@@ -259,7 +259,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         const altUsage = tupleHasValue(["thrown", "melee"], button?.dataset.altUsage) ? button?.dataset.altUsage : null;
 
         const strike = altUsage
-            ? rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null
+            ? (rootAction?.altUsages?.find((s) => (altUsage === "thrown" ? s.item.isThrown : s.item.isMelee)) ?? null)
             : rootAction;
 
         return strike?.ready || !readyOnly ? strike : null;
@@ -331,6 +331,33 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                                   : String(currentValue || 0);
                     }
                 }
+            });
+        }
+
+        // General handler for embedded item updates
+        const itemPropertyInputs = htmlQueryAll<HTMLInputElement | HTMLSelectElement>(
+            html,
+            "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
+        );
+        for (const element of itemPropertyInputs) {
+            element.addEventListener("change", (event) => {
+                event.stopPropagation();
+                const { itemId, itemProperty } = element.dataset;
+                if (!itemId || !itemProperty) return;
+
+                const value = (() => {
+                    const value =
+                        element instanceof HTMLInputElement && element.type === "checbox"
+                            ? element.checked
+                            : element.value;
+                    if (typeof value === "boolean") return value;
+                    const dataType =
+                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
+
+                    return dataType === "Number" ? Number(value) || 0 : value.trim();
+                })();
+
+                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
             });
         }
 
@@ -484,7 +511,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemEl = htmlClosest(anchor, "[data-item-id]");
                 const collectionId = itemEl?.dataset.entryId;
                 const collection: Collection<ItemPF2e<TActor>> = collectionId
-                    ? actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items
+                    ? (actor.spellcasting?.collections.get(collectionId, { strict: true }) ?? actor.items)
                     : actor.items;
 
                 const itemId = itemEl?.dataset.itemId;
@@ -769,7 +796,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
 
     #onClickBrowseAbilities(anchor: HTMLElement): void {
         const types = (anchor.dataset.actionType || "").split(",") as ActionType[];
-        const traits = (anchor.dataset.actionTrait || "").split(",") as ActionTrait[];
+        const traits = (anchor.dataset.actionTrait || "").split(",") as AbilityTrait[];
         const categories = (anchor.dataset.actionCategory || "").split(",") as ActionCategory[];
         game.pf2e.compendiumBrowser.openActionTab({ types, traits, categories });
     }
@@ -838,7 +865,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
         };
         if (previewElement && "isFormula" in previewElement.dataset) {
             baseDragData.isFormula = true;
-            baseDragData.entrySelector = previewElement.dataset.entrySelector;
+            baseDragData.ability = previewElement.dataset.ability;
             baseDragData.uuid = previewElement.dataset.itemUuid;
         }
 

@@ -1,3 +1,5 @@
+@use "sass:color";
+
 aside {
     grid-area: sidebar;
     color: var(--sidebar-label);
@@ -151,9 +153,9 @@ aside {
                 &.current-hp {
                     background-image: linear-gradient(
                         90deg,
-                        darken($primary-color, 5) 0%,
-                        lighten($primary-color, 8) 50%,
-                        darken($primary-color, 5) 100%
+                        var(--color-pf-primary-dark) 0%,
+                        color.adjust($primary-color, $lightness: 8%) 50%,
+                        var(--color-pf-primary-dark) 100%
                     );
                     background-color: var(--primary);
                     border-radius: 0 0 4px 4px;

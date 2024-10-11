@@ -102,6 +102,29 @@
                 "value": "@actor.abilities.con.mod + 3"
             },
             {
+                "exceptions": [
+                    {
+                        "definition": [
+                            {
+                                "or": [
+                                    "item:type:melee",
+                                    "item:type:weapon"
+                                ]
+                            },
+                            "item:category:unarmed"
+                        ],
+                        "label": "PF2E.IWR.Custom.NonWeapons"
+                    }
+                ],
+                "key": "Resistance",
+                "predicate": [
+                    "self:effect:rage",
+                    "feat:unstoppable-juggernaut"
+                ],
+                "type": "physical",
+                "value": "@actor.abilities.con.mod + 8"
+            },
+            {
                 "key": "AdjustModifier",
                 "mode": "upgrade",
                 "predicate": [

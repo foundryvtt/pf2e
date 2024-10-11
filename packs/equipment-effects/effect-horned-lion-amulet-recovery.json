@@ -1,0 +1,47 @@
+{
+    "_id": "Cg6UOjRe7epZHyqp",
+    "img": "icons/equipment/neck/torc-ball-captive.webp",
+    "name": "Effect: Horned Lion Amulet Recovery",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Horned Lion Amulet]</p>\n<p>The DC to recover from the persistent fire damage remains at 10 until it ends.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Lost Omens: Firebrands"
+        },
+        "rules": [
+            {
+                "itemType": "condition",
+                "key": "ItemAlteration",
+                "mode": "downgrade",
+                "predicate": [
+                    "item:damage:type:fire"
+                ],
+                "property": "pd-recovery-dc",
+                "value": 10
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

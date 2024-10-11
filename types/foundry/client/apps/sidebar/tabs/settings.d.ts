@@ -5,7 +5,7 @@
 declare class Settings extends SidebarTab {
     static override get defaultOptions(): ApplicationOptions;
 
-    override getData(options?: {}): {
+    override getData(options?: Record<string, unknown>): {
         user: User;
         system: object;
         coreVersion: string;

@@ -168,7 +168,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
     /** The UUID of the actor from which this one was copied (or is identical to if a compendium actor) **/
     get sourceId(): ActorUUID | null {
-        return this._id && this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
+        return this._id && this.pack ? this.uuid : (this._stats.duplicateSource ?? this._stats.compendiumSource);
     }
 
     /** The recorded schema version of this actor, updated after each data migration */
@@ -356,7 +356,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const damageType = objectHasKey(CONFIG.PF2E.damageTypes, damage)
             ? damage
             : damage.isOfType("condition")
-              ? damage.system.persistent?.damageType ?? null
+              ? (damage.system.persistent?.damageType ?? null)
               : null;
 
         if (!setHasElement(UNAFFECTED_TYPES, damageType)) return true;
@@ -888,7 +888,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         suboption: string | null = null,
     ): Promise<boolean | null> {
         // Backward compatibility
-        value = typeof itemId === "boolean" ? itemId : value ?? !this.rollOptions[domain]?.[option];
+        value = typeof itemId === "boolean" ? itemId : (value ?? !this.rollOptions[domain]?.[option]);
 
         type MaybeRollOption = { key: string; domain?: unknown; option?: unknown };
         if (typeof itemId === "string") {
@@ -1086,11 +1086,11 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                   })()
                 : false;
 
-        const shieldHardness = shieldBlock ? actorShield?.hardness ?? 0 : 0;
+        const shieldHardness = shieldBlock ? (actorShield?.hardness ?? 0) : 0;
         const damageAbsorbedByShield = finalDamage > 0 ? Math.min(shieldHardness, finalDamage) : 0;
         // The blocking shield may not be the held shield, such as in when the Shield spell is in play
         const blockingShield = heldShield?.id === actorShield?.itemId ? heldShield : null;
-        const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : actorShield?.hp.value ?? 0;
+        const currentShieldHP = blockingShield ? blockingShield._source.system.hp.value : (actorShield?.hp.value ?? 0);
         const shieldDamage = shieldBlock
             ? Math.min(currentShieldHP, Math.abs(finalDamage) - damageAbsorbedByShield)
             : 0;
@@ -1105,7 +1105,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             const damageHasAdamantine = typeof damage === "number" ? false : damage.materials.has("adamantine");
             const materialGrade =
                 item?.isOfType("weapon") && item.system.material.type === "adamantine"
-                    ? item.system.material.grade ?? "standard"
+                    ? (item.system.material.grade ?? "standard")
                     : "standard";
             // Hardness values for thin adamantine items (inclusive of weapons):
             const itemHardness = {
@@ -1150,7 +1150,7 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
             );
         }
 
-        const staminaMax = this.isOfType("character") ? this.attributes.hp.sp?.max ?? 0 : 0;
+        const staminaMax = this.isOfType("character") ? (this.attributes.hp.sp?.max ?? 0) : 0;
         const instantDeath = ((): string | null => {
             if (damageResult.totalApplied <= 0 || damageResult.updates["system.attributes.hp.value"] !== 0) {
                 return null;
@@ -1558,8 +1558,9 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         const toReturn: Set<string> = new Set();
 
         for (const domain of withAll) {
-            for (const [option, value] of Object.entries(rollOptions[domain] ?? {})) {
-                if (value) toReturn.add(option);
+            const optionsRecord = rollOptions[domain] ?? {};
+            for (const option of Object.keys(optionsRecord)) {
+                if (optionsRecord[option]) toReturn.add(option);
             }
         }
 

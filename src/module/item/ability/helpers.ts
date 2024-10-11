@@ -57,12 +57,12 @@ function getActionCostRollOptions(prefix: string, item: { actionCost?: ActionCos
     const actionCost = item.actionCost;
     if (!actionCost) return [];
 
-    const value = actionCost.type === "free" ? 0 : actionCost.type === "reaction" ? 1 : actionCost.value ?? 0;
+    const value = actionCost.type === "free" ? 0 : actionCost.type === "reaction" ? 1 : (actionCost.value ?? 0);
     return [`${prefix}:action:type:${actionCost.type}`, `${prefix}:action:cost:${value}`];
 }
 
 /** Create data for the "self-applied effect" drop zone on an ability or feat sheet. */
-function createSelfEffectSheetData(data: SelfEffectReference | null): SelfEffectSheetReference | null {
+function createSelfEffectSheetData(data: Maybe<SelfEffectReference>): SelfEffectSheetReference | null {
     if (!data) return null;
 
     type MaybeIndexData = ((ClientDocument | CompendiumIndexData) & { img?: unknown }) | null;

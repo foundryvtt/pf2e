@@ -38,8 +38,10 @@ class CombatantPF2e<
             for (const member of actor.members) {
                 const token = member.getDependentTokens({ scenes: [scene], linked: true }).at(0);
                 const alreadyAdded = operation.parent?.combatants.some((c) => c.actor === member);
+                const memberTraits = member.system.traits.value;
+                const validInEncounter = !memberTraits.some((t) => ["minion", "eidolon"].includes(t));
                 const alreadyBeingAdded = data.some((d) => d.actorId === member.id);
-                if (token && !alreadyAdded && !alreadyBeingAdded) {
+                if (token && !alreadyAdded && !alreadyBeingAdded && validInEncounter) {
                     data.push({
                         actorId: member.id,
                         sceneId: scene.id,

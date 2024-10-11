@@ -8,8 +8,8 @@ import { coerceToSpellGroupId, spellSlotGroupIdToNumber } from "@item/spellcasti
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { OneToTen, ZeroToFour, goesToEleven } from "@module/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, createHTMLElement, fontAwesomeIcon, htmlClosest, htmlQueryAll, tupleHasValue } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActorSheetPF2e, SheetClickActionHandlers } from "../sheet/base.ts";
 import { CreatureConfig } from "./config.ts";
@@ -61,7 +61,7 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
         const entry = this.actor.items.get(collectionId, { strict: true });
         if (entry?.isOfType("spellcastingEntry") && entry.isPrepared) {
             const referenceEl = htmlClosest(event?.target, "[data-action=open-spell-preparation]");
-            const offset = referenceEl ? $(referenceEl).offset() ?? { left: 0, top: 0 } : null;
+            const offset = referenceEl ? ($(referenceEl).offset() ?? { left: 0, top: 0 }) : null;
             const options = offset ? { top: offset.top - 60, left: offset.left + 200 } : {};
             const sheet = new SpellPreparationSheet(entry, options);
             sheet.render(true);
@@ -83,30 +83,6 @@ abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends ActorSheet
     override activateListeners($html: JQuery): void {
         super.activateListeners($html);
         const html = $html[0];
-
-        // General handler for embedded item updates
-        const selectors = "input[data-item-id][data-item-property], select[data-item-id][data-item-property]";
-        for (const element of htmlQueryAll<HTMLInputElement | HTMLSelectElement>(html, selectors)) {
-            element.addEventListener("change", (event) => {
-                event.stopPropagation();
-                const { itemId, itemProperty } = element.dataset;
-                if (!itemId || !itemProperty) return;
-
-                const value = (() => {
-                    const value =
-                        element instanceof HTMLInputElement && element.type === "checbox"
-                            ? element.checked
-                            : element.value;
-                    if (typeof value === "boolean") return value;
-                    const dataType =
-                        element.dataset.dtype ?? (["number", "range"].includes(element.type) ? "Number" : "String");
-
-                    return dataType === "Number" ? Number(value) || 0 : value.trim();
-                })();
-
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
-            });
-        }
 
         // Increase/decrease Dying/Wounded value
         for (const pips of htmlQueryAll(html, "a[data-action=adjust-condition-value]")) {

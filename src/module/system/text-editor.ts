@@ -3,7 +3,7 @@ import { ModifierPF2e } from "@actor/modifiers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { SAVE_TYPES } from "@actor/values.ts";
 import { ItemPF2e, ItemSheetPF2e } from "@item";
-import { ActionTrait } from "@item/ability/types.ts";
+import { AbilityTrait } from "@item/ability/types.ts";
 import { EFFECT_AREA_SHAPES } from "@item/spell/values.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import {
@@ -12,7 +12,6 @@ import {
     extractModifiers,
     processDamageCategoryStacking,
 } from "@module/rules/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { USER_VISIBILITIES, UserVisibility, UserVisibilityPF2e } from "@scripts/ui/user-visibility.ts";
 import {
     createHTMLElement,
@@ -26,6 +25,7 @@ import {
     splitListString,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { ActionMacroHelpers } from "./action-macros/helpers.ts";
 import { DamagePF2e } from "./damage/damage.ts";
@@ -195,7 +195,7 @@ class TextEditorPF2e extends TextEditor {
                               subtitle,
                               title: item.name,
                           })
-                        : anchor.dataset.name ?? item?.name ?? "";
+                        : (anchor.dataset.name ?? item?.name ?? "");
                 args.template.name = game.i18n.localize(name);
 
                 await DamagePF2e.roll(args.template, args.context);
@@ -496,7 +496,7 @@ class TextEditorPF2e extends TextEditor {
 
         // traits
         const additionalTraits = splitListString(params["traits"] ?? "").filter(
-            (trait): trait is ActionTrait => trait in CONFIG.PF2E.actionTraits,
+            (trait): trait is AbilityTrait => trait in CONFIG.PF2E.actionTraits,
         );
         const traits = R.unique([variant?.traits ?? action.traits, additionalTraits].flat());
 
@@ -774,7 +774,7 @@ class TextEditorPF2e extends TextEditor {
         const label =
             "shortLabel" in rawParams // A "short label" will omit all damage types and categories
                 ? roll.instances.map((i) => i.head.expression).join(" + ")
-                : args.inlineLabel ?? formula;
+                : (args.inlineLabel ?? formula);
         const labelEl = createHTMLElement("span", { children: [label] });
 
         const element = createHTMLElement("a", {
@@ -987,7 +987,7 @@ async function augmentInlineDamageRoll(
                       modifiers,
                   }
                 : null,
-            traits: traits?.filter((t): t is ActionTrait => t in CONFIG.PF2E.actionTraits) ?? [],
+            traits: traits?.filter((t): t is AbilityTrait => t in CONFIG.PF2E.actionTraits) ?? [],
         };
 
         if (!options.skipDialog) {

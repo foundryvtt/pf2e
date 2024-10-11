@@ -33,11 +33,25 @@
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "pursue-a-lead"
+                    "pursue-a-lead",
+                    {
+                        "or": [
+                            {
+                                "not": "check:type:saving-throw"
+                            },
+                            {
+                                "and": [
+                                    "check:type:saving-throw",
+                                    "feat:detectives-readiness"
+                                ]
+                            }
+                        ]
+                    }
                 ],
                 "selector": [
                     "perception",
-                    "skill-check"
+                    "skill-check",
+                    "saving-throw"
                 ],
                 "slug": "pursue-a-lead",
                 "type": "circumstance",

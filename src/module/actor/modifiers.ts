@@ -193,9 +193,9 @@ class ModifierPF2e implements RawModifier {
         Object.defineProperty(this, "rule", { enumerable: false });
 
         this.damageType = objectHasKey(CONFIG.PF2E.damageTypes, params.damageType) ? params.damageType : null;
-        this.damageCategory = this.damageType === "bleed" ? "persistent" : params.damageCategory ?? null;
+        this.damageCategory = this.damageType === "bleed" ? "persistent" : (params.damageCategory ?? null);
         // Force splash damage into being critical-only or not doubling on critical hits
-        this.critical = this.damageCategory === "splash" ? !!params.critical : params.critical ?? null;
+        this.critical = this.damageCategory === "splash" ? !!params.critical : (params.critical ?? null);
 
         this.kind = ((): "bonus" | "penalty" | "modifier" => {
             if (this.modifier >= 0 && !["ability", "untyped"].includes(this.type)) {
@@ -368,7 +368,7 @@ function createProficiencyModifier({
         ? game.pf2e.settings.variants.pwol.modifiers
         : [0, 2, 4, 6, 8];
 
-    const addedLevel = addLevel && !pwolVariant ? level ?? actor.level : 0;
+    const addedLevel = addLevel && !pwolVariant ? (level ?? actor.level) : 0;
     const bonus = baseBonuses[rank] + addedLevel;
 
     return new ModifierPF2e({
@@ -719,7 +719,7 @@ class DamageDicePF2e {
             : this.damageType === "bleed"
               ? "persistent"
               : null;
-        this.critical = this.category === "splash" ? !!params.critical : params.critical ?? null;
+        this.critical = this.category === "splash" ? !!params.critical : (params.critical ?? null);
 
         this.predicate =
             params.predicate instanceof Predicate ? params.predicate : new Predicate(params.predicate ?? []);

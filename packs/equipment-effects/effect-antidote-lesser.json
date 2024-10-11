@@ -4,7 +4,7 @@
     "name": "Effect: Antidote (Lesser)",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)]</p>\n<p>Implemented effects:</p>\n<ul>\n<li>+2 item bonus to Fortitude saves against poisons</li>\n</ul>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)]</p>\n<p>You gain a +2 item bonus to Fortitude saves against poisons.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -16,15 +16,15 @@
             "value": 1
         },
         "publication": {
-            "license": "OGL",
-            "remaster": false,
-            "title": "Pathfinder Core Rulebook"
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "poison"
+                    "item:trait:poison"
                 ],
                 "selector": "fortitude",
                 "type": "item",

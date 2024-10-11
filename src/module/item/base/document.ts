@@ -10,9 +10,9 @@ import { MigrationRunnerBase } from "@module/migration/runner/base.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource, RuleElements } from "@module/rules/index.ts";
 import { processGrantDeletions } from "@module/rules/rule-element/grant-item/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
-import { eventToRollMode } from "@scripts/sheet-util.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, htmlClosest, isObject, localizer, setHasElement, sluggify, tupleHasValue } from "@util";
+import { eventToRollMode } from "@util/sheet.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { AfflictionSource } from "../affliction/data.ts";
@@ -63,7 +63,8 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
     /** The UUID of the item from which this one was copied (or is identical to if a compendium item) **/
     get sourceId(): ItemUUID | null {
-        return this._id && this.pack ? this.uuid : this._stats.duplicateSource ?? this._stats.compendiumSource;
+        const isCompendiumItem = this._id && this.pack && !this.isEmbedded;
+        return isCompendiumItem ? this.uuid : (this._stats.duplicateSource ?? this._stats.compendiumSource);
     }
 
     /** The recorded schema version of this item, updated after each data migration */
@@ -71,7 +72,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const legacyValue = R.isPlainObject(this._source.system.schema)
             ? Number(this._source.system.schema.version) || null
             : null;
-        return Number(this._source.system._migration?.version) ?? legacyValue;
+        return Number(this._source.system._migration?.version) || legacyValue;
     }
 
     get description(): string {
@@ -152,7 +153,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
 
         const slug = this.slug ?? sluggify(this.name);
         const granterOptions = includeGranter
-            ? this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? []
+            ? (this.grantedBy?.getRollOptions("granter", { includeGranter: false }).map((o) => `${prefix}:${o}`) ?? [])
             : [];
 
         const rollOptions = [
@@ -174,7 +175,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         }
 
         // The heightened level of a spell is retrievable from its getter but not prepared level data
-        const level = this.isOfType("spell") ? this.rank : this.system.level?.value ?? null;
+        const level = this.isOfType("spell") ? this.rank : (this.system.level?.value ?? null);
         if (typeof level === "number") {
             rollOptions.push(`${prefix}:level:${level}`);
         }
@@ -231,7 +232,7 @@ class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         );
 
         // Create the chat message
-        return options.create ?? true
+        return (options.create ?? true)
             ? ChatMessagePF2e.create(chatData, { rollMode, renderSheet: false })
             : new ChatMessagePF2e(chatData, { rollMode });
     }

@@ -135,6 +135,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             item,
             isPhysical: false,
             data: item.system,
+            fieldRootId: this.item.collection.has(this.item.id) ? this.id : foundry.utils.randomID(),
             fieldIdPrefix: `field-${this.appId}-`,
             enrichedContent,
             limited: this.item.limited,
@@ -142,7 +143,7 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
             owner: this.item.isOwner,
             title: this.title,
             user: { isGM: game.user.isGM },
-            rarity: hasRarity ? this.item.system.traits?.rarity ?? "common" : null,
+            rarity: hasRarity ? (this.item.system.traits?.rarity ?? "common") : null,
             rarities: CONFIG.PF2E.rarityTraits,
             traits,
             traitTagifyData,
@@ -373,8 +374,8 @@ class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem, ItemSheetOp
         for (const anchor of htmlQueryAll(rulesPanel, "a.edit-rule-element")) {
             anchor.addEventListener("click", async () => {
                 if (this._submitting) return; // Don't open if already submitting
-                const index = Number(anchor.dataset.ruleIndex ?? "NaN") ?? null;
-                this.#editingRuleElementIndex = index;
+                const index = Number(anchor.dataset.ruleIndex ?? "NaN");
+                this.#editingRuleElementIndex = Number.isInteger(index) ? index : null;
                 this.#rulesLastScrollTop = rulesPanel?.scrollTop ?? null;
                 this.render();
             });
@@ -650,6 +651,9 @@ interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem>
     detailsTemplate: string;
     item: TItem;
     data: TItem["system"];
+    /** The leading part of IDs used for label-input/select matching */
+    fieldRootId: string;
+    /** Legacy value of the above */
     fieldIdPrefix: string;
     enrichedContent: Record<string, string>;
     isPhysical: boolean;

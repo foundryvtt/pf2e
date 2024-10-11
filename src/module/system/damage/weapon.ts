@@ -245,7 +245,7 @@ class WeaponDamagePF2e {
                 null,
             );
 
-            return standard ? alternate ?? standard : [];
+            return standard ? (alternate ?? standard) : [];
         })();
 
         if (critSpecEffect.length > 0) options.add("critical-specialization");
@@ -313,7 +313,7 @@ class WeaponDamagePF2e {
         // Get striking dice: the number of damage dice from a striking rune (or ABP devastating strikes)
         const strikingDice = weapon.isOfType("weapon")
             ? weapon.system.damage.dice - weapon._source.system.damage.dice
-            : strikingSynthetic?.bonus ?? 0;
+            : (strikingSynthetic?.bonus ?? 0);
 
         // Deadly trait
         const traitLabels: Record<string, string> = CONFIG.PF2E.weaponTraits;

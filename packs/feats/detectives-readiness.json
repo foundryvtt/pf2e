@@ -11,7 +11,7 @@
         },
         "category": "class",
         "description": {
-            "value": "<p>When you're on a case, you stay watchful and resolute to avoid tricks your suspect might pull. You gain your investigation bonus from Pursue a Lead on saving throws (and their DCs, as normal) against creatures or effects that are related to the question at the heart of an open investigation, and you can use Clue In to assist an ally's saving throw against that creature or effect.</p>\n<p>@UUID[Compendium.pf2e.feat-effects.Item.Effect: Clue In (Detective's Readiness)]</p>"
+            "value": "<p>When you're on a case, you stay watchful and resolute to avoid tricks your suspect might pull. You gain your investigation bonus from Pursue a Lead on saving throws (and their DCs, as normal) against creatures or effects that are related to the question at the heart of an open investigation, and you can use Clue In to assist an ally's saving throw against that creature or effect.</p>"
         },
         "level": {
             "value": 4
@@ -26,25 +26,29 @@
         },
         "rules": [
             {
-                "key": "FlatModifier",
-                "label": "Pursue a Lead (Detective's Readiness)",
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
                 "predicate": [
-                    "pursue-a-lead"
+                    "item:slug:clue-in"
                 ],
-                "selector": "saving-throw",
-                "type": "circumstance",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 8,
-                            "value": 1
-                        },
-                        {
-                            "start": 9,
-                            "value": 2
-                        }
-                    ]
-                }
+                "property": "other-tags",
+                "value": "detectives-readiness"
+            },
+            {
+                "itemType": "action",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:clue-in"
+                ],
+                "property": "description",
+                "value": [
+                    {
+                        "divider": true,
+                        "text": "PF2E.SpecificRule.Investigator.DetectivesReadiness.ClueInAddendum"
+                    }
+                ]
             }
         ],
         "traits": {

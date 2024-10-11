@@ -22,10 +22,15 @@
         },
         "rules": [
             {
-                "itemId": "{actor|flags.pf2e.claySphere.weapon}",
-                "key": "ItemAlteration",
+                "key": "DamageAlteration",
                 "mode": "upgrade",
-                "property": "damage-dice-faces"
+                "predicate": [
+                    "dice:slug:base"
+                ],
+                "property": "dice-faces",
+                "selectors": [
+                    "{actor|flags.pf2e.claySphere.weapon}-damage"
+                ]
             }
         ],
         "start": {

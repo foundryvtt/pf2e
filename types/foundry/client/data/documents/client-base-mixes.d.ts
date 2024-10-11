@@ -1,5 +1,7 @@
 import type { ApplicationV2, DocumentSheetV2 } from "../../../client-esm/applications/api/module.d.ts";
 
+/* eslint-disable @typescript-eslint/no-unsafe-function-type */
+
 export declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> extends foundry.documents
     .BaseAmbientLight<TParent> {
     protected _sheet: DocumentSheet<this> | null;

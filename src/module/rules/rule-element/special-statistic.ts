@@ -77,13 +77,13 @@ class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema
         const actor = this.actor;
         const checkDomains = this.type === "check" ? [`${this.slug}-check`] : [`${this.slug}-attack-roll`];
         const extendedFrom = this.extends
-            ? actor.getStatistic(this.extends) ?? actor.synthetics.statistics.get(this.extends) ?? null
+            ? (actor.getStatistic(this.extends) ?? actor.synthetics.statistics.get(this.extends) ?? null)
             : null;
         if (this.extends && !extendedFrom) {
             return this.failValidation(`extends: unable to resolve statistic "${this.extends}"`);
         }
 
-        const label = this.itemCasting ? extendedFrom?.label ?? this.label : this.label;
+        const label = this.itemCasting ? (extendedFrom?.label ?? this.label) : this.label;
         const checkType = this.type === "check" ? "check" : "attack-roll";
         const modCheckDC =
             this.baseModifier && actor.type === "npc"

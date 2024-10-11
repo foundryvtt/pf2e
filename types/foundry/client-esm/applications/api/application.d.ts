@@ -35,8 +35,8 @@ export default class ApplicationV2<
         close: HTMLButtonElement;
         controls: HTMLButtonElement;
         controlsDropdown: HTMLDivElement;
-        onDrag: Function;
-        onResize: Function;
+        onDrag: (event: DragEvent) => void;
+        onResize: (event: DragEvent) => void;
         pointerStartPosition: ApplicationPosition;
         pointerMoveThrottle: boolean;
     };

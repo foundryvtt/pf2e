@@ -4,7 +4,7 @@
     "name": "Spell Effect: Draw the Lightning",
     "system": {
         "description": {
-            "value": "<p>Calling out to the skies, you summon a bolt of lightning to strike through a foe above you and down into your weapon or your body, charging it with electrical power. You must hold your weapon or an empty hand aloft as part of this spell's somatic component. When you do, a bolt of lightning descends from a storm cloud in the air above your and through the target, dealing 3d12 electricity damage with a basic Reflex save. For the rest of the spell's duration, your first Strike each round with the weapon you held aloft (or with your unarmed attacks if you held an empty hand aloft) deals an additional 1d12 electricity damage.</p>\n<p>The spell creates its own storm cloud if necessary, so you can cast <em>draw the lightning</em> anywhere, even underground. If <em>draw the lightning</em> is cast outside under a cloudy or stormy sky, increase the bolt's damage by 2d12.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> The damage dealt to the initial target increases by 4d12, and the additional damage dealt on the first Strike each turn increases by 1d12.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Draw the Lightning]</p>\n<p>Your first Strike each round with the weapon you held aloft (or with your unarmed attacks if you held an empty hand aloft) deals additional electricity damage.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -22,38 +22,32 @@
         },
         "rules": [
             {
+                "choices": {
+                    "includeHandwraps": true,
+                    "ownedItems": true,
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
                 "domain": "damage",
                 "key": "RollOption",
-                "label": "First strike of the round",
-                "option": "first-strike",
+                "option": "draw-the-lightning",
                 "toggleable": true
             },
             {
                 "damageType": "electricity",
+                "diceNumber": "ternary(gte(@item.level,8),2,1)",
                 "dieSize": "d12",
                 "key": "DamageDice",
                 "predicate": [
-                    "first-strike"
+                    "draw-the-lightning"
                 ],
-                "selector": "strike-damage",
-                "value": {
-                    "brackets": [
-                        {
-                            "end": 7,
-                            "start": 4,
-                            "value": {
-                                "diceNumber": 1
-                            }
-                        },
-                        {
-                            "start": 8,
-                            "value": {
-                                "diceNumber": 2
-                            }
-                        }
-                    ],
-                    "field": "item|system.level.value"
-                }
+                "selector": "{item|flags.pf2e.rulesSelections.weapon}-damage"
             }
         ],
         "start": {

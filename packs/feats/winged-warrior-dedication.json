@@ -28,7 +28,22 @@
             "remaster": true,
             "title": "Pathfinder Howl of the Wild"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.WingedWarrior.Dedication.RollOptionLabel",
+                "option": "winged-warrior-dedication-fly-bonus",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "winged-warrior-dedication-fly-bonus"
+                ],
+                "selector": "fly-speed",
+                "value": 5
+            }
+        ],
         "traits": {
             "rarity": "common",
             "value": [

@@ -4,7 +4,7 @@ import type { StrikeData } from "@actor/data/base.ts";
 import { getRangeIncrement, isOffGuardFromFlanking } from "@actor/helpers.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import type { ItemPF2e } from "@item";
-import type { ActionTrait } from "@item/ability/types.ts";
+import type { AbilityTrait } from "@item/ability/types.ts";
 import { getPropertyRuneStrikeAdjustments } from "@item/physical/runes.ts";
 import { extractEphemeralEffects } from "@module/rules/helpers.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
@@ -26,7 +26,7 @@ abstract class RollContext<
     /** Initial roll options for the context */
     rollOptions: Set<string>;
 
-    traits: ActionTrait[];
+    traits: AbilityTrait[];
 
     /** Whether this is a one-sided roll context for generating sheet-display data */
     viewOnly: boolean;
@@ -42,7 +42,7 @@ abstract class RollContext<
             actor: params.origin?.actor ?? params.origin?.token?.actor ?? null,
             statistic: params.origin?.statistic ?? null,
             token: params.origin?.token ?? params.origin?.actor?.getActiveTokens(true, true).shift() ?? null,
-            item: params.origin?.item?.actor === params.origin?.actor ? params.origin?.item ?? null : null,
+            item: params.origin?.item?.actor === params.origin?.actor ? (params.origin?.item ?? null) : null,
         };
         const targetActor = params.target?.actor ?? params.target?.token?.actor;
         const target =
@@ -51,7 +51,7 @@ abstract class RollContext<
                       actor: targetActor,
                       statistic: params.target?.statistic ?? null,
                       token: params.target?.token ?? targetActor?.getActiveTokens(true, true).shift() ?? null,
-                      item: params.origin?.item ? null : params.target?.item ?? null,
+                      item: params.origin?.item ? null : (params.target?.item ?? null),
                   }
                 : null;
         this.unresolved = { origin, target };
@@ -130,17 +130,18 @@ abstract class RollContext<
 
         const distance =
             originToken?.object && targetToken?.object ? originToken.object.distanceTo(targetToken.object) : null;
+        const distanceOption = Number.isInteger(distance) ? `${opposerRole}:distance:${distance}` : null;
+
         const rangeIncrement = itemClone ? getRangeIncrement(itemClone, distance) : null;
-        const distanceRangeOptions =
-            rangeIncrement && Number.isInteger(distance)
-                ? [`${opposerRole}:distance:${distance}`, `${opposerRole}:range-increment:${rangeIncrement}`]
-                : [];
+        const rangeIncrementOption =
+            rangeIncrement && Number.isInteger(distance) ? `${opposerRole}:range-increment:${rangeIncrement}` : null;
 
         const rollOptions = new Set(
             [
                 ...this.rollOptions,
                 rollingActor?.getRollOptions(resolvedDomains),
-                distanceRangeOptions,
+                distanceOption,
+                rangeIncrementOption,
                 selfRole === "origin" ? this.traits.map((t) => `self:action:trait:${t}`) : [],
                 itemOptions,
                 // Backward compatibility for predication looking for an "attack" trait by its lonesome
@@ -151,7 +152,7 @@ abstract class RollContext<
                 .sort(),
         );
 
-        const actionTraits = ((): ActionTrait[] => {
+        const actionTraits = ((): AbilityTrait[] => {
             const traits = this.traits;
             if (itemClone?.isOfType("weapon", "melee")) {
                 const strikeAdjustments = [
@@ -267,11 +268,18 @@ abstract class RollContext<
             item?.isOfType("action", "feat") && !item.actionCost
                 ? []
                 : this.traits.map((t) => `${perspectivePrefix}:action:trait:${t}`);
+        // Set a roll option of the form `${"target" | "origin"}:${"ally" | "enemy"}`
+        const allyOrEnemyOption = uncloned.actor.alliance
+            ? uncloned.actor.alliance === otherActor.alliance
+                ? `${opposingAlias}:ally`
+                : `${opposingAlias}:enemy`
+            : null;
 
         return uncloned.actor.getContextualClone(
             [
                 ...Array.from(this.rollOptions),
                 opposingAlias,
+                allyOrEnemyOption,
                 ...otherActor.getSelfRollOptions(opposingAlias),
                 ...markOptions,
                 isFlankingAttack ? `${perspectivePrefix}:flanking` : null,
@@ -317,7 +325,7 @@ abstract class RollContext<
         const unclonedItem = this.item;
 
         return unresolvedRoller?.statistic instanceof StatisticModifier
-            ? strikeActions.find((action): boolean => {
+            ? (strikeActions.find((action): boolean => {
                   // Find the matching weapon or melee item
                   if (unclonedItem?.id !== action.item.id || unclonedItem.name !== action.item.name) return false;
                   if (unclonedItem.isOfType("melee") && action.item.isOfType("melee")) return true;
@@ -330,8 +338,8 @@ abstract class RollContext<
                   );
               }) ??
                   unresolvedRoller?.statistic ??
-                  null
-            : unresolvedRoller?.statistic ?? null;
+                  null)
+            : (unresolvedRoller?.statistic ?? null);
     }
 }
 

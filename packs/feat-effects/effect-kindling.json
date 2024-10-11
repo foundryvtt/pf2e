@@ -1,0 +1,94 @@
+{
+    "_id": "Pe4qwrE1oU68iW4g",
+    "img": "icons/magic/fire/flame-burning-tree-stump.webp",
+    "name": "Effect: Kindling",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.familiar-abilities.Item.Kindling]</p>\n<p>You gain a status bonus to the damage of a spell that has the fire trait equal to twice the spell rank.</p>"
+        },
+        "duration": {
+            "expiry": "turn-end",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder Lost Omens: Tian Xia Character Guide"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.First",
+                        "value": 1
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Second",
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Third",
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fourth",
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Fifth",
+                        "value": 5
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Sixth",
+                        "value": 6
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Seventh",
+                        "value": 7
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Eighth",
+                        "value": 8
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Ninth",
+                        "value": 9
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.SpellRank.Tenth",
+                        "value": 10
+                    }
+                ],
+                "flag": "rank",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.SpellRank.Prompt"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:fire",
+                    "item:duration:0"
+                ],
+                "selector": "spell-damage",
+                "type": "status",
+                "value": "2*@item.flags.pf2e.rulesSelections.rank"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

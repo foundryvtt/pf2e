@@ -526,6 +526,7 @@ const weaponTraits = {
     "volley-20": "PF2E.TraitVolley20",
     "volley-30": "PF2E.TraitVolley30",
     "volley-50": "PF2E.TraitVolley50",
+    "volley-60": "PF2E.TraitVolley60",
 };
 
 const preciousMaterials: Record<PreciousMaterialType, string> = {
@@ -759,6 +760,7 @@ const weaponActionTraits = R.pick(weaponTraits, [
     "volley-20",
     "volley-30",
     "volley-50",
+    "volley-60",
 ]);
 
 const actionTraits = {
@@ -849,29 +851,21 @@ const effectTraits = R.omit(actionTraits, [
 ] as const);
 
 const hazardTraits = {
+    ...creatureTraits,
     ...damageTraits,
     ...magicTraditions,
-    aberration: "PF2E.TraitAberration",
     alchemical: "PF2E.TraitAlchemical",
-    animal: "PF2E.TraitAnimal",
-    aquatic: "PF2E.TraitAquatic",
     auditory: "PF2E.TraitAuditory",
-    beast: "PF2E.TraitBeast",
-    clockwork: "PF2E.TraitClockwork",
     consumable: "PF2E.TraitConsumable",
     curse: "PF2E.TraitCurse",
     environmental: "PF2E.TraitEnvironmental",
-    fungus: "PF2E.TraitFungus",
     haunt: "PF2E.TraitHaunt",
     inhaled: "PF2E.TraitInhaled",
     kaiju: "PF2E.TraitKaiju",
-    magical: "PF2E.TraitMagical",
     mechanical: "PF2E.TraitMechanical",
     poison: "PF2E.TraitPoison",
     polymorph: "PF2E.TraitPolymorph",
-    shadow: "PF2E.TraitShadow",
     steam: "PF2E.TraitSteam",
-    summoned: "PF2E.TraitSummoned",
     technological: "PF2E.TraitTechnological",
     teleportation: "PF2E.TraitTeleportation",
     trap: "PF2E.TraitTrap",
@@ -1568,6 +1562,7 @@ const traitDescriptions = {
     "volley-20": "PF2E.TraitDescriptionVolley",
     "volley-30": "PF2E.TraitDescriptionVolley",
     "volley-50": "PF2E.TraitDescriptionVolley",
+    "volley-60": "PF2E.TraitDescriptionVolley",
     wand: "PF2E.TraitDescriptionWand",
     wandering: "PF2E.TraitDescriptionWandering",
     water: "PF2E.TraitDescriptionWater",

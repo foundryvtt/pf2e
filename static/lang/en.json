@@ -101,7 +101,6 @@
         "ActionActionTypeLabel": "Action Type",
         "ActionActionsLabel": "Actions",
         "ActionBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
-        "ActionDeathNoteLabel": "Death Note",
         "ActionNumber1": "One",
         "ActionNumber2": "Two",
         "ActionNumber3": "Three",
@@ -562,11 +561,11 @@
                 "Identification": {
                     "Skills": {
                         "Label": "{skills}: DC {dc} ({adjustment})",
-                        "Tooltip": "\"The skill used to identify a creature usually depends on that creature's trait, as shown on Table 10–7, but you have leeway on which skills apply.\" – CRB pg. 506"
+                        "Tooltip": "\"The skill used to identify a creature usually depends on that creature's trait, as shown on the Creature Identification Skills table, but you have leeway on which skills apply.\" – Pathfinder GM Core pg. 54-55"
                     },
                     "Lore": {
                         "Label": "Applicable Lore: DC {dc1} ({adjustment1}) or DC {dc2} ({adjustment2})",
-                        "Tooltip": "\"Using the applicable Lore usually has an easy or very easy DC (before adjusting for rarity).\" – CRB pg. 506"
+                        "Tooltip": "\"Using the applicable Lore usually has an easy or very easy DC (before adjusting for rarity).\" – Pathfinder GM Core pg. 54"
                     }
                 },
                 "SimpleSheet": "Simple NPC Sheet",
@@ -1702,7 +1701,7 @@
                 "Features": "Features",
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
-            "Action": {
+            "Ability": {
                 "Category": {
                     "None": "None",
                     "Defensive": "Defensive",
@@ -1710,13 +1709,20 @@
                     "Offensive": "Offensive",
                     "Familiar": "Familiar Ability"
                 },
+                "FIELDS": {
+                    "deathNote": {
+                        "label": "Death Note"
+                    },
+                    "selfEffect": {
+                        "hint": "A single effect item to be applied to the actor that uses this action",
+                        "label": "Self-Applied Effect"
+                    }
+                },
                 "Plural": "Abilities",
                 "SelfAppliedEffect": {
                     "Applied": "{effect} was applied.",
                     "Delete": "Delete Reference",
-                    "Drop": "Drop Effect",
-                    "Label": "Self-Applied Effect",
-                    "Hint": "A single effect item to be applied to the actor that uses this action"
+                    "Drop": "Drop Effect"
                 },
                 "Type": {
                     "Activity": "Activity",
@@ -1813,7 +1819,8 @@
                 "UnequippedHint": "This armor is bulkier due to not being equipped."
             },
             "CampaignFeature": {
-                "CampaignLabel": "Campaign"
+                "CampaignLabel": "Campaign",
+                "Plural": "Campaign Features"
             },
             "CannotAddType": "{type} items cannot be added to this actor.",
             "Condition": {
@@ -2274,6 +2281,11 @@
                 "Plural": "Effects",
                 "ShowTokenIcon": "Show token icon?",
                 "Unidentified": "Unidentified?"
+            },
+            "FIELDS": {
+                "category": {
+                    "label": "Category"
+                }
             },
             "Feat": {
                 "Info": {
@@ -3620,7 +3632,7 @@
         "Scene": {
             "HearingRange": {
                 "Caveat": "*For performance reasons, the radius is a real measurement rather than a grid-based one.",
-                "Hint": "Limit the range* creatures can hear in this scene as a representation of \"an environment that distorts the sense, such as a noisy room\" (CRB pg. 464). Requires rules-based vision to be enabled.",
+                "Hint": "Limit the range* creatures can hear in this scene as a representation of \"an environment that distorts the sense, such as a noisy room\" (Pathfinder Player Core pg. 432). Requires rules-based vision to be enabled.",
                 "Name": "Hearing Range (ft.)",
                 "Unlimited": "Unlimited"
             }
@@ -3903,6 +3915,7 @@
         "TraitAttachedToFirearm": "Attached To Firearm",
         "TraitAttachedToFirearmFiringMechanism": "Attached To Firearm (Firing Mechanism)",
         "TraitAttachedToFirearmScope": "Attached To Firearm (Scope)",
+        "TraitAttachedToMeleeWeapon": "Attached to a Melee Weapon",
         "TraitAttachedToShield": "Attached to Shield",
         "TraitAttachedToShipsBow": "Attached to a Ship's Bow",
         "TraitAttack": "Attack",
@@ -4961,6 +4974,7 @@
         "TraitVolley20": "Volley 20 ft.",
         "TraitVolley30": "Volley 30 ft.",
         "TraitVolley50": "Volley 50 ft.",
+        "TraitVolley60": "Volley 60 ft.",
         "TraitVorpalFear": "Vorpal Fear",
         "TraitWand": "Wand",
         "TraitWandering": "Wandering",
@@ -6215,6 +6229,7 @@
             "Quantity": "Quantity",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",
             "SellSubtitle": "Sell item",
+            "SendToPartyStash": "Send to Party Stash",
             "SheetType": "Sheet Type",
             "SplitCoinsLabel": "Distribute Coins",
             "SplitCoinsPopupHeader": "Choose actors to receive a share",

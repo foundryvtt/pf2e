@@ -1,6 +1,6 @@
 {
     "_id": "OCJ2dnG9z5xGEh1q",
-    "img": "systems/pf2e/icons/equipment/held-items/horn-of-fog.webp",
+    "img": "icons/commodities/bones/horn-curved-worn-brown.webp",
     "name": "Sentinel Horn",
     "system": {
         "baseItem": null,
@@ -9,7 +9,7 @@
         },
         "containerId": null,
         "description": {
-            "value": "<p>This curved brass horn is a virtuoso instrument with a surprisingly deep tone, etched with images of interlocking lines and swirls. Sentinel horns come in pairs, and each works with only the other of its pair. The listed Price is for a pair of sentinel horns.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<hr />\n<p><strong>Effect</strong> You play a specific tune on the horn. When you do, the other horn also plays the same tune, not matter how far away it is, as long as it is on the same plane.</p>"
+            "value": "<p>This curved brass horn is a virtuoso instrument with a surprisingly deep tone, etched with images of interlocking lines and swirls. Sentinel horns come in pairs, and each works with only the other of its pair. The listed Price is for a pair of sentinel horns.</p><hr /><p><strong>Activate</strong> <span class=\"action-glyph\">2</span> Interact</p>\n<p><strong>Frequency</strong> once per round</p>\n<p><strong>Effect</strong> You play a specific tune on the horn. When you do, the other horn also plays the same tune, not matter how far away it is, as long as it is on the same plane.</p>"
         },
         "hardness": 0,
         "hp": {
@@ -34,7 +34,24 @@
             "title": "Pathfinder #195: Heavy is the Crown"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "domain": "performance",
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.PlayingItem",
+                "option": "playing",
+                "toggleable": true
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "playing"
+                ],
+                "selector": "performance",
+                "type": "item",
+                "value": 1
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "uncommon",

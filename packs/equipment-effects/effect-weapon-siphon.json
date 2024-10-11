@@ -1,0 +1,62 @@
+{
+    "_id": "FYdyPSPz6566GlUs",
+    "img": "icons/commodities/tech/pipe-tin.webp",
+    "name": "Effect: Weapon Siphon",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Weapon Siphon]</p>\n<p>The multiple attack penalty with the weapon is one greater than usual.</p>"
+        },
+        "duration": {
+            "expiry": null,
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Treasure Vault"
+        },
+        "rules": [
+            {
+                "actorFlag": true,
+                "choices": {
+                    "ownedItems": true,
+                    "predicate": [
+                        "item:melee"
+                    ],
+                    "types": [
+                        "weapon"
+                    ]
+                },
+                "flag": "weaponSiphonWeapon",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.Weapon"
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "subtract",
+                "predicate": [
+                    "item:id:{actor|flags.pf2e.weaponSiphonWeapon}"
+                ],
+                "selector": "strike-attack-roll",
+                "slug": "multiple-attack-penalty",
+                "value": 1
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

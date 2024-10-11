@@ -41,6 +41,7 @@ import { sluggify } from "@util";
 /** Expose public game.pf2e interface */
 export const SetGamePF2e = {
     onInit: (): void => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
         type ActionCollection = Record<string, Function> & Collection<Action>;
         const actions = new Collection<Action>(
             SystemActions.map((action) => [action.slug, action]),

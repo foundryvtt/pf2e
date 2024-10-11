@@ -1,3 +1,124 @@
+## 6.4.1
+
+## System Improvements
+
+-   (Codas) Improve performance of actor roll option retrieval
+-   (DocSchlock) Add roll option toggle support to NPC spells and familiars
+
+## Bug Fixes
+
+-   (Abrault) Fix untrained bonus in Trick Magic Item
+-   (DocSchlock) Fix permanently hidden Campaign Features in Compendium Browser
+-   (DocSchlock) Fix minions and eidolons getting added to initiative from party sheet
+-   (nikolaj-a) Fix modifier adjustments for single check actions
+-   (Supe) Fix bonuses to damage applying to damage without the suitable type
+-   (Supe) Fix updating frequencies in NPC and vehicle sheet
+-   (Supe) Fix temporarily removed actor and item traits from being permanently removed when opening and closing the sheet
+
+## Data Updates
+
+-   (Ambrose, Dire Weasel) Assign and replace icons for multiple items
+-   (Ambrose) Automate the Dire Growth Werecreature feat
+-   (Ambrose) Correct Ripnugget's intimidation
+-   (Ambrose) Fix Swashbuckler's Martial Weapon expertise
+-   (Ambrose) Reduce brightness of Ancient Scale Azarketi
+-   (Ambrose) Redirect more actors to monster core equivalents
+-   (Ambrose) Restore the Godless Healing feat
+-   (Dire Weasel) Add effects for TXCG food
+-   (Dire Weasel) Add effects for Spun Cloud
+-   (Dire Weasel) Add effect for Taper of Sanctification
+-   (Dire Weasel) Update effects for season of ghosts creatures
+-   (DocShlock) Add silver to Moonlit Spellgun's damage rolls
+-   (Michaël) Add armor item for Bakuwa Lizardfolk
+-   (MechaMaya) Add item alteration to "And Will Do This Once More"
+-   (rectulo) Fix unfurling brocade description
+-   (reyzor1991) Correct rank of Shrink the Span
+-   (Rigo) Automate Charged Javelin, Canopy Predator, Sneak Adept, Staggering Fire, Psychic's amped shield, Toxicologist Alchemist Field Benefit, Blessed Counterstrike, and Greater Security for Shields of the Spirit
+-   (Rigo) Automate Kindling and Luminous familiar abilities
+-   (Rigo) Automate dice upgrades for Diamond Fists
+-   (Rigo) Automate Smoothing Aeon Ston's penalty suppression
+-   (Rigo) Add toggle for Winged Warrior Dedication fly speed bonus
+-   (Rigo) Condense Investigator Clue in effects and Predictable!
+-   (Rigo) Condense Damage Avoidance familiar abilities
+-   (Rigo) Condense and update multiple spell effects
+-   (Rigo) Fix aid applying to more than attack rolls and skill checks
+-   (Rigo) Fix Mammoth Bow's weapon category to martial
+-   (Rigo) Improve blood magic description alteration formatting
+-   (Rigo) Partially update Sacred Form to Player Core 2
+-   (Rigo) Rework Dutiful Challenge to use Token Mark
+-   (Rigo) Update Albatross Curse to apply to enemies within a certain distance
+-   (Rigo) Update Crossbow Crackshot to work for any damage type and add backstabber damage
+-   (Tikael) Automate shield augmentations
+-   (websterguy) Remove erroneous attack bonus from Starlit Transformation
+
+## Under the Hood
+
+-   (stwlam) Add relative ally and enemy target and origin roll options
+-   (Supe) Include distance roll option for all checks
+-   (Tikael) Add support for choiceset queries for energy and physical damage types
+
+## 6.4.0
+
+### System Improvements
+
+-   (Codas) Improve rendering performance in encounter tracker
+-   (Farling) Add @Embed support for items
+-   (stwlam) Add support for changing dynamic token ring subject using TokenImageRE
+-   (Supe) Improve scaling of dynamic token fallback token images in chat messages
+-   (Tikael) Add creature traits to hazards
+
+### Bugfixes
+
+-   (stwlam) Allow blank animation type in TokenLight RE form
+-   (Supe) Avoid disabled ability modifiers from suppressing enabled ones
+-   (Supe) Fix choice set homebrew item dropzone for button lists
+-   (Supe) Fix chat messages containing tokens with wildcards
+-   (Trent) Fix user callbacks not being awaited for weapons with ammo
+
+### Data Updates
+
+-   (Ambrose, kromko) Update publication data for certain items
+-   (Dire Weasel, Tikael) Update more items to use better core icons
+-   (Ambrose, Rigo) Improve support of ancestral spells
+-   (Abbadon) Add stonebound and stone brawler to archetype journal
+-   (Ambrose) Add icons to more equipment and npc items
+-   (Ambrose) Add Clawdancer and Shieldmarshal dedications to the archetypes journal
+-   (Ambrose) Automate Bard critical specialization
+-   (Ambrose) Condense weapon expertise and spell repertoire class features
+-   (Ambrose) Fix Seraptis skills
+-   (Ambrose) Handle Redemption cause in Exalted Reaction
+-   (Ambrose) Update Pathfinder Society Boons
+-   (Ambrose) Update Sentinel, Champion Dedication, Quickstrike, and Liberating Step to match PC2
+-   (Ambrose) Redirect certain actors to their Monster Core equivalent
+-   (Dire Weasel) Add note reminder for Uncanny Pounce
+-   (Dire Weasel) Add effects for Malleable Claw, Predator's Claw, and Tiger's Menuki
+-   (Dire Weasel) Automate Hollow Star aura and Elemental Bulwark
+-   (Dire Weasel) Automate NPC abilities Ambush and Terrain Advantage
+-   (Dire Weasel) Condense Elemental Gift and Evolution Surge effects
+-   (Dire Weasel) Fix error in Ainamuuren damage type
+-   (Dire Weasel) Update Oni Form effect
+-   (Dire Weasel) Update NPC Blood Frenzy effect
+-   (Dire Weasel) Add stance effect for Stretching Reach
+-   (kromko) Fix Cave Worm Venom and Taper of Sanctification
+-   (nythz) Fix prices of great Helm of Zeal and Sash of Prowess
+-   (MiddleTwin) Automate Fortissimo Composition
+-   (Mose) Fix typos in certain items
+-   (rectulo) Fix incorrect link in Wild Winds Stance
+-   (Rigo) Automate Fan Dancer and Starlit Span archetypes
+-   (Rigo) Automate TXCG Inventor Feats
+-   (Rigo) Automate TXCG Elemental Medicine Feats
+-   (Rigo) Fix Price and level of Energy Adaptive Rune
+-   (Rigo) Fix description and implement Prognostic Veil's Twist the Skeins of Fate
+-   (Rigo) Fix Awakened Animal's fist strike overriding other strikes
+-   (Rigo) Move Unleash Psyche's toggle to the spellcasting tab
+-   (Rigo) Update Mauler's Critical Specialization to include advanced weapons
+-   (Rigo) Update Alchemist Goggles and automate Berserker's Cloak
+-   (Rigo) Update several TXCG equipment and effects
+-   (Rigo) Rework werecreature dedication automation. Drag the feat in again.
+-   (Tikael) Fix automation of Kitsune Change Shape
+-   (Tikael) Fix rules for Conspirator Dragons and Bone Missile
+-   (Tikael) Fix Unstoppable Juggernaut and Superstition's raging resistance
+
 ## 6.3.1
 
 ### Bugfixes

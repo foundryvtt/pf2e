@@ -4,7 +4,7 @@
     "name": "Spell Effect: Summoner's Visage",
     "system": {
         "description": {
-            "value": "<p>Your eidolon gains a +4 status bonus to Deception checks to Impersonate you and can add its level to such checks even if it's untrained.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Summoner's Visage]</p>\n<p>Your eidolon gains a +4 status bonus to Deception checks to Impersonate you and can add its level to such checks even if it's untrained.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,28 +23,30 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "label": "summoners-visage-status",
                 "predicate": [
+                    "action:impersonate",
                     "impersonating-summoner"
                 ],
                 "selector": "deception",
+                "slug": "summoners-visage-status",
                 "type": "status",
                 "value": 4
             },
             {
                 "key": "FlatModifier",
-                "label": "summoners-visage-proficiency",
                 "predicate": [
-                    "impersonating-summoner"
+                    "action:impersonate",
+                    "impersonating-summoner",
+                    "proficiency:untrained"
                 ],
                 "selector": "deception",
+                "slug": "summoners-visage-proficiency",
                 "type": "proficiency",
                 "value": "@actor.level"
             },
             {
                 "domain": "all",
                 "key": "RollOption",
-                "label": "Impersonate Master (Summoner's Visage)",
                 "option": "impersonating-summoner",
                 "toggleable": true
             }

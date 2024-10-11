@@ -58,7 +58,7 @@ class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TAc
 
         // Only allow a different slot rank if the spell can heighten
         const groupId = options?.groupId;
-        const heightenedRank = canHeighten ? spellSlotGroupIdToNumber(groupId) ?? spell.rank : spell.baseRank;
+        const heightenedRank = canHeighten ? (spellSlotGroupIdToNumber(groupId) ?? spell.rank) : spell.baseRank;
 
         const spellcastingEntryId = spell.system.location.value;
         if (spellcastingEntryId === this.id && spell.rank === heightenedRank) {

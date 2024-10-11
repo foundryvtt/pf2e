@@ -1,3 +1,5 @@
+@use "sass:color";
+
 aside {
     background-image: url("/assets/sheet/red_sidebar_top.webp"), url("/assets/sheet/red_sidebar_bottom.webp");
     background-repeat: no-repeat;
@@ -243,9 +245,9 @@ aside {
                         background-color: var(--color-pf-primary);
                         background-image: linear-gradient(
                             90deg,
-                            darken($primary-color, 5) 0%,
-                            lighten($primary-color, 8) 50%,
-                            darken($primary-color, 5) 100%
+                            color.adjust($primary-color, $lightness: -5%) 0%,
+                            color.adjust($primary-color, $lightness: 8%) 50%,
+                            color.adjust($primary-color, $lightness: -5%) 100%
                         );
                         border: 1px solid var(--sidebar-title);
                         border-radius: 0 0 4px 4px;

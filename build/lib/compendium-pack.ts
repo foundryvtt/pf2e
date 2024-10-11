@@ -258,18 +258,19 @@ class CompendiumPack {
 
         if (isActorSource(docSource)) {
             docSource.effects = [];
-            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" });
             this.#assertSizeValid(docSource);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
             for (const item of docSource.items) {
-                item._stats = { ...partialStats } as SourceFromSchema<DocumentStatsSchema<ItemUUID>>;
+                const compendiumSource = item._stats?.compendiumSource ?? null;
+                item._stats = { ...partialStats, compendiumSource } as SourceFromSchema<DocumentStatsSchema<ItemUUID>>;
                 item.effects = [];
                 item.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
                 CompendiumPack.convertUUIDs(item, { to: "ids", map: CompendiumPack.#namesToIds.Item });
             }
+
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Actor" });
         } else if (isItemSource(docSource)) {
             docSource.effects = [];
-            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
             docSource.system.slug = sluggify(docSource.name);
             docSource.system._migration = { version: MigrationRunnerBase.LATEST_SCHEMA_VERSION, previous: null };
 
@@ -284,6 +285,7 @@ class CompendiumPack {
 
             // Convert uuids with names in GrantItem REs to well-formedness
             CompendiumPack.convertUUIDs(docSource, { to: "ids", map: CompendiumPack.#namesToIds.Item });
+            docSource._stats.compendiumSource = this.#sourceIdOf(docSource._id ?? "", { docType: "Item" });
         } else if ("pages" in docSource) {
             for (const page of docSource.pages) {
                 page._stats = { ...partialStats };

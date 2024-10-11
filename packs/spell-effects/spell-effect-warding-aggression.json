@@ -1,0 +1,94 @@
+{
+    "_id": "7zJPd2BsFl82qFRV",
+    "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+    "name": "Spell Effect: Warding Aggression",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Warding Aggression]</p>\n<p>You gain a status bonus to AC against the foe.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "OGL",
+            "remaster": false,
+            "title": "Pathfinder Secrets of Magic"
+        },
+        "rules": [
+            {
+                "key": "TokenMark",
+                "slug": "warding-aggression"
+            },
+            {
+                "adjustName": false,
+                "choices": [
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.criticalSuccess",
+                        "value": "critical-success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.success",
+                        "value": "success"
+                    },
+                    {
+                        "label": "PF2E.Check.Result.Degree.Check.failure",
+                        "value": "failure"
+                    }
+                ],
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DegreeOfSuccess",
+                "rollOption": "warding-aggression"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "origin:mark:warding-aggression"
+                ],
+                "selector": "ac",
+                "slug": "warding-aggression-ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "AdjustModifier",
+                "mode": "upgrade",
+                "predicate": [
+                    {
+                        "or": [
+                            "warding-aggression:critical-success",
+                            "warding-aggression:success"
+                        ]
+                    }
+                ],
+                "selector": "ac",
+                "slug": "warding-aggression-ac",
+                "value": 2
+            },
+            {
+                "key": "GrantItem",
+                "predicate": [
+                    "warding-aggression:critical-success"
+                ],
+                "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Warding Aggression (Critical Success)"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "rarity": "common",
+            "value": []
+        }
+    },
+    "type": "effect"
+}

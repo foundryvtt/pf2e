@@ -3,6 +3,7 @@ import { AutomaticBonusProgression } from "@actor/character/automatic-bonus-prog
 import { resetActors } from "@actor/helpers.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ItemProxyPF2e } from "@item";
+import { AbilitySystemData } from "@item/ability/index.ts";
 import { KitSystemData } from "@item/kit/data.ts";
 import { MeleeSystemData } from "@item/melee/data.ts";
 import { ActiveEffectPF2e } from "@module/active-effect.ts";
@@ -84,6 +85,7 @@ export const Load = {
 
         // Assign canvas layer and placeable classes
 
+        CONFIG.Item.dataModels.action = AbilitySystemData;
         CONFIG.Item.dataModels.kit = KitSystemData;
         CONFIG.Item.dataModels.melee = MeleeSystemData;
 
@@ -164,7 +166,7 @@ export const Load = {
                     app.render();
                 }
             }
-            if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
         // HMR for template files
