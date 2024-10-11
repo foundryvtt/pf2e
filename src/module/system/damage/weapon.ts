@@ -372,6 +372,18 @@ class WeaponDamagePF2e {
             );
         }
 
+        // Tearing trait
+        if (weaponTraits.some((t) => t === "tearing")) {
+            const modifier = new ModifierPF2e({
+                label: CONFIG.PF2E.weaponTraits.tearing,
+                slug: "tearing",
+                modifier: strikingDice > 1 ? 2 : 1,
+                damageType: "bleed",
+                damageCategory: "persistent",
+            });
+            modifiers.push(modifier);
+        }
+
         // Twin trait
         if (weaponTraits.some((t) => t === "twin") && weapon.isOfType("weapon")) {
             modifiers.push(
