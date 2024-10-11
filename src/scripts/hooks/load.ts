@@ -166,7 +166,7 @@ export const Load = {
                     app.render();
                 }
             }
-            if (path.includes("effects-panel")) game.pf2e.effectPanel.render();
+            if (path.includes("system/effects")) game.pf2e.effectPanel.render();
         }
 
         // HMR for template files
