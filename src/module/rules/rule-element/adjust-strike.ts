@@ -36,7 +36,7 @@ class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema> {
             ...super.defineSchema(),
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             property: new fields.StringField({

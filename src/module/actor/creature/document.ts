@@ -394,7 +394,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }

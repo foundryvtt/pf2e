@@ -231,7 +231,7 @@ async function migrate() {
             }
         })();
 
-        if (!R.equals(source, updated)) {
+        if (!R.isDeepEqual(source, updated)) {
             console.log(`${filePath} is different. writing`);
             try {
                 await fs.writeFile(filePath, jsonStringifyOrder(updated));
@@ -256,7 +256,7 @@ function pruneDefaults(
         delete source.flags;
     }
 
-    if ("system" in source && R.isObject(source.system)) {
+    if ("system" in source && R.isPlainObject(source.system)) {
         if (deleteSlug) delete source.system.slug;
         delete source.system._migrations;
         if (source.type === "consumable" && !source.system.spell) {

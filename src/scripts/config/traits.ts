@@ -762,9 +762,9 @@ const actionTraits = {
 };
 
 const effectTraits = R.omit(actionTraits, [
-    ...R.keys.strict(ancestryTraits),
-    ...R.keys.strict(classTraits),
-    ...R.keys.strict(weaponActionTraits),
+    ...R.keys(ancestryTraits),
+    ...R.keys(classTraits),
+    ...R.keys(weaponActionTraits),
     "additive",
     "additive1",
     "additive2",

@@ -240,7 +240,7 @@ const ITEM_ALTERATION_VALIDATORS = {
         itemType: new fields.StringField({
             required: true,
             nullable: false,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
             initial: undefined,
         }),
         mode: new fields.StringField({
@@ -426,7 +426,7 @@ const ITEM_ALTERATION_VALIDATORS = {
     "other-tags": new ItemAlterationValidator({
         itemType: new fields.StringField({
             required: true,
-            choices: () => R.keys.strict(CONFIG.PF2E.Item.documentClasses),
+            choices: () => R.keys(CONFIG.PF2E.Item.documentClasses),
         }),
         mode: new fields.StringField({
             required: true,

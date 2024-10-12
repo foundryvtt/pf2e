@@ -347,7 +347,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([key, { attribute }]) => {
+        system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
@@ -679,12 +679,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.skills)) {
+        for (const key of R.keys(CONFIG.PF2E.skills)) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
+        for (const key of R.keys(CONFIG.PF2E.weaponCategories)) {
             const rank = this.system.proficiencies.attacks[key].rank;
             rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
@@ -823,7 +823,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     private prepareSkills() {
         const { synthetics, system, wornArmor } = this;
 
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
             const skill = system.skills[skillSlug];
 
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
@@ -1056,7 +1056,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
-        const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
+        const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
         const syntheticWeapons = Object.values(synthetics.strikes)
             .map((s) => s(unarmedRunes))
             .filter(R.isNonNull);
