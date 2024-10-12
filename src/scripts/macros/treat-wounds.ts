@@ -1,7 +1,6 @@
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import type { RollOptionRuleElement } from "@module/rules/rule-element/roll-option/rule-element.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { ActionDefaultOptions } from "@system/action-macros/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import {
@@ -11,6 +10,7 @@ import {
     type DegreeOfSuccessString,
 } from "@system/degree-of-success.ts";
 import { fontAwesomeIcon, objectHasKey } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 
 function CheckFeat(actor: ActorPF2e, slug: string): boolean {
     if (actor.items.find((i) => i.slug === slug && i.type === "feat")) {

@@ -9,7 +9,6 @@ import { ATTRIBUTE_ABBREVIATIONS, MOVEMENT_TYPES, SAVE_TYPES } from "@actor/valu
 import { createTagifyTraits } from "@module/sheet/helpers.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { DicePF2e } from "@scripts/dice.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import type { HTMLTagifyTagsElement } from "@system/html-elements/tagify-tags.ts";
 import type { StatisticRollParameters } from "@system/statistic/index.ts";
 import {
@@ -23,6 +22,7 @@ import {
     tagify,
     traitSlugToObject,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { NPCConfig } from "./config.ts";
 import {

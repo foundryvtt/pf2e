@@ -1,6 +1,6 @@
 {
     "_id": "C35j9PXcyDdrTsat",
-    "img": "systems/pf2e/icons/default-icons/consumable.svg",
+    "img": "icons/commodities/leather/scales-blue.webp",
     "name": "Dragon Throat Scale",
     "system": {
         "baseItem": null,
@@ -11,7 +11,7 @@
         "containerId": null,
         "damage": null,
         "description": {
-            "value": "<p><strong>Activate</strong> Cast a Spell</p>\n<p>Dragon scales of all sorts can be powerful magical reagents, infusing magic with the might of their breath. When used to cast magic missile, a scale from a dragon's throat causes the spell to lose the force trait and damage type. Instead, the spell has the damage type of the breath weapon belonging to the dragon the scale came from, along with that trait. Damage types are associated with the following dragons, with uncommon dragons noted with an asterisk.</p>\n<p><strong>Acid:</strong> Black, brine*, copper</p>\n<p><strong>Cold:</strong> Silver, white</p>\n<p><strong>Electricity:</strong> Blue, bronze, cloud*, sky*</p>\n<p><strong>Fire:</strong> Brass, gold, magma*, red, underworld*</p>\n<p><strong>Mental:</strong> Sovereign*</p>\n<p><strong>Negative:</strong> Umbral*</p>\n<p><strong>Poison:</strong> Green</p>"
+            "value": "<p><strong>Activate</strong> Cast a Spell</p>\n<p>Dragon scales of all sorts can be powerful magical reagents, infusing magic with the might of their breath. When used to cast @UUID[Compendium.pf2e.spells-srd.Item.Force Barrage], a scale from a dragon's throat causes the spell to lose the force trait and damage type. Instead, the spell has the damage type of the breath weapon belonging to the dragon the scale came from, along with that trait. Damage types are associated with the following dragons, with uncommon dragons noted with an asterisk.</p>\n<p>@UUID[Compendium.pf2e.equipment-effects.Item.Effect: Dragon Throat Scale]</p><hr /><p><strong>Acid:</strong> Black, brine*, copper</p>\n<p><strong>Cold:</strong> Silver, white</p>\n<p><strong>Electricity:</strong> Blue, bronze, cloud*, sky*</p>\n<p><strong>Fire:</strong> Brass, gold, magma*, red, underworld*</p>\n<p><strong>Mental:</strong> Sovereign*</p>\n<p><strong>Poison:</strong> Green</p>\n<p><strong>Void</strong>: Umbral*</p>"
         },
         "hardness": 0,
         "hp": {
@@ -36,7 +36,52 @@
             "title": "Pathfinder Treasure Vault"
         },
         "quantity": 1,
-        "rules": [],
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.TraitAcid",
+                        "value": "acid"
+                    },
+                    {
+                        "label": "PF2E.TraitCold",
+                        "value": "cold"
+                    },
+                    {
+                        "label": "PF2E.TraitElectricity",
+                        "value": "electricity"
+                    },
+                    {
+                        "label": "PF2E.TraitFire",
+                        "value": "fire"
+                    },
+                    {
+                        "label": "PF2E.TraitMental",
+                        "value": "mental"
+                    },
+                    {
+                        "label": "PF2E.TraitPoison",
+                        "value": "poison"
+                    },
+                    {
+                        "label": "PF2E.TraitVoid",
+                        "value": "void"
+                    }
+                ],
+                "flag": "dragonThroatScale",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.DamageType",
+                "requiresEquipped": false
+            },
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "other-tags",
+                "requiresEquipped": false,
+                "value": "{item|flags.pf2e.rulesSelections.dragonThroatScale}"
+            }
+        ],
         "size": "med",
         "traits": {
             "rarity": "common",

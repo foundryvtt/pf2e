@@ -10,7 +10,7 @@ import { AuraRuleElement } from "./rule-element/aura.ts";
 import { BaseSpeedRuleElement } from "./rule-element/base-speed.ts";
 import { BattleFormRuleElement } from "./rule-element/battle-form/rule-element.ts";
 import { ChoiceSetRuleElement } from "./rule-element/choice-set/rule-element.ts";
-import { CraftingEntryRuleElement } from "./rule-element/crafting-entry.ts";
+import { CraftingAbilityRuleElement } from "./rule-element/crafting-ability.ts";
 import { CreatureSizeRuleElement } from "./rule-element/creature-size.ts";
 import { CritSpecRuleElement } from "./rule-element/crit-spec.ts";
 import { DamageAlterationRuleElement } from "./rule-element/damage-alteration/rule-element.ts";
@@ -60,7 +60,7 @@ class RuleElements {
         BaseSpeed: BaseSpeedRuleElement,
         BattleForm: BattleFormRuleElement,
         ChoiceSet: ChoiceSetRuleElement,
-        CraftingEntry: CraftingEntryRuleElement,
+        CraftingAbility: CraftingAbilityRuleElement,
         CreatureSize: CreatureSizeRuleElement,
         CriticalSpecialization: CritSpecRuleElement,
         DamageAlteration: DamageAlterationRuleElement,

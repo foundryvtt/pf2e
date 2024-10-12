@@ -28,7 +28,6 @@ import { BaseWeaponType, WeaponGroup } from "@item/weapon/types.ts";
 import { WEAPON_CATEGORIES } from "@item/weapon/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ZeroToFour } from "@module/data.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { craft } from "@system/action-macros/crafting/craft.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { CheckDC } from "@system/degree-of-success.ts";
@@ -46,6 +45,7 @@ import {
     sortLabeledRecord,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import { UUIDUtils } from "@util/uuid.ts";
 import * as R from "remeda";
 import { CreatureSheetPF2e } from "../creature/sheet.ts";
@@ -53,8 +53,8 @@ import { ManageAttackProficiencies } from "../sheet/popups/manage-attack-profici
 import { AttributeBuilder } from "./apps/attribute-builder.ts";
 import { AutomaticBonusProgression } from "./automatic-bonus-progression.ts";
 import { CharacterConfig } from "./config.ts";
-import type { CraftingAbilitySheetData, PreparedFormulaData } from "./crafting/ability.ts";
-import { CraftingFormula, CraftingFormulaData, craftItem, craftSpellConsumable } from "./crafting/index.ts";
+import type { CraftingAbilitySheetData } from "./crafting/ability.ts";
+import { CraftingFormula, craftItem, craftSpellConsumable } from "./crafting/index.ts";
 import {
     CharacterBiography,
     CharacterSaveData,
@@ -1458,69 +1458,36 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
     }
 
-    async #sortFormulas(
-        sourceFormula: CraftingFormula,
-        targetUuid: string,
-        entrySelector: string | null,
-    ): Promise<void> {
+    async #sortFormulas(sourceFormula: CraftingFormula, targetUuid: string, slug: string | null): Promise<void> {
         if (!UUIDUtils.isItemUUID(targetUuid)) return;
         if (sourceFormula.uuid === targetUuid) return;
 
+        // Do not allow sorting with different formula level outside of a crafting entry
         const sourceLevel = sourceFormula.item.level;
         const targetLevel = this.#knownFormulas[targetUuid].item.level;
-
-        // Do not allow sorting with different formula level outside of a crafting entry
-        if (!entrySelector && sourceLevel !== targetLevel) {
+        if (!slug && sourceLevel !== targetLevel) {
             return;
         }
 
-        const performSort = async (
-            formulas: (PreparedFormulaData | CraftingFormulaData)[],
-            source: PreparedFormulaData | CraftingFormulaData,
-            target: PreparedFormulaData | CraftingFormulaData,
-            siblings: (PreparedFormulaData | CraftingFormulaData)[],
-        ): Promise<void> => {
-            const results = SortingHelpers.performIntegerSort(source, {
-                target,
-                siblings,
-            });
-            if (results.length) {
-                for (const result of results) {
-                    const formula = formulas.find((f) => f === result.target);
-                    if (formula) {
-                        formula.sort = result.update.sort;
-                    }
-                }
-                if (entrySelector) {
-                    const entry = await this.actor.getCraftingEntry(entrySelector);
-                    await entry?.updateFormulas(formulas as PreparedFormulaData[]);
-                } else {
-                    await this.actor.update({ "system.crafting.formulas": formulas });
-                }
-            }
-        };
-
-        // Sort crafting entry formulas
-        if (entrySelector) {
-            const entry = await this.actor.getCraftingEntry(entrySelector);
-            if (!entry) {
-                throw ErrorPF2e(`Crafting entry "${entrySelector}" doesn't exist!`);
-            }
-            const formulas = fu.deepClone(entry.preparedFormulaData);
-            const source = formulas.find((f) => f.itemUUID === sourceFormula.uuid);
-            const target = formulas.find((f) => f.itemUUID === targetUuid);
-            if (source && target) {
-                const siblings = formulas.filter((f) => f.itemUUID !== source.itemUUID);
-                return performSort(formulas, source, target, siblings);
-            }
-        }
-        // Sort other formulas
-        const formulas = this.actor.toObject().system.crafting?.formulas ?? [];
+        const ability = slug ? this.actor.crafting.abilities.get(slug, { strict: true }) : null;
+        const formulas = fu.deepClone(ability?.preparedFormulaData ?? this.actor.system.crafting.formulas);
         const source = formulas.find((f) => f.uuid === sourceFormula.uuid);
         const target = formulas.find((f) => f.uuid === targetUuid);
+
         if (source && target) {
-            const siblings = formulas.filter((f) => f.uuid !== source.uuid);
-            return performSort(formulas, source, target, siblings);
+            // The true targetIdx shifts after source removal,
+            // causing it to be placed after if dragging to a later one.
+            const sourceIdx = formulas.indexOf(source);
+            const targetIdx = formulas.indexOf(target);
+            formulas.splice(sourceIdx, 1);
+            formulas.splice(targetIdx, 0, source);
+
+            if (slug) {
+                const ability = this.actor.crafting.abilities.get(slug);
+                await ability?.updateFormulas(formulas);
+            } else {
+                await this.actor.update({ "system.crafting.formulas": formulas });
+            }
         }
     }
 

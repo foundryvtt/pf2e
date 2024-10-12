@@ -13,10 +13,10 @@ import { PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax, ZeroToFour } from "@module/data.ts";
 import { SheetOptions, createSheetTags } from "@module/sheet/helpers.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { SocketMessage } from "@scripts/socket.ts";
 import { SettingsMenuOptions } from "@system/settings/menu.ts";
 import { createHTMLElement, htmlClosest, htmlQuery, htmlQueryAll, signedInteger } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { PartyPF2e } from "./document.ts";
 

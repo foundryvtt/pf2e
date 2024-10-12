@@ -18,7 +18,7 @@ export default [
                 ...globals.browser,
                 ...jest.environments.globals.globals,
             },
-            ecmaVersion: 2022,
+            ecmaVersion: 2023,
             sourceType: "module",
             parserOptions: { project: "./tsconfig.json" },
         },

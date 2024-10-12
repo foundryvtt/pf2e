@@ -7,8 +7,8 @@ import type { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts"
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { AdjustedValue, getAdjustedValue, getAdjustment } from "@module/sheet/helpers.ts";
 import { kingmakerTraits } from "@scripts/config/traits.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { ErrorPF2e, htmlClosest, htmlQuery, htmlQueryAll, objectHasKey, tupleHasValue } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type { ArmyPF2e } from "./document.ts";
 import { ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData } from "./values.ts";
