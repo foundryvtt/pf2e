@@ -187,6 +187,7 @@ interface CreatureInitiativeSource {
 interface CreatureResources extends CreatureResourcesSource {
     /** The current number of focus points and pool size */
     focus?: ValueAndMax & { cap: number };
+    [key: string]: ValueAndMax | undefined;
 }
 
 enum VisionLevels {

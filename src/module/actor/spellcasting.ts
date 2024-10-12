@@ -136,6 +136,6 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
         });
 
         const actorUpdates = this.refocus({ all: true });
-        return { itemUpdates, actorUpdates };
+        return { actorUpdates, itemCreates: [], itemUpdates };
     }
 }
