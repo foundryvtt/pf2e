@@ -1125,8 +1125,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
 
-        // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
-        // certain criteria also count as weapon of different category
         const proficiencies = this.system.proficiencies;
         const categoryRank = proficiencies.attacks[weapon.category]?.rank ?? 0;
         const groupRank = proficiencies.attacks[`weapon-group-${weapon.group}`]?.rank ?? 0;
@@ -1136,18 +1134,16 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
 
-        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
-        // item roll options
-        const equivalentCategories = Object.values(proficiencies.attacks).flatMap((p) =>
-            !!p && "sameAs" in p && (p.definition?.test(weaponRollOptions) ?? true) ? `item:category:${p.sameAs}` : [],
-        );
-        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
+        // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
+        // certain criteria also count as weapon of different category
+        let syntheticRank = 0
+        Object.values(proficiencies.attacks).forEach((p) => {
+            if (p?.sameAs && (p.definition?.test(weaponRollOptions) ?? true)) {
+                syntheticRank = Math.max(syntheticRank, proficiencies.attacks[String(p.sameAs)]?.rank ?? 0)
+            }
+        });
 
-        const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponProficiencyOptions))
-            .map((p) => p.rank);
-
-        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
+        const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, syntheticRank) as ZeroToFour;
         const meleeOrRanged = weapon.isMelee ? "melee" : "ranged";
         const baseOptions = new Set([
             "action:strike",
