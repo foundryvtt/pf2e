@@ -4,7 +4,7 @@
     "name": "Effect: Asper's Elemental Aura",
     "system": {
         "description": {
-            "value": "<p>Asper surrounds herself with the power of one of the elements under her control (air, fire, or water). If air, she gains resistance 10 to electricity damage and doubles her speed. If fire, she gains resistance 10 to fire damage. Any creature within 30 feet of her who receives fire damage receives an extra @Damage[2d10[persistent,fire]] damage. If water, she gains resistance 10 to cold damage and fast healing 20.</p>"
+            "value": "<p><strong>Air</strong> You gain resistance 10 to electricity damage and double your speed.</p>\n<p><strong>Fire</strong> You gain resistance 10 to fire damage. Any creature within 30 feet that receives fire damage receives an extra @Damage[2d10[persistent,fire]] damage.</p>\n<p><strong>Water</strong> You gain resistance 10 to cold damage and fast healing 20.</p>"
         },
         "duration": {
             "expiry": null,
@@ -78,6 +78,20 @@
                     "elemental-aura:water"
                 ],
                 "value": 20
+            },
+            {
+                "key": "Note",
+                "predicate": [
+                    "item:damage:type:fire",
+                    "elemental-aura:fire"
+                ],
+                "selector": "damage",
+                "text": "PF2E.NPCAbility.Asper.Aura.Fire",
+                "outcome": [
+                    "success",
+                    "criticalSuccess"
+                ],
+                "title": "PF2E.NPCAbility.Asper.Aura.Label"
             }
         ],
         "start": {

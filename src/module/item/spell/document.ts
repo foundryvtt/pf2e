@@ -25,7 +25,6 @@ import {
 import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamagePF2e } from "@system/damage/damage.ts";
 import { DamageModifierDialog } from "@system/damage/dialog.ts";
@@ -52,6 +51,7 @@ import {
     sluggify,
     tupleHasValue,
 } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
 import { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel } from "./helpers.ts";

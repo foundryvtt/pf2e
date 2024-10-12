@@ -47,7 +47,6 @@ import {
 import type { ItemAlterationRuleElement } from "@module/rules/rule-element/item-alteration/rule-element.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { TokenDocumentPF2e } from "@scene/index.ts";
-import { eventToRollParams } from "@scripts/sheet-util.ts";
 import { CheckCheckContext, CheckPF2e, CheckRoll } from "@system/check/index.ts";
 import { DamageDamageContext, DamagePF2e, DamageType } from "@system/damage/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
@@ -57,8 +56,9 @@ import { Predicate } from "@system/predication.ts";
 import { AttackRollParams, DamageRollParams, RollParameters } from "@system/rolls.ts";
 import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statistic/index.ts";
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
+import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
-import { CharacterCrafting, CraftingAbility, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -197,11 +197,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Will be deprecated/removed after PC2 alchemist is complete */
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         return this.crafting.getFormulas();
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
-        return this.crafting.abilities.get(selector) ?? null;
     }
 
     /** Will be deprecated/removed after PC2 alchemist is complete */
