@@ -30,12 +30,29 @@
         },
         "rules": [
             {
+                "key": "RollOption",
+                "label": "PF2E.SpecificRule.ZephyrGuard.KnowTheBeat.RollOptionLabel",
+                "option": "know-the-beat",
+                "toggleable": true
+            },
+            {
                 "key": "FlatModifier",
-                "label": "to Gather Information (Know the Beat)",
                 "predicate": [
                     "action:gather-information"
                 ],
                 "selector": "diplomacy",
+                "slug": "know-the-beat-gather-information",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "hideIfDisabled": true,
+                "key": "FlatModifier",
+                "predicate": [
+                    "know-the-beat"
+                ],
+                "selector": "check",
+                "slug": "know-the-beat-investigation",
                 "type": "circumstance",
                 "value": 1
             }
