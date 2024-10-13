@@ -1,6 +1,6 @@
 {
     "_id": "cOcHWeogJFIkEI0d",
-    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "img": "icons/equipment/chest/breastplate-layered-leather-studded.webp",
     "name": "Effect: Energizing Lattice",
     "system": {
         "description": {
@@ -24,17 +24,21 @@
             {
                 "key": "TokenLight",
                 "value": {
+                    "alpha": 0.3,
+                    "animation": {
+                        "speed": 4,
+                        "type": "wave"
+                    },
                     "bright": 20,
-                    "color": "#9b7337",
+                    "color": "#f5efa1",
                     "dim": 40,
                     "shadows": 0.2
                 }
             },
             {
-                "domain": "all",
                 "key": "RollOption",
-                "label": "Unleash Energy in Lattice",
-                "option": "unleash-energy",
+                "label": "PF2E.SpecificRule.Equipment.EnergizingLattice.RollOptionLabel",
+                "option": "release-energy",
                 "toggleable": true
             },
             {
@@ -43,9 +47,21 @@
                 "dieSize": "d6",
                 "key": "DamageDice",
                 "predicate": [
-                    "unleash-energy"
+                    "release-energy"
                 ],
                 "selector": "strike-damage"
+            },
+            {
+                "key": "Note",
+                "outcome": [
+                    "failure"
+                ],
+                "predicate": [
+                    "release-energy"
+                ],
+                "selector": "strike-attack-roll",
+                "text": "PF2E.SpecificRule.Equipment.EnergizingLattice.Note",
+                "title": "{item|name}"
             }
         ],
         "start": {
