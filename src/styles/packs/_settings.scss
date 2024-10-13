@@ -1,9 +1,9 @@
 .compendium-browser-settings {
     height: 100%;
 
-    form {
+    .outer-container {
         display: flex;
-        height: 88%;
+        height: 95%;
         flex-direction: column;
         margin-bottom: 10px;
 
@@ -13,54 +13,33 @@
             margin-top: 5px;
             padding: 2px;
 
-            h3 {
-                margin: 0;
-                cursor: pointer;
+            .sources-header {
+                display: flex;
+                width: 100%;
+                align-items: center;
             }
-
-            dt {
-                width: 10%;
-            }
-
-            /* Checkbox */
-            dt > input[type="checkbox"] {
-                transform: none;
-                flex: none;
-                height: auto;
-                margin: 3px 3px;
-            }
-
-            dd {
-                width: 88%;
-            }
-        }
-
-        dl {
-            margin: 5px 0;
-        }
-
-        dt {
-            display: inline-block;
-            width: 40%;
-            padding-left: 5px;
-        }
-
-        dd {
-            display: inline-block;
-            width: 58%;
-            margin-left: 0;
         }
 
         .settings-container {
             overflow-y: auto;
-            display: flex;
-            flex-wrap: wrap;
 
-            .tab[data-tab].active {
+            .tab[data-tab="packs"].active {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
-                justify-content: center;
+                gap: 1em;
+                width: 100%;
+
+                .setting-section {
+                    width: 48%;
+                    margin-bottom: 0.5em;
+                }
+            }
+
+            .tab[data-tab="source"].active {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
                 width: 100%;
             }
 
@@ -68,15 +47,14 @@
                 width: 100%;
             }
 
+            .fixed-height {
+                min-height: 22.9em;
+            }
+
             h2 {
                 margin-top: 1em;
                 margin-bottom: 0.5em;
                 width: 100%;
-            }
-
-            div {
-                width: 365px;
-                margin-right: 1em;
             }
         }
     }

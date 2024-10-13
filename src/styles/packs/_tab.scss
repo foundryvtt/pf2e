@@ -17,7 +17,7 @@
     .sortcontainer {
         border: 1px solid #bbb;
         border-radius: 5px;
-        margin-top: 5px;
+        margin-bottom: 0.5em;
         padding: 2px;
 
         div.title {
@@ -64,6 +64,8 @@
         }
 
         .filter-conjunction {
+            display: flex;
+
             input[type="radio"] {
                 margin: 0 5px 0 3px;
             }
@@ -86,10 +88,24 @@
             display: flex;
             justify-content: space-around;
             align-items: baseline;
-            label {
+            .slider-label {
                 width: 10px;
             }
         }
+    }
+
+    label {
+        display: flex;
+        align-items: center;
+    }
+
+    dl,
+    dt,
+    dd {
+        font-family: var(--font-primary);
+        color: var(--color-form-label);
+        text-shadow: none;
+        margin: unset;
     }
 
     dl {
@@ -125,7 +141,7 @@
 
         > li {
             &:nth-child(odd) {
-                background-color: rgba(0, 0, 0, 0.12);
+                background-color: var(--color-result-list-odd);
             }
 
             align-items: center;

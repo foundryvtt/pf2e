@@ -1,65 +1,13 @@
 <h2>{{localize "PF2E.SETTINGS.CompendiumBrowserPacks.Name"}}</h2>
-<div class="setting-section">
-    <h3>{{localize "PF2E.CompendiumBrowser.TabAction"}}</h3>
-    <dl>
-        {{#each settings.action as |conf pack|}}
-            <label><dt><input type="checkbox" name="action-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-<div class="setting-section">
-    <h3>{{localize "PF2E.CompendiumBrowser.TabBestiary"}}</h3>
-    <dl>
-        {{#each settings.bestiary as |conf pack|}}
-            <label><dt><input type="checkbox" name="bestiary-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-<div class="setting-section">
-    <h3>{{localize "TYPES.Item.equipment"}}</h3>
-    <dl>
-        {{#each settings.equipment as |conf pack|}}
-            <label><dt><input type="checkbox" name="equipment-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-<div class="setting-section">
-    <h3>{{localize "PF2E.CompendiumBrowser.TabFeat"}}</h3>
-    <dl>
-        {{#each settings.feat as |conf pack|}}
-            <label><dt><input type="checkbox" name="feat-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-<div class="setting-section">
-    <h3>{{localize "PF2E.Actor.Hazard.Plural"}}</h3>
-    <dl>
-        {{#each settings.hazard as |conf pack|}}
-            <label><dt><input type="checkbox" name="hazard-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-<div class="setting-section">
-    <h3>{{localize "PF2E.Item.Spell.Plural"}}</h3>
-    <dl>
-        {{#each settings.spell as |conf pack|}}
-            <label><dt><input type="checkbox" name="spell-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-        {{/each}}
-    </dl>
-</div>
-
-{{#if @root.showCampaign}}
-    <div class="setting-section">
-        <h3>{{localize "PF2E.Item.CampaignFeature.Plural"}}</h3>
-        <dl>
-            {{#each settings.campaignFeature as |conf pack|}}
-                <label><dt><input type="checkbox" name="campaignFeature-{{pack}}" {{checked conf.load}}></dt><dd>{{conf.name}} ({{conf.package}})</dd></label>
-            {{/each}}
-        </dl>
-    </div>
-{{/if}}
+{{#each tabSettings as |setting key|}}
+    {{#unless setting.hidden}}
+        <div class="setting-section">
+            <fieldset>
+                <legend>{{localize setting.label}}</legend>
+                {{#each setting.settings as |conf pack|}}
+                    <label for="{{key}}-{{pack}}"><input type="checkbox" id="{{key}}-{{pack}}" name="{{key}}-{{pack}}" {{checked conf.load}}>{{conf.name}} ({{conf.package}})</label>
+                {{/each}}
+            </fieldset>
+        </div>
+    {{/unless}}
+{{/each}}

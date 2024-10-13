@@ -96,7 +96,7 @@ export abstract class CompendiumBrowserTab {
     async open(filter?: BrowserFilter): Promise<void> {
         if (filter) {
             if (!this.isInitialized) {
-                throw ErrorPF2e(`Tried to pass an initial filter to uninitialized tab "${this.tabName}"`);
+                await this.init();
             }
             this.filterData = filter;
         }

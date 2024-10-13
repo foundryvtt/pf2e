@@ -1,17 +1,60 @@
-#compendium-browser,
+.compendium-browser,
 #license-viewer {
     > section.window-content > .content-box {
         @import "filter-slider";
         @import "nav";
-        @import "settings";
         @import "tab";
 
         flex: 1;
         overflow: hidden;
         height: inherit;
 
+        h2 {
+            font-family: var(--font-primary);
+            color: var(--color-text-primary);
+            font-size: 1.5em;
+            text-shadow: unset;
+            height: 1em;
+        }
+
+        h3 {
+            font-family: var(--font-primary);
+            color: var(--color-text-primary);
+            font-size: 1.25em;
+            border-bottom: 1px solid var(--color-underline-header);
+            text-shadow: unset;
+        }
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            border: none;
+
+            label {
+                display: flex;
+                align-items: center;
+            }
+
+            input[type="checkbox"] {
+                margin-right: 2em;
+            }
+
+            legend {
+                font-size: 1.25em;
+                text-decoration: underline;
+            }
+        }
+
         > section.content {
             height: 96%;
+            padding-top: 0.5em;
+
+            .landing-page {
+                width: 100%;
+                justify-content: center;
+                text-align: center;
+                padding: 2em;
+            }
 
             > .tab.browser.active {
                 height: inherit;
@@ -28,10 +71,21 @@
                     }
                 }
             }
-
-            > .tab.settings.active {
-                height: 98%;
-            }
         }
     }
+}
+
+.compendium-browser {
+    --color-result-list-odd: rgba(0, 0, 0, 0.12);
+
+    > section.window-content {
+        @import "settings";
+    }
+}
+
+.theme-dark .compendium-browser {
+    --secondary: var(--color-cool-5);
+    --color-border-trait: var(--color-dark-5);
+    --color-tagify-input-background: var(--color-cool-4);
+    --color-result-list-odd: var(--color-dark-2);
 }
