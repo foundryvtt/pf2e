@@ -68,7 +68,7 @@ export class ItemDirectoryPF2e<TItem extends ItemPF2e<null>> extends ItemDirecto
             game.i18n.localize("PF2E.CompendiumBrowser.Title"),
         );
         browseButton.addEventListener("click", () => {
-            game.pf2e.compendiumBrowser.render(true, { focus: true });
+            game.pf2e.compendiumBrowser.render({ force: true });
         });
         htmlQuery(html, "footer.directory-footer")?.append(browseButton);
     }
