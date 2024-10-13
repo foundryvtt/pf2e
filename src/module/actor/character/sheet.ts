@@ -1242,13 +1242,13 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
 
         const featTab = game.pf2e.compendiumBrowser.tabs.feat;
         const filter = await featTab.getFilterData();
-        filter.multiselects.traits.conjunction = featFilters?.conjunction ?? "or";
+        filter.traits.conjunction = featFilters?.conjunction ?? "or";
 
         // Assign levels
         if (typeof maxLevel === "number") {
-            const level = filter.sliders.level;
-            level.values.max = Math.min(maxLevel, level.values.upperLimit);
-            level.isExpanded = level.values.max !== level.values.upperLimit;
+            const level = filter.level;
+            level.to = Math.min(maxLevel, level.max);
+            level.isExpanded = level.to !== level.max;
         }
 
         // Assign categories
@@ -1260,7 +1260,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
         }
 
         // Assign traits
-        const traits = filter.multiselects.traits;
+        const traits = filter.traits;
         const filterTraits = [
             (featFilters?.traits ?? []).map((trait) => ({ trait, not: false })),
             (featFilters?.omitTraits ?? []).map((trait) => ({ trait, not: true })),
@@ -1272,7 +1272,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             }
         }
 
-        return featTab.open(filter);
+        return featTab.open({ filter });
     }
 
     /** Handle changing of lore and spellcasting entry proficiency-rank via dropdown */

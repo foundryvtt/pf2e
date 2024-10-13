@@ -1,14 +1,14 @@
 import { KINGMAKER_CATEGORIES } from "@item/campaign-feature/values.ts";
 import { sluggify } from "@util";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
-import { CompendiumBrowser } from "../index.ts";
-import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CampaignFeatureFilters, CompendiumBrowserIndexData } from "./data.ts";
 
 export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "campaignFeature";
+    tabLabel = "PF2E.CompendiumBrowser.TabCampaign";
     filterData: CampaignFeatureFilters;
-    templatePath = "systems/pf2e/templates/compendium-browser/partials/feat.hbs";
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
@@ -75,19 +75,19 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
         // Filters
         this.filterData.checkboxes.category.options = this.generateCheckboxOptions(KINGMAKER_CATEGORIES);
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.traits.options = this.generateMultiselectOptions(CONFIG.PF2E.kingmakerTraits);
 
         console.debug("PF2e System | Compendium Browser | Finished loading feats");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, multiselects, sliders } = this.filterData;
+        const { checkboxes, source, traits, level } = this.filterData;
 
         const entryLevel = entry.level ?? 0;
 
         // Level
-        if (!(entryLevel >= sliders.level.values.min && entryLevel <= sliders.level.values.max)) {
+        if (!(entryLevel >= level.from && entryLevel <= level.to)) {
             return false;
         }
         // Campaign category type
@@ -95,12 +95,12 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
             if (!checkboxes.category.selected.includes(entry.category)) return false;
         }
         // Traits
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction)) {
+        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) {
             return false;
         }
         // Source
-        if (checkboxes.source.selected.length) {
-            if (!checkboxes.source.selected.includes(entry.source)) return false;
+        if (source.selected.length) {
+            if (!source.selected.includes(entry.source)) return false;
         }
         // Rarity
         if (checkboxes.rarity.selected.length) {
@@ -114,51 +114,44 @@ export class CompendiumBrowserCampaignFeaturesTab extends CompendiumBrowserTab {
             checkboxes: {
                 category: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterCategory",
+                    label: "PF2E.CompendiumBrowser.Filter.Categories",
                     options: {},
                     selected: [],
                 },
                 rarity: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterRarities",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
+                    label: "PF2E.CompendiumBrowser.Filter.Rarities",
                     options: {},
                     selected: [],
                 },
             },
-            multiselects: {
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
+            },
+            traits: {
+                conjunction: "and",
+                options: [],
+                selected: [],
             },
             order: {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "Name",
-                    level: "PF2E.LevelLabel",
+                    name: { label: "Name", type: "alpha" },
+                    level: { label: "PF2E.LevelLabel", type: "numeric" },
                 },
+                type: "numeric",
             },
-            sliders: {
-                level: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterLevels",
-                    values: {
-                        lowerLimit: 0,
-                        upperLimit: 20,
-                        min: 0,
-                        max: 20,
-                        step: 1,
-                    },
-                },
+            level: {
+                changed: false,
+                isExpanded: false,
+                min: 0,
+                max: 20,
+                from: 0,
+                to: 20,
             },
             search: {
                 text: "",

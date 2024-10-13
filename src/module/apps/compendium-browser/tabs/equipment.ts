@@ -2,15 +2,15 @@ import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { MAGIC_TRADITIONS } from "@item/spell/values.ts";
 import { localizer, sluggify } from "@util";
 import * as R from "remeda";
+import { CompendiumBrowser } from "../browser.svelte.ts";
 import { ContentTabName } from "../data.ts";
-import { CompendiumBrowser } from "../index.ts";
-import { CompendiumBrowserTab } from "./base.ts";
+import { CompendiumBrowserTab } from "./base.svelte.ts";
 import { CompendiumBrowserIndexData, EquipmentFilters, RangesInputData } from "./data.ts";
 
 export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
     tabName: ContentTabName = "equipment";
+    tabLabel = "TYPES.Item.equipment";
     filterData: EquipmentFilters;
-    templatePath = "systems/pf2e/templates/compendium-browser/partials/equipment.hbs";
 
     /* MiniSearch */
     override searchFields = ["name", "originalName"];
@@ -139,7 +139,7 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             this.generateCheckboxOptions(CONFIG.PF2E.weaponGroups),
         );
 
-        this.filterData.multiselects.traits.options = this.generateMultiselectOptions({
+        this.filterData.traits.options = this.generateMultiselectOptions({
             ...CONFIG.PF2E.armorTraits,
             ...CONFIG.PF2E.consumableTraits,
             ...CONFIG.PF2E.equipmentTraits,
@@ -158,16 +158,16 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             kit: "TYPES.Item.kit",
         });
         this.filterData.checkboxes.rarity.options = this.generateCheckboxOptions(CONFIG.PF2E.rarityTraits, false);
-        this.filterData.checkboxes.source.options = this.generateSourceCheckboxOptions(publications);
+        this.filterData.source.options = this.generateSourceCheckboxOptions(publications);
 
         console.debug("PF2e System | Compendium Browser | Finished loading inventory items");
     }
 
     protected override filterIndexData(entry: CompendiumBrowserIndexData): boolean {
-        const { checkboxes, multiselects, ranges, sliders } = this.filterData;
+        const { checkboxes, source, traits, ranges, level } = this.filterData;
 
         // Level
-        if (!(entry.level >= sliders.level.values.min && entry.level <= sliders.level.values.max)) return false;
+        if (!(entry.level >= level.from && entry.level <= level.to)) return false;
         // Price
         if (!(entry.priceInCopper >= ranges.price.values.min && entry.priceInCopper <= ranges.price.values.max))
             return false;
@@ -190,10 +190,9 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             return false;
         }
         // Traits
-        if (!this.filterTraits(entry.traits, multiselects.traits.selected, multiselects.traits.conjunction))
-            return false;
+        if (!this.filterTraits(entry.traits, traits.selected, traits.conjunction)) return false;
         // Source
-        if (checkboxes.source.selected.length > 0 && !checkboxes.source.selected.includes(entry.source)) {
+        if (source.selected.length > 0 && !source.selected.includes(entry.source)) {
             return false;
         }
         // Rarity
@@ -231,55 +230,55 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
             checkboxes: {
                 itemTypes: {
                     isExpanded: true,
-                    label: "PF2E.BrowserFilterInventoryTypes",
+                    label: "PF2E.CompendiumBrowser.Filter.InventoryTypes",
                     options: {},
                     selected: [],
                 },
                 rarity: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterRarities",
+                    label: "PF2E.CompendiumBrowser.Filter.Rarities",
                     options: {},
                     selected: [],
                 },
                 armorTypes: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterArmorFilters",
+                    label: "PF2E.CompendiumBrowser.Filter.ArmorFilters",
                     options: {},
                     selected: [],
                 },
                 weaponTypes: {
                     isExpanded: false,
-                    label: "PF2E.BrowserFilterWeaponFilters",
-                    options: {},
-                    selected: [],
-                },
-                source: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterSource",
+                    label: "PF2E.CompendiumBrowser.Filter.WeaponFilters",
                     options: {},
                     selected: [],
                 },
             },
-            multiselects: {
-                traits: {
-                    conjunction: "and",
-                    label: "PF2E.BrowserFilterTraits",
-                    options: [],
-                    selected: [],
-                },
+            traits: {
+                conjunction: "and",
+                options: [],
+                selected: [],
+            },
+            source: {
+                isExpanded: false,
+                label: "PF2E.CompendiumBrowser.Filter.Source",
+                options: {},
+                selected: [],
             },
             order: {
                 by: "level",
                 direction: "asc",
                 options: {
-                    name: "Name",
-                    level: "PF2E.LevelLabel",
-                    price: "PF2E.PriceLabel",
+                    name: { label: "Name", type: "alpha" },
+                    level: { label: "PF2E.LevelLabel", type: "numeric" },
+                    price: { label: "PF2E.PriceLabel", type: "numeric" },
                 },
+                type: "numeric",
             },
             ranges: {
                 price: {
                     changed: false,
+                    defaultMin: `0${this.#localizeCoins("cp")}`,
+                    defaultMax: `200,000${this.#localizeCoins("gp")}`,
                     isExpanded: false,
                     label: "PF2E.PriceLabel",
                     values: {
@@ -290,18 +289,13 @@ export class CompendiumBrowserEquipmentTab extends CompendiumBrowserTab {
                     },
                 },
             },
-            sliders: {
-                level: {
-                    isExpanded: false,
-                    label: "PF2E.BrowserFilterLevels",
-                    values: {
-                        lowerLimit: 0,
-                        upperLimit: 30,
-                        min: 0,
-                        max: 30,
-                        step: 1,
-                    },
-                },
+            level: {
+                changed: false,
+                isExpanded: false,
+                min: 0,
+                max: 30,
+                from: 0,
+                to: 30,
             },
             search: {
                 text: "",

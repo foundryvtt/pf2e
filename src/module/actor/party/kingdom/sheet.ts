@@ -445,16 +445,16 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                 const filter = await compendiumTab.getFilterData();
 
                 // Configure level filters
-                const levels = filter.sliders.level;
-                levels.values.max = Math.min(maxLevel, levels.values.upperLimit);
-                levels.isExpanded = levels.values.max !== levels.values.upperLimit;
+                const levels = filter.level;
+                levels.to = Math.min(maxLevel, levels.max);
+                levels.isExpanded = levels.to !== levels.max;
 
                 // Set category
                 filter.checkboxes.category.options["kingdom-feat"].selected = true;
                 filter.checkboxes.category.selected.push("kingdom-feat");
                 filter.checkboxes.category.isExpanded = true;
 
-                compendiumTab.open(filter);
+                compendiumTab.open({ filter });
             });
         }
 

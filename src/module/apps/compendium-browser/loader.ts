@@ -1,6 +1,6 @@
 import { Progress } from "@system/progress.ts";
 import { localizer, sluggify } from "@util";
-import { CompendiumBrowserSources } from "./index.ts";
+import { CompendiumBrowserSources } from "./browser.svelte.ts";
 
 class PackLoader {
     loadedSources: string[] = [];
