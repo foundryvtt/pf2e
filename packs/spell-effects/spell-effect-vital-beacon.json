@@ -15,7 +15,7 @@
             "value": 4
         },
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vital Beacon]</p>\n<p>Once per round, either you or an ally can use an Interact action to supplicate and lay hands upon you to regain Hit Points. It restores @Damage[(@item.level)d10[healing,vitality]|shortLabel] Hit Points to the first creature, @Damage[(@item.level)d8[healing,vitality]|shortLabel] Hit Points to the second, @Damage[(@item.level)d6[healing,vitality]|shortLabel] Hit Points to the third, and @Damage[(@item.level)d4[healing,vitality]|shortLabel] Hit Points to the fourth, after which the spell ends.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Vital Beacon]</p>\n<p>Once per round, either you or an ally can use an Interact action to supplicate and lay hands upon you to regain @Damage[(@item.level)d((2+2*@item.badge.value))[healing,vitality]|shortLabel] Hit Points. This healing decreases each time the beacon heals someone.</p>"
         },
         "duration": {
             "expiry": "turn-start",
