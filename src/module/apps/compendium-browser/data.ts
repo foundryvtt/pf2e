@@ -21,7 +21,7 @@ interface BrowserTabs {
     spell: browserTabs.Spells;
 }
 
-type TabName = "action" | "bestiary" | "campaignFeature" | "equipment" | "feat" | "hazard" | "spell" | "settings";
+type TabName = "action" | "bestiary" | "campaignFeature" | "equipment" | "feat" | "hazard" | "spell";
 type ContentTabName = Exclude<TabName, "settings">;
 type BrowserTab = InstanceType<(typeof browserTabs)[keyof typeof browserTabs]>;
 type TabData<T> = Record<TabName, T | null>;
