@@ -3,8 +3,17 @@
     "img": "icons/commodities/materials/slime-purple.webp",
     "name": "Effect: Filth Wave",
     "system": {
+        "badge": {
+            "labels": [
+                "-5 ft.",
+                "-10 ft."
+            ],
+            "loop": false,
+            "type": "counter",
+            "value": 2
+        },
         "description": {
-            "value": "<p>The creature takes a -10-foot penalty to its Speeds.</p>"
+            "value": "<p>You take a penalty to your Speeds.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -23,8 +32,8 @@
         "rules": [
             {
                 "key": "FlatModifier",
-                "selector": "speed",
-                "value": -10
+                "selector": "all-speeds",
+                "value": "-5*@item.badge.value"
             }
         ],
         "start": {
