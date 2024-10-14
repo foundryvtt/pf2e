@@ -7,9 +7,9 @@ import { SkillSlug } from "@actor/types.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene/index.ts";
 import { calculateXP } from "@scripts/macros/index.ts";
 import { ThreatRating } from "@scripts/macros/xp/index.ts";
+import { objectHasKey } from "@util";
 import * as R from "remeda";
 import type { CombatantFlags, CombatantPF2e, RolledCombatant } from "./combatant.ts";
-import { objectHasKey } from "@util";
 
 class EncounterPF2e extends Combat {
     /** Has this document completed `DataModel` initialization? */
@@ -98,9 +98,12 @@ class EncounterPF2e extends Combat {
         super._initialize(options);
     }
 
-    /** Prevent double data preparation */
+    /**
+     * Prevent double data preparation of child documents.
+     * @removeme in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
+        if (game.release.generation === 12 && this.initialized) return;
         this.initialized = true;
         super.prepareData();
     }

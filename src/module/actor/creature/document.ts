@@ -240,8 +240,10 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
-        if (this.initialized) return;
         super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
         const spellConsumables = this.itemTypes.consumable.filter(
