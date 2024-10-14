@@ -32,7 +32,7 @@ export default [
             "@typescript-eslint/await-thenable": "error",
             "@typescript-eslint/ban-ts-comment": "error",
             "@typescript-eslint/ban-types": "off",
-            "@typescript-eslint/explicit-module-boundary-types": "error",
+            "@typescript-eslint/explicit-module-boundary-types": ["error", { allowHigherOrderFunctions: true }],
             "@typescript-eslint/prefer-namespace-keyword": "off",
             "@typescript-eslint/no-empty-function": "off",
             "@typescript-eslint/no-empty-object-type": ["error", { allowInterfaces: "with-single-extends" }],
