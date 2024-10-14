@@ -1,10 +1,13 @@
-import type ApplicationV2 from "./application.d.ts";
+import type { ApplicationFormConfiguration, ApplicationRenderOptions } from "../_types.js";
+import type ApplicationV2 from "./application.js";
 
 /** Augment an Application class with [Handlebars](https://handlebarsjs.com) template rendering behavior. */
 /* eslint-disable @typescript-eslint/no-unused-expressions, no-unused-expressions */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export default function HandlebarsApplicationMixin<TBase extends ConstructorOf<ApplicationV2>>(BaseApplication: TBase) {
-    class HandlebarsApplication extends BaseApplication {
+export default function HandlebarsApplicationMixin<TBase extends AbstractConstructorOf<ApplicationV2>>(
+    BaseApplication: TBase,
+) {
+    abstract class HandlebarsApplication extends BaseApplication {
         static PARTS: Record<string, HandlebarsTemplatePart> = {};
 
         /** A record of all rendered template parts. */

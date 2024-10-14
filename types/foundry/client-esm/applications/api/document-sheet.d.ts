@@ -1,6 +1,7 @@
+import type { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.d.ts";
 import type ApplicationV2 from "./application.d.ts";
 
-export default class DocumentSheetV2<
+export default abstract class DocumentSheetV2<
     TDocument extends foundry.abstract.Document = foundry.abstract.Document,
     TConfig extends DocumentSheetConfiguration = DocumentSheetConfiguration,
     TRenderOptions extends DocumentSheetRenderOptions = DocumentSheetRenderOptions,
@@ -33,22 +34,20 @@ export default class DocumentSheetV2<
     protected _prepareSubmitData(event: SubmitEvent, form: HTMLFormElement, formData: FormDataExtended): object;
 }
 
-declare global {
-    interface DocumentSheetConfiguration extends ApplicationConfiguration {
-        /** The Document instance associated with this sheet */
-        document: Document;
-        /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
-        viewPermission: number;
-        /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
-        editPermission: number;
-        /** Allow sheet configuration as a header button */
-        sheetConfig: boolean;
-    }
+export interface DocumentSheetConfiguration extends ApplicationConfiguration {
+    /** The Document instance associated with this sheet */
+    document: Document;
+    /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
+    viewPermission: number;
+    /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
+    editPermission: number;
+    /** Allow sheet configuration as a header button */
+    sheetConfig: boolean;
+}
 
-    interface DocumentSheetRenderOptions extends ApplicationRenderOptions {
-        /** A string with the format "{operation}{documentName}" providing context */
-        renderContext?: string;
-        /** Data describing the document modification that occurred */
-        renderData?: object;
-    }
+export interface DocumentSheetRenderOptions extends ApplicationRenderOptions {
+    /** A string with the format "{operation}{documentName}" providing context */
+    renderContext?: string;
+    /** Data describing the document modification that occurred */
+    renderData?: object;
 }

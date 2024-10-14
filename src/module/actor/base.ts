@@ -700,12 +700,12 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
      * not yet initialized. See https://github.com/foundryvtt/foundryvtt/issues/7987
      */
     override prepareData(): void {
-        if (this.initialized) return;
-
         // Set after data model is initialized so that `this.id` will be defined (and `this.uuid` will be complete)
         this.signature ??= UUIDv5(this.uuid, "e9fa1461-0edc-4791-826e-08633f1c6ef7"); // magic number as namespace
 
-        if (this.parent && !this.parent.initialized) return;
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
         this.initialized = true;
         super.prepareData();
 
