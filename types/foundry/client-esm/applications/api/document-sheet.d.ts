@@ -1,12 +1,14 @@
+import type Document from "../../../common/abstract/document.d.ts";
 import type { ApplicationConfiguration, ApplicationRenderOptions } from "../_types.d.ts";
 import type ApplicationV2 from "./application.d.ts";
 
 export default abstract class DocumentSheetV2<
-    TDocument extends foundry.abstract.Document = foundry.abstract.Document,
     TConfig extends DocumentSheetConfiguration = DocumentSheetConfiguration,
     TRenderOptions extends DocumentSheetRenderOptions = DocumentSheetRenderOptions,
 > extends ApplicationV2<TConfig, TRenderOptions> {
-    get document(): TDocument;
+    constructor(options?: DeepPartial<TConfig>);
+
+    get document(): this["options"]["document"];
 
     /**
      * Is this Document sheet visible to the current User?
@@ -34,9 +36,9 @@ export default abstract class DocumentSheetV2<
     protected _prepareSubmitData(event: SubmitEvent, form: HTMLFormElement, formData: FormDataExtended): object;
 }
 
-export interface DocumentSheetConfiguration extends ApplicationConfiguration {
+export interface DocumentSheetConfiguration<TDocument extends Document = Document> extends ApplicationConfiguration {
     /** The Document instance associated with this sheet */
-    document: Document;
+    document: TDocument;
     /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
     viewPermission: number;
     /** A permission level in CONST.DOCUMENT_OWNERSHIP_LEVELS */
