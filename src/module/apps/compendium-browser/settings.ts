@@ -1,5 +1,9 @@
 import { htmlQuery, htmlQueryAll, localizer, objectHasKey } from "@util";
 import type {
+    ApplicationConfiguration,
+    ApplicationRenderOptions,
+} from "types/foundry/client-esm/applications/_types.ts";
+import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
 } from "types/foundry/client-esm/applications/api/handlebars-application.ts";
@@ -33,7 +37,6 @@ class CompendiumBrowserSettingsApp extends foundryApp.HandlebarsApplicationMixin
     };
 
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
-        ...super.DEFAULT_OPTIONS,
         id: "compendium-browser-settings",
         classes: ["compendium-browser"],
         tag: "form",

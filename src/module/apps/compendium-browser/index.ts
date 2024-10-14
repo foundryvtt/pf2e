@@ -20,6 +20,12 @@ import Tagify from "@yaireo/tagify";
 import noUiSlider from "nouislider";
 import * as R from "remeda";
 import type {
+    ApplicationClosingOptions,
+    ApplicationConfiguration,
+    ApplicationHeaderControlsEntry,
+    ApplicationRenderOptions,
+} from "types/foundry/client-esm/applications/_types.ts";
+import type {
     HandlebarsRenderOptions,
     HandlebarsTemplatePart,
 } from "types/foundry/client-esm/applications/api/handlebars-application.ts";
@@ -74,7 +80,6 @@ class CompendiumBrowser extends foundryApp.HandlebarsApplicationMixin(foundryApp
     }
 
     static override DEFAULT_OPTIONS: DeepPartial<ApplicationConfiguration> = {
-        ...super.DEFAULT_OPTIONS,
         id: "compendium-browser",
         classes: ["compendium-browser"],
         position: {
@@ -404,7 +409,7 @@ class CompendiumBrowser extends foundryApp.HandlebarsApplicationMixin(foundryApp
             this.activeTab.filterData = filter;
         }
 
-        await this.render(true);
+        await this.render({ force: true });
     }
 
     loadedPacks(tab: TabName): string[] {
