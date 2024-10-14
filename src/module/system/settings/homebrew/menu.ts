@@ -348,7 +348,7 @@ class HomebrewElements extends SettingsMenuPF2e {
     /** Register homebrew elements stored in a prescribed location in module flags */
     #registerModuleTags(): void {
         const settings = HomebrewElements.moduleData;
-        for (const [recordKey, tags] of R.entries.strict(settings.traits)) {
+        for (const [recordKey, tags] of R.entries(settings.traits)) {
             if (tags.length > 0) {
                 this.#updateConfigRecords(tags, recordKey);
             }

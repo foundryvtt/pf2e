@@ -28,12 +28,10 @@ export class LanguagesManager {
         this.menu = menu;
 
         const languagesFromSetting = game.settings.get("pf2e", "homebrew.languages").map((l) => l.id);
-        this.moduleLanguages = R.keys
-            .strict(CONFIG.PF2E.languages)
-            .filter(
-                (l): l is LanguageNotCommon =>
-                    l !== "common" && !LANGUAGES.includes(l) && !languagesFromSetting.includes(l),
-            );
+        this.moduleLanguages = R.keys(CONFIG.PF2E.languages).filter(
+            (l): l is LanguageNotCommon =>
+                l !== "common" && !LANGUAGES.includes(l) && !languagesFromSetting.includes(l),
+        );
 
         this.data.reset();
     }

@@ -643,7 +643,7 @@ class PackExtractor {
         ];
 
         type ItemSourcesByType = { [T in ItemType]?: ItemInstances<null>[T]["_source"][] };
-        const itemsByType: ItemSourcesByType = R.groupBy(docSource.items, (i) => i.type);
+        const itemsByType = R.groupBy(docSource.items, (i) => i.type) as ItemSourcesByType;
 
         const sortedItems = itemTypes.flatMap((itemType): ItemSourcePF2e[] => {
             switch (itemType) {

@@ -1,11 +1,12 @@
 import type { ActorPF2e } from "@actor";
 import { Sense } from "@actor/creature/sense.ts";
-import { PhysicalItemPF2e } from "@item";
+import { AbilityItemPF2e, FeatPF2e, PhysicalItemPF2e } from "@item";
 import { Bulk } from "@item/physical/bulk.ts";
 import { SpellSource } from "@item/spell/index.ts";
 import { coerceToSpellGroupId } from "@item/spellcasting-entry/helpers.ts";
-import { ErrorPF2e, ordinalString } from "@util";
+import { ErrorPF2e, getActionGlyph, ordinalString, traitSlugToObject } from "@util";
 import * as R from "remeda";
+import { AbilityViewData } from "./data-types.ts";
 
 function onClickCreateSpell(actor: ActorPF2e, data: Record<string, string | undefined>): void {
     if (!data.location) {
@@ -63,4 +64,19 @@ function condenseSenses(senses: Sense[]): Sense[] {
     return senses.filter((r) => senseTypes.has(r.type));
 }
 
-export { condenseSenses, createBulkPerLabel, onClickCreateSpell };
+/** Creates ability or feat view data for actor sheet actions rendering */
+function createAbilityViewData(item: AbilityItemPF2e | FeatPF2e): AbilityViewData {
+    return {
+        ...R.pick(item, ["id", "img", "name", "actionCost", "frequency"]),
+        glyph: getActionGlyph(item.actionCost),
+        usable: !!item.system.selfEffect || !!item.system?.frequency,
+        traits: item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits)),
+        has: {
+            aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
+            deathNote: item.isOfType("action") && item.system.deathNote,
+            selfEffect: !!item.system.selfEffect,
+        },
+    };
+}
+
+export { condenseSenses, createAbilityViewData, createBulkPerLabel, onClickCreateSpell };

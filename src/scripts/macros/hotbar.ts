@@ -4,7 +4,7 @@ import { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { ConditionPF2e, EffectPF2e } from "@item";
 import { EffectTrait } from "@item/abstract-effect/types.ts";
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
+import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { MacroPF2e } from "@module/macro.ts";
 import { objectHasKey } from "@util";
 
@@ -22,8 +22,8 @@ export async function rollItemMacro(itemId: string, event: Event | null = null):
         return null;
     }
 
-    if (item.isOfType("action", "feat") && item.system.selfEffect) {
-        return createSelfEffectMessage(item);
+    if (item.isOfType("action", "feat")) {
+        return createUseActionMessage(item);
     }
 
     // Trigger the item roll

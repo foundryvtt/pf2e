@@ -223,7 +223,7 @@ class FamiliarPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e 
         system.perception = fu.mergeObject(this.perception.getTraceData(), { attribute: "wis" as const });
 
         // Skills
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skill, { label, attribute }]) => {
             const modifiers = [new ModifierPF2e("PF2E.MasterLevel", masterLevel, "untyped")];
             if (["acrobatics", "stealth"].includes(skill)) {
                 modifiers.push(attributeModifier);
