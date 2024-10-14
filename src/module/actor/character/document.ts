@@ -1122,8 +1122,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
         // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
         processTwoHandTrait(weapon);
-        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
+        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
@@ -1135,16 +1135,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-
-        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
-        // item roll options
-        const equivalentCategories = Object.values(proficiencies.attacks).flatMap((p) =>
-            !!p && "sameAs" in p && (p.definition?.test(weaponRollOptions) ?? true) ? `item:category:${p.sameAs}` : [],
-        );
-        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
-
         const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponProficiencyOptions))
+            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponRollOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;
