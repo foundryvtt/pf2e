@@ -133,7 +133,7 @@ export const Init = {
             // Register damage enricher, which is more complicated and needs an extra level of nesting
             // Derived from https://stackoverflow.com/questions/17759004/how-to-match-string-within-parentheses-nested-in-java/17759264#17759264
             CONFIG.TextEditor.enrichers.push({
-                pattern: /@(Damage)\[((?:[^[\]]*|\[[^[\]]*\])*)\](?:{([^}]+)})?/g,
+                pattern: /@(Damage)\[((?:[^[\]{]*|\[[^[\]{]*\])*)\](?:{([^}]+)})?/g,
                 enricher: (match, options) => game.pf2e.TextEditor.enrichString(match, options),
             });
 
