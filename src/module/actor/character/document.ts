@@ -1136,10 +1136,10 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
-        let syntheticRank = 0
+        let syntheticRank = 0;
         Object.values(proficiencies.attacks).forEach((p) => {
             if (p?.sameAs && (p.definition?.test(weaponRollOptions) ?? true)) {
-                syntheticRank = Math.max(syntheticRank, proficiencies.attacks[String(p.sameAs)]?.rank ?? 0)
+                syntheticRank = Math.max(syntheticRank, proficiencies.attacks[String(p.sameAs)]?.rank ?? 0);
             }
         });
 
