@@ -340,7 +340,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
             "input[data-item-id][data-item-property], select[data-item-id][data-item-property]",
         );
         for (const element of itemPropertyInputs) {
-            element.addEventListener("change", (event) => {
+            element.addEventListener("change", async (event) => {
                 event.stopPropagation();
                 const { itemId, itemProperty } = element.dataset;
                 if (!itemId || !itemProperty) return;
@@ -357,7 +357,11 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                     return dataType === "Number" ? Number(value) || 0 : value.trim();
                 })();
 
-                this.actor.updateEmbeddedDocuments("Item", [{ _id: itemId, [itemProperty]: value }]);
+                // Perform the update. If nothing was changed, re-render so that input fields are reset
+                const updated = await this.actor.updateEmbeddedDocuments("Item", [
+                    { _id: itemId, [itemProperty]: value },
+                ]);
+                if (updated.length === 0) this.render(true);
             });
         }
 
