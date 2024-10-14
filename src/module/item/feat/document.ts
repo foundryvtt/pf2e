@@ -195,7 +195,7 @@ class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item
         const senseData: SenseData[] = actor.system.perception.senses;
         const acuityValues = { precise: 2, imprecise: 1, vague: 0 };
 
-        for (const [type, data] of R.toPairs.strict(subfeatures.senses)) {
+        for (const [type, data] of R.entries(subfeatures.senses)) {
             if (senseData.some((s) => s.type === type)) continue;
 
             if (type === "darkvision" && data.special && Object.values(data.special).includes(true)) {

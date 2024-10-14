@@ -37,7 +37,7 @@ class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema> {
             ...baseSchema,
             mode: new fields.StringField({
                 required: true,
-                choices: R.keys.strict(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
+                choices: R.keys(AELikeRuleElement.CHANGE_MODE_DEFAULT_PRIORITIES),
                 initial: undefined,
             }),
             selector: new fields.StringField({ required: false, blank: false, initial: undefined }),

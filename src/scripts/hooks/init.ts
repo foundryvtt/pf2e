@@ -58,7 +58,7 @@ export const Init = {
             }
 
             // Populate UUID redirects
-            for (const [from, to] of R.entries.strict(UUID_REDIRECTS)) {
+            for (const [from, to] of R.entries(UUID_REDIRECTS)) {
                 CONFIG.compendium.uuidRedirects[from] = to;
             }
 

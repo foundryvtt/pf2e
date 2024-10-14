@@ -379,7 +379,7 @@ class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e
             fly: "feather-pointed",
             burrow: "water-ladder",
         };
-        sheetData.speeds = R.keys.strict(speedIcons).map((slug): SpeedSheetData => {
+        sheetData.speeds = R.keys(speedIcons).map((slug): SpeedSheetData => {
             const speed = this.actor.system.attributes.speed;
             const data = slug === "land" ? speed : speed.otherSpeeds.find((s) => s.type === slug);
             return {

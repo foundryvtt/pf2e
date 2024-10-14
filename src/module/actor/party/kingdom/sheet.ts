@@ -490,7 +490,7 @@ class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
                         (s) => s.sort,
                     );
                     siblings.splice(newIndex, 0, settlement);
-                    const updates = R.mapToObj.indexed(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
+                    const updates = R.mapToObj(siblings, (s, index) => [`settlements.${s.id}.sort`, index]);
                     this.kingdom.update(updates);
                 },
             });
