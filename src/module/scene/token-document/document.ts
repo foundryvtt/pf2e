@@ -208,13 +208,16 @@ class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> ext
         super._initialize(options);
     }
 
-    /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
+    /**
+     * If embedded, don't prepare data if the parent hasn't finished initializing.
+     * @removeme in V13
+     */
     override prepareData(): void {
-        if (this.initialized) return;
-        if (!this.parent || this.parent.initialized) {
-            this.initialized = true;
-            super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
         }
+        this.initialized = true;
+        super.prepareData();
     }
 
     /** If rules-based vision is enabled, disable manually configured vision radii */
