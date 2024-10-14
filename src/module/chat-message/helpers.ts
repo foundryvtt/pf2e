@@ -12,11 +12,11 @@ function isCheckContextFlag(flag?: ChatContextFlag): flag is CheckContextChatFla
 }
 
 /** Create a message with collapsed action description and button to apply an effect */
-async function createSelfEffectMessage(
+async function createUseActionMessage(
     item: AbilityItemPF2e<ActorPF2e> | FeatPF2e<ActorPF2e>,
     rollMode: RollMode | "roll" = "roll",
 ): Promise<ChatMessagePF2e | null> {
-    if (!item.system.selfEffect) {
+    if (!item.system.selfEffect && !item.system.frequency) {
         throw ErrorPF2e(
             [
                 "Only actions with self-applied effects can be passed to `ActorPF2e#useAction`.",
@@ -27,6 +27,17 @@ async function createSelfEffectMessage(
 
     const { actor, actionCost } = item;
     const token = actor.getActiveTokens(true, true).shift() ?? null;
+
+    // Reduce remaining uses in frequency
+    if (item.system.frequency && item.system.frequency.value > 0) {
+        const newValue = item.system.frequency.value - 1;
+        await item.update({ "system.frequency.value": newValue });
+    }
+
+    // If there is no self effect, show a regular message
+    if (!item.system.selfEffect) {
+        return (await item.toMessage()) ?? null;
+    }
 
     const speaker = ChatMessagePF2e.getSpeaker({ actor, token });
     const flavor = await renderTemplate("systems/pf2e/templates/chat/action/flavor.hbs", {
@@ -210,4 +221,4 @@ function toggleClearTemplatesButton(message: ChatMessagePF2e | null): void {
     }
 }
 
-export { applyDamageFromMessage, createSelfEffectMessage, isCheckContextFlag, toggleClearTemplatesButton };
+export { applyDamageFromMessage, createUseActionMessage, isCheckContextFlag, toggleClearTemplatesButton };

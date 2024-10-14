@@ -3,8 +3,8 @@ import { CreatureSheetData } from "@actor/creature/index.ts";
 import { CreatureSheetPF2e } from "@actor/creature/sheet.ts";
 import { SheetClickActionHandlers } from "@actor/sheet/base.ts";
 import { AbilityViewData } from "@actor/sheet/data-types.ts";
+import { createAbilityViewData } from "@actor/sheet/helpers.ts";
 import { StatisticTraceData } from "@system/statistic/index.ts";
-import { getActionGlyph, traitSlugToObject } from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
 import type { FamiliarPF2e } from "./document.ts";
@@ -62,21 +62,7 @@ export class FamiliarSheetPF2e<TActor extends FamiliarPF2e> extends CreatureShee
                     this.actor.itemTypes.action,
                     (a) => a.name,
                     (a) => a.sort,
-                ).map((item) => {
-                    const traits = item.system.traits.value.map((t) => traitSlugToObject(t, CONFIG.PF2E.actionTraits));
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        glyph: getActionGlyph(item.actionCost) || null,
-                        frequency: item.system.frequency || null,
-                        traits,
-                        has: {
-                            aura: item.traits.has("aura") || item.system.rules.some((r) => r.key === "Aura"),
-                            deathNote: item.system.deathNote,
-                            selfEffect: !!item.system.selfEffect,
-                        },
-                    };
-                }),
+                ).map((item) => createAbilityViewData(item)),
             },
             master: this.actor.master,
             masters,

@@ -13,7 +13,7 @@ import type { Coins } from "@item/physical/data.ts";
 import { detachSubitem } from "@item/physical/helpers.ts";
 import { DENOMINATIONS, PHYSICAL_ITEM_TYPES } from "@item/physical/values.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
-import { createSelfEffectMessage } from "@module/chat-message/helpers.ts";
+import { createUseActionMessage } from "@module/chat-message/helpers.ts";
 import { createSheetTags, maintainFocusInRender } from "@module/sheet/helpers.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import type { StatisticRollParameters } from "@system/statistic/statistic.ts";
@@ -568,7 +568,7 @@ abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActo
                 const itemId = htmlClosest(anchor, "[data-item-id]")?.dataset.itemId;
                 const item = this.actor.items.get(itemId, { strict: true });
                 if (item.isOfType("action", "feat")) {
-                    return createSelfEffectMessage(item, eventToRollMode(event));
+                    return createUseActionMessage(item, eventToRollMode(event));
                 }
             },
             // INVENTORY
