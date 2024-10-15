@@ -30,6 +30,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
 
         if (!this.token.actor) return;
 
+        const data = Array.from(this.token.document.auras.values()).filter((a) => slugs?.includes(a.slug) ?? true);
         for (const datum of data) {
             const renderer = new AuraRenderer({ ...datum, token: this.token });
             this.set(datum.slug, this.token.addChild(renderer));
