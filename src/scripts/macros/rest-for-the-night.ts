@@ -1,10 +1,9 @@
-import type { CharacterPF2e } from "@actor";
+import { CharacterPF2e } from "@actor";
 import { CharacterAttributesSource, CharacterResourcesSource } from "@actor/character/data.ts";
 import { ChatMessageSourcePF2e } from "@module/chat-message/data.ts";
 import { ChatMessagePF2e } from "@module/chat-message/index.ts";
 import { ActionDefaultOptions } from "@system/action-macros/index.ts";
-import { localizer, tupleHasValue } from "@util";
-import { Duration } from "luxon";
+import { localizer } from "@util";
 
 interface RestForTheNightOptions extends ActionDefaultOptions {
     skipDialog?: boolean;
@@ -106,30 +105,12 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.InfusedReagents"));
         }
 
-        // Spellcasting entries and focus points
-        const spellcastingRecharge = actor.spellcasting.recharge();
-        itemUpdates.push(...spellcastingRecharge.itemUpdates);
-        if (spellcastingRecharge.actorUpdates?.["system.resources.focus.value"]) {
-            actorUpdates.resources.focus = {
-                value: spellcastingRecharge.actorUpdates?.["system.resources.focus.value"],
-            };
+        // Perform all built in actor recharges, such as spellcasting and frequencies
+        const recharges = await actor.recharge({ duration: "day", commit: false });
+        if (recharges.actorUpdates?.system?.resources) {
+            actorUpdates.resources = fu.mergeObject(actorUpdates.resources, recharges.actorUpdates.system.resources);
         }
-
-        // Action Frequencies
-        const actionsAndFeats = [...actor.itemTypes.action, ...actor.itemTypes.feat];
-        const withFrequency = actionsAndFeats.filter(
-            (a) =>
-                a.frequency &&
-                (tupleHasValue(["turn", "round", "day"], a.frequency.per) ||
-                    Duration.fromISO(a.frequency.per) <= Duration.fromISO("PT8H")) &&
-                a.frequency.value < a.frequency.max,
-        );
-        if (withFrequency.length > 0) {
-            statements.push(localize("Message.Frequencies"));
-            itemUpdates.push(
-                ...withFrequency.map((a) => ({ _id: a.id, "system.frequency.value": a.frequency?.max ?? 0 })),
-            );
-        }
+        itemUpdates.push(...recharges.itemUpdates);
 
         // Stamina points
         if (game.pf2e.settings.variants.stamina) {
@@ -165,11 +146,15 @@ export async function restForTheNight(options: RestForTheNightOptions): Promise<
             statements.push(localize("Message.TemporaryItems"));
         }
 
-        if (spellcastingRecharge.actorUpdates) {
+        if (recharges.affected.frequencies) {
+            statements.push(localize("Message.Frequencies"));
+        }
+
+        if (recharges.affected.resources.includes("focus")) {
             statements.push(localize("Message.FocusPoints"));
         }
 
-        if (spellcastingRecharge.itemUpdates.length > 0) {
+        if (recharges.affected.spellSlots) {
             statements.push(localize("Message.SpellSlots"));
         }
 

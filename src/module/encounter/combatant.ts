@@ -244,11 +244,18 @@ class CombatantPF2e<
      */
     async #performActorUpdates(event: "initiative-roll" | "turn-start"): Promise<void> {
         const actor = this.actor;
+        if (!actor) return;
+
         const actorUpdates: Record<string, unknown> = {};
-        for (const rule of actor?.rules ?? []) {
+        for (const rule of actor.rules ?? []) {
             await rule.onUpdateEncounter?.({ event, actorUpdates });
         }
-        await actor?.update(actorUpdates);
+        await actor.update(actorUpdates);
+
+        // Refresh usages of any abilities with round durations
+        if (event === "turn-start") {
+            await actor.recharge({ duration: "round" });
+        }
     }
 
     /* -------------------------------------------- */

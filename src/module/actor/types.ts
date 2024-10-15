@@ -10,6 +10,7 @@ import type { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/con
 import type { DamageRoll } from "@system/damage/roll.ts";
 import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { Predicate } from "@system/predication.ts";
+import { ActorSourcePF2e } from "./data/index.ts";
 import type {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
@@ -91,6 +92,19 @@ interface AuraAppearanceData {
     } | null;
 }
 
+interface ActorCommitData<T extends ActorSourcePF2e> {
+    actorUpdates: DeepPartial<T> | null;
+    itemUpdates: EmbeddedDocumentUpdateData[];
+}
+
+interface ActorRechargeData<T extends ActorSourcePF2e> extends ActorCommitData<T> {
+    affected: {
+        frequencies: boolean;
+        spellSlots: boolean;
+        resources: string[];
+    };
+}
+
 /* -------------------------------------------- */
 /*  Attack Rolls                                */
 /* -------------------------------------------- */
@@ -120,8 +134,10 @@ type IWRType = ImmunityType | WeaknessType | ResistanceType;
 
 export type {
     ActorAlliance,
+    ActorCommitData,
     ActorDimensions,
     ActorInstances,
+    ActorRechargeData,
     ActorType,
     ApplyDamageParams,
     AttributeString,
@@ -130,8 +146,8 @@ export type {
     AuraEffectData,
     DCSlug,
     EmbeddedItemInstances,
-    IWRType,
     ImmunityType,
+    IWRType,
     MovementType,
     ResistanceType,
     SaveType,

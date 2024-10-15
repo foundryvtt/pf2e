@@ -52,6 +52,7 @@ import type {
 } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e, TextEditorPF2e } from "@system/text-editor.ts";
 import { ErrorPF2e, localizer, objectHasKey, setHasElement, signedInteger, sluggify, tupleHasValue } from "@util";
+import { Duration } from "luxon";
 import * as R from "remeda";
 import { v5 as UUIDv5 } from "uuid";
 import { ActorConditions } from "./conditions.ts";
@@ -75,7 +76,7 @@ import { ItemTransfer } from "./item-transfer.ts";
 import { applyStackingRules } from "./modifiers.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
-import type { ActorType } from "./types.ts";
+import type { ActorRechargeData, ActorType } from "./types.ts";
 import {
     ACTOR_TYPES,
     CREATURE_ACTOR_TYPES,
@@ -511,6 +512,72 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
         }
     }
 
+    /** Recharges all abilities after some time has elapsed. */
+    async recharge(options: RechargeOptions): Promise<ActorRechargeData<this["_source"]>> {
+        const spellcastingRecharge = this.spellcasting?.recharge();
+        const commitData: ActorRechargeData<this["_source"]> = {
+            actorUpdates: spellcastingRecharge?.actorUpdates ?? null,
+            itemUpdates: spellcastingRecharge?.itemUpdates ?? [],
+            affected: {
+                frequencies: false,
+                spellSlots: !!spellcastingRecharge?.itemUpdates.length,
+                resources: [],
+            },
+        };
+
+        const elapsed = options.duration;
+        const specificDurations = ["turn", "round", "day"];
+        const rechargeUpdates: EmbeddedDocumentUpdateData[] = [];
+        for (const item of [this.itemTypes.action, this.itemTypes.feat].flat()) {
+            // This item is irrelevant if there is no frequency or its already fully charged
+            if (!item.frequency || item.frequency.value >= item.frequency.max) {
+                continue;
+            }
+
+            const per = item.frequency.per;
+
+            // Handle special per values or daily prep. These do not ever update via time elapsing normally
+            // Greater ones refresh lower ones. Daily prep isn't necessarily 24 hours, but it is at least 8 hours of rest
+            const specificPerIdx = specificDurations.indexOf(per);
+            if (specificPerIdx >= 0 || elapsed === "day") {
+                const performUpdate =
+                    specificPerIdx >= 0
+                        ? specificDurations.indexOf(elapsed) >= specificPerIdx
+                        : Duration.fromISO(per) <= Duration.fromISO("PT8H");
+                if (performUpdate) {
+                    const frequency = { value: item.frequency.max };
+                    rechargeUpdates.push({ _id: item.id, system: { frequency } });
+                }
+            }
+        }
+
+        // Include recharges in update data
+        if (rechargeUpdates.length) {
+            commitData.affected.frequencies = true;
+            commitData.itemUpdates.push(...rechargeUpdates);
+        }
+
+        // Log what resources got updated in commit data
+        const commitSystemData = commitData?.actorUpdates?.system;
+        commitData.affected.resources =
+            commitSystemData && "resources" in commitSystemData ? Object.keys(commitSystemData.resources ?? {}) : [];
+
+        // Commit to the database unless commit is explicitly set to false
+        if (options.commit !== false) {
+            if (commitData.actorUpdates !== null) {
+                await this.update(commitData.actorUpdates, { render: false });
+            }
+            if (commitData.itemUpdates.length > 0) {
+                await this.updateEmbeddedDocuments("Item", commitData.itemUpdates, { render: false });
+            }
+            if (commitData.actorUpdates || commitData.itemUpdates.length) {
+                this.render();
+            }
+        }
+
+        return commitData;
+    }
+
     /** Don't allow the user to create in-development actor types. */
     static override createDialog<TDocument extends foundry.abstract.Document>(
         this: ConstructorOf<TDocument>,
@@ -638,6 +705,10 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
 
         return super.updateDocuments(updates, operation);
     }
+
+    /* -------------------------------------------- */
+    /*  Data Preparation                            */
+    /* -------------------------------------------- */
 
     /** Set module art if available */
     protected override _initializeSource(
@@ -1883,6 +1954,12 @@ interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends
 
 interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
+}
+
+interface RechargeOptions {
+    /** How much time elapsed as a delta operation */
+    duration: "turn" | "round" | "day";
+    commit?: boolean;
 }
 
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
