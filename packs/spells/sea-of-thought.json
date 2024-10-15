@@ -37,7 +37,15 @@
             "value": "60 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "area-size",
+                "value": "5*(@item.rank - 3)"
+            }
+        ],
         "target": {
             "value": ""
         },

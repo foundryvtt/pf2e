@@ -103,7 +103,18 @@
             "value": ""
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "itemType": "spell",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "predicate": [
+                    "item:slug:establish-ward"
+                ],
+                "property": "area-size",
+                "value": "5*ceil((@item.rank/2)-3)"
+            }
+        ],
         "target": {
             "value": ""
         },

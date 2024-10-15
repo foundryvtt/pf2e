@@ -37,7 +37,15 @@
             "value": "100 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "area-size",
+                "value": "20*floor((@item.rank/2)-1)"
+            }
+        ],
         "target": {
             "value": ""
         },

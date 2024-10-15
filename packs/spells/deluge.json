@@ -3,7 +3,10 @@
     "img": "systems/pf2e/icons/spells/deluge.webp",
     "name": "Deluge",
     "system": {
-        "area": null,
+        "area": {
+            "type": "burst",
+            "value": 40
+        },
         "cost": {
             "value": ""
         },
@@ -34,7 +37,15 @@
             "value": "500 feet"
         },
         "requirements": "",
-        "rules": [],
+        "rules": [
+            {
+                "itemId": "{item|id}",
+                "key": "ItemAlteration",
+                "mode": "add",
+                "property": "area-size",
+                "value": "10*(@item.rank - 8)"
+            }
+        ],
         "target": {
             "value": ""
         },
