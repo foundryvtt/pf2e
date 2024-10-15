@@ -1,0 +1,125 @@
+{
+    "_id": "TjBxxlTvb6tJP1jS",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+    "name": "Effect: Antidote",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Major)]</p>\n<p>You gain an item bonus to Fortitude saves against poisons.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 6
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antidote.Lesser",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antidote-lesser",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antidote-greater",
+                                            "parent:origin:item:slug:antidote-major",
+                                            "parent:origin:item:slug:antidote-moderate"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antidote.Moderate",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antidote-moderate",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antidote-greater",
+                                            "parent:origin:item:slug:antidote-lesser",
+                                            "parent:origin:item:slug:antidote-major"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antidote.Greater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antidote-greater",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antidote-moderate",
+                                            "parent:origin:item:slug:antidote-lesser",
+                                            "parent:origin:item:slug:antidote-major"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antidote.Major",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antidote-major",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antidote-greater",
+                                            "parent:origin:item:slug:antidote-lesser",
+                                            "parent:origin:item:slug:antidote-moderate"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    }
+                ],
+                "flag": "antidote",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:poison"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": "@item.flags.pf2e.rulesSelections.antidote"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}
