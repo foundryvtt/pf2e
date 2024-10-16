@@ -35,6 +35,7 @@ class RollInspector extends Application {
 
     override getData(): ChatRollDetailsData {
         const context = this.message.flags.pf2e.context;
+        const contextualOptions = context && "contextualOptions" in context ? context.contextualOptions : {};
 
         const rollOptions = R.sortBy(context?.options?.sort() ?? [], (o) => o.includes(":"));
 
@@ -64,6 +65,12 @@ class RollInspector extends Application {
             domains: context?.domains?.sort() ?? [],
             modifiers,
             rollOptions,
+            contextualOptions: Object.entries(contextualOptions ?? {})
+                .map(([key, value]) => ({
+                    header: game.i18n.localize(`PF2E.ChatRollDetails.ContextualOptions.${key}`),
+                    options: value ?? [],
+                }))
+                .filter((o) => !!o.options.length),
         };
     }
 
@@ -109,8 +116,13 @@ class RollInspector extends Application {
         _rgx: RegExp,
         html: HTMLElement | null,
     ): void {
-        for (const row of htmlQueryAll(html, ":scope > li")) {
+        for (const row of htmlQueryAll(html, ":scope li:not(.header)")) {
             row.hidden = query.length > 0 && !row.innerText.includes(query);
+        }
+
+        // Hide a sub list if all options in that list are also hidden
+        for (const subList of htmlQueryAll(html, ":scope > ul.sub-list")) {
+            subList.hidden = htmlQueryAll(subList, "li:not(.header)").every((li) => li.hidden);
         }
     }
 }
@@ -121,6 +133,7 @@ interface ChatRollDetailsData {
     modifiers: PreparedModifier[];
     dice: PreparedDice[];
     rollOptions: string[];
+    contextualOptions: { header: string; options: string[] }[];
 }
 
 interface PreparedModifier extends Omit<Partial<RawModifier>, "critical"> {

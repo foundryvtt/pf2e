@@ -240,6 +240,7 @@ export class DamagePF2e {
             target: targetFlag,
             domains: context.domains ?? [],
             options: Array.from(context.options).sort(),
+            contextualOptions: {},
             mapIncreases: context.mapIncreases,
             notes: notes.map((n) => n.toObject()),
             secret: context.secret ?? false,
