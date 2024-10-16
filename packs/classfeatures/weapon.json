@@ -33,10 +33,12 @@
                 "adjustName": false,
                 "choices": {
                     "filter": [
-                        "item:level:0",
                         "item:usage:hands:1",
                         {
-                            "not": "item:trait:consumable"
+                            "nor": [
+                                "item:trait:consumable",
+                                "item:magical"
+                            ]
                         }
                     ],
                     "itemType": "weapon"
@@ -61,6 +63,13 @@
             {
                 "key": "RollOption",
                 "option": "implement-held",
+                "predicate": [
+                    "weapon-implement:equipped"
+                ]
+            },
+            {
+                "key": "RollOption",
+                "option": "implement:weapon:equipped",
                 "predicate": [
                     "weapon-implement:equipped"
                 ]
