@@ -19,7 +19,6 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
      * @param [slugs] A specific list of slugs to limit which auras are cleared
      */
     async reset(slugs?: string[]): Promise<void> {
-        const preUpdateSlugs = Array.from(this.keys());
         if (!slugs) {
             this.clear();
         } else {
@@ -37,7 +36,7 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
         }
 
         await this.draw();
-        Hooks.callAll("drawAuras", this.token, { preUpdateSlugs });
+        Hooks.callAll("drawAuras", this.token);
     }
 
     /** Reposition aura textures after the token moves. */
