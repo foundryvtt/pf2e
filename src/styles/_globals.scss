@@ -129,11 +129,30 @@ table.pf2-table {
         background-color: var(--color-pf-primary-dark);
         color: var(--text-light);
         font-weight: bold;
-        padding: 0.5rem 0.25rem;
+        padding: var(--space-8) var(--space-4);
     }
 
     td {
-        padding: 0.25rem;
+        padding: var(--space-4);
+    }
+
+    &.remaster {
+        tr:nth-child(odd) {
+            background-color: #eee3c8;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f5efe0;
+        }
+
+        th,
+        td {
+            border-color: var(--color-border-light-tertiary);
+        }
+
+        th {
+            background-color: #002a17;
+        }
     }
 }
 
