@@ -96,7 +96,7 @@ export class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollec
      * Recharges all spellcasting entries based on the type of entry it is
      * @todo Support a timespan property of some sort and handle 1/hour innate spells
      */
-    recharge(): ActorCommitData<TActor["_source"]> {
+    recharge(): ActorCommitData<TActor> {
         type SpellcastingUpdate = EmbeddedDocumentUpdateData | EmbeddedDocumentUpdateData[];
 
         const itemUpdates = this.contents.flatMap((entry): SpellcastingUpdate => {

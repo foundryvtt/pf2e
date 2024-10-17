@@ -513,21 +513,19 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
     }
 
     /** Recharges all abilities after some time has elapsed. */
-    async recharge(options: RechargeOptions): Promise<ActorRechargeData<this["_source"]>> {
-        const spellcastingRecharge = this.spellcasting?.recharge();
-        const commitData: ActorRechargeData<this["_source"]> = {
-            actorUpdates: spellcastingRecharge?.actorUpdates ?? null,
-            itemUpdates: spellcastingRecharge?.itemUpdates ?? [],
+    async recharge(options: RechargeOptions): Promise<ActorRechargeData<this>> {
+        const commitData: ActorRechargeData<this> = {
+            actorUpdates: null,
+            itemUpdates: [],
             affected: {
                 frequencies: false,
-                spellSlots: !!spellcastingRecharge?.itemUpdates.length,
+                spellSlots: false,
                 resources: [],
             },
         };
 
         const elapsed = options.duration;
         const specificDurations = ["turn", "round", "day"];
-        const rechargeUpdates: EmbeddedDocumentUpdateData[] = [];
         for (const item of [this.itemTypes.action, this.itemTypes.feat].flat()) {
             // This item is irrelevant if there is no frequency or its already fully charged
             if (!item.frequency || item.frequency.value >= item.frequency.max) {
@@ -546,19 +544,24 @@ class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | n
                         : Duration.fromISO(per) <= Duration.fromISO("PT8H");
                 if (performUpdate) {
                     const frequency = { value: item.frequency.max };
-                    rechargeUpdates.push({ _id: item.id, system: { frequency } });
+                    commitData.itemUpdates.push({ _id: item.id, system: { frequency } });
+                    commitData.affected.frequencies = true;
                 }
             }
         }
 
-        // Include recharges in update data
-        if (rechargeUpdates.length) {
-            commitData.affected.frequencies = true;
-            commitData.itemUpdates.push(...rechargeUpdates);
+        // If this recharge is for daily prep, perform daily prep updates
+        if (elapsed === "day") {
+            const spellcastingRecharge = this.spellcasting?.recharge();
+            if (spellcastingRecharge) {
+                commitData.actorUpdates = spellcastingRecharge.actorUpdates;
+                commitData.itemUpdates.push(...spellcastingRecharge.itemUpdates);
+                commitData.affected.spellSlots = spellcastingRecharge.itemUpdates.length > 0;
+            }
         }
 
         // Log what resources got updated in commit data
-        const commitSystemData = commitData?.actorUpdates?.system;
+        const commitSystemData = commitData.actorUpdates?.system;
         commitData.affected.resources =
             commitSystemData && "resources" in commitSystemData ? Object.keys(commitSystemData.resources ?? {}) : [];
 
