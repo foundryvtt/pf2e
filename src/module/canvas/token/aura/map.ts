@@ -35,7 +35,8 @@ export class AuraRenderers extends Map<string, AuraRenderer> {
             this.set(datum.slug, this.token.addChild(renderer));
         }
 
-        return this.draw();
+        await this.draw();
+        Hooks.callAll("drawAuras", this.token);
     }
 
     /** Reposition aura textures after the token moves. */
