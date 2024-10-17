@@ -1,0 +1,59 @@
+{
+    "_id": "nTHhkHfAItjrO9d9",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Aurochs-Headed",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "skill",
+        "description": {
+            "value": "<p>Your words and body language can subconsciously unsettle orcs, giving you an advantage when convincing them to see things your way. Many with this feat use it to travel freely between holds, warning all but the toughest orcs to waylay weaker prey. You gain a +1 circumstance bonus to skill checks to @UUID[Compendium.pf2e.actionspf2e.Item.Make an Impression] or @UUID[Compendium.pf2e.actionspf2e.Item.Coerce] creatures with the orc trait. Enemy orcs who can see you at the start of combat take a –1 penalty to initiative rolls.</p>"
+        },
+        "level": {
+            "value": 3
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "trained in Diplomacy or Intimidation"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #207: The Resurrection Flood"
+        },
+        "rules": [
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "target:trait:orc",
+                    {
+                        "or": [
+                            "action:make-an-impression",
+                            "action:coerce"
+                        ]
+                    }
+                ],
+                "selector": [
+                    "diplomacy",
+                    "intimidation"
+                ],
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "skill"
+            ]
+        }
+    },
+    "type": "feat"
+}

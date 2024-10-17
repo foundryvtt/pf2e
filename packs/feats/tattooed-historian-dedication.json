@@ -1,0 +1,55 @@
+{
+    "_id": "oKjyD46NmkKx1OvO",
+    "img": "icons/sundries/books/book-red-exclamation.webp",
+    "name": "Tattooed Historian Dedication",
+    "system": {
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": null
+        },
+        "category": "class",
+        "description": {
+            "value": "<p>You become trained in Diplomacy or Performance; if you are already trained in both skills, you instead become trained in a skill of your choice. You gain access to all uncommon magical tattoos with the orc trait.</p>\n<p>You gain a @UUID[Compendium.pf2e.equipment-srd.Item.Storied Skin] for free upon gaining this feat (or another magical tattoo of 2nd level or lower if you already have storied skin). You cannot have more than one storied skin tattoo, but the frequency of its Living History ability increases by one use per minute for every three tattooed historian feats you have. For every two tattooed historian feats you have, you can invest one magical tattoo that does not count against the maximum number of items you can have invested at one time.</p>"
+        },
+        "level": {
+            "value": 2
+        },
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Constitution +1"
+                },
+                {
+                    "value": "trained in Belkzen Lore, Orc Lore, Orc Pantheon Lore, or (at the GM's discretion) a related Lore skill"
+                }
+            ]
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder #207: The Resurrection Flood"
+        },
+        "rules": [
+            {
+                "key": "ActiveEffectLike",
+                "mode": "add",
+                "path": "flags.pf2e.tattooedHistorian.archetypeFeatCount",
+                "value": 1
+            },
+            {
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-srd.Item.Storied Skin"
+            }
+        ],
+        "traits": {
+            "rarity": "uncommon",
+            "value": [
+                "archetype",
+                "dedication"
+            ]
+        }
+    },
+    "type": "feat"
+}

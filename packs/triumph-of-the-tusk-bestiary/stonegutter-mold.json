@@ -1,0 +1,113 @@
+{
+    "_id": "nz0wC5rfBf8tfPCr",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "Z8QGOt12y8Ba5QeA",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Calcium Consumption",
+            "sort": 0,
+            "system": {
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Trigger</strong> A creature with bones touches the mold or steps into an area covered with it</p><hr /><p><strong>Effect</strong> The mold shudders and slithers onto the triggering creature as it attempts to absorb calcium through their skin. The creature attempts a @Check[type:fortitude|dc:25] save.</p><hr /><p><strong>Critical Success</strong> The target shakes the mold off and is unaffected.</p>\n<p><strong>Success</strong> A small patch of mold clings to the target and deals @Damage[(2d10+9)[piercing]] damage.</p>\n<p><strong>Failure</strong> The mold clings to the target. The target takes @Damage[(4d10+18)[piercing]] damage and is @UUID[Compendium.pf2e.conditionitems.Item.Drained]{Drained 1}.</p>\n<p><strong>Critical Failure</strong> The mold envelops the target. As failure, except the target is also @UUID[Compendium.pf2e.conditionitems.Item.Slowed]{Slowed 1} until it's healed to its Hit Point maximum.</p>\n<p><em>Note: A DC was not provided for this ability by Paizo. The DC present here is a hard DC for the hazard level according to the GM Core hazard building Tables.</em></p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": ""
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Stonegutter Mold",
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 22
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hp": {
+                "details": "",
+                "max": 80,
+                "temp": 0,
+                "value": 80
+            },
+            "immunities": [
+                {
+                    "exceptions": [],
+                    "type": "critical-hits"
+                },
+                {
+                    "exceptions": [],
+                    "type": "precision"
+                }
+            ],
+            "stealth": {
+                "details": "<p>(trained)</p>",
+                "value": 17
+            },
+            "weaknesses": [
+                {
+                    "exceptions": [],
+                    "type": "fire",
+                    "value": 10
+                }
+            ]
+        },
+        "details": {
+            "description": "<p>A hardy, innocuous-looking green mold grows over surfaces, slowly absorbing minerals.</p>",
+            "disable": "<p>@Check[survival|dc:26] (trained) to scrape away the mold without touching it</p>",
+            "isComplex": false,
+            "level": {
+                "value": 7
+            },
+            "publication": {
+                "license": "ORC",
+                "remaster": true,
+                "title": "Pathfinder #207: The Resurrection Flood"
+            },
+            "reset": "<p>1 hour, as the mold settles back across the surface.</p>",
+            "routine": ""
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 19
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 12
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "common",
+            "size": {
+                "value": "med"
+            },
+            "value": [
+                "environmental",
+                "fungus"
+            ]
+        }
+    },
+    "type": "hazard"
+}
