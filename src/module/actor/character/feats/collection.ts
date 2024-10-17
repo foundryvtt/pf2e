@@ -1,9 +1,9 @@
-import type { ActorPF2e, CharacterPF2e } from "@actor";
-import type { FeatPF2e, HeritagePF2e, ItemPF2e } from "@item";
-import { ItemSystemData } from "@item/base/data/system.ts";
-import { FeatOrFeatureCategory } from "@item/feat/types.ts";
-import { sluggify, tupleHasValue } from "@util";
+import type { CharacterPF2e } from "@actor";
+import type { FeatPF2e, ItemPF2e } from "@item";
+import { sluggify } from "@util";
 import * as R from "remeda";
+import { FeatGroup } from "./group.ts";
+import { FeatGroupData } from "./types.ts";
 
 class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<TActor>> {
     /** Feats belonging no actual group ("bonus feats" in rules text) */
@@ -116,7 +116,7 @@ class CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGroup<
         }
     }
 
-    createGroup(options: FeatGroupOptions): this {
+    createGroup(options: FeatGroupData): this {
         return this.set(options.id, new FeatGroup(this.actor, options));
     }
 
@@ -212,193 +212,8 @@ interface CharacterFeats<TActor extends CharacterPF2e> extends Collection<FeatGr
     get(key: string): FeatGroup<TActor> | undefined;
 }
 
-/** Any document that is similar enough to a feat/feature to be used as a feat for the purposes of feat groups */
-interface FeatLike<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-    category: string;
-    group: FeatGroup<NonNullable<TParent>, this> | null;
-    isFeat: boolean;
-    isFeature: boolean;
-    system: ItemSystemData & {
-        location: string | null;
-    };
-}
-
-interface FeatSlot<TItem extends FeatLike | HeritagePF2e = FeatPF2e> {
-    id: string;
-    label?: Maybe<string>;
-    level: number | null;
-    feat?: Maybe<TItem>;
-    children: FeatSlot<FeatLike | HeritagePF2e>[];
-}
-
-interface FeatNotSlot<T extends FeatLike = FeatPF2e> {
-    feat: T;
-    children: FeatSlot<FeatLike | HeritagePF2e>[];
-}
-
-interface FeatSlotCreationData extends Omit<FeatSlot, "children" | "feat" | "level"> {
-    level?: Maybe<number>;
-}
-
-interface FeatGroupOptions {
-    id: string;
-    label: string;
-    featFilter?: string[];
-    supported?: FeatOrFeatureCategory[];
-    slots?: (FeatSlotCreationData | string | number)[];
-    level?: number;
-}
-
-class FeatGroup<TActor extends ActorPF2e = ActorPF2e, TItem extends FeatLike = FeatPF2e> {
-    actor: TActor;
-
-    id: string;
-    label: string;
-    feats: (FeatSlot<TItem> | FeatNotSlot<TItem>)[] = [];
-    /** Whether the feats are slotted by level or free-form */
-    slotted = false;
-    /** Will move to sheet data later */
-    featFilter: string[];
-
-    /** Feat Types that are supported */
-    supported: FeatOrFeatureCategory[] = [];
-
-    /** Lookup for the slots themselves */
-    slots: Record<string, FeatSlot<TItem> | undefined> = {};
-
-    constructor(actor: TActor, options: FeatGroupOptions) {
-        this.actor = actor;
-        const maxLevel = options.level ?? actor.level;
-        this.id = options.id;
-        this.label = options.label;
-        this.supported = options.supported ?? [];
-        this.featFilter = Array.from(
-            new Set([this.supported.map((s) => `category-${s}`), options.featFilter ?? []].flat()),
-        );
-
-        if (options.slots) {
-            this.slotted = true;
-            for (const slotOption of options.slots) {
-                const slotData =
-                    typeof slotOption === "number"
-                        ? { id: `${this.id}-${slotOption}`, level: slotOption, label: slotOption.toString() }
-                        : typeof slotOption === "string"
-                          ? { id: `${this.id}-${sluggify(slotOption)}`, level: null, label: slotOption }
-                          : slotOption;
-                if (typeof slotData.level === "number" && slotData.level > maxLevel) {
-                    continue;
-                }
-
-                const slot = { ...slotData, level: slotData.level ?? null, children: [] };
-                this.feats.push(slot);
-                this.slots[slot.id] = slot;
-            }
-        }
-    }
-
-    /** Is this category slotted and without any empty slots */
-    get isFull(): boolean {
-        return this.slotted && Object.values(this.slots).every((s) => !!s?.feat);
-    }
-
-    /** Assigns a feat to its correct slot during data preparation, returning true if successful */
-    assignFeat(feat: TItem): boolean {
-        const slotId =
-            feat.isOfType("feat") && feat.system.location === this.id
-                ? (feat.system.level.taken?.toString() ?? "")
-                : (feat.system.location ?? "");
-        const slot: FeatSlot<TItem> | undefined = this.slots[slotId];
-        if (!slot && this.slotted) return false;
-
-        if (slot?.feat) {
-            console.debug(`PF2e System | Multiple feats with same index: ${feat.name}, ${slot.feat.name}`);
-            return false;
-        }
-
-        const childSlots = this.#getChildSlots(feat);
-        if (slot) {
-            slot.feat = feat;
-            slot.children = childSlots;
-        } else {
-            const label = feat.category === "classfeature" ? (feat.system.level?.value.toString() ?? null) : null;
-            this.feats.push({ feat, label, children: childSlots });
-        }
-        feat.group = this;
-
-        return true;
-    }
-
-    #getChildSlots(feat: Maybe<ItemPF2e>): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>>[] {
-        if (!feat?.isOfType("feat")) return [];
-
-        return feat.grants.map((grant): FeatSlot<FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>> => {
-            return {
-                id: grant.id,
-                label: null,
-                level: grant.system.level?.taken ?? null,
-                feat: grant,
-                children: this.#getChildSlots(grant),
-            };
-        });
-    }
-
-    isFeatValid(feat: TItem): boolean {
-        return this.supported.length === 0 || tupleHasValue(this.supported, feat.category);
-    }
-
-    /** Adds a new feat to the actor, or reorders an existing one, into the correct slot */
-    async insertFeat(feat: TItem, slotId: Maybe<string> = null): Promise<ItemPF2e<TActor>[]> {
-        const slot = this.slots[slotId ?? ""];
-        const location = this.slotted || this.id === "bonus" ? (slot?.id ?? null) : this.id;
-        const existing = this.actor.items.filter(
-            (i): i is FeatLike<TActor> => isFeatLike(i) && i.system.location === location,
-        );
-        const isFeatValidInSlot = this.isFeatValid(feat);
-        const alreadyHasFeat = this.actor.items.has(feat.id);
-
-        const changed: ItemPF2e<TActor>[] = [];
-
-        // If this is a new feat, create a new feat item on the actor first
-        if (!alreadyHasFeat && (isFeatValidInSlot || !location)) {
-            const source = fu.mergeObject(feat.toObject(), {
-                system: { location, level: { taken: slot?.level ?? this.actor.level } },
-            });
-            changed.push(...(await this.actor.createEmbeddedDocuments("Item", [source])));
-            const label = game.i18n.localize(this.label);
-            ui.notifications.info(game.i18n.format("PF2E.Item.Feat.Info.Added", { item: feat.name, category: label }));
-        }
-
-        // Determine what feats we have to move around
-        const locationUpdates: { _id: string; "system.location": string | null }[] = this.slotted
-            ? existing.map((f) => ({
-                  _id: f.id,
-                  "system.location": null,
-                  ...("taken" in (feat._source.system.level ?? {}) ? { "system.level.-=taken": null } : {}),
-              }))
-            : [];
-        if (alreadyHasFeat && isFeatValidInSlot) {
-            locationUpdates.push({
-                _id: feat.id,
-                "system.location": location,
-                ...(slot?.level && feat.isOfType("feat") ? { "system.level.taken": slot.level } : {}),
-            });
-        }
-
-        if (locationUpdates.length > 0) {
-            changed.push(...(await this.actor.updateEmbeddedDocuments("Item", locationUpdates)));
-        }
-
-        return changed;
-    }
-}
-
 function isBoonOrCurse(feat: FeatPF2e) {
     return ["pfsboon", "deityboon", "curse"].includes(feat.category);
 }
 
-function isFeatLike<TActor extends ActorPF2e | null>(item: ItemPF2e<TActor>): item is FeatLike<TActor> {
-    return "category" in item && "location" in item.system && "isFeat" in item && "isFeature" in item;
-}
-
-export { CharacterFeats, FeatGroup };
-export type { FeatGroupOptions, FeatSlotCreationData };
+export { CharacterFeats };

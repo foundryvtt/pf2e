@@ -72,7 +72,7 @@ import {
     MartialProficiency,
     WeaponGroupProficiencyKey,
 } from "./data.ts";
-import { CharacterFeats } from "./feats.ts";
+import { CharacterFeats } from "./feats/index.ts";
 import {
     PCAttackTraitHelpers,
     WeaponAuxiliaryAction,
