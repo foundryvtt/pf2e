@@ -311,6 +311,13 @@ class EncounterPF2e extends Combat {
                         await combatant.startTurn();
                     }
                 }
+
+                // Update all per turn abilities by other combatants
+                for (const otherCombatant of this.combatants) {
+                    if (combatant !== otherCombatant) {
+                        otherCombatant.actor?.recharge({ duration: "turn" });
+                    }
+                }
             }
 
             // Reset all participating actors' data to get updated encounter roll options
