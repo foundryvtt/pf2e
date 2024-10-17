@@ -10,7 +10,7 @@ import type { immunityTypes, resistanceTypes, weaknessTypes } from "@scripts/con
 import type { DamageRoll } from "@system/damage/roll.ts";
 import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { Predicate } from "@system/predication.ts";
-import { ActorSourcePF2e } from "./data/index.ts";
+import type { ActorSourcePF2e } from "./data/index.ts";
 import type {
     ACTOR_TYPES,
     ATTRIBUTE_ABBREVIATIONS,
