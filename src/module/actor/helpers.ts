@@ -115,7 +115,7 @@ async function migrateActorSource(source: PreCreate<ActorSourcePF2e>): Promise<A
 
     // Clear any prototype token entries explicitly set to `undefined` by upstream
     source.prototypeToken ??= {};
-    for (const [key, value] of R.entries.strict(source.prototypeToken ?? {})) {
+    for (const [key, value] of R.entries(source.prototypeToken ?? {})) {
         if (value === undefined) delete source.prototypeToken[key];
     }
 

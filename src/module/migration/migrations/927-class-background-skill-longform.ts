@@ -78,7 +78,7 @@ export const SKILL_DICTIONARY = {
 
 export type SkillAbbreviation = keyof typeof SKILL_DICTIONARY;
 
-export const SKILL_ABBREVIATIONS = R.keys.strict(SKILL_DICTIONARY);
+export const SKILL_ABBREVIATIONS = R.keys(SKILL_DICTIONARY);
 
 interface ClassSystemSourceMaybeOld extends Omit<ClassSystemSource, "trainedSkills"> {
     trainedSkills: {

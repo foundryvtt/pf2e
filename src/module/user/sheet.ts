@@ -1,8 +1,11 @@
 import { htmlQueryAll } from "@util";
+import { ApplicationTab } from "types/foundry/client-esm/applications/_types.js";
+import type { DocumentSheetRenderOptions } from "types/foundry/client-esm/applications/api/document-sheet.d.ts";
+import { UserConfigData } from "types/foundry/client-esm/applications/sheets/user-config.js";
 import type { UserPF2e } from "./document.ts";
 
 /** Player-specific settings, stored as flags on each User */
-export class UserConfigPF2e<TUser extends UserPF2e> extends foundry.applications.sheets.UserConfig<TUser> {
+class UserConfigPF2e extends foundry.applications.sheets.UserConfig<UserPF2e> {
     static override PARTS = {
         tabs: {
             template: "templates/generic/tab-navigation.hbs",
@@ -31,7 +34,7 @@ export class UserConfigPF2e<TUser extends UserPF2e> extends foundry.applications
         return tabs;
     }
 
-    override async _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigDataPF2e<TUser>> {
+    override async _prepareContext(options: DocumentSheetRenderOptions): Promise<UserConfigDataPF2e> {
         const data = await super._prepareContext(options);
 
         // Remove party actors from the selection
@@ -55,7 +58,9 @@ export class UserConfigPF2e<TUser extends UserPF2e> extends foundry.applications
     }
 }
 
-interface UserConfigDataPF2e<TUser extends UserPF2e> extends UserConfigData<TUser> {
+interface UserConfigDataPF2e extends UserConfigData<UserPF2e> {
     tabs: Partial<ApplicationTab>[];
     tabGroups: Record<string, string>;
 }
+
+export { UserConfigPF2e };

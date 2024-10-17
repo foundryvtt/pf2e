@@ -1,16 +1,16 @@
 {
-    "_id": "7z1iY4AaNEAIKuAU",
-    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
-    "name": "Effect: Antidote (Lesser)",
+    "_id": "6TGcfVyzzVHEo7ke",
+    "img": "icons/magic/acid/dissolve-arm-flesh.webp",
+    "name": "Spell Effect: Acid Grip",
     "system": {
         "description": {
-            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antidote (Lesser)]</p>\n<p>You gain a +2 item bonus to Fortitude saves against poisons.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.spells-srd.Item.Acid Grip]</p>\n<p>A creature taking persistent damage from this spell takes a –10-foot status bonus to its Speeds.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
-            "unit": "hours",
-            "value": 6
+            "unit": "encounter",
+            "value": -1
         },
         "level": {
             "value": 1
@@ -18,17 +18,17 @@
         "publication": {
             "license": "ORC",
             "remaster": true,
-            "title": "Pathfinder GM Core"
+            "title": "Pathfinder Player Core"
         },
         "rules": [
             {
                 "key": "FlatModifier",
                 "predicate": [
-                    "item:trait:poison"
+                    "self:condition:persistent-damage:acid"
                 ],
-                "selector": "fortitude",
-                "type": "item",
-                "value": 2
+                "selector": "all-speeds",
+                "type": "status",
+                "value": -10
             }
         ],
         "start": {
@@ -39,7 +39,6 @@
             "show": true
         },
         "traits": {
-            "rarity": "common",
             "value": []
         }
     },

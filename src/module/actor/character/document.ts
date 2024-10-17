@@ -58,7 +58,7 @@ import { ArmorStatistic, PerceptionStatistic, Statistic } from "@system/statisti
 import { ErrorPF2e, setHasElement, signedInteger, sluggify, traitSlugToObject } from "@util";
 import { eventToRollParams } from "@util/sheet.ts";
 import * as R from "remeda";
-import { CharacterCrafting, CraftingAbility, CraftingFormula } from "./crafting/index.ts";
+import { CharacterCrafting, CraftingFormula } from "./crafting/index.ts";
 import {
     BaseWeaponProficiencyKey,
     CharacterAbilities,
@@ -197,11 +197,6 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     /** Will be deprecated/removed after PC2 alchemist is complete */
     async getCraftingFormulas(): Promise<CraftingFormula[]> {
         return this.crafting.getFormulas();
-    }
-
-    /** Will be deprecated/removed after PC2 alchemist is complete */
-    async getCraftingEntry(selector: string): Promise<CraftingAbility | null> {
-        return this.crafting.abilities.get(selector) ?? null;
     }
 
     /** Will be deprecated/removed after PC2 alchemist is complete */
@@ -352,7 +347,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         attributes.classhp = 0;
 
         // Skills
-        system.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([key, { attribute }]) => {
+        system.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([key, { attribute }]) => {
             const rank = Math.clamp(this._source.system.skills[key]?.rank || 0, 0, 4) as ZeroToFour;
             return [key, { rank, attribute, armor: ["dex", "str"].includes(attribute) }];
         });
@@ -684,12 +679,12 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             rollOptionsAll[`attribute:${key}:mod:${mod}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.skills)) {
+        for (const key of R.keys(CONFIG.PF2E.skills)) {
             const rank = this.system.skills[key].rank;
             rollOptionsAll[`skill:${key}:rank:${rank}`] = true;
         }
 
-        for (const key of R.keys.strict(CONFIG.PF2E.weaponCategories)) {
+        for (const key of R.keys(CONFIG.PF2E.weaponCategories)) {
             const rank = this.system.proficiencies.attacks[key].rank;
             rollOptionsAll[`attack:${key}:rank:${rank}`] = true;
         }
@@ -828,7 +823,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     private prepareSkills() {
         const { synthetics, system, wornArmor } = this;
 
-        this.skills = R.mapToObj(R.entries.strict(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
+        this.skills = R.mapToObj(R.entries(CONFIG.PF2E.skills), ([skillSlug, { label, attribute }]) => {
             const skill = system.skills[skillSlug];
 
             const domains = [skillSlug, `${attribute}-based`, "skill-check", `${attribute}-skill-check`, "all"];
@@ -1061,7 +1056,7 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
             ...itemTypes.consumable.filter((i) => i.category === "ammo" && !i.isStowed),
             ...itemTypes.weapon.filter((w) => w.system.usage.canBeAmmo),
         ];
-        const offensiveCategories = R.keys.strict(CONFIG.PF2E.weaponCategories);
+        const offensiveCategories = R.keys(CONFIG.PF2E.weaponCategories);
         const syntheticWeapons = Object.values(synthetics.strikes)
             .map((s) => s(unarmedRunes))
             .filter(R.isNonNull);
@@ -1127,8 +1122,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         }
         // Process again (first done during weapon data preparation) in case of late-arriving strike adjustment
         processTwoHandTrait(weapon);
-        const weaponRollOptions = weapon.getRollOptions("item");
         const weaponTraits = weapon.traits;
+        const weaponRollOptions = new Set(weapon.getRollOptions("item"));
 
         // If the character has an ancestral weapon familiarity or similar feature, it will make weapons that meet
         // certain criteria also count as weapon of different category
@@ -1140,16 +1135,8 @@ class CharacterPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
         const equivalentWeapons: Record<string, string | undefined> = CONFIG.PF2E.equivalentWeapons;
         const baseWeapon = equivalentWeapons[weapon.baseType ?? ""] ?? weapon.baseType;
         const baseWeaponRank = proficiencies.attacks[`weapon-base-${baseWeapon}`]?.rank ?? 0;
-
-        // If a weapon matches against a linked proficiency, temporarily add the `sameAs` category to the weapon's
-        // item roll options
-        const equivalentCategories = Object.values(proficiencies.attacks).flatMap((p) =>
-            !!p && "sameAs" in p && (p.definition?.test(weaponRollOptions) ?? true) ? `item:category:${p.sameAs}` : [],
-        );
-        const weaponProficiencyOptions = new Set(weaponRollOptions.concat(equivalentCategories));
-
         const syntheticRanks = Object.values(proficiencies.attacks)
-            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponProficiencyOptions))
+            .filter((p): p is MartialProficiency => !!p?.definition?.test(weaponRollOptions))
             .map((p) => p.rank);
 
         const proficiencyRank = Math.max(categoryRank, groupRank, baseWeaponRank, ...syntheticRanks) as ZeroToFour;

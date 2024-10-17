@@ -1,0 +1,125 @@
+{
+    "_id": "mVgLCbZgafIylRzh",
+    "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antiplague.webp",
+    "name": "Effect: Antiplague",
+    "system": {
+        "description": {
+            "value": "<p>Granted by @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Lesser)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Moderate)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Greater)], @UUID[Compendium.pf2e.equipment-srd.Item.Antiplague (Major)]</p>\n<p>You gain an item bonus to Fortitude saves against diseases.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "hours",
+            "value": 24
+        },
+        "level": {
+            "value": 1
+        },
+        "publication": {
+            "license": "ORC",
+            "remaster": true,
+            "title": "Pathfinder GM Core"
+        },
+        "rules": [
+            {
+                "choices": [
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Lesser",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-lesser",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antiplague-greater",
+                                            "parent:origin:item:slug:antiplague-major",
+                                            "parent:origin:item:slug:antiplague-moderate"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 2
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Moderate",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-moderate",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antiplague-greater",
+                                            "parent:origin:item:slug:antiplague-lesser",
+                                            "parent:origin:item:slug:antiplague-major"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 3
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Greater",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-greater",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antiplague-moderate",
+                                            "parent:origin:item:slug:antiplague-lesser",
+                                            "parent:origin:item:slug:antiplague-major"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    },
+                    {
+                        "label": "PF2E.SpecificRule.Equipment.Antiplague.Major",
+                        "predicate": [
+                            {
+                                "or": [
+                                    "parent:origin:item:slug:antiplague-major",
+                                    {
+                                        "nor": [
+                                            "parent:origin:item:slug:antiplague-greater",
+                                            "parent:origin:item:slug:antiplague-lesser",
+                                            "parent:origin:item:slug:antiplague-moderate"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ],
+                        "value": 4
+                    }
+                ],
+                "flag": "antiplague",
+                "key": "ChoiceSet",
+                "prompt": "PF2E.SpecificRule.Prompt.EquipmentVariety"
+            },
+            {
+                "key": "FlatModifier",
+                "predicate": [
+                    "item:trait:disease"
+                ],
+                "selector": "fortitude",
+                "type": "item",
+                "value": "@item.flags.pf2e.rulesSelections.antiplague"
+            }
+        ],
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "value": []
+        }
+    },
+    "type": "effect"
+}

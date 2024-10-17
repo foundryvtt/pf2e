@@ -31,6 +31,7 @@ import { Migration929RemoveSkillAbbreviations } from "@module/migration/migratio
 import { Migration930ChoiceSetMedium } from "@module/migration/migrations/930-choice-set-medium.ts";
 import { Migration931ExpandREPermissions } from "@module/migration/migrations/931-expand-re-permissions.ts";
 import { Migration932NPCSystemSkills } from "@module/migration/migrations/932-npc-system-skills.ts";
+import { Migration933CraftingAbility } from "@module/migration/migrations/933-crafting-ability.ts";
 // ^^^ don't let your IDE use the index in these imports. you need to specify the full path ^^^
 
 const { window } = new JSDOM();
@@ -57,6 +58,7 @@ const migrations: MigrationBase[] = [
     new Migration930ChoiceSetMedium(),
     new Migration931ExpandREPermissions(),
     new Migration932NPCSystemSkills(),
+    new Migration933CraftingAbility(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), "packs");
@@ -229,7 +231,7 @@ async function migrate() {
             }
         })();
 
-        if (!R.equals(source, updated)) {
+        if (!R.isDeepEqual(source, updated)) {
             console.log(`${filePath} is different. writing`);
             try {
                 await fs.writeFile(filePath, jsonStringifyOrder(updated));
@@ -254,7 +256,7 @@ function pruneDefaults(
         delete source.flags;
     }
 
-    if ("system" in source && R.isObject(source.system)) {
+    if ("system" in source && R.isPlainObject(source.system)) {
         if (deleteSlug) delete source.system.slug;
         delete source.system._migrations;
         if (source.type === "consumable" && !source.system.spell) {

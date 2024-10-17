@@ -240,8 +240,10 @@ abstract class CreaturePF2e<
     }
 
     override prepareData(): void {
-        if (this.initialized) return;
         super.prepareData();
+        if (game.release.generation === 12 && (this.initialized || (this.parent && !this.parent.initialized))) {
+            return;
+        }
 
         // Add spell collections from spell consumables if a matching spellcasting ability is found
         const spellConsumables = this.itemTypes.consumable.filter(
@@ -394,7 +396,7 @@ abstract class CreaturePF2e<
 
         // Set labels for attributes
         if (this.system.abilities) {
-            for (const [shortForm, data] of R.entries.strict(this.system.abilities)) {
+            for (const [shortForm, data] of R.entries(this.system.abilities)) {
                 data.label = CONFIG.PF2E.abilities[shortForm];
                 data.shortLabel = `PF2E.AbilityId.${shortForm}`;
             }

@@ -1,10 +1,10 @@
 {
     "_id": "ghZFZWUh5Z20vOlR",
-    "img": "systems/pf2e/icons/spells/dancing-shield.webp",
+    "img": "icons/equipment/shield/Scutum-steel-worn.webp",
     "name": "Effect: Fortify Shield",
     "system": {
         "description": {
-            "value": "<p>Add your level to your shield's Hardness.</p>"
+            "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Fortify Shield]</p>\n<p>You Raise your Shield. Add your character level to your shield's Hardness.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -13,7 +13,7 @@
             "value": 1
         },
         "level": {
-            "value": 1
+            "value": 5
         },
         "publication": {
             "license": "OGL",
@@ -22,12 +22,17 @@
         },
         "rules": [
             {
-                "key": "ActiveEffectLike",
+                "key": "GrantItem",
+                "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Raise a Shield"
+            },
+            {
+                "itemType": "shield",
+                "key": "ItemAlteration",
                 "mode": "add",
-                "path": "system.attributes.shield.hardness",
                 "predicate": [
-                    "self:shield:equipped"
+                    "item:equipped"
                 ],
+                "property": "hardness",
                 "value": "@actor.level"
             }
         ],

@@ -7,13 +7,13 @@
             "value": "<p>Granted by @UUID[Compendium.pf2e.feats-srd.Item.Adamantine Body]</p>\n<p>You gain resistance equal to 2 + half your level against all damage from the triggering attack or effect.</p>"
         },
         "duration": {
-            "expiry": null,
+            "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 1
         },
         "level": {
-            "value": 1
+            "value": 8
         },
         "publication": {
             "license": "ORC",
@@ -24,7 +24,7 @@
             {
                 "key": "Resistance",
                 "type": "all-damage",
-                "value": "2 + @actor.level"
+                "value": "2+floor(@actor.level/2)"
             }
         ],
         "start": {
