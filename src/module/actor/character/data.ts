@@ -408,6 +408,8 @@ interface CharacterCraftingData {
 interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */
     heroPoints: ValueAndMax;
+    /** The current number of focus points and pool size */
+    focus: ValueAndMax & { cap: number };
     /** The current and maximum number of invested items */
     investiture: ValueAndMax;
     crafting: { infusedReagents: ValueAndMax };
