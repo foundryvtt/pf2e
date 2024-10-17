@@ -7,7 +7,7 @@
             "value": "<p>Granted by being inside a Marshal's Aura.</p>\n<hr />\n<p>Your aura has the emotion, mental, and visual traits and grants you and allies within the aura a +1 status bonus to saving throws against fear.</p>"
         },
         "duration": {
-            "expiry": "turn-start",
+            "expiry": null,
             "sustained": false,
             "unit": "unlimited",
             "value": -1
@@ -23,8 +23,9 @@
         "rules": [
             {
                 "key": "FlatModifier",
+                "label": "PF2E.GenericLabel.ItemVs.Fear",
                 "predicate": [
-                    "fear"
+                    "item:trait:fear"
                 ],
                 "selector": "saving-throw",
                 "type": "status",
