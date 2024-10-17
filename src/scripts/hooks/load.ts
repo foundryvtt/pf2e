@@ -125,6 +125,7 @@ export const Load = {
         CONFIG.Item.typeIcons = {
             action: "fa-solid fa-person-running-fast",
             affliction: "fa-solid fa-biohazard",
+            ancestry: "fa-solid fa-face-smile-beam",
             armor: "fa-solid fa-shirt-long-sleeve",
             backpack: "fa-solid fa-sack",
             book: "fa-solid fa-book",
@@ -134,6 +135,7 @@ export const Load = {
             effect: "fa-solid fa-person-rays",
             equipment: "fa-solid fa-hat-cowboy",
             feat: "fa-solid fa-medal",
+            heritage: "fa-solid fa-face-smile-halo",
             shield: "fa-solid fa-shield-halved",
             spell: "fa-solid fa-sparkles",
             treasure: "fa-solid fa-gem",
